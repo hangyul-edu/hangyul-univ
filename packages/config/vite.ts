@@ -1,10 +1,11 @@
 import { purgeCSSPlugin } from '@fullhuman/postcss-purgecss';
 import react from '@vitejs/plugin-react';
 import rtlcss from 'postcss-rtlcss';
-import { dirname, resolve } from 'node:path';
+import { execSync } from 'node:child_process';
+import { basename, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { Plugin as PostcssPlugin } from 'postcss';
-import type { UserConfig } from 'vite';
+import type { Plugin, UserConfig } from 'vite';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 
@@ -98,6 +99,35 @@ function templateCss(isBuild: boolean): PostcssPlugin {
 }
 
 /**
+ * Deployment (2026-11): a non-sensitive build marker at `/build-info.json`, so "which commit is this domain serving?"
+ * is one request instead of a dashboard hunt. Vercel provides the SHA and environment; a local build asks git.
+ * Contains the app, commit, build time and environment only — never configuration or secrets.
+ */
+function buildInfo(): Plugin {
+  const commit = (() => {
+    if (process.env.VERCEL_GIT_COMMIT_SHA) return process.env.VERCEL_GIT_COMMIT_SHA;
+    try {
+      return execSync('git rev-parse HEAD', { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
+    } catch {
+      return 'unknown';
+    }
+  })();
+  return {
+    name: 'hangyul-build-info',
+    apply: 'build',
+    generateBundle() {
+      const info = {
+        app: basename(process.cwd()).replace(/-web$/, ''),
+        commit,
+        builtAt: new Date().toISOString(),
+        environment: process.env.VERCEL_ENV ?? 'local',
+      };
+      this.emitFile({ type: 'asset', fileName: 'build-info.json', source: `${JSON.stringify(info, null, 2)}\n` });
+    },
+  };
+}
+
+/**
  * Shared Vite config for the four web apps.
  * - /api is proxied to FastAPI so auth cookies are first-party and no CORS is needed in dev.
  * - Heavy vendor code (charts, table) is split into separate chunks.
@@ -106,7 +136,7 @@ export function hangyulViteConfig(port: number, extra: Partial<UserConfig> = {})
   const api = process.env.HG_API_URL ?? 'http://127.0.0.1:8001';
   const isBuild = process.argv.includes('build');
   return {
-    plugins: [react()],
+    plugins: [react(), buildInfo()],
     css: {
       preprocessorOptions: {
         scss: {
