@@ -47,8 +47,8 @@ const marketingExtras = {
   ],
   functions: {
     [MARKETING_FUNCTION]: {
-      includeFiles: '{../../server/app/__init__.py,../../server/app/models/**/*.py,../../server/app/services/__init__.py,../../server/app/services/fit.py,../../shared/admissions.json,public/data/public/fit-snapshot.json,public/data/public/admissions/**}',
-      excludeFiles: '{public/media/**,public/flags/**,public/og/**,dist/**,node_modules/**,src/**}',
+      includeFiles: '{api/_fit/**,public/data/public/fit-snapshot.json,public/data/public/admissions/**}',
+      excludeFiles: '{dist/**,dist-*/**,public/media/**,public/flags/**,public/og/**,node_modules/**,src/**,.vercel/**,*.png,*.ico}',
       maxDuration: 10,
     },
   },
@@ -58,7 +58,7 @@ const configFor = (app, dir) => ({
   $schema: 'https://openapi.vercel.sh/vercel.json',
   framework: 'vite',
   installCommand: 'cd ../.. && npm ci --no-audit --no-fund',
-  buildCommand: `cd ../.. && npm run build -w @hangyul/${dir}`,
+  buildCommand: `cd ../.. && npm run build -w @hangyul/${dir}${app === 'marketing' ? ' && node scripts/public-data/stage-fit.mjs' : ''}`,
   outputDirectory: 'dist',
   ...(app === 'marketing' ? { functions: marketingExtras.functions } : {}),
   rewrites: [

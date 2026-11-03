@@ -31,7 +31,9 @@ HERE = Path(__file__).resolve().parent
 
 
 def _find(rel: str) -> Path:
-    for base in (HERE.parent.parent.parent, HERE.parent, Path.cwd(), Path("/var/task")):
+    # Deployed: the build stages the engine into api/_fit (scripts/public-data/stage-fit.mjs). In the repo: the
+    # monorepo root. Data files live under the app root either way.
+    for base in (HERE / "_fit", HERE.parent.parent.parent, HERE.parent, Path.cwd(), Path("/var/task")):
         p = base / rel
         if p.exists():
             return p
@@ -41,8 +43,7 @@ def _find(rel: str) -> Path:
 sys.path.insert(0, str(_find("server/app").parent))
 from app.services import fit  # noqa: E402  — the engine itself, unchanged
 
-SNAPSHOT_PATH = _find("apps/marketing-web/public/data/public/fit-snapshot.json") if not (HERE.parent / "public/data/public/fit-snapshot.json").exists() \
-    else HERE.parent / "public/data/public/fit-snapshot.json"
+SNAPSHOT_PATH = HERE.parent / "public" / "data" / "public" / "fit-snapshot.json"
 
 
 def _load() -> dict:
