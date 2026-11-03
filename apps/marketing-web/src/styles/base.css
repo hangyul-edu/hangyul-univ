@@ -1,3 +1,7 @@
+/* Hotfix 2026-11-04: the public marketing site is light-only. `only light` (not just `light`) is what tells Chrome's
+   auto-dark and Samsung Internet not to darken it algorithmically; scoped to this app's stylesheet, not the shared UI. */
+:root { color-scheme: only light; }
+
 /* Marketing base — page chrome and the shared marketing vocabulary (formerly styles.css + v6.css).
    V26 (REPORT §347): one canonical file instead of version layers; the order inside is the original cascade order.
    Declarations a later rule with the same selector and context always overrode were removed (scripts/qa/v26/css-consolidate.mjs). */

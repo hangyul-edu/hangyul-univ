@@ -403,6 +403,13 @@
 @media (min-width: 390px) and (max-width: 1199.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + 56px + 28px); } }
 @media (min-width: 430px) and (max-width: 1199.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + 56px + 40px); } }
 @media (min-width: 768px) and (max-width: 1199.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + 68px + 7vh); } }
+// Hotfix 2026-11-04: on phones the copy sat 18–38 px under the floating pill whatever the screen height. The clearance
+// now grows with the small viewport height (svh: the height with the browser bars shown, so it never jumps), floored at
+// the old value + ~10 px for short phones and capped so tall phones do not open a gap: ≈ +24–36 px on 740–932 px tall
+// phones, ≈ +12 px on a 568 px one. The background photo and the header do not move.
+@media (max-width: 389.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + 56px + clamp(28px, 7svh - 8px, 56px)); } }
+@media (min-width: 390px) and (max-width: 429.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + 56px + clamp(36px, 7svh, 64px)); } }
+@media (min-width: 430px) and (max-width: 767.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + 56px + clamp(48px, 7svh + 8px, 76px)); } }
 
 .kn-hero__content { max-width: 640px; color: #fff; }
 @media (max-width: 1199px) { .kn-hero__content { max-width: 620px; margin-inline: auto; text-align: center; } }
@@ -992,14 +999,14 @@ a.kn-chip:hover { border-color: var(--hg-border-strong); color: var(--kn-accent-
 
 // Koreanasha's `.text-gradation` (main.css: a 270° #070251 → #145CE6 text clip) in Hangyul's accent range. Used
 // for the one headline that carries it in the source copy; falls back to the flat accent where clipping fails.
+// Hotfix 2026-11-04: the glyphs paint themselves. This was gradient text (background-clip: text over a transparent
+// text fill); Android's automatic darkening (Chrome auto-dark, Samsung Internet) rewrites background images but not
+// the transparent fill, so the line turned near-white on a pale tint. The gradient ran #B33800 → #B84600 — visually one
+// colour — so a solid accent ink keeps the design and owns its foreground in every colour scheme.
 .kn-head__title em.kn-accent--gradient {
-  background: linear-gradient(270deg, var(--hg-primary-strong, #b33800) 0%, var(--hg-primary-text) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
-  .kn-head__title em.kn-accent--gradient { background: none; -webkit-text-fill-color: currentColor; }
+  background: none;
+  color: var(--kn-accent-text, var(--hg-primary-text, #b84600));
+  -webkit-text-fill-color: currentColor;
 }
 
 // ====================================================================================== Composition spacing
