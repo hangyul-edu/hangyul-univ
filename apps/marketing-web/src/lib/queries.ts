@@ -2,6 +2,8 @@ import { useApi } from '@hangyul/auth';
 import type { Country } from '@hangyul/types';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
+import { publicData } from './publicData';
+
 type Query = Record<string, string | number | boolean | null | undefined | (string | number)[]>;
 
 const HOUR = 60 * 60 * 1000;
@@ -68,22 +70,21 @@ export function useLegalization(country: string | null | undefined, category = '
 // counts and is wanted on first paint; the list is paged and keeps the previous page while the next arrives, so
 // selecting a region never blanks the column next to the map.
 
+// P0 (2026-11-03): the directory hooks read the static public export (./publicData), not the API: anonymous
+// discovery must work without the FastAPI process.
 export function useDirectoryRegions() {
-  const api = useApi();
-  return useQuery({ queryKey: ['directory', 'regions'], queryFn: () => api.directory.regions(), staleTime: 12 * HOUR });
+  return useQuery({ queryKey: ['directory', 'regions'], queryFn: () => publicData.regions(), staleTime: 12 * HOUR });
 }
 
 export function useInstitutions(query: Query) {
-  const api = useApi();
   return useQuery({
     queryKey: ['directory', 'institutions', query],
-    queryFn: () => api.directory.institutions(query),
+    queryFn: () => publicData.institutions(query),
     placeholderData: keepPreviousData,
     staleTime: 12 * HOUR,
   });
 }
 
 export function useInstitution(slug: string | undefined) {
-  const api = useApi();
-  return useQuery({ queryKey: ['directory', 'institution', slug], queryFn: () => api.directory.institution(slug!), enabled: !!slug, staleTime: 12 * HOUR });
+  return useQuery({ queryKey: ['directory', 'institution', slug], queryFn: () => publicData.institution(slug!), enabled: !!slug, staleTime: 12 * HOUR });
 }

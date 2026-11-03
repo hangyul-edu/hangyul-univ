@@ -25,6 +25,8 @@ import { Link, useSearchParams } from 'react-router';
 import { PageIntro } from '../components/blocks';
 import '../styles/start.css';
 
+import { publicData } from '../lib/publicData';
+
 function toInput(a: FitAnswers): FitInput {
   return { nationality: a.nationality, level: a.level as FitInput['level'], gpa: fitGpa(a), languages: a.languages };
 }
@@ -35,7 +37,7 @@ export default function Start() {
   const [sp, setSp] = useSearchParams();
   const plan = sp.get('plan');
   const [a, setA] = useState<FitAnswers>(() => ({ ...EMPTY_FIT_ANSWERS, ...readFitAnswers(sp) }));
-  const countries = useQuery({ queryKey: ['countries'], queryFn: () => api.meta.countries(undefined, true) });
+  const countries = useQuery({ queryKey: ['countries'], queryFn: () => publicData.countries() });
   const results = useRef<HTMLDivElement>(null);
   const [input, setInput] = useState<FitInput | null>(null);
   const run = useMutation({ mutationFn: (body: FitInput) => api.public.fit(body) });

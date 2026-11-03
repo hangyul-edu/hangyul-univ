@@ -425,7 +425,8 @@ export default function Universities() {
                   : group.key === 'all' ? t('v12.directory.all') : t(`v21.dir.group.${group.key}`)}
             </h2>
             <p className="mk-dir__count" aria-live="polite">
-              {listQuery.isLoading ? t('common:states.loading') : t('v12.directory.count', { count: total })}
+              {/* A failed load is not "0 institutions": the count is only stated for data that loaded. */}
+              {listQuery.isLoading ? t('common:states.loading') : listQuery.isError ? null : t('v12.directory.count', { count: total })}
             </p>
           </div>
 

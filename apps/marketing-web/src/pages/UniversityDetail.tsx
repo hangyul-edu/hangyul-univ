@@ -33,7 +33,6 @@
 import { ArrowUpRight, Sparkles } from '@hangyul/icons';
 import { useLocale } from '@hangyul/i18n';
 import { FIT_TIERS, fitGpa, normaliseGpa, readFitAnswers, type InstitutionDetail, type StudyLevel } from '@hangyul/types';
-import { useApi } from '@hangyul/auth';
 import { useQuery } from '@tanstack/react-query';
 import {
   ErrorState, PhotoCredit, Skeleton, UniversityHero, UniversityOfficialLinks, UniversityPhilosophy,
@@ -44,6 +43,7 @@ import { useParams, useSearchParams } from 'react-router';
 
 import { useNoClosingCta } from '../components/blocks';
 import { LocaleLink } from '../components/LocaleLink';
+import { publicData } from '../lib/publicData';
 import { useInstitution } from '../lib/queries';
 import { studentAction, useStudentSession } from '../lib/session';
 import { useSeo } from '../lib/useSeo';
@@ -146,10 +146,9 @@ export default function UniversityDetail() {
   const fit = readFitAnswers(sp);
   const fitLevel = (fit.level || null) as StudyLevel | null;
   const gpa = fitGpa(fit);
-  const api = useApi();
   const adm = useQuery({
     queryKey: ['inst-admissions', slug, fitLevel, sp.get('langs'), gpa?.value, gpa?.scale_max],
-    queryFn: () => api.directory.admissions(slug!, {
+    queryFn: () => publicData.admissions(slug!, {
       ...(fitLevel ? { level: fitLevel } : {}),
       ...(fit.languages.length ? { langs: fit.languages.map((l) => `${l.test}:${l.score}`).join(',') } : {}),
       ...(gpa ? { gpa_pct: normaliseGpa(gpa.value, gpa.scale_max) ?? undefined } : {}),

@@ -134,7 +134,10 @@
     "qa:v31-l10n": "node scripts/qa/v31/l10n.mjs",
     "qa:v31-stage": "node scripts/qa/v31/stage.mjs",
     "qa:v31-pricing": "node scripts/qa/v31/pricing.mjs",
-    "qa:v31": "bash scripts/qa/v31/chain.sh"
+    "qa:v31": "bash scripts/qa/v31/chain.sh",
+    "public-data:export": "server/.venv/bin/python scripts/public-data/export.py",
+    "public-data:check": "server/.venv/bin/python scripts/public-data/export.py --check",
+    "qa:marketing-serverless": "npm run build -w @hangyul/marketing-web && node scripts/qa/marketing-serverless.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",

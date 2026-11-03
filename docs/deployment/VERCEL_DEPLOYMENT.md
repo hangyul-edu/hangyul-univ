@@ -72,6 +72,35 @@ Every web build emits `/build-info.json` (`buildInfo()` plugin in `packages/conf
 
 To check what a domain is serving: `curl -s https://univ.talkhangyul.com/build-info.json`.
 
+## Public Marketing architecture (P0 hotfix, 2026-11-03)
+
+Anonymous university discovery does **not** use the FastAPI service. It reads static public data from the CDN:
+
+```
+server/app/data/korean_institutions.json, enrichment, research/…   (source of truth, in git)
+  → npm run db:seed                      (canonical Postgres, local)
+  → npm run public-data:export           (scripts/public-data/export.py: calls the API's own public endpoints in-process)
+  → apps/marketing-web/public/data/public/{manifest,regions,institutions,countries}.json,
+    institutions/<slug>.json, admissions/<slug>.json                  (committed; ~5 MB, 425 institutions)
+  → Vite build → Vercel CDN (/data/public/…)
+```
+
+- `apps/marketing-web/src/lib/publicData.ts` answers the directory list (filters, search, paging, order), detail,
+  region counts, admissions (scholarships and language rules) and the Quick Fit country list with the API's exact
+  response shapes. The homepage marquee uses `src/media/universities.json`, generated against the same register.
+- States: loading; data; empty filter result ("0 institutions" only after a successful load); data-load error
+  (`ApiError(503)`, rendered as "couldn't load" with Retry). 404 means an unknown slug or an invalid filter value.
+- `/data/*` is excluded from the SPA fallback, so a missing file is a real 404. It is revalidated on every request
+  (`max-age=0, must-revalidate` with an ETag). The export is content-addressed (`manifest.json` → `version`).
+- When university data changes: edit the source data → `npm run db:seed` → `npm run public-data:export` → commit.
+  `npm run public-data:check` fails if the committed export is stale.
+- Gate: `npm run qa:marketing-serverless` builds marketing and tests the production build with `/api/*` answering
+  503. It checks the bundle has no localhost URL, the browser makes no localhost:8001 request, the directory count is
+  425 in six locales, search, filter, the empty and error states, invalid slug → 404, marquee links, scholarship
+  rendering and **all 425 detail routes**. `BASE=https://univ.talkhangyul.com` runs the same checks live.
+- Authenticated products (Student, Agency, University) and all private data (accounts, applications, documents,
+  messages, payments, tenant data) remain API-only.
+
 ## Environment variables
 
 See [VERCEL_ENV_MATRIX.md](VERCEL_ENV_MATRIX.md). The web apps need only the four public cross-app URLs, which are

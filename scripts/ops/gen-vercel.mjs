@@ -9,8 +9,8 @@
 //   1. a real file in dist/ is served as is (hashed /assets/* are long-cached and immutable);
 //   2. /api/* is proxied to the production API — the browser stays same-origin, so auth cookies remain first-party
 //      and connect-src 'self' suffices, exactly as behind nginx;
-//   3. every other path that is not under /assets/ falls back to index.html (SPA deep links). A missing asset is a 404,
-//      never an HTML page served as JavaScript.
+//   3. every other path that is not under /assets/ or /data/ falls back to index.html (SPA deep links). A missing asset
+//      or public data file is a 404, never an HTML page served as JavaScript or JSON.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
@@ -42,7 +42,7 @@ const configFor = (app, dir) => ({
   outputDirectory: 'dist',
   rewrites: [
     { source: '/api/:path*', destination: `${API_ORIGIN}/api/:path*` },
-    { source: '/((?!assets/).*)', destination: '/index.html' },
+    { source: '/((?!assets/|data/).*)', destination: '/index.html' },
   ],
   headers: [
     { source: '/(.*)', headers: security(app) },
