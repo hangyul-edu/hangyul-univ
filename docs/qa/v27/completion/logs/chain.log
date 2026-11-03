@@ -1,0 +1,43 @@
+== typecheck: npm run -s typecheck
+EXIT=0
+== lint: npm run -s lint:api
+EXIT=0
+== admissions-sync: node scripts/admissions/sync.mjs --check
+EXIT=1
+== qa-v27: npm run -s qa:v27
+EXIT=1
+== web-tests: npm run -s test:web
+EXIT=1
+== api-tests: bash -c cd server && .venv/bin/python -m pytest -q -p no:warnings
+EXIT=0
+== build-web: bash -c flock /tmp/claude-0/hg-build.lock npm run -s build
+EXIT=0
+== buttons: node scripts/qa/v27/buttons.mjs --json docs/qa/v27/buttons-final.json
+EXIT=0
+== marquee: node scripts/qa/v27/marquee.mjs
+EXIT=0
+== identity-live: npm run -s qa:identity-live
+EXIT=2
+== e2e-template: node scripts/qa/e2e-db.mjs template
+EXIT=0
+== e2e: node scripts/qa/e2e-run.mjs
+EXIT=0
+CHAIN-DONE
+== resume 2026-10-29T05:54:06+09:00
+skip typecheck
+skip lint
+== admissions-sync: node scripts/admissions/sync.mjs --check
+EXIT=0
+== qa-v27: npm run -s qa:v27
+EXIT=0
+== web-tests: npm run -s test:web
+EXIT=0
+skip api-tests
+skip build-web
+skip buttons
+skip marquee
+== identity-live: npm run -s qa:identity-live
+EXIT=2
+skip e2e-template
+skip e2e
+CHAIN-DONE

@@ -1,0 +1,112 @@
+
+[static]
+  PASS  HYGIENE · no QA residue in the development data (test accounts, gate messages, notifications naming test accounts, E2E requests) — test accounts: 0 · gate messages on seeded threads: 0 · notifications naming test accounts: 0 · E2E-marked document requests: 0 · upload files no row references: 0
+  PASS  HYGIENE · no impossible dates: no status history, submission or creation in the future — status history rows dated in the future: 0 · applications submitted in the future: 0 · applications created in the future: 0
+  PASS  HYGIENE · every gate or test that writes on seeded data tears down after itself (purge_e2e.py at exit) — scripts/qa/v22-gate.mjs, scripts/qa/v21/toss-test-transaction.mjs, apps/student-mobile/src/signup/client.integration.test.ts
+  PASS  HYGIENE · the invalid-card check asserts its own precondition (a real order id), not a 422 from /orders/undefined
+  PASS  VISUAL · no version-named stylesheet survives (canonical src/styles/*.css)
+  PASS  VISUAL · marketing-web: shadowed declarations do not grow (baseline 17) — 17
+  PASS  VISUAL · marketing-web: literal font sizes do not grow (baseline 86) — 86
+  PASS  VISUAL · student-web: shadowed declarations do not grow (baseline 56) — 56
+  PASS  VISUAL · student-web: literal font sizes do not grow (baseline 120) — 120
+  PASS  VISUAL · agency-web: shadowed declarations do not grow (baseline 27) — 27
+  PASS  VISUAL · agency-web: literal font sizes do not grow (baseline 165) — 165
+  PASS  VISUAL · university-web: shadowed declarations do not grow (baseline 21) — 21
+  PASS  VISUAL · university-web: literal font sizes do not grow (baseline 142) — 142
+  PASS  VISUAL · the record a link lands on is marked by one shared rule ([data-focus] in @hangyul/ui base.css)
+  PASS  VISUAL · marketing base.css carries no rule the production purge would drop (dev = production app layer) — 0 droppable
+  PASS  VISUAL · the template CSS pipeline matches no app stylesheet by file path
+  PASS  I18N · every V26 string exists in all 33 market locales — 50 keys
+  PASS  I18N · every V26 translation keeps the English placeholders
+  PASS  I18N · no honorific on the team name in Korean ("상담팀님", "{{counselor}}님이")
+  PASS  I18N · every action code the server emits has a translation (no English fallback label on a Korean page) — AUTHORIZE, HANDOFF, CONFIRM, OPEN_ESSAY
+  PASS  NAV · a locale (?lang=) is never read as a search filter by Explore
+  PASS  NAV · student document tasks link to the exact requirement, never the bare /documents page
+
+[api]
+  PASS  AGENCY · TODAY urgent: figure = rows (7) — 7
+  PASS  AGENCY · TODAY deadline7: figure = rows (5) — 5
+  PASS  AGENCY · TODAY waiting_counselor: figure = rows (6) — 6
+  PASS  AGENCY · TODAY student_silent: figure = rows (8) — 8
+  PASS  AGENCY · TODAY requested: figure = rows (1) — 1
+  PASS  AGENCY · TODAY university: figure = rows (2) — 2
+  PASS  AGENCY · every queue row whose reason names a record carries that record's id (19 rows)
+  PASS  AGENCY · tenant isolation: another agency gets 404 on this agency's student — HTTP 404
+  PASS  AGENCY · the workspace carries the university's open requests on their application
+  PASS  UNIVERSITY · headline decide: figure = rows (web and native read the same filter) — 6
+  PASS  UNIVERSITY · headline requests: figure = rows (web and native read the same filter) — 1
+  PASS  UNIVERSITY · headline fresh: figure = rows (web and native read the same filter) — 1
+  PASS  UNIVERSITY · headline moved: figure = rows (web and native read the same filter) — 11
+  PASS  UNIVERSITY · decision-first order: every applicant who needs a decision comes before any who does not — 6 first
+  PASS  UNIVERSITY · tenant isolation: two universities share no applicant — 11 vs 11
+  PASS  UNIVERSITY · analytics carry definition + population + denominator (n<5 rule) on every step
+  PASS  STUDENT · services: the applications listed as counted equal the allowance used — 2/2
+  PASS  STUDENT · services: every included service says who acts and what is next or why not yet
+  PASS  STUDENT · every notification opens the exact record (no bare /documents, /essays, /messages, /applications)
+  PASS  STUDENT · document tasks open the requirement (no bare /documents) — 0
+
+[rendered · AGENCY exact work]
+  PASS  AGENCY · TODAY requested: the figure equals the rows it filters to — 1
+  PASS  AGENCY · TODAY requested → row opens the exact record (request/app), not just the student — /students/d817bb8d-9d01-412d-b5e4-83ef7dde20b5?focus=request:141887ac-c33a-4f97-8b2c-ade4dcb53305
+  PASS  AGENCY · TODAY requested: the record is on screen and marked
+  PASS  AGENCY · the university's request is shown on its application, in its own words
+  PASS  AGENCY · TODAY waiting_counselor: the figure equals the rows it filters to — 6
+  PASS  AGENCY · TODAY waiting_counselor → row opens the exact record (reply/doc/essay/task), not just the student — /students/7f477f2a-7359-4440-8892-7d073d3ae6a8?focus=reply:b8e66785-38ae-4247-bc24-3a2c5703ac4c
+  PASS  AGENCY · TODAY waiting_counselor: the record is on screen and marked
+  PASS  AGENCY · a reply owed opens the thread with the cursor in the reply box
+  PASS  AGENCY · TODAY student_silent: the figure equals the rows it filters to — 8
+  PASS  AGENCY · TODAY student_silent → row opens the exact record (thread/compose), not just the student — /students/717aface-8d69-4030-8858-bec1aa5a0e53?focus=compose:717aface-8d69-4030-8858-bec1aa5a0e53
+  PASS  AGENCY · a silent student with no thread opens a new conversation to them
+  PASS  AGENCY · TODAY deadline7: the figure equals the rows it filters to — 5
+  PASS  AGENCY · TODAY deadline7 → row opens the exact record (app), not just the student — /students/5e2ed4ec-c7a0-4c60-b0da-4905983e030e?focus=app:d96eabba-e018-4807-9de8-ea89c5aa8d56
+  PASS  AGENCY · TODAY deadline7: the record is on screen and marked
+  PASS  AGENCY · "처리 필요" lists the owed reply (no contradiction with the case strip) — Phạm Gia Huy
+  PASS  AGENCY · the workspace primary is the next action (reply), and there is exactly one primary — 답장하기
+
+[rendered · STUDENT]
+  PASS  NAV · /explore?lang=ko opens "나에게 맞는" (a locale is not a search) — 나에게 맞는
+31
+  PASS  STUDENT · Explore (all programmes): each university appears once per run, under one header — 2 groups
+  PASS  STUDENT · Explore rows show the facts that matter first — first-year cost, language requirement, deadline — 6/6
+  PASS  STUDENT · the "another degree level" explanation is said once, not on every row — 0 row-level repeats
+  PASS  STUDENT · services: what the plan is doing now, one row per included service — 8 rows
+  INFO  services: 1 application(s) shown as not counted (a draft never uses the allowance)
+  PASS  STUDENT · a document task opens its requirement on screen, marked
+  PASS  STUDENT · the application says what changed last — 최근 변경: 서류 준비 중 · 12시간 전
+  PASS  I18N · no English action label on the Korean application page
+  PASS  I18N · no form-register particles or team honorific rendered on the application page
+  PASS  STUDENT · no page error on the student routes visited
+
+[rendered · NAV legal pages]
+  PASS  NAV · /privacy renders a heading and its articles — 개인정보 처리방침 · 10 sections
+  PASS  NAV · /terms renders a heading and its articles — Hangyul Univ 이용약관 · 14 sections
+  PASS  NAV · no page error on the legal pages
+
+[rendered · UNIVERSITY]
+  PASS  UNIVERSITY · the list opens in decision-first order by default (the API check proves the order itself) — decision
+  PASS  UNIVERSITY · headline "결정이 필요한 지원자" opens exactly that many rows — 6
+
+[rendered · VISUAL]
+  PASS  VISUAL · tangerine only on the primary action, the current item and focus (census of every visible element, 4 products) — 24 routes
+  PASS  VISUAL · an orange control never carries dark text
+  PASS  A11Y · marketing: keyboard focus is visible on the first 12 focusable controls — 0 without a visible focus
+  PASS  VISUAL · marketing at 390px: no horizontal overflow — 0px
+  PASS  A11Y · student: keyboard focus is visible on the first 12 focusable controls — 0 without a visible focus
+  PASS  VISUAL · student at 390px: no horizontal overflow — 0px
+  PASS  A11Y · agency: keyboard focus is visible on the first 12 focusable controls — 0 without a visible focus
+  PASS  VISUAL · agency at 390px: no horizontal overflow — 0px
+  PASS  A11Y · university: keyboard focus is visible on the first 12 focusable controls — 0 without a visible focus
+  PASS  VISUAL · university at 390px: no horizontal overflow — 0px
+
+[rendered · A11Y axe]
+  PASS  A11Y · marketing @1440: no serious/critical axe violation on 4 core routes
+  PASS  A11Y · marketing @390: no serious/critical axe violation on 4 core routes
+  PASS  A11Y · student @1440: no serious/critical axe violation on 5 core routes
+  PASS  A11Y · student @390: no serious/critical axe violation on 5 core routes
+  PASS  A11Y · agency @1440: no serious/critical axe violation on 3 core routes
+  PASS  A11Y · agency @390: no serious/critical axe violation on 3 core routes
+  PASS  A11Y · university @1440: no serious/critical axe violation on 2 core routes
+  PASS  A11Y · university @390: no serious/critical axe violation on 2 core routes
+
+V26 gate — 91 passed, 0 failed
+EXIT=0

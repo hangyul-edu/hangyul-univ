@@ -1,0 +1,109 @@
+/* V22 workflow grammar — process strip + toolbar (REPORT §249–§250). White, hairline, tangerine for selected/current. */
+.hg-strip { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: stretch; gap: 2px 0; }
+.hg-strip__item { display: flex; align-items: center; }
+.hg-strip__arrow { color: var(--hg-border-strong); margin: 0 2px; flex: none; }
+.hg-strip__btn { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 6px 12px; border: 1px solid transparent; border-radius: var(--hg-radius-md); background: transparent; color: var(--hg-text-secondary); font: inherit; font-size: var(--hg-text-sm); cursor: pointer; white-space: nowrap; text-align: start; }
+.hg-strip--lg .hg-strip__btn { min-height: 48px; padding: 8px 14px; font-size: var(--hg-text-base); }
+.hg-strip__btn.is-static { cursor: default; }
+button.hg-strip__btn:hover { background: var(--hg-surface-warm); color: var(--hg-text); }
+.hg-strip__btn:focus-visible { outline: none; box-shadow: var(--hg-shadow-focus); }
+.hg-strip__btn.is-selected { background: #FFF1E7; border-color: #F3C9AE; color: #B84600; font-weight: var(--hg-weight-semibold); }
+.hg-strip__count { font-size: var(--hg-text-sm); font-weight: var(--hg-weight-semibold); color: var(--hg-text); min-width: 1.5em; text-align: end; }
+.hg-strip__btn.is-selected .hg-strip__count { color: #B84600; }
+.hg-strip__item--all .hg-strip__btn { color: var(--hg-text); }
+/* journey mode (student) */
+.hg-strip__num { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; border: 1px solid currentColor; flex: none; }
+.hg-strip__item.is-current .hg-strip__btn { color: var(--hg-text); font-weight: var(--hg-weight-semibold); }
+.hg-strip__item.is-current .hg-strip__num { background: #CC4E00; border-color: #CC4E00; color: #fff; }
+.hg-strip__item.is-done .hg-strip__btn { color: var(--hg-text-secondary); }
+.hg-strip__item.is-done .hg-strip__num { background: var(--hg-text); border-color: var(--hg-text); color: #fff; }
+.hg-strip__item.is-todo .hg-strip__btn { color: var(--hg-text-tertiary); }
+.hg-strip__item.is-todo .hg-strip__num { color: var(--hg-text-tertiary); border-color: var(--hg-border-strong); }
+@media (max-width: 767px) {
+  .hg-strip { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; margin-inline: -16px; padding-inline: 16px; }
+  .hg-strip::-webkit-scrollbar { display: none; }
+  .hg-strip__btn, .hg-strip--lg .hg-strip__btn { min-height: 44px; } /* V27: every strip pill is a 44-px target on a phone */
+}
+.hg-worktools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; padding: 10px 0; border-top: 1px solid var(--hg-border); border-bottom: 1px solid var(--hg-border); }
+.hg-worktools__searchrow { display: flex; align-items: center; gap: 8px; flex: 1 1 220px; max-width: 360px; min-width: 0; }
+.hg-worktools__search { flex: 1 1 auto; min-width: 0; }
+@media (max-width: 767px) { .hg-worktools__searchrow { flex-basis: 100%; max-width: none; } }
+.hg-worktools__filters { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+/* V30: one toolbar height — the search field matches the filters (36 px desktop / 40 px phone). */
+.hg-worktools__search .hg-input--sm { min-height: 36px; block-size: 36px; }
+@media (max-width: 767px) { .hg-worktools__search .hg-input--sm { min-height: 44px; block-size: 44px; } .hg-worktools .hg-fsel--sm { --hg-fsel-h: 44px; } }
+.hg-worktools__meta { margin-inline-start: auto; }
+
+/* V24 (REPORT §295) — an empty work stage: present, so the process reads end to end, but visibly not a filter. */
+/* V26 (REPORT §348): an empty stage is quieter, not faded — opacity left its label at 2.03:1. Tertiary ink is 5:1. */
+.hg-strip__item.is-empty .hg-strip__btn { color: var(--hg-text-tertiary); cursor: default; }
+.hg-strip__item.is-empty .hg-strip__btn * { color: inherit; }
+.hg-strip__item.is-empty .hg-strip__btn:hover { background: transparent; }
+
+/* ================= V31 pipeline rail (REPORT §421) — work mode of StageStrip =================
+   Stage = one target: label · count (data, larger) · a segment of one continuous track, filled by share of the
+   largest stage. View (전체, 종료) = a quiet bordered toggle beside the rail, separated by a divider — never a step. */
+.hg-pipe { display: flex; align-items: stretch; gap: 0; min-width: 0; inline-size: 100%; max-inline-size: 100%; } /* never wider than its container: the RAIL scrolls, the views stay visible */
+.hg-pipe__views { display: flex; align-items: center; gap: 8px; flex: none; }
+.hg-pipe__views--lead { padding-inline-end: 16px; margin-inline-end: 12px; border-inline-end: 1px solid var(--hg-border); }
+.hg-pipe__views--trail { padding-inline-start: 16px; margin-inline-start: 12px; border-inline-start: 1px solid var(--hg-border); }
+.hg-pipe__view {
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+  min-block-size: 56px; min-inline-size: 72px; padding: 8px 14px; border: 1px solid var(--hg-border-strong);
+  border-radius: var(--hg-control-radius); background: var(--hg-surface); color: var(--hg-text); font: inherit; cursor: pointer; text-align: center;
+}
+.hg-pipe__view:hover { border-color: var(--hg-control-secondary-border); background: var(--hg-surface-hover); }
+.hg-pipe__view.is-selected { border-color: var(--hg-text); box-shadow: inset 0 0 0 1px var(--hg-text); }
+.hg-pipe__view:focus-visible { outline: none; box-shadow: var(--hg-shadow-focus); }
+.hg-pipe__viewlabel { font-size: var(--hg-text-sm); font-weight: 500; color: var(--hg-text-secondary); white-space: nowrap; }
+.hg-pipe__view.is-selected .hg-pipe__viewlabel { color: var(--hg-text); font-weight: 600; }
+.hg-pipe__viewcount { font-size: 20px; line-height: 1.15; font-weight: 650; letter-spacing: -0.01em; }
+
+.hg-pipe__rail {
+  flex: 1 1 0; min-width: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(72px, 1fr); gap: 3px;
+  list-style: none; margin: 0; padding: 0; overflow-x: auto; scrollbar-width: thin; scroll-snap-type: x proximity;
+}
+.hg-pipe__stage { display: flex; min-width: 0; scroll-snap-align: start; }
+/* V31: the side with more stages fades out (logical: inline-start/end flip in RTL via the gradient direction). */
+.hg-pipe__rail[data-more="end"] { mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); }
+.hg-pipe__rail[data-more="start"] { mask-image: linear-gradient(to left, #000 calc(100% - 40px), transparent); }
+.hg-pipe__rail[data-more="both"] { mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent); }
+[dir="rtl"] .hg-pipe__rail[data-more="end"] { mask-image: linear-gradient(to left, #000 calc(100% - 40px), transparent); }
+[dir="rtl"] .hg-pipe__rail[data-more="start"] { mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); }
+.hg-pipe__btn {
+  display: grid; grid-template-rows: auto auto auto; align-content: start; gap: 2px; inline-size: 100%;
+  padding: 8px 10px 0; border: 0; border-radius: var(--hg-radius-md) var(--hg-radius-md) 0 0; background: transparent;
+  color: var(--hg-text); font: inherit; text-align: start; cursor: pointer; transition: background-color var(--hg-motion-fast);
+}
+.hg-pipe__btn.is-static { cursor: default; }
+button.hg-pipe__btn:hover { background: var(--hg-surface-hover); }
+.hg-pipe__btn:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--hg-primary); }
+.hg-pipe__label { font-size: var(--hg-text-sm); font-weight: 500; color: var(--hg-text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hg-pipe__count { font-size: 22px; line-height: 1.15; font-weight: 650; letter-spacing: -0.01em; color: var(--hg-text); }
+.hg-pipe__seg { display: block; block-size: 4px; margin: 8px -10px 0; background: var(--hg-border); overflow: hidden; }
+.hg-pipe__stage:first-child .hg-pipe__seg { border-start-start-radius: 2px; border-end-start-radius: 2px; }
+.hg-pipe__stage:last-child .hg-pipe__seg { border-start-end-radius: 2px; border-end-end-radius: 2px; }
+.hg-pipe__fill { display: block; block-size: 100%; background: #8C867C; }
+/* zero: still in the process, quieter */
+.hg-pipe__stage.is-empty .hg-pipe__label, .hg-pipe__stage.is-empty .hg-pipe__count { color: var(--hg-text-tertiary); }
+.hg-pipe__stage.is-empty .hg-pipe__count { font-weight: 500; }
+/* selected: the only tangerine stage */
+.hg-pipe__stage.is-selected .hg-pipe__btn { background: var(--hg-primary-subtle); }
+.hg-pipe__stage.is-selected .hg-pipe__label { color: var(--hg-text); font-weight: 600; }
+.hg-pipe__stage.is-selected .hg-pipe__count { color: var(--hg-primary-text); }
+.hg-pipe__stage.is-selected .hg-pipe__seg { background: #F3C9AE; }
+.hg-pipe__stage.is-selected .hg-pipe__fill { background: var(--hg-primary); }
+/* a selection dims the other stages' fills so the chosen one dominates */
+.hg-pipe[data-has-selection] .hg-pipe__stage:not(.is-selected) .hg-pipe__fill { background: #BDB6AB; }
+
+@media (max-width: 767px) {
+  .hg-pipe { flex-wrap: wrap; row-gap: 10px; }
+  .hg-pipe__views--lead { border-inline-end: 0; padding-inline-end: 0; margin-inline-end: 0; }
+  .hg-pipe__views--trail { order: -1; border-inline-start: 0; padding-inline-start: 0; margin-inline-start: 8px; }
+  .hg-pipe__rail { flex-basis: 100%; grid-auto-columns: minmax(92px, 1fr); margin-inline: -16px; padding-inline: 16px; scrollbar-width: none; }
+  .hg-pipe__rail::-webkit-scrollbar { display: none; }
+  .hg-pipe__btn { min-block-size: 44px; }
+}
+@media (prefers-reduced-motion: reduce) { .hg-pipe__btn { transition: none; } }
+.hg-pipe__view--alert .hg-pipe__viewcount { color: var(--hg-status-danger-fg); }
+.hg-pipe__view--alert.is-selected { border-color: var(--hg-status-danger-fg); box-shadow: inset 0 0 0 1px var(--hg-status-danger-fg); }

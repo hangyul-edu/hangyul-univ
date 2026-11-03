@@ -1,0 +1,220 @@
+/* ================= Console shell (Agency / University) =================
+   Light, neutral chrome. The content area is the brightest surface; navigation recedes. */
+.hg-shell { --sb-w: 232px; font-size: var(--hg-text-base); line-height: var(--hg-leading-normal); min-height: 100dvh; display: grid; grid-template-columns: minmax(0, 1fr); background: var(--hg-bg-muted); }
+@media (min-width: 1024px) {
+  .hg-shell { grid-template-columns: var(--sb-w) minmax(0, 1fr); }
+  .hg-shell[data-collapsed='true'] { --sb-w: 60px; }
+}
+.hg-sidebar {
+  --sb-bg: var(--hg-bg-muted); --sb-fg: var(--hg-text-secondary); --sb-fg-strong: var(--hg-text); --sb-active-bg: var(--hg-surface); --sb-active-fg: var(--hg-text);
+  --sb-section: var(--hg-text-tertiary); --sb-border: var(--hg-border);
+  position: sticky; top: 0; height: 100dvh; display: none; flex-direction: column; background: var(--sb-bg); border-inline-end: 1px solid var(--sb-border); z-index: var(--hg-z-sidebar);
+}
+
+@media (min-width: 1024px) { .hg-sidebar { display: flex; } }
+.hg-sidebar__brand { display: flex; align-items: center; gap: 10px; height: 56px; padding: 0 16px; flex: none; }
+.hg-sidebar__brand img { height: 26px; width: auto; }
+.hg-sidebar__nav { flex: 1; overflow-y: auto; padding: 4px 8px 16px; scrollbar-width: thin; }
+.hg-sidebar__section { padding: 16px 10px 4px; font-size: var(--hg-text-xs); font-weight: var(--hg-weight-medium); color: var(--sb-section); }
+.hg-navlink {
+  display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: var(--hg-radius-md); color: var(--sb-fg); font-size: var(--hg-text-base); font-weight: var(--hg-weight-medium);
+  text-decoration: none !important; position: relative; white-space: nowrap; margin-bottom: 1px;
+}
+.hg-navlink svg { width: 16px; height: 16px; flex: none; color: var(--hg-text-tertiary); }
+.hg-navlink:hover { color: var(--sb-fg-strong); background: color-mix(in srgb, var(--hg-text) 5%, transparent); }
+.hg-navlink[aria-current='page'], .hg-navlink.active { color: var(--sb-active-fg); background: var(--sb-active-bg); box-shadow: 0 0 0 1px var(--hg-border), var(--hg-shadow-xs); }
+.hg-navlink[aria-current='page'] svg, .hg-navlink.active svg { color: var(--hg-text); }
+.hg-navlink__badge { margin-inline-start: auto; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: transparent; color: var(--hg-text-tertiary); font-size: var(--hg-text-xs); font-weight: var(--hg-weight-medium); display: grid; place-items: center; font-variant-numeric: tabular-nums; }
+.hg-navlink__badge--alert { background: var(--hg-primary); color: #fff; }
+.hg-shell[data-collapsed='true'] .hg-navlink span, .hg-shell[data-collapsed='true'] .hg-sidebar__section, .hg-shell[data-collapsed='true'] .hg-navlink__badge, .hg-shell[data-collapsed='true'] .hg-logo__full { display: none; }
+.hg-shell[data-collapsed='true'] .hg-navlink { justify-content: center; padding: 0; }
+.hg-shell[data-collapsed='true'] .hg-sidebar__brand { justify-content: center; padding: 0; }
+.hg-sidebar__foot { padding: 8px; border-top: 1px solid var(--sb-border); }
+
+.hg-main { min-width: 0; display: flex; flex-direction: column; background: var(--hg-surface); }
+@media (min-width: 1024px) { .hg-main { background: var(--hg-bg-muted); } }
+.hg-content > * { min-width: 0; }
+.hg-kanban { max-width: 100%; }
+.hg-topbar {
+  position: sticky; top: 0; z-index: var(--hg-z-header); height: 56px; display: flex; align-items: center; gap: 8px; padding: 0 12px;
+  background: color-mix(in srgb, var(--hg-surface) 92%, transparent); backdrop-filter: saturate(1.2) blur(8px); border-bottom: 1px solid var(--hg-border);
+}
+@media (min-width: 768px) { .hg-topbar { padding: 0 20px; } }
+.hg-topbar__search { flex: 1; max-width: 420px; min-width: 0; }
+.hg-content { padding: 16px 16px 48px; width: 100%; max-width: 1440px; margin-inline: auto; }
+@media (min-width: 768px) { .hg-content { padding: 24px 28px 64px; } }
+@media (min-width: 1024px) { .hg-content { padding: 28px 32px 64px; } }
+.hg-mobile-only { display: initial; }
+.hg-desktop-only { display: none; }
+@media (min-width: 1024px) { .hg-mobile-only { display: none !important; } .hg-desktop-only { display: initial; } }
+
+.hg-page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.hg-page-head__title { font-size: var(--hg-text-3xl); font-weight: var(--hg-weight-semibold); letter-spacing: -0.02em; line-height: 1.2; }
+@media (max-width: 767px) { .hg-page-head__title { font-size: var(--hg-text-2xl); } }
+.hg-page-head__sub { color: var(--hg-text-secondary); margin-top: 4px; font-size: var(--hg-text-base); max-width: 680px; }
+.hg-page-head__actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.hg-crumbs { display: flex; gap: 6px; align-items: center; font-size: var(--hg-text-sm); color: var(--hg-text-tertiary); margin-bottom: 6px; flex-wrap: wrap; }
+.hg-crumbs a { color: inherit; text-decoration: none; }
+.hg-crumbs a:hover { color: var(--hg-text); }
+
+/* ================= Student shell ================= */
+.hg-sshell { min-height: 100dvh; background: var(--hg-bg-canvas); display: flex; flex-direction: column; }
+.hg-snav {
+  position: sticky; top: 0; z-index: var(--hg-z-header); background: color-mix(in srgb, var(--hg-bg-canvas) 92%, transparent); backdrop-filter: saturate(1.2) blur(10px);
+  border-bottom: 1px solid var(--hg-border-subtle);
+}
+.hg-snav__inner { height: 60px; display: flex; align-items: center; gap: 8px; max-width: 1120px; margin-inline: auto; padding: 0 16px; }
+@media (min-width: 768px) { .hg-snav__inner { padding: 0 24px; gap: 12px; } }
+/*
+ * The right-hand control group, spaced **optically** rather than evenly (brief Part 3.6).
+ *
+ * Four controls at one gap reads as a toolbar, because an even rhythm says all four are the same kind of
+ * thing. They are not: 더보기 is a navigation menu, the globe and the bell are 38 px icon buttons of the
+ * same family, and the account is the session. So the group is 더보기 — 16 — (🌐 🔔) — 14 — account, with
+ * the two icon buttons at 4 px because their own transparent padding already separates them by ~10 px of
+ * optical space. The numbers are what the eye measures, not what the ruler does.
+ */
+.hg-snav__tools { display: flex; align-items: center; gap: 4px; margin-inline-start: 16px; }
+/* The locale control and the bell are the same object at the same size, or the group has a 32 px button
+   next to a 38 px one and the row's baseline wobbles by 3 px — one of the "ten controls each 5 % wrong"
+   the brief's Part 27 is about. */
+/* Descendant, not child: `Popover` wraps each trigger in its own anchor `<div>`, so a `>` selector here
+   matches nothing — which is how the locale control shipped at 32 px next to a 38 px bell, a 6 px mismatch
+   that is invisible alone and is exactly what makes a header look careless. `qa:v16` now fails if this
+   group is missing entirely, rather than passing over an empty list. */
+.hg-snav__tools .hg-btn {
+  width: 38px; min-height: 38px; height: 38px; padding: 0; border-radius: 10px;
+  background: transparent; border-color: transparent; color: var(--hg-text-secondary);
+}
+.hg-snav__tools .hg-btn svg { width: 19px; height: 19px; }
+.hg-snav__tools .hg-btn:hover { background: color-mix(in srgb, var(--hg-text) 5%, transparent); border-color: transparent; color: var(--hg-text); }
+.hg-snav__tools .hg-btn[aria-expanded='true'] { background: color-mix(in srgb, var(--hg-text) 8%, transparent); color: var(--hg-text); }
+.hg-snav__tools + .hg-account { margin-inline-start: 14px; }
+/* The header is `--hg-bg-canvas` at 92 %, not `--hg-surface`; the badge's ring has to be the colour the
+   reader actually sees behind it or the disc has no edge. */
+.hg-snav { --hg-bell-ring: color-mix(in srgb, var(--hg-bg-canvas) 92%, #fff); }
+.hg-topbar { --hg-bell-ring: var(--hg-surface); }
+.hg-snav__links { display: none; gap: 2px; margin-inline-start: 24px; }
+@media (min-width: 1024px) { .hg-snav__links { display: flex; } }
+.hg-snav__link { position: relative; display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: var(--hg-radius-md); color: var(--hg-text-secondary); font-weight: var(--hg-weight-medium); font-size: var(--hg-text-base); text-decoration: none !important; white-space: nowrap; }
+.hg-snav__link:hover { color: var(--hg-text); background: color-mix(in srgb, var(--hg-text) 4%, transparent); }
+.hg-snav__link.active { color: var(--hg-text); background: color-mix(in srgb, var(--hg-text) 6%, transparent); }
+.hg-snav__count { min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--hg-text); color: #fff; font-size: 11px; font-weight: var(--hg-weight-semibold); display: inline-grid; place-items: center; font-variant-numeric: tabular-nums; }
+.hg-scontent { flex: 1; width: 100%; max-width: 1120px; margin-inline: auto; padding: 20px 16px 104px; }
+@media (min-width: 768px) { .hg-scontent { padding: 32px 24px 64px; } }
+.hg-tabbar {
+  position: fixed; z-index: var(--hg-z-tabbar); bottom: 0; inset-inline: 0; display: grid; grid-template-columns: repeat(5, 1fr);
+  background: color-mix(in srgb, var(--hg-surface) 94%, transparent); backdrop-filter: saturate(1.2) blur(12px);
+  border-top: 1px solid var(--hg-border); padding-bottom: env(safe-area-inset-bottom);
+}
+@media (min-width: 1024px) { .hg-tabbar { display: none; } }
+.hg-tabbar a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; height: 56px; font-size: 12px; font-weight: var(--hg-weight-medium); color: var(--hg-text-tertiary); text-decoration: none !important; position: relative; }
+.hg-tabbar a svg { width: 22px; height: 22px; stroke-width: 1.75; }
+.hg-tabbar a.active { color: var(--hg-text); }
+.hg-tabbar a.active svg { stroke-width: 2.1; }
+.hg-tabbar__dot { position: absolute; top: 7px; inset-inline-start: calc(50% + 7px); width: 8px; height: 8px; border-radius: 50%; background: var(--hg-primary); border: 2px solid var(--hg-surface); }
+
+/* V10: the brand lockup is the BI-kit asset, not type set in CSS. `--hg-logo-h` sizes it; the @2x source keeps it
+   sharp on high-DPI screens. `.hg-logo__mark` (the symbol alone) is only shown where the lockup cannot fit — the
+   collapsed console rail. */
+.hg-logo { --hg-logo-h: 26px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none !important; color: var(--hg-text); flex: none; }
+.hg-logo__img { display: block; height: var(--hg-logo-h); width: auto; }
+.hg-logo__mark { display: none; height: calc(var(--hg-logo-h) + 6px); width: auto; }
+.hg-logo__tag { display: block; font-size: var(--hg-text-xs); font-weight: var(--hg-weight-medium); color: var(--hg-text-tertiary); margin-top: 4px; letter-spacing: 0; }
+.hg-shell[data-collapsed='true'] .hg-logo__mark { display: block; }
+
+/* ================= The notification control (V16, REPORT §133) =================
+ *
+ * One button, one badge, physically attached. The anatomy, and why each number is the number:
+ *
+ *   button   38 px square. Large enough to be a comfortable target beside a 40 px row, small enough that it
+ *            does not need a resting fill to look deliberate. Transparent at rest — a permanent grey square
+ *            behind a bell is what made the old control look like a placeholder.
+ *   icon     18 px, so the bell is the thing in the button rather than filling it.
+ *   badge    a 17 px **disc** at the button's top-right corner, offset 1 px *outside* it. The previous
+ *            badge was 19 × 16 (a lozenge) positioned 5 px *inside*, which put it on the bell's dome: the
+ *            icon stopped reading as a bell and the badge stopped reading as attached to anything.
+ *   ring     2 px of `--hg-bell-ring`, which each shell sets to **its own** background. The old ring was
+ *            `--hg-surface` (#FFF) against a header painted `--hg-bg-canvas`; it was there, it was the
+ *            wrong colour, and a badge with a mismatched ring is a badge that floats.
+ */
+.hg-bell { position: relative; display: inline-flex; flex: none; }
+.hg-bell .hg-btn {
+  width: 38px; min-height: 38px; height: 38px; border-radius: 10px;
+  background: transparent; border-color: transparent; color: var(--hg-text-secondary);
+}
+.hg-bell .hg-btn svg { width: 19px; height: 19px; }
+.hg-bell .hg-btn:hover { background: color-mix(in srgb, var(--hg-text) 5%, transparent); border-color: transparent; color: var(--hg-text); }
+/* The open state belongs to the **button**, not to the badge, and it is neutral: orange in this header means
+   "unread", and a control that turns orange when you open it has taken the badge's only word. */
+.hg-bell[data-open] .hg-btn { background: color-mix(in srgb, var(--hg-text) 8%, transparent); color: var(--hg-text); }
+
+.hg-bell__count {
+  position: absolute; top: 1px; inset-inline-end: 1px;
+  min-width: 16px; height: 16px; padding: 0;
+  border-radius: 999px;
+  /* V26 (REPORT §338): counts are ink — tangerine is for the primary action, the current item and focus. */
+  background: var(--hg-text); color: #fff;
+  font-size: 10px; font-weight: var(--hg-weight-bold); line-height: 1;
+  font-variant-numeric: tabular-nums; letter-spacing: 0;
+  display: grid; place-items: center;
+  /* `box-shadow`, not `border`: a border grows the box and would make a two-digit count a different height
+     from a one-digit one. The ring is drawn outside the disc and costs no layout. */
+  box-shadow: 0 0 0 2px var(--hg-bell-ring, var(--hg-surface));
+  pointer-events: none;
+}
+/* The one count with no honest disc. 24 px wide, same height, same ring — still not a wide pill. */
+.hg-bell__count[data-wide] { min-width: 23px; padding: 0 4px; border-radius: 999px; font-size: 9px; }
+
+/* ================= The account control (V16, brief Part 3.7) ================= */
+.hg-account {
+  display: inline-flex; align-items: center; gap: 8px; flex: none;
+  height: 38px; padding: 0 8px 0 4px; margin: 0;
+  border: 1px solid transparent; border-radius: 999px;
+  background: transparent; color: var(--hg-text); font: inherit; cursor: pointer;
+  transition: background var(--hg-motion-fast) var(--hg-motion-easing);
+}
+.hg-account:hover { background: color-mix(in srgb, var(--hg-text) 5%, transparent); }
+.hg-account[data-open] { background: color-mix(in srgb, var(--hg-text) 8%, transparent); }
+/* Below 1024 the control is the avatar alone. `.hg-desktop-only` is a `display: none` utility and a later
+   `display: flex` of the same specificity silently beats it — which is how the name and the chevron were
+   showing at 390 px. The breakpoint is stated here instead of being borrowed. */
+.hg-account__who, .hg-account__chev { display: none; }
+@media (min-width: 1024px) {
+  .hg-account__who { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; max-width: 132px; text-align: start; }
+  .hg-account__chev { display: block; }
+}
+.hg-account__name { font-size: 13px; font-weight: var(--hg-weight-medium); line-height: 1.25; color: var(--hg-text); }
+.hg-account__role { font-size: 11px; line-height: 1.25; color: var(--hg-text-tertiary); }
+.hg-account__chev { width: 14px; height: 14px; flex: none; color: var(--hg-text-tertiary); }
+/* Phones: the avatar is the whole control, so it is a disc rather than a pill. */
+@media (max-width: 1023.98px) { .hg-account { padding: 0 4px; } }
+
+.hg-notif-panel { width: min(380px, calc(100vw - 24px)); max-height: 70dvh; overflow: auto; padding: 0; }
+.hg-notif__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--hg-border); }
+.hg-notif { display: flex; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--hg-border-subtle); text-decoration: none !important; color: var(--hg-text); font-size: var(--hg-text-sm); }
+.hg-notif:hover { background: var(--hg-surface-hover); }
+.hg-notif:last-child { border-bottom: 0; }
+/*
+ * Unread is a **dot and a weight**, not a coloured card (brief Part 3.4). The row used to be filled with
+ * `--hg-surface-warm` edge to edge; with three unread notifications the whole panel was warm, which is a
+ * fill that has stopped carrying information. The 6 px dot keeps its gutter whether or not it is drawn, so
+ * reading a row does not reflow the list.
+ */
+.hg-notif__mark { flex: none; width: 6px; height: 6px; margin-top: 7px; border-radius: 50%; background: transparent; }
+.hg-notif[data-unread='true'] .hg-notif__mark { background: var(--hg-primary); }
+.hg-notif[data-unread='true'] .hg-notif__text { font-weight: var(--hg-weight-semibold); }
+.hg-notif__text { display: block; line-height: 1.45; }
+.hg-notif__when { display: block; margin-top: 2px; font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); font-variant-numeric: tabular-nums; }
+
+/* ================= Sign in ================= */
+.hg-login { min-height: 100dvh; display: flex; flex-direction: column; background: var(--hg-bg-canvas); }
+.hg-login__top { display: flex; align-items: center; justify-content: space-between; padding: 16px; max-width: 1160px; width: 100%; margin-inline: auto; }
+@media (min-width: 768px) { .hg-login__top { padding: 20px 24px; } }
+.hg-login__main { flex: 1; display: grid; place-items: start center; padding: 24px 16px 48px; }
+@media (min-width: 768px) { .hg-login__main { place-items: center; padding-bottom: 96px; } }
+.hg-login__panel { width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 24px; }
+.hg-login__intro { display: flex; flex-direction: column; gap: 6px; }
+.hg-login__demo { display: flex; justify-content: center; margin-top: 24px; }
+.hg-login__foot { text-align: center; padding: 16px; }
+.hg-i18n-notice { display: flex; align-items: center; justify-content: center; gap: 8px 12px; flex-wrap: wrap; padding: 6px 16px; font-size: var(--hg-text-sm); color: var(--hg-text-secondary); background: var(--hg-surface-warm); border-bottom: 1px solid var(--hg-border-subtle); text-align: center; }

@@ -1,0 +1,107 @@
+/* ================= V6 console design system (Agency · University · Hangyul operations) =================
+   V31: the V6 cobalt/navy values below were re-pointed to the warm ramp + tangerine (REPORT §420) — the phone drawer
+   navigation still painted blue selection. Historical description: professional blue, cool canvas, one cobalt action colour.
+   Tangerine is reserved for the consumer journey; in consoles only the logo keeps its orange.
+   Applied with <html data-surface="console">; the university adds data-product="university" (navy navigation).
+   Contrast (WCAG 2.1): text #0F1B2D 17.3:1 on white · secondary #535D6E 6.4:1 / 5.9:1 on canvas · tertiary #5F6B80 5.4:1 / 5.0:1 on canvas, 4.7:1 on selected
+   · cobalt #2257D6 white-on 6.2:1, on canvas 5.8:1, on selected #EAF0FD 5.4:1 · navy sidebar text #C7D2E4 on #0F2240 10.4:1. */
+html[data-surface='console'] {
+  --hg-text-disabled: #A0A9B8;
+
+  /* Navy, deep blue and blue-grey for structure */
+
+  /* Charts: single series = cobalt; comparison = muted blue-grey; categorical (validated, dataviz six checks)
+     cobalt · teal · violet · ochre, then grey "Other". Highlight is navy, never tangerine. */
+  color-scheme: light;
+}
+html[data-surface='console'] .hg-shell { background: var(--hg-bg-canvas); }
+
+/* Tabular numbers everywhere in consoles: counts, dates, money line up. */
+html[data-surface='console'] .hg-content { font-variant-numeric: tabular-nums; }
+
+/* ---------- Top bar: white, hairline, quiet ---------- */
+html[data-surface='console'] .hg-topbar { background: rgba(255, 255, 255, 0.92); backdrop-filter: saturate(1.4) blur(10px); border-bottom-color: var(--hg-border); }
+
+/* ---------- Agency: light workbench navigation ---------- */
+html[data-surface='console'] .hg-sidebar {
+  --sb-bg: #FFFFFF; --sb-fg: #56524B; --sb-fg-strong: var(--hg-text); --sb-active-bg: #FFF1E7; --sb-active-fg: #B84600;
+  --sb-section: #6A655D; --sb-border: var(--hg-border);
+}
+html[data-surface='console'] .hg-navlink { height: 32px; font-weight: 500; }
+html[data-surface='console'] .hg-navlink svg { color: #8C867C; }
+html[data-surface='console'] .hg-navlink:hover { background: #F6F3EE; }
+html[data-surface='console'] .hg-navlink.active, html[data-surface='console'] .hg-navlink[aria-current='page'] { box-shadow: none; font-weight: 600; }
+html[data-surface='console'] .hg-navlink.active svg, html[data-surface='console'] .hg-navlink[aria-current='page'] svg { color: var(--hg-primary); }
+html[data-surface='console'] .hg-navlink.active::before, html[data-surface='console'] .hg-navlink[aria-current='page']::before {
+  content: ''; position: absolute; inset-inline-start: -8px; top: 7px; bottom: 7px; width: 3px; border-radius: 0 3px 3px 0; background: var(--hg-primary);
+}
+html[data-surface='console'] .hg-navlink__badge { color: #56524B; }
+html[data-surface='console'] .hg-navlink__badge--alert { background: #FFF1E7; color: #B84600; font-weight: 600; }
+html[data-surface='console'] .hg-sidebar__section { text-transform: uppercase; letter-spacing: 0.06em; font-size: 12px; font-weight: 600; padding-top: 18px; }
+
+/* ---------- University: institutional navy navigation ---------- */
+html[data-product='university'] .hg-sidebar {
+  --sb-bg: var(--hg-console-navy); --sb-fg: #C7D2E4; --sb-fg-strong: #FFFFFF; --sb-active-bg: rgba(255, 255, 255, 0.10); --sb-active-fg: #FFFFFF;
+  --sb-section: #8FA3C4; --sb-border: var(--hg-console-navy);
+}
+html[data-product='university'] .hg-sidebar .hg-navlink svg { color: #8FA3C4; }
+html[data-product='university'] .hg-sidebar .hg-navlink:hover { background: rgba(255, 255, 255, 0.06); color: #FFFFFF; }
+html[data-product='university'] .hg-sidebar .hg-navlink.active svg { color: #FFFFFF; }
+html[data-product='university'] .hg-sidebar .hg-navlink.active::before { background: #7FA6EA; }
+html[data-product='university'] .hg-sidebar .hg-navlink__badge { color: #C7D2E4; }
+html[data-product='university'] .hg-sidebar .hg-navlink__badge--alert { background: rgba(127, 166, 234, 0.22); color: #FFFFFF; }
+html[data-product='university'] .hg-sidebar .hg-logo { color: #FFFFFF; }
+html[data-product='university'] .hg-sidebar .hg-logo__tag { color: #A9B8D0; }
+html[data-product='university'] .hg-sidebar__foot { border-top-color: rgba(255, 255, 255, 0.08); }
+/* The mobile drawer reuses the sidebar markup on a white sheet: keep it light there. */
+html[data-product='university'] .hg-drawer .hg-sidebar {
+  --sb-fg: #56524B; --sb-fg-strong: var(--hg-text); --sb-active-bg: #FFF1E7; --sb-active-fg: #B84600; --sb-section: #6A655D;
+}
+html[data-product='university'] .hg-drawer .hg-sidebar .hg-navlink svg { color: #8C867C; }
+html[data-product='university'] .hg-drawer .hg-sidebar .hg-navlink:hover { background: #F6F3EE; color: var(--hg-text); }
+html[data-product='university'] .hg-drawer .hg-sidebar .hg-navlink.active svg { color: var(--hg-primary); }
+html[data-product='university'] .hg-drawer .hg-sidebar .hg-navlink__badge--alert { background: #FFF1E7; color: #B84600; }
+
+/* ---------- Page headers: smaller, denser, institutional ---------- */
+html[data-surface='console'] .hg-page-head h1, html[data-surface='console'] .hg-content > h1 { font-size: 22px; line-height: 30px; letter-spacing: -0.01em; font-weight: 600; }
+
+/* ---------- Panels: white on cool canvas, hairline, no shadow ---------- */
+html[data-surface='console'] .hg-card, html[data-surface='console'] .hg-panel { border-color: var(--hg-border); box-shadow: none; }
+
+/* ---------- Tables: navy-ink header labels on a faint blue band ---------- */
+html[data-surface='console'] .hg-table th { background: #F7F9FC; color: #56524B; font-weight: 600; font-size: 12px; letter-spacing: 0.01em; }
+html[data-surface='console'] .hg-table tbody tr:hover td { background: #F5F8FD; }
+html[data-surface='console'] .hg-table tbody tr[aria-selected='true'] td { background: #EEF3FD; }
+
+/* ---------- Buttons ---------- */
+html[data-surface='console'] .hg-btn--primary { box-shadow: 0 1px 0 rgba(15, 27, 45, 0.06); }
+html[data-surface='console'] .hg-btn--secondary { border-color: var(--hg-control-secondary-border); }
+
+/* ---------- Badges / status: blue for "info" and "brand" tone ---------- */
+html[data-surface='console'] .hg-bell__count { background: var(--hg-text); } /* V31: was cobalt, the last V6 blue on a live surface */
+
+/* ---------- Login ---------- */
+html[data-surface='console'] .hg-login { background: var(--hg-bg-canvas); }
+
+/* university — V6 university-console workstream (additive). Selected filter chips use the console "selected" blue,
+   not near-black, so a segment picker reads as a choice rather than as a heavy badge row. */
+html[data-product='university'] .hg-chip[aria-pressed='true'], html[data-product='university'] .hg-chip[aria-checked='true'] {
+  background: var(--hg-primary-subtle); border-color: #A9C2F0; color: var(--hg-primary-pressed); font-weight: 600;
+}
+html[data-product='university'] .hg-bars__track { height: 6px; border-radius: 3px; }
+/* .hg-bars__fill is an inline <span>: without display:block its width/height are ignored and no bar renders (shared bug, see report). */
+html[data-product='university'] .hg-bars__track { display: block; }
+html[data-product='university'] .hg-bars__fill { display: block; border-radius: 3px; }
+/* /university */
+
+/* V30 (REPORT §414): overlay layers sit above the YNEX chrome. The template's top bar is `z-index: 100` and its
+   sidebar `104`; the shared tokens put drawers/modals at 50–51. Every console drawer therefore opened with its
+   header — title and close button — UNDER the top bar: clicking "닫기" opened the account menu, and the top bar
+   stayed live behind an open "modal". The relative order is unchanged (popover < drawer = modal < toast); the
+   whole overlay band is lifted above the chrome. */
+html[data-surface='console'] {
+  --hg-z-popover: 1045;
+  --hg-z-drawer: 1050;
+  --hg-z-modal: 1050;
+  --hg-z-toast: 1060;
+}

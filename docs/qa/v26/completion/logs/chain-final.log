@@ -1,0 +1,60 @@
+[01:03:14] waiting for the pre-cleanup run to finish
+[01:04:27] waiting for the pre-cleanup run to finish
+[01:16:06] pre-cleanup run finished — re-running the two steps fixed meanwhile (web-tests, api-tests)
+== web-tests: 01:16:06 → /root/hangyul-univ/docs/qa/v26/completion/logs/web-tests-final.log
+== web-tests: EXIT=0 (✔ test finished for 5 workspace(s)[0m)
+== api-tests: 01:16:20 → /root/hangyul-univ/docs/qa/v26/completion/logs/api-tests-final.log
+== api-tests: EXIT=0 (........                                                                 [100%])
+== final: ALL GREEN
+[01:18:00] PRE-CLEANUP RED: qa-v26 — chain stopped
+[01:31:47] waiting for the pre-cleanup run to finish
+[01:31:47] pre-cleanup run finished — re-running the two steps fixed meanwhile (web-tests, api-tests)
+== web-tests: 01:31:47 → /root/hangyul-univ/docs/qa/v26/completion/logs/web-tests-final.log
+== web-tests: EXIT=0 (✔ test finished for 5 workspace(s)[0m)
+== api-tests: 01:31:59 → /root/hangyul-univ/docs/qa/v26/completion/logs/api-tests-final.log
+== api-tests: EXIT=0 (........                                                                 [100%])
+== final: ALL GREEN
+[01:33:48] pre-cleanup validation green — axe moderate inventory for §352
+[01:34:39] cleanup stage A
+[01:40:14] cleanup A failed
+[01:40:53] resuming at the post-cleanup validation (stage A applied at 01:40; its purge step re-run by hand)
+[01:40:53] post-cleanup validation (FORCE=1, all steps)
+[02:11:25] resuming at the Android phase (post-cleanup validation green after the typecheck re-run)
+[02:11:25] post-cleanup validation green — Android phase
+== student android build 02:11:25
+   student EXIT=0
+== agency android build 03:30:46
+   agency EXIT=0
+== university android build 04:33:48
+[05:45:36] VM restarted 05:43 during the university AAB — resuming the Android phase (student, agency already green)
+== student build already green — skipped
+== agency build already green — skipped
+== university android build 05:45:36
+   university EXIT=0
+   scan EXIT=1
+== boot hg35 headless 06:36:57
+booted after ~51s
+   smoke EXIT=1
+== android phase: FAILED steps — see logs
+[06:47:48] android phase exit 1
+[06:48:41] re-running scan (verdict parsing fixed) and smoke (ANR dialogs dismissed)
+   scan EXIT=0
+== android phase: GREEN
+== boot hg35 headless 06:48:42
+booted after ~48s
+   smoke EXIT=1
+== android phase: FAILED steps — see logs
+[06:57:21] android tail exit 1
+[06:57:27] smoke re-run with the foreground-window assertion (a previous app's identical login button had been mistaken for this one's)
+== boot hg35 headless 06:57:27
+[06:57:35] smoke re-run: foreground assertion, fresh dumps, 4-core/2-GB emulator, 120-s sign-in wait
+== boot hg35 headless 06:57:35
+booted after ~21s
+[06:58:19] single clean smoke run (two overlapping runs were stopped at 06:58): foreground assertion, fresh dumps, 4-core/2-GB emulator
+== boot hg35 headless 06:58:19
+booted after ~30s
+   smoke EXIT=0
+== android phase: GREEN
+[07:00:45] smoke exit 0
+[07:00:45] cleanup stage B
+[07:00:47] CHAIN DONE

@@ -1,0 +1,319 @@
+// YNEX skin for Hangyul's shared `hg-*` components inside the consoles.
+// Pages built directly with YNEX markup (card custom-card, table, badge bg-*-transparent …) need nothing from here;
+// this layer makes every *other* console page render in the same YNEX language: canvas #f0f1f7, white soft-shadow
+// cards with the accent-bar title, 13–14 px Inter/Pretendard tables with semibold heads, soft badges, YNEX buttons/inputs.
+// Replaces packages/ui/src/styles/console.css (V6 blue system) for the web consoles.
+
+$yx-shadow: 0 0.125rem 0 rgba(10, 10, 10, 0.04);
+$yx-radius: 0.5rem;
+
+html[data-surface='console'] {
+  // ---- tokens: V6 hg-* variables re-pointed at YNEX values ----
+  --hg-bg: #ffffff;
+  --hg-bg-canvas: rgb(var(--body-bg-rgb));
+  --hg-bg-muted: #f7f8f9;
+  --hg-surface: #ffffff;
+  --hg-surface-warm: #f7f8f9;
+  --hg-surface-sunken: #f3f6f8;
+  --hg-surface-hover: #f5f6f7;
+  --hg-border: #eceef3;
+  --hg-border-subtle: #f3f3f3;
+  --hg-border-strong: #dfe3ec;
+  --hg-text: #333335;
+  --hg-text-secondary: #536485;
+  --hg-text-tertiary: #5f6b80;
+  --hg-text-disabled: #a0a9b8;
+  --hg-primary: rgb(var(--primary-rgb));
+  --hg-primary-hover: #1b48b8;
+  --hg-primary-pressed: #163c9a;
+  --hg-primary-subtle: rgba(var(--primary-rgb), 0.1);
+  --hg-primary-text: #1e4fc2;
+  --hg-focus: rgb(var(--primary-rgb));
+  --hg-shadow-focus: 0 0 0 0.25rem rgba(var(--primary-rgb), 0.12);
+  --hg-radius-lg: #{$yx-radius};
+  --hg-radius-md: 0.35rem;
+  --hg-status-brand-fg: #1e4fc2;
+  --hg-status-brand-bg: rgba(var(--primary-rgb), 0.1);
+  --hg-status-brand-solid: rgb(var(--primary-rgb));
+  --hg-status-info-fg: #1e4fc2;
+  --hg-status-info-bg: rgba(var(--primary-rgb), 0.1);
+  --hg-status-info-solid: rgb(var(--primary-rgb));
+  // YNEX soft tones (text on 10 % tint ≥ 4.5:1 — darker text shades than YNEX's own, see contrast script)
+  --hg-status-success-fg: #11795e;
+  --hg-status-success-bg: rgba(var(--success-rgb), 0.12);
+  --hg-status-warning-fg: #8a5a00;
+  --hg-status-warning-bg: rgba(var(--warning-rgb), 0.16);
+  --hg-status-danger-fg: #b5321d;
+  --hg-status-danger-bg: rgba(var(--danger-rgb), 0.1);
+  --hg-status-neutral-fg: #4a5670;
+  --hg-status-neutral-bg: #f0f2f6;
+  --hg-chart-1: rgb(var(--primary-rgb));
+  --hg-chart-grid: #f0f1f5;
+  --hg-chart-axis: #5f6b80;
+  color-scheme: light;
+
+  body { background: var(--hg-bg-canvas); font-size: 0.875rem; line-height: 1.5; }
+  ::selection { background: rgba(var(--primary-rgb), 0.18); }
+  a:not([class]) { color: var(--hg-primary-text); }
+
+  // ---- page header (partials/page-header.html) ----
+  .hg-page-head { align-items: center; margin-block: 1.5rem 1.25rem; }
+  .hg-page-head h1, .hg-page-head__title { font-size: 1.125rem; line-height: 1.4; font-weight: 600; letter-spacing: 0; }
+  .hg-page-head__sub { font-size: 0.8125rem; color: var(--text-muted); margin-top: 0.125rem; }
+
+  // ---- cards (card custom-card) ----
+  .hg-card, .hg-panel {
+    background: #fff; border: 0; border-radius: $yx-radius; box-shadow: $yx-shadow;
+  }
+  .hg-card--warm { background: #fff; }
+  .hg-card--flat { background: transparent; box-shadow: none; }
+  .hg-card--interactive:hover { box-shadow: 0 0.25rem 1rem rgba(10, 10, 10, 0.06); }
+  .hg-card--pad { padding: 1.25rem; }
+  .hg-card__header { padding: 1rem 1.25rem; min-height: 0; border-bottom: 1px solid var(--hg-border-subtle); }
+  .hg-card__header + .hg-card__body { padding-top: 1rem; }
+  .hg-card__body { padding: 1rem 1.25rem 1.25rem; }
+  .hg-card__footer { padding: 1rem 1.25rem; border-top-color: var(--hg-border-subtle); }
+  .hg-card__title, .hg-section__title {
+    position: relative; font-size: 0.9375rem; font-weight: 700; letter-spacing: 0; padding-inline-start: 0.65rem;
+    &::before {
+      content: ''; position: absolute; inset-inline-start: 0; top: 0.2rem; height: 1rem; width: 0.2rem; border-radius: $yx-radius;
+      background: linear-gradient(to bottom, rgba(var(--primary-rgb), 0.5) 50%, rgba(var(--secondary-rgb), 0.5) 50%);
+    }
+  }
+  .hg-section--ruled { border-top: 0; padding-top: 0.5rem; }
+
+  // ---- tables (YNEX tables + crm-contacts) ----
+  .hg-table { font-size: 0.8125rem; }
+  .hg-table th {
+    background: #fff; color: var(--hg-text); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0;
+    border-bottom: 1px solid var(--hg-border-subtle); padding-block: 0.75rem;
+  }
+  .hg-table td { border-bottom: 1px solid var(--hg-border-subtle); padding-block: 0.75rem; font-weight: 500; }
+  .hg-table tbody tr:hover td { background: #f8f9fb; }
+  .hg-table tbody tr[aria-selected='true'] td { background: rgba(var(--primary-rgb), 0.06); }
+  .hg-table-toolbar { gap: 0.5rem; }
+
+  // ---- buttons (bootstrap/_buttons.scss) ----
+  .hg-btn { border-radius: 0.35rem; font-size: 0.85rem; font-weight: 500; }
+  .hg-btn--sm { border-radius: 0.25rem; font-size: 0.75rem; min-height: 30px; }
+  .hg-btn--primary { font-weight: 500; }
+  .hg-btn--soft { --btn-bg: rgba(var(--primary-rgb), 0.1); --btn-fg: #1e4fc2; }
+  .hg-btn--soft:hover { background: rgb(var(--primary-rgb)); color: #fff; }
+  .hg-btn--secondary { border-color: var(--hg-control-secondary-border); } // V27: the shared secondary edge (tokens.css)
+  .hg-btn--ghost:hover { background: #f3f6f8; }
+
+  // ---- badges: YNEX "-transparent" soft badges ----
+  .hg-badge { border-radius: 0.25rem; font-size: 0.75em; font-weight: 600; box-shadow: none; }
+  .hg-chip[aria-pressed='true'], .hg-chip[aria-checked='true'] {
+    background: rgba(var(--primary-rgb), 0.1); border-color: rgba(var(--primary-rgb), 0.35); color: #163c9a; font-weight: 600;
+  }
+
+  // ---- forms (bootstrap/_forms.scss) ----
+  .hg-input, .hg-select, .hg-textarea {
+    border-color: var(--hg-control-secondary-border); border-radius: 0.35rem; font-size: 0.875rem; background-color: #fff; // V27: 3:1 edge
+  }
+  .hg-input:focus, .hg-select:focus, .hg-textarea:focus { border-color: rgba(var(--primary-rgb), 0.5); box-shadow: var(--hg-shadow-focus); }
+
+  // ---- tabs (nav-tabs tab-style-2: underline in primary) ----
+  .hg-tab { font-weight: 500; color: var(--text-muted); }
+  // V29 a11y: tangerine *text* on a near-white surface is #B84600 (5.1:1); #CC4E00 measured 4.31:1 — below AA for 14 px text.
+  .hg-tab[aria-selected='true'], .hg-tab.active { color: #B84600; }
+  .hg-seg { background: #f3f6f8; border-radius: 0.35rem; }
+  .hg-seg button[aria-pressed='true'] { background: rgb(var(--primary-rgb)); color: #fff; box-shadow: none; }
+
+  // ---- metrics / stats (HRM main cards) ----
+  .hg-metrics { background: #fff; border-radius: $yx-radius; box-shadow: $yx-shadow; border: 0; }
+  .hg-metric__value, .hg-stat__value { font-weight: 600; letter-spacing: -0.01em; }
+
+  // ---- lists, overlays, callouts ----
+  .hg-lrow:hover { background: #f8f9fb; }
+  .hg-popover, .hg-modal, .hg-drawer { border-radius: $yx-radius; border: 0; box-shadow: 0 0.25rem 1.25rem rgba(10, 10, 10, 0.12); }
+  // V26 (REPORT §338): a callout is information, not the brand — warm neutral, never a tangerine tint.
+  .hg-callout { border: 0; border-radius: $yx-radius; background: var(--hg-surface-warm); }
+  .hg-progress__bar { border-radius: 1rem; }
+  .hg-kanban__col { background: transparent; }
+
+}
+
+// ======================================================================= YNEX shell glue (React port)
+html[data-nav-layout='vertical'] {
+  .page { min-height: 100vh; }
+  .app-sidebar .main-sidebar-header { justify-content: flex-start; }
+  .app-sidebar .hg-logo { text-decoration: none; }
+  .app-sidebar .side-menu__item { text-decoration: none; gap: 0; }
+  .app-sidebar .side-menu__icon { display: inline-flex; width: 1.15rem; height: 1.15rem; margin-inline-end: 0.625rem; }
+  .app-sidebar .side-menu__icon svg { width: 1.15rem; height: 1.15rem; stroke-width: 1.75; }
+  .app-sidebar .side-menu__label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .app-sidebar .yx-navbadge { margin-inline-start: 0.5rem; font-size: 0.68rem; }
+  .app-sidebar .slide__category { opacity: 1; font-size: 0.6875rem; }
+  .main-sidebar { overflow-y: auto; height: calc(100vh - 3.75rem); padding-block-end: 2rem; scrollbar-width: thin; }
+
+  .app-header .header-link { background: none; border: 0; display: inline-flex; align-items: center; justify-content: center; }
+  .app-header .header-link-icon { width: 1.25rem; height: 1.25rem; color: var(--header-prime-color); }
+  .app-header .yx-headlink .hg-btn { color: var(--header-prime-color); min-height: 2.25rem; }
+  .app-header .yx-headlink .hg-btn svg { width: 1.2rem; height: 1.2rem; }
+  @media (max-width: 767px) { .app-header .yx-headlink .hg-btn { min-height: 44px; min-width: 44px; } } // V27: 44-px header targets on phones
+  .app-header .yx-search, .app-header .yx-org, .app-header .yx-headlink { align-items: center; }
+  .app-header .yx-search { min-width: 0; flex: 0 1 26rem; padding-inline-start: 0.75rem; }
+  .app-header .yx-search > * { width: 100%; }
+  .app-header .yx-search .hg-input { background: #f3f6f8; border-color: transparent; border-radius: 0.35rem; height: 2.375rem; }
+  .app-header .yx-org { padding-inline: 0.75rem; border-inline-end: 1px solid var(--header-border-color); }
+  .app-header .header-content-left { flex: 1 1 auto; min-width: 0; }
+  .app-header .header-content-right { flex: none; gap: 0.25rem; padding-inline-end: 0.5rem; }
+  .app-header .hg-bell__count { background: rgb(var(--secondary-rgb)); }
+
+  .yx-main { padding-block-end: 2.5rem; }
+  .yx-main > .hg-content-pad { padding: 0; }
+}
+
+// Dark (navy) menu. V10 note: the lockup is now an image, so a dark menu needs the light-ink variant, which is
+// a prop (`<Logo tone="light">`) rather than CSS. The current skin keeps a light sidebar, so only the tag recolours.
+[data-menu-styles='dark'] .app-sidebar {
+  .hg-logo { color: #fff; }
+  .hg-logo__tag { color: #a3aec4; }
+}
+
+// Mobile: the template hides .main-sidebar-header below 992px; show the brand in the header instead.
+@media (max-width: 991.98px) {
+  html[data-nav-layout='vertical'] {
+    .horizontal-logo { display: block; }
+    .app-sidebar { z-index: 104; }
+  }
+}
+@media (min-width: 992px) {
+  html[data-nav-layout='vertical'] .horizontal-logo { display: none; }
+}
+
+// ======================================================================= YNEX component glue
+.yx-pagehead { gap: 0.75rem 1rem; }
+.yx-pagehead__eyebrow { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.25rem; }
+.yx-pagehead__sub { font-size: 0.8125rem; margin-top: 0.125rem; }
+.yx-pagehead__end { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+.yx-pagehead .btn-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+@media (max-width: 767.98px) { .yx-pagehead__end { align-items: flex-start; } }
+
+.card.custom-card .card-header .card-title { text-transform: none; } // i18n: capitalize breaks German/Turkish casing
+.card.custom-card h2.card-title { font-size: 0.9375rem; line-height: 1.4; }
+.yx-cardtools { display: flex; align-items: center; gap: 0.5rem; margin-inline-start: auto; }
+.yx-count { font-weight: 600; }
+
+.yx-stat { text-decoration: none; color: inherit; text-align: start; display: block; width: 100%; }
+.yx-stat--link { cursor: pointer; transition: box-shadow 0.15s ease, transform 0.15s ease; }
+.yx-stat--link:hover { box-shadow: 0 0.35rem 1.25rem rgba(10, 10, 10, 0.08); }
+.yx-stat--selected { outline: 2px solid rgb(var(--primary-rgb)); outline-offset: -2px; }
+button.yx-stat { border: 0; background: #fff; padding: 0; font: inherit; }
+.yx-stat__label { font-size: 0.8125rem; line-height: 1.35; }
+.yx-stat__value { font-size: 1.5rem; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.yx-stat__caption { line-height: 1.4; }
+.yx-staticon { width: 2.5rem; height: 2.5rem; border-radius: 0.5rem; }
+.yx-staticon svg { width: 1.25rem; height: 1.25rem; }
+
+.yx-tl__link { display: block; color: inherit; text-decoration: none; border-radius: 0.35rem; margin-inline: -0.5rem; padding-inline: 0.5rem; }
+.yx-tl__link:hover { background: #f8f9fb; }
+.yx-tl__date { min-width: 2.75rem; }
+
+.yx-prow { display: block; padding-block: 0.6rem; color: inherit; text-decoration: none; }
+.yx-prow + .yx-prow { border-top: 1px dashed var(--default-border); }
+.yx-prow--link:hover .fw-semibold:first-child { color: rgb(var(--primary-rgb)); }
+
+.yx-tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+.yx-tabs .nav-link { white-space: nowrap; background: none; border: 0; }
+
+.yx-alist li { padding-block: 0.65rem; }
+.yx-alist li + li { border-top: 1px dashed var(--default-border); }
+
+.yx-split { display: grid; grid-template-columns: minmax(16rem, 20rem) minmax(0, 1fr) minmax(18rem, 22rem); gap: 1.25rem; align-items: start; }
+.yx-split--nolist { grid-template-columns: minmax(0, 1fr) minmax(18rem, 22rem); }
+.yx-split--noside { grid-template-columns: minmax(16rem, 20rem) minmax(0, 1fr); }
+.yx-split > * { min-width: 0; }
+@media (max-width: 1199.98px) {
+  .yx-split, .yx-split--nolist, .yx-split--noside { grid-template-columns: minmax(0, 1fr); }
+}
+
+.min-w-0 { min-width: 0; }
+.text-default { color: var(--default-text-color) !important; }
+
+// ======================================================================= Shared fixes (from the V7 agency workstream)
+// YNEX soft badges are ~3:1 — darker text keeps the tinted look at ≥ 4.5:1 (WCAG 1.4.3).
+.badge.bg-primary-transparent { color: #1e4fc2 !important; }
+.badge.bg-secondary-transparent { color: #0d6e8c !important; }
+.badge.bg-success-transparent { color: #11795e !important; }
+.badge.bg-warning-transparent { color: #8a5a00 !important; background-color: rgba(var(--warning-rgb), 0.16) !important; }
+.badge.bg-danger-transparent { color: #b5321d !important; }
+.badge.bg-info-transparent { color: #0b6aa2 !important; }
+.badge.bg-purple-transparent { color: #6b3fbf !important; }
+.badge.bg-orange-transparent { color: #9a4a0c !important; }
+.badge.bg-teal-transparent { color: #0f6e6e !important; }
+/* hrm-main-card top rule: YNEX ships primary/secondary/warning/danger; the rest of the Hangyul tones */
+.card.custom-card.hrm-main-card.info { border-color: rgba(var(--info-rgb), 0.35); }
+.card.custom-card.hrm-main-card.purple { border-color: rgba(var(--purple-rgb), 0.35); }
+.card.custom-card.hrm-main-card.orange { border-color: rgba(var(--orange-rgb), 0.35); }
+.card.custom-card.hrm-main-card.teal { border-color: rgba(var(--teal-rgb), 0.35); }
+.card.custom-card.hrm-main-card.success { border-color: rgba(var(--success-rgb), 0.35); }
+/* breadcrumb: Bootstrap's breadcrumb module is not in the ynex-ui subset (request logged) — minimal YNEX look */
+.breadcrumb { display: flex; flex-wrap: wrap; list-style: none; padding: 0; margin: 0; font-size: 0.8125rem; }
+.breadcrumb-item + .breadcrumb-item { padding-inline-start: 0.5rem; }
+.breadcrumb-item + .breadcrumb-item::before { content: '›'; padding-inline-end: 0.5rem; color: var(--text-muted); }
+.breadcrumb-item a { color: rgb(var(--primary-rgb)); text-decoration: none; }
+.breadcrumb-item.active { color: var(--default-text-color); font-weight: 500; }
+// YNEX `.page` centres content vertically; short pages floated mid-screen.
+html[data-nav-layout='vertical'] .page { justify-content: flex-start; }
+// Sidebar background spans the full document height in long pages / full-page captures.
+html[data-nav-layout='vertical'] .app-sidebar { min-height: 100vh; bottom: 0; }
+.app-header .sidemenu-toggle .header-link-icon { width: 1.35rem; height: 1.35rem; }
+// PageHeader: crumbs + actions sit side by side instead of stacking over the title.
+.yx-pagehead__end { flex-direction: row; align-items: center; flex-wrap: wrap; gap: 0.75rem 1rem; }
+// Bootstrap .card is position: relative — explicit sticky helper for side panels.
+.yx-sticky { position: sticky !important; top: 4.75rem; }
+// V10: the console's app header is fixed at 4.75rem, so a sticky table header must stop below it.
+.page { --hg-table-sticky-top: 4.75rem; }
+// AA for every YNEX tinted surface (avatars, chips, badges): tone text darkened to ≥ 4.5:1 on its own 10 % tint.
+.bg-primary-transparent { color: #1e4fc2 !important; }
+.bg-secondary-transparent { color: #0b647f !important; }
+.bg-success-transparent { color: #0e6b53 !important; }
+.bg-warning-transparent { color: #7a4f00 !important; }
+.bg-danger-transparent { color: #a62e1a !important; }
+.bg-info-transparent { color: #0b5f91 !important; }
+.bg-teal-transparent { color: #0b6363 !important; }
+.bg-purple-transparent { color: #6236b0 !important; }
+.bg-orange-transparent { color: #8a4209 !important; }
+.text-muted { color: var(--text-muted) !important; }
+// V26: counts are ink, everywhere — tangerine is kept for the primary action, the current item and focus (REPORT §338).
+.app-header .hg-bell__count { background: var(--hg-text) !important; color: #fff; }
+html[data-surface='console'] .app-sidebar .yx-navbadge.bg-primary-transparent { background: var(--hg-text) !important; color: #fff !important; }
+html[data-surface='console'] .avatar.bg-primary-transparent { background: var(--hg-surface-sunken) !important; color: var(--hg-text-secondary) !important; }
+html[data-surface='console'] .progress-bar.bg-primary { background-color: var(--hg-text) !important; }
+[data-menu-styles='dark'] .app-sidebar .yx-navbadge.bg-primary-transparent { background: rgba(255, 255, 255, 0.16) !important; color: #fff !important; }
+[data-menu-styles='dark'] .app-sidebar .yx-navbadge.bg-light { background: rgba(255, 255, 255, 0.1) !important; color: #dce3f0 !important; }
+html[data-surface='console'] ins { color: #0b5e49; }
+
+// V8: collapsed icon rail (default at 992–1279 px) — only the mark fits; the word and product tag return on hover-open.
+@media (min-width: 992px) {
+  html[data-nav-layout='vertical'][data-toggled='icon-overlay-close']:not([data-icon-overlay='open']) .app-sidebar .main-sidebar-header {
+    justify-content: center; padding-inline: 0;
+    .hg-logo__full { display: none; }
+    .hg-logo__mark { display: block; }
+  }
+}
+
+/* V9: compact LABELLED sidebar on laptop/tablet widths (992–1279 px) instead of the automatic icon rail.
+   Applies only while the user has not collapsed it (data-toggled unset). */
+@media (min-width: 992px) and (max-width: 1279.98px) {
+  html[data-nav-layout='vertical']:not([data-toggled]) {
+    .app-sidebar, .app-sidebar .main-sidebar-header { width: 12.5rem; }
+    .app-content { margin-inline-start: 12.5rem; }
+    .app-header { padding-inline-start: 12.5rem; }
+    .app-sidebar .side-menu__item { padding-inline: 0.75rem; font-size: 0.8125rem; }
+    .app-sidebar .side-menu__icon { margin-inline-end: 0.5rem; }
+    .app-sidebar .slide__category { padding-inline: 0.875rem; }
+    .app-sidebar .main-sidebar-header { padding-inline: 0.875rem; }
+  }
+}
+@media (max-width: 1279.98px) {
+  .app-header .yx-org { max-width: 12rem; min-width: 0; }
+  .app-header .yx-org * { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .app-header .yx-org .badge, .app-header .yx-org [class*="badge"] { display: none; }
+}
+
+// V26: a link-styled button keeps a 24-px target even with `p-0` (WCAG 2.2 § 2.5.8).
+.btn-link { min-height: 24px; display: inline-flex; align-items: center; }

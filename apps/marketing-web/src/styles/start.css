@@ -1,0 +1,24 @@
+/* The public quick fit /start (loaded by pages/Start).
+   V27 (REPORT §356): the form and result rows are the shared `@hangyul/ui` quick fit (styles/quickfit.css); this file
+   only places them on the marketing page. One centred column, one left axis (V19), wider once results arrive. */
+
+.mk-qs > .kn-container { max-width: calc(46rem + var(--kn-gutter) * 2); }
+.mk-qs .mk-pagehead,
+.mk-qs .mk-qs__results,
+.mk-qs .mk-qs__disclaimer { max-width: none; }
+.mk-qs .mk-pagehead__title { max-width: 18ch; }
+.mk-qs__form { max-width: 36rem; margin: clamp(30px, 3.6vw, 46px) 0 0; }
+
+/* The study-level choices: two columns on a phone, three from 560 px — seven levels must not become a 7-row stack. */
+.mk-qs .hg-fit-options { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+@media (min-width: 560px) { .mk-qs .hg-fit-options { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.mk-qs .hg-fit-options .hg-option { min-height: 52px; justify-content: flex-start; }
+.mk-qs .hg-fit-q > .hg-field > .hg-label { font-size: var(--hg-text-md); font-weight: var(--hg-weight-semibold); color: var(--hg-text); }
+
+.mk-qs__results { margin: 0; }
+.mk-qs__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--hg-space-4); margin-top: clamp(8px, 1vw, 16px); }
+.mk-qs__disclaimer {
+  display: flex; gap: 8px; align-items: flex-start; margin: 0;
+  font-size: var(--hg-text-sm); line-height: 1.6; color: var(--hg-text-tertiary);
+}
+.mk-qs__disclaimer svg { flex: none; width: 16px; height: 16px; margin-top: 2px; }

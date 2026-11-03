@@ -1,0 +1,156 @@
+
+[static]
+  PASS  MEDIA · university record count — 425 registry · 425 content
+  INFO  PHOTO COVERAGE (real university photographs): 166 / 425 (V24: 155); without one: 259
+  INFO  hero quality (V25 sheet review): 116 pass · 50 weak
+  PASS  MEDIA · rights metadata on every photograph (462): servable class, licence, source, and author + licence URL + source where credit is required
+  PASS  MEDIA · every rendition exists in both apps (640/1200/2400 as recorded, JPEG + WebP) — 462 assets
+  PASS  MEDIA · every photograph has WebP and recorded renditions
+  PASS  MEDIA · no photograph is used by two institutions
+  PASS  MEDIA · focal data present and in range on every photograph
+  PASS  MEDIA · no wrong-institution image (Ajou keeps no Tashkent campus)
+  PASS  MEDIA · Yonsei still leads with Sinchon
+  PASS  MEDIA · Hanyang leads with its Seoul campus, never ERICA
+  PASS  MEDIA · film posters lead a tile only when reviewed as a campus scene — 3 lead · 0 unreviewed
+  PASS  MEDIA · resolver honours the poster review
+  PASS  MEDIA · search record exists for every institution (UNIVERSITY_PHOTO_SEARCH.csv, 425 rows)
+  PASS  MEDIA · manual acquisition list exists for the robots-blocked 공유마당 leads
+  PASS  TOKENS · V25 stylesheets set no literal font size
+  PASS  TOKENS · one action shape is a token (--hg-control-radius, secondary surface)
+  PASS  TOKENS · marketing buttons use the token radius, not a 999-px pill
+  PASS  TOKENS · native Button uses the same radius and filled secondary
+  PASS  CTA · the circular arrow well and the closing-band ornament are gone
+  PASS  CTA · external official links use ↗ (ArrowUpRight), not a box icon
+  PASS  L10N · 26 V25 keys × 33 markets: present, placeholders intact, no English/Hangul leakage — 858 strings
+  PASS  SECURITY · native test sign-in still behind TEST_LOGIN require()
+  PASS  SECURITY · production refuses test sign-in and the paid-state bypass (pytest: environment + paid-state)
+  PASS  SECURITY · no production secret in source or mobile config (security scan) — V21 security scan — unauthorized occurrences: 0
+
+[api]
+  PASS  DIRECTORY · 425 institution routes answer 200 (no dead university route) — 425/425
+  PASS  DIRECTORY · served media agrees with the content record (database reloaded)
+  PASS  DIRECTORY · browsing is photo-first inside each kind — 166 photo-led of 425
+  PASS  TENANCY · university tenants see disjoint applicants (PNU ∩ SKKU = ∅) — 11 vs 11
+  PASS  UNIVERSITY · recency filter submitted_within_days=7: count = rows, every row inside the window — 1
+  PASS  UNIVERSITY · recency filter updated_within_days=7: count = rows, every row inside the window — 11
+  PASS  UNIVERSITY · every month on the Insights trend opens exactly its applicants — 2026-09:3 2026-10:4
+  PASS  AGENCY · TODAY counts = the rows each one opens (5 views) — {"urgent":7,"deadline7":5,"waiting_counselor":6,"student_silent":7,"university":2}
+  PASS  STUDENT · applications carry the campus photograph of their university — true,true,true
+
+[rendered]
+  PASS  CTA · tangerine fill → white text and icon in every state, all four products (no orange button with dark text) — CTA rule: 8408 control×state readings; 0 violation(s)
+  PASS  CTA · the contrast check still catches a planted violation (positive control)
+  PASS  CTA · every marketing action is a soft rectangle (radius ≤ 12 px, no 999-px pill)
+  PASS  CTA · filled tangerine in the page body = only the 유학 준비 actions and the recommended plan — 내 유학 준비 · 올인원으로 시작 · 내 유학 준비
+  PASS  CTA · every marketing action is ≥ 44 px tall (header included)
+  PASS  CTA · "대학 전체 보기" sits in the university section head, directly above the logos, as a filled-neutral secondary → /universities — {"inHead":true,"sameSection":true,"gapToLogos":52,"h":48,"bg":"rgb(241, 238, 234)","href":"/universities"}
+  PASS  PRICING · comparison: attached to the plans (≤ 64 px below), opens/closes by keyboard, aria-expanded follows — {"gap":16,"w":1140}
+  PASS  DIRECTORY · first screens lead with photographs; every card image loads — 24/24 photo
+  PASS  DIRECTORY · card photos: <picture> with WebP, per-image focal variables, lazy, never the 2400 px file
+  PASS  DIRECTORY · card pictures share one height
+  PASS  DETAIL · 10 detail pages: one closing action, no second band, no broken image — all
+  PASS  NAV · a new page opens at the top (no inherited scroll position) — 0
+  PASS  NAV · ?lang survives navigation — http://localhost:3100/universities/gyeongsang-national-university
+  PASS  CONVERSION · plan CTA carries the plan and the language to sign-in — http://localhost:3101/register?next=%2Fservices%3Fplan%3Dbasic&lang=vi
+  PASS  STUDENT · home: one primary action in the first viewport; the journey line has 6 stages and one current — {"primaries":1,"photo":true,"current":1,"steps":6}
+  PASS  STUDENT · home: the next action shows the campus it leads to
+  PASS  STUDENT · university page opens on the shared photographic hero
+  PASS  AGENCY · a TODAY item filters the table to exactly its count — 7 → 7
+  PASS  UNIVERSITY · a headline figure opens exactly its applicants — 6 → 6
+  PASS  UNIVERSITY · Insights: one metric row, a trend line, no donut, bars drill into applicants — {"summary":4,"trend":true,"donut":false,"links":30}
+  PASS  MOBILE · no horizontal overflow at 390 px (ko/de/ru/vi × marketing home, directory, details, student home, student university)
+  PASS  CONSOLE · no page error or console error on any visited page
+
+qa:v25 54 passed · 0 failed
+EXIT=0
+
+[static]
+  PASS  MARKETING · social platforms and hrefs equal the canonical talkhangyul.com footer (snapshot) — YouTube · Instagram · TikTok · Reddit · Facebook
+  PASS  MARKETING · social glyphs are the exact talkhangyul.com SVG paths — 5/5
+  PASS  MARKETING · snapshot target/rel are _blank / noopener noreferrer
+  PASS  MARKETING · owner source project (/root/hangyul-web) still agrees
+  PASS  MARKETING · footer renders the social block
+  PASS  MARKETING · no "free account" sign-up copy in any market bundle — 33 markets × 4 namespaces
+  PASS  MARKETING · student login link reads 회원가입 / Sign up
+  PASS  MARKETING · legitimate "free" entitlements kept (무료 자격 확인)
+  PASS  MARKETING · forbidden directory subtitle and its translations removed
+  PASS  MARKETING · directory page renders no lede / provenance line
+  PASS  DISCOVERY · tile uses the shared identity composition; no chopped-name tier
+  PASS  DISCOVERY · 17 province marks generated for every app that draws a university
+  PASS  DISCOVERY · no "campus photography" tier tag on tiles
+  PASS  DISCOVERY · campus role is translated, not printed raw
+  PASS  TEST ACCESS · student login lazy-loads the test sign-in behind DEV || VITE_DEMO_LOGINS
+  PASS  TEST ACCESS · agency login lazy-loads the test sign-in behind DEV || VITE_DEMO_LOGINS
+  PASS  TEST ACCESS · university login lazy-loads the test sign-in behind DEV || VITE_DEMO_LOGINS
+  PASS  TEST ACCESS · no password, no "sample data" hint, no role wording in the web test sign-in
+  PASS  TEST ACCESS · one primary + at most four other test accounts per product — {"student":5,"agency":2,"university":2}
+  PASS  TEST ACCESS · server environment fails closed (default production, normalised)
+  PASS  TEST PAID STATE · dev-complete endpoint exists and is guarded by test_payment_bypass_enabled
+  PASS  TEST PAID STATE · bypass uses the real activate_paid_order and never calls the provider
+  PASS  TEST PAID STATE · real Toss key-in path intact
+  PASS  TEST PAID STATE · production refuses the bypass (is_production short-circuit)
+  PASS  AGENCY · no legacy tenant role referenced in console or native staff app code
+  PASS  AGENCY · old /documents and /essays links keep their query
+  PASS  AGENCY · ?counselor= is a real filter
+  PASS  AGENCY · agency login cover describes the V22 product (no drag-and-drop pipeline / SLA timer promise)
+  PASS  UNIVERSITY · export runs the list predicate
+  PASS  UNIVERSITY · outcomes scoped to university-visible applications
+  PASS  UNIVERSITY · no permanently disabled Schedule control; no decorative cohort charts
+  PASS  STUDENT · no counselor/agency naming in student mobile copy
+  PASS  STUDENT · payment errors never render the raw transport message
+  PASS  NATIVE · test sign-in reached only through a Metro-foldable require
+  PASS  NATIVE · no static persona import anywhere in mobile-ui or the apps
+  PASS  NATIVE · student-mobile: production profile compiles test sign-in out; preview keeps it
+  PASS  NATIVE · student-mobile: release signing plugin + versionCode
+  PASS  NATIVE · agency-mobile: production profile compiles test sign-in out; preview keeps it
+  PASS  NATIVE · agency-mobile: release signing plugin + versionCode
+  PASS  NATIVE · university-mobile: production profile compiles test sign-in out; preview keeps it
+  PASS  NATIVE · university-mobile: release signing plugin + versionCode
+  PASS  NATIVE · student native sign-up present
+  PASS  NATIVE · staff apps on the V22 console tokens (no cobalt)
+  PASS  NATIVE · agency tabs 오늘 · 학생 · 지원·서류 · 메시지 · 설정
+  PASS  NATIVE · university tabs 지원자 · 메시지 · 현황 · 설정; no read-only role branch
+  PASS  LEGAL · privacy states the card path that the code implements (Toss key-in via Hangyul)
+  PASS  LEGAL · Toss Payments disclosed as a processor (domestic), not as an overseas transfer
+  PASS  LEGAL · no refund percentage invented
+  PASS  LEGAL · company block identical to the live Hangyul footer fields
+  PASS  LOCALIZATION · priority customer keys present in 33/33 markets (1654 keys rendered by the priority routes) — all present
+  PASS  LOCALIZATION · no translation labelled HUMAN_REVIEWED
+
+[api]
+  PASS  API · dev API answering on :8001 (development env) — {"ok":true,"env":"development"}
+  PASS  DISCOVERY · exactly 425 institutions, 425 intentional primary visuals, 0 broken, 0 cross-university — {"total":425,"rows":425,"A_CAMPUS_PHOTO":166,"C_OFFICIAL_VIDEO":71,"D_LOGO_IDENTITY":1,"E_NAME_IDENTITY":187,"intentional":425,"broken":0,"cross_university":0}
+  PASS  DISCOVERY · coverage CSV has one row per institution with verified_at and licence for every row — 425 rows
+  PASS  DISCOVERY · every one of the 425 detail routes answers 200 — 425/425
+  PASS  DISCOVERY · public detail exposes no internal verification enum or source-status field in rendered sections — api has last_verified=2026-10-17
+  PASS  TEST ACCESS · demo-login answers in development
+  PASS  TEST PAID STATE · payments config advertises the bypass in development; Toss env is test — env=test
+  PASS  TEST ACCESS · production refuses demo-login and the paid-state bypass; export = list; tenant export isolated (pytest) — ......................................                                   [100%]
+
+[rendered]
+  PASS  MARKETING · footer social block at 390: 5 links, _blank + noopener, 40 px targets, one row
+  PASS  MARKETING · footer page 390: no horizontal overflow, no console errors
+  PASS  MARKETING · footer social block at 1440: 5 links, _blank + noopener, 40 px targets, one row
+  PASS  MARKETING · footer page 1440: no horizontal overflow, no console errors
+  PASS  DISCOVERY · all 425 directory tiles render an intentional visual (loaded photo/film poster or identity composition) — 425/425
+  PASS  DISCOVERY · no tier badge wall on tiles
+  PASS  DISCOVERY · no console errors across the 18 directory pages
+  PASS  DISCOVERY · no horizontal overflow at 360 (directory + 3 detail pages) — overflow 0px
+  PASS  DISCOVERY · no horizontal overflow at 390 (directory + 3 detail pages) — overflow 0px
+  PASS  DISCOVERY · no horizontal overflow at 430 (directory + 3 detail pages) — overflow 0px
+  PASS  DISCOVERY · no horizontal overflow at 768 (directory + 3 detail pages) — overflow 0px
+  PASS  DISCOVERY · no horizontal overflow at 1440 (directory + 3 detail pages) — overflow 0px
+  PASS  DISCOVERY · no horizontal overflow at 1728 (directory + 3 detail pages) — overflow 0px
+  PASS  DISCOVERY · phone: search, Filters button, first result in the first screen; filters open in a sheet — first tile at 315px
+  PASS  TEST ACCESS · student login: "테스트 계정으로 로그인" visible, signs in, no password shown — http://localhost:3101/
+  PASS  TEST ACCESS · agency login: "테스트 계정으로 로그인" visible, signs in, no password shown — http://localhost:3102/
+  PASS  TEST ACCESS · university login: "테스트 계정으로 로그인" visible, signs in, no password shown — http://localhost:3103/
+  PASS  AGENCY · every stage count opens exactly that many students — 8 steps checked
+  PASS  AGENCY · no console errors
+  PASS  UNIVERSITY · every analytics bar link carries a filter (no drill to the unfiltered list) — 33 bars
+  PASS  UNIVERSITY · a cohort row opens that cohort's students — 26 → 15 rows
+  PASS  UNIVERSITY · no console errors
+
+qa:v23 static+api+rendered — 81 passed, 0 failed
+qa:v25 exit 0 · qa:v23 exit 0
+EXIT=0

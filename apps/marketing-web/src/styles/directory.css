@@ -1,0 +1,421 @@
+/* University directory, region map and the legal documents (formerly v12; loaded per page).
+   V26 (REPORT §347): one canonical file instead of version layers; the order inside is the original cascade order.
+   Declarations a later rule with the same selector and context always overrode were removed (scripts/qa/v26/css-consolidate.mjs). */
+
+/* ── from v12.css ───────────────────────────────────────────────────────────────────────────────────────────── */
+/* V12 — the Korean university directory, the region map, and the legal documents.
+   Loaded per page (Universities, UniversityDetail, Privacy, Terms), not from main.tsx, so the homepage never
+   pays for it. Vocabulary is the shared Koreanasha/Hangyul one; nothing here redefines a token. */
+
+/* ================================================================ Directory: 한국 대학
+   The page opens on a question, not on a photograph. Koreanasha's hero treatment belongs to the homepage; an
+   index needs its title and then its content, which is also why the head is type on the page background rather
+   than a band. */
+
+/* Clearance for the floating pill. The header is `position: fixed` with a top inset, so any page that does not
+   use `PageHero` (which carried this on `.ed-crumbband`) has to reserve the pill's height itself — otherwise its
+   first heading renders underneath it, which is exactly what the first build of this page did.
+
+   V19: the number is no longer written here. `calc(var(--kn-header-top) + 68px)` hardcoded the *desktop* pill's
+   height, so this page cleared 12 px too much below 1200 px and 2 px too little above it — and because the
+   `clamp()` added below grew with the viewport while the error flipped sign at the breakpoint, the measured gap
+   actually *shrank* from 41 px at 1024 to 30 px at 1280. `--kn-page-top` is derived from the variables that
+   position the pill and already carries the page-top rhythm, so the clamps that used to supply the breathing
+   room are gone with it: one number, one definition, one rhythm across every subpage. */
+.mk-dir__head { padding-block: var(--kn-page-top) clamp(20px, 3vw, 32px); }
+.mk-dir__title {
+  margin: 0;
+  font-size: clamp(1.75rem, 1.1rem + 2.7vw, 3rem);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: var(--hg-text);
+  max-width: 18ch;                      /* the question breaks after "어디에서", not mid-word */
+}
+.mk-dir__lede {
+  margin: 16px 0 0;
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.1875rem);
+  line-height: 1.75;
+  color: var(--hg-text-secondary);
+  max-width: 52ch;
+}
+
+/* Map beside the list on desktop; stacked, map first, everywhere else. The map column is fixed rather than
+   fluid because a region silhouette has one good size and shrinking it only makes Sejong unhittable. */
+.mk-dir__body { display: grid; gap: clamp(28px, 4vw, 48px); padding-bottom: clamp(48px, 7vw, 88px); }
+/* A grid item's `min-width` is `auto`, so it refuses to shrink below its content. The region chips are a
+   horizontal scroller ~1,680px wide on a phone, which made the *column* 1,680px wide and pushed the whole page
+   into horizontal scroll at 320–768px. `min-width: 0` lets the column be the width it is told and lets the
+   scroller do its own scrolling. */
+.mk-dir__picker, .mk-dir__results { min-width: 0; }
+@media (min-width: 992px) {
+  .mk-dir__body { grid-template-columns: minmax(320px, 420px) minmax(0, 1fr); align-items: start; }
+  .mk-dir__picker { position: sticky; top: 124px; }   /* clears the floating pill + its 40px inset */
+}
+
+/* The map is shown at every width. Brief Part 7 asks for a *compact* map on a phone beside a horizontal region
+   selector, not for no map — and most people who will ever read this page are browsing on a phone, so removing
+   the one thing that makes the page feel like Korea on exactly those devices was the wrong trade. It is centred
+   and capped at a height that leaves the chips and the first few universities above the fold; tapping a region
+   works the same as clicking one. */
+.mk-dir__mapwrap { margin-bottom: 16px; display: flex; justify-content: center; }
+.mk-dir__mapwrap .mk-map { width: 100%; max-width: 260px; }
+@media (min-width: 576px) { .mk-dir__mapwrap .mk-map { max-width: 320px; } }
+@media (min-width: 992px) { .mk-dir__mapwrap { margin-bottom: 20px; display: block; } .mk-dir__mapwrap .mk-map { max-width: none; } }
+
+/* ---------------------------------------------------------------- the map itself */
+.mk-map { position: relative; }
+.mk-map__svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.mk-map__region { cursor: pointer; outline: none; }
+.mk-map__shape {
+  fill: #E2DDD3;                        /* one neutral land fill: this is a selector, not a heat map */
+  stroke: #FFFFFF;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  transition: fill var(--hg-motion-fast) var(--hg-motion-easing);
+}
+.mk-map__dot {
+  fill: #BCB3A4;
+  stroke: #FFFFFF;
+  stroke-width: 2.5;
+  transition: fill var(--hg-motion-fast) var(--hg-motion-easing);
+}
+.mk-map__region:hover .mk-map__shape,
+.mk-map__region.is-hover .mk-map__shape { fill: #CEC6B8; }
+.mk-map__region:hover .mk-map__dot,
+.mk-map__region.is-hover .mk-map__dot { fill: #9C917E; }
+
+/* Selected is the brand's tangerine and the only colour on the map. */
+.mk-map__region.is-selected .mk-map__shape,
+.mk-map__region.is-selected .mk-map__dot { fill: var(--hg-primary); }
+
+/* The keyboard ring has to sit on an SVG child, where `outline` is unreliable across engines. */
+.mk-map__region:focus-visible .mk-map__shape,
+.mk-map__region:focus-visible .mk-map__dot {
+  stroke: var(--hg-text);
+  stroke-width: 3;
+  paint-order: stroke;
+}
+
+.mk-map__readout {
+  display: flex; align-items: baseline; gap: 10px;
+  min-height: 1.75em;                   /* reserved, so the map does not jump when the label appears */
+  margin: 12px 0 0;
+  font-size: var(--hg-text-md);
+  color: var(--hg-text);
+}
+.mk-map__readout strong { font-weight: 700; }
+.mk-map__readout span { color: var(--hg-text-secondary); }
+.mk-map__readout-idle { color: var(--hg-text-tertiary); }
+
+/* ---------------------------------------------------------------- region chips
+   The accessible control, and the only one on a phone. A horizontal scroller there, a wrapping set above it. */
+.mk-regions { display: flex; gap: 8px; }
+@media (max-width: 991px) {
+  .mk-regions {
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin-inline: calc(var(--kn-gutter, 20px) * -1);
+    padding-inline: var(--kn-gutter, 20px);
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+  .mk-regions__chip { flex: 0 0 auto; scroll-snap-align: start; }
+}
+@media (min-width: 992px) { .mk-regions { flex-wrap: wrap; } }
+
+.mk-regions__chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--hg-border);
+  border-radius: var(--hg-radius-pill);
+  background: var(--hg-surface);
+  color: var(--hg-text);
+  font-size: var(--hg-text-sm);
+  font-weight: 500;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: border-color var(--hg-motion-fast) var(--hg-motion-easing),
+              background var(--hg-motion-fast) var(--hg-motion-easing);
+}
+.mk-regions__chip:hover { border-color: var(--hg-border-strong); background: var(--hg-surface-hover); }
+.mk-regions__chip.is-selected {
+  background: var(--hg-primary);
+  border-color: var(--hg-primary);
+  color: var(--hg-text-on-primary);
+}
+/* The count is dimmed on an unselected chip (dark text on white, still well past AA) and NOT dimmed on a
+   selected one: 0.85 of white on tangerine measures 3.66:1, which fails. */
+.mk-regions__n { font-variant-numeric: tabular-nums; opacity: 0.65; font-weight: 400; }
+.mk-regions__chip.is-selected .mk-regions__n { opacity: 1; }
+
+/* ---------------------------------------------------------------- results */
+.mk-dir__resulthead {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--hg-border-subtle);
+  margin-bottom: 24px;
+}
+.mk-dir__resulttitle { margin: 0; font-size: var(--hg-text-xl); font-weight: 700; letter-spacing: -0.01em; }
+.mk-dir__count { margin: 0; color: var(--hg-text-secondary); font-size: var(--hg-text-sm); font-variant-numeric: tabular-nums; }
+
+/* An editorial list, not a card wall: a rule between entries, no box, no shadow, no repeated photograph.
+   V11's grid of identical campus photos — the same Kyung Hee picture six times — is what a card wall produces
+   when there is one image per university and six programmes each. */
+.mk-dir__grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.mk-dir__grid > li { border-bottom: 1px solid var(--hg-border-subtle); }
+@media (min-width: 640px) {
+  .mk-dir__grid { grid-template-columns: 1fr 1fr; column-gap: 40px; }
+}
+
+.mk-dir__pager { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 40px 0 8px; }
+.mk-dir__pageof { min-width: 7ch; text-align: center; color: var(--hg-text-secondary); font-size: var(--hg-type-small); }
+.mk-dir__source { margin: 24px 0 0; font-size: var(--hg-text-xs); line-height: 1.7; color: var(--hg-text-tertiary); }
+.mk-uni--loading { display: grid; gap: 16px; padding: 60px 0; }
+
+/* ================================================================ Legal documents
+   Quiet, readable, serious, finished. The measure is capped on the *text*, not the page, and the page has a
+   real gutter at every width — V11's privacy page lost its container and set every heading at x = 0. */
+
+.mk-legal { --mk-measure: 820px; }
+.mk-legal__main { max-width: var(--mk-measure); min-width: 0; }
+
+.mk-legal__head {
+  padding: 0 0 clamp(28px, 4vw, 40px);
+  border-bottom: 1px solid var(--hg-border-subtle);
+}
+.mk-legal__eyebrow {
+  margin: 0 0 10px; font-size: var(--hg-text-xs); font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--hg-text-tertiary);
+}
+.mk-legal__title {
+  margin: 0;
+  font-size: clamp(1.625rem, 1.2rem + 1.9vw, 2.375rem);
+  line-height: 1.25; letter-spacing: -0.02em; font-weight: 700;
+}
+.mk-legal__summary {
+  margin: 16px 0 0;
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+  line-height: 1.8; color: var(--hg-text-secondary);
+}
+.mk-legal__effective {
+  margin: 18px 0 0; font-size: var(--hg-text-sm); color: var(--hg-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.mk-legal__grid {
+  display: block;
+  padding: var(--kn-page-top) var(--kn-gutter, 20px) clamp(56px, 8vw, 104px);
+  margin-inline: auto;
+  max-width: calc(var(--mk-measure) + (var(--kn-gutter, 20px) * 2));
+}
+/* The sticky rail appears only where it can sit *beside* the measure instead of inside it. Below 1200px there
+   is no such room, so the disclosure above the text is the whole navigation. */
+.mk-legal__rail { display: none; }
+@media (min-width: 1200px) {
+  .mk-legal__grid {
+    display: grid;
+    grid-template-columns: 236px minmax(0, var(--mk-measure));
+    gap: 56px;
+    justify-content: center;
+    max-width: none;
+  }
+  /* The rail is sticky from where the document's first heading is, not from the top of the page: it holds the
+     section list, and the section list is only useful once there are sections above you. */
+  .mk-legal__rail {
+    display: block; position: sticky; top: 132px; align-self: start;
+    max-height: calc(100vh - 170px); overflow-y: auto;
+  }
+  .mk-legal__toc { display: none; }
+}
+
+.mk-legal__railtitle {
+  margin: 0 0 12px; font-size: var(--hg-text-xs); font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--hg-text-tertiary);
+}
+.mk-legal__toclist { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; counter-reset: none; }
+.mk-legal__toclist a {
+  display: grid; grid-template-columns: 1.6em 1fr; gap: 6px;
+  padding: 6px 10px; margin-inline-start: -10px;
+  border-radius: var(--hg-radius-sm);
+  font-size: var(--hg-text-sm); line-height: 1.5;
+  color: var(--hg-text-secondary); text-decoration: none;
+}
+.mk-legal__toclist a:hover { background: var(--hg-surface-hover); color: var(--hg-text); }
+.mk-legal__toclist a.is-current { color: var(--hg-primary-text); font-weight: 600; }
+/* `--hg-text-disabled` is #9da2aa — 2.56:1 on white. These numbers are small and decorative but they are
+   still rendered text, so they take the secondary tone. */
+.mk-legal__tocn { color: var(--hg-text-secondary); font-variant-numeric: tabular-nums; }
+.mk-legal__toclist a.is-current .mk-legal__tocn { color: var(--hg-primary); }
+
+.mk-legal__toc {
+  margin: clamp(28px, 4vw, 40px) 0 0;
+  border: 1px solid var(--hg-border);
+  border-radius: var(--hg-radius-md);
+  background: var(--hg-surface);
+}
+.mk-legal__toc > summary {
+  padding: 14px 16px; cursor: pointer; font-weight: 600; font-size: var(--hg-text-sm);
+  list-style-position: inside;
+}
+.mk-legal__toc[open] > summary { border-bottom: 1px solid var(--hg-border-subtle); }
+.mk-legal__toc .mk-legal__toclist { padding: 10px 16px 14px; }
+.mk-legal__toc .mk-legal__toclist a { margin-inline-start: 0; }
+
+/* ---- the document body: 17px/1.85, generous section rhythm, no cards anywhere */
+.mk-legal__prose {
+  padding-top: clamp(28px, 4vw, 44px);
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  color: var(--hg-text);
+}
+@media (max-width: 575px) { .mk-legal__prose { font-size: 1rem; line-height: 1.8; } }
+
+.mk-legal__section { scroll-margin-top: 124px; }     /* anchors clear the fixed pill */
+.mk-legal__section + .mk-legal__section { margin-top: clamp(40px, 5vw, 60px); }
+.mk-legal__prose h2 {
+  display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 12px;
+  margin: 0 0 18px;
+  font-size: clamp(1.1875rem, 1.1rem + 0.4vw, 1.375rem);
+  line-height: 1.4; letter-spacing: -0.01em; font-weight: 700;
+}
+/* `--hg-primary-text`, not `--hg-primary`. V14 moved the page off pure white onto `--kn-page` (#FDFAF7), and
+   #CC4E00 at 13px went from 4.51:1 to **4.34:1** — it had been passing AA by a hundredth and the new surface
+   took that away. #B84600 is the token that exists for exactly this (it is the AA-safe tangerine) and gives
+   5.16:1. Caught by `scripts/qa/a11y.mjs`, which is why the surface change did not ship a contrast failure. */
+.mk-legal__num {
+  font-size: var(--hg-text-sm); font-weight: 600; color: var(--hg-primary-text);
+  font-variant-numeric: tabular-nums;
+}
+.mk-legal__prose p { margin: 0 0 1.05em; }
+.mk-legal__prose p:last-child { margin-bottom: 0; }
+.mk-legal__prose ul,
+.mk-legal__prose ol { margin: 0 0 1.05em; padding-inline-start: 1.3em; }
+.mk-legal__prose li { margin-bottom: 0.5em; }
+/* Underlined, not merely coloured: a link inside a paragraph measured 1.28:1 against the surrounding text,
+   so colour alone was the only thing distinguishing it (WCAG 1.4.1). */
+.mk-legal__prose a { color: var(--hg-primary-text); text-decoration: underline; text-underline-offset: 3px; }
+
+/* The one sentence that limits outcomes, said once for the whole product (brief Part 5). It is emphasised
+   because it matters, not boxed — a callout here would be the disclaimer box the brief forbids. */
+.mk-legal__key { font-weight: 600; color: var(--hg-text); }
+
+.mk-legal__deflist { margin: 0; display: grid; gap: 0; }
+.mk-legal__deflist > div { padding: 14px 0; border-top: 1px solid var(--hg-border-subtle); }
+.mk-legal__deflist > div:last-child { border-bottom: 1px solid var(--hg-border-subtle); }
+.mk-legal__deflist dt { margin: 0 0 4px; font-weight: 700; }
+.mk-legal__deflist dd { margin: 0; color: var(--hg-text-secondary); }
+
+/* ---- tables: ruled rows, no zebra, no card. They stack into labelled rows on a phone rather than scroll. */
+.mk-legal__tablewrap { margin: 0 0 1.05em; }
+.mk-legal__table { width: 100%; border-collapse: collapse; font-size: var(--hg-text-sm); line-height: 1.7; }
+.mk-legal__table caption { text-align: start; color: var(--hg-text-tertiary); font-size: var(--hg-text-xs); padding-bottom: 8px; }
+.mk-legal__table th,
+.mk-legal__table td { text-align: start; vertical-align: top; padding: 12px 16px 12px 0; }
+.mk-legal__table thead th {
+  font-size: var(--hg-text-xs); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--hg-text-tertiary); border-bottom: 1px solid var(--hg-border-strong); padding-bottom: 10px;
+}
+.mk-legal__table tbody th { font-weight: 700; color: var(--hg-text); }
+.mk-legal__table tbody td { color: var(--hg-text-secondary); }
+.mk-legal__table tbody tr + tr th,
+.mk-legal__table tbody tr + tr td { border-top: 1px solid var(--hg-border-subtle); }
+.mk-legal__table th:last-child,
+.mk-legal__table td:last-child { padding-inline-end: 0; }
+
+@media (max-width: 767px) {
+  /* A four-column processing table cannot be read at 390px. Each row becomes its own block with the column
+     name in front of each cell, which reads correctly and never clips. */
+  .mk-legal__table,
+  .mk-legal__table tbody,
+  .mk-legal__table tr,
+  .mk-legal__table th,
+  .mk-legal__table td { display: block; width: auto; }
+  .mk-legal__table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .mk-legal__table tbody tr { padding: 16px 0; border-top: 1px solid var(--hg-border-subtle); }
+  .mk-legal__table tbody tr + tr th,
+  .mk-legal__table tbody tr + tr td { border-top: 0; }
+  .mk-legal__table tbody th { padding: 0 0 8px; font-size: var(--hg-text-md); }
+  .mk-legal__table tbody td { padding: 0 0 8px; }
+  .mk-legal__table tbody td:last-child { padding-bottom: 0; }
+  .mk-legal__table tbody td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: var(--hg-text-xs); letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--hg-text-tertiary); margin-bottom: 2px;
+  }
+}
+
+.mk-legal__foot {
+  margin-top: clamp(40px, 5vw, 60px);
+  padding-top: 24px;
+  border-top: 1px solid var(--hg-border-subtle);
+  font-size: var(--hg-text-sm); line-height: 1.8; color: var(--hg-text-tertiary);
+}
+.mk-legal__foot p { margin: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-map__shape, .mk-map__dot, .mk-regions__chip { transition: none; }
+}
+
+/* ================================================================ Korean line breaking
+   Korean breaks between any two syllables by default, so a narrow table cell renders "회원 및 / 계정" as
+   "회원 및 / 계 / 정" and a heading splits mid-word. `keep-all` breaks at 어절 boundaries instead, which is the
+   convention this codebase already follows for Korean headings (packages/ui/src/styles/base.css:16). Applied to
+   the surfaces V12 adds, with `break-word` kept as the escape hatch for a long URL in a source list. */
+:lang(ko) .mk-dir__title,
+:lang(ko) .mk-dir__lede,
+:lang(ko) .mk-dir__resulttitle,
+:lang(ko) .mk-unicard__name,
+:lang(ko) .mk-unicard__alt,
+:lang(ko) .mk-unicard__where,
+:lang(ko) .mk-legal__title,
+:lang(ko) .mk-legal__summary,
+:lang(ko) .mk-legal__prose,
+:lang(ko) .mk-legal__toclist,
+:lang(ko) .mk-regions__chip {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* The row-heading column holds short labels (구분 / 보관 대상 / 제공받는 자). Give it enough room that
+   "제공받는 자" does not become three lines beside a cell with eight words in it. */
+.mk-legal__table tbody th { min-width: 7.5em; }
+@media (min-width: 768px) { .mk-legal__table thead th:first-child { width: 18%; } }
+@media (max-width: 767px) { .mk-legal__table tbody th { min-width: 0; } }
+
+/* ---------------------------------------------------------------- name lookup
+   One input. Not the V11 filter toolbar: this finds a university you can already name, and nothing else. */
+.mk-dir__find {
+  position: relative;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 20px;
+  border: 1px solid var(--hg-border);
+  border-radius: var(--hg-radius-pill);
+  background: var(--hg-surface);
+  padding-inline: 14px;
+}
+.mk-dir__find:focus-within { border-color: var(--hg-primary); box-shadow: 0 0 0 3px var(--hg-primary-subtle); }
+.mk-dir__findicon { flex: 0 0 auto; color: var(--hg-text-tertiary); }
+.mk-dir__find input {
+  flex: 1 1 auto; min-width: 0;
+  border: 0; background: none; outline: none;
+  padding-block: 11px;
+  font: inherit; font-size: var(--hg-text-md); color: var(--hg-text);
+}
+.mk-dir__find input::placeholder { color: var(--hg-text-tertiary); }
+/* The native clear affordance differs per engine and collides with ours. */
+.mk-dir__find input::-webkit-search-cancel-button { display: none; }
+.mk-dir__findclear {
+  flex: 0 0 auto;
+  border: 0; background: none; cursor: pointer;
+  padding: 4px 2px;
+  font: inherit; font-size: var(--hg-text-sm); color: var(--hg-primary-text);
+}
+.mk-dir__findclear:hover { text-decoration: underline; }
+
+/* V22 — embedded legal page (native in-app sheet): no header, footer, closing band or table of contents. */
+html[data-embed='1'] body > #root > header, html[data-embed='1'] .kn-header, html[data-embed='1'] footer, html[data-embed='1'] .kn-footer,
+html[data-embed='1'] .mk-legal__toc, html[data-embed='1'] .mk-legal__rail, html[data-embed='1'] .kn-closing { display: none !important; }
+html[data-embed='1'] main, html[data-embed='1'] .mk-legal { padding-top: 8px !important; }

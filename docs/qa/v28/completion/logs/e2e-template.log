@@ -1,0 +1,35 @@
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 2b4364cc4444, initial schema
+INFO  [alembic.runtime.migration] Running upgrade 2b4364cc4444 -> c99e7dd5d3de, task title i18n keys
+INFO  [alembic.runtime.migration] Running upgrade c99e7dd5d3de -> 7a2dbb55e930, v3 agency ops: saved views, templates, attachments, message channel
+INFO  [alembic.runtime.migration] Running upgrade 7a2dbb55e930 -> bbd975903de4, v3 university ops document requests exports sso
+INFO  [alembic.runtime.migration] Running upgrade bbd975903de4 -> 339d47997f70, v3 requirement change proposals
+INFO  [alembic.runtime.migration] Running upgrade 339d47997f70 -> 1f066e786d89, v3 consultation close-out
+INFO  [alembic.runtime.migration] Running upgrade 1f066e786d89 -> c75a07df7958, v3 push tokens
+INFO  [alembic.runtime.migration] Running upgrade c75a07df7958 -> d5a1c0e55ccd, v5 success: submission connectors, application submissions, portfolio reviews, language recommendations
+INFO  [alembic.runtime.migration] Running upgrade d5a1c0e55ccd -> e5c0c1e2a7b1, v5 concierge: service cases, vendors, housing listings, arrival facts
+INFO  [alembic.runtime.migration] Running upgrade e5c0c1e2a7b1 -> a5e7c1d2b901, v5 writing review: prompts, rubric, findings, reviewer matching, SLA events, outcomes
+INFO  [alembic.runtime.migration] Running upgrade a5e7c1d2b901 -> f5d055e1a001, v5 dossier: document analyses, findings, extracted fields, dossier state, reuse events
+INFO  [alembic.runtime.migration] Running upgrade f5d055e1a001 -> f5e1a2b3c454, v5 visa routes: versioned embassy playbooks, route answers, visa case tracking, embassy requests, university visa tier
+INFO  [alembic.runtime.migration] Running upgrade f5e1a2b3c454 -> e6a1b2c3d4f5, v6 submission: connector completion, authorised-agency submission (legal basis, agency permission, student consent)
+INFO  [alembic.runtime.migration] Running upgrade e6a1b2c3d4f5 -> f6b7c8d9e0a1, v6 writing: suggestion decisions (student accepts / declines a reviewer suggestion) and authorship attestations
+INFO  [alembic.runtime.migration] Running upgrade f6b7c8d9e0a1 -> a8u1b2c3d4e5, v8 university: application_admin_checks (administrative check flag) and export_presets (saved export configuration)
+INFO  [alembic.runtime.migration] Running upgrade a8u1b2c3d4e5 -> v9s1sponsor01, v9 student: sponsor_links + sponsor_link_views (read-only, expiring, revocable sponsor view — REPORT §58 S3)
+INFO  [alembic.runtime.migration] Running upgrade v9s1sponsor01 -> v9a1agencyops, v9 agency: team member expertise/availability/capacity, agency load weights + legal identity, assignment sub-agent,
+template language groups, meeting records (REPORT §59 A4, A5, A8, A12)
+INFO  [alembic.runtime.migration] Running upgrade v9a1agencyops -> v12inst0001, V12 — the Korean institution directory, separate from the application catalogue.
+INFO  [alembic.runtime.migration] Running upgrade v12inst0001 -> v15plans0001, V15 — the three retail plans: structured entitlements, add-ons, staff recommendations.
+INFO  [alembic.runtime.migration] Running upgrade v15plans0001 -> v17enrich0001, V17 — verified institution enrichment, and the refund path.
+INFO  [alembic.runtime.migration] Running upgrade v17enrich0001 -> v21paymeth001, V21 — stored foreign-card payment methods.
+INFO  [alembic.runtime.migration] Running upgrade v21paymeth001 -> v22identity0001, V22 — verified identity, consent evidence, abuse-control events (REPORT §244–245, §253).
+INFO  [alembic.runtime.migration] Running upgrade v22identity0001 -> v22roles0001, V22 — one operational permission per tenant type (REPORT §246–247, §257–258).
+INFO  [alembic.runtime.migration] Running upgrade v22roles0001 -> v27adm0001, V27 — verified admission rules: language rules, admission guides, guide-sourced requirements, structured scholarships.
+INFO  [alembic.runtime.migration] Running upgrade v27adm0001 -> v28sch0001, V28: scholarship names as published — native, official English, Korean display (REPORT §374, UX_AUDIT MK-4).
+  institutions: 425
+  v27 research: {'rules': 768, 'scholarships': 461, 'guides': 11, 'requirements': 241, 'institutions': 24, 'unknown_slugs': []}
+  V15 plans: reconciled 55 orders · 8 covered by add-on · 7 offer waiting · 1 over with nothing
+Seeded: 227 users, 10 universities, 67 programs, 99 applications, 471 documents, 132 tasks.
+Demo password for all demo accounts: Hangyul!2026
+fixture guides: 38
+template hangyul_univ_e2e_tpl ready

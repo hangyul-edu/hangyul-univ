@@ -1,0 +1,18 @@
+[
+  { "check": "overlapping-controls", "product": "student", "path": "/register", "match": "hg-pw__toggle",
+    "reason": "The show/hide-password toggle is deliberately inside its field (a standard pattern); it is the field's own control, not a collision." },
+  { "check": "overlapping-controls", "product": "agency", "path": "/applications/:id", "match": "닫기",
+    "reason": "The open drawer covers the console top bar by design. V30 lifted drawers above the YNEX header (z 1051 > 100); an elementsFromPoint probe at the close button returns the drawer's own button (REPORT §414)." },
+  { "check": "oversized-select", "product": "agency", "path": "/universities", "match": "학생 미선택",
+    "reason": "A labelled context picker (visible label above, hint below), not a toolbar filter; sized to 360 px so student names with their degree fit." },
+  { "check": "mixed-locale", "product": "student", "path": "/scholarships", "match": "Admission Guide",
+    "reason": "Official titles of the universities' own admission guides (source documents), shown as published." },
+  { "check": "mixed-locale", "product": "agency", "path": "/essays/:id", "match": "Describe your motivation",
+    "reason": "The university's essay prompt and the student's essay text — authored content, in the language it was written." },
+  { "check": "mixed-locale", "product": "university", "path": "/programs", "match": "TOPIK",
+    "reason": "The university's own admission-rule note (seeded content authored by the university), not interface copy." },
+  { "check": "mixed-locale", "product": "university", "path": "/rules", "match": "TOPIK",
+    "reason": "Same university-authored rule note as /programs." },
+  { "check": "mixed-locale", "product": "university", "path": "/partnership", "match": "Conditional admission",
+    "reason": "Programme condition text authored by the university (content), not interface copy. The interface definition beside it was localised in V30 (§412)." }
+]

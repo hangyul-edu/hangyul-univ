@@ -1,0 +1,335 @@
+/* Site-wide compositions loaded by SiteLayout: header, footer, CTA system, directory cards (formerly v23 + v24 + v25).
+   V26 (REPORT §347): one canonical file instead of version layers; the order inside is the original cascade order.
+   Declarations a later rule with the same selector and context always overrode were removed (scripts/qa/v26/css-consolidate.mjs). */
+
+/* ── from v23.css ───────────────────────────────────────────────────────────────────────────────────────────── */
+/* V23 — final product pass (REPORT §268–§276). `.kn .kn-*` specificity on purpose: rtlcss rewrites the Eduan
+   element rules to `[dir] p` (0,1,1), which beats a single class (V13 §95). */
+
+/* ------------------------------------------------------------------ footer · social media (§269 M1) */
+.kn .kn-footer__social { display: flex; flex-direction: column; gap: 8px; margin-block: 20px 4px; }
+.kn .kn-footer__social-title { margin: 0; font-size: 13px; font-weight: 500; line-height: 1.4; color: var(--hg-text-secondary); }
+.kn .kn-footer__social-list {
+  display: flex; align-items: center; gap: 4px; list-style: none; padding: 0; margin: 0;
+  margin-inline-start: -10px; /* first glyph aligns with the heading */
+}
+.kn .kn-footer__social-link {
+  display: inline-flex; align-items: center; justify-content: center;
+  inline-size: 40px; block-size: 40px; border-radius: 10px;
+  color: var(--brand, var(--hg-text-secondary));
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.kn .kn-footer__social-link svg { display: block; flex-shrink: 0; }
+.kn .kn-footer__social-link:hover { background-color: var(--brand-tint, var(--hg-surface-subtle)); transform: translateY(-1px); }
+.kn .kn-footer__social-link:focus-visible {
+  background-color: var(--brand-tint, var(--hg-surface-subtle));
+  outline: 2px solid var(--hg-focus-ring, #FF6700); outline-offset: 2px;
+}
+@media (forced-colors: active) { .kn .kn-footer__social-link { color: LinkText; } }
+@media (prefers-reduced-motion: reduce) {
+  .kn .kn-footer__social-link { transition: none; }
+  .kn .kn-footer__social-link:hover { transform: none; }
+}
+
+/* ------------------------------------------------------------------ university hero, identity tier (§270 D1) */
+.kn .hg-uni-hero--type .hg-uni-hero__crumbs a { color: inherit; }
+
+/* ------------------------------------------------------------------ directory (§270 D2–D3)
+   Heading, search, results. Phones: one Filters button and a bottom sheet. Wider: kind + map in the search row,
+   the eight places as one row that scrolls sideways instead of wrapping into a wall. */
+.kn .mk-dir__top { padding-block: var(--kn-page-top) clamp(14px, 2vw, 22px); display: grid; gap: 14px; }
+.kn .mk-dir__title { max-width: none; font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.75rem); }
+/* V30 (REPORT §408) — one toolbar grammar. Search, type filter and the map action are the same family: one
+   height (`--mk-dir-ctl`), one pill radius, one 3:1 border (`--hg-border-control`; search and type used the
+   1.2:1 `--hg-border` and looked unfinished beside the map button). Search is the flexible control; the
+   other two are content-sized. The region chips below are a different, lighter grammar on purpose. */
+.kn .mk-dir__top { --mk-dir-ctl: 48px; }
+.kn .mk-dir__bar { display: flex; align-items: center; gap: 10px; flex-wrap: nowrap; }
+.kn .mk-dir__bar .mk-dir__find {
+  flex: 1 1 0; max-inline-size: 640px; margin: 0; min-inline-size: 0;
+  block-size: var(--mk-dir-ctl); padding-inline: 18px 14px; border-color: var(--hg-border-control);
+}
+.kn .mk-dir__bar .mk-dir__find:hover { border-color: var(--hg-control-secondary-border-hover); }
+.kn .mk-dir__bar .mk-dir__find input { inline-size: 100%; min-inline-size: 0; padding-block: 0; block-size: 100%; }
+.kn .mk-dir__kindwrap { flex: none; }
+.kn .mk-dir__bar .hg-fsel {
+  --hg-fsel-h: var(--mk-dir-ctl); border-radius: 999px; padding-inline: 18px 14px;
+  border-color: var(--hg-border-control); font-size: 14px;
+}
+.kn .mk-dir__bar .hg-fsel__value { font-weight: 600; }
+.kn .mk-dir__bar .mk-dir__maptoggle {
+  flex: none; block-size: var(--mk-dir-ctl); padding-block: 0; padding-inline: 16px 18px; gap: 8px;
+  border-color: var(--hg-border-control); font-weight: 600;
+}
+.kn .mk-dir__bar .mk-dir__maptoggle:hover { border-color: var(--hg-control-secondary-border-hover); background: var(--hg-control-secondary-bg-hover); }
+.kn .mk-dir__bar .mk-dir__maptoggle[aria-expanded='true'] { border-color: var(--hg-text); box-shadow: inset 0 0 0 1px var(--hg-text); }
+/* Region chips: content-hugging, one height, text optically centred; the selected "전체" is the same chip. */
+.kn .mk-dir__groups .mk-dir__group {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  min-block-size: 40px; block-size: 40px; padding: 0 16px; line-height: 1;
+}
+@media (max-width: 767px) { .kn .mk-dir__top { --mk-dir-ctl: 48px; } .kn .mk-dir__bar .mk-dir__filterbtn { block-size: var(--mk-dir-ctl); padding-block: 0; border-color: var(--hg-border-control); } }
+.kn .mk-dir__groups {
+  flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain;
+  margin-inline: -4px; padding: 4px; /* room for the focus ring inside the scroller */
+}
+.kn .mk-dir__groups::-webkit-scrollbar { display: none; }
+.kn .mk-dir__filterbtn {
+  flex: none; display: inline-flex; align-items: center; gap: 7px;
+  padding: 11px 15px; border-radius: 999px; min-block-size: 44px;
+  border: 1px solid var(--hg-border-control, var(--hg-border-strong)); background: var(--hg-surface);
+  font-size: 14px; font-weight: 600; color: var(--hg-text); cursor: pointer;
+}
+.kn .mk-dir__filterbtn:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 2px; }
+.kn .mk-dir__filtercount {
+  display: inline-grid; place-items: center; min-inline-size: 20px; block-size: 20px; padding-inline: 5px;
+  border-radius: 999px; background: var(--hg-primary); color: #fff; font-size: 12px; font-weight: 700;
+}
+.kn .mk-dir__active { display: flex; flex-wrap: wrap; gap: 8px; }
+.kn .mk-dir__chip {
+  display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--hg-text); background: var(--hg-text); color: var(--hg-surface);
+  font-size: 13px; font-weight: 600; cursor: pointer;
+}
+.kn .mk-dir__chip:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 2px; }
+.kn .mk-dir__body { padding-block-start: 4px; }
+.kn .mk-dir__wide { display: inline-flex; }
+.kn .mk-dir__groups.mk-dir__wide { display: flex; }
+.kn .mk-dir__picker.mk-dir__wide { display: grid; }
+.kn .mk-dir__picker:not([data-open]) { display: none !important; }
+.kn .mk-dir__narrow { display: none; }
+@media (max-width: 767px) {
+  .kn .mk-dir__wide, .kn .mk-dir__groups.mk-dir__wide, .kn .mk-dir__picker.mk-dir__wide,
+  .kn .mk-dir__maptoggle.mk-dir__wide { display: none !important; }
+  .kn .mk-dir__narrow { display: inline-flex; }
+  .kn .mk-dir__active.mk-dir__narrow { display: flex; }
+  .kn .mk-dir__top { gap: 12px; padding-block-end: 10px; }
+}
+/* The filter sheet. Portalled to <body>, so it is outside `.kn` and styled on its own. */
+.mk-dir__sheet { display: grid; gap: 22px; }
+.mk-dir__sheet fieldset { border: 0; margin: 0; padding: 0; min-inline-size: 0; }
+.mk-dir__sheet legend { padding: 0; margin-block-end: 10px; font-size: 13px; font-weight: 700; color: var(--hg-text-secondary); }
+.mk-dir__sheetopts { display: flex; flex-wrap: wrap; gap: 8px; }
+.mk-dir__sheet .mk-dir__group {
+  display: inline-flex; align-items: center; padding: 0 14px; border-radius: 999px; min-block-size: 40px;
+  border: 1px solid var(--hg-border-control); background: var(--hg-surface); /* V30: same chip edge as the toolbar */
+  font-size: 14px; font-weight: 550; color: var(--hg-text-secondary); cursor: pointer;
+}
+.mk-dir__sheet .mk-dir__group[aria-pressed='true'] { background: var(--hg-text); border-color: var(--hg-text); color: var(--hg-surface); }
+.mk-dir__sheet .mk-dir__group:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 2px; }
+.mk-dir__n { margin-inline-start: 4px; font-size: 12px; opacity: 0.6; font-variant-numeric: tabular-nums; }
+
+/* tile: film poster carries a play mark; the identity composition fills the frame */
+.kn .mk-unicard__play {
+  position: absolute; z-index: 2;
+  display: grid; place-items: center; border-radius: 999px; color: var(--hg-text);
+}
+.kn .mk-unicard__play svg { margin-inline-start: 2px; fill: currentColor; }
+.kn .mk-unicard__visual .hg-uni-art__map { transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1); }
+.kn .mk-unicard:hover .hg-uni-art__map { transform: translateY(-2px); }
+@media (prefers-reduced-motion: reduce) { .kn .mk-unicard:hover .hg-uni-art__map { transform: none; } }
+
+/* ── from v24.css ───────────────────────────────────────────────────────────────────────────────────────────── */
+/*
+ * V24 — the marketing site's small objects (REPORT §291).
+ *
+ * Loaded after v23.css by SiteLayout. Two controls are redrawn here: the secondary under the university marquee
+ * and the plan-comparison disclosure. Both stay unfilled: the one filled tangerine action on any marketing view
+ * is 유학 준비 / 이 대학 유학 준비하기, and qa:v24 checks that nothing else on the page takes that colour as a fill.
+ */
+
+/* V25: the secondary under the marquee and the plan-comparison disclosure moved to v25.css (REPORT §311). */
+
+/* ------------------------------------------------------------------------- directory card (§292) */
+
+/* The credit sits on the picture's lower edge, on its own small scrim, so the card's text is exactly
+   name · other-script name · region · type and every row of the grid ends on the same line. */
+.kn .mk-unicard__credit--over {
+  position: absolute; inset-block-end: 8px; inset-inline-end: 8px; z-index: 2;
+  margin: 0; line-height: var(--hg-type-caption-leading); letter-spacing: 0.01em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.kn .mk-unicard__credit--over a { color: inherit; border-block-end-color: rgb(255 255 255 / 0.5); opacity: 1; }
+.kn .mk-unicard__credit--over a:hover, .kn .mk-unicard__credit--over a:focus-visible { border-block-end-color: #fff; }
+
+/* The film mark stays (it says the poster is a film, not a photograph) but recedes: smaller, translucent. */
+.kn .mk-unicard__play { inline-size: 26px; block-size: 26px; background: rgb(255 255 255 / 0.82); inset-block-end: 10px; inset-inline-end: 10px; }
+.kn .mk-unicard__play svg { inline-size: 11px; block-size: 11px; }
+
+/* Long names clamp at two lines so a single 34-character name cannot push its row out of step. */
+.kn .mk-unicard__name { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.kn .mk-unicard__alt { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ── from v25.css ───────────────────────────────────────────────────────────────────────────────────────────── */
+/*
+ * V25 — one interaction system for the marketing site (REPORT §311, §317).
+ *
+ * Four roles and only four:
+ *   PRIMARY     tangerine fill, white label, → — `.kn-btn--primary` (koreanasha.scss)
+ *   SECONDARY   warm-neutral filled surface, ink label — `.kn-btn--secondary` / `--outline`; on photographs `--quiet-onphoto`
+ *   TERTIARY    text with a directional mark, no container — `.kn-textlink`
+ *   DISCLOSURE  opens and closes content in place — `.kn-compare` (and the FAQ rows)
+ * Shape comes from `--hg-control-*` (soft rectangle, 10 px). Pills remain only for chips and selectors.
+ * Loaded after v24.css by SiteLayout; it sets no literal font size (qa:v25 checks).
+ */
+
+/* ------------------------------------------------------------------------------------------ TERTIARY */
+
+.kn-textlink {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--hg-text); font-weight: var(--hg-weight-semibold); text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0 1.5px; background-position: 0 100%; background-repeat: no-repeat;
+  padding-block: 4px;
+  transition: background-size var(--hg-motion-base) var(--hg-ease-enter);
+}
+.kn-textlink:hover { background-size: 100% 1.5px; color: var(--hg-text); }
+.kn-textlink > svg { inline-size: 16px; block-size: 16px; transition: translate var(--hg-motion-base) var(--hg-ease-enter); }
+.kn-textlink:hover > svg:last-child { translate: 3px 0; }
+[dir='rtl'] .kn-textlink:hover > svg:last-child { translate: -3px 0; }
+.kn-textlink:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 3px; border-radius: var(--hg-radius-xs); }
+@media (prefers-reduced-motion: reduce) { .kn-textlink, .kn-textlink > svg { transition: none; } .kn-textlink:hover > svg:last-child { translate: none; } }
+
+/* ------------------------------------------------------------------- section action (대학 전체 보기) */
+
+/* Directly under the section heading: the heading says what is here, the action opens all of it, the logos follow. */
+.kn .kn-head__action { margin-top: var(--hg-space-6, 24px); display: flex; justify-content: center; }
+.kn .kn-head--start .kn-head__action { justify-content: flex-start; }
+.kn-btn--browse { min-width: 200px; }
+/* The logos sit one group-step below the action, so the three read as one section. */
+.kn .kn-head:has(.kn-head__action) + .kn-crests { margin-top: clamp(36px, 4vw, 52px); }
+@media (max-width: 575px) { .kn-btn--browse { width: 100%; } }
+
+/* -------------------------------------------------------------------------------- plan CTAs (V15 cards) */
+
+/* The recommended plan carries the one primary; the other two are SECONDARY — the same filled neutral as every other
+   secondary on the site, rather than V15's two different outline weights. */
+.kn .kn-plan__cta {
+  border: 0;
+  border-radius: var(--hg-control-radius);
+  min-height: var(--hg-control-height);
+  background: var(--hg-control-secondary-bg);
+  color: var(--hg-control-secondary-text);
+}
+.kn .kn-plan__cta:hover { background: var(--hg-control-secondary-bg-hover); border-color: transparent; color: var(--hg-control-secondary-text); }
+.kn .kn-plan__cta:active { background: var(--hg-control-secondary-bg-pressed); }
+.kn .kn-plan[data-plan='premium'] .kn-plan__cta { border: 0; }
+.kn .kn-plan[data-plan='premium'] .kn-plan__cta:hover { background: var(--hg-control-secondary-bg-hover); color: var(--hg-control-secondary-text); }
+.kn .kn-plan[data-recommended] .kn-plan__cta,
+.kn .kn-plan[data-recommended] .kn-plan__cta:hover,
+.kn .kn-plan[data-recommended] .kn-plan__cta:focus-visible,
+.kn .kn-plan[data-recommended] .kn-plan__cta:active { color: var(--hg-text-on-primary); }
+.kn .kn-plan[data-recommended] .kn-plan__cta { background: var(--hg-primary); }
+.kn .kn-plan[data-recommended] .kn-plan__cta:hover { background: var(--hg-primary-hover); }
+.kn .kn-plan[data-recommended] .kn-plan__cta:active { background: var(--hg-primary-pressed); }
+
+/* ---------------------------------------------------------------------- DISCLOSURE: 플랜 자세히 비교하기 */
+
+/* Attached to the plans: the full width of the three cards, a filled neutral bar (unmistakably a control, not a divider),
+   label and chevron together in the middle. Open, the bar squares its lower corners and the table hangs from it on the
+   same surface, so the comparison reads as the plans' own drawer. The panel's height animates where the browser can
+   interpolate `auto` (`::details-content` + `interpolate-size`); elsewhere and under reduced motion it opens at once. */
+.kn .kn-compare-wrap { margin-top: clamp(28px, 3vw, 40px); }
+/* ≥ 1024 the plans sit in three columns whose text is inset from the container; the bar aligns to that edge, so it reads
+   as hanging from the plans, not from the page. */
+@media (min-width: 1024px) {
+  .kn .kn-compare-wrap { margin-top: calc(clamp(28px, 3vw, 40px) - var(--p-head, 0px)); padding-inline: clamp(22px, 2.2vw, 30px); }
+}
+.kn details.kn-compare { border: 0; margin: 0; interpolate-size: allow-keywords; }
+.kn details.kn-compare .kn-compare__toggle {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  inline-size: 100%; max-inline-size: none; margin: 0;
+  min-block-size: 56px; padding: 0 20px;
+  border: 0; border-radius: var(--hg-control-radius);
+  background: var(--hg-control-secondary-bg);
+  color: var(--hg-control-secondary-text);
+  font-size: var(--hg-text-lg); font-weight: var(--hg-weight-semibold);
+  cursor: pointer; list-style: none;
+  transition: background-color var(--hg-motion-fast) var(--hg-motion-easing), border-radius var(--hg-motion-base) var(--hg-ease-standard);
+}
+.kn details.kn-compare .kn-compare__toggle::-webkit-details-marker { display: none; }
+.kn details.kn-compare .kn-compare__toggle::after { content: none; }
+.kn details.kn-compare .kn-compare__toggle > span:first-child { flex: 0 1 auto; }
+.kn details.kn-compare .kn-compare__toggle:hover { background: var(--hg-control-secondary-bg-hover); color: var(--hg-control-secondary-text); }
+.kn details.kn-compare .kn-compare__toggle:active { background: var(--hg-control-secondary-bg-pressed); }
+.kn details.kn-compare .kn-compare__toggle:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 3px; }
+.kn details.kn-compare[open] .kn-compare__toggle { border-end-start-radius: 0; border-end-end-radius: 0; }
+/* The chevron is a mark beside the words, not a separate disc at the far edge. */
+.kn details.kn-compare .kn-compare__chev {
+  flex: none; position: relative; inline-size: 18px; block-size: 18px;
+  background: none; border: 0; border-radius: 0;
+  transition: transform var(--hg-motion-base) var(--hg-ease-standard);
+}
+.kn details.kn-compare .kn-compare__chev::before {
+  content: ''; position: absolute; inset: 0; margin: auto;
+  inline-size: 8px; block-size: 8px;
+  border-inline-end: 2px solid currentColor; border-block-end: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+.kn details.kn-compare[open] .kn-compare__chev { transform: rotate(180deg); }
+.kn details.kn-compare .kn-compare__body {
+  padding: clamp(20px, 3vw, 36px) clamp(12px, 2.4vw, 32px) clamp(24px, 3vw, 40px);
+  border: 1px solid var(--hg-control-secondary-bg);
+  border-block-start: 0;
+  border-end-start-radius: var(--hg-control-radius); border-end-end-radius: var(--hg-control-radius);
+  background: #FCFBF9;
+}
+.kn details.kn-compare::details-content {
+  block-size: 0; overflow: clip;
+  transition: block-size var(--hg-motion-slow) var(--hg-ease-standard), content-visibility var(--hg-motion-slow) allow-discrete;
+}
+.kn details.kn-compare[open]::details-content { block-size: auto; }
+@media (prefers-reduced-motion: reduce) {
+  details.kn-compare::details-content, details.kn-compare .kn-compare__chev, details.kn-compare .kn-compare__toggle { transition: none; }
+}
+
+/* --------------------------------------------------------------------------------------- closing band */
+
+/* Without the corner ornament the band needs its own quiet depth: a single soft tangerine glow behind the copy side,
+   too faint to compete with the primary button. */
+.kn .kn-cta { background-image: radial-gradient(120% 140% at 0% 0%, rgb(204 78 0 / 0.16), transparent 55%); }
+
+/* ------------------------------------------------------------------------------- directory card (§312 D4) */
+
+/* Photo-first: the picture is the card. Hover lifts the picture 2 px and scales it 1.5 %; the name's arrow moves 3 px.
+   Pressed settles back; keyboard focus rings the whole card (the stretched link carries focus). */
+.kn .mk-unicard__visual { border-radius: var(--hg-radius-xl); transition: translate var(--hg-motion-base) var(--hg-ease-enter), box-shadow var(--hg-motion-base) var(--hg-ease-enter); }
+.kn .mk-unicard:hover .mk-unicard__visual { translate: 0 -2px; box-shadow: var(--hg-shadow-md); }
+.kn .mk-unicard:active .mk-unicard__visual { translate: 0 0; box-shadow: none; }
+.kn .mk-unicard:hover .mk-unicard__visual img:not(.mk-unicard__logo) { transform: scale(1.015); }
+.kn .mk-unicard__visual .hg-uni__img { inline-size: 100%; block-size: 100%; object-fit: cover; transition: transform 520ms var(--hg-ease-enter); }
+.kn .mk-unicard__link:focus-visible { outline: none; }
+.kn .mk-unicard__link:focus-visible::after { outline: 3px solid var(--hg-primary); outline-offset: 3px; }
+.kn .mk-unicard__name { font-size: var(--hg-type-h3); line-height: var(--hg-type-h3-leading); font-weight: var(--hg-weight-bold); letter-spacing: -0.014em; }
+.kn .mk-unicard__name::after { content: '→'; display: inline-block; margin-inline-start: 6px; color: var(--hg-text-tertiary); font-weight: var(--hg-weight-regular); transition: translate var(--hg-motion-base) var(--hg-ease-enter), color var(--hg-motion-fast) var(--hg-motion-easing); }
+[dir='rtl'] .kn .mk-unicard__name::after { content: '←'; }
+.kn .mk-unicard:hover .mk-unicard__name { color: var(--hg-text); }
+.kn .mk-unicard:hover .mk-unicard__name::after { translate: 3px 0; color: var(--hg-primary-text); }
+[dir='rtl'] .kn .mk-unicard:hover .mk-unicard__name::after { translate: -3px 0; }
+.kn .mk-unicard__where { font-size: var(--hg-type-small); color: var(--hg-text-secondary); }
+/* Credit: a caption on the picture's own lower edge, over a soft gradient — present, attached, quiet. */
+.kn .mk-unicard__credit--over {
+  inset: auto 0 0 0; max-inline-size: none; border-radius: 0;
+  padding: 18px 10px 6px; text-align: end;
+  background: linear-gradient(to top, rgb(0 0 0 / 0.55), rgb(0 0 0 / 0));
+  color: rgb(255 255 255 / 0.9); font-size: var(--hg-text-xs);
+}
+@media (prefers-reduced-motion: reduce) {
+  .kn .mk-unicard__visual, .kn .mk-unicard__name::after, .kn .mk-unicard__visual .hg-uni__img { transition: none; }
+  .kn .mk-unicard:hover .mk-unicard__visual, .kn .mk-unicard:hover .mk-unicard__name::after { translate: none; }
+}
+
+/* --------------------------------------------------------------- the light identity hero (§312 D3) */
+/* V23 drew the identity hero on ink and set its crumbs, site link and match chip white; V25's field is light, so they are ink. */
+.kn .hg-uni-hero--type .hg-uni-hero__crumbs { color: var(--hg-text-secondary); }
+.kn .hg-uni-hero--type .hg-uni-hero__site { color: var(--hg-text); }
+.kn .hg-uni-hero--type .hg-uni-hero__from { background: rgb(19 21 25 / 0.06); color: var(--hg-text); }
+
+/* The header's 유학 준비 is the site's one persistent action: it clears the 44 px touch target like every other control. */
+.kn .kn-header .kn-btn--sm { min-height: 44px; }
+
+/* ── Layout stability (V26, REPORT §348) ───────────────────────────────────────────────────────────────────────
+   While a page's code or data is still loading, <main> was empty and the footer rendered near the top, then jumped
+   down twice when the content arrived: CLS 0.671 on a university page (measured, perf-before.json). The main area always
+   claims at least the viewport, so the footer starts below the fold and never moves into view and out again. */
+.ed-main { min-height: 100vh; }

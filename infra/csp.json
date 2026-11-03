@@ -1,0 +1,49 @@
+{
+  "$comment": "V29 — the single source of the web apps' Content-Security-Policy. infra/nginx/hangyul.conf is GENERATED from this file by `node scripts/ops/gen-nginx.mjs`; scripts/ops/check-csp.mjs checks built dist/ HTML against it. Never add 'unsafe-eval'. 'unsafe-inline' is allowed for style-src ONLY (see docs/SECURITY.md#csp): React `style={{…}}` (≈120 files) is applied through CSSOM and needs nothing, but the Toss Payments SDK and Cloudflare Turnstile inject <style> elements and the YNEX console theme sets style attributes in markup. script-src never has it — the Vite builds emit one external module script per page and no inline script.",
+  "report_only": false,
+  "report_uri": null,
+  "api_origin": "",
+  "hsts": "max-age=31536000; includeSubDomains",
+  "common": {
+    "default-src": ["'self'"],
+    "script-src": ["'self'"],
+    "style-src": ["'self'", "'unsafe-inline'"],
+    "img-src": ["'self'", "data:", "blob:"],
+    "font-src": ["'self'", "data:"],
+    "connect-src": ["'self'"],
+    "frame-src": ["'self'"],
+    "worker-src": ["'self'", "blob:"],
+    "media-src": ["'self'"],
+    "manifest-src": ["'self'"],
+    "object-src": ["'none'"],
+    "base-uri": ["'self'"],
+    "form-action": ["'self'"],
+    "frame-ancestors": ["'none'"],
+    "upgrade-insecure-requests": []
+  },
+  "features": {
+    "youtube": {
+      "frame-src": ["https://www.youtube-nocookie.com", "https://www.youtube.com"],
+      "img-src": ["https://i.ytimg.com"]
+    },
+    "turnstile": {
+      "script-src": ["https://challenges.cloudflare.com"],
+      "frame-src": ["https://challenges.cloudflare.com"],
+      "connect-src": ["https://challenges.cloudflare.com"]
+    },
+    "toss": {
+      "script-src": ["https://js.tosspayments.com"],
+      "connect-src": ["https://api.tosspayments.com", "https://*.tosspayments.com"],
+      "frame-src": ["https://*.tosspayments.com"],
+      "img-src": ["https://*.tosspayments.com"],
+      "form-action": ["https://*.tosspayments.com"]
+    }
+  },
+  "apps": {
+    "marketing": {"server_name": "www.hangyul-univ.example", "root": "/srv/hangyul/marketing-web", "features": ["youtube", "turnstile"]},
+    "student": {"server_name": "app.hangyul-univ.example", "root": "/srv/hangyul/student-web", "features": ["youtube", "turnstile", "toss"]},
+    "agency": {"server_name": "agency.hangyul-univ.example", "root": "/srv/hangyul/agency-web", "features": []},
+    "university": {"server_name": "university.hangyul-univ.example", "root": "/srv/hangyul/university-web", "features": []}
+  },
+  "api_upstream": "http://127.0.0.1:8001"
+}

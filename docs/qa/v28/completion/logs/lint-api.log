@@ -1,0 +1,175 @@
+I001 [*] Import block is un-sorted or un-formatted
+  --> app/api/common.py:1:1
+   |
+ 1 | / import uuid
+ 2 | | from datetime import date, datetime
+ 3 | | from typing import Any
+ 4 | |
+ 5 | | from fastapi import HTTPException, Query
+ 6 | | from sqlalchemy import Select, func, select
+ 7 | | from sqlalchemy.orm import Session
+ 8 | |
+ 9 | | from app.core.deps import Principal
+10 | | from app.services.facts import withheld
+11 | | from app.core.security import mask
+12 | | from app.models import (
+13 | |     Application,
+14 | |     Document,
+15 | |     DocumentVersion,
+16 | |     Program,
+17 | |     ProgramIntake,
+18 | |     StudentProfile,
+19 | |     University,
+20 | |     User,
+21 | | )
+22 | | from app.services.state_machine import AGENCY, HANGYUL, STUDENT, UNIVERSITY
+   | |___________________________________________________________________________^
+help: Organize imports
+   |
+9  | from app.core.deps import Principal
+   - from app.services.facts import withheld
+10 | from app.core.security import mask
+--------------------------------------------------------------------------------
+20 | )
+21 + from app.services.facts import withheld
+22 | from app.services.state_machine import AGENCY, HANGYUL, STUDENT, UNIVERSITY
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> app/api/v1/student.py:1:1
+   |
+ 1 | / import hashlib
+ 2 | | import logging
+ 3 | | import re
+ 4 | | import secrets
+ 5 | | import time
+ 6 | | import uuid
+ 7 | | from collections import defaultdict, deque
+ 8 | | from datetime import date, datetime, timedelta
+ 9 | |
+10 | | from fastapi import APIRouter, Depends, HTTPException, Query, Request
+11 | | from pydantic import BaseModel, Field, field_validator
+12 | | from sqlalchemy import func, select, update
+13 | | from sqlalchemy.orm import Session, selectinload
+14 | |
+15 | | from app.services.facts import withheld
+16 | | from app.api.common import iso, parse_uuid, ser_application, ser_intake, ser_profile, ser_program
+17 | | from app.core import crypto
+18 | | from app.core.audit import audit, track
+19 | | from app.core.config import get_settings
+20 | | from app.core.db import get_db
+21 | | from app.core.deps import Principal, require_student
+22 | | from app.core.security import mask
+23 | | from app.models import (
+24 | |     AgencyAssignment,
+25 | |     Application,
+26 | |     ArrivalPlan,
+27 | |     ConsentRecord,
+28 | |     Conversation,
+29 | |     DataRequest,
+30 | |     Document,
+31 | |     Dormitory,
+32 | |     Essay,
+33 | |     HousingCase,
+34 | |     MatchSnapshot,
+35 | |     Message,
+36 | |     MessageRead,
+37 | |     Order,
+38 | |     Organization,
+39 | |     PartnerContract,
+40 | |     Payment,
+41 | |     Program,
+42 | |     ProgramIntake,
+43 | |     Scholarship,
+44 | |     ServiceAddOn,
+45 | |     ServiceProduct,
+46 | |     StudentEducation,
+47 | |     StudentEnrollment,
+48 | |     StudentLanguage,
+49 | |     StudentPaymentMethod,
+50 | |     StudentProfile,
+51 | |     Task,
+52 | |     University,
+53 | |     User,
+54 | |     VisaCase,
+55 | | )
+56 | | from app.models.base import utcnow
+57 | | from app.models.enums import (
+58 | |     AddOnStatus,
+59 | |     AssignmentStatus,
+60 | |     ContractStatus,
+61 | |     DegreeLevel,
+62 | |     IntakeTerm,
+63 | |     LanguageTest,
+64 | |     MessageVisibility,
+65 | |     OrderStatus,
+66 | |     PipelineStage,
+67 | |     TaskStatus,
+68 | |     VisaStatus,
+69 | | )
+70 | | from app.models.enums import (
+71 | |     ApplicationStatus as S,
+72 | | )
+73 | | from app.services import assignment as assignment_svc
+74 | | from app.services import concierge as concierge_svc
+75 | | from app.services import dossier as dossier_svc
+76 | | from app.services import entitlements as entitlements_svc
+77 | | from app.services import money as money_svc
+78 | | from app.services import services_now
+79 | | from app.services import strategy as strategy_svc
+80 | | from app.services import visa_routes as visa_routes_svc
+81 | | from app.services.budget import first_year_range
+82 | | from app.services.display_identity import team_identity
+83 | | from app.services.foreign_card import CardInput, get_foreign_card
+84 | | from app.services.matching import ENGINE_VERSION, language_routes, match_program, normalize_gpa, scholarship_eligibility
+85 | | from app.services.notify import notify
+86 | | from app.services.payments import Approval, NotConfigured, ProviderError, billing_configs, get_provider, get_toss
+87 | | from app.services.readiness import application_readiness, profile_percent, profile_steps, workspace_next
+88 | | from app.services.state_machine import TERMINAL, reached
+89 | | from app.services.tasks_engine import generate_for_student
+90 | | from app.services.visa import step_presentation
+   | |_______________________________________________^
+91 |
+92 |   log = logging.getLogger(__name__)
+   |
+help: Organize imports
+   |
+14 |
+   - from app.services.facts import withheld
+15 | from app.api.common import iso, parse_uuid, ser_application, ser_intake, ser_profile, ser_program
+--------------------------------------------------------------------------------
+81 | from app.services.display_identity import team_identity
+82 + from app.services.facts import withheld
+83 | from app.services.foreign_card import CardInput, get_foreign_card
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> app/services/matching.py:10:1
+   |
+ 8 |   confidence and data freshness (see docs/ARCHITECTURE.md#matching) before being surfaced.
+ 9 |   """
+10 | / import json
+11 | | from dataclasses import dataclass, field
+12 | | from datetime import date
+13 | |
+14 | | from app.services.facts import withheld
+15 | | from app.models import Program, ProgramIntake, Scholarship, StudentProfile, University
+16 | | from app.models.enums import DegreeLevel, LanguageTest
+   | |______________________________________________________^
+17 |
+18 |   ENGINE_VERSION = "rules-2026.09"
+   |
+help: Organize imports
+   |
+13 |
+   - from app.services.facts import withheld
+14 | from app.models import Program, ProgramIntake, Scholarship, StudentProfile, University
+15 | from app.models.enums import DegreeLevel, LanguageTest
+16 + from app.services.facts import withheld
+17 |
+   |
+
+Found 3 errors.
+[*] 3 fixable with the `--fix` option.
+[31m✖ /root/hangyul-univ/server/.venv/bin/python -m ruff check app tests scripts alembic failed (exit 1)[0m
+EXIT=1

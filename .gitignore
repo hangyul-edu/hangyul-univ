@@ -1,0 +1,42 @@
+node_modules/
+dist/
+.expo/
+.expo-export-check/
+*.tsbuildinfo
+server/.venv/
+server/.env
+server/var/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+test-results/
+playwright-report/
+.env
+.DS_Store
+qa-screenshots/
+dist-e2e
+dist-review/
+
+# V18: the student app stays CNG — app.json is the source of truth and these folders are `expo prebuild`
+# output. Release signing is reapplied by apps/student-mobile/plugins/withReleaseSigning.js on every
+# prebuild, so regenerating them is safe and reproducible.
+apps/student-mobile/android/
+apps/student-mobile/ios/
+# Release keystore: real signing material, kept out of the repo and out of `android/` so that
+# `expo prebuild --clean` cannot delete it. EAS holds its own copy in managed credentials.
+apps/student-mobile/credentials/
+
+# V21 §58 — captured API output from the security scan; runtime evidence, not source.
+scripts/qa/v21/.runtime.log
+
+# Publish hygiene (2026-11-03): reproducible build output and local debris.
+dist-perf/
+*.apk
+*.aab
+*:Zone.Identifier
+.claude/
+# Agency/university apps are CNG like the student app — `expo prebuild` output.
+apps/agency-mobile/android/
+apps/agency-mobile/ios/
+apps/university-mobile/android/
+apps/university-mobile/ios/

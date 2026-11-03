@@ -1,0 +1,80 @@
+/* V5 visa concierge (student) — rows over boxes; tangerine only for the current step / primary action. Phone-first. */
+.vr-page .sv-now { gap: 8px; }
+.vr-now__why { margin: 0; color: var(--hg-text-secondary); max-width: 640px; }
+.vr-now__status { margin: 0; font-size: var(--hg-text-base); max-width: 640px; }
+
+.vr-route { display: grid; gap: 4px; }
+.vr-route__line { margin: 0; font-size: var(--hg-text-lg); font-weight: var(--hg-weight-semibold); line-height: 1.4; }
+.vr-route__meta { margin: 0; font-size: var(--hg-text-sm); color: var(--hg-text-secondary); }
+.vr-why { margin-top: 4px; }
+.vr-why > summary, .vr-exact > summary { cursor: pointer; list-style: none; display: inline-flex; align-items: center; min-height: 32px; }
+.vr-why > summary::-webkit-details-marker, .vr-exact > summary::-webkit-details-marker { display: none; }
+.vr-why[open] > summary { margin-bottom: 6px; }
+.vr-plain { margin: 4px 0 0; padding-inline-start: 18px; display: grid; gap: 6px; font-size: var(--hg-text-sm); color: var(--hg-text-secondary); line-height: 1.5; }
+.vr-sources { margin: 10px 0 0; font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); }
+.vr-exact { font-size: var(--hg-text-sm); }
+.vr-exact__body { margin-top: 6px; padding: 10px 12px; border-inline-start: 2px solid var(--hg-border); color: var(--hg-text-secondary); font-size: var(--hg-text-sm); display: grid; gap: 6px; overflow-wrap: anywhere; }
+.vr-exact__body p { margin: 0; }
+.vr-src { white-space: nowrap; }
+
+.vr-question { display: grid; gap: 12px; width: 100%; margin-top: 4px; }
+.vr-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+
+.vr-group { margin: 18px 0 4px; font-size: var(--hg-text-sm); font-weight: var(--hg-weight-semibold); color: var(--hg-text-secondary); }
+.vr-group:first-child { margin-top: 0; }
+.vr-list { list-style: none; margin: 0; padding: 0; }
+.vr-row { display: grid; gap: 4px; padding: 14px 0; }
+.vr-row + .vr-row { border-top: 1px solid var(--hg-border-subtle); }
+.vr-row__main { display: flex; align-items: baseline; justify-content: space-between; gap: 6px 12px; flex-wrap: wrap; }
+.vr-row__name { font-weight: var(--hg-weight-medium); font-size: var(--hg-text-base); }
+.vr-row__reason { margin: 0; font-size: var(--hg-text-sm); color: var(--hg-text-secondary); max-width: 640px; }
+.vr-row[data-status='READY'] .vr-row__reason, .vr-row[data-status='NOT_NEEDED'] .vr-row__reason { display: none; }
+.vr-row__meta { display: flex; flex-wrap: wrap; gap: 2px 14px; font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); }
+.vr-row__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin-top: 4px; }
+.vr-tag { color: var(--hg-status-success-fg); font-weight: var(--hg-weight-medium); }
+.vr-tag--warn { color: var(--hg-status-warning-fg); }
+.vr-toggle { margin-top: 12px; }
+
+.vr-fields { margin: 4px 0 0; display: grid; gap: 6px; }
+.vr-field { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; }
+@media (min-width: 640px) { .vr-field { grid-template-columns: 200px minmax(0, 1fr); gap: 12px; } }
+.vr-field dt { font-size: var(--hg-text-sm); color: var(--hg-text-secondary); }
+.vr-field dd { margin: 0; font-size: var(--hg-text-base); overflow-wrap: anywhere; }
+.vr-field__src { font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); }
+.vr-form[data-done] .vr-field dd { color: var(--hg-text-secondary); }
+.vr-edit { margin-top: 6px; }
+
+.vr-track { display: grid; gap: 24px; }
+.vr-block { display: grid; gap: 10px; padding-top: 4px; }
+.vr-block + .vr-block { border-top: 1px solid var(--hg-border-subtle); padding-top: 18px; }
+.vr-inline { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+@media (min-width: 520px) { .vr-inline { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.vr-handoff .hg-btn { justify-self: start; }
+
+.vr-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.vr-step { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px; padding: 10px 0; }
+.vr-step + .vr-step { border-top: 1px solid var(--hg-border-subtle); }
+.vr-step__mark { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid var(--hg-border-strong); font-size: var(--hg-text-xs); font-weight: var(--hg-weight-semibold); color: var(--hg-text-secondary); }
+.vr-step__mark svg { width: 12px; height: 12px; stroke-width: 3; }
+.vr-step[data-state='done'] .vr-step__mark { background: var(--hg-text); border-color: var(--hg-text); color: var(--hg-surface); }
+.vr-step[data-state='current'] .vr-step__mark { border-color: var(--hg-primary); color: var(--hg-primary-text); }
+.vr-step__title { margin: 0; font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); }
+.vr-step[data-state='done'] .vr-step__title { color: var(--hg-text-secondary); }
+.vr-step__state { color: var(--hg-text-tertiary); font-weight: var(--hg-weight-regular, 400); }
+.vr-step[data-state='current'] .vr-step__state { color: var(--hg-primary-text); }
+.vr-step__why { margin: 2px 0 0; font-size: var(--hg-text-xs); color: var(--hg-text-secondary); }
+
+.vr-help { margin: 0 0 12px; display: grid; gap: 8px; }
+.vr-help div { display: grid; gap: 0; }
+.vr-help dt { font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); }
+.vr-help dd { margin: 0; font-size: var(--hg-text-sm); }
+.vr-ico { width: 14px; height: 14px; vertical-align: -2px; }
+.vr-why > summary { color: var(--hg-primary-text); text-decoration: underline; text-underline-offset: 3px; }
+
+/* V5 reduction: secondary visa sections open on request. */
+.vr-more > summary { cursor: pointer; font-weight: var(--hg-weight-medium); color: var(--hg-text); padding-block: 6px; list-style: none; }
+.vr-more > summary::-webkit-details-marker { display: none; }
+.vr-more > summary::before { content: '+ '; color: var(--hg-text-tertiary); }
+.vr-more[open] > summary::before { content: '− '; }
+.vr-more[open] > summary { margin-block-end: 12px; }
+.vr-later { margin-block: 8px 0; }

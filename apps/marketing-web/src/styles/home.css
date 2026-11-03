@@ -1,0 +1,970 @@
+/* Home page: university crest band, pricing (formerly v11 + v15; loaded by pages/Home).
+   V26 (REPORT §347): one canonical file instead of version layers; the order inside is the original cascade order.
+   Declarations a later rule with the same selector and context always overrode were removed (scripts/qa/v26/css-consolidate.mjs). */
+
+/* ── from v11.css ───────────────────────────────────────────────────────────────────────────────────────────── */
+/* V11 — the university crest band, and the two list styles the merged Sources & credits page needs.
+   Everything else on the V11 home is the shared Koreanasha vocabulary from packages/koreanasha-ui. */
+
+/* ---------------------------------------------------------------- 2. University crests (three image rows)
+
+   Koreanasha's own band: `.slider-wrapper { gap: 40px }`, `.slide { height: 100px }`, `.slide img { width: auto;
+   height: 100%; object-fit: contain }` (main.css:419–448). The crests are real university marks, so they are
+   never cropped, never boxed, and never stretched — `object-fit: contain` against a fixed height, with the
+   intrinsic ratio on the element so a row cannot reflow while the images decode. */
+
+.kn-crests { display: grid; gap: 28px; }
+@media (min-width: 768px) { .kn-crests { gap: 36px; } }
+@media (min-width: 1200px) { .kn-crests { gap: 40px; } }
+
+/* The row itself is `.kn-marquee` (shared): two identical groups, no gap on the track, the gap supplied by
+   `--kn-marquee-gap` so one group measures a whole number of steps and `-50%` lands exactly on a repeat.
+   Under prefers-reduced-motion the shared rule unwraps it into a centred static grid. */
+/* V30: the row gap lives INSIDE each crest's link as inline padding (`.kn-crest` below), so the belt's own gap
+   is 0. One group still measures N·(crest + gap) — the V14 seamless-loop arithmetic is unchanged — but the
+   whole slot, including the air either side of the artwork, is the link: there is no dead pixel in a row. */
+.kn-crests .kn-marquee { --kn-marquee-gap: 0px; }
+@media (prefers-reduced-motion: reduce) { .kn-crests .kn-marquee__group { row-gap: calc(var(--kn-crest-gap) * 0.75); } }
+
+.kn {
+  /* The slot is sized to hold the *tallest* artwork, not the median one — see `--kn-crest-fit` below. Each
+     value is the former height × 1.16, so no crest changed size; the slot grew to stop cutting the big ones. */
+  --kn-crest-h: 60px;           /* phones: 23 crests still read, and three rows stay inside one screen */
+  --kn-crest-gap: 28px;
+}
+@media (min-width: 576px) { .kn { --kn-crest-h: 74px; --kn-crest-gap: 32px; } }
+@media (min-width: 768px) { .kn { --kn-crest-h: 88px; --kn-crest-gap: 36px; } }
+@media (min-width: 1200px) { .kn { --kn-crest-h: 116px; --kn-crest-gap: 40px; } }
+
+/* Every crest is drawn inside the same box, and `--c-scale` sizes the artwork inside it (brief Part 6's logo
+   quality audit). The box is constant so the rhythm of the row is constant; the scale is the per-crest optical
+   correction computed by scripts/media/build_marquee_manifest.py, clamped to 0.88–1.10 — a wide wordmark is
+   brought down a little and a sparse seal up a little, and no official proportion is touched.
+
+   `--c-scale` used to multiply the slot height directly, so the clamp's own ceiling put eleven crests at
+   **110 % of the row** — KAIST, POSTECH, Sungkyunkwan, Chung-Ang, Dongguk, Hongik, Pusan, Kookmin, Sejong,
+   Dankook and Ewha. `.kn-marquee` has `overflow: hidden` (it must, for the horizontal loop), so those eleven
+   were sliced 2.6–5 px off the top *and* the bottom: outer rings cut, shield points cut, ring lettering cut.
+   The scale is now divided by `--kn-crest-fit`, which is the clamp's maximum plus a little air, so the value
+   is a **fraction of the slot** and can never exceed it. The slot heights above were multiplied by the same
+   number in the same change, so every crest renders at exactly the size it did before — the box grew, the
+   artwork did not shrink. Keep the two in step: raising the clamp in the Python means raising this. */
+.kn-crest {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: var(--kn-crest-h);
+  flex: 0 0 auto;
+  padding-inline: calc(var(--kn-crest-gap) / 2);
+  box-sizing: content-box;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  /* No border, no card, no pill. A crest on a clean white canvas is the whole design. */
+}
+.kn-crest__img {
+  display: block;
+  /* SCALE_MAX (1.10) + ~5 % breathing room, so even the tallest crest clears the slot edge. */
+  --kn-crest-fit: 1.16;
+  width: auto; height: calc(100% * var(--c-scale, 1) / var(--kn-crest-fit));
+  max-width: none;                     /* `img { max-width: 100% }` elsewhere would squash the wider crests */
+  object-fit: contain;
+  user-select: none;
+}
+
+/* One crest in the owner's set — UNIST — is officially a white-and-cyan signature on a navy field. The navy is
+   the mark, so it is neither knocked out (that would delete the wordmark) nor recoloured (that would alter a
+   trademark); it is drawn as a deliberate rounded tile instead, which is the only way it sits honestly beside
+   twenty-two line-art seals. `--c-scale` holds it slightly inside the common box so the tile does not out-weigh
+   them. Recorded in docs/qa/v14/CREST_AUDIT.md. */
+.kn-crest--tile .kn-crest__img { border-radius: 12px; }
+
+/* A crest links to its university — all 23 of them do (brief Part 8). */
+/* V30 — restrained: the artwork lifts 2 px and the rest of the row recedes a little, no box, no pill. The
+   transform is on the IMAGE, not the link, so the hit area never moves under the pointer. The focus ring is
+   inset because `.kn-marquee` clips vertically (it must, for the loop) and an outset ring was cut off. */
+.kn-crest__img { transition: transform var(--hg-motion-base) var(--hg-ease-out), opacity var(--hg-motion-base) var(--hg-ease-out); }
+.kn-marquee:hover .kn-crest__img { opacity: 0.72; }
+.kn-marquee:hover a.kn-crest:hover .kn-crest__img { opacity: 1; transform: translateY(-2px); }
+a.kn-crest:focus-visible { outline: 2px solid var(--hg-primary); outline-offset: -2px; border-radius: 12px; }
+a.kn-crest:active .kn-crest__img { transform: translateY(0) scale(0.98); }
+@media (prefers-reduced-motion: reduce) { .kn-crest__img, a.kn-crest:hover .kn-crest__img { transition: none; transform: none; } }
+@media (hover: none) { .kn-marquee:hover .kn-crest__img { opacity: 1; } }
+
+.kn-crests__foot { margin-top: clamp(32px, 4vw, 48px); text-align: center; }
+
+/* ------------------------------------------------------------------------ Sources & credits (merged page) */
+
+.mk-h2 {
+  margin: 0 0 var(--hg-space-6);
+  font-size: var(--hg-text-4xl); font-weight: var(--hg-weight-semibold); line-height: 1.25;
+  color: var(--hg-text);
+}
+.mk-section + .mk-section .mk-h2 { margin-top: 0; }
+
+/* A flat list, not a filterable registry: what the source is, and when we last checked it. */
+.mk-sources { list-style: none; margin: 0 0 var(--hg-space-6); padding: 0; }
+.mk-sources li {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px;
+  padding: 14px 0; border-bottom: 1px solid var(--hg-border-subtle);
+}
+.mk-sources li > a { font-weight: var(--hg-weight-medium); color: var(--hg-text); text-decoration: none; }
+.mk-sources li > a:hover { color: var(--hg-primary-text); text-decoration: underline; }
+.mk-sources li > span { margin-inline-start: auto; font-size: var(--hg-text-sm); color: var(--hg-text-secondary); }
+@media (max-width: 575.98px) { .mk-sources li > span { margin-inline-start: 0; } }
+
+/* The footer business-information block used to live here. It moved to `packages/koreanasha-ui` because it is
+   **shared chrome** — `SiteLayout` renders it on every page — while this file is only loaded by the home
+   route. The symptom was a footer that was a compact row on the homepage and a five-row stack everywhere
+   else, which is the "giant company-information box" brief Part 48 rules out, on four pages out of five. */
+
+/* ============================================ 3. Value proposition — editorial triptych (V14, Part 13)
+
+   What this replaces: three `.kn-card`s — white, rounded, hairline-bordered — on a white band. A white card
+   on white has no edge, so the section carried the owner's three strongest claims and had almost no visual
+   presence; the brief's words were "three pale rectangles".
+
+   What it is instead: no fill, no shadow, no icon circle. A hairline between columns, an oversized ordinal
+   set in the brand colour at low opacity, a 28 px title and a 17 px measure. Option A (three tonal panels)
+   was built and rejected — on the new warm page surface a panel has to be either invisible or dark enough to
+   become a box again, and boxes are what Part 16 spends the rest of this pass removing. */
+
+.kn-tri { display: grid; gap: 0; }
+
+.kn-tri__col {
+  position: relative;
+  padding-block: clamp(28px, 4vw, 36px);
+}
+
+/* Phones and tablets: a horizontal hairline between stacked propositions. No swipe, no peeking next card. */
+.kn-tri__col + .kn-tri__col { border-top: 1px solid var(--hg-border-subtle); }
+
+@media (min-width: 900px) {
+  .kn-tri { grid-template-columns: repeat(3, 1fr); gap: 0 clamp(32px, 4vw, 56px); }
+  .kn-tri__col { padding-block: 0; padding-inline-start: clamp(28px, 3.2vw, 44px); }
+  .kn-tri__col + .kn-tri__col { border-top: 0; }
+  /* The rule is on the column itself rather than between them, so all three keep the same inner measure and
+     the first column's text aligns with the section heading above it. */
+  .kn-tri__col { border-inline-start: 1px solid var(--hg-border); }
+  .kn-tri__col:first-child { border-inline-start: 0; padding-inline-start: 0; }
+}
+
+.kn-tri__n {
+  display: block;
+  margin-bottom: clamp(10px, 1.4vw, 16px);
+  font-size: clamp(28px, 3.4vw, 40px);
+  font-weight: var(--hg-weight-bold);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  /* Brand colour at the weight of a watermark: it orders the columns without competing with the titles.
+     0.34 was tuned against V14's warm page; on pure white the same value reads as faded rather than quiet. */
+  /* V26 (REPORT §348): a solid quiet tangerine instead of an opacity fade — the faded numeral measured 1.91:1, under the
+     3:1 large text needs. #D27236 is 3.39:1 on white and still reads as a watermark beside the ink titles. */
+  color: #D27236;
+}
+
+.kn-tri__title {
+  margin: 0 0 clamp(10px, 1.2vw, 14px);
+  font-size: clamp(22px, 2.3vw, 28px);
+  font-weight: var(--hg-weight-semibold);
+  line-height: 1.26;
+  letter-spacing: -0.02em;
+  color: var(--hg-text);
+  text-wrap: balance;
+  /* `keep-all` stops a Korean heading breaking mid-word. It also stops a Japanese one breaking anywhere at
+     all, which at 320 px pushed the title past the viewport — so `anywhere` is the backstop beneath it. */
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.kn-tri__text {
+  margin: 0;
+  max-width: 34rem;
+  font-size: clamp(16px, 1.3vw, 17px);
+  line-height: 1.72;
+  color: var(--hg-text-secondary);
+  text-wrap: pretty;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* ── from v15.css ───────────────────────────────────────────────────────────────────────────────────────────── */
+/*
+ * V15 b — the pricing section, recomposed.
+ *
+ * The constraint that shapes all of this: the page is white and editorial, and a pricing block is the single
+ * easiest place to lose that. V15 a kept the constraint and still produced a SaaS billing page — three
+ * rounded cards, a bordered spreadsheet and two paragraphs of exclusions — because it answered "what does a
+ * pricing section look like" instead of "what does *this page* look like".
+ *
+ * So the vocabulary here is the homepage's own, taken from `.kn-tri` in v11.css: no fill, no shadow stack,
+ * no ribbon, no icon circles. Type, measure, space, and **one** hairline.
+ *
+ *   The plans are three columns under a single rule, not three cards.
+ *       Basic and Premium carry no container at all. The composition has exactly one horizontal line —
+ *       the rule the three columns hang from — plus one hairline inside each column under the price.
+ *       V15 a had eleven.
+ *
+ *   All-in-One is the only plan with a surface.
+ *       A warm panel at the page's own `--kn-warm` value, lifted 28 px so it **breaks through** the shared
+ *       rule, with a tangerine hairline, a tangerine tick, a tangerine 추천 label and the one filled button
+ *       in the section. Five quiet signals pointing the same way read as confidence; one loud one reads as
+ *       a banner ad. Nothing is scaled, nothing glows, and the other two plans are not dimmed to make it
+ *       win — Basic on white is a calm option, not a disabled one.
+ *
+ *   Premium's identity is ink.
+ *       Its segment of the shared rule is ink where Basic's is grey; so are its ticks and its button's
+ *       outline. That is the whole device — **grey → tangerine → ink, said three times in the same order:
+ *       rule, tick, button** — so the ladder is legible before a single word is read. No dark navy card,
+ *       which would belong to a different site.
+ *
+ *   The matrix has no cell borders.
+ *       The recommended column is tinted by one absolutely-positioned block behind the table rather than by
+ *       a background on every cell, so the tint is genuinely continuous from the header to the last row and
+ *       is not interrupted by the area labels. Which column it sits over comes from the manifest, as
+ *       `--p-hi`; nothing here knows that All-in-One is the recommended plan.
+ */
+
+.kn-pricing {
+  /* The page's own warm value (`--kn-warm`, the hero bridge). Not a new colour: the one place the homepage
+     already allows warmth, reused at the one place in this section that earns it. */
+  --p-warm: #FFFAF6;
+  --p-line: color-mix(in srgb, var(--hg-primary) 22%, transparent);
+  --p-line-soft: color-mix(in srgb, var(--hg-primary) 14%, transparent);
+  /* Matrix column geometry, shared by the table's `<colgroup>` and the highlight behind it. */
+  --p-col0: 22%;
+  --p-col: 26%;
+  /* How far the recommended panel rises above the shared rule, and how far it drops below the row. Both
+     are cancelled by matching padding inside the panel, so it is the *surface* that extends, not the
+     content: the three names, the three prices and the three buttons stay on their shared baselines. An
+     earlier draft lifted the content with the panel and the row ended on three different price heights,
+     which reads as a mistake rather than as emphasis. */
+  --p-lift: 28px;
+  --p-drop: 20px;
+  /* Safe visual headroom (V16, brief 1.2). The lift is cancelled exactly by the grid's padding, so at rest
+     the panel's top edge sits on the grid's own box edge and a −3 px hover has nowhere to go. This is the
+     room the hover and the panel's shadow move into. It is paid for out of the margins above and below, so
+     the section's rhythm is unchanged — see `.kn-plans` and `.kn-compare-wrap` below. */
+  --p-head: 24px;
+  /* The matrix's row rhythm (V16, brief 1.4). It was 11–14 px of padding, which made every row the same
+     height as every other line of type on the page and gave the eye no path down the table. Rhythm is the
+     only structure a borderless matrix has, so it is a variable rather than a number buried in a rule. */
+  --p-row: clamp(14px, 1.5vw, 18px);
+}
+
+/* ----------------------------------------------------------------------------------- the section header */
+
+/*
+ * Heading → copy → plans, as three clearly different intervals (brief Part 16). V15 a used the shared
+ * section rhythm unmodified and the result was a heading, a line of grey text and a row of cards at three
+ * nearly equal distances — mechanically centred, which is what "arbitrary gap" looks like.
+ */
+.kn-pricing .kn-head { margin-bottom: 0; max-width: 680px; }
+.kn-pricing .kn-head__lede {
+  margin-top: clamp(14px, 1.5vw, 20px);
+  max-width: 34rem;
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.62;
+  color: var(--hg-text-secondary);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* ------------------------------------------------------------------------------------------ the plans */
+
+.kn-plans {
+  position: relative;
+  display: grid;
+  gap: clamp(30px, 4vw, 40px);
+  margin-top: clamp(44px, 5.2vw, 72px);
+}
+
+/*
+ * **Whenever the plans are stacked, the recommended one is first.**
+ *
+ * In a single column the first plan is the only plan most people see before deciding whether to keep
+ * scrolling, so it has to be the one the business recommends. Three across keeps ascending price order,
+ * because all three are visible at once and that is how a row of plans is read.
+ *
+ * The breakpoint is tied to the layout rather than to "phones": measured at nine widths, 768–1023 is also
+ * a single column (three across there would give each plan ~230 px of text, which is the squeeze the brief
+ * rules out).
+ *
+ * This is CSS `order` on the same DOM, so the reading order a screen reader announces and the tab order a
+ * keyboard follows both match what is on the screen. Reordering by moving the markup would have made the
+ * three-across order wrong instead.
+ */
+@media (max-width: 1023.98px) {
+  .kn-plan[data-plan='all_in_one'] { order: -1; }
+  /* A 720 px-wide column at tablet width is a stretched column, not a generous one. */
+  .kn-plan { max-width: 560px; margin-inline: auto; width: 100%; }
+  /* Stacked, the shared rule becomes one hairline per plan — the same separator `.kn-tri` uses when its
+     three columns stack. The recommended plan does not take one: it has a panel. */
+  .kn-plan:not([data-recommended]) .kn-plan__body {
+    border-top: 1px solid var(--hg-border);
+    padding-top: clamp(26px, 4vw, 32px);
+  }
+  /* V16: one shared hairline. Premium's stacked rule used to be ink, as the second statement of the
+     grey → tangerine → ink ladder; see the note on `.kn-plan[data-plan='premium']::before` below. */
+}
+
+@media (min-width: 1024px) {
+  /*
+   * Three columns, **no gap and no gutters between them** — the separation is the columns' own inner
+   * padding, which is what keeps this a composition rather than three objects on a shelf.
+   *
+   * `padding-top` is the room the recommended panel rises into, and the rule is drawn at that offset so the
+   * panel's opaque surface interrupts it. The interruption is the point: the line runs across Basic, stops
+   * at All-in-One and resumes at Premium.
+   */
+  .kn-plans {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    align-items: stretch;
+    padding-block: calc(var(--p-lift) + var(--p-head)) calc(var(--p-drop) + var(--p-head));
+    /* The padding is new space, so the margins give the same amount back and the three intervals above and
+       below the plans measure exactly what they measured before the headroom existed. */
+    margin-top: calc(clamp(44px, 5.2vw, 72px) - var(--p-head));
+  }
+  /* Inset to the columns' own text, not to the container: a rule that overhangs the first word by 30 px
+     reads as a stray line rather than as the thing the three columns hang from. */
+  .kn-plans::before {
+    content: '';
+    position: absolute;
+    inset-inline: clamp(22px, 2.2vw, 30px);
+    top: calc(var(--p-lift) + var(--p-head));
+    height: 1px;
+    background: var(--hg-border);
+  }
+  /*
+   * **There is no ink segment here any more** (V16, REPORT §132.1).
+   *
+   * V15 b encoded the tier ladder three times in the same order — rule, tick, button: grey → tangerine →
+   * ink — and two thirds of that works. The rule did not. A tick and a button are read as *their column's*
+   * colour because they sit inside it; a 2 px black bar at the top of the third column, with the section's
+   * own 1 px grey hairline continuing either side of it, is read as **the grey line being broken**. The
+   * encoding was correct and the percept was a rendering fault, which is the only verdict that matters.
+   *
+   * The three plans now hang from one shared neutral hairline. Premium keeps its identity where ink reads
+   * as identity rather than as damage: its ticks and its outlined button.
+   */
+  .kn-plan[data-recommended] .kn-plan__body {
+    margin-block: calc(var(--p-lift) * -1) calc(var(--p-drop) * -1);
+    padding-block:
+      calc(clamp(32px, 3vw, 40px) + var(--p-lift))
+      calc(clamp(26px, 2.6vw, 32px) + var(--p-drop));
+  }
+}
+
+/*
+ * The phone's reading order is All-in-One first, so the stagger's delays follow the eye rather than the
+ * array. This overrides the shared `:nth-child` delays for this one container — it is not a second motion
+ * system, it is the same one told which element is first.
+ */
+@media (max-width: 1023.98px) and (prefers-reduced-motion: no-preference) {
+  .kn-reveal--armed[data-reveal='stagger'].is-in > .kn-plan[data-plan='all_in_one'] { transition-delay: 0ms; }
+  .kn-reveal--armed[data-reveal='stagger'].is-in > .kn-plan[data-plan='basic'] { transition-delay: var(--hg-motion-stagger); }
+  .kn-reveal--armed[data-reveal='stagger'].is-in > .kn-plan[data-plan='premium'] { transition-delay: calc(var(--hg-motion-stagger) * 2); }
+}
+
+.kn-plan { display: flex; position: relative; }
+
+/*
+ * The visual body is a child of the grid item, not the grid item itself, for one reason: the reveal
+ * animates `transform` on `.kn-plan`, and a hover that also animates `transform` on the same element has to
+ * win a specificity argument with the reveal's `.is-in > *` rule every time it is touched. Two elements,
+ * two jobs, no argument.
+ */
+.kn-plan__body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(26px, 2.6vw, 34px) clamp(22px, 2.2vw, 30px) clamp(26px, 2.6vw, 32px);
+  border: 1px solid transparent;
+  border-radius: 20px;
+  background: transparent;
+}
+@media (min-width: 1024px) {
+  /* Three columns of equal inner measure, so the names, the prices and the first list line sit on three
+     shared baselines without any element being forced to a fixed height. */
+  .kn-plan__body { padding-top: clamp(32px, 3vw, 40px); }
+}
+
+/*
+ * The one surface in the section, refined in V16 (brief 1.3) — and refined **downward**. The instruction is
+ * that it must look premium because of precision, not because it is louder, so nothing here is bigger than
+ * it was: the tint is a step lighter, the border a step quieter, the shadow is the same two layers at the
+ * same offsets, and the panel is not scaled.
+ *
+ * What was added is an *edge*: a white inset hairline above the border. On a warm fill against white, a
+ * single 1 px tangerine line at 22 % is the only thing separating the panel from the page, and at 2× it
+ * reads as a soft smudge. The inset highlight gives the top edge a defined terminator, which is the whole
+ * difference between "a tinted box" and "a panel".
+ */
+.kn-plan[data-recommended] .kn-plan__body {
+  background: var(--p-warm);
+  border-color: var(--p-line);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 70%),
+    0 1px 2px rgb(24 26 31 / 4%),
+    0 18px 44px -28px rgb(166 74 10 / 36%);
+}
+
+.kn-plan__head { display: flex; align-items: center; gap: var(--hg-space-3); flex-wrap: wrap; }
+
+.kn-plan__name {
+  margin: 0;
+  font-size: clamp(20px, 1.9vw, 24px);
+  font-weight: var(--hg-weight-semibold);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--hg-text);
+  word-break: keep-all;
+}
+
+/*
+ * A hairline label, not a filled badge. On the warm panel a white pill with a tangerine edge is the
+ * quietest thing that still reads as a label rather than as body text.
+ *
+ * `line-height` is explicit so the pill measures exactly as tall as the plan name beside it. Inheriting the
+ * page's body leading made it the tallest thing in the header row, which pushed All-in-One's name, position
+ * and price 6 px down and left the three prices on three baselines — the one misalignment the row cannot
+ * afford, because it is the number the reader is comparing.
+ */
+.kn-plan__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 11px 3px 9px;
+  line-height: 1.35;
+  border: 1px solid color-mix(in srgb, var(--hg-primary) 28%, transparent);
+  border-radius: 999px;
+  background: #FFFFFF;
+  color: var(--hg-primary-text);
+  font-size: var(--hg-text-xs);
+  font-weight: var(--hg-weight-semibold);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+/* A 5 px tangerine dot inside the pill. The label is one word in most locales and two in some; a dot gives
+   it a constant optical anchor on the left so the pill does not change shape with the translation, and it
+   is the quietest available way to say "this is the brand's own recommendation" without a fill. */
+.kn-plan__tag::before {
+  content: '';
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--hg-primary);
+}
+
+.kn-plan__position {
+  margin: clamp(10px, 1vw, 14px) 0 0;
+  font-size: var(--hg-text-md);
+  line-height: 1.55;
+  color: var(--hg-text-secondary);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+@media (min-width: 1024px) {
+  /* Two lines of room, so the three prices share a baseline. This is alignment, not padding: at two lines
+     the longest of the three already fills it, so no column carries a dead band. */
+  .kn-plan__position { min-height: 2.6em; }
+}
+
+/*
+ * The price as **one typographic unit**. V15 a set `₩ 249,000` with a thin space and hung a 12 px "1회 결제"
+ * off its baseline, so the eye read three objects where there is one number. The label moved underneath and
+ * lost a step of weight; it is metadata and should look like it.
+ */
+.kn-plan__price {
+  margin: clamp(20px, 2.2vw, 28px) 0 0;
+  padding-bottom: clamp(20px, 2.2vw, 26px);
+  border-bottom: 1px solid var(--hg-border-subtle);
+}
+.kn-plan__price strong {
+  display: block;
+  font-size: clamp(32px, 3.1vw, 40px);
+  font-weight: var(--hg-weight-semibold);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--hg-text);
+}
+.kn-plan__once {
+  display: block;
+  margin-top: 7px;
+  font-size: var(--hg-text-xs);
+  letter-spacing: 0.02em;
+  color: var(--hg-text-tertiary);
+}
+/* Inside the warm panel a cool grey hairline reads as a seam. */
+.kn-plan[data-recommended] .kn-plan__price { border-bottom-color: var(--p-line-soft); }
+
+.kn-plan__list {
+  flex: 1 1 auto;
+  margin: clamp(20px, 2.2vw, 26px) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: clamp(11px, 1.1vw, 14px);
+  align-content: start;
+}
+.kn-plan__list li {
+  display: grid;
+  grid-template-columns: 15px 1fr;
+  gap: 10px;
+  align-items: start;
+  font-size: var(--hg-text-md);
+  line-height: 1.55;
+  color: var(--hg-text-secondary);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/*
+ * The one mark, three colours — and the ladder is readable from the marks alone: grey, tangerine, ink.
+ * `translate` on the Y axis optically centres a 15 px glyph against a 15 px line box; the stroke itself sits
+ * in the upper two thirds of its viewBox.
+ */
+/* Typography, not weight-everywhere (brief 1.3): only the three things a reader compares between plans are
+   raised on the recommended column — its name, its price and its list text. Nothing changes size. */
+.kn-plan[data-recommended] .kn-plan__name { font-weight: var(--hg-weight-bold); }
+.kn-plan[data-recommended] .kn-plan__list li { color: var(--hg-text); }
+
+.kn-tick { flex: none; translate: 0 2px; color: var(--hg-text-tertiary); }
+.kn-plan[data-recommended] .kn-tick { color: var(--hg-primary); }
+.kn-plan[data-plan='premium'] .kn-tick { color: var(--hg-text); }
+
+/* ------------------------------------------------------------------------------------------ the buttons */
+
+/*
+ * Three levels in one decision area (brief Part 23 of V14, and Part 9 here): the recommended plan carries
+ * the one filled Hangyul button, Premium an ink outline, Basic a light outline. All three clear 48 px, all
+ * three have a visible edge — `--hg-border-control` is the lightest grey that still clears WCAG 1.4.11's
+ * 3:1 for a control boundary, which is why Basic's button is quiet rather than invisible.
+ */
+.kn-plan__cta {
+  margin-top: clamp(26px, 3vw, 36px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 0 22px;
+  border: 1px solid var(--hg-border-control);
+  border-radius: 999px;
+  background: #FFFFFF;
+  color: var(--hg-text);
+  font-size: var(--hg-text-lg);
+  font-weight: var(--hg-weight-semibold);
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background-color var(--hg-motion-fast) var(--hg-ease-standard),
+    border-color var(--hg-motion-fast) var(--hg-ease-standard),
+    color var(--hg-motion-fast) var(--hg-ease-standard);
+}
+.kn-plan__cta:hover { border-color: var(--hg-text); background: var(--hg-surface-hover); }
+/* A press is a real state, and a button that only has hover feels unfinished on the click that matters
+   most. 1 px, no scale — `translate` so it never argues with the arrow's own `translate`. */
+.kn-plan__cta:active { translate: 0 1px; }
+
+.kn-plan[data-recommended] .kn-plan__cta {
+  border-color: var(--hg-primary);
+  background: var(--hg-primary);
+  color: var(--hg-text-on-primary);
+}
+.kn-plan[data-recommended] .kn-plan__cta:hover {
+  border-color: var(--hg-primary-hover);
+  background: var(--hg-primary-hover);
+}
+
+.kn-plan[data-plan='premium'] .kn-plan__cta { border-color: var(--hg-text); }
+.kn-plan[data-plan='premium'] .kn-plan__cta:hover { background: var(--hg-text); color: #FFFFFF; }
+
+/* An orange ring on an orange button is not a focus indicator; the filled one rings in ink instead. */
+.kn-plan__cta:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 3px; }
+.kn-plan[data-recommended] .kn-plan__cta:focus-visible { outline-color: var(--hg-text); }
+
+/* `translate`, not `transform` — the arrow is already mirrored by `.hg-flip-rtl`'s `scaleX(-1)` in RTL and
+   an animation on the same property would undo it. The direction follows the reading direction. */
+.kn-plan__cta .ed-icon { flex: none; transition: translate var(--hg-motion-base) var(--hg-ease-out); }
+.kn-plan__cta:hover .ed-icon { translate: 3px 0; }
+[dir='rtl'] .kn-plan__cta:hover .ed-icon { translate: -3px 0; }
+
+/* ------------------------------------------------------------------------------------------- the hover */
+
+/*
+ * At rest the two outer plans have no container. On hover one appears — a faint surface and a hairline,
+ * drawn with `inset` box-shadow so nothing moves — which is the restrained version of "this is the one you
+ * are considering". The recommended plan, which already has a surface, deepens instead.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .kn-plan__body {
+    transition:
+      background-color var(--hg-motion-base) var(--hg-ease-standard),
+      border-color var(--hg-motion-base) var(--hg-ease-standard),
+      box-shadow var(--hg-motion-base) var(--hg-ease-standard),
+      transform var(--hg-motion-base) var(--hg-ease-standard);
+  }
+  .kn-plan:not([data-recommended]) .kn-plan__body:hover {
+    background: #FCFCFA;
+    box-shadow: inset 0 0 0 1px var(--hg-border-subtle);
+    transform: translateY(-2px);
+  }
+  /*
+   * −3 px, which is inside the brief's −2…−4 and is the same movement the two outer plans make. It is
+   * visible because the panel has a surface to move, not because it moves further.
+   *
+   * **This must never clip.** Two things guarantee that and both are load-bearing: `--p-head` gives the
+   * panel 24 px of room above and below its grid, and no ancestor establishes a clip — the reveal's
+   * `clip-path` is scoped to the `media` variant (REPORT §132.2). `npm run qa:v16` measures the rendered
+   * panel against every ancestor's clip rect, hovered, at five widths.
+   */
+  .kn-plan[data-recommended] .kn-plan__body:hover {
+    border-color: color-mix(in srgb, var(--hg-primary) 40%, transparent);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 70%),
+      0 2px 4px rgb(24 26 31 / 5%),
+      0 26px 56px -30px rgb(166 74 10 / 44%);
+    transform: translateY(-3px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kn-plan__body, .kn-plan__body:hover { transition: none; transform: none; }
+  .kn-plan__cta .ed-icon, .kn-plan__cta:hover .ed-icon { transition: none; translate: none; }
+}
+
+/* ------------------------------------------------------------------------- the comparison disclosure */
+
+.kn-compare-wrap { margin-top: clamp(48px, 5.6vw, 72px); }
+@media (min-width: 1024px) { .kn-compare-wrap { margin-top: calc(clamp(48px, 5.6vw, 72px) - var(--p-head)); } }
+
+/*
+ * One control, not a second page. `<details>` is keyboard-correct and works with JavaScript off.
+ *
+ * It is deliberately built as **the FAQ's row**: hairline above and below, the label filling the width, the
+ * chevron at the far end. The FAQ is the next section on this page and its ten questions are exactly this
+ * control, so a disclosure that looked like anything else would be a second disclosure vocabulary thirty
+ * pixels above the first. It also gives the section a full-width line to end on — a short left-aligned link
+ * followed by the band's padding read as the section trailing off.
+ */
+.kn-compare {
+  border-top: 1px solid var(--hg-border-subtle);
+  border-bottom: 1px solid var(--hg-border-subtle);
+}
+.kn-compare__toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--hg-space-4);
+  padding: var(--hg-space-5) 0;
+  font-size: var(--hg-text-xl);
+  font-weight: var(--hg-weight-medium);
+  color: var(--hg-text);
+  cursor: pointer;
+  list-style: none;
+}
+.kn-compare__toggle > span { flex: 1 1 auto; }
+.kn-compare__toggle::-webkit-details-marker { display: none; }
+.kn-compare__toggle::after {
+  content: '';
+  flex: none;
+  width: 9px; height: 9px;
+  /* Tertiary, like the FAQ's chevron — the affordance is the row, not the mark on it. */
+  border-inline-end: 1.6px solid var(--hg-text-tertiary);
+  border-bottom: 1.6px solid var(--hg-text-tertiary);
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform var(--hg-motion-base) var(--hg-motion-easing);
+}
+.kn-compare[open] .kn-compare__toggle::after { transform: rotate(-135deg) translateY(-2px); }
+.kn-compare__toggle:hover { color: var(--kn-accent-text, var(--hg-primary)); }
+.kn-compare__toggle:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 2px; border-radius: 4px; }
+
+.kn-compare__body { padding-bottom: clamp(24px, 3vw, 40px); }
+
+/*
+ * The disclosure opens rather than appears (brief Part 22). `::details-content` plus `interpolate-size` is
+ * the only way to animate a native `<details>` without replacing it with a scripted accordion, which Part 22
+ * rules out — so it is applied where it is supported and skipped silently everywhere else, where the panel
+ * simply opens as it always has. Reduced motion never gets it.
+ */
+@supports selector(details::details-content) {
+  @media (prefers-reduced-motion: no-preference) {
+    .kn-compare { interpolate-size: allow-keywords; }
+    .kn-compare::details-content {
+      block-size: 0;
+      overflow-y: clip;
+      transition:
+        block-size var(--hg-motion-slow) var(--hg-ease-standard),
+        content-visibility var(--hg-motion-slow) allow-discrete;
+    }
+    .kn-compare[open]::details-content { block-size: auto; }
+  }
+}
+
+/* -------------------------------------------------------------------------------- the desktop matrix */
+
+.kn-matrix__wrap { position: relative; }
+
+/*
+ * The recommended column, tinted top to bottom by one block behind the table rather than by a background on
+ * every cell. Painting the cells leaves the area-label rows uncoloured, which breaks the column into three
+ * patches — the opposite of what a column marker is for. `--p-hi` is the manifest's own index, set on the
+ * element in React, so nothing in this file knows which plan is recommended.
+ */
+.kn-matrix__hi {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: calc(var(--p-col0) + var(--p-hi) * var(--p-col));
+  width: var(--p-col);
+  border-radius: 16px;
+  /* One step stronger than the panel's own `--p-warm`: behind a table of type the panel's value washes out,
+     and a column marker that can only be seen when looked for is not marking anything. */
+  background: #FFF6EF;
+  pointer-events: none;
+}
+
+.kn-matrix {
+  position: relative;
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+/* No cell rules anywhere. The rhythm is row height; the only lines are above each area label. */
+.kn-matrix th,
+.kn-matrix td {
+  padding: var(--p-row) clamp(12px, 1.4vw, 18px);
+  text-align: start;
+  font-size: var(--hg-text-md);
+  line-height: 1.45;
+  vertical-align: middle;
+  border: 0;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.kn-matrix thead th {
+  padding-top: clamp(14px, 1.6vw, 18px);
+  padding-bottom: clamp(12px, 1.4vw, 16px);
+  font-size: var(--hg-text-xl);
+  font-weight: var(--hg-weight-semibold);
+  letter-spacing: -0.01em;
+  color: var(--hg-text);
+}
+/* The stub head is a label for the column of dimensions, not a fourth plan name. */
+.kn-matrix thead th:first-child {
+  font-size: var(--hg-text-sm);
+  font-weight: var(--hg-weight-medium);
+  letter-spacing: 0.04em;
+  color: var(--hg-text-tertiary);
+}
+.kn-matrix thead th[data-recommended] { color: var(--hg-primary-text); }
+
+/* A quiet separator and a quiet label — not a card, and not a band across the table. */
+.kn-matrix__grouprow th {
+  padding-top: clamp(30px, 3.4vw, 42px);
+  padding-bottom: clamp(4px, 0.6vw, 8px);
+  padding-inline-start: 0;
+  font-size: var(--hg-text-xs);
+  font-weight: var(--hg-weight-semibold);
+  letter-spacing: 0.12em;
+  color: var(--hg-text-tertiary);
+}
+.kn-matrix tbody:first-of-type .kn-matrix__grouprow th { padding-top: clamp(8px, 1vw, 12px); }
+.kn-matrix__grouprow th::after {
+  content: '';
+  display: block;
+  margin-top: clamp(8px, 1vw, 12px);
+  height: 1px;
+  background: var(--hg-border);
+}
+
+/*
+ * **The three levels the matrix now has** (brief 1.4), stated in weight and tone rather than in rules:
+ *
+ *   area label    11 px, +0.12em, tertiary      — a label above a group, deliberately not a row
+ *   service name  medium, text colour            — the handhold; this is what the eye runs down
+ *   value         medium, tabular                — what is being compared
+ *
+ * V15 b had all three within one typographic step of each other, so a reader scanning for "what do I get
+ * by moving up" had nothing to land on. No borders are restored and no icons are added; the only change is
+ * that the rows stopped being equal.
+ */
+.kn-matrix tbody th[scope='row'] {
+  font-weight: var(--hg-weight-medium);
+  color: var(--hg-text);
+}
+.kn-matrix td {
+  color: var(--hg-text);
+  font-weight: var(--hg-weight-medium);
+  /* Tabular figures so 최대 2곳 / 최대 3곳 / 1회 / 2회 align digit over digit down a column. A proportional
+     "1" is narrower than a "2" and the quantities drifted left and right by a glyph. */
+  font-variant-numeric: tabular-nums;
+}
+/* The recommended column reads as a column, not as a tint behind one: its values carry the extra step of
+   weight that the tint alone cannot give them. */
+.kn-matrix td[data-recommended] { font-weight: var(--hg-weight-semibold); }
+/* Nine printed "미포함"s were the loudest thing in V15 a's table. An em dash says the same in one glyph,
+   and the word stays in the accessibility tree. */
+.kn-matrix td[data-cell='none'],
+.kn-matrix td[data-recommended][data-cell='none'] { color: var(--hg-border-strong, var(--hg-text-disabled)); font-weight: var(--hg-weight-regular); }
+.kn-matrix__dash { font-size: 1.1em; line-height: 1; opacity: 0.75; }
+.kn-matrix__tick { color: var(--hg-text); }
+
+@media (max-width: 767.98px) { .kn-matrix__wrap { display: none; } }
+
+/* --------------------------------------------------------------------------------- the phone matrix */
+
+/*
+ * One plan at a time. The desktop matrix inside 390 px is four columns of ~90 px — the "tiny four-column
+ * spreadsheet" the brief rules out by name — and putting it in a horizontal scroller only hides the problem
+ * behind a gesture, at the cost of a scroll region that has to be focusable to be reachable at all.
+ */
+.kn-matrix-m { display: none; }
+@media (max-width: 767.98px) { .kn-matrix-m { display: block; } }
+
+.kn-matrix-m__tabs {
+  display: flex;
+  flex-wrap: wrap;            /* a market whose plan names are long wraps the row rather than the page */
+  gap: 0 clamp(16px, 5vw, 26px);
+  border-bottom: 1px solid var(--hg-border);
+}
+.kn-matrix-m__tabs button {
+  position: relative;
+  appearance: none;
+  margin: 0;
+  padding: 10px 2px 14px;
+  min-height: 48px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--hg-text-lg);
+  font-weight: var(--hg-weight-medium);
+  color: var(--hg-text-tertiary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.kn-matrix-m__tabs button[aria-selected='true'] { color: var(--hg-text); font-weight: var(--hg-weight-semibold); }
+.kn-matrix-m__tabs button[aria-selected='true']::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--hg-text);
+}
+/* The recommended plan stays recognisable inside the control it is selected from. */
+.kn-matrix-m__tabs button[data-recommended][aria-selected='true'] { color: var(--hg-primary-text); }
+.kn-matrix-m__tabs button[data-recommended][aria-selected='true']::after { background: var(--hg-primary); }
+.kn-matrix-m__tabs button:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 2px; border-radius: 6px; }
+
+.kn-matrix-m__panel:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 4px; border-radius: 8px; }
+
+.kn-matrix-m__group { margin-top: clamp(22px, 6vw, 28px); }
+.kn-matrix-m__group h4 {
+  margin: 0 0 var(--hg-space-2);
+  font-size: var(--hg-text-xs);
+  font-weight: var(--hg-weight-semibold);
+  letter-spacing: 0.12em;
+  color: var(--hg-text-tertiary);
+}
+.kn-matrix-m__group dl { margin: 0; }
+.kn-matrix-m__group dl > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--hg-space-5);
+  padding: 11px 0;
+  border-top: 1px solid var(--hg-border-subtle);
+}
+.kn-matrix-m__group dt {
+  font-size: var(--hg-text-md);
+  font-weight: var(--hg-weight-medium);
+  color: var(--hg-text);
+  word-break: keep-all;
+}
+.kn-matrix-m__group dd {
+  margin: 0;
+  text-align: end;
+  font-size: var(--hg-text-md);
+  font-weight: var(--hg-weight-medium);
+  font-variant-numeric: tabular-nums;
+  color: var(--hg-text);
+  word-break: keep-all;
+}
+.kn-matrix-m__group dl > div[data-cell='none'] dd { color: var(--hg-text-disabled); font-weight: var(--hg-weight-regular); }
+
+/* The table's column geometry, shared with the highlight behind it (`--p-col0` / `--p-col` above). */
+.kn-matrix__c0 { width: var(--p-col0); }
+.kn-matrix__c { width: var(--p-col); }
+
+/* ------------------------------------------------------------------ V29: additional services + 이용 안내 */
+
+/*
+ * Below the comparison, two quiet blocks in the section's own grammar — hairline rows like the FAQ, no surfaces,
+ * no cards. The add-ons are a three-column list (service · unit · price) that never scrolls sideways: on a phone
+ * the unit drops under the service name and the price stays at the end of the row.
+ */
+.kn-matrix__note {
+  margin: var(--hg-space-4) 0 0;
+  font-size: var(--hg-text-sm);
+  color: var(--hg-text-secondary);
+  word-break: keep-all;
+}
+.kn-pricing__more {
+  /* V31 (REPORT §422): ONE composition after the plans — a warm-paper panel holding the service catalogue and, under
+     it, the purchase notes. It replaced a 3fr/2fr grid whose right column held a single accordion and ~400 px of
+     nothing. The panel's width is the plans' width, so the pricing story keeps one edge from cards to notes. */
+  margin-top: clamp(48px, 6vw, 80px);
+  padding: clamp(24px, 4vw, 48px) clamp(20px, 4vw, 56px);
+  background: var(--hg-bg-canvas);
+  border-radius: 20px;
+  display: grid; gap: clamp(24px, 3vw, 36px);
+}
+@media (min-width: 1024px) { .kn-pricing__more { margin-inline: clamp(22px, 2.2vw, 30px); } }
+
+.kn-addons { min-width: 0; }
+.kn-addons__head { max-inline-size: 680px; }
+.kn-addons__title { margin: 0; font-size: clamp(20px, 1.6vw, 24px); font-weight: var(--hg-weight-semibold); letter-spacing: -0.01em; color: var(--hg-text); }
+.kn-addons__lede { margin: var(--hg-space-2) 0 0; color: var(--hg-text-secondary); font-size: var(--hg-text-md, 15px); line-height: 1.6; word-break: keep-all; }
+.kn-addons__grid { list-style: none; margin: clamp(18px, 2.4vw, 28px) 0 0; padding: 0; display: grid; column-gap: clamp(32px, 5vw, 64px); }
+@media (min-width: 900px) { .kn-addons__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: row; } }
+.kn-addons__row {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'name price' 'unit price';
+  column-gap: var(--hg-space-4); row-gap: 2px; align-items: center;
+  padding: 16px 0; border-top: 1px solid var(--hg-border);
+}
+.kn-addons__name { grid-area: name; font-size: var(--hg-text-lg); font-weight: var(--hg-weight-semibold); color: var(--hg-text); word-break: keep-all; }
+.kn-addons__unit { grid-area: unit; font-size: var(--hg-text-sm); color: var(--hg-text-secondary); }
+.kn-addons__price { grid-area: price; justify-self: end; white-space: nowrap; font-size: var(--hg-text-lg); font-weight: var(--hg-weight-semibold); color: var(--hg-text); }
+.kn-addons__price[data-pricing="QUOTE"] { font-size: var(--hg-text-base); font-weight: var(--hg-weight-medium); color: var(--hg-text-secondary); }
+.kn-addons__fine { margin: var(--hg-space-4) 0 0; font-size: var(--hg-text-sm); color: var(--hg-text-tertiary); line-height: 1.6; word-break: keep-all; }
+
+.kn-notes { border-top: 1px solid var(--hg-border); min-width: 0; }
+.kn-notes__toggle {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--hg-space-4);
+  padding: 20px 0 4px; cursor: pointer; list-style: none; color: var(--hg-text);
+}
+.kn-notes__toggle::-webkit-details-marker { display: none; }
+.kn-notes__heading { display: grid; gap: 2px; min-width: 0; }
+.kn-notes__title { font-size: var(--hg-text-lg); font-weight: var(--hg-weight-semibold); }
+.kn-notes__summary { font-size: var(--hg-text-sm); color: var(--hg-text-secondary); word-break: keep-all; }
+.kn-notes__chev {
+  flex: none; inline-size: 36px; block-size: 36px; border-radius: 50%; border: 1px solid var(--hg-border-control);
+  background: var(--hg-surface) no-repeat center / 16px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23181A1F' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  transition: transform var(--hg-motion-base) var(--hg-motion-easing);
+}
+.kn-notes[open] .kn-notes__chev { transform: rotate(180deg); }
+.kn-notes__toggle:hover .kn-notes__title { color: var(--kn-accent-text, var(--hg-primary)); }
+.kn-notes__toggle:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 4px; border-radius: 6px; }
+.kn-notes__groups { display: grid; gap: clamp(20px, 2.4vw, 28px) clamp(32px, 5vw, 64px); padding: clamp(18px, 2vw, 24px) 0 4px; }
+@media (min-width: 900px) { .kn-notes__groups { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.kn-notes__gtitle { margin: 0 0 8px; font-size: var(--hg-text-base); font-weight: var(--hg-weight-semibold); color: var(--hg-text); }
+.kn-notes__list { margin: 0; padding-inline-start: 1.1em; display: grid; gap: 6px;
+  font-size: var(--hg-text-sm); color: var(--hg-text-secondary); line-height: 1.6; word-break: keep-all; }
+.kn-notes__list li::marker { color: var(--hg-text-tertiary); }
+@media (prefers-reduced-motion: reduce) { .kn-notes__chev { transition: none; } }
+
+/* V31 (REPORT §422, brief §7): every in-page target clears the floating header pill (top offset + ~56 px pill + air),
+   so #pricing, #plan-compare, #plan-notes, #faq never land under it from a link, the header CTA or the browser. */
+.kn [id] { scroll-margin-top: calc(var(--kn-header-top, 16px) + 56px + 24px); }

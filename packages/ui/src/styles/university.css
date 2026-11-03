@@ -1,0 +1,518 @@
+/* ==================================================================================================
+   University presentation (V20, brief §10–§15, §47, §50, §52).
+
+   The art direction this replaces was "a column of facts on the left and white space on the right".
+   What is here instead is the grammar of an editorial travel product: one immersive opening, a measure
+   that stays constant down the page, hairlines instead of card borders, and media that is allowed to be
+   big. §13 is explicit that the eleven content sections must NOT become eleven rounded cards, so there
+   is no `border-radius` + `border` + `padding` combination anywhere below except on media.
+
+   Everything is written in logical properties so RTL locales mirror, and every type step is clamped so
+   there is one scale from 360 px to 1728 px rather than a desktop design with phone patches.
+   ================================================================================================== */
+
+.hg-uni {
+  /* One measure for prose, one wider one for media. Sections inherit them; nothing sets its own. */
+  --uni-measure: 62ch;
+  --uni-gutter: 20px;
+  --uni-max: 1160px;
+  --uni-rhythm: clamp(56px, 7vw, 104px);
+}
+@media (min-width: 768px) { .hg-uni { --uni-gutter: 32px; } }
+@media (min-width: 1200px) { .hg-uni { --uni-gutter: 48px; } }
+
+.hg-uni__wrap {
+  max-inline-size: var(--uni-max);
+  margin-inline: auto;
+  padding-inline: var(--uni-gutter);
+}
+
+/* ----------------------------------------------------------------------------------------- hero */
+
+.hg-uni-hero {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  align-items: end;
+  overflow: clip;
+}
+
+/* Tier A/B — a photograph the reader is inside of.
+   `100svh` rather than `vh`: on iOS the URL bar makes `vh` taller than the visible viewport, which pushes
+   the name and the call to action below the fold on exactly the devices most of these readers use. The
+   cap keeps a 27-inch monitor from turning the hero into a poster with the page hidden beneath it. */
+.hg-uni-hero--photo {
+  min-block-size: min(86svh, 740px);
+  background: var(--hg-palette-gray-900, #16181C);
+}
+@media (max-width: 767px) { .hg-uni-hero--photo { min-block-size: min(76svh, 560px); } }
+
+/* `__media` is its own stacking context, so the scrim's z-index is resolved **inside** it. The first
+   version gave the scrim `-1` and left the image at `auto`, which painted the scrim behind the
+   photograph: the gradient was in the DOM, in the stylesheet, and invisible. Both layers are numbered
+   explicitly now so the order cannot be read two ways. */
+.hg-uni-hero__media { position: absolute; inset: 0; z-index: -2; }
+.hg-uni-hero__media img { position: relative; z-index: 0; inline-size: 100%; block-size: 100%; object-fit: cover; }
+
+/* Two stops, not one. A single black-to-transparent ramp either greys the whole photograph or leaves the
+   first line of text sitting on sky. The lower stop is strong enough to carry 16 px body text at AA over
+   any image; the upper one exists only so the floating header pill has something to sit against. */
+/* Measured against the brightest hero we actually serve — Kyung Hee's main building under a white sky,
+   which is near-white across the whole lower half. A ramp tuned on a darker photograph left the name
+   and the identity sentence at roughly 2:1 there. The lower stop is now opaque enough to carry 16 px
+   body text at AA over *any* image, plus a flat 18 % wash so nothing depends on where the horizon
+   happens to fall. The upper stop exists only so the floating header pill has something to sit on. */
+.hg-uni-hero__scrim {
+  position: absolute; inset: 0; z-index: 1;
+}
+
+/* Tier C/D — the **identity** opening.
+   No photograph, and nothing drawn in place of one. V20 set two chopped syllables of the institution's
+   own name at 260 px here; the owner rejected it and the concept is gone, not tuned (REPORT §226.1).
+   What is left is the thing a studio would do with no image: the name, large, in both scripts, on a
+   quiet warm surface, with the mark above it and the place under it. It is shorter than the
+   photographic hero on purpose — an identity card, not a poster pretending to be one. */
+.hg-uni-hero--type {
+  padding-block-end: clamp(8px, 1.2vw, 16px);
+}
+
+.hg-uni-hero__top {
+  position: absolute; inset-block-start: 0; inset-inline: 0; z-index: 1;
+  max-inline-size: var(--uni-max); margin-inline: auto;
+  padding: var(--uni-hero-clear, 96px) var(--uni-gutter) 0;
+}
+
+.hg-uni-hero__inner {
+  position: relative; z-index: 1;
+  inline-size: 100%;
+  max-inline-size: var(--uni-max);
+  margin-inline: auto;
+  padding: clamp(28px, 5vw, 56px) var(--uni-gutter) clamp(32px, 4.5vw, 52px);
+  display: flex; flex-direction: column; align-items: flex-start; gap: 0;
+}
+.hg-uni-hero--type .hg-uni-hero__inner { padding-block-start: calc(var(--uni-hero-clear, 96px) + clamp(44px, 7vw, 76px)); }
+
+.hg-uni-hero__logo {
+  display: block;
+  margin-block-end: 20px;
+  max-inline-size: min(220px, 56vw);
+  object-fit: contain; object-position: left center;
+}
+/* On a photograph a mark has to survive whatever is behind it. A soft dark plate reads as a deliberate
+   lockup; a drop shadow on a logo reads as a mistake. */
+.hg-uni-hero--photo .hg-uni-hero__logo {
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 10px;
+  padding: 8px 12px;
+  box-sizing: content-box;
+}
+
+.hg-uni-hero__name {
+  font-size: clamp(32px, 5.4vw, 60px);
+  line-height: 1.04;
+  letter-spacing: -0.028em;
+  font-weight: 700;
+  margin: 0;
+  text-wrap: balance;
+}
+/* **Every text node in this component declares its own colour**, including the ones that could just
+   inherit. The marketing site imports a licensed template whose reset includes `:where(.ed) p { color:
+   var(--clr-body-text) }`, and a rule that *matches* an element always beats a colour the element would
+   otherwise *inherit*, however specific the ancestor's rule is. So `.hg-uni-hero__inner { color: #fff }`
+   whitened the h1 and left every `<p>` in the lockup near-black on a dark photograph. Same class of
+   defect as the button cascade in §215.2, and the same remedy: say it, do not assume it. */
+.hg-uni-hero__alt {
+  margin-block-start: 10px;
+  font-size: clamp(15px, 1.5vw, 18px);
+  font-weight: 500;
+}
+.hg-uni-hero--photo .hg-uni-hero__alt { color: rgba(255, 255, 255, 0.86); }
+.hg-uni-hero--photo .hg-uni-hero__inner { color: #fff; }
+.hg-uni-hero--photo .hg-uni-hero__name { color: #fff; text-shadow: 0 2px 26px rgba(0, 0, 0, 0.45); }
+
+/* Place · kind · founded. One line, set quietly, directly under the name. */
+.hg-uni-hero__where {
+  margin-block-start: 16px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0 10px;
+  font-size: clamp(13px, 1.3vw, 15px);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.hg-uni-hero__where > span + span::before { content: '·'; margin-inline-end: 10px; opacity: 0.55; }
+.hg-uni-hero--photo .hg-uni-hero__where { color: rgba(255, 255, 255, 0.92); text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45); }
+
+/* The identity sentence: the one piece of writing above the fold. Held to a narrow measure so it reads
+   as a sentence somebody wrote rather than as a paragraph of body copy. */
+.hg-uni-hero__say {
+  margin-block-start: clamp(18px, 2.4vw, 26px);
+  max-inline-size: 34ch;
+  font-size: clamp(17px, 2vw, 23px);
+  line-height: 1.46;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  text-wrap: pretty;
+}
+.hg-uni-hero--photo .hg-uni-hero__say { color: #fff; text-shadow: 0 1px 14px rgba(0, 0, 0, 0.5); }
+
+.hg-uni-hero__act { margin-block-start: clamp(24px, 3vw, 34px); display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+@media (max-width: 575px) { .hg-uni-hero__act { inline-size: 100%; } .hg-uni-hero__act > .kn-btn { inline-size: 100%; } }
+
+/* The credit line. Small, quiet, and **present** — a licence that requires attribution is satisfied
+   by naming the author where the work is shown, not by a credits page nobody opens (V21, brief §15). */
+.hg-uni-hero__credit {
+  position: absolute; inset-block-end: 8px; inset-inline-end: 12px; z-index: 2;
+  margin: 0; font-size: 11px; letter-spacing: 0.02em; line-height: 1.5;
+  display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0 8px;
+  max-inline-size: min(60%, 420px); text-align: end;
+  color: rgba(255, 255, 255, 0.72);
+}
+.hg-uni-credit { margin: 0; color: inherit; }
+.hg-uni-credit a { color: inherit; text-decoration: none; border-block-end: 1px solid currentColor; opacity: 0.85; }
+.hg-uni-credit a:hover { opacity: 1; }
+/* In the gallery the credit sits under its own picture rather than over it. */
+
+/* -------------------------------------------------------------------------------------- sections */
+
+.hg-uni-sec { padding-block: var(--uni-rhythm); }
+.hg-uni-sec + .hg-uni-sec { padding-block-start: 0; }
+
+.hg-uni-sec__eyebrow {
+  margin: 0 0 12px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--hg-primary-text);
+}
+.hg-uni-sec__h {
+  margin: 0;
+  font-size: clamp(23px, 2.9vw, 34px);
+  line-height: 1.18; letter-spacing: -0.022em; font-weight: 650;
+  color: var(--hg-text);
+  text-wrap: balance;
+}
+.hg-uni-sec__lede {
+  margin-block-start: 14px;
+  max-inline-size: var(--uni-measure);
+  font-size: clamp(16px, 1.6vw, 18px);
+  line-height: 1.68;
+  color: var(--hg-text-secondary);
+  text-wrap: pretty;
+}
+
+/* A two-column editorial story: heading left, prose right, one hairline above. Collapses to one column
+   below 900 px because a 34 px heading beside a 60ch measure needs real width to be a composition
+   rather than two narrow columns. */
+.hg-uni-split {
+  display: grid; gap: clamp(18px, 3vw, 48px);
+  padding-block-start: clamp(26px, 3vw, 40px);
+  border-block-start: 1px solid var(--hg-border-subtle);
+}
+@media (min-width: 900px) { .hg-uni-split { grid-template-columns: minmax(0, 7fr) minmax(0, 12fr); } }
+.hg-uni-split__aside { align-self: start; }
+.hg-uni-split__body > * + * { margin-block-start: 1em; }
+.hg-uni-split__body p {
+  max-inline-size: var(--uni-measure);
+  font-size: clamp(16px, 1.55vw, 17.5px);
+  line-height: 1.72;
+  color: var(--hg-text-secondary);
+  text-wrap: pretty;
+}
+
+/* "Why this university" — three or four points, as a list with hairlines, not as cards (§13). */
+.hg-uni-why { display: grid; gap: 0; padding-block-start: clamp(22px, 2.6vw, 34px); margin: 0; list-style: none; }
+@media (min-width: 860px) { .hg-uni-why { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(24px, 3vw, 48px); } }
+.hg-uni-why > li {
+  padding-block: 22px;
+  border-block-start: 1px solid var(--hg-border);
+}
+@media (min-width: 860px) { .hg-uni-why > li { padding-block: 24px 4px; } }
+.hg-uni-why__k {
+  margin: 0 0 8px; font-size: 17px; font-weight: 650; letter-spacing: -0.012em; color: var(--hg-text);
+}
+.hg-uni-why__v { margin: 0; font-size: 15px; line-height: 1.64; color: var(--hg-text-secondary); }
+
+/* A fact strip: tabular, quiet, no table chrome. Used for the registry facts that used to lead the page. */
+.hg-uni-facts { margin: 0; padding-block-start: clamp(20px, 2.4vw, 30px); display: grid; gap: 0; }
+@media (min-width: 700px) { .hg-uni-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(28px, 4vw, 64px); } }
+.hg-uni-facts > div {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+  padding-block: 13px; border-block-start: 1px solid var(--hg-border-subtle);
+}
+.hg-uni-facts dt { font-size: 14px; color: var(--hg-text-tertiary); }
+.hg-uni-facts dd { margin: 0; font-size: 15px; font-weight: 550; color: var(--hg-text); text-align: end; }
+
+/* -------------------------------------------------------------------------------------- philosophy */
+
+.hg-uni-phil__read {
+  margin-block-start: 18px;
+  max-inline-size: 58ch;
+  font-size: clamp(17px, 1.8vw, 20px);
+  line-height: 1.66;
+  color: var(--hg-text);
+  text-wrap: pretty;
+}
+.hg-uni-phil__quote {
+  margin: clamp(20px, 2.4vw, 28px) 0 0;
+  padding-inline-start: 20px;
+  border-inline-start: 2px solid var(--hg-primary);
+  max-inline-size: 60ch;
+}
+.hg-uni-phil__quote p { margin: 0; font-size: 15px; line-height: 1.72; color: var(--hg-text-tertiary); }
+.hg-uni-phil__quote--lead p { font-size: clamp(19px, 2.4vw, 26px); line-height: 1.42; color: var(--hg-text); font-weight: 550; letter-spacing: -0.014em; }
+
+.hg-uni-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-block-start: 20px;
+  font-size: 14px; font-weight: 550; color: var(--hg-primary-text);
+  text-decoration: none;
+}
+.hg-uni-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ------------------------------------------------------------------------------------------ video */
+
+.hg-uni-video__frame {
+  position: relative; margin-block-start: clamp(20px, 2.6vw, 30px);
+  aspect-ratio: 16 / 9; inline-size: 100%;
+  border-radius: 14px; overflow: hidden; background: var(--hg-palette-gray-900, #16181C);
+}
+.hg-uni-video__frame iframe { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; border: 0; }
+.hg-uni-video__play {
+  position: absolute; inset: 0; inline-size: 100%; block-size: 100%;
+  padding: 0; border: 0; background: none; cursor: pointer; display: block;
+}
+.hg-uni-video__play img { inline-size: 100%; block-size: 100%; object-fit: cover; transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1); }
+.hg-uni-video__play:hover img { transform: scale(1.02); }
+.hg-uni-video__btn {
+  position: absolute; inset-block-start: 50%; inset-inline-start: 50%; translate: -50% -50%;
+  inline-size: 68px; block-size: 68px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.3);
+  transition: scale 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hg-uni-video__btn svg { inline-size: 26px; block-size: 26px; color: var(--hg-text); fill: currentColor; margin-inline-start: 3px; }
+.hg-uni-video__play:hover .hg-uni-video__btn { scale: 1.06; }
+.hg-uni-video__play:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 3px; }
+.hg-uni-video__meta { margin-block-start: 12px; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+.hg-uni-video__title { font-size: 15px; font-weight: 550; color: var(--hg-text); }
+.hg-uni-video__chan { font-size: 13px; color: var(--hg-text-tertiary); }
+
+.hg-uni-channel {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-block-start: 20px; padding: 11px 18px 11px 12px;
+  border: 1px solid var(--hg-border-control, var(--hg-border-strong)); border-radius: 999px;
+  text-decoration: none; color: var(--hg-text); font-size: 15px; font-weight: 550;
+  transition: border-color 150ms, background 150ms;
+}
+.hg-uni-channel:hover { border-color: var(--hg-primary); background: var(--hg-primary-subtle); }
+.hg-uni-channel__play { display: grid; place-items: center; inline-size: 28px; block-size: 28px; border-radius: 50%; background: var(--hg-primary); color: #fff; }
+.hg-uni-channel__play svg { inline-size: 14px; block-size: 14px; fill: currentColor; margin-inline-start: 2px; }
+
+/* ------------------------------------------------------------------------------------------ links */
+
+.hg-uni-links__list { margin: clamp(18px, 2.2vw, 26px) 0 0; padding: 0; list-style: none; display: grid; gap: 0; }
+@media (min-width: 760px) { .hg-uni-links__list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(24px, 3vw, 56px); } }
+.hg-uni-links__list li { border-block-start: 1px solid var(--hg-border-subtle); }
+.hg-uni-links__list a {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding-block: 16px; text-decoration: none;
+  font-size: 16px; font-weight: 550; color: var(--hg-text);
+  transition: color 150ms;
+}
+.hg-uni-links__list a:hover { color: var(--hg-primary-text); }
+.hg-uni-links__list svg { color: var(--hg-text-tertiary); transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1), color 150ms; }
+.hg-uni-links__list a:hover svg { color: var(--hg-primary-text); transform: translate(2px, -2px); }
+
+/* ---------------------------------------------------------------------------------------- gallery */
+
+/* One dominant landscape image and two supporting ones (§14). Not a thumbnail carousel: the task here is
+   looking, and a 96 px thumbnail is a picture of a picture. */
+.hg-uni-gal { margin: clamp(22px, 2.8vw, 34px) 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+/* The composition depends on how many photographs there actually are, because the same rule applied to
+   two of them left a hole: a lead spanning 2 × 2 beside a single 1 × 1 tile drew an empty grey quarter
+   that reads as a failed image. One picture is full width; two are a wide lead and a narrow companion
+   on one row; three or more get the editorial 2 × 2 lead with the rest stacked beside it (§14). */
+@media (min-width: 860px) {
+  .hg-uni-gal { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr); gap: 14px; }
+  .hg-uni-gal > li.is-lead { grid-column: span 2; grid-row: span 2; }
+  .hg-uni-gal--single > li.is-lead { grid-column: span 3; grid-row: span 1; }
+  .hg-uni-gal--pair > li.is-lead { grid-column: span 2; grid-row: span 1; }
+  .hg-uni-gal--pair > li { grid-row: span 1; }
+  .hg-uni-gal--pair img { aspect-ratio: 16 / 10; }
+}
+.hg-uni-gal > li { margin: 0; border-radius: 12px; overflow: hidden; background: var(--hg-surface-sunken); }
+.hg-uni-gal img { inline-size: 100%; block-size: 100%; object-fit: cover; aspect-ratio: 3 / 2; transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1); }
+@media (min-width: 860px) { .hg-uni-gal > li.is-lead img { aspect-ratio: 3 / 2; } .hg-uni-gal > li:not(.is-lead) img { aspect-ratio: 3 / 2; } }
+.hg-uni-gal > li:hover img { transform: scale(1.018); }
+
+/* Phone: a full-width swipe gallery, not three squeezed columns (§14 mobile). */
+@media (max-width: 859px) {
+  .hg-uni-gal {
+    grid-auto-flow: column; grid-auto-columns: 88%;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    padding-inline-end: var(--uni-gutter);
+    margin-inline: calc(var(--uni-gutter) * -1); padding-inline-start: var(--uni-gutter);
+    scrollbar-width: none;
+  }
+  .hg-uni-gal::-webkit-scrollbar { display: none; }
+  .hg-uni-gal > li { scroll-snap-align: start; }
+}
+.hg-uni-gal:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hg-uni-gal img, .hg-uni-video__play img, .hg-uni-video__btn, .hg-uni-links__list svg { transition: none; }
+  .hg-uni-gal > li:hover img, .hg-uni-video__play:hover img { transform: none; }
+  .hg-uni-video__play:hover .hg-uni-video__btn { scale: 1; }
+}
+
+/* ---------------------------------------------------------------------------------------- Korean
+
+   Korean has no inter-word spaces the browser can rely on, so the default `break-word` splits a
+   heading mid-syllable-block — "서울대 / 학교". `keep-all` breaks at 어절 boundaries instead, which is
+   the convention the codebase already follows (`packages/ui/src/styles/base.css`). It lives here
+   rather than in the marketing app's CSS because these components are rendered by the student app
+   too, and the rule has to travel with them. */
+:lang(ko) :is(
+  .hg-uni-hero__name, .hg-uni-hero__alt, .hg-uni-hero__where, .hg-uni-hero__say,
+  .hg-uni-sec__h, .hg-uni-sec__lede, .hg-uni-why__k, .hg-uni-why__v,
+  .hg-uni-phil__read, .hg-uni-phil__quote p, .hg-uni-split__body p,
+  .hg-uni-facts dt, .hg-uni-facts dd, .hg-uni-links__list a, .hg-uni-video__title
+) {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* ===================================================================== V23 identity composition (§270 D1)
+   Tiers D/E: an ink field in one restrained tone per part of the country, the province mark, and the name.
+   Used by the directory tile and, without the name, as the field of the identity hero. */
+.hg-uni-art {
+  position: absolute; inset: 0; overflow: hidden;
+}
+
+.hg-uni-art__map {
+  position: absolute; inline-size: auto; max-inline-size: none; pointer-events: none;
+}
+[dir='rtl'] .hg-uni-art__map { transform: scaleX(-1); }
+
+.hg-uni-art__plate {
+  position: absolute; inset-block-start: 14px; inset-inline-start: 14px;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 7px 10px; border-radius: 10px;
+}
+.hg-uni-art__logo { display: block; max-inline-size: 120px; object-fit: contain; }
+
+.hg-uni-art__text {
+  position: absolute;
+  display: flex; flex-direction: column;
+}
+.hg-uni-art__name {
+  font-size: clamp(17px, 1.9vw, 21px); line-height: 1.25; letter-spacing: -0.018em;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  word-break: keep-all; overflow-wrap: anywhere; text-wrap: balance;
+}
+.hg-uni-art__name:lang(en) { font-size: clamp(15px, 1.55vw, 18px); line-height: 1.3; letter-spacing: -0.01em; }
+.hg-uni-art__region {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+}
+
+/* The identity hero: the same field behind the lockup, the province large at the inline end. */
+.hg-uni-hero__art { z-index: -2; }
+.hg-uni-art--hero .hg-uni-art__map { inset-block-start: 10%; block-size: 120%; inset-inline-end: max(4vw, calc((100vw - var(--uni-max, 1200px)) / 2)); }
+@media (max-width: 767px) { .hg-uni-art--hero .hg-uni-art__map { block-size: 88%; inset-block-start: 22%; inset-inline-end: -6%; opacity: 0.5; } }
+
+.hg-uni-hero--type { border-block-end: 0;
+}
+.hg-uni-hero--type .hg-uni-hero__inner { color: #fff; }
+.hg-uni-hero--type .hg-uni-hero__name { color: #fff; }
+.hg-uni-hero--type .hg-uni-hero__alt { color: rgba(255, 255, 255, 0.82); }
+.hg-uni-hero--type .hg-uni-hero__where { color: rgba(255, 255, 255, 0.78); }
+.hg-uni-hero--type .hg-uni-hero__say { color: #fff; }
+.hg-uni-hero--type .hg-uni-hero__logo { background: rgba(255, 255, 255, 0.96); border-radius: 10px; padding: 8px 12px; box-sizing: content-box; }
+/* With a mark on its plate (top-left) the name gets two lines, so a long name never runs under the plate (V23 §74). */
+.hg-uni-art[data-has-logo] .hg-uni-art__name { -webkit-line-clamp: 2; font-size: clamp(14.5px, 1.45vw, 17px); }
+.hg-uni-art[data-has-logo] .hg-uni-art__plate { padding: 5px 8px; }
+
+/* V24 (REPORT §292) — a composition per count, so no count leaves an orphan row. The page caps the gallery
+   at five; with V23's single rule a fourth picture fell alone into a new row (Yonsei's museum interior). */
+@media (min-width: 860px) {
+  .hg-uni-gal--n4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hg-uni-gal--n4 > li.is-lead { grid-column: span 1; grid-row: span 1; }
+  .hg-uni-gal--n5 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .hg-uni-gal--n5 > li.is-lead { grid-column: span 2; grid-row: span 2; }
+  .hg-uni-gal--n4 img, .hg-uni-gal--n5 > li:not(.is-lead) img { aspect-ratio: 3 / 2; }
+}
+/* The credit rides on the picture's lower edge, so a credit's length can no longer make one tile of a
+   row taller than its neighbours. Still always visible: the licence asks for it beside the work. */
+.hg-uni-gal > li { position: relative; }
+.hg-uni-gal .hg-uni-credit {
+  position: absolute; inset-block-end: 8px; inset-inline-end: 8px; z-index: 1;
+  max-inline-size: calc(100% - 16px); margin: 0; padding: 2px 7px; border-radius: var(--hg-radius-sm);
+  background: rgb(0 0 0 / 0.46); color: rgb(255 255 255 / 0.92);
+  font-size: var(--hg-type-caption); line-height: var(--hg-type-caption-leading); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.hg-uni-gal .hg-uni-credit a { color: inherit; }
+
+/* ===================================================================== V25 identity composition (REPORT §312 D3)
+   V23's ink field read as a placeholder in a grid of photographs: 192 dark navy rectangles with a tangerine province,
+   cold and identical. The fallback is now **light and typographic** — a warm paper ground, the name set in ink, the
+   province as a faint line drawing in the corner. Still plainly not a photograph (it never pretends to be a campus),
+   but it sits calmly among photographs instead of punching holes in the grid. */
+.hg-uni-art {
+  --tone: #F4EFE8;
+  background:
+    radial-gradient(90% 120% at 100% 0%, rgb(204 78 0 / 0.07) 0%, rgb(204 78 0 / 0) 60%),
+    linear-gradient(180deg, #FBF8F4 0%, var(--tone) 100%);
+  color: var(--hg-text);
+}
+.hg-uni-art[data-tone='capital']   { --tone: #F1EEE7; }
+.hg-uni-art[data-tone='southeast'] { --tone: #EEF0EE; }
+.hg-uni-art[data-tone='central']   { --tone: #F2EFEA; }
+.hg-uni-art[data-tone='east']      { --tone: #F4EDE5; }
+.hg-uni-art[data-tone='southwest'] { --tone: #EEF1EA; }
+.hg-uni-art[data-tone='north']     { --tone: #EDF0F1; }
+.hg-uni-art[data-tone='island']    { --tone: #ECF1EF; }
+.hg-uni-art__map { opacity: 0.16; filter: grayscale(1) brightness(0.4); inset-block-start: 10%; inset-inline-end: 6%; block-size: 80%; }
+.hg-uni-art__plate { background: #fff; box-shadow: 0 0 0 1px var(--hg-border); }
+.hg-uni-art__text { inset-inline: clamp(16px, 2vw, 22px) 22%; inset-block-end: clamp(16px, 2vw, 20px); gap: 6px; }
+.hg-uni-art__name { color: var(--hg-text); font-weight: var(--hg-weight-bold); }
+.hg-uni-art__region { color: var(--hg-text-tertiary); letter-spacing: 0.08em; }
+
+.hg-uni-hero--type { background: linear-gradient(180deg, #FBF8F4 0%, #F4EFE8 100%); min-block-size: min(52svh, 460px); }
+.hg-uni-hero--type .hg-uni-hero__inner,
+.hg-uni-hero--type .hg-uni-hero__name,
+.hg-uni-hero--type .hg-uni-hero__say { color: var(--hg-text); }
+.hg-uni-hero--type .hg-uni-hero__alt,
+.hg-uni-hero--type .hg-uni-hero__where { color: var(--hg-text-secondary); }
+.hg-uni-hero--type .hg-uni-hero__credit { color: var(--hg-text-tertiary); }
+.hg-uni-hero--type .hg-uni-hero__logo { box-shadow: 0 0 0 1px var(--hg-border); }
+.hg-uni-art--hero .hg-uni-art__map { opacity: 0.12; }
+
+/* ============================================================================ V25 photographs (REPORT §312 D4, D6)
+   `<picture>` is transparent to layout so every existing `… > img` rule keeps applying. The focal point is a CSS variable
+   pair: landscape everywhere, the portrait point where the crop is portrait (the phone hero). */
+.hg-uni__pic { display: contents; }
+.hg-uni__img { object-position: var(--fp-d, 50% 50%); }
+@media (max-width: 767px) { .hg-uni-hero__media .hg-uni__img { object-position: var(--fp-m, var(--fp-d, 50% 50%)); } }
+
+/* The hero scrim darkened the whole photograph (Yonsei read as night). Now the darkness sits only where the text is: a
+   bottom-up ramp to ~45 % height and a soft inline-start wash behind the lockup; the upper photograph stays at full light. */
+.hg-uni-hero__scrim {
+  background:
+    linear-gradient(to bottom, rgb(10 9 8 / 0.38) 0%, rgb(10 9 8 / 0) 26%),
+    linear-gradient(to top, rgb(10 9 8 / 0.86) 0%, rgb(10 9 8 / 0.62) 22%, rgb(10 9 8 / 0.24) 42%, rgb(10 9 8 / 0) 58%),
+    linear-gradient(to right, rgb(10 9 8 / 0.28) 0%, rgb(10 9 8 / 0) 55%);
+}
+[dir='rtl'] .hg-uni-hero__scrim {
+  background:
+    linear-gradient(to bottom, rgb(10 9 8 / 0.38) 0%, rgb(10 9 8 / 0) 26%),
+    linear-gradient(to top, rgb(10 9 8 / 0.86) 0%, rgb(10 9 8 / 0.62) 22%, rgb(10 9 8 / 0.24) 42%, rgb(10 9 8 / 0) 58%),
+    linear-gradient(to left, rgb(10 9 8 / 0.28) 0%, rgb(10 9 8 / 0) 55%);
+}
+@media (max-width: 767px) {
+  .hg-uni-hero__scrim { background: linear-gradient(to top, rgb(10 9 8 / 0.9) 0%, rgb(10 9 8 / 0.66) 30%, rgb(10 9 8 / 0.2) 55%, rgb(10 9 8 / 0) 70%), linear-gradient(to bottom, rgb(10 9 8 / 0.4) 0%, rgb(10 9 8 / 0) 22%); }
+}
+
+/* The credit stays where the licence needs it — on the picture — but as a quiet caption on a soft gradient, not a black
+   box. Readable (≥ 4.5:1 on the gradient's darkest band) and attached to the image it credits. */
+.hg-uni-credit { font-size: 11px; line-height: 1.35; letter-spacing: 0.01em; }
+
+/* V28: a film still often carries a title card in its top band — anchor the crop low so the campus, not the caption, shows. */
+.hg-uni-hero__media img.hg-uni-hero__still { object-position: 50% 100%; transform: scale(1.14); transform-origin: 50% 100%; }

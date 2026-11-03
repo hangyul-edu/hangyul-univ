@@ -1,0 +1,39 @@
+........................................................................ [ 13%]
+........................................................................ [ 26%]
+........................................................................ [ 39%]
+...................s.................................................... [ 52%]
+........................................................................ [ 65%]
+........................................................................ [ 78%]
+.....................................F.................................. [ 91%]
+..............................................                           [100%]
+=================================== FAILURES ===================================
+____ test_requirement_change_after_applying_does_not_invalidate_and_informs ____
+
+client = <starlette.testclient.TestClient object at 0x7ade7433b770>
+world = namespace(program_id=UUID('eb49acc8-c090-4bb2-a9b8-f2975b3173a1'), university_id=UUID('0ec1c5c2-7026-4263-8beb-3a69447...f1d54'), 'CLOSING': UUID('7c6d2ed1-f318-4565-bdfe-087de8a4f66e'), 'API': UUID('004ef2ff-0da3-46bd-9ff3-0cea7de2784b')})
+
+    def test_requirement_change_after_applying_does_not_invalidate_and_informs(client, world):
+        ops = login(client, "ops@demo.hangyul.kr", "agency")
+        preparing = _register(client)
+        prep_app = _apply(client, preparing, world)
+        sent_stu = _register(client)
+        sent_app = _apply(client, sent_stu, world)
+        _set_app(sent_app["id"], status=ApplicationStatus.SUBMITTED, submitted_at=datetime.now(timezone.utc))
+        before = _codes(_strategy(client, preparing.h, prep_app["id"]))
+        assert "ELIG_GPA" not in before and "REQUIREMENT_CHANGED" not in before
+        try:
+            r = client.patch(f"{API}/university/programs/{world.program_id}/requirements", headers=ops, json={"min_gpa_percent": 90})
+            assert r.status_code == 200, r.text
+            # Nothing about the existing applications changes by itself.
+            assert client.get(f"{API}/applications/{prep_app['id']}", headers=preparing.h).json()["status"] == "DRAFT"
+            assert client.get(f"{API}/applications/{sent_app['id']}", headers=sent_stu.h).json()["status"] == "SUBMITTED"
+            for stu, aid in ((preparing, prep_app["id"]), (sent_stu, sent_app["id"])):
+                items = _codes(_strategy(client, stu.h, aid))
+                rc = items.get("REQUIREMENT_CHANGED")
+>               assert rc and rc["owner"] == "counselor" and rc["params"]["fields"] == ["min_gpa_percent"]
+E               assert (None)
+
+tests/test_v9_adversarial.py:434: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_v9_adversarial.py::test_requirement_change_after_applying_does_not_invalidate_and_informs
+EXIT=1

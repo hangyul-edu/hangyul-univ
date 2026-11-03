@@ -1,0 +1,537 @@
+....F................................................................... [ 13%]
+........................................................................ [ 26%]
+........................................................................ [ 39%]
+............................................F......................F..F. [ 52%]
+................................................FFFF.F......F........... [ 65%]
+.................F......F...................F..F........................ [ 78%]
+.F....F................................F............F................... [ 91%]
+.............................................                            [100%]
+=================================== FAILURES ===================================
+_________________________ test_full_student_lifecycle __________________________
+
+client = <starlette.testclient.TestClient object at 0x7115193155b0>
+db = <sqlalchemy.orm.session.Session object at 0x711519669130>
+pnu_admin = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNDBkMWM2ZS0yMDk5LTRmZjEtOGI2MS05NjkyYzY5MTc...HAiOjE3OTMyMTY4OTcsInR5cCI6ImFjY2VzcyIsImp0aSI6IjdlYjIyMjI0YzZhZDYyZWIifQ.4Yg87pWAZhoT7FSmIY1el6BsAHfO8BbOdzzF1KcIgBg'}
+
+    def test_full_student_lifecycle(client, db, pnu_admin):
+        reg = register_student(client, email=f"flow-{uuid.uuid4().hex[:6]}@example.com", full_name="Bishnu Tamang", locale="ne", nationality="NP")
+        email, S = reg["email"], reg["h"]
+    
+        # 1) progressive profile
+        r = client.patch("/api/v1/me/profile", headers=S, json={"residence_country": "NP", "date_of_birth": "2005-02-01", "target_degree": "LANGUAGE",
+                                                                  "target_intake_year": 2027, "target_intake_term": "SPRING", "desired_fields": ["korean_language"],
+                                                                  "annual_budget_krw": 15000000, "housing_preference": "DORM", "has_passport": True,
+                                                                  "passport_expiry": "2031-01-01", "financial_sponsor": "PARENTS", "preferred_regions": ["Busan"]})
+        assert r.status_code == 200
+        assert client.post("/api/v1/me/educations", headers=S, json={"level": "HIGH_SCHOOL", "institution": "Kathmandu Model School", "country": "NP",
+                                                                      "gpa_value": 3.4, "gpa_scale_max": 4}).json()["gpa_percent"] == 85.0
+        client.post("/api/v1/me/languages", headers=S, json={"test": "TOPIK", "score": 2, "test_date": "2026-07-01"})
+        prof = client.get("/api/v1/me/profile", headers=S).json()
+        assert prof["completion"]["percent"] == 100
+    
+        # 2) matches explain themselves; the PNU partner guarantee appears only for eligible language programs
+        m = client.get("/api/v1/me/matches?degree=LANGUAGE", headers=S).json()
+        assert m["items"] and all(item["reasons"] for item in m["items"])
+        pnu = next(i for i in m["items"] if i["program"]["university"]["slug"] == "pusan-national-university")
+        assert pnu["eligible"] and pnu["guarantee"] is not None
+    
+        # 3) save + compare
+        assert client.put(f"/api/v1/me/saved/{pnu['program']['university_id']}", headers=S).status_code == 204
+        cmp = client.post("/api/v1/compare", headers=S, json={"program_ids": [m["items"][0]["program_id"], m["items"][1]["program_id"]]})
+        assert cmp.status_code == 200 and len(cmp.json()) == 2
+    
+        # 4) buy Premium in demo mode → agency assignment by the engine (Nepal → Himalaya Pathways)
+        o = client.post("/api/v1/me/orders", headers=S, json={"product_code": "PREMIUM"}).json()
+        assert o["status"] == "PAID" and o["is_demo_payment"] and o["assignment"]
+        assert "Himalaya" in o["assignment"]["organization"]
+    
+        # 5) application to PNU language program
+        app = client.post("/api/v1/applications", headers=S, json={"program_id": pnu["program_id"]})
+        assert app.status_code == 201, app.text
+        app_id = app.json()["id"]
+        detail = client.get(f"/api/v1/applications/{app_id}", headers=S).json()
+        required = [i for i in detail["checklist"] if i["required"]]
+>       assert required and all(i["status"] == "MISSING" for i in required)
+E       assert ([])
+
+tests/test_flows.py:50: AssertionError
+__________ test_deadline_task_says_finish_while_required_items_remain __________
+
+client = <starlette.testclient.TestClient object at 0x7115193155b0>
+student = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzOTMyYzBhYS05NTlkLTQ5YzgtYjJlYy1jMWQ1YjhjZDR...4cCI6MTc5MzIxNjg5OCwidHlwIjoiYWNjZXNzIiwianRpIjoiMmUzOTVkMmQ2OGE1MzQ1ZiJ9.Mq3j3OZ0d59zRD9yK-HFXI46eNmHBPZRUMrxRXsZAvE'}
+db = <sqlalchemy.orm.session.Session object at 0x71151563e210>
+
+    def test_deadline_task_says_finish_while_required_items_remain(client, student, db):
+        from datetime import timedelta
+    
+        from sqlalchemy import select
+    
+        from app.models import Task, User
+        from app.models.base import utcnow
+        from app.models.enums import TaskStatus, TaskType
+    
+        lan = db.scalar(select(User).where(User.email == "student@demo.hangyul.kr"))
+        deadline = db.scalar(select(Task).where(Task.student_user_id == lan.id, Task.task_type == TaskType.APPLICATION_DEADLINE,
+                                                Task.status.in_([TaskStatus.OPEN, TaskStatus.IN_PROGRESS]), Task.visible_to_student.is_(True)).order_by(Task.due_at))
+        assert deadline is not None
+        before = deadline.due_at
+        deadline.due_at = utcnow() - timedelta(hours=1)  # make it the most urgent task
+        db.commit()
+        try:
+            nxt = client.get("/api/v1/me/dashboard", headers=student).json()["next_action"]
+        finally:
+            deadline.due_at = before
+            db.commit()
+        # Lan's applications still have required items missing, so the deadline task must not say "submit". V4: the home
+        # names the application's most urgent item (the same one the application page leads with) — or, when every item
+        # is with the counselor, "finish your application".
+        assert nxt["code"] in ("APPLICATION_ITEM", "FINISH_APPLICATION"), nxt
+>       assert nxt["params"]["remaining"] > 0
+E       assert 0 > 0
+
+tests/test_v3_student_home.py:49: AssertionError
+___________ test_workspace_says_who_the_case_waits_on_and_items_left ___________
+
+client = <starlette.testclient.TestClient object at 0x7115193155b0>
+lotus_counselor = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ZTQ1YTczOC1kN2FjLTQ0MTQtOGY3OC0zNWY1MzUxMjl...4cCI6MTc5MzIxNjg5OSwidHlwIjoiYWNjZXNzIiwianRpIjoiZDVlNTRmYWVlM2FjNWNmOSJ9.CFvCB7K05-TxoKWiMLPCMhb3KeJNwo76vjbF5sYix4Y'}
+
+    def test_workspace_says_who_the_case_waits_on_and_items_left(client, lotus_counselor):
+        rows = _students(client, lotus_counselor)["items"]
+        for row in rows:
+            ws = client.get(f"/api/v1/agency/students/{row['id']}", headers=lotus_counselor).json()
+            assert ws["waiting_on"] == row["waiting_on"]
+            for a in ws["applications"]:
+                assert "waiting_on" in a
+                if a["status"] in ("DRAFT", "PROFILE_REVIEW", "DOCUMENT_PREPARATION", "READY"):
+>                   assert isinstance(a["items_remaining"], int) and 0 <= a["items_in_review"] <= a["items_remaining"]
+E                   assert (False)
+E                    +  where False = isinstance(None, int)
+
+tests/test_v4_agency.py:70: AssertionError
+_______ test_home_next_item_is_the_most_urgent_item_of_that_application ________
+
+client = <starlette.testclient.TestClient object at 0x7115193155b0>
+student = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzOTMyYzBhYS05NTlkLTQ5YzgtYjJlYy1jMWQ1YjhjZDR...4cCI6MTc5MzIxNjg5OCwidHlwIjoiYWNjZXNzIiwianRpIjoiMmUzOTVkMmQ2OGE1MzQ1ZiJ9.Mq3j3OZ0d59zRD9yK-HFXI46eNmHBPZRUMrxRXsZAvE'}
+
+    def test_home_next_item_is_the_most_urgent_item_of_that_application(client, student):
+        nxt = client.get("/api/v1/me/dashboard", headers=student).json()["next_action"]
+        assert nxt["code"] == "APPLICATION_ITEM", nxt
+        app = client.get(f"/api/v1/applications/{nxt['params']['application_id']}", headers=student).json()
+        open_items = [c for c in app["checklist"] if c["required"] and not c["ready"] and c["action_code"] in RANK]
+>       assert open_items, "the chosen application must have an open student item"
+E       AssertionError: the chosen application must have an open student item
+E       assert []
+
+tests/test_v4_coherence.py:13: AssertionError
+_________________ test_dossier_applicability_copy_and_packages _________________
+
+client = <starlette.testclient.TestClient object at 0x7115193155b0>
+db = <sqlalchemy.orm.session.Session object at 0x711515a1ce90>
+
+    def test_dossier_applicability_copy_and_packages(client, db):
+        h = login(client, THU, "student")
+        d = client.get("/api/v1/me/dossier", headers=h).json()
+        rows = {r["category"]: r for r in d["rows"]}
+        bank = rows["BANK_STATEMENT"]
+>       assert bank["summary"]["code"] == "S_PARTIAL"
+E       AssertionError: assert 'S_READY_ALL' == 'S_PARTIAL'
+E         
+E         - S_PARTIAL
+E         + S_READY_ALL
+
+tests/test_v5_dossier.py:221: AssertionError
+____________________________ test_tenant_isolation _____________________________
+
+client = <starlette.testclient.TestClient object at 0x7115193155b0>
+db = <sqlalchemy.orm.session.Session object at 0x711515a1d610>
+lotus_counselor = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ZTQ1YTczOC1kN2FjLTQ0MTQtOGY3OC0zNWY1MzUxMjl...4cCI6MTc5MzIxNjg5OSwidHlwIjoiYWNjZXNzIiwianRpIjoiZDVlNTRmYWVlM2FjNWNmOSJ9.CFvCB7K05-TxoKWiMLPCMhb3KeJNwo76vjbF5sYix4Y'}
+silk_manager = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYzZkNzk0Ni03MWYzLTQxN2UtODEyNy05NzdkZjY1NGI...4cCI6MTc5MzIxNjkwMywidHlwIjoiYWNjZXNzIiwianRpIjoiNDc2ZTg4NjViOWU5N2JiMiJ9.w-_bYGuWis3UWmK0qqR9A0FEq00OgEP4VXUWuCQhNnA'}
+pnu_admin = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNDBkMWM2ZS0yMDk5LTRmZjEtOGI2MS05NjkyYzY5MTc...HAiOjE3OTMyMTY4OTcsInR5cCI6ImFjY2VzcyIsImp0aSI6IjdlYjIyMjI0YzZhZDYyZWIifQ.4Yg87pWAZhoT7FSmIY1el6BsAHfO8BbOdzzF1KcIgBg'}
+
+    def test_tenant_isolation(client, db, lotus_counselor, silk_manager, pnu_admin):
+        uid, pnu, knu = _thu_apps(db)
+        assert client.get(f"/api/v1/agency/students/{uid}/dossier", headers=lotus_counselor).status_code == 200
+        assert client.get(f"/api/v1/agency/students/{uid}/dossier", headers=silk_manager).status_code == 404
+        other_counselor = login(client, "counselor2@lotus.demo.hangyul.kr", "agency")  # V22: every admin of the agency sees every student
+        assert client.get(f"/api/v1/agency/students/{uid}/dossier", headers=other_counselor).status_code == 200
+        assert client.get(f"/api/v1/agency/students/{uid}/dossier", headers=pnu_admin).status_code == 403
+        assert client.get(f"/api/v1/applications/{knu.id}/package", headers=silk_manager).status_code == 404
+        lan = login(client, "student@demo.hangyul.kr", "student")
+        assert client.get(f"/api/v1/applications/{pnu.id}/package", headers=lan).status_code == 404
+        # University: its own submitted application, only shared + verified documents, no internal states.
+        u = client.get(f"/api/v1/applications/{pnu.id}/package", headers=pnu_admin).json()
+        assert set(u) == {"application", "shared", "summary"} and u["summary"]["shared"] == len(u["shared"]) > 0
+        assert client.get(f"/api/v1/applications/{knu.id}/package", headers=pnu_admin).status_code == 404  # another university, not submitted
+        # Findings: staff of another agency cannot close them; the right counselor can, and it sticks.
+        d = client.get(f"/api/v1/agency/students/{uid}/dossier", headers=lotus_counselor).json()
+>       f = next(f for r in d["rows"] for f in r["findings"])
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+tests/test_v5_dossier.py:251: StopIteration
+______________________ test_duplicate_upload_prompt_data _______________________
+
+client = <starlette.testclient.TestClient object at 0x7115193155b0>
+
+    def test_duplicate_upload_prompt_data(client):
+        h = login(client, THU, "student")
+        r = client.get("/api/v1/me/dossier/reuse", params={"category": "TRANSCRIPT"}, headers=h).json()
+        top = r["existing"][0]
+>       assert top["document"]["status"] == "VERIFIED" and top["used_by"] == 2 and not top["needs_new"]
+E       AssertionError: assert ('VERIFIED' == 'VERIFIED'
+E         
+E           VERIFIED and 1 == 2)
+
+tests/test_v5_dossier.py:266: AssertionError
+_________________ test_flow_b_send_existing_then_newer_version _________________
+
+client = <starlette.testclient.TestClient object at 0x7115193155b0>
+db = <sqlalchemy.orm.session.Session object at 0x7115163d85c0>
+pnu_admin = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNDBkMWM2ZS0yMDk5LTRmZjEtOGI2MS05NjkyYzY5MTc...HAiOjE3OTMyMTY4OTcsInR5cCI6ImFjY2VzcyIsImp0aSI6IjdlYjIyMjI0YzZhZDYyZWIifQ.4Yg87pWAZhoT7FSmIY1el6BsAHfO8BbOdzzF1KcIgBg'}
+
+    def test_flow_b_send_existing_then_newer_version(client, db, pnu_admin):
+        app = _pnu_app(db)
+        h = login(client, THU, "student")
+    
+        # 1 · The university asks for the TOPIK certificate — already verified in the dossier.
+        r = client.post(f"/api/v1/applications/{app.id}/document-requests", headers=pnu_admin,
+                        json={"label": "TOPIK certificate", "note": "Please send your TOPIK score report.", "category": "TOPIK"})
+        assert r.status_code == 201, r.text
+        topik_req = r.json()["id"]
+        d = client.get("/api/v1/me/dossier", headers=h).json()
+        sug = next(x for x in d["requests"] if x["request_id"] == topik_req)
+        assert sug["action"] == "SEND_EXISTING" and sug["document"]["category"] == "TOPIK"
+        pkg = client.get(f"/api/v1/applications/{app.id}/package", headers=h).json()
+        assert pkg["summary"]["request"] == 1 and not pkg["summary"]["complete"]
+        r = client.post(f"/api/v1/dossier/requests/{topik_req}/send-existing", headers=h, json={"document_id": sug["document"]["id"]})
+        assert r.status_code == 200, r.text
+        assert r.json()["status"] == "FULFILLED" and r.json()["document_id"] == sug["document"]["id"]
+        # The university can now open it (shared through the request).
+        assert client.get(f"/api/v1/documents/{sug['document']['id']}", headers=pnu_admin).status_code == 200
+    
+        # 2 · A fresh bank certificate: the one in the dossier is 50 days old.
+        r = client.post(f"/api/v1/applications/{app.id}/document-requests", headers=pnu_admin,
+                        json={"label": "Bank balance certificate", "note": "Please upload a bank certificate issued within the last 30 days.", "category": "BANK_STATEMENT"})
+        bank_req = r.json()["id"]
+        reuse = client.get("/api/v1/me/dossier/reuse", params={"category": "BANK_STATEMENT", "request_id": bank_req}, headers=h).json()["request"]
+        assert reuse["action"] == "UPLOAD_NEWER" and reuse["max_age_days"] == 30 and reuse["status"] == "NEEDS_NEW_VERSION"
+        assert "within the last 30 days" in reuse["reason"]["text"]
+        bank_id = reuse["document"]["id"]
+        refused = client.post(f"/api/v1/dossier/requests/{bank_req}/send-existing", headers=h, json={"document_id": bank_id})
+        assert refused.status_code == 409
+        # Upload replaces it (new version of the same document — no duplicate), with the new issue date.
+        up = client.post("/api/v1/documents", headers=h, files={"file": ("bank_new.pdf", text_pdf(["BALANCE CERTIFICATE", f"Date of issue: {date.today():%d/%m/%Y}"]), "application/pdf")},
+                         data={"category": "BANK_STATEMENT", "document_id": bank_id})
+        assert up.status_code == 201 and up.json()["id"] == bank_id and up.json()["current_version"] == 2
+        assert client.patch(f"/api/v1/documents/{bank_id}", headers=h, json={"issue_date": date.today().isoformat()}).status_code == 200
+        ok = client.post(f"/api/v1/document-requests/{bank_req}/fulfill", headers=h, json={"document_id": bank_id})
+        assert ok.status_code == 200 and ok.json()["status"] == "FULFILLED"
+        client.post("/api/v1/me/dossier/reuse-decisions", headers=h, json={"category": "BANK_STATEMENT", "decision": "REPLACE", "document_id": bank_id,
+                                                                             "application_id": str(app.id)})
+    
+        # 3 · Every request answered → the university re-reviews; the dossier now shows the bank certificate for Kyungpook too.
+        t = client.post(f"/api/v1/applications/{app.id}/transition", headers=pnu_admin, json={"to": "UNIVERSITY_REVIEW"})
+        assert t.status_code == 200, t.text
+        d = client.get("/api/v1/me/dossier", headers=h).json()
+        bank = next(r for r in d["rows"] if r["category"] == "BANK_STATEMENT")
+>       kyungpook = next(u for u in bank["applications"] if u["university"] == "Kyungpook National University")
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+tests/test_v5_dossier_flow.py:65: StopIteration
+_____________________ test_lan_transcript_fix_is_a_blocker _____________________
+
+client = <starlette.testclient.TestClient object at 0x7115193155b0>
+student = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzOTMyYzBhYS05NTlkLTQ5YzgtYjJlYy1jMWQ1YjhjZDR...4cCI6MTc5MzIxNjg5OCwidHlwIjoiYWNjZXNzIiwianRpIjoiMmUzOTVkMmQ2OGE1MzQ1ZiJ9.Mq3j3OZ0d59zRD9yK-HFXI46eNmHBPZRUMrxRXsZAvE'}
+
+    def test_lan_transcript_fix_is_a_blocker(client, student):
+        r = client.get("/api/v1/me/strategy", headers=student)
+        assert r.status_code == 200
+        body = r.json()
+        assert not (FORBIDDEN_KEYS & set(_walk_keys(body))), "strategy must never carry a score, percentage or probability"
+        prep = [s for s in body["items"] if s["scope"] == "prep"]
+        assert prep, "Lan is preparing applications"
+        for s in prep:
+            fix = [i for i in s["items"] if i["code"] == "DOC_FIX"]
+>           assert fix and fix[0]["severity"] == "blocker" and fix[0]["owner"] == "student"
+E           assert ([])
+
+tests/test_v5_success.py:97: AssertionError
+___________________ test_guided_submission_requires_evidence ___________________
+
+client = <starlette.testclient.TestClient object at 0x7115193155b0>
+nepal = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDdlZWUyNi05MmE3LTQ1MDctYTVjOS00ZmRjMDE2YjI...4cCI6MTc5MzIxNjk3OSwidHlwIjoiYWNjZXNzIiwianRpIjoiZTg1YWNkYWI5YjkwMmNiMyJ9.lKTRkOTgh7q-RGvnTa3dduVDpmn5K8oNhNHHWyIQSNk'}
+db = <sqlalchemy.orm.session.Session object at 0x711513042300>
+
+    def test_guided_submission_requires_evidence(client, nepal, db):
+        with ready_application(db, "Computer Science and Engineering", slug="pusan-national-university") as app:
+            aid = str(app.id)
+            view = client.get(f"/api/v1/applications/{aid}/submission", headers=nepal).json()
+            assert view["status"] == "READY_FOR_HANDOFF" and view["can_handoff"] and view["connector"]["method"] in submission.STUDENT_HANDOFF
+>           assert view["checklist"]["complete"] is True
+E           assert False is True
+
+tests/test_v5_success.py:221: AssertionError
+_________ test_reviewer_enters_a_new_prompt_version_for_a_later_intake _________
+
+client = <starlette.testclient.TestClient object at 0x7115193155b0>
+case = {'S': {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjY2ZlOThmZC0yOTQ1LTQ0ODktYTM0My1lMjE5N...TM3NjViN2QzNyJ9.GvQp8O7J685vnRI8PynXWGt3k1a-Y2Q2XvHtJbyMgDA'}, 'essay_id': 'eb7fa8e2-9590-41cf-8022-834710ce7354', ...}
+
+    def test_reviewer_enters_a_new_prompt_version_for_a_later_intake(client, case):
+        body = {"university_id": case["university_id"], "program_id": case["program_id"], "essay_type": "STUDY_PLAN", "effective_from_year": 2027,
+                "effective_from_term": "FALL", "prompt_text": "Write your study plan for four years at Kyungpook, including Korean language goals.", "word_limit": 1200}
+        r = client.post(f"{API}/writing/prompts", headers=case["A"], json=body)
+        assert r.status_code == 201, r.text
+        p = r.json()
+        assert p["verification_status"] == "COUNSELOR_ENTERED" and p["version"] >= 1 and p["entered_by_org"].startswith("Lotus")
+        # A counselor cannot claim a prompt is verified.
+        r = client.post(f"{API}/writing/prompts", headers=case["A"], json={**body, "verification_status": "VERIFIED", "source_url": "https://example.org"})
+>       assert r.status_code == 422
+E       assert 401 == 422
+E        +  where 401 = <Response [401 Unauthorized]>.status_code
+
+tests/test_v5_writing.py:84: AssertionError
+__ test_fix_then_final_approval_and_the_application_uses_the_approved_version __
+
+client = <starlette.testclient.TestClient object at 0x7115193155b0>
+db = <sqlalchemy.orm.session.Session object at 0x711515584c50>
+case = {'S': {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjY2ZlOThmZC0yOTQ1LTQ0ODktYTM0My1lMjE5N...TM3NjViN2QzNyJ9.GvQp8O7J685vnRI8PynXWGt3k1a-Y2Q2XvHtJbyMgDA'}, 'essay_id': 'eb7fa8e2-9590-41cf-8022-834710ce7354', ...}
+
+    def test_fix_then_final_approval_and_the_application_uses_the_approved_version(client, db, case):
+        S, A = case["S"], case["A"]
+        eid = case["essay_id"]
+        client.post(f"{API}/essays/{eid}/status", headers=A, json={"status": "CHANGES_REQUESTED"})
+        fixed = ESSAY.replace("I graduated in 2024 from high school in Hanoi.", "I will graduate from high school in Hanoi in 2027.").replace(
+            " I also visited Yonsei University last summer.", "")
+        assert client.put(f"{API}/essays/{eid}", headers=S, json={"body": fixed}).status_code == 200
+        e = client.post(f"{API}/essays/{eid}/status", headers=S, json={"status": "SUBMITTED"}).json()
+        assert e["writing"]["review"]["round"] == 2
+        assert not [f for f in e["writing"]["findings"] if f["status"] == "OPEN" and f["kind"] in ("FACT", "OTHER_UNIVERSITY")]
+        for c in e["comments"]:
+            if not c["resolved"] and c["visibility"] == "PARTICIPANTS":
+                client.post(f"{API}/essays/{eid}/comments/{c['id']}/resolve", headers=A)
+        for dim in ("ANSWERS_PROMPT", "MOTIVATION", "PROGRAM_CONNECTION", "FUTURE_PLAN"):
+            assert client.put(f"{API}/writing/essays/{eid}/rubric/{dim}", headers=A, json={"rating": "MEETS"}).status_code == 200
+        e = client.post(f"{API}/essays/{eid}/status", headers=A, json={"status": "FINAL_REVIEW"}).json()
+        assert e["status"] == "FINAL_REVIEW"
+        student_view = client.get(f"{API}/essays/{eid}", headers=S).json()["writing"]
+        assert student_view["gate"] and all(i["key"] != "ORIGINALITY" for i in student_view["gate"]["items"])
+        staff_gate = client.get(f"{API}/essays/{eid}", headers=A).json()["writing"]["gate"]
+        assert staff_gate["can_approve"], staff_gate
+        e = client.post(f"{API}/essays/{eid}/status", headers=A, json={"status": "APPROVED"}).json()
+        assert e["status"] == "APPROVED" and e["writing"]["approved_version"] == e["current_version"]
+        approved_version = e["current_version"]
+    
+        detail = client.get(f"{API}/applications/{case['app_id']}", headers=S).json()
+>       ps = next(i for i in detail["checklist"] if i["category"] == "PERSONAL_STATEMENT")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+tests/test_v5_writing.py:227: StopIteration
+_____________________ test_consent_is_required_and_scoped ______________________
+
+client = <starlette.testclient.TestClient object at 0x7115193155b0>
+db = <sqlalchemy.orm.session.Session object at 0x7115154175f0>
+
+    def test_consent_is_required_and_scoped(client, db):
+        S = login(client, AUTHORIZE, "student")
+        aid = _app_of(client, S)
+        manager = login(client, "manager@lotus.demo.hangyul.kr", "agency")
+        counselor = login(client, "counselor@lotus.demo.hangyul.kr", "agency")
+        reviewer = login(client, "reviewer@lotus.demo.hangyul.kr", "agency")
+        other_counselor = login(client, "counselor2@lotus.demo.hangyul.kr", "agency")
+        silk = login(client, "manager@silk.demo.hangyul.kr", "agency")
+        ops = login(client, "ops@demo.hangyul.kr", "agency")
+    
+        v = client.get(f"/api/v1/applications/{aid}/submission", headers=S).json()
+        assert v["connector"]["method"] == "AUTHORIZED_AGENCY" and v["can_authorize"] and not v["can_handoff"] and not v["student_can_record"]
+        assert v["agency_submission"]["basis"] == submission.FIXTURE_BASIS and v["agency_submission"]["counselor"]
+    
+        # Before consent: nobody records; the queue says "awaiting the student".
+        r = client.post(f"/api/v1/applications/{aid}/submission/confirm", headers=manager, json={"external_reference": "FX-1"})
+        assert r.status_code == 409 and "hasn't authorised" in r.text
+        q = client.get("/api/v1/agency/submissions?view=all", headers=manager).json()
+        assert any(i["application_id"] == aid and i["group"] == "awaiting" for i in q["items"])
+    
+        # Consent must be explicit and on the current text.
+        assert client.post(f"/api/v1/applications/{aid}/submission/authorize", headers=S, json={"accept": False, "consent_version": submission.CONSENT_VERSION}).status_code == 422
+        assert client.post(f"/api/v1/applications/{aid}/submission/authorize", headers=S, json={"accept": True, "consent_version": "old"}).status_code == 409
+        # Staff cannot authorise for the student.
+        assert _consent(client, manager, aid).status_code == 403
+        r = _consent(client, S, aid)
+        assert r.status_code == 200, r.text
+        v = r.json()
+        a = v["authorization"]
+        assert a["status"] == "ACTIVE" and v["can_revoke"] and not v["can_authorize"]
+        snap = a["snapshot"]
+        assert snap["university"]["name_en"] == "Pusan National University" and snap["intake"]["deadline"]
+        assert snap["documents"] and all(d["document_id"] and d["version"] for d in snap["documents"])
+        assert snap["fee"] == {"amount": 144000, "currency": "KRW", "payee": "the university (fixture)", "payer": "STUDENT", "kind": "UNIVERSITY_APPLICATION_FEE"}
+        assert snap["submitter"]["agency"].startswith("Lotus Bridge") and snap["submitter"]["counselor"]
+        assert {f["key"] for f in snap["form_fields"]} >= {"full_name", "date_of_birth", "nationality", "program"}
+        # Idempotent: the same authorisation comes back; one consent record, one audit row.
+        assert _consent(client, S, aid).json()["authorization"]["id"] == a["id"]
+        student_id = db.scalar(select(User.id).where(User.email == AUTHORIZE))
+        assert db.scalar(select(ConsentRecord).where(ConsentRecord.user_id == student_id, ConsentRecord.purpose == submission.CONSENT_PURPOSE)).granted
+        assert len(db.scalars(select(AuditLog).where(AuditLog.action == "submission.authorize", AuditLog.entity_id == aid)).all()) == 1
+        assert db.scalar(select(Task).where(Task.dedupe_key == f"submission-agency:{aid}")).status.value == "OPEN"
+    
+        # Scope: another agency 404. V22: every admin of the student's agency sees the case and may record it (the former
+        # "unassigned counselor" and "document reviewer" refusals are gone); Hangyul staff still cannot record.
+        assert client.get(f"/api/v1/applications/{aid}/submission", headers=silk).status_code == 404
+        assert client.post(f"/api/v1/applications/{aid}/submission/confirm", headers=silk, json={"external_reference": "X"}).status_code == 404
+        assert client.get(f"/api/v1/applications/{aid}/submission", headers=other_counselor).status_code == 200
+        assert not any(i["application_id"] == aid for i in client.get("/api/v1/agency/submissions?view=all", headers=silk).json()["items"])
+        rq = client.get("/api/v1/agency/submissions", headers=reviewer).json()
+        assert rq["can_record"] is True and any(i["application_id"] == aid for i in rq["items"])
+        assert client.post(f"/api/v1/applications/{aid}/submission/confirm", headers=ops, json={"external_reference": "X"}).status_code == 403
+        # The student never records an agency submission.
+        assert client.post(f"/api/v1/applications/{aid}/submission/confirm", headers=S, json={"external_reference": "X"}).status_code == 403
+        assert client.post(f"/api/v1/applications/{aid}/submission/handoff", headers=S).status_code == 409
+    
+        # Final review for the agency; the reference is required on the agency path.
+        av = client.get(f"/api/v1/applications/{aid}/submission", headers=counselor).json()
+        assert {i["code"] for i in av["final_review"]} >= {"CONSENT", "DOCUMENTS", "ESSAYS", "PACKAGE_UNCHANGED", "DEADLINE", "FEE"}
+>       assert all(i["ok"] for i in av["final_review"])
+E       assert False
+E        +  where False = all(<generator object test_consent_is_required_and_scoped.<locals>.<genexpr> at 0x711518e0c790>)
+
+tests/test_v6_submission.py:117: AssertionError
+___________________ test_guided_details_and_production_guard ___________________
+
+client = <starlette.testclient.TestClient object at 0x7115193155b0>
+db = <sqlalchemy.orm.session.Session object at 0x711517546f90>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71151758eb70>
+
+    def test_guided_details_and_production_guard(client, db, monkeypatch):
+        nepal = login(client, "student.nepal@demo.hangyul.kr", "student")
+        with ready_application(db, "Business Administration (BBA)") as app:
+            v = client.get(f"/api/v1/applications/{app.id}/submission", headers=nepal).json()
+            g = v["guided"]
+>           assert g["self_submit_required"] and g["steps"][0] == "open_portal" and g["minutes"] and g["files"]
+E           AssertionError: assert (True and 'open_portal' == 'open_portal'
+E             
+E               open_portal and 36 and [])
+
+tests/test_v6_submission.py:207: AssertionError
+______________ test_operations_view_drills_down_to_exact_records _______________
+
+client = <starlette.testclient.TestClient object at 0x7115193155b0>
+
+    def test_operations_view_drills_down_to_exact_records(client):
+        h = login(client, "manager@lotus.demo.hangyul.kr", "agency")
+        r = client.get("/api/v1/agency/ops", headers=h)
+        assert r.status_code == 200
+        ops = r.json()
+        for k in ("backlog", "ageing", "load", "sla", "deadlines", "stages", "definitions"):
+            assert k in ops
+        assert len(ops["backlog"]["weeks"]) == 8
+        for w in ops["backlog"]["weeks"]:
+            assert w["total"] == w["tasks"] + w["documents"] + w["essays"]
+        # ageing: phase totals = the student rows it lists
+        assert sum(p["total"] for p in ops["ageing"]["phases"]) == len(ops["ageing"]["students"])
+        for p in ops["ageing"]["phases"]:
+            assert sum(p["buckets"].values()) == p["total"]
+        # load: counselor cases add up to the agency's assigned cases
+        assert sum(c["active_cases"] for c in ops["load"]["counselors"]) == ops["load"]["active_total"]
+        for k in ("first_response", "document_review", "essay_review"):
+            assert ops["sla"][k]["count"] == len(ops["sla"][k]["items"])
+        assert ops["deadlines"]["count"] == len(ops["deadlines"]["items"])
+        for d in ops["deadlines"]["items"]:
+>           assert d["items_remaining"] > 0 and 0 <= d["days_left"] <= 14
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+E           TypeError: '>' not supported between instances of 'NoneType' and 'int'
+
+tests/test_v8_agency_ops.py:106: TypeError
+_________________ test_applications_remaining_replaces_percent _________________
+
+client = <starlette.testclient.TestClient object at 0x7115193155b0>
+silk_manager = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYzZkNzk0Ni03MWYzLTQxN2UtODEyNy05NzdkZjY1NGI...4cCI6MTc5MzIxNjkwMywidHlwIjoiYWNjZXNzIiwianRpIjoiNDc2ZTg4NjViOWU5N2JiMiJ9.w-_bYGuWis3UWmK0qqR9A0FEq00OgEP4VXUWuCQhNnA'}
+
+    def test_applications_remaining_replaces_percent(client, silk_manager):
+        h = login(client, "manager@lotus.demo.hangyul.kr", "agency")
+        apps = client.get("/api/v1/applications?page_size=50", headers=h).json()["items"]
+        assert apps
+        ids = [a["id"] for a in apps]
+        r = client.get("/api/v1/agency/applications/remaining", params=[("ids", i) for i in ids], headers=h)
+        assert r.status_code == 200
+        body = r.json()
+        assert set(body) == set(ids)
+        pre = {"DRAFT", "PROFILE_REVIEW", "DOCUMENT_PREPARATION", "READY"}
+        for a in apps:
+            v = body[a["id"]]
+            if a["status"] in pre:
+>               assert isinstance(v["items_remaining"], int) and v["items_remaining"] >= 0
+E               assert (False)
+E                +  where False = isinstance(None, int)
+
+tests/test_v8_agency_ops.py:175: AssertionError
+__________ test_nationality_change_recomputes_route_and_requirements ___________
+
+client = <starlette.testclient.TestClient object at 0x7115193155b0>
+world = namespace(program_id=UUID('0deca92f-b482-403f-b2ba-84086bf2b938'), university_id=UUID('262c92ab-9106-4387-8daf-4b6ff47...82e62'), 'CLOSING': UUID('2aaf9a99-797f-4762-b8ed-22ccf23dabad'), 'API': UUID('f5067d63-646e-41c2-95bd-750bc5f0c68b')})
+
+    def test_nationality_change_recomputes_route_and_requirements(client, world):
+        stu = _register(client, nationality="VN")
+        _apply(client, stu, world)
+        _regen(stu.id)
+        assert any(t.key == f"doc:{stu.id}:FAMILY_RELATION_CERTIFICATE:UPLOAD" for t in _tasks(stu.id))  # VN/CN-only requirement
+        r = client.put(f"{API}/me/visa-route/answers", headers=stu.h, json={"value": "hanoi"})
+        assert r.status_code == 200, r.text
+        vn = client.get(f"{API}/me/visa-route", headers=stu.h).json()
+        assert vn["route"]["country"] == "VN" and vn["post"]["key"] == "hanoi"
+        # The student corrects their nationality (and residence) to Nepal.
+        assert client.patch(f"{API}/me/profile", headers=stu.h, json={"nationality": "NP", "residence_country": "NP"}).status_code == 200
+        np_ = client.get(f"{API}/me/visa-route", headers=stu.h).json()
+        assert np_["inputs"]["nationality"] == "NP" and np_["route"]["country"] == "NP"
+        assert np_["post"]["city"] == "Kathmandu" and np_["post"]["key"] != "hanoi"
+        assert "post_key" not in (np_.get("answer") or {}) and "region_label" not in (np_.get("answer") or {})  # no stale Vietnamese post
+        assert not any(st["key"] == "choose_post" for st in np_["steps"])
+        edu = next(d for d in np_["documents"] if d["key"] == "final_education_certificate")
+        assert edu["legalization"] == "CONSULAR"  # Nepal is not an Apostille party: legalization recomputed for the new route
+        with SessionLocal() as s:
+            from app.models.v5_visa_routes import VisaRoute
+    
+            cur = s.get(VisaRoute, uuid.UUID(np_["route"]["id"]))
+            assert cur.country == "NP"
+        # Nationality-specific document requirements follow immediately (no stale task from the old nationality).
+>       assert not any(t.key == f"doc:{stu.id}:FAMILY_RELATION_CERTIFICATE:UPLOAD" for t in _tasks(stu.id))
+E       assert not True
+E        +  where True = any(<generator object test_nationality_change_recomputes_route_and_requirements.<locals>.<genexpr> at 0x711515ebc4a0>)
+
+tests/test_v9_adversarial.py:527: AssertionError
+_________ test_handed_off_waits_on_student_and_unconfirmed_on_external _________
+
+client = <starlette.testclient.TestClient object at 0x7115193155b0>
+mgr = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4OTZiNDBiZS03NmZmLTQ5MDYtYjgyMi1hYjhmMzFiY2Y...4cCI6MTc5MzIxNzA1OCwidHlwIjoiYWNjZXNzIiwianRpIjoiMzI4NDM2NGE2NTBhYWYwZSJ9.nWs4wkzVzdFUiXkS082quloDNvAcVw_GQnibWAvnbo4'}
+
+    def test_handed_off_waits_on_student_and_unconfirmed_on_external(client, mgr):
+        pipe = client.get("/api/v1/agency/submissions/pipeline", headers=mgr).json()
+        missing = [i for i in pipe["items"] if i["state"] == "confirmation_missing"]
+        sent = [i for i in pipe["items"] if i["state"] == "submitted"]
+        assert missing, "seeded: handed off 4 days ago, no reference"
+>       assert sent, "seeded: reported submitted yesterday, no reference"
+E       AssertionError: seeded: reported submitted yesterday, no reference
+E       assert []
+
+tests/test_v9_agency.py:110: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_flows.py::test_full_student_lifecycle - assert ([])
+FAILED tests/test_v3_student_home.py::test_deadline_task_says_finish_while_required_items_remain
+FAILED tests/test_v4_agency.py::test_workspace_says_who_the_case_waits_on_and_items_left
+FAILED tests/test_v4_coherence.py::test_home_next_item_is_the_most_urgent_item_of_that_application
+FAILED tests/test_v5_dossier.py::test_dossier_applicability_copy_and_packages
+FAILED tests/test_v5_dossier.py::test_tenant_isolation - StopIteration
+FAILED tests/test_v5_dossier.py::test_duplicate_upload_prompt_data - Assertio...
+FAILED tests/test_v5_dossier_flow.py::test_flow_b_send_existing_then_newer_version
+FAILED tests/test_v5_success.py::test_lan_transcript_fix_is_a_blocker - asser...
+FAILED tests/test_v5_success.py::test_guided_submission_requires_evidence - a...
+FAILED tests/test_v5_writing.py::test_reviewer_enters_a_new_prompt_version_for_a_later_intake
+FAILED tests/test_v5_writing.py::test_fix_then_final_approval_and_the_application_uses_the_approved_version
+FAILED tests/test_v6_submission.py::test_consent_is_required_and_scoped - ass...
+FAILED tests/test_v6_submission.py::test_guided_details_and_production_guard
+FAILED tests/test_v8_agency_ops.py::test_operations_view_drills_down_to_exact_records
+FAILED tests/test_v8_agency_ops.py::test_applications_remaining_replaces_percent
+FAILED tests/test_v9_adversarial.py::test_nationality_change_recomputes_route_and_requirements
+FAILED tests/test_v9_agency.py::test_handed_off_waits_on_student_and_unconfirmed_on_external
+EXIT=1

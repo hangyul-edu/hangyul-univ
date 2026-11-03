@@ -1,0 +1,51 @@
+PASS  MANIFEST   catalogue version 2026-10-30.v29
+PASS  MANIFEST   prices $179 / $349 / $599 USD, one-time
+PASS  MANIFEST   recommended institutions 3 / 5 / 7
+PASS  MANIFEST   managed applications 0 / 2 / 3 (a separate field from recommendations)
+PASS  MANIFEST   editing none / 2 rounds / not rationed within the contracted documents
+PASS  MANIFEST   support window 1 day / 3 days / contracted term
+PASS  MANIFEST   follow-up: 1 consultation / responsible team / priority
+PASS  MANIFEST   documents checklist / review+guidance / intensive
+PASS  MANIFEST   mock interview add-on / add-on / 1 included
+PASS  MANIFEST   visa guidance / documents / documents + schedule
+PASS  MANIFEST   dormitory information / schedule / application + alternatives
+PASS  MANIFEST   arrival none / living information / settlement
+PASS  MANIFEST   Premium D-30 pre-arrival, 30-day settlement
+PASS  MANIFEST   priority + dedicated: Premium only
+PASS  MANIFEST   All-in-One is the one recommended plan
+PASS  MANIFEST   no minutes-based consultation semantics
+PASS  MANIFEST   upgrade pricing is not invented (OWNER_DECISION_REQUIRED, no amount)
+PASS  GENERATED  shared/plans.json is a fresh regeneration of plans.ts; previous catalogue frozen
+PASS  GENERATED  frozen 2026-10-19.v15
+PASS  API        GET /public/plans 200
+PASS  DATABASE   BASIC: seeded entitlements === manifest
+PASS  DATABASE   BASIC: seeded price
+PASS  DATABASE   ALL_IN_ONE: seeded entitlements === manifest
+PASS  DATABASE   ALL_IN_ONE: seeded price
+PASS  DATABASE   PREMIUM: seeded entitlements === manifest
+PASS  DATABASE   PREMIUM: seeded price
+PASS  API        API catalogue 2026-10-30.v29
+PASS  API        API add-on catalogue === manifest
+PASS  SURFACES   marketing renders cells and card lines from the manifest
+PASS  SURFACES   student /services renders the same cells and lines
+PASS  SURFACES   student native renders the same card lines
+PASS  SURFACES   agency panel reads API usage + the catalogue
+PASS  SURFACES   no surface holds a plan price of its own
+PASS  CHECKOUT   every plan order snapshots the catalogue
+PASS  CHECKOUT   no upgrade or repeat purchase charged without a rule
+PASS  CHECKOUT   limits are read from the engagement snapshot, not the live catalogue
+PASS  I18N       plan/notes/add-on keys in 36 offered locales: 0 missing
+PASS  I18N       contract numbers inside translations
+PASS  STALE      retired plan semantics in source: 0
+PASS  STALE      V15 card lines left in locale bundles: 0
+PASS  TESTS      test_basic_cannot_have_an_application_managed
+PASS  TESTS      test_managed_applications_stop_at_the_contract_and_the_next_one_is_an_add_on
+PASS  TESTS      test_all_in_one_includes_two_edit_rounds_and_the_third_is_an_add_on
+PASS  TESTS      test_premium_editing_has_no_round_limit_inside_the_contract
+PASS  TESTS      test_premium_unlimited_never_reaches_a_new_document
+PASS  TESTS      test_premium_first_mock_interview_is_included_and_the_second_is_an_add_on
+PASS  TESTS      test_a_purchase_snapshots_the_contract_and_a_catalogue_change_does_not_rewrite_it
+PASS  TESTS      test_a_legacy_contract_keeps_its_terms
+
+qa:plans-v29 — 48 pass · 0 fail · 0 skip
+EXIT=0

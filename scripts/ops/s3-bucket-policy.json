@@ -1,0 +1,14 @@
+{
+  "$comment": "V29 — production bucket policy for the private document bucket (replace hangyul-univ-private). Pair with S3 Block Public Access (all four settings ON) and default encryption (SSE-S3 or SSE-KMS). The API's IAM role gets only s3:PutObject/GetObject/DeleteObject on arn:aws:s3:::hangyul-univ-private/* (see docs/ARCHITECTURE.md#object-storage).",
+  "Version": "2012-10-17",
+  "Statement": [
+    {"Sid": "DenyInsecureTransport", "Effect": "Deny", "Principal": "*", "Action": "s3:*",
+     "Resource": ["arn:aws:s3:::hangyul-univ-private", "arn:aws:s3:::hangyul-univ-private/*"],
+     "Condition": {"Bool": {"aws:SecureTransport": "false"}}},
+    {"Sid": "DenyUnencryptedUploads", "Effect": "Deny", "Principal": "*", "Action": "s3:PutObject",
+     "Resource": "arn:aws:s3:::hangyul-univ-private/*",
+     "Condition": {"Null": {"s3:x-amz-server-side-encryption": "true"}}},
+    {"Sid": "DenyPublicAcls", "Effect": "Deny", "Principal": "*", "Action": ["s3:PutObjectAcl", "s3:PutBucketAcl"],
+     "Resource": ["arn:aws:s3:::hangyul-univ-private", "arn:aws:s3:::hangyul-univ-private/*"]}
+  ]
+}

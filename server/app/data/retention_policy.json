@@ -1,0 +1,27 @@
+{
+  "version": "2026-10-30.v29",
+  "status": "OWNER_COUNSEL_REQUIRED",
+  "note": "Retention periods are a legal decision (PIPA, Korean tax/e-commerce record keeping, immigration-related obligations, university contracts). Every period_days below is null until Hangyul's counsel and the owner set it; the engine skips a policy whose period is null. Do not fill these in from defaults or examples.",
+  "policies": [
+    {"record_type": "deleted_accounts", "action": "ANONYMIZE", "period_days": null, "period_status": "OWNER_COUNSEL_REQUIRED",
+     "description": "Accounts with a DELETE data request: grace period after deletion_requested_at before the account is anonymised and its documents deleted from storage."},
+    {"record_type": "superseded_document_versions", "action": "DELETE", "period_days": null, "period_status": "OWNER_COUNSEL_REQUIRED",
+     "description": "Older (non-current) file versions of a vault document: object deleted from storage, version row removed."},
+    {"record_type": "unsent_message_attachments", "action": "DELETE", "period_days": null, "period_status": "OWNER_COUNSEL_REQUIRED",
+     "description": "Attachments uploaded but never posted with a message."},
+    {"record_type": "login_events", "action": "DELETE", "period_days": null, "period_status": "OWNER_COUNSEL_REQUIRED",
+     "description": "Sign-in attempt log (IP, user agent)."},
+    {"record_type": "verification_challenges", "action": "DELETE", "period_days": null, "period_status": "OWNER_COUNSEL_REQUIRED",
+     "description": "Expired email/SMS one-time-code challenges (target address, delivery status)."},
+    {"record_type": "refresh_tokens", "action": "DELETE", "period_days": null, "period_status": "OWNER_COUNSEL_REQUIRED",
+     "description": "Expired or revoked refresh-token hashes (IP, user agent)."},
+    {"record_type": "analytics_events", "action": "ANONYMIZE", "period_days": null, "period_status": "OWNER_COUNSEL_REQUIRED",
+     "description": "Product analytics events: the user link is removed, aggregates are kept."},
+    {"record_type": "audit_logs", "action": "DELETE", "period_days": null, "period_status": "OWNER_COUNSEL_REQUIRED",
+     "description": "Access and change audit trail. Deliberately long-lived; counsel decides."},
+    {"record_type": "ops_events", "action": "DELETE", "period_days": null, "period_status": "OWNER_COUNSEL_REQUIRED",
+     "description": "Operational failure records (no personal content by construction)."},
+    {"record_type": "job_runs", "action": "DELETE", "period_days": null, "period_status": "OWNER_COUNSEL_REQUIRED",
+     "description": "Worker run ledger (no personal data)."}
+  ]
+}

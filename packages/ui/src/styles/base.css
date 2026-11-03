@@ -1,0 +1,105 @@
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--hg-font-sans);
+  font-size: var(--hg-text-md);
+  line-height: 1.6;
+  color: var(--hg-text);
+  background: var(--hg-bg-canvas);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'ss06' 1;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4, h5, h6 { margin: 0; line-height: var(--hg-leading-snug); letter-spacing: -0.012em; font-weight: var(--hg-weight-semibold); color: var(--hg-text); }
+:lang(ko) h1, :lang(ko) h2, :lang(ko) h3 { letter-spacing: -0.01em; word-break: keep-all; }
+p { margin: 0; }
+a { color: var(--hg-text); text-decoration: underline; text-decoration-color: var(--hg-border-strong); text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+img, svg, video { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--hg-focus); outline-offset: 2px; border-radius: var(--hg-radius-xs); }
+::selection { background: rgba(255, 103, 0, 0.18); }
+[hidden] { display: none !important; }
+.hg-num { font-variant-numeric: tabular-nums; }
+.hg-sr-only {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+.hg-skip-link {
+  position: absolute; inset-inline-start: 12px; top: -48px; z-index: 100; padding: 8px 12px; border-radius: var(--hg-radius-md);
+  background: var(--hg-text); color: var(--hg-surface); font-weight: var(--hg-weight-semibold); text-decoration: none;
+}
+.hg-skip-link:focus { top: 12px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+
+/* Typography helpers — one scale: 12 · 13 · 14 · 15 · 16 · 18 · 20 · 24 · 28 */
+.hg-eyebrow { font-size: var(--hg-text-xs); font-weight: var(--hg-weight-medium); letter-spacing: 0.02em; color: var(--hg-text-tertiary); }
+.hg-muted { color: var(--hg-text-secondary); }
+.hg-subtle { color: var(--hg-text-tertiary); }
+.hg-small { font-size: var(--hg-text-sm); }
+.hg-xs { font-size: var(--hg-text-xs); }
+.hg-strong { font-weight: var(--hg-weight-semibold); }
+.hg-medium { font-weight: var(--hg-weight-medium); }
+.hg-title-xl { font-size: var(--hg-text-4xl); font-weight: var(--hg-weight-semibold); letter-spacing: -0.022em; line-height: var(--hg-leading-tight); }
+.hg-title-lg { font-size: var(--hg-text-3xl); font-weight: var(--hg-weight-semibold); letter-spacing: -0.018em; line-height: var(--hg-leading-tight); }
+.hg-title-md { font-size: var(--hg-text-xl); font-weight: var(--hg-weight-semibold); letter-spacing: -0.012em; }
+.hg-title-sm { font-size: var(--hg-text-lg); font-weight: var(--hg-weight-semibold); }
+.hg-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.hg-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.hg-link { color: var(--hg-text); font-weight: var(--hg-weight-medium); text-decoration: none; }
+.hg-link:hover { text-decoration: underline; text-decoration-color: var(--hg-border-strong); }
+.hg-link-arrow { display: inline-flex; align-items: center; gap: 4px; font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); color: var(--hg-text-secondary); text-decoration: none; min-block-size: 24px; } /* V30: a standalone action link is a 24-px target (WCAG 2.5.8) */
+.hg-link-arrow:hover { color: var(--hg-text); text-decoration: none; }
+.hg-link-arrow svg { width: 14px; height: 14px; }
+
+/* Layout helpers */
+.hg-stack { display: flex; flex-direction: column; gap: var(--hg-gap, 16px); min-width: 0; }
+.hg-row { display: flex; align-items: center; gap: var(--hg-gap, 12px); min-width: 0; }
+.hg-row-wrap { display: flex; flex-wrap: wrap; align-items: center; gap: var(--hg-gap, 8px); }
+.hg-between { justify-content: space-between; }
+.hg-grow { flex: 1 1 auto; min-width: 0; }
+.hg-grid { display: grid; gap: var(--hg-gap, 16px); grid-template-columns: repeat(var(--hg-cols, 1), minmax(0, 1fr)); }
+.hg-grid-auto { display: grid; gap: var(--hg-gap, 16px); grid-template-columns: repeat(auto-fill, minmax(min(var(--hg-min, 260px), 100%), 1fr)); }
+@media (min-width: 768px) { .hg-grid[data-md] { --hg-cols: var(--hg-md-cols); } }
+@media (min-width: 1024px) { .hg-grid[data-lg] { --hg-cols: var(--hg-lg-cols); } }
+.hg-divider { height: 1px; background: var(--hg-border); border: 0; margin: 0; }
+[dir='rtl'] .hg-flip-rtl { transform: scaleX(-1); }
+
+/* ---------------------------------------------------------------- /__dev (development builds only)
+   Deliberately plain. It is a tool, not a product surface, and it must never be mistaken for one. */
+.hg-devtools { max-width: 760px; margin-inline: auto; padding: 48px var(--hg-space-5) 80px; }
+.hg-devtools__eyebrow { margin: 0; font-size: var(--hg-text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--hg-text-tertiary); }
+.hg-devtools__title { margin: 8px 0 12px; font-size: var(--hg-text-4xl); letter-spacing: -0.02em; }
+.hg-devtools__lede { margin: 0 0 36px; color: var(--hg-text-secondary); line-height: 1.8; }
+.hg-devtools__section { margin-bottom: 36px; }
+.hg-devtools__section h2 { font-size: var(--hg-text-lg); margin: 0 0 12px; }
+.hg-devtools__section ul { margin: 0; padding-inline-start: 18px; line-height: 2; font-size: var(--hg-text-sm); }
+.hg-devtools__note { margin: 10px 0 0; font-size: var(--hg-text-sm); color: var(--hg-text-tertiary); }
+.hg-devtools__btn {
+  padding: 10px 18px; border-radius: var(--hg-radius-md); border: 1px solid var(--hg-border-strong);
+  background: var(--hg-surface); color: var(--hg-text); font: inherit; font-weight: 600; cursor: pointer;
+}
+.hg-devtools__btn:hover { background: var(--hg-surface-hover); }
+
+/* ---------------------------------------------------------------- V26: the record a link was about (REPORT §341)
+   A queue row, a task or a notification opens the exact record and marks it `data-focus="true"`. The mark says "this
+   one" once: a tangerine rule at the start edge and a warm wash that fades — it explains where the reader landed and
+   then gets out of the way. Under reduced motion the wash simply stays. One rule for all four products. */
+[data-focus='true'] {
+  box-shadow: inset 3px 0 0 var(--hg-primary);
+  background-color: rgb(204 78 0 / 0.04);
+  animation: hg-focus-land 2.4s ease-out 1;
+  scroll-margin-block: 96px;
+}
+[dir='rtl'] [data-focus='true'] { box-shadow: inset -3px 0 0 var(--hg-primary); }
+@keyframes hg-focus-land { from { background-color: rgb(204 78 0 / 0.14); } to { background-color: rgb(204 78 0 / 0.04); } }
+@media (prefers-reduced-motion: reduce) { [data-focus='true'] { animation: none; } }
+
+/* V26: native checkboxes and radios render at the browser's 13 px by default — 16 px, ink accent, so a table's row
+   selector is a usable target (with its row spacing it meets WCAG 2.2 § 2.5.8). */
+input[type='checkbox'], input[type='radio'] { inline-size: 16px; block-size: 16px; flex: none; accent-color: var(--hg-text); margin: 0; }

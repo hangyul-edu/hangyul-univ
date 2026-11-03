@@ -1,0 +1,61 @@
+{
+  "expo": {
+    "name": "Hangyul University",
+    "slug": "hangyul-university",
+    "scheme": "hangyul-university",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/app-icon-1024.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#FFFDF8"
+    },
+    "ios": {
+      "bundleIdentifier": "kr.hangyul.univ.university",
+      "supportsTablet": true,
+      "infoPlist": {
+        "CFBundleAllowMixedLocalizations": true,
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "buildNumber": "1"
+    },
+    "android": {
+      "package": "kr.hangyul.univ.university",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-foreground-1024.png",
+        "backgroundColor": "#FFF3E8"
+      },
+      "versionCode": 1
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-localization",
+      "expo-font",
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "Hangyul uses the camera so you can photograph a document and attach it to a message.",
+          "photosPermission": "Hangyul opens your photos so you can attach a file to a message.",
+          "microphonePermission": false
+        }
+      ],
+      "./plugins/withReleaseSigning",
+      "./plugins/withQaCleartext"
+    ],
+    "experiments": {
+      "typedRoutes": false
+    },
+    "extra": {
+      "apiUrl": "http://localhost:8001",
+      "client": "university",
+      "apiUrlNotes": "Override with EXPO_PUBLIC_API_URL. Android emulator: http://10.0.2.2:8001. Physical device: http://<your-LAN-IP>:8001."
+    },
+    "primaryColor": "#CC4E00"
+  }
+}

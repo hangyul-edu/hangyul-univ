@@ -1,0 +1,10 @@
+import { chromium } from '@playwright/test';
+const b = await chromium.launch();
+const p = await (await b.newContext({ viewport:{width:1440,height:900} })).newPage();
+await p.goto('http://localhost:3102/login',{waitUntil:'networkidle'});
+await p.fill('#email','counselor@lotus.demo.hangyul.kr'); await p.fill('#password','Hangyul!2026');
+await p.click('button[type=submit]'); await p.waitForURL(u=>!u.pathname.startsWith('/login'));
+await p.goto('http://localhost:3102/essays/insights',{waitUntil:'networkidle'}); await p.waitForTimeout(1500);
+console.log(await p.evaluate(() => (document.querySelector('#main')||document.body).innerText.slice(0,500)));
+await p.screenshot({ path:'docs/qa/v19/screenshots/agency/writing-insights-403@1440.png' });
+await b.close();

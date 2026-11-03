@@ -1,0 +1,45 @@
+// V23 §269 M2 — "free account" → sign up. Three keys render; four dead marketing keys are deleted.
+import fs from 'node:fs';
+const S = { // [short "Sign up", "Sign up to keep your answers and see every program with its costs.", "Sign up to keep going"]
+  ko: ['회원가입', '회원가입하면 답변이 저장되고 모든 프로그램을 비용과 함께 볼 수 있습니다.', '회원가입하고 계속하기'],
+  en: ['Sign up', 'Sign up to keep your answers and see every program with its costs.', 'Sign up to keep going'],
+  vi: ['Đăng ký', 'Đăng ký để lưu câu trả lời và xem mọi chương trình cùng chi phí.', 'Đăng ký để tiếp tục'],
+  ne: ['दर्ता गर्नुहोस्', 'आफ्ना उत्तरहरू सुरक्षित राख्न र हरेक कार्यक्रम खर्चसहित हेर्न दर्ता गर्नुहोस्।', 'जारी राख्न दर्ता गर्नुहोस्'],
+  uz: ['Roʻyxatdan oʻtish', 'Javoblaringizni saqlash va har bir dasturni xarajatlari bilan koʻrish uchun roʻyxatdan oʻting.', 'Davom etish uchun roʻyxatdan oʻting'],
+  mn: ['Бүртгүүлэх', 'Хариултаа хадгалж, хөтөлбөр бүрийг зардлынх нь хамт харахын тулд бүртгүүлээрэй.', 'Үргэлжлүүлэхийн тулд бүртгүүлэх'],
+  'zh-Hans': ['注册', '注册后即可保存你的回答，并查看每个项目及其费用。', '注册并继续'],
+  ja: ['新規登録', '新規登録すると回答が保存され、すべてのプログラムを費用とあわせて確認できます。', '新規登録して続ける'],
+  th: ['สมัครสมาชิก', 'สมัครสมาชิกเพื่อบันทึกคำตอบและดูทุกหลักสูตรพร้อมค่าใช้จ่าย', 'สมัครสมาชิกเพื่อดำเนินการต่อ'],
+  id: ['Daftar', 'Daftar untuk menyimpan jawaban Anda dan melihat setiap program beserta biayanya.', 'Daftar untuk melanjutkan'],
+  fil: ['Mag-sign up', 'Mag-sign up para ma-save ang iyong mga sagot at makita ang bawat programa kasama ang gastos nito.', 'Mag-sign up para magpatuloy'],
+  my: ['စာရင်းသွင်းရန်', 'သင့်အဖြေများကို သိမ်းထားပြီး ပရိုဂရမ်တိုင်းကို ကုန်ကျစရိတ်နှင့်အတူ ကြည့်ရန် စာရင်းသွင်းပါ။', 'ဆက်လုပ်ရန် စာရင်းသွင်းပါ'],
+  hi: ['साइन अप करें', 'अपने जवाब सहेजने और हर प्रोग्राम को उसकी लागत के साथ देखने के लिए साइन अप करें।', 'जारी रखने के लिए साइन अप करें'],
+  bn: ['সাইন আপ করুন', 'আপনার উত্তর সংরক্ষণ করতে এবং প্রতিটি প্রোগ্রাম খরচসহ দেখতে সাইন আপ করুন।', 'চালিয়ে যেতে সাইন আপ করুন'],
+  kk: ['Тіркелу', 'Жауаптарыңызды сақтап, әр бағдарламаны шығынымен бірге көру үшін тіркеліңіз.', 'Жалғастыру үшін тіркеліңіз'],
+  ky: ['Катталуу', 'Жоопторуңузду сактап, ар бир программаны чыгымы менен көрүү үчүн катталыңыз.', 'Улантуу үчүн катталыңыз'],
+  ar: ['التسجيل', 'سجّل لحفظ إجاباتك ورؤية كل برنامج مع تكاليفه.', 'سجّل للمتابعة'],
+  tr: ['Kaydol', 'Yanıtlarını kaydetmek ve her programı maliyetleriyle görmek için kaydol.', 'Devam etmek için kaydol'],
+  ru: ['Зарегистрироваться', 'Зарегистрируйтесь, чтобы сохранить ответы и видеть каждую программу вместе со стоимостью.', 'Зарегистрируйтесь, чтобы продолжить'],
+  uk: ['Зареєструватися', 'Зареєструйтеся, щоб зберегти відповіді й бачити кожну програму разом із вартістю.', 'Зареєструйтеся, щоб продовжити'],
+  pl: ['Zarejestruj się', 'Zarejestruj się, aby zapisać odpowiedzi i zobaczyć każdy program wraz z kosztami.', 'Zarejestruj się, aby kontynuować'],
+  cs: ['Zaregistrovat se', 'Zaregistrujte se, abyste si uložili odpovědi a viděli každý program i s náklady.', 'Zaregistrujte se a pokračujte'],
+  hu: ['Regisztráció', 'Regisztrálj, hogy megmaradjanak a válaszaid, és minden programot a költségeivel együtt láss.', 'Regisztrálj a folytatáshoz'],
+  ro: ['Înregistrare', 'Înregistrează-te ca să-ți păstrezi răspunsurile și să vezi fiecare program cu costurile lui.', 'Înregistrează-te ca să continui'],
+  sr: ['Регистрација', 'Региструј се да сачуваш одговоре и видиш сваки програм са трошковима.', 'Региструј се да наставиш'],
+  el: ['Εγγραφή', 'Εγγραφείτε για να αποθηκεύσετε τις απαντήσεις σας και να δείτε κάθε πρόγραμμα με το κόστος του.', 'Εγγραφείτε για να συνεχίσετε'],
+  it: ['Registrati', 'Registrati per salvare le risposte e vedere ogni programma con i suoi costi.', 'Registrati per continuare'],
+  es: ['Regístrate', 'Regístrate para guardar tus respuestas y ver cada programa con sus costes.', 'Regístrate para continuar'],
+  pt: ['Registar-se', 'Registe-se para guardar as suas respostas e ver cada programa com os respetivos custos.', 'Registe-se para continuar'],
+  fr: ['S’inscrire', 'Inscrivez-vous pour enregistrer vos réponses et voir chaque programme avec ses coûts.', 'Inscrivez-vous pour continuer'],
+  de: ['Registrieren', 'Registriere dich, um deine Antworten zu speichern und jedes Programm mit seinen Kosten zu sehen.', 'Registrieren und weitermachen'],
+  nl: ['Registreren', 'Registreer je om je antwoorden te bewaren en elk programma met de kosten te zien.', 'Registreer je om verder te gaan'],
+  sv: ['Registrera dig', 'Registrera dig för att spara dina svar och se varje program med dess kostnader.', 'Registrera dig för att fortsätta'],
+};
+const col = (i) => Object.fromEntries(Object.entries(S).map(([l, v]) => [l, v[i]]));
+const patch = {
+  student: { 'login.createAccount': col(0), 'start.result.createWhy': col(1) },
+  mobile: { 'v3.quick.createAccount': col(2) },
+  common: { 'actions.signUp': { en: 'Sign up' } },
+  marketing: Object.fromEntries(['cta.createFreeAccount', 'finalCta.lede', 'finalCta.note', 'quick.save', 'v6.qs.save'].map((k) => [k, { '*': null }])),
+};
+fs.writeFileSync(new URL('./signup-copy.json', import.meta.url), JSON.stringify(patch, null, 1));

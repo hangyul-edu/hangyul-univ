@@ -1,0 +1,34 @@
+== plans: node scripts/qa/v29/plans.mjs
+EXIT=0
+== addons: node scripts/qa/v29/addons.mjs
+EXIT=0
+== typecheck: npm run -s typecheck
+EXIT=0
+== lint-api: npm run -s lint:api
+EXIT=0
+skip i18n-check (fresh)
+skip console-locales (fresh)
+skip particles (fresh)
+skip l10n-v29 (fresh)
+== web-tests: npm run -s test:web
+EXIT=1
+skip api-tests (fresh)
+skip security-scan (fresh)
+skip build-web (fresh)
+skip built-scan (fresh)
+skip csp (fresh)
+skip bundle-secrets (fresh)
+skip pricing-visual (fresh)
+skip visual (fresh)
+== buttons: node scripts/qa/v27/buttons.mjs --json docs/qa/v29/completion/buttons.json
+EXIT=0
+== a11y: node scripts/qa/a11y.mjs /root/.cache/hg-axe/node_modules/axe-core/axe.min.js
+EXIT=0
+== e2e-template: node scripts/qa/e2e-db.mjs template
+EXIT=0
+== e2e: node scripts/qa/e2e-run.mjs
+EXIT=0
+== native-scan: npm run -s qa:v23-native
+EXIT=0
+CHAIN-DONE
+CHAIN-EXIT=0

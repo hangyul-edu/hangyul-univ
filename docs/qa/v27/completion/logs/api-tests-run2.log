@@ -1,0 +1,92 @@
+........................................................................ [ 13%]
+.............F.......................................................... [ 26%]
+........................................................................ [ 39%]
+...................s.................................................... [ 52%]
+........................................................................ [ 65%]
+........................................................................ [ 78%]
+.....................................................F.................. [ 91%]
+................F.............................                           [100%]
+=================================== FAILURES ===================================
+___________________ test_withdrawing_a_draft_is_not_rationed ___________________
+
+client = <starlette.testclient.TestClient object at 0x7f775d8bb560>
+db = <sqlalchemy.orm.session.Session object at 0x7f775a52a4b0>
+
+    def test_withdrawing_a_draft_is_not_rationed(client, db):
+        """A plan rations the work Hangyul takes on. Giving a draft up is the opposite of asking for work.
+    
+        `applications.py` has rationed "an application leaving DRAFT" since V15, and `WITHDRAWN` also leaves
+        DRAFT — so a student whose plan includes **no** managed applications could not withdraw their own
+        draft, and after V17 wired the contextual upgrade sheet, the refusal they met offered them a paid plan
+        *in order to delete something*. A boundary that traps someone is not a boundary.
+    
+        `student40@` holds Basic (`max_managed_applications: 0`), which is what makes them the right persona:
+        every transition out of DRAFT is refused for them except this one.
+        """
+        headers = _login(client, "student40@demo.hangyul.kr")
+        svc = client.get("/api/v1/me/services", headers=headers).json()
+        assert svc["owned"] == ["BASIC"], f"this test needs a Basic student, not {svc['owned']}"
+    
+        programs = client.get("/api/v1/programs", params={"page": 1, "page_size": 20}, headers=headers).json()
+        app = None
+        for prog in programs["items"]:
+            made = client.post("/api/v1/applications", json={"program_id": prog["id"]}, headers=headers)
+            if made.status_code == 201:
+                app = made.json()
+                break
+>       assert app, "no program this student has not already applied to"
+E       AssertionError: no program this student has not already applied to
+E       assert None
+
+tests/test_v17_usd_refunds.py:352: AssertionError
+_________ test_handed_off_waits_on_student_and_unconfirmed_on_external _________
+
+client = <starlette.testclient.TestClient object at 0x7f775d8bb560>
+mgr = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkNjE4ZDBlMy1iZjc4LTQ4NjItOGNiNy04NTQ5ZDY0ZTc...4cCI6MTc5MzIxNzgzNSwidHlwIjoiYWNjZXNzIiwianRpIjoiOThhMjQ5OWFhMDgwMzkyNSJ9.4GIQq5cajYUwJvIKUnAo5qvihnOv4kMqsZiZSPeYBmw'}
+
+    def test_handed_off_waits_on_student_and_unconfirmed_on_external(client, mgr):
+        pipe = client.get("/api/v1/agency/submissions/pipeline", headers=mgr).json()
+        missing = [i for i in pipe["items"] if i["state"] == "confirmation_missing"]
+        sent = [i for i in pipe["items"] if i["state"] == "submitted"]
+        assert missing, "seeded: handed off 4 days ago, no reference"
+>       assert sent, "seeded: reported submitted yesterday, no reference"
+E       AssertionError: seeded: reported submitted yesterday, no reference
+E       assert []
+
+tests/test_v9_agency.py:110: AssertionError
+___________ test_filter_bulk_runs_across_pages_with_per_item_results ___________
+
+client = <starlette.testclient.TestClient object at 0x7f775d8bb560>
+
+    def test_filter_bulk_runs_across_pages_with_per_item_results(client):
+        h = login(client, ADMISSIONS, "university")
+        team = client.get(f"{API}/university/team", headers=h).json()
+        rid = str(_uid(ADMISSIONS))
+        assert any(m["user_id"] == rid and m["role"] == "UNIVERSITY_ADMIN" for m in team)  # V22: one university permission
+        f = {"status": ["SUBMITTED", "UNIVERSITY_REVIEW", "ADDITIONAL_DOCUMENTS", "INTERVIEW", "WAITLISTED", "OFFERED"]}
+>       n = _total(client, h, **f)
+            ^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_v9_university.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_v9_university.py:42: in _total
+    return _list(client, h, page_size=1, **params)["total"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = <starlette.testclient.TestClient object at 0x7f775d8bb560>
+h = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjE4MGFjMS1lMTFmLTQ2YTEtODY3NC03ZmIwNGNiZTA...HAiOjE3OTMyMTc4NTcsInR5cCI6ImFjY2VzcyIsImp0aSI6Ijc1OWE3MGYyNWI5YTk4ZGYifQ.IdJ4DOF0iPt7QrgPXd64b05QxVI64D34ydgIpxhEGsk'}
+params = {'page_size': 1, 'status': ['SUBMITTED', 'UNIVERSITY_REVIEW', 'ADDITIONAL_DOCUMENTS', 'INTERVIEW', 'WAITLISTED', 'OFFERED']}
+
+    def _list(client, h, **params) -> dict:
+        r = client.get(f"{API}/applications", params={"page_size": 200, **params}, headers=h)
+>       assert r.status_code == 200, r.text
+E       AssertionError: {"detail":"Invalid token"}
+E       assert 401 == 200
+E        +  where 401 = <Response [401 Unauthorized]>.status_code
+
+tests/test_v9_university.py:37: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_v17_usd_refunds.py::test_withdrawing_a_draft_is_not_rationed
+FAILED tests/test_v9_agency.py::test_handed_off_waits_on_student_and_unconfirmed_on_external
+FAILED tests/test_v9_university.py::test_filter_bulk_runs_across_pages_with_per_item_results

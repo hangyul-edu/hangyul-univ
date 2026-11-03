@@ -1,0 +1,796 @@
+/* Agency console screens — Today, students, workspace, review, operations, HQ (formerly v8 … v25).
+   V26 (REPORT §347): one canonical file instead of version layers; the order inside is the original cascade order.
+   Declarations a later rule with the same selector and context always overrode were removed (scripts/qa/v26/css-consolidate.mjs). */
+
+/* ── from v8.css ────────────────────────────────────────────────────────────────────────────────────────────── */
+/* V8 agency workstream (v8): Today ranked list, Students views, workspace "why not moving". Logical properties only. */
+
+/* ---------------------------------------------------------------- Today: who needs you now */
+.ag8-now { margin: 0; }
+.ag8-now__pos {
+  inline-size: 1.75rem; block-size: 1.75rem; border-radius: 50%; display: inline-grid; place-items: center;
+  font-weight: 700; font-size: 0.8125rem; font-variant-numeric: tabular-nums;
+}
+.ag8-now__name { font-weight: 600; color: var(--hg-text); text-decoration: none; }
+.ag8-now__name:hover { color: rgb(var(--primary-rgb)); text-decoration: underline; text-underline-offset: 3px; }
+.ag8-now__stage { font-size: 0.75rem; color: var(--hg-text-tertiary); }
+.ag8-now__reason { color: var(--hg-text); font-weight: 500; }
+.ag8-now__more { color: var(--hg-text-tertiary); font-size: 0.75rem; }
+.ag8-now__acticon svg { inline-size: 0.875rem; block-size: 0.875rem; }
+.ag8-nowcard .card-footer { padding-block: 0.625rem; padding-inline: 1.25rem; }
+
+.ag8-rule { margin: 0 0 0.875rem; padding-inline-start: 1.125rem; font-size: 0.8125rem; color: var(--hg-text-secondary); display: grid; gap: 0.375rem; }
+.ag8-tiers { display: grid; gap: 0.5rem; }
+.ag8-tiers li { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr) auto; gap: 0.5rem; align-items: center; font-size: 0.75rem; }
+.ag8-tiers__what { color: var(--hg-text-tertiary); }
+.ag8-tiers__n { font-weight: 600; min-inline-size: 2ch; text-align: end; }
+
+/* ---------------------------------------------------------------- Students: operational views */
+.ag8-views { display: flex; flex-wrap: wrap; gap: 0.375rem; padding-block: 0.75rem 0.25rem; padding-inline: 1.25rem; }
+.ag8-views__tab {
+  display: inline-flex; align-items: center; gap: 0.375rem; border: 1px solid var(--hg-border); background: var(--hg-surface);
+  border-radius: 999px; padding-block: 0.25rem; padding-inline: 0.75rem; font-size: 0.8125rem; color: var(--hg-text-secondary); cursor: pointer;
+}
+.ag8-views__tab:hover { border-color: var(--hg-border-strong); color: var(--hg-text); }
+.ag8-views__tab[aria-selected='true'] { background: rgba(var(--primary-rgb), 0.1); border-color: rgb(var(--primary-rgb)); color: rgb(var(--primary-rgb)); font-weight: 600; }
+.ag8-views__n { font-variant-numeric: tabular-nums; font-size: 0.75rem; color: inherit; }
+.ag8-views__n[data-zero] { color: var(--hg-text-tertiary); }
+.ag8-viewdef { margin: 0; padding-block: 0.25rem 0.5rem; padding-inline: 1.25rem; font-size: 0.75rem; color: var(--hg-text-tertiary); }
+
+/* ---------------------------------------------------------------- Workspace: why is this case not moving? */
+.ag8-move { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 1rem; margin-block-end: 1rem; }
+@media (max-width: 1599.98px) { .ag8-move { grid-template-columns: minmax(0, 1fr); } }
+.ag8-move__card { background: var(--hg-surface); border: 1px solid var(--hg-border); border-radius: 0.5rem; padding: 1rem 1.25rem; }
+.ag8-move__h { font-size: 0.9375rem; font-weight: 600; margin: 0 0 0.5rem; }
+.ag8-move__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.375rem; }
+.ag8-move__list li { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 0.5rem; align-items: baseline; font-size: 0.8125rem; }
+.ag8-move__list li > .badge { justify-self: start; }
+.ag8-move__item { display: flex; flex-wrap: wrap; gap: 0.125rem 0.5rem; align-items: baseline; min-inline-size: 0; }
+.ag8-move__list a { color: var(--hg-text); }
+.ag8-move__when { white-space: nowrap; font-size: 0.75rem; color: var(--hg-text-tertiary); }
+.ag8-move__when[data-overdue] { color: var(--hg-status-danger-fg); font-weight: 600; }
+.ag8-move__def { margin: 0.625rem 0 0; font-size: 0.6875rem; color: var(--hg-text-tertiary); }
+
+/* ---------------------------------------------------------------- Tasks: embedded Deadlines / Meetings views */
+.ag8-embed__pad { padding: 1rem 1.25rem; }
+.ag8-embed__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
+
+/* ---------------------------------------------------------------- Messages: channel model */
+.ag8-chan { font-size: 0.6875rem; padding-inline: 0.375rem; border-radius: 999px; background: var(--hg-surface-sunken); color: var(--hg-text-secondary); }
+.ag8-chanpick { display: flex; flex-wrap: wrap; align-items: center; gap: 0.375rem; font-size: 0.75rem; }
+.ag8-chanpick__label { color: var(--hg-text-secondary); font-weight: 600; margin-inline-end: 0.125rem; }
+.ag8-chanpick__opt {
+  display: inline-flex; align-items: baseline; gap: 0.25rem; padding-block: 0.125rem; padding-inline: 0.5rem; border-radius: 999px;
+  border: 1px dashed var(--hg-border-strong); color: var(--hg-text-tertiary); cursor: not-allowed;
+}
+.ag8-chanpick__opt[data-on] { border-style: solid; border-color: rgb(var(--primary-rgb)); background: rgba(var(--primary-rgb), 0.08); color: rgb(var(--primary-rgb)); font-weight: 600; cursor: default; }
+.ag8-chanpick__why { font-size: 0.6875rem; }
+.ag8-chanpick__why { color: var(--hg-text-tertiary); }
+.ag8-pagenote { margin: -0.5rem 0 0.75rem; font-size: 0.75rem; color: var(--hg-text-tertiary); }
+
+/* ── from v8-ops.css ────────────────────────────────────────────────────────────────────────────────────────── */
+/* V8 agency workstream (v8-ops): manager Operations. Logical properties only. */
+.ag8-ops__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; margin-block-end: 0.75rem; }
+.ag8-q { margin: 0 0 0.75rem; font-size: 0.8125rem; color: var(--hg-text-secondary); }
+.ag8-callout { margin: 0 0 0.75rem; padding: 0.5rem 0.75rem; border-radius: 0.375rem; background: var(--hg-surface-sunken); font-size: 0.8125rem; color: var(--hg-text); }
+.ag8-def { margin: 0.75rem 0 0; font-size: 0.6875rem; color: var(--hg-text-tertiary); }
+.ag8-sub { font-size: 0.8125rem; font-weight: 600; margin-block: 0.75rem 0.375rem; display: flex; align-items: center; gap: 0.5rem; }
+.ag8-drill { list-style: none; margin: 0.5rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; font-size: 0.8125rem; }
+.ag8-rows { list-style: none; margin: 0; padding: 0; }
+.ag8-rows li {
+  display: grid; grid-template-columns: minmax(8rem, auto) minmax(0, 1fr) auto; gap: 0.75rem; align-items: baseline;
+  padding-block: 0.375rem; border-block-end: 1px solid var(--hg-border-subtle); font-size: 0.8125rem;
+}
+.ag8-rows li:last-child { border-block-end: 0; }
+.ag8-rows li > .text-muted { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ag8-rows__n { white-space: nowrap; text-align: end; }
+.ag8-rows__n[data-tone='stuck'] { color: var(--hg-status-danger-fg); font-weight: 600; }
+.ag8-rows__n[data-tone='late'] { color: var(--hg-status-warning-fg, #8a5a00); font-weight: 600; }
+@media (max-width: 575.98px) { .ag8-rows li { grid-template-columns: minmax(0, 1fr) auto; } .ag8-rows li > .text-muted { grid-column: 1 / -1; grid-row: 2; } }
+
+.ag8-matrix { inline-size: 100%; border-collapse: separate; border-spacing: 4px; font-size: 0.8125rem; table-layout: fixed; }
+.ag8-matrix th { font-weight: 600; color: var(--hg-text-secondary); text-align: start; font-size: 0.75rem; }
+.ag8-matrix thead th:not(:first-child), .ag8-matrix td { text-align: center; }
+.ag8-matrix tbody th { inline-size: 26%; }
+.ag8-cell {
+  display: block; inline-size: 100%; border: 1px solid transparent; border-radius: 0.375rem; padding-block: 0.375rem;
+  font-weight: 600; font-variant-numeric: tabular-nums; cursor: pointer; background: var(--hg-surface-sunken); color: var(--hg-text);
+}
+.ag8-cell[data-tone='watch'] { background: #fff4d6; }
+.ag8-cell[data-tone='late'] { background: #ffe2c2; }
+.ag8-cell[data-tone='stuck'] { background: #fcd6d6; color: #7a1010; }
+.ag8-cell[aria-pressed='true'] { border-color: rgb(var(--primary-rgb)); box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.25); }
+.ag8-cell:focus-visible { outline: 2px solid rgb(var(--primary-rgb)); outline-offset: 1px; }
+.ag8-cell--zero { background: transparent; color: var(--hg-text-tertiary); font-weight: 400; cursor: default; }
+.ag8-slagroup + .ag8-slagroup { margin-block-start: 0.5rem; }
+.ag8-more { margin-block-start: 0.5rem; font-size: 0.8125rem; } .ag8-more summary { cursor: pointer; color: var(--hg-text-secondary); }
+
+/* ── from v8-secondary.css ──────────────────────────────────────────────────────────────────────────────────── */
+/* V8 agency workstream (v8-secondary). Logical properties only. */
+
+/* ---------------------------------------------------------------- Audit: sentences by day */
+.ag8-audit__days section + section { border-block-start: 1px solid var(--hg-border-subtle); }
+.ag8-audit__day { font-size: 0.75rem; font-weight: 600; color: var(--hg-text-secondary); margin: 0; padding-block: 0.75rem 0.25rem; padding-inline: 1.25rem; }
+.ag8-audit__list { list-style: none; margin: 0; padding: 0 0 0.5rem; }
+.ag8-audit__list li { display: grid; grid-template-columns: 5rem minmax(0, 1fr) auto; gap: 0.75rem; align-items: baseline; padding-block: 0.375rem; padding-inline: 1.25rem; font-size: 0.875rem; }
+.ag8-audit__list li:hover { background: var(--hg-surface-hover); }
+.ag8-audit__time { white-space: nowrap; font-size: 0.75rem; color: var(--hg-text-tertiary); }
+.ag8-audit__s { color: var(--hg-text); }
+.ag8-audit__open { font-size: 0.75rem; white-space: nowrap; }
+.ag8-audit__pager { display: flex; justify-content: center; align-items: center; gap: 1rem; padding: 0.75rem; border-block-start: 1px solid var(--hg-border-subtle); }
+@media (max-width: 575.98px) { .ag8-audit__list li { grid-template-columns: minmax(0, 1fr) auto; } .ag8-audit__time { grid-column: 1 / -1; } }
+.ag8-clampcell { display: flex; flex-direction: column; max-inline-size: 13rem; min-inline-size: 0; } .ag8-clampcell > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ag8-audit__x { color: var(--hg-text-tertiary); font-size: 0.75rem; }
+
+/* ── from v8-hq.css ─────────────────────────────────────────────────────────────────────────────────────────── */
+/* V8 agency workstream (v8-hq). Logical properties only. */
+
+/* ---------------------------------------------------------------- HQ: where is the ecosystem failing? */
+.ag8-fail__row {
+  display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) auto; gap: 0.875rem; align-items: center;
+  padding-block: 0.75rem; padding-inline: 1.25rem; border-block-end: 1px solid var(--hg-border-subtle);
+}
+.ag8-fail__row:last-child { border-block-end: 0; }
+.ag8-fail__row[data-sev='critical'] { border-inline-start: 3px solid var(--hg-status-danger-fg); }
+.ag8-fail__sev { justify-self: start; }
+.ag8-fail__main { display: flex; flex-direction: column; gap: 0.125rem; min-inline-size: 0; }
+.ag8-fail__what { font-weight: 600; color: var(--hg-text); }
+.ag8-fail__ex { font-size: 0.75rem; color: var(--hg-text-tertiary); }
+.ag8-fail__open { white-space: nowrap; }
+@media (max-width: 575.98px) { .ag8-fail__row { grid-template-columns: minmax(0, 1fr) auto; } .ag8-fail__sev { grid-column: 1 / -1; } }
+
+/* ---------------------------------------------------------------- HQ: production readiness */
+.ag8-ready__verdict { display: flex; flex-wrap: wrap; gap: 0.375rem 1rem; align-items: center; padding: 0.875rem 1.25rem; border-radius: 0.5rem; margin-block-end: 1rem; border: 1px solid var(--hg-border); background: var(--hg-surface); font-size: 0.8125rem; color: var(--hg-text-secondary); }
+.ag8-ready__verdict strong { font-size: 0.9375rem; color: var(--hg-text); }
+.ag8-ready__verdict.is-not { border-inline-start: 4px solid var(--hg-status-danger-fg); }
+.ag8-ready__verdict.is-ready { border-inline-start: 4px solid var(--hg-status-success-fg, #0b7a3b); }
+.ag8-ready__counts { display: flex; flex-wrap: wrap; gap: 0.375rem; margin-inline-start: auto; }
+.ag8-ready__row { display: grid; grid-template-columns: minmax(12rem, 1fr) 9.5rem minmax(0, 1.6fr); gap: 1rem; align-items: start; padding-block: 0.75rem; padding-inline: 1.25rem; border-block-end: 1px solid var(--hg-border-subtle); font-size: 0.8125rem; }
+/* V10: the category badge sits in a fixed 9.5rem column. The longest launch-category label is a little wider
+   than that, so the pill spilled into the evidence column beside it. It wraps inside its own column now. */
+.ag8-ready__status { min-width: 0; }
+.ag8-ready__status .badge { max-width: 100%; white-space: normal; text-align: start; }
+.ag8-ready__row:last-child { border-block-end: 0; }
+.ag8-ready__name { display: flex; flex-direction: column; gap: 0.125rem; }
+.ag8-ready__what { font-size: 0.75rem; color: var(--hg-text-tertiary); }
+.ag8-ready__detail { display: flex; flex-direction: column; gap: 0.25rem; }
+.ag8-ready__env { margin-inline-end: 0.375rem; font-size: 0.75rem; }
+.ag8-ready__legend { display: grid; gap: 0.5rem; margin: 0; font-size: 0.8125rem; }
+.ag8-ready__legend div { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 0.75rem; }
+.ag8-ready__legend dd { margin: 0; color: var(--hg-text-secondary); }
+/* Same fixed 9.5rem column as the rows above, same spill: the legend's category pill wraps too. */
+.ag8-ready__legend dt { min-width: 0; }
+.ag8-ready__legend dt .badge { max-width: 100%; white-space: normal; text-align: start; }
+.ag8-ready .card { margin-block-end: 1rem; }
+@media (max-width: 767.98px) { .ag8-ready__row { grid-template-columns: minmax(0, 1fr) auto; } .ag8-ready__detail { grid-column: 1 / -1; } }
+
+/* ---------------------------------------------------------------- HQ: agencies */
+.ag8-agrow { display: grid; grid-template-columns: minmax(12rem, 1.3fr) minmax(10rem, 1fr) minmax(10rem, 1.2fr) auto; gap: 1rem; align-items: center; padding-block: 0.875rem; padding-inline: 1.25rem; border-block-end: 1px solid var(--hg-border-subtle); }
+.ag8-agrow:last-child { border-block-end: 0; }
+.ag8-agrow__who, .ag8-agrow__load { display: flex; flex-direction: column; gap: 0.25rem; min-inline-size: 0; }
+.ag8-agrow__go { display: flex; gap: 0.375rem; flex-wrap: wrap; justify-content: flex-end; }
+@media (max-width: 991.98px) { .ag8-agrow { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .ag8-agrow__go { justify-content: flex-start; } }
+.ag8-sugg ul { max-block-size: 16rem; overflow-y: auto; border: 1px solid var(--hg-border-subtle); border-radius: 0.375rem; }
+
+/* ── from v9.css ────────────────────────────────────────────────────────────────────────────────────────────── */
+/* V9 agency + Hangyul operations workstream (REPORT §59, §61). Dense and calm, YNEX blue. Logical properties only. */
+
+/* ---------------------------------------------------------------- Today: one work queue */
+.ag9-today__grid { display: grid; grid-template-columns: minmax(0, 1fr) 18rem; gap: 1.25rem; align-items: start; }
+.ag9-today__side { display: grid; gap: 1rem; align-content: start; }
+.ag9-today__side .card { margin-block-end: 0; }
+@media (max-width: 1199.98px) { .ag9-today__grid { grid-template-columns: minmax(0, 1fr); } .ag9-today__side { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 767.98px) { .ag9-today__side { grid-template-columns: minmax(0, 1fr); } }
+.ag9-qcard { margin-block-end: 0; }
+.ag9-qcard__head { flex-wrap: wrap; gap: 0.5rem; }
+.ag9-qcard__tools { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.ag9-help { display: inline-flex; align-items: center; gap: 0.375rem; }
+.ag9-help svg { inline-size: 0.875rem; block-size: 0.875rem; }
+
+.ag9-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 0.375rem; padding-block: 0.625rem; padding-inline: 1.25rem;
+  border-block-end: 1px solid var(--hg-border-subtle); }
+.ag9-chip { display: inline-flex; align-items: center; gap: 0.375rem; border: 1px solid var(--hg-border); background: var(--hg-surface);
+  color: var(--hg-text-secondary); border-radius: 999px; padding-block: 0.1875rem; padding-inline: 0.75rem; font-size: 0.8125rem; line-height: 1.4;
+  cursor: pointer; }
+.ag9-chip:hover { border-color: rgb(var(--primary-rgb)); color: var(--hg-text); }
+.ag9-chip[aria-pressed="true"] { background: rgb(var(--primary-rgb)); border-color: rgb(var(--primary-rgb)); color: #fff; }
+.ag9-chip__n { font-weight: 600; font-variant-numeric: tabular-nums; }
+.ag9-chip[aria-pressed="true"] .ag9-chip__n { color: #fff; }
+
+.ag9-q { margin: 0; }
+.ag9-q__row { display: grid; grid-template-columns: 1.75rem minmax(0, 1fr) 10rem 4.5rem; align-items: center; gap: 0.75rem;
+  padding-block: 0.5rem; padding-inline: 1.25rem; border-block-end: 1px solid var(--hg-border-subtle); min-block-size: 3.25rem; }
+.ag9-q[data-owner] .ag9-q__row { grid-template-columns: 1.75rem minmax(0, 1fr) 10rem 4.5rem 8rem; }
+.ag9-q__row:last-child { border-block-end: 0; }
+.ag9-q__row:hover { background: var(--hg-surface-hover); }
+.ag9-q__main { display: flex; flex-direction: column; gap: 0.125rem; min-inline-size: 0; }
+.ag9-q__who { display: flex; align-items: baseline; gap: 0.25rem 0.625rem; min-inline-size: 0; flex-wrap: wrap; }
+.ag9-q__why { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; min-inline-size: 0; flex-wrap: nowrap; }
+.ag9-q__why .badge, .ag9-q__why .ag8-now__more { flex: none; white-space: nowrap; }
+.ag9-q__why .ag8-now__reason { min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ag9-q__who .ag8-now__name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-inline-size: 100%; }
+.ag9-q__act { justify-self: start; display: inline-flex; align-items: center; justify-content: flex-start; gap: 0.375rem; white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; max-inline-size: 100%; }
+.ag9-q__due, .ag9-q__owner { font-size: 0.8125rem; display: flex; flex-direction: column; min-inline-size: 0; }
+.ag9-q__owner { color: var(--hg-text-secondary); }
+.ag9-q__k { display: none; font-size: 0.6875rem; color: var(--hg-text-tertiary); }
+@media (max-width: 767.98px) {
+  .ag9-q__row, .ag9-q[data-owner] .ag9-q__row { grid-template-columns: 1.75rem minmax(0, 1fr) auto; padding-inline: 1rem; row-gap: 0.375rem; }
+  .ag9-q__main { grid-column: 2 / 4; }
+  .ag9-q__act { grid-column: 2; justify-self: start; }
+  .ag9-q__due { grid-column: 3; text-align: end; }
+  .ag9-q__owner { grid-column: 2 / 4; flex-direction: row; gap: 0.375rem; }
+  .ag9-q__k { display: inline; }
+  .ag9-q__why { flex-wrap: wrap; }
+  .ag9-q__why .ag8-now__reason { white-space: normal; }
+  .ag9-chips { padding-inline: 1rem; }
+}
+
+.ag9-wait__list { display: grid; gap: 0.125rem; }
+.ag9-wait__row { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; padding-block: 0.375rem; padding-inline: 0.5rem;
+  margin-inline: -0.5rem; border-radius: 0.375rem; color: var(--hg-text); text-decoration: none; font-size: 0.8125rem; }
+.ag9-wait__row:hover { background: var(--hg-surface-hover); color: rgb(var(--primary-rgb)); }
+.ag9-wait__row[data-staff] span:first-child::before { content: ''; display: inline-block; inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%;
+  background: var(--hg-status-warning-fg); margin-inline-end: 0.5rem; vertical-align: middle; }
+
+/* ---------------------------------------------------------------- Workspace: case strip (A3) */
+.ag9-strip { display: grid; grid-template-columns: 1.4fr 1.6fr 0.9fr 1fr 1fr; gap: 0; margin: 0.75rem 0 0; border: 1px solid var(--hg-border-subtle);
+  border-radius: 0.5rem; background: var(--hg-surface-muted, #f8f9fb); }
+.ag9-strip__cell { padding-block: 0.5rem; padding-inline: 0.875rem; min-inline-size: 0; border-inline-start: 1px solid var(--hg-border-subtle); }
+.ag9-strip__cell:first-child { border-inline-start: 0; }
+.ag9-strip dt { font-size: 0.6875rem; font-weight: 500; color: var(--hg-text-tertiary); margin: 0; }
+.ag9-strip dd { margin: 0.125rem 0 0; font-size: 0.8125rem; font-weight: 600; color: var(--hg-text); overflow-wrap: anywhere; }
+.ag9-strip__cell[data-tone="staff"] dd { color: var(--hg-status-warning-fg); }
+.ag9-strip__cell[data-tone="soon"] dd { color: var(--hg-status-danger-fg); }
+@media (max-width: 1199.98px) { .ag9-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ag9-strip__cell { border-inline-start: 0; border-block-start: 1px solid var(--hg-border-subtle); }
+  .ag9-strip__cell:nth-child(-n+2) { border-block-start: 0; } .ag9-strip__cell[data-k="why"], .ag9-strip__cell[data-k="next"] { grid-column: span 1; } }
+@media (max-width: 575.98px) { .ag9-strip { grid-template-columns: minmax(0, 1fr); } .ag9-strip__cell:nth-child(2) { border-block-start: 1px solid var(--hg-border-subtle); } }
+.ag9-wshead__strip { padding-inline: 1.25rem; padding-block-end: 0.75rem; }
+.ag9-wshead__strip .ag9-strip { margin-block-start: 0; }
+
+/* ---------------------------------------------------------------- Meetings (A8) + identity (A12) */
+.ag9-meet { display: grid; gap: 0.75rem; }
+.ag9-meet__item { border: 1px solid var(--hg-border-subtle); border-radius: 0.5rem; padding: 0.75rem 0.875rem; }
+.ag9-meet__item[data-open] { border-style: dashed; }
+.ag9-meet__head { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.75rem; }
+.ag9-meet__icon { inline-size: 1rem; block-size: 1rem; vertical-align: -0.15em; margin-inline-end: 0.375rem; color: rgb(var(--primary-rgb)); }
+.ag9-meet__notes { margin: 0.5rem 0 0; font-size: 0.8125rem; color: var(--hg-text-secondary); white-space: pre-line; }
+.ag9-meet__block { margin-block-start: 0.5rem; font-size: 0.8125rem; }
+.ag9-meet__k { display: block; font-size: 0.6875rem; font-weight: 600; color: var(--hg-text-tertiary); text-transform: none; margin-block-end: 0.125rem; }
+.ag9-meet__block ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.125rem; }
+.ag9-meet__block li { display: flex; align-items: baseline; gap: 0.375rem; }
+.ag9-meet__block li svg { inline-size: 0.8125rem; block-size: 0.8125rem; flex: none; color: var(--hg-text-tertiary); position: relative; inset-block-start: 0.125rem; }
+.ag9-meet__block li[data-done] { color: var(--hg-text-tertiary); text-decoration: line-through; }
+.ag9-meet__next { margin: 0.5rem 0 0; font-size: 0.8125rem; display: flex; align-items: center; gap: 0.375rem; color: var(--hg-text); }
+.ag9-meet__next svg { inline-size: 0.875rem; block-size: 0.875rem; color: rgb(var(--primary-rgb)); }
+.ag9-kv { display: grid; gap: 0.5rem; }
+.ag9-kv > div { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 0.5rem; font-size: 0.8125rem; }
+.ag9-kv dt { color: var(--hg-text-tertiary); font-weight: 500; }
+.ag9-kv dd { margin: 0; min-inline-size: 0; overflow-wrap: anywhere; }
+
+/* ---------------------------------------------------------------- Team (A4) */
+.ag9-team__grid { display: grid; grid-template-columns: minmax(0, 1fr) 19rem; gap: 1.25rem; align-items: start; }
+.ag9-team__side { display: grid; gap: 1rem; }
+.ag9-team__grid .card { margin-block-end: 0; }
+@media (max-width: 1199.98px) { .ag9-team__grid { grid-template-columns: minmax(0, 1fr); } }
+.ag9-people { margin: 0; }
+.ag9-person { display: grid; grid-template-columns: minmax(11rem, 1fr) minmax(0, 1.4fr) 12rem 3.75rem 8.25rem; gap: 1rem; align-items: center;
+  padding-block: 0.75rem; padding-inline: 1.25rem; border-block-end: 1px solid var(--hg-border-subtle); }
+.ag9-person:last-child { border-block-end: 0; }
+.ag9-person--head { padding-block: 0.5rem; font-size: 0.6875rem; font-weight: 600; color: var(--hg-text-tertiary); background: var(--hg-surface-muted, #f8f9fb); }
+.ag9-person--inactive { opacity: 1; background: repeating-linear-gradient(45deg, transparent 0 8px, rgba(0,0,0,0.015) 8px 16px); }
+.ag9-person__who { display: flex; gap: 0.625rem; align-items: center; min-inline-size: 0; }
+.ag9-person__exp { min-inline-size: 0; display: grid; gap: 0.125rem; }
+.ag9-person__exp > div:first-child { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.ag9-person__risk { display: flex; flex-direction: column; align-items: flex-end; }
+.ag9-person__act { display: flex; gap: 0.375rem; justify-content: flex-end; align-items: center; }
+.ag9-person__act svg { inline-size: 0.875rem; block-size: 0.875rem; }
+.ag9-leave-badge { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; font-weight: 600; color: var(--hg-status-warning-fg); }
+.ag9-leave-badge svg { inline-size: 0.8125rem; block-size: 0.8125rem; }
+@media (max-width: 991.98px) {
+  .ag9-person { grid-template-columns: minmax(0, 1fr) auto; gap: 0.5rem 1rem; padding-inline: 1rem; }
+  .ag9-person--head { display: none; }
+  .ag9-person__exp, .ag9-person__load { grid-column: 1 / -1; }
+  .ag9-person__risk { grid-row: 1; grid-column: 2; }
+  .ag9-person__act { grid-column: 1 / -1; justify-content: flex-start; }
+}
+.ag9-wtable { inline-size: 100%; font-size: 0.8125rem; }
+.ag9-wtable th[scope="row"] { font-weight: 500; }
+.ag9-wtable__in.hg-input, .ag9-wtable__in { inline-size: 3.75rem; display: inline-block; text-align: end; min-block-size: 0; block-size: 1.875rem; padding-block: 0.125rem; padding-inline: 0.375rem; }
+.ag9-wtable th, .ag9-wtable td { padding-block: 0.3125rem; }
+.ag9-leave { border: 1px solid var(--hg-border-subtle); border-radius: 0.5rem; padding: 0.625rem 0.75rem; }
+.ag9-leave__head { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+.ag9-leave__list { margin: 0.375rem 0 0; padding-inline-start: 1.125rem; font-size: 0.8125rem; color: var(--hg-text-secondary); }
+.ag9-team__side > .card.custom-card, .ag9-today__side > .card.custom-card, .ag9-today__grid > .card.custom-card { margin-block-end: 0 !important; }
+.ag9-person__act .btn { white-space: nowrap; }
+
+/* ---------------------------------------------------------------- Messages (A11) + templates (A5) */
+.ag9-dlv { display: flex; align-items: center; gap: 0.25rem; justify-content: flex-end; font-size: 0.6875rem; color: var(--hg-text-tertiary); margin-block-start: 0.25rem; }
+.ag9-dlv[data-state="READ"] { color: rgb(var(--primary-rgb)); }
+.ag9-dlv[data-state="FAILED"] { color: var(--hg-status-danger-fg); }
+.ag9-langs { display: flex; flex-wrap: wrap; gap: 0.25rem; margin-block: 0.25rem; }
+.ag9-lang { border: 1px solid var(--hg-border); background: var(--hg-surface); border-radius: 0.25rem; font-size: 0.6875rem; font-weight: 600;
+  padding-block: 0.0625rem; padding-inline: 0.375rem; color: var(--hg-text-secondary); cursor: pointer; }
+.ag9-lang[aria-pressed="true"] { background: rgb(var(--primary-rgb)); border-color: rgb(var(--primary-rgb)); color: #fff; }
+
+/* ---------------------------------------------------------------- Providers (A6) */
+.ag9-prov { display: grid; grid-template-columns: 11rem minmax(0, 1.4fr) minmax(0, 1fr) 3.5rem 3.5rem minmax(0, 1fr); gap: 0.75rem; align-items: center;
+  inline-size: 100%; text-align: start; background: none; border: 0; border-block-end: 1px solid var(--hg-border-subtle); padding-block: 0.625rem; padding-inline: 1rem;
+  font-size: 0.8125rem; color: var(--hg-text); }
+.ag9-prov:hover:not(:disabled) { background: var(--hg-surface-hover); }
+.ag9-prov--head { font-size: 0.6875rem; font-weight: 600; color: var(--hg-text-tertiary); background: var(--hg-surface-muted, #f8f9fb); }
+@media (max-width: 767.98px) {
+  .ag9-prov { grid-template-columns: minmax(0, 1fr) auto auto; }
+  .ag9-prov--head { display: none; }
+  .ag9-prov > :nth-child(1) { grid-column: 1 / -1; order: -1; }
+  .ag9-prov > :nth-child(2) { grid-column: 1; }
+  .ag9-prov > :nth-child(3), .ag9-prov > :nth-child(6) { grid-column: 1 / -1; }
+}
+
+/* ---------------------------------------------------------------- Operations: six questions (A9) */
+.ag9-qs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0; border: 1px solid var(--hg-border-subtle); border-radius: 0.5rem;
+  background: var(--hg-surface); margin-block-end: 1.25rem; overflow: hidden; }
+.ag9-qs__cell { display: flex; flex-direction: column; gap: 0.125rem; padding: 0.75rem 1rem; border-inline-start: 1px solid var(--hg-border-subtle);
+  color: var(--hg-text); text-decoration: none; min-inline-size: 0; }
+.ag9-qs__cell:first-child { border-inline-start: 0; }
+.ag9-qs__cell:hover { background: var(--hg-surface-hover); }
+.ag9-qs__label { font-size: 0.6875rem; font-weight: 600; color: var(--hg-text-tertiary); }
+.ag9-qs__value { font-size: 1.125rem; font-weight: 700; font-variant-numeric: tabular-nums; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ag9-qs__cell[data-bad] .ag9-qs__value { color: var(--hg-status-danger-fg); }
+.ag9-qs__sub { font-size: 0.75rem; color: var(--hg-text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 1199.98px) { .ag9-qs { grid-template-columns: repeat(3, minmax(0, 1fr)); } .ag9-qs__cell:nth-child(n+4) { border-block-start: 1px solid var(--hg-border-subtle); } .ag9-qs__cell:nth-child(4) { border-inline-start: 0; } }
+@media (max-width: 575.98px) { .ag9-qs { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ag9-qs__cell { border-inline-start: 0; border-block-start: 1px solid var(--hg-border-subtle); } .ag9-qs__cell:nth-child(-n+2) { border-block-start: 0; } .ag9-qs__cell:nth-child(even) { border-inline-start: 1px solid var(--hg-border-subtle); } }
+
+/* ---------------------------------------------------------------- Process quality (A10) + partner quality (H2) */
+.ag9-ql { margin: 0; }
+.ag9-ql__row { display: grid; grid-template-columns: minmax(0, 1fr) 12rem 9rem; gap: 1rem; align-items: center; padding-block: 0.75rem; padding-inline: 1.25rem;
+  border-block-end: 1px solid var(--hg-border-subtle); }
+.ag9-ql__row:last-child { border-block-end: 0; }
+.ag9-ql__main { display: flex; flex-direction: column; gap: 0.125rem; min-inline-size: 0; }
+.ag9-ql__val { display: flex; flex-direction: column; text-align: end; }
+.ag9-ql__num { font-size: 1.0625rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.ag9-ql__row[data-withheld] .ag9-ql__num { font-size: 0.8125rem; font-weight: 500; color: var(--hg-text-tertiary); }
+.ag9-ql__drill { text-align: end; }
+.ag9-ql__list { grid-column: 1 / -1; margin: 0; padding-inline-start: 1.25rem; font-size: 0.8125rem; columns: 2; }
+@media (max-width: 767.98px) { .ag9-ql__row { grid-template-columns: minmax(0, 1fr) auto; padding-inline: 1rem; } .ag9-ql__main { grid-column: 1 / -1; }
+  .ag9-ql__val { text-align: start; } .ag9-ql__list { columns: 1; } }
+.ag9-pq { display: grid; }
+.ag9-pq__agency { padding-block: 0.875rem; padding-inline: 1.25rem; border-block-end: 1px solid var(--hg-border-subtle); }
+.ag9-pq__agency:last-child { border-block-end: 0; }
+.ag9-pq__name { font-size: 0.875rem; font-weight: 600; margin-block-end: 0.5rem; }
+.ag9-pq__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem 1rem; margin: 0; }
+.ag9-pq__grid dt { font-size: 0.6875rem; font-weight: 500; color: var(--hg-text-tertiary); }
+.ag9-pq__grid dd { margin: 0; font-size: 0.875rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.ag9-pq__grid [data-withheld] dd { font-weight: 400; color: var(--hg-text-tertiary); font-size: 0.75rem; }
+@media (max-width: 767.98px) { .ag9-pq__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ag9-pq__agency { padding-inline: 1rem; } }
+
+/* ---------------------------------------------------------------- HQ failures drill-down (H1) */
+.ag9-fail { flex-wrap: wrap; }
+.ag9-fail__acts { display: inline-flex; gap: 0.375rem; align-items: center; flex: none; }
+.ag9-fail__list { grid-column: 1 / -1; margin: 0.5rem 0 0; padding-inline-start: 1.25rem; font-size: 0.8125rem; columns: 2; column-gap: 2rem; }
+@media (max-width: 767.98px) { .ag9-fail__list { columns: 1; } }
+/* Services rows: the waiting label wraps instead of running into the owner column. */
+.cq-row__wait { min-inline-size: 0; overflow-wrap: anywhere; }
+.cq-row__wait .hg-status, .cq-row__wait > * { white-space: normal; }
+.ag-msg--mine .ag9-dlv { color: inherit; }
+.ag-msg--mine .ag9-dlv[data-state="READ"] { color: inherit; font-weight: 700; }
+
+/* ------------------------------------------------------------------ V11: Review modes and the Manage hub */
+
+/* `ag-revhub-`, not `ag-review-`: `.ag-review` is already the two-column grid of the document *detail* pane
+   (styles.css:172). Reusing that name turned this page into a grid and threw the header into the second
+   column — precisely the accidental-inheritance problem REPORT §73 set out to remove, not add to. */
+
+/* Documents / Writing as a segmented control in the page header, not a second row of tabs (REPORT §77.1). */
+.ag-revhub__modes { display: inline-flex; gap: 2px; padding: 3px; background: var(--hg-surface-sunken, #eef1f6); border-radius: 10px; }
+.ag-revhub__mode {
+  display: inline-flex; align-items: center; gap: 7px;
+  min-height: 34px; padding: 0 14px;
+  border: 0; border-radius: 8px; background: transparent;
+  font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); color: var(--hg-text-secondary);
+  cursor: pointer; white-space: nowrap;
+}
+.ag-revhub__mode[aria-pressed='true'] { background: var(--hg-surface); color: var(--hg-text); box-shadow: 0 1px 3px rgba(16, 24, 40, 0.12); }
+.ag-revhub__mode:focus-visible { outline: 2px solid var(--hg-primary); outline-offset: 2px; }
+.ag-revhub__count { padding: 0 6px; border-radius: 999px; background: var(--hg-surface-sunken); color: var(--hg-text); font-size: var(--hg-text-xs); }
+/* The embedded queue keeps its own actions, right-aligned where its page header used to be. It is pulled up
+   against the page header so the two do not read as two separate bands with a gap between them. */
+.ag-revhub__actions {
+  display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center;
+  gap: var(--hg-space-2);
+  margin-block: calc(var(--hg-space-4) * -1) var(--hg-space-3);
+}
+@media (max-width: 575.98px) { .ag-revhub__actions { justify-content: flex-start; margin-block-start: 0; } }
+/* The mode switch wraps under the title on narrow screens rather than squeezing the header into two columns. */
+@media (max-width: 767.98px) { .ag-revhub__modes { width: 100%; } .ag-revhub__mode { flex: 1 1 0; justify-content: center; } }
+
+/* Manage: a list of links. No cards, no metrics — nothing here is decided by a number. */
+.ag-manage__group + .ag-manage__group { margin-top: var(--hg-space-7); }
+.ag-manage__title { margin: 0 0 var(--hg-space-3); font-size: var(--hg-text-sm); font-weight: var(--hg-weight-semibold); letter-spacing: .04em; text-transform: uppercase; color: var(--hg-text-secondary); }
+.ag-manage__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--hg-space-2); }
+@media (min-width: 768px) { .ag-manage__list { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1280px) { .ag-manage__list { grid-template-columns: repeat(3, 1fr); } }
+.ag-manage__item {
+  display: flex; gap: var(--hg-space-3); align-items: flex-start;
+  padding: var(--hg-space-4); border: 1px solid var(--hg-border-subtle); border-radius: 12px;
+  background: var(--hg-surface); text-decoration: none; color: inherit; height: 100%;
+}
+.ag-manage__item:hover { border-color: var(--hg-border-strong, var(--hg-border)); background: var(--hg-surface-hover); }
+.ag-manage__item:focus-visible { outline: 2px solid var(--hg-primary); outline-offset: 2px; }
+.ag-manage__icon { display: inline-flex; color: var(--hg-text-secondary); flex: none; margin-top: 2px; }
+.ag-manage__item strong { display: block; font-size: var(--hg-text-base); font-weight: var(--hg-weight-semibold); }
+.ag-manage__item strong + span { display: block; margin-top: 2px; font-size: var(--hg-text-sm); color: var(--hg-text-secondary); }
+
+/* V11: the student workspace's ten tabs became four, with the old tabs as stacked, addressable sections
+   inside them (REPORT §77.3). Deliberately not an accordion — merging the tabs is only worth doing if the
+   content ends up visible together. */
+.ag-wsgroup > .ag-wssection + .ag-wssection { margin-top: var(--hg-space-8); }
+.ag-wssection__title {
+  display: flex; align-items: center; gap: var(--hg-space-2);
+  margin: 0 0 var(--hg-space-3);
+  font-size: var(--hg-text-sm); font-weight: var(--hg-weight-semibold);
+  letter-spacing: .04em; text-transform: uppercase; color: var(--hg-text-secondary);
+}
+.ag-wssection__count {
+  min-width: 20px; padding: 0 6px; border-radius: 999px;
+  background: var(--hg-primary-subtle); color: var(--hg-primary-text);
+  font-size: var(--hg-text-xs); font-weight: var(--hg-weight-semibold); letter-spacing: 0; text-align: center;
+}
+/* A section arrived at from a link should not sit flush under the sticky console header. */
+.ag-wssection { scroll-margin-top: 92px; }
+
+/* V13 — Today's filter row (brief Part 10): four operational states as chips, nine work types behind one
+   control. The row has to stay one line at a real caseload, which is the whole point of the change: state
+   counts do not multiply with the number of students the way work-type counts do. */
+.ag13-filters { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem 1rem; flex-wrap: wrap; padding-inline: 1.25rem; }
+.ag13-filters .ag9-chips { padding-inline: 0; flex: 1 1 auto; min-width: 0; }
+.ag13-typefilter { display: flex; align-items: center; gap: 0.5rem; flex: none; margin: 0; }
+.ag13-typefilter__label { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
+.ag13-typefilter .form-select { min-width: 11rem; font-size: 0.8125rem; }
+/* Urgent is the one chip that means "drop what you are doing", so it is the one chip that carries a colour. */
+.ag9-chip--urgent[aria-pressed='false'] { border-color: rgba(var(--danger-rgb), 0.35); }
+.ag9-chip--urgent .ag9-chip__n { color: rgb(var(--danger-rgb)); }
+.ag9-chip--urgent[aria-pressed='true'] .ag9-chip__n { color: inherit; }
+@media (max-width: 575px) {
+  .ag13-filters { align-items: stretch; flex-direction: column; }
+  .ag13-typefilter .form-select { width: 100%; }
+}
+
+/* ── from v15.css ───────────────────────────────────────────────────────────────────────────────────────────── */
+/*
+ * V15 — plan scope and application readiness in the Agency Console (REPORT §119).
+ *
+ * Everything here is deliberately quiet. The console already uses colour for two things that matter —
+ * queue *tier* and application *status* — and a third colour system would make a Premium student look
+ * urgent and a "ready to submit" application look like an alert. So plan and readiness are carried by
+ * weight, case and a hairline, never by tone.
+ */
+
+/* ----------------------------------------------------------------------------------- the plan token */
+
+.ag15-plan {
+  display: inline-flex; align-items: center;
+  padding: 1px 7px; border-radius: 4px;
+  border: 1px solid var(--hg-border, #E3E4E8);
+  background: transparent;
+  font-size: 11px; font-weight: 500; line-height: 1.5;
+  color: var(--hg-text-secondary, #5A6170);
+  white-space: nowrap;
+}
+/* One step of ink for the plan that buys the most work, so a counselor can see a Premium case in a scan
+   without the row acquiring a colour. */
+.ag15-plan[data-plan='PREMIUM'] { border-color: var(--hg-text, #1C1D21); color: var(--hg-text, #1C1D21); }
+.ag15-plan[data-plan='BASIC'] { border-style: dashed; }
+.ag15-plan--button { cursor: pointer; }
+.ag15-plan--button:focus-visible { outline: 2px solid var(--hg-primary); outline-offset: 2px; }
+
+/* On the Today row the plan sits beside the stage, at the same quietness. */
+.ag9-q__who .ag15-plan { margin-inline-start: 6px; }
+
+/* ---------------------------------------------------------------------------------- the scope panel */
+
+.ag15-scopecard .card-body { padding-top: 8px; }
+.ag15-scope { display: grid; gap: 10px; }
+.ag15-scope__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ag15-scope__price { font-size: 13px; font-weight: 600; color: var(--hg-text, #1C1D21); }
+.ag15-scope__empty { margin: 0; }
+
+.ag15-scope__list { margin: 0; display: grid; gap: 0; }
+.ag15-scope__list > div {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  padding: 7px 0; border-bottom: 1px solid var(--hg-border-subtle, #F0F0F2);
+  font-size: 12.5px;
+}
+.ag15-scope__list > div:last-child { border-bottom: 0; }
+.ag15-scope__list dt { margin: 0; color: var(--hg-text-secondary, #5A6170); }
+.ag15-scope__list dd { margin: 0; text-align: end; }
+.ag15-scope__v { font-weight: 500; color: var(--hg-text, #1C1D21); }
+.ag15-scope__v--none { font-weight: 400; color: var(--hg-text-tertiary, #868C98); }
+/* An exhausted allowance is stated, not alarmed. Reaching a limit is normal; the next step is an offer,
+   not a warning. */
+.ag15-scope__v[data-exhausted] { color: var(--hg-text-tertiary, #868C98); }
+.ag15-scope__addon {
+  margin-inline-start: 4px; padding: 0 4px; border-radius: 3px;
+  background: var(--hg-surface-subtle, #F4F5F7); font-size: 10.5px; color: var(--hg-text-secondary, #5A6170);
+}
+.ag15-scope--compact .ag15-scope__list > div { padding: 5px 0; }
+
+/* ------------------------------------------------------------------------------ out-of-scope notice */
+
+.ag15-oos {
+  display: grid; gap: 6px; justify-items: start;
+  padding: 10px 12px; border: 1px solid var(--hg-border, #E3E4E8); border-radius: 8px;
+  background: var(--hg-surface-subtle, #F8F9FB);
+}
+.ag15-oos__what { margin: 0; font-size: 13px; font-weight: 600; color: var(--hg-text, #1C1D21); }
+.ag15-oos__detail { margin: 0; font-size: 12px; color: var(--hg-text-secondary, #5A6170); }
+
+/* --------------------------------------------------------------------------- application readiness */
+
+.ag15-ready { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; font-size: 12px; margin-top: 2px; }
+.ag15-ready__state { font-weight: 600; color: var(--hg-text-secondary, #5A6170); }
+/* "Ready to submit" is the only state worth a colour, because it is the only one that is an invitation to
+   act rather than a description of a wait. */
+.ag15-ready[data-state='READY'] .ag15-ready__state { color: var(--hg-status-success-fg, #157347); }
+.ag15-ready__b {
+  color: var(--hg-text-tertiary, #868C98);
+  padding-inline-start: 8px; position: relative;
+}
+.ag15-ready__b::before { content: '·'; position: absolute; inset-inline-start: 0; }
+.ag15-ready__more { color: var(--hg-text-tertiary, #868C98); }
+
+/* ------------------------------------------------------------------------- Insights: service delivery */
+
+.ag15-delivery__top { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-bottom: 12px; font-size: 13px; }
+.ag15-delivery__top strong { font-size: 17px; margin-inline-end: 4px; }
+/* Only "over a limit" is a problem; a case *at* a limit is a plan working as sold. */
+.ag15-delivery__top [data-alert] strong,
+.ag15-delivery__table [data-alert] { color: var(--hg-status-danger-fg, #B42318); }
+.ag15-delivery__table th,
+.ag15-delivery__table td { font-size: 12.5px; padding: 6px 8px; }
+.ag15-delivery__table thead th { font-weight: 500; color: var(--hg-text-secondary, #5A6170); }
+
+/* ── from v22.css ───────────────────────────────────────────────────────────────────────────────────────────── */
+/* V22 agency console — workflow grammar compositions (REPORT §249, brief §51–§56). White, hairline, ink; tangerine only
+   for the selected step and the primary action; semantic colours only for state. */
+.ag22-work { display: flex; flex-direction: column; gap: 0; min-width: 0; }
+.ag22-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; padding: 2px 0 8px; }
+/* V31 (REPORT §421): two dimensions, two rows. Row 1 = ATTENTION (긴급 — a cut across stages, not a stage). Row 2 = the
+   APPLICATION JOURNEY: the 전체 view, the stage rail, the 종료 view — the shared PipelineRail (packages/ui). */
+.ag22-strip { display: flex; flex-direction: column; align-items: stretch; gap: 14px; padding: 4px 0 14px; }
+.ag22-strip > .ag25-today__item { align-self: flex-start; }
+.ag22-strip > .hg-pipe { border-block-end: 1px solid var(--hg-border); padding-block-end: 0; }
+.ag22-closed { border: 0; background: none; font: inherit; font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); padding: 4px 8px; border-radius: var(--hg-radius-md); cursor: pointer; white-space: nowrap; margin-inline-start: auto; }
+.ag22-closed:hover { color: var(--hg-text); background: var(--hg-surface-warm); }
+.ag22-closed.is-selected { color: #B84600; background: #FFF1E7; }
+.ag22-work .hg-worktools { border-top: 0; padding-top: 6px; }
+.ag22-work .hg-worktools { padding-block: 6px 8px; }
+.ag22-work .hg-worktools__searchrow { flex: 0 1 240px; } /* V30: the row (search + phone Filters toggle) carries the width; the field fills it */
+.ag22-work .hg-worktools .hg-select, .ag22-work .hg-worktools select { max-width: 170px; }
+ /* no `overflow: hidden` here: it would make this box the sticky <th>'s containing block (components.css V10 note). */
+.ag22-table { border: 1px solid var(--hg-border); border-radius: 10px; background: var(--hg-surface); margin-top: 10px; min-width: 0; }
+.ag22-table .hg-table th:first-child { border-start-start-radius: 10px; }
+.ag22-table .hg-table th:last-child { border-start-end-radius: 10px; }
+.ag22-table .hg-table-toolbar { padding: 6px 10px; }
+.ag22-table .hg-table-toolbar:empty { display: none; }
+.ag22-table table td { padding-block: 6px; line-height: 1.3; }
+/* one line per row so the top 10 fit 1440 × 900 with the strip visible; the full text is the cell's title */
+.ag22-table .hg-table td .ag7-clamp { display: block; -webkit-line-clamp: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.ag22-table .hg-table td { white-space: nowrap; }
+.ag22-table .hg-table td .ag-waiting { white-space: nowrap; }
+.ag22-cell-name { display: inline-flex; align-items: center; gap: 6px; min-width: 0; max-width: 100%; }
+.ag22-cell-name .fw-semibold { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ag22-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 12px; border-top: 1px solid var(--hg-border-subtle); }
+.ag22-today .page-header-breadcrumb, .ag22-today .page-header { margin-bottom: 8px; }
+.ag22-today > .page-header-breadcrumb h1, .ag22-today .page-title { font-size: 1.125rem; }
+.ag22-students > .page-header-breadcrumb { margin-bottom: 8px; }
+@media (max-width: 767.98px) {
+  .ag22-work .hg-worktools__meta { margin-inline-start: 0; }
+  .ag22-work .hg-worktools .hg-select, .ag22-work .hg-worktools select { max-width: 100%; }
+  .ag22-work .hg-worktools__searchrow, .ag22-work .hg-worktools__search { max-width: 100%; flex-basis: 100%; }
+}
+
+/* ---- accounts rosters (Team → 관리자 계정, HQ → 대학 계정) */
+.ag22-roster th { font-size: var(--hg-text-xs); text-transform: none; letter-spacing: 0; white-space: nowrap; }
+.ag22-roster td { vertical-align: middle; font-size: var(--hg-text-sm); }
+.ag22-roster tr[data-active='false'] td { color: var(--hg-text-tertiary); }
+.ag22-roster tr[data-active='false'] td.fw-semibold { color: var(--hg-text-secondary); }
+.ag22-roster td .btn + .btn { margin-inline-start: 4px; }
+.ag22-invited p { margin: 0; }
+
+/* ---- student workspace: work first, details behind tabs */
+.ag22-ws__work { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; margin-block: 16px; }
+.ag22-ws__work > .card { margin-block-end: 0; }
+.ag22-needs__row { align-items: flex-start; }
+.ag22-needs__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--hg-text-tertiary); flex: none; margin-top: 7px; }
+.ag22-needs__row[data-tone='danger'] .ag22-needs__dot { background: var(--hg-status-danger-solid); }
+.ag22-needs__row[data-tone='warning'] .ag22-needs__dot { background: var(--hg-status-warning-solid); }
+.ag22-needs__row[data-tone='info'] .ag22-needs__dot { background: var(--hg-status-info-solid); }
+.ag22-needs__apps { border-top: 1px solid var(--hg-border-subtle); }
+.ag22-needs__h { display: flex; align-items: center; gap: 6px; padding: 10px 1.25rem 2px; font-size: var(--hg-text-xs); font-weight: 600; color: var(--hg-text-secondary); }
+.ag22-conv__thread { padding: 0; max-height: 520px; overflow: auto; }
+.ag22-conv__thread .ag-thread { border: 0; }
+.ag22-details { margin-block-start: 8px; }
+.ag22-details__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 8px 0; border-top: 1px solid var(--hg-border); border-bottom: 1px solid var(--hg-border); }
+.ag22-details__h { margin: 0; font-size: var(--hg-text-sm); font-weight: 600; color: var(--hg-text); }
+.ag22-details__tabs { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.ag22-details__tab { border: 1px solid transparent; background: none; font: inherit; font-size: var(--hg-text-sm); color: var(--hg-text-secondary); padding: 5px 10px; border-radius: var(--hg-radius-md); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.ag22-details__tab:hover { background: var(--hg-surface-warm); color: var(--hg-text); }
+.ag22-details__tab[aria-selected='true'] { background: #FFF1E7; border-color: #F3C9AE; color: #B84600; font-weight: 600; }
+.ag22-details__n { font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.ag22-details__panel { padding-block-start: 16px; }
+@media (max-width: 1199.98px) { .ag22-ws__work { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---- review hub: three modes (documents · writing · applications) must fit a phone width */
+.ag-revhub__modes { max-width: 100%; flex-wrap: wrap; }
+@media (max-width: 575.98px) {
+  .ag-revhub__mode { padding-inline: 8px; font-size: var(--hg-text-xs); min-width: 0; }
+  .ag-revhub__mode span:first-of-type { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
+
+/* fixed layout: declared column sizes hold, long "next action" / university text truncates instead of widening the
+   table (which made the responsive fold drop the University and Activity columns at 1440). */
+.ag22-table table.hg-table { table-layout: fixed; width: 100%; }
+/* specificity beats the YNEX skin's nested `.hg-table td { padding-block: .75rem }` */
+.ag22-work .ag22-table table.hg-table.hg-table--dense tbody td { height: 40px; padding-block: 4px; overflow: hidden; text-overflow: ellipsis; font-weight: 400; }
+.ag22-table .hg-table td > * { max-width: 100%; }
+.ag22-work .hg-worktools__filters { flex: 1 1 auto; }
+.ag22-work .hg-worktools__meta { flex: none; }
+
+/* HQ roster: seven columns at 1440 without a horizontal scroll inside the card */
+.ag22-roster td, .ag22-roster th { white-space: nowrap; }
+.ag22-roster td.ag22-roster__wrap { white-space: normal; }
+.ag22-roster td.ag22-roster__uni { max-width: 190px; overflow: hidden; text-overflow: ellipsis; }
+.ag22-roster td.ag22-roster__email { max-width: 210px; overflow: hidden; text-overflow: ellipsis; }
+.ag22-roster td:last-child { width: 1%; }
+.ag22-accounts .table-responsive { overflow-x: auto; }
+/* The shared DataTable folds a column whenever the table's scrollWidth exceeds its wrap by >2px; on the first paint
+   the skeleton/first rows measure ~5px over. A few px of end padding keep the eight columns at ≥1280 (measured). */
+.ag22-table .hg-table-wrap { padding-inline-end: 8px; }
+
+/* V23 §272 A4 — the submissions-needing-action line above the Applications mode. */
+.ag23-subcall { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 14px; padding: 12px 16px;
+  border: 1px solid var(--hg-primary-border, #FFD2B3); border-radius: 10px; background: var(--hg-primary-subtle, #FFF4EC);
+  color: var(--hg-text); text-decoration: none; font-size: 14px; }
+.ag23-subcall:hover { border-color: var(--hg-primary); }
+.ag23-subcall:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 2px; }
+
+/* V24 (REPORT §295) — the country under the name instead of in its own column. */
+.ag22-cell-name:has(.ag24-cell-country) { display: inline-grid; grid-template-columns: auto auto; justify-content: start; column-gap: 6px; row-gap: 1px; }
+.ag24-cell-country { grid-column: 1 / -1; font-size: var(--hg-type-caption); line-height: var(--hg-type-caption-leading); white-space: nowrap; }
+
+/* V24 (REPORT §297) — console type roles: page title h2-role, section h3-role. `.fs-18` is a YNEX utility
+   (with !important), so the page title is named by element and class to win without touching the utility. */
+h1.page-title { font-size: var(--hg-type-h2) !important; line-height: var(--hg-type-h2-leading); }
+
+/* ── from v25.css ───────────────────────────────────────────────────────────────────────────────────────────── */
+/*
+ * V25 — the agency workbench (REPORT §314). White-first; tangerine only for selection, focus and the one primary action;
+ * semantic colour only for success / warning / danger / blocked. Sets no literal font size.
+ */
+
+/* ----------------------------------------------------------------------------- TODAY line (A1) */
+.ag25-today { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-block-end: 14px; }
+.ag25-today__label { font-size: var(--hg-type-small); font-weight: var(--hg-weight-bold); color: var(--hg-text); letter-spacing: 0.01em; }
+.ag25-today ul { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.ag25-today__item {
+  display: inline-flex; align-items: baseline; gap: 6px; min-height: 36px; padding: 6px 12px;
+  border: 1px solid var(--hg-control-secondary-border); border-radius: var(--hg-control-radius); background: #fff; /* V27: 3:1 edge */
+  font: inherit; font-size: var(--hg-type-small); color: var(--hg-text-secondary); cursor: pointer;
+  transition: border-color var(--hg-motion-fast) var(--hg-motion-easing), background-color var(--hg-motion-fast) var(--hg-motion-easing);
+}
+.ag25-today__n { font-size: var(--hg-text-lg); font-weight: var(--hg-weight-bold); color: var(--hg-text); }
+.ag25-today__item.is-urgent .ag25-today__n { color: var(--hg-status-danger-fg, #CD2B31); }
+.ag25-today__item:hover { border-color: var(--hg-text-tertiary); background: var(--hg-surface-hover); }
+.ag25-today__item.is-selected { border-color: var(--hg-text); box-shadow: inset 0 -2px 0 var(--hg-primary); color: var(--hg-text); }
+.ag25-today__item:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 2px; }
+
+/* --------------------------------------------------------------- the process strip (A2): ink, not orange */
+.ag22-work .hg-strip__btn.is-selected { background: #fff; border-color: var(--hg-text); color: var(--hg-text); box-shadow: inset 0 -2px 0 var(--hg-primary); }
+.ag22-work .hg-strip__btn.is-selected .hg-strip__count { color: var(--hg-text); }
+
+/* ------------------------------------------------------------ one student's workspace (A4): de-oranged */
+html[data-surface='console'] .ag22-ws .btn.btn-primary-light,
+html[data-surface='console'] .ag22-ws .btn.btn-primary-light:focus { background: var(--hg-control-secondary-bg); color: var(--hg-control-secondary-text); border-color: transparent; }
+html[data-surface='console'] .ag22-ws .btn.btn-primary-light:hover { background: var(--hg-control-secondary-bg-hover); color: var(--hg-control-secondary-text); }
+.ag22-ws .progress-bar.bg-primary { background: var(--hg-text) !important; }
+.ag22-ws .bg-primary-transparent { background: var(--hg-surface-sunken) !important; color: var(--hg-text-secondary) !important; }
+html[data-surface='console'] .ag22-ws a[href^='mailto:'], html[data-surface='console'] .ag22-ws a[href^='tel:'] { color: var(--hg-text); text-decoration: underline; text-decoration-color: var(--hg-border-strong); text-underline-offset: 3px; }
+.ag7 .ag-msg--mine:not(.ag-msg--internal) .ag-msg__bubble { background: #F3F1ED; color: var(--hg-text); border: 1px solid #ECE8E2; }
+.ag7 .ag-msg--mine:not(.ag-msg--internal) .ag-msg__meta,
+.ag7 .ag-msg--mine:not(.ag-msg--internal) .ag-msg__meta strong { color: var(--hg-text-tertiary); }
+.ag7 .ag-msg--mine:not(.ag-msg--internal) .ag-msg__body a,
+.ag7 .ag-msg--mine:not(.ag-msg--internal) .ag-file__name { color: var(--hg-text); }
+.ag7 .ag-msg--mine .ag-mention { background: rgb(204 78 0 / 0.1); color: var(--hg-text); }
+.ag7 .card-title:before, .ag22-ws .card-title:before { display: none; }
+
+/* Buttons share the brand's one action shape. */
+html[data-surface='console'] .btn:not(.btn-icon):not(.btn-sm.btn-icon) { border-radius: var(--hg-control-radius); }
+.ag22-ws .avatar.bg-primary-transparent, .ag22-ws .avatar[class*='bg-'][class*='-transparent'] { background: var(--hg-surface-sunken) !important; color: var(--hg-text-secondary) !important; }
+
+/* ------------------------------------------------------------------ phones: filters behind one control (A6) */
+.ag25-filtertoggle { display: none; }
+@media (max-width: 767px) {
+  .ag25-filtertoggle { display: inline-flex; align-items: center; gap: 6px; margin: 0; flex: none; }
+  .ag25-tools:not(.is-open) .hg-worktools__filters { display: none; }
+  .ag25-today ul { gap: 6px; }
+  .ag25-today__item { min-height: 40px; }
+}
+
+/* ── Workspace: the university's request, on its application (V26, REPORT §341) ────────────────────────────── */
+.ag26-reqs { list-style: none; margin: 0; padding: 0 16px 12px; display: grid; gap: 8px; }
+.ag26-req { display: grid; gap: 2px; padding: 10px 12px; border-radius: var(--hg-radius-md); background: var(--hg-surface-warm); }
+.ag26-req__label { font-weight: 600; font-size: var(--hg-type-small); color: var(--hg-text); }
+.ag26-req__note { font-size: var(--hg-type-small); color: var(--hg-text-secondary); quotes: '“' '”'; }
+.ag26-req__meta { font-size: var(--hg-type-caption); }
+/* The next action in the work table is a link to the record it names: ink, underlined on hover only. */
+.ag26-next { color: inherit; text-decoration: none; }
+.ag26-next:hover, .ag26-next:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Review queue scope (전체 · 내 담당 · 미배정): a segmented control, selected = white + ink like the review modes — not a
+   filled tangerine button competing with 승인 (V26, REPORT §335 A5). */
+.ag7-seg .btn[aria-pressed='true'] { background: var(--hg-surface) !important; color: var(--hg-text) !important; box-shadow: 0 1px 3px rgba(16, 24, 40, 0.12); border-color: transparent !important; }
+/* Inbox filters: selected = ink outline, counts = neutral (V26, REPORT §338). */
+.ag26-filterchip[aria-pressed='true'] { background: var(--hg-surface) !important; color: var(--hg-text) !important; box-shadow: inset 0 0 0 1.5px var(--hg-text); }
+.ag26-count { background: var(--hg-surface-sunken); color: var(--hg-text); }
+
+/* ── V27/V28 case progress — one quiet line: a 7-segment bar, the current stage named once (UX_AUDIT AG-2) ─────── */
+.ag27-wshead__progress { padding: 0 1.25rem; }
+.ag27-progress { display: grid; gap: 6px; padding: 0.75rem 0 0; }
+.ag27-progress__bar { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 3px; }
+.ag27-progress__bar li { height: 4px; border-radius: 2px; background: var(--hg-border); }
+.ag27-progress__bar li.is-done { background: var(--hg-text-secondary); }
+.ag27-progress__bar li.is-current { background: var(--hg-primary); }
+.ag27-progress.is-blocked .ag27-progress__bar li.is-current { background: var(--hg-status-danger-fg, #B42318); }
+.ag27-progress__line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 0; font-size: 0.8125rem; color: var(--hg-text-secondary); }
+.ag27-progress__line strong { font-size: 0.9375rem; color: var(--hg-text); font-weight: 600; }
+.ag27-progress__flag { font-weight: 600; color: var(--hg-status-danger-fg, #B42318); }
+.ag27-progress__recent { color: var(--hg-text-tertiary); }
+
+/* ── V27 checklist: one issue per document, evidence behind a disclosure (brief §20) ─────────────────────── */
+.ag27-guide { margin: 0 0 0.5rem; font-size: 0.8125rem; color: var(--hg-text-secondary); }
+.ag27-guide a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.ag27-issue { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; color: var(--hg-text); }
+.ag27-issue::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--ag27-dot, var(--hg-border-strong)); }
+.ag27-issue[data-party='student'] { --ag27-dot: var(--hg-primary); }
+.ag27-issue[data-party='agency'] { --ag27-dot: #3F63C8; }
+.ag27-issue[data-party='none'] { --ag27-dot: #008200; color: var(--hg-text-secondary); }
+.ag27-who { font-size: 0.6875rem; color: var(--hg-text-tertiary); }
+.ag27-evidence { margin-top: 4px; font-size: 0.75rem; color: var(--hg-text-secondary); }
+.ag27-evidence summary { cursor: pointer; color: var(--hg-text-secondary); min-height: 24px; }
+.ag27-evidence dl { display: grid; grid-template-columns: max-content 1fr; gap: 2px 10px; margin: 6px 0 0; }
+.ag27-evidence dt { color: var(--hg-text-tertiary); }
+.ag27-evidence dd { margin: 0; overflow-wrap: anywhere; }
+
+/* V27 (brief §22): YNEX's Bootstrap .btn-light (grey fill, no edge) is the console's secondary — give it the shared
+   secondary edge so "할 일" and friends read as buttons, and a 44-px target on phones. */
+.btn.btn-light { background: var(--hg-control-secondary-bg); border: 1px solid var(--hg-control-secondary-border); color: var(--hg-control-secondary-text); }
+.btn.btn-light:hover { background: var(--hg-control-secondary-bg-hover); border-color: var(--hg-control-secondary-border-hover); }
+.btn.btn-light:active { background: var(--hg-control-secondary-bg-pressed); }
+.ag25-today__item:hover { border-color: var(--hg-control-secondary-border-hover); }
+@media (max-width: 767px) { .btn, .ag25-today__item, .ag22-closed, .sidemenu-toggle { min-height: 44px; min-width: 44px; } }
+@media (max-width: 767px) { html:root body .ag22-details__tab, html:root body .ag25-filtertoggle, html:root body .ag-filterbar__btn { min-height: 44px; } }
+@media (max-width: 767px) { html:root body .ag-composer__mode button { min-height: 44px; } }
+/* V27: the message/internal-note switch is a segmented control — a visible track edge and an ink edge on the chosen mode. */
+.ag-composer__mode { border: 1px solid var(--hg-control-secondary-border); }
+.ag-composer__mode button { border: 1px solid transparent; }
+.ag-composer__mode button[aria-checked='true'] { border-color: var(--hg-text); }
+
+/* ── V28 one control band on Today (UX_AUDIT AG-4): the urgent count sits at the head of the stage strip ───────── */
+.ag22-strip > .ag25-today__item { flex: none; margin-inline-end: 8px; }
+
+/* ---------------------------------------------------------- V29: service term · offer form · duties */
+.ag29-addons { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; font-size: 12px; text-align: end; }
+.ag29-duties { color: var(--hg-text-secondary, #5A6170); line-height: 1.5; }
+.ag29-verify { margin: 0 0 8px; color: var(--hg-text-secondary, #5A6170); }
+.ag29-term-set > dd { inline-size: 100%; }
+.ag29-term-form { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px; }
+.ag29-term-form label { display: grid; gap: 2px; }
+.ag29-offer__open { justify-self: start; }
+.ag29-offer { display: grid; gap: 6px; padding: 12px; border: 1px solid var(--hg-border-subtle, #E6E8EC); border-radius: 8px; background: #fff; }
+.ag29-offer .form-label { margin: 0; font-size: 12px; color: var(--hg-text-secondary, #5A6170); }
+.ag29-offer__row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ag29-offer__foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 4px; }
+@media (max-width: 480px) { .ag29-offer__row { grid-template-columns: 1fr; } }
+.ag29-ws__left { display: grid; gap: 16px; align-content: start; min-width: 0; }

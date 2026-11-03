@@ -1,0 +1,29 @@
+== typecheck: npm run -s typecheck
+EXIT=0
+== lint-api: npm run -s lint:api
+EXIT=1
+== admissions-sync: node scripts/admissions/sync.mjs --check
+EXIT=0
+== qa-v27-static: npm run -s qa:v27
+EXIT=0
+== particles: npm run -s qa:v28-particles
+EXIT=0
+== l10n-pass1: node scripts/i18n/v28/validate.mjs
+EXIT=1
+== l10n-pass2: env JOBS=jobs2 TX=tx2 node scripts/i18n/v28/validate.mjs
+EXIT=0
+== web-tests: npm run -s test:web
+EXIT=1
+== api-tests: bash -c cd server && .venv/bin/python -m pytest -q -p no:warnings
+EXIT=1
+== build-web: bash -c flock /tmp/claude-0/hg-build.lock npm run -s build
+EXIT=0
+== buttons: node scripts/qa/v27/buttons.mjs --json docs/qa/v28/buttons-final.json
+EXIT=1
+== marquee: node scripts/qa/v27/marquee.mjs
+EXIT=0
+== visual: npm run -s qa:v28-visual
+EXIT=1
+== e2e-template: node scripts/qa/e2e-db.mjs template
+EXIT=0
+== e2e: node scripts/qa/e2e-run.mjs

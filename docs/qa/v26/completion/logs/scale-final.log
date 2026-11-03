@@ -1,0 +1,50 @@
+host load at start: 1.62 2.21 2.08 · ffmpeg procs: 0 · free: 1873 MB
+
+[api] 1071 students for counselor@lotus.demo.hangyul.kr
+  PASS  students page 1 (50): HTTP 200, median 249 ms, p95 774 ms (warm-up 383 ms), 1071 rows
+  PASS  students page 10 (50): HTTP 200, median 100 ms, p95 121 ms (warm-up 149 ms), 1071 rows
+  PASS  students search "Nguyen": HTTP 200, median 12 ms, p95 17 ms (warm-up 13 ms), 0 rows
+  PASS  students view=waiting_counselor: HTTP 200, median 218 ms, p95 424 ms (warm-up 172 ms), 432 rows
+  PASS  students nationality=VN + stage group: HTTP 200, median 88 ms, p95 90 ms (warm-up 90 ms), 196 rows
+  PASS  stage-counts: HTTP 200, median 8 ms, p95 9 ms (warm-up 8 ms)
+  PASS  views (TODAY figures): HTTP 200, median 555 ms, p95 1473 ms (warm-up 2190 ms)
+  PASS  today: HTTP 200, median 209 ms, p95 439 ms (warm-up 453 ms)
+  PASS  today queue (ranked, 100): HTTP 200, median 940 ms, p95 1475 ms (warm-up 1431 ms), 989 rows
+  PASS  TODAY urgent: figure (982) = rows (982)
+  PASS  TODAY deadline7: figure (201) = rows (201)
+  PASS  TODAY waiting_counselor: figure (432) = rows (432)
+  PASS  TODAY student_silent: figure (21) = rows (21)
+  PASS  TODAY requested: figure (56) = rows (56)
+  PASS  TODAY university: figure (8) = rows (8)
+  PASS  exact-action contract holds on all 1071 rows (rows whose reason names a record but carry no id: 0)
+
+[rendered @1440]
+  PASS  Today renders the complete table (1071) in 1746 ms
+  PASS  TODAY 우리 답변을 기다리는 중 (432) filters to exactly that many rows
+  PASS  the first row's next action links to the exact record (focus=…) — /students/d0e0e032-29bd-4cc5-a69b-292aa3de035d?focus=reply:d89858f8-4ee4-4e9f-a46d-3039222cdc18
+  PASS  Students page 1 complete in 236 ms
+  PASS  page size 50 on page 1 (50 rows)
+  PASS  paging: page 2 shows different rows and the URL carries ?page=2
+  PASS  search "Nguyen": table total = API total (0)
+  PASS  filter nationality=VN: table total = API total (1069); strip counts recomputed
+  INFO  no saved views in the scale data — saved-view apply not exercised here (covered by e2e)
+  PASS  selecting 3 rows shows the bulk-action bar
+  PASS  table header cells stay visible after scrolling 1,400 px (sticky under the app header) — true
+  PASS  row height 44 px (dense but not cramped: 40–64)
+  PASS  no horizontal page overflow at 1440 — 0px
+  PASS  no page errors
+
+[rendered @390]
+  PASS  Today renders the complete table (1071) in 1515 ms
+  PASS  TODAY 우리 답변을 기다리는 중 (432) filters to exactly that many rows
+  PASS  the first row's next action links to the exact record (focus=…) — /students/d0e0e032-29bd-4cc5-a69b-292aa3de035d?focus=reply:d89858f8-4ee4-4e9f-a46d-3039222cdc18
+  PASS  Students page 1 complete in 593 ms
+  PASS  page size 50 on page 1 (50 rows)
+  PASS  search "Nguyen": table total = API total (0)
+  PASS  filter nationality=VN: table total = API total (1069); strip counts recomputed
+  PASS  card height 132 px on a phone (one student per card, 72–180)
+  PASS  no horizontal page overflow at 390 — 0px
+  PASS  no page errors
+
+scale test — all passed
+EXIT=0

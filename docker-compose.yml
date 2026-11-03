@@ -1,0 +1,23 @@
+# Optional local infrastructure. `npm run setup` uses these only if PostgreSQL is not already reachable.
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: hangyul
+      POSTGRES_PASSWORD: hangyul_dev
+      POSTGRES_DB: hangyul_univ
+    ports: ["5432:5432"]
+    volumes: ["pgdata:/var/lib/postgresql/data", "./infra/postgres-init.sql:/docker-entrypoint-initdb.d/init.sql:ro"]
+  redis:
+    image: redis:7
+    ports: ["6379:6379"]
+  minio:
+    # S3-compatible object storage for the HG_STORAGE_BACKEND=s3 adapter (not required for local file storage)
+    image: minio/minio
+    command: server /data --console-address ":9001"
+    environment: { MINIO_ROOT_USER: hangyul, MINIO_ROOT_PASSWORD: hangyul_dev_minio }
+    ports: ["9000:9000", "9001:9001"]
+    volumes: ["minio:/data"]
+volumes:
+  pgdata: {}
+  minio: {}

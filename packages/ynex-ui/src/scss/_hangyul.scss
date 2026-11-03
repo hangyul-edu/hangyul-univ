@@ -1,0 +1,55 @@
+// Hangyul theme on top of YNEX. Only *values* change here; the YNEX structure, spacing, radius,
+// shadows and component anatomy stay as designed. Contrast values checked with scripts/qa/contrast.mjs.
+
+@import '@fontsource/montserrat/latin-500.css';
+@import '@fontsource/montserrat/latin-600.css';
+
+:root {
+  // Console cobalt (V6 §36.1) through YNEX's own theming variable (the switcher uses the same one).
+  --primary-rgb: 34, 87, 214;
+  --primary-color: rgb(var(--primary-rgb));
+  --primary-border: rgb(var(--primary-rgb));
+  // YNEX secondary (cyan) is used for the card-title accent gradient and info accents — kept.
+  --default-font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', sans-serif;
+  // AA: YNEX muted #8c9097 is 3.3:1 on white; Hangyul console tertiary is 5.4:1.
+  --text-muted: #5f6b80;
+  --menu-prime-color: #4a5670;
+  --header-prime-color: #4a5670;
+  --bs-body-font-family: var(--default-font-family);
+  --bs-link-color-rgb: var(--primary-rgb);
+  --bs-primary-rgb: var(--primary-rgb);
+  --bs-primary: rgb(var(--primary-rgb));
+}
+
+// The university and Hangyul-operations consoles use YNEX's dark (navy) menu.
+[data-menu-styles='dark'] {
+  --menu-bg: #111c43;
+  // #8f9bb3 on #111c43 = 6.9:1
+  --menu-prime-color: #a3aec4;
+  --menu-border-color: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  font-family: var(--default-font-family);
+  font-size: 0.875rem;
+  color: var(--default-text-color);
+  background-color: var(--default-body-bg-color);
+  font-feature-settings: 'tnum' 1;
+}
+
+// YNEX removes focus outlines on several controls; restore a visible, consistent ring (WCAG 2.4.7).
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid rgb(var(--primary-rgb));
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+// Tall scripts: Montserrat is Latin-only; non-Latin labels fall back to Pretendard with relaxed spacing.
+:lang(my) .app-sidebar,
+:lang(ne) .app-sidebar,
+:lang(ar) .app-sidebar,
+:lang(fa) .app-sidebar,
+:lang(ur) .app-sidebar {
+  font-family: var(--default-font-family);
+  line-height: 1.6;
+}

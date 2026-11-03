@@ -1,0 +1,53 @@
+[38;5;208m
+▶ @hangyul/agency-web › test[0m
+
+ RUN  v3.2.7 /root/hangyul-univ/apps/agency-web
+
+ ✓ src/lib/logic.test.ts (28 tests) 60ms
+ ✓ src/lib/stages.test.ts (3 tests) 5ms
+ ✓ src/lib/waiting.test.ts (4 tests) 8ms
+ ✓ src/lib/writing.test.ts (6 tests) 29ms
+ ✓ src/lib/templates.test.ts (4 tests) 8ms
+stdout | src/components/MessageThread.test.tsx
+🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
+
+ ❯ src/components/MessageThread.test.tsx (5 tests | 1 failed) 215ms
+   ✓ MessageBubble > renders a normal message without the internal banner 117ms
+   × MessageBubble > clearly labels internal notes as not visible to the student 28ms
+     → [2mexpect([22m[31melement[39m[2m).toHaveTextContent()[22m
+
+Expected element to have text content:
+[32m  Internal — not visible to student[39m
+Received:
+[31m  Internal, not visible to the student[39m
+   ✓ MessageBubble > highlights @mentions of known teammates 9ms
+   ✓ MessageBubble > links to the task created from a message 22ms
+   ✓ submission guard > lists required checklist items that are still missing 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/MessageThread.test.tsx > MessageBubble > clearly labels internal notes as not visible to the student
+Error: [2mexpect([22m[31melement[39m[2m).toHaveTextContent()[22m
+
+Expected element to have text content:
+[32m  Internal — not visible to student[39m
+Received:
+[31m  Internal, not visible to the student[39m
+ ❯ src/components/MessageThread.test.tsx:37:44
+     35|     expect(item).toHaveAttribute('data-internal', 'true');
+     36|     expect(item.className).toContain('ag-msg--internal');
+     37|     expect(within(item).getByRole('note')).toHaveTextContent('Internal…
+       |                                            ^
+     38|   });
+     39| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 5 passed (6)
+      Tests  1 failed | 49 passed (50)
+   Start at  05:04:15
+   Duration  3.75s (transform 1.78s, setup 1.31s, collect 3.99s, tests 325ms, environment 6.08s, prepare 793ms)
+
+[31m✖ npm run test -w @hangyul/agency-web failed (exit 1)[0m
+EXIT=1

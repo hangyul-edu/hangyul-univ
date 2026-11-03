@@ -1,0 +1,69 @@
+{
+  "name": "@hangyul/student-mobile",
+  "version": "0.1.0",
+  "private": true,
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "export:check": "expo export --platform android --output-dir .expo-export-check",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@hangyul/api-client": "*",
+    "@hangyul/auth": "*",
+    "@hangyul/design-tokens": "*",
+    "@hangyul/i18n": "*",
+    "@hangyul/mobile-ui": "*",
+    "@hangyul/types": "*",
+    "@hangyul/utils": "*",
+    "@hangyul/validation": "*",
+    "@hookform/resolvers": "^5.2.0",
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-native-community/netinfo": "12.0.1",
+    "@tanstack/query-async-storage-persister": "^5.104.5",
+    "@tanstack/react-query": "^5.90.0",
+    "@tanstack/react-query-persist-client": "^5.104.5",
+    "expo": "~57.0.30",
+    "expo-constants": "~57.0.19",
+    "expo-document-picker": "~57.0.3",
+    "expo-font": "~57.0.4",
+    "expo-image-picker": "~57.0.20",
+    "expo-linking": "~57.0.13",
+    "expo-localization": "~57.0.2",
+    "expo-notifications": "~57.0.23",
+    "expo-router": "~57.0.28",
+    "expo-secure-store": "~57.0.4",
+    "expo-splash-screen": "~57.0.10",
+    "expo-status-bar": "~57.0.1",
+    "expo-system-ui": "~57.0.4",
+    "lucide-react-native": "^1.48.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-hook-form": "^7.62.0",
+    "react-native": "0.86.3",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "~4.26.0",
+    "react-native-svg": "15.15.4",
+    "react-native-web": "~0.21.0",
+    "react-native-webview": "13.16.1",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "typescript": "~5.9.3",
+    "vitest": "*"
+  },
+  "expo": {
+    "install": {
+      "exclude": [
+        "typescript",
+        "@types/react"
+      ],
+      "excludeReason": "V18: TypeScript is pinned to ~5.9.3 and @types/react to ^19.1.0 monorepo-wide. Expo SDK 57 suggests TS ~6.0.3, but TS 6 is a breaking major across all 7 workspaces (React Router 7, Vite 7, TanStack 5/8) and was rejected in an earlier pass for Expo incompatibility. Revisit when the monorepo moves to TS 6 as one change."
+    }
+  }
+}

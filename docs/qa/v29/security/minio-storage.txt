@@ -1,0 +1,35 @@
+# V29 object-storage verification — S3Storage (app/core/storage.py)
+# date: 2026-10-30T14:14:56Z
+#
+# STATUS: real-MinIO check BLOCKED. dl.min.io now answers HTTP 410 Gone for every community MinIO server/mc binary
+# ('The open-source MinIO Server, MinIO Client (mc) and MinIO KES projects are archived and no longer maintained').
+# A community fork binary (pgsty/silo) was found, but running a third-party fork binary was not approved on this host,
+# so it was deleted unrun. What follows is the same adapter over real HTTP against moto's S3 server mode (moto 5.2.5),
+# which proves the wire calls (PUT with SSE + Cache-Control, HEAD, GET, DELETE, path-style addressing) but does NOT enforce
+# IAM/anonymous-access policy the way MinIO/S3 do. The deny-public / least-privilege checks must be re-run against a real
+# S3 or MinIO-compatible endpoint: HG_TEST_S3_ENDPOINT=… pytest tests/test_v29_infra.py -k real_endpoint, then
+# python -m scripts.v29_s3_verify (it prints RESULT: PASS only if anonymous GET and LIST are denied).
+#
+$ bucket hangyul-univ-private created; public access block: {'BlockPublicAcls': True, 'IgnorePublicAcls': True, 'BlockPublicPolicy': True, 'RestrictPublicBuckets': True}
+$ HG_STORAGE_BACKEND=s3 HG_S3_ENDPOINT_URL=http://127.0.0.1:9555 … python -m scripts.v29_s3_verify
+endpoint=http://127.0.0.1:9555 bucket=hangyul-univ-private sse=AES256 prefix=qa
+bucket default encryption: {"SSEAlgorithm": "AES256"}
+bucket policy: none (private by default) ClientError
+put key: v29-verify/students/demo/427b79cfdb4f4cb58000157a09483dc5
+head: ServerSideEncryption=AES256 CacheControl=private, no-store ContentType=application/octet-stream ContentDisposition=attachment
+get via adapter: bytes_match=True
+anonymous GET object -> HTTP 403 (denied)
+anonymous LIST bucket -> HTTP 200 (ALLOWED!)
+presigned GET (60 s, server-side only; not used by the app) -> HTTP 200
+delete via adapter: object gone=True
+RESULT: FAIL
+EXIT=1
+$ gated pytest against the live HTTP endpoint
+1 passed, 32 deselected in 2.43s
+#
+# Reading this run: everything the adapter controls is confirmed over HTTP — SSE header (AES256), Cache-Control
+# private/no-store, attachment disposition, octet-stream type, get/delete round-trip, private-prefix keys. "RESULT: FAIL"
+# is the verifier refusing to call moto's anonymous LIST (HTTP 200) a pass: moto does not authenticate requests, so
+# it cannot stand in for the deny-public check. The server stopped after the run (0 processes left).
+# Outstanding (BLOCKED_EXTERNAL): re-run scripts.v29_s3_verify against a real S3 bucket or an approved MinIO-compatible
+# server and replace this file with a RESULT: PASS run.

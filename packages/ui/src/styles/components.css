@@ -1,0 +1,750 @@
+/* ---------- Button ----------
+   Heights: sm 32 · md 36 · lg 44. Primary is the only tangerine surface in the product. */
+.hg-btn {
+  /* V27: the default button IS the secondary — white + visible edge (tokens.css), never a hairline on white. */
+  --btn-bg: var(--hg-control-secondary-bg); --btn-fg: var(--hg-control-secondary-text); --btn-bd: var(--hg-control-secondary-border);
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 40px; padding: 0 16px;
+  border-radius: var(--hg-radius-md); border: 1px solid var(--btn-bd); background: var(--btn-bg); color: var(--btn-fg);
+  font-weight: var(--hg-weight-medium); font-size: var(--hg-text-base); line-height: 1; white-space: nowrap; text-decoration: none !important;
+  transition: background var(--hg-motion-fast) var(--hg-motion-easing), border-color var(--hg-motion-fast), color var(--hg-motion-fast);
+  user-select: none; -webkit-tap-highlight-color: transparent;
+}
+.hg-btn:hover:not([disabled]):not([aria-disabled='true']) { background: var(--hg-control-secondary-bg-hover); border-color: var(--hg-control-secondary-border-hover); }
+.hg-btn:active:not([disabled]):not([aria-disabled='true']) { background: var(--hg-control-secondary-bg-pressed); }
+.hg-btn svg { width: 16px; height: 16px; flex: none; }
+/* PRIMARY SOLID — the one fixed contract in this design system (V20, brief §31–35).
+   Solid Hangyul tangerine always carries a white label and a white icon, in every state.
+
+   `.hg-btn` declares `color: var(--btn-fg)` on the **base** class, at (0,1,0). That is enough until a
+   stylesheet anywhere in the page writes `a:hover` or `a:focus` — (0,1,1), higher than a bare class — at
+   which point every `<a class="hg-btn hg-btn--primary">` silently loses its foreground. That is exactly
+   what the licensed Eduan template did to `.kn-btn--primary` on the marketing site (§215.2). Student,
+   Agency and University do not import that template and so were not hit, but the contract was one
+   stylesheet away from breaking in all four, and a design-system guarantee that depends on nobody ever
+   writing `a:hover` is not a guarantee. Declaring the foreground for every state at (0,2,0) makes it one.
+   Do not collapse these selectors back into the base rule. */
+.hg-btn--primary { --btn-bg: var(--hg-primary); --btn-fg: #fff; --btn-bd: var(--hg-primary); box-shadow: none; font-weight: var(--hg-weight-semibold); }
+.hg-btn--primary:link,
+.hg-btn--primary:visited,
+.hg-btn--primary:hover,
+.hg-btn--primary:focus,
+.hg-btn--primary:focus-visible,
+.hg-btn--primary:active { color: var(--btn-fg); }
+/* The icon follows the label rather than carrying its own value, so the two cannot drift apart. */
+.hg-btn--primary svg { color: currentColor; }
+.hg-btn--primary:hover:not([disabled]):not([aria-disabled='true']) { background: var(--hg-primary-hover); border-color: var(--hg-primary-hover); }
+.hg-btn--primary:active:not([disabled]):not([aria-disabled='true']) { background: var(--hg-primary-pressed); }
+.hg-btn--dark { --btn-bg: var(--hg-text); --btn-fg: var(--hg-surface); --btn-bd: var(--hg-text); box-shadow: none; }
+.hg-btn--dark:hover:not([disabled]):not([aria-disabled='true']) { background: var(--hg-palette-gray-800); border-color: var(--hg-palette-gray-800); }
+.hg-btn--soft { --btn-bg: var(--hg-surface-sunken); --btn-fg: var(--hg-text); --btn-bd: transparent; box-shadow: none; }
+.hg-btn--soft:hover:not([disabled]):not([aria-disabled='true']) { background: var(--hg-palette-gray-200); border-color: transparent; }
+.hg-btn--ghost { --btn-bg: transparent; --btn-bd: transparent; --btn-fg: var(--hg-text-secondary); box-shadow: none; }
+.hg-btn--ghost:hover:not([disabled]):not([aria-disabled='true']) { background: var(--hg-surface-sunken); border-color: transparent; color: var(--hg-text); }
+.hg-btn--danger { --btn-bg: var(--hg-surface); --btn-fg: var(--hg-status-danger-fg); --btn-bd: var(--hg-status-danger-fg); }
+.hg-btn--danger:hover:not([disabled]):not([aria-disabled='true']) { background: var(--hg-status-danger-bg); border-color: var(--hg-status-danger-bg); }
+.hg-btn--success { --btn-bg: var(--hg-status-success-fg); --btn-fg: #fff; --btn-bd: var(--hg-status-success-fg); box-shadow: none; }
+.hg-btn--success:hover:not([disabled]):not([aria-disabled='true']) { background: var(--hg-palette-green-700); }
+.hg-btn--link { --btn-bg: transparent; --btn-bd: transparent; --btn-fg: var(--hg-text); padding: 0; min-height: 24px; /* V26: 2.5.8 target size */ box-shadow: none; font-weight: var(--hg-weight-medium); }
+.hg-btn--link:hover:not([disabled]):not([aria-disabled='true']) { background: transparent; text-decoration: underline !important; text-underline-offset: 3px; }
+.hg-btn--sm { min-height: 32px; padding: 0 10px; font-size: var(--hg-text-sm); }
+.hg-btn--sm svg { width: 15px; height: 15px; }
+.hg-btn--lg { min-height: 48px; padding: 0 22px; font-size: var(--hg-text-md); }
+.hg-btn--block { width: 100%; }
+.hg-btn--icon { padding: 0; width: 40px; }
+.hg-btn--icon.hg-btn--sm { width: 32px; }
+.hg-btn--icon.hg-btn--lg { width: 48px; }
+/* V27 (brief §22): on a phone every button is at least a 44-px touch target; the visual size of sm/icon grows with it. */
+@media (max-width: 767px) {
+  .hg-btn, .hg-btn--sm { min-height: var(--hg-touch-min); }
+  .hg-btn--icon, .hg-btn--icon.hg-btn--sm { width: var(--hg-touch-min); min-width: var(--hg-touch-min); }
+  .hg-btn--link { min-height: var(--hg-touch-min); }
+}
+/* V19 — a disabled control is **neutral**, not a faded brand colour.
+   `opacity: 0.45` over tangerine-with-white-text produced a washed-out orange at roughly 1.9:1 contrast:
+   a button that reads as broken rather than as not-yet-available, and it was the first thing a visitor met
+   on `/start`, where the CTA is disabled until three questions are answered. Neutralising the fill keeps the
+   button's shape, size and position — so nothing moves when it activates — while removing the brand signal,
+   which is what makes the moment it *does* turn tangerine mean something. The hover and active rules are
+   guarded with :not(), or a disabled button still lit up under the cursor — and this block sits *after*
+   every variant because `.hg-btn[disabled]` and `.hg-btn--primary` have equal specificity, so whichever is
+   written last wins. It was written first, which is why the first attempt left grey text on tangerine. */
+.hg-btn[disabled], .hg-btn[aria-disabled='true'] {
+  cursor: not-allowed;
+  --btn-bg: var(--hg-surface-sunken); --btn-fg: var(--hg-text-tertiary); --btn-bd: var(--hg-border);
+  box-shadow: none;
+}
+.hg-spinner { width: 15px; height: 15px; border-radius: 50%; border: 2px solid currentColor; border-inline-end-color: transparent; animation: hg-spin 0.7s linear infinite; }
+@keyframes hg-spin { to { transform: rotate(360deg); } }
+
+/* ---------- Card — only for genuinely self-contained objects ---------- */
+.hg-card { background: var(--hg-surface); border: 1px solid var(--hg-border); border-radius: var(--hg-radius-lg); min-width: 0; }
+.hg-card--pad { padding: 16px; }
+@media (min-width: 768px) { .hg-card--pad { padding: 20px; } }
+.hg-card--flat { background: transparent; }
+.hg-card--warm { background: var(--hg-surface-warm); border-color: var(--hg-border-subtle); }
+.hg-card--interactive { transition: border-color var(--hg-motion-base), background var(--hg-motion-base); cursor: pointer; }
+.hg-card--interactive:hover { border-color: var(--hg-border-strong); }
+.hg-card__header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px 0; min-height: 44px; }
+@media (min-width: 768px) { .hg-card__header { padding: 16px 20px 0; } }
+.hg-card__header--bordered { padding-bottom: 12px; border-bottom: 1px solid var(--hg-border); }
+.hg-card__title { font-size: var(--hg-text-md); font-weight: var(--hg-weight-semibold); letter-spacing: -0.006em; }
+.hg-card__subtitle { font-size: var(--hg-text-sm); color: var(--hg-text-tertiary); margin-top: 2px; }
+.hg-card__body { padding: 12px 16px 16px; }
+@media (min-width: 768px) { .hg-card__body { padding: 12px 20px 20px; } }
+.hg-card__footer { padding: 12px 16px; border-top: 1px solid var(--hg-border); }
+
+/* ---------- Section — the default grouping: a heading and content, no box ---------- */
+.hg-section { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.hg-section__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.hg-section__title { font-size: var(--hg-text-lg); font-weight: var(--hg-weight-semibold); letter-spacing: -0.008em; }
+.hg-section__sub { font-size: var(--hg-text-sm); color: var(--hg-text-tertiary); margin-top: 2px; }
+.hg-section--ruled { padding-top: 24px; border-top: 1px solid var(--hg-border); }
+
+/* ---------- Status text: dot + words. Preferred over pills in lists and tables. ---------- */
+.hg-status { --b-fg: var(--hg-status-neutral-fg); --b-solid: var(--hg-status-neutral-solid); display: inline-flex; align-items: center; gap: 7px; font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); color: var(--hg-text); white-space: nowrap; max-width: 100%; }
+.hg-status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--b-solid); flex: none; }
+.hg-status--hollow::before { background: transparent; box-shadow: inset 0 0 0 1.5px var(--b-solid); }
+.hg-status--text { color: var(--b-fg); }
+
+/* ---------- Badge — small, rectangular, sparse ---------- */
+.hg-badge {
+  --b-fg: var(--hg-status-neutral-fg); --b-bg: var(--hg-status-neutral-bg); --b-solid: var(--hg-status-neutral-solid);
+  display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 7px; border-radius: var(--hg-radius-sm);
+  font-size: var(--hg-text-xs); font-weight: var(--hg-weight-medium); line-height: 1; color: var(--b-fg); background: var(--b-bg); white-space: nowrap; max-width: 100%;
+}
+.hg-badge svg { width: 12px; height: 12px; flex: none; }
+.hg-badge--sm { height: 20px; padding: 0 6px; }
+.hg-badge--dot::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--b-solid); flex: none; }
+.hg-badge--outline { background: transparent; box-shadow: inset 0 0 0 1px var(--hg-border); color: var(--hg-text-secondary); }
+.hg-tone-success { --b-fg: var(--hg-status-success-fg); --b-bg: var(--hg-status-success-bg); --b-solid: var(--hg-status-success-solid); }
+
+/* ---------- Chip (toggle filter) ---------- */
+.hg-chip {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 12px; border-radius: var(--hg-radius-pill);
+  border: 1px solid var(--hg-control-secondary-border); background: var(--hg-surface); color: var(--hg-text-secondary); font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium);
+  transition: border-color var(--hg-motion-fast), background var(--hg-motion-fast), color var(--hg-motion-fast);
+}
+@media (max-width: 767px) { .hg-chip { min-height: var(--hg-touch-min); } }
+.hg-chip:hover { border-color: var(--hg-border-strong); color: var(--hg-text); }
+.hg-chip[aria-pressed='true'], .hg-chip[aria-checked='true'] { background: var(--hg-text); border-color: var(--hg-text); color: var(--hg-surface); }
+.hg-chip svg { width: 14px; height: 14px; }
+/* V11: tertiary text (#5F6B80 on the console surface) reaches only 4.15:1 against a chip's tinted background,
+   and these labels are 12 px, so they need 4.5:1. Inside a chip the secondary token is used instead — the one
+   step of de-emphasis the label needs, without dropping under the floor. */
+.hg-chip .hg-subtle { color: var(--hg-text-secondary); }
+
+/* ---------- Progress ---------- */
+.hg-progress { height: 6px; border-radius: 999px; background: var(--hg-surface-sunken); overflow: hidden; }
+.hg-progress__bar { height: 100%; border-radius: inherit; background: var(--hg-text); transition: width var(--hg-motion-slow) var(--hg-motion-easing); }
+.hg-progress--success .hg-progress__bar { background: var(--hg-status-success-solid); }
+.hg-progress--info .hg-progress__bar { background: var(--hg-status-info-solid); }
+.hg-progress--brand .hg-progress__bar { background: var(--hg-primary); }
+.hg-progress--sm { height: 4px; }
+.hg-ring { position: relative; display: inline-grid; place-items: center; flex: none; }
+.hg-ring svg { transform: rotate(-90deg); }
+[dir='rtl'] .hg-ring svg { transform: rotate(-90deg) scaleY(-1); }
+.hg-ring__track { stroke: var(--hg-surface-sunken); }
+.hg-ring__value { stroke: var(--hg-text); transition: stroke-dashoffset var(--hg-motion-slow) var(--hg-motion-easing); stroke-linecap: round; }
+.hg-ring__label { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; font-weight: var(--hg-weight-semibold); font-variant-numeric: tabular-nums; }
+
+/* ---------- Stepper (legacy bars) ---------- */
+.hg-steps { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; overflow-x: auto; scrollbar-width: none; }
+.hg-steps::-webkit-scrollbar { display: none; }
+.hg-step { flex: 1 0 auto; min-width: 72px; display: flex; flex-direction: column; gap: 8px; font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); font-weight: var(--hg-weight-medium); }
+.hg-step__bar { height: 3px; border-radius: 3px; background: var(--hg-surface-sunken); }
+.hg-step--done .hg-step__bar { background: var(--hg-text); }
+.hg-step--done { color: var(--hg-text-secondary); }
+.hg-step--current .hg-step__bar { background: var(--hg-primary); }
+.hg-step--current { color: var(--hg-text); }
+
+/* ---------- Journey rail: the student's position in the whole process ---------- */
+.hg-rail { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); list-style: none; margin: 0; padding: 0; position: relative; }
+.hg-rail__item { position: relative; display: flex; flex-direction: column; gap: 8px; min-width: 0; padding-inline-end: 8px; }
+.hg-rail__track { position: relative; height: 16px; display: flex; align-items: center; }
+.hg-rail__track::after { content: ''; position: absolute; inset-inline-start: 16px; inset-inline-end: -8px; height: 2px; background: var(--hg-border); }
+.hg-rail__item:last-child .hg-rail__track::after { display: none; }
+.hg-rail__item[data-state='done'] .hg-rail__track::after { background: var(--hg-text); }
+.hg-rail__node { position: relative; z-index: 1; width: 16px; height: 16px; border-radius: 50%; display: grid; place-items: center; background: var(--hg-surface); box-shadow: inset 0 0 0 2px var(--hg-border-strong); color: #fff; flex: none; }
+.hg-rail__node svg { width: 10px; height: 10px; stroke-width: 3; }
+.hg-rail__item[data-state='done'] .hg-rail__node { background: var(--hg-text); box-shadow: none; }
+.hg-rail__item[data-state='current'] .hg-rail__node { background: var(--hg-surface); box-shadow: inset 0 0 0 2px var(--hg-primary), 0 0 0 4px var(--hg-primary-subtle); }
+.hg-rail__item[data-state='current'] .hg-rail__node::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--hg-primary); }
+.hg-rail__label { font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); color: var(--hg-text-tertiary); line-height: 1.3; overflow-wrap: anywhere; }
+.hg-rail__item[data-state='done'] .hg-rail__label { color: var(--hg-text-secondary); }
+.hg-rail__item[data-state='current'] .hg-rail__label { color: var(--hg-text); font-weight: var(--hg-weight-semibold); }
+.hg-rail__meta { font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); }
+@media (max-width: 767px) {
+  .hg-rail { grid-auto-flow: row; grid-auto-columns: auto; gap: 0; }
+  .hg-rail--compact .hg-rail__item:not([data-near='true']) { display: none; }
+  .hg-rail__item { flex-direction: row; align-items: flex-start; gap: 12px; padding: 0 0 14px; }
+  .hg-rail__track { height: auto; align-self: stretch; flex-direction: column; }
+  .hg-rail__track::after { inset-inline-start: 7px; inset-inline-end: auto; top: 16px; bottom: -14px; width: 2px; height: auto; }
+  .hg-rail__label { padding-top: 0; line-height: 16px; }
+}
+
+/* ---------- Timeline ---------- */
+.hg-timeline { list-style: none; margin: 0; padding: 0; position: relative; }
+.hg-timeline__item { position: relative; padding-inline-start: 26px; padding-bottom: 16px; }
+.hg-timeline__item::before { content: ''; position: absolute; inset-inline-start: 5px; top: 16px; bottom: 0; width: 1.5px; background: var(--hg-border); }
+.hg-timeline__item:last-child::before { display: none; }
+.hg-timeline__dot { position: absolute; inset-inline-start: 0; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--hg-surface); box-shadow: inset 0 0 0 2px var(--hg-border-strong); }
+.hg-timeline__item--active .hg-timeline__dot { box-shadow: inset 0 0 0 2px var(--hg-primary), 0 0 0 3px var(--hg-primary-subtle); }
+.hg-timeline__item--done .hg-timeline__dot { background: var(--hg-text); box-shadow: none; }
+
+/* ---------- Stat / KPI (kept for analytics pages; no icon chips, no card chrome by default) ---------- */
+.hg-stat { display: flex; flex-direction: column; gap: 4px; min-width: 0; padding: 16px; }
+.hg-stat__label { display: flex; align-items: center; gap: 6px; font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); color: var(--hg-text-secondary); }
+.hg-stat__value { font-size: var(--hg-text-3xl); font-weight: var(--hg-weight-semibold); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1.15; }
+.hg-stat__value--muted { color: var(--hg-text-tertiary); font-size: var(--hg-text-base); font-weight: var(--hg-weight-medium); letter-spacing: 0; line-height: 1.6; }
+.hg-stat__foot { display: flex; align-items: center; gap: 8px; font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); flex-wrap: wrap; }
+.hg-delta { display: inline-flex; align-items: center; gap: 2px; font-weight: var(--hg-weight-semibold); font-variant-numeric: tabular-nums; }
+.hg-delta--up { color: var(--hg-status-success-fg); }
+.hg-delta--down { color: var(--hg-status-danger-fg); }
+.hg-delta svg { width: 13px; height: 13px; }
+.hg-stat__icon { display: none; }
+
+/* Metric strip: several numbers in one ruled row instead of a grid of cards */
+.hg-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); border: 1px solid var(--hg-border); border-radius: var(--hg-radius-lg); background: var(--hg-surface); overflow: hidden; }
+.hg-metric { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px; min-width: 0; border-inline-end: 1px solid var(--hg-border-subtle); color: inherit; text-decoration: none; }
+.hg-metric:last-child { border-inline-end: 0; }
+a.hg-metric:hover { background: var(--hg-surface-hover); text-decoration: none; }
+.hg-metric__label { font-size: var(--hg-text-sm); color: var(--hg-text-secondary); display: flex; align-items: center; gap: 6px; }
+.hg-metric__value { font-size: var(--hg-text-2xl); font-weight: var(--hg-weight-semibold); letter-spacing: -0.015em; font-variant-numeric: tabular-nums; line-height: 1.25; }
+.hg-metric__value--muted { font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); color: var(--hg-text-tertiary); line-height: 1.9; }
+.hg-metric__foot { font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); }
+@media (max-width: 767px) { .hg-metric { border-inline-end: 0; border-bottom: 1px solid var(--hg-border-subtle); } .hg-metric:last-child { border-bottom: 0; } }
+
+/* ---------- Forms ---------- */
+.hg-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.hg-label { font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); color: var(--hg-text); }
+.hg-label__opt { font-weight: var(--hg-weight-regular); color: var(--hg-text-tertiary); margin-inline-start: 4px; }
+.hg-hint { font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); line-height: 1.45; }
+.hg-error { font-size: var(--hg-text-xs); color: var(--hg-status-danger-fg); font-weight: var(--hg-weight-medium); }
+.hg-input, .hg-select, .hg-textarea {
+  width: 100%; min-height: 44px; padding: 10px 12px; border-radius: var(--hg-radius-md); border: 1px solid var(--hg-control-secondary-border);
+  background: var(--hg-surface); color: var(--hg-text); font-size: var(--hg-text-md);
+  transition: border-color var(--hg-motion-fast), box-shadow var(--hg-motion-fast);
+}
+@media (max-width: 767px) { .hg-input, .hg-select, .hg-textarea { font-size: 16px; min-height: 44px; } }
+.hg-input::placeholder, .hg-textarea::placeholder { color: var(--hg-text-tertiary); opacity: 0.8; }
+.hg-input:hover, .hg-select:hover, .hg-textarea:hover { border-color: var(--hg-control-secondary-border-hover); }
+.hg-input:focus, .hg-select:focus, .hg-textarea:focus { outline: none; border-color: var(--hg-primary); box-shadow: var(--hg-shadow-focus); }
+.hg-input[aria-invalid='true'], .hg-select[aria-invalid='true'], .hg-textarea[aria-invalid='true'] { border-color: var(--hg-status-danger-solid); }
+.hg-input:disabled, .hg-select:disabled, .hg-textarea:disabled { background: var(--hg-surface-sunken); color: var(--hg-text-tertiary); }
+.hg-textarea { min-height: 104px; resize: vertical; line-height: var(--hg-leading-normal); }
+.hg-select { appearance: none; padding-inline-end: 34px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%236B717B' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m7 10 5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+[dir='rtl'] .hg-select { background-position: left 10px center; }
+/* ---------- FilterSelect (V30) — a toolbar filter, not a form field. See `FilterSelect` in primitives.tsx.
+   Content-sized: `category  value ⌄` read as one control, the chevron 6 px after the value (never pinned to
+   the far edge), the native <select> invisibly covering the whole face so every pixel of it opens the list. */
+.hg-fsel {
+  position: relative; display: inline-flex; align-items: center; flex: none;
+  inline-size: auto; max-inline-size: 100%; min-inline-size: 0;
+  min-height: var(--hg-fsel-h, 44px); padding-inline: 14px 12px;
+  border: 1px solid var(--hg-control-secondary-border); border-radius: var(--hg-control-radius);
+  background: var(--hg-control-secondary-bg); color: var(--hg-control-secondary-text);
+  font-size: var(--hg-text-base); line-height: 1.2; white-space: nowrap; cursor: pointer;
+  transition: border-color var(--hg-motion-fast), background-color var(--hg-motion-fast), box-shadow var(--hg-motion-fast);
+}
+.hg-fsel--sm { --hg-fsel-h: 36px; padding-inline: 12px 10px; font-size: var(--hg-text-sm); }
+.hg-fsel--block { display: flex; inline-size: 100%; }
+.hg-fsel--block .hg-fsel__value { flex: 1 1 auto; }
+.hg-fsel__face { display: inline-flex; align-items: center; gap: 6px; min-inline-size: 0; pointer-events: none; }
+.hg-fsel__label { color: var(--hg-text-secondary); font-weight: var(--hg-weight-regular); }
+.hg-fsel__label::after { content: '·'; margin-inline-start: 6px; color: var(--hg-text-tertiary); }
+.hg-fsel__value { font-weight: var(--hg-weight-semibold); min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; }
+.hg-fsel__chev { inline-size: 16px; block-size: 16px; flex: none; color: var(--hg-text-secondary); margin-inline-start: 0; }
+.hg-fsel__native {
+  position: absolute; inset: 0; inline-size: 100%; block-size: 100%; margin: 0; padding: 0;
+  opacity: 0; appearance: none; border: 0; cursor: pointer;
+  font-size: 16px; /* iOS: <16px zooms the page on focus */
+}
+.hg-fsel:hover { border-color: var(--hg-control-secondary-border-hover); background: var(--hg-control-secondary-bg-hover); }
+.hg-fsel:has(.hg-fsel__native:focus-visible) { outline: 3px solid var(--hg-primary); outline-offset: 2px; }
+.hg-fsel:focus-within { border-color: var(--hg-control-secondary-border-hover); }
+.hg-fsel[data-active] { border-color: var(--hg-text); box-shadow: inset 0 0 0 1px var(--hg-text); }
+.hg-fsel[data-active] .hg-fsel__label { color: var(--hg-text); }
+.hg-fsel:has(.hg-fsel__native:disabled) { opacity: 0.55; cursor: not-allowed; }
+@media (max-width: 767px) { .hg-fsel { --hg-fsel-h: 44px; } .hg-fsel--sm { --hg-fsel-h: 40px; } }
+/* In a drawer / filter sheet a filter is a full-width row, value at the start, chevron at the end. */
+.hg-drawer .hg-fsel, .ag-filterbar__drawer .hg-fsel { display: flex; inline-size: 100%; }
+.hg-drawer .hg-fsel .hg-fsel__face, .ag-filterbar__drawer .hg-fsel .hg-fsel__face { flex: 1 1 auto; }
+.hg-drawer .hg-fsel .hg-fsel__value, .ag-filterbar__drawer .hg-fsel .hg-fsel__value { flex: 1 1 auto; }
+
+.hg-input--sm { min-height: 36px; padding: 6px 10px; font-size: var(--hg-text-base); }
+@media (max-width: 767px) { .hg-input--sm { min-height: 40px; font-size: 16px; } }
+.hg-input-icon { position: relative; }
+.hg-input-icon > svg { position: absolute; inset-inline-start: 11px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--hg-text-tertiary); pointer-events: none; }
+.hg-input-icon > .hg-input { padding-inline-start: 34px; }
+.hg-check { display: flex; align-items: flex-start; gap: 10px; font-size: var(--hg-text-base); cursor: pointer; }
+.hg-check input { width: 16px; height: 16px; margin: 2px 0 0; accent-color: var(--hg-text); flex: none; }
+/* V26: the hit box is 40×24 (WCAG 2.2 § 2.5.8) — a transparent 2-px border around the same 36×20 track. */
+.hg-switch { position: relative; width: 40px; height: 24px; border-radius: 999px; background: var(--hg-border-strong); background-clip: padding-box; border: 2px solid transparent; padding: 0; flex: none; transition: background var(--hg-motion-fast); }
+.hg-switch::after { content: ''; position: absolute; top: 2px; inset-inline-start: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: var(--hg-shadow-sm); transition: transform var(--hg-motion-fast); }
+.hg-switch[aria-checked='true'] { background: var(--hg-text); }
+.hg-switch[aria-checked='true']::after { transform: translateX(16px); }
+[dir='rtl'] .hg-switch[aria-checked='true']::after { transform: translateX(-16px); }
+
+/* Option cards (onboarding) */
+.hg-options { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(min(var(--hg-min, 200px), 100%), 1fr)); }
+.hg-option {
+  display: flex; align-items: center; gap: 12px; text-align: start; padding: 12px 14px; border-radius: var(--hg-radius-lg); border: 1px solid var(--hg-control-secondary-border);
+  background: var(--hg-surface); min-height: 52px; font-size: var(--hg-text-md); font-weight: var(--hg-weight-medium); color: var(--hg-text);
+  transition: border-color var(--hg-motion-fast), background var(--hg-motion-fast), box-shadow var(--hg-motion-fast);
+}
+.hg-option:hover { border-color: var(--hg-control-secondary-border-hover); background: var(--hg-control-secondary-bg-hover); }
+.hg-option[aria-checked='true'], .hg-option[aria-pressed='true'] { border-color: var(--hg-text); box-shadow: inset 0 0 0 1px var(--hg-text); }
+.hg-option__icon { width: 32px; height: 32px; border-radius: var(--hg-radius-md); display: grid; place-items: center; background: var(--hg-surface-sunken); flex: none; font-size: 16px; color: var(--hg-text-secondary); }
+.hg-option__icon svg { width: 16px; height: 16px; }
+.hg-option[aria-checked='true'] .hg-option__icon, .hg-option[aria-pressed='true'] .hg-option__icon { background: var(--hg-text); color: var(--hg-surface); }
+.hg-option__sub { display: block; font-size: var(--hg-text-sm); font-weight: var(--hg-weight-regular); color: var(--hg-text-secondary); margin-top: 2px; }
+
+/* ---------- Tabs & segmented ---------- */
+.hg-tabs { display: flex; gap: 20px; border-bottom: 1px solid var(--hg-border); overflow-x: auto; scrollbar-width: none; }
+.hg-tabs::-webkit-scrollbar { display: none; }
+.hg-tab { position: relative; padding: 10px 0 11px; border: 0; background: none; font-size: var(--hg-text-base); font-weight: var(--hg-weight-medium); color: var(--hg-text-tertiary); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
+.hg-tab:hover { color: var(--hg-text); text-decoration: none; }
+.hg-tab[aria-selected='true'], .hg-tab[aria-current='page'] { color: var(--hg-text); }
+.hg-tab[aria-selected='true']::after, .hg-tab[aria-current='page']::after { content: ''; position: absolute; inset-inline: 0; bottom: -1px; height: 2px; background: var(--hg-text); }
+.hg-tab__count { font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); font-variant-numeric: tabular-nums; font-weight: var(--hg-weight-medium); }
+.hg-tab[aria-selected='true'] .hg-tab__count { color: var(--hg-text-secondary); }
+.hg-seg { display: inline-flex; padding: 2px; gap: 2px; border-radius: var(--hg-radius-md); background: var(--hg-surface-sunken); border: 1px solid var(--hg-control-secondary-border); /* V27: 3:1 edge */ }
+.hg-seg button { border: 1px solid transparent; background: transparent; padding: 5px 10px; border-radius: var(--hg-radius-sm); font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); color: var(--hg-text-secondary); }
+.hg-seg button:hover { color: var(--hg-text); }
+.hg-seg button[aria-pressed='true'] { background: var(--hg-surface); color: var(--hg-text); border-color: var(--hg-text); font-weight: var(--hg-weight-semibold); }
+
+/* ---------- Overlay: modal / drawer / sheet ---------- */
+.hg-overlay { position: fixed; inset: 0; background: var(--hg-overlay); z-index: var(--hg-z-modal); animation: hg-fade var(--hg-motion-base) ease-out; }
+@keyframes hg-fade { from { opacity: 0; } }
+.hg-modal {
+  position: fixed; z-index: calc(var(--hg-z-modal) + 1); inset-inline: 16px; top: 50%; transform: translateY(-50%); margin-inline: auto; max-width: var(--w, 520px);
+  max-height: calc(100dvh - 32px); display: flex; flex-direction: column; background: var(--hg-surface); border-radius: var(--hg-radius-xl); box-shadow: var(--hg-shadow-lg);
+  animation: hg-pop var(--hg-motion-base) var(--hg-motion-easing);
+}
+@keyframes hg-pop { from { opacity: 0; transform: translateY(calc(-50% + 6px)) scale(0.99); } }
+.hg-modal__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 18px 20px 6px; }
+.hg-modal__head h2 { font-size: var(--hg-text-xl); }
+.hg-modal__body { padding: 6px 20px 20px; overflow: auto; }
+.hg-modal__foot { display: flex; gap: 8px; justify-content: flex-end; padding: 12px 20px; border-top: 1px solid var(--hg-border); flex-wrap: wrap; }
+.hg-drawer {
+  position: fixed; z-index: calc(var(--hg-z-drawer) + 1); top: 0; bottom: 0; inset-inline-end: 0; width: min(var(--w, 440px), 100vw); background: var(--hg-surface);
+  box-shadow: var(--hg-shadow-lg); display: flex; flex-direction: column; animation: hg-slide var(--hg-motion-slow) var(--hg-motion-easing);
+}
+.hg-drawer--start { inset-inline-end: auto; inset-inline-start: 0; animation-name: hg-slide-start; }
+@keyframes hg-slide { from { transform: translateX(16px); opacity: 0; } }
+@keyframes hg-slide-start { from { transform: translateX(-16px); opacity: 0; } }
+@media (max-width: 767px) {
+  .hg-drawer--sheet { top: auto; inset-inline: 0; width: 100%; max-height: 90dvh; border-radius: 16px 16px 0 0; animation-name: hg-sheet; }
+  @keyframes hg-sheet { from { transform: translateY(32px); opacity: 0; } }
+  .hg-drawer--sheet::before { content: ''; width: 36px; height: 4px; border-radius: 4px; background: var(--hg-border-strong); margin: 8px auto 0; flex: none; }
+}
+.hg-drawer__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px; border-bottom: 1px solid var(--hg-border); }
+.hg-drawer__head h2 { font-size: var(--hg-text-lg); }
+.hg-drawer__body { padding: 20px; overflow: auto; flex: 1; }
+.hg-drawer__foot { padding: 12px 20px; border-top: 1px solid var(--hg-border); display: flex; gap: 8px; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+
+/* ---------- Popover / dropdown ---------- */
+/* Positioned from JS (see `Popover` in overlays.tsx): portalled to the body and `fixed`, so no ancestor's
+   `overflow`, `transform` or stacking context can clip it, and it flips above the trigger when there is no
+   room below. `--hg-popover-avail` is the space on the side it was placed on; the max-height is the backstop
+   for content that has no scroll area of its own, and the shadow is one step heavier than the old `md` so the
+   panel reads as floating above a photograph or a dark footer rather than sitting on it. */
+.hg-popover {
+  /* Above a modal or drawer (`--hg-z-modal` + 1), not the token's own 45. As a child of its trigger the panel
+     inherited whatever stacking context it was opened in and was always on top of it; as a sibling of the
+     overlays on `body` it has to say so — otherwise a menu opened inside a drawer paints underneath it. */
+  position: fixed; z-index: calc(var(--hg-z-modal) + 2); min-width: 220px; background: var(--hg-surface); border: 1px solid var(--hg-border); border-radius: var(--hg-radius-lg);
+  box-shadow: var(--hg-shadow-lg); padding: 4px; animation: hg-fade var(--hg-motion-fast) ease-out;
+  max-height: var(--hg-popover-avail, none); overflow-y: auto; overscroll-behavior: contain;
+}
+.hg-popover:focus-visible { outline: 2px solid var(--hg-primary); outline-offset: 2px; }
+/* Open *from* the trigger, whichever side it ended up on: a panel that flipped upward sliding down into place
+   reads as a mistake being corrected. The global reduced-motion rule in base.css collapses both. */
+.hg-popover[data-placement='bottom'] { animation-name: hg-pop-down; }
+.hg-popover[data-placement='top'] { animation-name: hg-pop-up; }
+@keyframes hg-pop-down { from { opacity: 0; transform: translateY(-4px); } }
+@keyframes hg-pop-up { from { opacity: 0; transform: translateY(4px); } }
+.hg-menu-item { display: flex; width: 100%; align-items: center; gap: 10px; padding: 8px 10px; border-radius: var(--hg-radius-sm); border: 0; background: none; font-size: var(--hg-text-base); color: var(--hg-text); text-align: start; text-decoration: none !important; }
+.hg-menu-item:hover, .hg-menu-item[aria-selected='true'], .hg-menu-item.active { background: var(--hg-surface-sunken); }
+.hg-menu-item svg { width: 16px; height: 16px; color: var(--hg-text-tertiary); flex: none; }
+.hg-menu-label { padding: 8px 10px 4px; font-size: var(--hg-text-xs); font-weight: var(--hg-weight-medium); color: var(--hg-text-tertiary); }
+
+/* ---------- Tooltip (CSS-only, for metric definitions) ---------- */
+.hg-tip { position: relative; display: inline-flex; color: var(--hg-text-tertiary); cursor: help; background: none; border: 0; padding: 0; border-radius: 50%; }
+.hg-tip svg { width: 14px; height: 14px; }
+.hg-tip__body {
+  position: absolute; z-index: var(--hg-z-popover); bottom: calc(100% + 8px); inset-inline-start: 50%; transform: translateX(-50%); width: max-content; max-width: 260px;
+  padding: 8px 10px; border-radius: var(--hg-radius-md); background: var(--hg-palette-gray-900); color: #F0F1F3; font-size: var(--hg-text-xs); font-weight: var(--hg-weight-regular); line-height: 1.45;
+  display: none; pointer-events: none; white-space: normal; text-align: start;
+}
+.hg-tip:hover .hg-tip__body, .hg-tip:focus-visible .hg-tip__body, .hg-tip:focus-within .hg-tip__body { display: block; }
+
+/* ---------- Toast ---------- */
+.hg-toasts { position: fixed; z-index: var(--hg-z-toast); bottom: 16px; inset-inline: 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; pointer-events: none; }
+@media (max-width: 1023px) { .hg-toasts { bottom: calc(76px + env(safe-area-inset-bottom)); } }
+@media (min-width: 768px) { .hg-toasts { inset-inline-start: auto; inset-inline-end: 24px; bottom: 24px; align-items: flex-end; } }
+.hg-toast {
+  pointer-events: auto; display: flex; align-items: flex-start; gap: 10px; max-width: 400px; width: 100%; padding: 12px 14px; border-radius: var(--hg-radius-lg);
+  background: var(--hg-palette-gray-900); color: #fff; box-shadow: var(--hg-shadow-lg); font-size: var(--hg-text-base); animation: hg-pop-up var(--hg-motion-base) var(--hg-motion-easing);
+}
+@keyframes hg-pop-up { from { transform: translateY(6px); opacity: 0; } }
+.hg-toast svg { width: 17px; height: 17px; flex: none; margin-top: 1px; }
+.hg-toast--success svg { color: #7CD39C; }
+.hg-toast--error svg { color: #FF9A9D; }
+
+/* ---------- Avatar ---------- */
+.hg-avatar { --s: 36px; width: var(--s); height: var(--s); border-radius: 50%; display: inline-grid; place-items: center; flex: none; font-size: max(10px, calc(var(--s) * 0.36)); font-weight: var(--hg-weight-semibold); color: var(--av-fg, var(--hg-text-secondary)); background: var(--av, var(--hg-surface-sunken)); letter-spacing: 0; overflow: hidden; }
+.hg-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- States ---------- */
+.hg-state { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; padding: 40px 20px; color: var(--hg-text-secondary); }
+.hg-state__icon { width: 40px; height: 40px; border-radius: var(--hg-radius-lg); display: grid; place-items: center; background: var(--hg-surface-sunken); color: var(--hg-text-tertiary); margin-bottom: 6px; }
+.hg-state__icon svg { width: 20px; height: 20px; }
+.hg-state__title { margin: 0; font-size: var(--hg-text-md); font-weight: var(--hg-weight-semibold); color: var(--hg-text); }
+.hg-state__text { max-width: 400px; font-size: var(--hg-text-base); }
+.hg-state > .hg-btn, .hg-state > a { margin-top: 8px; }
+.hg-state--compact { padding: 20px 16px; }
+.hg-state--compact .hg-state__icon { display: none; }
+.hg-state--start { align-items: flex-start; text-align: start; padding-inline: 0; }
+.hg-skeleton { display: block; border-radius: var(--hg-radius-sm); background: linear-gradient(90deg, var(--hg-surface-sunken) 25%, var(--hg-bg-muted) 37%, var(--hg-surface-sunken) 63%); background-size: 400% 100%; animation: hg-shimmer 1.4s ease infinite; }
+@keyframes hg-shimmer { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
+
+/* ---------- Callouts ---------- */
+.hg-callout { display: flex; gap: 10px; padding: 12px 14px; border-radius: var(--hg-radius-lg); background: var(--hg-surface); border: 1px solid var(--hg-border); color: var(--hg-text); font-size: var(--hg-text-base); line-height: 1.5; }
+.hg-callout > svg { width: 18px; height: 18px; flex: none; color: var(--b-fg, var(--hg-status-info-fg)); margin-top: 1px; }
+.hg-callout__title { font-weight: var(--hg-weight-semibold); margin-bottom: 2px; }
+
+/* ---------- Freshness / demo ---------- */
+.hg-fresh { display: inline-flex; align-items: center; gap: 5px; font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); }
+.hg-fresh svg { width: 13px; height: 13px; }
+.hg-fresh a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+/* ---------- Development environment: one chip + Demo access (dev builds only) ---------- */
+/* V10 (REPORT §67.2 #4): the floating chip used to sit over page content at every width — it covered a deadline
+   row on Agency Today and the last "Coming up" card on Student home. It now rests as the DEV tag alone at reduced
+   opacity and only grows to its label on hover or keyboard focus, so a development affordance never hides product. */
+/* Collapsed to the tag alone — about a third of its old width — so it stops covering product. Note: the chip
+   must NOT be faded with `opacity`, which blends the amber tag with the page behind it and drops its contrast
+   below AA (axe caught exactly that). It stays fully opaque and simply small. */
+.hg-demo-access { display: flex; flex-direction: column; gap: 20px; }
+.hg-demo-access__group { font-size: var(--hg-text-xs); font-weight: var(--hg-weight-semibold); color: var(--hg-text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+.hg-demo-access__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hg-border); }
+.hg-demo-access__item {
+  display: grid; grid-template-columns: 1fr auto; column-gap: 12px; width: 100%; padding: 10px 4px; border: 0; border-bottom: 1px solid var(--hg-border);
+  background: none; text-align: start; cursor: pointer; color: var(--hg-text);
+}
+.hg-demo-access__item:hover { background: var(--hg-surface-hover); }
+.hg-demo-access__item:disabled { cursor: progress; opacity: 0.6; }
+.hg-demo-access__role { font-weight: var(--hg-weight-medium); font-size: var(--hg-text-base); }
+.hg-demo-access__who { grid-column: 1; font-size: var(--hg-text-sm); color: var(--hg-text-secondary); }
+.hg-demo-access__out { grid-column: 2; grid-row: 1 / span 2; align-self: center; width: 16px; height: 16px; color: var(--hg-text-tertiary); }
+
+
+/* ---------- Table ---------- */
+/* V10 — sticky table headers. `overflow-x: auto` makes this a scroll container on BOTH axes (per spec a
+   non-visible value on one axis forces the other away from `visible`; `clip` likewise computes to `hidden`
+   when paired with `auto`). That trapped the sticky `<th>` inside a box with no vertical scrolling, so every
+   console table's header scrolled away with the page.
+   V8/V9's responsive column priority is what makes the fix safe: 0 of 170 captured views scroll a table
+   sideways, so from 992 px up — where long lists and sticky headers matter — the wrapper needs no horizontal
+   scroll container at all, and the header sticks to the viewport. Below 992 px the container stays (narrow
+   widths are where a table can still need it, and the shared DataTable switches to row cards lower down).
+   `scripts/qa/v10-design-errors.mjs` fails if anything starts overflowing its parent again. */
+.hg-table-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+@media (min-width: 992px) { .hg-table-wrap { overflow-x: visible; } }
+.hg-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: var(--hg-text-base); }
+/* `--hg-table-sticky-top` is the height of whatever fixed chrome sits above the table on this surface
+   (the consoles' app header is 4.75rem); without it the sticky row hides behind that chrome. */
+.hg-table th { position: sticky; top: var(--hg-table-sticky-top, 0px); z-index: 1; text-align: start; font-size: var(--hg-text-xs); font-weight: var(--hg-weight-medium); color: var(--hg-text-tertiary); background: var(--hg-surface); height: 40px; padding: 0 12px; border-bottom: 1px solid var(--hg-border); white-space: nowrap; }
+.hg-table th:first-child, .hg-table td:first-child { padding-inline-start: 16px; }
+.hg-table th:last-child, .hg-table td:last-child { padding-inline-end: 16px; }
+.hg-table th button { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
+.hg-table th button:hover { color: var(--hg-text); }
+.hg-table th button:focus-visible { outline: 2px solid var(--hg-focus); border-radius: 4px; }
+.hg-table td { height: 48px; padding: 8px 12px; border-bottom: 1px solid var(--hg-border-subtle); vertical-align: middle; }
+.hg-table tr:last-child td { border-bottom: 0; }
+.hg-table tbody tr { transition: background var(--hg-motion-fast); }
+.hg-table tbody tr:hover { background: var(--hg-surface-hover); }
+.hg-table tbody tr[data-clickable='true'] { cursor: pointer; }
+.hg-table tbody tr[data-selected='true'] { background: var(--hg-surface-sunken); }
+.hg-table--dense td { padding: 7px 12px; }
+.hg-table__num { text-align: end; font-variant-numeric: tabular-nums; }
+.hg-table-toolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 10px 12px; border-bottom: 1px solid var(--hg-border); }
+.hg-table-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 12px 8px 16px; border-top: 1px solid var(--hg-border); font-size: var(--hg-text-sm); color: var(--hg-text-tertiary); flex-wrap: wrap; }
+/* Mobile card mode for tables */
+.hg-rows { display: none; }
+@media (max-width: 767px) {
+  .hg-table-wrap[data-cards='true'] { display: none; }
+  .hg-rows[data-cards='true'] { display: flex; flex-direction: column; }
+  .hg-rowcard { display: flex; flex-direction: column; gap: 4px; padding: 12px 16px; border-bottom: 1px solid var(--hg-border-subtle); text-align: start; background: none; border-inline: 0; border-top: 0; width: 100%; color: inherit; font: inherit; }
+  .hg-rowcard:last-child { border-bottom: 0; }
+  .hg-rowcard__kv { display: flex; justify-content: space-between; gap: 12px; font-size: var(--hg-text-sm); }
+  .hg-rowcard__kv > span:first-child { color: var(--hg-text-tertiary); flex: none; }
+  .hg-rowcard__kv > span:last-child { min-width: 0; text-align: end; overflow-wrap: anywhere; }
+  .hg-rowcard { min-width: 0; }
+}
+
+/* ---------- List rows (the workhorse of calm screens) ---------- */
+.hg-list { list-style: none; margin: 0; padding: 0; }
+.hg-list > li + li { border-top: 1px solid var(--hg-border-subtle); }
+.hg-lrow { display: flex; align-items: center; gap: 12px; padding: 12px 0; min-width: 0; color: inherit; text-decoration: none; }
+a.hg-lrow:hover, button.hg-lrow:hover { text-decoration: none; }
+a.hg-lrow:hover .hg-lrow__title, button.hg-lrow:hover .hg-lrow__title { text-decoration: underline; text-decoration-color: var(--hg-border-strong); text-underline-offset: 3px; }
+button.hg-lrow { width: 100%; background: none; border: 0; text-align: start; font: inherit; cursor: pointer; }
+.hg-lrow__main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.hg-lrow__title { font-weight: var(--hg-weight-medium); color: var(--hg-text); min-width: 0; }
+.hg-lrow__meta { font-size: var(--hg-text-sm); color: var(--hg-text-tertiary); min-width: 0; }
+.hg-lrow__end { flex: none; display: flex; align-items: center; gap: 12px; font-size: var(--hg-text-sm); color: var(--hg-text-secondary); }
+.hg-lrow__chev { width: 16px; height: 16px; color: var(--hg-text-tertiary); flex: none; }
+.hg-panel { background: var(--hg-surface); border: 1px solid var(--hg-border); border-radius: var(--hg-radius-lg); }
+.hg-panel > .hg-list > li { padding-inline: 16px; }
+.hg-panel > .hg-list > li > .hg-lrow { padding-block: 12px; }
+
+/* ---------- Description list ---------- */
+.hg-dl { display: grid; grid-template-columns: minmax(120px, max-content) 1fr; gap: 10px 24px; font-size: var(--hg-text-base); margin: 0; }
+.hg-dl dt { color: var(--hg-text-tertiary); }
+.hg-dl dd { margin: 0; font-weight: var(--hg-weight-medium); min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 480px) { .hg-dl { grid-template-columns: 1fr; gap: 2px; } .hg-dl dd { margin-bottom: 10px; } }
+
+/* ---------- Chart frame ---------- */
+.hg-chart { width: 100%; min-height: var(--h, 240px); position: relative; }
+.hg-chart-tooltip { background: var(--hg-surface); border: 1px solid var(--hg-border); border-radius: var(--hg-radius-md); box-shadow: var(--hg-shadow-md); padding: 8px 10px; font-size: var(--hg-text-xs); color: var(--hg-text); }
+.hg-funnel { display: flex; flex-direction: column; gap: 6px; }
+.hg-funnel__row { display: grid; grid-template-columns: minmax(96px, 160px) 1fr minmax(72px, auto); align-items: center; gap: 12px; font-size: var(--hg-text-sm); }
+.hg-funnel__bar { height: 22px; border-radius: var(--hg-radius-xs); background: var(--hg-surface-sunken); position: relative; overflow: hidden; }
+.hg-funnel__fill { height: 100%; border-radius: var(--hg-radius-xs); background: var(--hg-chart-ink); min-width: 2px; }
+.hg-funnel__row a, .hg-funnel__row button { color: inherit; }
+.hg-funnel__conv { font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); text-align: end; font-variant-numeric: tabular-nums; }
+@media (max-width: 480px) { .hg-funnel__row { grid-template-columns: 1fr auto; } .hg-funnel__bar { grid-column: 1 / -1; order: 3; height: 16px; } }
+
+/* Bar list (distribution) */
+.hg-bars { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.hg-bars li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; font-size: var(--hg-text-sm); }
+.hg-bars__track { display: block; grid-column: 1 / -1; height: 4px; border-radius: 2px; background: var(--hg-surface-sunken); overflow: hidden; }
+.hg-bars__fill { display: block; height: 100%; background: var(--hg-chart-ink); border-radius: 2px; }
+.hg-bars__value { font-variant-numeric: tabular-nums; color: var(--hg-text-secondary); }
+
+/* ---------- Kanban ---------- */
+.hg-kanban { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x proximity; }
+.hg-kanban__col { flex: 0 0 min(280px, 84vw); scroll-snap-align: start; display: flex; flex-direction: column; background: var(--hg-surface-sunken); border-radius: var(--hg-radius-lg); max-height: calc(100dvh - 220px); }
+.hg-kanban__head { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; font-size: var(--hg-text-sm); font-weight: var(--hg-weight-semibold); }
+.hg-kanban__list { display: flex; flex-direction: column; gap: 6px; padding: 0 8px 8px; overflow-y: auto; }
+.hg-kanban__col[data-over='true'] { outline: 2px dashed var(--hg-border-strong); outline-offset: -4px; }
+
+/* ---------- Misc ---------- */
+.hg-kbd { font-family: var(--hg-font-mono); font-size: 12px; padding: 1px 5px; border-radius: var(--hg-radius-xs); border: 1px solid var(--hg-border); background: var(--hg-surface); color: var(--hg-text-secondary); }
+.hg-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; background: var(--hg-primary); flex: none; }
+.hg-check-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; }
+.hg-check-item__box { width: 20px; height: 20px; border-radius: var(--hg-radius-sm); border: 1.5px solid var(--hg-border-strong); display: grid; place-items: center; flex: none; background: var(--hg-surface); color: #fff; margin-top: 1px; }
+.hg-check-item__box svg { width: 13px; height: 13px; stroke-width: 3; }
+.hg-check-item[data-done='true'] .hg-check-item__box { background: var(--hg-text); border-color: var(--hg-text); }
+.hg-check-item[data-blocked='true'] { opacity: 0.55; }
+button.hg-check-item { background: none; border: 0; width: 100%; text-align: start; color: inherit; font: inherit; cursor: pointer; }
+.hg-mark { width: 36px; height: 36px; border-radius: var(--hg-radius-md); display: grid; place-items: center; flex: none; color: #fff; font-weight: var(--hg-weight-semibold); font-size: var(--hg-text-md); letter-spacing: -0.01em; }
+.hg-mark--sm { width: 28px; height: 28px; font-size: var(--hg-text-sm); border-radius: var(--hg-radius-sm); }
+.hg-mark--lg { width: 48px; height: 48px; font-size: var(--hg-text-2xl); border-radius: var(--hg-radius-lg); }
+.hg-mark--photo { background: var(--hg-surface-sunken); overflow: hidden; width: 52px; height: 40px; }
+.hg-mark--photo.hg-mark--sm { width: 40px; height: 30px; }
+.hg-mark--photo.hg-mark--lg { width: 72px; height: 54px; }
+.hg-mark--photo picture { display: contents; }
+.hg-mark--photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+[data-theme='dark'] .hg-card--warm { background: var(--hg-surface-warm); border-color: var(--hg-border); }
+/* Scroll containers must be positioning contexts so absolutely-positioned descendants
+   (e.g. .hg-sr-only labels) are clipped instead of widening the page. */
+.hg-kanban, .hg-table-wrap, .hg-tabs, .hg-steps, .hg-chart, .hg-card { position: relative; }
+.hg-sr-only { inset-block-start: 0; inset-inline-start: 0; max-width: 1px; max-height: 1px; }
+@media (max-width: 767px) {
+  .hg-lrow { flex-wrap: wrap; row-gap: 6px; }
+  .hg-lrow__main { flex-basis: 0; }
+  .hg-lrow__chev { order: 2; }
+  .hg-lrow__end { order: 3; flex-basis: 100%; justify-content: flex-start; }
+  .hg-lrow:has(> .hg-mark) > .hg-lrow__end { padding-inline-start: 48px; }
+}
+.hg-btn--link.hg-btn--sm, .hg-btn--link.hg-btn--lg { padding: 0; min-height: 24px; }
+.hg-table-bulk { background: var(--hg-surface-warm); }
+.hg-table tbody tr:focus-visible { outline: 2px solid var(--hg-focus); outline-offset: -2px; }
+/* Compact selects keep room for the chevron (the small-input padding must not override it). */
+.hg-select.hg-input--sm { padding-inline-end: 30px; background-position: right 8px center; }
+[dir='rtl'] .hg-select.hg-input--sm { background-position: left 8px center; }
+
+/* V8: responsive column priority — low-priority columns fold into an expandable details row instead of side-scrolling */
+.hg-table__toggle { width: 44px; padding-inline: 4px !important; text-align: end; }
+.hg-table__expand { width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: var(--hg-radius-md); background: transparent; color: var(--hg-text-tertiary); cursor: pointer; }
+.hg-table__expand:hover { background: var(--hg-surface-sunken); color: var(--hg-text); }
+.hg-table__expand svg { width: 16px; height: 16px; transition: transform 150ms ease; }
+.hg-table__expand[aria-expanded='true'] svg { transform: rotate(180deg); }
+.hg-table tr[data-expanded] td { border-bottom-color: transparent; }
+.hg-table__details td { background: var(--hg-surface-sunken); padding-block: 10px 14px !important; }
+.hg-table__details dl { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px 24px; margin: 0; }
+.hg-table__details dt { font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); margin-bottom: 2px; }
+.hg-table__details dd { margin: 0; font-size: var(--hg-text-sm); }
+
+/* ===================================================================== Locale selector (V14, brief Part 42)
+
+   One control, two shapes: a 320 px popover from 768 px up, and a bottom sheet below it. Rows are links, not
+   buttons, because `?lang=` is a real URL and a language option should behave like one — openable in a new
+   tab, copyable, and navigable with the browser's own back button.
+
+   Flags are the owner's SVGs served from /flags/<ISO>.svg. A fixed 20×14 box with `object-fit: cover` is what
+   stops a 2:3 flag and a 1:2 flag from giving their rows different heights; `cover` rather than `contain`
+   because a letterboxed flag in a list reads as a rendering fault. */
+
+/* V17: a fixed-width **slot**, with the flag sized by height inside it.
+ *
+ * The slot is what keeps every row's language name on the same x. The image inside is free to be its own
+ * shape — which matters for exactly one of the 32 markets, and matters completely for that one: Nepal's
+ * flag is two stacked pennons and is taller than it is wide. Cropping it to 20 × 14 was the old behaviour
+ * and is the thing the brief rules out. `--hg-flag-ratio` comes from the market manifest. */
+.hg-flag-slot {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 16px;
+}
+.hg-flag {
+  display: block;
+  height: 14px;
+  width: calc(14px * var(--hg-flag-ratio, 1.5));
+  max-width: 22px;
+  object-fit: contain;
+  border-radius: 2px;
+  /* Several national flags are white at the edge (Japan, Poland). Without a hairline they dissolve into a
+     white sheet and the row looks like it is missing its flag. */
+  box-shadow: 0 0 0 1px rgba(19, 21, 25, 0.12);
+}
+/* A pennon is not a rectangle, so a rectangular ring and a rectangular corner radius both sit outside the
+   artwork and read as a box drawn around a flag. `drop-shadow` follows the alpha channel instead, and the
+   flag keeps its own silhouette — including the transparent space the brief says to preserve. */
+.hg-flag[data-shape='pennon'] {
+  height: 16px;
+  border-radius: 0;
+  box-shadow: none;
+  filter: drop-shadow(0 0 0.5px rgba(19, 21, 25, 0.45));
+}
+.hg-flag--none { display: block; width: 20px; height: 14px; border-radius: 2px; background: var(--hg-surface-sunken); box-shadow: 0 0 0 1px rgba(19, 21, 25, 0.12); }
+
+.hg-locale { display: grid; gap: 2px; }
+.hg-locale__trigger { display: inline-flex; align-items: center; gap: 8px; }
+
+.hg-locale__search {
+  position: relative;
+  display: flex; align-items: center;
+  padding: 6px 6px 8px;
+}
+.hg-locale__search > svg {
+  position: absolute; inset-inline-start: 18px;
+  width: 16px; height: 16px; color: var(--hg-text-tertiary); pointer-events: none;
+}
+.hg-locale__input {
+  width: 100%; min-height: 40px;
+  padding-inline: 38px 12px;
+  border: 1px solid var(--hg-border); border-radius: 10px;
+  background: var(--hg-bg); color: var(--hg-text);
+  font: inherit; font-size: var(--hg-text-lg);
+}
+.hg-locale__input:focus-visible { outline: 2px solid var(--hg-primary); outline-offset: 1px; border-color: var(--hg-primary); }
+.hg-locale__input::-webkit-search-cancel-button { appearance: none; }
+
+/* `--hg-locale-max` is handed in by the caller. In the popover it is derived from the room the popover found
+   on the side it opened on, so on a short viewport the *list* shrinks and scrolls while the search box and the
+   panel's own edges stay inside the viewport. 76px is the search box plus the panel's padding and borders. */
+.hg-locale__scroll {
+  max-height: var(--hg-locale-max, 340px);
+  overflow-y: auto;
+  /* `contain` stops a wheel at the end of the list from scrolling the page behind the popover. */
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.hg-locale__list { list-style: none; margin: 0; padding: 0 4px 4px; }
+.hg-locale__empty { padding: 10px 12px 14px; margin: 0; }
+
+.hg-locale__row {
+  display: flex; align-items: center; gap: 10px;
+  min-height: 44px; padding: 6px 10px;
+  border-radius: 8px;
+  color: var(--hg-text); text-decoration: none;
+}
+.hg-locale__row:hover { background: var(--hg-surface-hover); }
+.hg-locale__row:focus-visible { outline: 2px solid var(--hg-primary); outline-offset: -2px; }
+.hg-locale__row.is-current { background: var(--hg-primary-subtle); }
+
+.hg-locale__names { display: grid; min-width: 0; flex: 1 1 auto; }
+.hg-locale__lang { font-size: var(--hg-text-lg); line-height: 1.3; }
+.hg-locale__market { font-size: var(--hg-text-sm); line-height: 1.3; color: var(--hg-text-tertiary); }
+.hg-locale__beta { font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); }
+.hg-locale__check { flex: none; width: 16px; height: 16px; color: var(--hg-primary-text); }
+
+/* Phones: a sheet, not a popover. 56 px rows clear the 44 px touch minimum with room to spare, and the list
+   is capped so the sheet never covers the whole screen. */
+/*
+ * **The sheet scrolls (V17).** It did not, and the reason is three lines further down.
+ *
+ * `display: grid` with an implicit row track lets a child grow past the container: the sheet declared
+ * `max-height: min(78svh, 620px)`, the scroller below declared `max-height: none`, and the list won — at
+ * 390 × 844 the scroller measured `scrollHeight 1180 === clientHeight 1180`, i.e. it was never a scroller
+ * at all, just a very tall box hanging off the bottom of the screen with `overflow-y: auto` doing nothing.
+ * With 32 markets the bottom third of the list was unreachable.
+ *
+ * The fix is to make the sheet a **column flexbox** whose middle child is allowed to shrink. `min-height: 0`
+ * is the load-bearing half of that: a flex item's automatic minimum size is its content, so without it the
+ * scroller still refuses to be smaller than its list and the overflow never engages.
+ */
+.hg-locale__sheet {
+  position: fixed; inset: auto 0 0; z-index: var(--hg-z-modal);
+  display: flex; flex-direction: column; gap: 2px;
+  max-height: min(78svh, 620px);
+  padding-bottom: env(safe-area-inset-bottom);
+  background: var(--hg-surface);
+  border-radius: 18px 18px 0 0;
+  box-shadow: var(--hg-shadow-lg);
+  animation: hg-locale-up var(--hg-motion-slow) var(--hg-ease-enter) both;
+}
+/* The grip and the search box keep their size; only the list gives. */
+.hg-locale__sheet > .hg-locale__grip,
+.hg-locale__sheet > .hg-locale__search { flex: none; }
+@media (prefers-reduced-motion: reduce) { .hg-locale__sheet { animation: none; } }
+@keyframes hg-locale-up { from { transform: translateY(12%); opacity: 0; } to { transform: none; opacity: 1; } }
+
+.hg-locale__grip {
+  justify-self: center;
+  width: 36px; height: 4px; margin: 8px 0 2px;
+  border-radius: 999px; background: var(--hg-border-strong);
+}
+.hg-locale__sheet .hg-locale__search { padding-inline: 16px; }
+.hg-locale__sheet .hg-locale__search > svg { inset-inline-start: 28px; }
+.hg-locale__sheet .hg-locale__scroll {
+  flex: 1 1 auto;
+  min-height: 0;            /* the line that actually makes it scroll — see the note on the sheet */
+  max-height: none;         /* the cap is the sheet's, not a second number that can disagree with it */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.hg-locale__sheet .hg-locale__list { padding-inline: 8px; }
+.hg-locale__sheet .hg-locale__row { min-height: 56px; padding-inline: 12px; }
+.hg-locale__sheet .hg-locale__lang { font-size: var(--hg-text-xl); }
+
+
+/* ---------- V27 (REPORT §361, brief §22): 44-px touch targets on phones, for every shared control ----------
+   Specificity note: the YNEX console skin sizes `.hg-btn--sm`, header controls and tabs at (0,2,1) inside
+   `html[data-surface='console']`. `html:root body …` is (0,2,2), so this one block wins on every surface without
+   per-page overrides. Visual size grows only below 768 px; desktop density is unchanged. */
+@media (max-width: 767px) {
+  html:root body .hg-btn, html:root body .hg-btn--sm, html:root body .hg-strip__btn, html:root body .hg-tab,
+  html:root body .hg-account, html:root body .hg-seg button, html:root body .hg-chip { min-height: 44px; }
+  html:root body .hg-btn--icon, html:root body .hg-btn--icon.hg-btn--sm { min-width: 44px; width: 44px; }
+  html:root body .hg-account { min-width: 44px; }
+  html:root body .hg-btn { min-width: 44px; }
+  html:root body .app-header .hg-btn, html:root body .app-header .hg-account { min-height: 44px; min-width: 44px; }
+}
+
+/* V30 (REPORT §409): controls that share the page-header action row share one height (36 px desktop; phones
+   keep the 44-px touch rule above). A 38-px segmented control next to a 30-px small button read as two
+   products; the segmented control is pinned to the row height and the small button grows to it. */
+@media (min-width: 768px) {
+  .hg-page-head__actions { align-items: center; }
+  .hg-page-head__actions .hg-seg { box-sizing: border-box; block-size: 36px; align-items: stretch; }
+  .hg-page-head__actions .hg-seg button { display: inline-flex; align-items: center; padding-block: 0; }
+  .hg-page-head__actions > .hg-btn--sm, .hg-page-head__actions > a.hg-btn--sm { min-height: 36px; }
+}

@@ -1,0 +1,87 @@
+[38;5;208m
+▶ @hangyul/agency-web › test[0m
+
+ RUN  v3.2.7 /root/hangyul-univ/apps/agency-web
+
+ ✓ src/lib/logic.test.ts (28 tests) 42ms
+ ✓ src/lib/stages.test.ts (3 tests) 10ms
+ ✓ src/lib/waiting.test.ts (4 tests) 15ms
+ ✓ src/lib/writing.test.ts (6 tests) 41ms
+ ✓ src/lib/templates.test.ts (4 tests) 7ms
+stdout | src/components/MessageThread.test.tsx
+🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
+
+ ✓ src/components/MessageThread.test.tsx (5 tests) 164ms
+
+ Test Files  6 passed (6)
+      Tests  50 passed (50)
+   Start at  05:04:31
+   Duration  3.06s (transform 1.70s, setup 695ms, collect 3.57s, tests 278ms, environment 4.44s, prepare 1.12s)
+
+[38;5;208m
+▶ @hangyul/marketing-web › test[0m
+
+ RUN  v3.2.7 /root/hangyul-univ/apps/marketing-web
+
+stdout | src/test/v10-session.test.ts
+🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
+
+stdout | src/test/plan-content.test.ts
+🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
+
+stdout | src/test/markdown.test.tsx
+🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
+
+stdout | src/test/smoke.live.test.tsx
+🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
+
+stdout | src/test/v12-legal.test.ts
+🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
+
+ ✓ src/test/v12-legal.test.ts (13 tests) 19ms
+ ✓ src/test/plan-content.test.ts (9 tests) 51ms
+ ✓ src/test/markdown.test.tsx (11 tests) 82ms
+ ✓ src/test/v10-session.test.ts (5 tests) 4ms
+ ↓ src/test/smoke.live.test.tsx (22 tests | 22 skipped)
+
+ Test Files  4 passed | 1 skipped (5)
+      Tests  38 passed | 22 skipped (60)
+   Start at  05:04:35
+   Duration  2.77s (transform 1.57s, setup 2.00s, collect 3.09s, tests 156ms, environment 3.24s, prepare 682ms)
+
+[38;5;208m
+▶ @hangyul/student-mobile › test[0m
+
+ RUN  v3.2.7 /root/hangyul-univ/apps/student-mobile
+
+ ✓ src/signup/errors.test.ts (2 tests) 8ms
+ ✓ src/signup/state.test.ts (9 tests) 17ms
+ ✓ src/signup/persist.test.ts (1 test) 6ms
+ ✓ src/signup/phone.test.ts (2 tests) 11ms
+ ❯ src/signup/client.integration.test.ts (1 test | 1 failed) 1472ms
+   × native sign-up against the real API > registers a verified account through the same endpoints the web uses and signs in 521ms
+     → Bad Request
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/signup/client.integration.test.ts > native sign-up against the real API > registers a verified account through the same endpoints the web uses and signs in
+ApiError: Bad Request
+ ❯ request ../../packages/api-client/src/index.ts:177:13
+    175|       const detail = (data as { detail?: unknown })?.detail;
+    176|       const msg = typeof detail === 'string' ? detail : Array.isArray(…
+    177|       throw new ApiError(res.status, msg || `Request failed (${res.sta…
+       |             ^
+    178|     }
+    179|     if (opts.raw) return res as unknown as R;
+ ❯ src/signup/client.integration.test.ts:44:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 4 passed (5)
+      Tests  1 failed | 14 passed (15)
+   Start at  05:04:39
+   Duration  2.18s (transform 748ms, setup 0ms, collect 1.11s, tests 1.51s, environment 2ms, prepare 739ms)
+
+[31m✖ npm run test -w @hangyul/student-mobile failed (exit 1)[0m
+EXIT=1

@@ -1,0 +1,971 @@
+{
+ "generated": "2026-10-31T18:35:47.265Z",
+ "personas": {
+  "student": "student@demo.hangyul.kr",
+  "agency": "counselor@lotus.demo.hangyul.kr",
+  "university": "admin@pusan.univ.demo.hangyul.kr"
+ },
+ "routes": [
+  {
+   "product": "marketing",
+   "path": "/",
+   "kind": "public",
+   "url": "/",
+   "base": "http://127.0.0.1:3100"
+  },
+  {
+   "product": "marketing",
+   "path": "/start",
+   "kind": "public",
+   "url": "/start",
+   "crawl": true,
+   "base": "http://127.0.0.1:3100"
+  },
+  {
+   "product": "marketing",
+   "path": "/universities",
+   "kind": "public",
+   "url": "/universities",
+   "crawl": true,
+   "base": "http://127.0.0.1:3100"
+  },
+  {
+   "product": "marketing",
+   "path": "/universities/:slug",
+   "kind": "detail",
+   "url": "/universities/yonsei-university",
+   "crawl": true,
+   "base": "http://127.0.0.1:3100"
+  },
+  {
+   "product": "marketing",
+   "path": "/privacy",
+   "kind": "public",
+   "url": "/privacy",
+   "crawl": true,
+   "base": "http://127.0.0.1:3100"
+  },
+  {
+   "product": "marketing",
+   "path": "/terms",
+   "kind": "public",
+   "url": "/terms",
+   "crawl": true,
+   "base": "http://127.0.0.1:3100"
+  },
+  {
+   "product": "marketing",
+   "path": "/__dev",
+   "kind": "dev-only",
+   "crawl": false,
+   "base": "http://127.0.0.1:3100"
+  },
+  {
+   "product": "marketing",
+   "path": "/guides/*",
+   "kind": "redirect",
+   "crawl": false,
+   "base": "http://127.0.0.1:3100"
+  },
+  {
+   "product": "marketing",
+   "path": "/__v30-not-a-page",
+   "declared": "*",
+   "kind": "edge",
+   "url": "/__v30-not-a-page",
+   "base": "http://127.0.0.1:3100"
+  },
+  {
+   "product": "student",
+   "path": "/login",
+   "kind": "auth",
+   "url": "/login",
+   "crawl": true,
+   "signedOut": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/__dev",
+   "kind": "dev-only",
+   "crawl": false,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/register",
+   "kind": "auth",
+   "url": "/register",
+   "crawl": true,
+   "signedOut": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/forgot",
+   "kind": "auth",
+   "url": "/forgot",
+   "crawl": true,
+   "signedOut": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/start",
+   "kind": "auth",
+   "url": "/start",
+   "crawl": true,
+   "signedOut": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/sponsor/:token",
+   "kind": "detail",
+   "url": null,
+   "crawl": false,
+   "why": "no fixture for parameter",
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/eligibility",
+   "kind": "redirect",
+   "crawl": false,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/onboarding",
+   "kind": "redirect",
+   "crawl": false,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/",
+   "kind": "student",
+   "url": "/",
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/explore",
+   "kind": "student",
+   "url": "/explore",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/universities/:slug",
+   "kind": "detail",
+   "url": "/universities/yonsei-university",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/matches",
+   "kind": "redirect",
+   "crawl": false,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/saved",
+   "kind": "redirect",
+   "crawl": false,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/writing",
+   "kind": "redirect",
+   "crawl": false,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/compare",
+   "kind": "student",
+   "url": "/compare",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/budget",
+   "kind": "student",
+   "url": "/budget",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/family",
+   "kind": "student",
+   "url": "/family",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/applications",
+   "kind": "student",
+   "url": "/applications",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/applications/:id",
+   "kind": "detail",
+   "url": "/applications/d96eabba-e018-4807-9de8-ea89c5aa8d56",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/documents",
+   "kind": "student",
+   "url": "/documents",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/essays",
+   "kind": "student",
+   "url": "/essays",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/essays/:id",
+   "kind": "detail",
+   "url": "/essays/b180b72a-e7b9-4ac3-a91a-6df3eac7bf35",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/tasks",
+   "kind": "student",
+   "url": "/tasks",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/messages",
+   "kind": "student",
+   "url": "/messages",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/messages/:id",
+   "kind": "detail",
+   "url": "/messages/0b312dca-149b-40e0-94f7-f67e002cca7d",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/notifications",
+   "kind": "student",
+   "url": "/notifications",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/visa",
+   "kind": "student",
+   "url": "/visa",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/housing",
+   "kind": "student",
+   "url": "/housing",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/arrival",
+   "kind": "student",
+   "url": "/arrival",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/help",
+   "kind": "student",
+   "url": "/help",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/scholarships",
+   "kind": "student",
+   "url": "/scholarships",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/services",
+   "kind": "student",
+   "url": "/services",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/services/payment/success",
+   "kind": "student",
+   "url": "/services/payment/success",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/services/payment/fail",
+   "kind": "student",
+   "url": "/services/payment/fail",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/support",
+   "kind": "student",
+   "url": "/support",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/profile",
+   "kind": "settings",
+   "url": "/profile",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/settings",
+   "kind": "settings",
+   "url": "/settings",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/more",
+   "kind": "student",
+   "url": "/more",
+   "crawl": true,
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "student",
+   "path": "/__v30-not-a-page",
+   "declared": "*",
+   "kind": "edge",
+   "url": "/__v30-not-a-page",
+   "base": "http://127.0.0.1:3101"
+  },
+  {
+   "product": "agency",
+   "path": "/login",
+   "kind": "auth",
+   "url": "/login",
+   "crawl": true,
+   "signedOut": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/__dev",
+   "kind": "dev-only",
+   "crawl": false,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/",
+   "kind": "agency",
+   "url": "/",
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/performance",
+   "kind": "agency",
+   "url": "/performance",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/students",
+   "kind": "agency",
+   "url": "/students",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/students/:id",
+   "kind": "detail",
+   "url": "/students/5e2ed4ec-c7a0-4c60-b0da-4905983e030e",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/pipeline",
+   "kind": "redirect",
+   "crawl": false,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/writing",
+   "kind": "redirect",
+   "crawl": false,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/arrival",
+   "kind": "redirect",
+   "crawl": false,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/housing",
+   "kind": "redirect",
+   "crawl": false,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/visa",
+   "kind": "redirect",
+   "crawl": false,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/profile",
+   "kind": "redirect",
+   "crawl": false,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/scholarships",
+   "kind": "redirect",
+   "crawl": false,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/matches",
+   "kind": "redirect",
+   "crawl": false,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/consultations",
+   "kind": "agency",
+   "url": "/consultations",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/tasks",
+   "kind": "agency",
+   "url": "/tasks",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/services",
+   "kind": "agency",
+   "url": "/services",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/vendors",
+   "kind": "agency",
+   "url": "/vendors",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/deadlines",
+   "kind": "agency",
+   "url": "/deadlines",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/messages",
+   "kind": "agency",
+   "url": "/messages",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/messages/:id",
+   "kind": "detail",
+   "url": null,
+   "crawl": false,
+   "why": "no fixture for parameter",
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/review",
+   "kind": "agency",
+   "url": "/review",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/manage",
+   "kind": "settings",
+   "url": "/manage",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/documents",
+   "kind": "agency",
+   "url": "/documents",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/essays",
+   "kind": "agency",
+   "url": "/essays",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/essays/insights",
+   "kind": "agency",
+   "url": "/essays/insights",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/essays/:id",
+   "kind": "detail",
+   "url": "/essays/86964510-0cf8-4e8f-864c-5653cf470904",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/applications",
+   "kind": "agency",
+   "url": "/applications",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/applications/:id",
+   "kind": "detail",
+   "url": "/applications/ba9ae273-d4ed-4233-acca-69e7339d3e13",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/universities",
+   "kind": "agency",
+   "url": "/universities",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/universities/:slug",
+   "kind": "detail",
+   "url": "/universities/yonsei-university",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/templates",
+   "kind": "settings",
+   "url": "/templates",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/team",
+   "kind": "settings",
+   "url": "/team",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/payments",
+   "kind": "agency",
+   "url": "/payments",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/audit",
+   "kind": "settings",
+   "url": "/audit",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/submissions",
+   "kind": "agency",
+   "url": "/submissions",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/hq",
+   "kind": "agency",
+   "url": "/hq",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/hq/agencies",
+   "kind": "agency",
+   "url": "/hq/agencies",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/hq/manage",
+   "kind": "settings",
+   "url": "/hq/manage",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/hq/accounts",
+   "kind": "agency",
+   "url": "/hq/accounts",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/hq/assignments",
+   "kind": "agency",
+   "url": "/hq/assignments",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/hq/sources",
+   "kind": "agency",
+   "url": "/hq/sources",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/hq/readiness",
+   "kind": "agency",
+   "url": "/hq/readiness",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/notifications",
+   "kind": "agency",
+   "url": "/notifications",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/settings",
+   "kind": "settings",
+   "url": "/settings",
+   "crawl": true,
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "agency",
+   "path": "/__v30-not-a-page",
+   "declared": "*",
+   "kind": "edge",
+   "url": "/__v30-not-a-page",
+   "base": "http://127.0.0.1:3102"
+  },
+  {
+   "product": "university",
+   "path": "/login",
+   "kind": "auth",
+   "url": "/login",
+   "crawl": true,
+   "signedOut": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/__dev",
+   "kind": "dev-only",
+   "crawl": false,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/",
+   "kind": "university",
+   "url": "/",
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/applicants",
+   "kind": "university",
+   "url": "/applicants",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/applications/:id",
+   "kind": "detail",
+   "url": "/applications/176e12ab-679d-467f-8510-be86e1b20ca3",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/pipeline",
+   "kind": "university",
+   "url": "/pipeline",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/offers",
+   "kind": "university",
+   "url": "/offers",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/funnel",
+   "kind": "redirect",
+   "crawl": false,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/students",
+   "kind": "redirect",
+   "crawl": false,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/programs",
+   "kind": "university",
+   "url": "/programs",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/rules",
+   "kind": "university",
+   "url": "/rules",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/documents",
+   "kind": "university",
+   "url": "/documents",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/scholarships",
+   "kind": "university",
+   "url": "/scholarships",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/agencies",
+   "kind": "university",
+   "url": "/agencies",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/cohorts",
+   "kind": "university",
+   "url": "/cohorts",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/cohorts/:tab",
+   "kind": "detail",
+   "url": "/cohorts/retention",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/lifecycle",
+   "kind": "university",
+   "url": "/lifecycle",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/retention",
+   "kind": "university",
+   "url": "/retention",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/graduation",
+   "kind": "university",
+   "url": "/graduation",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/analytics",
+   "kind": "university",
+   "url": "/analytics",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/messages",
+   "kind": "university",
+   "url": "/messages",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/messages/:id",
+   "kind": "detail",
+   "url": null,
+   "crawl": false,
+   "why": "no fixture for parameter",
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/exports",
+   "kind": "university",
+   "url": "/exports",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/partnership",
+   "kind": "university",
+   "url": "/partnership",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/manage",
+   "kind": "settings",
+   "url": "/manage",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/settings",
+   "kind": "settings",
+   "url": "/settings",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/notifications",
+   "kind": "university",
+   "url": "/notifications",
+   "crawl": true,
+   "base": "http://127.0.0.1:3103"
+  },
+  {
+   "product": "university",
+   "path": "/__v30-not-a-page",
+   "declared": "*",
+   "kind": "edge",
+   "url": "/__v30-not-a-page",
+   "base": "http://127.0.0.1:3103"
+  }
+ ]
+}

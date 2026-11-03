@@ -1,0 +1,511 @@
+// Eduan × Hangyul glue (loaded after the shared Hangyul base and app CSS).
+// 1. Restores Eduan's element rules inside `.ed` with element-level specificity (:where(.ed) h2 = 0,0,1), so they win
+//    over the shared base by order while every Eduan class rule still wins over them.
+// 2. Styles the React ports of Eduan's jQuery features (ticker, reveal, offcanvas).
+// 3. Hangyul content inside the Eduan components the site still uses (cost panels, counters, journey steps,
+//    programme facts), brand colour, a11y, i18n.
+// 4. Phone compositions (Eduan desktop quality preserved: horizontal rows instead of 8 stacked cards).
+//
+// V10 shrank this file by a third: Koreanasha's header, offcanvas nav, hero, CTA and footer replaced Eduan's,
+// and the V7/V8 home sections they styled are gone, so 253 selectors here could no longer match anything
+// (`scripts/qa/prune-css.mjs`, §69.11). What is left is the Eduan surface the site still renders.
+
+@use 'eduan/abstracts/variables' as *;
+
+$pretendard: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', sans-serif;
+
+// ------------------------------------------------------------------ 1. Eduan element rules (from abstracts/_common)
+:where(.ed) {
+  color: var(--clr-body-text);
+  font-family: $pretendard;
+  font-size: 16px;
+  line-height: 28px;
+}
+:where(.ed) :is(h1, h2, h3, h4, h5, h6) { font-family: $pretendard; color: var(--clr-body-heading); margin-top: 0; line-height: 1.2; font-weight: 700; margin-bottom: 15px; letter-spacing: -0.01em; }
+:where(.ed) h1 { font-size: 70px; }
+:where(.ed) h2 { font-size: 46px; }
+:where(.ed) h3 { font-size: 40px; }
+:where(.ed) h4 { font-size: 28px; }
+:where(.ed) h5 { font-size: 20px; }
+:where(.ed) h6 { font-size: 16px; }
+:where(.ed) p { font-weight: 400; font-size: 16px; line-height: 28px; color: var(--clr-body-text); margin-bottom: 0; }
+:where(.ed) a { color: inherit; text-decoration: none; }
+:where(.ed) ul, :where(.ed) ol { margin: 0; padding: 0; list-style: none; }
+:where(.ed) ::selection { background: rgba(204, 78, 0, 0.18); color: inherit; }
+:lang(ko) :where(.ed) :is(h1, h2, h3, h4, h5) { word-break: keep-all; letter-spacing: -0.02em; }
+
+// Template `text-transform: capitalize` mangles German/Turkish/… casing and sentence-case copy (i18n).
+// Three of these four alternatives died with the V7 hero and match nothing; the counter title still renders on
+// every home page, which is the whole reason the rule stays. The dead alternatives are kept so this file is
+// exactly what `prune-css.mjs` produces — see REPORT §69.12 for the pass that deleted the rule by mistake.
+.ed :is(.h6_banner-content-title, .h6_banner-content-title span, .h7_counter-info-title, .h7_apply-item-number span) { text-transform: none; }
+.h7_counter-info-text { text-transform: none !important; }
+
+// ------------------------------------------------------------------ 2. React ports of Eduan behaviour
+// bxSlider ticker → CSS marquee
+.ed-ticker { overflow: hidden; width: 100%; white-space: nowrap; pointer-events: none; user-select: none; }
+.ed-ticker__track { display: inline-flex; gap: 0.6em; width: max-content; animation: ed-ticker var(--ed-ticker-s, 40s) linear infinite; }
+.ed-ticker__item { margin: 0 !important; padding-inline-end: 0.6em; white-space: nowrap; flex: none; }
+@keyframes ed-ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+[dir='rtl'] .ed-ticker__track { animation-name: ed-ticker-rtl; }
+@keyframes ed-ticker-rtl { from { transform: translateX(0); } to { transform: translateX(50%); } }
+
+// WOW fadeInUp → Reveal
+.ed-reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.ed-reveal.is-in { opacity: 1; transform: none; }
+@keyframes ed-fade-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+.ed-ticker__track { animation: none !important; }
+  .ed-reveal { opacity: 1; transform: none; transition: none; }
+}
+
+.ed-icon { display: inline-block; vertical-align: -1px; flex: none; }
+.ed-svgicon { display: inline-flex; align-items: center; justify-content: center; line-height: 0; }
+.ed-svgicon svg { width: 100%; height: auto; max-width: 100%; }
+.ed-stretched::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+
+.ed-offcanvas { background: var(--ed-night); color: #fff; }
+.ed-offcanvas:not(.info-open) { visibility: hidden; }
+.ed-offcanvas .hg-logo { color: #fff; }
+.ed-offcanvas .side-info-close { background: none; border: 0; color: #fff; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; }
+.offcanvas-overlay { z-index: 998; }
+
+// Template buttons capitalise every word — wrong for sentence-case copy and many languages.
+.theme-btn, .h6_cta-btn { text-transform: none !important; }
+
+@keyframes ed-type { 0% { clip-path: inset(0 100% 0 0); } 55%, 100% { clip-path: inset(0 0 0 0); } }
+@keyframes ed-type-rtl { 0% { clip-path: inset(0 0 0 100%); } 55%, 100% { clip-path: inset(0 0 0 0); } }
+
+// Buttons: Eduan theme-btn-6 in Hangyul action tangerine (AA with white), arrow gap
+.theme-btn.theme-btn-6, .theme-btn-6 { background-color: var(--ed-action); color: #fff; display: inline-flex; align-items: center; gap: 8px; }
+.theme-btn.theme-btn-6:hover { background-color: var(--ed-action-hover); color: #fff; }
+.theme-btn-full { width: 100%; justify-content: center; }
+
+// Quick check — h6_admission composition
+.ed-check { padding-top: 130px; padding-bottom: 110px; background: #f5f3ef; }
+.ed-field { display: flex; flex-direction: column; gap: 6px; }
+.ed-field label { font-size: 13px; font-weight: 600; color: var(--clr-body-heading); }
+.ed-field select {
+  width: 100%; height: 52px; border: 1px solid #e3e1dc; background: #fff; padding: 0 44px 0 16px; font-size: 15px; color: var(--clr-body-heading);
+  appearance: none; border-radius: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%23525252' stroke-width='1.6'%3E%3Cpath d='M3 5l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 16px center;
+}
+[dir='rtl'] .ed-field select { padding: 0 16px 0 44px; background-position: left 16px center; }
+.ed-field select:focus { border-color: var(--ed-action); outline: none; box-shadow: 0 0 0 3px rgba(204, 78, 0, 0.16); }
+.ed-field[data-missing] select { border-color: #b5321d; }
+.ed-check__fine { margin-top: 12px; font-size: 13px !important; color: #5c5c5c !important; }
+.ed-check .mk-qs--result { background: none; padding: 0; border: 0; color: var(--clr-body-heading); }
+.ed-check .mk-qs__count strong { color: var(--ed-action); }
+
+.ed-course { position: relative; height: calc(100% - 30px); background: #fff; border: 1px solid #ecebe7; display: flex; flex-direction: column; transition: box-shadow 0.3s ease, transform 0.3s ease; }
+.ed-course:hover { box-shadow: 0 24px 60px rgba(30, 30, 30, 0.1); transform: translateY(-4px); }
+.ed-course__img { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+.ed-course__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+.ed-course:hover .ed-course__img img { transform: scale(1.05); }
+.ed-course__mark { width: 100%; height: 100%; display: flex; align-items: flex-end; padding: 20px; background: linear-gradient(140deg, var(--uni), color-mix(in srgb, var(--uni) 55%, #000)); color: #fff; }
+.ed-course__mark strong { font-size: 30px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em; }
+.ed-course__degree { position: absolute; top: 14px; inset-inline-start: 14px; background: #fff; color: var(--clr-body-heading); font-size: 12px; font-weight: 600; padding: 4px 10px; line-height: 1.4; }
+.ed-course .course-content { padding: 22px 22px 18px; display: flex; flex-direction: column; flex: 1; }
+.ed-course .course-content-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.ed-course__uni { width: 30px; height: 30px; border-radius: 50%; background: var(--uni); color: #fff; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.ed-course .course-top-title h6, .ed-course .course-top-title .ed-course__label { margin: 0; font-size: 14px; font-weight: 600; color: #5c5c5c; }
+.ed-course .course-content-title { font-size: 19px; line-height: 1.35; margin-bottom: 14px; }
+.ed-course .course-content-title a:hover { color: var(--ed-action); }
+.ed-course__facts { display: grid; gap: 6px; margin-bottom: 16px !important; font-size: 14px; line-height: 1.4; color: var(--clr-body-heading); }
+.ed-course__facts li { display: flex; justify-content: space-between; gap: 10px; }
+.ed-course__facts li span { color: #6b6b6b; }
+.ed-course .course-content-bottom { margin-top: auto; display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid #ecebe7; padding-top: 14px; }
+.ed-course .course-bottom-info span { font-size: 13px; color: #6b6b6b; }
+.ed-course .course-bottom-price span { font-size: 20px; font-weight: 700; color: var(--ed-action); }
+.ed-course--skeleton { min-height: 420px; background: linear-gradient(90deg, #f3f2ee 25%, #faf9f6 50%, #f3f2ee 75%); background-size: 200% 100%; animation: ed-shimmer 1.4s infinite; }
+@keyframes ed-shimmer { to { background-position: -200% 0; } }
+.ed-fine { font-size: 13px !important; line-height: 1.6 !important; color: #6b6b6b !important; max-width: 820px; }
+
+// Cost — h6_tuition
+.ed-cost { padding-top: 100px; padding-bottom: 60px; background: #fff; }
+.ed-cost__icon { width: 52px; color: var(--ed-action); margin-bottom: 22px; }
+.ed-cost .h6_tuition-content a { color: var(--ed-action); display: inline-flex; align-items: center; gap: 8px; font-weight: 600; border-bottom: 1px solid currentColor; }
+.ed-cost .h6_tuition-item-title { margin-bottom: 4px; }
+.ed-cost__prog { font-size: 14px !important; line-height: 1.5 !important; color: rgba(255, 255, 255, 0.72) !important; margin-bottom: 18px !important; }
+.h6_tuition-light .ed-cost__prog { color: #5c5c5c !important; }
+.ed-cost .h6_tuition-item-list li { gap: 12px; }
+.ed-cost .h6_tuition-item-list li span { white-space: nowrap; }
+.ed-cost__src { font-size: 12px !important; line-height: 1.5 !important; margin-top: 10px; color: rgba(255, 255, 255, 0.62) !important; }
+.h6_tuition-light .ed-cost__src { color: #6b6b6b !important; }
+.ed-cost .h6_tuition-item-date { color: #ffb37a; }
+.ed-cost .h6_tuition-light .h6_tuition-item-date { color: var(--ed-action); }
+
+// Journey — h6 event date blocks (Eduan purple → Hangyul charcoal / tangerine)
+.ed-journey { padding-top: 110px; padding-bottom: 110px; background: #f5f3ef !important; }
+.h6_event-area .h5_event-item-date { background: #282828 !important; }
+.h6_event-area .h5_event-item:nth-child(2n) .h5_event-item-date { background: var(--ed-action) !important; }
+.ed-journey__n { display: block; font-size: 48px; font-weight: 700; line-height: 1; color: #fff; margin-bottom: 6px; }
+.ed-journey .h5_event-item { height: auto; }
+.ed-journey .h5_event-item-content { padding: 26px 36px; }
+.ed-journey .h5_event-item-date { min-width: 130px; }
+.ed-journey .h5_event-item-content ul { margin-bottom: 6px !important; }
+.ed-journey .h5_event-item-content ul li span { font-size: 14px; color: var(--ed-action); font-weight: 600; }
+.ed-journey .h5_event-item-content h5, .ed-journey .h5_event-item-content h3 { font-size: 22px; margin-bottom: 6px; }
+.ed-journey__text { font-size: 15px !important; line-height: 24px !important; }
+
+// Trust — h7 outline counters (only sourced or live numbers)
+.ed-trust { padding-top: 110px; padding-bottom: 70px; }
+.ed-trust .h7_counter-item { justify-content: center; text-align: center; }
+.ed-trust .h7_counter-info-title { font-size: clamp(44px, 5.2vw, 76px); justify-content: center; margin-bottom: 10px; letter-spacing: -0.02em; }
+.ed-trust .h7_counter-info-text { display: block; font-size: 15px; line-height: 1.5; max-width: 260px; margin-inline: auto; }
+.ed-cite { color: var(--ed-action) !important; text-decoration: underline !important; text-underline-offset: 3px; }
+.ed-trust__points { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px; margin-top: 50px !important; padding-top: 40px !important; border-top: 1px solid #e6e3dd; }
+.ed-trust__points li { display: flex; flex-direction: column; gap: 10px; }
+.ed-trust__points svg { width: 26px; height: 26px; color: var(--ed-action); }
+.ed-trust__points h3 { font-size: 17px; line-height: 1.35; margin: 0; font-weight: 600; }
+.ed-trust__points p { font-size: 14px; line-height: 22px; }
+.ed-textlink { color: var(--ed-action); font-weight: 600; display: inline-flex; align-items: center; gap: 8px; border-bottom: 1px solid currentColor; }
+
+// Inner pages: Eduan breadcrumb band under the transparent header
+.ed[data-page='inner'] .ed-main { padding-top: 0; }
+
+// ------------------------------------------------------------------ 3. Responsive (Eduan breakpoints)
+@media (max-width: 1199.98px) {
+  .ed-trust__points { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 991.98px) {
+  .ed-check { padding-bottom: 60px; }
+}
+@media (max-width: 767.98px) {
+  :where(.ed) h2 { font-size: 32px; }
+  .section-area-6 .section-title { font-size: 32px; }
+  .ed-check { padding-top: 70px; }
+  // Eduan desktop rows → horizontal snap rows on phones (instead of 8 stacked cards)
+  .ed-scroll-row { display: flex; flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: -12px; padding-inline: 12px; scrollbar-width: none; gap: 0; }
+  .ed-scroll-row::-webkit-scrollbar { display: none; }
+  .ed-scroll-row__item { flex: 0 0 82%; max-width: 82%; scroll-snap-align: start; }
+.ed-cost, .ed-trust { padding-top: 70px; padding-bottom: 40px; }
+  .ed-journey { padding-top: 70px; padding-bottom: 70px; }
+  .ed-journey__n { font-size: 34px; }
+  .ed-trust__points { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .ed-trust__points li { flex-direction: row; gap: 14px; }
+  .ed-cost .h6_tuition-content p { font-size: 15px; line-height: 24px; }
+  .h6_tuition-wrap { display: flex; flex-wrap: nowrap !important; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px; margin-inline: -12px; padding-inline: 12px; scrollbar-width: none; }
+  .h6_tuition-wrap > .h6_tuition-item { flex: 0 0 86%; scroll-snap-align: start; margin: 0 !important; }
+  .ed-journey .h5_event-item { display: flex !important; flex-direction: row !important; }
+  .ed-journey .h5_event-item-date { min-width: 84px; width: 84px; padding: 18px 8px !important; }
+  .ed-journey__n { font-size: 30px; }
+  .ed-journey .h5_event-item-date p { font-size: 12px !important; line-height: 1.3 !important; }
+  .ed-journey .h5_event-item-content { padding: 18px 18px; }
+  .ed-journey .h5_event-item-content h5, .ed-journey .h5_event-item-content h3 { font-size: 18px; }
+  .ed-trust__points p { display: none; }
+  .ed-trust__points { gap: 12px; }
+  .ed-trust__points h3 { font-size: 15px; }
+
+}
+
+// Tall scripts — display headings need room (Burmese, Nepali, Arabic…)
+:lang(my) .ed, :lang(ne) .ed, :lang(si) .ed, :lang(th) .ed, :lang(km) .ed, :lang(lo) .ed, :lang(ar) .ed, :lang(fa) .ed, :lang(ur) .ed, :lang(hi) .ed, :lang(bn) .ed {
+.section-title { line-height: 1.35; letter-spacing: 0; }
+}
+
+// ================================================================== Inner pages (V7)
+// Breadcrumb band — Eduan breadcrumb-area proportions on a Hangyul photograph with the h6 banner gradient
+.ed-crumbband { position: relative; isolation: isolate; min-height: 430px; padding: 150px 0 70px; align-items: flex-end; overflow: hidden; }
+.ed-crumbband::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(12, 10, 8, 0.78) 0%, rgba(12, 10, 8, 0.55) 55%, rgba(12, 10, 8, 0.82) 100%); }
+.ed-crumbband__img, .ed-crumbband picture { position: absolute !important; inset: 0; width: 100% !important; height: 100% !important; object-fit: cover; z-index: -2; }
+.ed-crumbband .breadcrumb-content { max-width: 880px; margin-inline: auto; }
+.ed-crumbband--start .breadcrumb-content { text-align: start; margin-inline: 0; }
+.ed-crumbband .breadcrumb-title { color: #fff; font-size: clamp(36px, 4.6vw, 60px); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 14px; }
+.ed-crumbband__eyebrow { display: inline-block; color: #ffb37a; font-weight: 600; font-size: 15px; margin-bottom: 12px; }
+.ed-crumbband__lede { color: rgba(255, 255, 255, 0.86) !important; font-size: 18px !important; line-height: 1.6 !important; max-width: 720px; margin: 0 auto 22px !important; }
+.ed-crumbband--start .ed-crumbband__lede { margin-inline: 0 !important; }
+.ed-crumbband__actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 22px; }
+.ed-crumbband .breadcrumb-list { margin-top: 18px; }
+.ed-crumbband--start .breadcrumb-list { justify-content: flex-start; }
+.ed-crumbband .breadcrumb-list a { color: rgba(255, 255, 255, 0.8); }
+.ed-crumbband .breadcrumb-list a::after { margin-inline-start: 10px; margin-left: unset; }
+.ed-crumbband .breadcrumb-list span { color: #ffb37a; }
+
+// Search inside the band
+.ed-search { position: relative; display: flex; max-width: 640px; margin: 8px auto 0; background: #fff; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25); }
+.ed-search__icon { position: absolute; inset-inline-start: 18px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: #6b6b6b; }
+.ed-search input { flex: 1; min-width: 0; height: 60px; border: 0; padding-inline: 50px 16px; font-size: 16px; color: var(--clr-body-heading); background: transparent; }
+.ed-search input:focus { outline: none; }
+.ed-search:focus-within { outline: 2px solid #ffb37a; outline-offset: 2px; }
+.ed-search .theme-btn { padding-inline: 28px; }
+
+// Discovery (course.html archive)
+.ed-disc { padding-top: 70px; padding-bottom: 60px; }
+.ed-disc .mk-results__bar { background: #f5f3ef; padding: 14px 18px; }
+.ed-disc .mk-results__count { font-size: 15px; color: var(--clr-body-heading); font-weight: 500; }
+.ed-disc .mk-results__side { background: #f5f3ef; padding: 26px 22px; }
+.ed-disc .mk-results__sidehead h2 { font-size: 20px; margin: 0; }
+.ed-disc .hg-select, .ed-disc .hg-input { border-radius: 0; border-color: #e3e1dc; min-height: 46px; background-color: #fff; }
+.ed-disc .hg-seg { border-radius: 0; background: #fff; }
+.ed-disc .hg-seg button { border-radius: 0; }
+.ed-disc .hg-seg button[aria-pressed='true'] { background: var(--clr-body-heading); color: #fff; }
+.ed-grid { row-gap: 0; }
+.ed-grid > li { display: flex; }
+.ed-grid > li > .ed-course { width: 100%; }
+.ed-course__ko { font-size: 14px !important; color: #6b6b6b !important; margin: -8px 0 12px !important; }
+.ed-pager { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 20px; }
+.ed-pager .hg-btn { border-radius: 0; min-height: 46px; padding-inline: 18px; }
+
+// Sections and heads used by inner pages
+.ed-section { padding-block: 100px; }
+.ed-section--tight { padding-block: 60px; }
+.ed-section--muted, .ed-section--warm { background: #f5f3ef; }
+.ed-section--ink { background: var(--ed-night); }
+.ed-section--ink :where(h2, h3, p, li) { color: #fff; }
+.ed-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px 40px; flex-wrap: wrap; margin-bottom: 44px; }
+.ed-head > .section-area-6 { max-width: 760px; }
+.ed-head--center { justify-content: center; text-align: center; }
+.ed-head--center > .section-area-6 { margin-inline: auto; }
+.section-area-6 .section-subtitle { color: var(--ed-action); background: rgba(204, 78, 0, 0.06); }
+.section-area-6 .section-subtitle::before { background: var(--ed-action); }
+
+// Shared Hangyul buttons in Eduan's square, tangerine language.
+//
+// V19: these must not repaint a **disabled** button. They set `background` directly rather than through
+// `--btn-bg`, they carry two classes so they match `.hg-btn[disabled]`'s specificity exactly, and this file
+// is loaded after `@hangyul/ui`'s — three reasons the shared neutral-disabled rule lost here, and why
+// `/start`'s CTA stayed solid tangerine with tertiary-grey text on it while it was still inactive.
+.ed .hg-btn { border-radius: 0; font-weight: 600; }
+.ed .hg-btn--primary:not([disabled]):not([aria-disabled='true']) { background: var(--ed-action); border-color: var(--ed-action); }
+.ed .hg-btn--primary:hover:not([disabled]):not([aria-disabled='true']) { background: var(--ed-action-hover); border-color: var(--ed-action-hover); }
+.ed .hg-btn[disabled], .ed .hg-btn[aria-disabled='true'] { background: var(--hg-surface-sunken); border-color: var(--hg-border); color: var(--hg-text-tertiary); }
+.ed .hg-btn--lg { min-height: 54px; padding-inline: 26px; }
+
+@media (max-width: 767.98px) {
+  .ed-crumbband { min-height: 0; padding: 120px 0 44px; }
+  .ed-crumbband__lede { font-size: 16px !important; }
+  .ed-search input { height: 52px; }
+  .ed-search .theme-btn { padding-inline: 16px; }
+  .ed-section { padding-block: 64px; }
+  .ed-disc { padding-top: 32px; }
+  .ed-disc .mk-results__bar { padding: 10px 12px; }
+}
+
+// Program detail — Eduan course-details
+.ed-pd__area { padding-top: 70px; padding-bottom: 50px; }
+.ed-pd__top { margin-bottom: 30px !important; }
+.ed-pd .course_details-meta { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding-bottom: 22px; border-bottom: 1px solid #ecebe7; }
+.ed-pd .course_details-meta-left { display: flex; flex-wrap: wrap; gap: 18px 36px; align-items: center; }
+.ed-pd .course_details-author { display: flex; align-items: center; gap: 12px; }
+.ed-pd__mark { width: 44px; height: 44px; font-size: 14px; }
+.ed-pd :is(.course_details-author-info, .course_details-category) span { display: block; font-size: 13px; color: #6b6b6b; line-height: 1.4; }
+.ed-pd :is(.course_details-author-info, .course_details-category) h5 { font-size: 16px; margin: 0; font-weight: 600; }
+.ed-pd__switch { margin-top: 22px; max-width: 520px; }
+.ed-pd__switch > span { font-size: 13px; font-weight: 600; color: var(--clr-body-heading); }
+.ed-pd__nav { position: sticky; top: 74px; z-index: 5; background: #fff; padding: 10px 0; margin-bottom: 30px; border-bottom: 1px solid #ecebe7; }
+.ed-pd__nav .nav { flex-wrap: nowrap; overflow-x: auto; gap: 6px; scrollbar-width: none; }
+.ed-pd__nav .nav-link { white-space: nowrap; border-radius: 0; color: var(--clr-body-heading); font-weight: 500; padding: 8px 14px; background: #f5f3ef; }
+.ed-pd__nav .nav-link:hover, .ed-pd__nav .nav-link:focus-visible { background: var(--ed-action); color: #fff; }
+.ed-pd__block { scroll-margin-top: 150px; padding-bottom: 44px; margin-bottom: 44px; border-bottom: 1px solid #ecebe7; }
+.ed-pd__block:last-child { border-bottom: 0; }
+.ed-pd .course_details-content-title { font-size: 26px; margin-bottom: 10px; }
+.ed-pd__sub { font-size: 15px !important; margin-bottom: 20px !important; }
+.ed-pd__h3 { font-size: 19px; margin: 30px 0 14px; }
+.ed-pd__checks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px; margin-bottom: 24px !important; }
+.ed-pd__checks li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; line-height: 1.5; color: var(--clr-body-heading); }
+.ed-pd__checks svg { width: 18px; height: 18px; margin-top: 3px; color: var(--ed-action); flex: none; }
+.ed-pd__checks strong { display: block; font-weight: 600; font-size: 13px; color: #6b6b6b; }
+.ed-pd__fitcta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 26px; }
+.ed-pd__dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 30px; margin: 0; }
+.ed-pd__dl > div { display: flex; justify-content: space-between; gap: 14px; padding: 12px 0; border-bottom: 1px dashed #e3e0d9; font-size: 15px; }
+.ed-pd__dl dt { font-weight: 500; color: #6b6b6b; }
+.ed-pd__dl dd { margin: 0; text-align: end; font-weight: 600; color: var(--clr-body-heading); }
+.ed-pd__note { font-size: 14px !important; margin-top: 14px !important; background: #f5f3ef; padding: 12px 16px; }
+.ed-pd__intakes { display: grid; gap: 12px; }
+.ed-pd__intakes li { display: flex; align-items: stretch; gap: 18px; background: #fff; box-shadow: 0 10px 40px rgba(30, 30, 30, 0.08); }
+.ed-pd__intake-date { min-width: 96px; background: #282828; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 14px 10px; }
+.ed-pd__intakes li.is-open .ed-pd__intake-date { background: var(--ed-action); }
+.ed-pd__intake-date strong { font-size: 32px; line-height: 1; font-weight: 700; }
+.ed-pd__intake-date span { font-size: 13px; margin-top: 6px; }
+.ed-pd__intake-body { flex: 1; padding: 14px 0; }
+.ed-pd__intake-body h4 { font-size: 17px; margin-bottom: 4px; }
+.ed-pd__intake-body p { font-size: 14px !important; line-height: 1.5 !important; }
+.ed-pd__state { align-self: center; margin-inline-end: 18px; font-size: 13px; font-weight: 600; color: var(--clr-body-heading); white-space: nowrap; }
+.ed-pd__docs { display: grid; gap: 0; }
+.ed-pd__docs li { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px dashed #e3e0d9; }
+.ed-pd__docs li > svg { width: 20px; height: 20px; color: var(--ed-action); margin-top: 3px; flex: none; }
+.ed-pd__docs li > div { flex: 1; min-width: 0; }
+.ed-pd__docs strong { color: var(--clr-body-heading); font-weight: 600; }
+.ed-pd__docs p { font-size: 14px !important; line-height: 1.5 !important; }
+.ed-pd__doctags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+.ed-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; padding: 3px 9px; background: #f5f3ef; color: var(--clr-body-heading); white-space: nowrap; }
+.ed-tag--warn { background: #fff1e6; color: #8a3a00; }
+.ed-pd__cost { width: 100%; max-width: 560px; }
+.ed-pd__schol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.ed-pd__schol li { padding: 20px; background: #f5f3ef; }
+.ed-pd__schol h4, .ed-pd__schol .ed-pd__sub { font-size: 17px; margin: 10px 0 6px; }
+.ed-pd__schol p { font-size: 14px !important; line-height: 1.55 !important; }
+.ed-pd__coverage { font-weight: 600; color: var(--ed-action) !important; }
+.ed-pd__meta { font-size: 13px !important; color: #6b6b6b !important; margin-top: 6px !important; }
+.ed-pd__dorms li { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px dashed #e3e0d9; }
+.ed-pd__dorms svg { width: 22px; height: 22px; color: var(--ed-action); flex: none; margin-top: 2px; }
+.ed-pd__dorms h4, .ed-pd__dorms .ed-pd__sub { font-size: 17px; margin-bottom: 4px; }
+.ed-pd__dorms p { font-size: 14px !important; line-height: 1.55 !important; }
+.ed-pd__campusimg { margin-bottom: 20px; }
+.ed-pd__campusimg img { aspect-ratio: 16 / 9; object-fit: cover; }
+.ed-pd__partner { display: flex; gap: 14px; margin-top: 22px; padding: 20px; background: #f5f3ef; }
+.ed-pd__partner > svg { width: 24px; height: 24px; color: var(--ed-action); flex: none; }
+.ed-pd__sources { display: grid; gap: 10px; }
+.ed-pd__sources li { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; font-size: 15px; }
+.ed-pd__sources a { color: var(--ed-action); font-weight: 600; display: inline-flex; gap: 4px; align-items: center; }
+.ed-pd__sources li > span:first-child { color: #6b6b6b; min-width: 190px; }
+// sticky decision box (course_details-sidebar)
+.ed-pd__side { position: sticky; top: 90px; background: #fff; box-shadow: 0 24px 70px rgba(30, 30, 30, 0.12); margin-bottom: 30px; }
+.ed-pd .course_details-price { padding: 26px 28px 20px; background: var(--ed-night); color: #fff; }
+.ed-pd .course_details-price h2 { color: #fff; font-size: 40px; margin: 4px 0 4px; letter-spacing: -0.02em; }
+.ed-pd__pricelabel { display: block; font-size: 14px; font-weight: 600; color: #ffb37a; }
+.ed-pd__pricenote { display: block; font-size: 13px; color: rgba(255, 255, 255, 0.72); line-height: 1.5; }
+.ed-pd .course_details-list { padding: 10px 28px 26px; }
+.ed-pd .course_details-list ul li { display: flex; justify-content: space-between; gap: 14px; padding: 12px 0; border-bottom: 1px solid #f0eeea; font-size: 15px; }
+.ed-pd .course_details-list ul li span:first-child { color: #6b6b6b; }
+.ed-pd .course_details-list ul li span:last-child { font-weight: 600; color: var(--clr-body-heading); text-align: end; }
+.ed-pd .course_details-sidebar-btn { margin-top: 20px; }
+.ed-pd__ctanote { text-align: center; font-size: 13px !important; color: #6b6b6b !important; margin-top: 10px !important; }
+.ed-pd__helper { padding: 24px 26px; background: #f5f3ef; }
+.ed-pd__helper-title .section-title { font-size: 19px !important; line-height: 1.35; margin-bottom: 12px !important; }
+.ed-pd__helper ul { display: grid; gap: 8px; }
+.ed-pd__helper li { display: flex; gap: 8px; font-size: 14px; line-height: 1.5; color: var(--clr-body-heading); }
+.ed-pd__helper li svg { color: var(--ed-action); flex: none; margin-top: 3px; }
+@media (max-width: 991.98px) {
+  .ed-pd__side { position: static; }
+  .ed-pd .col-lg-4 { order: -1; }
+}
+@media (max-width: 767.98px) {
+  .ed-pd__checks, .ed-pd__dl, .ed-pd__schol { grid-template-columns: minmax(0, 1fr); }
+  .ed-pd__nav { top: 62px; }
+  .ed-pd .course_details-content-title { font-size: 22px; }
+  .ed-pd__helper { display: none; }
+  .ed-pd__intake-date { min-width: 76px; }
+  .ed-pd__state { display: none; }
+}
+// course-details pills as one horizontal row (Eduan lays its 4 tab buttons out as fixed-width blocks)
+.ed-pd__nav .nav { display: flex !important; flex-direction: row !important; grid-template-columns: none !important; }
+.ed-pd__nav .nav .nav-item { width: auto !important; flex: none; margin: 0 !important; }
+.ed-pd__nav .nav .nav-link { width: auto !important; height: auto !important; border: 0 !important; padding: 9px 16px !important; font-size: 15px; line-height: 1.3; }
+// tuition panel outside .ed-cost: brand date colour + visible total on the dark panel
+.h6_tuition-item .h6_tuition-item-date { color: #ffb37a; }
+.h6_tuition-light .h6_tuition-item-date { color: var(--ed-action); }
+.h6_tuition-item:not(.h6_tuition-light) .h6_tuition-item-total span { color: #fff; }
+.ed-crumbband__meta, .ed-crumbband__meta * { color: rgba(255,255,255,.82) !important; } .ed-crumbband__meta { display: flex; justify-content: flex-start; margin-top: 4px; font-size: 14px; }
+
+// Services / plans — Eduan price.html language (square cards, deep shadow, featured plan on the night field)
+.ed .mk-plan { border-radius: 0; border: 0; box-shadow: 0 20px 60px rgba(30, 30, 30, 0.08); padding: 34px 30px; background: #fff; }
+.ed .mk-plan__name { font-size: 24px; font-weight: 700; color: var(--clr-body-heading); }
+.ed .mk-plan__price { font-size: 30px; font-weight: 700; color: var(--ed-action); letter-spacing: -0.02em; margin: 6px 0 14px; padding-bottom: 18px; border-bottom: 1px solid #ecebe7; }
+.ed .mk-plan--featured { background: var(--ed-night); transform: translateY(-14px); box-shadow: 0 30px 70px rgba(22, 19, 15, 0.35); }
+.ed .mk-plan--featured :is(.mk-plan__name, .mk-plan__for, .mk-plan__list li) { color: #fff; }
+.ed .mk-plan--featured .mk-plan__price { color: #ffb37a; border-color: rgba(255, 255, 255, 0.14); }
+.ed .mk-plan--featured .mk-plan__list svg { color: #ffb37a; }
+.ed .mk-plan__flag { border-radius: 0; background: var(--ed-action) !important; color: #fff !important; }
+.ed .mk-plan .hg-btn { border-radius: 0; min-height: 50px; }
+.ed .mk-illus, .ed .mk-split__visual > * { border-radius: 0; }
+.ed .mk-faq__item { border-radius: 0; }
+.ed .mk-faq__item summary { font-weight: 600; font-size: 17px; }
+@media (max-width: 991.98px) { .ed .mk-plan--featured { transform: none; } }
+// Eduan styles the subtitle chip under `.section-area`; the h6 variant (`section-area-6`) needs the same anatomy.
+.section-area-6 .section-subtitle { display: inline-block; position: relative; font-size: 15px; font-weight: 600; line-height: 1; padding: 10px 22px; margin-bottom: 14px; }
+.section-area-6 .section-subtitle::before { content: ''; position: absolute; inset-inline-start: 0; top: 0; width: 2px; height: 100%; }
+.ed-journey .h5_event-item { display: flex; align-items: stretch; }
+.ed-journey .h5_event-item-date { align-self: stretch; height: auto !important; display: flex; flex-direction: column; justify-content: center; }
+// AA: tangerine as *text* on tinted fields uses the darker action shade (#A83F00: 5.2:1 on #F3E9E1, 5.9:1 on #F5F3EF)
+.section-area-6 .section-subtitle, .ed-pd__coverage, .ed-journey .h5_event-item-content ul li span { color: var(--ed-action-hover) !important; }
+.h6_tuition-light .h6_tuition-item-date, .ed-cost .h6_tuition-light .h6_tuition-item-date { color: var(--ed-action-hover) !important; }
+
+// ================================================================== V8 home
+// "Hangyul at work" — concrete product moments, Eduan card anatomy (square, deep shadow, tangerine top rule)
+.ed-work { padding-top: 110px; padding-bottom: 80px; background: #fff; }
+.ed-work__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin: 0; padding: 0; list-style: none; }
+.ed-moment { display: flex; flex-direction: column; background: #fff; border-top: 3px solid var(--ed-action); box-shadow: 0 20px 60px rgba(30, 30, 30, 0.08); padding: 26px 24px 24px; min-width: 0; }
+.ed-moment__head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.ed-moment__badge { width: 40px; height: 40px; flex: none; display: inline-flex; align-items: center; justify-content: center; background: #fff1e6; color: var(--ed-action-hover); }
+.ed-moment__badge svg { width: 20px; height: 20px; }
+.ed-moment__title { font-size: 18px; line-height: 1.3; margin: 0; }
+.ed-moment__text { font-size: 14px !important; line-height: 22px !important; margin-bottom: 18px !important; }
+.ed-moment__ui { margin-top: auto; background: #f7f6f2; padding: 16px; font-size: 13.5px; line-height: 1.45; color: var(--clr-body-heading); }
+.ed-moment__ctx { display: flex; flex-direction: column; margin-bottom: 10px !important; font-size: 13px !important; line-height: 1.4 !important; }
+.ed-moment__ctx strong { color: var(--clr-body-heading); font-size: 14px; }
+.ed-moment__ui ul { display: grid; gap: 8px; }
+.ed-moment__line { display: grid; grid-template-columns: 18px 1fr; column-gap: 8px; align-items: start; }
+.ed-moment__icon svg { width: 16px; height: 16px; margin-top: 2px; }
+.ed-moment__line[data-tone='ok'] .ed-moment__icon { color: #11795e; }
+.ed-moment__line[data-tone='warn'] .ed-moment__icon { color: #8a5a00; }
+.ed-moment__line[data-tone='next'] .ed-moment__icon { color: var(--ed-action-hover); }
+.ed-moment__label { font-weight: 600; }
+.ed-moment__value { grid-column: 2; color: #5c5c5c; font-size: 12.5px; }
+.ed-moment__line[data-tone='next'] .ed-moment__value { color: var(--ed-action-hover); font-weight: 600; }
+.ed-moment__essay { font-family: Georgia, 'Times New Roman', serif; font-size: 15px !important; line-height: 1.6 !important; color: var(--clr-body-heading) !important; margin-bottom: 12px !important; }
+.ed-moment__essay mark { background: #ffe3cc; color: inherit; padding: 0 2px; }
+.ed-moment__comment { display: flex; flex-direction: column; gap: 2px; border-inline-start: 3px solid var(--ed-action); padding: 6px 0 6px 12px; padding-inline: 12px 0; background: #fff; }
+.ed-moment__comment strong { font-size: 12px; color: var(--ed-action-hover); }
+
+// The first weeks in Korea — beside the journey date blocks (replaces the V7 life triptych)
+.ed-weeks { height: 100%; background: var(--ed-night); color: #fff; display: flex; flex-direction: column; }
+.ed-weeks__img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; height: auto !important; }
+.ed-weeks__body { padding: 28px 30px 30px; display: flex; flex-direction: column; gap: 14px; }
+.ed-weeks__title { color: #fff; font-size: 24px; line-height: 1.25; margin: 0; }
+.ed-weeks__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 16px; }
+.ed-weeks__list li { display: flex; gap: 8px; align-items: center; font-size: 15px; color: rgba(255, 255, 255, 0.88); }
+.ed-weeks__list svg { width: 16px; height: 16px; color: #ffb37a; flex: none; }
+.ed-weeks .ed-textlink { color: #ffb37a; align-self: flex-start; }
+
+// Quick check: remembered answers + phone steps
+.ed-check__remembered { font-size: 13px !important; line-height: 1.5 !important; color: #5c5c5c !important; margin-bottom: 12px !important; }
+.ed-check__remembered button { border: 0; background: none; padding: 0; color: var(--ed-action-hover); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.ed-check__step { font-size: 13px !important; font-weight: 600; color: var(--ed-action-hover) !important; margin-bottom: 8px !important; }
+.ed-check__nav { display: flex; gap: 10px; align-items: stretch; }
+.ed-check__back { border: 1px solid #e3e1dc; background: #fff; padding: 0 18px; font-weight: 600; color: var(--clr-body-heading); }
+.ed-check__nav .theme-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+@media (max-width: 1199.98px) { .ed-work__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 767.98px) {
+  .ed-work { padding-top: 64px; padding-bottom: 40px; }
+  .ed-work__grid { display: flex; gap: 14px; }
+  .ed-moment { flex: 0 0 84%; }
+  .ed-weeks { margin-top: 18px; }
+  .ed-weeks__img { aspect-ratio: 21 / 9; }
+  .ed-weeks__body { padding: 22px 20px; }
+  .ed-weeks__title { font-size: 20px; }
+}
+
+// V8: discovery results on phones — compact rows (thumbnail + facts) instead of full photo cards (11.4 → ≈ 5 screens).
+@media (max-width: 575.98px) {
+  .ed-disc .ed-grid > li { margin-block-end: 12px; }
+  .ed-disc .ed-course { display: grid; grid-template-columns: 88px minmax(0, 1fr); height: auto; margin-block-end: 0 !important; }
+  .ed-disc .ed-course__img { aspect-ratio: auto; min-height: 100%; }
+  .ed-disc .ed-course__mark { padding: 8px; }
+  .ed-disc .ed-course__mark strong { font-size: 14px; }
+  .ed-disc .ed-course__degree { top: 6px; inset-inline-start: 6px; font-size: 10px; padding: 2px 6px; }
+  .ed-disc .ed-course .course-content { padding: 12px 14px; }
+  .ed-disc .ed-course .course-content-top { margin-block-end: 4px; padding-block: 0; }
+  .ed-disc .ed-course .course-content-bottom { padding-block-end: 0; }
+  .ed-disc .ed-course__uni { display: none; }
+  .ed-disc .ed-course .course-top-title h6, .ed-disc .ed-course .course-top-title .ed-course__label { font-size: 13px; }
+  .ed-disc .ed-course .course-content-title { font-size: 16px; margin-block-end: 8px; }
+  .ed-disc .ed-course__facts { gap: 2px; margin-block-end: 8px !important; font-size: 13px; }
+  .ed-disc .ed-course .course-content-bottom { padding-block-start: 8px; margin-block-start: 0; }
+  .ed-disc .ed-course .course-bottom-price span { font-size: 16px; }
+}
+
+// ---------------------------------------------------------------- V9 Hangyul-native section anatomy (REPORT §55 #26)
+// Eduan's bordered eyebrow pill above every heading becomes a quiet label led by Hangyul's tangerine sun dot;
+// the outlined (stroked) counter numerals become solid ink numbers.
+.ed .section-area-6 .section-subtitle {
+  display: inline-flex; align-items: center; gap: 8px; padding: 0; margin-bottom: 12px;
+  background: none; border: 0; border-radius: 0; color: #a83f00; font-size: 14px; font-weight: 600; letter-spacing: 0;
+}
+.ed .section-area-6 .section-subtitle::before {
+  content: ''; position: static; display: inline-block; flex: none; width: 10px; height: 10px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ff8a3d, #ff6700); border: 0; transform: none;
+}
+.ed .section-area-6.ed-light .section-subtitle { color: #ffb27a; }
+.ed-trust .h7_counter-info-title, .ed-trust .h7_counter-info-title * {
+  -webkit-text-stroke: 0 !important; -webkit-text-fill-color: currentColor !important; color: #181a1f; font-weight: 700;
+}
+
+/* V10: the page-title facts (university · degree · language) are <p class="ed-pd__fact"> now, not <h5>, and the
+   scholarship / dormitory / partnership names are <h3 class="ed-pd__sub">, not <h4> — the outline skipped three
+   levels under the <h1>. Appearance is unchanged. */
+.ed-pd__fact { margin: 0; font-size: 17px; font-weight: 600; line-height: 1.3; color: inherit; }
+.ed-pd__sub { font-size: 17px; font-weight: 600; line-height: 1.35; }

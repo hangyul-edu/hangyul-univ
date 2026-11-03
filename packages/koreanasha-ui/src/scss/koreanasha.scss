@@ -1,0 +1,1092 @@
+// ---------------------------------------------------------------------------------------------------------------
+// Koreanasha layer (V10) — the Hangyul-themed port of what `template-koreanasha` added on top of Eduan.
+//
+// Koreanasha ships as one static page whose `main.css` is Eduan's compiled stylesheet with ~500 hand-written lines
+// prepended and one media-query block appended. Those lines are the whole reason the design reads better than our
+// V7–V9 Eduan build, and they existed only as compiled CSS — never as source. This file is that layer, re-authored
+// and re-themed. Every rule below names the Koreanasha original it comes from.
+//
+// Re-theming (REPORT §68.2): #1C49FF → --hg-primary · #145CE6 → --hg-primary-text · #E8EFFD → #FFF4EC ·
+// Roboto → Pretendard · gradient headline dropped · phone step-down added to the band rhythm.
+// ---------------------------------------------------------------------------------------------------------------
+
+.kn {
+  // Koreanasha `pt-100 pb-90`. The original has no phone step-down; 100 px of air above a 320 px-wide heading is
+  // most of a viewport, so ours scales.
+  --kn-band: 56px;
+  --kn-gutter: 16px;
+  --kn-max: 1200px;
+  --kn-accent: var(--hg-primary);     // was #1C49FF
+  --kn-accent-text: var(--hg-primary-text); // was #145CE6 (`.text-blue`)
+  --kn-card-radius: 20px;             // main.css `.h2_blog-content`
+  --kn-photo-radius: 16px;            // was 15px (`.about-img img`)
+  --kn-header-inset: 12px;            // was 30px
+  --kn-header-top: 12px;              // was 40px
+
+  // ---------------------------------------------------------------------------------------- page-top rhythm
+  //
+  // The header is `position: fixed`, so it occupies no space in the flow and **every** page that starts with
+  // type instead of a photograph has to reserve the pill's footprint itself. Three pages did that by hand with
+  // `--mk-headclear: calc(var(--kn-header-top) + 68px)` — a literal 68 that is the *desktop* pill's height, so
+  // the number was 12 px too large below 1200 px and 2 px too small above it — and `/start` did not do it at
+  // all, which put its `<h1>` 14 px *behind* the pill on every phone (V19 §191; the owner's screenshot).
+  //
+  // So the footprint is derived once, here, from the two variables that actually position the pill, and
+  // nothing downstream is allowed to restate it:
+  //
+  //   --kn-header-h      the pill's own height  = `.kn-header__inner` min-height
+  //   --kn-header-space  its full footprint     = top inset + height + its 1 px border, top and bottom
+  //   --kn-page-breathe  the intentional air between that footprint and the first heading
+  //   --kn-page-top      what a first-in-flow band actually pads by
+  //
+  // `--kn-page-breathe` is the owner's optical target, measured after the pill rather than from the viewport
+  // edge: phones 28–40, tablets 36–52, desktops 48–72. It steps rather than scaling continuously, because the
+  // pill's own height steps and a `vw` curve crossing that step produces a gap that shrinks as the window
+  // grows — which is precisely what `--mk-headclear` was doing between 1024 px (41 px) and 1280 px (30 px).
+  --kn-header-h: 56px;
+  --kn-header-space: calc(var(--kn-header-top) + var(--kn-header-h) + 2px);
+  --kn-page-breathe: 32px;
+  --kn-page-top: calc(var(--kn-header-space) + var(--kn-page-breathe));
+
+  // V14 surface system — see the note under Bands. The page is WHITE; the only warmth is the short bridge
+  // out of the hero, and `--kn-warm` is deliberately almost invisible (2 % saturation).
+  --kn-page: #FFFFFF;
+  --kn-warm: #FFF8F3;
+  --kn-bridge: clamp(96px, 11vw, 160px);
+
+  // One page surface for the whole site (see the surface-system note under Bands). Bands are transparent and
+  // sit on this; only the university canvas and the closing band paint their own.
+  background: var(--kn-page, #FFFFFF);
+  color: var(--hg-text);
+}
+
+// 576 px is where the pill stops being the full width of the screen and the page stops feeling like a card.
+@media (min-width: 576px) { .kn { --kn-page-breathe: 38px; } }
+@media (min-width: 768px) {
+  .kn { --kn-band: 72px; --kn-gutter: 24px; --kn-header-inset: 20px; --kn-header-top: 20px; --kn-page-breathe: 44px; }
+}
+@media (min-width: 1200px) {
+  // `--kn-header-h` steps with `.kn-header__inner`'s min-height at exactly this breakpoint; the two must not
+  // be allowed to drift, and `qa:v19` asserts they still agree.
+  .kn { --kn-band: 100px; --kn-gutter: 32px; --kn-header-inset: 30px; --kn-header-top: 28px; --kn-header-h: 68px; --kn-page-breathe: 60px; }
+}
+
+.kn-container {
+  width: 100%;
+  max-width: calc(var(--kn-max) + var(--kn-gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--kn-gutter);
+}
+.kn-container--narrow { --kn-max: 820px; }
+
+// ---------------------------------------------------------------------------------------------- Header (pill)
+// Koreanasha `main.css:293` — `.header { position: fixed; top: 40px; left: 30px; right: 30px; z-index: 8;
+// background: #fff; border-radius: 60px; border: 1px solid #E5E5E5; box-shadow: 0 0 4px rgba(0,0,0,.25) }`.
+// The 4 px/25 % shadow reads as a hard edge at 1× and banding at 2×; softened.
+
+// ONE rule, no scrolled state — the same geometry at the first paint and at every scroll position, which is
+// exactly what the original does (`main.css:293`, with no `.sticky` variant for this header at any breakpoint).
+// V10 added `.is-stuck { inset: 0 0 auto; border-radius: 0 }` driven by `useStickyHeader(96)`, which turned the
+// pill into a full-width rectangular bar as soon as the hero scrolled away. Both are gone: there is no header
+// state to keep in sync, so the pill cannot drift out of agreement with itself.
+.kn-header {
+  position: fixed;
+  inset: var(--kn-header-top) var(--kn-header-inset) auto;
+  z-index: 40;
+  background: var(--hg-surface);
+  border: 1px solid var(--hg-border);
+  border-radius: 999px;
+  // Two layers, not one (V14 final pass). The pill now travels over the hero photograph *and* over a white
+  // page, and a single broad 18 px halo that reads correctly on a photograph dissolves on white — the pill
+  // starts to look like the top of a second white section rather than an object floating above one.
+  // A tight contact shadow holds the edge on white; the wider, further-offset layer does the lifting on the
+  // photograph. The geometry is untouched.
+  box-shadow:
+    0 1px 2px rgba(24, 26, 31, 0.07),
+    0 10px 28px -10px rgba(24, 26, 31, 0.26);
+}
+
+.kn-header__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--hg-space-4);
+  min-height: 56px;
+  padding-inline: var(--hg-space-5);
+}
+@media (min-width: 1200px) { .kn-header__inner { min-height: 68px; padding-inline: var(--hg-space-8); } }
+
+// Below ~400 px the lockup (124), the account button (107), the burger (42) and the gaps need 349 px inside a
+// 294 px pill — the burger ended up outside it and the menu became unreachable. Everything tightens instead of
+// anything being dropped: the account action is the header's job and the burger is the only way to the nav.
+@media (max-width: 400px) {
+  .kn-header__inner { gap: var(--hg-space-2); padding-inline: var(--hg-space-3); }
+  .kn-header__brand .hg-logo { --hg-logo-h: 24px; }
+  .kn-header__right .kn-btn { padding-inline: 14px; }
+  .kn-header__right .kn-btn .ed-icon { display: none; }   // the arrow is decoration; the label carries it
+  .kn-burger { width: 44px; height: 44px; } // V27: 44-px touch target
+}
+
+// The header action's label is a translated phrase, and some languages need nearly four times the characters
+// Korean does: 내 유학 준비 is 7, "Começar a minha preparação" is 26. At 390 px the Portuguese label pushed the
+// button out of the pill — a layout that worked in the language it was designed in and broke in a quarter of
+// the markets it ships to.
+//
+// Truncating it was tried and rejected: "Começar a minha prepa…" is a worse conversion button than a wide
+// one, and a primary action nobody can read is not an action. The header uses a **short** label instead
+// (`v14.cta.prepareShort` — one or two words in every market) while the hero and the closing band keep the
+// full phrase, which is the right division anyway: a header pill is not the place for a sentence.
+//
+// The cap below is only a backstop for a market whose short form is still long. It never ellipses.
+.kn-header__right .kn-btn { max-width: min(52vw, 280px); }
+
+// A long compound noun — Dutch and German produce plenty — must break rather than push a heading past the
+// viewport at 320 px. `anywhere` rather than `break-word`: only the latter is ignored by `text-wrap: balance`.
+.kn-cta__title, .kn-head__title, .kn-hero__title { overflow-wrap: anywhere; }
+
+.kn-header__brand { display: flex; align-items: center; flex: none; }
+// The lockup is 24–26 px tall, so the home link's hit area was the lockup's height. The link keeps its size and
+// gains the area around it: 44 px fits inside both bars (56 px mobile, 68 px desktop), so nothing moves.
+.kn-header__brand .hg-logo { min-height: 44px; }
+.kn-header__spacer { flex: 1 1 auto; }
+
+.kn-nav > ul { display: flex; align-items: center; gap: var(--hg-space-8); list-style: none; margin: 0; padding: 0; }
+.kn-nav a {
+  display: block;
+  padding: 10px 0;
+  font-size: var(--hg-text-lg);
+  font-weight: var(--hg-weight-medium);
+  color: var(--hg-text);
+  text-decoration: none;
+  position: relative;
+}
+.kn-nav a:hover { color: var(--kn-accent-text); }
+// `.active` underline replaces Eduan's hover-only colour change: a current-page marker that survives hover.
+.kn-nav a.active { color: var(--kn-accent-text); }
+.kn-nav a.active::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--kn-accent);
+}
+
+.kn-header__right { display: flex; align-items: center; gap: var(--hg-space-2); flex: none; }
+.kn-burger {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border: 0; border-radius: 999px; // V27: 44-px touch target
+  background: transparent; color: var(--hg-text); cursor: pointer;
+}
+.kn-burger:hover { background: var(--hg-surface-hover); }
+
+// ------------------------------------------------------------------------------------------------- Buttons
+// Koreanasha `.theme-btn` (h 40, radius 6) overridden by `.btn-blue` (radius 60, #1C49FF). Height raised to 48
+// (56 for the hero) so every control clears the 44 px touch target; the original's 40 px does not.
+
+// V25 (REPORT §311 M1, §317): a soft rectangle, not a pill. Koreanasha's `.btn-blue` radius (60) was carried over in V10
+// and every later pass tuned colour, never shape, until every action on the site was a tag-shaped capsule. The radius,
+// heights and the secondary surface come from `--hg-control-*`, the one action shape all four products now share.
+.kn-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: var(--hg-control-height); padding: 0 22px;
+  border: 1px solid transparent; border-radius: var(--hg-control-radius);
+  font-size: var(--hg-text-lg); font-weight: var(--hg-weight-semibold); line-height: 1; letter-spacing: -0.01em;
+  text-decoration: none; white-space: nowrap; cursor: pointer;
+  transition: background-color var(--hg-motion-fast) var(--hg-motion-easing),
+              color var(--hg-motion-fast) var(--hg-motion-easing),
+              border-color var(--hg-motion-fast) var(--hg-motion-easing),
+              translate var(--hg-motion-fast) var(--hg-motion-easing);
+}
+.kn-btn--lg { min-height: var(--hg-control-height-lg); padding: 0 28px; font-size: var(--hg-text-xl); }
+.kn-btn--sm { min-height: var(--hg-control-height-sm); padding: 0 16px; font-size: var(--hg-text-base); }
+// The forward arrow answers the pointer on every role: it moves 3 px in the reading direction. A press is 1 px down.
+.kn-btn > svg, .kn-btn > .ed-icon { flex: none; transition: translate var(--hg-motion-base) var(--hg-ease-enter); }
+.kn-btn:hover > svg:last-child, .kn-btn:hover > .ed-icon:last-child { translate: 3px 0; }
+[dir='rtl'] .kn-btn:hover > svg:last-child, [dir='rtl'] .kn-btn:hover > .ed-icon:last-child { translate: -3px 0; }
+.kn-btn:active { translate: 0 1px; }
+@media (prefers-reduced-motion: reduce) {
+  .kn-btn, .kn-btn > svg, .kn-btn > .ed-icon { transition: none; }
+  .kn-btn:hover > svg:last-child, .kn-btn:hover > .ed-icon:last-child, .kn-btn:active { translate: none; }
+}
+.kn-btn--block { width: 100%; }
+
+// Four levels, and only four (brief Part 23). A component does not get to decide that it is orange: it picks
+// the level its action occupies in the decision the user is making on that screen, and there is **one**
+// `--primary` per local decision area.
+//
+//   PRIMARY     the conversion action — filled Hangyul tangerine
+//   SECONDARY   a supporting action in the same decision — restrained, never filled with a brand colour
+//   TERTIARY    a way out or a lesser option — text weight, no container
+//   DESTRUCTIVE deletes or cancels something real — see `--danger`
+
+// ---------------------------------------------------------------- PRIMARY SOLID: the one fixed contract
+//
+// **Solid Hangyul tangerine always carries a white label and a white icon — in every state, with no
+// exception** (V20, brief §31–35). This is written as one grouped selector covering rest, `:link`,
+// `:visited`, `:hover`, `:focus`, `:focus-visible` and `:active` rather than as a rest rule plus the two
+// states somebody happened to think of, and the reason is a defect, not a preference.
+//
+// Before V20 the foreground lived on `.kn-btn--primary` (0,1,0) and on `.kn-btn--primary:hover` (0,2,0),
+// and nowhere else. The licensed Eduan template ships a global `a:focus, a:hover { color: inherit }`,
+// which is (0,1,1) — higher than a bare class. So the moment the header's "Get started" anchor took
+// focus, its label inherited the white header pill's near-black text and the button rendered as solid
+// tangerine with #181A1F on it, at 2.4:1. `:hover` survived only because a hover rule existed.
+// §215.2 has the full cascade. The template reset is now scoped to `:where(.ed)`, and this rule is the
+// belt to that braces: an element-plus-pseudo-class selector can no longer outrank it, because every
+// state the browser can be in is declared here at (0,2,0).
+//
+// The background changes with the state and the foreground does not — that is the contract. Contrast is
+// 4.51 : 1 at rest, 5.4 : 1 on hover and 6.4 : 1 pressed, so pressing the button only ever improves it
+// and §34's "darken the surface instead" conditional does not fire.
+.kn-btn--primary,
+.kn-btn--primary:link,
+.kn-btn--primary:visited,
+.kn-btn--primary:hover,
+.kn-btn--primary:focus,
+.kn-btn--primary:focus-visible,
+.kn-btn--primary:active { color: var(--hg-text-on-primary); }
+// The icon is `currentColor`, so it is white because the label is white — one value, not two that can
+// drift apart. `.ed-icon` is Eduan's arrow span; `svg` is everything from `@hangyul/icons`.
+.kn-btn--primary .ed-icon,
+.kn-btn--primary svg { color: currentColor; }
+
+.kn-btn--primary { background: var(--kn-accent); }
+.kn-btn--primary:hover { background: var(--hg-primary-hover); }
+.kn-btn--primary:active { background: var(--hg-primary-pressed); }
+
+// SECONDARY on a light surface — the counterpart to `--quiet-onphoto` below, which is secondary on a dark
+// one. The same semantic level, two surfaces; there is no third light-surface outline variant.
+//
+// This used to be `transparent` on `--hg-border-strong` (#D5D7DB, **1.44:1** on white). On the V13 warm page
+// that was merely quiet; once V14 made the page pure white it was a hairline, and 대학 전체 보기 stopped
+// reading as a control at all — the owner's words were that it "almost disappears". The border is now
+// `--hg-border-control`, the lightest grey that still clears **3:1**, which is WCAG 1.4.11's floor for the
+// boundary of a user-interface component. Secondary does not mean invisible.
+//
+// The fill is explicitly `#fff` rather than `transparent` so the button keeps its own surface if it is ever
+// placed on the warm bridge or a tinted block.
+// V25: SECONDARY on a light surface is a **filled warm-neutral surface** with ink text and no border. V24's 1.5 px ink
+// outline read as a form field, and V14's grey outline as a tag; a filled neutral is unmistakably a button, is visible on
+// white, and stays clearly quieter than the tangerine primary. `--outline` keeps its name so existing markup inherits it.
+// V27 (REPORT §361): white surface + a visible ink-grey edge — the shared SECONDARY (tokens.css).
+.kn-btn--outline,
+.kn-btn--secondary {
+  background: var(--hg-control-secondary-bg);
+  border-color: var(--hg-control-secondary-border);
+  color: var(--hg-control-secondary-text);
+}
+.kn-btn--outline:hover, .kn-btn--secondary:hover { background: var(--hg-control-secondary-bg-hover); border-color: var(--hg-control-secondary-border-hover); color: var(--hg-control-secondary-text); }
+.kn-btn--outline:active, .kn-btn--secondary:active { background: var(--hg-control-secondary-bg-pressed); }
+
+// On a photograph: a solid white pill, not a translucent "glass" button (unreadable over varied imagery).
+//
+// Kept for the rare case where a white pill IS the one primary action on an image. It is **not** the secondary
+// treatment: on a dark photograph or a near-black band, solid white carries more optical weight than the
+// tangerine fill, so pairing the two puts the heavier emphasis on the lesser action — which is how the V13
+// hero and the closing band both ended up advertising the wrong button.
+.kn-btn--onphoto { background: #fff; color: var(--hg-text); }
+.kn-btn--onphoto:hover { background: #fff; color: var(--kn-accent-text); }
+
+// SECONDARY on a photograph or a dark band. Clearly a button, clearly the lesser of the two.
+//
+// The dark translucent fill is not decoration: it guarantees the label's contrast over whatever part of the
+// photograph lands behind it, so the hierarchy does not depend on the image. The hero's own base colour is
+// `--hg-text` (near-black), so the computed contrast an auditor measures is white-on-near-black either way.
+.kn-btn--quiet-onphoto {
+  background: rgba(14, 12, 10, 0.32);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+  backdrop-filter: blur(6px);
+}
+// V25: hover brightens the glass instead of turning into a white slab — a white fill on a dark photograph outweighs the
+// tangerine primary next to it, which is the inversion V13 fixed once already.
+.kn-btn--quiet-onphoto:hover { background: rgba(255, 255, 255, 0.18); border-color: #fff; color: #fff; }
+
+.kn-btn:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 2px; }
+
+// V20 — a disabled marketing button looked exactly like an enabled one, because `.kn-btn` had no
+// disabled state at all. The QA sheet (`scripts/qa/v20/button-matrix.mjs`) is what showed it: the
+// primary/disabled cell was indistinguishable from primary/rest. Same treatment the shared `.hg-btn`
+// took in V19 — a **neutral** surface rather than a faded brand one, because a washed-out tangerine at
+// ~1.9:1 reads as broken rather than as not-yet-available. It sits after every variant because
+// `.kn-btn[disabled]` and `.kn-btn--primary` have equal specificity and source order decides.
+.kn-btn[disabled],
+.kn-btn[aria-disabled='true'] {
+  background: var(--hg-surface-sunken);
+  color: var(--hg-text-tertiary);
+  border-color: var(--hg-border);
+  cursor: not-allowed;
+}
+
+// ---------------------------------------------------------------------------------------------------- Hero
+// Koreanasha `.single-banner { height: 100dvh; background-image: url(banner_c.webp); background-size: cover }`
+// with two media-query swaps (main.css:23363 phone → a 900×1200 PORTRAIT crop, :23457 tablet → 1560×919).
+// Ported as <picture> so the crops are real responsive sources rather than three background declarations, and so
+// the LCP image can be preloaded and served as WebP.
+//
+// `100dvh` is replaced by `100svh` with a `min-height` floor: on iOS `100dvh` grows when the URL bar retracts,
+// which pushed Koreanasha's bottom-anchored copy under the fold mid-scroll.
+
+// The phone hero is anchored to the **top**, not the bottom (V14, brief Part 15). V13 put the headline, the
+// lede and both actions in the last third of the screen, which is the part of the photograph a visitor
+// actually responds to — the campus itself is half of what this screen is selling. The copy now occupies the
+// upper half and the lower half is left to the picture, with nothing but the primary action overlapping it.
+//
+// The height is unchanged: this is not a shorter hero, it is the same cinematic full screen with its contents
+// moved. `100svh` with a `min-height` floor rather than `100vh`, because on iOS `dvh`/`vh` grow when the URL
+// bar retracts and that pushed bottom-anchored copy under the fold mid-scroll.
+.kn-hero {
+  position: relative;
+  min-height: 560px;
+  height: 100svh;
+  max-height: 940px;
+  display: flex;
+  align-items: flex-start;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--hg-text);
+}
+@media (min-width: 1200px) { .kn-hero { align-items: center; } }
+
+.kn-hero__media, .kn-hero__media img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; z-index: -2;
+}
+// Art direction, not just `cover` (brief Part 15). A phone frame is tall and narrow, so the same focal point
+// that works on a 16:9 desktop crop puts the buildings off the bottom; the phone crop is biased upward so the
+// campus and the ridge behind it stay in the lower half, under the copy rather than behind it.
+.kn-hero__media img { object-position: var(--kn-hero-focus, 50% 50%); }
+@media (max-width: 1199.98px) { .kn-hero__media img { object-position: var(--kn-hero-focus-sm, 50% 38%); } }
+
+// A first-load settle, not a Ken Burns effect (brief Part 20): 2.5 % over 1.4 s, once, and never again. It is
+// below the threshold at which a viewer notices a zoom and above the one at which the image feels inert.
+@media (prefers-reduced-motion: no-preference) {
+  .kn-hero__media img { animation: kn-hero-settle var(--hg-motion-hero) var(--hg-ease-enter) both; }
+}
+@keyframes kn-hero-settle {
+  from { transform: scale(1.025); }
+  to   { transform: scale(1); }
+}
+// Readability scrim. Vertical on phones (copy sits at the bottom), horizontal on desktop (copy sits left).
+.kn-hero::after {
+  content: '';
+  position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to top, rgba(14, 12, 10, 0.80) 0%, rgba(14, 12, 10, 0.42) 34%, rgba(14, 12, 10, 0.06) 62%, rgba(14, 12, 10, 0) 100%);
+}
+@media (min-width: 1200px) {
+  .kn-hero::after {
+    background: linear-gradient(to right, rgba(14, 12, 10, 0.84) 0%, rgba(14, 12, 10, 0.70) 42%, rgba(14, 12, 10, 0.28) 68%, rgba(14, 12, 10, 0) 94%);
+  }
+  // CSS gradients have no logical direction. In RTL the copy sits on the inline-end side, so the scrim has to
+  // mirror with it or the text lands on the bright part of the photograph.
+  [dir='rtl'] .kn-hero::after {
+    background: linear-gradient(to left, rgba(14, 12, 10, 0.84) 0%, rgba(14, 12, 10, 0.70) 42%, rgba(14, 12, 10, 0.28) 68%, rgba(14, 12, 10, 0) 94%);
+  }
+}
+
+// The marquee's edge mask must mirror too, or one side fades and the other hard-cuts.
+[dir='rtl'] .kn-marquee {
+  -webkit-mask-image: linear-gradient(to left, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(to left, transparent, #000 7%, #000 93%, transparent);
+}
+
+// Below 1200 px the content block sits just under the floating header pill, which is `--kn-header-top` from
+// the top edge and about 56 px tall. The four phone widths the brief names are calibrated separately: at
+// 320–360 px the lede is the line at risk of colliding with the pill, so the clearance is tighter and the
+// type a step down; from 430 px there is room to breathe.
+.kn-hero__inner {
+  width: 100%;
+  padding-block: calc(var(--kn-header-top) + 56px + 20px) 0;
+}
+@media (min-width: 1200px) { .kn-hero__inner { padding-block: 0; } }
+@media (min-width: 390px) and (max-width: 1199.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + 56px + 28px); } }
+@media (min-width: 430px) and (max-width: 1199.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + 56px + 40px); } }
+@media (min-width: 768px) and (max-width: 1199.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + 68px + 7vh); } }
+
+.kn-hero__content { max-width: 640px; color: #fff; }
+@media (max-width: 1199px) { .kn-hero__content { max-width: 620px; margin-inline: auto; text-align: center; } }
+// The scrim is drawn for whichever half the copy is in. On phones the copy is now at the top, so the dark end
+// of the gradient goes with it — a bottom-weighted scrim over top-weighted copy is unreadable text on a bright
+// sky, and it also greys out exactly the campus the move was meant to expose.
+@media (max-width: 1199.98px) {
+  // Weighted to the top, where the copy is, and light enough through the middle that the ridge and the sky
+  // survive. The small lift at the very bottom is only so the lowest band of the photograph does not look cut.
+  .kn-hero::after {
+    background: linear-gradient(to bottom, rgba(14, 12, 10, 0.68) 0%, rgba(14, 12, 10, 0.38) 30%, rgba(14, 12, 10, 0.06) 56%, rgba(14, 12, 10, 0.14) 100%);
+  }
+}
+
+.kn-hero__eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: var(--hg-text-base); font-weight: var(--hg-weight-medium);
+  color: #fff;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+}
+.kn-hero__eyebrow::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--hg-palette-brand-tangerine); flex: none;
+}
+
+.kn-hero__title {
+  font-size: clamp(32px, 6.4vw, 64px);
+  font-weight: var(--hg-weight-bold);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: #fff;
+  text-wrap: balance;
+  // Koreanasha `.text-shadow { text-shadow: 2px 2px 4px rgba(0,0,0,.5) }` — offset shadows look dated and smear
+  // Korean glyphs; a centred soft shadow does the same contrast job cleanly.
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+}
+// Source strings mark the second display line with <em>. On a photograph it stays white (a tangerine line over
+// autumn foliage has no reliable contrast); it is the line break and the weight that carry the emphasis.
+.kn-hero__title em { font-style: normal; display: block; }
+.kn-hero__lede {
+  font-size: clamp(16px, 2vw, 20px);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.93);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
+  text-wrap: pretty;
+}
+.kn-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--hg-flow-actions); }
+@media (max-width: 1199px) { .kn-hero__actions { justify-content: center; } }
+
+// Small phones (brief Part 1): the primary action takes the full measure and the secondary sits under it at
+// text weight. The rule this replaces gave `width: 100%` to **every** button in the group, which is two
+// equally weighted full-width pills — two primaries, and the one thing the brief rules out by name.
+@media (max-width: 575px) {
+  .kn-hero__actions { flex-direction: column; align-items: stretch; gap: var(--hg-space-4); }
+  .kn-hero__actions .kn-btn--primary { width: 100%; }
+  .kn-hero__actions .kn-btn--quiet-onphoto {
+    width: auto; align-self: center; min-height: 44px; padding-inline: 8px;
+    background: transparent; border-color: transparent; backdrop-filter: none;
+    font-size: var(--hg-text-lg);
+    text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px;
+    // The link now sits over the photograph rather than over the scrim's darkest band, so it carries its own
+    // contrast. Without this it lands on a sunlit building and disappears.
+    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.75), 0 0 3px rgba(0, 0, 0, 0.45);
+  }
+}
+
+// There is no `.kn-hero__credit` any more (V14, brief Part 2). The hero photograph is Hangyul's own, so no
+// attribution was ever legally required by it; the caption was a habit from the licensed set around it, and a
+// line of source metadata under a full-screen photograph is the single clearest signal that a page is a
+// research exercise rather than a product. Attribution-required photography is not hidden — it is replaced,
+// which is what docs/MEDIA_LICENSE_AUDIT.md records.
+
+// --------------------------------------------------------------------------------------------------- Bands
+// Koreanasha alternates white and `.bg-gray` (#E8EFFD) sections at `pt-100 pb-90`.
+
+// ======================================================================= Surface system (V14, brief Part 16)
+//
+// Three revisions, and the reasoning for each is worth keeping because the first two were wrong in
+// instructive ways.
+//
+//   V13     alternated white and #FFF4EC full-width rectangles. Six of them, five hard horizontal
+//           boundaries, and a reader could point at each edge and name the section it began.
+//   V14 a   replaced them with one warm off-white page surface (#FDFAF7) and bridged any section that
+//           needed its own tone. That removed the boundaries — and the owner's verdict on the result was
+//           that a page-wide pale orange reads as "a weak tinted rectangle", which is fair: a tint applied
+//           to *everything* is not a design decision, it is a filter.
+//   V14 b   **the page is white.** Orange is an accent — buttons, emphasis, interaction — and never a
+//           background fill. The only warmth left is a short atmospheric bridge immediately below the hero,
+//           where it does a job: easing the eye out of a photograph instead of cutting to paper.
+//
+// White is harder, not easier. There is no tint left to separate one section from the next, so separation
+// has to come from type, measure, space, imagery and motion. Where a section looks empty the answer is a
+// better composition, never a tint put back to fill it.
+
+.kn-band { padding-block: var(--kn-band); background: transparent; }
+
+// The bridge out of the hero (brief Part 2 of the final pass).
+//
+// A full-bleed photograph meeting flat white at a hard line is the one remaining edge on the page, and it is
+// the most visible one because the contrast is greatest. This lets the first band below the hero start at a
+// barely-there warm tint and reach pure white within `--kn-bridge` (96–160 px).
+//
+// `--kn-warm` is 2 % saturated. At that strength it is not perceived as a colour: on a calibrated screen it
+// reads as the light coming off the photograph above rather than as a band of its own, which is the
+// difference between atmosphere and a gradient component.
+.kn-band--afterhero {
+  background: linear-gradient(to bottom, var(--kn-warm), #fff var(--kn-bridge)) no-repeat;
+}
+
+// The university marks' canvas (brief Part 5). The page is white now, so this is no longer doing the work it
+// did in V14 a — but it stays explicit rather than being deleted, because "this section is white" is a
+// stated requirement with a regression assertion behind it, and a requirement that survives only as the
+// absence of a rule is one nobody can see.
+.kn-band--canvas { background-color: #fff; }
+
+// `.kn-band--tint` is **deleted**. It had no callers on any surface, and keeping a "paint this section a
+// different colour" helper in the vocabulary is how the cream/white/cream rhythm comes back one section at a
+// time. A section that needs to stand apart gets type and space, not a fill.
+
+
+.kn-band--ink { background: var(--hg-text); color: #fff; }
+.kn-band--flush-top { padding-block-start: 0; }
+
+// The first band on a page that opens under the floating pill rather than under a photograph. See the
+// page-top rhythm note at the top of this file for why the number is derived rather than written here.
+.kn-band--pagetop { padding-block-start: var(--kn-page-top); }
+
+// Koreanasha's `section-area ... text-center`: eyebrow, two-line headline, lead.
+.kn-head { max-width: 760px; margin-inline: auto; margin-bottom: var(--hg-flow-section); text-align: center; }
+.kn-head--start { margin-inline: 0; text-align: start; }
+// `.kn-head__eyebrow` is deleted, not hidden (V14, brief Part 12 and Part 47): the component no longer
+// renders one, the two Koreanasha strings behind it are out of the reuse manifest, and the keys are gone from
+// every locale bundle. A rule left behind for an element that no longer exists is how a removed layer
+// reappears.
+.kn-head__title {
+  font-size: clamp(26px, 3.6vw, 42px);
+  font-weight: var(--hg-weight-bold);
+  line-height: 1.2;
+  letter-spacing: -0.026em;
+  color: var(--hg-text);
+  text-wrap: balance;
+}
+// Koreanasha paints the second headline line in the brand colour (`.text-blue`). Its `.text-gradation`
+// gradient-clip variant is not ported: it has no fallback when background-clip is unsupported and it fails
+// contrast at small sizes.
+.kn-head__title em { font-style: normal; color: var(--kn-accent-text); }
+.kn-head__lede {
+  margin-inline: auto;
+  max-width: 640px;
+  font-size: var(--hg-text-xl);
+  line-height: 1.6;
+  color: var(--hg-text-secondary);
+  text-wrap: pretty;
+}
+.kn-head--start .kn-head__lede { margin-inline: 0; }
+.kn-band--ink .kn-head__title, .kn-band--ink .kn-card__title { color: #fff; }
+.kn-band--ink .kn-head__lede { color: rgba(255, 255, 255, 0.78); }
+
+// --------------------------------------------------------------------------------------------------- Cards
+// Koreanasha `.h2_blog-content { padding: 50px 45px; background: #FFF; border-radius: 20px }` with the shadow
+// commented out. On a tinted band a shadowless, borderless white card has no edge at all, so a hairline is added.
+
+.kn-cards { display: grid; gap: var(--hg-space-6); grid-template-columns: 1fr; }
+@media (min-width: 768px) { .kn-cards--3 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .kn-cards--3 { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 640px) { .kn-cards--4 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1200px) { .kn-cards--4 { grid-template-columns: repeat(4, 1fr); } }
+
+.kn-card {
+  display: flex; flex-direction: column;
+  height: 100%;                       // equal card heights in a row (a listed V10 design-error check)
+  padding: var(--hg-space-8);
+  background: var(--hg-surface);
+  border: 1px solid var(--hg-border-subtle);
+  border-radius: var(--kn-card-radius);
+}
+@media (min-width: 1024px) { .kn-card { padding: 40px 36px; } }
+.kn-card__icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 48px; height: 48px; margin-bottom: var(--hg-space-5);
+  border-radius: 14px;
+  background: var(--hg-primary-subtle); color: var(--kn-accent-text);
+}
+.kn-card__icon svg { width: 24px; height: 24px; }
+.kn-card__title {
+  font-size: var(--hg-text-3xl); font-weight: var(--hg-weight-semibold);
+  line-height: 1.3; letter-spacing: -0.014em; color: var(--hg-text);
+}
+.kn-card__text { font-size: var(--hg-text-lg); line-height: 1.62; color: var(--hg-text-secondary); }
+
+// ----------------------------------------------------------------------------------------- Media rows
+// Koreanasha's strongest composition: `.about-img` (15 px radius, full column width) beside `.about-content`,
+// alternating sides down the section (`order-1 order-lg-2`).
+
+.kn-mediarow { display: grid; gap: var(--hg-space-8); align-items: center; }
+// Rows are taller now, so the gap between them does not need to be a full band height as well; at 100 px it
+// re-opened the dead space the proportion change had just closed.
+.kn-mediarow + .kn-mediarow { margin-top: clamp(56px, 6vw, 88px); }
+
+// Phones get a **vertical story per service**, never a sideways track (V14, brief Part 14).
+//
+// V11–V13 turned the rows into one horizontal scroller below 992 px, on the reasoning that it saved scroll.
+// What it actually produced is the screenshot the brief calls a failure by name: a card at 84 % of the viewport
+// with the next one's edge showing, body copy clipped by the snap boundary, and a desktop carousel visibly
+// squeezed onto a phone. It saved scrolling — the one thing a phone reader is happy to do — by costing
+// legibility, which is the thing they are not.
+//
+// Each service is now image, then title, then body, at full content width, down the page. The horizontal
+// scroller, its focusable `role="group"` wrapper and its scroll-snap are gone, and with them the
+// `scrollable-region-focusable` workaround they needed.
+@media (max-width: 991.98px) {
+  .kn-rows { display: grid; gap: clamp(48px, 9vw, 72px); }
+  .kn-rows > .kn-mediarow {
+    margin-top: 0;
+    gap: var(--hg-space-6);
+    grid-template-columns: 1fr;
+  }
+  // A phone-shaped crop: taller than the desktop 3:2, so the subject survives at 358 px of width.
+  .kn-rows > .kn-mediarow .kn-mediarow__media img { aspect-ratio: 4 / 3; }
+  .kn-rows > .kn-mediarow .kn-mediarow__title { font-size: clamp(24px, 6.2vw, 28px); }
+  .kn-rows > .kn-mediarow .kn-mediarow__text {
+    font-size: var(--hg-text-lg);         // 16px — the brief's 16–18 band, at a 1.7 line height
+    line-height: 1.72;
+    max-width: 38rem;
+  }
+}
+// Desktop proportions, revised in the V14 final pass once the page went white.
+//
+// At `1fr 1fr` the photograph was 568 px wide and the words beside it were a 130 px block floating in a
+// 568 px column — roughly 130 px of dead white above it and the same below. On the old cream surface that
+// passed unnoticed; on white it is the first thing the eye lands on, and it is why the section read as
+// empty rather than as spacious.
+//
+// Giving the image the larger share and the text a **fixed comfortable measure** fixes both halves at once:
+// the photograph gets presence, and the copy wraps to five or six lines instead of three, so the two columns
+// are closer to the same optical height. 420 px at 18 px Korean is about 26–28 characters a line, which is
+// also simply a better read than the 75-character line it replaces.
+@media (min-width: 992px) {
+  .kn-mediarow { grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: clamp(48px, 5vw, 72px); }
+  .kn-mediarow--flip .kn-mediarow__media { order: 2; }
+  // Keep the text column on the inside edge of the page when the image flips, so both rows' copy sits
+  // against the gutter and the eye has one vertical rhythm rather than two.
+  .kn-mediarow--flip { grid-template-columns: minmax(0, 420px) minmax(0, 1fr); }
+}
+.kn-mediarow__media { margin: 0; }
+.kn-mediarow__media img {
+  display: block; width: 100%; height: auto;
+  // 16:10 rather than 3:2: with the wider image column the photograph would otherwise be 700×467 and
+  // out-measure the whole text block vertically.
+  aspect-ratio: 16 / 10; object-fit: cover;
+  border-radius: var(--kn-photo-radius);
+}
+.kn-mediarow__title {
+  font-size: clamp(22px, 2.4vw, 30px); font-weight: var(--hg-weight-semibold);
+  line-height: 1.28; letter-spacing: -0.018em; color: var(--hg-text); text-wrap: balance;
+}
+.kn-mediarow__text { font-size: var(--hg-text-xl); line-height: 1.62; color: var(--hg-text-secondary); text-wrap: pretty; }
+.kn-mediarow__list { margin: var(--hg-space-5) 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.kn-mediarow__list li {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: var(--hg-text-lg); line-height: 1.5; color: var(--hg-text);
+}
+.kn-mediarow__list svg { flex: none; margin-top: 3px; width: 18px; height: 18px; color: var(--kn-accent-text); }
+
+// ------------------------------------------------------------------------------------------------ Marquee
+// Koreanasha runs three tracks at 1 px/frame from a rAF loop that never stops, ignores prefers-reduced-motion
+// and keeps running off-screen and in background tabs. A CSS animation is GPU-composited, pauses on hover and
+// focus, and is switched off entirely under reduced motion — where the row becomes a plain wrapped list.
+
+// Koreanasha fades nothing and simply clips its logos at the container edge. Our chips carry text, and a word
+// cut in half reads as a bug, so the track is masked: items fade out instead of being sliced. The fade is kept
+// narrow and pushed to the very edge — a wide one reads as logos vanishing mid-row rather than as a soft edge.
+.kn-marquee {
+  position: relative; overflow: hidden; display: grid;
+  --kn-marquee-gap: var(--hg-space-5);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+}
+
+// ---- Geometry. Read the note on `Marquee` in components/layout.tsx before changing any of the next 12 lines.
+//
+// The track must carry NO gap. One group is `N` items with `N−1` inner gaps plus one trailing gap, which is
+// exactly `N·(item + gap)`; two such groups make a track of `2N·(item + gap)`, and `-50%` of that is one whole
+// group. Put a `gap` on the track instead and the half-track is `G/2` short of a group, which tears the loop
+// once per iteration — the V13 defect.
+.kn-marquee__track {
+  display: flex; width: max-content;
+  animation: kn-marquee var(--kn-marquee-s, 50s) linear infinite;
+  // A negative delay starts the row mid-loop, so three stacked rows are never aligned on the same column.
+  animation-delay: var(--kn-marquee-delay, 0s);
+  will-change: transform;
+}
+.kn-marquee__group {
+  display: flex; align-items: center; flex: none;
+  gap: var(--kn-marquee-gap);
+  padding-inline-end: var(--kn-marquee-gap);   // the trailing gap that makes a group a whole number of steps
+}
+// The per-item wrapper carries a React key and the duplicate marker, nothing else: `display: contents` keeps
+// the crests as direct flex children (so `gap` applies to them) instead of wrapping each in a 0-width inline box.
+.kn-marquee__group > span { display: contents; }
+.kn-marquee__track--reverse { animation-direction: reverse; }
+.kn-marquee:hover .kn-marquee__track,
+.kn-marquee:focus-within .kn-marquee__track { animation-play-state: paused; }
+
+// `translate3d` rather than `translateX`: it is what puts the track on its own compositor layer, so the belt
+// never costs a main-thread layout while the rest of the page is revealing (brief Part 30).
+@keyframes kn-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+// V30 (REPORT §407): in RTL the `max-content` track is anchored at the row's RIGHT edge (inline-start), with
+// group B laid out to the left of group A. Translating it leftwards slid the whole belt off its anchor: for
+// part of every loop the visible window held no crest at all (0 of ~27 at 75 % of a loop, measured in `ar`).
+// Mirrored keyframes move it one group to the right instead, which lands B exactly where A was — the same
+// seamless arithmetic as LTR. `qa:v30-marquee` samples `ar` at four loop positions and fails on an empty row.
+@keyframes kn-marquee-rtl {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(50%, 0, 0); }
+}
+[dir='rtl'] .kn-marquee__track { animation-name: kn-marquee-rtl; }
+
+.kn-chip {
+  display: inline-flex; align-items: center; gap: 10px;
+  min-height: 52px; padding: 0 20px;
+  background: var(--hg-surface); border: 1px solid var(--hg-border-subtle); border-radius: 999px;
+  font-size: var(--hg-text-lg); font-weight: var(--hg-weight-medium); color: var(--hg-text);
+  text-decoration: none; white-space: nowrap;
+}
+a.kn-chip:hover { border-color: var(--hg-border-strong); color: var(--kn-accent-text); }
+.kn-chip__meta { color: var(--hg-text-tertiary); font-weight: var(--hg-weight-regular); font-size: var(--hg-text-base); }
+
+// Reduced motion is not "the animation, slower" (brief Part 31): the belt stops completely and the row becomes
+// the clean centred logo grid it would have been if it had never moved. Nothing is left half-animated, and
+// because the clone and the padding repeats are hidden, each university appears exactly once.
+@media (prefers-reduced-motion: reduce) {
+  .kn-marquee { overflow: visible; -webkit-mask-image: none; mask-image: none; }
+  // V26 (REPORT §348): the track and group must be constrained to the band, or a group keeps its content width and
+  // "wrap" never happens — at 390 px the stopped belt pushed the page 259 px sideways (measured under reduced motion).
+  .kn-marquee__track { animation: none; width: 100%; max-width: 100%; will-change: auto; }
+  .kn-marquee__group {
+    flex: 1 1 100%; min-width: 0; max-width: 100%;
+    flex-wrap: wrap; justify-content: center;
+    row-gap: var(--kn-marquee-gap); padding-inline-end: 0;
+  }
+  .kn-marquee__group[aria-hidden='true'] { display: none; }
+  .kn-marquee__group > [data-kn-dup] { display: none; }
+}
+
+// ---------------------------------------------------------------------------------------------------- FAQ
+// Koreanasha uses Bootstrap collapse (`data-bs-toggle`, JS, `aria-expanded` maintained by the plugin).
+// `<details>/<summary>` is keyboard- and screen-reader-correct with no JavaScript at all.
+
+// V14 final pass: ten bordered white cards on a white page is the same defect that killed the old value
+// cards — a white box on white has no edge, so the section read as ten floating outlines rather than as a
+// list. The cards are gone. What is left is the editorial form: questions separated by a single hairline,
+// which is one structure instead of ten, and which matches the rules in the value triptych above.
+.kn-faq { max-width: 860px; margin-inline: auto; }
+.kn-faq__item { border-top: 1px solid var(--hg-border-subtle); }
+.kn-faq__item:last-child { border-bottom: 1px solid var(--hg-border-subtle); }
+.kn-faq__q {
+  display: flex; align-items: center; gap: var(--hg-space-4);
+  // No horizontal padding: the questions align with the heading above them rather than being indented
+  // inside a box that no longer exists.
+  padding: var(--hg-space-5) 0;
+  font-size: var(--hg-text-xl); font-weight: var(--hg-weight-medium); color: var(--hg-text);
+  cursor: pointer; list-style: none;
+}
+.kn-faq__q::-webkit-details-marker { display: none; }
+.kn-faq__q:hover { color: var(--kn-accent-text); }
+.kn-faq__q:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 2px; border-radius: 4px; }
+.kn-faq__q span { flex: 1 1 auto; }
+.kn-faq__q svg { flex: none; width: 20px; height: 20px; color: var(--hg-text-tertiary); transition: transform var(--hg-motion-base) var(--hg-motion-easing); }
+.kn-faq__item[open] .kn-faq__q svg { transform: rotate(180deg); }
+// The answer settles in rather than appearing. `<details>` does not render its content while closed, so its
+// height cannot be transitioned portably — it is animated on open instead, which is the part a reader
+// actually perceives. Opacity and a 4 px lift only: no height, no bounce, nothing that reflows the page
+// under the pointer while someone is reading.
+@media (prefers-reduced-motion: no-preference) {
+  .kn-faq__item[open] .kn-faq__a { animation: kn-faq-open var(--hg-motion-slow) var(--hg-ease-enter) both; }
+}
+@keyframes kn-faq-open {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
+}
+.kn-faq__a {
+  padding: 0 0 var(--hg-space-6);
+  max-width: 68ch;
+  font-size: var(--hg-text-lg); line-height: 1.65; color: var(--hg-text-secondary);
+}
+.kn-faq__a > :first-child { margin-top: 0; }
+.kn-faq__a > :last-child { margin-bottom: 0; }
+
+// ---------------------------------------------------------------------------------------------------- CTA
+.kn-cta {
+  position: relative; overflow: hidden;
+  // 32 px of padding each side leaves 224 px of content inside a 288 px band at 320 px, which is less than a
+  // 56 px-tall pill with "Começar a minha preparação" on it needs. The floor is 20 px.
+  padding: clamp(20px, 5vw, 64px);
+  border-radius: 24px;
+  background: var(--hg-text); color: #fff;
+  display: grid; gap: var(--hg-space-6); align-items: center;
+}
+@media (min-width: 992px) { .kn-cta { grid-template-columns: 1fr auto; gap: 48px; } }
+// `color: inherit` is load-bearing: the shared base sets an explicit colour on h1–h6, and an explicit colour on
+// the element beats the white inherited from `.kn-cta`. Without it the heading renders near-black on the
+// near-black band — present in the DOM, invisible on screen.
+.kn-cta__title { color: inherit; font-size: clamp(24px, 3vw, 36px); font-weight: var(--hg-weight-bold); line-height: 1.2; letter-spacing: -0.024em; text-wrap: balance; }
+.kn-cta__text { font-size: var(--hg-text-xl); line-height: 1.6; color: rgba(255, 255, 255, 0.78); max-width: 48ch; text-wrap: pretty; }
+.kn-cta__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--hg-flow-actions); }
+@media (max-width: 575px) {
+  .kn-cta__actions { flex-direction: column; align-items: stretch; }
+  .kn-cta__actions .kn-btn--primary { width: 100%; }
+  .kn-cta__actions .kn-btn--quiet-onphoto { align-self: center; }
+}
+
+// A grid item's default `min-width: auto` is its content's minimum, and `.kn-btn` is `white-space: nowrap`:
+// "Посмотреть университеты" at 32 px of padding has a min-content width of 300 px, which is wider than the
+// 288 px band it sits in at 320 px. The item refused to shrink, the track grew to 300 px, and the whole band
+// pushed 16 px past the viewport — in Russian, Ukrainian, Hungarian and Filipino, and in no language whose
+// words are shorter.
+//
+// Two halves to the fix, and both are needed: let the items shrink, and let a cornered button wrap rather
+// than demand a width nobody has.
+.kn-cta > *, .kn-cta__actions > * { min-width: 0; }
+@media (max-width: 575px) {
+  .kn-cta__actions .kn-btn { white-space: normal; overflow-wrap: anywhere; height: auto; padding-block: 10px; line-height: 1.25; }
+  .kn-cta__actions .kn-btn--quiet-onphoto { padding-inline: 16px; }
+}
+// `.kn-btn` is `white-space: nowrap`, which is right for a button sitting in a row and wrong for one that is
+// already the full width of the screen: there, a two-line label is fine and a label wider than the viewport
+// is not. A full-width button therefore wraps and grows instead of overflowing.
+.kn-btn--block,
+.kn-cta__actions .kn-btn--primary,
+.kn-hero__actions .kn-btn--primary {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  padding-block: 10px;
+  height: auto;
+  line-height: 1.25;
+  text-align: center;
+}
+// V25 (REPORT §311 M5): the tangerine "sun" corner device is gone. With the primary button also tangerine, the eye split
+// between an ornament and the action the band exists for.
+
+// -------------------------------------------------------------------------------------------- Mobile nav
+.kn-mnav { display: grid; gap: 2px; }
+.kn-mnav a {
+  display: block; padding: 14px 4px;
+  font-size: var(--hg-text-2xl); font-weight: var(--hg-weight-medium);
+  color: var(--hg-text); text-decoration: none;
+  border-bottom: 1px solid var(--hg-border-subtle);
+}
+.kn-mnav a.active { color: var(--kn-accent-text); }
+.kn-mnav__foot { margin-top: var(--hg-space-8); display: grid; gap: var(--hg-space-4); }
+.kn-mnav__lang { display: flex; align-items: center; justify-content: space-between; gap: var(--hg-space-4); font-size: var(--hg-text-base); color: var(--hg-text-tertiary); }
+
+// ------------------------------------------------------------------------------------------------ Reveal
+// Visible first, animated only if IntersectionObserver exists and motion is allowed — the inverse of
+// Koreanasha's AOS, which leaves every section at opacity 0 until a CDN answers.
+// ------------------------------------------------------------------------------------------- Reveal (V14)
+// One component, four variants (brief Part 29). Nothing here animates anything but `opacity`, `transform` and
+// `clip-path`, which is the brief's performance rule (Part 30) and the reason the whole system can run while
+// the marquee is moving without costing a frame.
+//
+// The resting state is *visible*. The hidden state is only applied once `.kn-reveal--armed` is added by script,
+// which is also only done when the reader has not asked for reduced motion — so under reduced motion, or with
+// JavaScript broken, the page is simply the finished page.
+
+.kn-reveal { opacity: 1; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .kn-reveal.kn-reveal--armed {
+    opacity: 0;
+    transition:
+      opacity var(--kn-reveal-ms, var(--hg-motion-reveal)) var(--hg-ease-enter),
+      transform var(--kn-reveal-ms, var(--hg-motion-reveal)) var(--hg-ease-enter);
+  }
+  // V17: the duration is chosen by what is entering, not by one number for everything (design-tokens
+  // `motion`). `--kn-reveal-ms` lets a caller override per instance without a second transition rule.
+  //   rise    the default — a section heading, which is the largest text on a page
+  //   fade    text already in place over a photograph; it travels no distance, so it does not need the
+  //           heading's time and reads as laboured if it takes it
+  //   stagger the *container* does not move; its children are small, so they use the small duration
+  .kn-reveal--armed[data-reveal='fade'] { --kn-reveal-ms: var(--hg-motion-copy); }
+  .kn-reveal--armed[data-reveal='stagger'] { --kn-reveal-ms: var(--hg-motion-small); }
+  .kn-reveal.kn-reveal--armed.is-in { opacity: 1; transform: none; }
+
+  // rise — the default. 18–24 px is enough to read as arriving; more reads as sliding.
+  .kn-reveal--armed[data-reveal='rise'] { transform: translateY(20px); }
+
+  // fade — for something whose position is the point (a headline over a photograph).
+  .kn-reveal--armed[data-reveal='fade'] { transform: none; }
+
+  // media — a bottom-up wipe with a small settle, for one large photograph per section (brief Part 24).
+  // `clip-path` is the only property here that can cost a repaint, which is why it is deliberately rare.
+  //
+  // `clip-path` belongs to **this variant only** (V16, REPORT §132.2). It used to live on the shared
+  // `.is-in` rule as `inset(0 0 0% 0)`, which is not a no-op: a zero inset still establishes a clip to the
+  // element's border box. Every `Reveal` on the site was therefore a clipping container, and anything a
+  // child did outside its box — a hover lift, a drop shadow — was cut off. The pricing panel's hover clip
+  // was that bug; the fix is one scope, not one exception.
+  .kn-reveal--armed[data-reveal='media'] {
+    clip-path: inset(0 0 14% 0);
+    transform: translateY(12px) scale(1.012);
+    transform-origin: center;
+    transition:
+      opacity var(--hg-motion-reveal) var(--hg-ease-enter),
+      transform var(--hg-motion-reveal) var(--hg-ease-enter),
+      clip-path var(--hg-motion-media) var(--hg-ease-enter);
+  }
+  .kn-reveal--armed[data-reveal='media'].is-in { transform: none; clip-path: inset(0 0 0% 0); }
+
+  // stagger — a container. Its direct children arrive in order, one `--hg-motion-stagger` apart, and the whole
+  // group is done inside ~400 ms for three items. The container itself does not move.
+  .kn-reveal--armed[data-reveal='stagger'] { opacity: 1; transform: none; }
+  .kn-reveal--armed[data-reveal='stagger'] > * {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity var(--hg-motion-small) var(--hg-ease-enter),
+      transform var(--hg-motion-small) var(--hg-ease-enter);
+  }
+  .kn-reveal--armed[data-reveal='stagger'].is-in > * { opacity: 1; transform: none; }
+  .kn-reveal--armed[data-reveal='stagger'].is-in > :nth-child(2) { transition-delay: var(--hg-motion-stagger); }
+  .kn-reveal--armed[data-reveal='stagger'].is-in > :nth-child(3) { transition-delay: calc(var(--hg-motion-stagger) * 2); }
+  .kn-reveal--armed[data-reveal='stagger'].is-in > :nth-child(4) { transition-delay: calc(var(--hg-motion-stagger) * 3); }
+  .kn-reveal--armed[data-reveal='stagger'].is-in > :nth-child(n + 5) { transition-delay: calc(var(--hg-motion-stagger) * 4); }
+}
+
+// ------------------------------------------------------------------------------------------------- Footer
+// Koreanasha's footer is a logo, a legal-identity block and six social icons on white. Hangyul has link columns
+// to keep (V7/V9) and no social accounts or registration number to publish, so the Koreanasha contribution here
+// is the calm white treatment and the "legal identity lives in the footer" habit — see MARKETING_ASSETS.md.
+
+.kn-footer {
+  padding-block: var(--kn-band) var(--hg-space-8);
+  background: transparent;              // the page surface continues; no sixth rectangle at the bottom
+  border-top: 1px solid var(--hg-border-subtle);
+  font-size: var(--hg-text-lg);
+}
+.kn-footer__top { display: grid; gap: var(--hg-space-10); }
+@media (min-width: 992px) { .kn-footer__top { grid-template-columns: minmax(260px, 1fr) 2fr; gap: 64px; } }
+
+.kn-footer__brand { display: grid; gap: var(--hg-space-4); justify-items: start; }
+.kn-footer__statement { max-width: 34ch; color: var(--hg-text-secondary); line-height: 1.6; }
+
+.kn-footer__cols { display: grid; gap: var(--hg-space-6); }
+@media (min-width: 640px) { .kn-footer__cols { grid-template-columns: repeat(3, 1fr); gap: var(--hg-space-8); } }
+
+.kn-fcol__title {
+  font-size: var(--hg-text-lg); font-weight: var(--hg-weight-semibold); color: var(--hg-text);
+  list-style: none; cursor: pointer; padding-block: 8px;
+}
+.kn-fcol__title::-webkit-details-marker { display: none; }
+@media (min-width: 640px) { .kn-fcol__title { cursor: default; padding-block: 0; margin-bottom: var(--hg-space-4); } }
+.kn-fcol ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.kn-fcol a { color: var(--hg-text-secondary); text-decoration: none; }
+.kn-fcol a:hover { color: var(--kn-accent-text); text-decoration: underline; }
+
+.kn-footer__note {
+  margin: var(--hg-space-10) 0 0;
+  font-size: var(--hg-text-base); line-height: 1.6; color: var(--hg-text-tertiary);
+}
+.kn-footer__bottom {
+  margin-top: var(--hg-space-6); padding-top: var(--hg-space-6);
+  border-top: 1px solid var(--hg-border-subtle);
+  display: grid; gap: 10px;
+  font-size: var(--hg-text-base); color: var(--hg-text-tertiary);
+}
+.kn-footer__bottom p { margin: 0; }
+// One quiet line, below the copyright: the consoles are separate products, not part of a student's journey.
+.kn-footer__partner { display: flex; flex-wrap: wrap; align-items: center; gap: var(--hg-space-4); }
+.kn-footer__partner a { color: var(--hg-text-tertiary); text-decoration: underline; text-underline-offset: 2px; display: inline-flex; align-items: center; gap: 4px; }
+.kn-footer__partner a:hover { color: var(--hg-text); }
+
+// -------------------------------------------------------------- Offcanvas as a light sheet (was dark in V7)
+.kn .ed-offcanvas, .ed.kn ~ * .ed-offcanvas { background: var(--hg-surface); }
+.ed-offcanvas { background: var(--hg-surface); color: var(--hg-text); }
+.ed-offcanvas .hg-logo { color: var(--hg-text); }
+.ed-offcanvas .sidebar-close { color: var(--hg-text); }
+
+// ------------------------------------------------------- Inner pages under the fixed pill (non-home routes)
+// Home opens with the hero, which the pill floats over by design. Every other page opens with the Eduan
+// photographic band; it gains head-room so the title never sits under the pill.
+.kn[data-page='inner'] .ed-crumbband { padding-block-start: calc(56px + var(--kn-header-top) * 2); }
+@media (min-width: 1200px) { .kn[data-page='inner'] .ed-crumbband { padding-block-start: calc(68px + var(--kn-header-top) * 2); } }
+
+// Koreanasha's `.text-gradation` (main.css: a 270° #070251 → #145CE6 text clip) in Hangyul's accent range. Used
+// for the one headline that carries it in the source copy; falls back to the flat accent where clipping fails.
+.kn-head__title em.kn-accent--gradient {
+  background: linear-gradient(270deg, var(--hg-primary-strong, #b33800) 0%, var(--hg-primary-text) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .kn-head__title em.kn-accent--gradient { background: none; -webkit-text-fill-color: currentColor; }
+}
+
+// ====================================================================================== Composition spacing
+// V13, brief Part 22. Every vertical gap *inside a content group* on the public site is declared here, in
+// semantic tokens, and nowhere else. The individual component rules above carry type, colour and layout; they
+// no longer carry margins.
+//
+// Why this block exists at all, and why it is scoped under `.kn`:
+//
+// The Eduan template ships element rules for headings and paragraphs, and `rtlcss` rewrites them at build time
+// into `[dir] p { margin-bottom: 0 }` and `[dir] :where(.ed) :is(h1,…,h6) { margin-bottom: 15px }`. An
+// attribute selector plus a type selector is specificity (0,1,1); a single class such as `.kn-hero__lede` is
+// (0,1,0). So **every margin this stylesheet set on a heading or a paragraph was silently discarded** — eight
+// of the thirteen composition rules on the public site, measured in `scripts/qa/v13-composition.mjs`. The
+// visible symptom was the one the V13 brief opens with: the hero's buttons sat flush against its description,
+// because the authored 32 px resolved to 0, and every heading was uniformly 15 px from whatever followed it
+// regardless of what the design intended.
+//
+// **V14 (brief Part 60): the extra `.kn` ancestor is gone.** V13 needed it to reach (0,2,0) and outrank the
+// prefixed element rules; the prefix no longer carries specificity at all, because `packages/config/vite.ts`
+// now rewrites rtlcss's generated `[dir…]` prefix to `:where([dir…])` after it runs. An element rule is back
+// to (0,0,1), a single class here is (0,1,0), and the cascade does what both stylesheets' authors assumed.
+// The workaround is removed rather than left in place "just in case": a dead higher-specificity rule is how
+// the next person learns to add another one.
+//
+// `scripts/qa/v13-composition.mjs` asserts the computed values on real pages, so if the root-cause fix ever
+// regresses, a gate fails instead of a page quietly flattening.
+
+// Headline → supporting copy. One thought, small break.
+.kn-hero__title { margin: 0 0 var(--hg-flow-heading); }
+
+// A media row's heading sits inside a column beside a photograph, where the whole group is read at once; it
+// takes the tighter card-level step rather than the hero's.
+.kn-mediarow__title { margin: 0 0 var(--hg-space-4); }
+
+// Supporting copy → the controls that act on it. A new kind of thing starts here, so the break is larger —
+// and it must stay larger, or headline / copy / action stop reading as three groups.
+.kn-hero__lede { margin: 0 0 var(--hg-flow-copy); }
+
+// Eyebrow → the headline it introduces.
+.kn-hero__eyebrow { margin: 0 0 var(--hg-space-4); }
+
+// Section heading → its lede. Tighter than a hero: this pair is read at a glance, not dwelt on.
+.kn-head__title { margin: 0; }
+.kn-head__lede { margin: var(--hg-space-4) auto 0; }
+.kn-head--start .kn-head__lede { margin-inline: 0; }
+
+// Inside a card or a closing band the heading and its copy are one tight unit; the card's own padding is the
+// break between groups, so these do not repeat it.
+.kn-card__title,
+.kn-cta__title { margin: 0 0 var(--hg-space-3); }
+
+// Copy that ends its group carries no trailing margin — the group's own spacing owns the break.
+.kn-card__text,
+.kn-mediarow__text,
+.kn-cta__text,
+.kn-footer__statement { margin: 0; }
+
+// A reveal must never be the reason content is missing from a printout or a PDF. The armed state is purely a
+// screen effect, so print resets it — the same guarantee the reduced-motion and no-JavaScript paths give.
+@media print {
+  .kn-reveal, .kn-reveal--armed, .kn-reveal--armed > * {
+    opacity: 1 !important; transform: none !important; clip-path: none !important;
+  }
+}
+
+// ------------------------------------------- Footer business information (V14, brief Parts 48–50)
+// A calm compact row, not a boxed company panel. Each pair stays together on one line and the row wraps as a
+// whole, so "사업자등록번호" never ends up on a different line from its number.
+//
+// These rules live in the shared layer, not in the home page's stylesheet, because `SiteLayout` renders this
+// block on every page: when they were page-scoped the footer was a tidy row on the homepage and an unstyled
+// five-row stack on the directory, the university pages and both legal documents.
+.kn-footer__biz {
+  display: flex; flex-wrap: wrap;
+  gap: 4px 20px;
+  margin: 0 0 14px;
+  font-size: var(--hg-text-base);
+  color: var(--hg-text-tertiary, var(--hg-text-secondary));
+}
+.kn-footer__biz > div { display: flex; gap: 6px; white-space: nowrap; }
+.kn-footer__biz dt { margin: 0; font-weight: var(--hg-weight-regular); }
+.kn-footer__biz dd { margin: 0; color: var(--hg-text-secondary); }
+.kn-footer__biz a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.kn-footer__biz a:hover { color: var(--kn-accent-text); }
+// Phones: the longest pair is ~28 characters, which fits 320 px only if the row may break inside a pair.
+@media (max-width: 479.98px) {
+  .kn-footer__biz { gap: 2px 16px; }
+  .kn-footer__biz > div { white-space: normal; }
+}

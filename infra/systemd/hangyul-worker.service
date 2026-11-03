@@ -1,0 +1,42 @@
+# V29 — Hangyul Univ background worker (python -m app.worker). Install as /etc/systemd/system/hangyul-worker.service.
+# Safe to run on more than one host: jobs take a Postgres advisory lock and job_runs is unique per (job, window).
+# Secrets arrive as files (systemd credentials → HG_*_FILE), never in this unit or an .env on disk.
+[Unit]
+Description=Hangyul Univ background worker
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=hangyul
+Group=hangyul
+WorkingDirectory=/opt/hangyul-univ/server
+Environment=HG_ENV=production
+Environment=PYTHONUNBUFFERED=1
+EnvironmentFile=-/etc/hangyul/worker.env
+LoadCredential=jwt:/etc/hangyul/secrets/jwt
+LoadCredential=file_url:/etc/hangyul/secrets/file_url
+LoadCredential=mfa_key:/etc/hangyul/secrets/mfa_key
+LoadCredential=database_url:/etc/hangyul/secrets/database_url
+Environment=HG_JWT_SECRET_FILE=%d/jwt
+Environment=HG_FILE_URL_SECRET_FILE=%d/file_url
+Environment=HG_MFA_ENCRYPTION_KEY_FILE=%d/mfa_key
+Environment=HG_DATABASE_URL_FILE=%d/database_url
+ExecStart=/opt/hangyul-univ/server/.venv/bin/python -m app.worker
+Restart=always
+RestartSec=10
+TimeoutStopSec=60
+KillSignal=SIGTERM
+MemoryMax=512M
+# hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/opt/hangyul-univ/server/var
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+SystemCallFilter=@system-service
+
+[Install]
+WantedBy=multi-user.target

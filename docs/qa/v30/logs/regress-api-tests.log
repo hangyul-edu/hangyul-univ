@@ -1,0 +1,41 @@
+........................................................................ [ 11%]
+........................................................................ [ 22%]
+........................................................................ [ 34%]
+...................s.................................................... [ 45%]
+...s.................................................................... [ 57%]
+.....................F.................................................. [ 68%]
+........................................................................ [ 80%]
+........................................................................ [ 91%]
+......................................................                   [100%]
+=================================== FAILURES ===================================
+_______________ test_submissions_series_comes_from_applications ________________
+
+client = <starlette.testclient.TestClient object at 0x784bc60ce780>
+
+    def test_submissions_series_comes_from_applications(client):
+        h = login(client, PNU, "university")
+        a = client.get("/api/v1/university/analytics", headers=h).json()
+        monthly = a["series"]["submitted_monthly"]
+        assert len(monthly) == 12 and all({"month", "value"} <= set(m) for m in monthly)
+        weekly = a["series"]["submitted"]
+        assert all({"week", "value"} <= set(w) for w in weekly)
+        # The series is never empty while applications were submitted in the window (it used to read an empty rollup table).
+        with SessionLocal() as db:
+            uid = db.scalar(select(University.id).where(University.slug == "pusan-national-university"))
+            subs = [s for (s,) in db.execute(select(Application.submitted_at).where(Application.university_id == uid, Application.submitted_at.is_not(None)))]
+        first_month = monthly[0]["month"]
+        in_window = sum(1 for s in subs if s.strftime("%Y-%m") >= first_month)
+>       assert sum(m["value"] for m in monthly) == in_window
+E       assert 7 == 8
+E        +  where 7 = sum(<generator object test_submissions_series_comes_from_applications.<locals>.<genexpr> at 0x784bc2bb0ba0>)
+
+tests/test_v4_university.py:42: AssertionError
+----------------------------- Captured stderr call -----------------------------
+HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/university/analytics "HTTP/1.1 200 OK"
+------------------------------ Captured log call -------------------------------
+INFO     httpx:_client.py:1025 HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+INFO     httpx:_client.py:1025 HTTP Request: GET http://testserver/api/v1/university/analytics "HTTP/1.1 200 OK"
+=========================== short test summary info ============================
+FAILED tests/test_v4_university.py::test_submissions_series_comes_from_applications
+EXIT=1

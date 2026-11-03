@@ -1,0 +1,34 @@
+// Hangyul brand on top of Eduan (values only — Eduan's proportions, spacing, image scale and section rhythm stay).
+// Contrast: #CC4E00 with white 4.6:1 (AA) · #CC4E00 on #FFFFFF text 4.6:1 · body text rgba(30,30,30,.72) 9.5:1.
+
+:root {
+  // Eduan's university demos (index-6/7) use primary-6 red for every accent → Hangyul action tangerine.
+  --clr-theme-primary-6: #cc4e00;
+  --clr-color-darkPink: #cc4e00;
+  // Eduan's campus/scholarship purple field → Hangyul charcoal-night (V6 marketing night colour), keeps white text 17:1.
+  --clr-theme-primary-10: #1d1a16;
+  --clr-body-heading: #181a1f;
+  --clr-body-text: rgba(24, 26, 31, 0.72);
+  --ed-brand: #ff6700; // logo / sun device only
+  --ed-action: #cc4e00;
+  --ed-action-hover: #a83f00;
+  --ed-night: #16130f;
+  --ed-paper: #faf8f4;
+}
+
+// Eduan hard-codes its red in a few footer rules.
+.h6_footer-subscribe-form button, .h6_footer-social a:hover { background-color: var(--ed-action) !important; }
+
+// Eduan strips focus outlines globally — restore a visible ring (WCAG 2.4.7).
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--ed-action) !important;
+  outline-offset: 3px;
+}
+.h6_banner-area :where(a, button, select):focus-visible,
+.ed-night :where(a, button, select):focus-visible,
+.h6_footer-area :where(a, button, select):focus-visible { outline-color: #ffb37a !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ed-ticker__track { animation: none !important; }
+  .ed-reveal { opacity: 1 !important; transform: none !important; }
+}

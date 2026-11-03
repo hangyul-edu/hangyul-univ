@@ -1,0 +1,25 @@
+# V29 real ClamAV verification — ClamdScanner (app/core/storage.py) against a real clamd over its unix socket
+# date: 2026-10-30T14:09:11Z   host: Linux 6.18.33.2-microsoft-standard-WSL2
+# clamav package: Version: 1.5.4+dfsg-0ubuntu0.24.04.1
+# signatures: bytecode.cvd daily.cvd main.cvd 
+# mem before start: available=2132MB
+# clamd socket ready after 0s; clamd RSS: 9 MB
+PING -> True
+VERSION -> COMMAND UNAVAILABLE
+eicar.com (68 bytes)                       -> INFECTED signature=Eicar-Test-Signature  (7 ms)
+pdf with EICAR appended                    -> CLEAN    signature=None  (11 ms)
+clean pdf                                  -> CLEAN    signature=None  (7 ms)
+clean 3 MB blob (multi-chunk INSTREAM)     -> CLEAN    signature=None  (478 ms)
+unreachable socket -> ScannerError: clamd unreachable: FileNotFoundError
+RESULT: PASS
+# stopping clamd
+Stopping 'clamav-daemon.service', but its triggering units are still active:
+clamav-daemon.socket
+# clamd running after stop: 0   mem after stop: available=2149MB
+# follow-up: clamav-daemon.socket (socket activation) also stopped and disabled, so nothing restarts clamd; pgrep clamd -> none.
+# notes:
+#  - "clamd RSS: 9 MB" was sampled before clamd finished loading signatures (socket-activated, loads on first connection).
+#  - EICAR is only a test signature when the file STARTS with it (the EICAR spec), so "pdf with EICAR appended" is
+#    correctly CLEAN for real ClamAV. The suite's fake clamd (tests/v29_fakes.py) flags EICAR anywhere so the upload
+#    path can be driven with a valid-looking PDF; both speak the same INSTREAM wire protocol.
+#  - VERSION is disabled in this clamd build ("COMMAND UNAVAILABLE"); PING/INSTREAM are what the adapter uses.

@@ -1,0 +1,117 @@
+[38;5;208m
+▶ @hangyul/agency-web › test[0m
+
+ RUN  v3.2.7 /root/hangyul-univ/apps/agency-web
+
+ ✓ src/lib/logic.test.ts (28 tests) 56ms
+ ✓ src/lib/stages.test.ts (3 tests) 12ms
+ ✓ src/lib/waiting.test.ts (4 tests) 12ms
+ ✓ src/lib/writing.test.ts (6 tests) 36ms
+ ✓ src/lib/templates.test.ts (4 tests) 8ms
+stdout | src/components/MessageThread.test.tsx
+🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
+
+ ✓ src/components/MessageThread.test.tsx (5 tests) 170ms
+
+ Test Files  6 passed (6)
+      Tests  50 passed (50)
+   Start at  19:12:40
+   Duration  3.65s (transform 1.60s, setup 1.40s, collect 3.57s, tests 294ms, environment 5.81s, prepare 1.13s)
+
+[38;5;208m
+▶ @hangyul/marketing-web › test[0m
+
+ RUN  v3.2.7 /root/hangyul-univ/apps/marketing-web
+
+stdout | src/test/smoke.live.test.tsx
+🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
+
+stdout | src/test/v10-session.test.ts
+🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
+
+stdout | src/test/markdown.test.tsx
+🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
+
+stdout | src/test/v12-legal.test.ts
+🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
+
+stdout | src/test/plan-content.test.ts
+🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
+
+ ✓ src/test/v12-legal.test.ts (13 tests) 17ms
+ ❯ src/test/plan-content.test.ts (9 tests | 2 failed) 113ms
+   ✓ the canonical plan presentation > is the three plans, at the approved prices, with one recommended 3ms
+   ✓ the canonical plan presentation > carries the price the manifest holds, so nothing downstream can hold its own 1ms
+   ✓ the canonical plan presentation > declares exactly five benefit lines per plan 3ms
+   ✓ the approved plan copy (ko) > BASIC reads exactly as approved 5ms
+   × the approved plan copy (ko) > ALL_IN_ONE reads exactly as approved 17ms
+     → expected [ '베이직 전체 포함', '맞춤 대학 최대 5곳 비교', …(3) ] to deeply equal [ '베이직 전체 포함', '맞춤 대학 최대 5곳 비교', …(3) ]
+   ✓ the approved plan copy (ko) > PREMIUM reads exactly as approved 1ms
+   ✓ the approved plan copy (en) > BASIC reads exactly as approved 1ms
+   ✓ the approved plan copy (en) > ALL_IN_ONE reads exactly as approved 0ms
+   × the approved plan copy (en) > PREMIUM reads exactly as approved 3ms
+     → expected [ 'Everything in All-in-One', …(4) ] to deeply equal [ 'Everything in All-in-One', …(4) ]
+ ✓ src/test/markdown.test.tsx (11 tests) 141ms
+ ✓ src/test/v10-session.test.ts (5 tests) 3ms
+ ↓ src/test/smoke.live.test.tsx (22 tests | 22 skipped)
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/test/plan-content.test.ts > the approved plan copy (ko) > ALL_IN_ONE reads exactly as approved
+AssertionError: expected [ '베이직 전체 포함', '맞춤 대학 최대 5곳 비교', …(3) ] to deeply equal [ '베이직 전체 포함', '맞춤 대학 최대 5곳 비교', …(3) ]
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  [[22m
+[2m    "베이직 전체 포함",[22m
+[2m    "맞춤 대학 최대 5곳 비교",[22m
+[2m    "지원 학교 최대 2곳 관리",[22m
+[32m-   "서류 검토 · 입학처 커뮤니케이션",[39m
+[31m+   "서류 검토 · 입학처 연락",[39m
+[2m    "자기소개서·학업계획서 1회 첨삭",[22m
+[2m  ][22m
+
+ ❯ src/test/plan-content.test.ts:137:27
+    135|     const copy = planText(t, planPresentationByCode(code)!);
+    136|     expect(copy.description).toBe(APPROVED[code][lng].description);
+    137|     expect(copy.benefits).toEqual([...APPROVED[code][lng].benefits]);
+       |                           ^
+    138|     // A missing translation resolves to the key itself; that must nev…
+    139|     expect(copy.name).not.toContain('v15.pricing');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/test/plan-content.test.ts > the approved plan copy (en) > PREMIUM reads exactly as approved
+AssertionError: expected [ 'Everything in All-in-One', …(4) ] to deeply equal [ 'Everything in All-in-One', …(4) ]
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  [[22m
+[2m    "Everything in All-in-One",[22m
+[2m    "Up to 7 matched universities compared",[22m
+[2m    "Up to 3 applications managed",[22m
+[2m    "Up to 2 editing rounds · 1 mock interview",[22m
+[32m-   "Dormitory · arrival · 30 days of settling-in support",[39m
+[31m+   "Dormitory, arrival and 30 days of help settling in",[39m
+[2m  ][22m
+
+ ❯ src/test/plan-content.test.ts:137:27
+    135|     const copy = planText(t, planPresentationByCode(code)!);
+    136|     expect(copy.description).toBe(APPROVED[code][lng].description);
+    137|     expect(copy.benefits).toEqual([...APPROVED[code][lng].benefits]);
+       |                           ^
+    138|     // A missing translation resolves to the key itself; that must nev…
+    139|     expect(copy.name).not.toContain('v15.pricing');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 3 passed | 1 skipped (5)
+      Tests  2 failed | 36 passed | 22 skipped (60)
+   Start at  19:12:44
+   Duration  2.76s (transform 1.56s, setup 1.88s, collect 3.14s, tests 274ms, environment 2.90s, prepare 678ms)
+
+[31m✖ npm run test -w @hangyul/marketing-web failed (exit 1)[0m
+EXIT=1

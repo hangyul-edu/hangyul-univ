@@ -1,0 +1,40 @@
+/*
+ * The console test-access block's styles — **a separate stylesheet, imported by the component itself**.
+ *
+ * They lived in the shared `components.css` for one gate run, and `npm run qa:v16` failed the production
+ * build check: every app ships that stylesheet, so `hg-testlogin` was in the emitted CSS of a build that
+ * has no test login in it. A class name is not a credential and draws nothing on its own — but the
+ * requirement is that a production build contains *no* test-login UI, and "none" is easier to verify than
+ * "harmless", which is the same reasoning that moved the copy and the emails out.
+ *
+ * Imported from `test-access.tsx`, which the consoles load through a dynamic import behind a build-time
+ * constant. Vite emits this as that chunk's own CSS asset, so when the branch folds away, so does this.
+ */
+/* ================= Console test access (V16, REPORT §134) =================
+ *
+ * Secondary by construction: the primary sign-in button above it is filled, this one is outlined, and the
+ * divider between them says they are two ways to do one thing rather than two separate things to do.
+ */
+.hg-testlogin { display: grid; gap: 10px; margin-top: 20px; }
+/* A rule, a word, a rule. Without the two `::before`/`::after` lines, "또는" is a stray word above a button. */
+.hg-testlogin__or { display: flex; align-items: center; gap: 12px; color: var(--hg-text-tertiary); font-size: var(--hg-text-xs); }
+.hg-testlogin__or::before, .hg-testlogin__or::after { content: ''; flex: 1 1 auto; height: 1px; background: var(--hg-border); }
+.hg-testlogin__hint { margin: 0; text-align: center; font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); }
+.hg-testlogin__error { margin: 0; font-size: var(--hg-text-sm); color: var(--hg-status-danger-fg, #C62828); }
+.hg-testlogin__more {
+  justify-self: center; appearance: none; margin: 2px 0 0; padding: 4px 6px;
+  border: 0; background: none; font: inherit; font-size: var(--hg-text-xs);
+  color: var(--hg-text-secondary); text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+}
+.hg-testlogin__more:hover { color: var(--hg-text); }
+/* `list-style: none` and a reset margin/padding, because a browser's default disc and 40 px indent turn a
+   compact disclosure into a bulleted list of links — which is three persona cards by another name. */
+.hg-testlogin__roles { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.hg-testlogin__roles li { margin: 0; }
+.hg-testlogin__roles button {
+  display: block; width: 100%; min-height: 40px; padding: 0 12px;
+  border: 1px solid var(--hg-border); border-radius: var(--hg-radius-md);
+  background: var(--hg-surface); color: var(--hg-text-secondary); font: inherit; font-size: var(--hg-text-sm); cursor: pointer;
+}
+.hg-testlogin__roles button:hover { background: var(--hg-surface-hover); color: var(--hg-text); }
+.hg-testlogin__roles button:focus-visible { outline: 2px solid var(--hg-primary); outline-offset: 2px; }

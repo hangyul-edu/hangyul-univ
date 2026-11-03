@@ -1,0 +1,81 @@
+/* ================= V22 console surface (Agency · University · Hangyul operations) — REPORT §249 G7, §250 V5 =================
+   White and near-white, ink text, hairline borders, ONE action colour (Hangyul tangerine #CC4E00 on light surfaces, AA 4.9:1 white-on),
+   semantic green/red/amber/blue only for state. Replaces the V6/V7 cobalt + navy system: loaded after console.css and the YNEX skin,
+   so it only re-points variables both of them read. No dark menu, no navy areas, no gradient KPI cards. */
+html[data-surface='console'] {
+  --primary-rgb: 204, 78, 0;
+  --hg-bg: #FFFFFF;
+  --hg-bg-canvas: #FFFFFF;
+  --hg-bg-muted: #F6F3EE;
+  --hg-bg-paper: #FBFAF7;
+  --hg-surface: #FFFFFF;
+  --hg-surface-warm: #F6F3EE;
+  --hg-surface-sunken: #EFEBE4;
+  --hg-surface-hover: #F9F7F3;
+  --hg-border: #E8E4DD;
+  --hg-border-subtle: #F0ECE6;
+  --hg-border-strong: #D6D0C6;
+  --hg-text: #181A1F;
+  --hg-text-secondary: #56524B;
+  --hg-text-tertiary: #6A655D;
+  --hg-primary: #CC4E00;
+  --hg-primary-hover: #B84600;
+  --hg-primary-pressed: #A33E00;
+  --hg-primary-subtle: #FFF1E7;
+  --hg-primary-text: #B84600;
+  --hg-focus: #CC4E00;
+  --hg-shadow-focus: 0 0 0 3px rgba(204, 78, 0, 0.22);
+  --hg-status-brand-fg: #B84600;
+  --hg-status-brand-bg: #FFF1E7;
+  --hg-status-brand-solid: #CC4E00;
+  --hg-status-info-fg: #2C47A6;
+  --hg-status-info-bg: #EEF3FE;
+  --hg-status-info-solid: #4F74E8;
+  --hg-console-navy: #181A1F;
+  --hg-console-navy-2: #2A2D33;
+  --hg-console-ink-soft: #C9CBD0;
+  /* charts: one ink for single series, muted for comparison; categorical = ink · teal · blue · ochre · grey. Tangerine = highlight only. */
+  --hg-chart-1: #2A2D33;
+  --hg-chart-2: #3AA8A8;
+  --hg-chart-3: #4F74E8;
+  --hg-chart-4: #BC8516;
+  --hg-chart-5: #A29C92;
+  --hg-chart-6: #CFC8BD;
+  --hg-chart-7: #E8E4DD;
+  --hg-chart-ink: #181A1F;
+  --hg-chart-highlight: #CC4E00;
+  --hg-chart-muted: #D6D0C6;
+  --hg-chart-grid: #F0ECE6;
+  --hg-chart-axis: #6A655D;
+  --hg-chart-seq-1: #FFF6F0; --hg-chart-seq-2: #FFE2CC; --hg-chart-seq-3: #FFC59E; --hg-chart-seq-4: #F2A06A; --hg-chart-seq-5: #E07A3A; --hg-chart-seq-6: #CC4E00; --hg-chart-seq-7: #8F3600;
+}
+html[data-surface='console'] body { background: var(--hg-bg-canvas); }
+html[data-surface='console'] ::selection { background: #FFE2CC; }
+html[data-surface='console'] .hg-card, html[data-surface='console'] .hg-panel, html[data-surface='console'] .card.custom-card { box-shadow: none; border: 1px solid var(--hg-border); border-radius: 10px; }
+html[data-surface='console'] .hg-card__title::before, html[data-surface='console'] .hg-section__title::before { display: none; }
+html[data-surface='console'] .hg-card__title, html[data-surface='console'] .hg-section__title { padding-inline-start: 0; }
+/* the YNEX sidebar is always light in V22: ink on white, hairline divider, tangerine active */
+/* V31 (REPORT §420): one shell, not three template layers. The working canvas is WHITE (it used to be off-white with
+   a white top bar, white sidebar and white table cards floating on it — three hairline-separated slabs that read as a
+   grey admin template). The navigation is the one warm-paper panel, divided by a single hairline; the top bar is the
+   canvas's own white. Depth comes from type, spacing and the selected state, not from surfaces stacked on grey. */
+html[data-surface='console'] .app-sidebar { background: var(--hg-bg-paper) !important; border-inline-end: 1px solid var(--hg-border) !important; box-shadow: none !important; }
+html[data-surface='console'] .app-sidebar .main-sidebar-header { background: var(--hg-bg-paper) !important; border-color: transparent !important; }
+html[data-surface='console'] .app-sidebar .side-menu__item { color: var(--hg-text-secondary) !important; border-radius: 8px; }
+html[data-surface='console'] .app-sidebar .side-menu__item:hover { background: var(--hg-surface-warm) !important; color: var(--hg-text) !important; }
+html[data-surface='console'] .app-sidebar .side-menu__item.active { background: #FFF1E7 !important; color: #B84600 !important; font-weight: 600; }
+html[data-surface='console'] .app-sidebar .side-menu__item.active .side-menu__icon { color: #B84600 !important; }
+html[data-surface='console'] .app-sidebar .side-menu__icon { color: var(--hg-text-tertiary) !important; }
+html[data-surface='console'] .app-header { background: #FFFFFF !important; border-bottom: 1px solid var(--hg-border) !important; box-shadow: none !important; }
+html[data-surface='console'] .btn-primary { background: #CC4E00 !important; border-color: #CC4E00 !important; color: #fff !important; }
+html[data-surface='console'] .btn-primary:hover { background: #B84600 !important; border-color: #B84600 !important; }
+html[data-surface='console'] .btn-primary-light { background: #FFF1E7 !important; color: #B84600 !important; border-color: transparent !important; }
+html[data-surface='console'] .text-primary { color: #B84600 !important; }
+html[data-surface='console'] .bg-primary-transparent { background: #FFF1E7 !important; color: #B84600 !important; }
+html[data-surface='console'] .table thead th { background: var(--hg-bg-paper); color: var(--hg-text-secondary); font-weight: 600; border-bottom: 1px solid var(--hg-border); }
+html[data-surface='console'] .table td { border-color: var(--hg-border-subtle); }
+
+/* V28: Bootstrap's `.btn:focus-visible { outline: 0 }` (plus `.btn:focus { box-shadow: none }`) outranks the global
+   `:focus-visible` ring, so every console button lost its keyboard focus indicator (buttons gate NO_FOCUS, agency workspace).
+   Restore one ring for every .btn variant, keyboard focus only. */
+html[data-surface='console'] .btn:focus-visible { outline: 2px solid var(--hg-focus); outline-offset: 2px; }

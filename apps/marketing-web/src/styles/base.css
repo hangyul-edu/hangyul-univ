@@ -1,0 +1,218 @@
+/* Marketing base — page chrome and the shared marketing vocabulary (formerly styles.css + v6.css).
+   V26 (REPORT §347): one canonical file instead of version layers; the order inside is the original cascade order.
+   Declarations a later rule with the same selector and context always overrode were removed (scripts/qa/v26/css-consolidate.mjs). */
+
+/* ── from styles.css ────────────────────────────────────────────────────────────────────────────────────────── */
+/* Hangyul Univ — Marketing site.
+   Editorial and restrained: near-white canvas, ink type, hairline rules, product UI as imagery.
+   Tangerine appears only on the primary call to action and "you are here" markers.
+   Breakpoints: 768 · 1024 · 1280 (mobile-first). All colours, sizes and radii come from --hg-* tokens. */
+
+.mk { --mk-gutter: 16px; --mk-header-h: 60px; --mk-max: 1200px; min-height: 100dvh; display: flex; flex-direction: column; color: var(--hg-text); }
+@media (min-width: 768px) { .mk { --mk-gutter: 24px; --mk-header-h: 64px; } }
+@media (min-width: 1280px) { .mk { --mk-gutter: 32px; } }
+.mk a:not(.hg-btn) { text-decoration-color: var(--hg-border-strong); }
+
+/* ---------------------------------------------------------------- Type */
+.mk-eyebrow { font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); color: var(--hg-text-tertiary); margin-bottom: var(--hg-space-3); }
+.mk-cite { display: inline-flex; align-items: center; gap: 3px; color: var(--hg-text-tertiary); font-size: var(--hg-text-sm); text-decoration: underline; text-underline-offset: 2px; }
+.mk-cite:hover { color: var(--hg-text); }
+.mk-arrow { display: inline-flex; align-items: center; gap: 6px; font-size: var(--hg-text-base); font-weight: var(--hg-weight-medium); color: var(--hg-text); text-decoration: none !important; white-space: nowrap; }
+.mk-arrow svg { transition: transform var(--hg-motion-fast) var(--hg-motion-easing); }
+.mk-arrow:hover svg { transform: translateX(3px); }
+[dir='rtl'] .mk-arrow:hover svg { transform: translateX(-3px) scaleX(-1); }
+
+/* ---------------------------------------------------------------- Header */
+
+/* ---------------------------------------------------------------- Sections */
+.mk-section { padding-block: clamp(56px, 8vw, 104px); }
+.mk-section--tight { padding-block: clamp(40px, 5vw, 64px); }
+
+/* ---------------------------------------------------------------- Hero */
+
+/* Product preview (hero) */
+
+/* ---------------------------------------------------------------- Home: steps, pillars, parties, duo */
+
+/* ---------------------------------------------------------------- Product "shots" (sample UI) */
+
+/* ---------------------------------------------------------------- Final CTA */
+
+/* ---------------------------------------------------------------- Footer */
+
+/* ---------------------------------------------------------------- Inner page header */
+
+/* ---------------------------------------------------------------- Shared content blocks */
+.mk-checks { list-style: none; margin: var(--hg-space-4) 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.mk-checks li { display: flex; gap: 10px; align-items: flex-start; font-size: var(--hg-text-md); line-height: 1.5; }
+.mk-checks__icon { display: grid; place-items: center; flex: none; margin-top: 3px; color: var(--hg-text); }
+.mk-checks__icon svg { width: 16px; height: 16px; }
+
+/* 4-party flow, journey, roles, values, factors, principles — ruled grids, no icon chips */
+
+/* Visa + scholarships */
+
+/* Plans (Services) */ /* not included: dash marker + tertiary text (≥4.5:1), never colour alone */
+
+/* University partner tiers */
+
+/* FAQ */
+.mk-faq { border-top: 1px solid var(--hg-border); }
+.mk-faq__item { border-bottom: 1px solid var(--hg-border); }
+.mk-faq__item summary { display: flex; align-items: center; justify-content: space-between; gap: var(--hg-space-4); padding: var(--hg-space-5) 0; cursor: pointer; list-style: none; font-size: var(--hg-text-md); font-weight: var(--hg-weight-medium); }
+.mk-faq__item summary::-webkit-details-marker { display: none; }
+.mk-faq__icon { display: grid; place-items: center; flex: none; color: var(--hg-text-tertiary); transition: transform var(--hg-motion-base) var(--hg-motion-easing); }
+.mk-faq__icon svg { width: 18px; height: 18px; }
+.mk-faq__item[open] .mk-faq__icon { transform: rotate(45deg); }
+.mk-faq__body { padding-bottom: var(--hg-space-5); color: var(--hg-text-secondary); line-height: 1.65; max-width: 720px; }
+.mk-faq__body .mk-prose { font-size: var(--hg-text-md); }
+
+/* Country picker */
+
+/* Legalization widget */
+
+/* ---------------------------------------------------------------- Catalog (search) */
+/* V10: this is an <h2> now (results-region heading); keep it looking like the small meta line it is. */
+
+/* Result rows: programs and universities (ruled list, not a card wall) */
+
+/* ---------------------------------------------------------------- University detail */
+
+/* ---------------------------------------------------------------- Guides, articles, country */
+.mk-prose { font-size: var(--hg-text-lg); line-height: 1.75; color: var(--hg-text); overflow-wrap: break-word; }
+.mk-prose > * + * { margin-top: 1em; }
+.mk-prose > :first-child { margin-top: 0; }
+.mk-prose h2 { font-size: var(--hg-text-3xl); font-weight: var(--hg-weight-semibold); letter-spacing: -0.018em; line-height: 1.25; margin-top: 1.8em; scroll-margin-top: calc(var(--mk-header-h) + 24px); }
+.mk-prose h3 { font-size: var(--hg-text-xl); font-weight: var(--hg-weight-semibold); letter-spacing: -0.01em; margin-top: 1.6em; scroll-margin-top: calc(var(--mk-header-h) + 24px); }
+.mk-prose ul, .mk-prose ol { padding-inline-start: 1.3em; }
+.mk-prose li + li { margin-top: 0.35em; }
+.mk-prose blockquote { margin: 0; padding: 4px 0 4px var(--hg-space-4); border-inline-start: 2px solid var(--hg-border-strong); color: var(--hg-text-secondary); }
+.mk-prose code { font-family: var(--hg-font-mono); font-size: 0.9em; padding: 1px 5px; border-radius: var(--hg-radius-xs); background: var(--hg-surface-sunken); }
+.mk-prose hr { border: 0; border-top: 1px solid var(--hg-border); margin-block: 2em; }
+.mk-prose a { color: var(--hg-text); text-decoration: underline; text-underline-offset: 3px; }
+.mk-prose__table { overflow-x: auto; border: 1px solid var(--hg-border); border-radius: var(--hg-radius-lg); }
+.mk-prose table { width: 100%; border-collapse: collapse; font-size: var(--hg-text-base); line-height: 1.5; }
+.mk-prose th, .mk-prose td { padding: 10px 12px; text-align: start; border-bottom: 1px solid var(--hg-border-subtle); vertical-align: top; }
+.mk-prose th { font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); color: var(--hg-text-secondary); background: var(--hg-bg-muted); }
+.mk-prose tr:last-child td { border-bottom: 0; }
+
+/* ---------------------------------------------------------------- Trust registry */
+
+/* ---------------------------------------------------------------- Legal + 404 */
+.mk-legal { display: flex; flex-direction: column; gap: var(--hg-space-6); padding-block: var(--hg-space-8) var(--hg-space-16); }
+.mk-legal__toc ol { margin: 0; padding-inline-start: 1.3em; display: grid; gap: 6px; color: var(--hg-text-secondary); }
+.mk-legal__toc a { color: var(--hg-text-secondary); }
+.mk-legal .mk-prose section + section { margin-top: 2em; }
+
+/* ---------------------------------------------------------------- Small screens */
+
+/* ================================================================ V3 home
+   Hero = promise + quick eligibility (the product itself, not a picture of it). */
+
+/* Journey: one continuous line, six stops */
+
+/* Product proof: four real screens, each with the question it answers */
+
+/* ================================================================ V4 home
+   One start action: the quick check. Trust = editorial list + one real product detail (no feature grid). */
+
+/* Public discovery rows: university first and readable, one meta line. */
+
+/* ================================================================================= V19: subpage page head
+   The shared opening of every public subpage — see `components/blocks.tsx › PageIntro` for why it exists and
+   why it is left-aligned. The clearance above it comes from `--kn-page-top`, never from here. */
+.mk-pagehead { max-width: 46rem; }
+.mk-pagehead__title {
+  margin: 0;
+  font-size: clamp(1.75rem, 1.1rem + 2.7vw, 3rem);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  font-weight: var(--hg-weight-bold);
+  color: var(--hg-text);
+  max-width: 18ch;
+}
+.mk-pagehead__lede {
+  margin: clamp(14px, 1.6vw, 20px) 0 0;
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.1875rem);
+  line-height: 1.7;
+  color: var(--hg-text-secondary);
+  max-width: 48ch;
+}
+/* `word-break: keep-all` is a **Korean** rule, not a CJK one, and scoping it matters.
+   Korean has spaces, so `keep-all` stops a line breaking inside a 어절 and makes a heading break where it
+   would be spoken. Japanese and Chinese have no spaces at all, so the same declaration makes an entire
+   sentence one unbreakable token: `/start?lang=ja` at 390 px overflowed the document by 18 px, with the
+   intro block measuring 392 px inside a 358 px container. Everything else on the page was fine, which is
+   why only a per-locale sweep found it (REPORT §205). Left unscoped, this rule breaks precisely the two
+   markets whose writing system it looks like it was written for. */
+:lang(ko) .mk-pagehead__title,
+:lang(ko) .mk-pagehead__lede { word-break: keep-all; }
+
+/* ── from v6.css ────────────────────────────────────────────────────────────────────────────────────────────── */
+/* Hangyul Univ — V6 marketing layer (REPORT §36).
+   Consumer language: warm paper + charcoal night sections + tangerine. Licensed photography carries emotion;
+   the brand's tangerine circle is the one recurring graphic device. Tokens: */
+.mk {
+  --v6-paper: #FAF8F4;
+  --v6-paper-2: #F2EEE6;
+  --v6-night: #16130F;
+  --v6-night-2: #221D17;
+  --v6-ink: #181A1F;
+  --v6-on-night: #F4F1EC;
+  --v6-on-night-2: #C9C2B8; /* 10.6:1 on night */
+  --v6-tangerine: #FF6700;  /* brand — graphic device and CTA fill on dark (with ink text, 7.4:1) */
+  --v6-tangerine-soft: #FFB27A;
+  --v6-action: #CC4E00;     /* CTA on light, white text 4.5:1 */
+  --v6-radius: 18px;
+}
+
+/* ---------------------------------------------------------------- Photo */
+.mk-photo { display: block; width: 100%; height: 100%; object-fit: cover; background: #2A241D; }
+/* `<picture>` is inline by default, which would add a baseline gap under every photograph it wraps and stop
+   the `height: 100%` on the img from resolving. It is a transparent box around the image, so it takes the
+   image's own box. Applies to both wrappers: the portrait art-direction one and the AVIF/WebP one. */
+.mk-picture { display: block; width: 100%; height: 100%; }
+
+/* ---------------------------------------------------------------- Sentence check */
+
+/* result */
+
+/* ---------------------------------------------------------------- Credits */
+
+/* ================================================================ V6 home */
+
+/* Header floating over the hero photograph */
+
+/* ---------------------------------------------------------------- Hero */
+/* Scoped to `--art`, the wrapper the portrait *art-direction* branch renders. A `<picture>` that exists only
+   to offer AVIF/WebP of the same photograph must keep the position its caller chose: before this was scoped,
+   adding modern formats silently reset every per-image focal point to centre on phones. */
+@media (max-width: 699px) and (orientation: portrait) { .mk-picture--art img { object-position: var(--mk-portrait-pos, 50% 50%) !important; } }
+
+/* ---------------------------------------------------------------- Journey: photographic sequence */
+
+/* ---------------------------------------------------------------- Product on night */
+
+/* ---------------------------------------------------------------- Universities */
+@keyframes v6-shimmer { to { background-position: -200% 0; } }
+
+/* ---------------------------------------------------------------- Life in Korea */
+
+/* ---------------------------------------------------------------- Trust */
+
+/* ---------------------------------------------------------------- Final CTA: the tangerine sun */
+
+/* ================================================================ Discovery (/universities) */
+
+/* ================================================================ Inner pages (V6): night page header with the tangerine sun, night closing band */
+.mk { background: var(--v6-paper); }
+
+/* ================================================================ University detail (public) */
+
+/* Localisation (V6): long localized arrow links may wrap on phones; tall scripts need room between display lines. */
+
+/* V8 RTL QA (docs/qa/v8/rtl): in RTL locales, untranslated namespaces fall back to English. Each text block takes its
+   direction from its first strong character, so English fallbacks keep their punctuation and number order
+   ("30 seconds", "Korea?") instead of being reordered right-to-left. Translated RTL strings start with an RLM
+   (scripts/i18n/rtl-mark.mjs), so they stay right-to-left. Alignment follows the paragraph (start). */
+[dir='rtl'] :where(p, h1, h2, h3, h4, h5, h6, li, dt, dd, label, figcaption, blockquote, td, th, small) { unicode-bidi: plaintext; }

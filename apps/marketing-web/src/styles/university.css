@@ -1,0 +1,322 @@
+/* Public university pages — directory cards and detail (formerly v20; loaded per page).
+   V26 (REPORT §347): one canonical file instead of version layers; the order inside is the original cascade order.
+   Declarations a later rule with the same selector and context always overrode were removed (scripts/qa/v26/css-consolidate.mjs). */
+
+/* ── from v20.css ───────────────────────────────────────────────────────────────────────────────────────────── */
+/* ==================================================================================================
+   V20 — the public university experience, marketing side (brief §10–§22, §47, §50–§53).
+
+   The shared anatomy (hero, sections, gallery, video, links) is `@hangyul/ui`'s `university.css`, so the
+   student app draws the same institution the same way. What is here is the part that belongs to the
+   marketing site: the pieces that sit inside the Koreanasha chrome, and the directory.
+   ================================================================================================== */
+
+/* --------------------------------------------------------------------------------- detail: hero bits */
+
+/* The header pill floats over the page and the hero runs underneath it, so the breadcrumb — and only
+   the breadcrumb — has to clear it. `--uni-hero-clear` is what `.hg-uni-hero__top` reserves; the
+   lockup at the bottom of the hero reserves nothing, which is the whole point of splitting them. */
+.hg-uni-hero { --uni-hero-clear: calc(var(--kn-page-top, 92px) - 36px); }
+
+.hg-uni-hero__crumbs {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  margin-block-end: 18px;
+  font-size: 13px; font-weight: 500;
+}
+.hg-uni-hero__crumbs a { color: inherit; text-decoration: none; opacity: 0.82; }
+.hg-uni-hero__crumbs a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
+.hg-uni-hero__crumbs span[aria-hidden] { opacity: 0.45; }
+.hg-uni-hero--photo .hg-uni-hero__crumbs { color: rgba(255, 255, 255, 0.92); }
+.hg-uni-hero--type .hg-uni-hero__crumbs { color: var(--hg-text-tertiary); }
+
+.hg-uni-hero__from {
+  margin-block-start: 16px; padding: 10px 16px 11px 13px;
+  border-radius: 14px;
+  font-size: 13.5px; font-weight: 500;
+  max-inline-size: 42ch;
+}
+.hg-uni-hero__from-h { display: flex; align-items: center; gap: 8px; margin: 0; font-weight: 600; }
+.hg-uni-hero__from svg { inline-size: 15px; block-size: 15px; flex: none; }
+.hg-uni-hero__from-why { margin: 7px 0 0; padding-inline-start: 23px; display: grid; gap: 3px; }
+.hg-uni-hero__from-why li { font-size: 13px; line-height: 1.5; list-style: disc; }
+.hg-uni-hero--photo .hg-uni-hero__from { background: rgba(255, 255, 255, 0.16); color: #fff; backdrop-filter: blur(3px); }
+.hg-uni-hero--type .hg-uni-hero__from { background: var(--hg-primary-subtle); color: var(--hg-primary-text); }
+
+/* The official site sits beside the call to action as a link, not a second button: it leads away from
+   the thing the page is asking for, and two pills of equal weight is how a hero ends up advertising the
+   wrong one (the V13 mistake recorded in `koreanasha.scss`). */
+.hg-uni-hero__site {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 15px; font-weight: 550; text-decoration: none;
+  padding-inline: 4px;
+}
+.hg-uni-hero--photo .hg-uni-hero__site { color: #fff; }
+.hg-uni-hero--type .hg-uni-hero__site { color: var(--hg-text); }
+.hg-uni-hero__site:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* ------------------------------------------------------------------------------- detail: page blocks */
+
+.hg-uni-cityshot {
+  margin: clamp(28px, 3.4vw, 44px) 0 0;
+  border-radius: 14px; overflow: hidden;
+  background: var(--hg-surface-sunken);
+}
+.hg-uni-cityshot img { inline-size: 100%; block-size: auto; aspect-ratio: 21 / 9; object-fit: cover; }
+@media (max-width: 767px) { .hg-uni-cityshot img { aspect-ratio: 4 / 3; } }
+.hg-uni-cityshot figcaption {
+  padding-block-start: 10px;
+  font-size: 12.5px; color: var(--hg-text-tertiary);
+}
+
+.hg-uni-checked { margin-block-start: 18px; font-size: 12.5px; color: var(--hg-text-tertiary); }
+
+/* The closing action. A quiet full-width band rather than the near-black card the rest of the site
+   closes with: this page has already made its case and a second black box would compete with the hero. */
+.hg-uni-cta {
+  margin-block-start: clamp(20px, 3vw, 36px);
+  padding-block: clamp(44px, 6vw, 76px) clamp(56px, 8vw, 104px);
+  border-block-start: 1px solid var(--hg-border);
+}
+.hg-uni-cta .hg-uni-sec__lede { margin-block-end: clamp(22px, 2.6vw, 30px); }
+@media (max-width: 575px) { .hg-uni-cta .kn-btn { inline-size: 100%; } }
+
+/* ============================================================================== the directory (§18–§21)
+
+   What this replaces: two columns of text rows, 24 to a page, with no image anywhere and a vertical
+   rhythm that broke because some rows carried IEQAS chips and some did not (REPORT §211.1). The grid
+   below gives every institution the same shape — a visual, a mark, a name, a place, one identity line —
+   so the page reads as a set of places rather than as a query result.
+   ========================================================================================================= */
+
+.mk-dir__results .mk-dir__grid,
+.mk-unigrid {
+  align-content: start;
+  display: grid; gap: clamp(18px, 2.2vw, 28px) clamp(16px, 1.8vw, 24px);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 232px), 1fr));
+  margin: 0; padding: 0; list-style: none;
+}
+.mk-unigrid > li { margin: 0; min-inline-size: 0; }
+
+.mk-unicard {
+  position: relative;
+  display: flex; flex-direction: column;
+  block-size: 100%;
+}
+/* The whole card is the target, via a stretched pseudo-element on the name's link. One tab stop, one
+   hit area, and the name is still the accessible name of the link (§53). */
+.mk-unicard__link::after { content: ''; position: absolute; inset: 0; border-radius: 14px; }
+.mk-unicard__link { color: inherit; text-decoration: none; }
+
+.mk-unicard__visual {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 14px; overflow: hidden;
+  background: var(--hg-surface-sunken);
+  isolation: isolate;
+}
+/* `:not(.mk-unicard__logo)` is load-bearing: the mark is an `<img>` inside the same box, and without
+   the exclusion this rule (0,2,0) overrode the mark's own `position: absolute` (0,1,0) and dropped it
+   out of the corner it is positioned into. */
+.mk-unicard__visual > img:not(.mk-unicard__logo) {
+  position: relative; z-index: 0;
+  inline-size: 100%; block-size: 100%; object-fit: cover;
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* §52 — 1.5–2.5 % and nothing else. No bounce, no glow, no shadow transition. */
+.mk-unicard:hover .mk-unicard__visual > img:not(.mk-unicard__logo) { transform: scale(1.022); }
+
+/* Tier C — the mark alone, centred, with real room around it. A logo is a considered piece of
+   artwork; the one thing a product must not do with it is crop it, stretch it or crowd it. */
+.mk-unicard__markwrap {
+  position: absolute; inset: 0;
+  display: grid; place-items: center; padding: 18px;
+  background: linear-gradient(170deg, var(--hg-surface) 0%, var(--hg-surface-sunken) 100%);
+}
+.mk-unicard__mark { max-inline-size: 62%; max-block-size: 56%; inline-size: auto; block-size: auto; object-fit: contain; }
+
+/* Tier D — the institution's **full name**, both scripts, and nothing else.
+   This replaces V20's chopped syllable (REPORT §226.1). It is the common case — 368 of 425 — so it
+   is designed as a composition in its own right rather than as the absence of one: the Korean name
+   leads at display size, the English sits under it at reading size, both are clamped to two lines so
+   a long name stays a block of type instead of overflowing, and the surface is the quietest warm
+   grey in the palette so a grid of them reads as a set rather than as a wall. */
+.mk-unicard__ident {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(16px, 2vw, 22px);
+  background: linear-gradient(168deg, var(--hg-surface-warm, #FFF9F4) 0%, var(--hg-surface) 100%);
+  text-align: start;
+}
+/* A single hairline in the brand colour at the top-left corner. It is the only ornament on the tile
+   and it exists so a grid of identity cards reads as a deliberate set rather than as empty frames —
+   the one thing V20's fragment got right was that the eye needs an anchor. */
+.mk-unicard__ident::before {
+  content: ''; position: absolute; inset-block-start: 0; inset-inline-start: 0;
+  inline-size: 48px; block-size: 3px; background: var(--hg-primary); opacity: 0.85;
+}
+.mk-unicard__ident-name {
+  font-size: clamp(20px, 2.3vw, 26px); font-weight: 650; line-height: 1.28; letter-spacing: -0.022em;
+  color: var(--hg-text);
+  /* Three lines, because Korean institution names are long and 가톨릭꽃동네대학교 clipped at the frame
+     edge is the same ugliness as a chopped syllable by another route. `keep-all` breaks at 어절
+     boundaries so a name never splits mid-word. */
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  word-break: keep-all; overflow-wrap: anywhere;
+}
+/* A Latin name at the same size is optically larger and much longer, so it is set smaller and allowed
+   a fourth line. */
+.mk-unicard__ident-name.is-latin {
+  font-size: clamp(15.5px, 1.6vw, 19px); line-height: 1.34; -webkit-line-clamp: 4; letter-spacing: -0.012em;
+}
+
+.mk-unicard__tag { z-index: 2; }
+
+/* A single quiet marker, bottom-right, for the two tiers that carry real media. Not a badge wall: §18
+   is explicit that a result must not become ten chips. */
+.mk-unicard__tag {
+  position: absolute; inset-block-end: 12px; inset-inline-end: 12px;
+  max-inline-size: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  padding: 4px 9px; border-radius: 999px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+  background: rgba(255, 255, 255, 0.92); color: var(--hg-text);
+}
+
+.mk-unicard__body { padding-block-start: 14px; display: flex; flex-direction: column; gap: 5px; }
+/* Tiles sit in a grid whose rows are as tall as their tallest member, so a caption with an alternate
+   name pushed its whole row down and the images stopped lining up. The visual is a fixed ratio and
+   the caption is given a floor, which puts every image in a row on the same baseline. */
+.mk-unicard__body { min-block-size: 76px; }
+.mk-unicard__name {
+  margin: 0; font-size: 17px; font-weight: 650; line-height: 1.3; letter-spacing: -0.015em;
+  color: var(--hg-text);
+}
+.mk-unicard:hover .mk-unicard__name { color: var(--hg-primary-text); }
+.mk-unicard__alt { margin: 0; font-size: 13px; color: var(--hg-text-tertiary); line-height: 1.4; }
+.mk-unicard__where {
+  margin: 2px 0 0; font-size: 13px; font-weight: 500; color: var(--hg-text-secondary);
+  display: flex; flex-wrap: wrap; gap: 0 8px;
+}
+.mk-unicard__where > span + span::before { content: '·'; margin-inline-end: 8px; opacity: 0.5; }
+.mk-unicard__signal { margin: 6px 0 0; font-size: 13px; line-height: 1.4; color: var(--hg-text-secondary); font-weight: 500; }
+.mk-unicard__say {
+  margin: 6px 0 0; font-size: 13.5px; line-height: 1.55; color: var(--hg-text-tertiary);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-unicard__visual > img { transition: none; }
+  .mk-unicard:hover .mk-unicard__visual > img { transform: none; }
+}
+
+/* V12 sized the picker column for a *text* list beside it, where the results needed no width. A grid of
+   result tiles does: at 420 px the picker left 732 px, which is two tiles and a column of white at
+   1440. 340 px gives three. The map is drawn to its container, so it simply draws smaller. */
+@media (min-width: 1200px) {
+  .mk-dir__body { grid-template-columns: minmax(280px, 340px) minmax(0, 1fr); }
+}
+
+/* The V12 row chrome does not apply to a card: a hairline under every tile turns the grid into a table
+   again, and the row padding offsets the image from its own corner. */
+.mk-dir__results .mk-dir__grid > li { border-bottom: 0; padding: 0; }
+
+/* The discovery page's own head and controls. Search first, then a small set of filters — not a filter
+   dashboard (§21). On a phone the map collapses behind a disclosure so results are immediately visible. */
+.mk-dir__lede { max-inline-size: 56ch; }
+.mk-dir__tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-block-start: 14px; }
+.mk-dir__tools select {
+  appearance: none; -webkit-appearance: none;
+  padding: 9px 34px 9px 14px; border-radius: 999px;
+  border: 1px solid var(--hg-border-control, var(--hg-border-strong));
+  background: var(--hg-surface) url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23555A62' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 13px center;
+  font-size: 14px; font-weight: 550; color: var(--hg-text); cursor: pointer;
+}
+[dir='rtl'] .mk-dir__tools select { padding: 9px 14px 9px 34px; background-position: left 13px center; }
+.mk-dir__tools select:hover { border-color: var(--hg-text-tertiary); }
+.mk-dir__tools select:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 2px; }
+
+@media (max-width: 991px) {
+  .mk-dir__mapwrap { display: none; }
+  .mk-dir__mapwrap[data-open='true'] { display: block; }
+  .mk-dir__maptoggle {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 9px 15px; border-radius: 999px;
+    border: 1px solid var(--hg-border-control, var(--hg-border-strong));
+    background: var(--hg-surface); color: var(--hg-text); font-size: 14px; font-weight: 550; cursor: pointer;
+  }
+}
+@media (min-width: 992px) { .mk-dir__maptoggle { display: none; } }
+
+/* ==================================================================================================
+   V21 — the directory's controls, and the map demoted to a disclosure (brief §5, §6, §8).
+
+   The old layout gave the map a 360 px column the full height of the first three result rows at every
+   width above 992 px. It made an aspirational product read as a data explorer and pushed the
+   universities below the fold (REPORT §226.2). Search leads now, eight browsing groups follow, and
+   the map opens when it is asked for — at every width, not only on a phone.
+   ================================================================================================== */
+
+.mk-dir__controls { display: grid; gap: 14px; padding-block-end: clamp(18px, 2.4vw, 26px); }
+.mk-dir__controls .mk-dir__find { max-inline-size: 560px; }
+
+.mk-dir__groups { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.mk-dir__group {
+  padding: 8px 15px; border-radius: 999px; min-height: 44px;
+  border: 1px solid var(--hg-control-secondary-border); background: var(--hg-surface); /* V27: 3:1 edge, 44-px target */
+  font-size: 14px; font-weight: 550; color: var(--hg-text-secondary);
+  cursor: pointer; white-space: nowrap;
+  transition: border-color 140ms, color 140ms, background 140ms;
+}
+.mk-dir__group:hover { border-color: var(--hg-text-tertiary); color: var(--hg-text); }
+.mk-dir__group[aria-pressed='true'] {
+  background: var(--hg-text); border-color: var(--hg-text); color: var(--hg-surface);
+}
+.mk-dir__group:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 2px; }
+/* Styled as a control in the same family as the group pills, not as a bare native select. */
+.mk-dir__kind {
+  margin-inline-start: auto;
+  appearance: none; -webkit-appearance: none;
+  padding: 8px 32px 8px 15px; border-radius: 999px;
+  border: 1px solid var(--hg-border); background: var(--hg-surface) url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='%23555A62' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center;
+  font-size: 14px; font-weight: 550; color: var(--hg-text-secondary); cursor: pointer;
+}
+.mk-dir__kind:hover { border-color: var(--hg-text-tertiary); color: var(--hg-text); }
+.mk-dir__kind:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 2px; }
+[dir='rtl'] .mk-dir__kind { padding: 8px 15px 8px 32px; background-position: left 12px center; }
+@media (max-width: 575px) { .mk-dir__kind { margin-inline-start: 0; } }
+
+/* One column at every width. The picker is a disclosure above the results, not a column beside them. */
+.mk-dir__body { grid-template-columns: minmax(0, 1fr) !important; }
+.mk-dir__picker { position: static !important; display: grid; gap: 12px; justify-items: start; }
+.mk-dir__maptoggle {
+  display: inline-flex !important; align-items: center; gap: 7px;
+  padding: 9px 15px; border-radius: 999px;
+  border: 1px solid var(--hg-border-control, var(--hg-border-strong));
+  background: var(--hg-surface); color: var(--hg-text); font-size: 14px; font-weight: 550; cursor: pointer;
+}
+.mk-dir__maptoggle:hover { border-color: var(--hg-text-tertiary); }
+.mk-dir__maptoggle:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 2px; }
+/* The map and the per-province chips are the *contents* of the disclosure: a reader who has not asked
+   for a province sees neither, and a reader who has gets both in one place. */
+.mk-dir__picker .mk-dir__mapwrap,
+.mk-dir__picker .mk-regions { display: none; }
+.mk-dir__picker[data-open] .mk-dir__mapwrap { display: flex; }
+.mk-dir__picker[data-open] .mk-regions { display: block; }
+.mk-dir__picker[data-open] .mk-dir__mapwrap .mk-map { max-width: 300px; }
+
+.mk-dir__resulthead { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; }
+
+/*
+ * V21 — the photograph's credit on the result tile.
+ *
+ * Quiet enough not to compete with the institution's name, legible enough to be a credit: the same
+ * secondary colour as the region line, one size down, and it wraps rather than truncating because a
+ * truncated author's name is not an attribution. Only the tiles with a photograph that requires one
+ * have it, so the grid does not gain a blank line everywhere.
+ */
+.mk-unicard__credit {
+  margin: 6px 0 0;
+  font-size: 11px; line-height: 1.45; letter-spacing: 0.01em;
+  color: var(--hg-text-tertiary);
+}
+.mk-unicard__credit a { color: inherit; text-decoration: none; border-block-end: 1px solid currentColor; opacity: 0.7; }
+.mk-unicard__credit a:hover { opacity: 1; }

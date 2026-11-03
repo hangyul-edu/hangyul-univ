@@ -1,0 +1,38 @@
+........................................................................ [ 13%]
+........................................................................ [ 26%]
+........................................................................ [ 39%]
+...................s.................................................... [ 52%]
+........................................................................ [ 65%]
+........................................................................ [ 78%]
+........................................................................ [ 91%]
+..............F..................................                        [100%]
+=================================== FAILURES ===================================
+______________ test_visa_refusal_after_tuition_opens_refund_case _______________
+
+client = <starlette.testclient.TestClient object at 0x7e0f42fdeed0>
+db = <sqlalchemy.orm.session.Session object at 0x7e0f40f2c650>
+
+    def test_visa_refusal_after_tuition_opens_refund_case(client, db):
+        from app.models.v5_visa_routes import VisaCaseTrack
+    
+        email = "student.myanmar@demo.hangyul.kr"
+        h = login(client, email, "student")
+        sid = db.scalar(select(User.id).where(User.email == email))
+        case = db.scalar(select(VisaCase).where(VisaCase.student_user_id == sid))
+        prev = case.status
+        case.status = VisaStatus.SUBMITTED
+        db.commit()
+        try:
+            r = client.post("/api/v1/me/visa-route/decision", json={"decision": "REFUSED", "decided_on": date.today().isoformat()}, headers=h)
+            assert r.status_code == 200, r.text
+            sc = db.scalar(select(ServiceCase).where(ServiceCase.student_user_id == sid, ServiceCase.case_type == "REFUND"))
+            assert sc and sc.status == "OPEN" and sc.details["trigger"] == "VISA_REFUSED"
+            d = client.get("/api/v1/me/dashboard", headers=h).json()
+>           rf = d["refund"]
+                 ^^^^^^^^^^^
+E           KeyError: 'refund'
+
+tests/test_v9_student.py:219: KeyError
+=========================== short test summary info ============================
+FAILED tests/test_v9_student.py::test_visa_refusal_after_tuition_opens_refund_case
+EXIT=1

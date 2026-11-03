@@ -1,0 +1,58 @@
+
+1. Homepage motion tokens
+  ✓ motion.small = 840ms
+  ✓ motion.copy = 950ms
+  ✓ motion.reveal = 1020ms
+  ✓ motion.media = 1180ms
+  ✓ motion.hero = 1450ms
+  ✓ motion.stagger = 140ms
+  ✓ motion.fast = 120ms (unchanged)
+  ✓ motion.base = 180ms (unchanged)
+  ✓ motion.slow = 260ms (unchanged)
+  ✓ tokens.css matches the source
+
+2. Markets and locale coverage
+  ✓ 33 canonical markets
+  ✓ Myanmar is a market (V18)
+  ✓ every market has a flag asset, published to 4 apps
+  ✓ MM.svg is script-free
+  ✓ MM.svg provenance recorded
+  ✓ V18 core conversion surface complete in 33/33 markets (no English fallback)
+      (full-surface gap, reported not gated: 70,702 strings — REPORT §172)
+
+3. Student web: the page-head band is gone
+  ✓ no night band on the student page head
+  ✓ no radial decoration on the student page head
+  ✓ v16.css band rules removed, not left overriding nothing
+
+4. Native offline cache
+  ✓ offline cache is an allowlist
+  ✓ payment, checkout, order, document bodies, uploads and credentials are refused
+  ✓ sign-out clears the disk cache
+  ✓ connectivity drives React Query
+
+5. The API port is 8001 everywhere current
+  ✓ no source reference to the Hangyul API on :8000
+  ✓ REPORT.md §0 states :8001
+  ✓ REPORT.md carries a current-state section above the historical audits
+
+6. Release signing is reproducible
+  ✓ release signing is an expo config plugin
+  ✓ signing plugin registered
+  ✓ status bar configured at theme level (edge-to-edge safe)
+  ✓ version 1.0.0 / versionCode 1 / buildNumber 1
+  ✓ production → app-bundle, preview/android-apk → apk, ios-simulator → simulator
+
+7. Release artifacts
+  ✓ APK present, 120.1 MB
+  ✓ AAB present, 79.2 MB
+  ✓ every listed checksum matches its binary
+  ✓ BUILD_INFO.json is complete and secret-free
+  ✓ BUILD_REPORT.md present
+  ✓ no placeholder iOS artifact
+
+8. Programme verification
+  ✓ 66 programmes tracked, 0 verified against an official source
+
+────────────────────────────────────────────────────────────────────────
+V18 gate: 38 passed, 0 failed, 0 skipped

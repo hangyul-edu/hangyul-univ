@@ -1,0 +1,41 @@
+// V23 §270 D3 — directory filter sheet strings. [filters, region, clearAll, showResults({{count}})]
+import fs from 'node:fs';
+const S = {
+  ko: ['필터', '지역', '모두 지우기', '{{count}}곳 보기'],
+  en: ['Filters', 'Region', 'Clear all', 'Show {{count}} universities'],
+  vi: ['Bộ lọc', 'Khu vực', 'Xóa tất cả', 'Xem {{count}} trường'],
+  ne: ['फिल्टर', 'क्षेत्र', 'सबै हटाउनुहोस्', '{{count}} विश्वविद्यालय हेर्नुहोस्'],
+  uz: ['Filtrlar', 'Hudud', 'Hammasini tozalash', '{{count}} ta universitetni koʻrish'],
+  mn: ['Шүүлтүүр', 'Бүс нутаг', 'Бүгдийг арилгах', '{{count}} их сургууль харах'],
+  'zh-Hans': ['筛选', '地区', '全部清除', '查看 {{count}} 所大学'],
+  ja: ['絞り込み', '地域', 'すべてクリア', '{{count}}校を表示'],
+  th: ['ตัวกรอง', 'ภูมิภาค', 'ล้างทั้งหมด', 'ดู {{count}} มหาวิทยาลัย'],
+  id: ['Filter', 'Wilayah', 'Hapus semua', 'Lihat {{count}} universitas'],
+  fil: ['Mga filter', 'Rehiyon', 'I-clear lahat', 'Ipakita ang {{count}} unibersidad'],
+  my: ['စစ်ထုတ်ရန်', 'ဒေသ', 'အားလုံးရှင်းရန်', 'တက္ကသိုလ် {{count}} ခု ကြည့်ရန်'],
+  hi: ['फ़िल्टर', 'क्षेत्र', 'सब हटाएँ', '{{count}} विश्वविद्यालय देखें'],
+  bn: ['ফিল্টার', 'অঞ্চল', 'সব মুছুন', '{{count}}টি বিশ্ববিদ্যালয় দেখুন'],
+  kk: ['Сүзгілер', 'Аймақ', 'Барлығын тазалау', '{{count}} университетті көру'],
+  ky: ['Чыпкалар', 'Аймак', 'Баарын тазалоо', '{{count}} университетти көрүү'],
+  ar: ['عوامل التصفية', 'المنطقة', 'مسح الكل', 'عرض {{count}} جامعة'],
+  tr: ['Filtreler', 'Bölge', 'Tümünü temizle', '{{count}} üniversiteyi göster'],
+  ru: ['Фильтры', 'Регион', 'Сбросить всё', 'Показать университеты: {{count}}'],
+  uk: ['Фільтри', 'Регіон', 'Скинути все', 'Показати університети: {{count}}'],
+  pl: ['Filtry', 'Region', 'Wyczyść wszystko', 'Pokaż uczelnie: {{count}}'],
+  cs: ['Filtry', 'Region', 'Vymazat vše', 'Zobrazit univerzity: {{count}}'],
+  hu: ['Szűrők', 'Régió', 'Összes törlése', '{{count}} egyetem megjelenítése'],
+  ro: ['Filtre', 'Regiune', 'Șterge tot', 'Vezi {{count}} universități'],
+  sr: ['Филтери', 'Регион', 'Обриши све', 'Прикажи универзитете: {{count}}'],
+  el: ['Φίλτρα', 'Περιοχή', 'Εκκαθάριση όλων', 'Προβολή {{count}} πανεπιστημίων'],
+  it: ['Filtri', 'Regione', 'Cancella tutto', 'Mostra {{count}} università'],
+  es: ['Filtros', 'Región', 'Borrar todo', 'Ver {{count}} universidades'],
+  pt: ['Filtros', 'Região', 'Limpar tudo', 'Ver {{count}} universidades'],
+  fr: ['Filtres', 'Région', 'Tout effacer', 'Voir {{count}} universités'],
+  de: ['Filter', 'Region', 'Alle zurücksetzen', '{{count}} Hochschulen anzeigen'],
+  nl: ['Filters', 'Regio', 'Alles wissen', '{{count}} universiteiten tonen'],
+  sv: ['Filter', 'Region', 'Rensa allt', 'Visa {{count}} universitet'],
+};
+const col = (i) => Object.fromEntries(Object.entries(S).map(([l, v]) => [l, v[i]]));
+fs.writeFileSync(new URL('./dir-strings.json', import.meta.url), JSON.stringify({ marketing: {
+  'v23.dir.filters': col(0), 'v23.dir.region': col(1), 'v23.dir.clearAll': col(2), 'v23.dir.showResults': col(3),
+} }, null, 1));
