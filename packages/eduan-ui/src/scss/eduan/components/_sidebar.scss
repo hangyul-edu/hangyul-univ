@@ -39,7 +39,9 @@
     opacity: 0;
     visibility: hidden;
     @include transition(.4s);
-    cursor: url(../../assets/img/bg/close.png), auto;
+    // Deployment (2026-11): the template's custom close cursor image was never shipped, so this url() was a 404 on every
+    // page and the browser always fell back to `auto`. Stating the effective value removes the request, not a behaviour.
+    cursor: auto;
   }
   
   .offcanvas-overlay:is(.overlay-open) {

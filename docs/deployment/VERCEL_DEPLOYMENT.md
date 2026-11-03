@@ -28,7 +28,7 @@ No secrets in this file: names and structure only.
 | Student | `@hangyul/student-web` | `apps/student-web` | 3101 | `hangyul-univ-student` (`prj_4HrF4G9ao7IOPS7Wr3i0txZMIY3f`) | `app.univ.talkhangyul.com` |
 | Agency | `@hangyul/agency-web` | `apps/agency-web` | 3102 | `hangyul-univ-agency` (`prj_ZonZa7TDChJwkiFHNFOY2taI7r3L`) | `admin.univ.talkhangyul.com` |
 | University | `@hangyul/university-web` | `apps/university-web` | 3103 | `hangyul-univ-university` (`prj_20Vo2ilX5jRJCduazH19JjUFR1xz`) | `partner.univ.talkhangyul.com` |
-| API | `hangyul-univ-api` (Python) | `server/` | 8001 | **not yet deployed** (see "API" below) | `api.univ.talkhangyul.com` (infrastructure only) |
+| API | (Python, FastAPI) | `server/` | 8001 | **out of scope for this deployment**, not deployed (see "API" below) | reserved: `api.univ.talkhangyul.com` (infrastructure only) |
 
 `apps/student-web/public/media` is a symlink to `apps/marketing-web/public/media`, so the student build ships the same
 university photography as marketing.
@@ -106,6 +106,13 @@ After a rollback, Vercel stops auto-promoting new `main` builds for that project
 - Fix: Root Directory `apps/marketing-web`, Framework Vite, the committed `vercel.json`, and three more projects for the other apps.
 
 ## API
+
+**Owner decision, 2026-11-03: this deployment is frontend-only.** The backend is deliberately not deployed, and no
+backend infrastructure (database, Redis, storage, scanner, worker, provider credentials) was provisioned. The
+`/api/*` rewrite to `https://api.univ.talkhangyul.com` is already in each app's `vercel.json`, so connecting the API
+later means deploying it at that hostname and nothing in the web apps changes. Until then every `/api/*` request
+returns 404. These features are therefore unavailable: sign-in and sign-up in all three products, the marketing
+university directory, university detail data and Quick Fit, and every signed-in screen.
 
 The FastAPI service is **not** deployed yet. Its production start-up is fail-closed (`server/app/core/config.py`,
 `v29_production_violations` and `get_settings`) and refuses to run without all of the following:
