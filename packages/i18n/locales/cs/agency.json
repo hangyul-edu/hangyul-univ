@@ -1,680 +1,1329 @@
 {
- "apps": {
-  "allStatuses": "Všechny stavy",
-  "allUniversities": "Všechny univerzity",
-  "closed": "Uzavřeno",
-  "col": {
-   "intake": "Nástup",
-   "program": "Univerzita / program",
-   "status": "Stav",
-   "student": "Studující"
+  "apps": {
+    "allStatuses": "Všechny stavy",
+    "allUniversities": "Všechny univerzity",
+    "closed": "Uzavřeno",
+    "col": {
+      "intake": "Nástup",
+      "program": "Univerzita / program",
+      "status": "Stav",
+      "student": "Student"
+    },
+    "deadline": "Termín",
+    "detail": "Přihláška",
+    "empty": "Těmto filtrům neodpovídají žádné přihlášky. Změňte je nebo vymažte.",
+    "flagged": "Označeno",
+    "onlyFlagged": "Pouze označené",
+    "searchPh": "Hledat studenta, program, univerzitu nebo referenci…",
+    "sort": "Řadit podle",
+    "sortBy": {
+      "deadline": "Termín",
+      "submitted": "Naposledy podané",
+      "updated": "Naposledy aktualizované",
+      "readiness": "Připravenost"
+    },
+    "uniHint": "Filtruje podle názvu univerzity",
+    "university": "Univerzita",
+    "actor": {
+      "AGENCY": "Agentura",
+      "HANGYUL": "Hangyul",
+      "STUDENT": "Student",
+      "SYSTEM": "Systém",
+      "UNIVERSITY": "Univerzita"
+    },
+    "checklist": "Seznam dokumentů",
+    "checklistCount": "Připraveno {{ready}} z {{total}} položek",
+    "confirmMove": "Přesunout do „{{status}}“",
+    "externalRef": "Reference univerzity",
+    "externalRefHint": "Číslo přihlášky z portálu univerzity, pokud ho máte.",
+    "flag": "Označit",
+    "flagReason": "Důvod označení",
+    "flagTitle": "Označit ke sledování",
+    "history": "Historie stavů",
+    "legalization": "Notářské ověření a legalizace",
+    "moveTo": "Změnit stav přihlášky",
+    "moved": "Přihláška přesunuta do stavu {{status}}.",
+    "noTransitions": "V této fázi nemá vaše organizace k dispozici žádnou změnu stavu.",
+    "note": "Poznámka",
+    "noteHint": "Uloží se do historie stavů.",
+    "readiness": "Připravenost",
+    "reused": "Převzato z úložiště",
+    "scholarship": "Poznámka ke stipendiu",
+    "semester": "Začátek semestru",
+    "submitBlocked": "Chybí povinné dokumenty, podání je zablokováno:",
+    "submitted": "Podáno",
+    "translation": "Překlad",
+    "withdrawWarn": "Stažení je u této přihlášky konečné."
   },
-  "deadline": "Termín",
-  "detail": "Přihláška",
-  "empty": "Těmto filtrům neodpovídají žádné přihlášky.",
-  "flagged": "Označeno",
-  "onlyFlagged": "Pouze označené",
-  "searchPh": "Hledat studenta, program, univerzitu nebo referenci…",
-  "sort": "Řadit podle",
-  "sortBy": {
-   "deadline": "Termín",
-   "submitted": "Naposledy podané",
-   "updated": "Naposledy aktualizované"
+  "docs": {
+    "allCategories": "Všechny kategorie",
+    "assigned": {
+      "any": "Vše",
+      "me": "Přiřazeno mně",
+      "unassigned": "Nepřiřazeno"
+    },
+    "backToQueue": "Fronta",
+    "bulkVerify": "Ověřit vybrané",
+    "bulkVerifyText": "Ověřujte pouze dokumenty, které jste otevřeli a zkontrolovali. Každý student dostane oznámení a každé rozhodnutí se zaznamená do auditního protokolu pod vaším jménem.",
+    "bulkVerifyTitle_other": "Ověřit {{count}} dokumentů?",
+    "category": "Kategorie",
+    "chooseCategory": "Vyberte typ dokumentu",
+    "durDays": "{{count}} d",
+    "durHours": "{{count}} h",
+    "file": "Soubor",
+    "fileHint": "PDF, PNG, JPEG nebo WebP, max. 15 MB.",
+    "pick": "Vyberte dokument ke kontrole",
+    "pickText": "Pomocí J / K se pohybujte ve frontě.",
+    "position": "{{n}} z {{total}}",
+    "queue": "Fronta ke kontrole",
+    "reviewer": "Kontrola dokumentů",
+    "sc": {
+      "cancel": "Zrušit",
+      "changes": "Vyžádat opravu",
+      "checks": "Zaškrtněte kontrolu nebo vyberte důvod",
+      "nav": "Další / předchozí dokument",
+      "send": "Odeslat žádost o opravu",
+      "verify": "Ověřit"
+    },
+    "selectDoc": "Vybrat {{doc}} od {{name}}",
+    "shortcuts": "Klávesové zkratky",
+    "upload": "Nahrát",
+    "uploadForHint": "Použijte, když student pošle dokument jinou cestou (například e-mailem). Dokument se uloží do jeho úložiště dokumentů, označí se jako nahraný vámi a čeká na kontrolu jako každé jiné nahrání.",
+    "uploadForStudent": "Nahrát za studenta",
+    "bulkVerifyTitle_few": "Ověřit {{count}} dokumenty?",
+    "bulkVerifyTitle_many": "Ověřit {{count}} dokumentu?",
+    "uploadForName": "Nahrát za: {{name}}",
+    "bulkAssign": "Přiřadit kontrolora",
+    "bulkAssigned_one": "{{count}} dokument přiřazen",
+    "bulkAssigned_few": "{{count}} dokumenty přiřazeny",
+    "bulkAssigned_many": "{{count}} dokumentu přiřazeno",
+    "bulkAssigned_other": "{{count}} dokumentů přiřazeno",
+    "bulkFailed_one": "{{count}} dokument nebylo možné změnit (už je zkontrolován nebo není ve vaší péči)",
+    "bulkFailed_few": "{{count}} dokumenty nebylo možné změnit (už jsou zkontrolovány nebo nejsou ve vaší péči)",
+    "bulkFailed_many": "{{count}} dokumentu nebylo možné změnit (už je zkontrolován nebo není ve vaší péči)",
+    "bulkFailed_other": "{{count}} dokumentů nebylo možné změnit (už jsou zkontrolovány nebo nejsou ve vaší péči)",
+    "bulkLabel": "Akce pro vybrané dokumenty",
+    "bulkVerified_one": "{{count}} dokument ověřen",
+    "bulkVerified_few": "{{count}} dokumenty ověřeny",
+    "bulkVerified_many": "{{count}} dokumentu ověřeno",
+    "bulkVerified_other": "{{count}} dokumentů ověřeno",
+    "bulkVerifyTitle_one": "Ověřit {{count}} dokument?",
+    "empty": "Fronta je prázdná",
+    "emptyBy": {
+      "any": "Žádné dokumenty nečekají na kontrolu.",
+      "me": "Momentálně vám není nic přiřazeno.",
+      "unassigned": "Každý čekající dokument má kontrolora."
+    },
+    "notInQueue": "Není ve frontě ke kontrole",
+    "subSla": "Čeká na kontrolu: {{count}} · po {{hours}}hodinovém cíli: {{late}}",
+    "sub_one": "{{count}} dokument čeká na kontrolu, nejstarší první.",
+    "sub_few": "{{count}} dokumenty čekají na kontrolu, nejstarší první.",
+    "sub_many": "{{count}} dokumentu čeká na kontrolu, nejstarší první.",
+    "sub_other": "{{count}} dokumentů čeká na kontrolu, nejstarší první.",
+    "uploadedFor": "Přidáno do úložiště dokumentů: {{name}}",
+    "you": "vy"
   },
-  "uniHint": "Filtruje podle názvu univerzity",
-  "university": "Univerzita"
- },
- "docs": {
-  "allCategories": "Všechny kategorie",
-  "assigned": {
-   "any": "Vše",
-   "me": "Přiřazeno mně",
-   "unassigned": "Nepřiřazeno"
+  "essaysPage": {
+    "col": {
+      "reviewer": "Kontrolor"
+    }
   },
-  "backToQueue": "Fronta",
-  "bulkVerify": "Ověřit vybrané",
-  "bulkVerifyText": "Ověřujte pouze dokumenty, které jste otevřeli a zkontrolovali. Každý student dostane oznámení a každé rozhodnutí se zaznamená do auditního protokolu pod vaším jménem.",
-  "bulkVerifyTitle_other": "Ověřit {{count}} dokumentů?",
-  "category": "Kategorie",
-  "chooseCategory": "Vyberte typ dokumentu",
-  "durDays": "{{count}} d",
-  "durHours": "{{count}} h",
-  "file": "Soubor",
-  "fileHint": "PDF, PNG, JPEG nebo WebP, max. 15 MB.",
-  "pick": "Vyberte dokument ke kontrole",
-  "pickText": "Pomocí J / K se pohybujte ve frontě.",
-  "position": "{{n}} z {{total}}",
-  "queue": "Fronta ke kontrole",
-  "reviewer": "Kontrola dokumentů",
-  "sc": {
-   "cancel": "Zrušit",
-   "changes": "Vyžádat změny",
-   "checks": "Zaškrtněte kontrolu nebo vyberte důvod",
-   "nav": "Další / předchozí dokument",
-   "send": "Odeslat žádost o opravu",
-   "verify": "Ověřit"
+  "inbox": {
+    "all": "Vše",
+    "attach": "Připojit",
+    "audienceStudent": "{{name}} toto uvidí",
+    "createTask": "Vytvořit úkol z této zprávy",
+    "inbox": "Doručená pošta",
+    "internalBanner": "Interní — student nevidí",
+    "internalNote": "Interní poznámka",
+    "mention": "Zmínit",
+    "message": "Zpráva",
+    "messagePh": "Napište odpověď… (Ctrl+Enter pro odeslání)",
+    "messages": "Zprávy",
+    "mode": "Typ zprávy",
+    "modeMessage": "Zpráva",
+    "needsReply": "Vyžaduje odpověď",
+    "needsReplyShort": "Čeká na odpověď",
+    "new": "Nová zpráva",
+    "newHint": "Student dostane oznámení e-mailem a v aplikaci.",
+    "pick": "Vyberte konverzaci",
+    "pickText": "Nebo začněte novou s kterýmkoli studentem, kterého máte na starosti.",
+    "searchPh": "Hledat osoby nebo předměty…",
+    "sendTo": "Odeslat {{name}}",
+    "subReply_other": "{{count}} konverzací čeká na vaši odpověď",
+    "subUnread_other": "{{count}} nepřečtených konverzací",
+    "subject": "Předmět",
+    "thread": "Konverzace",
+    "unread": "Nepřečtené",
+    "unreadN_one": "{{count}} nepřečtená zpráva",
+    "subReply_few": "{{count}} konverzace čekají na vaši odpověď",
+    "subReply_many": "{{count}} konverzace čeká na vaši odpověď",
+    "subUnread_few": "{{count}} nepřečtené konverzace",
+    "subUnread_many": "{{count}} nepřečtené konverzace",
+    "unreadN_few": "{{count}} nepřečtené zprávy",
+    "unreadN_many": "{{count}} nepřečtené zprávy",
+    "audienceTeam": "Vidí jen váš tým",
+    "manageTemplates": "Spravovat šablony…",
+    "noMessages": "Zatím žádné zprávy.",
+    "notePh": "Napište interní poznámku pro svůj tým… (Ctrl+Enter pro uložení)",
+    "noteSaved": "Interní poznámka uložena.",
+    "openFile": "Otevřít soubor",
+    "participants": "účastníci",
+    "removeFile": "Odebrat {{name}}",
+    "saveNote": "Uložit poznámku",
+    "sent": "Zpráva odeslána.",
+    "subReply_one": "{{count}} konverzace čeká na vaši odpověď",
+    "subUnread_one": "{{count}} nepřečtená konverzace",
+    "system": "Systém",
+    "taskCreated": "Z této zprávy byl vytvořen úkol",
+    "taskDue": "Termín úkolu",
+    "taskHint": "Úkol dostane první zmíněný kolega, jinak vy.",
+    "unreadN_other": "{{count}} nepřečtených zpráv",
+    "willNotify_one": "Bude upozorněn {{count}} kolega",
+    "willNotify_few": "Budou upozorněni {{count}} kolegové",
+    "willNotify_many": "Bude upozorněno {{count}} kolegy",
+    "willNotify_other": "Bude upozorněno {{count}} kolegů"
   },
-  "selectDoc": "Vybrat {{doc}} od {{name}}",
-  "shortcuts": "Klávesové zkratky",
-  "upload": "Nahrát",
-  "uploadForHint": "Použijte, když student pošle dokument jinou cestou (například e-mailem). Dokument se uloží do jeho úložiště dokumentů, označí se jako nahraný vámi a čeká na kontrolu jako každé jiné nahrání.",
-  "uploadForStudent": "Nahrát za studenta",
-  "bulkVerifyTitle_few": "Ověřit {{count}} dokumenty?",
-  "bulkVerifyTitle_many": "Ověřit {{count}} dokumentu?",
-  "uploadForName": "Nahrát za: {{name}}"
- },
- "essaysPage": {
-  "col": {
-   "reviewer": "Kontrolor"
-  }
- },
- "inbox": {
-  "all": "Vše",
-  "attach": "Připojit",
-  "audienceStudent": "{{name}} toto uvidí",
-  "createTask": "Vytvořit úkol z této zprávy",
-  "inbox": "Doručená pošta",
-  "internalBanner": "Interní — student nevidí",
-  "internalNote": "Interní poznámka",
-  "mention": "Zmínit",
-  "message": "Zpráva",
-  "messagePh": "Napište odpověď… (Ctrl+Enter pro odeslání)",
-  "messages": "Zprávy",
-  "mode": "Typ zprávy",
-  "modeMessage": "Zpráva",
-  "needsReply": "Vyžaduje odpověď",
-  "needsReplyShort": "Čeká na vaši odpověď",
-  "new": "Nová zpráva",
-  "newHint": "Student dostane oznámení e-mailem a v aplikaci.",
-  "pick": "Vyberte konverzaci",
-  "pickText": "Nebo začněte novou s kterýmkoli studentem, kterého máte na starosti.",
-  "searchPh": "Hledat osoby nebo předměty…",
-  "sendTo": "Odeslat {{name}}",
-  "subReply_other": "{{count}} konverzací čeká na vaši odpověď",
-  "subUnread_other": "{{count}} nepřečtených konverzací",
-  "subject": "Předmět",
-  "thread": "Konverzace",
-  "unread": "Nepřečtené",
-  "unreadN_one": "{{count}} nepřečtená zpráva",
-  "subReply_few": "{{count}} konverzace čekají na vaši odpověď",
-  "subReply_many": "{{count}} konverzace čeká na vaši odpověď",
-  "subUnread_few": "{{count}} nepřečtené konverzace",
-  "subUnread_many": "{{count}} nepřečtené konverzace",
-  "unreadN_few": "{{count}} nepřečtené zprávy",
-  "unreadN_many": "{{count}} nepřečtené zprávy"
- },
- "misc": {
-  "student": "Studující",
-  "breadcrumb": "Drobečková navigace"
- },
- "review": {
-  "check": {
-   "dates": "Datum vydání je dostatečně čerstvé a platnost nevypršela",
-   "issuer": "Je vidět vydávající instituce, razítko nebo podpis",
-   "legible": "Úplné a čitelné — všechny stránky, bez oříznutých okrajů",
-   "name": "Jméno a datum narození odpovídají pasu",
-   "translation": "Je přiložen úřední překlad"
-  },
-  "checked": "Zkontrolováno {{n}} z {{total}}",
-  "checklist": "Před ověřením",
-  "expires": "Platnost do",
-  "issued": "Vydáno",
-  "issuingCountry": "Země vydání",
-  "language": "Jazyk",
-  "metadata": "Podrobnosti",
-  "noPdfViewer": "Tento prohlížeč neumí zobrazit PDF přímo na stránce.",
-  "openTab": "Otevřít na nové kartě",
-  "requestChanges": "Vyžádat změny",
-  "scan": "Antivirová kontrola",
-  "secureNote": "Odkazy náhledu vyprší po 5 minutách a každý přístup se zaznamenává.",
-  "translation": "Překlad",
-  "translationNeeded": "Vyžadován úřední překlad",
-  "uploaded": "Nahráno",
-  "verify": "Ověřit",
-  "verifyHint": "Nejdřív zaškrtněte kontroly, nebo potvrďte ověření bez nich"
- },
- "savedViews": {
-  "name": "Název",
-  "namePh": "např. Vietnam · jaro 2027 · urgentní",
-  "personal": "Jen já",
-  "save": "Uložit pohled",
-  "saveHintEmpty": "Nejsou nastaveny žádné filtry, takže tento pohled zobrazí všechny studenty. Aby byl užitečnější, nejdřív přidejte filtry.",
-  "saveTitle": "Uložit tento pohled",
-  "shareWith": "Kdo ho může používat",
-  "team": "Celý tým"
- },
- "settings": {
-  "deadlinesHint": "Všechny nadcházející termíny vašich studentů",
-  "notificationsHint": "Úplná historie oznámení"
- },
- "shell": {
-  "product": "Konzole agentury",
-  "searchLabel": "Hledat studenty",
-  "searchPlaceholder": "Hledat studenty podle jména nebo e-mailu…"
- },
- "sidebar": {
-  "documents": "Dokumenty",
-  "essays": "Eseje",
-  "universities": "Univerzity"
- },
- "students": {
-  "col": {
-   "intakeShort": "Nástup",
-   "updated": "Aktualizováno"
-  },
-  "dShort_other": "{{count}} d",
-  "deadlineShort": "Termín {{date}}",
-  "subCount": "Studentů ve vaší péči: {{count}}",
-  "view": {
-   "attention": "Vyžaduje pozornost",
-   "waiting_student": "Čeká se na studenta"
-  },
-  "dShort_few": "{{count}} d",
-  "dShort_many": "{{count}} d"
- },
- "today": {
-  "morning": "Dobré ráno, {{name}}",
-  "phase": {
-   "admitted": "Přijatí",
-   "applied": "Podané přihlášky",
-   "leads": "Noví a přiřazení",
-   "preparing": "Příprava",
-   "visa": "Vízum a příjezd"
-  },
-  "evening": "Dobrý večer, {{name}}"
- },
- "v11": {
-  "manage": {
-   "auditHint": "Kdo co změnil a kdy",
-   "catalogHint": "Univerzity, programy a jejich požadavky",
-   "org": "Organizace",
-   "paymentsHint": "Faktury a výplaty",
-   "people": "Lidé a poskytovatelé",
-   "servicesHint": "Služby, které pro studenty poskytujete",
-   "settingsHint": "Profil a předvolby vaší agentury",
-   "sub": "Nastavení a referenční materiály vaší agentury.",
-   "teamHint": "Účty správců: pozvat, deaktivovat",
-   "templatesHint": "Šablony zpráv a kontrolních seznamů",
-   "vendorsHint": "Ubytování, vyzvednutí a další poskytovatelé, které objednáváte",
-   "work": "Jak pracujete"
+  "misc": {
+    "student": "Student",
+    "breadcrumb": "Drobečková navigace",
+    "change": "Změnit",
+    "days_one": "{{count}} den",
+    "days_few": "{{count}} dny",
+    "days_many": "{{count}} dne",
+    "days_other": "{{count}} dní",
+    "hours_one": "{{count}} hodina",
+    "hours_few": "{{count}} hodiny",
+    "hours_many": "{{count}} hodiny",
+    "hours_other": "{{count}} hodin",
+    "internalTag": "Interní",
+    "no": "Ne",
+    "notFoundText": "Stránka se možná přesunula nebo k ní nemáte přístup.",
+    "searchStudents": "Hledat vaše studenty…",
+    "unassigned": "Nepřiřazeno",
+    "yes": "Ano"
   },
   "review": {
-   "sub": "Dokumenty a texty, které na vás čekají.",
-   "title": "Kontrola"
-  }
- },
- "v22": {
-  "nav": {
-   "insights": "Přehledy",
-   "messages": "Zprávy",
-   "settings": "Nastavení",
-   "students": "Studenti",
-   "today": "Dnes",
-   "work": "Přihlášky a dokumenty"
+    "check": {
+      "dates": "Datum vydání je dostatečně čerstvé a platnost nevypršela",
+      "issuer": "Je vidět vydávající instituce, razítko nebo podpis",
+      "legible": "Úplné a čitelné — všechny stránky, bez oříznutých okrajů",
+      "name": "Jméno a datum narození odpovídají pasu",
+      "translation": "Je přiložen úřední překlad"
+    },
+    "checked": "Zkontrolováno {{n}} z {{total}}",
+    "checklist": "Před ověřením",
+    "expires": "Platnost do",
+    "issued": "Vydáno",
+    "issuingCountry": "Země vydání",
+    "language": "Jazyk",
+    "metadata": "Podrobnosti",
+    "noPdfViewer": "Tento prohlížeč neumí zobrazit PDF přímo na stránce.",
+    "openTab": "Otevřít na nové kartě",
+    "requestChanges": "Vyžádat změny",
+    "scan": "Antivirová kontrola",
+    "secureNote": "Odkazy náhledu vyprší po 5 minutách a každý přístup se zaznamenává.",
+    "translation": "Překlad",
+    "translationNeeded": "Vyžadován úřední překlad",
+    "uploaded": "Nahráno",
+    "verify": "Ověřit",
+    "verifyHint": "Nejdřív zaškrtněte kontroly, nebo potvrďte ověření bez nich"
   },
-  "stage": {
-   "admitted": "Přijatí",
-   "all": "Vše",
-   "arrived": "Přijeli",
-   "closedN_other": "{{count}} uzavřených",
-   "counselling": "Poradenství",
-   "documents": "Dokumenty",
-   "new": "Noví",
-   "ready": "Připraveno",
-   "review": "Posouzení univerzitou",
-   "strip": "Proces",
-   "submitted": "Podáno",
-   "visa": "Vízum",
-   "closedN_few": "{{count}} uzavření",
-   "closedN_many": "{{count}} uzavřeného"
+  "savedViews": {
+    "name": "Název",
+    "namePh": "např. Vietnam · jaro 2027 · urgentní",
+    "personal": "Jen já",
+    "save": "Uložit pohled",
+    "saveHintEmpty": "Nejsou nastaveny žádné filtry, takže tento pohled zobrazí všechny studenty. Aby byl užitečnější, nejdřív přidejte filtry.",
+    "saveTitle": "Uložit tento pohled",
+    "shareWith": "Kdo ho může používat",
+    "team": "Celý tým",
+    "delete": "Smazat {{name}}",
+    "saveHint_one": "Uloží aktuální filtr a řazení, abyste tento seznam otevřeli jedním kliknutím.",
+    "saveHint_few": "Uloží aktuální {{count}} filtry a řazení, abyste tento seznam otevřeli jedním kliknutím.",
+    "saveHint_many": "Uloží aktuálních {{count}} filtru a řazení, abyste tento seznam otevřeli jedním kliknutím.",
+    "saveHint_other": "Uloží aktuálních {{count}} filtrů a řazení, abyste tento seznam otevřeli jedním kliknutím.",
+    "saved": "Uloženo „{{name}}“"
   },
-  "team": {
-   "title": "Účty správců"
+  "settings": {
+    "deadlinesHint": "Všechny nadcházející termíny vašich studentů",
+    "notificationsHint": "Úplná historie oznámení",
+    "account": "Účet",
+    "language": "Jazyk",
+    "languageHint": "Jazyk rozhraní. Data studentů zůstávají v původním jazyce.",
+    "localOnly": "Uloženo jen v tomto prohlížeči.",
+    "org": "Organizace",
+    "poll": "Živé aktualizace",
+    "pollHint": "Obnovovat fronty a počty každou minutu.",
+    "scSearch": "Pohyb ve výsledcích globálního vyhledávání",
+    "scSend": "Odeslat zprávu nebo uložit poznámku",
+    "shortcuts": "Klávesové zkratky",
+    "sub": "Osobní nastavení této konzole.",
+    "timezone": "Časové pásmo",
+    "updates": "Živé aktualizace"
+  },
+  "shell": {
+    "product": "Konzole agentury",
+    "searchLabel": "Hledat studenty",
+    "searchPlaceholder": "Hledat studenty podle jména nebo e-mailu…",
+    "hqProduct": "Provoz Hangyul",
+    "hqView": "Centrála Hangyul · všechny agentury",
+    "searchAll": "Zobrazit všechny výsledky pro „{{q}}“"
+  },
+  "sidebar": {
+    "documents": "Dokumenty",
+    "essays": "Eseje",
+    "universities": "Univerzity",
+    "agencies": "Agentury",
+    "catalog": "Univerzity a programy",
+    "hangyul": "Centrála Hangyul",
+    "operations": "Provoz",
+    "override": "Změna přiřazení"
+  },
+  "students": {
+    "col": {
+      "intakeShort": "Nástup",
+      "updated": "Aktualizováno",
+      "degree": "Stupeň",
+      "nationality": "Státní příslušnost"
+    },
+    "dShort_other": "{{count}} d",
+    "deadlineShort": "Termín {{date}}",
+    "subCount": "Studentů ve vaší péči: {{count}}",
+    "view": {
+      "attention": "Vyžaduje pozornost",
+      "waiting_student": "Čeká se na studenta",
+      "all": "Vše",
+      "arrived": "Po příjezdu",
+      "deadline": "Blížící se termín",
+      "docs": "Dokumenty k opravě",
+      "incomplete": "Neúplné dokumenty",
+      "mine": "Moji studenti",
+      "requested": "Univerzita si vyžádala dokumenty",
+      "university": "Čeká se na univerzitu",
+      "visa": "Vízum",
+      "waiting_external": "Čeká se na velvyslanectví nebo jinou stranu",
+      "waiting_us": "Čeká se na nás"
+    },
+    "dShort_few": "{{count}} d",
+    "dShort_many": "{{count}} d",
+    "bulk": {
+      "confirmRegen_one": "Přepočítat automatický seznam úkolů pro {{count}} studenta? Ruční úkoly zůstanou zachovány.",
+      "confirmRegen_few": "Přepočítat automatické seznamy úkolů pro {{count}} studenty? Ruční úkoly zůstanou zachovány.",
+      "confirmRegen_many": "Přepočítat automatické seznamy úkolů pro {{count}} studenta? Ruční úkoly zůstanou zachovány.",
+      "confirmRegen_other": "Přepočítat automatické seznamy úkolů pro {{count}} studentů? Ruční úkoly zůstanou zachovány.",
+      "confirmStage_one": "Přesunout {{count}} studenta do fáze „{{stage}}“? Zaznamená se do auditního protokolu.",
+      "confirmStage_few": "Přesunout {{count}} studenty do fáze „{{stage}}“? Zaznamená se do auditního protokolu.",
+      "confirmStage_many": "Přesunout {{count}} studenta do fáze „{{stage}}“? Zaznamená se do auditního protokolu.",
+      "confirmStage_other": "Přesunout {{count}} studentů do fáze „{{stage}}“? Zaznamená se do auditního protokolu.",
+      "confirmTitle": "Použít hromadnou akci?",
+      "done_one": "Aktualizován {{count}} student.",
+      "done_few": "Aktualizováni {{count}} studenti.",
+      "done_many": "Aktualizováno {{count}} studenta.",
+      "done_other": "Aktualizováno {{count}} studentů.",
+      "regen": "Znovu vygenerovat úkoly",
+      "stage": "Přesunout do fáze…"
+    },
+    "dShort_one": "{{count}} d",
+    "f": {
+      "allDegrees": "Všechny stupně",
+      "allNationalities": "Všechny státní příslušnosti"
+    },
+    "noReply": "SLA první odpovědi nedodrženo. Student čeká na odpověď",
+    "noReplyShort": "Čeká na odpověď"
   },
   "today": {
-   "sub": "Všichni studenti podle kroku procesu. Vyberte krok; tabulka pod ním ukazuje tento krok."
+    "morning": "Dobré ráno, {{name}}",
+    "phase": {
+      "admitted": "Přijatí",
+      "applied": "Podané přihlášky",
+      "leads": "Noví a přiřazení",
+      "preparing": "Příprava",
+      "visa": "Vízum a příjezd",
+      "studying": "Studují"
+    },
+    "evening": "Dobrý večer, {{name}}",
+    "afternoon": "Dobré odpoledne, {{name}}",
+    "allClear": "Momentálně nic nevyžaduje pozornost. Nová práce se tu objeví, jakmile přijde.",
+    "attention": "Vyžaduje pozornost",
+    "attentionSub": "Nejnaléhavější položka je první. Otevřete řádek a projděte seznam.",
+    "attentionV4": "Kdo vás dnes potřebuje",
+    "clearList": "Vše v pořádku: {{list}}",
+    "closing": "Přihlášky s uzávěrkou do 7 dnů",
+    "closingDetail": "Další: {{university}} · {{student}}, uzávěrka {{date}}",
+    "closingV4": "Studenti s uzávěrkou přihlášky do 7 dnů",
+    "cta": {
+      "deadlines": "Zobrazit termíny",
+      "messages": "Otevřít doručenou poštu",
+      "reply": "Odpovědět",
+      "review": "Zahájit kontrolu",
+      "students": "Otevřít studenty",
+      "tasks": "Otevřít úkoly"
+    },
+    "deadlines": "Termíny v příštích 7 dnech",
+    "deadlinesDetail": "Další: {{title}} · {{student}}, {{when}}",
+    "docs": "Dokumenty čekající na kontrolu",
+    "docsDetail": "Nejstarší: {{student}} · {{doc}}, čeká {{wait}}",
+    "docsOldest": "nejstarší: {{student}} · {{doc}}, nahráno {{when}}",
+    "docsSla_one": "{{count}} dokument po {{hours}}hodinovém cíli kontroly",
+    "docsSla_few": "{{count}} dokumenty po {{hours}}hodinovém cíli kontroly",
+    "docsSla_many": "{{count}} dokumentu po {{hours}}hodinovém cíli kontroly",
+    "docsSla_other": "{{count}} dokumentů po {{hours}}hodinovém cíli kontroly",
+    "essays": "Eseje čekající na kontrolu",
+    "essaysDetail": "Další: {{title}} · {{student}}",
+    "keyMove": "posun",
+    "keyOpen": "otevřít",
+    "messages": "Konverzace s nepřečtenými zprávami",
+    "messagesDetail": "Nejdéle čeká: {{who}}, {{when}}",
+    "openPipeline": "Otevřít pipeline",
+    "overdueDef": "Otevřené úkoly, jejichž termín už uplynul.",
+    "overdueDetail": "Nejstarší: {{title}} · {{student}}, termín {{when}}",
+    "overdueMine": "Vaše úkoly po termínu",
+    "overdueTeam": "Úkoly po termínu v celém týmu",
+    "pipeline": "Studenti podle fáze",
+    "pipelineSub": "Studentů: {{count}}. Vyberte fázi a uvidíte, kdo v ní je.",
+    "pipelineSubV4_one": "{{count}} student",
+    "pipelineSubV4_few": "{{count}} studenti",
+    "pipelineSubV4_many": "{{count}} studenta",
+    "pipelineSubV4_other": "{{count}} studentů",
+    "replies": "Studenti čekající na odpověď",
+    "repliesDetail": "Na jejich poslední zprávu zatím nikdo neodpověděl.",
+    "repliesOldest": "Nejdéle čeká: {{student}}, {{when}}",
+    "repliesV4": "Dlužné odpovědi",
+    "requests": "Žádosti univerzit o dokumenty",
+    "requestsDetail": "Student musí dokument nahrát. Ověřte, že dorazí.",
+    "sla": "Studenti, kterým dlužíme první odpověď do 24 hodin",
+    "slaDetail": "{{student}} · odpověď do {{when}}",
+    "unread": "Nepřečtené konverzace",
+    "unreadDetail": "Nejnovější: {{who}}, {{when}}",
+    "upcoming": "Nadcházející termíny",
+    "upcomingEmpty": "V příštích 14 dnech žádné termíny.",
+    "upcomingSub": "Příštích 14 dní",
+    "upcomingV4": "Příštích 14 dní",
+    "v5": {
+      "andMore_one": "a {{count}} další",
+      "andMore_few": "a {{count}} další",
+      "andMore_many": "a {{count}} dalšího",
+      "andMore_other": "a {{count}} dalších",
+      "checks": "Kontroly dokumentů bez kontrolora",
+      "checksDetail": "{{student}} · {{doc}}: {{what}}",
+      "services": {
+        "needs_assignment": "Nové žádosti o službu k přiřazení",
+        "overdue": "Případy služeb po lhůtě pro reakci",
+        "today": "Případy služeb s termínem dnes"
+      },
+      "servicesCta": "Otevřít služby",
+      "servicesDetail": "{{type}} · {{student}} · {{reason}}",
+      "visa": "Vízové případy, které vás potřebují",
+      "visaCta": "Otevřít",
+      "writingDetail": "{{essay}} · {{student}}, {{university}}",
+      "writingDue": "Kontroly esejí s termínem do 48 hodin",
+      "writingDue48": "termín {{when}}",
+      "writingOverdue": "Kontroly esejí po slíbeném termínu",
+      "writingRevised_one": "{{count}} revize od studenta",
+      "writingRevised_few": "{{count}} revize od studentů",
+      "writingRevised_many": "{{count}} revize od studentů",
+      "writingRevised_other": "{{count}} revizí od studentů"
+    },
+    "waitingOn": "Případy podle čekající strany",
+    "workload": "Vytížení týmu",
+    "workloadSub": "Aktivní studenti a otevřená práce na osobu"
   },
-  "work": {
-   "allCountries": "Všechny země",
-   "allIntakes": "Všechny nástupy",
-   "allViews": "Všichni studenti",
-   "anyWaiting": "Čeká se na kohokoli",
-   "closedHint": "Odmítnutí a stažení studenti",
-   "col": {
-    "activity": "Poslední aktivita",
-    "country": "Země",
-    "due": "Termín",
-    "next": "Další akce",
-    "stage": "Aktuální fáze",
-    "student": "Studující",
-    "university": "Univerzita",
-    "waiting": "Čeká se na"
-   },
-   "emptyFiltered": "Těmto filtrům neodpovídají žádní studenti",
-   "noUpcoming": "Žádný termín v příštích 14 dnech",
-   "saveView": "Uložit pohled",
-   "searchPh": "Hledat studenty…",
-   "showAll": "Zobrazit všechny ({{count}})",
-   "showing": "Zobrazeno {{shown}} z {{total}}",
-   "teamViews": "Týmové pohledy",
-   "top": "Nejnaléhavější první",
-   "upcoming_other": "{{count}} termínů během 14 dnů",
-   "view": "Pohled",
-   "upcoming_few": "{{count}} termíny během 14 dnů",
-   "upcoming_many": "{{count}} termínu během 14 dnů",
-   "owner": "Odpovědná osoba"
+  "v11": {
+    "manage": {
+      "auditHint": "Kdo co změnil a kdy",
+      "catalogHint": "Univerzity, programy a jejich požadavky",
+      "org": "Organizace",
+      "paymentsHint": "Faktury a výplaty",
+      "people": "Lidé a poskytovatelé",
+      "servicesHint": "Služby, které pro studenty poskytujete",
+      "settingsHint": "Profil a předvolby vaší agentury",
+      "sub": "Nastavení a referenční materiály vaší agentury.",
+      "teamHint": "Účty správců: pozvat, deaktivovat",
+      "templatesHint": "Šablony zpráv a kontrolních seznamů",
+      "vendorsHint": "Ubytování, vyzvednutí a další poskytovatelé, které objednáváte",
+      "work": "Jak pracujete"
+    },
+    "review": {
+      "sub": "Dokumenty a texty, které na vás čekají.",
+      "title": "Kontrola"
+    }
   },
-  "ws": {
-   "appsTitle": "Přihlášky",
-   "conversation": "Poslední konverzace",
-   "details": "Podrobnosti",
-   "detailsHint": "Úplné podrobnosti, když je potřebujete.",
-   "hideDetails": "Skrýt podrobnosti",
-   "needsAction": "Vyžaduje akci",
-   "noConversation": "Zatím žádná konverzace.",
-   "seeAll": "Zobrazit vše",
-   "tab": {
-    "application": "Přihláška",
-    "communication": "Komunikace",
-    "more": "Úkoly a služby",
-    "profile": "Profil a balíček"
-   }
-  }
- },
- "v23": {
-  "work": {
-   "submissionsNeed_other": "{{count}} podání vyžaduje tým",
-   "submissionsNeed_few": "{{count}} podání vyžadují tým",
-   "submissionsNeed_many": "{{count}} podání vyžaduje tým"
-  }
- },
- "v7": {
-  "today": {
-   "overdueN_one": "{{count}} po termínu",
-   "overdueN_few": "Po termínu: {{count}}",
-   "overdueN_many": "Po termínu: {{count}}",
-   "overdueN_other": "Po termínu: {{count}}"
-  }
- },
- "v8": {
-  "apps": {
-   "remaining": "Zbývající položky"
+  "v22": {
+    "nav": {
+      "insights": "Přehledy",
+      "messages": "Zprávy",
+      "settings": "Nastavení",
+      "students": "Studenti",
+      "today": "Dnes",
+      "work": "Přihlášky a dokumenty",
+      "hqAccounts": "Univerzitní účty"
+    },
+    "stage": {
+      "admitted": "Přijatí",
+      "all": "Vše",
+      "arrived": "Přijeli",
+      "closedN_other": "{{count}} uzavřených",
+      "counselling": "Konzultace",
+      "documents": "Dokumenty",
+      "new": "Noví",
+      "ready": "Připraveno",
+      "review": "Posouzení univerzitou",
+      "strip": "Fáze",
+      "submitted": "Podáno",
+      "visa": "Vízum",
+      "closedN_few": "{{count}} uzavření",
+      "closedN_many": "{{count}} uzavřeného",
+      "closed": "Uzavřeno",
+      "stripHint": "Vyberte fázi a zobrazí se jen její studenti. Počet odpovídá řádkům níže."
+    },
+    "team": {
+      "title": "Účty správců",
+      "active": "Aktivní",
+      "count_one": "{{count}} účet",
+      "count_few": "{{count}} účty",
+      "count_many": "{{count}} účtu",
+      "count_other": "{{count}} účtů",
+      "devNote": "Vývoj: kód byl vypsán do konzole API, ne odeslán e-mailem.",
+      "disable": "Deaktivovat",
+      "disableReason": "Důvod",
+      "disableReasonPh": "Odchod z agentury",
+      "disableText": "Už se nebude moci přihlásit. Otevření studenti, kontroly a úkoly se automaticky přesunou na kolegy.",
+      "disableTitle": "Deaktivovat {{name}}?",
+      "disabled": "Deaktivováno",
+      "email": "E-mail",
+      "empty": "Zatím žádné účty.",
+      "enable": "Aktivovat",
+      "invite": "Pozvat správce",
+      "inviteSub": "Dostane e-mail s jednorázovým kódem pro nastavení hesla.",
+      "lastLogin": "Poslední přihlášení",
+      "mailFailed": "Pozvánku se nepodařilo odeslat e-mailem. Požádejte dotyčného, aby s touto adresou použil „Zapomenuté heslo“.",
+      "name": "Jméno",
+      "never": "Nikdy",
+      "sendInvite": "Odeslat pozvánku",
+      "sent": "Pozvánka odeslána",
+      "sentTo": "Pozvánku jsme odeslali na {{email}}.",
+      "status": "Stav",
+      "sub": "Každý správce má stejná oprávnění.",
+      "unverified": "Pozván · zatím neověřen",
+      "you": "Vy"
+    },
+    "today": {
+      "sub": "Všichni studenti podle kroku procesu. Vyberte krok; tabulka pod ním ukazuje tento krok."
+    },
+    "work": {
+      "allCountries": "Všechny země",
+      "allIntakes": "Všechny nástupy",
+      "allViews": "Všichni studenti",
+      "anyWaiting": "Čeká se na kohokoli",
+      "closedHint": "Nepřijatí studenti a studenti, kteří odstoupili",
+      "col": {
+        "activity": "Poslední aktivita",
+        "country": "Země",
+        "due": "Termín",
+        "next": "Další akce",
+        "stage": "Aktuální fáze",
+        "student": "Student",
+        "university": "Univerzita",
+        "waiting": "Čeká se na"
+      },
+      "emptyFiltered": "Těmto filtrům neodpovídají žádní studenti. Zkuste je změnit.",
+      "noUpcoming": "Žádný termín v příštích 14 dnech",
+      "saveView": "Uložit pohled",
+      "searchPh": "Hledat studenty…",
+      "showAll": "Zobrazit všechny ({{count}})",
+      "showing": "Zobrazeno {{shown}} z {{total}}",
+      "teamViews": "Týmové pohledy",
+      "top": "Nejnaléhavější první",
+      "upcoming_other": "{{count}} termínů během 14 dnů",
+      "view": "Pohled",
+      "upcoming_few": "{{count}} termíny během 14 dnů",
+      "upcoming_many": "{{count}} termínu během 14 dnů",
+      "owner": "Odpovědná osoba",
+      "bulkOwner": "Nastavit odpovědnou osobu…",
+      "confirmOwner_one": "Nastavit {{name}} jako odpovědnou osobu pro {{count}} studenta?",
+      "confirmOwner_few": "Nastavit {{name}} jako odpovědnou osobu pro {{count}} studenty?",
+      "confirmOwner_many": "Nastavit {{name}} jako odpovědnou osobu pro {{count}} studenta?",
+      "confirmOwner_other": "Nastavit {{name}} jako odpovědnou osobu pro {{count}} studentů?",
+      "deleteView": "Smazat tento pohled",
+      "empty": "V této fázi nejsou žádní studenti",
+      "myViews": "Moje pohledy",
+      "showTop": "Zobrazit prvních 10",
+      "total_one": "{{count}} student",
+      "total_few": "{{count}} studenti",
+      "total_many": "{{count}} studenta",
+      "total_other": "{{count}} studentů"
+    },
+    "ws": {
+      "appsTitle": "Přihlášky",
+      "conversation": "Poslední konverzace",
+      "details": "Podrobnosti",
+      "detailsHint": "Úplné podrobnosti, když je potřebujete.",
+      "hideDetails": "Skrýt podrobnosti",
+      "needsAction": "Vyžaduje akci",
+      "noConversation": "Zatím žádná konverzace. Pošlete první zprávu.",
+      "seeAll": "Zobrazit vše",
+      "tab": {
+        "application": "Přihláška",
+        "communication": "Komunikace",
+        "more": "Úkoly a služby",
+        "profile": "Profil a balíček"
+      },
+      "docFix_one": "{{count}} dokument k opravě",
+      "docFix_few": "{{count}} dokumenty k opravě",
+      "docFix_many": "{{count}} dokumentu k opravě",
+      "docFix_other": "{{count}} dokumentů k opravě",
+      "docReview_one": "{{count}} dokument ke kontrole",
+      "docReview_few": "{{count}} dokumenty ke kontrole",
+      "docReview_many": "{{count}} dokumentu ke kontrole",
+      "docReview_other": "{{count}} dokumentů ke kontrole",
+      "needsActionEmpty": "U tohoto studenta na vás nic nečeká.",
+      "openThread": "Otevřít konverzaci"
+    },
+    "hq": {
+      "accounts": {
+        "adminUser": "Správce",
+        "assigned": "Přiřazená univerzita",
+        "empty": "Zatím žádné univerzitní účty.",
+        "invite": "Pozvat správce univerzity",
+        "noUniversity": "Bez propojené univerzity",
+        "pickUniversity": "Univerzita",
+        "pickUniversityPh": "Vyberte partnerskou univerzitu",
+        "reassign": "Změnit univerzitu",
+        "reassignText": "Členství se přesune do organizace zvolené univerzity. Původní bude deaktivováno.",
+        "reassignTitle": "Přesunout {{name}} k jiné univerzitě",
+        "search": "Hledat podle jména, e-mailu nebo univerzity…",
+        "sub": "Správcovské účty partnerských univerzit. Každý správce univerzity má stejná oprávnění.",
+        "title": "Univerzitní účty",
+        "university": "Univerzita"
+      }
+    }
   },
-  "channel": {
-   "IN_APP": "V aplikaci"
+  "v23": {
+    "work": {
+      "submissionsNeed_other": "{{count}} přihlášek čeká na podání týmem",
+      "submissionsNeed_few": "{{count}} přihlášky čekají na podání týmem",
+      "submissionsNeed_many": "{{count}} přihlášky čeká na podání týmem",
+      "memberFilter": "Zobrazeni studenti jednoho člena týmu",
+      "openAll": "Otevřít všech {{count}} ve Studentech",
+      "submissionsNeed_one": "{{count}} přihláška čeká na podání týmem"
+    }
   },
-  "nav": {
-   "operations": "Provoz"
+  "v7": {
+    "today": {
+      "overdueN_one": "{{count}} po termínu",
+      "overdueN_few": "Po termínu: {{count}}",
+      "overdueN_many": "Po termínu: {{count}}",
+      "overdueN_other": "Po termínu: {{count}}"
+    }
   },
-  "ops": {
-   "ageing": {
-    "caption": "Aktivní případy podle fáze a počtu dnů od posledního posunu",
-    "cellLabel": "{{count}} studentů ve fázi {{phase}}, {{bucket}} od posledního posunu — zobrazit",
-    "longest": "Nejdéle bez pohybu",
-    "oldest": "Nejstarší případ: {{name}} se neposunul {{count}} dní ({{stage}}).",
-    "phase": "Fáze",
-    "q": "Které případy se přestaly posouvat a v jaké fázi? Vyberte buňku a zobrazí se seznam studentů.",
-    "title": "Doba stání případů podle fáze"
-   },
-   "backlog": {
-    "documents": "Kontroly dokumentů",
-    "essays": "Kontroly esejí",
-    "openDocs_other": "{{count}} otevřených kontrol dokumentů",
-    "openEssays_other": "{{count}} otevřených kontrol esejí",
-    "openTasks_other": "{{count}} otevřených týmových úkolů",
-    "q": "Roste otevřená práce, nebo ubývá? Otevřené týmové úkoly, kontroly dokumentů a kontroly esejí na konci každého z posledních 8 týdnů.",
-    "tasks": "Týmové úkoly",
-    "title": "Vývoj nevyřízené práce",
-    "up_other": "+{{count}} za 8 týdnů",
-    "openDocs_few": "{{count}} otevřené kontroly dokumentů",
-    "openDocs_many": "{{count}} otevřené kontroly dokumentů",
-    "openEssays_few": "{{count}} otevřené kontroly esejí",
-    "openEssays_many": "{{count}} otevřené kontroly esejí",
-    "openTasks_few": "{{count}} otevřené týmové úkoly",
-    "openTasks_many": "{{count}} otevřeného týmového úkolu",
-    "up_few": "+{{count}} za 8 týdnů",
-    "up_many": "+{{count}} za 8 týdnů"
-   },
-   "bucket": {
-    "0_7": "0–7 dní",
-    "15_30": "15–30 dní",
-    "30_plus": "30+ dní",
-    "8_14": "8–14 dní"
-   },
-   "days_one": "{{count}} den",
-   "days_other": "{{count}} dní",
-   "deadlines": {
-    "inDays_other": "za {{count}} dní",
-    "q": "Přihlášky s termínem do {{count}} dnů, kterým stále chybí povinné položky.",
-    "title": "Ohrožené termíny",
-    "inDays_few": "za {{count}} dny",
-    "inDays_many": "za {{count}} dne",
-    "inDays_one": "za {{count}} den"
-   },
-   "generated": "Aktualizováno {{when}}",
-   "load": {
-    "over_one": "{{count}} osoba nad kapacitou",
-    "q": "Kdo je přetížený? Aktivní případy na osobu oproti rovnoměrnému podílu kapacity agentury.",
-    "title": "Vytížení poradců vs. kapacita",
-    "over_few": "{{count}} osoby nad kapacitou",
-    "over_many": "{{count}} osoby nad kapacitou"
-   },
-   "open": "Otevřít",
-   "openNow": "Nyní otevřené",
-   "outcomes": "Výsledky",
-   "since": "od {{when}}",
-   "sla": {
-    "docs": "Kontrola dokumentů přes 48 h",
-    "essays": "Kontrola eseje po slíbeném termínu",
-    "first": "Pozdní první odpověď",
-    "q": "Které sliby už jsou porušené?",
-    "title": "Porušení SLA"
-   },
-   "stages": {
-    "median_other": "medián {{count}} dní",
-    "now_one": "{{n}} tam nyní",
-    "now_other": "{{n}} tam nyní",
-    "q": "Kde přihlášky čekají nejdéle? Medián dnů v každém stavu (pobyty ukončené za poslední rok).",
-    "slowest": "Nejpomalejší: {{stage}} — medián {{count}} dní z {{n}} pobytů.",
-    "title": "Pomalé fáze",
-    "tooFew": "příliš málo pro hodnocení ({{n}} z {{min}})",
-    "unrated_other": "{{count}} stavů s méně než {{min}} dokončenými pobyty (nehodnoceno)",
-    "median_few": "medián {{count}} dny",
-    "median_many": "medián {{count}} dne",
-    "now_few": "{{n}} tam nyní",
-    "now_many": "{{n}} tam nyní",
-    "unrated_few": "{{count}} stavy s méně než {{min}} dokončenými pobyty (nehodnoceno)",
-    "unrated_many": "{{count}} stavu s méně než {{min}} dokončenými pobyty (nehodnoceno)"
-   },
-   "sub": "Kde se provoz zadrhává: nevyřízená práce, uvízlé případy, přetížení, nedodržené sliby, ohrožené termíny a pomalé fáze. Každé číslo otevře své záznamy.",
-   "switch": "Pohled",
-   "total": "Celkem",
-   "days_few": "{{count}} dny",
-   "days_many": "{{count}} dne",
-   "allN_other": "Zobrazit vše ({{count}})",
-   "allN_few": "Zobrazit vše ({{count}})",
-   "allN_many": "Zobrazit vše ({{count}})"
+  "v8": {
+    "apps": {
+      "remaining": "Zbývající položky"
+    },
+    "channel": {
+      "IN_APP": "V aplikaci"
+    },
+    "nav": {
+      "operations": "Provoz"
+    },
+    "ops": {
+      "ageing": {
+        "caption": "Aktivní případy podle fáze a počtu dnů od posledního posunu",
+        "cellLabel": "{{count}} studentů ve fázi {{phase}}, {{bucket}} od posledního posunu — zobrazit",
+        "longest": "Nejdéle bez pohybu",
+        "oldest": "Nejstarší případ: {{name}} se neposunul {{count}} dní ({{stage}}).",
+        "phase": "Fáze",
+        "q": "Které případy se přestaly posouvat a v jaké fázi? Vyberte buňku a zobrazí se seznam studentů.",
+        "title": "Doba stání případů podle fáze"
+      },
+      "backlog": {
+        "documents": "Kontroly dokumentů",
+        "essays": "Kontroly esejí",
+        "openDocs_other": "{{count}} otevřených kontrol dokumentů",
+        "openEssays_other": "{{count}} otevřených kontrol esejí",
+        "openTasks_other": "{{count}} otevřených týmových úkolů",
+        "q": "Roste otevřená práce, nebo ubývá? Otevřené týmové úkoly, kontroly dokumentů a kontroly esejí na konci každého z posledních 8 týdnů.",
+        "tasks": "Týmové úkoly",
+        "title": "Vývoj nevyřízené práce",
+        "up_other": "+{{count}} za 8 týdnů",
+        "openDocs_few": "{{count}} otevřené kontroly dokumentů",
+        "openDocs_many": "{{count}} otevřené kontroly dokumentů",
+        "openEssays_few": "{{count}} otevřené kontroly esejí",
+        "openEssays_many": "{{count}} otevřené kontroly esejí",
+        "openTasks_few": "{{count}} otevřené týmové úkoly",
+        "openTasks_many": "{{count}} otevřeného týmového úkolu",
+        "up_few": "+{{count}} za 8 týdnů",
+        "up_many": "+{{count}} za 8 týdnů"
+      },
+      "bucket": {
+        "0_7": "0–7 dní",
+        "15_30": "15–30 dní",
+        "30_plus": "30+ dní",
+        "8_14": "8–14 dní"
+      },
+      "days_one": "{{count}} den",
+      "days_other": "{{count}} dní",
+      "deadlines": {
+        "inDays_other": "za {{count}} dní",
+        "q": "Přihlášky s termínem do {{count}} dnů, kterým stále chybí povinné položky.",
+        "title": "Ohrožené termíny",
+        "inDays_few": "za {{count}} dny",
+        "inDays_many": "za {{count}} dne",
+        "inDays_one": "za {{count}} den"
+      },
+      "generated": "Aktualizováno {{when}}",
+      "load": {
+        "over_one": "{{count}} osoba nad kapacitou",
+        "q": "Kdo je přetížený? Aktivní případy na osobu oproti rovnoměrnému podílu kapacity agentury.",
+        "title": "Vytížení poradců vs. kapacita",
+        "over_few": "{{count}} osoby nad kapacitou",
+        "over_many": "{{count}} osoby nad kapacitou"
+      },
+      "open": "Otevřít",
+      "openNow": "Nyní otevřené",
+      "outcomes": "Výsledky",
+      "since": "od {{when}}",
+      "sla": {
+        "docs": "Kontrola dokumentů přes 48 h",
+        "essays": "Kontrola eseje po slíbeném termínu",
+        "first": "Pozdní první odpověď",
+        "q": "Které sliby už jsou porušené?",
+        "title": "Porušení SLA"
+      },
+      "stages": {
+        "median_other": "medián {{count}} dní",
+        "now_one": "{{n}} tam nyní",
+        "now_other": "{{n}} tam nyní",
+        "q": "Kde přihlášky čekají nejdéle? Medián dnů v každém stavu (pobyty ukončené za poslední rok).",
+        "slowest": "Nejpomalejší: {{stage}} — medián {{count}} dní z {{n}} pobytů.",
+        "title": "Pomalé fáze",
+        "tooFew": "příliš málo pro hodnocení ({{n}} z {{min}})",
+        "unrated_other": "{{count}} stavů s méně než {{min}} dokončenými pobyty (nehodnoceno)",
+        "median_few": "medián {{count}} dny",
+        "median_many": "medián {{count}} dne",
+        "now_few": "{{n}} tam nyní",
+        "now_many": "{{n}} tam nyní",
+        "unrated_few": "{{count}} stavy s méně než {{min}} dokončenými pobyty (nehodnoceno)",
+        "unrated_many": "{{count}} stavu s méně než {{min}} dokončenými pobyty (nehodnoceno)"
+      },
+      "sub": "Kde se provoz zadrhává: nevyřízená práce, uvízlé případy, přetížení, nedodržené sliby, ohrožené termíny a pomalé fáze. Každé číslo otevře své záznamy.",
+      "switch": "Pohled",
+      "total": "Celkem",
+      "days_few": "{{count}} dny",
+      "days_many": "{{count}} dne",
+      "allN_other": "Zobrazit vše ({{count}})",
+      "allN_few": "Zobrazit vše ({{count}})",
+      "allN_many": "Zobrazit vše ({{count}})"
+    },
+    "view": {
+      "deadline7": "Termín < 7 dní",
+      "docs": "Dokumenty vyžadují opravu",
+      "new_paid": "Noví platící studenti",
+      "student_silent": "Čeká se na studenta > 3 dny",
+      "unassigned": "Nepřiřazeno",
+      "university": "Čeká se na univerzitu",
+      "urgent": "Moje naléhavé případy",
+      "visa_blocked": "Vízum zablokováno"
+    },
+    "move": {
+      "lastMoved_other": "naposledy posunuto před {{count}} dny",
+      "why": "Proč se tento případ nehýbe?",
+      "lastMoved_few": "naposledy posunuto před {{count}} dny",
+      "lastMoved_many": "naposledy posunuto před {{count}} dne"
+    }
   },
-  "view": {
-   "deadline7": "Termín < 7 dní",
-   "docs": "Dokumenty vyžadují opravu",
-   "new_paid": "Noví platící studenti",
-   "student_silent": "Čeká se na studenta > 3 dny",
-   "unassigned": "Nepřiřazeno",
-   "university": "Čeká se na univerzitu",
-   "urgent": "Moje naléhavé případy",
-   "visa_blocked": "Vízum zablokováno"
-  },
-  "move": {
-   "lastMoved_other": "naposledy posunuto před {{count}} dny",
-   "why": "Proč se tento případ nehýbe?",
-   "lastMoved_few": "naposledy posunuto před {{count}} dny",
-   "lastMoved_many": "naposledy posunuto před {{count}} dne"
-  }
- },
- "v9": {
-  "msg": {
-   "link": "Propojit s přihláškou",
-   "state": {
-    "READ": "Přečteno"
-   }
-  },
-  "next": {
-   "app": {
-    "OFFERED": "odpovědět na nabídku"
-   },
-   "essay_review": "Zkontrolovat esej",
-   "final_check": "Závěrečná kontrola a předání · {{university}}",
-   "reply_owed": "Odpovědět studentovi",
-   "review_unassigned_one": "Přiřadit kontrolora pro {{count}} dokument",
-   "student": {
-    "submit_on_portal": "podat na oficiálním portálu a zaznamenat referenci",
-    "university_request": "nahrát dokument, o který požádala {{university}}"
-   },
-   "studentSays": "Studující: {{what}}",
-   "submit": "Podat za studenta a zaznamenat referenci",
-   "universitySays": "Univerzita: {{what}}",
-   "review_unassigned_few": "Přiřadit kontrolora pro {{count}} dokumenty",
-   "review_unassigned_many": "Přiřadit kontrolora pro {{count}} dokumentu",
-   "taskTitle": "Po termínu: {{title}}"
-  },
-  "ops": {
-   "blocked": {
-    "q_other": "Které případy na někoho čekají a neposunuly se déle než {{count}} dní?",
-    "title": "Zablokované případy",
-    "q_few": "Které případy na někoho čekají a neposunuly se déle než {{count}} dny?",
-    "q_many": "Které případy na někoho čekají a neposunuly se déle než {{count}} dne?"
-   },
-   "cases_other": "{{count}} případů",
-   "days_other": "{{count}} dní",
-   "pointsOf": "{{n}} / {{cap}} b.",
-   "q": {
-    "blocked": "Nejstarší zablokovaný případ",
-    "deadlines": "Ohrožené termíny",
-    "overloaded": "Nad kapacitou",
-    "sla": "Porušení SLA",
-    "stage": "Nejpomalejší fáze",
-    "unpaid": "Nepřiřazené placené případy"
-   },
-   "questions": "Šest otázek",
-   "slaRisk_one": "{{count}} s rizikem porušení SLA",
-   "unpaid": {
-    "none": "Každý placený případ má vlastníka.",
-    "q": "Kteří studenti zaplatili za službu, ale nemají odpovědnou osobu?",
-    "title": "Nepřiřazené placené případy"
-   },
-   "weightsLink": "Váhy",
-   "cases_few": "{{count}} případy",
-   "cases_many": "{{count}} případu",
-   "days_few": "{{count}} dny",
-   "days_many": "{{count}} dne",
-   "slaRisk_few": "Ohrožení SLA: {{count}}",
-   "slaRisk_many": "Ohrožení SLA: {{count}}",
-   "slaRisk_other": "Ohrožení SLA: {{count}}"
-  },
-  "owner": {
-   "agency": "Tým agentury"
-  },
-  "q": {
-   "tab": "Kvalita procesu"
-  },
-  "team": {
-   "onLeave": "Na dovolené do {{date}}"
+  "v9": {
+    "msg": {
+      "link": "Propojit s přihláškou",
+      "state": {
+        "READ": "Přečteno"
+      }
+    },
+    "next": {
+      "app": {
+        "OFFERED": "odpovědět na nabídku"
+      },
+      "essay_review": "Zkontrolovat esej",
+      "final_check": "Závěrečná kontrola a předání · {{university}}",
+      "reply_owed": "Odpovědět studentovi",
+      "review_unassigned_one": "Přiřadit kontrolora pro {{count}} dokument",
+      "student": {
+        "submit_on_portal": "podat na oficiálním portálu a zaznamenat referenci",
+        "university_request": "nahrát dokument, o který požádala {{university}}"
+      },
+      "studentSays": "Studující: {{what}}",
+      "submit": "Podat za studenta a zaznamenat referenci",
+      "universitySays": "Univerzita: {{what}}",
+      "review_unassigned_few": "Přiřadit kontrolora pro {{count}} dokumenty",
+      "review_unassigned_many": "Přiřadit kontrolora pro {{count}} dokumentu",
+      "taskTitle": "Po termínu: {{title}}"
+    },
+    "ops": {
+      "blocked": {
+        "q_other": "Které případy na někoho čekají a neposunuly se déle než {{count}} dní?",
+        "title": "Zablokované případy",
+        "q_few": "Které případy na někoho čekají a neposunuly se déle než {{count}} dny?",
+        "q_many": "Které případy na někoho čekají a neposunuly se déle než {{count}} dne?"
+      },
+      "cases_other": "{{count}} případů",
+      "days_other": "{{count}} dní",
+      "pointsOf": "{{n}} / {{cap}} b.",
+      "q": {
+        "blocked": "Nejstarší zablokovaný případ",
+        "deadlines": "Ohrožené termíny",
+        "overloaded": "Nad kapacitou",
+        "sla": "Porušení SLA",
+        "stage": "Nejpomalejší fáze",
+        "unpaid": "Nepřiřazené placené případy"
+      },
+      "questions": "Šest otázek",
+      "slaRisk_one": "{{count}} s rizikem porušení SLA",
+      "unpaid": {
+        "none": "Každý placený případ má vlastníka.",
+        "q": "Kteří studenti zaplatili za službu, ale nemají odpovědnou osobu?",
+        "title": "Nepřiřazené placené případy"
+      },
+      "weightsLink": "Váhy",
+      "cases_few": "{{count}} případy",
+      "cases_many": "{{count}} případu",
+      "days_few": "{{count}} dny",
+      "days_many": "{{count}} dne",
+      "slaRisk_few": "Ohrožení SLA: {{count}}",
+      "slaRisk_many": "Ohrožení SLA: {{count}}",
+      "slaRisk_other": "Ohrožení SLA: {{count}}"
+    },
+    "owner": {
+      "agency": "Tým agentury"
+    },
+    "q": {
+      "tab": "Kvalita procesu"
+    },
+    "team": {
+      "onLeave": "Na dovolené do {{date}}"
+    },
+    "waiting": {
+      "on": {
+        "agency": "Čeká se na tým agentury",
+        "counselor": "Čeká se na poradce",
+        "external": "Čeká se na externí stranu",
+        "hangyul": "Čeká se na Hangyul",
+        "student": "Čeká se na studenta",
+        "university": "Čeká se na univerzitu"
+      },
+      "party": {
+        "agency": "Tým agentury",
+        "counselor": "Poradce",
+        "external": "Externí strana",
+        "student": "Studující",
+        "university": "Univerzita"
+      },
+      "reason": {
+        "essay_review": "esej čeká na kontrolu",
+        "final_check": "závěrečná kontrola před podáním",
+        "rail_confirmation": "chybí číslo potvrzení",
+        "reply_owed": "student čeká na odpověď",
+        "review_unassigned_one": "{{count}} dokument ke kontrole · bez kontrolora",
+        "student_task_one": "{{count}} úkol k vyřízení",
+        "student_task_other": "{{count}} úkolů k vyřízení",
+        "submit": "pověřen(a) k podání",
+        "submit_on_portal": "podat na oficiálním portálu",
+        "university_request": "univerzita požádala o dokument",
+        "review_unassigned_few": "{{count}} dokumenty ke kontrole · bez kontrolora",
+        "review_unassigned_many": "{{count}} dokumentu ke kontrole · bez kontrolora",
+        "student_task_few": "{{count}} úkoly k vyřízení",
+        "student_task_many": "{{count}} úkolu k vyřízení",
+        "task_one": "{{count}} úkol po termínu"
+      },
+      "title": "Čeká se na"
+    },
+    "meet": {
+      "decisions": "Rozhodnutí",
+      "notes": "Co se probíralo",
+      "oneper": "Jedna položka na řádek.",
+      "recordTitle": "Zaznamenat schůzku",
+      "save": "Uložit záznam schůzky",
+      "scheduleNext": "Naplánovat další schůzku",
+      "staffTasks": "Další kroky pro tým",
+      "studentHint": "Jedna položka na řádek. Student je uvidí.",
+      "studentTasks": "Úkoly pro studenta"
+    },
+    "strip": {
+      "deadline": "Termín",
+      "next": "Další krok",
+      "why": "Proč se nehýbe"
+    }
   },
   "waiting": {
-   "on": {
-    "agency": "Čeká se na tým agentury",
-    "counselor": "Čeká se na poradce",
-    "external": "Čeká se na externí stranu",
-    "hangyul": "Čeká se na Hangyul",
-    "student": "Čeká se na studenta",
-    "university": "Čeká se na univerzitu"
-   },
-   "party": {
-    "agency": "Tým agentury",
-    "counselor": "Poradce",
-    "external": "Externí strana",
-    "student": "Studující",
-    "university": "Univerzita"
-   },
-   "reason": {
-    "essay_review": "esej čeká na kontrolu",
-    "final_check": "závěrečná kontrola před podáním",
-    "rail_confirmation": "chybí číslo potvrzení",
-    "reply_owed": "student čeká na odpověď",
-    "review_unassigned_one": "{{count}} dokument ke kontrole · bez kontrolora",
-    "student_task_one": "{{count}} úkol k vyřízení",
-    "student_task_other": "{{count}} úkolů k vyřízení",
-    "submit": "pověřen(a) k podání",
-    "submit_on_portal": "podat na oficiálním portálu",
-    "university_request": "univerzita požádala o dokument",
-    "review_unassigned_few": "{{count}} dokumenty ke kontrole · bez kontrolora",
-    "review_unassigned_many": "{{count}} dokumentu ke kontrole · bez kontrolora",
-    "student_task_few": "{{count}} úkoly k vyřízení",
-    "student_task_many": "{{count}} úkolu k vyřízení",
-    "task_one": "{{count}} úkol po termínu"
-   },
-   "title": "Čeká se na"
+    "app": {
+      "DRAFT": "přihláška nezahájena",
+      "INTERVIEW": "pohovor",
+      "OFFERED": "odpověď na nabídku",
+      "OFFER_ACCEPTED": "faktura za školné",
+      "SUBMITTED": "podáno",
+      "UNIVERSITY_REVIEW": "v posuzování",
+      "VISA_ISSUED": "plány příjezdu",
+      "WAITLISTED": "na čekací listině",
+      "DOCUMENT_PREPARATION": "připravuje dokumenty",
+      "VISA_PREPARATION": "vízové dokumenty",
+      "ADDITIONAL_DOCUMENTS": "univerzita si vyžádala dokument",
+      "ADMISSION_CERTIFICATE_ISSUED": "zahájit vízum",
+      "ADMISSION_CERTIFICATE_PENDING": "dopis o přijetí",
+      "PROFILE_REVIEW": "kontrola profilu",
+      "READY": "připraveno k podání",
+      "TUITION_PAID": "dopis o přijetí",
+      "TUITION_PENDING": "platba školného",
+      "VISA_SUBMITTED": "rozhodnutí o vízu (velvyslanectví)"
+    },
+    "reason": {
+      "student_task_one": "{{count}} úkol k vyřízení",
+      "student_task_other": "{{count}} úkolů k vyřízení",
+      "student_task_few": "{{count}} úkoly k vyřízení",
+      "student_task_many": "{{count}} úkolu k vyřízení",
+      "first_contact": "termín prvního kontaktu",
+      "fix_one": "{{count}} dokument k opravě",
+      "fix_few": "{{count}} dokumenty k opravě",
+      "fix_many": "{{count}} dokumentu k opravě",
+      "fix_other": "{{count}} dokumentů k opravě",
+      "overdue_task_one": "{{count}} úkol po termínu",
+      "overdue_task_few": "{{count}} úkoly po termínu",
+      "overdue_task_many": "{{count}} úkolu po termínu",
+      "overdue_task_other": "{{count}} úkolů po termínu",
+      "reply": "student odpověděl",
+      "review_one": "{{count}} dokument ke kontrole",
+      "review_few": "{{count}} dokumenty ke kontrole",
+      "review_many": "{{count}} dokumentu ke kontrole",
+      "review_other": "{{count}} dokumentů ke kontrole"
+    }
   },
-  "meet": {
-   "decisions": "Rozhodnutí",
-   "notes": "Co se probíralo",
-   "oneper": "Jedna položka na řádek.",
-   "recordTitle": "Zaznamenat schůzku",
-   "save": "Uložit záznam schůzky",
-   "scheduleNext": "Naplánovat další schůzku",
-   "staffTasks": "Další kroky pro tým",
-   "studentHint": "Jedna položka na řádek. Student je uvidí.",
-   "studentTasks": "Úkoly pro studenta"
-  },
-  "strip": {
-   "deadline": "Termín",
-   "next": "Další krok",
-   "why": "Proč se nehýbe"
-  }
- },
- "waiting": {
-  "app": {
-   "DRAFT": "přihláška nezahájena",
-   "INTERVIEW": "pohovor",
-   "OFFERED": "odpověď na nabídku",
-   "OFFER_ACCEPTED": "faktura za školné",
-   "SUBMITTED": "podáno",
-   "UNIVERSITY_REVIEW": "v posuzování",
-   "VISA_ISSUED": "plány příjezdu",
-   "WAITLISTED": "na čekací listině",
-   "DOCUMENT_PREPARATION": "připravuje dokumenty",
-   "VISA_PREPARATION": "vízové dokumenty"
-  },
-  "reason": {
-   "student_task_one": "{{count}} úkol k vyřízení",
-   "student_task_other": "{{count}} úkolů k vyřízení",
-   "student_task_few": "{{count}} úkoly k vyřízení",
-   "student_task_many": "{{count}} úkolu k vyřízení"
-  }
- },
- "ws": {
-  "itemsInReview_one": "{{count}} v kontrole",
-  "itemsNone": "Všechny položky připraveny",
-  "itemsRemain_other": "Zbývá {{count}} položek",
-  "itemsInReview_few": "{{count}} v kontrole",
-  "itemsInReview_many": "{{count}} v kontrole",
-  "itemsRemain_few": "Zbývají {{count}} položky",
-  "itemsRemain_many": "Zbývá {{count}} položky",
-  "act": {
-   "message": "Zpráva",
-   "task": "Úkol"
-  },
-  "block": {
-   "deadline_one": "{{uni}}: přihlášky se uzavírají za {{count}} den"
-  },
-  "consulate": "Konzulát",
-  "docsHint": "Všechny dokumenty z trezoru studenta. Používají se ve všech jeho přihláškách.",
-  "more": "Další akce",
-  "profileComplete": "Profil vyplněn z {{pct}} %",
-  "tab": {
-   "applications": "Přihlášky",
-   "documents": "Dokumenty",
-   "essays": "Psaní",
-   "visa": "Vízum"
-  },
-  "targetEntry": "Plánované datum vstupu",
-  "visaIssued": "Datum vydání",
-  "visaNotes": "Poznámky k případu (pro tým)",
-  "visaProgress": "Plnění vízového kontrolního seznamu",
-  "visaStatus": "Stav víza",
-  "visaSubmitted": "Datum podání",
-  "visaType": "Vízum {{type}}"
- },
- "v25": {
-  "today": {
-   "title": "Dnes",
-   "urgent": "naléhavé",
-   "deadline7": "termín do 7 dní",
-   "waiting_counselor": "bez naší odpovědi",
-   "student_silent": "studentů bez odezvy",
-   "requested": "požadavky univerzit"
-  }
- },
- "v26": {
   "ws": {
-   "replyOwed": "Student čeká na vaši odpověď",
-   "reply": "Odpovědět",
-   "requests": "Žádosti univerzit",
-   "requestFrom": "{{university}} žádá: {{label}}",
-   "requestedOn": "Vyžádáno {{date}}"
+    "itemsInReview_one": "{{count}} položka v kontrole",
+    "itemsNone": "Všechny položky připraveny",
+    "itemsRemain_other": "Zbývá {{count}} položek",
+    "itemsInReview_few": "{{count}} položky v kontrole",
+    "itemsInReview_many": "{{count}} položky v kontrole",
+    "itemsRemain_few": "Zbývají {{count}} položky",
+    "itemsRemain_many": "Zbývá {{count}} položky",
+    "act": {
+      "message": "Zpráva",
+      "task": "Úkol",
+      "call": "Naplánovat konzultaci"
+    },
+    "block": {
+      "deadline_one": "{{uni}}: přihlášky se uzavírají za {{count}} den",
+      "deadline_few": "{{uni}}: přihlášky se uzavírají za {{count}} dny",
+      "deadline_many": "{{uni}}: přihlášky se uzavírají za {{count}} dne",
+      "deadline_other": "{{uni}}: přihlášky se uzavírají za {{count}} dní",
+      "overdue": "Po termínu: {{title}}",
+      "review_one": "{{count}} dokument čeká na vaši kontrolu",
+      "review_few": "{{count}} dokumenty čekají na vaši kontrolu",
+      "review_many": "{{count}} dokumentu čeká na vaši kontrolu",
+      "review_other": "{{count}} dokumentů čeká na vaši kontrolu",
+      "sla": "Čeká na vaši první odpověď",
+      "slaDetail": "Cíl první odpovědi uplynul {{when}}",
+      "uniRequest": "{{uni}} požaduje další dokumenty"
+    },
+    "consulate": "Konzulát",
+    "docsHint": "Všechny dokumenty z úložiště studenta. Používají se ve všech jeho přihláškách.",
+    "more": "Další akce",
+    "profileComplete": "Profil vyplněn z {{pct}} %",
+    "tab": {
+      "applications": "Přihlášky",
+      "documents": "Dokumenty",
+      "essays": "Psaní",
+      "visa": "Vízum",
+      "history": "Historie",
+      "messages": "Zprávy",
+      "portfolio": "Portfolio",
+      "tasks": "Úkoly"
+    },
+    "targetEntry": "Plánované datum příjezdu",
+    "visaIssued": "Datum vydání",
+    "visaNotes": "Poznámky k případu (pro tým)",
+    "visaProgress": "Plnění vízového kontrolního seznamu",
+    "visaStatus": "Stav víza",
+    "visaSubmitted": "Datum podání",
+    "visaType": "Vízum {{type}}",
+    "activityNote": "Z auditního protokolu: zobrazení, změny a rozhodnutí v záznamech tohoto studenta.",
+    "apptHint": "Konzultace a cvičné pohovory s tímto studentem.",
+    "assignedBy": "Přiřazeno: {{by}}",
+    "blockedBy": "Nejdřív dokončete: {{deps}}",
+    "blockers": "Překážky",
+    "budget": "Roční rozpočet",
+    "by": {
+      "ENGINE": "párovací algoritmus",
+      "MANUAL": "správce",
+      "OPERATIONS_OVERRIDE": "provoz Hangyul (ruční zásah)",
+      "ORDER": "nákup služby"
+    },
+    "dob": "Datum narození",
+    "education": "Vzdělání",
+    "expires": "Platnost do {{date}}",
+    "factor": {
+      "country": "Znalost země",
+      "degree": "Znalost stupně studia",
+      "language": "Jazyková shoda",
+      "preference": "Preference studenta",
+      "sla": "Nedávné plnění SLA",
+      "university": "Cílové univerzity",
+      "workload": "Volná kapacita"
+    },
+    "fields": "Obory",
+    "gpa": "GPA",
+    "gpaNorm": "{{pct}} % přepočteno",
+    "identity": "Totožnost a pobyt",
+    "itemsInReview_other": "{{count}} položek v kontrole",
+    "itemsRemain_one": "Zbývá {{count}} položka",
+    "languages": "Jazykové zkoušky",
+    "level": {
+      "ASSOCIATE": "Vyšší odborné",
+      "BACHELOR": "Bakalářské",
+      "DOCTORATE": "Doktorské",
+      "HIGH_SCHOOL": "Střední škola",
+      "MASTER": "Magisterské"
+    },
+    "maskedHint": "Maskováno kvůli ochraně soukromí. Celé číslo je jen v úložišti studenta.",
+    "noActivity": "Zatím žádná zaznamenaná aktivita",
+    "noApps": "Zatím žádné přihlášky",
+    "noAppsText": "Přihlášky se tu objeví, jakmile student nějakou založí.",
+    "noBreakdown": "K tomuto přiřazení nebyl zaznamenán rozpis skóre.",
+    "noConversations": "Zatím žádné konverzace s tímto studentem",
+    "noDocs": "V úložišti zatím nejsou žádné dokumenty",
+    "noEducation": "Zatím není doplněno žádné vzdělání.",
+    "noEssays": "Zatím žádné eseje",
+    "noLanguages": "Zatím žádné výsledky jazykových zkoušek.",
+    "noVisa": "Zatím žádný vízový případ",
+    "noVisaText": "Vízový případ se otevře automaticky, jakmile univerzita vydá standardní dopis o přijetí.",
+    "notAssigned": "Nepřiřazen žádné agentuře",
+    "passport": "Cestovní pas",
+    "passportExpiry": "Platnost pasu",
+    "planned": "plánováno",
+    "preferences": "Preference",
+    "profileTitle": "Profil",
+    "regions": "Regiony",
+    "residence": "Země pobytu",
+    "scholarship": "Potřebuje stipendium",
+    "score": "Skóre shody {{score}} / 100",
+    "selfReported": "uvedeno studentem",
+    "sinceDate": "Přiřazen od {{date}}",
+    "sponsor": "Finanční sponzor",
+    "sponsorKind": {
+      "EMPLOYER": "Zaměstnavatel",
+      "PARENTS": "Rodiče",
+      "RELATIVE": "Příbuzný",
+      "SCHOLARSHIP": "Stipendium",
+      "SELF": "Vlastní prostředky"
+    },
+    "stage": "Fáze pipeline",
+    "tasksHint": "Týmové úkoly a úkoly viditelné pro studenta.",
+    "visaHistory": "Historie korejských víz",
+    "weightsNote": "Získané body za každý faktor z jeho váhy (celková váha {{total}}). Skóre vysvětluje volbu; není to hodnocení kvality.",
+    "whyAssigned": "Proč toto přiřazení?"
+  },
+  "v25": {
+    "today": {
+      "title": "Dnes",
+      "urgent": "naléhavé",
+      "deadline7": "termín do 7 dní",
+      "waiting_counselor": "bez naší odpovědi",
+      "student_silent": "studentů bez odezvy",
+      "requested": "požadavky univerzit"
+    }
+  },
+  "v26": {
+    "ws": {
+      "replyOwed": "Student čeká na vaši odpověď",
+      "reply": "Odpovědět",
+      "requests": "Žádosti univerzit",
+      "requestFrom": "{{university}} žádá: {{label}}",
+      "requestedOn": "Vyžádáno {{date}}"
+    }
+  },
+  "consult": {
+    "channel": {
+      "IN_PERSON": "Osobně",
+      "PHONE": "Telefon",
+      "VIDEO": "Videohovor"
+    },
+    "channelLabel": "Forma",
+    "duration": "Délka",
+    "kind": {
+      "CONSULTATION": "Konzultace",
+      "INTERVIEW": "Pohovor",
+      "INTERVIEW_PREP": "Nácvik pohovoru"
+    },
+    "kindLabel": "Typ",
+    "minutes_other": "{{count}} min",
+    "new": "Naplánovat konzultaci",
+    "notes": "Program / poznámky",
+    "notesHint": "Student to uvidí v podrobnostech schůzky.",
+    "notifyNote": "Student dostane oznámení s datem a časem ve svém časovém pásmu.",
+    "schedule": "Naplánovat",
+    "when": "Datum a čas",
+    "minutes_few": "{{count}} min",
+    "minutes_many": "{{count}} min"
+  },
+  "tasksPage": {
+    "create": "Vytvořit úkol",
+    "description": "Podrobnosti",
+    "due": "Termín",
+    "forStudent": "Přidělit studentovi (uvidí ho ve své aplikaci)",
+    "me": "já",
+    "new": "Nový úkol",
+    "owner": "Odpovědná osoba",
+    "priority": "Priorita",
+    "title": "Úkoly",
+    "type": "Typ"
+  },
+  "v15": {
+    "plan": {
+      "PREMIUM": "Premium",
+      "title": "Zakoupený balíček: {{plan}}"
+    },
+    "readiness": {
+      "READY": "Připraveno k odeslání",
+      "SUBMITTED": "Odesláno"
+    },
+    "scope": {
+      "strip": "Balíček"
+    }
+  },
+  "v27": {
+    "guide": {
+      "missingTitle": "Pokyny k přijímacímu řízení neověřeny",
+      "current": "Seznam dokumentů z",
+      "missingBody": "Aktuální oficiální pokyny pro tuto univerzitu a stupeň nebyly ověřeny, proto se seznam dokumentů nezobrazuje. Objeví se, jakmile pokyny ověří provozní tým Hangyul.",
+      "previous": "Podle pokynů z předchozího kola; nové pokyny se kontrolují",
+      "source": "Oficiální pokyny",
+      "verified": "zkontrolováno {{date}}"
+    },
+    "stage": {
+      "ADMIT": "Nabídka a zápis",
+      "APPLY": "Přihláška odeslána",
+      "ARRIVAL": "Příjezd",
+      "CONSULT": "Konzultace",
+      "DOCUMENTS": "Dokumenty",
+      "REVIEW": "Posouzení univerzitou",
+      "VISA": "Vízum",
+      "label": "Fáze případu",
+      "nextSr": "další fáze",
+      "recent": "Dní od poslední změny: {{count}}",
+      "overdue": "Termín uplynul",
+      "stalled": "Dní bez pohybu: {{count}}"
+    },
+    "evidence": {
+      "age": "Vydáno nejdéle před",
+      "ageDays": "{{count}} d",
+      "byNationality": "podle státní příslušnosti; země vydání zatím není známa",
+      "extra": "Také",
+      "form": "Podat jako",
+      "legal": "Legalizace",
+      "none": "Zatím nenahráno",
+      "open": "Zobrazit doklad",
+      "proof": "Nahrál student",
+      "quote": "Znění pokynů",
+      "when": "Platí, když"
+    },
+    "form": {
+      "COPY": "Kopie",
+      "EITHER": "Originál nebo kopie",
+      "ORIGINAL": "Originál"
+    },
+    "hq": {
+      "guidesNone": "Žádné pokyny k přijímacímu řízení k ověření.",
+      "guidesSub": "Bez ověřených aktuálních pokynů studenti nevidí seznam dokumentů. Seřazeno podle počtu čekajících studentů.",
+      "guidesTitle": "Pokyny k přijímacímu řízení k ověření",
+      "kind": {
+        "CONFLICT": "Oficiální zdroje se liší",
+        "MISSING_GUIDE": "Žádné ověřené pokyny",
+        "REVIEW_REQUIRED": "Vyžaduje kontrolu",
+        "SPOT_CHECK": "Namátková kontrola proti originálu",
+        "STALE": "Pokyny z dřívějšího kola"
+      },
+      "waiting": "Přihlášek v přípravě: {{count}}"
+    },
+    "ifApplies": "Pokud se vztahuje",
+    "issue": {
+      "APOSTILLE": "Nutná apostila",
+      "CHINA_CHSI": "Nutné ověření CHSI",
+      "CONSULAR": "Nutná konzulární superlegalizace",
+      "DONE": "Hotovo",
+      "FIX": "Vyžaduje opravu",
+      "IN_REVIEW": "Kontroluje se",
+      "LEGALIZATION_REVIEW": "Ověřit způsob legalizace",
+      "NOTARIZATION": "Nutné notářské ověření",
+      "ORIGINAL_CHECKED": "Originál zkontrolován",
+      "TRANSLATION": "Nutný překlad",
+      "UPLOAD": "Nutné nahrát"
+    },
+    "legal": {
+      "APOSTILLE": "Apostila",
+      "CHINA_CHSI": "Ověření CHSI (Čína) nebo apostila",
+      "CONSULAR": "Konzulární superlegalizace",
+      "NONE": "Není potřeba",
+      "STAFF_REVIEW": "Ověřit podle země vydání",
+      "UNSPECIFIED": "V pokynech neuvedeno"
+    },
+    "party": {
+      "agency": "Naše akce",
+      "student": "Akce studenta"
+    },
+    "submit": {
+      "IN_PERSON": "Osobně",
+      "MAIL": "Poštou",
+      "ONLINE": "Online formulář",
+      "UPLOAD": "Nahrání online",
+      "UPLOAD_MAIL": "Nahrát a poté poslat originál poštou"
+    }
+  },
+  "v28": {
+    "stage": {
+      "next": "Dále: {{stage}}",
+      "of": "Fáze {{n}} z {{total}}"
+    }
+  },
+  "actions": {
+    "moreFilters": "Další filtry"
+  },
+  "dash": {
+    "days_one": "{{count}} den",
+    "days_few": "{{count}} dny",
+    "days_many": "{{count}} dne",
+    "days_other": "{{count}} dní",
+    "period": "Vykazované období",
+    "subHq": "Přehled všech aktivních studentů, front a SLA napříč agenturami.",
+    "workload": {
+      "member": "Člen týmu",
+      "open": "Otevřené úkoly",
+      "overdue": "Po termínu",
+      "students": "Aktivní studenti"
+    }
+  },
+  "login": {
+    "asideFoot": "Data každé organizace jsou oddělená a každý přístup se zaznamenává. Studenti interní poznámky nikdy nevidí.",
+    "asideLead": "Studenti, práce s přihláškami a dokumenty a zprávy v jednom pracovním prostoru.",
+    "asideTitle": "Kdo vás potřebuje, proč a dokdy – počínaje dneškem.",
+    "p1Text": "Každý počet u fáze otevře přesně tyto studenty.",
+    "p1Title": "Studenti podle fáze",
+    "p2Text": "Opravy dokumentů, termíny přihlášek a dlužné odpovědi, seřazené podle termínu.",
+    "p2Title": "Práce s termíny",
+    "p3Text": "Zabezpečené náhledy a kontrolní seznamy; opravy vyžádané s jasným důvodem.",
+    "p3Title": "Kontrola dokumentů",
+    "p4Text": "Studenti komunikují s týmem Hangyul Univ; kdo práci provedl, zůstává v auditním protokolu.",
+    "p4Title": "Studenti vidí tým Hangyul Univ",
+    "subtitle": "Pro provozní tým Hangyul a partnerské agentury pro studium v zahraničí.",
+    "title": "Přihlaste se do Konzole agentury"
+  },
+  "notifs": {
+    "filter": "Filtr",
+    "sub": "Vše, co se stalo, když jste tu nebyli."
+  },
+  "v29": {
+    "guide": {
+      "field": {
+        "checklist": "seznam dokumentů",
+        "current_intake": "pokyny pro toto kolo",
+        "deadline": "termín",
+        "source_url": "oficiální zdroj",
+        "submission_method": "způsob podání",
+        "verified_date": "datum ověření"
+      },
+      "verifyRequired": "Před vedenou přihláškou ověřte: {{fields}}"
+    },
+    "plan": {
+      "addOnStatus": {
+        "ACTIVE": "Probíhá",
+        "APPROVED": "Aktivní (starší verze)",
+        "AWAITING_PAYMENT": "Čeká na platbu",
+        "COMPLETED": "Hotovo",
+        "OFFERED": "Navrženo"
+      },
+      "duty": {
+        "dedicated": "Vyhrazený tým · přednostní odpovědi",
+        "docs": {
+          "CHECKLIST": "Dokumenty: seznam",
+          "INTENSIVE": "Dokumenty: důkladná kontrola",
+          "REVIEW_GUIDANCE": "Dokumenty: kontrola a poznámky, co opravit"
+        },
+        "dorm": {
+          "APPLICATION": "Kolej: pomoc s přihláškou a další možnosti ubytování",
+          "INFORMATION": "Kolej: informace",
+          "SCHEDULE": "Kolej: hlídání termínů přihlášek"
+        },
+        "settle": {
+          "FULL": "Zabydlení: D-30 až D+30",
+          "INFORMATION": "Zabydlení: základní informace",
+          "NONE": "Zabydlení: není zahrnuto"
+        },
+        "visa": {
+          "DOCUMENT_PREP": "Vízum: pomoc s přípravou dokumentů",
+          "GUIDANCE": "Vízum: pokyny k postupu",
+          "INTENSIVE": "Vízum: dokumenty a klíčové termíny pod kontrolou"
+        }
+      },
+      "legacy": "Zakoupeno v rámci {{version}}",
+      "offer": {
+        "howItWorks": "Platí až poté, co student uvidí cenu a rozsah, odsouhlasí je a zaplatí.",
+        "open": "Navrhnout doplňkovou službu",
+        "quantity": "Množství ({{unit}})",
+        "quote": "Individuální nabídka: zadejte cenu a rozsah",
+        "range": "Doporučené rozmezí {{min}}–{{max}}",
+        "scope": "Poznámka k rozsahu (student ji uvidí)",
+        "scopeRequired": "Rozsah (povinné, student ho uvidí)",
+        "send": "Navrhnout studentovi",
+        "service": "Služba",
+        "total": "Student zaplatí {{amount}}",
+        "unitPrice": "Jednotková cena (USD)"
+      },
+      "term": {
+        "arrival": "Příjezd",
+        "arrivalLabel": "Plánované datum příjezdu",
+        "arrivalUnknown": "Datum příjezdu nepotvrzeno",
+        "arrivalWindow": "Příprava od {{from}} · příjezd {{arrive}} · konec {{until}}",
+        "ended": "Doba služby skončila",
+        "endsLabel": "Konec smlouvy",
+        "notStarted": "Před první konzultací",
+        "saved": "Termíny služby uloženy.",
+        "set": "Uložit termíny",
+        "since": "Zahájeno {{date}}",
+        "support": "Konzultace do {{date}}",
+        "supportDays": "{{count}} dní od první konzultace",
+        "title": "Doba služby",
+        "toAgree": "Doba služby není nastavena",
+        "until": "Do {{date}}"
+      },
+      "unrationed": {
+        "CONTRACTED_DOCUMENTS": "Bez omezení v rámci smluvních dokumentů a harmonogramu",
+        "PRIORITY": "Přednostní odpovědi",
+        "ROUNDS": "Zahrnuto",
+        "TEAM": "Průběžná podpora týmu"
+      },
+      "usedSoFar": "Hotovo: {{count}}"
+    }
+  },
+  "v30": {
+    "def": {
+      "ops": {
+        "ageing": "Dny od posledního pohybu případu: nejnovější ze změny fáze pipeline, změny stavu přihlášky nebo přiřazení této agentuře.",
+        "backlog": "Otevřená práce na konci každého týdne: nedokončené týmové úkoly (ne vlastní úkoly studenta), nezkontrolované verze dokumentů a eseje odeslané ke kontrole, které ještě nebyly zkontrolovány (aktuální kolo kontroly).",
+        "blocked": "Případ je blokovaný, když čeká na některou stranu a nepohnul se déle než 14 dní. Nejstarší první.",
+        "deadlines": "Dosud nepodané přihlášky, jejichž uzávěrka je do 14 dnů a kterým stále chybí povinné položky.",
+        "load": "Vážená zátěž na osobu: každý druh otevřené práce, kterou má, × jeho váha (tabulka vah agentury), proti osobní kapacitě ve stejných bodech. Přetížení = zátěž nad kapacitou. Lidem na dovolené se nová práce nepřiděluje.",
+        "sla": "První odpověď neposkytnutá do stanoveného termínu; dokumenty čekající na kontrolu déle než 48 hodin; kontroly esejí po slíbeném termínu.",
+        "stages": "Medián počtu dní, po které přihláška setrvala ve stavu, než postoupila dál (setrvání ukončená za posledních 365 dní). Nezobrazuje se při méně než {{n}} setrváních.",
+        "unassigned_paid": "Zaplacená služba Hangyul bez odpovědného poradce (nebo, u Hangyul, bez přiřazené agentury)."
+      },
+      "svc": {
+        "arrival": "Dokončená vyzvednutí na letišti ÷ vyzvednutí, jejichž čas příletu už uplynul (bez zrušených)",
+        "completion": "Dokončené ÷ případy vytvořené v daném období (bez zrušených)",
+        "resolution": "Medián hodin od žádosti po dokončení, jen dokončené případy",
+        "sla": "Případy, kde tým jednal až po SLA (nebo nejednal a SLA uplynulo) ÷ případy, jejichž SLA nastalo"
+      }
+    }
+  },
+  "v31": {
+    "stage": {
+      "closed": "Uzavřeno"
+    }
   }
- },
- "consult": {
-  "channel": {
-   "IN_PERSON": "Osobně",
-   "PHONE": "Telefon",
-   "VIDEO": "Videohovor"
-  },
-  "channelLabel": "Forma",
-  "duration": "Délka",
-  "kind": {
-   "CONSULTATION": "Konzultace",
-   "INTERVIEW": "Pohovor",
-   "INTERVIEW_PREP": "Nácvik pohovoru"
-  },
-  "kindLabel": "Typ",
-  "minutes_other": "{{count}} min",
-  "new": "Naplánovat konzultaci",
-  "notes": "Program / poznámky",
-  "notesHint": "Student to uvidí v podrobnostech schůzky.",
-  "notifyNote": "Student dostane oznámení s datem a časem ve svém časovém pásmu.",
-  "schedule": "Naplánovat",
-  "when": "Datum a čas",
-  "minutes_few": "{{count}} min",
-  "minutes_many": "{{count}} min"
- },
- "tasksPage": {
-  "create": "Vytvořit úkol",
-  "description": "Podrobnosti",
-  "due": "Termín",
-  "forStudent": "Přidělit studentovi (uvidí ho ve své aplikaci)",
-  "me": "já",
-  "new": "Nový úkol",
-  "owner": "Odpovědná osoba",
-  "priority": "Priorita",
-  "title": "Úkoly",
-  "type": "Typ"
- },
- "v15": {
-  "plan": {
-   "PREMIUM": "Premium",
-   "title": "Zakoupený balíček: {{plan}}"
-  },
-  "readiness": {
-   "READY": "Připraveno k odeslání",
-   "SUBMITTED": "Odesláno"
-  },
-  "scope": {
-   "strip": "Balíček"
-  }
- },
- "v27": {
-  "guide": {
-   "missingTitle": "Pokyny k přijímacímu řízení neověřeny"
-  },
-  "stage": {
-   "ADMIT": "Nabídka a zápis",
-   "APPLY": "Přihláška odeslána",
-   "ARRIVAL": "Příjezd",
-   "CONSULT": "Konzultace",
-   "DOCUMENTS": "Dokumenty",
-   "REVIEW": "Posouzení univerzitou",
-   "VISA": "Vízum",
-   "label": "Fáze případu",
-   "nextSr": "další fáze",
-   "recent": "Dní od poslední změny: {{count}}"
-  }
- },
- "v28": {
-  "stage": {
-   "next": "Dále: {{stage}}",
-   "of": "Fáze {{n}} z {{total}}"
-  }
- }
 }

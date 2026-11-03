@@ -1,0 +1,2290 @@
+{
+  "_notes": [
+    "Document review in the Agency console unified on 'pemeriksaan dokumen' / 'periksa' (queue, reviewer, shortcuts, blocks, issue status); 'tinjauan' stays for essay review and university review.",
+    "Stage names: 'Konseling' → 'Konsultasi' (glossary); 'Siap' → 'Siap diajukan' (matches common:appStatus.READY); university stage 'Received' was 'Diterima masuk', which collides with Admitted = 'Diterima' → 'Masuk'; 'In review' unified on 'Sedang ditinjau'; 'Arrived' unified on 'Sudah tiba'.",
+    "Reply owed (답장 대기) chips/sections unified on 'Perlu dibalas'.",
+    "Document vault: 'brankas dokumen' everywhere (three ws strings said 'penyimpanan dokumen').",
+    "Enrollment = 'pendaftaran ulang' (noun) and 'Terdaftar' (status); one string said 'registrasi' and two funnel steps said 'Mendaftar ulang'.",
+    "Mock interview = 'simulasi wawancara' (ws.apptHint said 'latihan wawancara'); Book consultation = 'Jadwalkan konsultasi' (was 'panggilan').",
+    "Standard admission letter: 'surat penerimaan standar (standard admission letter)' in ws.noVisaText and decision.certificateInfo.",
+    "'Funnel' rendered 'alur penerimaan' (no English calque); 'Yield' KPI rendered 'Konversi tawaran'; 'Insights' nav is 'Wawasan', so v28.pipe.label points there instead of 'Analitik'.",
+    "Service period = 'masa layanan' in the agency plan panel; 'masa kontrak' in marketing is the contract itself and was left.",
+    "Closed hints: 'ditolak atau mundur' → 'tidak diterima atau mengundurkan diri' to match common:appStatus.REJECTED and af.foot."
+  ],
+  "agency:actions.moreFilters": {
+    "text": "Filter lainnya",
+    "why": "missing"
+  },
+  "agency:apps.actor.AGENCY": {
+    "text": "Agensi",
+    "why": "missing"
+  },
+  "agency:apps.actor.HANGYUL": {
+    "text": "Hangyul",
+    "why": "missing"
+  },
+  "agency:apps.actor.STUDENT": {
+    "text": "Mahasiswa",
+    "why": "missing"
+  },
+  "agency:apps.actor.SYSTEM": {
+    "text": "Sistem",
+    "why": "missing"
+  },
+  "agency:apps.actor.UNIVERSITY": {
+    "text": "Universitas",
+    "why": "missing"
+  },
+  "agency:apps.checklist": {
+    "text": "Daftar periksa dokumen",
+    "why": "missing"
+  },
+  "agency:apps.checklistCount": {
+    "text": "{{ready}} dari {{total}} item siap",
+    "why": "missing"
+  },
+  "agency:apps.confirmMove": {
+    "text": "Pindahkan ke “{{status}}”",
+    "why": "missing"
+  },
+  "agency:apps.empty": {
+    "text": "Tidak ada pendaftaran yang sesuai dengan filter ini. Ubah atau hapus filternya.",
+    "why": "restore second sentence"
+  },
+  "agency:apps.externalRef": {
+    "text": "Nomor referensi universitas",
+    "why": "missing"
+  },
+  "agency:apps.externalRefHint": {
+    "text": "Nomor pendaftaran dari portal universitas, jika ada.",
+    "why": "missing"
+  },
+  "agency:apps.flag": {
+    "text": "Tandai",
+    "why": "missing"
+  },
+  "agency:apps.flagReason": {
+    "text": "Alasan penandaan",
+    "why": "missing"
+  },
+  "agency:apps.flagTitle": {
+    "text": "Tandai untuk ditindaklanjuti",
+    "why": "missing"
+  },
+  "agency:apps.history": {
+    "text": "Riwayat status",
+    "why": "missing"
+  },
+  "agency:apps.legalization": {
+    "text": "Notarisasi & legalisasi",
+    "why": "missing"
+  },
+  "agency:apps.moveTo": {
+    "text": "Ubah status pendaftaran",
+    "why": "missing"
+  },
+  "agency:apps.moved": {
+    "text": "Pendaftaran dipindahkan ke {{status}}.",
+    "why": "missing"
+  },
+  "agency:apps.noTransitions": {
+    "text": "Tidak ada perubahan status yang tersedia untuk organisasi Anda pada tahap ini.",
+    "why": "missing"
+  },
+  "agency:apps.note": {
+    "text": "Catatan",
+    "why": "missing"
+  },
+  "agency:apps.noteHint": {
+    "text": "Disimpan dalam riwayat status.",
+    "why": "missing"
+  },
+  "agency:apps.readiness": {
+    "text": "Kesiapan",
+    "why": "missing"
+  },
+  "agency:apps.reused": {
+    "text": "Dipakai ulang dari brankas",
+    "why": "missing"
+  },
+  "agency:apps.scholarship": {
+    "text": "Catatan beasiswa",
+    "why": "missing"
+  },
+  "agency:apps.semester": {
+    "text": "Semester dimulai",
+    "why": "missing"
+  },
+  "agency:apps.sortBy.readiness": {
+    "text": "Kesiapan",
+    "why": "missing"
+  },
+  "agency:apps.submitBlocked": {
+    "text": "Dokumen wajib belum lengkap, sehingga pengajuan diblokir:",
+    "why": "missing"
+  },
+  "agency:apps.submitted": {
+    "text": "Terkirim",
+    "why": "missing"
+  },
+  "agency:apps.translation": {
+    "text": "Terjemahan",
+    "why": "missing"
+  },
+  "agency:apps.withdrawWarn": {
+    "text": "Penarikan pendaftaran ini bersifat final.",
+    "why": "missing"
+  },
+  "agency:dash.days_other": {
+    "text": "{{count}} hari",
+    "why": "missing"
+  },
+  "agency:dash.period": {
+    "text": "Periode laporan",
+    "why": "missing"
+  },
+  "agency:dash.subHq": {
+    "text": "Tampilan lintas agensi untuk semua mahasiswa aktif, antrean, dan SLA.",
+    "why": "missing"
+  },
+  "agency:dash.workload.member": {
+    "text": "Anggota tim",
+    "why": "missing"
+  },
+  "agency:dash.workload.open": {
+    "text": "Tugas terbuka",
+    "why": "missing"
+  },
+  "agency:dash.workload.overdue": {
+    "text": "Terlambat",
+    "why": "missing"
+  },
+  "agency:dash.workload.students": {
+    "text": "Mahasiswa aktif",
+    "why": "missing"
+  },
+  "agency:docs.bulkAssign": {
+    "text": "Tugaskan pemeriksa",
+    "why": "missing"
+  },
+  "agency:docs.bulkAssigned_one": {
+    "text": "{{count}} dokumen ditugaskan",
+    "why": "missing"
+  },
+  "agency:docs.bulkAssigned_other": {
+    "text": "{{count}} dokumen ditugaskan",
+    "why": "missing"
+  },
+  "agency:docs.bulkFailed_one": {
+    "text": "{{count}} dokumen tidak dapat diubah (sudah diperiksa atau bukan mahasiswa yang Anda tangani)",
+    "why": "missing"
+  },
+  "agency:docs.bulkFailed_other": {
+    "text": "{{count}} dokumen tidak dapat diubah (sudah diperiksa atau bukan mahasiswa yang Anda tangani)",
+    "why": "missing"
+  },
+  "agency:docs.bulkLabel": {
+    "text": "Tindakan untuk dokumen yang dipilih",
+    "why": "missing"
+  },
+  "agency:docs.bulkVerified_one": {
+    "text": "{{count}} dokumen diverifikasi",
+    "why": "missing"
+  },
+  "agency:docs.bulkVerified_other": {
+    "text": "{{count}} dokumen diverifikasi",
+    "why": "missing"
+  },
+  "agency:docs.bulkVerifyTitle_one": {
+    "text": "Verifikasi {{count}} dokumen?",
+    "why": "missing"
+  },
+  "agency:docs.empty": {
+    "text": "Antrean kosong",
+    "why": "missing"
+  },
+  "agency:docs.emptyBy.any": {
+    "text": "Tidak ada dokumen yang menunggu pemeriksaan.",
+    "why": "missing"
+  },
+  "agency:docs.emptyBy.me": {
+    "text": "Tidak ada yang ditugaskan kepada Anda saat ini.",
+    "why": "missing"
+  },
+  "agency:docs.emptyBy.unassigned": {
+    "text": "Setiap dokumen yang menunggu sudah punya pemeriksa.",
+    "why": "missing"
+  },
+  "agency:docs.notInQueue": {
+    "text": "Tidak dalam antrean pemeriksaan",
+    "why": "missing"
+  },
+  "agency:docs.pick": {
+    "text": "Pilih dokumen untuk diperiksa",
+    "why": "document review = pemeriksaan"
+  },
+  "agency:docs.queue": {
+    "text": "Antrean pemeriksaan",
+    "why": "document review = pemeriksaan"
+  },
+  "agency:docs.reviewer": {
+    "text": "Pemeriksaan dokumen",
+    "why": "document review = pemeriksaan"
+  },
+  "agency:docs.sc.changes": {
+    "text": "Minta perbaikan",
+    "why": "match 'Kirim permintaan perbaikan'"
+  },
+  "agency:docs.subSla": {
+    "text": "{{count}} menunggu pemeriksaan · {{late}} melewati target {{hours}} jam",
+    "why": "missing"
+  },
+  "agency:docs.sub_other": {
+    "text": "{{count}} dokumen menunggu pemeriksaan, yang terlama lebih dulu.",
+    "why": "missing"
+  },
+  "agency:docs.uploadForHint": {
+    "text": "Gunakan ini jika mahasiswa mengirim dokumen dengan cara lain (misalnya lewat email). Dokumen akan masuk ke brankas dokumennya, ditandai sebagai diunggah oleh Anda, dan menunggu pemeriksaan seperti unggahan lainnya.",
+    "why": "document review = pemeriksaan"
+  },
+  "agency:docs.uploadedFor": {
+    "text": "Ditambahkan ke brankas dokumen {{name}}",
+    "why": "missing"
+  },
+  "agency:docs.you": {
+    "text": "Anda",
+    "why": "missing"
+  },
+  "agency:inbox.audienceTeam": {
+    "text": "Hanya tim Anda yang melihat ini",
+    "why": "missing"
+  },
+  "agency:inbox.manageTemplates": {
+    "text": "Kelola templat…",
+    "why": "missing"
+  },
+  "agency:inbox.needsReplyShort": {
+    "text": "Perlu dibalas",
+    "why": "chip; 'reply owed' unified"
+  },
+  "agency:inbox.noMessages": {
+    "text": "Belum ada pesan.",
+    "why": "missing"
+  },
+  "agency:inbox.notePh": {
+    "text": "Tulis catatan internal untuk tim Anda… (Ctrl+Enter untuk menyimpan)",
+    "why": "missing"
+  },
+  "agency:inbox.noteSaved": {
+    "text": "Catatan internal tersimpan.",
+    "why": "missing"
+  },
+  "agency:inbox.openFile": {
+    "text": "Buka berkas",
+    "why": "missing"
+  },
+  "agency:inbox.participants": {
+    "text": "peserta",
+    "why": "missing"
+  },
+  "agency:inbox.removeFile": {
+    "text": "Hapus {{name}}",
+    "why": "missing"
+  },
+  "agency:inbox.saveNote": {
+    "text": "Simpan catatan",
+    "why": "missing"
+  },
+  "agency:inbox.sent": {
+    "text": "Pesan terkirim.",
+    "why": "missing"
+  },
+  "agency:inbox.subReply_one": {
+    "text": "{{count}} percakapan menunggu balasan Anda",
+    "why": "missing"
+  },
+  "agency:inbox.subUnread_one": {
+    "text": "{{count}} percakapan belum dibaca",
+    "why": "missing"
+  },
+  "agency:inbox.system": {
+    "text": "Sistem",
+    "why": "missing"
+  },
+  "agency:inbox.taskCreated": {
+    "text": "Tugas dibuat dari pesan ini",
+    "why": "missing"
+  },
+  "agency:inbox.taskDue": {
+    "text": "Tenggat tugas",
+    "why": "missing"
+  },
+  "agency:inbox.taskHint": {
+    "text": "Tugas diberikan kepada rekan tim yang disebut pertama, atau kepada Anda.",
+    "why": "missing"
+  },
+  "agency:inbox.unreadN_other": {
+    "text": "{{count}} pesan belum dibaca",
+    "why": "missing"
+  },
+  "agency:inbox.willNotify_other": {
+    "text": "{{count}} rekan tim akan diberi tahu",
+    "why": "missing"
+  },
+  "agency:login.asideFoot": {
+    "text": "Data setiap organisasi disimpan terpisah dan setiap akses dicatat. Mahasiswa tidak pernah melihat catatan internal.",
+    "why": "missing"
+  },
+  "agency:login.asideLead": {
+    "text": "Mahasiswa, pekerjaan pendaftaran dan dokumen, serta pesan dalam satu ruang kerja.",
+    "why": "missing"
+  },
+  "agency:login.asideTitle": {
+    "text": "Siapa yang membutuhkan Anda, mengapa, dan sampai kapan, dimulai dari hari ini.",
+    "why": "missing"
+  },
+  "agency:login.p1Text": {
+    "text": "Setiap angka tahap membuka tepat mahasiswa yang ada di dalamnya.",
+    "why": "missing"
+  },
+  "agency:login.p1Title": {
+    "text": "Mahasiswa per tahap",
+    "why": "missing"
+  },
+  "agency:login.p2Text": {
+    "text": "Perbaikan dokumen, tenggat pendaftaran, dan balasan yang perlu diberikan, diurutkan menurut tenggat.",
+    "why": "missing"
+  },
+  "agency:login.p2Title": {
+    "text": "Pekerjaan dengan tenggat",
+    "why": "missing"
+  },
+  "agency:login.p3Text": {
+    "text": "Pratinjau aman dan daftar periksa; permintaan perbaikan disertai alasan yang jelas.",
+    "why": "missing"
+  },
+  "agency:login.p3Title": {
+    "text": "Pemeriksaan dokumen",
+    "why": "missing"
+  },
+  "agency:login.p4Text": {
+    "text": "Mahasiswa menerima kabar dari tim Hangyul Univ; siapa yang mengerjakannya tercatat di log audit.",
+    "why": "missing"
+  },
+  "agency:login.p4Title": {
+    "text": "Mahasiswa melihat tim Hangyul Univ",
+    "why": "missing"
+  },
+  "agency:login.subtitle": {
+    "text": "Untuk staf operasional Hangyul dan agensi studi ke luar negeri mitra.",
+    "why": "missing"
+  },
+  "agency:login.title": {
+    "text": "Masuk ke Konsol Agensi",
+    "why": "missing"
+  },
+  "agency:misc.breadcrumb": {
+    "text": "Jejak navigasi",
+    "why": "match common:a11y.breadcrumb"
+  },
+  "agency:misc.change": {
+    "text": "Ubah",
+    "why": "missing"
+  },
+  "agency:misc.days_other": {
+    "text": "{{count}} hari",
+    "why": "missing"
+  },
+  "agency:misc.hours_other": {
+    "text": "{{count}} jam",
+    "why": "missing"
+  },
+  "agency:misc.internalTag": {
+    "text": "Internal",
+    "why": "missing"
+  },
+  "agency:misc.no": {
+    "text": "Tidak",
+    "why": "missing"
+  },
+  "agency:misc.notFoundText": {
+    "text": "Halaman mungkin telah dipindahkan, atau Anda tidak memiliki akses ke halaman ini.",
+    "why": "missing"
+  },
+  "agency:misc.searchStudents": {
+    "text": "Cari mahasiswa Anda…",
+    "why": "missing"
+  },
+  "agency:misc.unassigned": {
+    "text": "Belum ditugaskan",
+    "why": "missing"
+  },
+  "agency:misc.yes": {
+    "text": "Ya",
+    "why": "missing"
+  },
+  "agency:notifs.filter": {
+    "text": "Filter",
+    "why": "missing"
+  },
+  "agency:notifs.sub": {
+    "text": "Semua yang terjadi selama Anda tidak ada.",
+    "why": "missing"
+  },
+  "agency:savedViews.delete": {
+    "text": "Hapus {{name}}",
+    "why": "missing"
+  },
+  "agency:savedViews.saveHint_one": {
+    "text": "Menyimpan filter dan urutan saat ini agar daftar ini bisa dibuka dengan sekali klik.",
+    "why": "missing"
+  },
+  "agency:savedViews.saveHint_other": {
+    "text": "Menyimpan {{count}} filter dan urutan saat ini agar daftar ini bisa dibuka dengan sekali klik.",
+    "why": "missing"
+  },
+  "agency:savedViews.saved": {
+    "text": "Tersimpan “{{name}}”",
+    "why": "missing"
+  },
+  "agency:settings.account": {
+    "text": "Akun",
+    "why": "missing"
+  },
+  "agency:settings.language": {
+    "text": "Bahasa",
+    "why": "missing"
+  },
+  "agency:settings.languageHint": {
+    "text": "Bahasa antarmuka. Data mahasiswa tetap dalam bahasa aslinya.",
+    "why": "missing"
+  },
+  "agency:settings.localOnly": {
+    "text": "Hanya disimpan di browser ini.",
+    "why": "missing"
+  },
+  "agency:settings.org": {
+    "text": "Organisasi",
+    "why": "missing"
+  },
+  "agency:settings.poll": {
+    "text": "Pembaruan langsung",
+    "why": "missing"
+  },
+  "agency:settings.pollHint": {
+    "text": "Segarkan antrean dan jumlah setiap menit.",
+    "why": "missing"
+  },
+  "agency:settings.scSearch": {
+    "text": "Telusuri hasil pencarian global",
+    "why": "missing"
+  },
+  "agency:settings.scSend": {
+    "text": "Kirim pesan atau simpan catatan",
+    "why": "missing"
+  },
+  "agency:settings.shortcuts": {
+    "text": "Pintasan keyboard",
+    "why": "missing"
+  },
+  "agency:settings.sub": {
+    "text": "Preferensi pribadi untuk konsol ini.",
+    "why": "missing"
+  },
+  "agency:settings.timezone": {
+    "text": "Zona waktu",
+    "why": "missing"
+  },
+  "agency:settings.updates": {
+    "text": "Pembaruan langsung",
+    "why": "missing"
+  },
+  "agency:shell.hqProduct": {
+    "text": "Operasional Hangyul",
+    "why": "missing"
+  },
+  "agency:shell.hqView": {
+    "text": "Hangyul HQ · semua agensi",
+    "why": "missing"
+  },
+  "agency:shell.searchAll": {
+    "text": "Lihat semua hasil untuk “{{q}}”",
+    "why": "missing"
+  },
+  "agency:sidebar.agencies": {
+    "text": "Agensi",
+    "why": "missing"
+  },
+  "agency:sidebar.catalog": {
+    "text": "Universitas & program",
+    "why": "missing"
+  },
+  "agency:sidebar.hangyul": {
+    "text": "Hangyul HQ",
+    "why": "missing"
+  },
+  "agency:sidebar.operations": {
+    "text": "Operasional",
+    "why": "missing"
+  },
+  "agency:sidebar.override": {
+    "text": "Penggantian penugasan",
+    "why": "missing"
+  },
+  "agency:students.bulk.confirmRegen_other": {
+    "text": "Hitung ulang daftar tugas otomatis untuk {{count}} mahasiswa? Tugas manual tetap disimpan.",
+    "why": "missing"
+  },
+  "agency:students.bulk.confirmStage_other": {
+    "text": "Pindahkan {{count}} mahasiswa ke “{{stage}}”? Tindakan ini dicatat di log audit.",
+    "why": "missing"
+  },
+  "agency:students.bulk.confirmTitle": {
+    "text": "Terapkan tindakan massal?",
+    "why": "missing"
+  },
+  "agency:students.bulk.done_other": {
+    "text": "{{count}} mahasiswa diperbarui.",
+    "why": "missing"
+  },
+  "agency:students.bulk.regen": {
+    "text": "Buat ulang tugas",
+    "why": "missing"
+  },
+  "agency:students.bulk.stage": {
+    "text": "Pindahkan ke tahap…",
+    "why": "missing"
+  },
+  "agency:students.col.degree": {
+    "text": "Jenjang",
+    "why": "missing"
+  },
+  "agency:students.col.nationality": {
+    "text": "Kewarganegaraan",
+    "why": "missing"
+  },
+  "agency:students.dShort_one": {
+    "text": "{{count}} hr",
+    "why": "missing"
+  },
+  "agency:students.f.allDegrees": {
+    "text": "Semua jenjang",
+    "why": "missing"
+  },
+  "agency:students.f.allNationalities": {
+    "text": "Semua kewarganegaraan",
+    "why": "missing"
+  },
+  "agency:students.noReply": {
+    "text": "SLA respons pertama terlewat. Mahasiswa ini menunggu balasan",
+    "why": "missing"
+  },
+  "agency:students.noReplyShort": {
+    "text": "Perlu dibalas",
+    "why": "missing"
+  },
+  "agency:students.view.all": {
+    "text": "Semua",
+    "why": "missing"
+  },
+  "agency:students.view.arrived": {
+    "text": "Sudah tiba",
+    "why": "missing"
+  },
+  "agency:students.view.deadline": {
+    "text": "Tenggat dekat",
+    "why": "missing"
+  },
+  "agency:students.view.docs": {
+    "text": "Dokumen perlu diperbaiki",
+    "why": "missing"
+  },
+  "agency:students.view.incomplete": {
+    "text": "Dokumen belum lengkap",
+    "why": "missing"
+  },
+  "agency:students.view.mine": {
+    "text": "Mahasiswa saya",
+    "why": "missing"
+  },
+  "agency:students.view.requested": {
+    "text": "Universitas meminta dokumen",
+    "why": "missing"
+  },
+  "agency:students.view.university": {
+    "text": "Menunggu universitas",
+    "why": "missing"
+  },
+  "agency:students.view.visa": {
+    "text": "Visa",
+    "why": "missing"
+  },
+  "agency:students.view.waiting_external": {
+    "text": "Menunggu kedutaan atau pihak lain",
+    "why": "missing"
+  },
+  "agency:students.view.waiting_us": {
+    "text": "Menunggu kami",
+    "why": "missing"
+  },
+  "agency:today.afternoon": {
+    "text": "Selamat siang, {{name}}",
+    "why": "missing"
+  },
+  "agency:today.allClear": {
+    "text": "Tidak ada yang perlu ditangani saat ini. Pekerjaan baru akan muncul di sini begitu masuk.",
+    "why": "missing"
+  },
+  "agency:today.attention": {
+    "text": "Perlu perhatian",
+    "why": "missing"
+  },
+  "agency:today.attentionSub": {
+    "text": "Item paling mendesak ditampilkan lebih dulu. Buka satu baris untuk mengerjakan daftar ini.",
+    "why": "missing"
+  },
+  "agency:today.attentionV4": {
+    "text": "Siapa yang membutuhkan Anda hari ini",
+    "why": "missing"
+  },
+  "agency:today.clearList": {
+    "text": "Semua beres: {{list}}",
+    "why": "missing"
+  },
+  "agency:today.closing": {
+    "text": "Pendaftaran yang ditutup dalam 7 hari",
+    "why": "missing"
+  },
+  "agency:today.closingDetail": {
+    "text": "Berikutnya: {{university}} · {{student}}, ditutup {{date}}",
+    "why": "missing"
+  },
+  "agency:today.closingV4": {
+    "text": "Mahasiswa dengan tenggat pendaftaran dalam 7 hari",
+    "why": "missing"
+  },
+  "agency:today.cta.deadlines": {
+    "text": "Lihat tenggat",
+    "why": "missing"
+  },
+  "agency:today.cta.messages": {
+    "text": "Buka kotak masuk",
+    "why": "missing"
+  },
+  "agency:today.cta.reply": {
+    "text": "Balas",
+    "why": "missing"
+  },
+  "agency:today.cta.review": {
+    "text": "Mulai pemeriksaan",
+    "why": "missing"
+  },
+  "agency:today.cta.students": {
+    "text": "Buka mahasiswa",
+    "why": "missing"
+  },
+  "agency:today.cta.tasks": {
+    "text": "Buka tugas",
+    "why": "missing"
+  },
+  "agency:today.deadlines": {
+    "text": "Tenggat dalam 7 hari ke depan",
+    "why": "missing"
+  },
+  "agency:today.deadlinesDetail": {
+    "text": "Berikutnya: {{title}} · {{student}}, {{when}}",
+    "why": "missing"
+  },
+  "agency:today.docs": {
+    "text": "Dokumen menunggu pemeriksaan",
+    "why": "missing"
+  },
+  "agency:today.docsDetail": {
+    "text": "Terlama: {{student}} · {{doc}}, menunggu {{wait}}",
+    "why": "missing"
+  },
+  "agency:today.docsOldest": {
+    "text": "terlama: {{student}} · {{doc}}, diunggah {{when}}",
+    "why": "missing"
+  },
+  "agency:today.docsSla_one": {
+    "text": "{{count}} dokumen melewati target pemeriksaan {{hours}} jam",
+    "why": "missing"
+  },
+  "agency:today.docsSla_other": {
+    "text": "{{count}} dokumen melewati target pemeriksaan {{hours}} jam",
+    "why": "missing"
+  },
+  "agency:today.essays": {
+    "text": "Esai menunggu tinjauan",
+    "why": "missing"
+  },
+  "agency:today.essaysDetail": {
+    "text": "Berikutnya: {{title}} · {{student}}",
+    "why": "missing"
+  },
+  "agency:today.keyMove": {
+    "text": "pindah",
+    "why": "missing"
+  },
+  "agency:today.keyOpen": {
+    "text": "buka",
+    "why": "missing"
+  },
+  "agency:today.messages": {
+    "text": "Percakapan dengan pesan belum dibaca",
+    "why": "missing"
+  },
+  "agency:today.messagesDetail": {
+    "text": "Menunggu paling lama: {{who}}, {{when}}",
+    "why": "missing"
+  },
+  "agency:today.openPipeline": {
+    "text": "Buka alur",
+    "why": "missing"
+  },
+  "agency:today.overdueDef": {
+    "text": "Tugas terbuka yang tenggatnya sudah lewat.",
+    "why": "missing"
+  },
+  "agency:today.overdueDetail": {
+    "text": "Terlama: {{title}} · {{student}}, tenggat {{when}}",
+    "why": "missing"
+  },
+  "agency:today.overdueMine": {
+    "text": "Tugas Anda yang terlambat",
+    "why": "missing"
+  },
+  "agency:today.overdueTeam": {
+    "text": "Tugas terlambat di seluruh tim",
+    "why": "missing"
+  },
+  "agency:today.phase.studying": {
+    "text": "Sedang kuliah",
+    "why": "missing"
+  },
+  "agency:today.pipeline": {
+    "text": "Mahasiswa yang ditangani per tahap",
+    "why": "missing"
+  },
+  "agency:today.pipelineSub": {
+    "text": "{{count}} mahasiswa. Pilih tahap untuk melihat siapa saja di dalamnya.",
+    "why": "missing"
+  },
+  "agency:today.pipelineSubV4_one": {
+    "text": "{{count}} mahasiswa",
+    "why": "missing"
+  },
+  "agency:today.pipelineSubV4_other": {
+    "text": "{{count}} mahasiswa",
+    "why": "missing"
+  },
+  "agency:today.replies": {
+    "text": "Mahasiswa yang menunggu balasan",
+    "why": "missing"
+  },
+  "agency:today.repliesDetail": {
+    "text": "Pesan terakhir mereka belum dibalas.",
+    "why": "missing"
+  },
+  "agency:today.repliesOldest": {
+    "text": "Menunggu paling lama: {{student}}, {{when}}",
+    "why": "missing"
+  },
+  "agency:today.repliesV4": {
+    "text": "Perlu dibalas",
+    "why": "missing"
+  },
+  "agency:today.requests": {
+    "text": "Permintaan dokumen dari universitas",
+    "why": "missing"
+  },
+  "agency:today.requestsDetail": {
+    "text": "Mahasiswa harus mengunggahnya. Pastikan dokumennya masuk.",
+    "why": "missing"
+  },
+  "agency:today.sla": {
+    "text": "Mahasiswa yang harus mendapat respons pertama dalam 24 jam",
+    "why": "missing"
+  },
+  "agency:today.slaDetail": {
+    "text": "{{student}} · respons paling lambat {{when}}",
+    "why": "missing"
+  },
+  "agency:today.unread": {
+    "text": "Percakapan belum dibaca",
+    "why": "missing"
+  },
+  "agency:today.unreadDetail": {
+    "text": "Terbaru: {{who}}, {{when}}",
+    "why": "missing"
+  },
+  "agency:today.upcoming": {
+    "text": "Tenggat mendatang",
+    "why": "missing"
+  },
+  "agency:today.upcomingEmpty": {
+    "text": "Tidak ada tenggat dalam 14 hari ke depan.",
+    "why": "missing"
+  },
+  "agency:today.upcomingSub": {
+    "text": "14 hari ke depan",
+    "why": "missing"
+  },
+  "agency:today.upcomingV4": {
+    "text": "14 hari ke depan",
+    "why": "missing"
+  },
+  "agency:today.v5.andMore_one": {
+    "text": "dan {{count}} lainnya",
+    "why": "missing"
+  },
+  "agency:today.v5.andMore_other": {
+    "text": "dan {{count}} lainnya",
+    "why": "missing"
+  },
+  "agency:today.v5.checks": {
+    "text": "Pemeriksaan dokumen yang membutuhkan pemeriksa",
+    "why": "missing"
+  },
+  "agency:today.v5.checksDetail": {
+    "text": "{{student}} · {{doc}}: {{what}}",
+    "why": "missing"
+  },
+  "agency:today.v5.services.needs_assignment": {
+    "text": "Permintaan layanan baru untuk ditugaskan",
+    "why": "missing"
+  },
+  "agency:today.v5.services.overdue": {
+    "text": "Kasus layanan yang melewati waktu respons",
+    "why": "missing"
+  },
+  "agency:today.v5.services.today": {
+    "text": "Kasus layanan dengan tenggat hari ini",
+    "why": "missing"
+  },
+  "agency:today.v5.servicesCta": {
+    "text": "Buka layanan",
+    "why": "missing"
+  },
+  "agency:today.v5.servicesDetail": {
+    "text": "{{type}} · {{student}} · {{reason}}",
+    "why": "missing"
+  },
+  "agency:today.v5.visa": {
+    "text": "Kasus visa yang membutuhkan Anda",
+    "why": "missing"
+  },
+  "agency:today.v5.visaCta": {
+    "text": "Buka",
+    "why": "missing"
+  },
+  "agency:today.v5.writingDetail": {
+    "text": "{{essay}} · {{student}}, {{university}}",
+    "why": "missing"
+  },
+  "agency:today.v5.writingDue": {
+    "text": "Tinjauan esai dengan tenggat dalam 48 jam",
+    "why": "missing"
+  },
+  "agency:today.v5.writingDue48": {
+    "text": "tenggat {{when}}",
+    "why": "missing"
+  },
+  "agency:today.v5.writingOverdue": {
+    "text": "Tinjauan esai yang melewati waktu yang dijanjikan",
+    "why": "missing"
+  },
+  "agency:today.v5.writingRevised_one": {
+    "text": "{{count}} revisi mahasiswa",
+    "why": "missing"
+  },
+  "agency:today.v5.writingRevised_other": {
+    "text": "{{count}} revisi mahasiswa",
+    "why": "missing"
+  },
+  "agency:today.waitingOn": {
+    "text": "Kasus menurut pihak yang ditunggu",
+    "why": "missing"
+  },
+  "agency:today.workload": {
+    "text": "Beban kerja tim",
+    "why": "missing"
+  },
+  "agency:today.workloadSub": {
+    "text": "Mahasiswa aktif dan pekerjaan terbuka per orang",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.adminUser": {
+    "text": "Pengguna admin",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.assigned": {
+    "text": "Universitas yang ditetapkan",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.empty": {
+    "text": "Belum ada akun universitas.",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.invite": {
+    "text": "Undang admin universitas",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.noUniversity": {
+    "text": "Belum terhubung ke universitas",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.pickUniversity": {
+    "text": "Universitas",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.pickUniversityPh": {
+    "text": "Pilih universitas mitra",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.reassign": {
+    "text": "Ganti universitas",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.reassignText": {
+    "text": "Keanggotaannya dipindahkan ke organisasi universitas yang dipilih. Keanggotaan lama dinonaktifkan.",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.reassignTitle": {
+    "text": "Pindahkan {{name}} ke universitas lain",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.search": {
+    "text": "Cari berdasarkan nama, email, atau universitas…",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.sub": {
+    "text": "Pengguna admin dari universitas mitra. Setiap administrator universitas memiliki izin yang sama.",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.title": {
+    "text": "Akun universitas",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.university": {
+    "text": "Universitas",
+    "why": "missing"
+  },
+  "agency:v22.nav.hqAccounts": {
+    "text": "Akun universitas",
+    "why": "missing"
+  },
+  "agency:v22.stage.arrived": {
+    "text": "Sudah tiba",
+    "why": "match common:pipeline.ARRIVED"
+  },
+  "agency:v22.stage.closed": {
+    "text": "Ditutup",
+    "why": "missing"
+  },
+  "agency:v22.stage.counselling": {
+    "text": "Konsultasi",
+    "why": "glossary: consultation, never counseling"
+  },
+  "agency:v22.stage.ready": {
+    "text": "Siap diajukan",
+    "why": "match common:appStatus.READY"
+  },
+  "agency:v22.stage.strip": {
+    "text": "Tahap",
+    "why": "stages, not 'process'"
+  },
+  "agency:v22.stage.stripHint": {
+    "text": "Pilih tahap untuk menampilkan mahasiswanya saja. Jumlahnya sama dengan baris di bawah.",
+    "why": "missing"
+  },
+  "agency:v22.team.active": {
+    "text": "Aktif",
+    "why": "missing"
+  },
+  "agency:v22.team.count_other": {
+    "text": "{{count}} akun",
+    "why": "missing"
+  },
+  "agency:v22.team.devNote": {
+    "text": "Pengembangan: kode dicetak ke konsol API, tidak dikirim lewat email.",
+    "why": "missing"
+  },
+  "agency:v22.team.disable": {
+    "text": "Nonaktifkan",
+    "why": "missing"
+  },
+  "agency:v22.team.disableReason": {
+    "text": "Alasan",
+    "why": "missing"
+  },
+  "agency:v22.team.disableReasonPh": {
+    "text": "Keluar dari agensi",
+    "why": "missing"
+  },
+  "agency:v22.team.disableText": {
+    "text": "Mereka tidak bisa masuk lagi. Mahasiswa, pemeriksaan, dan tugas yang masih terbuka dialihkan ke rekan kerja secara otomatis.",
+    "why": "missing"
+  },
+  "agency:v22.team.disableTitle": {
+    "text": "Nonaktifkan {{name}}?",
+    "why": "missing"
+  },
+  "agency:v22.team.disabled": {
+    "text": "Nonaktif",
+    "why": "missing"
+  },
+  "agency:v22.team.email": {
+    "text": "Email",
+    "why": "missing"
+  },
+  "agency:v22.team.empty": {
+    "text": "Belum ada akun.",
+    "why": "missing"
+  },
+  "agency:v22.team.enable": {
+    "text": "Aktifkan",
+    "why": "missing"
+  },
+  "agency:v22.team.invite": {
+    "text": "Undang administrator",
+    "why": "missing"
+  },
+  "agency:v22.team.inviteSub": {
+    "text": "Mereka menerima email berisi kode sekali pakai untuk membuat kata sandi.",
+    "why": "missing"
+  },
+  "agency:v22.team.lastLogin": {
+    "text": "Terakhir masuk",
+    "why": "missing"
+  },
+  "agency:v22.team.mailFailed": {
+    "text": "Undangan tidak dapat dikirim lewat email. Minta mereka menggunakan “Lupa kata sandi” dengan alamat ini.",
+    "why": "missing"
+  },
+  "agency:v22.team.name": {
+    "text": "Nama",
+    "why": "missing"
+  },
+  "agency:v22.team.never": {
+    "text": "Belum pernah",
+    "why": "missing"
+  },
+  "agency:v22.team.sendInvite": {
+    "text": "Kirim undangan",
+    "why": "missing"
+  },
+  "agency:v22.team.sent": {
+    "text": "Undangan terkirim",
+    "why": "missing"
+  },
+  "agency:v22.team.sentTo": {
+    "text": "Kami telah mengirim undangan ke {{email}}.",
+    "why": "missing"
+  },
+  "agency:v22.team.status": {
+    "text": "Status",
+    "why": "missing"
+  },
+  "agency:v22.team.sub": {
+    "text": "Setiap administrator memiliki izin yang sama.",
+    "why": "missing"
+  },
+  "agency:v22.team.unverified": {
+    "text": "Diundang · belum diverifikasi",
+    "why": "missing"
+  },
+  "agency:v22.team.you": {
+    "text": "Anda",
+    "why": "missing"
+  },
+  "agency:v22.work.bulkOwner": {
+    "text": "Tetapkan penanggung jawab…",
+    "why": "missing"
+  },
+  "agency:v22.work.confirmOwner_other": {
+    "text": "Tetapkan {{name}} sebagai penanggung jawab {{count}} mahasiswa?",
+    "why": "missing"
+  },
+  "agency:v22.work.deleteView": {
+    "text": "Hapus tampilan ini",
+    "why": "missing"
+  },
+  "agency:v22.work.empty": {
+    "text": "Tidak ada mahasiswa pada tahap ini",
+    "why": "missing"
+  },
+  "agency:v22.work.emptyFiltered": {
+    "text": "Tidak ada mahasiswa yang sesuai dengan filter ini. Coba ubah filternya.",
+    "why": "restore second sentence"
+  },
+  "agency:v22.work.myViews": {
+    "text": "Tampilan saya",
+    "why": "missing"
+  },
+  "agency:v22.work.showTop": {
+    "text": "Tampilkan 10 teratas",
+    "why": "missing"
+  },
+  "agency:v22.work.total_other": {
+    "text": "{{count}} mahasiswa",
+    "why": "missing"
+  },
+  "agency:v22.work.upcoming_other": {
+    "text": "{{count}} tenggat dalam 14 hari ke depan",
+    "why": "'next 14 days'"
+  },
+  "agency:v22.ws.docFix_other": {
+    "text": "{{count}} dokumen perlu diperbaiki",
+    "why": "missing"
+  },
+  "agency:v22.ws.docReview_other": {
+    "text": "{{count}} dokumen perlu diperiksa",
+    "why": "missing"
+  },
+  "agency:v22.ws.needsActionEmpty": {
+    "text": "Tidak ada yang menunggu Anda untuk mahasiswa ini.",
+    "why": "missing"
+  },
+  "agency:v22.ws.noConversation": {
+    "text": "Belum ada percakapan. Kirim pesan pertama.",
+    "why": "restore second sentence"
+  },
+  "agency:v22.ws.openThread": {
+    "text": "Buka percakapan",
+    "why": "missing"
+  },
+  "agency:v23.work.memberFilter": {
+    "text": "Menampilkan mahasiswa satu anggota tim",
+    "why": "missing"
+  },
+  "agency:v23.work.openAll": {
+    "text": "Buka semua {{count}} di Mahasiswa",
+    "why": "missing"
+  },
+  "agency:v23.work.submissionsNeed_one": {
+    "text": "{{count}} pendaftaran menunggu diajukan oleh tim",
+    "why": "missing"
+  },
+  "agency:v23.work.submissionsNeed_other": {
+    "text": "{{count}} pendaftaran menunggu diajukan oleh tim",
+    "why": "was unclear"
+  },
+  "agency:v27.evidence.form": {
+    "text": "Diserahkan sebagai",
+    "why": "'Submit as'"
+  },
+  "agency:v27.evidence.open": {
+    "text": "Tampilkan bukti",
+    "why": "match English"
+  },
+  "agency:v27.hq.guidesNone": {
+    "text": "Tidak ada panduan pendaftaran yang perlu diverifikasi.",
+    "why": "verify, not review"
+  },
+  "agency:v27.hq.guidesTitle": {
+    "text": "Panduan pendaftaran yang perlu diverifikasi",
+    "why": "verify, not review"
+  },
+  "agency:v27.hq.kind.SPOT_CHECK": {
+    "text": "Cek acak terhadap dokumen asli",
+    "why": "'original', not 'PDF'"
+  },
+  "agency:v27.issue.IN_REVIEW": {
+    "text": "Sedang diperiksa",
+    "why": "document review = pemeriksaan"
+  },
+  "agency:v27.stage.REVIEW": {
+    "text": "Tinjauan universitas",
+    "why": "match agency:v22.stage.review"
+  },
+  "agency:v29.guide.field.checklist": {
+    "text": "daftar periksa dokumen",
+    "why": "missing"
+  },
+  "agency:v29.guide.field.current_intake": {
+    "text": "panduan periode ini",
+    "why": "missing"
+  },
+  "agency:v29.guide.field.deadline": {
+    "text": "tenggat",
+    "why": "missing"
+  },
+  "agency:v29.guide.field.source_url": {
+    "text": "sumber resmi",
+    "why": "missing"
+  },
+  "agency:v29.guide.field.submission_method": {
+    "text": "cara pengajuan",
+    "why": "missing"
+  },
+  "agency:v29.guide.field.verified_date": {
+    "text": "tanggal verifikasi",
+    "why": "missing"
+  },
+  "agency:v29.guide.verifyRequired": {
+    "text": "Verifikasi sebelum pendaftaran yang dikelola: {{fields}}",
+    "why": "missing"
+  },
+  "agency:v29.plan.addOnStatus.ACTIVE": {
+    "text": "Sedang berjalan",
+    "why": "missing"
+  },
+  "agency:v29.plan.addOnStatus.APPROVED": {
+    "text": "Aktif (lama)",
+    "why": "missing"
+  },
+  "agency:v29.plan.addOnStatus.AWAITING_PAYMENT": {
+    "text": "Menunggu pembayaran",
+    "why": "missing"
+  },
+  "agency:v29.plan.addOnStatus.COMPLETED": {
+    "text": "Selesai",
+    "why": "missing"
+  },
+  "agency:v29.plan.addOnStatus.OFFERED": {
+    "text": "Diusulkan",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.dedicated": {
+    "text": "Tim khusus · balasan prioritas",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.docs.CHECKLIST": {
+    "text": "Dokumen: daftar periksa",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.docs.INTENSIVE": {
+    "text": "Dokumen: pemeriksaan intensif",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.docs.REVIEW_GUIDANCE": {
+    "text": "Dokumen: pemeriksaan dan catatan perbaikan",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.dorm.APPLICATION": {
+    "text": "Asrama: bantuan pendaftaran dan pilihan tempat tinggal lain",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.dorm.INFORMATION": {
+    "text": "Asrama: informasi",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.dorm.SCHEDULE": {
+    "text": "Asrama: jadwal pendaftaran dipantau",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.settle.FULL": {
+    "text": "Adaptasi: H-30 sampai H+30",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.settle.INFORMATION": {
+    "text": "Adaptasi: informasi dasar",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.settle.NONE": {
+    "text": "Adaptasi: tidak termasuk",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.visa.DOCUMENT_PREP": {
+    "text": "Visa: bantuan menyiapkan dokumen",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.visa.GUIDANCE": {
+    "text": "Visa: panduan proses",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.visa.INTENSIVE": {
+    "text": "Visa: dokumen dan tanggal penting dikelola",
+    "why": "missing"
+  },
+  "agency:v29.plan.legacy": {
+    "text": "Dibeli dengan {{version}}",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.howItWorks": {
+    "text": "Berlaku hanya setelah mahasiswa melihat harga dan cakupan, menyetujui, dan membayar.",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.open": {
+    "text": "Usulkan layanan tambahan",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.quantity": {
+    "text": "Jumlah ({{unit}})",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.quote": {
+    "text": "Penawaran khusus: masukkan harga dan cakupan",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.range": {
+    "text": "Rentang yang disarankan {{min}}–{{max}}",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.scope": {
+    "text": "Catatan cakupan (ditampilkan ke mahasiswa)",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.scopeRequired": {
+    "text": "Cakupan (wajib, ditampilkan ke mahasiswa)",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.send": {
+    "text": "Usulkan ke mahasiswa",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.service": {
+    "text": "Layanan",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.total": {
+    "text": "Mahasiswa membayar {{amount}}",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.unitPrice": {
+    "text": "Harga satuan (USD)",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.arrival": {
+    "text": "Kedatangan",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.arrivalLabel": {
+    "text": "Rencana tanggal kedatangan",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.arrivalUnknown": {
+    "text": "Tanggal kedatangan belum dikonfirmasi",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.arrivalWindow": {
+    "text": "Persiapan mulai {{from}} · tiba {{arrive}} · berakhir {{until}}",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.ended": {
+    "text": "Masa layanan berakhir",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.endsLabel": {
+    "text": "Akhir kontrak",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.notStarted": {
+    "text": "Sebelum konsultasi pertama",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.saved": {
+    "text": "Tanggal layanan tersimpan.",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.set": {
+    "text": "Simpan tanggal",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.since": {
+    "text": "Dimulai {{date}}",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.support": {
+    "text": "Konsultasi hingga {{date}}",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.supportDays": {
+    "text": "{{count}} hari sejak konsultasi pertama",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.title": {
+    "text": "Masa layanan",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.toAgree": {
+    "text": "Masa layanan belum ditetapkan",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.until": {
+    "text": "Hingga {{date}}",
+    "why": "missing"
+  },
+  "agency:v29.plan.unrationed.CONTRACTED_DOCUMENTS": {
+    "text": "Tanpa batas dalam cakupan dokumen dan jadwal sesuai kontrak",
+    "why": "missing"
+  },
+  "agency:v29.plan.unrationed.PRIORITY": {
+    "text": "Balasan prioritas",
+    "why": "missing"
+  },
+  "agency:v29.plan.unrationed.ROUNDS": {
+    "text": "Termasuk",
+    "why": "missing"
+  },
+  "agency:v29.plan.unrationed.TEAM": {
+    "text": "Tindak lanjut tim",
+    "why": "missing"
+  },
+  "agency:v29.plan.usedSoFar": {
+    "text": "{{count}} selesai",
+    "why": "missing"
+  },
+  "agency:v30.def.ops.ageing": {
+    "text": "Hari sejak kasus terakhir bergerak: yang terbaru di antara perubahan tahap alur, perubahan status pendaftaran, atau penugasan ke agensi ini.",
+    "why": "missing"
+  },
+  "agency:v30.def.ops.backlog": {
+    "text": "Pekerjaan terbuka pada akhir setiap minggu: tugas tim (bukan tugas mahasiswa sendiri) yang belum selesai, versi dokumen yang belum diperiksa, dan esai yang diajukan untuk ditinjau tetapi belum ditinjau (putaran tinjauan saat ini).",
+    "why": "missing"
+  },
+  "agency:v30.def.ops.blocked": {
+    "text": "Kasus dianggap terhambat jika menunggu suatu pihak dan tidak bergerak lebih dari 14 hari. Yang terlama lebih dulu.",
+    "why": "missing"
+  },
+  "agency:v30.def.ops.deadlines": {
+    "text": "Pendaftaran yang belum diajukan, tenggat pendaftarannya dalam 14 hari, dan masih kekurangan item wajib.",
+    "why": "missing"
+  },
+  "agency:v30.def.ops.load": {
+    "text": "Beban tertimbang per orang: setiap jenis pekerjaan terbuka yang dipegang × bobotnya (tabel bobot agensi), dibandingkan dengan kapasitas pribadinya dalam poin yang sama. Kelebihan beban = beban di atas kapasitas. Orang yang sedang cuti tidak diberi pekerjaan baru.",
+    "why": "missing"
+  },
+  "agency:v30.def.ops.sla": {
+    "text": "Balasan pertama tidak diberikan sampai tenggatnya; dokumen menunggu pemeriksaan lebih dari 48 jam; tinjauan esai melewati waktu tinjauan yang dijanjikan.",
+    "why": "missing"
+  },
+  "agency:v30.def.ops.stages": {
+    "text": "Median hari sebuah pendaftaran berada dalam satu status sebelum berpindah (masa yang berakhir dalam 365 hari terakhir). Tidak ditampilkan jika kurang dari {{n}} masa.",
+    "why": "missing"
+  },
+  "agency:v30.def.ops.unassigned_paid": {
+    "text": "Sudah membayar layanan Hangyul, tetapi belum ada konselor yang menangani kasusnya (atau, untuk Hangyul, belum ada agensi yang ditugaskan).",
+    "why": "missing"
+  },
+  "agency:v30.def.svc.arrival": {
+    "text": "Penjemputan bandara selesai ÷ penjemputan yang waktu kedatangannya sudah lewat (yang dibatalkan tidak dihitung)",
+    "why": "missing"
+  },
+  "agency:v30.def.svc.completion": {
+    "text": "Selesai ÷ kasus yang dibuat dalam periode ini (yang dibatalkan tidak dihitung)",
+    "why": "missing"
+  },
+  "agency:v30.def.svc.resolution": {
+    "text": "Median jam dari permintaan hingga selesai, hanya kasus yang selesai",
+    "why": "missing"
+  },
+  "agency:v30.def.svc.sla": {
+    "text": "Kasus yang ditindak tim setelah SLA (atau belum ditindak dan SLA-nya sudah lewat) ÷ kasus yang SLA-nya sudah jatuh tempo",
+    "why": "missing"
+  },
+  "agency:v31.stage.closed": {
+    "text": "Ditutup",
+    "why": "missing"
+  },
+  "agency:waiting.app.ADDITIONAL_DOCUMENTS": {
+    "text": "universitas meminta dokumen",
+    "why": "missing"
+  },
+  "agency:waiting.app.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "mulai visa",
+    "why": "missing"
+  },
+  "agency:waiting.app.ADMISSION_CERTIFICATE_PENDING": {
+    "text": "surat penerimaan",
+    "why": "missing"
+  },
+  "agency:waiting.app.PROFILE_REVIEW": {
+    "text": "pemeriksaan profil",
+    "why": "missing"
+  },
+  "agency:waiting.app.READY": {
+    "text": "siap diajukan",
+    "why": "missing"
+  },
+  "agency:waiting.app.TUITION_PAID": {
+    "text": "surat penerimaan",
+    "why": "missing"
+  },
+  "agency:waiting.app.TUITION_PENDING": {
+    "text": "pembayaran biaya kuliah",
+    "why": "missing"
+  },
+  "agency:waiting.app.VISA_SUBMITTED": {
+    "text": "keputusan visa (kedutaan)",
+    "why": "missing"
+  },
+  "agency:waiting.reason.first_contact": {
+    "text": "kontak pertama jatuh tempo",
+    "why": "missing"
+  },
+  "agency:waiting.reason.fix_one": {
+    "text": "{{count}} dokumen perlu diperbaiki",
+    "why": "missing"
+  },
+  "agency:waiting.reason.fix_other": {
+    "text": "{{count}} dokumen perlu diperbaiki",
+    "why": "missing"
+  },
+  "agency:waiting.reason.overdue_task_one": {
+    "text": "{{count}} tugas terlambat",
+    "why": "missing"
+  },
+  "agency:waiting.reason.overdue_task_other": {
+    "text": "{{count}} tugas terlambat",
+    "why": "missing"
+  },
+  "agency:waiting.reason.reply": {
+    "text": "mahasiswa membalas",
+    "why": "missing"
+  },
+  "agency:waiting.reason.review_one": {
+    "text": "{{count}} dokumen perlu diperiksa",
+    "why": "missing"
+  },
+  "agency:waiting.reason.review_other": {
+    "text": "{{count}} dokumen perlu diperiksa",
+    "why": "missing"
+  },
+  "agency:ws.act.call": {
+    "text": "Jadwalkan konsultasi",
+    "why": "consultation, not 'call'"
+  },
+  "agency:ws.activityNote": {
+    "text": "Dari log audit: siapa yang melihat, mengubah, dan memutuskan data mahasiswa ini.",
+    "why": "'views' ≠ 'tampilan'"
+  },
+  "agency:ws.apptHint": {
+    "text": "Konsultasi dan simulasi wawancara dengan mahasiswa ini.",
+    "why": "mock interview term unified"
+  },
+  "agency:ws.block.review_one": {
+    "text": "{{count}} dokumen menunggu pemeriksaan Anda",
+    "why": "document review = pemeriksaan"
+  },
+  "agency:ws.block.review_other": {
+    "text": "{{count}} dokumen menunggu pemeriksaan Anda",
+    "why": "document review = pemeriksaan"
+  },
+  "agency:ws.blockedBy": {
+    "text": "Selesaikan dulu: {{deps}}",
+    "why": "'finish first', not 'waiting'"
+  },
+  "agency:ws.by.MANUAL": {
+    "text": "seorang administrator",
+    "why": "was 'manager'"
+  },
+  "agency:ws.docsHint": {
+    "text": "Semua dokumen di brankas dokumen mahasiswa. Dipakai ulang untuk semua pendaftarannya.",
+    "why": "vault = brankas dokumen"
+  },
+  "agency:ws.identity": {
+    "text": "Identitas & tempat tinggal",
+    "why": "'residence', not 'status'"
+  },
+  "agency:ws.itemsInReview_one": {
+    "text": "{{count}} item sedang diperiksa",
+    "why": "restore 'item'; pemeriksaan"
+  },
+  "agency:ws.itemsInReview_other": {
+    "text": "{{count}} item sedang diperiksa",
+    "why": "restore 'item'; pemeriksaan"
+  },
+  "agency:ws.maskedHint": {
+    "text": "Disamarkan demi privasi. Nomor lengkap hanya ada di brankas dokumen mahasiswa.",
+    "why": "vault = brankas dokumen"
+  },
+  "agency:ws.noDocs": {
+    "text": "Belum ada dokumen di brankas",
+    "why": "vault = brankas dokumen"
+  },
+  "agency:ws.noLanguages": {
+    "text": "Belum ada skor tes bahasa.",
+    "why": "restore 'language'"
+  },
+  "agency:ws.noVisaText": {
+    "text": "Kasus visa terbuka otomatis setelah universitas menerbitkan surat penerimaan standar (standard admission letter).",
+    "why": "official document name"
+  },
+  "agency:ws.sinceDate": {
+    "text": "Ditugaskan sejak {{date}}",
+    "why": "'assigned since'"
+  },
+  "agency:ws.tab.essays": {
+    "text": "Esai",
+    "why": "match sidebar.essays"
+  },
+  "agency:ws.targetEntry": {
+    "text": "Rencana tanggal kedatangan",
+    "why": "match plan.term.arrivalLabel"
+  },
+  "university:af.applications": {
+    "text": "Pendaftaran",
+    "why": "missing"
+  },
+  "university:af.fromPrevious": {
+    "text": "Dari langkah sebelumnya",
+    "why": "missing"
+  },
+  "university:af.lowN": {
+    "text": "Terlalu sedikit untuk dihitung",
+    "why": "missing"
+  },
+  "university:af.step": {
+    "text": "Langkah",
+    "why": "missing"
+  },
+  "university:af.stepDef.ARRIVED": {
+    "text": "Mahasiswa melaporkan telah tiba di Korea (atau terdaftar).",
+    "why": "missing"
+  },
+  "university:af.stepDef.REVIEWED": {
+    "text": "Tim Anda memulai tinjauan, meminta dokumen, mewawancarai, atau memutuskan.",
+    "why": "missing"
+  },
+  "university:af.stepDef.SUBMITTED": {
+    "text": "Pendaftaran yang diajukan ke universitas Anda.",
+    "why": "missing"
+  },
+  "university:af.stepDef.TUITION_PAID": {
+    "text": "Anda mengonfirmasi pembayaran biaya kuliah.",
+    "why": "missing"
+  },
+  "university:af.stepDef.VISA_ISSUED": {
+    "text": "Visa D-2/D-4 mahasiswa telah terbit.",
+    "why": "missing"
+  },
+  "university:af.stepName.ARRIVED": {
+    "text": "Sudah tiba",
+    "why": "match common:pipeline.ARRIVED"
+  },
+  "university:af.title": {
+    "text": "Alur penerimaan",
+    "why": "missing"
+  },
+  "university:analytics.dim.agency": {
+    "text": "Agensi",
+    "why": "missing"
+  },
+  "university:analytics.dim.nationality": {
+    "text": "Kewarganegaraan",
+    "why": "missing"
+  },
+  "university:analytics.dim.program": {
+    "text": "Program studi",
+    "why": "missing"
+  },
+  "university:applicants.customStatus_other": {
+    "text": "{{count}} status dipilih",
+    "why": "missing"
+  },
+  "university:applicants.flagged": {
+    "text": "Ditandai",
+    "why": "missing"
+  },
+  "university:applicants.requested_one": {
+    "text": "{{count}} dokumen diminta",
+    "why": "restore 'document'"
+  },
+  "university:applicants.requested_other": {
+    "text": "{{count}} dokumen diminta",
+    "why": "missing"
+  },
+  "university:applicants.sortBy.submitted": {
+    "text": "Baru dikirim",
+    "why": "match agency label"
+  },
+  "university:applicants.status": {
+    "text": "Status",
+    "why": "missing"
+  },
+  "university:common.yes": {
+    "text": "Ya",
+    "why": "missing"
+  },
+  "university:dash.noApplicants": {
+    "text": "Belum ada pendaftaran yang diajukan untuk filter ini.",
+    "why": "missing"
+  },
+  "university:decision.action.ADDITIONAL_DOCUMENTS": {
+    "text": "Minta dokumen",
+    "why": "missing"
+  },
+  "university:decision.action.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Terbitkan surat penerimaan",
+    "why": "missing"
+  },
+  "university:decision.action.ADMISSION_CERTIFICATE_PENDING": {
+    "text": "Tandai surat penerimaan dalam proses",
+    "why": "missing"
+  },
+  "university:decision.action.ENROLLED": {
+    "text": "Konfirmasi pendaftaran ulang",
+    "why": "missing"
+  },
+  "university:decision.action.INTERVIEW": {
+    "text": "Jadwalkan wawancara",
+    "why": "missing"
+  },
+  "university:decision.action.OFFERED": {
+    "text": "Berikan tawaran",
+    "why": "missing"
+  },
+  "university:decision.action.REJECTED": {
+    "text": "Tolak",
+    "why": "missing"
+  },
+  "university:decision.action.TUITION_PAID": {
+    "text": "Konfirmasi biaya kuliah dibayar",
+    "why": "missing"
+  },
+  "university:decision.action.TUITION_PENDING": {
+    "text": "Terbitkan tagihan biaya kuliah",
+    "why": "missing"
+  },
+  "university:decision.action.UNIVERSITY_REVIEW": {
+    "text": "Mulai tinjauan",
+    "why": "missing"
+  },
+  "university:decision.action.WAITLISTED": {
+    "text": "Masukkan daftar tunggu",
+    "why": "missing"
+  },
+  "university:decision.certificateInfo": {
+    "text": "Penerbitan surat penerimaan standar (standard admission letter) secara otomatis membuka kasus visa mahasiswa.",
+    "why": "missing"
+  },
+  "university:decision.confirm": {
+    "text": "Pindahkan {{student}} dari “{{from}}” ke “{{to}}”. Mahasiswa dan agensinya akan diberi tahu.",
+    "why": "missing"
+  },
+  "university:decision.done": {
+    "text": "Pendaftaran dipindahkan ke “{{status}}”.",
+    "why": "missing"
+  },
+  "university:decision.interviewAt": {
+    "text": "Tanggal dan waktu wawancara",
+    "why": "missing"
+  },
+  "university:decision.none": {
+    "text": "Tidak ada tindakan universitas yang diperlukan pada tahap ini.",
+    "why": "missing"
+  },
+  "university:decision.note": {
+    "text": "Catatan",
+    "why": "missing"
+  },
+  "university:decision.noteHint": {
+    "text": "Disimpan dalam riwayat status dan dibagikan kepada mahasiswa dan agensi.",
+    "why": "missing"
+  },
+  "university:decision.readOnly": {
+    "text": "Peran Anda hanya-baca. Minta petugas penerimaan atau admin untuk mengambil keputusan.",
+    "why": "missing"
+  },
+  "university:decision.reason": {
+    "text": "Alasan",
+    "why": "missing"
+  },
+  "university:decision.reasonHint": {
+    "text": "Disimpan dalam riwayat pendaftaran. Pendaftar melihat ringkasan yang disampaikan dengan sopan, dan konselornya melihat alasan Anda.",
+    "why": "missing"
+  },
+  "university:decision.rejectWarning": {
+    "text": "Penolakan bersifat final di Hangyul. Pertimbangkan daftar tunggu jika kursi mungkin tersedia.",
+    "why": "missing"
+  },
+  "university:decision.scholarshipNote": {
+    "text": "Catatan beasiswa",
+    "why": "missing"
+  },
+  "university:decision.scholarshipNoteHint": {
+    "text": "Mis. “Potongan biaya kuliah 30%, semester pertama”. Ditampilkan kepada mahasiswa bersama tawaran.",
+    "why": "missing"
+  },
+  "university:decision.title": {
+    "text": "Keputusan",
+    "why": "missing"
+  },
+  "university:decision.tuitionAmount": {
+    "text": "Jumlah biaya kuliah (KRW)",
+    "why": "missing"
+  },
+  "university:decision.tuitionDue": {
+    "text": "Tanggal jatuh tempo pembayaran",
+    "why": "missing"
+  },
+  "university:detail.applicant": {
+    "text": "Pendaftar",
+    "why": "missing"
+  },
+  "university:detail.decided": {
+    "text": "Tanggal keputusan",
+    "why": "missing"
+  },
+  "university:detail.externalRef": {
+    "text": "Referensi Anda",
+    "why": "missing"
+  },
+  "university:detail.externalRefHint": {
+    "text": "Nomor pendaftar atau nomor penerimaan Anda sendiri (terlihat oleh Hangyul dan agensi).",
+    "why": "missing"
+  },
+  "university:detail.gpaNormalized": {
+    "text": "IPK {{value}}% (dinormalisasi)",
+    "why": "missing"
+  },
+  "university:detail.gpaUnknown": {
+    "text": "IPK tidak diberikan",
+    "why": "missing"
+  },
+  "university:detail.history": {
+    "text": "Riwayat status",
+    "why": "missing"
+  },
+  "university:detail.interview": {
+    "text": "Wawancara",
+    "why": "missing"
+  },
+  "university:detail.legalization": {
+    "text": "Apostille atau legalisasi konsuler",
+    "why": "missing"
+  },
+  "university:detail.noEducation": {
+    "text": "Tidak ada riwayat pendidikan yang dibagikan.",
+    "why": "missing"
+  },
+  "university:detail.notShared": {
+    "text": "Tidak dibagikan",
+    "why": "missing"
+  },
+  "university:detail.notSharedHint": {
+    "text": "Mahasiswa belum membagikan dokumen ini kepada universitas Anda.",
+    "why": "missing"
+  },
+  "university:detail.optionalDoc": {
+    "text": "Opsional",
+    "why": "missing"
+  },
+  "university:detail.refSaved": {
+    "text": "Referensi tersimpan",
+    "why": "missing"
+  },
+  "university:detail.residence": {
+    "text": "Negara tempat tinggal",
+    "why": "missing"
+  },
+  "university:detail.scholarshipNote": {
+    "text": "Catatan beasiswa",
+    "why": "missing"
+  },
+  "university:detail.selfReported": {
+    "text": "Dilaporkan sendiri",
+    "why": "missing"
+  },
+  "university:detail.sharingNote": {
+    "text": "Anda dapat melihat dokumen yang dibagikan mahasiswa kepada universitas Anda saat mengajukan pendaftaran. Setiap akses dicatat.",
+    "why": "missing"
+  },
+  "university:detail.side": {
+    "text": "Detail pendaftaran",
+    "why": "missing"
+  },
+  "university:detail.translation": {
+    "text": "Terjemahan",
+    "why": "missing"
+  },
+  "university:detail.tuition": {
+    "text": "Biaya kuliah",
+    "why": "missing"
+  },
+  "university:detail.verified": {
+    "text": "Terverifikasi",
+    "why": "missing"
+  },
+  "university:documents.analystNote": {
+    "text": "Analis dapat melihat pratinjau dokumen tetapi tidak dapat mengunduhnya.",
+    "why": "missing"
+  },
+  "university:documents.expires": {
+    "text": "Kedaluwarsa",
+    "why": "missing"
+  },
+  "university:documents.file": {
+    "text": "Berkas",
+    "why": "missing"
+  },
+  "university:documents.hangyulBody": {
+    "text": "Sebagai staf Hangyul, Anda tidak dibatasi pada satu universitas di halaman ini. Buka sebuah pendaftaran untuk melihat persis dokumen mana yang dibagikan mahasiswa kepada universitas tersebut.",
+    "why": "missing"
+  },
+  "university:documents.hangyulTitle": {
+    "text": "Buka dokumen dari pendaftaran",
+    "why": "missing"
+  },
+  "university:documents.issued": {
+    "text": "Diterbitkan",
+    "why": "missing"
+  },
+  "university:documents.legalization": {
+    "text": "Notarisasi & legalisasi",
+    "why": "restore notarization"
+  },
+  "university:documents.openApplication": {
+    "text": "Buka pendaftaran",
+    "why": "missing"
+  },
+  "university:documents.openTab": {
+    "text": "Buka di tab baru",
+    "why": "missing"
+  },
+  "university:documents.sharingRule": {
+    "text": "Mahasiswa membagikan dokumen kepada universitas Anda saat mengajukan pendaftaran. Dokumen yang tidak dibagikan tidak pernah muncul di sini. Setiap akses dicatat.",
+    "why": "'your university', formal"
+  },
+  "university:documents.usedIn": {
+    "text": "Digunakan dalam pendaftaran",
+    "why": "missing"
+  },
+  "university:header.certificationHint": {
+    "text": "Status sertifikasi IEQAS (akreditasi Kementerian Pendidikan untuk perekrutan dan pendampingan mahasiswa internasional)",
+    "why": "missing"
+  },
+  "university:header.hangyulView": {
+    "text": "Tampilan staf Hangyul",
+    "why": "missing"
+  },
+  "university:header.partner": {
+    "text": "Mitra Hangyul",
+    "why": "missing"
+  },
+  "university:kpi.definitionOf": {
+    "text": "Definisi {{label}}",
+    "why": "missing"
+  },
+  "university:kpi.insufficientDetail": {
+    "text": "Ditampilkan setelah ada {{min}} catatan (saat ini {{n}}).",
+    "why": "match English order"
+  },
+  "university:kpi.retention": {
+    "text": "Tingkat retensi",
+    "why": "match 'Tingkat kelulusan'"
+  },
+  "university:kpi.sample": {
+    "text": "n = {{n}}",
+    "why": "missing"
+  },
+  "university:kpi.viewList": {
+    "text": "Lihat daftar",
+    "why": "missing"
+  },
+  "university:kpi.yield": {
+    "text": "Konversi tawaran",
+    "why": "missing"
+  },
+  "university:login.ssoContinue": {
+    "text": "Lanjutkan dengan akun universitas Anda",
+    "why": "missing"
+  },
+  "university:login.ssoEnforced": {
+    "text": "{{org}} mewajibkan single sign-on. Gunakan tombol di atas.",
+    "why": "missing"
+  },
+  "university:login.ssoHint": {
+    "text": "{{org}} menggunakan single sign-on. Anda juga dapat masuk dengan kata sandi.",
+    "why": "missing"
+  },
+  "university:login.ssoUnavailable": {
+    "text": "{{org}} diatur untuk masuk dengan SAML, yang belum tersedia. Hubungi dukungan Hangyul.",
+    "why": "missing"
+  },
+  "university:login.subtitle": {
+    "text": "Untuk kantor urusan internasional dan tim penerimaan di universitas mitra Hangyul.",
+    "why": "missing"
+  },
+  "university:login.title": {
+    "text": "Masuk ke Konsol Universitas",
+    "why": "missing"
+  },
+  "university:metric.period": {
+    "text": "diajukan {{from}} – {{to}}",
+    "why": "missing"
+  },
+  "university:metric.population": {
+    "text": "Populasi: pendaftaran yang diajukan · {{intake}} · {{n}} pendaftaran",
+    "why": "missing"
+  },
+  "university:nav.programsRules": {
+    "text": "Program & persyaratan",
+    "why": "requirements, not rules"
+  },
+  "university:nav.settingsTeam": {
+    "text": "Pengaturan & tim",
+    "why": "missing"
+  },
+  "university:nav.students": {
+    "text": "Mahasiswa terdaftar",
+    "why": "restore 'enrolled'"
+  },
+  "university:notFound.body": {
+    "text": "Halaman yang Anda cari tidak ada atau telah dipindahkan.",
+    "why": "missing"
+  },
+  "university:notFound.cta": {
+    "text": "Kembali ke dasbor",
+    "why": "missing"
+  },
+  "university:notifications.subtitle": {
+    "text": "Pembaruan tentang pendaftaran, dokumen, dan pesan.",
+    "why": "missing"
+  },
+  "university:notifications.unread": {
+    "text": "Belum dibaca",
+    "why": "missing"
+  },
+  "university:picker.body": {
+    "text": "Anda masuk sebagai staf Hangyul. Pilih universitas mitra yang ingin dilihat. Setiap halaman kemudian dibatasi pada universitas tersebut.",
+    "why": "missing"
+  },
+  "university:picker.label": {
+    "text": "Universitas",
+    "why": "missing"
+  },
+  "university:picker.placeholder": {
+    "text": "Pilih universitas mitra…",
+    "why": "missing"
+  },
+  "university:picker.title": {
+    "text": "Pilih universitas",
+    "why": "missing"
+  },
+  "university:settings.hangyulTeam": {
+    "text": "Anda melihat universitas ini sebagai staf Hangyul. Timnya dikelola oleh administrator universitas.",
+    "why": "missing"
+  },
+  "university:settings.noTeam": {
+    "text": "Tidak ada anggota tim. Minta Hangyul untuk menambahkan anggota.",
+    "why": "restore second sentence"
+  },
+  "university:settings.sso": {
+    "text": "Single sign-on",
+    "why": "missing"
+  },
+  "university:settings.ssoAdminOnly": {
+    "text": "Administrator universitas Anda mengelola single sign-on.",
+    "why": "missing"
+  },
+  "university:settings.ssoDomains": {
+    "text": "Domain email",
+    "why": "missing"
+  },
+  "university:settings.ssoEnforce": {
+    "text": "Masuk dengan kata sandi diblokir",
+    "why": "missing"
+  },
+  "university:settings.ssoNone": {
+    "text": "Belum diatur. Hangyul dapat menghubungkan penyedia identitas Anda (OpenID Connect). Hubungi kontak Hangyul Anda.",
+    "why": "missing"
+  },
+  "university:settings.ssoNote": {
+    "text": "Rahasia tidak pernah disimpan dalam basis data Hangyul Univ. SAML belum tersedia.",
+    "why": "missing"
+  },
+  "university:settings.ssoOff": {
+    "text": "Sudah dikonfigurasi, belum diaktifkan",
+    "why": "missing"
+  },
+  "university:settings.ssoOn": {
+    "text": "Aktif",
+    "why": "missing"
+  },
+  "university:settings.ssoProtocol": {
+    "text": "Protokol",
+    "why": "missing"
+  },
+  "university:settings.ssoSecret": {
+    "text": "Client secret",
+    "why": "missing"
+  },
+  "university:settings.ssoSecretMissing": {
+    "text": "Tidak ada di deployment",
+    "why": "missing"
+  },
+  "university:settings.ssoSecretOk": {
+    "text": "Disediakan oleh deployment",
+    "why": "missing"
+  },
+  "university:settings.ssoStatus": {
+    "text": "Status",
+    "why": "missing"
+  },
+  "university:settings.ssoSub": {
+    "text": "Izinkan staf masuk dengan akun universitas mereka.",
+    "why": "missing"
+  },
+  "university:settings.subtitle": {
+    "text": "Akses Anda dan tim {{university}} di Hangyul.",
+    "why": "missing"
+  },
+  "university:settings.teamSub": {
+    "text": "Orang-orang di universitas Anda yang memiliki akses konsol",
+    "why": "missing"
+  },
+  "university:settings.you": {
+    "text": "Akses Anda",
+    "why": "missing"
+  },
+  "university:settings.youShort": {
+    "text": "Anda",
+    "why": "missing"
+  },
+  "university:stage.ADMITTED": {
+    "text": "Diterima",
+    "why": "missing"
+  },
+  "university:stage.APPLIED": {
+    "text": "Sudah mendaftar",
+    "why": "missing"
+  },
+  "university:stage.ARRIVED": {
+    "text": "Sudah tiba",
+    "why": "missing"
+  },
+  "university:stage.ENROLLED": {
+    "text": "Terdaftar",
+    "why": "missing"
+  },
+  "university:stage.GRADUATED": {
+    "text": "Lulus",
+    "why": "missing"
+  },
+  "university:stage.INTERESTED": {
+    "text": "Berminat",
+    "why": "missing"
+  },
+  "university:stage.PREPARING": {
+    "text": "Persiapan",
+    "why": "missing"
+  },
+  "university:stage.RETAINED": {
+    "text": "Bertahan",
+    "why": "missing"
+  },
+  "university:stage.TUITION_PAID": {
+    "text": "Biaya kuliah dibayar",
+    "why": "missing"
+  },
+  "university:stage.VISA_ISSUED": {
+    "text": "Visa terbit",
+    "why": "missing"
+  },
+  "university:v22.closed": {
+    "text": "{{n}} ditutup (tidak diterima atau mengundurkan diri)",
+    "why": "match status labels"
+  },
+  "university:v22.empty.enrolment": {
+    "text": "Tidak ada pendaftar yang sedang di antara tawaran dan pendaftaran ulang.",
+    "why": "enrollment term unified"
+  },
+  "university:v22.empty.in_review": {
+    "text": "Tidak ada pendaftaran yang sedang ditinjau saat ini.",
+    "why": "name the subject"
+  },
+  "university:v22.empty.received": {
+    "text": "Tidak ada pendaftaran masuk yang menunggu tinjauan dimulai.",
+    "why": "match English"
+  },
+  "university:v22.in.closedN": {
+    "text": "{{n}} ditutup (tidak diterima atau mengundurkan diri)",
+    "why": "match status labels"
+  },
+  "university:v22.in.dropText": {
+    "text": "{{lost}} dari {{of}} ({{pct}}) tidak mencapai langkah berikutnya.",
+    "why": "match English"
+  },
+  "university:v22.in.q.admit": {
+    "text": "Pendaftar mana yang diterima dan mendaftar ulang?",
+    "why": "formal register"
+  },
+  "university:v22.in.q.dropoff": {
+    "text": "Di langkah mana pendaftar berhenti?",
+    "why": "formal; no 'we lose them'"
+  },
+  "university:v22.in.q.settle": {
+    "text": "Apakah mahasiswa bertahan setelah mendaftar ulang?",
+    "why": "retention, formal"
+  },
+  "university:v22.stage.in_review": {
+    "text": "Sedang ditinjau",
+    "why": "'in review' unified"
+  },
+  "university:v22.stage.received": {
+    "text": "Masuk",
+    "why": "'Diterima masuk' collides with Admitted"
+  },
+  "university:v22.stageHint.documents_check": {
+    "text": "Terkirim; pemeriksaan dokumen belum selesai",
+    "why": "match English"
+  },
+  "university:v22.stageHint.enrolment": {
+    "text": "Biaya kuliah, surat penerimaan, dan visa sedang diproses",
+    "why": "restore 'in progress'"
+  },
+  "university:v22.stageHint.received": {
+    "text": "Pemeriksaan dokumen selesai. Mulai tinjauan",
+    "why": "match English"
+  },
+  "university:v23.co.openCohort": {
+    "text": "Tampilkan mahasiswa angkatan ini",
+    "why": "missing"
+  },
+  "university:v25.chip.submitted_within": {
+    "text": "Dikirim dalam",
+    "why": "chip; 'within'"
+  },
+  "university:v25.chip.updated_within": {
+    "text": "Diperbarui dalam",
+    "why": "chip; 'within'"
+  },
+  "university:v25.head.decide": {
+    "text": "pendaftar menunggu keputusan",
+    "why": "'pelamar' → 'pendaftar'"
+  },
+  "university:v25.head.moved": {
+    "text": "pendaftaran yang statusnya berubah minggu ini",
+    "why": "status, not stage"
+  },
+  "university:v25.in.offerRate": {
+    "text": "Tingkat tawaran",
+    "why": "'penerimaan' reads as admission rate"
+  },
+  "university:v25.in.submittedSub": {
+    "text": "populasi sama dengan alur penerimaan",
+    "why": "no English 'funnel'"
+  },
+  "university:v25.in.visaToEnrol": {
+    "text": "Terdaftar setelah visa terbit",
+    "why": "enrolled status"
+  },
+  "university:v28.pipe.label": {
+    "text": "Hasil hingga saat ini; lihat Wawasan untuk rinciannya",
+    "why": "Insights nav is 'Wawasan'"
+  },
+  "university:v28.pipe.step.ACCEPTED": {
+    "text": "Tawaran diterima",
+    "why": "match af.stepName"
+  },
+  "university:v28.pipe.step.ENROLLED": {
+    "text": "Terdaftar",
+    "why": "match af.stepName"
+  },
+  "university:v28.pipe.step.OFFERED": {
+    "text": "Ditawari",
+    "why": "match af.stepName"
+  },
+  "university:v28.pipe.title": {
+    "text": "Hasil hingga saat ini",
+    "why": "match English"
+  },
+  "university:v30.def.visaOutcome": {
+    "text": "Visa ditolak ÷ keputusan visa (terbit + ditolak) untuk pendaftaran ke universitas Anda dari agensi ini, pada periode penerimaan yang dipilih. Penolakan hanya dihitung jika tercatat pada kasus visa mahasiswa; hasil yang tidak tercatat dicantumkan terpisah, tidak pernah diasumsikan.",
+    "why": "missing"
+  }
+}

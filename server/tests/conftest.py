@@ -27,24 +27,17 @@ get_settings.cache_clear()
 
 from app.core.db import SessionLocal, engine  # noqa: E402
 from app.main import app  # noqa: E402
-
-PASSWORD = "Hangyul!2026"
+from app.seed.fixtures import FIXTURE_PASSWORD as PASSWORD  # noqa: E402
 
 
 @pytest.fixture(scope="session", autouse=True)
 def seeded_db():
     assert "test" in str(engine.url), "Refusing to run tests against a non-test database"
+    from app.seed import fixtures
     from app.seed import run as seed
 
     seed.reset(engine)
-    import sys
-
-    argv = sys.argv
-    sys.argv = ["seed"]
-    try:
-        seed.main()
-    finally:
-        sys.argv = argv
+    fixtures.main()  # reference data + the synthetic test layer (refuses a non-test database)
     _test_fixture_guides()
     yield
 

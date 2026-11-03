@@ -1,0 +1,4051 @@
+{
+  "_notes": [
+    "Address: Student app and student-facing mobile strings use informal 'je/jij/jou' throughout (matching the existing nl student.json); staff-facing mobile:agency.*, mobile:university.*, mobile:v3.agency.*, mobile:v3.uni.*, mobile:v3.reviews.*, mobile:v3.deadlines.*, mobile:v3.tasks.*, mobile:v4.uni.*, mobile:v26.uni.* use formal 'u', per the brief. NOTE the existing nl agency.json/university.json consoles mostly use 'je' (16 hits vs 1-2 'u'); owner should decide whether the consoles move to 'u' or the native staff apps stay 'je'.",
+    "Shared mobile-ui strings (mobile:messages.*, mobile:settings.*, mobile:login.*, mobile:notifications.*, mobile:v29.mfa.*) are rendered in all three native apps, so they are written pronoun-free ('het team', 'de verbinding') to fit both registers.",
+    "plan → 'pakket' (existing convention in every nl namespace; 'plan' in Dutch reads as a scheme). Two stray 'plan'/'ondersteuningsplan' occurrences were aligned.",
+    "application → 'aanmelding' (never 'aanvraag', which is reserved for visa and dormitory applications: 'visumaanvraag'). sign in → 'inloggen', sign up → 'registreren'/'account aanmaken', matching common.json.",
+    "matches (student-app rendering of university recommendation) → 'matches' is kept, as the English keeps it; plan/allowance copy uses 'Universiteitsaanbevelingen' / 'Aanbevolen universiteiten' per the glossary.",
+    "consultation → 'adviesgesprek'; 'Diagnostic consultation' rendered as 'Intakegesprek' (the natural Dutch term for a first assessment conversation; 'Diagnosegesprek' and 'consult' read as medical). Owner may prefer another word.",
+    "personal statement → 'motivatiebrief' (the established Dutch admissions term; 'persoonlijke verklaring' is unnatural); study plan → 'studieplan'; document review → 'documentcontrole' (student) / 'controle' (agency review queue); 'verifiëren' kept only for the official verify action.",
+    "Hangyul team → 'het Hangyul-team'; Hangyul Univ team → 'het Hangyul Univ-team', mirrored key by key from the English. Four mobile strings said 'je adviseur' where the English says the Hangyul team; changed, since the student may not have a single counselor.",
+    "Official names kept: GKS, D-2/D-4, apostille, 'consulaire legalisatie', 'standaard toelatingsbrief' (where the English says standard admission letter), TOPIK/IELTS/TOEFL iBT, Toss Payments.",
+    "dormitory → 'studentenhuisvesting (van de universiteit)'; housing (topic) → 'huisvesting'; arrival and settling-in help → 'hulp bij aankomst en de eerste weken' ('settelen' is colloquial).",
+    "mock interview → 'oefeninterview' (one term; 'oefengesprek' collided with consultation vocabulary). managed application → 'begeleide aanmelding'.",
+    "Due (Hangyul task) → 'Uiterlijk {{date}}'; Closes/Deadline (university) → 'Sluit op'/'Deadline'. Overdue → 'te laat'.",
+    "Back-check: no promise added. 'Hangyul regelt {{what}}' (gate) and 'Beschikbaar na' (visa) were softened back to what the English says; 'Te laat' flags and 'toegezegde reactietijd' render the SLA 'promise' without promising the student anything.",
+    "Plurals: every _one form carries {{count}} or reads correctly without it; 'uur' is invariant in Dutch after a number ('Wacht 3 uur'), so _one and _other both read correctly.",
+    "mobile:v4.home.item.RENEW.title uses 'nieuw(e) {{label}}' because the adjective ending depends on the gender of the inserted document name; a gender-neutral alternative would need a different sentence shape (owner's call)."
+  ],
+  "student:applications.closed": {
+    "text": "Afgesloten aanmeldingen",
+    "why": "missing Dutch"
+  },
+  "student:applications.updated": {
+    "text": "Bijgewerkt op {{date}}",
+    "why": "missing Dutch"
+  },
+  "student:dashboard.arrival.cta": {
+    "text": "Aankomstchecklist openen",
+    "why": "missing Dutch"
+  },
+  "student:dashboard.arrival.landing": {
+    "text": "Landing op {{date}}",
+    "why": "missing Dutch"
+  },
+  "student:dashboard.arrival.noFlight": {
+    "text": "Voeg je vlucht toe, dan plannen we je ophaalservice en je eerste dagen.",
+    "why": "missing Dutch"
+  },
+  "student:dashboard.counselor.noneCta": {
+    "text": "Bekijk de pakketten",
+    "why": "missing Dutch"
+  },
+  "student:dashboard.counselor.noneText": {
+    "text": "Met een pakket bekijkt het Hangyul-team je documenten, essays en aanpak in jouw taal.",
+    "why": "'strategie' stiff; 'aanpak' natural"
+  },
+  "student:dashboard.deadlines.empty": {
+    "text": "Geen deadlines in de komende weken.",
+    "why": "missing Dutch"
+  },
+  "student:dashboard.nextAction.TASK.ctaDefault": {
+    "text": "Nu beginnen",
+    "why": "missing Dutch"
+  },
+  "student:dashboard.stageText.APPLY": {
+    "text": "Je bereidt je aanmeldingen voor. Stap voor stap.",
+    "why": "missing Dutch"
+  },
+  "student:dashboard.stageText.ARRIVAL": {
+    "text": "Je visum is klaar. Tijd om je aankomst te plannen!",
+    "why": "missing Dutch"
+  },
+  "student:dashboard.stageText.DECISION": {
+    "text": "Je aanmeldingen liggen bij de universiteiten.",
+    "why": "missing Dutch"
+  },
+  "student:dashboard.stageText.ENROLL": {
+    "text": "Gefeliciteerd met je toelating! Laten we je plek veiligstellen.",
+    "why": "missing Dutch"
+  },
+  "student:dashboard.stageText.EXPLORE": {
+    "text": "Laten we beginnen met jou leren kennen.",
+    "why": "missing Dutch"
+  },
+  "student:dashboard.stageText.STUDENT_LIFE": {
+    "text": "Welkom in Korea. We zijn er nog steeds als je ons nodig hebt.",
+    "why": "missing Dutch"
+  },
+  "student:documents.drawer.country": {
+    "text": "Afgegeven in",
+    "why": "missing Dutch"
+  },
+  "student:documents.drawer.expired": {
+    "text": "Dit document is verlopen",
+    "why": "missing Dutch"
+  },
+  "student:documents.drawer.expiredText": {
+    "text": "Upload een geldig exemplaar, zodat je aanmeldingen geldig blijven.",
+    "why": "missing Dutch"
+  },
+  "student:documents.drawer.expires": {
+    "text": "Verloopt op",
+    "why": "missing Dutch"
+  },
+  "student:documents.drawer.file": {
+    "text": "Nieuwste bestand",
+    "why": "missing Dutch"
+  },
+  "student:documents.drawer.fixDefault": {
+    "text": "Dit document moet worden aangepast. Pas het aan en upload een nieuwe versie.",
+    "why": "missing Dutch"
+  },
+  "student:documents.drawer.fixTitle": {
+    "text": "Wat moet er anders",
+    "why": "missing Dutch"
+  },
+  "student:documents.drawer.inReview": {
+    "text": "We controleren dit document. Je hoeft nu niets te doen.",
+    "why": "missing Dutch"
+  },
+  "student:documents.drawer.issued": {
+    "text": "Afgiftedatum",
+    "why": "missing Dutch"
+  },
+  "student:documents.drawer.newVersion": {
+    "text": "Nieuwe versie",
+    "why": "missing Dutch"
+  },
+  "student:documents.drawer.reviewMeta": {
+    "text": "Versie {{version}} · {{when}}",
+    "why": "missing Dutch"
+  },
+  "student:documents.drawer.reviews": {
+    "text": "Controlegeschiedenis",
+    "why": "missing Dutch"
+  },
+  "student:documents.drawer.translation": {
+    "text": "Vertaling",
+    "why": "missing Dutch"
+  },
+  "student:documents.drawer.translationNo": {
+    "text": "Niet nodig",
+    "why": "missing Dutch"
+  },
+  "student:documents.drawer.translationYes": {
+    "text": "Beëdigde vertaling nodig",
+    "why": "missing Dutch"
+  },
+  "student:documents.drawer.uploadFixed": {
+    "text": "Aangepaste versie uploaden",
+    "why": "missing Dutch"
+  },
+  "student:documents.drawer.versions": {
+    "text": "Versies",
+    "why": "missing Dutch"
+  },
+  "student:documents.drawer.viewVersion": {
+    "text": "Versie {{version}} bekijken",
+    "why": "missing Dutch"
+  },
+  "student:documents.privacy.short": {
+    "text": "Versleuteld opgeslagen. Totdat je een aanmelding indient, kunnen alleen jij en het Hangyul-team het openen.",
+    "why": "aanvraag→aanmelding; team name per English"
+  },
+  "student:documents.reusable": {
+    "text": "Herbruikbaar",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.category": {
+    "text": "Documenttype",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.choose": {
+    "text": "Kies een bestand",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.country": {
+    "text": "Land van afgifte",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.countryHint": {
+    "text": "Bepaalt of een apostille nodig is.",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.expires": {
+    "text": "Vervaldatum",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.file": {
+    "text": "Bestand",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.fileHint": {
+    "text": "PDF, JPG, PNG of WEBP, maximaal {{mb}} MB.",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.issued": {
+    "text": "Afgiftedatum",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.langs.en": {
+    "text": "Engels",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.langs.id": {
+    "text": "Indonesisch",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.langs.ja": {
+    "text": "Japans",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.langs.ko": {
+    "text": "Koreaans",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.langs.mn": {
+    "text": "Mongools",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.langs.ne": {
+    "text": "Nepalees",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.langs.other": {
+    "text": "Anders",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.langs.ru": {
+    "text": "Russisch",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.langs.th": {
+    "text": "Thais",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.langs.uz": {
+    "text": "Oezbeeks",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.langs.vi": {
+    "text": "Vietnamees",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.langs.zh": {
+    "text": "Chinees",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.language": {
+    "text": "Taal van het document",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.subtitle": {
+    "text": "Een duidelijke scan of telefoonfoto is prima. We controleren het en laten je weten als er iets moet worden aangepast.",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.title": {
+    "text": "Document uploaden",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.titleLabel": {
+    "text": "Naam",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.types": {
+    "text": "PDF, JPG, PNG of WEBP",
+    "why": "missing Dutch"
+  },
+  "student:documents.upload.versionTitle": {
+    "text": "Nieuwe versie uploaden",
+    "why": "missing Dutch"
+  },
+  "student:essays.comments_one": {
+    "text": "{{count}} opmerking",
+    "why": "missing Dutch"
+  },
+  "student:essays.edited": {
+    "text": "Bewerkt {{when}}",
+    "why": "missing Dutch"
+  },
+  "student:essays.new.cta": {
+    "text": "Essay aanmaken",
+    "why": "missing Dutch"
+  },
+  "student:essays.new.limit": {
+    "text": "Woordlimiet",
+    "why": "missing Dutch"
+  },
+  "student:essays.new.name": {
+    "text": "Titel",
+    "why": "missing Dutch"
+  },
+  "student:essays.new.subtitle": {
+    "text": "Om te oefenen, of voor een universiteit die nog niet in de lijst staat.",
+    "why": "missing Dutch"
+  },
+  "student:essays.new.title": {
+    "text": "Nieuw essay beginnen",
+    "why": "missing Dutch"
+  },
+  "student:essays.new.type": {
+    "text": "Soort essay",
+    "why": "missing Dutch"
+  },
+  "student:home.allMatches": {
+    "text": "Alle matches",
+    "why": "missing Dutch"
+  },
+  "student:home.arrivalProgress": {
+    "text": "{{done}} van 11 aankomststappen gedaan",
+    "why": "missing Dutch"
+  },
+  "student:home.closest": {
+    "text": "Het dichtst bij je profiel",
+    "why": "missing Dutch"
+  },
+  "student:home.docAction.IN_REVIEW": {
+    "text": "In controle",
+    "why": "missing Dutch"
+  },
+  "student:home.docAction.LEGALIZE": {
+    "text": "Apostille nodig",
+    "why": "missing Dutch"
+  },
+  "student:home.docAction.OPEN": {
+    "text": "Openen",
+    "why": "missing Dutch"
+  },
+  "student:home.greet.afternoon": {
+    "text": "Goedemiddag, {{name}}",
+    "why": "missing Dutch"
+  },
+  "student:home.otherTasks_one": {
+    "text": "{{count}} andere taak",
+    "why": "missing Dutch"
+  },
+  "student:home.recommended": {
+    "text": "Aanbevolen voor jou",
+    "why": "missing Dutch"
+  },
+  "student:home.recommendedSub": {
+    "text": "Opleidingen waarvan je aan de gepubliceerde eisen voldoet.",
+    "why": "missing Dutch"
+  },
+  "student:home.team": {
+    "text": "Hangyul Univ-team",
+    "why": "match English; no 'Jouw' added"
+  },
+  "student:housing.noDorms": {
+    "text": "Deze universiteit heeft nog geen informatie over studentenhuisvesting gepubliceerd.",
+    "why": "missing Dutch"
+  },
+  "student:housing.noUni": {
+    "text": "Huisvesting komt beschikbaar bij je eerste aanmelding",
+    "why": "missing Dutch"
+  },
+  "student:housing.noUniCta": {
+    "text": "Naar aanmeldingen",
+    "why": "missing Dutch"
+  },
+  "student:housing.noUniText": {
+    "text": "Zodra je je hebt aangemeld, laten we de huisvestingsopties en kosten van die universiteit zien.",
+    "why": "missing Dutch"
+  },
+  "student:housing.subtitle": {
+    "text": "Vergelijk de studentenhuisvesting en houd je huisvestingsstappen bij.",
+    "why": "missing Dutch"
+  },
+  "student:housing.title": {
+    "text": "Huisvesting",
+    "why": "missing Dutch"
+  },
+  "student:login.aside.eyebrow": {
+    "text": "Studeren in Korea, stap voor stap",
+    "why": "missing Dutch"
+  },
+  "student:login.aside.note": {
+    "text": "Duizenden kleine stappen, steeds één duidelijke volgende stap.",
+    "why": "missing Dutch"
+  },
+  "student:login.aside.point2": {
+    "text": "Bewaar elk document in één beveiligde kluis en gebruik het opnieuw voor al je aanmeldingen.",
+    "why": "missing Dutch"
+  },
+  "student:login.aside.point3": {
+    "text": "Bereid je voor met echte mensen van het Hangyul-team die jouw taal spreken.",
+    "why": "missing Dutch"
+  },
+  "student:messages.new.body": {
+    "text": "Bericht",
+    "why": "missing Dutch"
+  },
+  "student:messages.new.subject": {
+    "text": "Onderwerp",
+    "why": "missing Dutch"
+  },
+  "student:messages.new.subtitle": {
+    "text": "Het Hangyul-team antwoordt hier.",
+    "why": "team name per English"
+  },
+  "student:messages.new.title": {
+    "text": "Nieuw gesprek",
+    "why": "missing Dutch"
+  },
+  "student:messages.team": {
+    "text": "Hangyul Univ-team",
+    "why": "same term as student:home.team"
+  },
+  "student:messages.unread_one": {
+    "text": "{{count}} ongelezen bericht",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.basics.dobHint": {
+    "text": "Sommige beurzen hebben een leeftijdsgrens.",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.basics.legalText": {
+    "text": "Officiële documenten uit {{country}} hebben meestal deze stap nodig voordat Koreaanse universiteiten ze accepteren: {{path}}. We begeleiden je erbij als het zover is.",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.basics.legalTitle": {
+    "text": "Goed om te weten voor later",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.basics.residenceHint": {
+    "text": "Sommige ambassades nemen alleen visumaanvragen aan van inwoners van hun eigen land.",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.education.country": {
+    "text": "Land van je opleiding",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.education.gpaHint": {
+    "text": "Vul je gemiddelde in op de schaal die je school zelf gebruikt.",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.education.gpaScale": {
+    "text": "Van maximaal",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.education.gpaValue": {
+    "text": "Je GPA",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.education.gradYear": {
+    "text": "Jaar van afstuderen",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.education.institutionPh": {
+    "text": "bijv. Hanoi National University",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.education.levels.ASSOCIATE": {
+    "text": "Associate degree / collegediploma",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.education.levels.BACHELOR": {
+    "text": "Bachelor",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.education.levels.DOCTORATE": {
+    "text": "Doctoraat (PhD)",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.education.levels.MASTER": {
+    "text": "Master",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.education.major": {
+    "text": "Studierichting",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.education.normalized": {
+    "text": "Genormaliseerde score",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.education.previewEmpty": {
+    "text": "Vul een GPA en de schaal in om de genormaliseerde score te zien.",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.education.status": {
+    "text": "Afstudeerstatus",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.education.statuses.EXPECTED": {
+    "text": "Studeer binnenkort af",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.education.statuses.GRADUATED": {
+    "text": "Afgestudeerd",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.education.statuses.IN_PROGRESS": {
+    "text": "Nog bezig",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.goals.degreeSub.ASSOCIATE": {
+    "text": "Praktijkgerichte opleiding van 2–3 jaar",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.goals.degreeSub.BACHELOR": {
+    "text": "Vierjarige bacheloropleiding",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.goals.degreeSub.DOCTORATE": {
+    "text": "Onderzoeksopleiding (PhD)",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.goals.degreeSub.LANGUAGE": {
+    "text": "Begin met Koreaans, in je eigen tempo",
+    "why": "cur adds 'gebruikelijke' not in English"
+  },
+  "student:onboarding.goals.degreeSub.MASTER": {
+    "text": "Masteropleiding na een bachelor",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.goals.degreeSub.TRANSFER": {
+    "text": "Ga verder met een opleiding die je al bent begonnen",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.goals.fieldsHint": {
+    "text": "Kies er zoveel als je wilt.",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.goals.intakeHint": {
+    "text": "Koreaanse universiteiten beginnen in het voorjaar (maart) en het najaar (september).",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.goals.term": {
+    "text": "Startsemester",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.goals.termLabel.FALL": {
+    "text": "Najaar (september)",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.goals.termLabel.SPRING": {
+    "text": "Voorjaar (maart)",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.goals.year": {
+    "text": "Startjaar",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.language.have": {
+    "text": "Ik heb een score",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.language.level.BEGINNER": {
+    "text": "Beginner",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.language.level.NATIVE": {
+    "text": "Moedertaal",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.language.level.NONE": {
+    "text": "Nog niet",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.language.planning": {
+    "text": "Ik ga de test nog doen",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.language.score": {
+    "text": "Score ({{range}})",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.language.test.TOEFL_IBT": {
+    "text": "TOEFL iBT",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.language.testSub.IELTS": {
+    "text": "Engelse test, band 0–9",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.language.testSub.TOEFL_IBT": {
+    "text": "Engelse test, 0–120",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.language.testSub.TOPIK": {
+    "text": "Test of Proficiency in Korean, niveau 1–6",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.language.testsHint": {
+    "text": "Sla dit over als je nog niet bent begonnen.",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.passport.currentVisa": {
+    "text": "Je huidige visum",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.passport.expiry": {
+    "text": "Vervaldatum paspoort",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.passport.expiryHint": {
+    "text": "Het liefst geldig voor je hele studieperiode.",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.passport.inKoreaNo": {
+    "text": "Nee, ik ben in het buitenland",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.passport.inKoreaYes": {
+    "text": "Ja, ik ben in Korea",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.passport.no": {
+    "text": "Nog niet",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.passport.number": {
+    "text": "Paspoortnummer",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.passport.numberHint": {
+    "text": "Optioneel. We bewaren alleen de laatste cijfers; het volledige nummer staat op je paspoortdocument.",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.passport.previousHint": {
+    "text": "Dit kan bepalen welke visumstappen voor jou gelden.",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.passport.visa.C-3": {
+    "text": "C-3 (kort verblijf)",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.passport.visa.D-2": {
+    "text": "D-2 (student)",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.passport.visa.D-4": {
+    "text": "D-4 (taalcursus)",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.passport.visa.E-7": {
+    "text": "E-7 (werk)",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.passport.visa.NONE": {
+    "text": "Nooit",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.passport.visa.OTHER": {
+    "text": "Anders",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.preferences.budgetOver": {
+    "text": "Meer dan {{amount}}",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.preferences.budgetUpTo": {
+    "text": "Tot {{amount}}",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.preferences.housingOpt.NO_PREFERENCE": {
+    "text": "Geen voorkeur",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.preferences.housingOpt.OFF_CAMPUS": {
+    "text": "Kamer buiten de campus",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.preferences.housingSub.DORM": {
+    "text": "De meeste eerstejaars internationale studenten kiezen hiervoor",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.preferences.perMonth": {
+    "text": "ongeveer {{amount}} per maand",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.preferences.regionsHint": {
+    "text": "Laat leeg als heel Korea goed is.",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.preferences.scholarshipNo": {
+    "text": "Fijn om te hebben, niet noodzakelijk",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.preferences.scholarshipYesSub": {
+    "text": "We markeren opleidingen met beurzen waarvoor je mogelijk in aanmerking komt",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.sponsor.goalHint": {
+    "text": "Een of twee zinnen is genoeg. Het helpt later bij je studieplan.",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.sponsor.goalPh": {
+    "text": "bijv. Werken in marketing tussen Koreaanse en Vietnamese bedrijven.",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.sponsor.option.EMPLOYER": {
+    "text": "Mijn werkgever",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.sponsor.option.OTHER": {
+    "text": "Iemand anders",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.sponsor.option.RELATIVE": {
+    "text": "Een ander familielid",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.sponsor.option.SCHOLARSHIP": {
+    "text": "Een beurs",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.sponsor.option.SELF": {
+    "text": "Ikzelf",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.sponsor.whoHint": {
+    "text": "Voor een visumaanvraag is een bewijs van financiële middelen van deze persoon of organisatie nodig.",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.steps.basics.eyebrow": {
+    "text": "Over jou",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.steps.basics.subtitle": {
+    "text": "Zo weten we welke documenten en visumregels voor jou gelden.",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.steps.basics.title": {
+    "text": "Waar kom je vandaan?",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.steps.education.eyebrow": {
+    "text": "Je opleiding",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.steps.education.subtitle": {
+    "text": "We gebruiken dit om toelatingseisen te controleren. Een schatting is voor nu prima.",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.steps.education.title": {
+    "text": "Vertel ons over je huidige opleiding",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.steps.goals.eyebrow": {
+    "text": "Je doel",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.steps.goals.title": {
+    "text": "Wat wil je studeren?",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.steps.language.eyebrow": {
+    "text": "Talen",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.steps.language.title": {
+    "text": "Hoe goed zijn je Koreaans en Engels?",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.steps.passport.eyebrow": {
+    "text": "Reizen",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.steps.passport.title": {
+    "text": "Paspoort en visumgeschiedenis",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.steps.preferences.eyebrow": {
+    "text": "Budget en leven",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.steps.preferences.subtitle": {
+    "text": "Met je budget, beurswens en woonwens kunnen we opleidingen voor jou rangschikken.",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.steps.preferences.title": {
+    "text": "Wat is belangrijk voor je in het dagelijks leven?",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.steps.sponsor.eyebrow": {
+    "text": "Laatste stap",
+    "why": "missing Dutch"
+  },
+  "student:onboarding.steps.sponsor.subtitle": {
+    "text": "Universiteiten en visumambtenaren vragen naar financiële ondersteuning. Als we je doel kennen, kan het Hangyul-team je beter begeleiden.",
+    "why": "team name per English"
+  },
+  "student:onboarding.steps.sponsor.title": {
+    "text": "Wie ondersteunt je studie?",
+    "why": "missing Dutch"
+  },
+  "student:profile.anywhere": {
+    "text": "Overal in Korea",
+    "why": "missing Dutch"
+  },
+  "student:profile.institutionMissing": {
+    "text": "School nog niet toegevoegd",
+    "why": "missing Dutch"
+  },
+  "student:profile.planned": {
+    "text": "{{test}} (gepland)",
+    "why": "missing Dutch"
+  },
+  "student:profile.title": {
+    "text": "Je profiel",
+    "why": "missing Dutch"
+  },
+  "student:register.consent.PRIVACY.summary": {
+    "text": "E-mailadres, mobiel nummer, naam, nationaliteit en wachtwoord (versleuteld opgeslagen), om je account aan te maken en te beveiligen.",
+    "why": "'wachtwoordhash' jargon; match English"
+  },
+  "student:register.consent.missing": {
+    "text": "Geef toestemming voor de verplichte onderdelen.",
+    "why": "drop 'om door te gaan' not in English"
+  },
+  "student:register.steps.account": {
+    "text": "Account",
+    "why": "step label matches section title 'Account'"
+  },
+  "student:services.success.assigned": {
+    "text": "{{agency}} gaat je begeleiden",
+    "why": "missing Dutch"
+  },
+  "student:settings.account.saved": {
+    "text": "Account bijgewerkt",
+    "why": "missing Dutch"
+  },
+  "student:settings.data.kind.DELETE": {
+    "text": "Account verwijderen",
+    "why": "missing Dutch"
+  },
+  "student:settings.data.status.COMPLETED": {
+    "text": "Afgerond",
+    "why": "missing Dutch"
+  },
+  "student:settings.data.status.IN_REVIEW": {
+    "text": "In behandeling",
+    "why": "missing Dutch"
+  },
+  "student:settings.data.status.REJECTED": {
+    "text": "Afgewezen",
+    "why": "missing Dutch"
+  },
+  "student:settings.privacy.saved": {
+    "text": "Privacykeuze opgeslagen",
+    "why": "missing Dutch"
+  },
+  "student:tasks.emptyText": {
+    "text": "Nieuwe taken verschijnen hier als er iets voor je te doen is.",
+    "why": "missing Dutch"
+  },
+  "student:tasks.markDone": {
+    "text": "“{{title}}” markeren als gedaan",
+    "why": "missing Dutch"
+  },
+  "student:tasks.title": {
+    "text": "Taken",
+    "why": "missing Dutch"
+  },
+  "student:v15.services.allowance.key.consultation_sessions": {
+    "text": "Intakegesprek",
+    "why": "'Diagnosegesprek' sounds medical"
+  },
+  "student:v15.services.allowance.key.max_managed_applications": {
+    "text": "Begeleide aanmeldingen",
+    "why": "one term: same as v17 feature label"
+  },
+  "student:v15.services.allowance.key.mock_interviews": {
+    "text": "Oefeninterviews",
+    "why": "missing Dutch"
+  },
+  "student:v15.services.choose": {
+    "text": "{{name}} kiezen",
+    "why": "missing Dutch"
+  },
+  "student:v15.services.chosen": {
+    "text": "Het pakket dat je op de website hebt gekozen.",
+    "why": "missing Dutch"
+  },
+  "student:v15.services.scope.consultation_minutes": {
+    "text": "Adviesgesprek van {{count}} minuten",
+    "why": "missing Dutch"
+  },
+  "student:v15.services.scope.interview_preparation": {
+    "text": "Interviewvoorbereiding",
+    "why": "missing Dutch"
+  },
+  "student:v15.services.scope.personal_roadmap": {
+    "text": "Een persoonlijk stappenplan voor je studie in Korea",
+    "why": "missing Dutch"
+  },
+  "student:v15.services.scope.pre_arrival_orientation": {
+    "text": "Online oriëntatie voordat je vertrekt",
+    "why": "missing Dutch"
+  },
+  "student:v15.services.scope.priority_response": {
+    "text": "Voorrang bij antwoorden van het Hangyul-team",
+    "why": "team name per English"
+  },
+  "student:v15.services.scope.settlement_support": {
+    "text": "Hulp na je aankomst",
+    "why": "cur 'Na aankomst' drops 'help'"
+  },
+  "student:v15.services.scope.visa_support": {
+    "text": "Visumdocumenten voorbereiden",
+    "why": "glossary: visa document preparation, not 'visa prep'"
+  },
+  "student:v16.pay.amount": {
+    "text": "Bedrag",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.cancelled": {
+    "text": "Je hebt de betaling geannuleerd. Er is niets afgeschreven.",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.couldNotStart": {
+    "text": "We konden het betaalvenster niet openen.",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.cta": {
+    "text": "Betalen en beginnen",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.fail.title": {
+    "text": "De betaling is niet gelukt",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.method": {
+    "text": "Betaalwijze",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.methodCard": {
+    "text": "Kaart",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.notCharged": {
+    "text": "Er is niets afgeschreven.",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.orderNo": {
+    "text": "Bestelling",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.orderTitle": {
+    "text": "Je bestelling",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.receipt": {
+    "text": "Bon bekijken",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.retry": {
+    "text": "Betaling opnieuw proberen",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.sdkDown": {
+    "text": "Het betaalvenster kon niet worden geladen. Controleer je verbinding en probeer het opnieuw.",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.selected": {
+    "text": "Gekozen",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.status.CANCELLED": {
+    "text": "Geannuleerd",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.status.FAILED": {
+    "text": "Mislukt",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.status.PENDING": {
+    "text": "In afwachting",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.success.cta": {
+    "text": "Mijn voorbereiding starten",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.success.text": {
+    "text": "Je begint je voorbereiding op studeren in Korea met {{name}}.",
+    "why": "missing Dutch"
+  },
+  "student:v16.pay.success.title": {
+    "text": "Betaling voltooid",
+    "why": "missing Dutch"
+  },
+  "student:v17.gate.general": {
+    "text": "Dit deel van Hangyul is inbegrepen bij een pakket. Kies er een om te beginnen.",
+    "why": "'zit in de pakketten' loose"
+  },
+  "student:v17.gate.named": {
+    "text": "Een pakket omvat {{what}}. Kies er een om te beginnen.",
+    "why": "cur adds 'Hangyul regelt' promise-ish"
+  },
+  "student:v17.gate.what.arrival": {
+    "text": "hulp bij aankomst en de eerste weken",
+    "why": "'settling-in' was dropped"
+  },
+  "student:v17.gate.what.documents": {
+    "text": "documentcontrole",
+    "why": "one term for document review"
+  },
+  "student:v17.gate.what.essays": {
+    "text": "redactie van je motivatiebrief en studieplan",
+    "why": "'editing', same term as allowance"
+  },
+  "student:v17.gate.what.help": {
+    "text": "hulp van het Hangyul-team",
+    "why": "match English"
+  },
+  "student:v17.gate.what.housing": {
+    "text": "hulp bij studentenhuisvesting",
+    "why": "'huisvesting' alone drops 'help'"
+  },
+  "student:v17.gate.what.messages": {
+    "text": "berichten met het Hangyul-team",
+    "why": "cur dropped 'messages'"
+  },
+  "student:v17.gate.what.scholarships": {
+    "text": "het matchen van beurzen",
+    "why": "'zoeken' weaker than matching"
+  },
+  "student:v17.gate.what.tasks": {
+    "text": "je takenlijst",
+    "why": "'takenplan' unnatural"
+  },
+  "student:v17.gate.what.visa": {
+    "text": "het voorbereiden van visumdocumenten",
+    "why": "glossary term"
+  },
+  "student:v17.upgrade.amount": {
+    "text": "Prijs van de overstap",
+    "why": "cur 'Overstap' omits price"
+  },
+  "student:v17.upgrade.feature.document_review": {
+    "text": "Intensieve documentcontrole",
+    "why": "'Volledige' ≠ intensive"
+  },
+  "student:v17.upgrade.feature.essay_review": {
+    "text": "Redactie van je motivatiebrief",
+    "why": "'editing' term consistent"
+  },
+  "student:v17.upgrade.feature.mock_interview": {
+    "text": "Oefeninterview",
+    "why": "one term for mock interview"
+  },
+  "student:v17.upgrade.feature.recommendations": {
+    "text": "Universiteitsaanbevelingen",
+    "why": "same term as mobile allowance"
+  },
+  "student:v17.upgrade.feature.settlement": {
+    "text": "Hulp na je aankomst",
+    "why": "same as scope.settlement_support"
+  },
+  "student:v21.pay.cardFailed": {
+    "text": "De betaling is niet gelukt",
+    "why": "missing Dutch"
+  },
+  "student:v21.pay.cardSecure": {
+    "text": "Je kaartgegevens gaan alleen via een versleutelde verbinding naar Hangyul en door naar onze betaalprovider. We slaan je kaartnummer nooit op.",
+    "why": "missing Dutch"
+  },
+  "student:v21.pay.cardTitle": {
+    "text": "Betalen met kaart",
+    "why": "missing Dutch"
+  },
+  "student:v21.pay.declined": {
+    "text": "De kaart is niet geaccepteerd: {{reason}} Probeer een andere kaart of neem contact op met je bank.",
+    "why": "missing Dutch"
+  },
+  "student:v21.pay.expiry": {
+    "text": "Vervaldatum",
+    "why": "missing Dutch"
+  },
+  "student:v21.pay.holder": {
+    "text": "Naam op de kaart",
+    "why": "missing Dutch"
+  },
+  "student:v21.pay.notConfigured": {
+    "text": "Betalen met kaart is hier nog niet mogelijk. Probeer het later opnieuw of neem contact met ons op.",
+    "why": "missing Dutch"
+  },
+  "student:v21.pay.number": {
+    "text": "Kaartnummer",
+    "why": "missing Dutch"
+  },
+  "student:v21.pay.numberInvalid": {
+    "text": "Controleer het kaartnummer.",
+    "why": "missing Dutch"
+  },
+  "student:v21.pay.optional": {
+    "text": "optioneel",
+    "why": "missing Dutch"
+  },
+  "student:v21.pay.payCta": {
+    "text": "Met deze kaart betalen",
+    "why": "missing Dutch"
+  },
+  "student:v21.pay.processing": {
+    "text": "Je betaling wordt verwerkt…",
+    "why": "missing Dutch"
+  },
+  "student:v21.pay.savedDelete": {
+    "text": "Verwijderen",
+    "why": "missing Dutch"
+  },
+  "student:v21.pay.savedDeleteBody": {
+    "text": "We verwijderen {{card}} uit je account. Dit heeft geen gevolgen voor een betaling die je al hebt gedaan.",
+    "why": "missing Dutch"
+  },
+  "student:v21.pay.savedDeleteFailed": {
+    "text": "De kaart kon niet worden verwijderd. Probeer het opnieuw.",
+    "why": "missing Dutch"
+  },
+  "student:v21.pay.savedDeleteTitle": {
+    "text": "Deze kaart verwijderen?",
+    "why": "missing Dutch"
+  },
+  "student:v21.pay.savedNotReusable": {
+    "text": "Bij een volgende aankoop vul je je kaart opnieuw in.",
+    "why": "missing Dutch"
+  },
+  "student:v21.pay.savedTitle": {
+    "text": "Je kaart",
+    "why": "missing Dutch"
+  },
+  "student:v21.pay.tooMany": {
+    "text": "Te veel kaartpogingen. Wacht een paar minuten voordat je het opnieuw probeert.",
+    "why": "missing Dutch"
+  },
+  "student:v22.home.appTeam.follow": {
+    "text": "We informeren bij de toelatingsafdeling van {{university}} naar de voortgang",
+    "why": "cur dropped admissions office and progress"
+  },
+  "student:v22.home.appTeam.letter": {
+    "text": "We informeren naar je standaard toelatingsbrief van {{university}}",
+    "why": "official document name"
+  },
+  "student:v22.home.writing": {
+    "text": "Schrijven",
+    "why": "same label as student:writing.title"
+  },
+  "student:v26.now.scopeToggle": {
+    "text": "Alles bekijken wat dit pakket omvat",
+    "why": "cur not a call to action"
+  },
+  "student:v29.services.legacyContract": {
+    "text": "Dit pakket valt onder het servicecontract dat gold toen je het kocht ({{version}}).",
+    "why": "plan→pakket"
+  },
+  "student:v29.services.upgrade.amountPending": {
+    "text": "Geregeld door het Hangyul Univ-team",
+    "why": "cur 'Via' vaguer"
+  },
+  "student:v29.services.upgrade.sheetLede": {
+    "text": "Alles wat je al hebt gedaan, blijft staan. Het Hangyul Univ-team laat je de overstapprijs rechtstreeks weten.",
+    "why": "'zelf' misreads 'directly'"
+  },
+  "student:writing.needYou": {
+    "text": "Jij bent aan zet: schrijven of herzien",
+    "why": "'Actie nodig' drops meaning"
+  },
+  "student:writing.others": {
+    "text": "In controle bij het Hangyul-team, of afgerond",
+    "why": "clearer"
+  },
+  "student:writing.status.AI_PRECHECK": {
+    "text": "Ingediend",
+    "why": "missing Dutch"
+  },
+  "student:writing.status.APPROVED": {
+    "text": "Klaar",
+    "why": "missing Dutch"
+  },
+  "student:writing.status.CHANGES_REQUESTED": {
+    "text": "Wijzigingen gevraagd",
+    "why": "missing Dutch"
+  },
+  "student:writing.status.FINAL_REVIEW": {
+    "text": "Hangyul-team beoordeelt",
+    "why": "same text as AGENCY_REVIEW"
+  },
+  "student:writing.status.STUDENT_REVISION": {
+    "text": "Wijzigingen gevraagd",
+    "why": "missing Dutch"
+  },
+  "student:writing.status.SUBMITTED": {
+    "text": "Ingediend",
+    "why": "missing Dutch"
+  },
+  "mobile:app.agency": {
+    "text": "Hangyul Agency",
+    "why": "product name stays"
+  },
+  "mobile:app.student": {
+    "text": "Hangyul Univ",
+    "why": "product name stays"
+  },
+  "mobile:app.university": {
+    "text": "Hangyul University",
+    "why": "product name stays"
+  },
+  "mobile:login.networkError": {
+    "text": "Hangyul is op dit moment niet bereikbaar op {{url}}. Controleer de verbinding en probeer het zo opnieuw.",
+    "why": "missing Dutch"
+  },
+  "mobile:messages.empty": {
+    "text": "Nog geen gesprekken",
+    "why": "missing Dutch"
+  },
+  "mobile:messages.emptyBody": {
+    "text": "Berichten met het team verschijnen hier.",
+    "why": "missing Dutch"
+  },
+  "mobile:messages.internalLabel": {
+    "text": "Interne notitie",
+    "why": "missing Dutch"
+  },
+  "mobile:messages.internalOn": {
+    "text": "Interne notitie: alleen het team ziet dit",
+    "why": "missing Dutch"
+  },
+  "mobile:messages.internalPlaceholder": {
+    "text": "Schrijf een interne notitie (alleen voor het team)…",
+    "why": "missing Dutch"
+  },
+  "mobile:messages.noMessages": {
+    "text": "Nog geen berichten",
+    "why": "missing Dutch"
+  },
+  "mobile:messages.placeholder": {
+    "text": "Schrijf een bericht…",
+    "why": "missing Dutch"
+  },
+  "mobile:messages.sendInternal": {
+    "text": "Interne notitie opslaan",
+    "why": "missing Dutch"
+  },
+  "mobile:messages.unreadCount_one": {
+    "text": "{{count}} ongelezen bericht",
+    "why": "missing Dutch"
+  },
+  "mobile:messages.unreadCount_other": {
+    "text": "{{count}} ongelezen berichten",
+    "why": "missing Dutch"
+  },
+  "mobile:notifications.unread": {
+    "text": "Ongelezen",
+    "why": "missing Dutch"
+  },
+  "mobile:settings.elsewhere": {
+    "text": "Elders",
+    "why": "missing Dutch"
+  },
+  "mobile:settings.language": {
+    "text": "Taal",
+    "why": "missing Dutch"
+  },
+  "mobile:settings.languageHint": {
+    "text": "Kies de taal voor deze app. Sommige talen zijn machinevertalingen die nog worden nagekeken.",
+    "why": "missing Dutch"
+  },
+  "mobile:settings.machineDraft": {
+    "text": "machinevertaling",
+    "why": "missing Dutch"
+  },
+  "mobile:settings.notificationsHint": {
+    "text": "Bekijk de ontvangen meldingen",
+    "why": "missing Dutch"
+  },
+  "mobile:settings.rtlNote": {
+    "text": "Tekst van rechts naar links is nu actief; de volledige lay-out wordt gespiegeld bij de volgende start van de app.",
+    "why": "missing Dutch"
+  },
+  "mobile:settings.selected": {
+    "text": "gekozen",
+    "why": "missing Dutch"
+  },
+  "mobile:settings.server": {
+    "text": "Server: {{url}}",
+    "why": "missing Dutch"
+  },
+  "mobile:settings.signOutBody": {
+    "text": "Om opnieuw in te loggen zijn het e-mailadres en wachtwoord nodig.",
+    "why": "missing Dutch"
+  },
+  "mobile:settings.signOutTitle": {
+    "text": "Uitloggen?",
+    "why": "missing Dutch"
+  },
+  "mobile:settings.title": {
+    "text": "Instellingen",
+    "why": "missing Dutch"
+  },
+  "mobile:settings.version": {
+    "text": "Versie {{version}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v29.mfa.codeHint": {
+    "text": "Voer de 6-cijferige code uit de authenticator-app in, of een herstelcode.",
+    "why": "missing Dutch"
+  },
+  "mobile:v29.mfa.codeLabel": {
+    "text": "Verificatiecode",
+    "why": "missing Dutch"
+  },
+  "mobile:v29.mfa.enrollOnWeb": {
+    "text": "Voor dit account is tweestapsverificatie nodig. Stel die eerst in via de webconsole en log daarna hier in.",
+    "why": "missing Dutch"
+  },
+  "mobile:v29.mfa.verify": {
+    "text": "Verifiëren en inloggen",
+    "why": "missing Dutch"
+  },
+  "mobile:v29.mfa.wrongCode": {
+    "text": "Die code is onjuist of verlopen. Voer een nieuwe in.",
+    "why": "missing Dutch"
+  },
+  "mobile:more.active": {
+    "text": "Actief",
+    "why": "missing Dutch"
+  },
+  "mobile:more.allowanceSpent": {
+    "text": "Je hebt alles gebruikt wat dit pakket omvat. Op het pakketscherm zie je welk pakket meer biedt.",
+    "why": "missing Dutch"
+  },
+  "mobile:more.choose": {
+    "text": "Kiezen",
+    "why": "missing Dutch"
+  },
+  "mobile:more.noPlan": {
+    "text": "Nog geen pakket",
+    "why": "missing Dutch"
+  },
+  "mobile:more.noPlanHint": {
+    "text": "Kies een pakket en Hangyul gaat met je aan de slag",
+    "why": "missing Dutch"
+  },
+  "mobile:more.plan": {
+    "text": "Pakket",
+    "why": "missing Dutch"
+  },
+  "mobile:more.support": {
+    "text": "Hulp nodig?",
+    "why": "missing Dutch"
+  },
+  "mobile:more.supportHint": {
+    "text": "Stuur het Hangyul-team een bericht",
+    "why": "missing Dutch"
+  },
+  "mobile:more.webNote": {
+    "text": "Je profiel bewerken en betalen doe je op het web.",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.allowance.consultation_sessions": {
+    "text": "Intakegesprek",
+    "why": "'Diagnosegesprek' sounds medical"
+  },
+  "mobile:plan.allowance.essay_review_rounds": {
+    "text": "Redactie van motivatiebrief en studieplan",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.allowance.follow_up_consultations": {
+    "text": "Vervolggesprekken",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.allowance.max_managed_applications": {
+    "text": "Begeleide aanmeldingen",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.allowance.max_recommended_institutions": {
+    "text": "Universiteitsaanbevelingen",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.allowance.mock_interviews": {
+    "text": "Oefeninterviews",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.browserFailed": {
+    "text": "De browser kon niet worden geopend. Betaal via het web.",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.card": {
+    "text": "Je kunt betalen met een buitenlandse kaart (Visa, Mastercard, JCB).",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.chooseLede": {
+    "text": "Eén betaling, geen abonnement. Je pakket blijft van jou zolang je je voorbereidt.",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.chooseTitle": {
+    "text": "Kies een pakket",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.handoff": {
+    "text": "Betalen gebeurt in je browser; daarna kom je terug in de app.",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.highestAlready": {
+    "text": "Je hebt al het hoogste pakket.",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.included": {
+    "text": "Inbegrepen in je pakket",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.oneTime": {
+    "text": "Eén betaling",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.ongoing": {
+    "text": "Tijdens de hele serviceperiode",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.paid": {
+    "text": "Betaald bedrag",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.pay": {
+    "text": "Betalen",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.plansTitle": {
+    "text": "Pakketten",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.selected": {
+    "text": "Gekozen",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.upgradeTitle": {
+    "text": "Overstappen",
+    "why": "missing Dutch"
+  },
+  "mobile:plan.webNote": {
+    "text": "Pakketgeschiedenis en bonnen staan op het web.",
+    "why": "missing Dutch"
+  },
+  "mobile:v29.plan.arrival": {
+    "text": "Aankomst en eerste weken",
+    "why": "'settelen' colloquial"
+  },
+  "mobile:v29.plan.supportDays": {
+    "text": "{{count}} dagen begeleiding met adviesgesprekken vanaf je eerste adviesgesprek",
+    "why": "cur drops the meaning"
+  },
+  "mobile:v29.plan.supportUntil": {
+    "text": "Adviesgesprekken tot {{date}}",
+    "why": "'Consult' is medical"
+  },
+  "mobile:v29.plan.termToAgree": {
+    "text": "Wordt afgesproken bij de start van de dienst",
+    "why": "clearer"
+  },
+  "mobile:v29.plan.unrationed.CONTRACTED_DOCUMENTS": {
+    "text": "Geen limiet voor de documenten in je contract",
+    "why": "same wording as student app"
+  },
+  "mobile:v29.plan.unrationed.TEAM": {
+    "text": "Opvolging door je team",
+    "why": "same wording as student app"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Twilio Inc. (Verenigde Staten) verstuurt de verificatie-sms en -e-mail; Cloudflare, Inc. (Verenigde Staten) controleert of de registratie niet geautomatiseerd is. Details, ook over hoe je kunt weigeren, staan in het Privacybeleid. Bij weigering kan er geen account worden aangemaakt.",
+    "why": "align with English and web text"
+  },
+  "mobile:signup.consentAll": {
+    "text": "Met alles akkoord",
+    "why": "'accepteren' ≠ agree"
+  },
+  "mobile:signup.degree.TRANSFER": {
+    "text": "Overstappen (transfer)",
+    "why": "'Overstap' collides with plan upgrade"
+  },
+  "mobile:signup.doneText": {
+    "text": "Je e-mailadres en mobiele nummer zijn geverifieerd. Vertel ons twee dingen en we laten opleidingen zien die bij je passen.",
+    "why": "programma's→opleidingen, one term"
+  },
+  "mobile:signup.lang.NONE": {
+    "text": "Nog geen test",
+    "why": "'toets' inconsistent with 'test'"
+  },
+  "mobile:signup.quickGo": {
+    "text": "Mijn matches bekijken",
+    "why": "one term: matches"
+  },
+  "mobile:signup.steps.account": {
+    "text": "Account",
+    "why": "same as web step label"
+  },
+  "mobile:signup.subtitle": {
+    "text": "Vier korte stappen. We verifiëren je e-mailadres en mobiele nummer, zodat je account van jou blijft.",
+    "why": "drop 'echt' not in English"
+  },
+  "mobile:student.applications.active": {
+    "text": "Lopend",
+    "why": "missing Dutch"
+  },
+  "mobile:student.applications.closed": {
+    "text": "Afgesloten",
+    "why": "missing Dutch"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.body": {
+    "text": "Je accepteert je aanbod van {{university}}. Het Hangyul Univ-team begeleidt je bij het betalen van het collegegeld en het ontvangen van je standaard toelatingsbrief.",
+    "why": "missing Dutch"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.cta": {
+    "text": "Aanbod accepteren",
+    "why": "missing Dutch"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.title": {
+    "text": "Dit aanbod accepteren?",
+    "why": "missing Dutch"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.body": {
+    "text": "Je aanmelding bij {{university}} wordt afgesloten. Dit kun je in de app niet ongedaan maken.",
+    "why": "missing Dutch"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.cta": {
+    "text": "Aanmelding intrekken",
+    "why": "missing Dutch"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.title": {
+    "text": "Deze aanmelding intrekken?",
+    "why": "missing Dutch"
+  },
+  "mobile:student.applications.detailTitle": {
+    "text": "Aanmelding",
+    "why": "missing Dutch"
+  },
+  "mobile:student.applications.empty": {
+    "text": "Geen lopende aanmeldingen",
+    "why": "missing Dutch"
+  },
+  "mobile:student.applications.emptyClosed": {
+    "text": "Geen afgesloten aanmeldingen",
+    "why": "missing Dutch"
+  },
+  "mobile:student.applications.submittedOn": {
+    "text": "Ingediend op {{date}}",
+    "why": "missing Dutch"
+  },
+  "mobile:student.applications.subtitle": {
+    "text": "Volg al je aanmeldingen op één plek.",
+    "why": "missing Dutch"
+  },
+  "mobile:student.documents.detailTitle": {
+    "text": "Document",
+    "why": "missing Dutch"
+  },
+  "mobile:student.documents.empty": {
+    "text": "Je kluis is leeg",
+    "why": "missing Dutch"
+  },
+  "mobile:student.documents.emptyBody": {
+    "text": "Upload je paspoort, cijferlijsten en testscores via de web-app.",
+    "why": "missing Dutch"
+  },
+  "mobile:student.documents.file": {
+    "text": "{{name}} · versie {{version}}",
+    "why": "missing Dutch"
+  },
+  "mobile:student.documents.fixFallback": {
+    "text": "Het Hangyul-team heeft om een aanpassing van dit document gevraagd.",
+    "why": "missing Dutch"
+  },
+  "mobile:student.documents.fixTitle": {
+    "text": "Wat moet er anders",
+    "why": "missing Dutch"
+  },
+  "mobile:student.documents.openFile": {
+    "text": "Beveiligde voorvertoning openen",
+    "why": "missing Dutch"
+  },
+  "mobile:student.documents.reviews": {
+    "text": "Controlegeschiedenis",
+    "why": "missing Dutch"
+  },
+  "mobile:student.documents.translationBody": {
+    "text": "Voor dit document is een beëdigde vertaling naar het Koreaans of Engels vereist.",
+    "why": "missing Dutch"
+  },
+  "mobile:student.explore.clear": {
+    "text": "Zoekopdracht wissen",
+    "why": "missing Dutch"
+  },
+  "mobile:student.explore.save": {
+    "text": "{{name}} opslaan",
+    "why": "missing Dutch"
+  },
+  "mobile:student.explore.searchPlaceholder": {
+    "text": "Zoek opleidingen of universiteiten",
+    "why": "missing Dutch"
+  },
+  "mobile:student.explore.unsave": {
+    "text": "{{name}} uit opgeslagen verwijderen",
+    "why": "missing Dutch"
+  },
+  "mobile:student.matches.deadline": {
+    "text": "Deadline {{date}} · {{due}}",
+    "why": "missing Dutch"
+  },
+  "mobile:student.messages.subtitle": {
+    "text": "Praat met het Hangyul Univ-team.",
+    "why": "missing Dutch"
+  },
+  "mobile:student.messages.unreadA11y_one": {
+    "text": "Berichten, {{count}} ongelezen",
+    "why": "missing Dutch"
+  },
+  "mobile:student.messages.unreadA11y_other": {
+    "text": "Berichten, {{count}} ongelezen",
+    "why": "missing Dutch"
+  },
+  "mobile:student.nextAction.ARRIVAL_CHECKLIST": {
+    "text": "Bereid je aankomst in Korea voor",
+    "why": "missing Dutch"
+  },
+  "mobile:student.nextAction.COMPARE_OFFERS": {
+    "text": "Vergelijk je {{count}} toelatingsaanbiedingen",
+    "why": "missing Dutch"
+  },
+  "mobile:student.nextAction.COMPLETE_PROFILE": {
+    "text": "Maak je profiel af om te zien welke universiteiten bij je passen",
+    "why": "missing Dutch"
+  },
+  "mobile:student.nextAction.FINISH_APPLICATION": {
+    "text": "Rond je aanmelding bij {{university}} af. Nog te doen: {{remaining}}",
+    "why": "shorter, same meaning"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.budget": {
+    "text": "Voeg je budget toe om {{count}} opleidingen op kosten te sorteren",
+    "why": "missing Dutch"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.education": {
+    "text": "Voeg je opleiding toe om {{count}} opleidingen te controleren",
+    "why": "missing Dutch"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.gpa": {
+    "text": "Voeg je cijfers toe om {{count}} opleidingen te controleren",
+    "why": "missing Dutch"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.language": {
+    "text": "Voeg je taalscore toe om {{count}} opleidingen te controleren",
+    "why": "missing Dutch"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.other": {
+    "text": "Maak je profiel af om {{count}} opleidingen te controleren",
+    "why": "missing Dutch"
+  },
+  "mobile:student.nextAction.RESPOND_OFFER": {
+    "text": "Reageer op je toelatingsaanbod",
+    "why": "missing Dutch"
+  },
+  "mobile:student.nextAction.REVIEW_MATCHES": {
+    "text": "Bekijk je universiteitsmatches",
+    "why": "missing Dutch"
+  },
+  "mobile:student.profile.completion": {
+    "text": "Profiel compleet",
+    "why": "missing Dutch"
+  },
+  "mobile:student.profile.step.basics": {
+    "text": "Basisgegevens",
+    "why": "missing Dutch"
+  },
+  "mobile:student.profile.step.education": {
+    "text": "Opleiding",
+    "why": "missing Dutch"
+  },
+  "mobile:student.profile.step.goals": {
+    "text": "Studiedoelen",
+    "why": "missing Dutch"
+  },
+  "mobile:student.profile.step.language": {
+    "text": "Taalscores",
+    "why": "missing Dutch"
+  },
+  "mobile:student.profile.step.passport": {
+    "text": "Paspoort",
+    "why": "missing Dutch"
+  },
+  "mobile:student.profile.step.preferences": {
+    "text": "Voorkeuren",
+    "why": "missing Dutch"
+  },
+  "mobile:student.profile.step.sponsor": {
+    "text": "Financiële ondersteuning",
+    "why": "missing Dutch"
+  },
+  "mobile:student.saved.empty": {
+    "text": "Nog niets opgeslagen",
+    "why": "missing Dutch"
+  },
+  "mobile:student.saved.emptyBody": {
+    "text": "Tik op het hartje bij een opleiding om de universiteit hier te bewaren.",
+    "why": "missing Dutch"
+  },
+  "mobile:student.tasks.confirmTitle": {
+    "text": "Deze taak markeren als gedaan?",
+    "why": "missing Dutch"
+  },
+  "mobile:student.tasks.empty": {
+    "text": "Nu niets te doen",
+    "why": "missing Dutch"
+  },
+  "mobile:student.tasks.emptyBody": {
+    "text": "We zetten hier taken neer als er iets je aandacht nodig heeft.",
+    "why": "missing Dutch"
+  },
+  "mobile:student.tasks.overdue": {
+    "text": "Te laat ({{count}})",
+    "why": "missing Dutch"
+  },
+  "mobile:student.tasks.subtitle": {
+    "text": "Taken van het Hangyul-team en je aanmeldchecklists.",
+    "why": "missing Dutch"
+  },
+  "mobile:student.tasks.title": {
+    "text": "Checklist",
+    "why": "missing Dutch"
+  },
+  "mobile:student.tasks.upcoming": {
+    "text": "Te doen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.ADDITIONAL_DOCUMENTS": {
+    "text": "De universiteit heeft om nog een document gevraagd.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Je toelatingsbrief is klaar. Begin met je visumdocumenten.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_PENDING": {
+    "text": "Wachten op je standaard toelatingsbrief.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.DOCUMENT_PREPARATION": {
+    "text": "Je bereidt je documenten voor.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.DRAFT": {
+    "text": "Je bent met deze aanmelding begonnen.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.ENROLLED": {
+    "text": "Je bent ingeschreven. Welkom in Korea.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.INTERVIEW": {
+    "text": "De universiteit wil je interviewen.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.OFFERED": {
+    "text": "Je hebt een aanbod ontvangen.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.OFFER_ACCEPTED": {
+    "text": "Je hebt het aanbod geaccepteerd. Volgende stap: collegegeld.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.PROFILE_REVIEW": {
+    "text": "Het Hangyul Univ-team controleert je profiel.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.REJECTED": {
+    "text": "De universiteit heeft deze keer geen plek aangeboden.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.SUBMITTED": {
+    "text": "Ingediend bij {{university}}.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.TUITION_PAID": {
+    "text": "Collegegeld ontvangen. De universiteit maakt je toelatingsbrief op.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.TUITION_PENDING": {
+    "text": "Betaal het collegegeld vóór de deadline rechtstreeks aan de universiteit.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.UNIVERSITY_REVIEW": {
+    "text": "{{university}} beoordeelt je aanmelding.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.VISA_PREPARATION": {
+    "text": "Je bereidt je visumaanvraag voor.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.VISA_SUBMITTED": {
+    "text": "Visumaanvraag ingediend.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.WAITLISTED": {
+    "text": "Je staat op de wachtlijst.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.appStatus.WITHDRAWN": {
+    "text": "Deze aanmelding is ingetrokken.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.closes": {
+    "text": "Sluit op {{date}} · {{left}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.due": {
+    "text": "Uiterlijk {{date}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.ready": {
+    "text": "Klaar om in te dienen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.readyBody": {
+    "text": "Alles wat vereist is, is aanwezig.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.reviewBody": {
+    "text": "Ingediend op {{date}}. De universiteit kan om nog een document of een interview vragen. Het Hangyul-team volgt de voortgang.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.reviewTitle": {
+    "text": "{{university}} beoordeelt je aanmelding",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.reviewing": {
+    "text": "{{item}} wordt gecontroleerd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.submit": {
+    "text": "Aanmelding indienen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.teamMonitoring": {
+    "text": "In contact met de universiteit",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.teamWaiting": {
+    "text": "Wacht op je documenten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.timeline": {
+    "text": "Tijdlijn",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.uni.decided": {
+    "text": "Besluit genomen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.uni.reviewing": {
+    "text": "Beoordeelt je aanmelding",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.uni.waiting": {
+    "text": "Wacht op je indiening",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.university": {
+    "text": "Universiteit",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.uploadRequested": {
+    "text": "Dit document uploaden",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.who": {
+    "text": "Wie doet wat",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.withdraw": {
+    "text": "Deze aanmelding intrekken",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.application.you": {
+    "text": "Jij",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.common.all": {
+    "text": "Alles bekijken",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.all": {
+    "text": "Alle",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.any": {
+    "text": "Maakt niet uit",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.closes": {
+    "text": "sluit op {{date}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.degree": {
+    "text": "Wat wil je studeren?",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.emptyVerdict": {
+    "text": "Nu niets te zien",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.explain.notyet": {
+    "text": "Aan een gepubliceerde eis is nog niet voldaan. Elke regel zegt precies welke.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.explain.strong": {
+    "text": "Je voldoet aan elke gepubliceerde basiseis, en het past bij je budget en plannen.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.filters": {
+    "text": "Filters",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.filtersN": {
+    "text": "Filters · {{count}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.forYou": {
+    "text": "Voor jou",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.language": {
+    "text": "Voertaal",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.noLanguageMin": {
+    "text": "Geen taaleis",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.openOnly": {
+    "text": "Aanmelding open",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.perYear": {
+    "text": "≈ {{amount}} / jaar",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.saved": {
+    "text": "Opgeslagen · {{count}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.savedEmpty": {
+    "text": "Nog geen opgeslagen universiteiten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.savedEmptyBody": {
+    "text": "Tik op het hartje bij een opleiding om die hier te bewaren voor later.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.showResults_one": {
+    "text": "{{count}} opleiding tonen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.showResults_other": {
+    "text": "{{count}} opleidingen tonen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.summary_one": {
+    "text": "Je voldoet aan de gepubliceerde eisen van {{count}} opleiding.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.summary_other": {
+    "text": "Je voldoet aan de gepubliceerde eisen van {{count}} opleidingen.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.tuition": {
+    "text": "Collegegeld per semester",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.discover.upTo": {
+    "text": "Tot ₩{{amount}} mln",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.match.close": {
+    "text": "Nog niet toelaatbaar — één stap verwijderd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.match.notYet": {
+    "text": "Nog niet toelaatbaar",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.match.possible": {
+    "text": "Mogelijke match",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.match.strong": {
+    "text": "Sterke match",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.docAction.FIX": {
+    "text": "Aanpassing nodig",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.docAction.IN_REVIEW": {
+    "text": "Wordt gecontroleerd door het Hangyul-team",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.docAction.LEGALIZE": {
+    "text": "Apostille of consulaire legalisatie nodig",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.docAction.UPLOAD": {
+    "text": "Nog niet geüpload",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.allSet": {
+    "text": "Je hoeft nu niets te doen.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.checking": {
+    "text": "Wordt gecontroleerd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.howTo": {
+    "text": "Zo regel je de {{path}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.issuedIn": {
+    "text": "Afgegeven in",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.issuedOn": {
+    "text": "Afgegeven op",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.needYou_one": {
+    "text": "{{count}} wacht op jou",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.needYou_other": {
+    "text": "{{count}} wachten op jou",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.neededFor": {
+    "text": "Nodig voor {{university}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.needsYou": {
+    "text": "Wacht op jou",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.newVersion": {
+    "text": "Nieuwe versie uploaden",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.ready": {
+    "text": "Klaar",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.readyOf": {
+    "text": "{{ready}} van {{total}} documenten klaar",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.readyTitle": {
+    "text": "Klaar",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.sourceVerified": {
+    "text": "Officiële bron · gecontroleerd op {{date}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.state.fix": {
+    "text": "Aanpassing nodig",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.state.legalize": {
+    "text": "Apostille nodig",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.state.ready": {
+    "text": "Klaar",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.state.review": {
+    "text": "Wordt gecontroleerd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.submitted": {
+    "text": "Ingediend {{when}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.upload": {
+    "text": "Uploaden",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.validUntil": {
+    "text": "Geldig tot {{date}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.documents.validUntilLabel": {
+    "text": "Geldig tot",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.applications": {
+    "text": "Je aanmeldingen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.closes": {
+    "text": "Sluit op {{date}} · {{left}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.documentsHint": {
+    "text": "Uploaden, aanpassen of een apostille regelen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.documents_one": {
+    "text": "{{count}} document wacht op jou",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.documents_other": {
+    "text": "{{count}} documenten wachten op jou",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.due": {
+    "text": "Uiterlijk {{date}} · {{left}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.findUniversities": {
+    "text": "Universiteiten zoeken",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.greeting.afternoon": {
+    "text": "Goedemiddag, {{name}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.greeting.evening": {
+    "text": "Goedenavond, {{name}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.greeting.morning": {
+    "text": "Goedemorgen, {{name}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.message": {
+    "text": "Bericht",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextBody.APPLICATION_DEADLINE": {
+    "text": "Maak de checklist af, zodat je aanmelding op tijd kan worden ingediend.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextBody.DOCUMENT_UPLOAD": {
+    "text": "Upload een duidelijke scan of foto. Het Hangyul-team controleert het en laat je weten als er iets moet worden aangepast.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextBody.ESSAY_WRITE": {
+    "text": "Begin met een ruwe versie. Het Hangyul-team bespreekt het met je.",
+    "why": "'adviseur' ≠ Hangyul team"
+  },
+  "mobile:v3.home.nextBody.REVIEW_MATCHES": {
+    "text": "We hebben je profiel vergeleken met de gepubliceerde eisen. Sla er een paar op en begin dan een aanmelding.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextBody.TUITION_PAYMENT": {
+    "text": "Collegegeld betaal je rechtstreeks aan de universiteit, op je eigen naam.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextBody.UNIVERSITY_REQUEST": {
+    "text": "De universiteit heeft om nog een document gevraagd voordat ze kan beslissen.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextBody.VISA_STEP": {
+    "text": "Rond het volgende punt op je visumchecklist af.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextBody.WAIT": {
+    "text": "Je hoeft nu niets te doen. We laten het je weten zodra er iets verandert.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextCta.APPLICATION_DEADLINE": {
+    "text": "Aanmelding openen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextCta.APPLICATION_SUBMIT": {
+    "text": "Controleren en indienen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextCta.ARRIVAL_CHECKLIST": {
+    "text": "Aankomstchecklist openen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextCta.COMPARE_OFFERS": {
+    "text": "Aanbiedingen vergelijken",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextCta.COMPLETE_PROFILE": {
+    "text": "Verder met profiel",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextCta.DOCUMENT_UPLOAD": {
+    "text": "Document uploaden",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextCta.ESSAY_WRITE": {
+    "text": "Je concept openen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextCta.INTERVIEW": {
+    "text": "Interview voorbereiden",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextCta.RESPOND_OFFER": {
+    "text": "Je aanbod bekijken",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextCta.REVIEW_MATCHES": {
+    "text": "Mijn universiteiten bekijken",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextCta.TUITION_PAYMENT": {
+    "text": "Betaalgegevens bekijken",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextCta.UNIVERSITY_REQUEST": {
+    "text": "Bekijk wat de universiteit vraagt",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextCta.VISA_STEP": {
+    "text": "Visumstappen openen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextCtaDefault": {
+    "text": "Nu beginnen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.nextEyebrow": {
+    "text": "Wat je nu kunt doen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.noApplications": {
+    "text": "Nog geen aanmeldingen. Begin met universiteiten die bij je passen.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.noCounselor": {
+    "text": "Kies een pakket en het Hangyul Univ-team gaat met je aan de slag in jouw taal.",
+    "why": "'ondersteuningsplan' off-glossary"
+  },
+  "mobile:v3.home.otherTasks_one": {
+    "text": "{{count}} andere taak",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.otherTasks_other": {
+    "text": "{{count}} andere taken",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.stageLine.apply": {
+    "text": "Universiteiten beoordelen je aanmeldingen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.stageLine.arrival": {
+    "text": "Je aankomst in Korea voorbereiden",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.stageLine.discover": {
+    "text": "De juiste universiteiten vinden",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.stageLine.prepare": {
+    "text": "Je aanmeldingen voorbereiden",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.stageLine.visa": {
+    "text": "Je studentenvisum voorbereiden",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.team": {
+    "text": "Hangyul Univ-team",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.unread_one": {
+    "text": "{{count}} ongelezen bericht",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.unread_other": {
+    "text": "{{count}} ongelezen berichten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.home.upcoming": {
+    "text": "Binnenkort",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.journey.admission": {
+    "text": "Toelating",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.journey.apply": {
+    "text": "Aanmelden",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.journey.arrival": {
+    "text": "Aankomst",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.journey.discover": {
+    "text": "Verkennen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.journey.next": {
+    "text": "Volgende: {{stage}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.journey.of": {
+    "text": "· {{n}} van {{total}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.journey.prepare": {
+    "text": "Voorbereiden",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.journey.step": {
+    "text": "Stap {{n}} van {{total}}: {{stage}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.journey.visa": {
+    "text": "Visum",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.messages.attach": {
+    "text": "Bestand toevoegen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.messages.attachUnavailable": {
+    "text": "Bijlagen zijn nog niet beschikbaar.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.messages.attachmentOnly_one": {
+    "text": "{{count}} bijlage verstuurd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.messages.attachmentOnly_other": {
+    "text": "{{count}} bijlagen verstuurd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.messages.conversations": {
+    "text": "Gesprekken",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.messages.openAttachment": {
+    "text": "{{name}} openen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.messages.removeAttachment": {
+    "text": "{{name}} verwijderen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.offer.accept": {
+    "text": "Aanbod accepteren",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.offer.body": {
+    "text": "{{university}} biedt je een plek aan bij {{program}}.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.offer.deadline": {
+    "text": "Accepteren en collegegeld betalen vóór {{date}} · {{left}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.offer.next": {
+    "text": "Wat er nu gebeurt",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.offer.scholarship": {
+    "text": "Beurs",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.offer.step.accept": {
+    "text": "Accepteer het aanbod",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.offer.step.letter": {
+    "text": "Ontvang je standaard toelatingsbrief",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.offer.step.review": {
+    "text": "Bekijk het aanbod en eventuele voorwaarden",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.offer.step.tuition": {
+    "text": "Betaal het collegegeld rechtstreeks aan de universiteit",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.offer.step.visa": {
+    "text": "Bereid je studentenvisum voor",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.offer.tuition": {
+    "text": "Collegegeld",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.offer.tuitionDirect": {
+    "text": "Hangyul int nooit collegegeld. Betaal de universiteit op je eigen naam volgens haar instructies.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.profile.completeTitle": {
+    "text": "Je profiel is compleet",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.profile.done": {
+    "text": "Klaar",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.profile.editOnWeb": {
+    "text": "Je kunt deze antwoorden op elk moment op het web aanpassen.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.profile.places": {
+    "text": "Je gegevens",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.profile.todo": {
+    "text": "Nog toe te voegen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.profile.unlock.basics": {
+    "text": "Zo weten we welke document- en visumregels voor jou gelden",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.profile.unlock.default": {
+    "text": "Maakt je matches nauwkeuriger",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.profile.unlock.education": {
+    "text": "Haalt opleidingen weg waarvan je niet aan de academische eisen voldoet",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.profile.unlock.goals": {
+    "text": "Toont opleidingen op het niveau en startmoment dat je wilt",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.profile.unlock.passport": {
+    "text": "Nodig voordat een aanmelding kan worden ingediend",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.profile.unlock.preferences": {
+    "text": "Rangschikt universiteiten op je budget en stad",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.profile.unlock.sponsor": {
+    "text": "Zo kun je je financiële visumdocumenten vroeg voorbereiden",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.push.denied": {
+    "text": "Meldingen staan uit. Zet ze aan in de instellingen van je telefoon voor Hangyul.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.push.enable": {
+    "text": "Meldingen aanzetten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.push.error": {
+    "text": "We konden meldingen niet aanzetten. Probeer het opnieuw.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.push.idle": {
+    "text": "Krijg een pushmelding als een document is gecontroleerd, een deadline nadert of het Hangyul-team antwoordt.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.push.on": {
+    "text": "Meldingen staan aan. Je kunt dit wijzigen in de instellingen van je telefoon.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.push.pending-server": {
+    "text": "Meldingen zijn toegestaan op deze telefoon. Pushberichten zijn nog niet actief; alles blijft in deze lijst verschijnen.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.push.title": {
+    "text": "Meldingen op deze telefoon",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.quick.again": {
+    "text": "Mijn antwoorden wijzigen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.admissionsSite": {
+    "text": "Website internationale toelating",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.deadline": {
+    "text": "Aanmelden vóór",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.documents": {
+    "text": "Documenten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.documentsCount": {
+    "text": "{{count}} documenten · {{legal}} hebben een apostille of consulaire legalisatie nodig",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.dorm": {
+    "text": "Studentenhuisvesting per semester",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.dormRange": {
+    "text": "{{min}}–{{max}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.estimate": {
+    "text": "Geschat totaal",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.estimateNote": {
+    "text": "Schatting op basis van het gepubliceerde collegegeld en gebruikelijke maandelijkse levenskosten in de stad.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.fee": {
+    "text": "Aanmeldkosten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.gpa": {
+    "text": "Cijfers",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.gpaMin": {
+    "text": "Minimaal {{pct}}% van de maximale GPA",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.intake": {
+    "text": "Startmoment",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.interview": {
+    "text": "Interview",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.interviewYes": {
+    "text": "De universiteit kan je uitnodigen voor een interview",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.language": {
+    "text": "Taal",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.links": {
+    "text": "Officiële informatie",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.living": {
+    "text": "Levenskosten (12 maanden)",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.noIntake": {
+    "text": "Geen open startmoment",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.noVerdict": {
+    "text": "Maak je profiel af om te zien of je aan de eisen van deze opleiding voldoet.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.notPublished": {
+    "text": "Niet gepubliceerd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.program": {
+    "text": "Opleiding",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.requirements": {
+    "text": "Eisen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.start": {
+    "text": "Aanmelding starten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.verdict.COMPETITIVE": {
+    "text": "Je voldoet aan de gepubliceerde minimumeisen. Eén ding vraagt aandacht.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.verdict.NOT_ELIGIBLE": {
+    "text": "Aan een gepubliceerde eis is nog niet voldaan.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.verdict.RECOMMENDED": {
+    "text": "Aanbevolen voor jou.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.verdict.STRONG": {
+    "text": "Je voldoet aan alle gepubliceerde basiseisen, en het past bij je budget.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.website": {
+    "text": "Website van de universiteit",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.university.yearCost": {
+    "text": "Kosten eerste jaar (schatting)",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.upload.camera": {
+    "text": "Foto maken",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.upload.cameraHint": {
+    "text": "Leg het document plat neer bij goed licht",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.upload.failed": {
+    "text": "We konden dat bestand niet openen. Probeer het opnieuw.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.upload.files": {
+    "text": "Kies een bestand",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.upload.filesHint": {
+    "text": "PDF, JPG of PNG, maximaal 15 MB",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.upload.library": {
+    "text": "Kies uit foto's",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.upload.privacy": {
+    "text": "Alleen jij en het Hangyul-team kunnen je documenten openen. Een universiteit ziet ze pas nadat je er een aanmelding hebt ingediend.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.upload.tooLarge": {
+    "text": "Dit bestand is groter dan 15 MB. Probeer een pdf-scan of een kleinere foto.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.visa.after": {
+    "text": "Komt na: {{list}}",
+    "why": "'Beschikbaar na' adds a promise of availability"
+  },
+  "mobile:v3.visa.beforeTitle": {
+    "text": "De visumvoorbereiding begint na je toelatingsaanbod",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.visa.blockers": {
+    "text": "Eerst nodig",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.visa.checklist": {
+    "text": "Je checklist · {{done}} van {{total}} gedaan",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.visa.forNationality": {
+    "text": "Specifiek voor jouw nationaliteit",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.visa.now": {
+    "text": "Wat nu op jou wacht",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.visa.phase.admission": {
+    "text": "Toelating",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.visa.phase.apply": {
+    "text": "Visumaanvraag",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.visa.phase.decision": {
+    "text": "Besluit van de ambassade",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.visa.phase.documents": {
+    "text": "Visumdocumenten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.visa.phase.letter": {
+    "text": "Toelatingsbrief",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.visa.preview": {
+    "text": "Wat je nodig zult hebben",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.visa.seeRequirement": {
+    "text": "Bekijk de officiële eis",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.visa.sourceChecked": {
+    "text": "Officiële bron · gecontroleerd op {{date}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.visa.title": {
+    "text": "Je {{type}}-visum voorbereiden",
+    "why": "cur 'plan' ≠ preparing"
+  },
+  "mobile:v3.visa.titleGeneric": {
+    "text": "Je studentenvisum",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.application.blocks": {
+    "text": "Je aanmelding kan pas worden ingediend als dit is gedaan.",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.application.blocksUni": {
+    "text": "{{university}} wacht hierop voordat ze verdergaat.",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.application.doneSummary_one": {
+    "text": "{{count}} gedaan: {{items}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.application.doneSummary_other": {
+    "text": "{{count}} gedaan: {{items}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.application.next": {
+    "text": "Je volgende stap",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.application.nextFix": {
+    "text": "Pas je {{item}} aan",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.application.nextLegalize": {
+    "text": "Regel een apostille of consulaire legalisatie voor je {{item}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.application.nextRequest": {
+    "text": "{{university}} heeft gevraagd om: {{item}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.application.nextUpload": {
+    "text": "Upload je {{item}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.application.nextWrite": {
+    "text": "Schrijf je {{item}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.application.nothingForYou": {
+    "text": "Je hoeft nu niets te doen",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.application.openDocument": {
+    "text": "Document openen",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.application.reviewLate": {
+    "text": "Dit duurt langer dan normaal. Het Hangyul-team weet dat het te laat is. Je hoeft het niet opnieuw te uploaden.",
+    "why": "'adviseur' ≠ Hangyul team"
+  },
+  "mobile:v4.application.waitBody": {
+    "text": "Het Hangyul-team controleert wat je hebt gestuurd. We laten het je weten als er iets moet worden aangepast.",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.application.waitTitle": {
+    "text": "Je hoeft nu niets te doen",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.application.writeOnWeb": {
+    "text": "Schrijf het op het web. Daar verschijnen ook de opmerkingen van het Hangyul-team.",
+    "why": "'adviseur' ≠ Hangyul team"
+  },
+  "mobile:v4.discover.firstYear": {
+    "text": "{{range}} eerste jaar",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.documents.late": {
+    "text": "Duurt langer",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.documents.lateLine": {
+    "text": "bij het Hangyul-team gemarkeerd als te laat",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.FIX.cta": {
+    "text": "Bekijk wat er anders moet",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.FIX.text": {
+    "text": "Je aanmelding kan pas worden ingediend als dit is aangepast.",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.FIX.title": {
+    "text": "Pas je {{label}} voor {{university}} aan",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.LEGALIZE.cta": {
+    "text": "Bekijk de stappen",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.LEGALIZE.text": {
+    "text": "Koreaanse universiteiten accepteren dit document pas als het is gelegaliseerd. We laten je de stappen voor jouw land zien.",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.LEGALIZE.title": {
+    "text": "Regel een apostille voor je {{label}} voor {{university}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.RENEW.cta": {
+    "text": "Bekijk wat je moet doen",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.RENEW.text": {
+    "text": "Het exemplaar dat je hebt geüpload is verlopen.",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.RENEW.title": {
+    "text": "Regel een nieuw(e) {{label}} voor {{university}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.REQUEST.cta": {
+    "text": "Uploaden en versturen",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.REQUEST.text": {
+    "text": "De universiteit heeft om dit document gevraagd. Je aanmelding kan pas verder als het binnen is.",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.REQUEST.title": {
+    "text": "Stuur je {{label}} naar {{university}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.cta": {
+    "text": "Je concept openen",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.text": {
+    "text": "Het Hangyul-team heeft opmerkingen achtergelaten. Je aanmelding kan pas worden ingediend als de tekst is goedgekeurd.",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.title": {
+    "text": "Herzie je {{label}} voor {{university}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.TOO_OLD.cta": {
+    "text": "Bekijk wat je moet doen",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.TOO_OLD.text": {
+    "text": "De universiteit heeft een recent afgegeven exemplaar nodig.",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.TOO_OLD.title": {
+    "text": "Regel een recenter exemplaar van je {{label}} voor {{university}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.UPLOAD.cta": {
+    "text": "Uploaden",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.UPLOAD.text": {
+    "text": "Zonder dit kan je aanmelding niet worden ingediend.",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.UPLOAD.title": {
+    "text": "Upload je {{label}} voor {{university}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.cta": {
+    "text": "Beginnen met schrijven",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.text": {
+    "text": "Het Hangyul-team bespreekt het met je. Begin met een ruwe versie. Die hoeft niet perfect te zijn.",
+    "why": "'adviseur' ≠ Hangyul team"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.title": {
+    "text": "Schrijf je {{label}} voor {{university}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.university.continue": {
+    "text": "Verder met je aanmelding",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.university.firstYear": {
+    "text": "Eerste jaar, schatting",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.university.tuitionYear": {
+    "text": "Collegegeld per jaar",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.visa.hideDone": {
+    "text": "Afgeronde stappen verbergen",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.visa.showDone_one": {
+    "text": "{{count}} afgeronde stap tonen",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.visa.showDone_other": {
+    "text": "{{count}} afgeronde stappen tonen",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.deadlines.empty": {
+    "text": "Geen deadlines in de komende 30 dagen",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.deadlines.subtitle": {
+    "text": "Deadlines van uw studenten in de komende 30 dagen.",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.deadlines.title": {
+    "text": "Herinneringen",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.login.tagline": {
+    "text": "Uw dossiers, controles en berichten op uw telefoon.",
+    "why": "staff-facing: formal u"
+  },
+  "mobile:agency.messages.subtitle": {
+    "text": "Gesprekken met studenten en interne notities.",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.messages.title": {
+    "text": "Berichten",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.reviews.detailTitle": {
+    "text": "Controle",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.reviews.empty": {
+    "text": "De controlewachtrij is leeg",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.reviews.emptyBody": {
+    "text": "Nieuwe uploads van uw studenten verschijnen hier.",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.reviews.history": {
+    "text": "Controlegeschiedenis",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.reviews.lastReason": {
+    "text": "Vorig correctieverzoek",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.reviews.noFile": {
+    "text": "Voor dit document is nog geen bestand geüpload.",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.reviews.sendToStudent": {
+    "text": "Naar student sturen",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.reviews.tabA11y_one": {
+    "text": "Controles, {{count}} wachtend",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.reviews.tabA11y_other": {
+    "text": "Controles, {{count}} wachtend",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.reviews.title": {
+    "text": "Documentcontroles",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.reviews.verify": {
+    "text": "Document verifiëren",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.reviews.waitingDays_one": {
+    "text": "Wacht {{count}} dag",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.reviews.waitingDays_other": {
+    "text": "Wacht {{count}} dagen",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.reviews.waitingHours_one": {
+    "text": "Wacht {{count}} uur",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.reviews.waitingHours_other": {
+    "text": "Wacht {{count}} uur",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.students.detailTitle": {
+    "text": "Student",
+    "why": "missing Dutch"
+  },
+  "mobile:agency.tasks.unassigned": {
+    "text": "Niet toegewezen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.allClear": {
+    "text": "Alles in orde: {{list}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.applications_one": {
+    "text": "{{count}} aanmelding",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.applications_other": {
+    "text": "{{count}} aanmeldingen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.assigned": {
+    "text": "Toegewezen aan {{counselor}} · sinds {{since}}",
+    "why": "'Behandeld door' ≠ assigned"
+  },
+  "mobile:v3.agency.att.breached_one": {
+    "text": "{{count}} al over de toegezegde reactietijd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.att.breached_other": {
+    "text": "{{count}} al over de toegezegde reactietijd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.att.closing_one": {
+    "text": "Aanmelding sluit binnen 7 dagen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.att.closing_other": {
+    "text": "Aanmeldingen sluiten binnen 7 dagen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.att.docs_one": {
+    "text": "Document wacht op controle",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.att.docs_other": {
+    "text": "Documenten wachten op controle",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.att.next": {
+    "text": "Volgende: {{uni}} voor {{who}}, {{date}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.att.overSla": {
+    "text": "{{count}} wachten langer dan {{hours}} u",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.att.overdue_one": {
+    "text": "Taak te laat",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.att.overdue_other": {
+    "text": "Taken te laat",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.att.replies_one": {
+    "text": "Student wacht op uw antwoord",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.att.replies_other": {
+    "text": "Studenten wachten op uw antwoord",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.att.since": {
+    "text": "Oudste van {{who}}, {{when}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.att.sla_one": {
+    "text": "Student met risico op een te late eerste reactie",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.att.sla_other": {
+    "text": "Studenten met risico op een te late eerste reactie",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.block.deadline": {
+    "text": "Aanmelding bij {{uni}} sluit binnenkort",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.block.fix": {
+    "text": "{{doc}} moet door de student worden aangepast",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.block.requested": {
+    "text": "{{uni}} heeft om meer documenten gevraagd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.block.review": {
+    "text": "{{doc}} wacht op uw controle",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.block.sla": {
+    "text": "Eerste reactie verschuldigd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.blockers_one": {
+    "text": "{{count}} punt houdt deze student tegen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.blockers_other": {
+    "text": "{{count}} punten houden deze student tegen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.clear.closing": {
+    "text": "deadlines deze week",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.clear.docs": {
+    "text": "documentcontroles",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.clear.overdue": {
+    "text": "taken te laat",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.clear.replies": {
+    "text": "antwoorden aan studenten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.clear.sla": {
+    "text": "eerste reacties",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.conversationSubject": {
+    "text": "Je team voor studeren in Korea",
+    "why": "student-visible subject: je"
+  },
+  "mobile:v3.agency.deadline": {
+    "text": "{{uni}} {{when}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.documents": {
+    "text": "Documenten · {{verified}} van {{total}} geverifieerd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.dueToday_one": {
+    "text": "Vandaag · {{count}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.dueToday_other": {
+    "text": "Vandaag · {{count}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.findStudent": {
+    "text": "Student zoeken",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.firstMessage": {
+    "text": "{{name}} een bericht sturen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.greeting.afternoon": {
+    "text": "Goedemiddag, {{name}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.greeting.evening": {
+    "text": "Goedenavond, {{name}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.greeting.morning": {
+    "text": "Goedemorgen, {{name}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.message": {
+    "text": "Bericht",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.messageLabel": {
+    "text": "Bericht",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.needsAttention": {
+    "text": "Aandacht nodig",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.nextAction": {
+    "text": "Volgende: {{what}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.noBlockers": {
+    "text": "Niets houdt deze student tegen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.noBlockersBody": {
+    "text": "Documenten, deadlines en reacties liggen allemaal op schema.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.noStudents": {
+    "text": "Geen studenten in deze weergave",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.noStudentsBody": {
+    "text": "Probeer een andere weergave of wis de zoekopdracht.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.searchPlaceholder": {
+    "text": "Naam of e-mailadres",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.stage": {
+    "text": "Fase",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.stageNote": {
+    "text": "Notitie voor het team (optioneel)",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.stageTo": {
+    "text": "Naar {{stage}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.teamView": {
+    "text": "Team · {{name}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.toFix_one": {
+    "text": "{{count}} document aan te passen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.toFix_other": {
+    "text": "{{count}} documenten aan te passen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.today": {
+    "text": "Vandaag",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.upload": {
+    "text": "Uploaden",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.uploadFor": {
+    "text": "{{doc}} voor {{name}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.uploadWhat": {
+    "text": "Welk document uploadt u?",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.uploaded": {
+    "text": "Geüpload naar de kluis van de student. Klaar voor controle.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.view.all": {
+    "text": "Alle",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.view.attention": {
+    "text": "Aandacht nodig",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.view.deadline": {
+    "text": "Deadline nadert",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.view.docs": {
+    "text": "Documenten aan te passen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.view.mine": {
+    "text": "Mijn studenten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.view.sla": {
+    "text": "Studenten over of bijna over de toegezegde eerste reactietijd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.view.university": {
+    "text": "Wacht op universiteit",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.view.visa": {
+    "text": "Visum",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.view.waiting_student": {
+    "text": "Wacht op student",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.view.waiting_us": {
+    "text": "Wacht op ons",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.waitingOn.agency": {
+    "text": "Wacht op het bureauteam",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.waitingOn.counselor": {
+    "text": "Wacht op de begeleider",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.waitingOn.external": {
+    "text": "Wacht op een externe instantie",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.waitingOn.hangyul": {
+    "text": "Wacht op Hangyul",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.waitingOn.none": {
+    "text": "Wacht nergens op",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.waitingOn.student": {
+    "text": "Wacht op student",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.waitingOn.university": {
+    "text": "Wacht op universiteit",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.agency.waitingOn.us": {
+    "text": "Wacht op ons",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.deadlines.bucket.later_other": {
+    "text": "Later deze maand · {{count}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.deadlines.bucket.overdue_other": {
+    "text": "Te laat · {{count}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.deadlines.bucket.week_other": {
+    "text": "Komende 7 dagen · {{count}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.deadlines.emptyView": {
+    "text": "Niets verschuldigd in deze weergave",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.deadlines.student": {
+    "text": "Student",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.deadlines.who.all": {
+    "text": "Alle",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.deadlines.who.mine": {
+    "text": "Van mij",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.deadlines.who.unassigned": {
+    "text": "Niet toegewezen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.deadlines.you": {
+    "text": "U",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.beforeVerify": {
+    "text": "Voordat u verifieert",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.bulkBody": {
+    "text": "Doe dit alleen voor documenten die u hebt geopend en gecontroleerd. Elke student krijgt een melding.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.bulkDone": {
+    "text": "{{ok}} geverifieerd, {{failed}} overgeslagen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.bulkTitle_one": {
+    "text": "{{count}} document verifiëren?",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.bulkTitle_other": {
+    "text": "{{count}} documenten verifiëren?",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.check.date": {
+    "text": "Afgiftedatum is recent genoeg en niet verlopen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.check.issuer": {
+    "text": "Afgever, stempel of handtekening is zichtbaar",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.check.legal": {
+    "text": "De {{path}} is bijgevoegd en hoort bij het document",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.check.legible": {
+    "text": "Elke pagina is volledig en leesbaar",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.check.name": {
+    "text": "Naam en geboortedatum komen overeen met het paspoort",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.correctionTitle": {
+    "text": "Wat moet de student aanpassen?",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.expires": {
+    "text": "Geldig tot",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.issuedIn": {
+    "text": "Afgegeven in",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.issuedOn": {
+    "text": "Afgegeven op",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.legalization": {
+    "text": "Legalisatie",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.notNeeded": {
+    "text": "Niet nodig",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.open": {
+    "text": "{{name}} openen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.overSla": {
+    "text": "{{waiting}} · over de toegezegde controletijd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.reason": {
+    "text": "Bericht aan de student",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.requestCorrection": {
+    "text": "Correctie vragen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.required": {
+    "text": "Verplicht",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.select": {
+    "text": "Selecteren",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.studentSees": {
+    "text": "{{name}} ziet precies deze tekst naast het document.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.studentSeesGeneric": {
+    "text": "De student ziet precies deze tekst naast het document.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.summary": {
+    "text": "{{count}} wachtend · {{over}} over de toegezegde controletijd van {{hours}} uur",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.templates": {
+    "text": "Teamsjablonen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.translation": {
+    "text": "Vertaling",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.uploaded": {
+    "text": "geüpload {{when}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.verifyN_one": {
+    "text": "{{count}} document verifiëren",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.reviews.verifyN_other": {
+    "text": "{{count}} documenten verifiëren",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.settings.consoleHint": {
+    "text": "Teamleden, facturering en exports beheert u in de webconsole van het bureau.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.settings.work": {
+    "text": "Uw werk",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.tasks.empty.team": {
+    "text": "Het team heeft geen open taken",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.tasks.empty.today": {
+    "text": "Niets verschuldigd vandaag",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.tasks.empty.waiting": {
+    "text": "Geen taken wachten op iets anders",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.tasks.empty.week": {
+    "text": "Niets verschuldigd deze week",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.tasks.open": {
+    "text": "Open",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.tasks.overdue": {
+    "text": "Te laat · {{when}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.tasks.view.overdue": {
+    "text": "Te laat",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.tasks.view.team": {
+    "text": "Team",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.tasks.view.today": {
+    "text": "Vandaag",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.tasks.view.waiting": {
+    "text": "Wachtend",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.tasks.view.week": {
+    "text": "Deze week",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.tasks.waitingOn": {
+    "text": "Wacht op: {{what}}",
+    "why": "missing Dutch"
+  },
+  "mobile:university.applicants.anonymous": {
+    "text": "Kandidaat",
+    "why": "missing Dutch"
+  },
+  "mobile:university.applicants.confirmBody": {
+    "text": "{{name}} en de begeleider krijgen een melding. Voeg een notitie toe voor het dossier (optioneel).",
+    "why": "missing Dutch"
+  },
+  "mobile:university.applicants.confirmTitle": {
+    "text": "Status wijzigen naar “{{status}}”?",
+    "why": "missing Dutch"
+  },
+  "mobile:university.applicants.detailTitle": {
+    "text": "Kandidaat",
+    "why": "missing Dutch"
+  },
+  "mobile:university.applicants.history": {
+    "text": "Statusgeschiedenis",
+    "why": "missing Dutch"
+  },
+  "mobile:university.applicants.interview": {
+    "text": "Interview",
+    "why": "missing Dutch"
+  },
+  "mobile:university.applicants.moveTo": {
+    "text": "Naar: {{status}}",
+    "why": "missing Dutch"
+  },
+  "mobile:university.applicants.notShared": {
+    "text": "Nog niet gedeeld met uw universiteit",
+    "why": "missing Dutch"
+  },
+  "mobile:university.applicants.note": {
+    "text": "Notitie",
+    "why": "missing Dutch"
+  },
+  "mobile:university.applicants.previewHint": {
+    "text": "Opent een beveiligde, tijdelijke voorvertoning",
+    "why": "missing Dutch"
+  },
+  "mobile:university.applicants.reference": {
+    "text": "Uw referentienummer",
+    "why": "missing Dutch"
+  },
+  "mobile:university.applicants.submitted": {
+    "text": "Ingediend op {{date}}",
+    "why": "missing Dutch"
+  },
+  "mobile:university.applicants.submittedLabel": {
+    "text": "Ingediend",
+    "why": "missing Dutch"
+  },
+  "mobile:university.applicants.viaAgency": {
+    "text": "Via {{agency}}",
+    "why": "missing Dutch"
+  },
+  "mobile:university.flagged.add": {
+    "text": "Markeren voor opvolging",
+    "why": "missing Dutch"
+  },
+  "mobile:university.flagged.addBody": {
+    "text": "Alleen uw universiteitsteam ziet deze markering en de reden.",
+    "why": "missing Dutch"
+  },
+  "mobile:university.flagged.flagged": {
+    "text": "Gemarkeerd",
+    "why": "missing Dutch"
+  },
+  "mobile:university.flagged.reason": {
+    "text": "Reden",
+    "why": "missing Dutch"
+  },
+  "mobile:university.flagged.remove": {
+    "text": "Markering verwijderen",
+    "why": "missing Dutch"
+  },
+  "mobile:university.flagged.removeTitle": {
+    "text": "De markering van deze aanmelding verwijderen?",
+    "why": "missing Dutch"
+  },
+  "mobile:university.inbox.title": {
+    "text": "Berichten",
+    "why": "missing Dutch"
+  },
+  "mobile:university.login.tagline": {
+    "text": "Kandidaten, besluiten en lichtingen voor uw international office.",
+    "why": "missing Dutch"
+  },
+  "mobile:v26.uni.head.label": {
+    "text": "Wat nu uw aandacht vraagt",
+    "why": "staff-facing: formal u"
+  },
+  "mobile:v3.uni.allClear": {
+    "text": "Er is nu geen besluit nodig.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.allCohorts": {
+    "text": "Alle Hangyul-studenten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.allIntakes": {
+    "text": "Alle startmomenten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.applicant": {
+    "text": "Kandidaat",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.check.gpa": {
+    "text": "GPA",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.check.interview": {
+    "text": "Interview",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.check.interviewRequired": {
+    "text": "Vereist voor deze opleiding",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.check.level": {
+    "text": "Niveau {{level}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.check.minimum": {
+    "text": "Minimum {{need}} · Kandidaat {{have}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.check.notProvided": {
+    "text": "niet opgegeven",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.check.state.below": {
+    "text": "Onder het minimum",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.check.state.meets": {
+    "text": "Voldoet",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.check.state.missing": {
+    "text": "Niet opgegeven",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.check.state.planned": {
+    "text": "Test gepland",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.check.state.unscheduled": {
+    "text": "Niet ingepland",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.check.topik": {
+    "text": "TOPIK",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.checksNote": {
+    "text": "Vergelijkt zelf opgegeven scores met de gepubliceerde minimumeisen van de opleiding. Het ondersteunt uw beoordeling; het beslist niet.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.checksTitle": {
+    "text": "Controle van de eisen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.closed": {
+    "text": "Afgesloten: {{rejected}} niet toegelaten, {{withdrawn}} ingetrokken. Percentages vragen minimaal {{min}} personen.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.cohortIntro_one": {
+    "text": "{{count}} student kwam via Hangyul bij u. Zo gaat het met deze student.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.cohortIntro_other": {
+    "text": "{{count}} studenten kwamen via Hangyul bij u. Zo gaat het met hen.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.cohortNote": {
+    "text": "Percentages verschijnen zodra minimaal {{min}} studenten meetellen. Stand per {{date}}.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.cohort_one": {
+    "text": "{{label}} · {{count}} student",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.cohort_other": {
+    "text": "{{label}} · {{count}} studenten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.conv": {
+    "text": "{{pct}} van de vorige stap · {{n}} van {{d}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.convFew": {
+    "text": "{{n}} van {{d}} uit de vorige stap · te weinig voor een percentage",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decision.admitted_one": {
+    "text": "toegelaten student die nog collegegeld moet betalen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decision.admitted_other": {
+    "text": "toegelaten studenten die nog collegegeld moeten betalen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decision.documents_one": {
+    "text": "wacht op de documenten van de student",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decision.documents_other": {
+    "text": "wachten op documenten van studenten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decision.flagged_one": {
+    "text": "gemarkeerde aanmelding",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decision.flagged_other": {
+    "text": "gemarkeerde aanmeldingen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decision.interview_one": {
+    "text": "interview af te nemen of te beoordelen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decision.interview_other": {
+    "text": "interviews af te nemen of te beoordelen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decision.offer_one": {
+    "text": "aanbod in afwachting van antwoord van de student",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decision.offer_other": {
+    "text": "aanbiedingen in afwachting van antwoord van de student",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decision.returned_one": {
+    "text": "document teruggestuurd door de student",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decision.returned_other": {
+    "text": "documenten teruggestuurd door studenten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decision.review_one": {
+    "text": "aanmelding te beoordelen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decision.review_other": {
+    "text": "aanmeldingen te beoordelen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decisionContext_one": {
+    "text": "{{ready}} van {{total}} vereiste documenten klaar · {{count}} verzoek open.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decisionContext_other": {
+    "text": "{{ready}} van {{total}} vereiste documenten klaar · {{count}} verzoeken open.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decisionDocs": {
+    "text": "{{ready}} van {{total}} vereiste documenten klaar.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decisionHint.admitted": {
+    "text": "Bevestig de betaling zodra die binnen is",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decisionHint.documents": {
+    "text": "Geen actie totdat de student uploadt",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decisionHint.flagged": {
+    "text": "Gemarkeerd om nader te bekijken",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decisionHint.interview": {
+    "text": "Leg de uitkomst vast na het interview",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decisionHint.offer": {
+    "text": "Hangyul volgt dit op met de student",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decisionHint.returned": {
+    "text": "Controleer opnieuw wat u hebt gevraagd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.decisionHint.review": {
+    "text": "Ingediend en volledig genoeg om te beslissen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.docsTitle": {
+    "text": "Documenten · {{ready}} van {{total}} klaar",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.dueOn": {
+    "text": "uiterlijk {{date}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.empty.all": {
+    "text": "Geen kandidaten hier",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.empty.flagged": {
+    "text": "Geen gemarkeerde aanmeldingen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.empty.review": {
+    "text": "Geen aanmeldingen wachten op beoordeling",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.graduation": {
+    "text": "Afgestudeerd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.latest": {
+    "text": "Laatst binnengekomen ter beoordeling",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.move.ADDITIONAL_DOCUMENTS": {
+    "text": "Meer documenten vragen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.move.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Toelatingsbrief afgeven",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.move.INTERVIEW": {
+    "text": "Uitnodigen voor interview",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.move.OFFERED": {
+    "text": "Aanbod doen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.move.REJECTED": {
+    "text": "Niet toelaten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.move.TUITION_PAID": {
+    "text": "Collegegeld betaald bevestigen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.move.TUITION_PENDING": {
+    "text": "Collegegeldfactuur sturen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.move.UNIVERSITY_REVIEW": {
+    "text": "Beoordeling starten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.move.WAITLISTED": {
+    "text": "Op wachtlijst",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.nOfD": {
+    "text": "{{n}} van {{d}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.needsTitle": {
+    "text": "Wacht op uw besluit",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.noMinimums": {
+    "text": "Deze opleiding heeft nog geen gepubliceerde minimumeisen.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.nothingToReview": {
+    "text": "Niets wacht op beoordeling",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.openRequests_one": {
+    "text": "{{count}} document gevraagd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.openRequests_other": {
+    "text": "{{count}} documenten gevraagd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.otherDecisions": {
+    "text": "Overige besluiten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.populationAll_one": {
+    "text": "Op basis van {{count}} ingediende aanmelding, alle startmomenten.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.populationAll_other": {
+    "text": "Op basis van {{count}} ingediende aanmeldingen, alle startmomenten.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.populationIntake_one": {
+    "text": "Op basis van {{count}} ingediende aanmelding voor {{intake}}.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.populationIntake_other": {
+    "text": "Op basis van {{count}} ingediende aanmeldingen voor {{intake}}.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.reason": {
+    "text": "Reden (gedeeld met Hangyul)",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.request": {
+    "text": "Verzoek",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.requestLabel": {
+    "text": "Wat hebt u nodig?",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.requestLabelHint": {
+    "text": "bijv. Middelbareschooldiploma met apostille",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.requestNote": {
+    "text": "Instructies voor de student",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.requestNoteHint": {
+    "text": "Wat er precies ontbreekt en hoe het op te lossen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.requestSend": {
+    "text": "Verzoek versturen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.requestTitle": {
+    "text": "Een document vragen aan {{name}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.requestWho": {
+    "text": "De student en de Hangyul-begeleider krijgen een melding en zien precies deze tekst.",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.requestedOn": {
+    "text": "Gevraagd op {{date}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.retention": {
+    "text": "Studeert nog",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.search": {
+    "text": "Zoek op naam, opleiding of referentie",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.step.ACCEPTED": {
+    "text": "Aanbod geaccepteerd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.step.ARRIVED": {
+    "text": "Aangekomen in Korea",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.step.ENROLLED": {
+    "text": "Ingeschreven",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.step.OFFERED": {
+    "text": "Aanbod gedaan",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.step.REVIEWED": {
+    "text": "Beoordeeld",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.step.SUBMITTED": {
+    "text": "Ingediend",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.step.TUITION_PAID": {
+    "text": "Collegegeld betaald",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.step.VISA_ISSUED": {
+    "text": "Visum afgegeven",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.tab.applicants": {
+    "text": "Kandidaten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.tab.pipeline": {
+    "text": "Overzicht",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.tab.students": {
+    "text": "Studenten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.tooFew": {
+    "text": "Te weinig voor een percentage",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.view.admitted": {
+    "text": "Toegelaten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.view.all": {
+    "text": "Alle",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.view.documents": {
+    "text": "Ontbrekende documenten",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.view.enrolment": {
+    "text": "Visum en inschrijving",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.view.flagged": {
+    "text": "Gemarkeerd",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.view.interview": {
+    "text": "Interview",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.view.offer": {
+    "text": "Aanbod",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.view.review": {
+    "text": "Te beoordelen",
+    "why": "missing Dutch"
+  },
+  "mobile:v3.uni.waitingStudent": {
+    "text": "Wacht op student",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.uni.actor.AGENCY": {
+    "text": "Partnerbureau",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.uni.actor.HANGYUL": {
+    "text": "Hangyul",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.uni.actor.STUDENT": {
+    "text": "Kandidaat",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.uni.actor.SYSTEM": {
+    "text": "Automatisch",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.uni.actor.UNIVERSITY": {
+    "text": "Uw universiteit",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.uni.toReview_one": {
+    "text": "Te beoordelen · {{count}}",
+    "why": "missing Dutch"
+  },
+  "mobile:v4.uni.toReview_other": {
+    "text": "Te beoordelen · {{count}}",
+    "why": "missing Dutch"
+  }
+}

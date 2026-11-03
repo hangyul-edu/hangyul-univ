@@ -1,0 +1,2025 @@
+{
+  "_notes": [
+    "402 keys had no Indonesian (cur = null); all are translated here. Product names mobile:app.agency / mobile:app.university stay 'Hangyul Agency' / 'Hangyul University' (English product names, as the Student app keeps 'Hangyul Univ').",
+    "Register: v17 gate/pay strings and v18.offline used 'kamu'; the whole file is 'Anda', so they were aligned. 'HP' was aligned to 'ponsel' (already the dominant term).",
+    "'Konselor Anda' appeared in ~15 student-facing strings where the English says 'the Hangyul team'; aligned to 'tim Hangyul' / 'tim Hangyul Univ'. 'Konselor' is kept only in staff-facing agency/university strings where the English says counselor.",
+    "Personal statement: the id locale already uses 'pernyataan pribadi' in most places (two stray 'personal statement' / 'esai pribadi' in other namespaces, outside this job); kept 'pernyataan pribadi' and used it for the previously untranslated plan allowance rows. Owner may prefer the English loanword 'personal statement', which Indonesian applicants commonly use (LPDP etc.).",
+    "Plan = 'paket' (existing convention; 'paket layanan' when it stands alone). 'Pilihan bantuan' / 'paket dukungan' were aligned to it. Upgrade = 'upgrade' (loanword already used in v29 copy), so v17.upgrade.cta moved from 'Pindah ke' to 'Upgrade ke'.",
+    "Visa: 'persiapan visa' (student:v15 scope, v17 gate) reads as 'we prepare your visa'; rendered 'persiapan dokumen visa' per the glossary. 'Mengurus visa' in the visa stage line became 'Menyiapkan visa'.",
+    "Official names: 'surat penerimaan standar' wherever the English says standard admission letter (v22 appTeam.letter, OFFER_ACCEPTED body); 'legalisasi konsuler' where the English says consular legalization (docAction.LEGALIZE, university.documentsCount, v4 nextLegalize); 'notarisasi' instead of 'legalisasi notaris' in the exclusions line; 'transkrip nilai' for transcript.",
+    "'Terverifikasi'/'memverifikasi' in student copy (documents.legal.intro, v3.documents.legalize) became 'memeriksa'/'sudah diperiksa': the glossary reserves verification for official verification; agency 'Verifikasi dokumen' (the staff action) is kept, matching the agency console.",
+    "First-response / review 'promise' (agency): rendered 'janji respons pertama' / 'janji tinjauan' to follow the English reference; the id agency web console says 'SLA respons pertama'. Owner's call whether the mobile agency app should say SLA like the console.",
+    "Consent (student:register.consent.* and mobile:signup.consent.*): the current Indonesian carried extra legal detail ('item yang ditransfer, waktu, masa penyimpanan', 'verifikasi identitas', 'hash kata sandi') that the reviewed English does not; both apps now carry the same wording as the English. Because these are consent texts, the owner should confirm the shortened wording with whoever owns the Korean privacy notice.",
+    "mobile:login.networkError dropped the Android-emulator / LAN-IP developer instructions that the English no longer has.",
+    "mobile:v3.uni.view.enrolment 'Visa & enrollment' is rendered 'Visa & daftar ulang' (enrollment at an Indonesian/Korean university = daftar ulang); the id university console uses 'Terdaftar' for the Enrolled state, which is kept for step.ENROLLED.",
+    "Plural _one forms in Indonesian carry {{count}} and are identical to _other (no plural marking); agency/uni count-less _one/_other pairs (e.g. att.closing, decision.*) read correctly without a number."
+  ],
+  "student:dashboard.counselor.noneCta": {
+    "text": "Lihat paket layanan",
+    "why": "plan = paket; 'bantuan' vague"
+  },
+  "student:documents.legal.intro": {
+    "text": "Tandai setiap langkah sebagai selesai saat Anda menyelesaikannya. Kami akan memeriksa dokumen akhirnya.",
+    "why": "verification reserved for official checks"
+  },
+  "student:essays.comments_one": {
+    "text": "{{count}} komentar",
+    "why": "missing translation"
+  },
+  "student:home.docAction.IN_REVIEW": {
+    "text": "Sedang diperiksa",
+    "why": "missing translation"
+  },
+  "student:home.docAction.LEGALIZE": {
+    "text": "Perlu apostille",
+    "why": "missing translation"
+  },
+  "student:home.docAction.OPEN": {
+    "text": "Buka",
+    "why": "missing translation"
+  },
+  "student:home.otherTasks_one": {
+    "text": "{{count}} tugas lain",
+    "why": "missing translation"
+  },
+  "student:home.recommendedSub": {
+    "text": "Program yang persyaratan resminya sudah Anda penuhi.",
+    "why": "'persyaratan publikasi' misreads published requirements"
+  },
+  "student:home.team": {
+    "text": "Tim Hangyul Univ",
+    "why": "brand name, matches messages.team"
+  },
+  "student:housing.noDorms": {
+    "text": "Universitas ini belum mempublikasikan informasi asrama.",
+    "why": "missing translation"
+  },
+  "student:housing.noUni": {
+    "text": "Tempat tinggal terbuka setelah pendaftaran pertama Anda",
+    "why": "missing translation"
+  },
+  "student:housing.noUniCta": {
+    "text": "Ke pendaftaran",
+    "why": "missing translation"
+  },
+  "student:housing.noUniText": {
+    "text": "Setelah Anda mendaftar, kami akan menampilkan pilihan asrama dan biayanya untuk universitas tersebut.",
+    "why": "missing translation"
+  },
+  "student:housing.subtitle": {
+    "text": "Bandingkan pilihan asrama dan pantau langkah tempat tinggal Anda.",
+    "why": "missing translation"
+  },
+  "student:housing.title": {
+    "text": "Tempat tinggal",
+    "why": "missing translation"
+  },
+  "student:login.aside.point3": {
+    "text": "Bersiap bersama orang sungguhan di tim Hangyul yang berbicara dalam bahasa Anda.",
+    "why": "Hangyul team, not counselor"
+  },
+  "student:messages.subtitle": {
+    "text": "Bicara dengan tim Hangyul. Balasan biasanya datang dalam satu hari kerja.",
+    "why": "'mengobrol' too casual"
+  },
+  "student:messages.unread_one": {
+    "text": "{{count}} pesan belum dibaca",
+    "why": "missing translation"
+  },
+  "student:onboarding.basics.residenceHint": {
+    "text": "Beberapa kedutaan hanya menerima pengajuan visa dari penduduk negara tempat kedutaan itu berada.",
+    "why": "'penduduk setempat' ambiguous"
+  },
+  "student:onboarding.goals.degreeSub.LANGUAGE": {
+    "text": "Mulai dari bahasa Korea, sesuai kecepatan Anda sendiri",
+    "why": "closer to English meaning"
+  },
+  "student:onboarding.steps.basics.eyebrow": {
+    "text": "Tentang Anda",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.education.eyebrow": {
+    "text": "Studi Anda",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.goals.eyebrow": {
+    "text": "Tujuan Anda",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.language.eyebrow": {
+    "text": "Bahasa",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.passport.eyebrow": {
+    "text": "Perjalanan",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.preferences.eyebrow": {
+    "text": "Anggaran & kehidupan",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.sponsor.eyebrow": {
+    "text": "Langkah terakhir",
+    "why": "missing translation"
+  },
+  "student:profile.title": {
+    "text": "Profil Anda",
+    "why": "missing translation"
+  },
+  "student:register.consent.CROSS_BORDER_VERIFICATION.label": {
+    "text": "Saya memahami bahwa email dan nomor ponsel saya diproses di luar negeri untuk verifikasi",
+    "why": "'identitas' and 'membaca pemberitahuan' not in English"
+  },
+  "student:register.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Twilio Inc. (Amerika Serikat) mengirim SMS dan email verifikasi; Cloudflare, Inc. (Amerika Serikat) memeriksa bahwa pendaftaran tidak dilakukan secara otomatis. Rinciannya, termasuk cara menolak, ada di Kebijakan Privasi. Jika menolak, akun tidak dapat dibuat.",
+    "why": "extra items not in English; 'memblokir' overstates"
+  },
+  "student:register.consent.PRIVACY.summary": {
+    "text": "Email, nomor ponsel, nama, kewarganegaraan, dan kata sandi (disimpan terenkripsi), untuk membuat dan melindungi akun Anda.",
+    "why": "'hash' is jargon; English says encrypted"
+  },
+  "student:register.consent.title": {
+    "text": "Cara kami menangani data Anda",
+    "why": "warm, matches English"
+  },
+  "student:register.verify.delivery.RECIPIENT_INVALID.sms": {
+    "text": "Kami tidak bisa mengirim SMS ke nomor ini. Mohon periksa kode negara dan nomor ponsel Anda.",
+    "why": "HP → ponsel, one term per concept"
+  },
+  "student:register.verify.delivery.RECIPIENT_UNREACHABLE.sms": {
+    "text": "Ponsel Anda sepertinya mati atau di luar jangkauan. Periksa lalu coba lagi.",
+    "why": "HP → ponsel, one term per concept"
+  },
+  "student:register.verify.delivery.REGION_UNSUPPORTED.sms": {
+    "text": "Kami belum bisa mengirim SMS ke nomor dari negara ini. Gunakan nomor ponsel lain atau hubungi support@talkhangyul.com.",
+    "why": "HP → ponsel, one term per concept"
+  },
+  "student:v15.services.allowance.key.max_managed_applications": {
+    "text": "Pendaftaran yang kami kelola",
+    "why": "short label; matches upgrade feature"
+  },
+  "student:v15.services.allowance.key.mock_interviews": {
+    "text": "Simulasi wawancara",
+    "why": "one term per concept"
+  },
+  "student:v15.services.allowance.title": {
+    "text": "Yang termasuk dan yang sudah terpakai",
+    "why": "warmer, matches English"
+  },
+  "student:v15.services.external": {
+    "text": "Tidak termasuk dalam biaya layanan: biaya pendaftaran universitas, biaya kuliah, penerjemahan, notarisasi dan apostille, biaya visa, serta tempat tinggal.",
+    "why": "notarization ≠ legalisasi (glossary)"
+  },
+  "student:v15.services.scope.visa_support": {
+    "text": "Persiapan dokumen visa",
+    "why": "we prepare documents, not the visa"
+  },
+  "student:v16.pay.amount": {
+    "text": "Jumlah",
+    "why": "missing translation"
+  },
+  "student:v16.pay.cancelled": {
+    "text": "Anda membatalkan pembayaran. Tidak ada yang ditagih.",
+    "why": "missing translation"
+  },
+  "student:v16.pay.couldNotStart": {
+    "text": "Kami tidak bisa membuka jendela pembayaran.",
+    "why": "missing translation"
+  },
+  "student:v16.pay.cta": {
+    "text": "Bayar dan mulai",
+    "why": "missing translation"
+  },
+  "student:v16.pay.fail.title": {
+    "text": "Pembayaran tidak berhasil",
+    "why": "missing translation"
+  },
+  "student:v16.pay.method": {
+    "text": "Metode",
+    "why": "missing translation"
+  },
+  "student:v16.pay.methodCard": {
+    "text": "Kartu",
+    "why": "missing translation"
+  },
+  "student:v16.pay.notCharged": {
+    "text": "Tidak ada yang ditagih.",
+    "why": "missing translation"
+  },
+  "student:v16.pay.orderNo": {
+    "text": "Pesanan",
+    "why": "missing translation"
+  },
+  "student:v16.pay.orderTitle": {
+    "text": "Pesanan Anda",
+    "why": "missing translation"
+  },
+  "student:v16.pay.receipt": {
+    "text": "Lihat kuitansi",
+    "why": "missing translation"
+  },
+  "student:v16.pay.retry": {
+    "text": "Coba bayar lagi",
+    "why": "missing translation"
+  },
+  "student:v16.pay.sdkDown": {
+    "text": "Jendela pembayaran tidak bisa dimuat. Periksa koneksi Anda dan coba lagi.",
+    "why": "missing translation"
+  },
+  "student:v16.pay.selected": {
+    "text": "Dipilih",
+    "why": "missing translation"
+  },
+  "student:v16.pay.status.CANCELLED": {
+    "text": "Dibatalkan",
+    "why": "missing translation"
+  },
+  "student:v16.pay.status.FAILED": {
+    "text": "Gagal",
+    "why": "missing translation"
+  },
+  "student:v16.pay.status.PENDING": {
+    "text": "Menunggu",
+    "why": "missing translation"
+  },
+  "student:v16.pay.success.cta": {
+    "text": "Mulai persiapan saya",
+    "why": "missing translation"
+  },
+  "student:v16.pay.success.text": {
+    "text": "Anda memulai persiapan kuliah di Korea dengan {{name}}.",
+    "why": "missing translation"
+  },
+  "student:v16.pay.success.title": {
+    "text": "Pembayaran selesai",
+    "why": "missing translation"
+  },
+  "student:v17.gate.named": {
+    "text": "Paket mencakup {{what}}. Pilih satu untuk mulai.",
+    "why": "'Hangyul menangani' not in English"
+  },
+  "student:v17.gate.what.applications": {
+    "text": "pendaftaran Anda",
+    "why": "Anda register, not kamu"
+  },
+  "student:v17.gate.what.arrival": {
+    "text": "bantuan kedatangan dan adaptasi",
+    "why": "closer to English meaning"
+  },
+  "student:v17.gate.what.budget": {
+    "text": "rencana biaya Anda",
+    "why": "Anda register, not kamu"
+  },
+  "student:v17.gate.what.essays": {
+    "text": "penyuntingan pernyataan pribadi dan rencana studi",
+    "why": "editing, not checking; one term per concept"
+  },
+  "student:v17.gate.what.help": {
+    "text": "bantuan dari tim Hangyul",
+    "why": "closer to English meaning"
+  },
+  "student:v17.gate.what.home": {
+    "text": "ruang persiapan Anda",
+    "why": "Anda register, not kamu"
+  },
+  "student:v17.gate.what.housing": {
+    "text": "bantuan asrama",
+    "why": "dormitory help, not housing in general"
+  },
+  "student:v17.gate.what.messages": {
+    "text": "pesan dengan tim Hangyul",
+    "why": "cur dropped 'messages'"
+  },
+  "student:v17.gate.what.saved": {
+    "text": "daftar pilihan Anda",
+    "why": "Anda register, not kamu"
+  },
+  "student:v17.gate.what.scholarships": {
+    "text": "pencocokan beasiswa",
+    "why": "closer to English meaning"
+  },
+  "student:v17.gate.what.tasks": {
+    "text": "daftar tugas Anda",
+    "why": "Anda register, not kamu"
+  },
+  "student:v17.gate.what.visa": {
+    "text": "persiapan dokumen visa",
+    "why": "we prepare documents, not the visa"
+  },
+  "student:v17.pay.afterPay": {
+    "text": "Anda akan diarahkan ke Toss Payments dan bisa membayar dengan kartu luar negeri (Visa, Mastercard, JCB). Paket Anda mulai berlaku begitu pembayaran disetujui.",
+    "why": "Anda register, not kamu"
+  },
+  "student:v17.pay.fromApp": {
+    "text": "Anda datang dari aplikasi. Setelah pembayaran selesai, Anda bisa kembali ke sana.",
+    "why": "Anda register, not kamu"
+  },
+  "student:v17.upgrade.amount": {
+    "text": "Harga upgrade",
+    "why": "it is the price, not an action"
+  },
+  "student:v17.upgrade.cta": {
+    "text": "Upgrade ke {{plan}}",
+    "why": "'upgrade' already used in v29 copy"
+  },
+  "student:v17.upgrade.feature.document_review": {
+    "text": "Pemeriksaan dokumen intensif",
+    "why": "closer to English meaning"
+  },
+  "student:v17.upgrade.feature.essay_review": {
+    "text": "Penyuntingan pernyataan pribadi",
+    "why": "editing of the personal statement; one term per concept"
+  },
+  "student:v17.upgrade.feature.managed_application": {
+    "text": "Pendaftaran yang kami kelola",
+    "why": "one term per concept"
+  },
+  "student:v17.upgrade.feature.settlement": {
+    "text": "Pendampingan setelah tiba",
+    "why": "one term per concept"
+  },
+  "student:v21.pay.cardFailed": {
+    "text": "Pembayaran tidak berhasil",
+    "why": "missing translation"
+  },
+  "student:v21.pay.cardSecure": {
+    "text": "Data kartu Anda hanya dikirim ke Hangyul melalui koneksi terenkripsi, lalu diteruskan ke penyedia pembayaran kami. Kami tidak pernah menyimpan nomor kartu Anda.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.cardTitle": {
+    "text": "Bayar dengan kartu",
+    "why": "missing translation"
+  },
+  "student:v21.pay.declined": {
+    "text": "Kartu tidak diterima: {{reason}} Coba kartu lain, atau hubungi bank Anda.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.expiry": {
+    "text": "Masa berlaku",
+    "why": "missing translation"
+  },
+  "student:v21.pay.holder": {
+    "text": "Nama di kartu",
+    "why": "missing translation"
+  },
+  "student:v21.pay.notConfigured": {
+    "text": "Pembayaran kartu belum tersedia di sini. Silakan coba lagi nanti atau hubungi kami.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.number": {
+    "text": "Nomor kartu",
+    "why": "missing translation"
+  },
+  "student:v21.pay.numberInvalid": {
+    "text": "Mohon periksa nomor kartu.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.optional": {
+    "text": "opsional",
+    "why": "missing translation"
+  },
+  "student:v21.pay.payCta": {
+    "text": "Bayar dengan kartu ini",
+    "why": "missing translation"
+  },
+  "student:v21.pay.processing": {
+    "text": "Memproses pembayaran Anda…",
+    "why": "missing translation"
+  },
+  "student:v21.pay.savedDelete": {
+    "text": "Hapus",
+    "why": "missing translation"
+  },
+  "student:v21.pay.savedDeleteBody": {
+    "text": "Kami akan menghapus {{card}} dari akun Anda. Pembayaran yang sudah Anda lakukan tidak terpengaruh.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.savedDeleteFailed": {
+    "text": "Kartu tidak bisa dihapus. Silakan coba lagi.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.savedDeleteTitle": {
+    "text": "Hapus kartu ini?",
+    "why": "missing translation"
+  },
+  "student:v21.pay.savedNotReusable": {
+    "text": "Anda akan memasukkan kartu lagi untuk pembelian berikutnya.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.savedTitle": {
+    "text": "Kartu Anda",
+    "why": "missing translation"
+  },
+  "student:v21.pay.tooMany": {
+    "text": "Terlalu banyak percobaan kartu. Mohon tunggu beberapa menit sebelum mencoba lagi.",
+    "why": "missing translation"
+  },
+  "student:v22.checkout.oneTime": {
+    "text": "Sekali bayar · bukan langganan",
+    "why": "subscription = langganan; one term per concept"
+  },
+  "student:v22.home.appTeam.follow": {
+    "text": "Mengecek perkembangan ke bagian penerimaan {{university}}",
+    "why": "cur dropped admissions office"
+  },
+  "student:v22.home.appTeam.letter": {
+    "text": "Mengecek surat penerimaan standar Anda dari {{university}}",
+    "why": "official document name"
+  },
+  "student:v22.home.appsNeedYou": {
+    "text": "Pendaftaran yang perlu tindakan Anda",
+    "why": "more natural Indonesian"
+  },
+  "student:v26.now.scopeToggle": {
+    "text": "Lihat semua yang termasuk dalam paket ini",
+    "why": "it is a button; add verb"
+  },
+  "student:v29.services.unrationed.TEAM": {
+    "text": "Tindak lanjut dari tim Anda",
+    "why": "'penanggung jawab' not in English"
+  },
+  "student:writing.needYou": {
+    "text": "Giliran Anda menulis atau merevisi",
+    "why": "closer to English meaning"
+  },
+  "student:writing.status.FINAL_REVIEW": {
+    "text": "Sedang ditinjau tim Hangyul",
+    "why": "same English as AGENCY_REVIEW"
+  },
+  "mobile:agency.deadlines.empty": {
+    "text": "Tidak ada tenggat dalam 30 hari ke depan",
+    "why": "missing translation"
+  },
+  "mobile:agency.deadlines.subtitle": {
+    "text": "Tenggat mahasiswa Anda dalam 30 hari ke depan.",
+    "why": "missing translation"
+  },
+  "mobile:agency.deadlines.title": {
+    "text": "Pengingat",
+    "why": "missing translation"
+  },
+  "mobile:agency.login.tagline": {
+    "text": "Mahasiswa yang Anda tangani, tinjauan, dan pesan di ponsel.",
+    "why": "HP → ponsel, one term per concept"
+  },
+  "mobile:agency.messages.subtitle": {
+    "text": "Percakapan mahasiswa dan catatan internal.",
+    "why": "missing translation"
+  },
+  "mobile:agency.messages.title": {
+    "text": "Pesan",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.detailTitle": {
+    "text": "Tinjauan",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.empty": {
+    "text": "Antrean tinjauan kosong",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.emptyBody": {
+    "text": "Unggahan baru dari mahasiswa Anda akan muncul di sini.",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.history": {
+    "text": "Riwayat tinjauan",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.lastReason": {
+    "text": "Permintaan perbaikan sebelumnya",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.noFile": {
+    "text": "Belum ada file yang diunggah untuk dokumen ini.",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.sendToStudent": {
+    "text": "Kirim ke mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.tabA11y_one": {
+    "text": "Tinjauan, {{count}} menunggu",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.tabA11y_other": {
+    "text": "Tinjauan, {{count}} menunggu",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.title": {
+    "text": "Tinjauan dokumen",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.verify": {
+    "text": "Verifikasi dokumen",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.waitingDays_one": {
+    "text": "Menunggu {{count}} hari",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.waitingDays_other": {
+    "text": "Menunggu {{count}} hari",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.waitingHours_one": {
+    "text": "Menunggu {{count}} jam",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.waitingHours_other": {
+    "text": "Menunggu {{count}} jam",
+    "why": "missing translation"
+  },
+  "mobile:agency.students.detailTitle": {
+    "text": "Mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:agency.tasks.unassigned": {
+    "text": "Belum ditugaskan",
+    "why": "missing translation"
+  },
+  "mobile:app.agency": {
+    "text": "Hangyul Agency",
+    "why": "product name, kept"
+  },
+  "mobile:app.university": {
+    "text": "Hangyul University",
+    "why": "product name, kept"
+  },
+  "mobile:login.networkError": {
+    "text": "Hangyul tidak dapat dihubungi saat ini di {{url}}. Periksa koneksi Anda dan coba lagi sebentar lagi.",
+    "why": "dev emulator notes not in English"
+  },
+  "mobile:messages.unreadCount_one": {
+    "text": "{{count}} pesan belum dibaca",
+    "why": "missing translation"
+  },
+  "mobile:more.active": {
+    "text": "Aktif",
+    "why": "missing translation"
+  },
+  "mobile:more.allowanceSpent": {
+    "text": "Anda sudah memakai semua yang termasuk dalam paket ini. Layar paket menunjukkan paket mana yang mencakup lebih banyak.",
+    "why": "missing translation"
+  },
+  "mobile:more.choose": {
+    "text": "Pilih",
+    "why": "missing translation"
+  },
+  "mobile:more.noPlan": {
+    "text": "Belum ada paket",
+    "why": "missing translation"
+  },
+  "mobile:more.noPlanHint": {
+    "text": "Pilih paket dan Hangyul mulai bekerja bersama Anda",
+    "why": "missing translation"
+  },
+  "mobile:more.plan": {
+    "text": "Paket",
+    "why": "missing translation"
+  },
+  "mobile:more.support": {
+    "text": "Dapatkan bantuan",
+    "why": "missing translation"
+  },
+  "mobile:more.supportHint": {
+    "text": "Kirim pesan ke tim Hangyul",
+    "why": "missing translation"
+  },
+  "mobile:more.webNote": {
+    "text": "Mengubah profil dan pembayaran dilakukan di web.",
+    "why": "missing translation"
+  },
+  "mobile:plan.allowance.essay_review_rounds": {
+    "text": "Penyuntingan pernyataan pribadi dan rencana studi",
+    "why": "missing translation"
+  },
+  "mobile:plan.allowance.follow_up_consultations": {
+    "text": "Konsultasi lanjutan",
+    "why": "missing translation"
+  },
+  "mobile:plan.allowance.max_managed_applications": {
+    "text": "Pendaftaran yang kami kelola",
+    "why": "missing translation"
+  },
+  "mobile:plan.allowance.max_recommended_institutions": {
+    "text": "Rekomendasi universitas",
+    "why": "missing translation"
+  },
+  "mobile:plan.allowance.mock_interviews": {
+    "text": "Simulasi wawancara",
+    "why": "missing translation"
+  },
+  "mobile:plan.browserFailed": {
+    "text": "Browser tidak bisa dibuka. Silakan bayar di web.",
+    "why": "missing translation"
+  },
+  "mobile:plan.card": {
+    "text": "Anda bisa membayar dengan kartu luar negeri (Visa, Mastercard, JCB).",
+    "why": "missing translation"
+  },
+  "mobile:plan.chooseLede": {
+    "text": "Sekali bayar, tanpa langganan. Paket Anda tetap berlaku selama Anda mempersiapkan diri.",
+    "why": "missing translation"
+  },
+  "mobile:plan.chooseTitle": {
+    "text": "Pilih paket",
+    "why": "missing translation"
+  },
+  "mobile:plan.handoff": {
+    "text": "Pembayaran dilakukan di browser Anda dan kembali ke aplikasi setelah selesai.",
+    "why": "missing translation"
+  },
+  "mobile:plan.highestAlready": {
+    "text": "Anda sudah berada di paket tertinggi.",
+    "why": "missing translation"
+  },
+  "mobile:plan.included": {
+    "text": "Yang termasuk dalam paket Anda",
+    "why": "missing translation"
+  },
+  "mobile:plan.oneTime": {
+    "text": "Sekali bayar",
+    "why": "missing translation"
+  },
+  "mobile:plan.ongoing": {
+    "text": "Selama masa layanan",
+    "why": "missing translation"
+  },
+  "mobile:plan.paid": {
+    "text": "Jumlah dibayar",
+    "why": "missing translation"
+  },
+  "mobile:plan.pay": {
+    "text": "Bayar",
+    "why": "missing translation"
+  },
+  "mobile:plan.plansTitle": {
+    "text": "Paket",
+    "why": "missing translation"
+  },
+  "mobile:plan.selected": {
+    "text": "Dipilih",
+    "why": "missing translation"
+  },
+  "mobile:plan.upgradeTitle": {
+    "text": "Upgrade",
+    "why": "missing translation"
+  },
+  "mobile:plan.webNote": {
+    "text": "Riwayat paket dan kuitansi ada di web.",
+    "why": "missing translation"
+  },
+  "mobile:settings.elsewhere": {
+    "text": "Di tempat lain",
+    "why": "missing translation"
+  },
+  "mobile:settings.notificationsHint": {
+    "text": "Lihat notifikasi yang Anda terima",
+    "why": "missing translation"
+  },
+  "mobile:settings.title": {
+    "text": "Pengaturan",
+    "why": "missing translation"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.label": {
+    "text": "Saya memahami bahwa email dan nomor ponsel saya diproses di luar negeri untuk verifikasi",
+    "why": "'identitas' and 'membaca pemberitahuan' not in English"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Twilio Inc. (Amerika Serikat) mengirim SMS dan email verifikasi; Cloudflare, Inc. (Amerika Serikat) memeriksa bahwa pendaftaran tidak dilakukan secara otomatis. Rinciannya, termasuk cara menolak, ada di Kebijakan Privasi. Jika menolak, akun tidak dapat dibuat.",
+    "why": "extra items not in English; 'memblokir' overstates"
+  },
+  "mobile:signup.consent.PRIVACY.summary": {
+    "text": "Email, nomor ponsel, nama, kewarganegaraan, dan kata sandi (disimpan terenkripsi), untuk membuat dan melindungi akun Anda.",
+    "why": "align with student web wording"
+  },
+  "mobile:signup.consentTitle": {
+    "text": "Cara kami menangani data Anda",
+    "why": "warm, matches English"
+  },
+  "mobile:signup.verifyTitle": {
+    "text": "Verifikasi data kontak Anda",
+    "why": "closer to English meaning"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.body": {
+    "text": "Anda akan menerima tawaran dari {{university}}. Tim Hangyul Univ akan memandu Anda membayar biaya kuliah dan mendapatkan surat penerimaan standar.",
+    "why": "Hangyul team, not counselor; official document name"
+  },
+  "mobile:student.documents.emptyBody": {
+    "text": "Unggah paspor, transkrip nilai, dan skor tes Anda dari aplikasi web.",
+    "why": "transcript = transkrip nilai"
+  },
+  "mobile:student.documents.fixFallback": {
+    "text": "Tim Hangyul meminta perubahan pada dokumen ini.",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:student.login.tagline": {
+    "text": "Semua yang Anda perlukan untuk kuliah di Korea, di ponsel Anda.",
+    "why": "HP → ponsel, one term per concept"
+  },
+  "mobile:student.messages.subtitle": {
+    "text": "Bicara dengan tim Hangyul Univ.",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:student.messages.unreadA11y_one": {
+    "text": "Pesan, {{count}} belum dibaca",
+    "why": "missing translation"
+  },
+  "mobile:student.nextAction.COMPARE_OFFERS": {
+    "text": "Bandingkan {{count}} tawaran penerimaan Anda",
+    "why": "admission offer, not any offer"
+  },
+  "mobile:student.nextAction.RESPOND_OFFER": {
+    "text": "Tanggapi tawaran penerimaan Anda",
+    "why": "admission offer, not any offer"
+  },
+  "mobile:student.tasks.subtitle": {
+    "text": "Tugas dari tim Hangyul dan daftar periksa pendaftaran Anda.",
+    "why": "Hangyul team, not counselor; 'sistem' not in English"
+  },
+  "mobile:student.tasks.upcoming": {
+    "text": "Perlu dilakukan",
+    "why": "more natural Indonesian"
+  },
+  "mobile:university.applicants.anonymous": {
+    "text": "Pelamar",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.confirmBody": {
+    "text": "{{name}} dan konselornya akan diberi tahu. Tambahkan catatan untuk arsip (opsional).",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.confirmTitle": {
+    "text": "Ubah status menjadi “{{status}}”?",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.detailTitle": {
+    "text": "Pelamar",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.history": {
+    "text": "Riwayat status",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.interview": {
+    "text": "Wawancara",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.moveTo": {
+    "text": "Pindahkan ke: {{status}}",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.notShared": {
+    "text": "Belum dibagikan ke universitas Anda",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.note": {
+    "text": "Catatan",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.previewHint": {
+    "text": "Membuka pratinjau aman dengan batas waktu",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.reference": {
+    "text": "Nomor referensi Anda",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.submitted": {
+    "text": "Dikirim {{date}}",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.submittedLabel": {
+    "text": "Dikirim",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.viaAgency": {
+    "text": "Melalui {{agency}}",
+    "why": "missing translation"
+  },
+  "mobile:university.flagged.add": {
+    "text": "Tandai untuk tindak lanjut",
+    "why": "missing translation"
+  },
+  "mobile:university.flagged.addBody": {
+    "text": "Hanya tim universitas Anda yang melihat tanda dan alasannya.",
+    "why": "missing translation"
+  },
+  "mobile:university.flagged.flagged": {
+    "text": "Ditandai",
+    "why": "missing translation"
+  },
+  "mobile:university.flagged.reason": {
+    "text": "Alasan",
+    "why": "missing translation"
+  },
+  "mobile:university.flagged.remove": {
+    "text": "Hapus tanda",
+    "why": "missing translation"
+  },
+  "mobile:university.flagged.removeTitle": {
+    "text": "Hapus tanda dari pendaftaran ini?",
+    "why": "missing translation"
+  },
+  "mobile:university.inbox.title": {
+    "text": "Pesan",
+    "why": "missing translation"
+  },
+  "mobile:university.login.tagline": {
+    "text": "Pelamar, keputusan, dan angkatan untuk kantor internasional Anda.",
+    "why": "missing translation"
+  },
+  "mobile:v18.offline.title": {
+    "text": "Anda sedang offline",
+    "why": "Anda register, not kamu"
+  },
+  "mobile:v29.mfa.codeHint": {
+    "text": "Masukkan kode 6 digit dari aplikasi autentikator Anda, atau kode pemulihan.",
+    "why": "missing translation"
+  },
+  "mobile:v29.mfa.codeLabel": {
+    "text": "Kode verifikasi",
+    "why": "missing translation"
+  },
+  "mobile:v29.mfa.enrollOnWeb": {
+    "text": "Akun ini memerlukan verifikasi dua langkah. Atur dulu di konsol web, lalu masuk di sini.",
+    "why": "missing translation"
+  },
+  "mobile:v29.mfa.verify": {
+    "text": "Verifikasi dan masuk",
+    "why": "missing translation"
+  },
+  "mobile:v29.mfa.wrongCode": {
+    "text": "Kode salah atau sudah kedaluwarsa. Masukkan kode baru.",
+    "why": "missing translation"
+  },
+  "mobile:v29.plan.supportDays": {
+    "text": "Dukungan konsultasi {{count}} hari sejak konsultasi pertama Anda",
+    "why": "cur dropped 'consultation support'"
+  },
+  "mobile:v29.plan.supportUntil": {
+    "text": "Dukungan konsultasi sampai {{date}}",
+    "why": "closer to English meaning"
+  },
+  "mobile:v3.agency.allClear": {
+    "text": "Semua beres: {{list}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.applications_one": {
+    "text": "{{count}} pendaftaran",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.applications_other": {
+    "text": "{{count}} pendaftaran",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.breached_one": {
+    "text": "{{count}} sudah melewati janji",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.breached_other": {
+    "text": "{{count}} sudah melewati janji",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.closing_one": {
+    "text": "Pendaftaran ditutup dalam 7 hari",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.closing_other": {
+    "text": "Pendaftaran ditutup dalam 7 hari",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.docs_one": {
+    "text": "Dokumen menunggu tinjauan",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.docs_other": {
+    "text": "Dokumen menunggu tinjauan",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.next": {
+    "text": "Berikutnya: {{uni}} untuk {{who}}, {{date}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.overSla": {
+    "text": "{{count}} menunggu lebih dari {{hours}} jam",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.overdue_one": {
+    "text": "Tugas terlambat",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.overdue_other": {
+    "text": "Tugas terlambat",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.replies_one": {
+    "text": "Mahasiswa menunggu balasan Anda",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.replies_other": {
+    "text": "Mahasiswa menunggu balasan Anda",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.since": {
+    "text": "Paling lama dari {{who}}, {{when}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.sla_one": {
+    "text": "Mahasiswa berisiko respons pertama terlambat",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.sla_other": {
+    "text": "Mahasiswa berisiko respons pertama terlambat",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.block.deadline": {
+    "text": "Pendaftaran {{uni}} segera ditutup",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.block.fix": {
+    "text": "{{doc}} perlu diperbaiki mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.block.requested": {
+    "text": "{{uni}} meminta dokumen tambahan",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.block.review": {
+    "text": "{{doc}} menunggu tinjauan Anda",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.block.sla": {
+    "text": "Respons pertama jatuh tempo",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.blockers_one": {
+    "text": "{{count}} hal menghambat mahasiswa ini",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.blockers_other": {
+    "text": "{{count}} hal menghambat mahasiswa ini",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.clear.closing": {
+    "text": "tenggat minggu ini",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.clear.docs": {
+    "text": "tinjauan dokumen",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.clear.overdue": {
+    "text": "tugas terlambat",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.clear.replies": {
+    "text": "balasan mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.clear.sla": {
+    "text": "respons pertama",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.conversationSubject": {
+    "text": "Tim kuliah di Korea Anda",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.deadline": {
+    "text": "{{uni}} {{when}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.documents": {
+    "text": "Dokumen · {{verified}} dari {{total}} terverifikasi",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.dueToday_one": {
+    "text": "Jatuh tempo hari ini · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.dueToday_other": {
+    "text": "Jatuh tempo hari ini · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.findStudent": {
+    "text": "Cari mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.firstMessage": {
+    "text": "Kirim pesan ke {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.greeting.afternoon": {
+    "text": "Selamat siang, {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.greeting.evening": {
+    "text": "Selamat malam, {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.greeting.morning": {
+    "text": "Selamat pagi, {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.message": {
+    "text": "Pesan",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.messageLabel": {
+    "text": "Pesan",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.needsAttention": {
+    "text": "Perlu perhatian",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.nextAction": {
+    "text": "Berikutnya: {{what}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.noBlockers": {
+    "text": "Tidak ada yang menghambat mahasiswa ini",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.noBlockersBody": {
+    "text": "Dokumen, tenggat, dan respons semuanya sesuai jadwal.",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.noStudents": {
+    "text": "Tidak ada mahasiswa di tampilan ini",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.noStudentsBody": {
+    "text": "Coba tampilan lain atau hapus pencarian.",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.searchPlaceholder": {
+    "text": "Nama atau email",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.stage": {
+    "text": "Tahap",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.stageNote": {
+    "text": "Catatan untuk tim (opsional)",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.stageTo": {
+    "text": "Pindahkan ke {{stage}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.teamView": {
+    "text": "Tim · {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.toFix_one": {
+    "text": "{{count}} dokumen perlu diperbaiki",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.toFix_other": {
+    "text": "{{count}} dokumen perlu diperbaiki",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.today": {
+    "text": "Hari ini",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.upload": {
+    "text": "Unggah",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.uploadFor": {
+    "text": "{{doc}} untuk {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.uploadWhat": {
+    "text": "Dokumen apa yang Anda unggah?",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.uploaded": {
+    "text": "Diunggah ke brankas mahasiswa. Siap ditinjau.",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.all": {
+    "text": "Semua",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.attention": {
+    "text": "Perlu perhatian",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.deadline": {
+    "text": "Tenggat dekat",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.docs": {
+    "text": "Dokumen perlu diperbaiki",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.mine": {
+    "text": "Mahasiswa saya",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.sla": {
+    "text": "Mahasiswa yang melewati atau mendekati janji respons pertama",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.university": {
+    "text": "Menunggu universitas",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.visa": {
+    "text": "Visa",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.waiting_student": {
+    "text": "Menunggu mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.waiting_us": {
+    "text": "Menunggu kami",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.agency": {
+    "text": "Menunggu tim agensi",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.counselor": {
+    "text": "Menunggu konselor",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.external": {
+    "text": "Menunggu kantor eksternal",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.hangyul": {
+    "text": "Menunggu Hangyul",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.none": {
+    "text": "Tidak ada yang ditunggu",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.student": {
+    "text": "Menunggu mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.university": {
+    "text": "Menunggu universitas",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.us": {
+    "text": "Menunggu kami",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Surat penerimaan Anda sudah siap. Mulai siapkan dokumen visa Anda.",
+    "why": "one clear next step, as English"
+  },
+  "mobile:v3.appStatus.PROFILE_REVIEW": {
+    "text": "Tim Hangyul Univ sedang memeriksa profil Anda.",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:v3.application.reviewBody": {
+    "text": "Dikirim {{date}}. Universitas mungkin meminta dokumen tambahan atau wawancara. Tim Hangyul memantau perkembangannya.",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:v3.application.teamMonitoring": {
+    "text": "Berhubungan dengan universitas",
+    "why": "closer to English meaning"
+  },
+  "mobile:v3.deadlines.bucket.later_other": {
+    "text": "Akhir bulan ini · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.bucket.overdue_other": {
+    "text": "Terlambat · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.bucket.week_other": {
+    "text": "7 hari ke depan · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.emptyView": {
+    "text": "Tidak ada yang jatuh tempo di tampilan ini",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.student": {
+    "text": "Mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.who.all": {
+    "text": "Semua",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.who.mine": {
+    "text": "Saya",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.who.unassigned": {
+    "text": "Belum ditugaskan",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.you": {
+    "text": "Anda",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.showResults_one": {
+    "text": "Tampilkan {{count}} program",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.summary_one": {
+    "text": "Anda memenuhi persyaratan yang dipublikasikan untuk {{count}} program.",
+    "why": "missing translation"
+  },
+  "mobile:v3.docAction.IN_REVIEW": {
+    "text": "Sedang diperiksa tim Hangyul",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:v3.docAction.LEGALIZE": {
+    "text": "Perlu apostille atau legalisasi konsuler",
+    "why": "official document name"
+  },
+  "mobile:v3.documents.legalize": {
+    "text": "Sudah diperiksa, tetapi masih perlu {{path}} sebelum diterima universitas Korea",
+    "why": "'terverifikasi' reserved for official verification"
+  },
+  "mobile:v3.documents.needYou_one": {
+    "text": "{{count}} perlu tindakan Anda",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.documents_one": {
+    "text": "{{count}} dokumen perlu tindakan Anda",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextBody.DOCUMENT_UPLOAD": {
+    "text": "Unggah hasil pindaian atau foto yang jelas. Tim Hangyul memeriksanya dan memberi tahu jika ada yang perlu diperbaiki.",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:v3.home.nextBody.ESSAY_WRITE": {
+    "text": "Mulailah dengan draf kasar. Tim Hangyul akan meninjaunya bersama Anda.",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:v3.home.noCounselor": {
+    "text": "Pilih paket dan tim Hangyul Univ akan mendampingi Anda dalam bahasa Anda.",
+    "why": "plan = paket; one term per concept"
+  },
+  "mobile:v3.home.otherTasks_one": {
+    "text": "{{count}} tugas lain",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.stageLine.apply": {
+    "text": "Universitas sedang meninjau pendaftaran Anda",
+    "why": "closer to English meaning"
+  },
+  "mobile:v3.home.stageLine.visa": {
+    "text": "Menyiapkan visa pelajar Anda",
+    "why": "'mengurus' implies we issue it"
+  },
+  "mobile:v3.home.team": {
+    "text": "Tim Hangyul Univ",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:v3.home.unread_one": {
+    "text": "{{count}} pesan belum dibaca",
+    "why": "missing translation"
+  },
+  "mobile:v3.messages.attachUnavailable": {
+    "text": "Lampiran belum tersedia.",
+    "why": "'di server ini' not in English"
+  },
+  "mobile:v3.messages.attachmentOnly_one": {
+    "text": "{{count}} lampiran terkirim",
+    "why": "missing translation"
+  },
+  "mobile:v3.messages.conversations": {
+    "text": "Percakapan",
+    "why": "missing translation"
+  },
+  "mobile:v3.offer.deadline": {
+    "text": "Terima dan bayar biaya kuliah paling lambat {{date}} · {{left}}",
+    "why": "accept, not just reply"
+  },
+  "mobile:v3.profile.unlock.sponsor": {
+    "text": "Memungkinkan Anda menyiapkan dokumen keuangan visa lebih awal",
+    "why": "cur dropped 'early' and the subject"
+  },
+  "mobile:v3.upload.privacy": {
+    "text": "Hanya Anda dan tim Hangyul yang bisa membuka dokumen Anda. Universitas baru bisa melihatnya setelah Anda mengirim pendaftaran ke universitas tersebut.",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:v3.push.idle": {
+    "text": "Dapatkan notifikasi saat dokumen selesai ditinjau, tenggat sudah dekat, atau tim Hangyul membalas.",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:v3.reviews.beforeVerify": {
+    "text": "Sebelum Anda memverifikasi",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.bulkBody": {
+    "text": "Lakukan ini hanya untuk dokumen yang sudah Anda buka dan periksa. Setiap mahasiswa akan diberi tahu.",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.bulkDone": {
+    "text": "{{ok}} terverifikasi, {{failed}} dilewati",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.bulkTitle_one": {
+    "text": "Verifikasi {{count}} dokumen?",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.bulkTitle_other": {
+    "text": "Verifikasi {{count}} dokumen?",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.check.date": {
+    "text": "Tanggal terbit cukup baru dan belum kedaluwarsa",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.check.issuer": {
+    "text": "Penerbit, stempel, atau tanda tangan terlihat",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.check.legal": {
+    "text": "{{path}} terlampir dan sesuai dengan dokumen",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.check.legible": {
+    "text": "Setiap halaman lengkap dan terbaca",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.check.name": {
+    "text": "Nama dan tanggal lahir sesuai paspor",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.correctionTitle": {
+    "text": "Apa yang harus diperbaiki mahasiswa?",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.expires": {
+    "text": "Berlaku sampai",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.issuedIn": {
+    "text": "Diterbitkan di",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.issuedOn": {
+    "text": "Diterbitkan pada",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.legalization": {
+    "text": "Legalisasi",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.notNeeded": {
+    "text": "Tidak diperlukan",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.open": {
+    "text": "Buka {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.overSla": {
+    "text": "{{waiting}} · melewati janji tinjauan",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.reason": {
+    "text": "Pesan untuk mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.requestCorrection": {
+    "text": "Minta perbaikan",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.required": {
+    "text": "Wajib",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.select": {
+    "text": "Pilih",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.studentSees": {
+    "text": "{{name}} melihat teks ini persis di samping dokumen.",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.studentSeesGeneric": {
+    "text": "Mahasiswa melihat teks ini persis di samping dokumen.",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.summary": {
+    "text": "{{count}} menunggu · {{over}} melewati janji tinjauan {{hours}} jam",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.templates": {
+    "text": "Templat tim",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.translation": {
+    "text": "Terjemahan",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.uploaded": {
+    "text": "diunggah {{when}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.verifyN_one": {
+    "text": "Verifikasi {{count}} dokumen",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.verifyN_other": {
+    "text": "Verifikasi {{count}} dokumen",
+    "why": "missing translation"
+  },
+  "mobile:v3.settings.consoleHint": {
+    "text": "Anggota tim, penagihan, dan ekspor dikelola di konsol web agensi.",
+    "why": "missing translation"
+  },
+  "mobile:v3.settings.work": {
+    "text": "Pekerjaan Anda",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.empty.team": {
+    "text": "Tim tidak punya tugas terbuka",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.empty.today": {
+    "text": "Tidak ada yang jatuh tempo hari ini",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.empty.waiting": {
+    "text": "Tidak ada tugas yang menunggu hal lain",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.empty.week": {
+    "text": "Tidak ada yang jatuh tempo minggu ini",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.open": {
+    "text": "Terbuka",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.overdue": {
+    "text": "Terlambat · {{when}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.view.overdue": {
+    "text": "Terlambat",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.view.team": {
+    "text": "Tim",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.view.today": {
+    "text": "Hari ini",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.view.waiting": {
+    "text": "Menunggu",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.view.week": {
+    "text": "Minggu ini",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.waitingOn": {
+    "text": "Menunggu: {{what}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.allClear": {
+    "text": "Tidak ada yang perlu diputuskan saat ini.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.allCohorts": {
+    "text": "Semua mahasiswa Hangyul",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.allIntakes": {
+    "text": "Semua periode penerimaan",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.applicant": {
+    "text": "Pelamar",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.gpa": {
+    "text": "IPK",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.interview": {
+    "text": "Wawancara",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.interviewRequired": {
+    "text": "Diwajibkan program ini",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.level": {
+    "text": "Level {{level}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.minimum": {
+    "text": "Minimum {{need}} · Pelamar {{have}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.notProvided": {
+    "text": "tidak diisi",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.state.below": {
+    "text": "Di bawah minimum",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.state.meets": {
+    "text": "Memenuhi",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.state.missing": {
+    "text": "Tidak diisi",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.state.planned": {
+    "text": "Tes direncanakan",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.state.unscheduled": {
+    "text": "Belum dijadwalkan",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.topik": {
+    "text": "TOPIK",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.checksNote": {
+    "text": "Membandingkan skor yang dilaporkan sendiri dengan minimum yang dipublikasikan program. Ini membantu peninjauan Anda; bukan penentu keputusan.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.checksTitle": {
+    "text": "Pemeriksaan persyaratan",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.closed": {
+    "text": "Ditutup: {{rejected}} tidak diterima, {{withdrawn}} mengundurkan diri. Persentase memerlukan minimal {{min}} orang.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohortIntro_one": {
+    "text": "{{count}} mahasiswa datang ke universitas Anda melalui Hangyul. Berikut perkembangannya.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohortIntro_other": {
+    "text": "{{count}} mahasiswa datang ke universitas Anda melalui Hangyul. Berikut perkembangan mereka.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohortNote": {
+    "text": "Persentase muncul setelah minimal {{min}} mahasiswa memenuhi syarat. Per {{date}}.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohort_one": {
+    "text": "{{label}} · {{count}} mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohort_other": {
+    "text": "{{label}} · {{count}} mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.conv": {
+    "text": "{{pct}} dari langkah sebelumnya · {{n}} dari {{d}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.convFew": {
+    "text": "{{n}} dari {{d}} dari langkah sebelumnya · terlalu sedikit untuk dinilai",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.admitted_one": {
+    "text": "mahasiswa diterima yang belum membayar biaya kuliah",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.admitted_other": {
+    "text": "mahasiswa diterima yang belum membayar biaya kuliah",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.documents_one": {
+    "text": "menunggu dokumen mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.documents_other": {
+    "text": "menunggu dokumen mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.flagged_one": {
+    "text": "pendaftaran ditandai",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.flagged_other": {
+    "text": "pendaftaran ditandai",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.interview_one": {
+    "text": "wawancara yang perlu diadakan atau dinilai",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.interview_other": {
+    "text": "wawancara yang perlu diadakan atau dinilai",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.offer_one": {
+    "text": "tawaran menunggu jawaban mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.offer_other": {
+    "text": "tawaran menunggu jawaban mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.returned_one": {
+    "text": "dokumen dikembalikan mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.returned_other": {
+    "text": "dokumen dikembalikan mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.review_one": {
+    "text": "pendaftaran perlu ditinjau",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.review_other": {
+    "text": "pendaftaran perlu ditinjau",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionContext_one": {
+    "text": "{{ready}} dari {{total}} dokumen wajib siap · {{count}} permintaan terbuka.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionContext_other": {
+    "text": "{{ready}} dari {{total}} dokumen wajib siap · {{count}} permintaan terbuka.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionDocs": {
+    "text": "{{ready}} dari {{total}} dokumen wajib siap.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.admitted": {
+    "text": "Konfirmasi pembayaran saat diterima",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.documents": {
+    "text": "Tidak ada tindakan sampai mereka mengunggah",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.flagged": {
+    "text": "Ditandai untuk ditelaah lebih lanjut",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.interview": {
+    "text": "Catat hasilnya setelah wawancara",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.offer": {
+    "text": "Hangyul menindaklanjuti dengan mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.returned": {
+    "text": "Periksa ulang yang Anda minta",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.review": {
+    "text": "Sudah dikirim dan cukup lengkap untuk diputuskan",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.docsTitle": {
+    "text": "Dokumen · {{ready}} dari {{total}} siap",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.dueOn": {
+    "text": "jatuh tempo {{date}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.empty.all": {
+    "text": "Tidak ada pelamar di sini",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.empty.flagged": {
+    "text": "Tidak ada pendaftaran yang ditandai",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.empty.review": {
+    "text": "Tidak ada pendaftaran yang menunggu tinjauan",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.graduation": {
+    "text": "Lulus",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.latest": {
+    "text": "Terbaru untuk ditinjau",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.ADDITIONAL_DOCUMENTS": {
+    "text": "Minta dokumen tambahan",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Terbitkan surat penerimaan",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.INTERVIEW": {
+    "text": "Undang wawancara",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.OFFERED": {
+    "text": "Beri tawaran",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.REJECTED": {
+    "text": "Tidak diterima",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.TUITION_PAID": {
+    "text": "Konfirmasi biaya kuliah dibayar",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.TUITION_PENDING": {
+    "text": "Kirim tagihan biaya kuliah",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.UNIVERSITY_REVIEW": {
+    "text": "Mulai tinjauan",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.WAITLISTED": {
+    "text": "Daftar tunggu",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.nOfD": {
+    "text": "{{n}} dari {{d}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.needsTitle": {
+    "text": "Perlu keputusan Anda",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.noMinimums": {
+    "text": "Program ini belum mempublikasikan nilai minimum.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.nothingToReview": {
+    "text": "Tidak ada yang menunggu tinjauan",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.openRequests_one": {
+    "text": "{{count}} dokumen diminta",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.openRequests_other": {
+    "text": "{{count}} dokumen diminta",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.otherDecisions": {
+    "text": "Keputusan lain",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.populationAll_one": {
+    "text": "Berdasarkan {{count}} pendaftaran yang dikirim, semua periode penerimaan.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.populationAll_other": {
+    "text": "Berdasarkan {{count}} pendaftaran yang dikirim, semua periode penerimaan.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.populationIntake_one": {
+    "text": "Berdasarkan {{count}} pendaftaran yang dikirim untuk {{intake}}.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.populationIntake_other": {
+    "text": "Berdasarkan {{count}} pendaftaran yang dikirim untuk {{intake}}.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.reason": {
+    "text": "Alasan (dibagikan ke Hangyul)",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.request": {
+    "text": "Permintaan",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestLabel": {
+    "text": "Apa yang Anda perlukan?",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestLabelHint": {
+    "text": "mis. Ijazah SMA yang sudah diapostille",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestNote": {
+    "text": "Instruksi untuk mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestNoteHint": {
+    "text": "Apa persisnya yang kurang dan cara memperbaikinya",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestSend": {
+    "text": "Kirim permintaan",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestTitle": {
+    "text": "Minta dokumen dari {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestWho": {
+    "text": "Mahasiswa dan konselor Hangyul-nya diberi tahu dan melihat teks ini persis.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestedOn": {
+    "text": "Diminta {{date}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.retention": {
+    "text": "Masih kuliah",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.search": {
+    "text": "Cari nama, program, atau referensi",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.ACCEPTED": {
+    "text": "Menerima tawaran",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.ARRIVED": {
+    "text": "Tiba di Korea",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.ENROLLED": {
+    "text": "Terdaftar",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.OFFERED": {
+    "text": "Mendapat tawaran",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.REVIEWED": {
+    "text": "Ditinjau",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.SUBMITTED": {
+    "text": "Dikirim",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.TUITION_PAID": {
+    "text": "Biaya kuliah dibayar",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.VISA_ISSUED": {
+    "text": "Visa terbit",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.tab.applicants": {
+    "text": "Pelamar",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.tab.pipeline": {
+    "text": "Ringkasan",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.tab.students": {
+    "text": "Mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.tooFew": {
+    "text": "Terlalu sedikit untuk dinilai",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.admitted": {
+    "text": "Diterima",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.all": {
+    "text": "Semua",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.documents": {
+    "text": "Dokumen kurang",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.enrolment": {
+    "text": "Visa & daftar ulang",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.flagged": {
+    "text": "Ditandai",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.interview": {
+    "text": "Wawancara",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.offer": {
+    "text": "Tawaran",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.review": {
+    "text": "Perlu tinjauan",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.waitingStudent": {
+    "text": "Menunggu mahasiswa",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.documentsCount": {
+    "text": "{{count}} dokumen · {{legal}} perlu apostille atau legalisasi konsuler",
+    "why": "official document name"
+  },
+  "mobile:v3.visa.beforeTitle": {
+    "text": "Persiapan visa dimulai setelah tawaran penerimaan Anda",
+    "why": "'Visa Anda dimulai' is wrong"
+  },
+  "mobile:v3.visa.blockers": {
+    "text": "Perlu diselesaikan dulu",
+    "why": "closer to English meaning"
+  },
+  "mobile:v3.visa.phase.apply": {
+    "text": "Pengajuan visa",
+    "why": "bare 'Pengajuan' ambiguous"
+  },
+  "mobile:v3.visa.phase.decision": {
+    "text": "Keputusan kedutaan",
+    "why": "cur dropped 'embassy'"
+  },
+  "mobile:v3.visa.title": {
+    "text": "Menyiapkan visa {{type}} Anda",
+    "why": "closer to English meaning"
+  },
+  "mobile:v4.application.doneSummary_one": {
+    "text": "{{count}} selesai: {{items}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.application.nextLegalize": {
+    "text": "Urus apostille atau legalisasi konsuler untuk {{item}} Anda",
+    "why": "official document name"
+  },
+  "mobile:v4.application.reviewLate": {
+    "text": "Prosesnya lebih lama dari biasanya. Tim Hangyul sudah diberi tahu soal keterlambatan ini. Anda tidak perlu mengunggahnya lagi.",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:v4.application.waitBody": {
+    "text": "Tim Hangyul sedang memeriksa yang Anda kirim. Kami akan memberi tahu Anda jika ada yang perlu diubah.",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:v4.application.writeOnWeb": {
+    "text": "Tulis di web. Komentar tim Hangyul juga muncul di sana.",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:v4.documents.lateLine": {
+    "text": "ditandai terlambat untuk tim Hangyul",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:v4.home.item.LEGALIZE.text": {
+    "text": "Universitas Korea hanya menerima dokumen ini setelah disahkan secara resmi. Kami akan menunjukkan langkah-langkahnya untuk negara Anda.",
+    "why": "'diautentikasi' is a calque"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.text": {
+    "text": "Tim Hangyul meninggalkan komentar. Pendaftaran Anda tidak bisa dikirim sampai esai ini disetujui.",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.text": {
+    "text": "Tim Hangyul akan meninjaunya bersama Anda. Mulailah dengan draf kasar. Tidak harus sempurna.",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:v4.uni.actor.AGENCY": {
+    "text": "Agensi mitra",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.actor.HANGYUL": {
+    "text": "Hangyul",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.actor.STUDENT": {
+    "text": "Pelamar",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.actor.SYSTEM": {
+    "text": "Otomatis",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.actor.UNIVERSITY": {
+    "text": "Universitas Anda",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.toReview_one": {
+    "text": "Perlu ditinjau · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.toReview_other": {
+    "text": "Perlu ditinjau · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.visa.showDone_one": {
+    "text": "Tampilkan {{count}} langkah yang sudah selesai",
+    "why": "missing translation"
+  }
+}

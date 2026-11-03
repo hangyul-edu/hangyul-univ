@@ -1,0 +1,4156 @@
+{
+  "_notes": [
+    "plan: 'balíček' everywhere (the established term in cs common/student/marketing); 'tarif' and 'plán podpory' in student:v29.services.legacyContract, mobile:v29.plan.upgradePending, mobile:v3.home.noCounselor unified to it.",
+    "matches: kept 'shody' (used across cs common/marketing/success as 'Silná shoda', 'Moje shody'); mobile:signup.quickGo aligned to it. It is a calque; changing it would need a cross-product decision.",
+    "standard admission letter: 'standardní dopis o přijetí' per brief (student:v22.home.appTeam.letter, mobile:v3.visa.beforeBody, new keys). Note: cs common.json/marketing.json/student.json elsewhere use 'standardní potvrzení o přijetí' - owner to pick one and align those files.",
+    "visa document preparation: 'příprava dokumentů k vízu' (was 'Příprava žádosti o vízum' / 'Příprava na vízum'); says what we do, never implies a visa is issued.",
+    "managed application: 'Přihlášky vedené týmem' in all three allowance/feature keys (was three different renderings).",
+    "settlement support: 'Pomoc po příjezdu' (+ 'a se zabydlením' where English says settling-in); personal statement/study plan: 'motivační dopis' / 'studijní plán' (not 'plán studia'); editing = 'úpravy', review = 'kontrola', official verification = 'ověření'.",
+    "Hangyul team vs counselor: four mobile strings said 'poradce' where English says 'the Hangyul team'; changed to 'tým Hangyul'. 'tým Hangyul' / 'tým Hangyul Univ' follow the English per key; a few existing harmless mismatches left alone.",
+    "vykání: new strings are written gender-neutral (no past participle); two existing 'Jste přijati' lines rephrased as 'Univerzita vás přijala'. Existing plural-participle strings ('kde jste skončili', 'Dokončili jste') left as-is - common Czech UI convention, change only if the owner wants strict singular with (a).",
+    "plurals: added the Czech _few (2-4) form to every plural group and made _one/_other agree with the noun; _many (fractions) not added because every count is an integer.",
+    "document titles with {{label}} (mobile:v4.home.item.*.title): rendered as 'dokument {{label}}' apposition so the inserted label stays in nominative; essay titles take the label directly (motivační dopis / studijní plán are inanimate masculine, accusative = nominative).",
+    "certified translation = 'úředně ověřený překlad'; consular legalization = 'konzulární superlegalizace'; apostille = 'apostila'; mock interview kept as existing 'zkušební pohovor' (success.json uses 'cvičný pohovor' - owner may unify).",
+    "mobile:app.* product names kept in English as official names."
+  ],
+  "student:applications.closed": {
+    "text": "Uzavřené přihlášky",
+    "why": "missing"
+  },
+  "student:applications.subtitle": {
+    "text": "Každá přihláška má vlastní kontrolní seznam. Již zkontrolované dokumenty se automaticky použijí znovu.",
+    "why": "review, not official verification (glossary)"
+  },
+  "student:applications.updated": {
+    "text": "Aktualizováno {{date}}",
+    "why": "missing"
+  },
+  "student:dashboard.arrival.cta": {
+    "text": "Otevřít seznam k příjezdu",
+    "why": "missing"
+  },
+  "student:dashboard.arrival.landing": {
+    "text": "Přílet {{date}}",
+    "why": "missing"
+  },
+  "student:dashboard.arrival.noFlight": {
+    "text": "Přidejte svůj let, abychom mohli naplánovat vyzvednutí a vaše první dny.",
+    "why": "missing"
+  },
+  "student:dashboard.counselor.noneCta": {
+    "text": "Zobrazit balíčky",
+    "why": "missing"
+  },
+  "student:dashboard.counselor.unread_few": {
+    "text": "{{count}} nepřečtené zprávy",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "student:dashboard.deadlines.empty": {
+    "text": "V nejbližších týdnech žádné termíny.",
+    "why": "missing"
+  },
+  "student:dashboard.nextAction.TASK.ctaDefault": {
+    "text": "Začít",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.APPLY": {
+    "text": "Připravujete přihlášky. Krok za krokem.",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.ARRIVAL": {
+    "text": "Vízum je připravené. Je čas naplánovat příjezd!",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.DECISION": {
+    "text": "Vaše přihlášky jsou u univerzit.",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.ENROLL": {
+    "text": "Gratulujeme k nabídce přijetí! Pojďme zajistit vaše místo.",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.EXPLORE": {
+    "text": "Začněme tím, že vás poznáme.",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.STUDENT_LIFE": {
+    "text": "Vítejte v Koreji. Jsme tu pro vás i nadále.",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.VISA": {
+    "text": "Univerzita vás přijala. Dalším krokem je studentské vízum.",
+    "why": "gender-neutral vykání instead of plural participle"
+  },
+  "student:documents.drawer.country": {
+    "text": "Vydáno v zemi",
+    "why": "missing"
+  },
+  "student:documents.drawer.expired": {
+    "text": "Platnost tohoto dokumentu skončila",
+    "why": "missing"
+  },
+  "student:documents.drawer.expiredText": {
+    "text": "Nahrajte aktuální verzi, aby vaše přihlášky zůstaly platné.",
+    "why": "missing"
+  },
+  "student:documents.drawer.expires": {
+    "text": "Platnost do",
+    "why": "missing"
+  },
+  "student:documents.drawer.file": {
+    "text": "Nejnovější soubor",
+    "why": "missing"
+  },
+  "student:documents.drawer.fixDefault": {
+    "text": "Tento dokument je potřeba upravit. Opravte ho a nahrajte novou verzi.",
+    "why": "missing"
+  },
+  "student:documents.drawer.fixTitle": {
+    "text": "Co opravit",
+    "why": "missing"
+  },
+  "student:documents.drawer.inReview": {
+    "text": "Tento dokument kontrolujeme. Teď nemusíte nic dělat.",
+    "why": "missing"
+  },
+  "student:documents.drawer.issued": {
+    "text": "Datum vydání",
+    "why": "missing"
+  },
+  "student:documents.drawer.newVersion": {
+    "text": "Nová verze",
+    "why": "missing"
+  },
+  "student:documents.drawer.reviewMeta": {
+    "text": "Verze {{version}} · {{when}}",
+    "why": "missing"
+  },
+  "student:documents.drawer.reviews": {
+    "text": "Historie kontrol",
+    "why": "missing"
+  },
+  "student:documents.drawer.translation": {
+    "text": "Překlad",
+    "why": "missing"
+  },
+  "student:documents.drawer.translationNo": {
+    "text": "Není potřeba",
+    "why": "missing"
+  },
+  "student:documents.drawer.translationYes": {
+    "text": "Je potřeba úředně ověřený překlad",
+    "why": "missing"
+  },
+  "student:documents.drawer.uploadFixed": {
+    "text": "Nahrát opravenou verzi",
+    "why": "missing"
+  },
+  "student:documents.drawer.versions": {
+    "text": "Verze",
+    "why": "missing"
+  },
+  "student:documents.drawer.viewVersion": {
+    "text": "Zobrazit verzi {{version}}",
+    "why": "missing"
+  },
+  "student:documents.legal.intro": {
+    "text": "Každý krok po dokončení označte jako hotový. Výsledný dokument zkontrolujeme my.",
+    "why": "check, not verify (glossary)"
+  },
+  "student:documents.reusable": {
+    "text": "Opakovaně použitelný",
+    "why": "missing"
+  },
+  "student:documents.upload.category": {
+    "text": "Typ dokumentu",
+    "why": "missing"
+  },
+  "student:documents.upload.choose": {
+    "text": "Vybrat soubor",
+    "why": "missing"
+  },
+  "student:documents.upload.country": {
+    "text": "Země vydání",
+    "why": "missing"
+  },
+  "student:documents.upload.countryHint": {
+    "text": "Rozhoduje o tom, zda je potřeba apostila.",
+    "why": "missing"
+  },
+  "student:documents.upload.expires": {
+    "text": "Datum konce platnosti",
+    "why": "missing"
+  },
+  "student:documents.upload.file": {
+    "text": "Soubor",
+    "why": "missing"
+  },
+  "student:documents.upload.fileHint": {
+    "text": "PDF, JPG, PNG nebo WEBP, do {{mb}} MB.",
+    "why": "missing"
+  },
+  "student:documents.upload.issued": {
+    "text": "Datum vydání",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.en": {
+    "text": "Angličtina",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.id": {
+    "text": "Indonéština",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.ja": {
+    "text": "Japonština",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.ko": {
+    "text": "Korejština",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.mn": {
+    "text": "Mongolština",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.ne": {
+    "text": "Nepálština",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.other": {
+    "text": "Jiný",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.ru": {
+    "text": "Ruština",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.th": {
+    "text": "Thajština",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.uz": {
+    "text": "Uzbečtina",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.vi": {
+    "text": "Vietnamština",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.zh": {
+    "text": "Čínština",
+    "why": "missing"
+  },
+  "student:documents.upload.language": {
+    "text": "Jazyk dokumentu",
+    "why": "missing"
+  },
+  "student:documents.upload.subtitle": {
+    "text": "Stačí čitelný sken nebo fotka z telefonu. Zkontrolujeme ho a dáme vám vědět, pokud bude potřeba něco opravit.",
+    "why": "missing"
+  },
+  "student:documents.upload.title": {
+    "text": "Nahrát dokument",
+    "why": "missing"
+  },
+  "student:documents.upload.titleLabel": {
+    "text": "Název",
+    "why": "missing"
+  },
+  "student:documents.upload.types": {
+    "text": "PDF, JPG, PNG nebo WEBP",
+    "why": "missing"
+  },
+  "student:documents.upload.versionTitle": {
+    "text": "Nahrát novou verzi",
+    "why": "missing"
+  },
+  "student:essays.comments_one": {
+    "text": "{{count}} komentář",
+    "why": "missing"
+  },
+  "student:essays.comments_few": {
+    "text": "{{count}} komentáře",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "student:essays.edited": {
+    "text": "Upraveno {{when}}",
+    "why": "missing"
+  },
+  "student:essays.new.cta": {
+    "text": "Vytvořit esej",
+    "why": "missing"
+  },
+  "student:essays.new.limit": {
+    "text": "Limit slov",
+    "why": "missing"
+  },
+  "student:essays.new.name": {
+    "text": "Název",
+    "why": "missing"
+  },
+  "student:essays.new.subtitle": {
+    "text": "Na procvičení nebo pro univerzitu, která zatím není v seznamu.",
+    "why": "missing"
+  },
+  "student:essays.new.title": {
+    "text": "Začít novou esej",
+    "why": "missing"
+  },
+  "student:essays.new.type": {
+    "text": "Typ eseje",
+    "why": "missing"
+  },
+  "student:home.allMatches": {
+    "text": "Všechny shody",
+    "why": "missing"
+  },
+  "student:home.arrivalProgress": {
+    "text": "Hotovo {{done}} z 11 kroků po příjezdu",
+    "why": "missing"
+  },
+  "student:home.closest": {
+    "text": "Nejblíže vašemu profilu",
+    "why": "missing"
+  },
+  "student:home.docAction.IN_REVIEW": {
+    "text": "V kontrole",
+    "why": "missing"
+  },
+  "student:home.docAction.LEGALIZE": {
+    "text": "Potřebuje apostilu",
+    "why": "missing"
+  },
+  "student:home.docAction.OPEN": {
+    "text": "Otevřít",
+    "why": "missing"
+  },
+  "student:home.documentsSub_few": {
+    "text": "{{count}} dokumenty čekají na vás",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "student:home.greet.afternoon": {
+    "text": "Dobré odpoledne, {{name}}",
+    "why": "missing"
+  },
+  "student:home.otherTasks_one": {
+    "text": "{{count}} další úkol",
+    "why": "missing"
+  },
+  "student:home.otherTasks_few": {
+    "text": "{{count}} další úkoly",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "student:home.recommended": {
+    "text": "Doporučeno pro vás",
+    "why": "missing"
+  },
+  "student:home.recommendedSub": {
+    "text": "Programy, u kterých splňujete zveřejněné požadavky.",
+    "why": "missing"
+  },
+  "student:housing.noDorms": {
+    "text": "Tato univerzita zatím nezveřejnila informace o kolejích.",
+    "why": "missing"
+  },
+  "student:housing.noUni": {
+    "text": "Bydlení se otevře s vaší první přihláškou",
+    "why": "missing"
+  },
+  "student:housing.noUniCta": {
+    "text": "Přejít na přihlášky",
+    "why": "missing"
+  },
+  "student:housing.noUniText": {
+    "text": "Jakmile podáte přihlášku, ukážeme vám možnosti kolejí a ceny na dané univerzitě.",
+    "why": "missing"
+  },
+  "student:housing.subtitle": {
+    "text": "Porovnejte možnosti kolejí a mějte přehled o krocích k bydlení.",
+    "why": "missing"
+  },
+  "student:housing.title": {
+    "text": "Bydlení",
+    "why": "missing"
+  },
+  "student:login.aside.eyebrow": {
+    "text": "Studium v Koreji krok za krokem",
+    "why": "missing"
+  },
+  "student:login.aside.note": {
+    "text": "Tisíce malých kroků, vždy jeden jasný další krok.",
+    "why": "missing"
+  },
+  "student:login.aside.point2": {
+    "text": "Mějte všechny dokumenty na jednom zabezpečeném místě a používejte je ve více přihláškách.",
+    "why": "missing"
+  },
+  "student:login.aside.point3": {
+    "text": "Připravujte se se skutečnými lidmi z týmu Hangyul, kteří mluví vaším jazykem.",
+    "why": "missing"
+  },
+  "student:messages.new.body": {
+    "text": "Zpráva",
+    "why": "missing"
+  },
+  "student:messages.new.subject": {
+    "text": "Předmět",
+    "why": "missing"
+  },
+  "student:messages.new.title": {
+    "text": "Nová konverzace",
+    "why": "missing"
+  },
+  "student:messages.unread_one": {
+    "text": "{{count}} nepřečtená zpráva",
+    "why": "missing"
+  },
+  "student:messages.unread_few": {
+    "text": "{{count}} nepřečtené zprávy",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "student:onboarding.basics.dobHint": {
+    "text": "Některá stipendia mají věkový limit.",
+    "why": "missing"
+  },
+  "student:onboarding.basics.legalText": {
+    "text": "Oficiální dokumenty ze země {{country}} obvykle potřebují tento krok, než je korejské univerzity přijmou: {{path}}. Až přijde čas, provedeme vás tím.",
+    "why": "missing"
+  },
+  "student:onboarding.basics.legalTitle": {
+    "text": "Dobré vědět na později",
+    "why": "missing"
+  },
+  "student:onboarding.basics.residenceHint": {
+    "text": "Některá velvyslanectví přijímají žádosti o vízum jen od obyvatel své země.",
+    "why": "missing"
+  },
+  "student:onboarding.education.country": {
+    "text": "Země studia",
+    "why": "missing"
+  },
+  "student:onboarding.education.gpaHint": {
+    "text": "Zadejte svůj průměr na stupnici, kterou používá vaše škola.",
+    "why": "missing"
+  },
+  "student:onboarding.education.gpaScale": {
+    "text": "Z maxima",
+    "why": "missing"
+  },
+  "student:onboarding.education.gpaValue": {
+    "text": "Váš průměr (GPA)",
+    "why": "missing"
+  },
+  "student:onboarding.education.gradYear": {
+    "text": "Rok absolvování",
+    "why": "missing"
+  },
+  "student:onboarding.education.institutionPh": {
+    "text": "např. Hanoi National University",
+    "why": "missing"
+  },
+  "student:onboarding.education.levels.ASSOCIATE": {
+    "text": "Vyšší odborné studium (associate)",
+    "why": "missing"
+  },
+  "student:onboarding.education.levels.BACHELOR": {
+    "text": "Bakalářský titul",
+    "why": "missing"
+  },
+  "student:onboarding.education.levels.DOCTORATE": {
+    "text": "Doktorát",
+    "why": "missing"
+  },
+  "student:onboarding.education.levels.MASTER": {
+    "text": "Magisterský titul",
+    "why": "missing"
+  },
+  "student:onboarding.education.major": {
+    "text": "Obor nebo zaměření",
+    "why": "missing"
+  },
+  "student:onboarding.education.normalized": {
+    "text": "Přepočtené skóre",
+    "why": "missing"
+  },
+  "student:onboarding.education.previewEmpty": {
+    "text": "Zadejte průměr a jeho stupnici a uvidíte přepočtené skóre.",
+    "why": "missing"
+  },
+  "student:onboarding.education.status": {
+    "text": "Stav studia",
+    "why": "missing"
+  },
+  "student:onboarding.education.statuses.EXPECTED": {
+    "text": "Brzy absolvuji",
+    "why": "missing"
+  },
+  "student:onboarding.education.statuses.GRADUATED": {
+    "text": "Dokončeno",
+    "why": "missing"
+  },
+  "student:onboarding.education.statuses.IN_PROGRESS": {
+    "text": "Stále studuji",
+    "why": "missing"
+  },
+  "student:onboarding.goals.degreeSub.ASSOCIATE": {
+    "text": "2–3leté prakticky zaměřené studium",
+    "why": "missing"
+  },
+  "student:onboarding.goals.degreeSub.BACHELOR": {
+    "text": "4leté bakalářské studium",
+    "why": "missing"
+  },
+  "student:onboarding.goals.degreeSub.DOCTORATE": {
+    "text": "Výzkumné studium (PhD)",
+    "why": "missing"
+  },
+  "student:onboarding.goals.degreeSub.LANGUAGE": {
+    "text": "Začněte korejštinou, vlastním tempem",
+    "why": "matches English; drops added claim"
+  },
+  "student:onboarding.goals.degreeSub.MASTER": {
+    "text": "Navazující studium po bakaláři",
+    "why": "missing"
+  },
+  "student:onboarding.goals.degreeSub.TRANSFER": {
+    "text": "Pokračování ve studiu, které už běží",
+    "why": "missing"
+  },
+  "student:onboarding.goals.fieldsHint": {
+    "text": "Vyberte libovolný počet.",
+    "why": "missing"
+  },
+  "student:onboarding.goals.intakeHint": {
+    "text": "Korejské univerzity začínají na jaře (březen) a na podzim (září).",
+    "why": "missing"
+  },
+  "student:onboarding.goals.term": {
+    "text": "Nástupní semestr",
+    "why": "missing"
+  },
+  "student:onboarding.goals.termLabel.FALL": {
+    "text": "Podzim (září)",
+    "why": "missing"
+  },
+  "student:onboarding.goals.termLabel.SPRING": {
+    "text": "Jaro (březen)",
+    "why": "missing"
+  },
+  "student:onboarding.goals.year": {
+    "text": "Rok nástupu",
+    "why": "missing"
+  },
+  "student:onboarding.language.have": {
+    "text": "Mám výsledek",
+    "why": "missing"
+  },
+  "student:onboarding.language.level.BEGINNER": {
+    "text": "Začátečnická",
+    "why": "missing; agrees with existing level forms"
+  },
+  "student:onboarding.language.level.NATIVE": {
+    "text": "Rodilý mluvčí",
+    "why": "missing"
+  },
+  "student:onboarding.language.level.NONE": {
+    "text": "Zatím žádná",
+    "why": "missing"
+  },
+  "student:onboarding.language.planning": {
+    "text": "Plánuji ho složit",
+    "why": "missing"
+  },
+  "student:onboarding.language.score": {
+    "text": "Výsledek ({{range}})",
+    "why": "missing"
+  },
+  "student:onboarding.language.test.TOEFL_IBT": {
+    "text": "TOEFL iBT",
+    "why": "missing"
+  },
+  "student:onboarding.language.testSub.IELTS": {
+    "text": "Test z angličtiny, pásma 0–9",
+    "why": "missing"
+  },
+  "student:onboarding.language.testSub.TOEFL_IBT": {
+    "text": "Test z angličtiny, 0–120",
+    "why": "missing"
+  },
+  "student:onboarding.language.testSub.TOPIK": {
+    "text": "Test z korejštiny (Test of Proficiency in Korean), úrovně 1–6",
+    "why": "missing"
+  },
+  "student:onboarding.language.testsHint": {
+    "text": "Pokud zatím žádný nemáte, přeskočte.",
+    "why": "missing"
+  },
+  "student:onboarding.passport.currentVisa": {
+    "text": "Vaše současné vízum",
+    "why": "missing"
+  },
+  "student:onboarding.passport.expiry": {
+    "text": "Platnost pasu do",
+    "why": "missing"
+  },
+  "student:onboarding.passport.expiryHint": {
+    "text": "Pokud možno by měl platit po celou dobu studia.",
+    "why": "missing"
+  },
+  "student:onboarding.passport.inKoreaNo": {
+    "text": "Ne, jsem v zahraničí",
+    "why": "missing"
+  },
+  "student:onboarding.passport.inKoreaYes": {
+    "text": "Ano, jsem v Koreji",
+    "why": "missing"
+  },
+  "student:onboarding.passport.no": {
+    "text": "Zatím ne",
+    "why": "missing"
+  },
+  "student:onboarding.passport.number": {
+    "text": "Číslo pasu",
+    "why": "missing"
+  },
+  "student:onboarding.passport.numberHint": {
+    "text": "Nepovinné. Uchováváme jen poslední číslice; celé číslo zůstává jen na dokumentu pasu.",
+    "why": "missing"
+  },
+  "student:onboarding.passport.previousHint": {
+    "text": "Může to změnit, které vízové kroky se vás týkají.",
+    "why": "missing"
+  },
+  "student:onboarding.passport.visa.C-3": {
+    "text": "C-3 (krátkodobá návštěva)",
+    "why": "missing"
+  },
+  "student:onboarding.passport.visa.D-2": {
+    "text": "D-2 (studium)",
+    "why": "missing"
+  },
+  "student:onboarding.passport.visa.D-4": {
+    "text": "D-4 (jazykový kurz)",
+    "why": "missing"
+  },
+  "student:onboarding.passport.visa.E-7": {
+    "text": "E-7 (práce)",
+    "why": "missing"
+  },
+  "student:onboarding.passport.visa.NONE": {
+    "text": "Nikdy",
+    "why": "missing"
+  },
+  "student:onboarding.passport.visa.OTHER": {
+    "text": "Jiné",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.budgetOver": {
+    "text": "Více než {{amount}}",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.budgetUpTo": {
+    "text": "Do {{amount}}",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.housingOpt.NO_PREFERENCE": {
+    "text": "Bez preference",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.housingOpt.OFF_CAMPUS": {
+    "text": "Pokoj mimo kampus",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.housingSub.DORM": {
+    "text": "Většina zahraničních studentů v prvním ročníku volí tuto možnost",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.perMonth": {
+    "text": "zhruba {{amount}} měsíčně",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.regionsHint": {
+    "text": "Nechte prázdné, pokud vám vyhovuje kdekoli v Koreji.",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.scholarshipNo": {
+    "text": "Bylo by fajn, ale není nutné",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.scholarshipYesSub": {
+    "text": "Zvýrazníme programy se stipendii, na která můžete mít nárok",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.goalHint": {
+    "text": "Stačí jedna dvě věty. Později to pomůže se studijním plánem.",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.goalPh": {
+    "text": "např. Pracovat v marketingu mezi korejskými a vietnamskými firmami.",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.option.EMPLOYER": {
+    "text": "Můj zaměstnavatel",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.option.OTHER": {
+    "text": "Někdo jiný",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.option.RELATIVE": {
+    "text": "Jiný příbuzný",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.option.SCHOLARSHIP": {
+    "text": "Stipendium",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.option.SELF": {
+    "text": "Já",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.whoHint": {
+    "text": "K žádosti o vízum je potřeba doklad o financích od této osoby nebo organizace.",
+    "why": "missing"
+  },
+  "student:onboarding.steps.basics.eyebrow": {
+    "text": "O vás",
+    "why": "missing"
+  },
+  "student:onboarding.steps.basics.subtitle": {
+    "text": "Podle toho poznáme, které dokumenty a vízová pravidla se vás týkají.",
+    "why": "missing"
+  },
+  "student:onboarding.steps.basics.title": {
+    "text": "Odkud jste?",
+    "why": "missing"
+  },
+  "student:onboarding.steps.education.eyebrow": {
+    "text": "Vaše studium",
+    "why": "missing"
+  },
+  "student:onboarding.steps.education.subtitle": {
+    "text": "Podle toho ověříme podmínky přijetí. Zatím stačí odhad.",
+    "why": "missing"
+  },
+  "student:onboarding.steps.education.title": {
+    "text": "Řekněte nám o svém současném vzdělání",
+    "why": "missing"
+  },
+  "student:onboarding.steps.goals.eyebrow": {
+    "text": "Váš cíl",
+    "why": "missing"
+  },
+  "student:onboarding.steps.goals.title": {
+    "text": "Co byste chtěli studovat?",
+    "why": "missing"
+  },
+  "student:onboarding.steps.language.eyebrow": {
+    "text": "Jazyky",
+    "why": "missing"
+  },
+  "student:onboarding.steps.language.title": {
+    "text": "Jak jste na tom s korejštinou a angličtinou?",
+    "why": "missing"
+  },
+  "student:onboarding.steps.passport.eyebrow": {
+    "text": "Cestování",
+    "why": "missing"
+  },
+  "student:onboarding.steps.passport.title": {
+    "text": "Pas a historie víz",
+    "why": "missing"
+  },
+  "student:onboarding.steps.preferences.eyebrow": {
+    "text": "Rozpočet a život",
+    "why": "missing"
+  },
+  "student:onboarding.steps.preferences.subtitle": {
+    "text": "Rozpočet, stipendia a bydlení nám pomohou seřadit programy pro vás.",
+    "why": "missing"
+  },
+  "student:onboarding.steps.preferences.title": {
+    "text": "Na čem vám v každodenním životě záleží?",
+    "why": "missing"
+  },
+  "student:onboarding.steps.sponsor.eyebrow": {
+    "text": "Poslední krok",
+    "why": "missing"
+  },
+  "student:onboarding.steps.sponsor.title": {
+    "text": "Kdo financuje vaše studium?",
+    "why": "missing"
+  },
+  "student:profile.anywhere": {
+    "text": "Kdekoli v Koreji",
+    "why": "missing"
+  },
+  "student:profile.institutionMissing": {
+    "text": "Škola zatím nedoplněna",
+    "why": "missing"
+  },
+  "student:profile.planned": {
+    "text": "{{test}} (plánováno)",
+    "why": "missing"
+  },
+  "student:profile.title": {
+    "text": "Váš profil",
+    "why": "missing"
+  },
+  "student:register.consent.PRIVACY.summary": {
+    "text": "E-mail, mobilní číslo, jméno, státní příslušnost a heslo (uložené šifrovaně) pro vytvoření a zabezpečení účtu.",
+    "why": "matches English; 'hash' not in source"
+  },
+  "student:services.success.assigned": {
+    "text": "Podporovat vás bude {{agency}}",
+    "why": "missing"
+  },
+  "student:settings.account.saved": {
+    "text": "Účet aktualizován",
+    "why": "missing"
+  },
+  "student:settings.data.kind.DELETE": {
+    "text": "Smazání účtu",
+    "why": "missing"
+  },
+  "student:settings.data.status.COMPLETED": {
+    "text": "Dokončeno",
+    "why": "missing"
+  },
+  "student:settings.data.status.IN_REVIEW": {
+    "text": "Probíhá",
+    "why": "missing"
+  },
+  "student:settings.data.status.REJECTED": {
+    "text": "Zamítnuto",
+    "why": "missing"
+  },
+  "student:settings.privacy.saved": {
+    "text": "Volba soukromí uložena",
+    "why": "missing"
+  },
+  "student:tasks.emptyText": {
+    "text": "Nové úkoly se tu objeví, až bude něco, co můžete udělat.",
+    "why": "missing"
+  },
+  "student:tasks.markDone": {
+    "text": "Označit „{{title}}“ jako hotové",
+    "why": "missing"
+  },
+  "student:tasks.title": {
+    "text": "Úkoly",
+    "why": "missing"
+  },
+  "student:v15.services.allowance.key.essay_review_rounds": {
+    "text": "Úpravy motivačního dopisu a studijního plánu",
+    "why": "one term: studijní plán"
+  },
+  "student:v15.services.allowance.key.max_managed_applications": {
+    "text": "Přihlášky vedené týmem",
+    "why": "one term for managed application"
+  },
+  "student:v15.services.allowance.key.mock_interviews": {
+    "text": "Zkušební pohovory",
+    "why": "missing"
+  },
+  "student:v15.services.choose": {
+    "text": "Vybrat {{name}}",
+    "why": "missing"
+  },
+  "student:v15.services.chosen": {
+    "text": "Balíček, který jste si vybrali na webu.",
+    "why": "missing"
+  },
+  "student:v15.services.scope.consultation_minutes": {
+    "text": "{{count}}minutová konzultace",
+    "why": "missing"
+  },
+  "student:v15.services.scope.interview_preparation": {
+    "text": "Příprava na pohovor",
+    "why": "missing"
+  },
+  "student:v15.services.scope.personal_roadmap": {
+    "text": "Osobní plán cesty za studiem v zahraničí",
+    "why": "missing"
+  },
+  "student:v15.services.scope.pre_arrival_orientation": {
+    "text": "Online orientace před odjezdem",
+    "why": "missing"
+  },
+  "student:v15.services.scope.settlement_support": {
+    "text": "Pomoc po příjezdu",
+    "why": "says what we do; one term"
+  },
+  "student:v15.services.scope.visa_support": {
+    "text": "Příprava dokumentů k vízu",
+    "why": "glossary: visa document preparation"
+  },
+  "student:v16.pay.amount": {
+    "text": "Částka",
+    "why": "missing"
+  },
+  "student:v16.pay.cancelled": {
+    "text": "Platbu jste zrušili. Nic nebylo strženo.",
+    "why": "missing"
+  },
+  "student:v16.pay.couldNotStart": {
+    "text": "Platební okno se nepodařilo otevřít.",
+    "why": "missing"
+  },
+  "student:v16.pay.cta": {
+    "text": "Zaplatit a začít",
+    "why": "missing"
+  },
+  "student:v16.pay.fail.title": {
+    "text": "Platba neproběhla",
+    "why": "missing"
+  },
+  "student:v16.pay.method": {
+    "text": "Způsob platby",
+    "why": "missing"
+  },
+  "student:v16.pay.methodCard": {
+    "text": "Karta",
+    "why": "missing"
+  },
+  "student:v16.pay.notCharged": {
+    "text": "Nic nebylo strženo.",
+    "why": "missing"
+  },
+  "student:v16.pay.orderNo": {
+    "text": "Objednávka",
+    "why": "missing"
+  },
+  "student:v16.pay.orderTitle": {
+    "text": "Vaše objednávka",
+    "why": "missing"
+  },
+  "student:v16.pay.receipt": {
+    "text": "Zobrazit doklad",
+    "why": "missing"
+  },
+  "student:v16.pay.retry": {
+    "text": "Zkusit platbu znovu",
+    "why": "missing"
+  },
+  "student:v16.pay.sdkDown": {
+    "text": "Platební okno se nepodařilo načíst. Zkontrolujte připojení a zkuste to znovu.",
+    "why": "missing"
+  },
+  "student:v16.pay.selected": {
+    "text": "Vybráno",
+    "why": "missing"
+  },
+  "student:v16.pay.status.CANCELLED": {
+    "text": "Zrušeno",
+    "why": "missing"
+  },
+  "student:v16.pay.status.FAILED": {
+    "text": "Neúspěšná",
+    "why": "missing"
+  },
+  "student:v16.pay.status.PENDING": {
+    "text": "Čeká se",
+    "why": "missing"
+  },
+  "student:v16.pay.success.cta": {
+    "text": "Začít s přípravou",
+    "why": "missing"
+  },
+  "student:v16.pay.success.text": {
+    "text": "Začínáte přípravu na studium v Koreji s balíčkem {{name}}.",
+    "why": "missing"
+  },
+  "student:v16.pay.success.title": {
+    "text": "Platba dokončena",
+    "why": "missing"
+  },
+  "student:v17.gate.what.arrival": {
+    "text": "Pomoc po příjezdu a se zabydlením",
+    "why": "matches English; one term"
+  },
+  "student:v17.gate.what.essays": {
+    "text": "Úpravy motivačního dopisu a studijního plánu",
+    "why": "editing, not checking; one term"
+  },
+  "student:v17.gate.what.help": {
+    "text": "Pomoc od týmu Hangyul",
+    "why": "names who helps, as English"
+  },
+  "student:v17.gate.what.housing": {
+    "text": "Pomoc s kolejí",
+    "why": "dormitory help, not housing topic"
+  },
+  "student:v17.gate.what.messages": {
+    "text": "Zprávy s týmem Hangyul",
+    "why": "was a bare team name; wrong meaning"
+  },
+  "student:v17.gate.what.saved": {
+    "text": "Váš užší výběr",
+    "why": "shortlist, not list of schools"
+  },
+  "student:v17.gate.what.tasks": {
+    "text": "Váš seznam úkolů",
+    "why": "task list, not plan"
+  },
+  "student:v17.gate.what.visa": {
+    "text": "Příprava dokumentů k vízu",
+    "why": "glossary: visa document preparation"
+  },
+  "student:v17.upgrade.amount": {
+    "text": "Cena přechodu",
+    "why": "'Upgrade price', not just upgrade"
+  },
+  "student:v17.upgrade.feature.document_review": {
+    "text": "Důkladná kontrola dokumentů",
+    "why": "intensive, not complete"
+  },
+  "student:v17.upgrade.feature.essay_review": {
+    "text": "Úpravy motivačního dopisu",
+    "why": "editing, not checking; one term"
+  },
+  "student:v17.upgrade.feature.managed_application": {
+    "text": "Přihlášky vedené týmem",
+    "why": "one term for managed application"
+  },
+  "student:v17.upgrade.feature.recommendations": {
+    "text": "Doporučení univerzit",
+    "why": "recommendations, one term"
+  },
+  "student:v17.upgrade.feature.settlement": {
+    "text": "Pomoc po příjezdu",
+    "why": "one term"
+  },
+  "student:v21.pay.cardFailed": {
+    "text": "Platba neproběhla",
+    "why": "missing"
+  },
+  "student:v21.pay.cardSecure": {
+    "text": "Údaje o kartě jdou šifrovaným spojením jen do Hangyulu a dál k našemu poskytovateli plateb. Číslo karty nikdy neukládáme.",
+    "why": "missing"
+  },
+  "student:v21.pay.cardTitle": {
+    "text": "Platba kartou",
+    "why": "missing"
+  },
+  "student:v21.pay.declined": {
+    "text": "Karta nebyla přijata: {{reason}} Zkuste jinou kartu nebo se obraťte na svou banku.",
+    "why": "missing"
+  },
+  "student:v21.pay.expiry": {
+    "text": "Platnost",
+    "why": "missing"
+  },
+  "student:v21.pay.holder": {
+    "text": "Jméno na kartě",
+    "why": "missing"
+  },
+  "student:v21.pay.notConfigured": {
+    "text": "Platba kartou tu zatím není dostupná. Zkuste to prosím později nebo nás kontaktujte.",
+    "why": "missing"
+  },
+  "student:v21.pay.number": {
+    "text": "Číslo karty",
+    "why": "missing"
+  },
+  "student:v21.pay.numberInvalid": {
+    "text": "Zkontrolujte prosím číslo karty.",
+    "why": "missing"
+  },
+  "student:v21.pay.optional": {
+    "text": "nepovinné",
+    "why": "missing"
+  },
+  "student:v21.pay.payCta": {
+    "text": "Zaplatit touto kartou",
+    "why": "missing"
+  },
+  "student:v21.pay.processing": {
+    "text": "Zpracováváme vaši platbu…",
+    "why": "missing"
+  },
+  "student:v21.pay.savedDelete": {
+    "text": "Odebrat",
+    "why": "missing"
+  },
+  "student:v21.pay.savedDeleteBody": {
+    "text": "Kartu {{card}} odstraníme z vašeho účtu. Na již provedené platby to nemá vliv.",
+    "why": "missing"
+  },
+  "student:v21.pay.savedDeleteFailed": {
+    "text": "Kartu se nepodařilo odebrat. Zkuste to prosím znovu.",
+    "why": "missing"
+  },
+  "student:v21.pay.savedDeleteTitle": {
+    "text": "Odebrat tuto kartu?",
+    "why": "missing"
+  },
+  "student:v21.pay.savedNotReusable": {
+    "text": "Při příštím nákupu zadáte kartu znovu.",
+    "why": "missing"
+  },
+  "student:v21.pay.savedTitle": {
+    "text": "Vaše karta",
+    "why": "missing"
+  },
+  "student:v21.pay.tooMany": {
+    "text": "Příliš mnoho pokusů s kartou. Před dalším pokusem počkejte několik minut.",
+    "why": "missing"
+  },
+  "student:v22.home.appTeam.follow": {
+    "text": "Zjišťujeme stav na studijním oddělení univerzity {{university}}",
+    "why": "names the admissions office, as English"
+  },
+  "student:v22.home.appTeam.letter": {
+    "text": "Zjišťujeme stav vašeho standardního dopisu o přijetí z univerzity {{university}}",
+    "why": "official document name"
+  },
+  "student:v22.home.appsQuiet_few": {
+    "text": "Všechny {{count}} přihlášky jsou u univerzit. Teď od vás nic nepotřebujeme.",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "student:v22.home.appsQuiet_other": {
+    "text": "Všech {{count}} přihlášek je u univerzit. Teď od vás nic nepotřebujeme.",
+    "why": "natural count agreement"
+  },
+  "student:v22.home.docsChecking_few": {
+    "text": "Kontrolují se {{count}} dokumenty",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "student:v22.home.docsChecking_other": {
+    "text": "Kontroluje se {{count}} dokumentů",
+    "why": "same wording as _one form"
+  },
+  "student:v22.home.writing": {
+    "text": "Psaní",
+    "why": "one term with Writing page title"
+  },
+  "student:v29.services.catalogue.premiumEditing": {
+    "text": "Premium už zahrnuje úpravy vašich smluvních dokumentů.",
+    "why": "editing, not proofreading"
+  },
+  "student:v29.services.legacyContract": {
+    "text": "Tento balíček se řídí smlouvou o službách platnou v době nákupu ({{version}}).",
+    "why": "one term: balíček, not tarif"
+  },
+  "student:writing.needYou": {
+    "text": "Na řadě jste vy: napsat nebo upravit",
+    "why": "says what to do, as English"
+  },
+  "student:writing.others": {
+    "text": "Kontroluje tým Hangyul, nebo hotovo",
+    "why": "clearer: who holds it"
+  },
+  "student:writing.status.AI_PRECHECK": {
+    "text": "Odesláno",
+    "why": "missing"
+  },
+  "student:writing.status.APPROVED": {
+    "text": "Připraveno",
+    "why": "missing"
+  },
+  "student:writing.status.CHANGES_REQUESTED": {
+    "text": "Požadovány úpravy",
+    "why": "missing"
+  },
+  "student:writing.status.FINAL_REVIEW": {
+    "text": "Kontroluje tým Hangyul",
+    "why": "same English as AGENCY_REVIEW; align"
+  },
+  "student:writing.status.STUDENT_REVISION": {
+    "text": "Požadovány úpravy",
+    "why": "missing"
+  },
+  "student:writing.status.SUBMITTED": {
+    "text": "Odesláno",
+    "why": "missing"
+  },
+  "student:writing.subtitle": {
+    "text": "Vaše motivační dopisy a studijní plány. Tým Hangyul komentuje strukturu a srozumitelnost. Myšlenky i slova zůstávají vaše.",
+    "why": "one term: studijní plán"
+  },
+  "mobile:agency.deadlines.empty": {
+    "text": "Žádné termíny v příštích 30 dnech",
+    "why": "missing"
+  },
+  "mobile:agency.deadlines.subtitle": {
+    "text": "Termíny vašich studentů v příštích 30 dnech.",
+    "why": "missing"
+  },
+  "mobile:agency.deadlines.title": {
+    "text": "Připomínky",
+    "why": "missing"
+  },
+  "mobile:agency.messages.subtitle": {
+    "text": "Konverzace se studenty a interní poznámky.",
+    "why": "missing"
+  },
+  "mobile:agency.messages.title": {
+    "text": "Zprávy",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.detailTitle": {
+    "text": "Kontrola",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.empty": {
+    "text": "Fronta kontrol je prázdná",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.emptyBody": {
+    "text": "Nové soubory od vašich studentů se objeví tady.",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.history": {
+    "text": "Historie kontrol",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.lastReason": {
+    "text": "Předchozí žádost o opravu",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.noFile": {
+    "text": "K tomuto dokumentu zatím nebyl nahrán žádný soubor.",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.sendToStudent": {
+    "text": "Odeslat studentovi",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.tabA11y_one": {
+    "text": "Kontroly, čeká {{count}}",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.tabA11y_few": {
+    "text": "Kontroly, čekají {{count}}",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:agency.reviews.tabA11y_other": {
+    "text": "Kontroly, čeká {{count}}",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.title": {
+    "text": "Kontroly dokumentů",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.verify": {
+    "text": "Ověřit dokument",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.waitingDays_one": {
+    "text": "Čeká {{count}} den",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.waitingDays_few": {
+    "text": "Čeká {{count}} dny",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:agency.reviews.waitingDays_other": {
+    "text": "Čeká {{count}} dní",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.waitingHours_one": {
+    "text": "Čeká {{count}} hodinu",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.waitingHours_few": {
+    "text": "Čeká {{count}} hodiny",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:agency.reviews.waitingHours_other": {
+    "text": "Čeká {{count}} hodin",
+    "why": "missing"
+  },
+  "mobile:agency.students.detailTitle": {
+    "text": "Student",
+    "why": "missing"
+  },
+  "mobile:agency.tasks.unassigned": {
+    "text": "Nepřiřazeno",
+    "why": "missing"
+  },
+  "mobile:app.agency": {
+    "text": "Hangyul Agency",
+    "why": "missing; product name kept"
+  },
+  "mobile:app.student": {
+    "text": "Hangyul Univ",
+    "why": "missing; product name kept"
+  },
+  "mobile:app.university": {
+    "text": "Hangyul University",
+    "why": "missing; product name kept"
+  },
+  "mobile:login.networkError": {
+    "text": "Hangyul je teď nedostupný na adrese {{url}}. Zkontrolujte prosím připojení a zkuste to za chvíli znovu.",
+    "why": "missing"
+  },
+  "mobile:messages.empty": {
+    "text": "Zatím žádné konverzace",
+    "why": "missing"
+  },
+  "mobile:messages.emptyBody": {
+    "text": "Zprávy s vaším týmem se objeví tady.",
+    "why": "missing"
+  },
+  "mobile:messages.internalLabel": {
+    "text": "Interní poznámka",
+    "why": "missing"
+  },
+  "mobile:messages.internalOn": {
+    "text": "Interní poznámka: uvidí ji jen váš tým",
+    "why": "missing"
+  },
+  "mobile:messages.internalPlaceholder": {
+    "text": "Napište interní poznámku (jen pro tým)…",
+    "why": "missing"
+  },
+  "mobile:messages.noMessages": {
+    "text": "Zatím žádné zprávy",
+    "why": "missing"
+  },
+  "mobile:messages.placeholder": {
+    "text": "Napište zprávu…",
+    "why": "missing"
+  },
+  "mobile:messages.sendInternal": {
+    "text": "Uložit interní poznámku",
+    "why": "missing"
+  },
+  "mobile:messages.unreadCount_one": {
+    "text": "{{count}} nepřečtená zpráva",
+    "why": "missing"
+  },
+  "mobile:messages.unreadCount_few": {
+    "text": "{{count}} nepřečtené zprávy",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:messages.unreadCount_other": {
+    "text": "{{count}} nepřečtených zpráv",
+    "why": "missing"
+  },
+  "mobile:more.active": {
+    "text": "Aktivní",
+    "why": "missing"
+  },
+  "mobile:more.allowanceSpent": {
+    "text": "Vše, co tento balíček zahrnuje, je využito. Na obrazovce balíčků uvidíte, který zahrnuje víc.",
+    "why": "missing"
+  },
+  "mobile:more.choose": {
+    "text": "Vybrat",
+    "why": "missing"
+  },
+  "mobile:more.noPlan": {
+    "text": "Zatím bez balíčku",
+    "why": "missing"
+  },
+  "mobile:more.noPlanHint": {
+    "text": "Vyberte si balíček a Hangyul s vámi začne pracovat",
+    "why": "missing"
+  },
+  "mobile:more.plan": {
+    "text": "Balíček",
+    "why": "missing"
+  },
+  "mobile:more.support": {
+    "text": "Získat pomoc",
+    "why": "missing"
+  },
+  "mobile:more.supportHint": {
+    "text": "Napsat týmu Hangyul",
+    "why": "missing"
+  },
+  "mobile:more.webNote": {
+    "text": "Úprava profilu a platby probíhají na webu.",
+    "why": "missing"
+  },
+  "mobile:notifications.unread": {
+    "text": "Nepřečtené",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.essay_review_rounds": {
+    "text": "Úpravy motivačního dopisu a studijního plánu",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.follow_up_consultations": {
+    "text": "Navazující konzultace",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.max_managed_applications": {
+    "text": "Přihlášky vedené týmem",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.max_recommended_institutions": {
+    "text": "Doporučení univerzit",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.mock_interviews": {
+    "text": "Zkušební pohovory",
+    "why": "missing"
+  },
+  "mobile:plan.browserFailed": {
+    "text": "Prohlížeč se nepodařilo otevřít. Zaplaťte prosím na webu.",
+    "why": "missing"
+  },
+  "mobile:plan.card": {
+    "text": "Zaplatit můžete zahraniční kartou (Visa, Mastercard, JCB).",
+    "why": "missing"
+  },
+  "mobile:plan.chooseLede": {
+    "text": "Jedna platba, žádné předplatné. Balíček vám zůstává po celou dobu přípravy.",
+    "why": "missing"
+  },
+  "mobile:plan.chooseTitle": {
+    "text": "Vyberte si balíček",
+    "why": "missing"
+  },
+  "mobile:plan.handoff": {
+    "text": "Platba proběhne v prohlížeči a po dokončení se vrátíte do aplikace.",
+    "why": "missing"
+  },
+  "mobile:plan.highestAlready": {
+    "text": "Už máte nejvyšší balíček.",
+    "why": "missing"
+  },
+  "mobile:plan.included": {
+    "text": "Zahrnuto ve vašem balíčku",
+    "why": "missing"
+  },
+  "mobile:plan.oneTime": {
+    "text": "Jedna platba",
+    "why": "missing"
+  },
+  "mobile:plan.ongoing": {
+    "text": "Po celé období služby",
+    "why": "missing"
+  },
+  "mobile:plan.paid": {
+    "text": "Zaplacená částka",
+    "why": "missing"
+  },
+  "mobile:plan.pay": {
+    "text": "Zaplatit",
+    "why": "missing"
+  },
+  "mobile:plan.plansTitle": {
+    "text": "Balíčky",
+    "why": "missing"
+  },
+  "mobile:plan.selected": {
+    "text": "Vybráno",
+    "why": "missing"
+  },
+  "mobile:plan.upgradeTitle": {
+    "text": "Přechod na vyšší balíček",
+    "why": "missing"
+  },
+  "mobile:plan.webNote": {
+    "text": "Historie balíčků a doklady jsou na webu.",
+    "why": "missing"
+  },
+  "mobile:settings.elsewhere": {
+    "text": "Jinde",
+    "why": "missing"
+  },
+  "mobile:settings.language": {
+    "text": "Jazyk",
+    "why": "missing"
+  },
+  "mobile:settings.languageHint": {
+    "text": "Vyberte jazyk této aplikace. Některé jazyky jsou strojové návrhy, které ještě procházejí kontrolou.",
+    "why": "missing"
+  },
+  "mobile:settings.machineDraft": {
+    "text": "strojový návrh",
+    "why": "missing"
+  },
+  "mobile:settings.notificationsHint": {
+    "text": "Zobrazit přijatá oznámení",
+    "why": "missing"
+  },
+  "mobile:settings.rtlNote": {
+    "text": "Text zprava doleva se použije hned; celé rozložení se zrcadlí při příštím otevření aplikace.",
+    "why": "missing"
+  },
+  "mobile:settings.selected": {
+    "text": "vybráno",
+    "why": "missing"
+  },
+  "mobile:settings.server": {
+    "text": "Server: {{url}}",
+    "why": "missing"
+  },
+  "mobile:settings.signOutBody": {
+    "text": "K opětovnému přihlášení budete potřebovat e-mail a heslo.",
+    "why": "missing"
+  },
+  "mobile:settings.signOutTitle": {
+    "text": "Odhlásit se?",
+    "why": "missing"
+  },
+  "mobile:settings.title": {
+    "text": "Nastavení",
+    "why": "missing"
+  },
+  "mobile:settings.version": {
+    "text": "Verze {{version}}",
+    "why": "missing"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Twilio Inc. (USA) doručuje ověřovací SMS a e-mail; Cloudflare, Inc. (USA) ověřuje, že registrace není automatizovaná. Podrobnosti včetně způsobu odmítnutí najdete v Zásadách ochrany osobních údajů. Při odmítnutí nelze účet vytvořit.",
+    "why": "drops details not in English; aligns with web"
+  },
+  "mobile:signup.quickGo": {
+    "text": "Zobrazit moje shody",
+    "why": "one term: shody"
+  },
+  "mobile:student.applications.active": {
+    "text": "Aktivní",
+    "why": "missing"
+  },
+  "mobile:student.applications.closed": {
+    "text": "Uzavřené",
+    "why": "missing"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.body": {
+    "text": "Přijímáte nabídku přijetí od univerzity {{university}}. Tým Hangyul Univ vás provede platbou školného a získáním standardního dopisu o přijetí.",
+    "why": "missing"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.cta": {
+    "text": "Přijmout nabídku",
+    "why": "missing"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.title": {
+    "text": "Přijmout tuto nabídku?",
+    "why": "missing"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.body": {
+    "text": "Vaše přihláška na {{university}} bude uzavřena. V aplikaci to nelze vrátit zpět.",
+    "why": "missing"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.cta": {
+    "text": "Stáhnout přihlášku",
+    "why": "missing"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.title": {
+    "text": "Stáhnout tuto přihlášku?",
+    "why": "missing"
+  },
+  "mobile:student.applications.detailTitle": {
+    "text": "Přihláška",
+    "why": "missing"
+  },
+  "mobile:student.applications.empty": {
+    "text": "Žádné aktivní přihlášky",
+    "why": "missing"
+  },
+  "mobile:student.applications.emptyClosed": {
+    "text": "Žádné uzavřené přihlášky",
+    "why": "missing"
+  },
+  "mobile:student.applications.submittedOn": {
+    "text": "Podáno {{date}}",
+    "why": "missing"
+  },
+  "mobile:student.applications.subtitle": {
+    "text": "Sledujte všechny přihlášky na jednom místě.",
+    "why": "missing"
+  },
+  "mobile:student.documents.detailTitle": {
+    "text": "Dokument",
+    "why": "missing"
+  },
+  "mobile:student.documents.empty": {
+    "text": "Vaše úložiště dokumentů je prázdné",
+    "why": "missing"
+  },
+  "mobile:student.documents.emptyBody": {
+    "text": "Nahrajte pas, výpisy známek a výsledky testů ve webové aplikaci.",
+    "why": "missing"
+  },
+  "mobile:student.documents.file": {
+    "text": "{{name}} · verze {{version}}",
+    "why": "missing"
+  },
+  "mobile:student.documents.fixFallback": {
+    "text": "Tým Hangyul požádal o úpravu tohoto dokumentu.",
+    "why": "missing"
+  },
+  "mobile:student.documents.fixTitle": {
+    "text": "Co opravit",
+    "why": "missing"
+  },
+  "mobile:student.documents.openFile": {
+    "text": "Otevřít zabezpečený náhled",
+    "why": "missing"
+  },
+  "mobile:student.documents.reviews": {
+    "text": "Historie kontrol",
+    "why": "missing"
+  },
+  "mobile:student.documents.translationBody": {
+    "text": "K tomuto dokumentu je potřeba úředně ověřený překlad do korejštiny nebo angličtiny.",
+    "why": "missing"
+  },
+  "mobile:student.explore.clear": {
+    "text": "Vymazat hledání",
+    "why": "missing"
+  },
+  "mobile:student.explore.save": {
+    "text": "Uložit {{name}}",
+    "why": "missing"
+  },
+  "mobile:student.explore.searchPlaceholder": {
+    "text": "Hledat programy nebo univerzity",
+    "why": "missing"
+  },
+  "mobile:student.explore.unsave": {
+    "text": "Odebrat {{name}} z uložených",
+    "why": "missing"
+  },
+  "mobile:student.matches.deadline": {
+    "text": "Uzávěrka {{date}} · {{due}}",
+    "why": "missing"
+  },
+  "mobile:student.messages.subtitle": {
+    "text": "Pište si s týmem Hangyul Univ.",
+    "why": "missing"
+  },
+  "mobile:student.messages.unreadA11y_one": {
+    "text": "Zprávy, {{count}} nepřečtená",
+    "why": "missing"
+  },
+  "mobile:student.messages.unreadA11y_few": {
+    "text": "Zprávy, {{count}} nepřečtené",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:student.messages.unreadA11y_other": {
+    "text": "Zprávy, {{count}} nepřečtených",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.ARRIVAL_CHECKLIST": {
+    "text": "Připravte se na příjezd do Koreje",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.COMPARE_OFFERS": {
+    "text": "Porovnejte své nabídky přijetí ({{count}})",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.COMPLETE_PROFILE": {
+    "text": "Dokončete profil a uvidíte, které univerzity vám sedí",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.budget": {
+    "text": "Přidejte rozpočet a seřadíme programy podle ceny ({{count}})",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.education": {
+    "text": "Doplňte vzdělání a ověříme programy ({{count}})",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.gpa": {
+    "text": "Doplňte známky a ověříme programy ({{count}})",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.language": {
+    "text": "Doplňte jazykový výsledek a ověříme programy ({{count}})",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.other": {
+    "text": "Dokončete profil a ověříme programy ({{count}})",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.RESPOND_OFFER": {
+    "text": "Odpovězte na nabídku přijetí",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.REVIEW_MATCHES": {
+    "text": "Projděte si své shody univerzit",
+    "why": "missing"
+  },
+  "mobile:student.profile.completion": {
+    "text": "Vyplnění profilu",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.basics": {
+    "text": "Základní údaje",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.education": {
+    "text": "Vzdělání",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.goals": {
+    "text": "Studijní cíle",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.language": {
+    "text": "Jazykové výsledky",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.passport": {
+    "text": "Pas",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.preferences": {
+    "text": "Preference",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.sponsor": {
+    "text": "Financování studia",
+    "why": "missing"
+  },
+  "mobile:student.saved.empty": {
+    "text": "Zatím nic uloženého",
+    "why": "missing"
+  },
+  "mobile:student.saved.emptyBody": {
+    "text": "Klepněte na srdíčko u programu a jeho univerzita se uloží sem.",
+    "why": "missing"
+  },
+  "mobile:student.tasks.confirmTitle": {
+    "text": "Označit tento úkol jako hotový?",
+    "why": "missing"
+  },
+  "mobile:student.tasks.empty": {
+    "text": "Teď není co dělat",
+    "why": "missing"
+  },
+  "mobile:student.tasks.emptyBody": {
+    "text": "Úkoly sem přidáme, až bude něco potřeba.",
+    "why": "missing"
+  },
+  "mobile:student.tasks.overdue": {
+    "text": "Po termínu ({{count}})",
+    "why": "missing"
+  },
+  "mobile:student.tasks.subtitle": {
+    "text": "Úkoly od týmu Hangyul a kontrolní seznamy vašich přihlášek.",
+    "why": "missing"
+  },
+  "mobile:student.tasks.title": {
+    "text": "Seznam úkolů",
+    "why": "missing"
+  },
+  "mobile:student.tasks.upcoming": {
+    "text": "K vyřízení",
+    "why": "missing"
+  },
+  "mobile:university.applicants.anonymous": {
+    "text": "Uchazeč",
+    "why": "missing"
+  },
+  "mobile:university.applicants.confirmBody": {
+    "text": "Uchazeč {{name}} i jeho poradce budou upozorněni. Přidejte poznámku pro záznam (nepovinné).",
+    "why": "missing"
+  },
+  "mobile:university.applicants.confirmTitle": {
+    "text": "Změnit stav na „{{status}}“?",
+    "why": "missing"
+  },
+  "mobile:university.applicants.detailTitle": {
+    "text": "Uchazeč",
+    "why": "missing"
+  },
+  "mobile:university.applicants.history": {
+    "text": "Historie stavů",
+    "why": "missing"
+  },
+  "mobile:university.applicants.interview": {
+    "text": "Pohovor",
+    "why": "missing"
+  },
+  "mobile:university.applicants.moveTo": {
+    "text": "Přesunout do: {{status}}",
+    "why": "missing"
+  },
+  "mobile:university.applicants.notShared": {
+    "text": "S vaší univerzitou zatím nesdíleno",
+    "why": "missing"
+  },
+  "mobile:university.applicants.note": {
+    "text": "Poznámka",
+    "why": "missing"
+  },
+  "mobile:university.applicants.previewHint": {
+    "text": "Otevře zabezpečený náhled s omezenou platností",
+    "why": "missing"
+  },
+  "mobile:university.applicants.reference": {
+    "text": "Vaše referenční číslo",
+    "why": "missing"
+  },
+  "mobile:university.applicants.submitted": {
+    "text": "Podáno {{date}}",
+    "why": "missing"
+  },
+  "mobile:university.applicants.submittedLabel": {
+    "text": "Podáno",
+    "why": "missing"
+  },
+  "mobile:university.applicants.viaAgency": {
+    "text": "Přes {{agency}}",
+    "why": "missing"
+  },
+  "mobile:university.flagged.add": {
+    "text": "Označit ke sledování",
+    "why": "missing"
+  },
+  "mobile:university.flagged.addBody": {
+    "text": "Toto označení a důvod uvidí jen tým vaší univerzity.",
+    "why": "missing"
+  },
+  "mobile:university.flagged.flagged": {
+    "text": "Označeno",
+    "why": "missing"
+  },
+  "mobile:university.flagged.reason": {
+    "text": "Důvod",
+    "why": "missing"
+  },
+  "mobile:university.flagged.remove": {
+    "text": "Odebrat označení",
+    "why": "missing"
+  },
+  "mobile:university.flagged.removeTitle": {
+    "text": "Odebrat označení z této přihlášky?",
+    "why": "missing"
+  },
+  "mobile:university.inbox.title": {
+    "text": "Zprávy",
+    "why": "missing"
+  },
+  "mobile:university.login.tagline": {
+    "text": "Uchazeči, rozhodnutí a nástupní ročníky pro vaše zahraniční oddělení.",
+    "why": "missing"
+  },
+  "mobile:v29.mfa.codeHint": {
+    "text": "Zadejte 6místný kód z ověřovací aplikace nebo záložní kód.",
+    "why": "missing"
+  },
+  "mobile:v29.mfa.codeLabel": {
+    "text": "Ověřovací kód",
+    "why": "missing"
+  },
+  "mobile:v29.mfa.enrollOnWeb": {
+    "text": "Tento účet vyžaduje dvoufázové ověření. Nejprve ho nastavte ve webové konzoli a pak se přihlaste tady.",
+    "why": "missing"
+  },
+  "mobile:v29.mfa.verify": {
+    "text": "Ověřit a přihlásit se",
+    "why": "missing"
+  },
+  "mobile:v29.mfa.wrongCode": {
+    "text": "Kód je nesprávný nebo vypršel. Zadejte nový.",
+    "why": "missing"
+  },
+  "mobile:v29.plan.supportDays": {
+    "text": "Konzultace po dobu {{count}} dnů od první konzultace",
+    "why": "dropped 'consultation support' meaning"
+  },
+  "mobile:v29.plan.unrationed.TEAM": {
+    "text": "Podpora od vašeho týmu",
+    "why": "align with web wording"
+  },
+  "mobile:v29.plan.upgradePending": {
+    "text": "Cena přechodu na vyšší balíček zatím není stanovena. Tým Hangyul Univ ji s vámi dohodne přímo.",
+    "why": "one term: balíček, not tarif"
+  },
+  "mobile:v3.agency.allClear": {
+    "text": "Vše v pořádku: {{list}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.applications_one": {
+    "text": "{{count}} přihláška",
+    "why": "missing"
+  },
+  "mobile:v3.agency.applications_few": {
+    "text": "{{count}} přihlášky",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.agency.applications_other": {
+    "text": "{{count}} přihlášek",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.breached_one": {
+    "text": "{{count}} už po slíbené lhůtě",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.breached_few": {
+    "text": "{{count}} už po slíbené lhůtě",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.agency.att.breached_other": {
+    "text": "{{count}} už po slíbené lhůtě",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.closing_one": {
+    "text": "Přihláška s uzávěrkou do 7 dnů",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.closing_few": {
+    "text": "Přihlášky s uzávěrkou do 7 dnů",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.agency.att.closing_other": {
+    "text": "Přihlášky s uzávěrkou do 7 dnů",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.docs_one": {
+    "text": "Dokument čeká na kontrolu",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.docs_few": {
+    "text": "Dokumenty čekají na kontrolu",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.agency.att.docs_other": {
+    "text": "Dokumenty čekají na kontrolu",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.next": {
+    "text": "Další: {{uni}} pro {{who}}, {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.overSla": {
+    "text": "{{count}} čeká déle než {{hours}} h",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.overdue_one": {
+    "text": "Úkol po termínu",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.overdue_few": {
+    "text": "Úkoly po termínu",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.agency.att.overdue_other": {
+    "text": "Úkoly po termínu",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.replies_one": {
+    "text": "Student čeká na vaši odpověď",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.replies_few": {
+    "text": "Studenti čekají na vaši odpověď",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.agency.att.replies_other": {
+    "text": "Studenti čekají na vaši odpověď",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.since": {
+    "text": "Nejstarší od {{who}}, {{when}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.sla_one": {
+    "text": "Studentovi hrozí pozdní první odpověď",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.sla_few": {
+    "text": "Studentům hrozí pozdní první odpověď",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.agency.att.sla_other": {
+    "text": "Studentům hrozí pozdní první odpověď",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.deadline": {
+    "text": "Uzávěrka {{uni}} se blíží",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.fix": {
+    "text": "{{doc}}: student musí opravit",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.requested": {
+    "text": "{{uni}} žádá další dokumenty",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.review": {
+    "text": "{{doc}} čeká na vaši kontrolu",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.sla": {
+    "text": "Termín první odpovědi",
+    "why": "missing"
+  },
+  "mobile:v3.agency.blockers_one": {
+    "text": "{{count}} věc tohoto studenta brzdí",
+    "why": "missing"
+  },
+  "mobile:v3.agency.blockers_few": {
+    "text": "{{count}} věci tohoto studenta brzdí",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.agency.blockers_other": {
+    "text": "{{count}} věcí tohoto studenta brzdí",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.closing": {
+    "text": "uzávěrky tento týden",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.docs": {
+    "text": "kontroly dokumentů",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.overdue": {
+    "text": "úkoly po termínu",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.replies": {
+    "text": "odpovědi studentům",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.sla": {
+    "text": "první odpovědi",
+    "why": "missing"
+  },
+  "mobile:v3.agency.conversationSubject": {
+    "text": "Váš tým pro studium v Koreji",
+    "why": "missing"
+  },
+  "mobile:v3.agency.deadline": {
+    "text": "{{uni}} {{when}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.documents": {
+    "text": "Dokumenty · ověřeno {{verified}} z {{total}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.dueToday_one": {
+    "text": "Dnes · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.dueToday_few": {
+    "text": "Dnes · {{count}}",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.agency.dueToday_other": {
+    "text": "Dnes · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.findStudent": {
+    "text": "Najít studenta",
+    "why": "missing"
+  },
+  "mobile:v3.agency.firstMessage": {
+    "text": "Zpráva pro {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.greeting.afternoon": {
+    "text": "Dobré odpoledne, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.greeting.evening": {
+    "text": "Dobrý večer, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.greeting.morning": {
+    "text": "Dobré ráno, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.message": {
+    "text": "Zpráva",
+    "why": "missing"
+  },
+  "mobile:v3.agency.messageLabel": {
+    "text": "Zpráva",
+    "why": "missing"
+  },
+  "mobile:v3.agency.needsAttention": {
+    "text": "Vyžaduje pozornost",
+    "why": "missing"
+  },
+  "mobile:v3.agency.nextAction": {
+    "text": "Další: {{what}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.noBlockers": {
+    "text": "Tohoto studenta nic nebrzdí",
+    "why": "missing"
+  },
+  "mobile:v3.agency.noBlockersBody": {
+    "text": "Dokumenty, termíny i odpovědi jsou v pořádku.",
+    "why": "missing"
+  },
+  "mobile:v3.agency.noStudents": {
+    "text": "V tomto zobrazení nejsou žádní studenti",
+    "why": "missing"
+  },
+  "mobile:v3.agency.noStudentsBody": {
+    "text": "Zkuste jiné zobrazení nebo vymažte hledání.",
+    "why": "missing"
+  },
+  "mobile:v3.agency.searchPlaceholder": {
+    "text": "Jméno nebo e-mail",
+    "why": "missing"
+  },
+  "mobile:v3.agency.stage": {
+    "text": "Fáze",
+    "why": "missing"
+  },
+  "mobile:v3.agency.stageNote": {
+    "text": "Poznámka pro tým (nepovinné)",
+    "why": "missing"
+  },
+  "mobile:v3.agency.stageTo": {
+    "text": "Přesunout do fáze {{stage}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.teamView": {
+    "text": "Tým · {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.toFix_one": {
+    "text": "{{count}} dokument k opravě",
+    "why": "missing"
+  },
+  "mobile:v3.agency.toFix_few": {
+    "text": "{{count}} dokumenty k opravě",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.agency.toFix_other": {
+    "text": "{{count}} dokumentů k opravě",
+    "why": "missing"
+  },
+  "mobile:v3.agency.today": {
+    "text": "Dnes",
+    "why": "missing"
+  },
+  "mobile:v3.agency.upload": {
+    "text": "Nahrát",
+    "why": "missing"
+  },
+  "mobile:v3.agency.uploadFor": {
+    "text": "{{doc}} pro {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.uploadWhat": {
+    "text": "Který dokument nahráváte?",
+    "why": "missing"
+  },
+  "mobile:v3.agency.uploaded": {
+    "text": "Nahráno do úložiště studenta. Je připraveno ke kontrole.",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.all": {
+    "text": "Vše",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.attention": {
+    "text": "Vyžaduje pozornost",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.deadline": {
+    "text": "Blížící se uzávěrka",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.docs": {
+    "text": "Dokumenty k opravě",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.mine": {
+    "text": "Moji studenti",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.sla": {
+    "text": "Studenti po slíbené lhůtě první odpovědi nebo blízko ní",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.university": {
+    "text": "Čeká se na univerzitu",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.visa": {
+    "text": "Vízum",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.waiting_student": {
+    "text": "Čeká se na studenta",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.waiting_us": {
+    "text": "Čeká se na nás",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.agency": {
+    "text": "Čeká se na tým agentury",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.counselor": {
+    "text": "Čeká se na poradce",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.external": {
+    "text": "Čeká se na externí úřad",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.hangyul": {
+    "text": "Čeká se na Hangyul",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.none": {
+    "text": "Na nic se nečeká",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.student": {
+    "text": "Čeká se na studenta",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.university": {
+    "text": "Čeká se na univerzitu",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.us": {
+    "text": "Čeká se na nás",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.ADDITIONAL_DOCUMENTS": {
+    "text": "Univerzita požádala o další dokument.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Váš dopis o přijetí je hotový. Začněte s dokumenty k vízu.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_PENDING": {
+    "text": "Čeká se na váš standardní dopis o přijetí.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.DOCUMENT_PREPARATION": {
+    "text": "Připravujete dokumenty.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.DRAFT": {
+    "text": "Tato přihláška je rozpracovaná.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.ENROLLED": {
+    "text": "Zápis je hotový. Vítejte v Koreji.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.INTERVIEW": {
+    "text": "Univerzita vás zve na pohovor.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.OFFERED": {
+    "text": "Máte nabídku přijetí.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.OFFER_ACCEPTED": {
+    "text": "Nabídka přijata. Další krok: školné.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.PROFILE_REVIEW": {
+    "text": "Tým Hangyul Univ kontroluje váš profil.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.REJECTED": {
+    "text": "Univerzita tentokrát místo nenabídla.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.SUBMITTED": {
+    "text": "Podáno na {{university}}.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.TUITION_PAID": {
+    "text": "Školné přijato. Univerzita připravuje váš dopis o přijetí.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.TUITION_PENDING": {
+    "text": "Zaplaťte školné přímo univerzitě do stanoveného termínu.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.UNIVERSITY_REVIEW": {
+    "text": "{{university}} posuzuje vaši přihlášku.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.VISA_PREPARATION": {
+    "text": "Připravujete žádost o vízum.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.VISA_SUBMITTED": {
+    "text": "Žádost o vízum podána.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.WAITLISTED": {
+    "text": "Jste na čekací listině.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.WITHDRAWN": {
+    "text": "Tato přihláška byla stažena.",
+    "why": "missing"
+  },
+  "mobile:v3.application.closes": {
+    "text": "Uzávěrka {{date}} · {{left}}",
+    "why": "missing"
+  },
+  "mobile:v3.application.due": {
+    "text": "Termín {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.application.ready": {
+    "text": "Připraveno k podání",
+    "why": "missing"
+  },
+  "mobile:v3.application.readyBody": {
+    "text": "Vše potřebné je na místě.",
+    "why": "missing"
+  },
+  "mobile:v3.application.reviewBody": {
+    "text": "Podáno {{date}}. Univerzita může požádat o další dokument nebo pohovor. Tým Hangyul průběh sleduje.",
+    "why": "missing"
+  },
+  "mobile:v3.application.reviewTitle": {
+    "text": "{{university}} posuzuje vaši přihlášku",
+    "why": "missing"
+  },
+  "mobile:v3.application.reviewing": {
+    "text": "Kontroluje se: {{item}}",
+    "why": "missing"
+  },
+  "mobile:v3.application.submit": {
+    "text": "Podat přihlášku",
+    "why": "missing"
+  },
+  "mobile:v3.application.teamMonitoring": {
+    "text": "V kontaktu s univerzitou",
+    "why": "missing"
+  },
+  "mobile:v3.application.teamWaiting": {
+    "text": "Čeká se na vaše dokumenty",
+    "why": "missing"
+  },
+  "mobile:v3.application.timeline": {
+    "text": "Časová osa",
+    "why": "missing"
+  },
+  "mobile:v3.application.uni.decided": {
+    "text": "Rozhodnuto",
+    "why": "missing"
+  },
+  "mobile:v3.application.uni.reviewing": {
+    "text": "Posuzuje vaši přihlášku",
+    "why": "missing"
+  },
+  "mobile:v3.application.uni.waiting": {
+    "text": "Čeká na vaše podání",
+    "why": "missing"
+  },
+  "mobile:v3.application.university": {
+    "text": "Univerzita",
+    "why": "missing"
+  },
+  "mobile:v3.application.uploadRequested": {
+    "text": "Nahrát tento dokument",
+    "why": "missing"
+  },
+  "mobile:v3.application.who": {
+    "text": "Kdo co dělá",
+    "why": "missing"
+  },
+  "mobile:v3.application.withdraw": {
+    "text": "Stáhnout tuto přihlášku",
+    "why": "missing"
+  },
+  "mobile:v3.application.you": {
+    "text": "Vy",
+    "why": "missing"
+  },
+  "mobile:v3.common.all": {
+    "text": "Zobrazit vše",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.bucket.later_other": {
+    "text": "Později tento měsíc · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.bucket.overdue_other": {
+    "text": "Po termínu · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.bucket.week_other": {
+    "text": "Příštích 7 dní · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.emptyView": {
+    "text": "V tomto zobrazení nic nemá termín",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.student": {
+    "text": "Student",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.who.all": {
+    "text": "Vše",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.who.mine": {
+    "text": "Moje",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.who.unassigned": {
+    "text": "Nepřiřazené",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.you": {
+    "text": "Vy",
+    "why": "missing"
+  },
+  "mobile:v3.discover.all": {
+    "text": "Vše",
+    "why": "missing"
+  },
+  "mobile:v3.discover.any": {
+    "text": "Libovolné",
+    "why": "missing"
+  },
+  "mobile:v3.discover.closes": {
+    "text": "uzávěrka {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.discover.degree": {
+    "text": "Co chcete studovat?",
+    "why": "missing"
+  },
+  "mobile:v3.discover.emptyVerdict": {
+    "text": "Teď tu nic není",
+    "why": "missing"
+  },
+  "mobile:v3.discover.explain.notyet": {
+    "text": "Některý zveřejněný požadavek zatím není splněn. U každého řádku je přesně uvedeno který.",
+    "why": "missing"
+  },
+  "mobile:v3.discover.explain.strong": {
+    "text": "Splňujete všechny zveřejněné základní požadavky a program odpovídá vašemu rozpočtu i plánům.",
+    "why": "missing"
+  },
+  "mobile:v3.discover.filters": {
+    "text": "Filtry",
+    "why": "missing"
+  },
+  "mobile:v3.discover.filtersN": {
+    "text": "Filtry · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.discover.forYou": {
+    "text": "Pro vás",
+    "why": "missing"
+  },
+  "mobile:v3.discover.language": {
+    "text": "Jazyk výuky",
+    "why": "missing"
+  },
+  "mobile:v3.discover.noLanguageMin": {
+    "text": "Bez jazykového minima",
+    "why": "missing"
+  },
+  "mobile:v3.discover.openOnly": {
+    "text": "Otevřeno pro přihlášky",
+    "why": "missing"
+  },
+  "mobile:v3.discover.perYear": {
+    "text": "≈ {{amount}} / rok",
+    "why": "missing"
+  },
+  "mobile:v3.discover.saved": {
+    "text": "Uložené · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.discover.savedEmpty": {
+    "text": "Zatím žádné uložené univerzity",
+    "why": "missing"
+  },
+  "mobile:v3.discover.savedEmptyBody": {
+    "text": "Klepněte na srdíčko u programu a uložíte si ho na později.",
+    "why": "missing"
+  },
+  "mobile:v3.discover.showResults_one": {
+    "text": "Zobrazit {{count}} program",
+    "why": "missing"
+  },
+  "mobile:v3.discover.showResults_few": {
+    "text": "Zobrazit {{count}} programy",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.discover.showResults_other": {
+    "text": "Zobrazit {{count}} programů",
+    "why": "missing"
+  },
+  "mobile:v3.discover.summary_one": {
+    "text": "Splňujete zveřejněné požadavky {{count}} programu.",
+    "why": "missing"
+  },
+  "mobile:v3.discover.summary_few": {
+    "text": "Splňujete zveřejněné požadavky {{count}} programů.",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.discover.summary_other": {
+    "text": "Splňujete zveřejněné požadavky {{count}} programů.",
+    "why": "missing"
+  },
+  "mobile:v3.discover.tuition": {
+    "text": "Školné za semestr",
+    "why": "missing"
+  },
+  "mobile:v3.discover.upTo": {
+    "text": "Do {{amount}} mil. ₩",
+    "why": "missing"
+  },
+  "mobile:v3.docAction.FIX": {
+    "text": "Potřebuje opravu",
+    "why": "missing"
+  },
+  "mobile:v3.docAction.IN_REVIEW": {
+    "text": "Kontroluje tým Hangyul",
+    "why": "missing"
+  },
+  "mobile:v3.docAction.LEGALIZE": {
+    "text": "Potřebuje apostilu nebo konzulární superlegalizaci",
+    "why": "missing"
+  },
+  "mobile:v3.docAction.UPLOAD": {
+    "text": "Zatím nenahráno",
+    "why": "missing"
+  },
+  "mobile:v3.documents.allSet": {
+    "text": "Teď od vás nic nepotřebujeme.",
+    "why": "missing"
+  },
+  "mobile:v3.documents.checking": {
+    "text": "V kontrole",
+    "why": "missing"
+  },
+  "mobile:v3.documents.howTo": {
+    "text": "Jak získat: {{path}}",
+    "why": "missing"
+  },
+  "mobile:v3.documents.issuedIn": {
+    "text": "Vydáno v zemi",
+    "why": "missing"
+  },
+  "mobile:v3.documents.issuedOn": {
+    "text": "Datum vydání",
+    "why": "missing"
+  },
+  "mobile:v3.documents.needYou_one": {
+    "text": "{{count}} čeká na vás",
+    "why": "missing"
+  },
+  "mobile:v3.documents.needYou_few": {
+    "text": "{{count}} čekají na vás",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.documents.needYou_other": {
+    "text": "{{count}} čeká na vás",
+    "why": "missing"
+  },
+  "mobile:v3.documents.neededFor": {
+    "text": "Potřeba pro {{university}}",
+    "why": "missing"
+  },
+  "mobile:v3.documents.needsYou": {
+    "text": "Čeká na vás",
+    "why": "missing"
+  },
+  "mobile:v3.documents.newVersion": {
+    "text": "Nahrát novou verzi",
+    "why": "missing"
+  },
+  "mobile:v3.documents.ready": {
+    "text": "Připraveno",
+    "why": "missing"
+  },
+  "mobile:v3.documents.readyOf": {
+    "text": "Připraveno {{ready}} z {{total}} dokumentů",
+    "why": "missing"
+  },
+  "mobile:v3.documents.readyTitle": {
+    "text": "Připravené",
+    "why": "missing"
+  },
+  "mobile:v3.documents.sourceVerified": {
+    "text": "Oficiální zdroj · ověřeno {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.documents.state.fix": {
+    "text": "Potřebuje opravu",
+    "why": "missing"
+  },
+  "mobile:v3.documents.state.legalize": {
+    "text": "Potřebuje apostilu",
+    "why": "missing"
+  },
+  "mobile:v3.documents.state.ready": {
+    "text": "Připraveno",
+    "why": "missing"
+  },
+  "mobile:v3.documents.state.review": {
+    "text": "V kontrole",
+    "why": "missing"
+  },
+  "mobile:v3.documents.submitted": {
+    "text": "Podáno {{when}}",
+    "why": "missing"
+  },
+  "mobile:v3.documents.upload": {
+    "text": "Nahrát",
+    "why": "missing"
+  },
+  "mobile:v3.documents.validUntil": {
+    "text": "Platí do {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.documents.validUntilLabel": {
+    "text": "Platí do",
+    "why": "missing"
+  },
+  "mobile:v3.home.applications": {
+    "text": "Vaše přihlášky",
+    "why": "missing"
+  },
+  "mobile:v3.home.closes": {
+    "text": "Uzávěrka {{date}} · {{left}}",
+    "why": "missing"
+  },
+  "mobile:v3.home.documentsHint": {
+    "text": "Nahrajte, opravte nebo získejte apostilu",
+    "why": "missing"
+  },
+  "mobile:v3.home.documents_one": {
+    "text": "{{count}} dokument čeká na vás",
+    "why": "missing"
+  },
+  "mobile:v3.home.documents_few": {
+    "text": "{{count}} dokumenty čekají na vás",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.home.documents_other": {
+    "text": "{{count}} dokumentů čeká na vás",
+    "why": "missing"
+  },
+  "mobile:v3.home.due": {
+    "text": "Termín {{date}} · {{left}}",
+    "why": "missing"
+  },
+  "mobile:v3.home.findUniversities": {
+    "text": "Najít univerzity",
+    "why": "missing"
+  },
+  "mobile:v3.home.greeting.afternoon": {
+    "text": "Dobré odpoledne, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.home.greeting.evening": {
+    "text": "Dobrý večer, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.home.greeting.morning": {
+    "text": "Dobré ráno, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.home.message": {
+    "text": "Zpráva",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.APPLICATION_DEADLINE": {
+    "text": "Dokončete kontrolní seznam, aby se přihláška stihla podat včas.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.DOCUMENT_UPLOAD": {
+    "text": "Nahrajte čitelný sken nebo fotku. Tým Hangyul ho zkontroluje a dá vám vědět, pokud bude potřeba něco opravit.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.ESSAY_WRITE": {
+    "text": "Začněte hrubým konceptem. Tým Hangyul ho s vámi projde.",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:v3.home.nextBody.REVIEW_MATCHES": {
+    "text": "Porovnali jsme váš profil se zveřejněnými požadavky. Pár si jich uložte a pak založte přihlášku.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.TUITION_PAYMENT": {
+    "text": "Školné se platí přímo univerzitě, na vaše jméno.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.UNIVERSITY_REQUEST": {
+    "text": "Univerzita potřebuje ještě jeden dokument, než rozhodne.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.VISA_STEP": {
+    "text": "Dokončete další položku ve svém vízovém seznamu.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.WAIT": {
+    "text": "Teď od vás nic nepotřebujeme. Jakmile se něco změní, dáme vám vědět.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.APPLICATION_DEADLINE": {
+    "text": "Otevřít přihlášku",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.APPLICATION_SUBMIT": {
+    "text": "Zkontrolovat a podat",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.ARRIVAL_CHECKLIST": {
+    "text": "Otevřít seznam k příjezdu",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.COMPARE_OFFERS": {
+    "text": "Porovnat nabídky",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.COMPLETE_PROFILE": {
+    "text": "Pokračovat v profilu",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.DOCUMENT_UPLOAD": {
+    "text": "Nahrát dokument",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.ESSAY_WRITE": {
+    "text": "Otevřít koncept",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.INTERVIEW": {
+    "text": "Připravit se na pohovor",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.RESPOND_OFFER": {
+    "text": "Zobrazit nabídku",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.REVIEW_MATCHES": {
+    "text": "Zobrazit moje univerzity",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.TUITION_PAYMENT": {
+    "text": "Zobrazit platební údaje",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.UNIVERSITY_REQUEST": {
+    "text": "Zobrazit, co univerzita žádá",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.VISA_STEP": {
+    "text": "Otevřít vízové kroky",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCtaDefault": {
+    "text": "Začít",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextEyebrow": {
+    "text": "Co udělat teď",
+    "why": "missing"
+  },
+  "mobile:v3.home.noApplications": {
+    "text": "Zatím žádné přihlášky. Začněte univerzitami, které vám sedí.",
+    "why": "missing"
+  },
+  "mobile:v3.home.noCounselor": {
+    "text": "Vyberte si balíček a tým Hangyul Univ s vámi bude pracovat ve vašem jazyce.",
+    "why": "one term: balíček"
+  },
+  "mobile:v3.home.otherTasks_one": {
+    "text": "{{count}} další úkol",
+    "why": "missing"
+  },
+  "mobile:v3.home.otherTasks_few": {
+    "text": "{{count}} další úkoly",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.home.otherTasks_other": {
+    "text": "{{count}} dalších úkolů",
+    "why": "missing"
+  },
+  "mobile:v3.home.stageLine.admission": {
+    "text": "Univerzita vás přijala. Teď si zajišťujete místo",
+    "why": "gender-neutral vykání"
+  },
+  "mobile:v3.home.stageLine.apply": {
+    "text": "Univerzity posuzují vaše přihlášky",
+    "why": "missing"
+  },
+  "mobile:v3.home.stageLine.arrival": {
+    "text": "Příprava na příjezd do Koreje",
+    "why": "missing"
+  },
+  "mobile:v3.home.stageLine.discover": {
+    "text": "Hledání správných univerzit",
+    "why": "missing"
+  },
+  "mobile:v3.home.stageLine.prepare": {
+    "text": "Příprava přihlášek",
+    "why": "missing"
+  },
+  "mobile:v3.home.stageLine.visa": {
+    "text": "Příprava studentského víza",
+    "why": "missing"
+  },
+  "mobile:v3.home.team": {
+    "text": "Tým Hangyul Univ",
+    "why": "missing"
+  },
+  "mobile:v3.home.unread_one": {
+    "text": "{{count}} nepřečtená zpráva",
+    "why": "missing"
+  },
+  "mobile:v3.home.unread_few": {
+    "text": "{{count}} nepřečtené zprávy",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.home.unread_other": {
+    "text": "{{count}} nepřečtených zpráv",
+    "why": "missing"
+  },
+  "mobile:v3.home.upcoming": {
+    "text": "Blíží se",
+    "why": "missing"
+  },
+  "mobile:v3.journey.admission": {
+    "text": "Přijetí",
+    "why": "missing"
+  },
+  "mobile:v3.journey.apply": {
+    "text": "Přihlášky",
+    "why": "missing"
+  },
+  "mobile:v3.journey.arrival": {
+    "text": "Příjezd",
+    "why": "missing"
+  },
+  "mobile:v3.journey.discover": {
+    "text": "Objevování",
+    "why": "missing"
+  },
+  "mobile:v3.journey.next": {
+    "text": "Další: {{stage}}",
+    "why": "missing"
+  },
+  "mobile:v3.journey.of": {
+    "text": "· {{n}} z {{total}}",
+    "why": "missing"
+  },
+  "mobile:v3.journey.prepare": {
+    "text": "Příprava",
+    "why": "missing"
+  },
+  "mobile:v3.journey.step": {
+    "text": "Krok {{n}} z {{total}}: {{stage}}",
+    "why": "missing"
+  },
+  "mobile:v3.journey.visa": {
+    "text": "Vízum",
+    "why": "missing"
+  },
+  "mobile:v3.match.close": {
+    "text": "Zatím nesplňujete — chybí jeden krok",
+    "why": "missing"
+  },
+  "mobile:v3.match.notYet": {
+    "text": "Zatím nesplňujete",
+    "why": "missing"
+  },
+  "mobile:v3.match.possible": {
+    "text": "Možná shoda",
+    "why": "missing"
+  },
+  "mobile:v3.match.strong": {
+    "text": "Silná shoda",
+    "why": "missing"
+  },
+  "mobile:v3.messages.attach": {
+    "text": "Přiložit soubor",
+    "why": "missing"
+  },
+  "mobile:v3.messages.attachUnavailable": {
+    "text": "Přílohy zatím nejsou dostupné.",
+    "why": "missing"
+  },
+  "mobile:v3.messages.attachmentOnly_one": {
+    "text": "Odeslána {{count}} příloha",
+    "why": "missing"
+  },
+  "mobile:v3.messages.attachmentOnly_few": {
+    "text": "Odeslány {{count}} přílohy",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.messages.attachmentOnly_other": {
+    "text": "Odesláno {{count}} příloh",
+    "why": "missing"
+  },
+  "mobile:v3.messages.conversations": {
+    "text": "Konverzace",
+    "why": "missing"
+  },
+  "mobile:v3.messages.openAttachment": {
+    "text": "Otevřít {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.messages.removeAttachment": {
+    "text": "Odebrat {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.offer.accept": {
+    "text": "Přijmout nabídku",
+    "why": "missing"
+  },
+  "mobile:v3.offer.body": {
+    "text": "{{university}} vám nabízí místo v programu {{program}}.",
+    "why": "missing"
+  },
+  "mobile:v3.offer.deadline": {
+    "text": "Přijměte nabídku a zaplaťte školné do {{date}} · {{left}}",
+    "why": "missing"
+  },
+  "mobile:v3.offer.next": {
+    "text": "Co bude dál",
+    "why": "missing"
+  },
+  "mobile:v3.offer.scholarship": {
+    "text": "Stipendium",
+    "why": "missing"
+  },
+  "mobile:v3.offer.step.accept": {
+    "text": "Přijměte nabídku",
+    "why": "missing"
+  },
+  "mobile:v3.offer.step.letter": {
+    "text": "Obdržíte standardní dopis o přijetí",
+    "why": "missing"
+  },
+  "mobile:v3.offer.step.review": {
+    "text": "Projděte si nabídku a její podmínky",
+    "why": "missing"
+  },
+  "mobile:v3.offer.step.tuition": {
+    "text": "Zaplaťte školné přímo univerzitě",
+    "why": "missing"
+  },
+  "mobile:v3.offer.step.visa": {
+    "text": "Připravte si studentské vízum",
+    "why": "missing"
+  },
+  "mobile:v3.offer.tuition": {
+    "text": "Školné",
+    "why": "missing"
+  },
+  "mobile:v3.offer.tuitionDirect": {
+    "text": "Hangyul školné nikdy nevybírá. Zaplaťte univerzitě na své jméno podle jejích pokynů.",
+    "why": "missing"
+  },
+  "mobile:v3.profile.completeTitle": {
+    "text": "Váš profil je kompletní",
+    "why": "missing"
+  },
+  "mobile:v3.profile.done": {
+    "text": "Hotovo",
+    "why": "missing"
+  },
+  "mobile:v3.profile.editOnWeb": {
+    "text": "Tyto odpovědi můžete kdykoli upravit na webu.",
+    "why": "missing"
+  },
+  "mobile:v3.profile.places": {
+    "text": "Vaše údaje",
+    "why": "missing"
+  },
+  "mobile:v3.profile.todo": {
+    "text": "K doplnění",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.basics": {
+    "text": "Řekne nám, která pravidla pro dokumenty a víza se vás týkají",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.default": {
+    "text": "Zpřesní vaše shody",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.education": {
+    "text": "Odfiltruje programy, jejichž studijní požadavky nesplňujete",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.goals": {
+    "text": "Ukáže programy na úrovni a v termínu, které chcete",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.passport": {
+    "text": "Nutné před podáním jakékoli přihlášky",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.preferences": {
+    "text": "Seřadí univerzity podle vašeho rozpočtu a města",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.sponsor": {
+    "text": "Umožní vám včas připravit finanční dokumenty k vízu",
+    "why": "missing"
+  },
+  "mobile:v3.push.denied": {
+    "text": "Upozornění jsou vypnutá. Zapněte je v nastavení telefonu pro aplikaci Hangyul.",
+    "why": "missing"
+  },
+  "mobile:v3.push.enable": {
+    "text": "Zapnout upozornění",
+    "why": "missing"
+  },
+  "mobile:v3.push.error": {
+    "text": "Upozornění se nepodařilo zapnout. Zkuste to znovu.",
+    "why": "missing"
+  },
+  "mobile:v3.push.idle": {
+    "text": "Dostávejte upozornění, když je dokument zkontrolován, blíží se termín nebo odpoví tým Hangyul.",
+    "why": "missing"
+  },
+  "mobile:v3.push.on": {
+    "text": "Upozornění jsou zapnutá. Změnit to můžete v nastavení telefonu.",
+    "why": "missing"
+  },
+  "mobile:v3.push.pending-server": {
+    "text": "Upozornění jsou na tomto telefonu povolená. Doručování push zatím neběží; vše se i tak zobrazuje v tomto seznamu.",
+    "why": "missing"
+  },
+  "mobile:v3.push.title": {
+    "text": "Upozornění na tomto telefonu",
+    "why": "missing"
+  },
+  "mobile:v3.quick.again": {
+    "text": "Změnit odpovědi",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.beforeVerify": {
+    "text": "Než ověříte",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.bulkBody": {
+    "text": "Udělejte to jen u dokumentů, které jste otevřeli a zkontrolovali. Každý student dostane upozornění.",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.bulkDone": {
+    "text": "Ověřeno: {{ok}}, přeskočeno: {{failed}}",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.bulkTitle_one": {
+    "text": "Ověřit {{count}} dokument?",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.bulkTitle_few": {
+    "text": "Ověřit {{count}} dokumenty?",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.reviews.bulkTitle_other": {
+    "text": "Ověřit {{count}} dokumentů?",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.date": {
+    "text": "Datum vydání je dostatečně nedávné a platnost neskončila",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.issuer": {
+    "text": "Vydavatel, razítko nebo podpis je viditelný",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.legal": {
+    "text": "{{path}} je přiložena a odpovídá dokumentu",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.legible": {
+    "text": "Každá stránka je úplná a čitelná",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.name": {
+    "text": "Jméno a datum narození odpovídají pasu",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.correctionTitle": {
+    "text": "Co má student opravit?",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.expires": {
+    "text": "Platí do",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.issuedIn": {
+    "text": "Vydáno v zemi",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.issuedOn": {
+    "text": "Datum vydání",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.legalization": {
+    "text": "Legalizace",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.notNeeded": {
+    "text": "Není potřeba",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.open": {
+    "text": "Otevřít {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.overSla": {
+    "text": "{{waiting}} · po slíbené lhůtě kontroly",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.reason": {
+    "text": "Zpráva studentovi",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.requestCorrection": {
+    "text": "Požádat o opravu",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.required": {
+    "text": "Povinné",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.select": {
+    "text": "Vybrat",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.studentSees": {
+    "text": "{{name}} uvidí přesně tento text vedle dokumentu.",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.studentSeesGeneric": {
+    "text": "Student uvidí přesně tento text vedle dokumentu.",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.summary": {
+    "text": "Čeká: {{count}} · {{over}} po slíbené lhůtě kontroly {{hours}} h",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.templates": {
+    "text": "Šablony týmu",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.translation": {
+    "text": "Překlad",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.uploaded": {
+    "text": "nahráno {{when}}",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.verifyN_one": {
+    "text": "Ověřit {{count}} dokument",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.verifyN_few": {
+    "text": "Ověřit {{count}} dokumenty",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.reviews.verifyN_other": {
+    "text": "Ověřit {{count}} dokumentů",
+    "why": "missing"
+  },
+  "mobile:v3.settings.consoleHint": {
+    "text": "Členové týmu, fakturace a exporty se spravují ve webové konzoli agentury.",
+    "why": "missing"
+  },
+  "mobile:v3.settings.work": {
+    "text": "Vaše práce",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.empty.team": {
+    "text": "Tým nemá žádné otevřené úkoly",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.empty.today": {
+    "text": "Dnes nic nemá termín",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.empty.waiting": {
+    "text": "Žádné úkoly nečekají na něco dalšího",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.empty.week": {
+    "text": "Tento týden nic nemá termín",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.open": {
+    "text": "Otevřené",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.overdue": {
+    "text": "Po termínu · {{when}}",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.overdue": {
+    "text": "Po termínu",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.team": {
+    "text": "Tým",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.today": {
+    "text": "Dnes",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.waiting": {
+    "text": "Čekající",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.week": {
+    "text": "Tento týden",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.waitingOn": {
+    "text": "Čeká se na: {{what}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.allClear": {
+    "text": "Teď nic nečeká na rozhodnutí.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.allCohorts": {
+    "text": "Všichni studenti Hangyul",
+    "why": "missing"
+  },
+  "mobile:v3.uni.allIntakes": {
+    "text": "Všechny nástupní termíny",
+    "why": "missing"
+  },
+  "mobile:v3.uni.applicant": {
+    "text": "Uchazeč",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.gpa": {
+    "text": "GPA",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.interview": {
+    "text": "Pohovor",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.interviewRequired": {
+    "text": "Tento program ho vyžaduje",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.level": {
+    "text": "Úroveň {{level}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.minimum": {
+    "text": "Minimum {{need}} · Uchazeč {{have}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.notProvided": {
+    "text": "neuvedeno",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.below": {
+    "text": "Pod minimem",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.meets": {
+    "text": "Splňuje",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.missing": {
+    "text": "Neuvedeno",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.planned": {
+    "text": "Test plánován",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.unscheduled": {
+    "text": "Nenaplánováno",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.topik": {
+    "text": "TOPIK",
+    "why": "missing"
+  },
+  "mobile:v3.uni.checksNote": {
+    "text": "Porovnává uchazečem uvedené výsledky se zveřejněnými minimy programu. Podporuje vaše posouzení; nerozhoduje.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.checksTitle": {
+    "text": "Kontrola požadavků",
+    "why": "missing"
+  },
+  "mobile:v3.uni.closed": {
+    "text": "Uzavřeno: {{rejected}} nepřijato, {{withdrawn}} staženo. Pro výpočet podílů je potřeba alespoň {{min}} osob.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohortIntro_one": {
+    "text": "{{count}} student k vám přišel přes Hangyul. Takto si vede.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohortIntro_few": {
+    "text": "{{count}} studenti k vám přišli přes Hangyul. Takto si vedou.",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.uni.cohortIntro_other": {
+    "text": "{{count}} studentů k vám přišlo přes Hangyul. Takto si vedou.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohortNote": {
+    "text": "Podíly se zobrazí, jakmile je splňuje alespoň {{min}} studentů. Stav k {{date}}.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohort_one": {
+    "text": "{{label}} · {{count}} student",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohort_few": {
+    "text": "{{label}} · {{count}} studenti",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.uni.cohort_other": {
+    "text": "{{label}} · {{count}} studentů",
+    "why": "missing"
+  },
+  "mobile:v3.uni.conv": {
+    "text": "{{pct}} z předchozího kroku · {{n}} z {{d}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.convFew": {
+    "text": "{{n}} z {{d}} z předchozího kroku · příliš málo pro výpočet",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.admitted_one": {
+    "text": "přijatý student zatím bez zaplaceného školného",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.admitted_few": {
+    "text": "přijatí studenti zatím bez zaplaceného školného",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.uni.decision.admitted_other": {
+    "text": "přijatých studentů zatím bez zaplaceného školného",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.documents_one": {
+    "text": "čeká se na dokumenty studenta",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.documents_few": {
+    "text": "čeká se na dokumenty studentů",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.uni.decision.documents_other": {
+    "text": "čeká se na dokumenty studentů",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.flagged_one": {
+    "text": "označená přihláška",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.flagged_few": {
+    "text": "označené přihlášky",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.uni.decision.flagged_other": {
+    "text": "označených přihlášek",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.interview_one": {
+    "text": "pohovor k uskutečnění nebo ohodnocení",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.interview_few": {
+    "text": "pohovory k uskutečnění nebo ohodnocení",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.uni.decision.interview_other": {
+    "text": "pohovorů k uskutečnění nebo ohodnocení",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.offer_one": {
+    "text": "nabídka čeká na odpověď studenta",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.offer_few": {
+    "text": "nabídky čekají na odpověď studenta",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.uni.decision.offer_other": {
+    "text": "nabídek čeká na odpověď studenta",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.returned_one": {
+    "text": "dokument vrácený studentem",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.returned_few": {
+    "text": "dokumenty vrácené studenty",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.uni.decision.returned_other": {
+    "text": "dokumentů vrácených studenty",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.review_one": {
+    "text": "přihláška k posouzení",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.review_few": {
+    "text": "přihlášky k posouzení",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.uni.decision.review_other": {
+    "text": "přihlášek k posouzení",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionContext_one": {
+    "text": "Připraveno {{ready}} z {{total}} povinných dokumentů · {{count}} otevřená žádost.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionContext_few": {
+    "text": "Připraveno {{ready}} z {{total}} povinných dokumentů · {{count}} otevřené žádosti.",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.uni.decisionContext_other": {
+    "text": "Připraveno {{ready}} z {{total}} povinných dokumentů · {{count}} otevřených žádostí.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionDocs": {
+    "text": "Připraveno {{ready}} z {{total}} povinných dokumentů.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.admitted": {
+    "text": "Potvrďte platbu, až dorazí",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.documents": {
+    "text": "Bez akce, dokud nenahrají",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.flagged": {
+    "text": "Označeno k bližšímu posouzení",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.interview": {
+    "text": "Po pohovoru zaznamenejte výsledek",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.offer": {
+    "text": "Hangyul se studentem komunikuje",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.returned": {
+    "text": "Znovu zkontrolujte, co jste požadovali",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.review": {
+    "text": "Podáno a dostatečně úplné k rozhodnutí",
+    "why": "missing"
+  },
+  "mobile:v3.uni.docsTitle": {
+    "text": "Dokumenty · připraveno {{ready}} z {{total}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.dueOn": {
+    "text": "termín {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.empty.all": {
+    "text": "Žádní uchazeči",
+    "why": "missing"
+  },
+  "mobile:v3.uni.empty.flagged": {
+    "text": "Žádné označené přihlášky",
+    "why": "missing"
+  },
+  "mobile:v3.uni.empty.review": {
+    "text": "Žádné přihlášky nečekají na posouzení",
+    "why": "missing"
+  },
+  "mobile:v3.uni.graduation": {
+    "text": "Absolvovali",
+    "why": "missing"
+  },
+  "mobile:v3.uni.latest": {
+    "text": "Nejnovější k posouzení",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.ADDITIONAL_DOCUMENTS": {
+    "text": "Vyžádat další dokumenty",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Vydat dopis o přijetí",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.INTERVIEW": {
+    "text": "Pozvat na pohovor",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.OFFERED": {
+    "text": "Nabídnout přijetí",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.REJECTED": {
+    "text": "Nepřijmout",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.TUITION_PAID": {
+    "text": "Potvrdit zaplacení školného",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.TUITION_PENDING": {
+    "text": "Odeslat výzvu k platbě školného",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.UNIVERSITY_REVIEW": {
+    "text": "Zahájit posouzení",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.WAITLISTED": {
+    "text": "Čekací listina",
+    "why": "missing"
+  },
+  "mobile:v3.uni.nOfD": {
+    "text": "{{n}} z {{d}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.needsTitle": {
+    "text": "Čeká na vaše rozhodnutí",
+    "why": "missing"
+  },
+  "mobile:v3.uni.noMinimums": {
+    "text": "Tento program zatím nemá zveřejněná minima.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.nothingToReview": {
+    "text": "Nic nečeká na posouzení",
+    "why": "missing"
+  },
+  "mobile:v3.uni.openRequests_one": {
+    "text": "Vyžádán {{count}} dokument",
+    "why": "missing"
+  },
+  "mobile:v3.uni.openRequests_few": {
+    "text": "Vyžádány {{count}} dokumenty",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.uni.openRequests_other": {
+    "text": "Vyžádáno {{count}} dokumentů",
+    "why": "missing"
+  },
+  "mobile:v3.uni.otherDecisions": {
+    "text": "Další rozhodnutí",
+    "why": "missing"
+  },
+  "mobile:v3.uni.populationAll_one": {
+    "text": "Na základě {{count}} podané přihlášky, všechny nástupní termíny.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.populationAll_few": {
+    "text": "Na základě {{count}} podaných přihlášek, všechny nástupní termíny.",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.uni.populationAll_other": {
+    "text": "Na základě {{count}} podaných přihlášek, všechny nástupní termíny.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.populationIntake_one": {
+    "text": "Na základě {{count}} podané přihlášky pro {{intake}}.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.populationIntake_few": {
+    "text": "Na základě {{count}} podaných přihlášek pro {{intake}}.",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v3.uni.populationIntake_other": {
+    "text": "Na základě {{count}} podaných přihlášek pro {{intake}}.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.reason": {
+    "text": "Důvod (sdílí se s Hangyul)",
+    "why": "missing"
+  },
+  "mobile:v3.uni.request": {
+    "text": "Žádost",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestLabel": {
+    "text": "Co potřebujete?",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestLabelHint": {
+    "text": "např. Maturitní vysvědčení s apostilou",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestNote": {
+    "text": "Pokyny pro studenta",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestNoteHint": {
+    "text": "Co přesně chybí a jak to napravit",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestSend": {
+    "text": "Odeslat žádost",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestTitle": {
+    "text": "Vyžádat dokument od: {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestWho": {
+    "text": "Student i jeho poradce v Hangyul dostanou upozornění a uvidí přesně toto znění.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestedOn": {
+    "text": "Vyžádáno {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.retention": {
+    "text": "Stále studují",
+    "why": "missing"
+  },
+  "mobile:v3.uni.search": {
+    "text": "Hledat jméno, program nebo referenci",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.ACCEPTED": {
+    "text": "Nabídka přijata",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.ARRIVED": {
+    "text": "V Koreji",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.ENROLLED": {
+    "text": "Zapsáni",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.OFFERED": {
+    "text": "Nabídnuto přijetí",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.REVIEWED": {
+    "text": "Posouzeno",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.SUBMITTED": {
+    "text": "Podáno",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.TUITION_PAID": {
+    "text": "Školné zaplaceno",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.VISA_ISSUED": {
+    "text": "Vízum vydáno",
+    "why": "missing"
+  },
+  "mobile:v3.uni.tab.applicants": {
+    "text": "Uchazeči",
+    "why": "missing"
+  },
+  "mobile:v3.uni.tab.pipeline": {
+    "text": "Přehled",
+    "why": "missing"
+  },
+  "mobile:v3.uni.tab.students": {
+    "text": "Studenti",
+    "why": "missing"
+  },
+  "mobile:v3.uni.tooFew": {
+    "text": "Příliš málo pro výpočet",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.admitted": {
+    "text": "Přijatí",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.all": {
+    "text": "Vše",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.documents": {
+    "text": "Chybějící dokumenty",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.enrolment": {
+    "text": "Vízum a zápis",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.flagged": {
+    "text": "Označené",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.interview": {
+    "text": "Pohovor",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.offer": {
+    "text": "Nabídka",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.review": {
+    "text": "K posouzení",
+    "why": "missing"
+  },
+  "mobile:v3.uni.waitingStudent": {
+    "text": "Čeká se na studenta",
+    "why": "missing"
+  },
+  "mobile:v3.university.admissionsSite": {
+    "text": "Web pro zahraniční uchazeče",
+    "why": "missing"
+  },
+  "mobile:v3.university.deadline": {
+    "text": "Přihlášky do",
+    "why": "missing"
+  },
+  "mobile:v3.university.documents": {
+    "text": "Dokumenty",
+    "why": "missing"
+  },
+  "mobile:v3.university.documentsCount": {
+    "text": "Dokumenty: {{count}} · s apostilou nebo konzulární superlegalizací: {{legal}}",
+    "why": "missing"
+  },
+  "mobile:v3.university.dorm": {
+    "text": "Kolej za semestr",
+    "why": "missing"
+  },
+  "mobile:v3.university.dormRange": {
+    "text": "{{min}}–{{max}}",
+    "why": "missing"
+  },
+  "mobile:v3.university.estimate": {
+    "text": "Odhad celkem",
+    "why": "missing"
+  },
+  "mobile:v3.university.estimateNote": {
+    "text": "Odhad podle zveřejněného školného a obvyklých měsíčních životních nákladů ve městě.",
+    "why": "missing"
+  },
+  "mobile:v3.university.fee": {
+    "text": "Poplatek za přihlášku",
+    "why": "missing"
+  },
+  "mobile:v3.university.gpa": {
+    "text": "Známky",
+    "why": "missing"
+  },
+  "mobile:v3.university.gpaMin": {
+    "text": "Alespoň {{pct}} % z maxima GPA",
+    "why": "missing"
+  },
+  "mobile:v3.university.intake": {
+    "text": "Nástup",
+    "why": "missing"
+  },
+  "mobile:v3.university.interview": {
+    "text": "Pohovor",
+    "why": "missing"
+  },
+  "mobile:v3.university.interviewYes": {
+    "text": "Univerzita vás může pozvat na pohovor",
+    "why": "missing"
+  },
+  "mobile:v3.university.language": {
+    "text": "Jazyk",
+    "why": "missing"
+  },
+  "mobile:v3.university.links": {
+    "text": "Oficiální informace",
+    "why": "missing"
+  },
+  "mobile:v3.university.living": {
+    "text": "Životní náklady (12 měsíců)",
+    "why": "missing"
+  },
+  "mobile:v3.university.noIntake": {
+    "text": "Žádný otevřený nástupní termín",
+    "why": "missing"
+  },
+  "mobile:v3.university.noVerdict": {
+    "text": "Dokončete profil a uvidíte, zda splňujete požadavky tohoto programu.",
+    "why": "missing"
+  },
+  "mobile:v3.university.notPublished": {
+    "text": "Nezveřejněno",
+    "why": "missing"
+  },
+  "mobile:v3.university.program": {
+    "text": "Program",
+    "why": "missing"
+  },
+  "mobile:v3.university.requirements": {
+    "text": "Požadavky",
+    "why": "missing"
+  },
+  "mobile:v3.university.start": {
+    "text": "Založit přihlášku",
+    "why": "missing"
+  },
+  "mobile:v3.university.verdict.COMPETITIVE": {
+    "text": "Splňujete zveřejněná minima. Jedna věc vyžaduje pozornost.",
+    "why": "missing"
+  },
+  "mobile:v3.university.verdict.NOT_ELIGIBLE": {
+    "text": "Některý zveřejněný požadavek zatím není splněn.",
+    "why": "missing"
+  },
+  "mobile:v3.university.verdict.RECOMMENDED": {
+    "text": "Doporučeno pro vás.",
+    "why": "missing"
+  },
+  "mobile:v3.university.verdict.STRONG": {
+    "text": "Splňujete všechny zveřejněné základní požadavky a program odpovídá vašemu rozpočtu.",
+    "why": "missing"
+  },
+  "mobile:v3.university.website": {
+    "text": "Web univerzity",
+    "why": "missing"
+  },
+  "mobile:v3.university.yearCost": {
+    "text": "Náklady za první rok (odhad)",
+    "why": "missing"
+  },
+  "mobile:v3.upload.camera": {
+    "text": "Vyfotit",
+    "why": "missing"
+  },
+  "mobile:v3.upload.cameraHint": {
+    "text": "Položte dokument naplocho a dobře ho osvětlete",
+    "why": "missing"
+  },
+  "mobile:v3.upload.failed": {
+    "text": "Soubor se nepodařilo otevřít. Zkuste to prosím znovu.",
+    "why": "missing"
+  },
+  "mobile:v3.upload.files": {
+    "text": "Vybrat soubor",
+    "why": "missing"
+  },
+  "mobile:v3.upload.filesHint": {
+    "text": "PDF, JPG nebo PNG do 15 MB",
+    "why": "missing"
+  },
+  "mobile:v3.upload.library": {
+    "text": "Vybrat z fotek",
+    "why": "missing"
+  },
+  "mobile:v3.upload.privacy": {
+    "text": "Vaše dokumenty můžete otevřít jen vy a tým Hangyul. Univerzita je uvidí až poté, co jí podáte přihlášku.",
+    "why": "missing"
+  },
+  "mobile:v3.upload.tooLarge": {
+    "text": "Soubor je větší než 15 MB. Zkuste sken do PDF nebo menší fotku.",
+    "why": "missing"
+  },
+  "mobile:v3.visa.after": {
+    "text": "Následuje po: {{list}}",
+    "why": "'comes after', not 'available after'"
+  },
+  "mobile:v3.visa.beforeBody": {
+    "text": "Jakmile přijmete nabídku a zaplatíte školné, univerzita vám vydá standardní dopis o přijetí. Už teď vidíte, co budete potřebovat, a můžete to začít shánět.",
+    "why": "official document name"
+  },
+  "mobile:v3.visa.beforeTitle": {
+    "text": "Příprava víza začíná po nabídce přijetí",
+    "why": "missing"
+  },
+  "mobile:v3.visa.blockers": {
+    "text": "Nejdřív je potřeba",
+    "why": "missing"
+  },
+  "mobile:v3.visa.checklist": {
+    "text": "Váš seznam · hotovo {{done}} z {{total}}",
+    "why": "missing"
+  },
+  "mobile:v3.visa.forNationality": {
+    "text": "Platí pro vaši státní příslušnost",
+    "why": "missing"
+  },
+  "mobile:v3.visa.now": {
+    "text": "Co teď čeká na vás",
+    "why": "missing"
+  },
+  "mobile:v3.visa.phase.admission": {
+    "text": "Přijetí",
+    "why": "missing"
+  },
+  "mobile:v3.visa.phase.apply": {
+    "text": "Žádost o vízum",
+    "why": "missing"
+  },
+  "mobile:v3.visa.phase.decision": {
+    "text": "Rozhodnutí velvyslanectví",
+    "why": "missing"
+  },
+  "mobile:v3.visa.phase.documents": {
+    "text": "Dokumenty k vízu",
+    "why": "missing"
+  },
+  "mobile:v3.visa.phase.letter": {
+    "text": "Dopis o přijetí",
+    "why": "missing"
+  },
+  "mobile:v3.visa.preview": {
+    "text": "Co budete potřebovat",
+    "why": "missing"
+  },
+  "mobile:v3.visa.seeRequirement": {
+    "text": "Zobrazit oficiální požadavek",
+    "why": "missing"
+  },
+  "mobile:v3.visa.sourceChecked": {
+    "text": "Oficiální zdroj · ověřeno {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.visa.title": {
+    "text": "Příprava vašeho víza {{type}}",
+    "why": "matches English; was 'visa plan'"
+  },
+  "mobile:v3.visa.titleGeneric": {
+    "text": "Vaše studentské vízum",
+    "why": "missing"
+  },
+  "mobile:v4.application.blocks": {
+    "text": "Dokud to není hotové, přihlášku nelze podat.",
+    "why": "missing"
+  },
+  "mobile:v4.application.blocksUni": {
+    "text": "{{university}} na to čeká, než bude pokračovat.",
+    "why": "missing"
+  },
+  "mobile:v4.application.doneSummary_one": {
+    "text": "Hotovo {{count}}: {{items}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.doneSummary_few": {
+    "text": "Hotovo {{count}}: {{items}}",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v4.application.doneSummary_other": {
+    "text": "Hotovo {{count}}: {{items}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.next": {
+    "text": "Váš další krok",
+    "why": "missing"
+  },
+  "mobile:v4.application.nextFix": {
+    "text": "Opravte: {{item}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.nextLegalize": {
+    "text": "Získejte apostilu nebo konzulární superlegalizaci pro: {{item}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.nextRequest": {
+    "text": "{{university}} žádá: {{item}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.nextUpload": {
+    "text": "Nahrajte: {{item}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.nextWrite": {
+    "text": "Napište: {{item}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.nothingForYou": {
+    "text": "Teď od vás nic nepotřebujeme",
+    "why": "missing"
+  },
+  "mobile:v4.application.openDocument": {
+    "text": "Otevřít dokument",
+    "why": "missing"
+  },
+  "mobile:v4.application.reviewLate": {
+    "text": "Trvá to déle než obvykle. Tým Hangyul o zpoždění ví. Znovu nahrávat nemusíte.",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:v4.application.waitBody": {
+    "text": "Tým Hangyul kontroluje, co jste poslali. Pokud bude potřeba něco změnit, dáme vám vědět.",
+    "why": "missing"
+  },
+  "mobile:v4.application.waitTitle": {
+    "text": "Teď od vás nic nepotřebujeme",
+    "why": "missing"
+  },
+  "mobile:v4.application.writeOnWeb": {
+    "text": "Napište ji na webu. Najdete tam i komentáře týmu Hangyul.",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:v4.discover.firstYear": {
+    "text": "{{range}} první rok",
+    "why": "missing"
+  },
+  "mobile:v4.documents.late": {
+    "text": "Trvá déle",
+    "why": "missing"
+  },
+  "mobile:v4.documents.lateLine": {
+    "text": "označeno týmu Hangyul jako zpožděné",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.FIX.cta": {
+    "text": "Zobrazit, jak to opravit",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.FIX.text": {
+    "text": "Dokud to není opravené, přihlášku nelze podat.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.FIX.title": {
+    "text": "Opravte dokument {{label}} pro {{university}}",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.LEGALIZE.cta": {
+    "text": "Zobrazit kroky",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.LEGALIZE.text": {
+    "text": "Korejské univerzity tento dokument přijmou až po ověření pravosti. Ukážeme vám kroky pro vaši zemi.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.LEGALIZE.title": {
+    "text": "Získejte apostilu pro dokument {{label}} pro {{university}}",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.RENEW.cta": {
+    "text": "Zobrazit, co dělat",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.RENEW.text": {
+    "text": "Nahranému dokumentu skončila platnost.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.RENEW.title": {
+    "text": "Získejte nový dokument {{label}} pro {{university}}",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.REQUEST.cta": {
+    "text": "Nahrát a odeslat",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.REQUEST.text": {
+    "text": "Univerzita tento dokument žádá. Dokud nedorazí, přihláška nemůže pokračovat.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.REQUEST.title": {
+    "text": "Pošlete dokument {{label}} na {{university}}",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.cta": {
+    "text": "Otevřít koncept",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.text": {
+    "text": "Tým Hangyul přidal komentáře. Dokud text neschválí, přihlášku nelze podat.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.title": {
+    "text": "Upravte {{label}} pro {{university}}",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.TOO_OLD.cta": {
+    "text": "Zobrazit, co dělat",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.TOO_OLD.text": {
+    "text": "Univerzita potřebuje nedávno vydanou kopii.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.TOO_OLD.title": {
+    "text": "Získejte novější dokument {{label}} pro {{university}}",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.UPLOAD.cta": {
+    "text": "Nahrát",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.UPLOAD.text": {
+    "text": "Bez něj přihlášku nelze podat.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.UPLOAD.title": {
+    "text": "Nahrajte dokument {{label}} pro {{university}}",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.cta": {
+    "text": "Začít psát",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.text": {
+    "text": "Tým Hangyul ji s vámi projde. Začněte hrubým konceptem, nemusí být dokonalý.",
+    "why": "Hangyul team, not counselor"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.title": {
+    "text": "Napište {{label}} pro {{university}}",
+    "why": "missing"
+  },
+  "mobile:v4.uni.actor.AGENCY": {
+    "text": "Partnerská agentura",
+    "why": "missing"
+  },
+  "mobile:v4.uni.actor.HANGYUL": {
+    "text": "Hangyul",
+    "why": "missing"
+  },
+  "mobile:v4.uni.actor.STUDENT": {
+    "text": "Uchazeč",
+    "why": "missing"
+  },
+  "mobile:v4.uni.actor.SYSTEM": {
+    "text": "Automaticky",
+    "why": "missing"
+  },
+  "mobile:v4.uni.actor.UNIVERSITY": {
+    "text": "Vaše univerzita",
+    "why": "missing"
+  },
+  "mobile:v4.uni.toReview_one": {
+    "text": "K posouzení · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v4.uni.toReview_few": {
+    "text": "K posouzení · {{count}}",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v4.uni.toReview_other": {
+    "text": "K posouzení · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v4.university.continue": {
+    "text": "Pokračovat v přihlášce",
+    "why": "missing"
+  },
+  "mobile:v4.university.firstYear": {
+    "text": "První rok, odhad",
+    "why": "missing"
+  },
+  "mobile:v4.university.tuitionYear": {
+    "text": "Školné za rok",
+    "why": "missing"
+  },
+  "mobile:v4.visa.hideDone": {
+    "text": "Skrýt dokončené kroky",
+    "why": "missing"
+  },
+  "mobile:v4.visa.showDone_one": {
+    "text": "Zobrazit {{count}} dokončený krok",
+    "why": "missing"
+  },
+  "mobile:v4.visa.showDone_few": {
+    "text": "Zobrazit {{count}} dokončené kroky",
+    "why": "Czech 2–4 plural form missing"
+  },
+  "mobile:v4.visa.showDone_other": {
+    "text": "Zobrazit {{count}} dokončených kroků",
+    "why": "missing"
+  }
+}

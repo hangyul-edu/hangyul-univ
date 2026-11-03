@@ -1,0 +1,4524 @@
+{
+  "_notes": [
+    "Register (V31 open item): Student web app and student-facing mobile strings (mobile:student.*, signup.*, login.*, more.*, plan.*, settings.*, v3.appStatus/application/discover/documents/home/journey/match/messages/offer/profile/push/quick/university/upload/visa, v4.application/home/university/visa) use one warm, informal 'Ty' (Cię/Twój, capitalised as Polish consumer apps do). Staff-facing agency strings (mobile:agency.*, v3.agency.*, v3.reviews.*, v3.tasks.*, v3.deadlines.*, v3.settings.*, messages.internal*) use concise operational 'Ty' or impersonal forms. University strings (mobile:university.*, v3.uni.*, v26.uni.*, v4.uni.*) use formal 'Państwo' or impersonal forms; no 'Ty' remains there. Gendered past-tense forms were avoided everywhere (e.g. 'Przyjmuję do wiadomości' instead of 'Zapoznałem(-am) się', 'Masz już status studenta' for 'You're enrolled').",
+    "Application (admissions): the existing Polish mixed 'aplikacja', 'wniosek' and 'zgłoszenie'. Unified on 'aplikacja' (the word Polish students use for applying abroad; it was already the majority form and the tab name). 'Wniosek' is kept only for the visa application ('wniosek wizowy'), which is the official Polish term. Where 'aplikacja' could mean the mobile app, the text says 'aplikacja mobilna' / 'w przeglądarce' / 'wersja internetowa' so the two meanings never sit in one sentence.",
+    "Plan (purchasable package): the glossary says 'plan', not 'package'; v15/v26/v29 strings used 'pakiet' while v17/v21 used 'plan'. Unified on 'plan' (Twój plan, Plany usług, Plan Premium). 'Plan kosztów' (cost plan) and 'plan nauki' (study plan essay) keep their own qualifier so they do not collide with it.",
+    "Study plan (학업계획서) is 'plan nauki' everywhere (was also 'plan studiów', which in Polish usually means the curriculum). Personal statement stays 'list motywacyjny', the term Polish applicants use. Essay editing is 'redakcja', not 'sprawdzanie' (review), to match 'editing' in the English.",
+    "Document review vs verification: student-facing review is 'sprawdzanie/sprawdzić' (the team checks the document); 'weryfikacja/zweryfikuj' is kept only for the agency's official verify action (mobile:agency.reviews.verify, v3.reviews.*) and the 'Documents · verified' counter, as the glossary reserves it.",
+    "Official names kept official: 'standardowy list przyjęcia' (표준입학허가서), 'list przyjęcia' (admission letter), 'apostille' (indeclinable, as used by Polish authorities), 'legalizacja konsularna', 'poświadczenie notarialne', 'wiza D-2 / D-4', 'GKS', 'TOPIK', 'rozmowa kwalifikacyjna' for the admission interview and 'próbna rozmowa kwalifikacyjna' for mock interview. 'Enrolled' is 'immatrykulacja' in university strings and 'Masz już status studenta' for the student.",
+    "Plurals: Polish needs one/few/many (and other for fractions). Every key that had only _one/_other received _few and _many, and _other was set to the 'many' form; several existing _other forms were wrong genitive singulars ('{{count}} nieprzeczytanej wiadomości', '{{count}} dokumentu wymaga', '{{count}} komentarza', '{{count}} innego zadania') and are corrected. mobile:v3.deadlines.bucket.* had only _other; _one/_few/_many were added with the same text so the lookup never falls through. For v22.home.appsQuiet the count was moved into parentheses ('Wszystkie Twoje aplikacje ({{count}})') so the verb never has to agree with the number.",
+    "'Closes {{date}}' (application closing date) is 'Nabór do {{date}}' rather than 'Zamknięcie {{date}}', which reads as a closure. 'Expired. Renew it' is 'Wygasł. Odnów go' because 'Nieważny' reads as 'invalid'. Visa F is 'pobyt lub rodzina' (the F family is not only permanent residence).",
+    "Hangyul team: every remaining 'doradca' / 'konsultant' in student-facing copy (v3.home.nextBody.ESSAY_WRITE, v4.application.reviewLate, v4.application.writeOnWeb, v4.home.item.WRITE_ESSAY.text, v17.gate.what.help) is aligned to 'zespół Hangyul' / 'zespół Hangyul Univ', following the English. 'Counselor' survives only in staff-facing agency/university strings as 'opiekun'.",
+    "Greetings: Polish has no afternoon greeting, so 'Good afternoon' is 'Dzień dobry' like the morning form. Document-language names are lower-case adjectives (angielski, koreański) as Polish writes language names.",
+    "Consent summaries: mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary listed 'scope, deadlines, retention period' that the English does not; aligned to the web wording. PRIVACY.summary said 'hash hasła' on the web; now 'hasło (przechowywane w postaci zaszyfrowanej)' on both. No outcome promises were added or dropped; 'scholarships you may qualify for' stays conditional ('o które możesz się ubiegać').",
+    "Owner decisions needed: (1) student:onboarding.education.institutionPh and sponsor.goalPh are localised to Polish examples ('Uniwersytet Warszawski', 'firmami koreańskimi i polskimi') like other markets; confirm or keep the Vietnamese examples. (2) 'Teksty' is used for the Writing section title (student:writing.title) to match v22.home.writing, which already said 'Teksty'; 'Pisanie' can be restored if the section title must name the activity. (3) 'Zaznacz wszystkie' (mobile:signup.consentAll) was kept for 'Agree to all' as the common Polish checkbox-group label; say if a literal 'Zgadzam się na wszystko' is required legally."
+  ],
+  "student:applications.closed": {
+    "text": "Zamknięte aplikacje",
+    "why": "was missing"
+  },
+  "student:applications.subtitle": {
+    "text": "Każda aplikacja ma własną listę kontrolną. Sprawdzone już dokumenty są automatycznie używane ponownie.",
+    "why": "checked, not verified (glossary)"
+  },
+  "student:applications.updated": {
+    "text": "Zaktualizowano {{date}}",
+    "why": "was missing"
+  },
+  "student:dashboard.arrival.cta": {
+    "text": "Otwórz listę kontrolną przyjazdu",
+    "why": "was missing"
+  },
+  "student:dashboard.arrival.landing": {
+    "text": "Lądowanie {{date}}",
+    "why": "was missing"
+  },
+  "student:dashboard.arrival.noFlight": {
+    "text": "Dodaj swój lot, abyśmy mogli zaplanować odbiór z lotniska i pierwsze dni.",
+    "why": "was missing"
+  },
+  "student:dashboard.counselor.noneCta": {
+    "text": "Zobacz plany",
+    "why": "was missing"
+  },
+  "student:dashboard.counselor.unread_few": {
+    "text": "{{count}} nieprzeczytane wiadomości",
+    "why": "Polish few form"
+  },
+  "student:dashboard.counselor.unread_many": {
+    "text": "{{count}} nieprzeczytanych wiadomości",
+    "why": "Polish many form"
+  },
+  "student:dashboard.counselor.unread_other": {
+    "text": "{{count}} nieprzeczytanych wiadomości",
+    "why": "plural was genitive singular"
+  },
+  "student:dashboard.deadlines.empty": {
+    "text": "Brak terminów w najbliższych tygodniach.",
+    "why": "was missing"
+  },
+  "student:dashboard.nextAction.TASK.ctaDefault": {
+    "text": "Zacznij teraz",
+    "why": "was missing"
+  },
+  "student:dashboard.stageText.APPLY": {
+    "text": "Przygotowujesz aplikacje. Krok po kroku.",
+    "why": "was missing"
+  },
+  "student:dashboard.stageText.ARRIVAL": {
+    "text": "Twoja wiza jest gotowa. Czas zaplanować przyjazd!",
+    "why": "was missing"
+  },
+  "student:dashboard.stageText.DECISION": {
+    "text": "Twoje aplikacje są już na uczelniach.",
+    "why": "was missing"
+  },
+  "student:dashboard.stageText.ENROLL": {
+    "text": "Gratulacje, masz ofertę przyjęcia! Zabezpieczmy Twoje miejsce.",
+    "why": "was missing"
+  },
+  "student:dashboard.stageText.EXPLORE": {
+    "text": "Zacznijmy od poznania Ciebie.",
+    "why": "was missing"
+  },
+  "student:dashboard.stageText.MATCH": {
+    "text": "Twoje dopasowania są gotowe. Wybierz, gdzie aplikować.",
+    "why": "one term: aplikacja, not wniosek"
+  },
+  "student:dashboard.stageText.STUDENT_LIFE": {
+    "text": "Witaj w Korei. Nadal jesteśmy tu, gdy nas potrzebujesz.",
+    "why": "was missing"
+  },
+  "student:documents.drawer.country": {
+    "text": "Kraj wydania",
+    "why": "was missing"
+  },
+  "student:documents.drawer.expired": {
+    "text": "Ten dokument wygasł",
+    "why": "was missing"
+  },
+  "student:documents.drawer.expiredText": {
+    "text": "Prześlij aktualną wersję, aby Twoje aplikacje pozostały ważne.",
+    "why": "was missing"
+  },
+  "student:documents.drawer.expires": {
+    "text": "Ważny do",
+    "why": "was missing"
+  },
+  "student:documents.drawer.file": {
+    "text": "Najnowszy plik",
+    "why": "was missing"
+  },
+  "student:documents.drawer.fixDefault": {
+    "text": "Ten dokument wymaga zmiany. Popraw go i prześlij nową wersję.",
+    "why": "was missing"
+  },
+  "student:documents.drawer.fixTitle": {
+    "text": "Co poprawić",
+    "why": "was missing"
+  },
+  "student:documents.drawer.inReview": {
+    "text": "Sprawdzamy ten dokument. Na razie nie musisz nic robić.",
+    "why": "was missing"
+  },
+  "student:documents.drawer.issued": {
+    "text": "Data wydania",
+    "why": "was missing"
+  },
+  "student:documents.drawer.newVersion": {
+    "text": "Nowa wersja",
+    "why": "was missing"
+  },
+  "student:documents.drawer.reviewMeta": {
+    "text": "Wersja {{version}} · {{when}}",
+    "why": "was missing"
+  },
+  "student:documents.drawer.reviews": {
+    "text": "Historia sprawdzania",
+    "why": "was missing"
+  },
+  "student:documents.drawer.translation": {
+    "text": "Tłumaczenie",
+    "why": "was missing"
+  },
+  "student:documents.drawer.translationNo": {
+    "text": "Niepotrzebne",
+    "why": "was missing"
+  },
+  "student:documents.drawer.translationYes": {
+    "text": "Potrzebne tłumaczenie przysięgłe",
+    "why": "was missing"
+  },
+  "student:documents.drawer.uploadFixed": {
+    "text": "Prześlij poprawioną wersję",
+    "why": "was missing"
+  },
+  "student:documents.drawer.versions": {
+    "text": "Wersje",
+    "why": "was missing"
+  },
+  "student:documents.drawer.viewVersion": {
+    "text": "Zobacz wersję {{version}}",
+    "why": "was missing"
+  },
+  "student:documents.legal.intro": {
+    "text": "Oznaczaj każdy krok jako wykonany, gdy go ukończysz. Gotowy dokument sprawdzimy my.",
+    "why": "check, not verify (glossary)"
+  },
+  "student:documents.reusable": {
+    "text": "Wielokrotnego użytku",
+    "why": "was missing"
+  },
+  "student:documents.upload.category": {
+    "text": "Rodzaj dokumentu",
+    "why": "was missing"
+  },
+  "student:documents.upload.choose": {
+    "text": "Wybierz plik",
+    "why": "was missing"
+  },
+  "student:documents.upload.country": {
+    "text": "Kraj wydania",
+    "why": "was missing"
+  },
+  "student:documents.upload.countryHint": {
+    "text": "Od tego zależy, czy potrzebna jest apostille.",
+    "why": "was missing"
+  },
+  "student:documents.upload.expires": {
+    "text": "Data ważności",
+    "why": "was missing"
+  },
+  "student:documents.upload.file": {
+    "text": "Plik",
+    "why": "was missing"
+  },
+  "student:documents.upload.fileHint": {
+    "text": "PDF, JPG, PNG lub WEBP, do {{mb}} MB.",
+    "why": "was missing"
+  },
+  "student:documents.upload.issued": {
+    "text": "Data wydania",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.en": {
+    "text": "angielski",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.id": {
+    "text": "indonezyjski",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.ja": {
+    "text": "japoński",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.ko": {
+    "text": "koreański",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.mn": {
+    "text": "mongolski",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.ne": {
+    "text": "nepalski",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.other": {
+    "text": "inny",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.ru": {
+    "text": "rosyjski",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.th": {
+    "text": "tajski",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.uz": {
+    "text": "uzbecki",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.vi": {
+    "text": "wietnamski",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.zh": {
+    "text": "chiński",
+    "why": "was missing"
+  },
+  "student:documents.upload.language": {
+    "text": "Język dokumentu",
+    "why": "was missing"
+  },
+  "student:documents.upload.subtitle": {
+    "text": "Wystarczy wyraźny skan lub zdjęcie z telefonu. Sprawdzimy go i damy Ci znać, jeśli coś trzeba poprawić.",
+    "why": "was missing"
+  },
+  "student:documents.upload.title": {
+    "text": "Prześlij dokument",
+    "why": "was missing"
+  },
+  "student:documents.upload.titleLabel": {
+    "text": "Nazwa",
+    "why": "was missing"
+  },
+  "student:documents.upload.types": {
+    "text": "PDF, JPG, PNG lub WEBP",
+    "why": "was missing"
+  },
+  "student:documents.upload.versionTitle": {
+    "text": "Prześlij nową wersję",
+    "why": "was missing"
+  },
+  "student:essays.comments_one": {
+    "text": "{{count}} komentarz",
+    "why": "was missing"
+  },
+  "student:essays.comments_few": {
+    "text": "{{count}} komentarze",
+    "why": "Polish few form"
+  },
+  "student:essays.comments_many": {
+    "text": "{{count}} komentarzy",
+    "why": "Polish many form"
+  },
+  "student:essays.comments_other": {
+    "text": "{{count}} komentarzy",
+    "why": "plural was genitive singular"
+  },
+  "student:essays.edited": {
+    "text": "Edytowano {{when}}",
+    "why": "was missing"
+  },
+  "student:essays.new.cta": {
+    "text": "Utwórz esej",
+    "why": "was missing"
+  },
+  "student:essays.new.limit": {
+    "text": "Limit słów",
+    "why": "was missing"
+  },
+  "student:essays.new.name": {
+    "text": "Tytuł",
+    "why": "was missing"
+  },
+  "student:essays.new.subtitle": {
+    "text": "Na próbę albo dla uczelni, której jeszcze nie ma na liście.",
+    "why": "was missing"
+  },
+  "student:essays.new.title": {
+    "text": "Zacznij nowy esej",
+    "why": "was missing"
+  },
+  "student:essays.new.type": {
+    "text": "Rodzaj eseju",
+    "why": "was missing"
+  },
+  "student:home.allMatches": {
+    "text": "Wszystkie dopasowania",
+    "why": "was missing"
+  },
+  "student:home.arrivalProgress": {
+    "text": "Wykonano {{done}} z 11 kroków przyjazdu",
+    "why": "was missing"
+  },
+  "student:home.closes": {
+    "text": "Nabór do {{date}}",
+    "why": "closing date, not 'closure'"
+  },
+  "student:home.closest": {
+    "text": "Najbliżej Twojego profilu",
+    "why": "was missing"
+  },
+  "student:home.docAction.IN_REVIEW": {
+    "text": "W trakcie sprawdzania",
+    "why": "was missing"
+  },
+  "student:home.docAction.LEGALIZE": {
+    "text": "Potrzebna apostille",
+    "why": "was missing"
+  },
+  "student:home.docAction.OPEN": {
+    "text": "Otwórz",
+    "why": "was missing"
+  },
+  "student:home.docAction.RENEW": {
+    "text": "Wygasł. Odnów go",
+    "why": "'nieważny' reads as invalid"
+  },
+  "student:home.docAction.TOO_OLD": {
+    "text": "Zbyt stary. Uzyskaj nowy",
+    "why": "natural verb for documents"
+  },
+  "student:home.documentsSub_few": {
+    "text": "{{count}} dokumenty wymagają Twojej uwagi",
+    "why": "Polish few form"
+  },
+  "student:home.documentsSub_many": {
+    "text": "{{count}} dokumentów wymaga Twojej uwagi",
+    "why": "Polish many form"
+  },
+  "student:home.documentsSub_other": {
+    "text": "{{count}} dokumentów wymaga Twojej uwagi",
+    "why": "plural was genitive singular"
+  },
+  "student:home.greet.afternoon": {
+    "text": "Dzień dobry, {{name}}",
+    "why": "was missing; Polish has no afternoon greeting"
+  },
+  "student:home.otherTasks_one": {
+    "text": "{{count}} inne zadanie",
+    "why": "was missing"
+  },
+  "student:home.otherTasks_few": {
+    "text": "{{count}} inne zadania",
+    "why": "Polish few form"
+  },
+  "student:home.otherTasks_many": {
+    "text": "{{count}} innych zadań",
+    "why": "Polish many form"
+  },
+  "student:home.otherTasks_other": {
+    "text": "{{count}} innych zadań",
+    "why": "plural was genitive singular"
+  },
+  "student:home.recommended": {
+    "text": "Polecane dla Ciebie",
+    "why": "was missing"
+  },
+  "student:home.recommendedSub": {
+    "text": "Programy, których opublikowane wymagania spełniasz.",
+    "why": "was missing"
+  },
+  "student:home.team": {
+    "text": "Zespół Hangyul Univ",
+    "why": "matches English and messages.team"
+  },
+  "student:housing.noDorms": {
+    "text": "Ta uczelnia nie opublikowała jeszcze informacji o akademikach.",
+    "why": "was missing"
+  },
+  "student:housing.noUni": {
+    "text": "Zakwaterowanie pojawi się przy Twojej pierwszej aplikacji",
+    "why": "was missing"
+  },
+  "student:housing.noUniCta": {
+    "text": "Przejdź do aplikacji",
+    "why": "was missing"
+  },
+  "student:housing.noUniText": {
+    "text": "Gdy złożysz aplikację, pokażemy opcje akademików i koszty na tej uczelni.",
+    "why": "was missing"
+  },
+  "student:housing.subtitle": {
+    "text": "Porównaj akademiki i śledź swoje kroki związane z zakwaterowaniem.",
+    "why": "was missing"
+  },
+  "student:housing.title": {
+    "text": "Zakwaterowanie",
+    "why": "was missing"
+  },
+  "student:login.aside.eyebrow": {
+    "text": "Studia w Korei, krok po kroku",
+    "why": "was missing"
+  },
+  "student:login.aside.note": {
+    "text": "Tysiące małych kroków, zawsze jeden jasny następny krok.",
+    "why": "was missing"
+  },
+  "student:login.aside.point2": {
+    "text": "Trzymaj każdy dokument w jednym bezpiecznym sejfie i używaj go w kolejnych aplikacjach.",
+    "why": "was missing"
+  },
+  "student:login.aside.point3": {
+    "text": "Przygotowuj się z prawdziwymi ludźmi z zespołu Hangyul, którzy mówią w Twoim języku.",
+    "why": "was missing"
+  },
+  "student:login.aside.text": {
+    "text": "Od pierwszego wyszukiwania po dzień lądowania w Incheon Hangyul Univ pokazuje Ci, co zrobić dalej i dlaczego.",
+    "why": "adds 'Ci'; clearer sentence"
+  },
+  "student:messages.new.body": {
+    "text": "Wiadomość",
+    "why": "was missing"
+  },
+  "student:messages.new.subject": {
+    "text": "Temat",
+    "why": "was missing"
+  },
+  "student:messages.new.title": {
+    "text": "Nowa rozmowa",
+    "why": "was missing"
+  },
+  "student:messages.unread_one": {
+    "text": "{{count}} nieprzeczytana wiadomość",
+    "why": "was missing"
+  },
+  "student:messages.unread_few": {
+    "text": "{{count}} nieprzeczytane wiadomości",
+    "why": "Polish few form"
+  },
+  "student:messages.unread_many": {
+    "text": "{{count}} nieprzeczytanych wiadomości",
+    "why": "Polish many form"
+  },
+  "student:messages.unread_other": {
+    "text": "{{count}} nieprzeczytanych wiadomości",
+    "why": "plural was genitive singular"
+  },
+  "student:onboarding.basics.dobHint": {
+    "text": "Niektóre stypendia mają limit wieku.",
+    "why": "was missing"
+  },
+  "student:onboarding.basics.legalText": {
+    "text": "Oficjalne dokumenty z {{country}} zwykle wymagają tego kroku, zanim koreańskie uczelnie je przyjmą: {{path}}. Poprowadzimy Cię przez to, gdy przyjdzie czas.",
+    "why": "was missing"
+  },
+  "student:onboarding.basics.legalTitle": {
+    "text": "Warto wiedzieć na później",
+    "why": "was missing"
+  },
+  "student:onboarding.basics.residenceHint": {
+    "text": "Niektóre ambasady przyjmują wnioski wizowe tylko od mieszkańców swojego kraju.",
+    "why": "was missing"
+  },
+  "student:onboarding.education.country": {
+    "text": "Kraj nauki",
+    "why": "was missing"
+  },
+  "student:onboarding.education.gpaHint": {
+    "text": "Wpisz swoją średnią w skali stosowanej przez Twoją szkołę.",
+    "why": "was missing"
+  },
+  "student:onboarding.education.gpaScale": {
+    "text": "Na",
+    "why": "was missing; 'X na Y' scale label"
+  },
+  "student:onboarding.education.gpaValue": {
+    "text": "Twoja średnia",
+    "why": "was missing"
+  },
+  "student:onboarding.education.gradYear": {
+    "text": "Rok ukończenia",
+    "why": "was missing"
+  },
+  "student:onboarding.education.institutionPh": {
+    "text": "np. Uniwersytet Warszawski",
+    "why": "was missing; market-local example"
+  },
+  "student:onboarding.education.level": {
+    "text": "Najwyższy poziom ukończony lub w trakcie",
+    "why": "clearer than 'obecny poziom'"
+  },
+  "student:onboarding.education.levels.ASSOCIATE": {
+    "text": "Studia 2–3-letnie / kolegium",
+    "why": "was missing"
+  },
+  "student:onboarding.education.levels.BACHELOR": {
+    "text": "Studia licencjackie lub inżynierskie",
+    "why": "was missing"
+  },
+  "student:onboarding.education.levels.DOCTORATE": {
+    "text": "Doktorat",
+    "why": "was missing"
+  },
+  "student:onboarding.education.levels.MASTER": {
+    "text": "Studia magisterskie",
+    "why": "was missing"
+  },
+  "student:onboarding.education.major": {
+    "text": "Kierunek lub profil",
+    "why": "was missing"
+  },
+  "student:onboarding.education.normalized": {
+    "text": "Wynik znormalizowany",
+    "why": "was missing"
+  },
+  "student:onboarding.education.previewEmpty": {
+    "text": "Wpisz średnią i jej skalę, aby zobaczyć wynik znormalizowany.",
+    "why": "was missing"
+  },
+  "student:onboarding.education.status": {
+    "text": "Status ukończenia",
+    "why": "was missing"
+  },
+  "student:onboarding.education.statuses.EXPECTED": {
+    "text": "Wkrótce kończę",
+    "why": "was missing"
+  },
+  "student:onboarding.education.statuses.GRADUATED": {
+    "text": "Ukończone",
+    "why": "was missing"
+  },
+  "student:onboarding.education.statuses.IN_PROGRESS": {
+    "text": "Wciąż się uczę",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.degreeSub.ASSOCIATE": {
+    "text": "Praktyczne studia 2–3-letnie",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.degreeSub.BACHELOR": {
+    "text": "4-letnie studia pierwszego stopnia",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.degreeSub.DOCTORATE": {
+    "text": "Studia badawcze (doktorat)",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.degreeSub.LANGUAGE": {
+    "text": "Zacznij od koreańskiego, we własnym tempie",
+    "why": "matches English; dropped invented 'częsty start'"
+  },
+  "student:onboarding.goals.degreeSub.MASTER": {
+    "text": "Studia drugiego stopnia po licencjacie",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.degreeSub.TRANSFER": {
+    "text": "Kontynuuj rozpoczęte już studia",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.fieldsHint": {
+    "text": "Wybierz, ile chcesz.",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.intakeHint": {
+    "text": "Koreańskie uczelnie zaczynają rok wiosną (marzec) i jesienią (wrzesień).",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.term": {
+    "text": "Semestr rozpoczęcia",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.termLabel.FALL": {
+    "text": "Jesień (wrzesień)",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.termLabel.SPRING": {
+    "text": "Wiosna (marzec)",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.year": {
+    "text": "Rok rozpoczęcia",
+    "why": "was missing"
+  },
+  "student:onboarding.language.have": {
+    "text": "Mam wynik",
+    "why": "was missing"
+  },
+  "student:onboarding.language.level.BEGINNER": {
+    "text": "Początkujący",
+    "why": "was missing"
+  },
+  "student:onboarding.language.level.NATIVE": {
+    "text": "Język ojczysty",
+    "why": "was missing"
+  },
+  "student:onboarding.language.level.NONE": {
+    "text": "Jeszcze nie znam",
+    "why": "was missing"
+  },
+  "student:onboarding.language.planning": {
+    "text": "Planuję zdawać",
+    "why": "was missing"
+  },
+  "student:onboarding.language.score": {
+    "text": "Wynik ({{range}})",
+    "why": "was missing"
+  },
+  "student:onboarding.language.test.TOEFL_IBT": {
+    "text": "TOEFL iBT",
+    "why": "was missing"
+  },
+  "student:onboarding.language.testSub.IELTS": {
+    "text": "Test z angielskiego, skala 0–9",
+    "why": "was missing"
+  },
+  "student:onboarding.language.testSub.TOEFL_IBT": {
+    "text": "Test z angielskiego, 0–120",
+    "why": "was missing"
+  },
+  "student:onboarding.language.testSub.TOPIK": {
+    "text": "Test z języka koreańskiego, poziomy 1–6",
+    "why": "was missing"
+  },
+  "student:onboarding.language.testsHint": {
+    "text": "Pomiń, jeśli jeszcze nie zaczynasz.",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.currentVisa": {
+    "text": "Twoja obecna wiza",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.expiry": {
+    "text": "Data ważności paszportu",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.expiryHint": {
+    "text": "Najlepiej, żeby był ważny przez cały okres studiów.",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.inKoreaNo": {
+    "text": "Nie, jestem za granicą",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.inKoreaYes": {
+    "text": "Tak, jestem w Korei",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.no": {
+    "text": "Jeszcze nie",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.number": {
+    "text": "Numer paszportu",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.numberHint": {
+    "text": "Opcjonalnie. Zapisujemy tylko ostatnie cyfry; pełny numer zostaje na Twoim dokumencie paszportu.",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.previousHint": {
+    "text": "Może to zmienić, które kroki wizowe Cię dotyczą.",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.visa.C-3": {
+    "text": "C-3 (krótki pobyt)",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.visa.D-2": {
+    "text": "D-2 (studencka)",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.visa.D-4": {
+    "text": "D-4 (kurs językowy)",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.visa.E-7": {
+    "text": "E-7 (praca)",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.visa.F": {
+    "text": "F (pobyt lub rodzina)",
+    "why": "'pobyt stały' is only F-5"
+  },
+  "student:onboarding.passport.visa.NONE": {
+    "text": "Nigdy",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.visa.OTHER": {
+    "text": "Inna",
+    "why": "was missing"
+  },
+  "student:onboarding.preferences.budgetOver": {
+    "text": "Ponad {{amount}}",
+    "why": "was missing"
+  },
+  "student:onboarding.preferences.budgetUpTo": {
+    "text": "Do {{amount}}",
+    "why": "was missing"
+  },
+  "student:onboarding.preferences.housingOpt.NO_PREFERENCE": {
+    "text": "Bez preferencji",
+    "why": "was missing"
+  },
+  "student:onboarding.preferences.housingOpt.OFF_CAMPUS": {
+    "text": "Pokój poza kampusem",
+    "why": "was missing"
+  },
+  "student:onboarding.preferences.housingSub.DORM": {
+    "text": "Większość studentów z zagranicy wybiera to na pierwszym roku",
+    "why": "was missing"
+  },
+  "student:onboarding.preferences.perMonth": {
+    "text": "około {{amount}} miesięcznie",
+    "why": "was missing"
+  },
+  "student:onboarding.preferences.regionsHint": {
+    "text": "Zostaw puste, jeśli każde miejsce w Korei jest w porządku.",
+    "why": "was missing"
+  },
+  "student:onboarding.preferences.scholarshipNo": {
+    "text": "Mile widziane, ale niekonieczne",
+    "why": "was missing"
+  },
+  "student:onboarding.preferences.scholarshipYesSub": {
+    "text": "Wyróżnimy programy ze stypendiami, o które możesz się ubiegać",
+    "why": "was missing; no promise of award"
+  },
+  "student:onboarding.sponsor.goalHint": {
+    "text": "Wystarczy jedno lub dwa zdania. Przyda się później do planu nauki.",
+    "why": "was missing"
+  },
+  "student:onboarding.sponsor.goalPh": {
+    "text": "np. Praca w marketingu między firmami koreańskimi i polskimi.",
+    "why": "was missing; market-local example"
+  },
+  "student:onboarding.sponsor.option.EMPLOYER": {
+    "text": "Mój pracodawca",
+    "why": "was missing"
+  },
+  "student:onboarding.sponsor.option.OTHER": {
+    "text": "Ktoś inny",
+    "why": "was missing"
+  },
+  "student:onboarding.sponsor.option.RELATIVE": {
+    "text": "Inny członek rodziny",
+    "why": "was missing"
+  },
+  "student:onboarding.sponsor.option.SCHOLARSHIP": {
+    "text": "Stypendium",
+    "why": "was missing"
+  },
+  "student:onboarding.sponsor.option.SELF": {
+    "text": "Ja",
+    "why": "was missing"
+  },
+  "student:onboarding.sponsor.whoHint": {
+    "text": "Do wniosku wizowego potrzebne jest potwierdzenie środków od tej osoby lub organizacji.",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.basics.eyebrow": {
+    "text": "O Tobie",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.basics.subtitle": {
+    "text": "Dzięki temu wiemy, które dokumenty i zasady wizowe Cię dotyczą.",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.basics.title": {
+    "text": "Skąd jesteś?",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.education.eyebrow": {
+    "text": "Twoja nauka",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.education.subtitle": {
+    "text": "Na tej podstawie sprawdzamy wymagania rekrutacyjne. Na razie wystarczy przybliżenie.",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.education.title": {
+    "text": "Opowiedz nam o swojej obecnej edukacji",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.goals.eyebrow": {
+    "text": "Twój cel",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.goals.title": {
+    "text": "Co chcesz studiować?",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.language.eyebrow": {
+    "text": "Języki",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.language.title": {
+    "text": "Jak Ci idzie koreański i angielski?",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.passport.eyebrow": {
+    "text": "Podróż",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.passport.title": {
+    "text": "Paszport i historia wiz",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.preferences.eyebrow": {
+    "text": "Budżet i życie",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.preferences.subtitle": {
+    "text": "Budżet, stypendia i zakwaterowanie pomagają nam ułożyć programy dla Ciebie.",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.preferences.title": {
+    "text": "Co jest dla Ciebie ważne na co dzień?",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.sponsor.eyebrow": {
+    "text": "Ostatni krok",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.sponsor.title": {
+    "text": "Kto finansuje Twoje studia?",
+    "why": "was missing"
+  },
+  "student:profile.anywhere": {
+    "text": "Gdziekolwiek w Korei",
+    "why": "was missing"
+  },
+  "student:profile.institutionMissing": {
+    "text": "Szkoła jeszcze nie dodana",
+    "why": "was missing"
+  },
+  "student:profile.planned": {
+    "text": "{{test}} (planowany)",
+    "why": "was missing"
+  },
+  "student:profile.title": {
+    "text": "Twój profil",
+    "why": "was missing"
+  },
+  "student:register.consent.CROSS_BORDER_VERIFICATION.label": {
+    "text": "Przyjmuję do wiadomości, że mój e-mail i numer telefonu są przetwarzane za granicą w celu ich weryfikacji",
+    "why": "gender-neutral 'acknowledge'"
+  },
+  "student:register.consent.PRIVACY.summary": {
+    "text": "E-mail, numer telefonu, imię i nazwisko, obywatelstwo oraz hasło (przechowywane w postaci zaszyfrowanej) – w celu utworzenia i zabezpieczenia konta.",
+    "why": "'hash hasła' is not in English"
+  },
+  "student:register.consent.missing": {
+    "text": "Zaznacz wymagane zgody.",
+    "why": "natural wording"
+  },
+  "student:register.consent.text": {
+    "text": "Wymagane zgody są potrzebne do założenia konta. Zgody dobrowolne możesz w każdej chwili wycofać w Ustawieniach.",
+    "why": "natural word order"
+  },
+  "student:services.success.assigned": {
+    "text": "{{agency}} będzie Cię wspierać",
+    "why": "was missing"
+  },
+  "student:settings.account.saved": {
+    "text": "Konto zaktualizowane",
+    "why": "was missing"
+  },
+  "student:settings.data.kind.DELETE": {
+    "text": "Usunięcie konta",
+    "why": "was missing"
+  },
+  "student:settings.data.status.COMPLETED": {
+    "text": "Zakończono",
+    "why": "was missing"
+  },
+  "student:settings.data.status.IN_REVIEW": {
+    "text": "W toku",
+    "why": "was missing"
+  },
+  "student:settings.data.status.REJECTED": {
+    "text": "Odrzucono",
+    "why": "was missing"
+  },
+  "student:settings.language.subtitle": {
+    "text": "W tym języku działa aplikacja i piszemy do Ciebie e-maile.",
+    "why": "natural phrasing"
+  },
+  "student:settings.privacy.saved": {
+    "text": "Ustawienie prywatności zapisane",
+    "why": "was missing"
+  },
+  "student:settings.privacy.who.agency": {
+    "text": "Agencja partnerska zespołu Hangyul: Twój profil, dokumenty i eseje, dopiero gdy masz plan.",
+    "why": "plan, not 'pakiet'"
+  },
+  "student:settings.privacy.whoTitle": {
+    "text": "Kto co widzi",
+    "why": "natural word order"
+  },
+  "student:tasks.emptyText": {
+    "text": "Nowe zadania pojawią się tutaj, gdy będzie coś do zrobienia.",
+    "why": "was missing"
+  },
+  "student:tasks.markDone": {
+    "text": "Oznacz „{{title}}” jako wykonane",
+    "why": "was missing"
+  },
+  "student:tasks.title": {
+    "text": "Zadania",
+    "why": "was missing"
+  },
+  "student:v15.services.allowance.key.max_managed_applications": {
+    "text": "Aplikacje prowadzone z zespołem",
+    "why": "shorter label, same meaning"
+  },
+  "student:v15.services.allowance.key.mock_interviews": {
+    "text": "Próbne rozmowy kwalifikacyjne",
+    "why": "was missing"
+  },
+  "student:v15.services.allowance.title": {
+    "text": "Co obejmuje plan i co już wykorzystano",
+    "why": "plan, not 'pakiet' (glossary)"
+  },
+  "student:v15.services.choose": {
+    "text": "Wybierz {{name}}",
+    "why": "was missing"
+  },
+  "student:v15.services.chosen": {
+    "text": "Plan wybrany na stronie internetowej.",
+    "why": "was missing"
+  },
+  "student:v15.services.current": {
+    "text": "Twój plan",
+    "why": "plan, not 'pakiet'"
+  },
+  "student:v15.services.scope.consultation_minutes": {
+    "text": "Konsultacja {{count}} min",
+    "why": "was missing"
+  },
+  "student:v15.services.scope.document_review": {
+    "text": "Sprawdzanie dokumentów",
+    "why": "verification reserved for official checks"
+  },
+  "student:v15.services.scope.interview_preparation": {
+    "text": "Przygotowanie do rozmowy kwalifikacyjnej",
+    "why": "was missing"
+  },
+  "student:v15.services.scope.personal_roadmap": {
+    "text": "Osobisty plan drogi na studia za granicą",
+    "why": "was missing"
+  },
+  "student:v15.services.scope.pre_arrival_orientation": {
+    "text": "Orientacja online przed wyjazdem",
+    "why": "was missing"
+  },
+  "student:v15.services.scope.settlement_support": {
+    "text": "Pomoc po przyjeździe",
+    "why": "was a bare fragment"
+  },
+  "student:v15.services.scope.title": {
+    "text": "W Twoim planie",
+    "why": "plan, not 'pakiet'"
+  },
+  "student:v15.services.scope.visa_support": {
+    "text": "Przygotowanie dokumentów wizowych",
+    "why": "glossary term; we prepare documents, not the application"
+  },
+  "student:v15.services.subtitle": {
+    "text": "Zobacz, co obejmuje Twój plan i co zostało, a jeśli jeszcze go nie masz, wybierz plan.",
+    "why": "plan, not 'pakiet'"
+  },
+  "student:v15.services.title": {
+    "text": "Plany usług",
+    "why": "plan, not 'pakiet'"
+  },
+  "student:v16.pay.amount": {
+    "text": "Kwota",
+    "why": "was missing"
+  },
+  "student:v16.pay.cancelled": {
+    "text": "Płatność została anulowana. Nic nie pobrano.",
+    "why": "was missing"
+  },
+  "student:v16.pay.chooseSubtitle": {
+    "text": "Wybierz plan dopasowany do tego, ile pomocy chcesz od Hangyul. Jedna płatność, bez subskrypcji.",
+    "why": "plan, not 'pakiet'"
+  },
+  "student:v16.pay.couldNotStart": {
+    "text": "Nie udało się otworzyć okna płatności.",
+    "why": "was missing"
+  },
+  "student:v16.pay.cta": {
+    "text": "Zapłać i zacznij",
+    "why": "was missing"
+  },
+  "student:v16.pay.fail.title": {
+    "text": "Płatność nie przeszła",
+    "why": "was missing"
+  },
+  "student:v16.pay.method": {
+    "text": "Metoda",
+    "why": "was missing"
+  },
+  "student:v16.pay.methodCard": {
+    "text": "Karta",
+    "why": "was missing"
+  },
+  "student:v16.pay.notCharged": {
+    "text": "Nic nie pobrano.",
+    "why": "was missing"
+  },
+  "student:v16.pay.orderNo": {
+    "text": "Zamówienie",
+    "why": "was missing"
+  },
+  "student:v16.pay.orderTitle": {
+    "text": "Twoje zamówienie",
+    "why": "was missing"
+  },
+  "student:v16.pay.receipt": {
+    "text": "Zobacz potwierdzenie",
+    "why": "was missing"
+  },
+  "student:v16.pay.retry": {
+    "text": "Spróbuj zapłacić ponownie",
+    "why": "was missing"
+  },
+  "student:v16.pay.sdkDown": {
+    "text": "Nie udało się wczytać okna płatności. Sprawdź połączenie i spróbuj ponownie.",
+    "why": "was missing"
+  },
+  "student:v16.pay.selected": {
+    "text": "Wybrano",
+    "why": "was missing"
+  },
+  "student:v16.pay.status.CANCELLED": {
+    "text": "Anulowano",
+    "why": "was missing"
+  },
+  "student:v16.pay.status.FAILED": {
+    "text": "Nieudana",
+    "why": "was missing"
+  },
+  "student:v16.pay.status.PENDING": {
+    "text": "Oczekuje",
+    "why": "was missing"
+  },
+  "student:v16.pay.success.cta": {
+    "text": "Zacznij przygotowania",
+    "why": "was missing"
+  },
+  "student:v16.pay.success.text": {
+    "text": "Zaczynasz przygotowania do studiów w Korei z planem {{name}}.",
+    "why": "was missing"
+  },
+  "student:v16.pay.success.title": {
+    "text": "Płatność zakończona",
+    "why": "was missing"
+  },
+  "student:v17.gate.what.applications": {
+    "text": "Twoje aplikacje",
+    "why": "one term: aplikacja"
+  },
+  "student:v17.gate.what.arrival": {
+    "text": "Pomoc po przyjeździe i w zadomowieniu",
+    "why": "full glossary meaning"
+  },
+  "student:v17.gate.what.essays": {
+    "text": "Redakcja listu motywacyjnego i planu nauki",
+    "why": "editing, not checking; one term for study plan"
+  },
+  "student:v17.gate.what.help": {
+    "text": "Pomoc zespołu Hangyul",
+    "why": "no 'konsultant'; team wording"
+  },
+  "student:v17.gate.what.housing": {
+    "text": "Pomoc z akademikiem",
+    "why": "says what we do"
+  },
+  "student:v17.gate.what.messages": {
+    "text": "Wiadomości z zespołem Hangyul",
+    "why": "was only 'team'; meaning lost"
+  },
+  "student:v17.gate.what.saved": {
+    "text": "Twoje zapisane uczelnie",
+    "why": "shortlist = saved universities"
+  },
+  "student:v17.gate.what.tasks": {
+    "text": "Twoja lista zadań",
+    "why": "task list, not plan"
+  },
+  "student:v17.gate.what.visa": {
+    "text": "Przygotowanie dokumentów wizowych",
+    "why": "glossary term"
+  },
+  "student:v17.pay.currencyPending": {
+    "text": "Płatność kartą zagraniczną w USD nie jest jeszcze dostępna. Nie obciążymy Cię w innej walucie. Spróbuj później albo skontaktuj się z nami.",
+    "why": "grammar: 'kartą zagraniczną'"
+  },
+  "student:v17.pay.fromApp": {
+    "text": "Jesteś tu z aplikacji mobilnej. Po zakończeniu płatności możesz do niej wrócić.",
+    "why": "gender-neutral; app disambiguated"
+  },
+  "student:v17.upgrade.amount": {
+    "text": "Cena zmiany planu",
+    "why": "was 'plan change', missing price"
+  },
+  "student:v17.upgrade.feature.essay_review": {
+    "text": "Redakcja listu motywacyjnego",
+    "why": "editing, not checking"
+  },
+  "student:v17.upgrade.feature.managed_application": {
+    "text": "Aplikacje prowadzone z zespołem",
+    "why": "one term for managed application"
+  },
+  "student:v17.upgrade.feature.mock_interview": {
+    "text": "Próbna rozmowa kwalifikacyjna",
+    "why": "full term; 'próbna rozmowa' is vague"
+  },
+  "student:v17.upgrade.feature.settlement": {
+    "text": "Pomoc po przyjeździe",
+    "why": "same as v15 scope label"
+  },
+  "student:v21.pay.cardFailed": {
+    "text": "Płatność nie przeszła",
+    "why": "was missing"
+  },
+  "student:v21.pay.cardSecure": {
+    "text": "Dane karty trafiają wyłącznie do Hangyul przez szyfrowane połączenie, a dalej do naszego operatora płatności. Nigdy nie przechowujemy numeru Twojej karty.",
+    "why": "was missing"
+  },
+  "student:v21.pay.cardTitle": {
+    "text": "Zapłać kartą",
+    "why": "was missing"
+  },
+  "student:v21.pay.declined": {
+    "text": "Karta nie została przyjęta: {{reason}} Spróbuj innej karty lub skontaktuj się ze swoim bankiem.",
+    "why": "was missing"
+  },
+  "student:v21.pay.expiry": {
+    "text": "Ważna do",
+    "why": "was missing"
+  },
+  "student:v21.pay.holder": {
+    "text": "Imię i nazwisko na karcie",
+    "why": "was missing"
+  },
+  "student:v21.pay.notConfigured": {
+    "text": "Płatność kartą nie jest tu jeszcze dostępna. Spróbuj później albo skontaktuj się z nami.",
+    "why": "was missing"
+  },
+  "student:v21.pay.number": {
+    "text": "Numer karty",
+    "why": "was missing"
+  },
+  "student:v21.pay.numberInvalid": {
+    "text": "Sprawdź numer karty.",
+    "why": "was missing"
+  },
+  "student:v21.pay.optional": {
+    "text": "opcjonalnie",
+    "why": "was missing"
+  },
+  "student:v21.pay.payCta": {
+    "text": "Zapłać tą kartą",
+    "why": "was missing"
+  },
+  "student:v21.pay.processing": {
+    "text": "Przetwarzamy Twoją płatność…",
+    "why": "was missing"
+  },
+  "student:v21.pay.savedDelete": {
+    "text": "Usuń",
+    "why": "was missing"
+  },
+  "student:v21.pay.savedDeleteBody": {
+    "text": "Usuniemy {{card}} z Twojego konta. Nie wpływa to na płatności, które już zrobiono.",
+    "why": "was missing"
+  },
+  "student:v21.pay.savedDeleteFailed": {
+    "text": "Nie udało się usunąć karty. Spróbuj ponownie.",
+    "why": "was missing"
+  },
+  "student:v21.pay.savedDeleteTitle": {
+    "text": "Usunąć tę kartę?",
+    "why": "was missing"
+  },
+  "student:v21.pay.savedNotReusable": {
+    "text": "Przy następnym zakupie wpiszesz dane karty ponownie.",
+    "why": "was missing"
+  },
+  "student:v21.pay.savedTitle": {
+    "text": "Twoja karta",
+    "why": "was missing"
+  },
+  "student:v21.pay.tooMany": {
+    "text": "Zbyt wiele prób płatności kartą. Odczekaj kilka minut, zanim spróbujesz ponownie.",
+    "why": "was missing"
+  },
+  "student:v22.home.appTeam.follow": {
+    "text": "Sprawdzamy postępy w dziale rekrutacji {{university}}",
+    "why": "'dopytujemy' was vague"
+  },
+  "student:v22.home.appTeam.letter": {
+    "text": "Sprawdzamy, co ze standardowym listem przyjęcia z {{university}}",
+    "why": "official document name"
+  },
+  "student:v22.home.appTeam.submit": {
+    "text": "Przygotowujemy Twoją aplikację do {{university}}",
+    "why": "one term: aplikacja"
+  },
+  "student:v22.home.appsQuiet_few": {
+    "text": "Wszystkie Twoje aplikacje ({{count}}) są na uczelniach. Na razie nic od Ciebie nie potrzeba.",
+    "why": "Polish few form"
+  },
+  "student:v22.home.appsQuiet_many": {
+    "text": "Wszystkie Twoje aplikacje ({{count}}) są na uczelniach. Na razie nic od Ciebie nie potrzeba.",
+    "why": "Polish many form"
+  },
+  "student:v22.home.appsQuiet_other": {
+    "text": "Wszystkie Twoje aplikacje ({{count}}) są na uczelniach. Na razie nic od Ciebie nie potrzeba.",
+    "why": "one term: aplikacja"
+  },
+  "student:v22.home.docsChecking_few": {
+    "text": "Sprawdzamy {{count}} dokumenty",
+    "why": "Polish few form"
+  },
+  "student:v22.home.docsChecking_many": {
+    "text": "Sprawdzamy {{count}} dokumentów",
+    "why": "Polish many form"
+  },
+  "student:v22.home.docsChecking_other": {
+    "text": "Sprawdzamy {{count}} dokumentów",
+    "why": "same shape as _one"
+  },
+  "student:v26.now.otherPlans": {
+    "text": "Zobacz inne plany",
+    "why": "plan, not 'pakiet'"
+  },
+  "student:v26.now.scopeToggle": {
+    "text": "Wszystko, co obejmuje ten plan",
+    "why": "plan, not 'pakiet'"
+  },
+  "student:v29.services.catalogue.premiumEditing": {
+    "text": "Plan Premium obejmuje już redakcję dokumentów objętych umową.",
+    "why": "plan, not 'pakiet'"
+  },
+  "student:writing.needYou": {
+    "text": "Twoja kolej: napisz lub popraw",
+    "why": "says the actual next step"
+  },
+  "student:writing.status.AI_PRECHECK": {
+    "text": "Wysłano",
+    "why": "was missing"
+  },
+  "student:writing.status.APPROVED": {
+    "text": "Gotowe",
+    "why": "was missing"
+  },
+  "student:writing.status.CHANGES_REQUESTED": {
+    "text": "Do poprawy",
+    "why": "was missing"
+  },
+  "student:writing.status.STUDENT_REVISION": {
+    "text": "Do poprawy",
+    "why": "was missing"
+  },
+  "student:writing.status.SUBMITTED": {
+    "text": "Wysłano",
+    "why": "was missing"
+  },
+  "student:writing.title": {
+    "text": "Teksty",
+    "why": "'Pisanie' names the activity, not the section"
+  },
+  "mobile:agency.deadlines.empty": {
+    "text": "Brak terminów w ciągu 30 dni",
+    "why": "was missing"
+  },
+  "mobile:agency.deadlines.subtitle": {
+    "text": "Terminy Twoich studentów w ciągu najbliższych 30 dni.",
+    "why": "was missing"
+  },
+  "mobile:agency.deadlines.title": {
+    "text": "Przypomnienia",
+    "why": "was missing"
+  },
+  "mobile:agency.login.tagline": {
+    "text": "Twoi studenci, sprawdzanie dokumentów i wiadomości w telefonie.",
+    "why": "'recenzje' is wrong for reviews"
+  },
+  "mobile:agency.messages.subtitle": {
+    "text": "Rozmowy ze studentami i notatki wewnętrzne.",
+    "why": "was missing"
+  },
+  "mobile:agency.messages.title": {
+    "text": "Wiadomości",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.detailTitle": {
+    "text": "Sprawdzanie",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.empty": {
+    "text": "Kolejka do sprawdzenia jest pusta",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.emptyBody": {
+    "text": "Nowe pliki od Twoich studentów pojawią się tutaj.",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.history": {
+    "text": "Historia sprawdzania",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.lastReason": {
+    "text": "Poprzednia prośba o poprawkę",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.noFile": {
+    "text": "Do tego dokumentu nie przesłano jeszcze pliku.",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.notReviewable": {
+    "text": "Ten dokument nie czeka na sprawdzenie.",
+    "why": "review, not verification"
+  },
+  "mobile:agency.reviews.sendToStudent": {
+    "text": "Wyślij do studenta",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.tabA11y_one": {
+    "text": "Sprawdzanie, {{count}} czeka",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.tabA11y_few": {
+    "text": "Sprawdzanie, {{count}} czekają",
+    "why": "Polish few form"
+  },
+  "mobile:agency.reviews.tabA11y_many": {
+    "text": "Sprawdzanie, {{count}} czeka",
+    "why": "Polish many form"
+  },
+  "mobile:agency.reviews.tabA11y_other": {
+    "text": "Sprawdzanie, {{count}} czeka",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.title": {
+    "text": "Sprawdzanie dokumentów",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.verify": {
+    "text": "Zweryfikuj dokument",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.waitingDays_one": {
+    "text": "Czeka {{count}} dzień",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.waitingDays_few": {
+    "text": "Czeka {{count}} dni",
+    "why": "Polish few form"
+  },
+  "mobile:agency.reviews.waitingDays_many": {
+    "text": "Czeka {{count}} dni",
+    "why": "Polish many form"
+  },
+  "mobile:agency.reviews.waitingDays_other": {
+    "text": "Czeka {{count}} dni",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.waitingHours_one": {
+    "text": "Czeka {{count}} godzinę",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.waitingHours_few": {
+    "text": "Czeka {{count}} godziny",
+    "why": "Polish few form"
+  },
+  "mobile:agency.reviews.waitingHours_many": {
+    "text": "Czeka {{count}} godzin",
+    "why": "Polish many form"
+  },
+  "mobile:agency.reviews.waitingHours_other": {
+    "text": "Czeka {{count}} godzin",
+    "why": "was missing"
+  },
+  "mobile:agency.students.detailTitle": {
+    "text": "Student",
+    "why": "was missing"
+  },
+  "mobile:agency.tasks.unassigned": {
+    "text": "Nieprzypisane",
+    "why": "was missing"
+  },
+  "mobile:app.agency": {
+    "text": "Hangyul Agency",
+    "why": "was missing; product name stays"
+  },
+  "mobile:app.student": {
+    "text": "Hangyul Univ",
+    "why": "was missing; product name stays"
+  },
+  "mobile:app.university": {
+    "text": "Hangyul University",
+    "why": "was missing; product name stays"
+  },
+  "mobile:login.networkError": {
+    "text": "Nie można teraz połączyć się z Hangyul pod adresem {{url}}. Sprawdź połączenie i spróbuj ponownie za chwilę.",
+    "why": "was missing"
+  },
+  "mobile:login.webSignup": {
+    "text": "Pierwszy raz tutaj? Utwórz konto w aplikacji.",
+    "why": "drop filler 'bezpośrednio'"
+  },
+  "mobile:messages.empty": {
+    "text": "Brak rozmów",
+    "why": "was missing"
+  },
+  "mobile:messages.emptyBody": {
+    "text": "Wiadomości z Twoim zespołem pojawią się tutaj.",
+    "why": "was missing"
+  },
+  "mobile:messages.internalLabel": {
+    "text": "Notatka wewnętrzna",
+    "why": "was missing"
+  },
+  "mobile:messages.internalOn": {
+    "text": "Notatka wewnętrzna: zobaczy ją tylko Twój zespół",
+    "why": "was missing"
+  },
+  "mobile:messages.internalPlaceholder": {
+    "text": "Napisz notatkę wewnętrzną (tylko dla zespołu)…",
+    "why": "was missing"
+  },
+  "mobile:messages.noMessages": {
+    "text": "Brak wiadomości",
+    "why": "was missing"
+  },
+  "mobile:messages.placeholder": {
+    "text": "Napisz wiadomość…",
+    "why": "was missing"
+  },
+  "mobile:messages.sendInternal": {
+    "text": "Zapisz notatkę wewnętrzną",
+    "why": "was missing"
+  },
+  "mobile:messages.unreadCount_one": {
+    "text": "{{count}} nieprzeczytana wiadomość",
+    "why": "was missing"
+  },
+  "mobile:messages.unreadCount_few": {
+    "text": "{{count}} nieprzeczytane wiadomości",
+    "why": "Polish few form"
+  },
+  "mobile:messages.unreadCount_many": {
+    "text": "{{count}} nieprzeczytanych wiadomości",
+    "why": "Polish many form"
+  },
+  "mobile:messages.unreadCount_other": {
+    "text": "{{count}} nieprzeczytanych wiadomości",
+    "why": "was missing"
+  },
+  "mobile:more.active": {
+    "text": "Aktywny",
+    "why": "was missing"
+  },
+  "mobile:more.allowanceSpent": {
+    "text": "Wykorzystano już wszystko, co obejmuje ten plan. Na ekranie planu zobaczysz, który plan obejmuje więcej.",
+    "why": "was missing"
+  },
+  "mobile:more.choose": {
+    "text": "Wybierz",
+    "why": "was missing"
+  },
+  "mobile:more.noPlan": {
+    "text": "Jeszcze bez planu",
+    "why": "was missing"
+  },
+  "mobile:more.noPlanHint": {
+    "text": "Wybierz plan, a Hangyul zacznie z Tobą pracować",
+    "why": "was missing"
+  },
+  "mobile:more.plan": {
+    "text": "Plan",
+    "why": "was missing"
+  },
+  "mobile:more.support": {
+    "text": "Uzyskaj pomoc",
+    "why": "was missing"
+  },
+  "mobile:more.supportHint": {
+    "text": "Napisz do zespołu Hangyul",
+    "why": "was missing"
+  },
+  "mobile:more.webNote": {
+    "text": "Edycja profilu i płatności odbywają się w przeglądarce.",
+    "why": "was missing"
+  },
+  "mobile:notifications.unread": {
+    "text": "Nieprzeczytane",
+    "why": "was missing"
+  },
+  "mobile:plan.allowance.essay_review_rounds": {
+    "text": "Redakcja listu motywacyjnego i planu nauki",
+    "why": "was missing"
+  },
+  "mobile:plan.allowance.follow_up_consultations": {
+    "text": "Konsultacje uzupełniające",
+    "why": "was missing"
+  },
+  "mobile:plan.allowance.max_managed_applications": {
+    "text": "Aplikacje prowadzone z zespołem",
+    "why": "was missing"
+  },
+  "mobile:plan.allowance.max_recommended_institutions": {
+    "text": "Rekomendacje uczelni",
+    "why": "was missing"
+  },
+  "mobile:plan.allowance.mock_interviews": {
+    "text": "Próbne rozmowy kwalifikacyjne",
+    "why": "was missing"
+  },
+  "mobile:plan.browserFailed": {
+    "text": "Nie udało się otworzyć przeglądarki. Zapłać w wersji internetowej.",
+    "why": "was missing"
+  },
+  "mobile:plan.card": {
+    "text": "Możesz zapłacić kartą zagraniczną (Visa, Mastercard, JCB).",
+    "why": "was missing"
+  },
+  "mobile:plan.chooseLede": {
+    "text": "Jedna płatność, bez subskrypcji. Twój plan zostaje z Tobą przez cały czas przygotowań.",
+    "why": "was missing"
+  },
+  "mobile:plan.chooseTitle": {
+    "text": "Wybierz plan",
+    "why": "was missing"
+  },
+  "mobile:plan.handoff": {
+    "text": "Płatność odbywa się w przeglądarce, a po jej zakończeniu wracasz do aplikacji.",
+    "why": "was missing"
+  },
+  "mobile:plan.highestAlready": {
+    "text": "Masz już najwyższy plan.",
+    "why": "was missing"
+  },
+  "mobile:plan.included": {
+    "text": "W Twoim planie",
+    "why": "was missing"
+  },
+  "mobile:plan.oneTime": {
+    "text": "Jedna płatność",
+    "why": "was missing"
+  },
+  "mobile:plan.ongoing": {
+    "text": "Przez cały okres usługi",
+    "why": "was missing"
+  },
+  "mobile:plan.paid": {
+    "text": "Zapłacona kwota",
+    "why": "was missing"
+  },
+  "mobile:plan.pay": {
+    "text": "Zapłać",
+    "why": "was missing"
+  },
+  "mobile:plan.plansTitle": {
+    "text": "Plany",
+    "why": "was missing"
+  },
+  "mobile:plan.selected": {
+    "text": "Wybrano",
+    "why": "was missing"
+  },
+  "mobile:plan.upgradeTitle": {
+    "text": "Zmiana planu",
+    "why": "was missing"
+  },
+  "mobile:plan.webNote": {
+    "text": "Historia planu i potwierdzenia płatności są w wersji internetowej.",
+    "why": "was missing"
+  },
+  "mobile:settings.elsewhere": {
+    "text": "Gdzie indziej",
+    "why": "was missing"
+  },
+  "mobile:settings.language": {
+    "text": "Język",
+    "why": "was missing"
+  },
+  "mobile:settings.languageHint": {
+    "text": "Wybierz język tej aplikacji. Niektóre języki to wersje maszynowe, które wciąż sprawdzamy.",
+    "why": "was missing"
+  },
+  "mobile:settings.machineDraft": {
+    "text": "wersja maszynowa",
+    "why": "was missing"
+  },
+  "mobile:settings.notificationsHint": {
+    "text": "Zobacz otrzymane powiadomienia",
+    "why": "was missing"
+  },
+  "mobile:settings.rtlNote": {
+    "text": "Tekst od prawej do lewej działa już teraz; pełny układ odwróci się przy następnym uruchomieniu aplikacji.",
+    "why": "was missing"
+  },
+  "mobile:settings.selected": {
+    "text": "wybrano",
+    "why": "was missing"
+  },
+  "mobile:settings.server": {
+    "text": "Serwer: {{url}}",
+    "why": "was missing"
+  },
+  "mobile:settings.signOutBody": {
+    "text": "Aby zalogować się ponownie, będziesz potrzebować e-maila i hasła.",
+    "why": "was missing"
+  },
+  "mobile:settings.signOutTitle": {
+    "text": "Wylogować się?",
+    "why": "was missing"
+  },
+  "mobile:settings.title": {
+    "text": "Ustawienia",
+    "why": "was missing"
+  },
+  "mobile:settings.version": {
+    "text": "Wersja {{version}}",
+    "why": "was missing"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.label": {
+    "text": "Przyjmuję do wiadomości, że mój e-mail i numer telefonu są przetwarzane za granicą w celu ich weryfikacji",
+    "why": "gender-neutral 'acknowledge'"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Twilio Inc. (USA) dostarcza SMS i e-mail weryfikacyjny; Cloudflare, Inc. (USA) sprawdza, czy rejestracja nie jest zautomatyzowana. Szczegóły, w tym sposób odmowy, opisano w Polityce prywatności. W przypadku odmowy nie można utworzyć konta.",
+    "why": "listed items the English does not; aligned with web"
+  },
+  "mobile:signup.consent.PRIVACY.summary": {
+    "text": "E-mail, numer telefonu, imię i nazwisko, obywatelstwo oraz hasło (przechowywane w postaci zaszyfrowanej) – w celu utworzenia i zabezpieczenia konta.",
+    "why": "same wording as the web flow"
+  },
+  "mobile:signup.lang.PREPARING": {
+    "text": "Przygotowuję się",
+    "why": "'w przygotowaniu' describes a thing, not a person"
+  },
+  "mobile:signup.quickGo": {
+    "text": "Pokaż moje dopasowania",
+    "why": "one term: dopasowania"
+  },
+  "mobile:signup.view": {
+    "text": "Przeczytaj",
+    "why": "button opens a document to read"
+  },
+  "mobile:student.applications.active": {
+    "text": "Aktywne",
+    "why": "was missing"
+  },
+  "mobile:student.applications.closed": {
+    "text": "Zamknięte",
+    "why": "was missing"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.body": {
+    "text": "Przyjmujesz ofertę z {{university}}. Zespół Hangyul Univ poprowadzi Cię przez opłacenie czesnego i uzyskanie standardowego listu przyjęcia.",
+    "why": "was missing"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.cta": {
+    "text": "Przyjmij ofertę",
+    "why": "was missing"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.title": {
+    "text": "Przyjąć tę ofertę?",
+    "why": "was missing"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.body": {
+    "text": "Twoja aplikacja do {{university}} zostanie zamknięta. Nie da się tego cofnąć z poziomu aplikacji mobilnej.",
+    "why": "was missing"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.cta": {
+    "text": "Wycofaj aplikację",
+    "why": "was missing"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.title": {
+    "text": "Wycofać tę aplikację?",
+    "why": "was missing"
+  },
+  "mobile:student.applications.detailTitle": {
+    "text": "Aplikacja",
+    "why": "was missing"
+  },
+  "mobile:student.applications.empty": {
+    "text": "Brak aktywnych aplikacji",
+    "why": "was missing"
+  },
+  "mobile:student.applications.emptyClosed": {
+    "text": "Brak zamkniętych aplikacji",
+    "why": "was missing"
+  },
+  "mobile:student.applications.submittedOn": {
+    "text": "Złożono {{date}}",
+    "why": "was missing"
+  },
+  "mobile:student.applications.subtitle": {
+    "text": "Śledź każdą aplikację w jednym miejscu.",
+    "why": "was missing"
+  },
+  "mobile:student.documents.detailTitle": {
+    "text": "Dokument",
+    "why": "was missing"
+  },
+  "mobile:student.documents.empty": {
+    "text": "Twój sejf jest pusty",
+    "why": "was missing"
+  },
+  "mobile:student.documents.emptyBody": {
+    "text": "Prześlij paszport, wykaz ocen i wyniki testów z wersji internetowej.",
+    "why": "was missing"
+  },
+  "mobile:student.documents.file": {
+    "text": "{{name}} · wersja {{version}}",
+    "why": "was missing"
+  },
+  "mobile:student.documents.fixFallback": {
+    "text": "Zespół Hangyul poprosił o zmianę w tym dokumencie.",
+    "why": "was missing"
+  },
+  "mobile:student.documents.fixTitle": {
+    "text": "Co poprawić",
+    "why": "was missing"
+  },
+  "mobile:student.documents.openFile": {
+    "text": "Otwórz bezpieczny podgląd",
+    "why": "was missing"
+  },
+  "mobile:student.documents.reviews": {
+    "text": "Historia sprawdzania",
+    "why": "was missing"
+  },
+  "mobile:student.documents.translationBody": {
+    "text": "Ten dokument wymaga tłumaczenia przysięgłego na koreański lub angielski.",
+    "why": "was missing"
+  },
+  "mobile:student.explore.clear": {
+    "text": "Wyczyść wyszukiwanie",
+    "why": "was missing"
+  },
+  "mobile:student.explore.save": {
+    "text": "Zapisz {{name}}",
+    "why": "was missing"
+  },
+  "mobile:student.explore.searchPlaceholder": {
+    "text": "Szukaj programów lub uczelni",
+    "why": "was missing"
+  },
+  "mobile:student.explore.unsave": {
+    "text": "Usuń {{name}} z zapisanych",
+    "why": "was missing"
+  },
+  "mobile:student.matches.deadline": {
+    "text": "Termin {{date}} · {{due}}",
+    "why": "was missing"
+  },
+  "mobile:student.messages.subtitle": {
+    "text": "Rozmawiaj z zespołem Hangyul Univ.",
+    "why": "was missing"
+  },
+  "mobile:student.messages.unreadA11y_one": {
+    "text": "Wiadomości, {{count}} nieprzeczytana",
+    "why": "was missing"
+  },
+  "mobile:student.messages.unreadA11y_few": {
+    "text": "Wiadomości, {{count}} nieprzeczytane",
+    "why": "Polish few form"
+  },
+  "mobile:student.messages.unreadA11y_many": {
+    "text": "Wiadomości, {{count}} nieprzeczytanych",
+    "why": "Polish many form"
+  },
+  "mobile:student.messages.unreadA11y_other": {
+    "text": "Wiadomości, {{count}} nieprzeczytanych",
+    "why": "was missing"
+  },
+  "mobile:student.nextAction.ARRIVAL_CHECKLIST": {
+    "text": "Przygotuj się do przyjazdu do Korei",
+    "why": "was missing"
+  },
+  "mobile:student.nextAction.COMPARE_OFFERS": {
+    "text": "Porównaj swoje oferty przyjęcia ({{count}})",
+    "why": "was missing"
+  },
+  "mobile:student.nextAction.COMPLETE_PROFILE": {
+    "text": "Uzupełnij profil, aby zobaczyć, które uczelnie do Ciebie pasują",
+    "why": "was missing"
+  },
+  "mobile:student.nextAction.FINISH_APPLICATION": {
+    "text": "Dokończ aplikację do {{university}}. Pozostało: {{remaining}}",
+    "why": "one term: aplikacja"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.budget": {
+    "text": "Dodaj budżet, aby uszeregować {{count}} programów według kosztów",
+    "why": "was missing"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.education": {
+    "text": "Dodaj wykształcenie, aby sprawdzić {{count}} programów",
+    "why": "was missing"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.gpa": {
+    "text": "Dodaj oceny, aby sprawdzić {{count}} programów",
+    "why": "was missing"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.language": {
+    "text": "Dodaj wynik językowy, aby sprawdzić {{count}} programów",
+    "why": "was missing"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.other": {
+    "text": "Uzupełnij profil, aby sprawdzić {{count}} programów",
+    "why": "was missing"
+  },
+  "mobile:student.nextAction.RESPOND_OFFER": {
+    "text": "Odpowiedz na ofertę przyjęcia",
+    "why": "was missing"
+  },
+  "mobile:student.nextAction.REVIEW_MATCHES": {
+    "text": "Przejrzyj swoje dopasowania uczelni",
+    "why": "was missing"
+  },
+  "mobile:student.profile.completion": {
+    "text": "Uzupełnienie profilu",
+    "why": "was missing"
+  },
+  "mobile:student.profile.step.basics": {
+    "text": "Podstawowe informacje",
+    "why": "was missing"
+  },
+  "mobile:student.profile.step.education": {
+    "text": "Wykształcenie",
+    "why": "was missing"
+  },
+  "mobile:student.profile.step.goals": {
+    "text": "Cele studiów",
+    "why": "was missing"
+  },
+  "mobile:student.profile.step.language": {
+    "text": "Wyniki językowe",
+    "why": "was missing"
+  },
+  "mobile:student.profile.step.passport": {
+    "text": "Paszport",
+    "why": "was missing"
+  },
+  "mobile:student.profile.step.preferences": {
+    "text": "Preferencje",
+    "why": "was missing"
+  },
+  "mobile:student.profile.step.sponsor": {
+    "text": "Finansowanie",
+    "why": "was missing"
+  },
+  "mobile:student.saved.empty": {
+    "text": "Jeszcze nic nie zapisano",
+    "why": "was missing"
+  },
+  "mobile:student.saved.emptyBody": {
+    "text": "Dotknij serduszka przy programie, aby zapisać tu jego uczelnię.",
+    "why": "was missing"
+  },
+  "mobile:student.tasks.confirmTitle": {
+    "text": "Oznaczyć to zadanie jako wykonane?",
+    "why": "was missing"
+  },
+  "mobile:student.tasks.empty": {
+    "text": "Na razie nic do zrobienia",
+    "why": "was missing"
+  },
+  "mobile:student.tasks.emptyBody": {
+    "text": "Dodamy tu zadania, gdy coś będzie wymagało Twojej uwagi.",
+    "why": "was missing"
+  },
+  "mobile:student.tasks.overdue": {
+    "text": "Zaległe ({{count}})",
+    "why": "was missing"
+  },
+  "mobile:student.tasks.subtitle": {
+    "text": "Zadania od zespołu Hangyul i listy kontrolne Twoich aplikacji.",
+    "why": "was missing"
+  },
+  "mobile:student.tasks.title": {
+    "text": "Lista kontrolna",
+    "why": "was missing"
+  },
+  "mobile:student.tasks.upcoming": {
+    "text": "Do zrobienia",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.anonymous": {
+    "text": "Kandydat",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.confirmBody": {
+    "text": "{{name}} oraz opiekun kandydata zostaną powiadomieni. Można dodać notatkę do akt (opcjonalnie).",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.confirmTitle": {
+    "text": "Zmienić status na „{{status}}”?",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.detailTitle": {
+    "text": "Kandydat",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.history": {
+    "text": "Historia statusów",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.interview": {
+    "text": "Rozmowa kwalifikacyjna",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.moveTo": {
+    "text": "Przenieś do: {{status}}",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.notShared": {
+    "text": "Jeszcze nieudostępnione Państwa uczelni",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.note": {
+    "text": "Notatka",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.previewHint": {
+    "text": "Otwiera bezpieczny podgląd z ograniczonym czasem ważności",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.reference": {
+    "text": "Państwa numer referencyjny",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.submitted": {
+    "text": "Złożono {{date}}",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.submittedLabel": {
+    "text": "Złożono",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.viaAgency": {
+    "text": "Przez {{agency}}",
+    "why": "was missing"
+  },
+  "mobile:university.flagged.add": {
+    "text": "Oznacz do dalszej analizy",
+    "why": "was missing"
+  },
+  "mobile:university.flagged.addBody": {
+    "text": "To oznaczenie i jego powód zobaczy wyłącznie zespół Państwa uczelni.",
+    "why": "was missing"
+  },
+  "mobile:university.flagged.flagged": {
+    "text": "Oznaczone",
+    "why": "was missing"
+  },
+  "mobile:university.flagged.reason": {
+    "text": "Powód",
+    "why": "was missing"
+  },
+  "mobile:university.flagged.remove": {
+    "text": "Usuń oznaczenie",
+    "why": "was missing"
+  },
+  "mobile:university.flagged.removeTitle": {
+    "text": "Usunąć oznaczenie z tej aplikacji?",
+    "why": "was missing"
+  },
+  "mobile:university.inbox.title": {
+    "text": "Wiadomości",
+    "why": "was missing"
+  },
+  "mobile:university.login.tagline": {
+    "text": "Kandydaci, decyzje i roczniki dla Państwa biura współpracy międzynarodowej.",
+    "why": "was missing"
+  },
+  "mobile:v29.mfa.codeHint": {
+    "text": "Wpisz 6-cyfrowy kod z aplikacji uwierzytelniającej lub kod odzyskiwania.",
+    "why": "was missing"
+  },
+  "mobile:v29.mfa.codeLabel": {
+    "text": "Kod weryfikacyjny",
+    "why": "was missing"
+  },
+  "mobile:v29.mfa.enrollOnWeb": {
+    "text": "To konto wymaga weryfikacji dwuetapowej. Najpierw skonfiguruj ją w konsoli internetowej, a potem zaloguj się tutaj.",
+    "why": "was missing"
+  },
+  "mobile:v29.mfa.verify": {
+    "text": "Zweryfikuj i zaloguj się",
+    "why": "was missing"
+  },
+  "mobile:v29.mfa.wrongCode": {
+    "text": "Ten kod jest błędny lub wygasł. Wpisz nowy.",
+    "why": "was missing"
+  },
+  "mobile:v29.plan.supportDays": {
+    "text": "{{count}} dni wsparcia konsultacyjnego od pierwszej konsultacji",
+    "why": "was a bare counter; meaning lost"
+  },
+  "mobile:v29.plan.supportUntil": {
+    "text": "Wsparcie konsultacyjne do {{date}}",
+    "why": "says what ends on the date"
+  },
+  "mobile:v29.plan.unrationed.TEAM": {
+    "text": "Dalsze wsparcie Twojego zespołu",
+    "why": "same as the web string"
+  },
+  "mobile:v3.agency.allClear": {
+    "text": "Wszystko w porządku: {{list}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.applications_one": {
+    "text": "{{count}} aplikacja",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.applications_few": {
+    "text": "{{count}} aplikacje",
+    "why": "Polish few form"
+  },
+  "mobile:v3.agency.applications_many": {
+    "text": "{{count}} aplikacji",
+    "why": "Polish many form"
+  },
+  "mobile:v3.agency.applications_other": {
+    "text": "{{count}} aplikacji",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.assigned": {
+    "text": "Opiekun: {{counselor}} · od {{since}}",
+    "why": "names the role, not 'odpowiada'"
+  },
+  "mobile:v3.agency.att.breached_one": {
+    "text": "{{count}} już po obiecanym terminie",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.breached_few": {
+    "text": "{{count}} już po obiecanym terminie",
+    "why": "Polish few form"
+  },
+  "mobile:v3.agency.att.breached_many": {
+    "text": "{{count}} już po obiecanym terminie",
+    "why": "Polish many form"
+  },
+  "mobile:v3.agency.att.breached_other": {
+    "text": "{{count}} już po obiecanym terminie",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.closing_one": {
+    "text": "Nabór kończy się w ciągu 7 dni",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.closing_few": {
+    "text": "Nabory kończą się w ciągu 7 dni",
+    "why": "Polish few form"
+  },
+  "mobile:v3.agency.att.closing_many": {
+    "text": "Nabory kończą się w ciągu 7 dni",
+    "why": "Polish many form"
+  },
+  "mobile:v3.agency.att.closing_other": {
+    "text": "Nabory kończą się w ciągu 7 dni",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.docs_one": {
+    "text": "Dokument czeka na sprawdzenie",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.docs_few": {
+    "text": "Dokumenty czekają na sprawdzenie",
+    "why": "Polish few form"
+  },
+  "mobile:v3.agency.att.docs_many": {
+    "text": "Dokumenty czekają na sprawdzenie",
+    "why": "Polish many form"
+  },
+  "mobile:v3.agency.att.docs_other": {
+    "text": "Dokumenty czekają na sprawdzenie",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.next": {
+    "text": "Następny: {{uni}} dla {{who}}, {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.overSla": {
+    "text": "{{count}} czeka dłużej niż {{hours}} h",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.overdue_one": {
+    "text": "Zaległe zadanie",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.overdue_few": {
+    "text": "Zaległe zadania",
+    "why": "Polish few form"
+  },
+  "mobile:v3.agency.att.overdue_many": {
+    "text": "Zaległe zadania",
+    "why": "Polish many form"
+  },
+  "mobile:v3.agency.att.overdue_other": {
+    "text": "Zaległe zadania",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.replies_one": {
+    "text": "Student czeka na Twoją odpowiedź",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.replies_few": {
+    "text": "Studenci czekają na Twoją odpowiedź",
+    "why": "Polish few form"
+  },
+  "mobile:v3.agency.att.replies_many": {
+    "text": "Studenci czekają na Twoją odpowiedź",
+    "why": "Polish many form"
+  },
+  "mobile:v3.agency.att.replies_other": {
+    "text": "Studenci czekają na Twoją odpowiedź",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.since": {
+    "text": "Najstarsza od {{who}}, {{when}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.sla_one": {
+    "text": "Student zagrożony spóźnioną pierwszą odpowiedzią",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.sla_few": {
+    "text": "Studenci zagrożeni spóźnioną pierwszą odpowiedzią",
+    "why": "Polish few form"
+  },
+  "mobile:v3.agency.att.sla_many": {
+    "text": "Studenci zagrożeni spóźnioną pierwszą odpowiedzią",
+    "why": "Polish many form"
+  },
+  "mobile:v3.agency.att.sla_other": {
+    "text": "Studenci zagrożeni spóźnioną pierwszą odpowiedzią",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.block.deadline": {
+    "text": "Nabór na {{uni}} wkrótce się kończy",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.block.fix": {
+    "text": "{{doc}}: student musi poprawić",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.block.requested": {
+    "text": "{{uni}} prosi o dodatkowe dokumenty",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.block.review": {
+    "text": "{{doc}} czeka na Twoje sprawdzenie",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.block.sla": {
+    "text": "Termin pierwszej odpowiedzi",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.blockers_one": {
+    "text": "{{count}} rzecz blokuje tego studenta",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.blockers_few": {
+    "text": "{{count}} rzeczy blokują tego studenta",
+    "why": "Polish few form"
+  },
+  "mobile:v3.agency.blockers_many": {
+    "text": "{{count}} rzeczy blokuje tego studenta",
+    "why": "Polish many form"
+  },
+  "mobile:v3.agency.blockers_other": {
+    "text": "{{count}} rzeczy blokuje tego studenta",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.clear.closing": {
+    "text": "terminy w tym tygodniu",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.clear.docs": {
+    "text": "sprawdzanie dokumentów",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.clear.overdue": {
+    "text": "zaległe zadania",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.clear.replies": {
+    "text": "odpowiedzi dla studentów",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.clear.sla": {
+    "text": "pierwsze odpowiedzi",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.conversationSubject": {
+    "text": "Twój zespół ds. studiów w Korei",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.deadline": {
+    "text": "{{uni}} {{when}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.documents": {
+    "text": "Dokumenty · zweryfikowano {{verified}} z {{total}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.dueToday_one": {
+    "text": "Na dziś · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.dueToday_few": {
+    "text": "Na dziś · {{count}}",
+    "why": "Polish few form"
+  },
+  "mobile:v3.agency.dueToday_many": {
+    "text": "Na dziś · {{count}}",
+    "why": "Polish many form"
+  },
+  "mobile:v3.agency.dueToday_other": {
+    "text": "Na dziś · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.findStudent": {
+    "text": "Znajdź studenta",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.firstMessage": {
+    "text": "Napisz do: {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.greeting.afternoon": {
+    "text": "Dzień dobry, {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.greeting.evening": {
+    "text": "Dobry wieczór, {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.greeting.morning": {
+    "text": "Dzień dobry, {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.message": {
+    "text": "Wiadomość",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.messageLabel": {
+    "text": "Wiadomość",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.needsAttention": {
+    "text": "Wymaga uwagi",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.nextAction": {
+    "text": "Następne: {{what}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.noBlockers": {
+    "text": "Nic nie blokuje tego studenta",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.noBlockersBody": {
+    "text": "Dokumenty, terminy i odpowiedzi są pod kontrolą.",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.noStudents": {
+    "text": "Brak studentów w tym widoku",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.noStudentsBody": {
+    "text": "Wybierz inny widok lub wyczyść wyszukiwanie.",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.searchPlaceholder": {
+    "text": "Imię, nazwisko lub e-mail",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.stage": {
+    "text": "Etap",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.stageNote": {
+    "text": "Notatka dla zespołu (opcjonalnie)",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.stageTo": {
+    "text": "Przenieś do: {{stage}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.teamView": {
+    "text": "Zespół · {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.toFix_one": {
+    "text": "{{count}} dokument do poprawy",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.toFix_few": {
+    "text": "{{count}} dokumenty do poprawy",
+    "why": "Polish few form"
+  },
+  "mobile:v3.agency.toFix_many": {
+    "text": "{{count}} dokumentów do poprawy",
+    "why": "Polish many form"
+  },
+  "mobile:v3.agency.toFix_other": {
+    "text": "{{count}} dokumentów do poprawy",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.today": {
+    "text": "Dziś",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.upload": {
+    "text": "Prześlij",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.uploadFor": {
+    "text": "{{doc}} dla {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.uploadWhat": {
+    "text": "Który dokument przesyłasz?",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.uploaded": {
+    "text": "Przesłano do sejfu studenta. Gotowe do sprawdzenia.",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.all": {
+    "text": "Wszyscy",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.attention": {
+    "text": "Wymaga uwagi",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.deadline": {
+    "text": "Bliski termin",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.docs": {
+    "text": "Dokumenty do poprawy",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.mine": {
+    "text": "Moi studenci",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.sla": {
+    "text": "Studenci po terminie lub blisko terminu pierwszej odpowiedzi",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.university": {
+    "text": "Czeka na uczelnię",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.visa": {
+    "text": "Wiza",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.waiting_student": {
+    "text": "Czeka na studenta",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.waiting_us": {
+    "text": "Czeka na nas",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.agency": {
+    "text": "Czeka na zespół agencji",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.counselor": {
+    "text": "Czeka na opiekuna",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.external": {
+    "text": "Czeka na zewnętrzny urząd",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.hangyul": {
+    "text": "Czeka na Hangyul",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.none": {
+    "text": "Nic nie czeka",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.student": {
+    "text": "Czeka na studenta",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.university": {
+    "text": "Czeka na uczelnię",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.us": {
+    "text": "Czeka na nas",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.ADDITIONAL_DOCUMENTS": {
+    "text": "Uczelnia poprosiła o jeszcze jeden dokument.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Twój list przyjęcia jest gotowy. Zacznij kompletować dokumenty wizowe.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_PENDING": {
+    "text": "Czekamy na Twój standardowy list przyjęcia.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.DOCUMENT_PREPARATION": {
+    "text": "Przygotowujesz dokumenty.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.DRAFT": {
+    "text": "Ta aplikacja jest rozpoczęta.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.ENROLLED": {
+    "text": "Masz już status studenta. Witaj w Korei.",
+    "why": "was missing; gender-neutral"
+  },
+  "mobile:v3.appStatus.INTERVIEW": {
+    "text": "Uczelnia chce zaprosić Cię na rozmowę kwalifikacyjną.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.OFFERED": {
+    "text": "Masz ofertę przyjęcia.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.OFFER_ACCEPTED": {
+    "text": "Oferta przyjęta. Następny krok: czesne.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.PROFILE_REVIEW": {
+    "text": "Zespół Hangyul Univ sprawdza Twój profil.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.REJECTED": {
+    "text": "Tym razem uczelnia nie zaproponowała miejsca.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.SUBMITTED": {
+    "text": "Złożono w {{university}}.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.TUITION_PAID": {
+    "text": "Czesne wpłynęło. Uczelnia przygotowuje Twój list przyjęcia.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.TUITION_PENDING": {
+    "text": "Opłać czesne bezpośrednio na uczelni przed terminem.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.UNIVERSITY_REVIEW": {
+    "text": "{{university}} rozpatruje Twoją aplikację.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.VISA_PREPARATION": {
+    "text": "Przygotowujesz wniosek wizowy.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.VISA_SUBMITTED": {
+    "text": "Wniosek wizowy złożony.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.WAITLISTED": {
+    "text": "Jesteś na liście rezerwowej.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.WITHDRAWN": {
+    "text": "Ta aplikacja została wycofana.",
+    "why": "was missing"
+  },
+  "mobile:v3.application.closes": {
+    "text": "Nabór do {{date}} · {{left}}",
+    "why": "was missing"
+  },
+  "mobile:v3.application.due": {
+    "text": "Termin {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.application.ready": {
+    "text": "Gotowe do złożenia",
+    "why": "was missing"
+  },
+  "mobile:v3.application.readyBody": {
+    "text": "Wszystko, co wymagane, jest na miejscu.",
+    "why": "was missing"
+  },
+  "mobile:v3.application.reviewBody": {
+    "text": "Złożono {{date}}. Uczelnia może poprosić o kolejny dokument lub rozmowę kwalifikacyjną. Zespół Hangyul śledzi postępy.",
+    "why": "was missing"
+  },
+  "mobile:v3.application.reviewTitle": {
+    "text": "{{university}} rozpatruje Twoją aplikację",
+    "why": "was missing"
+  },
+  "mobile:v3.application.reviewing": {
+    "text": "Sprawdzamy: {{item}}",
+    "why": "was missing"
+  },
+  "mobile:v3.application.submit": {
+    "text": "Złóż aplikację",
+    "why": "was missing"
+  },
+  "mobile:v3.application.teamMonitoring": {
+    "text": "W kontakcie z uczelnią",
+    "why": "was missing"
+  },
+  "mobile:v3.application.teamWaiting": {
+    "text": "Czekamy na Twoje dokumenty",
+    "why": "was missing"
+  },
+  "mobile:v3.application.timeline": {
+    "text": "Oś czasu",
+    "why": "was missing"
+  },
+  "mobile:v3.application.uni.decided": {
+    "text": "Decyzja podjęta",
+    "why": "was missing"
+  },
+  "mobile:v3.application.uni.reviewing": {
+    "text": "Rozpatruje Twoją aplikację",
+    "why": "was missing"
+  },
+  "mobile:v3.application.uni.waiting": {
+    "text": "Czeka na Twoją aplikację",
+    "why": "was missing"
+  },
+  "mobile:v3.application.university": {
+    "text": "Uczelnia",
+    "why": "was missing"
+  },
+  "mobile:v3.application.uploadRequested": {
+    "text": "Prześlij ten dokument",
+    "why": "was missing"
+  },
+  "mobile:v3.application.who": {
+    "text": "Kto co robi",
+    "why": "was missing"
+  },
+  "mobile:v3.application.withdraw": {
+    "text": "Wycofaj tę aplikację",
+    "why": "was missing"
+  },
+  "mobile:v3.application.you": {
+    "text": "Ty",
+    "why": "was missing"
+  },
+  "mobile:v3.common.all": {
+    "text": "Zobacz wszystko",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.bucket.later_one": {
+    "text": "Później w tym miesiącu · {{count}}",
+    "why": "Polish one form; job had only _other"
+  },
+  "mobile:v3.deadlines.bucket.later_few": {
+    "text": "Później w tym miesiącu · {{count}}",
+    "why": "Polish few form; job had only _other"
+  },
+  "mobile:v3.deadlines.bucket.later_many": {
+    "text": "Później w tym miesiącu · {{count}}",
+    "why": "Polish many form; job had only _other"
+  },
+  "mobile:v3.deadlines.bucket.later_other": {
+    "text": "Później w tym miesiącu · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.bucket.overdue_one": {
+    "text": "Zaległe · {{count}}",
+    "why": "Polish one form; job had only _other"
+  },
+  "mobile:v3.deadlines.bucket.overdue_few": {
+    "text": "Zaległe · {{count}}",
+    "why": "Polish few form; job had only _other"
+  },
+  "mobile:v3.deadlines.bucket.overdue_many": {
+    "text": "Zaległe · {{count}}",
+    "why": "Polish many form; job had only _other"
+  },
+  "mobile:v3.deadlines.bucket.overdue_other": {
+    "text": "Zaległe · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.bucket.week_one": {
+    "text": "Najbliższe 7 dni · {{count}}",
+    "why": "Polish one form; job had only _other"
+  },
+  "mobile:v3.deadlines.bucket.week_few": {
+    "text": "Najbliższe 7 dni · {{count}}",
+    "why": "Polish few form; job had only _other"
+  },
+  "mobile:v3.deadlines.bucket.week_many": {
+    "text": "Najbliższe 7 dni · {{count}}",
+    "why": "Polish many form; job had only _other"
+  },
+  "mobile:v3.deadlines.bucket.week_other": {
+    "text": "Najbliższe 7 dni · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.emptyView": {
+    "text": "Brak terminów w tym widoku",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.student": {
+    "text": "Student",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.who.all": {
+    "text": "Wszystkie",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.who.mine": {
+    "text": "Moje",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.who.unassigned": {
+    "text": "Nieprzypisane",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.you": {
+    "text": "Ty",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.all": {
+    "text": "Wszystkie",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.any": {
+    "text": "Dowolny",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.closes": {
+    "text": "nabór do {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.degree": {
+    "text": "Co chcesz studiować?",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.emptyVerdict": {
+    "text": "Na razie nic tu nie ma",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.explain.notyet": {
+    "text": "Jedno z opublikowanych wymagań nie jest jeszcze spełnione. Każdy wiersz mówi dokładnie które.",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.explain.strong": {
+    "text": "Spełniasz wszystkie opublikowane podstawowe wymagania, a program pasuje do Twojego budżetu i planów.",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.filters": {
+    "text": "Filtry",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.filtersN": {
+    "text": "Filtry · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.forYou": {
+    "text": "Dla Ciebie",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.language": {
+    "text": "Język wykładowy",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.noLanguageMin": {
+    "text": "Bez minimum językowego",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.openOnly": {
+    "text": "Otwarty nabór",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.perYear": {
+    "text": "≈ {{amount}} / rok",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.saved": {
+    "text": "Zapisane · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.savedEmpty": {
+    "text": "Jeszcze brak zapisanych uczelni",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.savedEmptyBody": {
+    "text": "Dotknij serduszka przy dowolnym programie, aby zachować go tu na później.",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.showResults_one": {
+    "text": "Pokaż {{count}} program",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.showResults_few": {
+    "text": "Pokaż {{count}} programy",
+    "why": "Polish few form"
+  },
+  "mobile:v3.discover.showResults_many": {
+    "text": "Pokaż {{count}} programów",
+    "why": "Polish many form"
+  },
+  "mobile:v3.discover.showResults_other": {
+    "text": "Pokaż {{count}} programów",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.summary_one": {
+    "text": "Spełniasz opublikowane wymagania {{count}} programu.",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.summary_few": {
+    "text": "Spełniasz opublikowane wymagania {{count}} programów.",
+    "why": "Polish few form"
+  },
+  "mobile:v3.discover.summary_many": {
+    "text": "Spełniasz opublikowane wymagania {{count}} programów.",
+    "why": "Polish many form"
+  },
+  "mobile:v3.discover.summary_other": {
+    "text": "Spełniasz opublikowane wymagania {{count}} programów.",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.tuition": {
+    "text": "Czesne za semestr",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.upTo": {
+    "text": "Do {{amount}} mln ₩",
+    "why": "was missing"
+  },
+  "mobile:v3.docAction.FIX": {
+    "text": "Do poprawy",
+    "why": "was missing"
+  },
+  "mobile:v3.docAction.IN_REVIEW": {
+    "text": "Sprawdza zespół Hangyul",
+    "why": "was missing"
+  },
+  "mobile:v3.docAction.LEGALIZE": {
+    "text": "Potrzebna apostille lub legalizacja konsularna",
+    "why": "was missing"
+  },
+  "mobile:v3.docAction.RENEW": {
+    "text": "Wygasł. Prześlij nowy",
+    "why": "'nieważny' reads as invalid"
+  },
+  "mobile:v3.docAction.TOO_OLD": {
+    "text": "Wydany zbyt dawno. Uzyskaj nowy",
+    "why": "natural verb for documents"
+  },
+  "mobile:v3.docAction.UPLOAD": {
+    "text": "Jeszcze nieprzesłany",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.allSet": {
+    "text": "Na razie nic od Ciebie nie potrzeba.",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.checking": {
+    "text": "W sprawdzaniu",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.howTo": {
+    "text": "Jak uzyskać: {{path}}",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.issuedIn": {
+    "text": "Kraj wydania",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.issuedOn": {
+    "text": "Data wydania",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.legalize": {
+    "text": "Sprawdzony, ale zanim koreańska uczelnia go przyjmie, potrzebne jest jeszcze: {{path}}",
+    "why": "checked, not verified; smoother order"
+  },
+  "mobile:v3.documents.needYou_one": {
+    "text": "{{count}} czeka na Ciebie",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.needYou_few": {
+    "text": "{{count}} czekają na Ciebie",
+    "why": "Polish few form"
+  },
+  "mobile:v3.documents.needYou_many": {
+    "text": "{{count}} czeka na Ciebie",
+    "why": "Polish many form"
+  },
+  "mobile:v3.documents.needYou_other": {
+    "text": "{{count}} czeka na Ciebie",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.neededFor": {
+    "text": "Potrzebny do: {{university}}",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.needsYou": {
+    "text": "Czeka na Ciebie",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.newVersion": {
+    "text": "Prześlij nową wersję",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.ready": {
+    "text": "Gotowy",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.readyOf": {
+    "text": "Gotowe dokumenty: {{ready}} z {{total}}",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.readyTitle": {
+    "text": "Gotowe",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.sourceVerified": {
+    "text": "Oficjalne źródło · sprawdzono {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.state.fix": {
+    "text": "Do poprawy",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.state.legalize": {
+    "text": "Potrzebna apostille",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.state.ready": {
+    "text": "Gotowy",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.state.review": {
+    "text": "W sprawdzaniu",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.submitted": {
+    "text": "Przesłano {{when}}",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.upload": {
+    "text": "Prześlij",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.validUntil": {
+    "text": "Ważny do {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.validUntilLabel": {
+    "text": "Ważny do",
+    "why": "was missing"
+  },
+  "mobile:v3.home.applications": {
+    "text": "Twoje aplikacje",
+    "why": "was missing"
+  },
+  "mobile:v3.home.closes": {
+    "text": "Nabór do {{date}} · {{left}}",
+    "why": "was missing"
+  },
+  "mobile:v3.home.documentsHint": {
+    "text": "Prześlij, popraw lub uzyskaj apostille",
+    "why": "was missing"
+  },
+  "mobile:v3.home.documents_one": {
+    "text": "{{count}} dokument czeka na Ciebie",
+    "why": "was missing"
+  },
+  "mobile:v3.home.documents_few": {
+    "text": "{{count}} dokumenty czekają na Ciebie",
+    "why": "Polish few form"
+  },
+  "mobile:v3.home.documents_many": {
+    "text": "{{count}} dokumentów czeka na Ciebie",
+    "why": "Polish many form"
+  },
+  "mobile:v3.home.documents_other": {
+    "text": "{{count}} dokumentów czeka na Ciebie",
+    "why": "was missing"
+  },
+  "mobile:v3.home.due": {
+    "text": "Termin {{date}} · {{left}}",
+    "why": "was missing"
+  },
+  "mobile:v3.home.findUniversities": {
+    "text": "Znajdź uczelnie",
+    "why": "was missing"
+  },
+  "mobile:v3.home.greeting.afternoon": {
+    "text": "Dzień dobry, {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.home.greeting.evening": {
+    "text": "Dobry wieczór, {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.home.greeting.morning": {
+    "text": "Dzień dobry, {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.home.message": {
+    "text": "Wiadomość",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextBody.APPLICATION_DEADLINE": {
+    "text": "Dokończ listę kontrolną, aby aplikację można było złożyć na czas.",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextBody.DOCUMENT_UPLOAD": {
+    "text": "Prześlij wyraźny skan lub zdjęcie. Zespół Hangyul go sprawdzi i powie Ci, czy coś trzeba poprawić.",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextBody.ESSAY_WRITE": {
+    "text": "Zacznij od wstępnej wersji. Zespół Hangyul przejrzy ją razem z Tobą.",
+    "why": "team, not 'doradca'"
+  },
+  "mobile:v3.home.nextBody.REVIEW_MATCHES": {
+    "text": "Porównaliśmy Twój profil z opublikowanymi wymaganiami. Zapisz kilka programów, a potem zacznij aplikację.",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextBody.TUITION_PAYMENT": {
+    "text": "Czesne płacisz bezpośrednio uczelni, na własne nazwisko.",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextBody.UNIVERSITY_REQUEST": {
+    "text": "Uczelnia poprosiła o jeszcze jeden dokument, zanim podejmie decyzję.",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextBody.VISA_STEP": {
+    "text": "Wykonaj następny punkt na swojej liście kontrolnej wizy.",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextBody.WAIT": {
+    "text": "Na razie nic od Ciebie nie potrzeba. Damy znać, gdy tylko coś się zmieni.",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.APPLICATION_DEADLINE": {
+    "text": "Otwórz aplikację",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.APPLICATION_SUBMIT": {
+    "text": "Sprawdź i złóż",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.ARRIVAL_CHECKLIST": {
+    "text": "Otwórz listę kontrolną przyjazdu",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.COMPARE_OFFERS": {
+    "text": "Porównaj oferty",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.COMPLETE_PROFILE": {
+    "text": "Kontynuuj profil",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.DOCUMENT_UPLOAD": {
+    "text": "Prześlij dokument",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.ESSAY_WRITE": {
+    "text": "Otwórz swoją wersję roboczą",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.INTERVIEW": {
+    "text": "Przygotuj się do rozmowy",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.RESPOND_OFFER": {
+    "text": "Zobacz swoją ofertę",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.REVIEW_MATCHES": {
+    "text": "Zobacz moje uczelnie",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.TUITION_PAYMENT": {
+    "text": "Zobacz dane do płatności",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.UNIVERSITY_REQUEST": {
+    "text": "Zobacz, o co prosi uczelnia",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.VISA_STEP": {
+    "text": "Otwórz kroki wizowe",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCtaDefault": {
+    "text": "Zacznij teraz",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextEyebrow": {
+    "text": "Co zrobić teraz",
+    "why": "was missing"
+  },
+  "mobile:v3.home.noApplications": {
+    "text": "Jeszcze brak aplikacji. Zacznij od uczelni, które do Ciebie pasują.",
+    "why": "was missing"
+  },
+  "mobile:v3.home.noCounselor": {
+    "text": "Wybierz plan, a zespół Hangyul Univ będzie pracować z Tobą w Twoim języku.",
+    "why": "plan, not 'plan wsparcia'"
+  },
+  "mobile:v3.home.otherTasks_one": {
+    "text": "{{count}} inne zadanie",
+    "why": "was missing"
+  },
+  "mobile:v3.home.otherTasks_few": {
+    "text": "{{count}} inne zadania",
+    "why": "Polish few form"
+  },
+  "mobile:v3.home.otherTasks_many": {
+    "text": "{{count}} innych zadań",
+    "why": "Polish many form"
+  },
+  "mobile:v3.home.otherTasks_other": {
+    "text": "{{count}} innych zadań",
+    "why": "was missing"
+  },
+  "mobile:v3.home.stageLine.admission": {
+    "text": "Przyjęto Cię. Teraz zabezpieczamy Twoje miejsce",
+    "why": "stage name 'Admitted', simpler"
+  },
+  "mobile:v3.home.stageLine.apply": {
+    "text": "Uczelnie rozpatrują Twoje aplikacje",
+    "why": "was missing"
+  },
+  "mobile:v3.home.stageLine.arrival": {
+    "text": "Przygotowania do przyjazdu do Korei",
+    "why": "was missing"
+  },
+  "mobile:v3.home.stageLine.discover": {
+    "text": "Szukamy odpowiednich uczelni",
+    "why": "was missing"
+  },
+  "mobile:v3.home.stageLine.prepare": {
+    "text": "Przygotowujesz aplikacje",
+    "why": "was missing"
+  },
+  "mobile:v3.home.stageLine.visa": {
+    "text": "Przygotowujesz wizę studencką",
+    "why": "was missing"
+  },
+  "mobile:v3.home.team": {
+    "text": "Zespół Hangyul Univ",
+    "why": "was missing"
+  },
+  "mobile:v3.home.unread_one": {
+    "text": "{{count}} nieprzeczytana wiadomość",
+    "why": "was missing"
+  },
+  "mobile:v3.home.unread_few": {
+    "text": "{{count}} nieprzeczytane wiadomości",
+    "why": "Polish few form"
+  },
+  "mobile:v3.home.unread_many": {
+    "text": "{{count}} nieprzeczytanych wiadomości",
+    "why": "Polish many form"
+  },
+  "mobile:v3.home.unread_other": {
+    "text": "{{count}} nieprzeczytanych wiadomości",
+    "why": "was missing"
+  },
+  "mobile:v3.home.upcoming": {
+    "text": "Wkrótce",
+    "why": "was missing"
+  },
+  "mobile:v3.journey.admission": {
+    "text": "Przyjęcie",
+    "why": "was missing"
+  },
+  "mobile:v3.journey.apply": {
+    "text": "Aplikacja",
+    "why": "was missing"
+  },
+  "mobile:v3.journey.arrival": {
+    "text": "Przyjazd",
+    "why": "was missing"
+  },
+  "mobile:v3.journey.discover": {
+    "text": "Odkrywanie",
+    "why": "was missing"
+  },
+  "mobile:v3.journey.next": {
+    "text": "Dalej: {{stage}}",
+    "why": "was missing"
+  },
+  "mobile:v3.journey.of": {
+    "text": "· {{n}} z {{total}}",
+    "why": "was missing"
+  },
+  "mobile:v3.journey.prepare": {
+    "text": "Przygotowanie",
+    "why": "was missing"
+  },
+  "mobile:v3.journey.step": {
+    "text": "Krok {{n}} z {{total}}: {{stage}}",
+    "why": "was missing"
+  },
+  "mobile:v3.journey.visa": {
+    "text": "Wiza",
+    "why": "was missing"
+  },
+  "mobile:v3.match.close": {
+    "text": "Jeszcze nie spełniasz wymagań – brakuje jednego kroku",
+    "why": "was missing"
+  },
+  "mobile:v3.match.notYet": {
+    "text": "Jeszcze nie spełniasz wymagań",
+    "why": "was missing"
+  },
+  "mobile:v3.match.possible": {
+    "text": "Możliwe dopasowanie",
+    "why": "was missing"
+  },
+  "mobile:v3.match.strong": {
+    "text": "Mocne dopasowanie",
+    "why": "was missing"
+  },
+  "mobile:v3.messages.attach": {
+    "text": "Dołącz plik",
+    "why": "was missing"
+  },
+  "mobile:v3.messages.attachUnavailable": {
+    "text": "Załączniki nie są jeszcze dostępne.",
+    "why": "was missing"
+  },
+  "mobile:v3.messages.attachmentOnly_one": {
+    "text": "Wysłano {{count}} załącznik",
+    "why": "was missing"
+  },
+  "mobile:v3.messages.attachmentOnly_few": {
+    "text": "Wysłano {{count}} załączniki",
+    "why": "Polish few form"
+  },
+  "mobile:v3.messages.attachmentOnly_many": {
+    "text": "Wysłano {{count}} załączników",
+    "why": "Polish many form"
+  },
+  "mobile:v3.messages.attachmentOnly_other": {
+    "text": "Wysłano {{count}} załączników",
+    "why": "was missing"
+  },
+  "mobile:v3.messages.conversations": {
+    "text": "Rozmowy",
+    "why": "was missing"
+  },
+  "mobile:v3.messages.openAttachment": {
+    "text": "Otwórz {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.messages.removeAttachment": {
+    "text": "Usuń {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.accept": {
+    "text": "Przyjmij ofertę",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.body": {
+    "text": "{{university}} oferuje Ci miejsce na programie {{program}}.",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.deadline": {
+    "text": "Przyjmij ofertę i opłać czesne do {{date}} · {{left}}",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.next": {
+    "text": "Co dalej",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.scholarship": {
+    "text": "Stypendium",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.step.accept": {
+    "text": "Przyjmij ofertę",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.step.letter": {
+    "text": "Odbierz standardowy list przyjęcia",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.step.review": {
+    "text": "Przejrzyj ofertę i ewentualne warunki",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.step.tuition": {
+    "text": "Opłać czesne bezpośrednio na uczelni",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.step.visa": {
+    "text": "Przygotuj wizę studencką",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.tuition": {
+    "text": "Czesne",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.tuitionDirect": {
+    "text": "Hangyul nigdy nie pobiera czesnego. Zapłać uczelni na własne nazwisko według jej instrukcji.",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.completeTitle": {
+    "text": "Twój profil jest kompletny",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.done": {
+    "text": "Gotowe",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.editOnWeb": {
+    "text": "Te odpowiedzi możesz w każdej chwili zmienić w wersji internetowej.",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.places": {
+    "text": "Twoje dane",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.todo": {
+    "text": "Do dodania",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.unlock.basics": {
+    "text": "Mówi nam, które zasady dotyczące dokumentów i wizy Cię dotyczą",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.unlock.default": {
+    "text": "Sprawia, że Twoje dopasowania są dokładniejsze",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.unlock.education": {
+    "text": "Usuwa programy, których wymagań akademickich nie spełniasz",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.unlock.goals": {
+    "text": "Pokazuje programy na poziomie i w terminie, których chcesz",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.unlock.passport": {
+    "text": "Potrzebny, zanim będzie można złożyć jakąkolwiek aplikację",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.unlock.preferences": {
+    "text": "Szereguje uczelnie według Twojego budżetu i miasta",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.unlock.sponsor": {
+    "text": "Pozwala wcześniej przygotować dokumenty finansowe do wizy",
+    "why": "was missing"
+  },
+  "mobile:v3.push.denied": {
+    "text": "Powiadomienia są wyłączone. Włącz je dla Hangyul w ustawieniach telefonu.",
+    "why": "was missing"
+  },
+  "mobile:v3.push.enable": {
+    "text": "Włącz powiadomienia",
+    "why": "was missing"
+  },
+  "mobile:v3.push.error": {
+    "text": "Nie udało się włączyć powiadomień. Spróbuj ponownie.",
+    "why": "was missing"
+  },
+  "mobile:v3.push.idle": {
+    "text": "Otrzymuj powiadomienie push, gdy dokument zostanie sprawdzony, zbliża się termin lub zespół Hangyul odpowie.",
+    "why": "was missing"
+  },
+  "mobile:v3.push.on": {
+    "text": "Powiadomienia są włączone. Możesz to zmienić w ustawieniach telefonu.",
+    "why": "was missing"
+  },
+  "mobile:v3.push.pending-server": {
+    "text": "Powiadomienia są dozwolone na tym telefonie. Wysyłka push jeszcze nie działa; wszystko nadal pojawia się na tej liście.",
+    "why": "was missing"
+  },
+  "mobile:v3.push.title": {
+    "text": "Powiadomienia na tym telefonie",
+    "why": "was missing"
+  },
+  "mobile:v3.quick.again": {
+    "text": "Zmień moje odpowiedzi",
+    "why": "was missing"
+  },
+  "mobile:v3.quick.open": {
+    "text": "Sprawdź swoje opcje. Konto nie jest potrzebne",
+    "why": "'bez konta' was too terse"
+  },
+  "mobile:v3.reviews.beforeVerify": {
+    "text": "Zanim zweryfikujesz",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.bulkBody": {
+    "text": "Rób to tylko dla dokumentów, które otworzono i sprawdzono. Każdy student dostanie powiadomienie.",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.bulkDone": {
+    "text": "Zweryfikowano: {{ok}}, pominięto: {{failed}}",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.bulkTitle_one": {
+    "text": "Zweryfikować {{count}} dokument?",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.bulkTitle_few": {
+    "text": "Zweryfikować {{count}} dokumenty?",
+    "why": "Polish few form"
+  },
+  "mobile:v3.reviews.bulkTitle_many": {
+    "text": "Zweryfikować {{count}} dokumentów?",
+    "why": "Polish many form"
+  },
+  "mobile:v3.reviews.bulkTitle_other": {
+    "text": "Zweryfikować {{count}} dokumentów?",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.check.date": {
+    "text": "Data wydania jest wystarczająco świeża, dokument nie wygasł",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.check.issuer": {
+    "text": "Widać wystawcę, pieczęć lub podpis",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.check.legal": {
+    "text": "{{path}} jest dołączona i pasuje do dokumentu",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.check.legible": {
+    "text": "Każda strona jest kompletna i czytelna",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.check.name": {
+    "text": "Imię, nazwisko i data urodzenia zgadzają się z paszportem",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.correctionTitle": {
+    "text": "Co student ma poprawić?",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.expires": {
+    "text": "Ważny do",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.issuedIn": {
+    "text": "Kraj wydania",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.issuedOn": {
+    "text": "Data wydania",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.legalization": {
+    "text": "Legalizacja",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.notNeeded": {
+    "text": "Niepotrzebna",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.open": {
+    "text": "Otwórz {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.overSla": {
+    "text": "{{waiting}} · po obiecanym terminie sprawdzenia",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.reason": {
+    "text": "Wiadomość do studenta",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.requestCorrection": {
+    "text": "Poproś o poprawkę",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.required": {
+    "text": "Wymagane",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.select": {
+    "text": "Zaznacz",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.studentSees": {
+    "text": "{{name}} zobaczy dokładnie ten tekst obok dokumentu.",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.studentSeesGeneric": {
+    "text": "Student zobaczy dokładnie ten tekst obok dokumentu.",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.summary": {
+    "text": "Czeka: {{count}} · {{over}} po obiecanym terminie sprawdzenia ({{hours}} h)",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.templates": {
+    "text": "Szablony zespołu",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.translation": {
+    "text": "Tłumaczenie",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.uploaded": {
+    "text": "przesłano {{when}}",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.verifyN_one": {
+    "text": "Zweryfikuj {{count}} dokument",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.verifyN_few": {
+    "text": "Zweryfikuj {{count}} dokumenty",
+    "why": "Polish few form"
+  },
+  "mobile:v3.reviews.verifyN_many": {
+    "text": "Zweryfikuj {{count}} dokumentów",
+    "why": "Polish many form"
+  },
+  "mobile:v3.reviews.verifyN_other": {
+    "text": "Zweryfikuj {{count}} dokumentów",
+    "why": "was missing"
+  },
+  "mobile:v3.settings.consoleHint": {
+    "text": "Członkami zespołu, rozliczeniami i eksportami zarządza się w konsoli internetowej agencji.",
+    "why": "was missing"
+  },
+  "mobile:v3.settings.work": {
+    "text": "Twoja praca",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.empty.team": {
+    "text": "Zespół nie ma otwartych zadań",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.empty.today": {
+    "text": "Nic na dziś",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.empty.waiting": {
+    "text": "Żadne zadanie nie czeka na coś innego",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.empty.week": {
+    "text": "Nic w tym tygodniu",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.open": {
+    "text": "Otwarte",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.overdue": {
+    "text": "Zaległe · {{when}}",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.view.overdue": {
+    "text": "Zaległe",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.view.team": {
+    "text": "Zespół",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.view.today": {
+    "text": "Dziś",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.view.waiting": {
+    "text": "Czekające",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.view.week": {
+    "text": "Ten tydzień",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.waitingOn": {
+    "text": "Czeka na: {{what}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.allClear": {
+    "text": "Nic nie wymaga teraz decyzji.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.allCohorts": {
+    "text": "Wszyscy studenci z Hangyul",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.allIntakes": {
+    "text": "Wszystkie nabory",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.applicant": {
+    "text": "Kandydat",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.gpa": {
+    "text": "Średnia ocen",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.interview": {
+    "text": "Rozmowa kwalifikacyjna",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.interviewRequired": {
+    "text": "Wymagana przez ten program",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.level": {
+    "text": "Poziom {{level}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.minimum": {
+    "text": "Minimum {{need}} · Kandydat {{have}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.notProvided": {
+    "text": "nie podano",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.state.below": {
+    "text": "Poniżej minimum",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.state.meets": {
+    "text": "Spełnia",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.state.missing": {
+    "text": "Nie podano",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.state.planned": {
+    "text": "Test zaplanowany",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.state.unscheduled": {
+    "text": "Niezaplanowana",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.topik": {
+    "text": "TOPIK",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.checksNote": {
+    "text": "Porównuje wyniki podane przez kandydata z opublikowanymi minimami programu. Wspiera ocenę; nie podejmuje decyzji.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.checksTitle": {
+    "text": "Sprawdzenie wymagań",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.closed": {
+    "text": "Zamknięte: {{rejected}} nieprzyjętych, {{withdrawn}} wycofanych. Wskaźniki wymagają co najmniej {{min}} osób.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.cohortIntro_one": {
+    "text": "{{count}} student trafił do Państwa przez Hangyul. Oto, jak sobie radzi.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.cohortIntro_few": {
+    "text": "{{count}} studentów trafiło do Państwa przez Hangyul. Oto, jak sobie radzą.",
+    "why": "Polish few form"
+  },
+  "mobile:v3.uni.cohortIntro_many": {
+    "text": "{{count}} studentów trafiło do Państwa przez Hangyul. Oto, jak sobie radzą.",
+    "why": "Polish many form"
+  },
+  "mobile:v3.uni.cohortIntro_other": {
+    "text": "{{count}} studentów trafiło do Państwa przez Hangyul. Oto, jak sobie radzą.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.cohortNote": {
+    "text": "Wskaźniki pojawią się, gdy kwalifikuje się co najmniej {{min}} studentów. Stan na {{date}}.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.cohort_one": {
+    "text": "{{label}} · {{count}} student",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.cohort_few": {
+    "text": "{{label}} · {{count}} studentów",
+    "why": "Polish few form"
+  },
+  "mobile:v3.uni.cohort_many": {
+    "text": "{{label}} · {{count}} studentów",
+    "why": "Polish many form"
+  },
+  "mobile:v3.uni.cohort_other": {
+    "text": "{{label}} · {{count}} studentów",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.conv": {
+    "text": "{{pct}} poprzedniego kroku · {{n}} z {{d}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.convFew": {
+    "text": "{{n}} z {{d}} z poprzedniego kroku · za mało, by podać wskaźnik",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.admitted_one": {
+    "text": "przyjęty student bez wpłaconego czesnego",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.admitted_few": {
+    "text": "przyjęci studenci bez wpłaconego czesnego",
+    "why": "Polish few form"
+  },
+  "mobile:v3.uni.decision.admitted_many": {
+    "text": "przyjętych studentów bez wpłaconego czesnego",
+    "why": "Polish many form"
+  },
+  "mobile:v3.uni.decision.admitted_other": {
+    "text": "przyjętych studentów bez wpłaconego czesnego",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.documents_one": {
+    "text": "oczekuje na dokumenty studenta",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.documents_few": {
+    "text": "oczekują na dokumenty studentów",
+    "why": "Polish few form"
+  },
+  "mobile:v3.uni.decision.documents_many": {
+    "text": "oczekuje na dokumenty studentów",
+    "why": "Polish many form"
+  },
+  "mobile:v3.uni.decision.documents_other": {
+    "text": "oczekuje na dokumenty studentów",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.flagged_one": {
+    "text": "oznaczona aplikacja",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.flagged_few": {
+    "text": "oznaczone aplikacje",
+    "why": "Polish few form"
+  },
+  "mobile:v3.uni.decision.flagged_many": {
+    "text": "oznaczonych aplikacji",
+    "why": "Polish many form"
+  },
+  "mobile:v3.uni.decision.flagged_other": {
+    "text": "oznaczonych aplikacji",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.interview_one": {
+    "text": "rozmowa do przeprowadzenia lub oceny",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.interview_few": {
+    "text": "rozmowy do przeprowadzenia lub oceny",
+    "why": "Polish few form"
+  },
+  "mobile:v3.uni.decision.interview_many": {
+    "text": "rozmów do przeprowadzenia lub oceny",
+    "why": "Polish many form"
+  },
+  "mobile:v3.uni.decision.interview_other": {
+    "text": "rozmów do przeprowadzenia lub oceny",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.offer_one": {
+    "text": "oferta oczekująca na odpowiedź studenta",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.offer_few": {
+    "text": "oferty oczekujące na odpowiedź studentów",
+    "why": "Polish few form"
+  },
+  "mobile:v3.uni.decision.offer_many": {
+    "text": "ofert oczekujących na odpowiedź studentów",
+    "why": "Polish many form"
+  },
+  "mobile:v3.uni.decision.offer_other": {
+    "text": "ofert oczekujących na odpowiedź studentów",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.returned_one": {
+    "text": "dokument odesłany przez studenta",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.returned_few": {
+    "text": "dokumenty odesłane przez studentów",
+    "why": "Polish few form"
+  },
+  "mobile:v3.uni.decision.returned_many": {
+    "text": "dokumentów odesłanych przez studentów",
+    "why": "Polish many form"
+  },
+  "mobile:v3.uni.decision.returned_other": {
+    "text": "dokumentów odesłanych przez studentów",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.review_one": {
+    "text": "aplikacja do rozpatrzenia",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.review_few": {
+    "text": "aplikacje do rozpatrzenia",
+    "why": "Polish few form"
+  },
+  "mobile:v3.uni.decision.review_many": {
+    "text": "aplikacji do rozpatrzenia",
+    "why": "Polish many form"
+  },
+  "mobile:v3.uni.decision.review_other": {
+    "text": "aplikacji do rozpatrzenia",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionContext_one": {
+    "text": "Gotowe wymagane dokumenty: {{ready}} z {{total}} · {{count}} otwarta prośba.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionContext_few": {
+    "text": "Gotowe wymagane dokumenty: {{ready}} z {{total}} · {{count}} otwarte prośby.",
+    "why": "Polish few form"
+  },
+  "mobile:v3.uni.decisionContext_many": {
+    "text": "Gotowe wymagane dokumenty: {{ready}} z {{total}} · {{count}} otwartych próśb.",
+    "why": "Polish many form"
+  },
+  "mobile:v3.uni.decisionContext_other": {
+    "text": "Gotowe wymagane dokumenty: {{ready}} z {{total}} · {{count}} otwartych próśb.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionDocs": {
+    "text": "Gotowe wymagane dokumenty: {{ready}} z {{total}}.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.admitted": {
+    "text": "Potwierdzić wpłatę, gdy dotrze",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.documents": {
+    "text": "Bez działania do czasu przesłania",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.flagged": {
+    "text": "Oznaczona do bliższej analizy",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.interview": {
+    "text": "Zapisać wynik po rozmowie",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.offer": {
+    "text": "Hangyul kontaktuje się ze studentem",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.returned": {
+    "text": "Ponownie sprawdzić to, o co proszono",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.review": {
+    "text": "Złożona i wystarczająco kompletna, by podjąć decyzję",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.docsTitle": {
+    "text": "Dokumenty · gotowe {{ready}} z {{total}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.dueOn": {
+    "text": "termin {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.empty.all": {
+    "text": "Brak kandydatów",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.empty.flagged": {
+    "text": "Brak oznaczonych aplikacji",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.empty.review": {
+    "text": "Brak aplikacji oczekujących na rozpatrzenie",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.graduation": {
+    "text": "Absolwenci",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.latest": {
+    "text": "Najnowsze do rozpatrzenia",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.ADDITIONAL_DOCUMENTS": {
+    "text": "Poproś o dodatkowe dokumenty",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Wydaj list przyjęcia",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.INTERVIEW": {
+    "text": "Zaproś na rozmowę",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.OFFERED": {
+    "text": "Złóż ofertę przyjęcia",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.REJECTED": {
+    "text": "Nie przyjmuj",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.TUITION_PAID": {
+    "text": "Potwierdź wpłatę czesnego",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.TUITION_PENDING": {
+    "text": "Wyślij wezwanie do zapłaty czesnego",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.UNIVERSITY_REVIEW": {
+    "text": "Rozpocznij rozpatrywanie",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.WAITLISTED": {
+    "text": "Lista rezerwowa",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.nOfD": {
+    "text": "{{n}} z {{d}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.needsTitle": {
+    "text": "Wymaga Państwa decyzji",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.noMinimums": {
+    "text": "Ten program nie ma jeszcze opublikowanych minimów.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.nothingToReview": {
+    "text": "Nic nie czeka na rozpatrzenie",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.openRequests_one": {
+    "text": "Poproszono o {{count}} dokument",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.openRequests_few": {
+    "text": "Poproszono o {{count}} dokumenty",
+    "why": "Polish few form"
+  },
+  "mobile:v3.uni.openRequests_many": {
+    "text": "Poproszono o {{count}} dokumentów",
+    "why": "Polish many form"
+  },
+  "mobile:v3.uni.openRequests_other": {
+    "text": "Poproszono o {{count}} dokumentów",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.otherDecisions": {
+    "text": "Pozostałe decyzje",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.populationAll_one": {
+    "text": "Na podstawie {{count}} złożonej aplikacji, wszystkie nabory.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.populationAll_few": {
+    "text": "Na podstawie {{count}} złożonych aplikacji, wszystkie nabory.",
+    "why": "Polish few form"
+  },
+  "mobile:v3.uni.populationAll_many": {
+    "text": "Na podstawie {{count}} złożonych aplikacji, wszystkie nabory.",
+    "why": "Polish many form"
+  },
+  "mobile:v3.uni.populationAll_other": {
+    "text": "Na podstawie {{count}} złożonych aplikacji, wszystkie nabory.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.populationIntake_one": {
+    "text": "Na podstawie {{count}} złożonej aplikacji na nabór {{intake}}.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.populationIntake_few": {
+    "text": "Na podstawie {{count}} złożonych aplikacji na nabór {{intake}}.",
+    "why": "Polish few form"
+  },
+  "mobile:v3.uni.populationIntake_many": {
+    "text": "Na podstawie {{count}} złożonych aplikacji na nabór {{intake}}.",
+    "why": "Polish many form"
+  },
+  "mobile:v3.uni.populationIntake_other": {
+    "text": "Na podstawie {{count}} złożonych aplikacji na nabór {{intake}}.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.reason": {
+    "text": "Powód (udostępniany Hangyul)",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.request": {
+    "text": "Prośba",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestLabel": {
+    "text": "Czego Państwo potrzebują?",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestLabelHint": {
+    "text": "np. świadectwo maturalne z apostille",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestNote": {
+    "text": "Instrukcje dla studenta",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestNoteHint": {
+    "text": "Czego dokładnie brakuje i jak to poprawić",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestSend": {
+    "text": "Wyślij prośbę",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestTitle": {
+    "text": "Poproś {{name}} o dokument",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestWho": {
+    "text": "Student i jego opiekun z Hangyul zostaną powiadomieni i zobaczą dokładnie to brzmienie.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestedOn": {
+    "text": "Poproszono {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.retention": {
+    "text": "Wciąż studiują",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.search": {
+    "text": "Szukaj po nazwisku, programie lub numerze referencyjnym",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.ACCEPTED": {
+    "text": "Oferta przyjęta",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.ARRIVED": {
+    "text": "Przyjazd do Korei",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.ENROLLED": {
+    "text": "Immatrykulacja",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.OFFERED": {
+    "text": "Oferta złożona",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.REVIEWED": {
+    "text": "Rozpatrzona",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.SUBMITTED": {
+    "text": "Złożona",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.TUITION_PAID": {
+    "text": "Czesne opłacone",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.VISA_ISSUED": {
+    "text": "Wiza wydana",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.tab.applicants": {
+    "text": "Kandydaci",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.tab.pipeline": {
+    "text": "Przegląd",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.tab.students": {
+    "text": "Studenci",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.tooFew": {
+    "text": "Za mało, by podać wskaźnik",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.admitted": {
+    "text": "Przyjęci",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.all": {
+    "text": "Wszyscy",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.documents": {
+    "text": "Brakujące dokumenty",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.enrolment": {
+    "text": "Wiza i immatrykulacja",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.flagged": {
+    "text": "Oznaczone",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.interview": {
+    "text": "Rozmowa kwalifikacyjna",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.offer": {
+    "text": "Oferta",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.review": {
+    "text": "Do rozpatrzenia",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.waitingStudent": {
+    "text": "Oczekuje na studenta",
+    "why": "was missing"
+  },
+  "mobile:v3.university.admissionsSite": {
+    "text": "Strona rekrutacji dla studentów zagranicznych",
+    "why": "was missing"
+  },
+  "mobile:v3.university.deadline": {
+    "text": "Aplikuj do",
+    "why": "was missing"
+  },
+  "mobile:v3.university.documents": {
+    "text": "Dokumenty",
+    "why": "was missing"
+  },
+  "mobile:v3.university.documentsCount": {
+    "text": "Dokumenty: {{count}} · {{legal}} wymaga apostille lub legalizacji konsularnej",
+    "why": "was missing"
+  },
+  "mobile:v3.university.dorm": {
+    "text": "Akademik za semestr",
+    "why": "was missing"
+  },
+  "mobile:v3.university.dormRange": {
+    "text": "{{min}}–{{max}}",
+    "why": "was missing"
+  },
+  "mobile:v3.university.estimate": {
+    "text": "Szacowana suma",
+    "why": "was missing"
+  },
+  "mobile:v3.university.estimateNote": {
+    "text": "Szacunek na podstawie opublikowanego czesnego i typowych miesięcznych kosztów życia w tym mieście.",
+    "why": "was missing"
+  },
+  "mobile:v3.university.fee": {
+    "text": "Opłata rekrutacyjna",
+    "why": "was missing"
+  },
+  "mobile:v3.university.gpa": {
+    "text": "Oceny",
+    "why": "was missing"
+  },
+  "mobile:v3.university.gpaMin": {
+    "text": "Co najmniej {{pct}}% maksymalnej średniej",
+    "why": "was missing"
+  },
+  "mobile:v3.university.intake": {
+    "text": "Nabór",
+    "why": "was missing"
+  },
+  "mobile:v3.university.interview": {
+    "text": "Rozmowa kwalifikacyjna",
+    "why": "was missing"
+  },
+  "mobile:v3.university.interviewYes": {
+    "text": "Uczelnia może zaprosić Cię na rozmowę",
+    "why": "was missing"
+  },
+  "mobile:v3.university.language": {
+    "text": "Język",
+    "why": "was missing"
+  },
+  "mobile:v3.university.links": {
+    "text": "Oficjalne informacje",
+    "why": "was missing"
+  },
+  "mobile:v3.university.living": {
+    "text": "Koszty życia (12 miesięcy)",
+    "why": "was missing"
+  },
+  "mobile:v3.university.noIntake": {
+    "text": "Brak otwartego naboru",
+    "why": "was missing"
+  },
+  "mobile:v3.university.noVerdict": {
+    "text": "Uzupełnij profil, aby sprawdzić, czy spełniasz wymagania tego programu.",
+    "why": "was missing"
+  },
+  "mobile:v3.university.notPublished": {
+    "text": "Nieopublikowane",
+    "why": "was missing"
+  },
+  "mobile:v3.university.program": {
+    "text": "Program",
+    "why": "was missing"
+  },
+  "mobile:v3.university.requirements": {
+    "text": "Wymagania",
+    "why": "was missing"
+  },
+  "mobile:v3.university.start": {
+    "text": "Zacznij aplikację",
+    "why": "was missing"
+  },
+  "mobile:v3.university.verdict.COMPETITIVE": {
+    "text": "Spełniasz opublikowane minima. Jedna rzecz wymaga uwagi.",
+    "why": "was missing"
+  },
+  "mobile:v3.university.verdict.NOT_ELIGIBLE": {
+    "text": "Jedno z opublikowanych wymagań nie jest jeszcze spełnione.",
+    "why": "was missing"
+  },
+  "mobile:v3.university.verdict.RECOMMENDED": {
+    "text": "Polecane dla Ciebie.",
+    "why": "was missing"
+  },
+  "mobile:v3.university.verdict.STRONG": {
+    "text": "Spełniasz wszystkie opublikowane podstawowe wymagania, a program mieści się w Twoim budżecie.",
+    "why": "was missing"
+  },
+  "mobile:v3.university.website": {
+    "text": "Strona uczelni",
+    "why": "was missing"
+  },
+  "mobile:v3.university.yearCost": {
+    "text": "Koszt pierwszego roku (szacunek)",
+    "why": "was missing"
+  },
+  "mobile:v3.upload.camera": {
+    "text": "Zrób zdjęcie",
+    "why": "was missing"
+  },
+  "mobile:v3.upload.cameraHint": {
+    "text": "Połóż dokument płasko, w dobrym świetle",
+    "why": "was missing"
+  },
+  "mobile:v3.upload.failed": {
+    "text": "Nie udało się otworzyć tego pliku. Spróbuj ponownie.",
+    "why": "was missing"
+  },
+  "mobile:v3.upload.files": {
+    "text": "Wybierz plik",
+    "why": "was missing"
+  },
+  "mobile:v3.upload.filesHint": {
+    "text": "PDF, JPG lub PNG do 15 MB",
+    "why": "was missing"
+  },
+  "mobile:v3.upload.library": {
+    "text": "Wybierz ze zdjęć",
+    "why": "was missing"
+  },
+  "mobile:v3.upload.privacy": {
+    "text": "Twoje dokumenty mogą otworzyć tylko Ty i zespół Hangyul. Uczelnia zobaczy je dopiero, gdy złożysz do niej aplikację.",
+    "why": "was missing"
+  },
+  "mobile:v3.upload.tooLarge": {
+    "text": "Ten plik ma ponad 15 MB. Spróbuj skanu PDF lub mniejszego zdjęcia.",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.beforeTitle": {
+    "text": "Przygotowanie wizy zaczyna się po ofercie przyjęcia",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.blockers": {
+    "text": "Najpierw potrzebne",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.checklist": {
+    "text": "Twoja lista kontrolna · wykonano {{done}} z {{total}}",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.forNationality": {
+    "text": "Dotyczy Twojego obywatelstwa",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.now": {
+    "text": "Co czeka na Ciebie teraz",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.phase.admission": {
+    "text": "Przyjęcie",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.phase.apply": {
+    "text": "Wniosek wizowy",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.phase.decision": {
+    "text": "Decyzja ambasady",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.phase.documents": {
+    "text": "Dokumenty wizowe",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.phase.letter": {
+    "text": "List przyjęcia",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.preview": {
+    "text": "Czego będziesz potrzebować",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.seeRequirement": {
+    "text": "Zobacz oficjalne wymaganie",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.sourceChecked": {
+    "text": "Oficjalne źródło · sprawdzono {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.title": {
+    "text": "Przygotowanie wizy {{type}}",
+    "why": "says preparing, not 'your plan'"
+  },
+  "mobile:v3.visa.titleGeneric": {
+    "text": "Twoja wiza studencka",
+    "why": "was missing"
+  },
+  "mobile:v4.application.blocks": {
+    "text": "Dopóki to nie będzie zrobione, aplikacji nie da się złożyć.",
+    "why": "was missing"
+  },
+  "mobile:v4.application.blocksUni": {
+    "text": "{{university}} czeka na to, zanim przejdzie dalej.",
+    "why": "was missing"
+  },
+  "mobile:v4.application.doneSummary_one": {
+    "text": "Wykonano {{count}}: {{items}}",
+    "why": "was missing"
+  },
+  "mobile:v4.application.doneSummary_few": {
+    "text": "Wykonano {{count}}: {{items}}",
+    "why": "Polish few form"
+  },
+  "mobile:v4.application.doneSummary_many": {
+    "text": "Wykonano {{count}}: {{items}}",
+    "why": "Polish many form"
+  },
+  "mobile:v4.application.doneSummary_other": {
+    "text": "Wykonano {{count}}: {{items}}",
+    "why": "was missing"
+  },
+  "mobile:v4.application.next": {
+    "text": "Twój następny krok",
+    "why": "was missing"
+  },
+  "mobile:v4.application.nextFix": {
+    "text": "Popraw: {{item}}",
+    "why": "was missing"
+  },
+  "mobile:v4.application.nextLegalize": {
+    "text": "Uzyskaj apostille lub legalizację konsularną: {{item}}",
+    "why": "was missing"
+  },
+  "mobile:v4.application.nextRequest": {
+    "text": "{{university}} prosi o: {{item}}",
+    "why": "was missing"
+  },
+  "mobile:v4.application.nextUpload": {
+    "text": "Prześlij: {{item}}",
+    "why": "was missing"
+  },
+  "mobile:v4.application.nextWrite": {
+    "text": "Napisz: {{item}}",
+    "why": "was missing"
+  },
+  "mobile:v4.application.nothingForYou": {
+    "text": "Na razie nic do zrobienia",
+    "why": "was missing"
+  },
+  "mobile:v4.application.openDocument": {
+    "text": "Otwórz dokument",
+    "why": "was missing"
+  },
+  "mobile:v4.application.reviewLate": {
+    "text": "Trwa to dłużej niż zwykle. Zespół Hangyul wie o opóźnieniu. Nie musisz przesyłać dokumentu ponownie.",
+    "why": "team, not 'doradca'"
+  },
+  "mobile:v4.application.waitBody": {
+    "text": "Zespół Hangyul sprawdza to, co przesłano. Damy Ci znać, jeśli coś trzeba zmienić.",
+    "why": "was missing"
+  },
+  "mobile:v4.application.waitTitle": {
+    "text": "Na razie nic do zrobienia",
+    "why": "was missing"
+  },
+  "mobile:v4.application.writeOnWeb": {
+    "text": "Napisz to w przeglądarce. Tam też pojawiają się komentarze zespołu Hangyul.",
+    "why": "team, not 'doradca'"
+  },
+  "mobile:v4.discover.firstYear": {
+    "text": "{{range}} w pierwszym roku",
+    "why": "was missing"
+  },
+  "mobile:v4.documents.late": {
+    "text": "Trwa dłużej",
+    "why": "was missing"
+  },
+  "mobile:v4.documents.lateLine": {
+    "text": "zgłoszono zespołowi Hangyul jako opóźnione",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.FIX.cta": {
+    "text": "Zobacz, jak poprawić",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.FIX.text": {
+    "text": "Dopóki to nie będzie poprawione, aplikacji nie da się złożyć.",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.FIX.title": {
+    "text": "Popraw: {{label}} dla {{university}}",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.LEGALIZE.cta": {
+    "text": "Zobacz kroki",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.LEGALIZE.text": {
+    "text": "Koreańskie uczelnie przyjmują ten dokument dopiero po uwierzytelnieniu. Pokażemy Ci kroki dla Twojego kraju.",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.LEGALIZE.title": {
+    "text": "Uzyskaj apostille: {{label}} dla {{university}}",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.RENEW.cta": {
+    "text": "Zobacz, co zrobić",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.RENEW.text": {
+    "text": "Przesłany dokument wygasł.",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.RENEW.title": {
+    "text": "Uzyskaj nowy dokument: {{label}} dla {{university}}",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.REQUEST.cta": {
+    "text": "Prześlij i wyślij",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.REQUEST.text": {
+    "text": "Uczelnia poprosiła o ten dokument. Dopóki nie dotrze, aplikacja nie ruszy dalej.",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.REQUEST.title": {
+    "text": "Wyślij: {{label}} do {{university}}",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.cta": {
+    "text": "Otwórz swoją wersję roboczą",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.text": {
+    "text": "Zespół Hangyul zostawił komentarze. Dopóki tekst nie zostanie zatwierdzony, aplikacji nie da się złożyć.",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.title": {
+    "text": "Popraw: {{label}} dla {{university}}",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.TOO_OLD.cta": {
+    "text": "Zobacz, co zrobić",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.TOO_OLD.text": {
+    "text": "Uczelnia potrzebuje niedawno wydanego egzemplarza.",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.TOO_OLD.title": {
+    "text": "Uzyskaj nowszy dokument: {{label}} dla {{university}}",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.UPLOAD.cta": {
+    "text": "Prześlij",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.UPLOAD.text": {
+    "text": "Bez tego aplikacji nie da się złożyć.",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.UPLOAD.title": {
+    "text": "Prześlij: {{label}} dla {{university}}",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.cta": {
+    "text": "Zacznij pisać",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.text": {
+    "text": "Zespół Hangyul przejrzy go razem z Tobą. Zacznij od wstępnej wersji. Nie musi być idealna.",
+    "why": "team, not 'doradca'"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.title": {
+    "text": "Napisz: {{label}} dla {{university}}",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.actor.AGENCY": {
+    "text": "Agencja partnerska",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.actor.HANGYUL": {
+    "text": "Hangyul",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.actor.STUDENT": {
+    "text": "Kandydat",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.actor.SYSTEM": {
+    "text": "Automatycznie",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.actor.UNIVERSITY": {
+    "text": "Państwa uczelnia",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.toReview_one": {
+    "text": "Do rozpatrzenia · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.toReview_few": {
+    "text": "Do rozpatrzenia · {{count}}",
+    "why": "Polish few form"
+  },
+  "mobile:v4.uni.toReview_many": {
+    "text": "Do rozpatrzenia · {{count}}",
+    "why": "Polish many form"
+  },
+  "mobile:v4.uni.toReview_other": {
+    "text": "Do rozpatrzenia · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v4.university.continue": {
+    "text": "Kontynuuj aplikację",
+    "why": "was missing"
+  },
+  "mobile:v4.university.firstYear": {
+    "text": "Pierwszy rok, szacunkowo",
+    "why": "was missing"
+  },
+  "mobile:v4.university.tuitionYear": {
+    "text": "Czesne za rok",
+    "why": "was missing"
+  },
+  "mobile:v4.visa.hideDone": {
+    "text": "Ukryj wykonane kroki",
+    "why": "was missing"
+  },
+  "mobile:v4.visa.showDone_one": {
+    "text": "Pokaż {{count}} wykonany krok",
+    "why": "was missing"
+  },
+  "mobile:v4.visa.showDone_few": {
+    "text": "Pokaż {{count}} wykonane kroki",
+    "why": "Polish few form"
+  },
+  "mobile:v4.visa.showDone_many": {
+    "text": "Pokaż {{count}} wykonanych kroków",
+    "why": "Polish many form"
+  },
+  "mobile:v4.visa.showDone_other": {
+    "text": "Pokaż {{count}} wykonanych kroków",
+    "why": "was missing"
+  }
+}

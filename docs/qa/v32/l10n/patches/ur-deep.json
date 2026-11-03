@@ -1,0 +1,457 @@
+{
+ "_notes": [
+  "Numeric ranges: Urdu reads ranges as \"A سے B\" with Western digits and the unit after the second number (\"3 سے 5 دن\", \"0 سے 100 فیصد\"); never an en dash between digits, which bidi can flip in RTL. A string that opens with a digit or Latin token starts with U+200F (RLM). Alternatives stay \"3 یا 6 ماہ\". In this job only onboarding.education.method (0–100%) is a range and its cur already follows this, so it is kept.",
+  "Team identity: where the CURRENT English says \"the Hangyul team\", every leftover کونسلر / سپورٹ ٹیم / جائزہ کار is now \"Hangyul ٹیم\" (feminine agreement: کرے گی، لے رہی ہے).",
+  "Terms: standard admission letter = معیاری داخلہ لیٹر; visa document preparation = ویزا دستاویزات کی تیاری; consular legalization = قونصلر تصدیق (not قانونی تصدیق); study plan = اسٹڈی پلان; admission offer = داخلہ آفر; appointment spelled اپائنٹمنٹ.",
+  "Owner decision 1: 38 visaroute/success/concierge/writing keys still say \"your counselor\" in the CURRENT English (e.g. visaroute:caveat.*, success:item.ESSAY_REVIEW.why, concierge:lease.sent). They are kept as کونسلر to stay faithful. If the source should say \"Hangyul team\" too, change the English first and the Urdu will follow.",
+  "Owner decision 2: study plan is split in the bundle: اسٹڈی پلان appears 14 times and تعلیمی منصوبہ 13 times. This patch uses اسٹڈی پلان. Out-of-scope keys such as student:more.hint.essays still say تعلیمی منصوبہ and need a follow-up pass."
+ ],
+ "common:notify.writingOverdue": {
+  "text": "آپ کے مضمون کا جائزہ مقررہ وقت سے پیچھے ہے: {{title}}",
+  "why": "Add 'your'; replace colloquial لیٹ"
+ },
+ "common:task.writingOverdue": {
+  "text": "مضمون کا جائزہ تاخیر کا شکار: {{student}} کا {{essayType}} — ابھی جائزہ لیں",
+  "why": "Restore dropped 'review it now'"
+ },
+ "student:applicationDetail.statusText.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "آپ کا معیاری داخلہ لیٹر تیار ہے۔ ویزا درخواست کے لیے یہی سب سے اہم دستاویز ہے۔",
+  "why": "Official term: standard admission letter"
+ },
+ "student:applicationDetail.statusText.DOCUMENT_PREPARATION": {
+  "text": "نیچے دی گئی چیک لسٹ مکمل کریں۔ جب ہر چیز کی جانچ ہو جائے گی تو Hangyul ٹیم اسے جمع کرانے کے لیے تیار قرار دے گی۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:applicationDetail.statusText.INTERVIEW": {
+  "text": "آپ کو انٹرویو کے لیے بلایا گیا ہے۔ وقت دیکھیں اور Hangyul ٹیم کے ساتھ تیاری کریں۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:applicationDetail.statusText.PROFILE_REVIEW": {
+  "text": "‏Hangyul ٹیم اس پروگرام کے لیے آپ کے پروفائل کا جائزہ لے رہی ہے۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:applicationDetail.statusText.REJECTED": {
+  "text": "اس بار یونیورسٹی نے داخلہ نہیں دیا۔ Hangyul ٹیم اگلے قدموں کی منصوبہ بندی میں آپ کی مدد کر سکتی ہے۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:applicationDetail.transition.PROFILE_REVIEW": {
+  "text": "‏Hangyul ٹیم سے جائزہ لینے کو کہیں",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:checklist.action.RENEW": {
+  "text": "اس دستاویز کی میعاد ختم ہو چکی ہے۔ نئی، کارآمد دستاویز اپ لوڈ کریں۔",
+  "why": "Natural 'expired / valid one' wording"
+ },
+ "student:dashboard.counselor.noneCta": {
+  "text": "پلانز دیکھیں",
+  "why": "EN now 'See the plans'"
+ },
+ "student:dashboard.counselor.team": {
+  "text": "‏Hangyul Univ ٹیم",
+  "why": "EN now names Hangyul Univ team"
+ },
+ "student:dashboard.nextAction.APPLICATION_ITEM.REVISE_ESSAY.text": {
+  "text": "‏Hangyul ٹیم نے تبصرے کیے ہیں۔ منظوری ملنے تک آپ کی درخواست جمع نہیں ہو سکتی۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:dashboard.nextAction.FINISH_APPLICATION.text": {
+  "text": "جمع کرانے سے پہلے {{remaining}} چیزیں باقی ہیں۔ سب کچھ جانچ لیے جانے کے بعد Hangyul ٹیم اسے جمع کراتی ہے۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:dashboard.nextAction.FINISH_APPLICATION.text_one": {
+  "text": "جمع کرانے سے پہلے {{remaining}} چیز باقی ہے۔ سب کچھ جانچ لیے جانے کے بعد Hangyul ٹیم اسے جمع کراتی ہے۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:dashboard.nextAction.FINISH_APPLICATION.text_other": {
+  "text": "جمع کرانے سے پہلے {{remaining}} چیزیں باقی ہیں۔ سب کچھ جانچ لیے جانے کے بعد Hangyul ٹیم اسے جمع کراتی ہے۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:dashboard.nextAction.TASK.text.INTERVIEW": {
+  "text": "وقت دیکھ لیں اور Hangyul ٹیم کے ساتھ چند عام سوالات کی مشق کریں۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:documents.legal.intro": {
+  "text": "ہر مرحلہ مکمل ہونے پر نشان لگائیں۔ حتمی دستاویز کا جائزہ ہم لیں گے۔",
+  "why": "Review, not official verification"
+ },
+ "student:documents.privacy.short": {
+  "text": "خفیہ کاری (انکرپشن) کے ساتھ محفوظ۔ جب تک آپ درخواست جمع نہیں کراتے، اسے صرف آپ اور Hangyul ٹیم کھول سکتے ہیں۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:home.counselorAt": {
+  "text": "‏{{org}} کے ساتھ",
+  "why": "Drop invented 'counselor'"
+ },
+ "student:home.team": {
+  "text": "‏Hangyul Univ ٹیم",
+  "why": "Match EN 'Hangyul Univ team'"
+ },
+ "student:legalFlow.step.verify.why": {
+  "text": "‏Hangyul ٹیم اسے ایک بار جانچتی ہے، اور یہ ہر درخواست میں دوبارہ استعمال ہوتی ہے۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:login.aside.point3": {
+  "text": "‏Hangyul ٹیم کے حقیقی لوگوں کے ساتھ تیاری کریں جو آپ کی زبان بولتے ہیں۔",
+  "why": "EN now 'real people on Hangyul team'"
+ },
+ "student:matches.guarantee.noTerms": {
+  "text": "شرائط پارٹنر معاہدے میں طے ہوتی ہیں — Hangyul ٹیم آپ کے ساتھ ان کی تصدیق کرے گی۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:messages.new.subtitle": {
+  "text": "‏Hangyul ٹیم یہیں جواب دے گی۔",
+  "why": "Support team → Hangyul team"
+ },
+ "student:offers.note": {
+  "text": "اندازاً کل رقم میں رہن سہن کے اخراجات شامل ہیں اور یہ بجٹ پلانر کے قواعد کے مطابق ہے۔ کوئی آفر رد کرنے سے پہلے Hangyul ٹیم سے بات کریں۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:onboarding.goals.degreeSub.LANGUAGE": {
+  "text": "کوریائی زبان سے آغاز کریں، اپنی رفتار سے",
+  "why": "Match current EN meaning"
+ },
+ "student:onboarding.passport.visa.D-4": {
+  "text": "‏D-4 (زبان کا کورس)",
+  "why": "'Language course', not training"
+ },
+ "student:onboarding.steps.sponsor.subtitle": {
+  "text": "یونیورسٹیاں اور ویزا افسران مالی معاونت کے بارے میں پوچھتے ہیں۔ آپ کا ہدف جان کر Hangyul ٹیم بہتر رہنمائی کر سکتی ہے۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:phase.admission.label": {
+  "text": "داخلہ منظور",
+  "why": "Stage 'Admitted', not bare 'admission'"
+ },
+ "student:services.feature.counselor_assignment": {
+  "text": "‏Hangyul ٹیم ہر قدم پر آپ کے ساتھ",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:services.success.pending": {
+  "text": "ہم Hangyul ٹیم کے ساتھ آپ کا پلان ترتیب دے رہے ہیں۔ آپ کو جلد اطلاع ملے گی۔",
+  "why": "EN no longer 'finding a counselor'"
+ },
+ "student:servicesV3.promise.full": {
+  "text": "‏Hangyul ٹیم شروع سے آخر تک آپ کی رہنمائی کرتی ہے",
+  "why": "Agency counselor → Hangyul team"
+ },
+ "student:servicesV3.subtitle": {
+  "text": "آپ سب کچھ خود مفت میں کر سکتے ہیں۔ ادا شدہ پلانز میں لوگ شامل ہوتے ہیں: Hangyul ٹیم آپ کا کام جانچتی ہے، یا مختصر فہرست سے لے کر آمد تک آپ کی رہنمائی کرتی ہے۔",
+  "why": "Agency counselor → Hangyul team"
+ },
+ "student:servicesV3.who.counselor": {
+  "text": "‏Hangyul ٹیم",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:stage.VISA_PREPARATION": {
+  "text": "ویزا دستاویزات کی تیاری",
+  "why": "Glossary: visa document preparation"
+ },
+ "student:support.new.subtitle": {
+  "text": "ہمیں بتائیں کیا ہو رہا ہے۔ Hangyul ٹیم پیغامات میں جواب دے گی۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:supportV3.message": {
+  "text": "ٹیم کو پیغام بھیجیں",
+  "why": "EN now 'Message the team'"
+ },
+ "student:tasksV3.owner.counselor": {
+  "text": "‏Hangyul ٹیم",
+  "why": "Add RLM before Latin start"
+ },
+ "student:tasksV3.owner.team": {
+  "text": "‏Hangyul ٹیم",
+  "why": "EN now 'Hangyul team'"
+ },
+ "student:tasksV3.summary": {
+  "text": "‏{{mine}} آپ کے لیے · {{theirs}} Hangyul ٹیم کے پاس",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:tasksV3.summaryMine_one": {
+  "text": "آپ کے لیے {{count}} کام۔ ابھی Hangyul ٹیم کے ذمے کوئی کام باقی نہیں۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:tasksV3.summaryMine_other": {
+  "text": "آپ کے لیے {{count}} کام۔ ابھی Hangyul ٹیم کے ذمے کوئی کام باقی نہیں۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:university.housing.emptyText": {
+  "text": "‏Hangyul ٹیم کیمپس کے قریب باہر رہائش کے اختیارات دیکھنے میں آپ کی مدد کر سکتی ہے۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:university.partner.benefit.DEDICATED_COUNSELOR": {
+  "text": "اس یونیورسٹی کے لیے Hangyul ٹیم کی مخصوص معاونت",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:v4.ws.helpTextNoName": {
+  "text": "‏Hangyul ٹیم اس درخواست میں آپ کی مدد کے لیے موجود ہے۔",
+  "why": "Counselor's team → Hangyul team"
+ },
+ "student:v4.ws.messageTeam": {
+  "text": "ٹیم کو پیغام بھیجیں",
+  "why": "EN now 'Message the team'"
+ },
+ "student:v4.ws.team.final": {
+  "text": "‏{{university}} کو آپ کے جمع کرانے سے پہلے آخری جانچ",
+  "why": "Drop extra 'yourself'"
+ },
+ "student:v4.ws.who.team": {
+  "text": "‏Hangyul ٹیم",
+  "why": "Counselor removed from EN"
+ },
+ "student:v4.ws.you.doc.RENEW": {
+  "text": "نیا {{label}} حاصل کریں۔ موجودہ کی میعاد ختم ہو چکی ہے",
+  "why": "Natural 'expired' wording"
+ },
+ "student:v4.ws.yourCounselor": {
+  "text": "Hangyul ٹیم",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:v8.budget.fee.text.NONE": {
+  "text": "اختیاری۔ آپ مفت پلان کے ساتھ خود درخواست دے سکتے ہیں؛ ادا شدہ پلانز میں Hangyul ٹیم اور جائزے شامل ہوتے ہیں۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:v9.funds.whose.UNKNOWN": {
+  "text": "کس کے نام پر: Hangyul ٹیم سفارت خانے سے تصدیق کرے گی",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:v9.refund.cta": {
+  "text": "ٹیم کو پیغام بھیجیں",
+  "why": "EN now 'Message the team'"
+ },
+ "student:v9.refund.ruleUnknown": {
+  "text": "‏Hangyul ٹیم آپ کے ساتھ یونیورسٹی کے رقم واپسی کے قاعدے اور رقم کی تصدیق کرے گی۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:v9.sponsor.foot": {
+  "text": "‏{{name}} نے Hangyul کے ذریعے شیئر کیا · معلومات {{date}} تک کی",
+  "why": "Drop sentence absent from EN"
+ },
+ "student:writing.needYou": {
+  "text": "آپ کی باری: لکھیں یا درست کریں",
+  "why": "EN now 'your turn to write/revise'"
+ },
+ "student:writing.others": {
+  "text": "‏Hangyul ٹیم کے جائزے میں، یا مکمل",
+  "why": "Match EN 'being reviewed or finished'"
+ },
+ "student:writing.status.FINAL_REVIEW": {
+  "text": "‏Hangyul ٹیم جائزہ لے رہی ہے",
+  "why": "Counselor → Hangyul team"
+ },
+ "student:ws3.offer.step2.text": {
+  "text": "ہم یونیورسٹی اور Hangyul ٹیم کو اطلاع دیتے ہیں۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "success:item.FIELD_DIFFERENT.why": {
+  "text": "اگر یہ سوچا سمجھا انتخاب ہے تو ٹھیک ہے — آپ کے اسٹڈی پلان میں اس کی وجہ بیان ہونی چاہیے۔",
+  "why": "One term: study plan = اسٹڈی پلان"
+ },
+ "success:obs.ALL_OVER_BUDGET": {
+  "text": "ہر درخواست آپ کے بجٹ سے زیادہ ہے — رقم کا انتظام سوچیں یا کم خرچ والا انتخاب شامل کریں۔",
+  "why": "Fix 'starts above' mistranslation"
+ },
+ "success:obs.FEW_OPTIONS": {
+  "text": "آپ صرف ایک پروگرام میں درخواست دے رہے ہیں — اگر داخلہ نہ ملے تو دوسرا حقیقت پسندانہ انتخاب آپ کو تحفظ دیتا ہے۔",
+  "why": "Restore 'if you are not admitted'"
+ },
+ "success:obs.SOME_NOT_YET": {
+  "text": "آپ ابھی {{universities}} کی ایک شائع شدہ کم از کم شرط پوری نہیں کرتے — دیکھ لیں کہ یہ محنت کے قابل ہے یا نہیں۔",
+  "why": "Full sentence, matches EN subject"
+ },
+ "success:submission.fee.UNPAID": {
+  "text": "درخواست فیس {{amount}}، پورٹل پر {{payee}} کو ادا کی جاتی ہے",
+  "why": "Drop added 'you will pay'"
+ },
+ "writing:auto.studentNote": {
+  "text": "یہ قواعد پر مبنی خودکار جانچ ہے، کوئی انسان نہیں۔ یہ ان جملوں کی نشاندہی کرتی ہے جنہیں دیکھنا چاہیے — یہ آپ کی تحریر نہ کبھی بدلتی ہے نہ لکھتی ہے۔",
+  "why": "EN: automatic rule-based check"
+ },
+ "visaroute:methodNote.G4K_BOOKING": {
+  "text": "‏g4k.go.kr پر آن لائن اپائنٹمنٹ لیں، پھر خود قونصل خانے جائیں۔ کوئی اور آپ کی جگہ درخواست نہیں دے سکتا۔",
+  "why": "Unify spelling اپائنٹمنٹ"
+ },
+ "visaroute:track.appointmentHint": {
+  "text": "سفارت خانے کے سرکاری نظام سے اپائنٹمنٹ لیں، پھر تاریخ یہاں درج کریں۔ ہم چیک کریں گے کہ اس دن آپ کی دستاویزات کارآمد ہوں۔",
+  "why": "Unify spelling اپائنٹمنٹ"
+ },
+ "concierge:feedback.gaveNo": {
+  "text": "آپ نے بتایا کہ یہ ٹھیک نہیں رہا — آپ کی ٹیم آپ سے رابطہ کرے گی۔",
+  "why": "EN: team will contact you"
+ },
+ "concierge:housing.listingsSub": {
+  "text": "ہر کمرہ کسی نامزد فراہم کنندہ کی طرف سے ہے۔",
+  "why": "Drop sentence absent from EN"
+ },
+ "concierge:residence.groupNo": {
+  "text": "آپ کی یونیورسٹی گروپ کی صورت میں درخواست نہیں دیتی — HiKorea پر خود اپنی اپائنٹمنٹ بک کریں۔",
+  "why": "Natural wording; unified spelling"
+ },
+ "concierge:step.residence_setup.text": {
+  "text": "اترنے کے بعد 90 دن کے اندر رہائشی کارڈ کے لیے رجسٹریشن کرائیں اور نیشنل ہیلتھ انشورنس میں شامل ہوں۔",
+  "why": "Drop heading-style prefix absent in EN"
+ },
+ "mobile:login.networkError": {
+  "text": "‏Hangyul سے ابھی {{url}} پر رابطہ نہیں ہو پا رہا۔ براہِ کرم اپنا کنکشن چیک کریں اور تھوڑی دیر بعد دوبارہ کوشش کریں۔",
+  "why": "Remove dev hints; glossary service-unavailable wording"
+ },
+ "mobile:login.webSignup": {
+  "text": "نئے ہیں؟ ایپ میں اپنا اکاؤنٹ بنائیں۔",
+  "why": "EN now: sign up in the app"
+ },
+ "mobile:student.applications.confirm.OFFER_ACCEPTED.body": {
+  "text": "آپ {{university}} کی آفر قبول کر رہے ہیں۔ Hangyul Univ ٹیم ٹیوشن فیس کی ادائیگی اور آپ کا معیاری داخلہ لیٹر حاصل کرنے میں آپ کی رہنمائی کرے گی۔",
+  "why": "Team; official 'standard admission letter'"
+ },
+ "mobile:student.documents.fixFallback": {
+  "text": "‏Hangyul ٹیم نے اس دستاویز میں تبدیلی مانگی ہے۔",
+  "why": "Reviewer → Hangyul team"
+ },
+ "mobile:student.messages.subtitle": {
+  "text": "‏Hangyul Univ ٹیم سے بات کریں۔",
+  "why": "Counselor → Hangyul Univ team"
+ },
+ "mobile:student.nextAction.COMPARE_OFFERS": {
+  "text": "اپنی {{count}} داخلہ آفرز کا موازنہ کریں",
+  "why": "Glossary: admission offer"
+ },
+ "mobile:student.nextAction.FINISH_APPLICATION": {
+  "text": "اپنی {{university}} درخواست مکمل کریں۔ {{remaining}} چیزیں باقی ہیں",
+  "why": "Urdu noun instead of 'items'"
+ },
+ "mobile:student.nextAction.RESPOND_OFFER": {
+  "text": "اپنی داخلہ آفر کا جواب دیں",
+  "why": "Glossary: admission offer"
+ },
+ "mobile:student.tasks.subtitle": {
+  "text": "‏Hangyul ٹیم کی طرف سے کام اور آپ کی درخواستوں کی چیک لسٹس۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "mobile:v3.appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "آپ کا داخلہ لیٹر تیار ہے۔ اپنی ویزا دستاویزات کی تیاری شروع کریں۔",
+  "why": "EN now: start visa documents"
+ },
+ "mobile:v3.appStatus.PROFILE_REVIEW": {
+  "text": "‏Hangyul Univ ٹیم آپ کے پروفائل کا جائزہ لے رہی ہے۔",
+  "why": "Counselor → Hangyul Univ team"
+ },
+ "mobile:v3.application.reviewBody": {
+  "text": "‏{{date}} کو جمع کرائی گئی۔ یونیورسٹی کوئی اور دستاویز یا انٹرویو مانگ سکتی ہے۔ Hangyul ٹیم اس کی پیش رفت پر نظر رکھے ہوئے ہے۔",
+  "why": "EN: Hangyul team follows progress"
+ },
+ "mobile:v3.docAction.IN_REVIEW": {
+  "text": "‏Hangyul ٹیم جانچ رہی ہے",
+  "why": "Counselor → Hangyul team"
+ },
+ "mobile:v3.docAction.LEGALIZE": {
+  "text": "اپوسٹل یا قونصلر تصدیق درکار",
+  "why": "Glossary: consular legalization"
+ },
+ "mobile:v3.home.nextBody.DOCUMENT_UPLOAD": {
+  "text": "صاف اسکین یا تصویر اپ لوڈ کریں۔ Hangyul ٹیم اسے جانچ کر بتائے گی کہ کچھ درست کرنا ہے یا نہیں۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "mobile:v3.home.nextBody.ESSAY_WRITE": {
+  "text": "کچے مسودے سے شروع کریں۔ Hangyul ٹیم آپ کے ساتھ اس کا جائزہ لے گی۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "mobile:v3.home.noCounselor": {
+  "text": "پلان چنیں، اور Hangyul Univ ٹیم آپ کی زبان میں آپ کے ساتھ کام کرے گی۔",
+  "why": "EN now: team works in your language"
+ },
+ "mobile:v3.home.stageLine.apply": {
+  "text": "یونیورسٹیاں آپ کی درخواستوں کا جائزہ لے رہی ہیں",
+  "why": "Match EN 'universities are reviewing'"
+ },
+ "mobile:v3.home.stageLine.visa": {
+  "text": "آپ کے اسٹوڈنٹ ویزا کی دستاویزات کی تیاری",
+  "why": "Glossary: visa document preparation"
+ },
+ "mobile:v3.home.team": {
+  "text": "‏Hangyul Univ ٹیم",
+  "why": "Counselor → Hangyul Univ team"
+ },
+ "mobile:v3.messages.attachUnavailable": {
+  "text": "اٹیچمنٹس ابھی دستیاب نہیں۔",
+  "why": "Drop 'this server'"
+ },
+ "mobile:v3.offer.deadline": {
+  "text": "‏{{date}} تک آفر قبول کریں اور ٹیوشن فیس ادا کریں · {{left}}",
+  "why": "EN: accept, not reply"
+ },
+ "mobile:v3.profile.places": {
+  "text": "آپ کی تفصیلات",
+  "why": "EN now 'Your details'"
+ },
+ "mobile:v3.profile.unlock.sponsor": {
+  "text": "اس سے آپ ویزا کی مالی دستاویزات جلد تیار کر سکتے ہیں",
+  "why": "Restore 'lets you … early'"
+ },
+ "mobile:v3.push.idle": {
+  "text": "جب کسی دستاویز کا جائزہ ہو، آخری تاریخ قریب ہو یا Hangyul ٹیم جواب دے تو پش الرٹ پائیں۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "mobile:v3.quick.createAccount": {
+  "text": "جاری رکھنے کے لیے سائن اپ کریں",
+  "why": "Glossary: sign up"
+ },
+ "mobile:v3.university.documentsCount": {
+  "text": "‏{{count}} دستاویزات · {{legal}} کو اپوسٹل یا قونصلر تصدیق درکار ہے",
+  "why": "Glossary: consular legalization"
+ },
+ "mobile:v3.upload.privacy": {
+  "text": "آپ کی دستاویزات صرف آپ اور Hangyul ٹیم کھول سکتے ہیں۔ یونیورسٹی انہیں صرف تب دیکھتی ہے جب آپ اسے درخواست جمع کرائیں۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "mobile:v3.visa.after": {
+  "text": "ان کے بعد: {{list}}",
+  "why": "EN: step comes after these"
+ },
+ "mobile:v3.visa.beforeTitle": {
+  "text": "ویزا دستاویزات کی تیاری داخلہ آفر ملنے کے بعد شروع ہوتی ہے",
+  "why": "Glossary; never 'your visa starts'"
+ },
+ "mobile:v3.visa.blockers": {
+  "text": "پہلے یہ درکار ہے",
+  "why": "EN 'Needed first'"
+ },
+ "mobile:v3.visa.phase.apply": {
+  "text": "ویزا درخواست",
+  "why": "EN 'Visa application'"
+ },
+ "mobile:v3.visa.phase.decision": {
+  "text": "سفارت خانے کا فیصلہ",
+  "why": "EN 'Embassy decision'"
+ },
+ "mobile:v3.visa.title": {
+  "text": "آپ کے {{type}} ویزا کی دستاویزات کی تیاری",
+  "why": "EN now 'Preparing your visa'; glossary"
+ },
+ "mobile:v4.application.nextLegalize": {
+  "text": "اپنے {{item}} کا اپوسٹل یا قونصلر تصدیق کرائیں",
+  "why": "Glossary: consular legalization"
+ },
+ "mobile:v4.application.reviewLate": {
+  "text": "معمول سے زیادہ وقت لگ رہا ہے۔ Hangyul ٹیم کو تاخیر کی اطلاع دے دی گئی ہے۔ دوبارہ اپ لوڈ کرنے کی ضرورت نہیں۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "mobile:v4.application.waitBody": {
+  "text": "‏Hangyul ٹیم آپ کی بھیجی ہوئی چیزیں جانچ رہی ہے۔ اگر کچھ بدلنا ہوا تو ہم آپ کو بتائیں گے۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "mobile:v4.application.writeOnWeb": {
+  "text": "اسے ویب پر لکھیں۔ Hangyul ٹیم کے تبصرے بھی وہیں نظر آتے ہیں۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "mobile:v4.documents.lateLine": {
+  "text": "Hangyul ٹیم کے لیے تاخیر کے طور پر نشان زد",
+  "why": "Counselor → Hangyul team"
+ },
+ "mobile:v4.home.item.REVISE_ESSAY.text": {
+  "text": "‏Hangyul ٹیم نے تبصرے کیے ہیں۔ منظوری ملنے تک آپ کی درخواست جمع نہیں ہو سکتی۔",
+  "why": "Counselor → Hangyul team"
+ },
+ "mobile:v4.home.item.WRITE_ESSAY.text": {
+  "text": "‏Hangyul ٹیم آپ کے ساتھ اس کا جائزہ لے گی۔ کچے مسودے سے شروع کریں۔ اسے مکمل ہونا ضروری نہیں۔",
+  "why": "Counselor → Hangyul team"
+ }
+}

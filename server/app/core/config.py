@@ -159,16 +159,6 @@ class Settings(BaseSettings):
 
     malware_scanner: str = "noop"
 
-    # Development-only one-click sign-in for seeded demo accounts (never available when env=production).
-    demo_logins: bool = False
-
-    #: V21 b — may a plan be activated **without a payment**, for local QA (REPORT §243.2)?
-    #:
-    #: Like `demo_logins`, this is an escape hatch for a non-production environment and is read through a
-    #: property that refuses outright in production, so setting the variable on a production host does not
-    #: enable it. The endpoint it gates (`POST /me/orders/dev-complete`) reaches no payment provider.
-    test_payment_bypass: bool = False
-
 
     # ================================================================ V22 — identity, verification, abuse control
     #
@@ -296,22 +286,6 @@ class Settings(BaseSettings):
     @property
     def is_production(self) -> bool:
         return self.env == "production"
-
-    @property
-    def demo_logins_enabled(self) -> bool:
-        return not self.is_production and (self.env in ("development", "test") or self.demo_logins)
-
-    @property
-    def test_payment_bypass_enabled(self) -> bool:
-        """May this server activate a plan as paid without a payment?
-
-        Never in production — and the explicit flag cannot override that, which is the whole point of
-        asking the question here rather than at the call site. Everywhere else: on in development and
-        test, and on anywhere `HG_TEST_PAYMENT_BYPASS=true` says so (a staging host somebody is testing).
-        """
-        if self.is_production:
-            return False
-        return self.env in ("development", "test") or self.test_payment_bypass
 
 
     # ------------------------------------------------------------------ V22 provider readiness (derived, never trusted)

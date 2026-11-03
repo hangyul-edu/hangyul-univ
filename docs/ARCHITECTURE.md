@@ -340,3 +340,23 @@ The consoles get only `'self'`. The API is same-origin under `/api`, so `connect
 - the request marked COMPLETED.
 
 It is exposed as `POST /hq/data-requests/{id}/complete-deletion`, which needs a super admin and an MFA step-up.
+
+## V32 — reference data only, fixtures apart, no test access (2026-11-04)
+
+- **Seeds.** `python -m app.seed.run` loads reference data only: countries, locales, the source registry, the
+  425-institution directory, the V27 research (scholarships, language rules, admission guides), legalization and visa
+  rules, the visa playbooks (`app/seed/visa_playbooks.py`, formerly an `extra_` module), the three approved plans and the
+  editorial articles — and **zero users**. Every synthetic person, organisation, application, document, order and the
+  sample partner catalogue live in `app/seed/fixtures.py` (plus the `extra_*` modules it runs), which refuses any
+  database whose name lacks `test` or `e2e`. `tests/conftest.py` and `scripts/qa/e2e-db.mjs` call it; `npm run db:seed`
+  never does. `npm run qa:v32-data-clean` proves a runtime database holds no member, operational, `is_demo`, `DEMO` or
+  fixture row and still holds the reference minimums.
+- **No demo sign-in, no paid-state bypass (removed in V32).** `/auth/demo-login`, `HG_DEMO_LOGINS`, `POST /me/orders/dev-complete`,
+  `HG_TEST_PAYMENT_BYPASS` and every client that used them were removed. Tests activate plans through
+  `app.seed.fixtures.grant_plan` / `pay_order` (the real `activate_paid_order`), the E2E suite through
+  `server/scripts/fixture_pay.py` on its isolated database, and QA scripts sign in through the real login with fixture
+  accounts (`scripts/qa/auth.mjs`).
+- **Service unreachable.** `ApiError.unreachable` (network failure, our timeout, 502/503/504, or a non-JSON error page
+  where the API should be) → the auth provider's `unavailable` status → `ServiceUnavailable` (web) / `AuthGate`
+  (native): branded, localized, Retry. The marketing site never needs it: public discovery is static (REPORT §435).
+- **Canonical select.** `packages/ui/src/select.tsx` — see docs/FRONTEND_CONVENTIONS.md.

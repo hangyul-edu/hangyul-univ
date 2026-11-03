@@ -22,7 +22,6 @@ export const routes = [
   { path: '/login', lazy: page(() => import('./pages/Login')), hydrateFallbackElement: <FullPageLoader /> },
   // Development tooling, outside the authenticated shell because its job is to get you into it. Note this
   // router's `page()` is used as `lazy: page(…)`, not spread — spreading it renders nothing (REPORT §80.2).
-  ...(import.meta.env.DEV ? [{ path: '/__dev', lazy: page(() => import('./pages/DevTools')) }] : []),
   {
     path: '/',
     element: (

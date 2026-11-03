@@ -16,6 +16,7 @@
  *   npm run qa:v16
  *   SKIP_BUILD=1 npm run qa:v16        # skip the production-build suppression check (~2 min)
  */
+import { apiToken } from './auth.mjs';
 import { chromium } from '@playwright/test';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -556,10 +557,7 @@ head('payment — the right merchant configuration, and no secret anywhere it ca
   // Straight at the API with a seeded student's token. The browser keeps its access token in memory, so a
   // `fetch(..., {credentials:'include'})` from a page would be unauthenticated — and a gate that silently
   // measures a 401 is worse than one that does not run.
-  const tok = await fetch(`${API}/api/v1/auth/demo-login`, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: 'student.new@demo.hangyul.kr', client: 'student' }),
-  }).then((r) => r.json()).then((j) => j.access_token).catch(() => null);
+  const tok = await apiToken(`${API}/api/v1`, 'student.new@demo.hangyul.kr', 'student').catch(() => null);
   if (!tok) bad('could not sign in a seeded student against the API');
   else {
     const auth = { Authorization: `Bearer ${tok}`, 'Content-Type': 'application/json' };
@@ -773,7 +771,7 @@ if (process.env.SKIP_BUILD === '1') {
     for (const app of ['agency-web', 'university-web']) {
       execFileSync('npx', ['vite', 'build', '--outDir', join(out, app), '--emptyOutDir'], {
         cwd: join(ROOT, 'apps', app),
-        env: { ...process.env, NODE_ENV: 'production', VITE_DEMO_LOGINS: '' },
+        env: { ...process.env, NODE_ENV: 'production' },
         stdio: 'pipe', timeout: 600_000,
       });
       const js = [];

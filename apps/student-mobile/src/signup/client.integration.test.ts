@@ -16,6 +16,7 @@ const peek = async (id: string) => ((await (await fetch(`${ORIGIN}/api/v1/auth/v
 // V26 (REPORT §349, RC-19): the account this suite registers is QA residue on the development database and the `qa:v26`
 // hygiene gate counts it. Tear down the way every gate does — the shared purge script, which knows the `native-…` pattern.
 afterAll(() => {
+  if (process.env.HG_E2E_KEEP) return; // on the isolated e2e stack the whole database is dropped afterwards
   const server = decodeURIComponent(new URL('../../../../server/', import.meta.url).pathname);
   try { execFileSync(`${server}.venv/bin/python`, ['-m', 'scripts.purge_e2e'], { cwd: server, env: { ...process.env, HG_ENV: 'development' }, stdio: 'ignore', timeout: 60_000 }); }
   catch { /* nothing to do here: the hygiene gate reports whatever is left */ }

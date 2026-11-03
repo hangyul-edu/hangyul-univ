@@ -7,8 +7,9 @@ import { View } from 'react-native';
 /** Who I am, where my other work lives, language, sign out. Account and team settings stay on the web console. */
 export default function SettingsScreen() {
   const { t } = useTranslation();
+  // A tab root with no native header pads the status bar itself (V32: the account card sat under the clock).
   return (
-    <Screen>
+    <Screen edges={['top', 'left', 'right']}>
       <AccountCard />
       <View style={{ gap: 8 }}>
         <SectionTitle title={t('v3.settings.work')} />

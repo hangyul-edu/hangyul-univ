@@ -1,0 +1,612 @@
+{
+ "_notes": [
+  "90 keys had no Kazakh (cur = null) and 1 was empty (v15.pricing.compare.item); all are translated here. common:auth.strength.0 is intentionally empty in English and stays empty.",
+  "Enrolled vs admitted: 'Оқуға қабылданды' means admitted, so appStatus.ENROLLED and pipeline.ENROLLED become 'Оқуға тіркелді' (registered after tuition), matching the glossary and the university console.",
+  "Offer: appStatus.OFFERED / notify OFFERED unified on «Қабылдау ұсынысы алынды» (the notification quotes the status label); OFFER_ACCEPTED becomes the neutral 'Ұсыныс қабылданды' (the old 'Оқуға түсуді растадыңыз' said 'you confirmed enrolling', a different step).",
+  "Standard admission letter: official term rendered 'стандартты қабылдау хаты' (privacy list); plain 'қабылдау хаты' kept where English says 'admission letter'.",
+  "GKS: official name 'Global Korea Scholarship (GKS)' kept in Latin everywhere (was 'Корея үкіметінің стипендиясы' in uni27.cat.GKS and bare 'GKS' in v28.uni.why.gks).",
+  "Region names: directory groups (v21.dir.group.*) now use the same Kazakh as common:region.* (Оңтүстік Кёнсан, Солтүстік Кёнсан, Канвон, Кёнги) instead of Кёнсаннамдо/Канвондо/Кёнгидо.",
+  "Korean place names follow the Cyrillic transliteration already used in the bundle (Пусан, Чхонан, Кёнджу, Пхохан, Чонджу, Ёсу…).",
+  "Personal statement stays 'мотивациялық хат' everywhere (consistent in the bundle and what Kazakhstani applicants call it); recommendation letter unified on 'ұсыным хат' (FAQ/privacy already used it). Owner may prefer a literal 'өзін таныстыру хаты' — not churned.",
+  "Plan stays 'тариф' (used in terms, pricing notes and the console); the one 'Premium жоспарына' was aligned.",
+  "Visa wording: every 'visa preparation' line now says viza құжаттары (documents), never 'визаны жүргізу/дайындау', so nothing reads as Hangyul handling the visa itself.",
+  "marketing:v21.uni.placeWhere becomes '{{region}}, {{city}} қаласында.' — when region and city are the same (Seoul, Busan) it reads 'Сеул, Сеул қаласында'; owner may want to suppress the city for metropolitan regions.",
+  "Kazakh plural forms (_one/_other) are identical: Kazakh nouns stay singular after a numeral."
+ ],
+ "marketing:nav.universities": {
+  "text": "Университеттер",
+  "why": "EN is 'Universities', not 'search'"
+ },
+ "marketing:seo.home.description": {
+  "text": "Өзіңізге сай корей университетін табыңыз, құжаттарды дайындаңыз, виза мен келуге дайындалыңыз: тексерілген ақпарат пен Hangyul командасы бір жерде.",
+  "why": "drifted from EN; restores Hangyul team"
+ },
+ "marketing:v11.services.s1.text": {
+  "text": "Үлгеріміңіз бен мақсаттарыңызға сай университеттер мен университет жанындағы корей тілі курстарын ұсынамыз. Жеке кеңесте өтінім бере алатын стипендияларыңызды қарастырамыз, содан кейін қабылдау құжаттарын сізбен бірге дайындап, өтініміңіз қаралып жатқанда университетпен байланысып отырамыз.",
+  "why": "restores 'with you' and ongoing contact"
+ },
+ "marketing:v11.unis.all": {
+  "text": "Барлық университетті көру",
+  "why": "button: verb was missing"
+ },
+ "marketing:v12.directory.countShort_one": {
+  "text": "{{count}} оқу орны",
+  "why": "missing"
+ },
+ "marketing:v12.directory.countShort_other": {
+  "text": "{{count}} оқу орны",
+  "why": "missing"
+ },
+ "marketing:v12.directory.count_one": {
+  "text": "{{count}} оқу орны",
+  "why": "missing"
+ },
+ "marketing:v12.directory.emptyText": {
+  "text": "Басқа аймақты таңдаңыз немесе бүкіл Кореяны қараңыз.",
+  "why": "missing"
+ },
+ "marketing:v12.directory.emptyTitle": {
+  "text": "Бұл аймақта тіркелген оқу орны жоқ",
+  "why": "missing"
+ },
+ "marketing:v12.directory.inRegion": {
+  "text": "{{region}} аймағындағы университеттер",
+  "why": "missing"
+ },
+ "marketing:v12.directory.matching": {
+  "text": "«{{q}}» бойынша сәйкестіктер",
+  "why": "missing"
+ },
+ "marketing:v12.establishment.NATIONAL": {
+  "text": "Ұлттық",
+  "why": "missing; matches common:institution"
+ },
+ "marketing:v12.establishment.PUBLIC": {
+  "text": "Мемлекеттік",
+  "why": "missing; matches common:institution"
+ },
+ "marketing:v12.ieqas.excellent": {
+  "text": "IEQAS сертификаты бар — үздік",
+  "why": "missing"
+ },
+ "marketing:v12.legal.effective": {
+  "text": "{{date}} бастап күшінде",
+  "why": "missing"
+ },
+ "marketing:v12.map.hide": {
+  "text": "Картаны жасыру",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.collect.documents.items": {
+  "text": "Төлқұжат, жеке куәлік, фотосурет, бағалар транскрипттері, бітіргені және бітіретіні туралы анықтамалар, туыстық қатынас және туу туралы куәліктер, банк үзінділері, демеуші құжаттары, жұмыс пен табысты растайтын құжаттар, TOPIK, IELTS және TOEFL нәтижелері, ұсыным хаттар, мотивациялық хаттар, оқу жоспарлары, түйіндеме, апостиль, нотариаттық куәландыру және куәландырылған аудармалар, шетелдіктің тіркеу картасы, виза, стандартты қабылдау хаты",
+  "why": "official 'standard admission letter' term"
+ },
+ "marketing:v12.privacy.contact.colField": {
+  "text": "Өріс",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.colValue": {
+  "text": "Мәлімет",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.department": {
+  "text": "Бөлім",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.email": {
+  "text": "Электрондық пошта",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.h": {
+  "text": "Жеке деректерді қорғау жөніндегі жауапты тұлға және байланыс",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.officer": {
+  "text": "Жеке деректерді қорғау жөніндегі жауапты тұлға",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.phone": {
+  "text": "Телефон",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.processors.colContact": {
+  "text": "Байланыс",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.processors.colRetention": {
+  "text": "Өңдеушінің сақтау мерзімі",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.processors.none": {
+  "text": "Қазіргі уақытта өндірістік ортада Hangyul атынан жеке ақпаратты өңдейтін өңдеуші жоқ. Бұл өзгерсе, өңдеуші мен оған тапсырылатын жұмыс осы жерде жарияланып, басталғанға дейін хабарланады.",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.retention.months_one": {
+  "text": "{{count}} ай",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.retention.years_one": {
+  "text": "{{count}} жыл",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.transfer.none": {
+  "text": "Қазіргі уақытта жеке ақпаратты Кореядан тыс жерге беретін өңдеуші пайдаланылмайды. Шетелге беру қажет болса, алушы, ел, мақсат, ақпарат, уақыты, әдісі және сақтау мерзімі осы жерде жарияланып, басталғанға дейін хабарланады.",
+  "why": "missing"
+ },
+ "marketing:v12.terms.effective.h": {
+  "text": "Күшіне ену күні",
+  "why": "missing"
+ },
+ "marketing:v12.terms.effective.p": {
+  "text": "Бұл шарттар {{date}} бастап күшіне енеді.",
+  "why": "missing"
+ },
+ "marketing:v12.terms.law.h": {
+  "text": "Қолданылатын құқық және юрисдикция",
+  "why": "missing"
+ },
+ "marketing:v12.terms.refunds.stage.APPLICATION_WORK_STARTED": {
+  "text": "Өтінім бойынша жұмыс басталды",
+  "why": "EN: work started, not 'support'"
+ },
+ "marketing:v12.terms.services.visa": {
+  "text": "Виза құжаттарын дайындау бойынша нұсқаулық",
+  "why": "'guidance' = нұсқаулық, not түсіндірме"
+ },
+ "marketing:v12.uni.back": {
+  "text": "Кореядағы университеттерге оралу",
+  "why": "missing"
+ },
+ "marketing:v14.legal.ecommerce": {
+  "text": "Электрондық коммерция тіркеу нөмірі",
+  "why": "official e-commerce term"
+ },
+ "marketing:v14.media.alt.seoulRiver": {
+  "text": "Күн батар шақта өзеннің арғы бетінен көрінген {{region}} силуэті.",
+  "why": "missing"
+ },
+ "marketing:v15.pricing.compare.item": {
+  "text": "Қызмет",
+  "why": "was empty"
+ },
+ "marketing:v17.quick.ctaWhy": {
+  "text": "Hangyul өтінімдерді, құжаттарды және виза құжаттарын дайындауды сізбен бірге жүргізеді.",
+  "why": "'визаны жүргізеді' implied handling the visa"
+ },
+ "marketing:v17.uni.missionTitle": {
+  "text": "Бұл университеттің ұстанымы",
+  "why": "old line was an unfinished sentence"
+ },
+ "marketing:v20.city.Chungbuk.body": {
+  "text": "Солтүстік Чхунчхон — Кореяның теңізге шықпайтын жалғыз провинциясы. Оның орталығы әрі басты университет қаласы — Чхонджу; ол Седжон мен Тэджонға жақын, сондықтан олардың еңбек нарығы ортақ.\nПровинция Таняңның әктас жартастарымен және ірі қалаларға қарағанда тыныш әрі арзан студенттік өмірімен танымал.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungbuk.line": {
+  "text": "Теңізге шықпайды, елдің ортасында орналасқан, Чхонджудың айналасына шоғырланған.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungbuk.청주": {
+  "text": "Чхонджу",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungnam.아산": {
+  "text": "Асан",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungnam.천안": {
+  "text": "Чхонан",
+  "why": "missing"
+ },
+ "marketing:v20.city.Daegu.body": {
+  "text": "Тэгу елдің оңтүстік-шығысындағы тау қазаншұңқырында орналасқан: тамызда Кореяның ең ыстық, қаңтарда ең суық қалаларының бірі. Қаланың тығыз, жаяу аралауға ыңғайлы орталығы, кейін сән және медициналық құрылғылар өнеркәсібіне ұласқан ұзақ тоқыма тарихы бар, ал тұрмыс құны Сеул мен Пусаннан айтарлықтай төмен.\nKTX-пен Сеулге бір сағат қырық бес минутта, Пусанға елу минутта жетуге болады.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Daegu.line": {
+  "text": "Таулы қазаншұңқырдағы ішкі қала: тоқыма, медицина және аптап ыстығымен танымал.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Daejeon.body": {
+  "text": "Тэджон мемлекеттік ғылыми институттар мен корпоративтік R&D орталықтары шоғырланған Тэдок инноваполисінің айналасында өсті, мұндағы университеттер де соның ықпалымен қалыптасқан. Инженерия немесе жаратылыстану ғылымдары үшін келсеңіз, зертханалар осында.\nҚала елдің дәл ортасында: KTX-пен Сеулге бір сағат, Пусанға бір сағат.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.body": {
+  "text": "Канвонда Тхэбэк тау жотасы, 2018 жылғы қысқы Олимпиада нысандары және шығыс жағалаудың жағажайлары бар. Университет қалалары — Чхунчхон, Каннын және Вонджу; ешқайсысы үлкен емес, бәрі астана аймағының кез келген жерінен арзан әрі тыныш.\nМұндағы қыс — нағыз қыс. KTX Сеулден Каннынға шамамен екі сағатта жеткізеді.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.강릉": {
+  "text": "Каннын",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.원주": {
+  "text": "Вонджу",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.춘천": {
+  "text": "Чхунчхон",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gwangju.body": {
+  "text": "Кванджу — Чолла провинцияларының ең үлкен қаласы; олардың тағамымен және 1980 жылғы демократиялық көтеріліспен байланысты атағын да осы қала алып жүр, Кореяда қала әлі күнге дейін ең алдымен сонымен танымал.\nБұл тұруға арзан ірі қалалардың бірі, өнер ортасы жоғары бағаланады, ал Сеулге KTX-пен шамамен екі сағат.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gwangju.line": {
+  "text": "Оңтүстік-батыстың мәдени және саяси орталығы, оқуға қолжетімді қала.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.body": {
+  "text": "Солтүстік Кёнсанда мың жыл бойы Силла астанасы болған, іс жүзінде ашық аспан астындағы мұражайға айналған Кёнджу және Кореяның ең мықты ғылыми-инженерлік университеттерінің бірі орналасқан болат қаласы Пхохан бар. Ішкі аймақтағы Андон — корей конфуцийлік дәстүрінің орталығы.\nБұл үлкен әрі алуан түрлі провинция, және оның барлық жері астана аймағынан арзан.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.line": {
+  "text": "Кёнджудің мың жылдық тарихы мен Пхоханның болаты бір провинцияда.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.경주": {
+  "text": "Кёнджу",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.구미": {
+  "text": "Куми",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.포항": {
+  "text": "Пхохан",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.고양": {
+  "text": "Коян",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.부천": {
+  "text": "Пучхон",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.성남": {
+  "text": "Соннам",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.수원": {
+  "text": "Сувон",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.안양": {
+  "text": "Анян",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.용인": {
+  "text": "Ёнъин",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongnam.김해": {
+  "text": "Кимхэ",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongnam.진주": {
+  "text": "Чинджу",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongnam.창원": {
+  "text": "Чханвон",
+  "why": "missing"
+ },
+ "marketing:v20.city.Incheon.line": {
+  "text": "Кореяның қақпа қаласы: әуежай да, Сондо да осында.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeju.body": {
+  "text": "Чеджу құрлықтан 85 километр жерде, Халласан жанартауының айналасында орналасқан, ал климаты жылы болғандықтан өсімдігі субтропикалық көрінеді. Бұл бүкіл елдің демалыс орны, және бұл оның экономикасы мен жалдау бағасын қалыптастырады.\nМұнда университеттер аз және шағын. Сеулге ұшақ бірнеше минут сайын ұшады, жол бір сағат алады.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeju.line": {
+  "text": "Оңтүстік жағалаудағы жанартаулы арал, Кореяның қалған бөлігінен өзгеше климат.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.body": {
+  "text": "Солтүстік Чолла — ауыл шаруашылығы аймағы, батысы жазық, шығысы таулы, ал орталығы — Чонджу: елдегі ең үлкен сақталған ханок ауданы бар, тағамының даңқына Кореяның бірде-бір қаласы таласпайтын 650 мыңдай тұрғыны бар қала.\nТұрмыс құны университет қалаларының ішіндегі ең төмендердің бірі, Сеулге KTX-пен екі сағатқа жетпейді.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.line": {
+  "text": "Чонджу және корей тағамының отаны саналатын өңір.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.익산": {
+  "text": "Иксан",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.전주": {
+  "text": "Чонджу",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.body": {
+  "text": "Оңтүстік Чоллада Кореяның қалған бөлігіндегіден көп арал, Сунчхон шығанағының сулы-батпақты алқабы және Ёсу айлағы бар. Бұл құрлықтағы провинциялардың ең аз урбанизацияланғаны, сондықтан мұндағы университеттер де шағын әрі тығыз қауымдастық.\nЖағалауы бар, тұрмыс құны өте төмен тыныш жер іздесеңіз — осы.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.line": {
+  "text": "Оңтүстік-батыс жағалау, оның аралдары және елдегі ең баяу өмір қарқыны.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.목포": {
+  "text": "Мокпхо",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.순천": {
+  "text": "Сунчхон",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.여수": {
+  "text": "Ёсу",
+  "why": "missing"
+ },
+ "marketing:v20.city.Sejong.body": {
+  "text": "Седжон — Кореяның ең жаңа және ең мұқият жоспарланған қаласы: орталық министрліктердің көбі Сеулден осында көшті, ал көшелер жүйесі, саябақтар мен қоғамдық ғимараттардың бәрі соңғы он бес жылда салынған.\nБұл шағын, тыныш әрі өте жаңа қала: Тэджонға жиырма минут, Сеулге бір жарым сағат.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Sejong.line": {
+  "text": "Үкімет министрліктерін орналастыру үшін 2012 жылдан бері бос жерге салынған қала.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Ulsan.line": {
+  "text": "Кореяның өнеркәсіп астанасы: кеме жасау, автокөлік және мұнай-химия.",
+  "why": "missing"
+ },
+ "marketing:v20.dir.filterType": {
+  "text": "Оқу орнының түрі",
+  "why": "EN: institution type"
+ },
+ "marketing:v20.dir.tierVideo": {
+  "text": "Ресми бейне",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.busanGwangan": {
+  "text": "{{region}} аймағындағы шығанақ үстіндегі түнде жарықтандырылған Кванан көпірі",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.daejeonExpo": {
+  "text": "{{region}} аймағындағы өзен үстіндегі жарықтандырылған Экспо көпірі",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.gyeongjuBulguksa": {
+  "text": "{{region}} аймағындағы Кёнджудегі Пульгукса ғибадатханасы",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.jeonjuHanok": {
+  "text": "{{region}} аймағындағы Чонджу ханок ауылының черепица төбелері",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.seoulCheonggyecheon": {
+  "text": "{{region}} орталығы арқылы өтетін Чхонгечхон бұлағының жағалау жолы",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.seoulYeouido": {
+  "text": "Ымырт кезіндегі {{region}} аймағындағы Ёыйдодағы Хан өзені",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.sokchoSeorak": {
+  "text": "{{region}} аймағындағы Сораксан жотасының етегіндегі Сокчхо силуэті",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.ulsanBridge": {
+  "text": "{{region}} аймағындағы айлақ үстіндегі Ульсан көпірі",
+  "why": "missing"
+ },
+ "marketing:v20.uni.intl.dormLine": {
+  "text": "Университет жатақхана туралы ақпаратты өзі жариялайды.",
+  "why": "dormitory = жатақхана, not тұрғын үй"
+ },
+ "marketing:v20.uni.link.dormitory": {
+  "text": "Жатақхана",
+  "why": "dormitory = жатақхана (one term)"
+ },
+ "marketing:v20.uni.match.NOT_YET": {
+  "text": "Тіл сертификаты болған соң осында өтінім бере аласыз.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.POSSIBLE": {
+  "text": "Берген жауаптарыңыз бойынша осында өтінім беруге тұрарлық.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.STRONG": {
+  "text": "Мұндағы бағдарламалар сіздің жауаптарыңызға сай келеді.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.ieqas": {
+  "text": "IEQAS сертификатталған тізімінде, бұл виза талаптарын жеңілдетеді.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.language": {
+  "text": "Корей тілі курсы сертификатталған тізімде, сондықтан тілден бастай аласыз.",
+  "why": "missing"
+ },
+ "marketing:v21.dir.group.busan": {
+  "text": "Пусан · Оңтүстік Кёнсан",
+  "why": "same region name as common:region"
+ },
+ "marketing:v21.dir.group.daegu": {
+  "text": "Тэгу · Солтүстік Кёнсан",
+  "why": "same region name as common:region"
+ },
+ "marketing:v21.dir.group.gangwon": {
+  "text": "Канвон · Чеджу",
+  "why": "same region name as common:region"
+ },
+ "marketing:v21.dir.group.gyeonggi": {
+  "text": "Кёнги · Инчхон",
+  "why": "same region name as common:region"
+ },
+ "marketing:v21.uni.placeWhere": {
+  "text": "{{region}}, {{city}} қаласында.",
+  "why": "missing"
+ },
+ "marketing:v28.uni.why.gks": {
+  "text": "Global Korea Scholarship (GKS) бағдарламасына қатысады",
+  "why": "official scholarship name"
+ },
+ "common:appStatus.ENROLLED": {
+  "text": "Оқуға тіркелді",
+  "why": "enrolled ≠ admitted"
+ },
+ "common:appStatus.OFFERED": {
+  "text": "Қабылдау ұсынысы алынды",
+  "why": "one label for 'offer'; notification quotes it"
+ },
+ "common:appStatus.OFFER_ACCEPTED": {
+  "text": "Ұсыныс қабылданды",
+  "why": "status label, not 'you confirmed enrolling'"
+ },
+ "common:docCategory.NOTARIZATION": {
+  "text": "Нотариаттық куәландыру",
+  "why": "one term: нотариаттық (as in FAQ, privacy)"
+ },
+ "common:docCategory.RECOMMENDATION": {
+  "text": "Ұсыным хат",
+  "why": "one term: ұсыным хат"
+ },
+ "common:docCategory.TOPIK": {
+  "text": "TOPIK нәтижесі",
+  "why": "parallel with IELTS/TOEFL rows"
+ },
+ "common:eligibility.ELIGIBLE": {
+  "text": "Сәйкес келеді",
+  "why": "neutral chip; also used in consoles"
+ },
+ "common:eligibility.POSSIBLE": {
+  "text": "Сәйкес келуі мүмкін",
+  "why": "neutral chip; also used in consoles"
+ },
+ "common:essayType.RECOMMENDATION": {
+  "text": "Ұсыным хат",
+  "why": "one term: ұсыным хат"
+ },
+ "common:fit.levelValue.KING_SEJONG": {
+  "text": "Седжон корей тілі {{level}}",
+  "why": "matches 'Седжон патша институты'"
+ },
+ "common:fit.order": {
+  "text": "«Ұсынылатын» — рейтинг емес. Бұл халықаралық білім беру сертификаты мен стипендия шарттары сияқты тексерілген деректерге негізделген қарау реті. Осы университеттердің ішінде {{verified}} университеттің қабылдау талаптарын Hangyul тексерген.",
+  "why": "'бұлардың' colloquial; smoother"
+ },
+ "common:fit.summary.MEETS": {
+  "text": "{{formatted}} университеттің жарияланған ең төменгі талаптарына қазірдің өзінде сай келесіз.",
+  "why": "old sentence was ungrammatical"
+ },
+ "common:footer.privacy": {
+  "text": "Құпиялылық",
+  "why": "same word as 'Құпиялылық саясаты'"
+ },
+ "common:housingStatus.RESEARCHING": {
+  "text": "Нұсқалар қаралуда",
+  "why": "'зерттелуде' reads as scientific research"
+ },
+ "common:matchReason.SCHOLARSHIP_CANDIDATE": {
+  "text": "Стипендияға сай келуі мүмкін",
+  "why": "'may qualify', no promise"
+ },
+ "common:nav.admissionRules": {
+  "text": "Қабылдау талаптары",
+  "why": "requirements = талаптар (one term)"
+ },
+ "common:nav.partnership": {
+  "text": "Серіктестік келісімі",
+  "why": "EN: partnership agreement"
+ },
+ "common:notify.application.OFFERED": {
+  "text": "{{university}}: өтінім мәртебесі енді «Қабылдау ұсынысы алынды»",
+  "why": "quotes appStatus.OFFERED label"
+ },
+ "common:notify.documentRequest.fulfilled": {
+  "text": "Өтінім беруші сіз сұраған құжатты жіберді: {{document}}",
+  "why": "missing"
+ },
+ "common:pipeline.ENROLLED": {
+  "text": "Оқуға тіркелді",
+  "why": "enrolled ≠ admitted"
+ },
+ "common:pipeline.VISA_PREPARATION": {
+  "text": "Визаға дайындық",
+  "why": "'виза дайындау' = preparing a visa"
+ },
+ "common:role.HANGYUL_OPERATIONS": {
+  "text": "Hangyul операциялық бөлімі",
+  "why": "parallel with 'Hangyul қаржы бөлімі'"
+ },
+ "common:states.noResults": {
+  "text": "Сүзгілеріңізге сәйкес нәтиже жоқ. Кейбірін алып тастаңыз немесе барлығын тазалаңыз.",
+  "why": "second sentence was dropped"
+ },
+ "common:states.offline": {
+  "text": "Интернет байланысы жоқ.",
+  "why": "natural Kazakh for offline"
+ },
+ "common:states.unavailableText": {
+  "text": "Hangyul-ге қазір қосылу мүмкін болмай тұр. Сәл кейінірек қайталап көріңіз.",
+  "why": "was English"
+ },
+ "common:states.unavailableTitle": {
+  "text": "Қызметті іске қосуға дайындап жатырмыз",
+  "why": "was English"
+ },
+ "common:task.submissionAgency": {
+  "text": "{{student}} — {{university}} өтінімін жіберу (рұқсат берілген)",
+  "why": "missing"
+ },
+ "common:task.writingOverdue": {
+  "text": "Эссе тексеру мерзімі өтті: {{student}}, {{essayType}} — қазір тексеріңіз",
+  "why": "'review it now' was dropped"
+ },
+ "common:uni27.cat.GKS": {
+  "text": "Global Korea Scholarship (GKS)",
+  "why": "official scholarship name"
+ },
+ "common:uni27.house.eyebrow": {
+  "text": "Жатақхана",
+  "why": "dormitory = жатақхана (one term)"
+ },
+ "common:uni27.schol.automatic": {
+  "text": "Іріктелгенде беріледі, бөлек өтінім қажет емес",
+  "why": "'when selected', not 'when admitted'"
+ },
+ "common:v29.addon.item.extra_edit": {
+  "text": "1 қосымша түзету: мотивациялық хат не оқу жоспары",
+  "why": "the '1' was dropped"
+ },
+ "common:v29.addon.premiumMock": {
+  "text": "Premium тарифіне алғашқы сынақ сұхбат қазірдің өзінде кіреді.",
+  "why": "plan = тариф; 'already' restored"
+ },
+ "common:v29.pricing.all_in_one.f2": {
+  "text": "Ең көбі 2 университетке өтінімді бірге жүргіземіз",
+  "why": "clearer count; 'with you'"
+ },
+ "common:v29.pricing.all_in_one.f5": {
+  "text": "Виза құжаттарын дайындауға көмек · жатақханаға өтінім мерзімдерін бақылаймыз",
+  "why": "'help' restored; dormitory application dates"
+ },
+ "common:v29.pricing.compare.row.arrival": {
+  "text": "Келгеннен кейін орнығу",
+  "why": "'settling in' was dropped"
+ },
+ "common:v29.pricing.compare.row.recommended": {
+  "text": "Ұсынылатын университеттер мен тіл курстары",
+  "why": "language institutes were dropped"
+ },
+ "common:v29.pricing.compare.row.visa": {
+  "text": "Виза құжаттарын дайындау",
+  "why": "glossary term: visa document preparation"
+ },
+ "common:v29.pricing.compare.value.documents.CHECKLIST": {
+  "text": "Негізгі құжаттар тізімі",
+  "why": "'essential' restored"
+ },
+ "common:v29.pricing.compare.value.followUpOnce": {
+  "text": "{{count}} қайталама кеңес",
+  "why": "same term as basic.f1"
+ },
+ "common:v29.pricing.premium.f2": {
+  "text": "Ең көбі 3 өтінімді бірге жүргіземіз · 1 сынақ сұхбат",
+  "why": "parallel with All-in-One f2"
+ },
+ "common:v29.pricing.premium.f4": {
+  "text": "Виза құжаттары мен негізгі мерзімдер мұқият бақыланады · жатақханаға өтінімге көмек",
+  "why": "'documents' was dropped"
+ }
+}

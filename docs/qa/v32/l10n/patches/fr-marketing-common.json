@@ -1,0 +1,690 @@
+{
+ "_notes": [
+  "Plan = 'formule' everywhere (47 existing uses across student/agency/marketing); 'plan' kept only for 'projet d'études'. Study plan = 'projet d'études' (common:docCategory); personal statement = 'lettre de motivation' (bundle-wide).",
+  "Document review: common/marketing keep the bundle term 'vérification des documents'; the Agency console keeps its established pair 'relecture' (review) / 'valider' (verify). Unifying the consoles to 'vérification' would touch ~40 existing agency keys and is left to the owner.",
+  "Dormitory = 'résidence universitaire' (32 existing uses); 'logement' reserved for housing as a topic.",
+  "marketing:v12.directory.inRegion uses 'Universités : {{region}}' because French needs 'à' for cities and 'en/dans le' for provinces and the placeholder cannot carry the article.",
+  "marketing:v12.establishment.* stay masculine (établissement) while common:institution.* stay feminine (université): different head nouns, both correct.",
+  "marketing:v14.legal.division: 'Business division' assumed to be the Korean 업태/업종 (sector of activity) → 'Secteur d'activité'; owner to confirm.",
+  "common:v29.pricing.compare.value.supportDays and rounds have no _other form in the job; '{{count}} jour' will misread for 30 days. Needs a plural key (owner).",
+  "common:actions.apply 'Appliquer' kept on the assumption it applies filters; if it is ever used for 'apply to a university' it must be 'Candidater'.",
+  "Typography: non-breaking space (U+00A0) before : ; ! ? and inside « » applied to every patched key and to existing keys that only lacked it.",
+  "Vous used throughout; no tu anywhere."
+ ],
+ "marketing:seo.home.description": {
+  "text": "Trouvez la bonne université coréenne, préparez vos documents et préparez-vous pour le visa et l'arrivée, avec des informations vérifiées et l'équipe Hangyul au même endroit.",
+  "why": "restore 'Hangyul team'; drop invented 'real people'"
+ },
+ "marketing:v11.services.s1.text": {
+  "text": "Nous vous proposons des universités et des instituts de langue coréenne adaptés à votre dossier et à vos objectifs. Lors d'une consultation individuelle, nous passons en revue les bourses auxquelles vous pouvez candidater, puis nous préparons avec vous vos documents d'admission et échangeons avec l'université au fil de votre candidature.",
+  "why": "we communicate with the university, not the student"
+ },
+ "marketing:v12.directory.countShort_one": {
+  "text": "{{count}} établissement",
+  "why": "missing"
+ },
+ "marketing:v12.directory.countShort_other": {
+  "text": "{{count}} établissements",
+  "why": "missing"
+ },
+ "marketing:v12.directory.count_one": {
+  "text": "{{count}} établissement",
+  "why": "missing"
+ },
+ "marketing:v12.directory.emptyText": {
+  "text": "Choisissez une autre région, ou parcourez toute la Corée.",
+  "why": "missing"
+ },
+ "marketing:v12.directory.emptyTitle": {
+  "text": "Aucun établissement répertorié dans cette région",
+  "why": "missing"
+ },
+ "marketing:v12.directory.inRegion": {
+  "text": "Universités : {{region}}",
+  "why": "missing; colon avoids en/à agreement with region names"
+ },
+ "marketing:v12.directory.matching": {
+  "text": "Résultats pour « {{q}} »",
+  "why": "missing"
+ },
+ "marketing:v12.establishment.NATIONAL": {
+  "text": "National",
+  "why": "missing; matches 'Privé' (établissement)"
+ },
+ "marketing:v12.establishment.PUBLIC": {
+  "text": "Public",
+  "why": "missing"
+ },
+ "marketing:v12.ieqas.excellent": {
+  "text": "Certifié IEQAS — excellent",
+  "why": "missing"
+ },
+ "marketing:v12.legal.effective": {
+  "text": "En vigueur le {{date}}",
+  "why": "missing"
+ },
+ "marketing:v12.map.hide": {
+  "text": "Masquer la carte",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.collect.documents.items": {
+  "text": "Passeport, carte d'identité, photo, relevés de notes, attestations de fin d'études et de fin d'études prévue, certificats de relations familiales et actes de naissance, relevés bancaires, documents du garant, justificatifs d'emploi et de revenus, résultats TOPIK, IELTS et TOEFL, lettres de recommandation, lettres de motivation, projets d'études, CV, apostilles, certifications notariées et traductions certifiées, carte de séjour, visa, lettre d'admission standard (standard admission letter)",
+  "why": "official 'standard admission letter'; align document names"
+ },
+ "marketing:v12.privacy.contact.colField": {
+  "text": "Champ",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.colValue": {
+  "text": "Détail",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.department": {
+  "text": "Service",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.email": {
+  "text": "E-mail",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.h": {
+  "text": "Responsable de la protection des données et contact",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.officer": {
+  "text": "Responsable de la protection des données",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.phone": {
+  "text": "Téléphone",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.cookies.essential": {
+  "text": "Hangyul Univ utilise un seul cookie essentiel, pour maintenir votre session ouverte. Il n'est pas lisible par JavaScript, n'est envoyé qu'au chemin d'authentification et est supprimé à la déconnexion.",
+  "why": "épicène: drop 'connecté(e)'"
+ },
+ "marketing:v12.privacy.processors.colContact": {
+  "text": "Contact",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.processors.colRetention": {
+  "text": "Conservation chez le sous-traitant",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.processors.none": {
+  "text": "Aucun sous-traitant ne traite actuellement de données personnelles pour le compte de Hangyul en production. Si cela change, le sous-traitant et la mission qui lui est confiée seront publiés ici et annoncés avant le début du traitement.",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.retention.months_one": {
+  "text": "{{count}} mois",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.retention.years_one": {
+  "text": "{{count}} an",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.sharing.agency.when": {
+  "text": "Lorsque vous achetez une formule incluant l'accompagnement d'une agence, ou acceptez qu'une agence vous soit attribuée",
+  "why": "épicène: 'attribué'"
+ },
+ "marketing:v12.privacy.transfer.none": {
+  "text": "Aucun sous-traitant transférant des données personnelles hors de Corée n'est actuellement utilisé. Si un transfert à l'étranger devient nécessaire, le destinataire, le pays, la finalité, les données, le moment, la méthode et la durée de conservation seront publiés ici et annoncés avant le début du transfert.",
+  "why": "missing"
+ },
+ "marketing:v12.seo.directory.description": {
+  "text": "Toutes les universités, tous les établissements d'enseignement supérieur court et tous les instituts de cycles supérieurs figurant au registre national d'information publique, par région.",
+  "why": "clarify 'public-disclosure register'"
+ },
+ "marketing:v12.terms.effective.h": {
+  "text": "Date d'entrée en vigueur",
+  "why": "missing"
+ },
+ "marketing:v12.terms.effective.p": {
+  "text": "Ces conditions entrent en vigueur le {{date}}.",
+  "why": "missing"
+ },
+ "marketing:v12.terms.law.h": {
+  "text": "Droit applicable et juridiction compétente",
+  "why": "missing"
+ },
+ "marketing:v12.uni.back": {
+  "text": "Retour aux universités en Corée",
+  "why": "missing"
+ },
+ "marketing:v14.legal.division": {
+  "text": "Secteur d'activité",
+  "why": "'Division commerciale' is not a French legal-footer term"
+ },
+ "marketing:v14.legal.representative": {
+  "text": "Représentant légal",
+  "why": "standard French legal-footer term"
+ },
+ "marketing:v14.media.alt.seoulRiver": {
+  "text": "La silhouette de {{region}} de l'autre côté du fleuve, au coucher du soleil.",
+  "why": "missing"
+ },
+ "marketing:v15.pricing.compare.item": {
+  "text": "Service",
+  "why": "empty string"
+ },
+ "marketing:v17.quick.ctaWhy": {
+  "text": "Hangyul s'occupe avec vous des candidatures, des documents et de la préparation du visa.",
+  "why": "'du visa' implied we handle the visa itself"
+ },
+ "marketing:v20.city.Chungbuk.body": {
+  "text": "Le Chungcheong du Nord est la seule province coréenne sans littoral. Cheongju en est le centre et la principale ville universitaire, assez proche de Sejong et de Daejeon pour partager leur marché de l'emploi.\nLa province est connue pour les paysages calcaires de Danyang et pour une vie étudiante plus calme et moins chère que dans les grandes métropoles.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungbuk.line": {
+  "text": "Sans littoral, au centre du pays, organisée autour de Cheongju.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungbuk.청주": {
+  "text": "Cheongju",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungnam.아산": {
+  "text": "Asan",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungnam.천안": {
+  "text": "Cheonan",
+  "why": "missing"
+ },
+ "marketing:v20.city.Daegu.body": {
+  "text": "Daegu occupe une cuvette dans le sud-est : c'est la ville la plus chaude de Corée en août et l'une des plus froides en janvier. Elle a un centre dense où tout se fait à pied, une longue histoire textile devenue industrie de la mode et des dispositifs médicaux, et un coût de la vie nettement inférieur à celui de Séoul ou de Busan.\nEn KTX, Séoul est à une heure et quarante-cinq minutes et Busan à cinquante minutes.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Daegu.line": {
+  "text": "Une ville de l'intérieur dans une cuvette de montagnes, connue pour le textile, la médecine et la chaleur.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Daejeon.body": {
+  "text": "Daejeon s'est développée autour de Daedeok Innopolis, un pôle d'instituts de recherche publics et de centres de R&D d'entreprises, et ses universités en portent la marque. Si vous venez pour l'ingénierie ou les sciences naturelles, c'est ici que se trouvent les laboratoires.\nElle est presque exactement au centre du pays : une heure de Séoul en KTX, et une heure de Busan.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.body": {
+  "text": "Le Gangwon abrite la chaîne du Taebaek, les sites des Jeux olympiques d'hiver de 2018 et les plages de la côte est. Chuncheon, Gangneung et Wonju sont ses villes universitaires ; aucune n'est grande, et toutes sont moins chères et plus calmes que la région de la capitale.\nIci, les hivers sont de vrais hivers. Le KTX relie Séoul à Gangneung en deux heures environ.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.강릉": {
+  "text": "Gangneung",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.원주": {
+  "text": "Wonju",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.춘천": {
+  "text": "Chuncheon",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gwangju.body": {
+  "text": "Gwangju est la plus grande ville des provinces de Jeolla et en porte la réputation : celle de la cuisine, et celle du soulèvement démocratique de 1980, qui reste ce pour quoi la ville est la plus connue en Corée.\nC'est l'une des métropoles les moins chères où vivre, avec une scène artistique reconnue, à environ deux heures de Séoul en KTX.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gwangju.line": {
+  "text": "Le centre culturel et politique du sud-ouest, et un lieu d'études abordable.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.body": {
+  "text": "Le Gyeongsang du Nord abrite Gyeongju, capitale du royaume de Silla pendant un millénaire et véritable musée à ciel ouvert, et Pohang, ville de l'acier qui accueille aussi l'une des meilleures universités coréennes de sciences et d'ingénierie. Andong, plus à l'intérieur des terres, est le centre de la tradition confucéenne coréenne.\nC'est une province vaste et variée, partout moins chère que la région de la capitale.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.line": {
+  "text": "Les mille ans d'histoire de Gyeongju et l'acier de Pohang, dans la même province.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.경주": {
+  "text": "Gyeongju",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.구미": {
+  "text": "Gumi",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.포항": {
+  "text": "Pohang",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.고양": {
+  "text": "Goyang",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.부천": {
+  "text": "Bucheon",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.성남": {
+  "text": "Seongnam",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.수원": {
+  "text": "Suwon",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.안양": {
+  "text": "Anyang",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.용인": {
+  "text": "Yongin",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongnam.김해": {
+  "text": "Gimhae",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongnam.진주": {
+  "text": "Jinju",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongnam.창원": {
+  "text": "Changwon",
+  "why": "missing"
+ },
+ "marketing:v20.city.Incheon.line": {
+  "text": "La porte d'entrée de la Corée : l'aéroport s'y trouve, et Songdo aussi.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeju.body": {
+  "text": "Jeju est à 85 kilomètres du continent, organisée autour du volcan Hallasan, et assez chaude pour que la végétation paraisse subtropicale. C'est la destination de vacances du reste du pays, ce qui façonne son économie et ses loyers.\nLes universités y sont peu nombreuses et petites. Les vols pour Séoul partent toutes les quelques minutes et durent une heure.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeju.line": {
+  "text": "Une île volcanique au large de la côte sud, avec un climat différent du reste de la Corée.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.body": {
+  "text": "Le Jeolla du Nord est agricole, plat à l'ouest et montagneux à l'est, et Jeonju en est le centre : une ville d'environ 650 000 habitants, avec le plus grand quartier de hanok conservé du pays et une réputation gastronomique qu'aucune autre ville coréenne ne conteste.\nLe coût de la vie est parmi les plus bas de toutes les villes universitaires, et Séoul est à un peu moins de deux heures en KTX.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.line": {
+  "text": "Jeonju, et la région considérée comme le berceau de la cuisine coréenne.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.익산": {
+  "text": "Iksan",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.전주": {
+  "text": "Jeonju",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.body": {
+  "text": "Le Jeolla du Sud compte plus d'îles que le reste de la Corée réunie, les zones humides de la baie de Suncheon et le port de Yeosu. C'est la moins urbaine des provinces continentales, et ses universités sont à l'image : petites et soudées.\nSi vous cherchez un endroit calme, avec un littoral et un coût de la vie très bas, c'est ici.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.line": {
+  "text": "La côte sud-ouest, ses îles, et le rythme le plus lent du pays.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.목포": {
+  "text": "Mokpo",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.순천": {
+  "text": "Suncheon",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.여수": {
+  "text": "Yeosu",
+  "why": "missing"
+ },
+ "marketing:v20.city.Sejong.body": {
+  "text": "Sejong est la ville la plus récente de Corée et la plus délibérément planifiée : la plupart des ministères centraux y ont été transférés depuis Séoul, et le tracé des rues, les parcs et les bâtiments publics datent tous des quinze dernières années.\nElle est petite, calme et extrêmement neuve, à vingt minutes de Daejeon et à une heure et demie de Séoul.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Sejong.line": {
+  "text": "Une ville bâtie à partir de rien depuis 2012 pour accueillir les ministères.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Ulsan.body": {
+  "text": "Ulsan a le revenu moyen le plus élevé de toutes les villes coréennes, et la raison saute aux yeux : le plus grand chantier naval du monde, une usine automobile grande comme un quartier et un complexe pétrochimique le long de la côte. Les diplômés en ingénierie y trouvent du travail.\nC'est une petite ville à l'échelle coréenne, à une demi-heure de Busan, avec l'observation des baleines, une longue plage et la rivière Taehwa qui traverse le centre.",
+  "why": "drop 'Hyundai', not in the source"
+ },
+ "marketing:v20.city.Ulsan.line": {
+  "text": "La capitale industrielle de la Corée : chantiers navals, automobile et pétrochimie.",
+  "why": "missing"
+ },
+ "marketing:v20.dir.filterType": {
+  "text": "Type d'établissement",
+  "why": "'Établissement' alone is not a filter label"
+ },
+ "marketing:v20.dir.tierVideo": {
+  "text": "Vidéo officielle",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.busanGwangan": {
+  "text": "Le pont de Gwangan illuminé la nuit au-dessus de la baie, à {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.daejeonExpo": {
+  "text": "Le pont de l'Expo illuminé au-dessus de la rivière, à {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.gyeongjuBulguksa": {
+  "text": "Le temple Bulguksa à Gyeongju ({{region}})",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.jeonjuHanok": {
+  "text": "Les toits de tuiles du village de hanok de Jeonju ({{region}})",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.seoulCheonggyecheon": {
+  "text": "La promenade du ruisseau Cheonggyecheon, au centre de {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.seoulYeouido": {
+  "text": "Le fleuve Han à Yeouido, à {{region}}, au crépuscule",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.sokchoSeorak": {
+  "text": "La silhouette de Sokcho sous la crête du Seoraksan ({{region}})",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.ulsanBridge": {
+  "text": "Le pont d'Ulsan au-dessus du port, à {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.uni.intl.dormLine": {
+  "text": "L'université publie ses propres informations sur ses résidences universitaires.",
+  "why": "dormitory = résidence universitaire"
+ },
+ "marketing:v20.uni.link.dormitory": {
+  "text": "Résidence universitaire",
+  "why": "dormitory = résidence universitaire"
+ },
+ "marketing:v20.uni.match.NOT_YET": {
+  "text": "Accessible ici dès que vous aurez un résultat de test de langue.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.POSSIBLE": {
+  "text": "D'après vos réponses, candidater ici vaut la peine.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.STRONG": {
+  "text": "Des programmes ici correspondent à vos réponses.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.ieqas": {
+  "text": "Elle figure sur la liste certifiée IEQAS, ce qui assouplit les critères de visa.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.language": {
+  "text": "Son cours de langue coréenne figure sur la liste certifiée : vous pouvez donc commencer par la langue.",
+  "why": "missing"
+ },
+ "marketing:v21.uni.placeWhere": {
+  "text": "À {{city}}, {{region}}.",
+  "why": "missing"
+ },
+ "marketing:v28.uni.why.gks": {
+  "text": "Participe au programme Global Korea Scholarship (GKS)",
+  "why": "official programme name"
+ },
+ "common:appStatus.ENROLLED": {
+  "text": "Inscription effectuée",
+  "why": "épicène; matches feminine application statuses"
+ },
+ "common:appStatus.REJECTED": {
+  "text": "Admission refusée",
+  "why": "épicène; matches feminine application statuses"
+ },
+ "common:auth.noAccount": {
+  "text": "Pas encore de compte ?",
+  "why": "épicène: 'Nouveau' was masculine"
+ },
+ "common:certification.UNKNOWN": {
+  "text": "Statut de certification inconnu",
+  "why": "'non vérifiée' is a different meaning"
+ },
+ "common:degree.ASSOCIATE": {
+  "text": "Diplôme court (bac+2)",
+  "why": "'Diplôme d'associé' is an anglicism; align with Quick Fit"
+ },
+ "common:degreeShort.ASSOCIATE": {
+  "text": "Bac+2",
+  "why": "anglicism; align with Quick Fit"
+ },
+ "common:degree.TRANSFER": {
+  "text": "Admission parallèle",
+  "why": "align with Quick Fit term"
+ },
+ "common:degreeShort.TRANSFER": {
+  "text": "Admission parallèle",
+  "why": "align with Quick Fit term"
+ },
+ "common:docCategory.GRADUATION_CERTIFICATE": {
+  "text": "Attestation de fin d'études",
+  "why": "certificate, not the diploma itself"
+ },
+ "common:docCategory.TOPIK": {
+  "text": "Relevé de scores TOPIK",
+  "why": "align with IELTS/TOEFL labels"
+ },
+ "common:docStatus.NEEDS_REVIEW": {
+  "text": "En cours de vérification",
+  "why": "one term: vérification des documents"
+ },
+ "common:eligibility.ELIGIBLE": {
+  "text": "Éligible",
+  "why": "chip label; align with sibling labels"
+ },
+ "common:essayStatus.AGENCY_REVIEW": {
+  "text": "Relecture par l'équipe Hangyul",
+  "why": "'Chez' is colloquial for a status"
+ },
+ "common:fit.levelValue.KIIP": {
+  "text": "Niveau {{level}}",
+  "why": "align with other level labels"
+ },
+ "common:fit.q.gpa": {
+  "text": "Quelle est votre moyenne (GPA) ?",
+  "why": "keep GPA as in English"
+ },
+ "common:fit.q.level": {
+  "text": "À quel niveau voulez-vous étudier ?",
+  "why": "question asks the level, not the subject"
+ },
+ "common:fit.summary.ONE_STEP": {
+  "text": "Pour {{formatted}}, il ne manque qu'une étape.",
+  "why": "'à une étape près' is unidiomatic"
+ },
+ "common:fit.tier.CHALLENGE.short": {
+  "text": "À explorer",
+  "why": "more natural chip"
+ },
+ "common:legalization.ISSUER_VERIFICATION": {
+  "text": "Vérification auprès de l'organisme émetteur",
+  "why": "clarity"
+ },
+ "common:matchReason.DORM_AVAILABLE": {
+  "text": "Résidence universitaire pour étudiants internationaux",
+  "why": "dormitory = résidence universitaire"
+ },
+ "common:matchReason.NATIONALITY_RESTRICTED": {
+  "text": "Non ouvert aux personnes de votre nationalité",
+  "why": "épicène"
+ },
+ "common:matchReason.SCHOLARSHIP_CANDIDATE": {
+  "text": "Bourse envisageable",
+  "why": "épicène; 'Candidat' is masculine"
+ },
+ "common:nav.admissionRules": {
+  "text": "Conditions d'admission",
+  "why": "requirements, not rules"
+ },
+ "common:nav.partnership": {
+  "text": "Accord de partenariat",
+  "why": "'agreement' was dropped"
+ },
+ "common:nav.sources": {
+  "text": "Sources et mises à jour",
+  "why": "'actualité' misreads as news"
+ },
+ "common:notify.documentRequest.fulfilled": {
+  "text": "Le document que vous avez demandé a été envoyé : {{document}}",
+  "why": "missing; épicène"
+ },
+ "common:notify.mention": {
+  "text": "{{author}} vous mentionne",
+  "why": "épicène: past participle agreed with reader"
+ },
+ "common:pipeline.REJECTED": {
+  "text": "Admission refusée",
+  "why": "'Refusé' reads as refused by us"
+ },
+ "common:pipeline.TUITION_PENDING": {
+  "text": "Frais de scolarité à payer",
+  "why": "align with appStatus"
+ },
+ "common:states.forbiddenDetail": {
+  "text": "Si vous avez besoin d'y accéder, demandez à l'administrateur de votre organisation.",
+  "why": "closer to English"
+ },
+ "common:states.noResults": {
+  "text": "Aucun résultat ne correspond à vos filtres. Retirez-en quelques-uns, ou effacez-les.",
+  "why": "second sentence was dropped"
+ },
+ "common:states.unavailableText": {
+  "text": "Hangyul est injoignable pour le moment. Réessayez dans un instant.",
+  "why": "was English"
+ },
+ "common:states.unavailableTitle": {
+  "text": "Nous préparons le service",
+  "why": "was English"
+ },
+ "common:task.payTuition": {
+  "text": "Payez les frais de scolarité à {{university}}",
+  "why": "'de' reads as the university's own fees"
+ },
+ "common:task.reviewDocument": {
+  "text": "Vérifier : {{category}}",
+  "why": "one term: vérification"
+ },
+ "common:task.submissionAgency": {
+  "text": "Envoyer la candidature de {{student}} à {{university}} (autorisation reçue)",
+  "why": "missing"
+ },
+ "common:task.writingOverdue": {
+  "text": "Relecture d'essai en retard : {{essayType}} de {{student}} — relisez-le maintenant",
+  "why": "call to action was dropped"
+ },
+ "common:taskType.DOCUMENT_REVIEW": {
+  "text": "Vérification de document",
+  "why": "one term: vérification"
+ },
+ "common:tier.COMPETITIVE": {
+  "text": "Correspondance possible",
+  "why": "'compétitive' is not the meaning"
+ },
+ "common:tier.REACH": {
+  "text": "Pas encore éligible",
+  "why": "follow English; 'Ambitieux' invents a meaning"
+ },
+ "common:uni27.cat.GKS": {
+  "text": "Global Korea Scholarship (GKS)",
+  "why": "official name"
+ },
+ "common:uni27.cat.HOUSING": {
+  "text": "Aides à la résidence universitaire et à la vie quotidienne",
+  "why": "dormitory = résidence universitaire"
+ },
+ "common:uni27.house.eyebrow": {
+  "text": "Résidence universitaire",
+  "why": "dormitory = résidence universitaire"
+ },
+ "common:uni27.house.notAvailable": {
+  "text": "Les informations publiées par l'université ne confirment pas de résidence universitaire pour les étudiants internationaux.",
+  "why": "dormitory = résidence universitaire"
+ },
+ "common:uni27.house.title": {
+  "text": "Résidences universitaires",
+  "why": "plural as in English"
+ },
+ "common:uni27.schol.automatic": {
+  "text": "Attribuée lors de la sélection, sans demande séparée",
+  "why": "'when selected', not 'at admission'"
+ },
+ "common:uni27.schol.dorm": {
+  "text": "aide à la résidence universitaire",
+  "why": "dormitory = résidence universitaire"
+ },
+ "common:uni27.service.COUNSELING": {
+  "text": "Soutien psychologique",
+  "why": "'Écoute et accompagnement' is vague"
+ },
+ "common:v29.addon.item.extra_edit": {
+  "text": "1 relecture supplémentaire : lettre de motivation ou projet d'études",
+  "why": "'1' was dropped"
+ },
+ "common:v29.addon.unit.APPLICATION": {
+  "text": "1 candidature",
+  "why": "'demande' is ambiguous"
+ },
+ "common:v29.addon.unit.ARRANGEMENT": {
+  "text": "1 prise en charge",
+  "why": "'mise en relation' is not an airport pickup"
+ },
+ "common:v29.pricing.all_in_one.f4": {
+  "text": "Vérification des documents d'admission, avec indications sur ce qu'il faut corriger",
+  "why": "'admission' was dropped"
+ },
+ "common:v29.pricing.basic.f4": {
+  "text": "Liste des documents d'admission essentiels",
+  "why": "'essential admission' was dropped"
+ },
+ "common:v29.pricing.compare.row.arrival": {
+  "text": "Installation après votre arrivée",
+  "why": "'Après l'arrivée' alone is unclear"
+ },
+ "common:v29.pricing.compare.row.recommended": {
+  "text": "Universités et instituts de langue recommandés",
+  "why": "'language institutes' was dropped"
+ },
+ "common:v29.pricing.compare.row.visa": {
+  "text": "Préparation des documents de visa",
+  "why": "never imply we handle the visa"
+ },
+ "common:v29.pricing.compare.value.documents.CHECKLIST": {
+  "text": "Liste des documents essentiels",
+  "why": "'essential' was dropped"
+ },
+ "common:v29.pricing.compare.value.essayContract": {
+  "text": "Sans limite de relectures, dans le cadre de votre contrat",
+  "why": "'passages' is unclear"
+ },
+ "common:v29.pricing.compare.value.followUpOnce": {
+  "text": "{{count}} consultation de suivi",
+  "why": "one term: consultation (entretien = interview)"
+ },
+ "common:v29.pricing.notes.premiumScope": {
+  "text": "Avec Premium, les relectures sont sans limite de nombre, dans le cadre des documents de candidature et du calendrier prévus à votre contrat.",
+  "why": "'passages' is unclear"
+ },
+ "common:v29.pricing.premium.f4": {
+  "text": "Documents de visa et dates clés suivis de près · aide à la demande de résidence universitaire",
+  "why": "'documents' was dropped"
+ },
+ "common:validation.reasonRequired": {
+  "text": "Précisez ce qui doit être corrigé.",
+  "why": "épicène; concise"
+ },
+ "common:i18n.partial": {
+  "text": "{{percent}} % de cette application est traduit dans votre langue ; le reste s’affiche en anglais.",
+  "why": "espace insécable"
+ },
+ "common:notify.essaySubmitted": {
+  "text": "Essai prêt à être relu : {{title}}",
+  "why": "espace insécable"
+ },
+ "common:notify.newStudent": {
+  "text": "Nouvel étudiant attribué : {{student}}",
+  "why": "espace insécable"
+ },
+ "common:v29.pricing.notes.external": {
+  "text": "Les frais de tiers sont en sus : frais de candidature, frais de scolarité, frais de visa, traduction et certification notariée, envoi international.",
+  "why": "espace insécable"
+ }
+}

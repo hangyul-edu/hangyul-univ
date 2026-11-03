@@ -1,4 +1,4 @@
-import { brandAssets, Check, ExternalLink, Search, ShieldCheck, TriangleAlert } from '@hangyul/icons';
+import { brandAssets, Check, ChevronDown, ExternalLink, Search, ShieldCheck, TriangleAlert } from '@hangyul/icons';
 import { changeLocale, translationQuality, useLocale, type Namespace } from '@hangyul/i18n';
 import type { Country, Freshness } from '@hangyul/types';
 import { countryName, cx, flagEmoji, formatDate } from '@hangyul/utils';
@@ -43,7 +43,7 @@ export function Logo({ product, href = '/', as: As, tag, tone = 'dark', below }:
 
 /**
  * Shows provenance for any time-sensitive fact. Synthetic seed data (`verification_status = DEMO`) carries no per-row label:
- * the development environment is disclosed once by the DevAccess chip, and seeded data never exists in production.
+ * a development environment is never announced in product chrome, and synthetic data never exists outside test databases (V32).
  * Its provenance stays reachable through the plain source link when one is present.
  */
 export function FreshnessBadge({ data, compact, sourceName }: { data: Partial<Freshness> | null | undefined; compact?: boolean; sourceName?: string }) {
@@ -126,8 +126,9 @@ export function CountrySelect({ countries, value, onChange, label, placeholder, 
       align="start"
       width={320}
       trigger={(p) => (
-        <button type="button" className="hg-select" style={{ textAlign: 'start' }} aria-label={label} aria-invalid={invalid || undefined} {...p}>
-          {selected ? `${flagEmoji(selected.code)}  ${countryName(selected.code, locale)}` : <span className="hg-subtle">{placeholder ?? t('form.selectPlaceholder')}</span>}
+        <button type="button" className="hg-sel" aria-label={label} aria-invalid={invalid || undefined} data-open={open || undefined} {...p} aria-haspopup="listbox">
+          <span className="hg-sel__value">{selected ? `${flagEmoji(selected.code)}  ${countryName(selected.code, locale)}` : <span className="hg-subtle">{placeholder ?? t('form.selectPlaceholder')}</span>}</span>
+          <ChevronDown className="hg-sel__chev" aria-hidden />
         </button>
       )}
     >

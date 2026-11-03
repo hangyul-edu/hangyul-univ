@@ -40,7 +40,7 @@ function useFocusTrap(open: boolean, onClose: () => void) {
 /** `useLayoutEffect` that does not warn when the tree is rendered on a server, where it is a no-op anyway. */
 const useIsoLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
-interface Placement { top: number; left: number; width: number; avail: number; side: 'top' | 'bottom' }
+export interface Placement { top: number; left: number; width: number; avail: number; side: 'top' | 'bottom' }
 
 /** Distance held between the trigger and the panel, and between the panel and the edge of the viewport. */
 const POPOVER_GAP = 8;
@@ -51,7 +51,7 @@ const POPOVER_EDGE = 12;
  * `avail` is the space on the chosen side, published to the panel so content with its own scroll area can
  * shrink to fit instead of being clipped.
  */
-function placePopover(anchor: HTMLElement, panel: HTMLElement, align: 'start' | 'end', width?: number): Placement {
+export function placePopover(anchor: HTMLElement, panel: HTMLElement, align: 'start' | 'end', width?: number): Placement {
   const r = anchor.getBoundingClientRect();
   const vw = document.documentElement.clientWidth;
   const vh = document.documentElement.clientHeight;

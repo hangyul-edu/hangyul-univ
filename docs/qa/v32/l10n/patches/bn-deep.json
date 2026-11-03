@@ -1,0 +1,641 @@
+{
+ "_notes": [
+  "Scope: 482 keys reviewed, all had a current Bengali value (0 null). Terminology follows the earlier bn patches (student-mobile, marketing-common, consoles).",
+  "Hangyul team: the English now says 'Hangyul team' almost everywhere; 'Hangyul Univ টিম' was replaced by 'Hangyul টিম' in those keys. student:dashboard.counselor.team still says 'Hangyul Univ team' in English, so it is unchanged.",
+  "Consular legalization: one term, 'কনস্যুলার লিগালাইজেশন', as in the consoles and marketing patches. The current text mixed কনস্যুলার সত্যায়ন and লিগ্যালাইজেশন. student-mobile notes say কনস্যুলার সত্যায়ন, so the owner should confirm one term for all bn bundles.",
+  "Dashes: the current English uses full sentences or commas where the old Bengali used ' — '. About 70 success/writing/concierge keys were re-punctuated to match. A few were reworded where a dash had hidden a meaning gap (DOC_REVIEW_LATE, feedback.gaveNo, sl.LATE).",
+  "Standard admission letter: applicationDetail.statusText.ADMISSION_CERTIFICATE_ISSUED now uses স্ট্যান্ডার্ড অ্যাডমিশন লেটার (আনুষ্ঠানিক ভর্তিপত্র). Plain 'admission letter' stays ভর্তিপত্র. stage.VISA_PREPARATION is now ভিসার নথি প্রস্তুতি, because we prepare the documents and never the visa itself.",
+  "Interview = ইন্টারভিউ; study plan = স্টাডি প্ল্যান; dormitory = ডরমিটরি (hostel removed); Admitted stage = ভর্তির সুযোগ (as in the consoles); application deadline = আবেদনের শেষ তারিখ wherever it means the university's closing date.",
+  "Matches: free-text 'match' is now মানানসই প্রোগ্রাম (discover.why, profileV3.subtitle, matches.method.engine). The quoted tier badges “শক্তিশালী ম্যাচ”/“সম্ভাব্য ম্যাচ” in success:obs.* are unchanged, because they must match the badge labels used across the bundle. Renaming the tiers is an owner decision.",
+  "Counselor vs team: many success:*, visaroute:* and concierge:* English strings still say 'your counselor' while the rest say 'the Hangyul team'. The Bengali follows the English (কাউন্সেলর / Hangyul টিম). The English should be unified at source.",
+  "v9.sponsor.foot: the current Bengali added a sentence that is not in the English ('every decision is made by the university and embassy'). Removed to match the English."
+ ],
+ "student:applicationDetail.statusText.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "আপনার স্ট্যান্ডার্ড অ্যাডমিশন লেটার (আনুষ্ঠানিক ভর্তিপত্র) তৈরি। ভিসা আবেদনের জন্য এটিই মূল নথি।",
+  "why": "official standard admission letter term"
+ },
+ "student:applicationDetail.statusText.DOCUMENT_PREPARATION": {
+  "text": "নিচের চেকলিস্ট একে একে সম্পন্ন করুন। সব যাচাই হয়ে গেলে Hangyul টিম আবেদনটিকে জমা দেওয়ার জন্য প্রস্তুত হিসেবে চিহ্নিত করবে।",
+  "why": "EN says Hangyul team"
+ },
+ "student:applicationDetail.statusText.INTERVIEW": {
+  "text": "আপনাকে ইন্টারভিউয়ের জন্য ডাকা হয়েছে। সময়টা দেখে নিন এবং Hangyul টিমের সাথে প্রস্তুতি নিন।",
+  "why": "interview = ইন্টারভিউ; Hangyul team"
+ },
+ "student:applicationDetail.statusText.PROFILE_REVIEW": {
+  "text": "Hangyul টিম এই প্রোগ্রামের জন্য আপনার প্রোফাইল পর্যালোচনা করছে।",
+  "why": "EN says Hangyul team"
+ },
+ "student:applicationDetail.statusText.REJECTED": {
+  "text": "এবার বিশ্ববিদ্যালয় আপনাকে আসন দেয়নি। পরবর্তী পদক্ষেপ ঠিক করতে Hangyul টিম আপনাকে সাহায্য করতে পারে।",
+  "why": "EN says can help, not will work"
+ },
+ "student:applicationDetail.transition.PROFILE_REVIEW": {
+  "text": "Hangyul টিমকে পর্যালোচনা করতে বলুন",
+  "why": "EN says Hangyul team"
+ },
+ "student:compare.legalCount_one": {
+  "text": "{{count}}টি নথিতে অ্যাপোস্টিল বা কনস্যুলার লিগালাইজেশন লাগবে",
+  "why": "consular legalization term"
+ },
+ "student:compare.legalCount_other": {
+  "text": "{{count}}টি নথিতে অ্যাপোস্টিল বা কনস্যুলার লিগালাইজেশন লাগবে",
+  "why": "consular legalization term"
+ },
+ "student:dashboard.nextAction.APPLICATION_ITEM.REVISE_ESSAY.text": {
+  "text": "Hangyul টিম মন্তব্য দিয়েছে। এটি অনুমোদিত না হওয়া পর্যন্ত আবেদন জমা দেওয়া যাবে না।",
+  "why": "EN says Hangyul team"
+ },
+ "student:dashboard.nextAction.ARRIVAL_CHECKLIST.text": {
+  "text": "আগমনের চেকলিস্ট দেখে নিন: ফ্লাইট, পিকআপ, ডরমিটরি আর SIM কার্ড।",
+  "why": "dormitory = ডরমিটরি, not hostel"
+ },
+ "student:dashboard.nextAction.FINISH_APPLICATION.text": {
+  "text": "জমা দেওয়ার আগে আরও {{remaining}}টি বিষয় বাকি। সব যাচাই হয়ে গেলে Hangyul টিম এটি জমা দেবে।",
+  "why": "EN says Hangyul team"
+ },
+ "student:dashboard.nextAction.FINISH_APPLICATION.text_one": {
+  "text": "জমা দেওয়ার আগে আরও {{remaining}}টি বিষয় বাকি। সব যাচাই হয়ে গেলে Hangyul টিম এটি জমা দেবে।",
+  "why": "EN says Hangyul team"
+ },
+ "student:dashboard.nextAction.FINISH_APPLICATION.text_other": {
+  "text": "জমা দেওয়ার আগে আরও {{remaining}}টি বিষয় বাকি। সব যাচাই হয়ে গেলে Hangyul টিম এটি জমা দেবে।",
+  "why": "EN says Hangyul team"
+ },
+ "student:dashboard.nextAction.TASK.text.INTERVIEW": {
+  "text": "ইন্টারভিউয়ের সময়টা দেখে নিন এবং Hangyul টিমের সাথে কয়েকটি সাধারণ প্রশ্ন অনুশীলন করুন।",
+  "why": "interview term; Hangyul team"
+ },
+ "student:discover.confirmEducation.text": {
+  "text": "এমন কিছু নেই যা বলছে আপনি যোগ্য নন। শুধু আপনার শিক্ষাগত স্তর আর ফলাফল না জানলে আমরা একাডেমিক ন্যূনতম শর্ত যাচাই করতে পারি না। এতে প্রায় এক মিনিট লাগে।",
+  "why": "more natural, warmer phrasing"
+ },
+ "student:discover.why": {
+  "text": "কেন এই প্রোগ্রাম মানানসই?",
+  "why": "match term; ম্যাচ reads as sports"
+ },
+ "student:legalFlow.note.JOINED": {
+  "text": "{{country}} {{date}} তারিখে অ্যাপোস্টিল কনভেনশনে যোগ দিয়েছে। এর আগে কনস্যুলার লিগালাইজেশন করা নথি সাধারণত এখনো গ্রহণ করা হয়। আপনার বিশ্ববিদ্যালয়ের কাছে নিশ্চিত হয়ে নিন।",
+  "why": "consular legalization term"
+ },
+ "student:legalFlow.note.JOINS": {
+  "text": "{{country}} {{date}} তারিখে অ্যাপোস্টিল কনভেনশনে যোগ দিচ্ছে। ততদিন নথিতে কোরীয় কনস্যুলার লিগালাইজেশন লাগবে।",
+  "why": "consular legalization term"
+ },
+ "student:legalFlow.note.UNVERIFIED": {
+  "text": "এই দেশের নথি লিগালাইজেশনের পদ্ধতি আমরা এখনো যাচাই করিনি। Hangyul টিম নিশ্চিত করবে।",
+  "why": "legalization term unified"
+ },
+ "student:legalFlow.step.consular.title": {
+  "text": "{{country}}-এর কোরীয় দূতাবাস বা কনস্যুলেট থেকে কনস্যুলার লিগালাইজেশন করিয়ে নিন",
+  "why": "consular legalization term"
+ },
+ "student:legalFlow.step.verify.why": {
+  "text": "Hangyul টিম একবার যাচাই করে, তারপর প্রতিটি আবেদনে এটি আবার ব্যবহার করা হয়।",
+  "why": "EN says Hangyul team"
+ },
+ "student:matches.guarantee.noTerms": {
+  "text": "শর্তাবলি অংশীদারি চুক্তি অনুযায়ী ঠিক হয় — Hangyul টিম আপনার সাথে তা নিশ্চিত করবে।",
+  "why": "EN says Hangyul team"
+ },
+ "student:matches.method.engine": {
+  "text": "মানানসই প্রোগ্রাম খোঁজার নিয়মের সংস্করণ {{version}} (শুধু প্রকাশিত মানদণ্ড)।",
+  "why": "match term; ম্যাচিং dropped"
+ },
+ "student:offers.note": {
+  "text": "আনুমানিক মোট খরচে জীবনযাত্রার খরচ ধরা আছে এবং বাজেট পরিকল্পনার নিয়ম ব্যবহার করা হয়েছে। কোনো অফার প্রত্যাখ্যান করার আগে Hangyul টিমের সাথে কথা বলুন।",
+  "why": "EN says Hangyul team"
+ },
+ "student:phase.admission.label": {
+  "text": "ভর্তির সুযোগ",
+  "why": "Admitted stage; matches consoles wording"
+ },
+ "student:profileV3.subtitle": {
+  "text": "আপনার উত্তর থেকেই ঠিক হয় কোন প্রোগ্রাম আপনার জন্য মানানসই, নথি কীভাবে প্রস্তুত করবেন আর ভিসার চেকলিস্টে কী থাকবে। যতটুকু পারেন যোগ করুন। প্রতিটি অংশে লেখা আছে আমরা কেন জানতে চাই আর এতে কী বদলায়।",
+  "why": "match term; EN: add what you can"
+ },
+ "student:profileV3.why.basics": {
+  "text": "আপনার জাতীয়তা ও বসবাসের দেশ থেকে ঠিক হয় কোন নথিতে অ্যাপোস্টিল বা কনস্যুলার লিগালাইজেশন লাগবে এবং কোন ভিসার নিয়ম প্রযোজ্য।",
+  "why": "consular legalization term"
+ },
+ "student:services.feature.counselor_assignment": {
+  "text": "আপনার পাশে Hangyul টিম",
+  "why": "EN says Hangyul team"
+ },
+ "student:services.success.pending": {
+  "text": "আমরা Hangyul টিমের সাথে আপনার প্ল্যান প্রস্তুত করছি। শিগগিরই বিজ্ঞপ্তি পাবেন।",
+  "why": "EN says Hangyul team"
+ },
+ "student:servicesV3.promise.full": {
+  "text": "Hangyul টিম শুরু থেকে শেষ পর্যন্ত পথ দেখায়",
+  "why": "EN says Hangyul team"
+ },
+ "student:servicesV3.subtitle": {
+  "text": "সবকিছু নিজে বিনামূল্যে করতে পারেন। পেইড প্ল্যানে মানুষের সহায়তা যোগ হয়: Hangyul টিম আপনার কাজ যাচাই করে, অথবা বাছাই তালিকা থেকে কোরিয়ায় পৌঁছানো পর্যন্ত পথ দেখায়।",
+  "why": "EN says Hangyul team"
+ },
+ "student:servicesV3.who.counselor": {
+  "text": "Hangyul টিম",
+  "why": "EN says Hangyul team"
+ },
+ "student:stage.VISA_PREPARATION": {
+  "text": "ভিসার নথি প্রস্তুতি",
+  "why": "visa document preparation, never the visa"
+ },
+ "student:support.new.subtitle": {
+  "text": "কী হচ্ছে আমাদের জানান। Hangyul টিম বার্তায় উত্তর দেবে।",
+  "why": "EN says Hangyul team"
+ },
+ "student:tasksV3.owner.counselor": {
+  "text": "Hangyul টিম",
+  "why": "EN says Hangyul team"
+ },
+ "student:tasksV3.owner.team": {
+  "text": "Hangyul টিম",
+  "why": "EN says Hangyul team"
+ },
+ "student:tasksV3.summary": {
+  "text": "আপনার জন্য {{mine}}টি · Hangyul টিমের কাছে {{theirs}}টি",
+  "why": "EN says Hangyul team"
+ },
+ "student:tasksV3.summaryMine_one": {
+  "text": "আপনার জন্য {{count}}টি কাজ। এই মুহূর্তে Hangyul টিমের কাছে কিছু অপেক্ষায় নেই।",
+  "why": "EN says Hangyul team"
+ },
+ "student:tasksV3.summaryMine_other": {
+  "text": "আপনার জন্য {{count}}টি কাজ। এই মুহূর্তে Hangyul টিমের কাছে কিছু অপেক্ষায় নেই।",
+  "why": "EN says Hangyul team"
+ },
+ "student:university.housing.emptyText": {
+  "text": "ক্যাম্পাসের বাইরে, কাছাকাছি থাকার বিকল্প খুঁজতে Hangyul টিম সাহায্য করতে পারে।",
+  "why": "EN: off-campus options; Hangyul team"
+ },
+ "student:university.partner.benefit.DEDICATED_COUNSELOR": {
+  "text": "এই বিশ্ববিদ্যালয়ের জন্য Hangyul টিমের বিশেষ সহায়তা",
+  "why": "EN says Hangyul team"
+ },
+ "student:v4.verdictText.reach": {
+  "text": "আপনি প্রকাশিত শর্ত পূরণ করেন, তবে কোনো একটি বিষয়ে নজর দিতে হবে, সাধারণত বাজেট বা ঘনিয়ে আসা আবেদনের শেষ তারিখ। প্রতিটি সারিতে লেখা আছে কী।",
+  "why": "application deadline term"
+ },
+ "student:v4.ws.helpTextNoName": {
+  "text": "এই আবেদনে সাহায্য করতে Hangyul টিম আছে।",
+  "why": "EN says Hangyul team"
+ },
+ "student:v4.ws.team.final": {
+  "text": "{{university}}-এ জমা দেওয়ার আগে চূড়ান্ত যাচাই",
+  "why": "tighter, matches EN order"
+ },
+ "student:v4.ws.who.team": {
+  "text": "Hangyul টিম",
+  "why": "EN says Hangyul team"
+ },
+ "student:v4.ws.yourCounselor": {
+  "text": "Hangyul টিম",
+  "why": "EN says Hangyul team"
+ },
+ "student:v8.budget.fee.text.NONE": {
+  "text": "ঐচ্ছিক। ফ্রি প্ল্যানে নিজেই আবেদন করতে পারেন; পেইড প্ল্যানে Hangyul টিমের সহায়তা ও পর্যালোচনা যোগ হয়।",
+  "why": "EN says Hangyul team"
+ },
+ "student:v9.funds.whose.UNKNOWN": {
+  "text": "কার নামে: Hangyul টিম দূতাবাসের সাথে নিশ্চিত করবে",
+  "why": "EN says Hangyul team"
+ },
+ "student:v9.refund.ruleUnknown": {
+  "text": "বিশ্ববিদ্যালয়ের ফেরতের নিয়ম ও অঙ্ক Hangyul টিম আপনার সাথে নিশ্চিত করবে।",
+  "why": "EN says Hangyul team"
+ },
+ "student:v9.sponsor.foot": {
+  "text": "{{name}} Hangyul-এর মাধ্যমে শেয়ার করেছেন · তথ্য {{date}} অনুযায়ী",
+  "why": "extra sentence not in EN removed"
+ },
+ "student:ws3.offer.step2.text": {
+  "text": "আমরা বিশ্ববিদ্যালয় ও Hangyul টিমকে জানিয়ে দেব।",
+  "why": "EN says Hangyul team"
+ },
+ "dossier:reason.NEAR_EXPIRY_DATE": {
+  "text": "{{date}} তারিখে মেয়াদ শেষ হবে, {{university}}-এর আবেদনের শেষ তারিখের আগে। শিগগিরই নবায়ন করা কপি নিন।",
+  "why": "application deadline term"
+ },
+ "success:block.ready": {
+  "text": "প্রস্তুত। এই আবেদনে আর কিছু প্রভাব ফেলছে না",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:group.sent": {
+  "text": "পাঠানো হয়েছে, সিদ্ধান্তের অপেক্ষায়",
+  "why": "follow EN punctuation"
+ },
+ "success:item.DEADLINE_TIGHT.why": {
+  "text": "লিগালাইজেশনের মতো কাজে কয়েক সপ্তাহ লাগে। সবচেয়ে সময়সাপেক্ষটি আজই শুরু করুন।",
+  "why": "legalization term; no dash"
+ },
+ "success:item.DOC_IN_REVIEW.why": {
+  "text": "সাধারণত ২ কর্মদিবসের মধ্যে। কিছু করার নেই।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:item.DOC_REVIEW_LATE.why": {
+  "text": "স্বাভাবিকের চেয়ে বেশি সময় লাগছে। আপনার কাউন্সেলরকে জানানো হয়েছে।",
+  "why": "EN: we told your counselor"
+ },
+ "success:item.ESSAY_REVIEW.why": {
+  "text": "কিছু করার নেই। আপনার কাউন্সেলর এটি পড়ছেন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:item.FIELD_DIFFERENT.why": {
+  "text": "জেনে-বুঝে বেছে নিলে সমস্যা নেই। আপনার স্টাডি প্ল্যানে কারণটি ব্যাখ্যা করুন।",
+  "why": "study plan = স্টাডি প্ল্যান"
+ },
+ "success:item.FINAL_CHECK.title": {
+  "text": "সব জমা হয়েছে। এরপর চূড়ান্ত যাচাই",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:item.LANGUAGE_RECOMMENDED.why": {
+  "text": "কোরীয় ভাষায় ক্লাস বেশ কঠিন। উচ্চতর লেভেল থাকলে তাল মিলিয়ে চলা সহজ হয়। আবেদনের জন্য এটি বাধ্যতামূলক নয়।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:item.SCHOLARSHIP_APPLY.why": {
+  "text": "এর জন্য আলাদা আবেদন লাগে। মনে হচ্ছে আপনি এর প্রকাশিত মানদণ্ড পূরণ করেন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:item.SCHOLARSHIP_NONE.why": {
+  "text": "আপনি বলেছেন আপনার বৃত্তি দরকার। অন্য বিকল্প নিয়ে আপনার কাউন্সেলরকে জিজ্ঞাসা করুন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:item.SUBMISSION_CONFIRM.why": {
+  "text": "আপনি জানিয়েছেন যে জমা দিয়েছেন। কনফার্মেশন নম্বর বা রসিদ দিলে কাজটি সম্পূর্ণ হবে।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:obs.ADMITTED": {
+  "text": "{{university}}-এ আসন গ্রহণ করেছেন। আপনার পরিকল্পনা ঠিক হয়ে গেছে।",
+  "why": "no dash; natural wording"
+ },
+ "success:obs.ALL_NOT_YET": {
+  "text": "আপনার কোনো আবেদনই এখনো প্রকাশিত সব ন্যূনতম শর্ত পূরণ করে না। এমন একটি বিকল্প যোগ করুন যার জন্য আপনি ইতিমধ্যে যোগ্য।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:obs.ALL_OVER_BUDGET": {
+  "text": "প্রতিটি আবেদনের খরচ আপনার বাজেটের চেয়ে বেশি। টাকার ব্যবস্থার পরিকল্পনা করুন বা কম খরচের একটি বিকল্প যোগ করুন।",
+  "why": "stray থেকে শুরু removed; no dash"
+ },
+ "success:obs.ALL_POSSIBLE": {
+  "text": "আপনার সব আবেদনই “সম্ভাব্য ম্যাচ”। একটি “শক্তিশালী ম্যাচ” যোগ করার কথা ভাবুন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:obs.COMPARE_OFFERS": {
+  "text": "আপনার {{count}}টি অফার আছে। সিদ্ধান্ত নেওয়ার আগে পাশাপাশি তুলনা করুন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:obs.FEW_OPTIONS": {
+  "text": "আপনি একটি প্রোগ্রামেই আবেদন করছেন। সেখানে ভর্তির সুযোগ না পেলে দ্বিতীয় একটি বাস্তবসম্মত বিকল্প আপনাকে সুরক্ষা দেবে।",
+  "why": "EN: if not admitted; no dash"
+ },
+ "success:obs.MANY_APPLICATIONS": {
+  "text": "{{count}}টি আবেদন চলছে। প্রতিটির জন্য আলাদা প্রবন্ধ ও যাচাই লাগবে।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:obs.NO_APPLICATIONS": {
+  "text": "আপনি এখনো কোনো আবেদন শুরু করেননি। আপনার “শক্তিশালী ম্যাচ”গুলো দিয়ে শুরু করা ভালো।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:obs.SOME_NOT_YET": {
+  "text": "{{universities}}-এর একটি প্রকাশিত ন্যূনতম শর্ত আপনি এখনো পূরণ করেন না। পরিশ্রমটা সার্থক হবে কি না ভেবে দেখুন।",
+  "why": "full sentence; no dash"
+ },
+ "success:submission.authorize.activeTitle": {
+  "text": "অনুমতি দেওয়া হয়েছে। এরপর {{agency}} এটি জমা দেবে",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:submission.authorize.changed": {
+  "text": "অনুমতি দেওয়ার পর একটি নথি বদলেছে। জমা দেওয়ার আগে {{agency}} আপনার সাথে তা মিলিয়ে দেখবে।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:submission.authorize.done": {
+  "text": "অনুমতি দেওয়া হয়েছে। {{agency}} এটি জমা দেবে।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:submission.authorize.feeValue": {
+  "text": "{{amount}}, পরিশোধ করবে {{payer}}, প্রাপক {{payee}}",
+  "why": "clear payer/payee; no dash"
+ },
+ "success:submission.authorize.feeValueNoPayee": {
+  "text": "{{amount}}, পরিশোধ করবে {{payer}}",
+  "why": "follow EN punctuation"
+ },
+ "success:submission.authorize.form": {
+  "text": "আবেদন ফর্ম, আপনার প্রোফাইল থেকে",
+  "why": "follow EN punctuation"
+ },
+ "success:submission.authorize.withdrawn": {
+  "text": "অনুমতি প্রত্যাহার করা হয়েছে। কিছুই জমা দেওয়া হয়নি।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:submission.fee.CONFIRMED": {
+  "text": "আবেদন ফি {{amount}}, পরিশোধ নিশ্চিত হয়েছে",
+  "why": "follow EN punctuation"
+ },
+ "success:submission.fee.PAID": {
+  "text": "আবেদন ফি {{amount}}। আপনি জানিয়েছেন পরিশোধ করেছেন",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:submission.fee.UNPAID": {
+  "text": "আবেদন ফি {{amount}}, পোর্টালে {{payee}}-কে পরিশোধ করতে হবে",
+  "why": "simpler, matches EN"
+ },
+ "success:submission.fee.UNPAID_NP": {
+  "text": "আবেদন ফি {{amount}}। পোর্টালে আপনি এটি পরিশোধ করবেন",
+  "why": "follow EN punctuation"
+ },
+ "success:submission.fee.separate": {
+  "text": "এটি বিশ্ববিদ্যালয়ের আবেদন ফি। আপনার Hangyul সেবার ফি নয়, টিউশন ফিও নয়।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:submission.guided.enterHint": {
+  "text": "আপনার Hangyul প্রোফাইল থেকে। পাসপোর্ট নম্বরটি সরাসরি পাসপোর্ট দেখে লিখুন, কারণ Hangyul এটি শুধু আংশিক লুকানো অবস্থায় রাখে।",
+  "why": "clearer masked wording; no dash"
+ },
+ "success:submission.guided.originals": {
+  "text": "মূল কপিগুলো রেখে দিন। {{university}} এগুলো ডাকযোগে চায়।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:submission.partial": {
+  "text": "আংশিক যাচাইকৃত। বিস্তারিত আপনার কাউন্সেলর নিশ্চিত করবেন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:submission.placeholder": {
+  "text": "জমা দেওয়ার পদ্ধতি এখনো যাচাই হয়নি। আপনার কাউন্সেলর নিশ্চিত করবেন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:submission.receiptTitle": {
+  "text": "{{university}}-এর আবেদনের রসিদ",
+  "why": "natural title order"
+ },
+ "success:submission.safety": {
+  "text": "কখনো আপনার পোর্টালের পাসওয়ার্ড শেয়ার করবেন না। Hangyul কখনো তা চাইবে না।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:submission.savedConfirmed": {
+  "text": "নিশ্চিত হয়েছে। আপনার আবেদন জমা দেওয়া হিসেবে চিহ্নিত।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:submission.selfRequired": {
+  "text": "{{university}}-এর নিয়ম অনুযায়ী আবেদনটি আপনাকে নিজেই {{portal}}-এ জমা দিতে হবে। সবকিছু প্রস্তুত। এতে মোটামুটি {{minutes}} মিনিট লাগবে।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:submission.sessionExpired": {
+  "text": "আপনার সেশনের মেয়াদ শেষ। আবার সাইন ইন করুন। কিছুই সংরক্ষিত হয়নি।",
+  "why": "EN uses sentences, no dash"
+ },
+ "success:submission.unconfirmedTitle": {
+  "text": "আপনি জানিয়েছেন যে জমা দিয়েছেন। শেষ করতে কনফার্মেশন যোগ করুন",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:auto.studentNote": {
+  "text": "এটি নিয়ম মেনে চলা একটি স্বয়ংক্রিয় যাচাই, কোনো মানুষ নয়। এটি যাচাই করার মতো বাক্য দেখিয়ে দেয়, কখনো আপনার লেখা বদলায় না বা লিখে দেয় না।",
+  "why": "EN: automatic check missing"
+ },
+ "writing:finding.GENERIC_PHRASE": {
+  "text": "অনেক আবেদনকারী এই বাক্যাংশ ব্যবহার করেন। আপনার নিজের অভিজ্ঞতার একটি নির্দিষ্ট ঘটনা বেশি কিছু বলে।",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:finding.LONG_SENTENCE": {
+  "text": "{{words}} শব্দের একটি বাক্য। সহজে বোঝার জন্য ভেঙে লেখার কথা ভাবুন।",
+  "why": "closer to EN; no dash"
+ },
+ "writing:finding.NAME_MISSPELLED": {
+  "text": "“{{found}}”-এর বদলে কি “{{expected}}” বোঝাতে চেয়েছেন? নাম হুবহু সঠিক হতে হবে।",
+  "why": "clearer question; no dash"
+ },
+ "writing:finding.NOT_SPECIFIC": {
+  "text": "লেখায় কোথাও {{university}} বা প্রোগ্রামের উল্লেখ নেই। যেভাবে লেখা আছে, তা যেকোনো বিশ্ববিদ্যালয়ে পাঠানো যেত।",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:finding.OTHER_PROGRAM": {
+  "text": "এখানে {{found}} প্রোগ্রামের নাম আছে, কিন্তু এই আবেদনটি {{expected}}-এর জন্য। অনুচ্ছেদটি অন্য লেখা থেকে আবার ব্যবহার করা হয়েছে কি না দেখুন।",
+  "why": "no dash"
+ },
+ "writing:finding.OTHER_UNIVERSITY": {
+  "text": "এখানে {{name}}-এর উল্লেখ আছে, কিন্তু এই লেখাটি {{target}}-এর জন্য। অন্য আবেদন থেকে কপি করা হয়নি তো, দেখে নিন।",
+  "why": "no dash"
+ },
+ "writing:finding.OVERCLAIM": {
+  "text": "একটি চূড়ান্ত দাবি। পাঠকেরা অতিশয়োক্তির চেয়ে প্রমাণে বেশি ভরসা করেন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:finding.OVER_CHAR_LIMIT": {
+  "text": "{{count}}টি অক্ষর, {{limit}} অক্ষরের সীমার চেয়ে {{over}}টি বেশি।",
+  "why": "follow EN punctuation"
+ },
+ "writing:finding.OVER_LIMIT": {
+  "text": "{{count}}টি শব্দ, {{limit}} শব্দের সীমার চেয়ে {{over}}টি বেশি।",
+  "why": "follow EN punctuation"
+ },
+ "writing:finding.PROMPT_PART_MISSING_one": {
+  "text": "স্বয়ংক্রিয় যাচাই: প্রশ্নের {{count}}টি অংশের হয়তো উত্তর দেওয়া হয়নি। নিশ্চিত করতে “প্রশ্নের উত্তর দেয়” অংশে মূল্যায়ন দিন",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:finding.PROMPT_PART_MISSING_other": {
+  "text": "স্বয়ংক্রিয় যাচাই: প্রশ্নের {{count}}টি অংশের হয়তো উত্তর দেওয়া হয়নি। নিশ্চিত করতে “প্রশ্নের উত্তর দেয়” অংশে মূল্যায়ন দিন",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:finding.REPEATED_OPENER": {
+  "text": "{{count}}টি বাক্য একইভাবে শুরু হয়েছে। বাক্যের শুরু বদলে লিখুন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:finding.SIMILAR_TEXT": {
+  "text": "কিছু অংশ ({{passages}}) Hangyul-এর অন্য একটি নথির সাথে হুবহু এক। অনুমোদনের আগে শিক্ষার্থীর সাথে কথা বলুন। অন্য লেখাটি কখনো শেয়ার করবেন না।",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:finding.UNDER_CHAR_LENGTH": {
+  "text": "{{limit}}টির মধ্যে {{count}}টি অক্ষর। আরও বিস্তারিত লেখার জায়গা আছে।",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:finding.UNDER_LENGTH": {
+  "text": "{{limit}}টির মধ্যে {{count}}টি শব্দ। আরও বিস্তারিত লেখার জায়গা আছে।",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:prompt.unknownStudent": {
+  "text": "এই বিশ্ববিদ্যালয়ের হুবহু প্রশ্নটি আমাদের কাছে এখনো নেই। আপনার কাউন্সেলর নিশ্চিত করবেন। আপনি আপনার আগ্রহ, পটভূমি ও পরিকল্পনা নিয়ে লেখা শুরু করতে পারেন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:sl.LATE": {
+  "text": "প্রত্যাশার চেয়ে বেশি সময় লাগছে। {{name}} এটি নিয়ে কাজ করছেন।",
+  "why": "EN: is working on it"
+ },
+ "writing:sl.LATE_FLAGGED": {
+  "text": "প্রত্যাশার চেয়ে বেশি সময় লাগছে। {{org}}-এর ম্যানেজারকে জানানো হয়েছে। আপনার কিছু করার দরকার নেই।",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:sl.LATE_FLAGGED_HANGYUL": {
+  "text": "প্রত্যাশার চেয়ে বেশি সময় লাগছে। Hangyul টিমকে জানানো হয়েছে। আপনার কিছু করার দরকার নেই।",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:sl.READY": {
+  "text": "প্রস্তুত। আপনার আবেদনে সংস্করণ {{version}} ব্যবহার করা হচ্ছে।",
+  "why": "EN present tense; no dash"
+ },
+ "writing:sl.WAITING_REVIEWER": {
+  "text": "জমা দেওয়া হয়েছে {{submitted}}। একজন পর্যালোচক ঠিক করা হচ্ছে।",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:student.checked": {
+  "text": "যাচাই হয়েছে। আপনার লেখায় কিছুই বদলানো হয়নি",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:student.factsSub": {
+  "text": "এগুলোতে আপনার প্রোফাইল থেকে ভিন্ন কথা বলা হয়েছে। কোনটা সঠিক তা শুধু আপনিই জানেন। বাক্যটি ঠিক করুন বা প্রোফাইল হালনাগাদ করুন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:student6.accepted": {
+  "text": "আপনি এটি গ্রহণ করেছেন। সংস্করণ {{version}} হিসেবে সংরক্ষিত",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:student6.acceptedToast": {
+  "text": "পরামর্শ গৃহীত। আপনার লেখা হালনাগাদ হয়েছে",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:student6.approvedVersion": {
+  "text": "অনুমোদিত এবং আপনার আবেদনে ব্যবহৃত হচ্ছে",
+  "why": "follow EN; no dash"
+ },
+ "writing:student6.noComments": {
+  "text": "এখনো কোনো মন্তব্য নেই। আপনার পর্যালোচকের নোট এখানে, আপনার লেখার পাশে দেখা যাবে।",
+  "why": "EN uses sentences, no dash"
+ },
+ "writing:student6.pendingNote_one": {
+  "text": "{{count}}টি পরামর্শ এখনো খোলা আছে। এতে সমস্যা নেই। আপনি চাইলে এটি গ্রহণ না-ও করতে পারেন।",
+  "why": "EN wording; no dash"
+ },
+ "writing:student6.pendingNote_other": {
+  "text": "{{count}}টি পরামর্শ এখনো খোলা আছে। এতে সমস্যা নেই। আপনি চাইলে এগুলো গ্রহণ না-ও করতে পারেন।",
+  "why": "EN wording; plural them"
+ },
+ "writing:student6.usedBy": {
+  "text": "সংস্করণ {{version}} অনুমোদিত। আপনার {{university}}-এর আবেদনে এটি ব্যবহৃত হচ্ছে।",
+  "why": "EN uses sentences, no dash"
+ },
+ "visaroute:caveat.APOSTILLE_TRANSITION": {
+  "text": "ভিয়েতনাম ১১ সেপ্টেম্বর ২০২৬ থেকে অ্যাপোস্টিল দেওয়া শুরু করেছে, কিন্তু দূতাবাসের স্টুডেন্ট ভিসার তালিকায় এখনো কনস্যুলার লিগালাইজেশনের কথা লেখা আছে। কোনটি গ্রহণযোগ্য, Hangyul টিম নিশ্চিত করবে।",
+  "why": "consular legalization term"
+ },
+ "visaroute:caveat.LEGALIZATION_UNCLEAR": {
+  "text": "আপনার শিক্ষাগত নথি কীভাবে প্রমাণীকরণ করতে হবে তা নিয়ে দূতাবাসের তালিকা আর জাতীয় ভিসা ম্যানুয়ালে অমিল আছে: অনূদিত কপি না কনস্যুলার লিগালাইজেশন। কোনটি লাগবে, আপনার কাউন্সেলর নিশ্চিত করবেন।",
+  "why": "consular legalization term"
+ },
+ "visaroute:caveat.TB_VALIDITY_CONFLICT": {
+  "text": "TB সার্টিফিকেট কতদিন বৈধ (৩ না ৬ মাস) তা নিয়ে অফিসিয়াল পেজগুলোতে অমিল আছে। আমরা কড়াকড়ি সময়টি, অর্থাৎ ৩ মাস, ধরি।",
+  "why": "natural stricter wording"
+ },
+ "visaroute:docs.legalization.CONSULAR": {
+  "text": "কনস্যুলার লিগালাইজেশন লাগবে",
+  "why": "consular legalization term"
+ },
+ "visaroute:step.slow_items.why": {
+  "text": "অ্যাপোস্টিল বা কনস্যুলার লিগালাইজেশন, যক্ষ্মা (TB) পরীক্ষা আর পুলিশ ক্লিয়ারেন্সে কয়েক সপ্তাহ লাগতে পারে।",
+  "why": "consular legalization term"
+ },
+ "concierge:arrived.text": {
+  "text": "পৌঁছেছেন জানান। আমরা আপনার রেসিডেন্স কার্ডের সময় গণনা শুরু করব এবং প্রথম কয়েক সপ্তাহের ধাপগুলো দেখাব।",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:cost.included": {
+  "text": "আপনার Hangyul প্ল্যানে অন্তর্ভুক্ত, বাড়তি কোনো খরচ নেই",
+  "why": "follow EN; no dash"
+ },
+ "concierge:feedback.gaveNo": {
+  "text": "আপনি জানিয়েছেন এটি ভালোভাবে হয়নি। আপনার টিম আপনার সাথে যোগাযোগ করবে।",
+  "why": "EN: team will contact you"
+ },
+ "concierge:feedback.thanks": {
+  "text": "ধন্যবাদ। এতে আমরা আরও ভালো করতে পারি।",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:flight.notLive": {
+  "text": "ফ্লাইটের সময় আপনি বা আপনার কাউন্সেলর লেখেন। এগুলো এয়ারলাইনের লাইভ তথ্য নয়।",
+  "why": "EN present tense; no dash"
+ },
+ "concierge:help.sentOps": {
+  "text": "পাঠানো হয়েছে। Hangyul-এর অপারেশনস টিমের কাছে আছে।",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:help.sentTeam": {
+  "text": "পাঠানো হয়েছে। আপনার কাউন্সেলরের কাছে আছে।",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:housing.askedToast": {
+  "text": "পাঠানো হয়েছে। আপনার টিম দেখার ব্যবস্থা করবে।",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:housing.compare.OFF_CAMPUS": {
+  "text": "বেশি বিকল্প ও বেশি নিজস্বতা। জামানত (প্রায়ই বড় অঙ্কের) ও চুক্তি লাগে। স্বাক্ষরের আগে আপনার কাউন্সেলর আপনার সাথে তা পর্যালোচনা করতে পারেন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:housing.dormExplain.NOT_ASSIGNED": {
+  "text": "এবার রুম পাওয়া যায়নি। অন্য বিকল্প খুঁজতে আপনার কাউন্সেলর সাহায্য করবেন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:housing.foundOwnSub": {
+  "text": "স্বাক্ষরের আগে চুক্তিটি শেয়ার করুন। আপনার কাউন্সেলর আপনার সাথে মিলিয়ে দেখবেন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:housing.tempRequested": {
+  "text": "পাঠানো হয়েছে। আপনার টিম কয়েকটি বিকল্প জানাবে।",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:lease.intro": {
+  "text": "প্রস্তাবিত চুক্তিপত্রটি আপলোড করুন এবং যা পড়তে পারেন তা পূরণ করুন। আপনার কাউন্সেলর আপনার সাথে এটি পর্যালোচনা করবেন। আমরা দেখি কোনো শর্ত বাদ পড়েছে বা অস্পষ্ট কি না। এটি আইনি পরামর্শ নয়।",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:lease.sent": {
+  "text": "পাঠানো হয়েছে। আপনার কাউন্সেলর আপনার সাথে এটি পর্যালোচনা করবেন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:official.needsReview": {
+  "text": "অফিসিয়াল উৎসের সাথে আমরা এখনো এটি নিশ্চিত করছি। এর ওপর নির্ভর করার আগে আপনার কাউন্সেলরের সাথে মিলিয়ে নিন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:pickup.explain.FLIGHT_DELAYED": {
+  "text": "আপনার ফ্লাইট দেরি করছে, তাই পিকআপের সময় বদলে দেওয়া হয়েছে। আপনার কিছু করার দরকার নেই।",
+  "why": "follow EN; no dash"
+ },
+ "concierge:pickup.explain.NO_SHOW": {
+  "text": "ড্রাইভার আপনাকে খুঁজে পাননি। আপনার টিম আপনার সাথে যোগাযোগ করবে, অথবা আপনি “কোরিয়ায় সাহায্য দরকার?” খুলতে পারেন।",
+  "why": "follow EN; no dash"
+ },
+ "concierge:pickup.needFlight": {
+  "text": "আগে আপনার ফ্লাইটের তথ্য যোগ করুন। পিকআপ আপনার পৌঁছানোর সময় ধরে পরিকল্পনা করা হয়।",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:pickup.requested": {
+  "text": "পিকআপের অনুরোধ করা হয়েছে। আপনার টিম নিশ্চিত করবে।",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:residence.groupNo": {
+  "text": "আপনার বিশ্ববিদ্যালয় দলগতভাবে আবেদন জমা দেয় না। HiKorea-তে নিজের ভিজিট বুক করুন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:residence.groupYes": {
+  "text": "আপনার বিশ্ববিদ্যালয় দলগতভাবে রেসিডেন্স কার্ডের আবেদন জমা দেয়। নিজের ভিজিট বুক না করে আপনি সেটি বেছে নিতে পারেন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:residence.lateText": {
+  "text": "আজই আপনার কাউন্সেলরের সাথে যোগাযোগ করুন। ইমিগ্রেশন অফিসের বিষয়ে তিনি সাহায্য করবেন।",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:residence.waiting": {
+  "text": "জমা দেওয়া হয়েছে। অফিসভেদে কার্ড পেতে সাধারণত এক থেকে কয়েক সপ্তাহ লাগে। ইমিগ্রেশন অনুমতি না দিলে এই সময়ে কোরিয়া ছেড়ে যাবেন না।",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:step.documents_to_carry.text": {
+  "text": "মূল কপিগুলো হাতব্যাগে রাখুন। প্রথম কয়েক সপ্তাহে রেসিডেন্স কার্ডের জন্য এগুলো লাগবে:",
+  "why": "EN uses sentences, no dash"
+ },
+ "concierge:step.pickup.sub": {
+  "text": "আপনার পিকআপ পার্টনার বিমানবন্দরের অ্যারাইভাল এলাকায় আপনার সাথে দেখা করবেন",
+  "why": "হলে misread as if; EN: meets you"
+ },
+ "concierge:step.residence_setup.text": {
+  "text": "পৌঁছানোর পর ৯০ দিনের মধ্যে রেসিডেন্স কার্ডের জন্য নিবন্ধন করুন এবং জাতীয় স্বাস্থ্য বিমায় যুক্ত হন।",
+  "why": "stray যা হবে removed"
+ }
+}

@@ -43,7 +43,7 @@ export function range(lo: number | null | undefined, hi: number | null | undefin
 
 /**
  * i18n key for a cost basis label. SAMPLE (seeded catalog figures, development only) is shown as the product's
- * honest "Not yet verified" — no development wording per row; the environment is disclosed once by DevAccess.
+ * honest "Not yet verified" — no development wording per row.
  */
 export const basisLabelKey = (b: CostBasis): string => (b === 'SAMPLE' ? 'common:freshness.unverified' : `budget.basis.${b}`);
 

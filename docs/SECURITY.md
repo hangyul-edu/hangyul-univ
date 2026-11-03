@@ -9,7 +9,7 @@ Hangyul Univ processes passports, transcripts, family and financial documents. C
 - Refresh tokens: random 384-bit values stored **hashed** (SHA-256); rotated on every refresh; **reuse of a rotated token revokes the whole token family** (theft detection, audited). Web: httpOnly `SameSite=Lax` cookie per client app scoped to `/api/v1/auth`; mobile: OS keychain via `expo-secure-store`.
 - Each console only accepts roles that belong to it (a student cannot sign in to a console and vice versa). Org membership is re-checked on every request, so revoking membership takes effect immediately.
 - Login attempts (success/failure, IP, user agent) are recorded in `login_events`.
-- `HG_ENV` **defaults to `production` and fails closed** (V23): unset, empty or misspelled values are treated as production. Production start-up refuses development secrets (a `dev-only` secret raises), refuses to boot without the SendGrid/Twilio/Turnstile keys, and disables test sign-in.
+- `HG_ENV` **defaults to `production` and fails closed** (V23): unset, empty or misspelled values are treated as production. Production start-up refuses development secrets (a `dev-only` secret raises), and refuses to boot without the SendGrid/Twilio/Turnstile keys. (V32: there is no test sign-in or paid-state bypass to disable — both were removed from the product; synthetic accounts exist only in the isolated test databases, `server/app/seed/fixtures.py`.)
 
 ## Authorization & tenant isolation
 

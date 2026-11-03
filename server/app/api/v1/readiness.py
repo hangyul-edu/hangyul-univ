@@ -32,7 +32,7 @@ router = APIRouter(tags=["v8", "admin"])
 ACTIVE, DEV, NEEDS, NOT = "ACTIVE", "DEVELOPMENT_ONLY", "NEEDS_AGREEMENT", "NOT_CONFIGURED"
 SEVERITY = {NOT: 0, NEEDS: 1, DEV: 2, ACTIVE: 3}
 # Must be ACTIVE before real students use the product; the others are optional (they have a stated fallback).
-REQUIRED = {"database", "secrets", "demo_signin", "file_storage", "malware_scan", "payments", "channel_in_app"}
+REQUIRED = {"database", "secrets", "file_storage", "malware_scan", "payments", "channel_in_app"}
 
 
 def _item(key: str, group: str, status: str, *, requires: list[str] | None = None, setting: str | None = None, fallback: str | None = None,
@@ -53,8 +53,6 @@ def integrations(db: Session) -> list[dict]:
     dev_secrets = "dev-only" in s.jwt_secret or "dev-only" in s.file_url_secret
     out.append(_item("secrets", "platform", DEV if dev_secrets else ACTIVE, requires=["HG_JWT_SECRET", "HG_FILE_URL_SECRET"],
                      note="Development secrets are in use; production refuses to start with them." if dev_secrets else None))
-    out.append(_item("demo_signin", "platform", DEV if s.demo_logins_enabled else ACTIVE, setting="HG_DEMO_LOGINS",
-                     note="One-click demo sign-in is on (always off in production)." if s.demo_logins_enabled else None))
 
     # --- files
     if s.storage_backend == "s3":

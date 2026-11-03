@@ -6,7 +6,8 @@
     }
   },
   "login": {
-    "webSignup": "Première visite ? Créez votre compte directement dans l'application."
+    "webSignup": "Première visite ? Créez votre compte directement dans l'application.",
+    "networkError": "Hangyul est injoignable pour le moment à l'adresse {{url}}. Vérifiez votre connexion et réessayez dans un instant."
   },
   "signup": {
     "title": "Créez votre compte",
@@ -17,10 +18,10 @@
       "consent": "Consentement",
       "done": "Terminé"
     },
-    "progress": "Étape {{n}} sur {{total}} : {{step}}",
+    "progress": "Étape {{n}} sur {{total}} : {{step}}",
     "login": "Se connecter",
     "signup": "Créer le compte",
-    "haveAccount": "Vous avez déjà un compte ?",
+    "haveAccount": "Vous avez déjà un compte ?",
     "newHere": "Nouveau sur Hangyul Univ ?",
     "fullName": "Nom complet",
     "fullNameHint": "Tel qu'écrit dans votre passeport.",
@@ -28,7 +29,7 @@
     "phone": "Numéro de mobile",
     "phonePlaceholder": "Numéro de mobile",
     "phonePreview": "Nous enverrons un SMS au {{e164}}",
-    "phoneCountry": "Pays : {{country}} (+{{dial}})",
+    "phoneCountry": "Pays : {{country}} (+{{dial}})",
     "phoneCountryPick": "Choisir un pays",
     "phoneSearch": "Rechercher un pays ou un indicatif",
     "nationality": "Nationalité",
@@ -60,7 +61,7 @@
     "expiresIn": "Expire dans {{seconds}} s",
     "expired": "Ce code a expiré. Demandez-en un nouveau.",
     "attemptsLeft": "{{count}} tentatives restantes",
-    "consoleHint": "Version de développement : les codes ne sont pas envoyés. Consultez-les dans les outils de développement.",
+    "consoleHint": "Version de développement : les codes ne sont pas envoyés. Consultez-les dans les outils de développement.",
     "captchaTitle": "Vérification rapide",
     "captchaText": "Cela empêche les inscriptions automatisées. Cela ne prend qu'un instant.",
     "captchaWaiting": "Terminez la vérification pour continuer.",
@@ -76,28 +77,28 @@
       },
       "PRIVACY": {
         "label": "J'accepte la collecte et l'utilisation de mes données personnelles",
-        "summary": "E-mail, numéro de mobile, nom, nationalité et mot de passe (chiffré), pour créer et protéger votre compte."
+        "summary": "E-mail, numéro de mobile, nom, nationalité et mot de passe (stocké chiffré), pour créer et protéger votre compte."
       },
       "CROSS_BORDER_VERIFICATION": {
         "label": "J'ai pris connaissance du traitement à l'étranger de mon e-mail et de mon numéro de mobile aux fins de vérification",
-        "summary": "Twilio Inc. (États-Unis) envoie le SMS et l'e-mail de vérification ; Cloudflare, Inc. (États-Unis) bloque les inscriptions automatisées. Les données transférées, le moment, la durée de conservation et la manière de refuser figurent dans la Politique de confidentialité. En cas de refus, le compte ne peut pas être créé."
+        "summary": "Twilio Inc. (États-Unis) envoie le SMS et l'e-mail de vérification ; Cloudflare, Inc. (États-Unis) vérifie que l'inscription n'est pas automatisée. Les détails, y compris la manière de refuser, figurent dans la Politique de confidentialité. En cas de refus, le compte ne peut pas être créé."
       },
       "MARKETING": {
         "label": "Je souhaite recevoir les actualités sur les études en Corée et les informations sur les événements",
-        "summary": "Facultatif. Par e-mail ou SMS ; désinscription possible à tout moment."
+        "summary": "Facultatif. Par e-mail ou SMS ; désinscription possible à tout moment."
       }
     },
-    "canonical": "Le texte coréen est la version juridiquement contraignante ; cette traduction est fournie pour votre commodité.",
+    "canonical": "Le texte coréen est la version juridiquement contraignante ; cette traduction est fournie pour votre commodité.",
     "legalTitle": "Document",
     "legalVersion": "Version {{version}}",
     "submit": "Créer le compte",
     "doneTitle": "Bienvenue, {{name}}",
     "doneText": "Votre adresse e-mail et votre numéro de mobile sont vérifiés. Dites-nous deux choses et nous vous montrerons les programmes qui vous correspondent.",
-    "quickDegree": "Que voulez-vous étudier ?",
+    "quickDegree": "Que voulez-vous étudier ?",
     "quickLanguage": "Votre niveau de coréen ou d'anglais",
     "quickLevel": "Niveau",
-    "quickSkip": "Plus tard",
-    "quickGo": "Voir mes recommandations",
+    "quickSkip": "Passer pour l'instant",
+    "quickGo": "Voir mes correspondances",
     "degree": {
       "LANGUAGE": "Langue coréenne",
       "BACHELOR": "Licence",
@@ -163,69 +164,614 @@
   "v3": {
     "quick": {
       "createAccount": "Inscrivez-vous pour continuer",
-      "open": "Voir vos options, sans compte",
-      "dataUnverified": "Certaines informations sur les programmes ne sont pas encore vérifiées. Confirmez-les sur le site officiel de l'université."
+      "open": "Voir vos options. Sans compte",
+      "dataUnverified": "Certaines informations sur les programmes ne sont pas encore vérifiées. Confirmez-les sur le site officiel de l'université.",
+      "again": "Modifier mes réponses"
     },
     "home": {
-      "noCounselor": "Choisissez une formule d’accompagnement et l’équipe Hangyul Univ travaille avec vous dans votre langue.",
+      "noCounselor": "Choisissez une formule et l'équipe Hangyul Univ travaille avec vous dans votre langue.",
       "stageLine": {
-        "admission": "Admission obtenue. Il reste à confirmer votre place"
+        "admission": "Admission confirmée. Reste à sécuriser votre place",
+        "apply": "Les universités examinent vos candidatures",
+        "arrival": "Préparation de votre arrivée en Corée",
+        "discover": "Recherche des bonnes universités",
+        "prepare": "Préparation de vos candidatures",
+        "visa": "Préparation de votre visa étudiant"
       },
       "nextBody": {
-        "ESSAY_WRITE": "Commencez par un brouillon. Votre conseiller le relira avec vous."
-      }
+        "ESSAY_WRITE": "Commencez par un brouillon. L'équipe Hangyul le relira avec vous.",
+        "APPLICATION_DEADLINE": "Terminez la liste pour que votre candidature puisse être envoyée à temps.",
+        "DOCUMENT_UPLOAD": "Téléversez un scan ou une photo nets. L'équipe Hangyul le vérifie et vous dit s'il faut corriger quelque chose.",
+        "REVIEW_MATCHES": "Nous avons comparé votre profil aux critères publiés. Enregistrez-en quelques-uns, puis commencez une candidature.",
+        "TUITION_PAYMENT": "Les frais de scolarité se paient directement à l'université, en votre nom.",
+        "UNIVERSITY_REQUEST": "L'université a demandé un document supplémentaire avant de pouvoir décider.",
+        "VISA_STEP": "Faites la prochaine étape de votre liste visa.",
+        "WAIT": "Rien à faire de votre côté pour le moment. Nous vous préviendrons dès que quelque chose change."
+      },
+      "applications": "Vos candidatures",
+      "closes": "Clôture le {{date}} · {{left}}",
+      "documentsHint": "Téléverser, corriger ou obtenir une apostille",
+      "documents_one": "{{count}} document à traiter",
+      "documents_other": "{{count}} documents à traiter",
+      "due": "À faire avant le {{date}} · {{left}}",
+      "findUniversities": "Trouver des universités",
+      "greeting": {
+        "afternoon": "Bonjour, {{name}}",
+        "evening": "Bonsoir, {{name}}",
+        "morning": "Bonjour, {{name}}"
+      },
+      "nextCta": {
+        "APPLICATION_DEADLINE": "Ouvrir la candidature",
+        "APPLICATION_SUBMIT": "Vérifier et envoyer",
+        "ARRIVAL_CHECKLIST": "Ouvrir la liste d'arrivée",
+        "COMPARE_OFFERS": "Comparer les offres",
+        "COMPLETE_PROFILE": "Continuer le profil",
+        "DOCUMENT_UPLOAD": "Téléverser le document",
+        "ESSAY_WRITE": "Ouvrir votre brouillon",
+        "INTERVIEW": "Préparer l'entretien",
+        "RESPOND_OFFER": "Consulter votre offre",
+        "REVIEW_MATCHES": "Voir mes universités",
+        "TUITION_PAYMENT": "Voir les détails du paiement",
+        "UNIVERSITY_REQUEST": "Voir ce que l'université a demandé",
+        "VISA_STEP": "Ouvrir les étapes du visa"
+      },
+      "nextCtaDefault": "Commencer maintenant",
+      "nextEyebrow": "À faire maintenant",
+      "noApplications": "Aucune candidature pour l'instant. Commencez par les universités qui vous correspondent.",
+      "otherTasks_one": "{{count}} autre tâche",
+      "otherTasks_other": "{{count}} autres tâches",
+      "team": "Équipe Hangyul Univ",
+      "unread_one": "{{count}} message non lu",
+      "unread_other": "{{count}} messages non lus",
+      "upcoming": "À venir",
+      "message": "Message"
     },
     "agency": {
-      "assigned": "Responsable : {{counselor}} · depuis le {{since}}",
+      "assigned": "Responsable : {{counselor}} · depuis le {{since}}",
       "att": {
         "oldest": "Le plus ancien : {{what}} ({{who}})",
-        "oldestSelf": "Le plus ancien : {{what}}"
-      }
+        "oldestSelf": "Le plus ancien : {{what}}",
+        "breached_one": "{{count}} déjà au-delà du délai promis",
+        "breached_other": "{{count}} déjà au-delà du délai promis",
+        "closing_one": "Candidature qui clôture sous 7 jours",
+        "closing_other": "Candidatures qui clôturent sous 7 jours",
+        "docs_one": "Document en attente de vérification",
+        "docs_other": "Documents en attente de vérification",
+        "next": "Prochaine : {{uni}} pour {{who}}, {{date}}",
+        "overSla": "{{count}} en attente depuis plus de {{hours}} h",
+        "overdue_one": "Tâche en retard",
+        "overdue_other": "Tâches en retard",
+        "replies_one": "Étudiant en attente de votre réponse",
+        "replies_other": "Étudiants en attente de votre réponse",
+        "since": "Le plus ancien de {{who}}, {{when}}",
+        "sla_one": "Étudiant dont la première réponse risque d'être en retard",
+        "sla_other": "Étudiants dont la première réponse risque d'être en retard"
+      },
+      "allClear": "Rien à signaler : {{list}}",
+      "applications_one": "{{count}} candidature",
+      "applications_other": "{{count}} candidatures",
+      "block": {
+        "deadline": "La candidature à {{uni}} clôture bientôt",
+        "fix": "{{doc}} doit être corrigé par l'étudiant",
+        "requested": "{{uni}} a demandé des documents supplémentaires",
+        "review": "{{doc}} attend votre vérification",
+        "sla": "Première réponse attendue"
+      },
+      "blockers_one": "{{count}} point bloque cet étudiant",
+      "blockers_other": "{{count}} points bloquent cet étudiant",
+      "clear": {
+        "closing": "échéances cette semaine",
+        "docs": "vérifications de documents",
+        "overdue": "tâches en retard",
+        "replies": "réponses aux étudiants",
+        "sla": "premières réponses"
+      },
+      "conversationSubject": "Votre équipe pour les études en Corée",
+      "deadline": "{{uni}} {{when}}",
+      "documents": "Documents · {{verified}} sur {{total}} vérifiés",
+      "dueToday_one": "À faire aujourd'hui · {{count}}",
+      "dueToday_other": "À faire aujourd'hui · {{count}}",
+      "findStudent": "Trouver un étudiant",
+      "firstMessage": "Écrire à {{name}}",
+      "greeting": {
+        "afternoon": "Bonjour, {{name}}",
+        "evening": "Bonsoir, {{name}}",
+        "morning": "Bonjour, {{name}}"
+      },
+      "needsAttention": "À traiter",
+      "nextAction": "Prochaine action : {{what}}",
+      "noBlockers": "Rien ne bloque cet étudiant",
+      "noBlockersBody": "Documents, échéances et réponses sont tous à jour.",
+      "noStudents": "Aucun étudiant dans cette vue",
+      "noStudentsBody": "Essayez une autre vue ou effacez la recherche.",
+      "searchPlaceholder": "Nom ou e-mail",
+      "stage": "Étape",
+      "stageNote": "Note pour l'équipe (facultatif)",
+      "stageTo": "Passer à {{stage}}",
+      "teamView": "Équipe · {{name}}",
+      "toFix_one": "{{count}} doc à corriger",
+      "toFix_other": "{{count}} docs à corriger",
+      "today": "Aujourd'hui",
+      "upload": "Téléverser",
+      "uploadFor": "{{doc}} pour {{name}}",
+      "uploadWhat": "Quel document téléversez-vous ?",
+      "uploaded": "Téléversé dans le coffre-fort de l'étudiant. Prêt pour vérification.",
+      "view": {
+        "all": "Tous",
+        "attention": "À traiter",
+        "deadline": "Échéance proche",
+        "docs": "Documents à corriger",
+        "mine": "Mes étudiants",
+        "sla": "Étudiants proches ou au-delà du délai de première réponse promis",
+        "university": "En attente de l'université",
+        "waiting_student": "En attente de l'étudiant",
+        "waiting_us": "En attente de notre côté",
+        "visa": "Visa"
+      },
+      "waitingOn": {
+        "agency": "En attente de l'équipe de l'agence",
+        "counselor": "En attente du conseiller",
+        "external": "En attente d'un organisme extérieur",
+        "hangyul": "En attente de Hangyul",
+        "none": "Rien en attente",
+        "student": "En attente de l'étudiant",
+        "university": "En attente de l'université",
+        "us": "En attente de notre côté"
+      },
+      "message": "Message",
+      "messageLabel": "Message"
     },
     "discover": {
       "explain": {
-        "possible": "Vous remplissez les minimums publiés, mais un point demande votre attention, généralement le budget ou une date limite."
-      }
+        "possible": "Vous remplissez les minimums publiés, mais un point demande votre attention, généralement le budget ou une date limite.",
+        "notyet": "Un critère publié n'est pas encore rempli. Chaque ligne indique lequel.",
+        "strong": "Vous remplissez tous les critères de base publiés, et le programme correspond à votre budget et à vos projets."
+      },
+      "all": "Tous",
+      "any": "Indifférent",
+      "closes": "clôture le {{date}}",
+      "degree": "Que voulez-vous étudier ?",
+      "emptyVerdict": "Rien ici pour le moment",
+      "filters": "Filtres",
+      "filtersN": "Filtres · {{count}}",
+      "forYou": "Pour vous",
+      "language": "Langue d'enseignement",
+      "noLanguageMin": "Aucun niveau de langue minimum",
+      "openOnly": "Candidatures ouvertes",
+      "perYear": "≈ {{amount}} / an",
+      "saved": "Enregistrés · {{count}}",
+      "savedEmpty": "Aucune université enregistrée pour l'instant",
+      "savedEmptyBody": "Touchez le cœur d'un programme pour le garder ici.",
+      "showResults_one": "Afficher {{count}} programme",
+      "showResults_other": "Afficher {{count}} programmes",
+      "summary_one": "Vous remplissez les critères publiés de {{count}} programme.",
+      "summary_other": "Vous remplissez les critères publiés de {{count}} programmes.",
+      "tuition": "Frais de scolarité par semestre",
+      "upTo": "Jusqu'à {{amount}} M₩"
     },
     "university": {
       "verdict": {
-        "REACH": "Vous y êtes presque. Il vous manque un peu sur un critère."
-      }
+        "REACH": "Vous y êtes presque. Il vous manque peu sur un critère.",
+        "COMPETITIVE": "Vous remplissez les minimums publiés. Un point demande votre attention.",
+        "NOT_ELIGIBLE": "Un critère publié n'est pas encore rempli.",
+        "RECOMMENDED": "Recommandé pour vous.",
+        "STRONG": "Vous remplissez tous les critères de base publiés, et le programme correspond à votre budget."
+      },
+      "admissionsSite": "Site des admissions internationales",
+      "deadline": "Candidature avant le",
+      "documentsCount": "{{count}} documents · {{legal}} à apostiller ou à faire légaliser par le consulat",
+      "dorm": "Résidence universitaire par semestre",
+      "dormRange": "{{min}}–{{max}}",
+      "estimate": "Total estimé",
+      "estimateNote": "Estimation fondée sur les frais de scolarité publiés et un coût de la vie mensuel typique pour la ville.",
+      "fee": "Frais de candidature",
+      "gpa": "Notes",
+      "gpaMin": "Au moins {{pct}} % de la moyenne maximale",
+      "intake": "Rentrée",
+      "interview": "Entretien",
+      "interviewYes": "L'université peut vous convoquer à un entretien",
+      "language": "Langue",
+      "links": "Informations officielles",
+      "living": "Coût de la vie (12 mois)",
+      "noIntake": "Aucune rentrée ouverte",
+      "noVerdict": "Complétez votre profil pour savoir si vous remplissez les critères de ce programme.",
+      "notPublished": "Non publié",
+      "program": "Programme",
+      "requirements": "Critères",
+      "start": "Commencer la candidature",
+      "website": "Site de l'université",
+      "yearCost": "Coût de la première année (estimation)",
+      "documents": "Documents"
     },
     "application": {
       "writingWeb": "Rédigez et modifiez vos essais sur le web. Les commentaires de votre conseiller s'y affichent.",
-      "uploadFor": "Téléverser {{item}}"
+      "uploadFor": "Téléverser {{item}}",
+      "closes": "Clôture le {{date}} · {{left}}",
+      "due": "À faire avant le {{date}}",
+      "ready": "Prête à être envoyée",
+      "readyBody": "Tout ce qui est requis est en place.",
+      "reviewBody": "Envoyée le {{date}}. L'université peut demander un autre document ou un entretien. L'équipe Hangyul suit son avancement.",
+      "reviewTitle": "{{university}} examine votre candidature",
+      "reviewing": "Vérification de {{item}}",
+      "submit": "Envoyer la candidature",
+      "teamMonitoring": "En contact avec l'université",
+      "teamWaiting": "En attente de vos documents",
+      "timeline": "Chronologie",
+      "uni": {
+        "decided": "Décision prise",
+        "reviewing": "Examine votre candidature",
+        "waiting": "Attend votre candidature"
+      },
+      "university": "Université",
+      "uploadRequested": "Téléverser ce document",
+      "who": "Qui fait quoi",
+      "withdraw": "Retirer cette candidature",
+      "you": "Vous"
     },
     "appStatus": {
       "READY": "Tout est vérifié. Prête à être envoyée.",
-      "VISA_ISSUED": "Votre visa est délivré. Vous pouvez maintenant préparer votre arrivée."
+      "VISA_ISSUED": "Votre visa est délivré. Vous pouvez maintenant préparer votre arrivée.",
+      "ADDITIONAL_DOCUMENTS": "L'université a demandé un document supplémentaire.",
+      "ADMISSION_CERTIFICATE_ISSUED": "Votre lettre d'admission est prête. Commencez vos documents de visa.",
+      "ADMISSION_CERTIFICATE_PENDING": "En attente de votre lettre d'admission standard.",
+      "DOCUMENT_PREPARATION": "Vous préparez vos documents.",
+      "DRAFT": "Vous avez commencé cette candidature.",
+      "ENROLLED": "Inscription confirmée. Bienvenue en Corée.",
+      "INTERVIEW": "L'université souhaite vous recevoir en entretien.",
+      "OFFERED": "Vous avez reçu une offre.",
+      "OFFER_ACCEPTED": "Vous avez accepté l'offre. Prochaine étape : les frais de scolarité.",
+      "PROFILE_REVIEW": "L'équipe Hangyul Univ examine votre profil.",
+      "REJECTED": "L'université n'a pas proposé de place cette fois-ci.",
+      "SUBMITTED": "Envoyée à {{university}}.",
+      "TUITION_PAID": "Frais de scolarité reçus. L'université prépare votre lettre d'admission.",
+      "TUITION_PENDING": "Payez les frais de scolarité directement à l'université avant la date limite.",
+      "UNIVERSITY_REVIEW": "{{university}} examine votre candidature.",
+      "VISA_PREPARATION": "Vous préparez votre demande de visa.",
+      "VISA_SUBMITTED": "Demande de visa déposée.",
+      "WAITLISTED": "Vous êtes sur liste d'attente.",
+      "WITHDRAWN": "Cette candidature a été retirée."
     },
     "docAction": {
       "RENEW": "Expiré. Téléversez-en un nouveau",
-      "TOO_OLD": "Délivré il y a trop longtemps. Demandez une nouvelle copie"
+      "TOO_OLD": "Délivré il y a trop longtemps. Demandez une nouvelle copie",
+      "FIX": "À corriger",
+      "IN_REVIEW": "En cours de vérification par l'équipe Hangyul",
+      "LEGALIZE": "Apostille ou légalisation consulaire requise",
+      "UPLOAD": "Pas encore téléversé"
     },
     "documents": {
-      "legalize": "Vérifié, mais nécessite encore {{path}} pour être accepté par une université coréenne",
-      "howToBody": "Seules les étapes du pays qui a délivré votre document s'affichent. Cochez chacune une fois terminée."
+      "legalize": "Vérifié, mais une étape reste nécessaire avant qu'une université coréenne l'accepte : {{path}}",
+      "howToBody": "Seules les étapes du pays qui a délivré votre document s'affichent. Cochez chacune une fois terminée.",
+      "allSet": "Rien à faire de votre côté pour le moment.",
+      "checking": "En cours de vérification",
+      "howTo": "Comment obtenir : {{path}}",
+      "issuedIn": "Pays de délivrance",
+      "issuedOn": "Date de délivrance",
+      "needYou_one": "{{count}} à traiter",
+      "needYou_other": "{{count}} à traiter",
+      "neededFor": "Requis pour {{university}}",
+      "needsYou": "À traiter",
+      "newVersion": "Téléverser une nouvelle version",
+      "ready": "Prêt",
+      "readyOf": "{{ready}} documents prêts sur {{total}}",
+      "readyTitle": "Prêts",
+      "sourceVerified": "Source officielle · vérifiée le {{date}}",
+      "state": {
+        "fix": "À corriger",
+        "legalize": "Apostille requise",
+        "ready": "Prêt",
+        "review": "En cours de vérification"
+      },
+      "submitted": "Envoyé {{when}}",
+      "upload": "Téléverser",
+      "validUntil": "Valable jusqu'au {{date}}",
+      "validUntilLabel": "Valable jusqu'au"
     },
     "visa": {
-      "title": "Votre plan pour le visa {{type}}",
+      "title": "Préparation de votre visa {{type}}",
       "beforeBody": "Une fois l'offre acceptée et les frais de scolarité payés, l'université délivre votre lettre d'admission. Vous pouvez déjà voir ce qu'il vous faudra et commencer à le réunir.",
-      "after": "Disponible après : {{list}}"
+      "after": "Disponible après : {{list}}",
+      "beforeTitle": "La préparation du visa commence après votre offre d'admission",
+      "blockers": "À faire d'abord",
+      "checklist": "Votre liste · {{done}} sur {{total}} terminées",
+      "forNationality": "Propre à votre nationalité",
+      "now": "À faire maintenant",
+      "phase": {
+        "apply": "Demande de visa",
+        "decision": "Décision de l'ambassade",
+        "documents": "Documents de visa",
+        "letter": "Lettre d'admission",
+        "admission": "Admission"
+      },
+      "preview": "Ce dont vous aurez besoin",
+      "seeRequirement": "Voir l'exigence officielle",
+      "sourceChecked": "Source officielle · vérifiée le {{date}}",
+      "titleGeneric": "Votre visa étudiant"
     },
     "profile": {
       "unlockTitle": "Ce qu'un profil complet vous apporte",
       "unlock": {
-        "language": "Nous permet de vous proposer les programmes qui exigent le TOPIK, l'IELTS ou le TOEFL"
-      }
+        "language": "Nous permet de vous proposer les programmes qui exigent le TOPIK, l'IELTS ou le TOEFL",
+        "basics": "Nous indique quelles règles de documents et de visa s'appliquent à vous",
+        "default": "Rend vos correspondances plus précises",
+        "education": "Écarte les programmes dont vous ne remplissez pas les critères académiques",
+        "goals": "Affiche les programmes du niveau et de la rentrée que vous souhaitez",
+        "passport": "Nécessaire avant l'envoi de toute candidature",
+        "preferences": "Classe les universités selon votre budget et votre ville",
+        "sponsor": "Vous permet de préparer tôt les justificatifs financiers du visa"
+      },
+      "completeTitle": "Votre profil est complet",
+      "done": "Terminé",
+      "editOnWeb": "Vous pouvez modifier ces réponses sur le web à tout moment.",
+      "places": "Vos informations",
+      "todo": "À ajouter"
     },
     "tasks": {
       "empty": {
-        "overdue": "Rien en retard. Bravo"
-      }
+        "overdue": "Rien en retard. Bravo",
+        "team": "L'équipe n'a aucune tâche ouverte",
+        "today": "Rien à faire aujourd'hui",
+        "waiting": "Aucune tâche n'attend quelque chose d'autre",
+        "week": "Rien à faire cette semaine"
+      },
+      "open": "Ouvrir",
+      "overdue": "En retard · {{when}}",
+      "view": {
+        "overdue": "En retard",
+        "team": "Équipe",
+        "today": "Aujourd'hui",
+        "waiting": "En attente",
+        "week": "Cette semaine"
+      },
+      "waitingOn": "En attente de : {{what}}"
     },
     "uni": {
-      "decisionNow": "Décision"
+      "decisionNow": "Décision",
+      "allClear": "Aucune décision à prendre pour le moment.",
+      "allCohorts": "Tous les étudiants Hangyul",
+      "allIntakes": "Toutes les rentrées",
+      "applicant": "Candidat",
+      "check": {
+        "gpa": "Moyenne (GPA)",
+        "interview": "Entretien",
+        "interviewRequired": "Requis par ce programme",
+        "level": "Niveau {{level}}",
+        "minimum": "Minimum {{need}} · Candidat {{have}}",
+        "notProvided": "non renseigné",
+        "state": {
+          "below": "Sous le minimum",
+          "meets": "Conforme",
+          "missing": "Non renseigné",
+          "planned": "Test prévu",
+          "unscheduled": "Non programmé"
+        },
+        "topik": "TOPIK"
+      },
+      "checksNote": "Compare les scores déclarés par le candidat aux minimums publiés du programme. C'est une aide à l'examen ; la décision vous appartient.",
+      "checksTitle": "Contrôle des critères",
+      "closed": "Clôturées : {{rejected}} non admis, {{withdrawn}} retirées. Les taux requièrent au moins {{min}} personnes.",
+      "cohortIntro_one": "{{count}} étudiant vous a rejoint via Hangyul. Voici sa situation.",
+      "cohortIntro_other": "{{count}} étudiants vous ont rejoint via Hangyul. Voici leur situation.",
+      "cohortNote": "Les taux apparaissent à partir de {{min}} étudiants concernés. Au {{date}}.",
+      "cohort_one": "{{label}} · {{count}} étudiant",
+      "cohort_other": "{{label}} · {{count}} étudiants",
+      "conv": "{{pct}} de l'étape précédente · {{n}} sur {{d}}",
+      "convFew": "{{n}} sur {{d}} depuis l'étape précédente · trop peu pour un taux",
+      "decision": {
+        "admitted_one": "admis n'ayant pas encore payé les frais de scolarité",
+        "admitted_other": "admis n'ayant pas encore payé les frais de scolarité",
+        "documents_one": "en attente des documents de l'étudiant",
+        "documents_other": "en attente des documents des étudiants",
+        "flagged_one": "candidature signalée",
+        "flagged_other": "candidatures signalées",
+        "interview_one": "entretien à mener ou à noter",
+        "interview_other": "entretiens à mener ou à noter",
+        "offer_one": "offre en attente de la réponse de l'étudiant",
+        "offer_other": "offres en attente de la réponse des étudiants",
+        "returned_one": "document renvoyé par l'étudiant",
+        "returned_other": "documents renvoyés par les étudiants",
+        "review_one": "candidature à examiner",
+        "review_other": "candidatures à examiner"
+      },
+      "decisionContext_one": "{{ready}} documents requis prêts sur {{total}} · {{count}} demande ouverte.",
+      "decisionContext_other": "{{ready}} documents requis prêts sur {{total}} · {{count}} demandes ouvertes.",
+      "decisionDocs": "{{ready}} documents requis prêts sur {{total}}.",
+      "decisionHint": {
+        "admitted": "Confirmez le paiement à sa réception",
+        "documents": "Rien à faire avant leur téléversement",
+        "flagged": "Marquées pour un examen plus attentif",
+        "interview": "Enregistrez le résultat après l'entretien",
+        "offer": "Hangyul relance l'étudiant",
+        "returned": "Revérifiez ce que vous aviez demandé",
+        "review": "Déposées et assez complètes pour décider"
+      },
+      "docsTitle": "Documents · {{ready}} prêts sur {{total}}",
+      "dueOn": "avant le {{date}}",
+      "empty": {
+        "all": "Aucun candidat ici",
+        "flagged": "Aucune candidature signalée",
+        "review": "Aucune candidature en attente d'examen"
+      },
+      "graduation": "Diplômés",
+      "latest": "Dernières à examiner",
+      "move": {
+        "ADDITIONAL_DOCUMENTS": "Demander des documents",
+        "ADMISSION_CERTIFICATE_ISSUED": "Délivrer la lettre d'admission",
+        "INTERVIEW": "Convoquer à un entretien",
+        "OFFERED": "Faire une offre",
+        "REJECTED": "Ne pas admettre",
+        "TUITION_PAID": "Confirmer le paiement des frais",
+        "TUITION_PENDING": "Envoyer la facture des frais de scolarité",
+        "UNIVERSITY_REVIEW": "Commencer l'examen",
+        "WAITLISTED": "Liste d'attente"
+      },
+      "nOfD": "{{n}} sur {{d}}",
+      "needsTitle": "Décision attendue",
+      "noMinimums": "Ce programme n'a pas encore de minimums publiés.",
+      "nothingToReview": "Rien en attente d'examen",
+      "openRequests_one": "{{count}} document demandé",
+      "openRequests_other": "{{count}} documents demandés",
+      "otherDecisions": "Autres décisions",
+      "populationAll_one": "Sur la base de {{count}} candidature déposée, toutes rentrées confondues.",
+      "populationAll_other": "Sur la base de {{count}} candidatures déposées, toutes rentrées confondues.",
+      "populationIntake_one": "Sur la base de {{count}} candidature déposée pour {{intake}}.",
+      "populationIntake_other": "Sur la base de {{count}} candidatures déposées pour {{intake}}.",
+      "reason": "Motif (partagé avec Hangyul)",
+      "request": "Demander",
+      "requestLabel": "De quoi avez-vous besoin ?",
+      "requestLabelHint": "ex. Diplôme de fin d'études secondaires apostillé",
+      "requestNote": "Instructions pour l'étudiant",
+      "requestNoteHint": "Ce qui manque exactement et comment y remédier",
+      "requestSend": "Envoyer la demande",
+      "requestTitle": "Demander un document à {{name}}",
+      "requestWho": "L'étudiant et son conseiller Hangyul sont notifiés et voient ce texte tel quel.",
+      "requestedOn": "Demandé le {{date}}",
+      "retention": "Toujours en études",
+      "search": "Rechercher un nom, un programme ou une référence",
+      "step": {
+        "ACCEPTED": "Offre acceptée",
+        "ARRIVED": "Arrivés en Corée",
+        "ENROLLED": "Inscrits",
+        "OFFERED": "Offre faite",
+        "REVIEWED": "Examinées",
+        "SUBMITTED": "Déposées",
+        "TUITION_PAID": "Frais payés",
+        "VISA_ISSUED": "Visa délivré"
+      },
+      "tab": {
+        "applicants": "Candidats",
+        "pipeline": "Vue d'ensemble",
+        "students": "Étudiants"
+      },
+      "tooFew": "Trop peu pour un taux",
+      "view": {
+        "admitted": "Admis",
+        "all": "Tous",
+        "documents": "Documents manquants",
+        "enrolment": "Visa et inscription",
+        "flagged": "Signalées",
+        "interview": "Entretien",
+        "offer": "Offre",
+        "review": "À examiner"
+      },
+      "waitingStudent": "En attente de l'étudiant"
+    },
+    "common": {
+      "all": "Tout voir"
+    },
+    "deadlines": {
+      "bucket": {
+        "later_other": "Plus tard ce mois-ci · {{count}}",
+        "overdue_other": "En retard · {{count}}",
+        "week_other": "7 prochains jours · {{count}}"
+      },
+      "emptyView": "Aucune échéance dans cette vue",
+      "student": "Étudiant",
+      "who": {
+        "all": "Toutes",
+        "mine": "Les miennes",
+        "unassigned": "Non attribuées"
+      },
+      "you": "Vous"
+    },
+    "journey": {
+      "apply": "Candidature",
+      "arrival": "Arrivée",
+      "discover": "Découverte",
+      "next": "Ensuite : {{stage}}",
+      "of": "· {{n}} sur {{total}}",
+      "prepare": "Préparation",
+      "step": "Étape {{n}} sur {{total}} : {{stage}}",
+      "admission": "Admission",
+      "visa": "Visa"
+    },
+    "match": {
+      "close": "Pas encore éligible — à un critère près",
+      "notYet": "Pas encore éligible",
+      "possible": "Correspondance possible",
+      "strong": "Forte correspondance"
+    },
+    "messages": {
+      "attach": "Joindre un fichier",
+      "attachUnavailable": "Les pièces jointes ne sont pas encore disponibles.",
+      "attachmentOnly_one": "{{count}} pièce jointe envoyée",
+      "attachmentOnly_other": "{{count}} pièces jointes envoyées",
+      "openAttachment": "Ouvrir {{name}}",
+      "removeAttachment": "Retirer {{name}}",
+      "conversations": "Conversations"
+    },
+    "offer": {
+      "accept": "Accepter l'offre",
+      "body": "{{university}} vous propose une place en {{program}}.",
+      "deadline": "Acceptez et payez les frais de scolarité avant le {{date}} · {{left}}",
+      "next": "La suite",
+      "scholarship": "Bourse",
+      "step": {
+        "accept": "Accepter l'offre",
+        "letter": "Recevoir votre lettre d'admission standard",
+        "review": "Lire l'offre et ses éventuelles conditions",
+        "tuition": "Payer les frais de scolarité directement à l'université",
+        "visa": "Préparer votre visa étudiant"
+      },
+      "tuition": "Frais de scolarité",
+      "tuitionDirect": "Hangyul n'encaisse jamais les frais de scolarité. Payez l'université en votre nom, selon ses instructions."
+    },
+    "push": {
+      "denied": "Les notifications sont désactivées. Activez-les pour Hangyul dans les réglages de votre téléphone.",
+      "enable": "Activer les notifications",
+      "error": "Nous n'avons pas pu activer les notifications. Réessayez.",
+      "idle": "Recevez une notification quand un document est vérifié, qu'une date limite approche ou que l'équipe Hangyul vous répond.",
+      "on": "Les notifications sont activées. Vous pouvez changer cela dans les réglages de votre téléphone.",
+      "pending-server": "Les notifications sont autorisées sur ce téléphone. L'envoi push n'est pas encore actif ; tout continue d'apparaître dans cette liste.",
+      "title": "Notifications sur ce téléphone"
+    },
+    "reviews": {
+      "beforeVerify": "Avant de valider",
+      "bulkBody": "Uniquement pour les documents que vous avez ouverts et contrôlés. Chaque étudiant est notifié.",
+      "bulkDone": "{{ok}} validés, {{failed}} ignorés",
+      "bulkTitle_one": "Valider {{count}} document ?",
+      "bulkTitle_other": "Valider {{count}} documents ?",
+      "check": {
+        "date": "Date de délivrance assez récente et document non expiré",
+        "issuer": "Émetteur, cachet ou signature visible",
+        "legal": "{{path}} jointe et conforme au document",
+        "legible": "Toutes les pages sont complètes et lisibles",
+        "name": "Nom et date de naissance identiques au passeport"
+      },
+      "correctionTitle": "Que doit corriger l'étudiant ?",
+      "expires": "Valable jusqu'au",
+      "issuedIn": "Pays de délivrance",
+      "issuedOn": "Date de délivrance",
+      "legalization": "Légalisation",
+      "notNeeded": "Non requise",
+      "open": "Ouvrir {{name}}",
+      "overSla": "{{waiting}} · au-delà du délai de vérification promis",
+      "reason": "Message à l'étudiant",
+      "requestCorrection": "Demander une correction",
+      "required": "Requise",
+      "select": "Sélectionner",
+      "studentSees": "{{name}} voit ce texte tel quel à côté du document.",
+      "studentSeesGeneric": "L'étudiant voit ce texte tel quel à côté du document.",
+      "summary": "{{count}} en attente · {{over}} au-delà du délai de vérification promis de {{hours}} h",
+      "templates": "Modèles de l'équipe",
+      "translation": "Traduction",
+      "uploaded": "téléversé {{when}}",
+      "verifyN_one": "Valider {{count}} document",
+      "verifyN_other": "Valider {{count}} documents"
+    },
+    "settings": {
+      "consoleHint": "Les membres de l'équipe, la facturation et les exports se gèrent dans la console web de l'agence.",
+      "work": "Votre travail"
+    },
+    "upload": {
+      "camera": "Prendre une photo",
+      "cameraHint": "Posez le document à plat, bien éclairé",
+      "failed": "Nous n'avons pas pu ouvrir ce fichier. Veuillez réessayer.",
+      "files": "Choisir un fichier",
+      "filesHint": "PDF, JPG ou PNG jusqu'à 15 Mo",
+      "library": "Choisir dans les photos",
+      "privacy": "Seuls vous et l'équipe Hangyul pouvez ouvrir vos documents. Une université ne les voit qu'après l'envoi de votre candidature chez elle.",
+      "tooLarge": "Ce fichier dépasse 15 Mo. Essayez un scan PDF ou une photo plus petite."
     }
   },
   "v23": {
@@ -240,15 +786,45 @@
   "agency": {
     "reviews": {
       "tab": "Travail",
-      "notReviewable": "Ce document n’attend pas de vérification.",
+      "notReviewable": "Ce document n'est pas en attente de vérification.",
       "reasonPlaceholder": "Par exemple : la page de l'apostille manque. Téléversez toutes les pages.",
-      "changesDone": "Correction demandée. L'étudiant a été prévenu"
+      "changesDone": "Correction demandée. L'étudiant a été prévenu",
+      "detailTitle": "Vérification",
+      "empty": "Aucune vérification en attente",
+      "emptyBody": "Les nouveaux téléversements de vos étudiants apparaîtront ici.",
+      "history": "Historique des vérifications",
+      "lastReason": "Dernière demande de correction",
+      "noFile": "Aucun fichier n'a encore été téléversé pour ce document.",
+      "sendToStudent": "Envoyer à l'étudiant",
+      "tabA11y_one": "Vérifications, {{count}} en attente",
+      "tabA11y_other": "Vérifications, {{count}} en attente",
+      "title": "Vérification des documents",
+      "verify": "Valider le document",
+      "waitingDays_one": "En attente depuis {{count}} jour",
+      "waitingDays_other": "En attente depuis {{count}} jours",
+      "waitingHours_one": "En attente depuis {{count}} heure",
+      "waitingHours_other": "En attente depuis {{count}} heures"
     },
     "login": {
-      "tagline": "Vos dossiers, relectures et messages sur mobile."
+      "tagline": "Vos dossiers, vérifications et messages sur mobile."
     },
     "dashboard": {
       "noOverdue": "Aucune tâche en retard. Bravo."
+    },
+    "deadlines": {
+      "empty": "Aucune échéance dans les 30 prochains jours",
+      "subtitle": "Échéances de vos étudiants dans les 30 prochains jours.",
+      "title": "Rappels"
+    },
+    "messages": {
+      "subtitle": "Conversations avec les étudiants et notes internes.",
+      "title": "Messages"
+    },
+    "students": {
+      "detailTitle": "Étudiant"
+    },
+    "tasks": {
+      "unassigned": "Non attribuée"
     }
   },
   "v26": {
@@ -263,7 +839,17 @@
     }
   },
   "messages": {
-    "internalToggle": "Note interne, masquée pour l'étudiant"
+    "internalToggle": "Note interne, masquée pour l'étudiant",
+    "empty": "Aucune conversation pour l'instant",
+    "emptyBody": "Les messages échangés avec votre équipe apparaîtront ici.",
+    "internalLabel": "Note interne",
+    "internalOn": "Note interne : seule votre équipe la verra",
+    "internalPlaceholder": "Écrire une note interne (équipe uniquement)…",
+    "noMessages": "Aucun message pour l'instant",
+    "placeholder": "Écrire un message…",
+    "sendInternal": "Enregistrer la note interne",
+    "unreadCount_one": "{{count}} message non lu",
+    "unreadCount_other": "{{count}} messages non lus"
   },
   "student": {
     "login": {
@@ -275,23 +861,98 @@
     },
     "nextAction": {
       "WAIT": "Rien à faire pour le moment. Nous vous préviendrons quand quelque chose demandera votre attention",
-      "FINISH_APPLICATION": "Terminez votre candidature pour {{university}}. Il reste {{remaining}} éléments"
+      "FINISH_APPLICATION": "Terminez votre candidature pour {{university}} ({{remaining}} à faire)",
+      "ARRIVAL_CHECKLIST": "Préparez votre arrivée en Corée",
+      "COMPARE_OFFERS": "Comparez vos {{count}} offres d'admission",
+      "COMPLETE_PROFILE": "Complétez votre profil pour voir quelles universités vous correspondent",
+      "PROFILE_UNLOCK": {
+        "budget": "Ajoutez votre budget pour classer {{count}} programmes par coût",
+        "education": "Ajoutez vos études pour vérifier {{count}} programmes",
+        "gpa": "Ajoutez vos notes pour vérifier {{count}} programmes",
+        "language": "Ajoutez votre score de langue pour vérifier {{count}} programmes",
+        "other": "Complétez votre profil pour vérifier {{count}} programmes"
+      },
+      "RESPOND_OFFER": "Répondez à votre offre d'admission",
+      "REVIEW_MATCHES": "Consultez vos correspondances d'universités"
     },
     "applications": {
-      "emptyBody": "Partez de vos correspondances : les programmes dont vous remplissez les critères."
+      "emptyBody": "Partez de vos correspondances : les programmes dont vous remplissez les critères.",
+      "active": "En cours",
+      "closed": "Clôturées",
+      "confirm": {
+        "OFFER_ACCEPTED": {
+          "body": "Vous acceptez l'offre de {{university}}. L'équipe Hangyul Univ vous guidera pour payer les frais de scolarité et obtenir votre lettre d'admission standard.",
+          "cta": "Accepter l'offre",
+          "title": "Accepter cette offre ?"
+        },
+        "WITHDRAWN": {
+          "body": "Votre candidature à {{university}} sera clôturée. Cette action ne peut pas être annulée depuis l'application.",
+          "cta": "Retirer la candidature",
+          "title": "Retirer cette candidature ?"
+        }
+      },
+      "detailTitle": "Candidature",
+      "empty": "Aucune candidature en cours",
+      "emptyClosed": "Aucune candidature clôturée",
+      "submittedOn": "Envoyée le {{date}}",
+      "subtitle": "Suivez toutes vos candidatures au même endroit."
     },
     "documents": {
       "subtitle": "Vos documents enregistrés, réutilisés d'une candidature à l'autre.",
       "verifiedBody": "Vérifié. Vous pouvez réutiliser ce document pour d'autres candidatures.",
-      "legalizationHint": "Cochez chaque étape une fois terminée. Notre équipe fait la vérification finale après votre téléversement."
+      "legalizationHint": "Cochez chaque étape une fois terminée. Notre équipe fait la vérification finale après votre téléversement.",
+      "empty": "Votre coffre-fort est vide",
+      "emptyBody": "Téléversez votre passeport, vos relevés de notes et vos résultats de tests depuis l'application web.",
+      "fixFallback": "L'équipe Hangyul a demandé une correction sur ce document.",
+      "fixTitle": "Ce qu'il faut corriger",
+      "openFile": "Ouvrir l'aperçu sécurisé",
+      "reviews": "Historique des vérifications",
+      "translationBody": "Une traduction certifiée en coréen ou en anglais est exigée pour ce document.",
+      "detailTitle": "Document",
+      "file": "{{name}} · version {{version}}"
     },
     "matches": {
       "tierHint": {
         "NOT_ELIGIBLE": "Un critère publié n'est pas encore rempli. Voir les raisons ci-dessous."
-      }
+      },
+      "deadline": "Date limite {{date}} · {{due}}"
     },
     "profile": {
-      "editOnWeb": "Pour modifier votre profil, utilisez l'application web. Les changements apparaissent ici automatiquement."
+      "editOnWeb": "Pour modifier votre profil, utilisez l'application web. Les changements apparaissent ici automatiquement.",
+      "completion": "Profil complété à",
+      "step": {
+        "basics": "Informations de base",
+        "education": "Études",
+        "goals": "Objectifs d'études",
+        "language": "Scores de langue",
+        "passport": "Passeport",
+        "preferences": "Préférences",
+        "sponsor": "Financement des études"
+      }
+    },
+    "explore": {
+      "clear": "Effacer la recherche",
+      "save": "Enregistrer {{name}}",
+      "searchPlaceholder": "Rechercher un programme ou une université",
+      "unsave": "Retirer {{name}} des favoris"
+    },
+    "messages": {
+      "subtitle": "Échangez avec l'équipe Hangyul Univ.",
+      "unreadA11y_one": "Messages, {{count}} non lu",
+      "unreadA11y_other": "Messages, {{count}} non lus"
+    },
+    "saved": {
+      "empty": "Rien d'enregistré pour l'instant",
+      "emptyBody": "Touchez le cœur d'un programme pour garder son université ici."
+    },
+    "tasks": {
+      "confirmTitle": "Marquer cette tâche comme terminée ?",
+      "empty": "Rien à faire pour le moment",
+      "emptyBody": "Nous ajouterons des tâches ici quand quelque chose demandera votre attention.",
+      "overdue": "En retard ({{count}})",
+      "subtitle": "Les tâches de l'équipe Hangyul et les listes de vos candidatures.",
+      "title": "Liste de tâches",
+      "upcoming": "À faire"
     }
   },
   "university": {
@@ -300,16 +961,58 @@
     },
     "flagged": {
       "hint": "Les signalements sont internes à votre université. Ni les étudiants ni les agences ne les voient.",
-      "emptyBody": "Signalez une candidature depuis sa page détaillée pour y revenir plus tard."
+      "emptyBody": "Signalez une candidature depuis sa page détaillée pour y revenir plus tard.",
+      "add": "Signaler pour suivi",
+      "addBody": "Seule l'équipe de votre université verra ce signalement et son motif.",
+      "flagged": "Signalée",
+      "reason": "Motif",
+      "remove": "Retirer le signalement",
+      "removeTitle": "Retirer le signalement de cette candidature ?"
     },
     "cohorts": {
       "riskHint": "Les alertes précoces proviennent uniquement des données partagées par vos systèmes (assiduité, situation académique, inscription, dates de visa). Ce sont des invitations à contacter l'étudiant, pas des prédictions."
+    },
+    "applicants": {
+      "anonymous": "Candidat",
+      "confirmBody": "{{name}} et son conseiller seront informés. Ajoutez une note pour le dossier (facultatif).",
+      "confirmTitle": "Passer au statut « {{status}} » ?",
+      "detailTitle": "Candidat",
+      "history": "Historique des statuts",
+      "interview": "Entretien",
+      "moveTo": "Passer à : {{status}}",
+      "notShared": "Pas encore partagé avec votre université",
+      "previewHint": "Ouvre un aperçu sécurisé à durée limitée",
+      "reference": "Votre numéro de référence",
+      "submitted": "Déposée le {{date}}",
+      "submittedLabel": "Déposée",
+      "note": "Note",
+      "viaAgency": "Via {{agency}}"
+    },
+    "login": {
+      "tagline": "Candidats, décisions et cohortes pour votre service des relations internationales."
+    },
+    "inbox": {
+      "title": "Messages"
     }
   },
   "v4": {
     "application": {
-      "writeOnWeb": "Rédigez-le sur le web. Les commentaires de votre conseiller s'y affichent.",
-      "reviewLate": "Cela prend plus de temps que d'habitude. Votre conseiller a été prévenu du retard. Inutile de le téléverser à nouveau."
+      "writeOnWeb": "Rédigez-le sur le web. Les commentaires de l'équipe Hangyul s'y affichent aussi.",
+      "reviewLate": "Cela prend plus de temps que d'habitude. L'équipe Hangyul a été prévenue du retard. Inutile de le téléverser à nouveau.",
+      "blocks": "Votre candidature ne pourra pas être envoyée tant que ce point n'est pas réglé.",
+      "blocksUni": "{{university}} attend ce point avant de poursuivre.",
+      "doneSummary_one": "{{count}} terminé : {{items}}",
+      "doneSummary_other": "{{count}} terminés : {{items}}",
+      "next": "Votre prochaine étape",
+      "nextFix": "Corrigez votre {{item}}",
+      "nextLegalize": "Obtenez une apostille ou une légalisation consulaire pour votre {{item}}",
+      "nextRequest": "{{university}} a demandé : {{item}}",
+      "nextUpload": "Téléversez votre {{item}}",
+      "nextWrite": "Rédigez votre {{item}}",
+      "nothingForYou": "Rien à faire de votre côté pour le moment",
+      "openDocument": "Ouvrir le document",
+      "waitBody": "L'équipe Hangyul vérifie ce que vous avez envoyé. Nous vous dirons s'il faut changer quelque chose.",
+      "waitTitle": "Rien à faire de votre côté pour le moment"
     },
     "reviews": {
       "tickAll": "{{done}} sur {{total}} vérifiés. Cochez tous les points pour valider."
@@ -317,9 +1020,74 @@
     "home": {
       "item": {
         "WRITE_ESSAY": {
-          "text": "Votre conseiller le relira avec vous. Commencez par un brouillon. Il n'a pas besoin d'être parfait."
+          "text": "L'équipe Hangyul le relira avec vous. Commencez par un brouillon. Il n'a pas besoin d'être parfait.",
+          "cta": "Commencer à écrire",
+          "title": "Rédigez votre {{label}} pour {{university}}"
+        },
+        "FIX": {
+          "cta": "Voir comment corriger",
+          "text": "Votre candidature ne pourra pas être envoyée tant que ce n'est pas corrigé.",
+          "title": "Corrigez votre {{label}} pour {{university}}"
+        },
+        "LEGALIZE": {
+          "cta": "Voir les étapes",
+          "text": "Les universités coréennes n'acceptent ce document qu'une fois authentifié. Nous vous montrerons les étapes pour votre pays.",
+          "title": "Obtenez une apostille pour votre {{label}} pour {{university}}"
+        },
+        "RENEW": {
+          "cta": "Voir quoi faire",
+          "text": "Celui que vous avez téléversé a expiré.",
+          "title": "Obtenez un nouveau {{label}} pour {{university}}"
+        },
+        "REQUEST": {
+          "cta": "Téléverser et envoyer",
+          "text": "L'université a demandé ce document. Votre candidature ne peut pas avancer tant qu'il n'est pas arrivé.",
+          "title": "Envoyez votre {{label}} à {{university}}"
+        },
+        "REVISE_ESSAY": {
+          "cta": "Ouvrir votre brouillon",
+          "text": "L'équipe Hangyul a laissé des commentaires. Votre candidature ne pourra pas être envoyée tant que ce texte n'est pas approuvé.",
+          "title": "Retravaillez votre {{label}} pour {{university}}"
+        },
+        "TOO_OLD": {
+          "cta": "Voir quoi faire",
+          "text": "L'université a besoin d'une copie délivrée récemment.",
+          "title": "Obtenez un {{label}} plus récent pour {{university}}"
+        },
+        "UPLOAD": {
+          "cta": "Le téléverser",
+          "text": "Votre candidature ne pourra pas être envoyée sans ce document.",
+          "title": "Téléversez votre {{label}} pour {{university}}"
         }
       }
+    },
+    "discover": {
+      "firstYear": "{{range}} la première année"
+    },
+    "documents": {
+      "late": "Plus long que prévu",
+      "lateLine": "signalé en retard à l'équipe Hangyul"
+    },
+    "uni": {
+      "actor": {
+        "AGENCY": "Agence partenaire",
+        "STUDENT": "Candidat",
+        "SYSTEM": "Automatique",
+        "UNIVERSITY": "Votre université",
+        "HANGYUL": "Hangyul"
+      },
+      "toReview_one": "À examiner · {{count}}",
+      "toReview_other": "À examiner · {{count}}"
+    },
+    "university": {
+      "continue": "Continuer votre candidature",
+      "firstYear": "Première année, estimation",
+      "tuitionYear": "Frais de scolarité par an"
+    },
+    "visa": {
+      "hideDone": "Masquer les étapes terminées",
+      "showDone_one": "Afficher {{count}} étape terminée",
+      "showDone_other": "Afficher {{count}} étapes terminées"
     }
   },
   "v29": {
@@ -327,23 +1095,83 @@
       "term": "Période de service",
       "termUntil": "Jusqu'au {{date}}",
       "termToAgree": "Fixée au début du service",
-      "supportUntil": "Conseil jusqu'au {{date}}",
-      "supportDays": "{{count}} jours dès le premier entretien",
+      "supportUntil": "Accompagnement jusqu'au {{date}}",
+      "supportDays": "{{count}} jours d'accompagnement à partir de votre première consultation",
       "arrival": "Arrivée et installation",
       "arrivalWindow": "{{from}} – {{until}}",
       "unrationed": {
-        "CONTRACTED_DOCUMENTS": "Sans limite sur les documents sous contrat",
-        "TEAM": "Suivi par l'équipe",
+        "CONTRACTED_DOCUMENTS": "Sans limite sur les documents prévus au contrat",
+        "TEAM": "Suivi par votre équipe",
         "PRIORITY": "Réponse prioritaire",
         "ROUNDS": "Inclus"
       },
       "upgradePending": "Le prix de la mise à niveau n'est pas encore fixé. L'équipe Hangyul Univ le définira directement avec vous.",
       "askTeam": "Contacter l'équipe"
+    },
+    "mfa": {
+      "codeHint": "Saisissez le code à 6 chiffres de votre application d'authentification, ou un code de récupération.",
+      "codeLabel": "Code de vérification",
+      "enrollOnWeb": "Ce compte requiert la vérification en deux étapes. Activez-la d'abord dans la console web, puis connectez-vous ici.",
+      "verify": "Vérifier et se connecter",
+      "wrongCode": "Ce code est incorrect ou a expiré. Saisissez-en un nouveau."
     }
   },
   "plan": {
     "allowance": {
-      "consultation_sessions": "Entretien de diagnostic"
-    }
+      "consultation_sessions": "Consultation de diagnostic",
+      "essay_review_rounds": "Relecture de la lettre de motivation et du projet d'études",
+      "follow_up_consultations": "Consultations de suivi",
+      "max_managed_applications": "Candidatures prises en charge",
+      "max_recommended_institutions": "Recommandations d'universités",
+      "mock_interviews": "Entretiens blancs"
+    },
+    "browserFailed": "Le navigateur n'a pas pu s'ouvrir. Veuillez payer sur le web.",
+    "card": "Vous pouvez payer avec une carte étrangère (Visa, Mastercard, JCB).",
+    "chooseLede": "Un seul paiement, sans abonnement. Votre formule vous accompagne pendant toute votre préparation.",
+    "chooseTitle": "Choisir une formule",
+    "handoff": "Le paiement se fait dans votre navigateur, puis vous revenez dans l'application une fois terminé.",
+    "highestAlready": "Vous avez déjà la formule la plus complète.",
+    "included": "Compris dans votre formule",
+    "oneTime": "Paiement unique",
+    "ongoing": "Pendant toute la période de service",
+    "paid": "Montant payé",
+    "pay": "Payer",
+    "plansTitle": "Formules",
+    "selected": "Sélectionnée",
+    "upgradeTitle": "Mise à niveau",
+    "webNote": "L'historique des formules et les reçus sont sur le web."
+  },
+  "more": {
+    "active": "En cours",
+    "allowanceSpent": "Vous avez utilisé tout ce que comprend cette formule. L'écran des formules indique laquelle couvre davantage.",
+    "choose": "Choisir",
+    "noPlan": "Pas encore de formule",
+    "noPlanHint": "Choisissez une formule et Hangyul commence à travailler avec vous",
+    "plan": "Formule",
+    "support": "Obtenir de l'aide",
+    "supportHint": "Écrire à l'équipe Hangyul",
+    "webNote": "La modification du profil et le paiement se font sur le web."
+  },
+  "notifications": {
+    "unread": "Non lues"
+  },
+  "settings": {
+    "elsewhere": "Ailleurs",
+    "language": "Langue",
+    "languageHint": "Choisissez la langue de cette application. Certaines langues sont des traductions automatiques encore en cours de relecture.",
+    "machineDraft": "traduction automatique",
+    "notificationsHint": "Voir les notifications que vous avez reçues",
+    "rtlNote": "Le texte de droite à gauche est appliqué dès maintenant ; la mise en page complète sera inversée à la prochaine ouverture de l'application.",
+    "selected": "sélectionnée",
+    "server": "Serveur : {{url}}",
+    "signOutBody": "Vous aurez besoin de votre e-mail et de votre mot de passe pour vous reconnecter.",
+    "signOutTitle": "Se déconnecter ?",
+    "title": "Paramètres",
+    "version": "Version {{version}}"
+  },
+  "app": {
+    "agency": "Hangyul Agency",
+    "student": "Hangyul Univ",
+    "university": "Hangyul University"
   }
 }

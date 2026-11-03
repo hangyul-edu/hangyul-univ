@@ -1,0 +1,871 @@
+{
+  "_notes": [
+    "Team name: EN 'Hangyul team' -> 'Hangyul-ийн баг', EN 'Hangyul Univ team' -> 'Hangyul Univ-ийн баг'; every 'зөвлөх тань' (counselor) in Student/mobile copy replaced with the team, since the English names the team and the glossary avoids 'advising'.",
+    "'Matches' rendered as 'тохирох хөтөлбөрүүд' (programs that fit you) everywhere; bare 'тохирол' is not natural Mongolian.",
+    "Plan stays 'багц' (established across the file); 'upgrade' rendered as 'дээд багц руу шилжих', never 'шинэчлэх' (= renew/update).",
+    "One term per concept: managed application = 'тантай хамт хөтлөх өргөдөл'; mock interview = 'дадлагын ярилцлага'; university recommendation = 'санал болгох их сургуулиуд'; personal statement + study plan = 'өөрийн танилцуулга, суралцах төлөвлөгөө'; follow-up consultation = 'дараагийн зөвлөгөө'; visa document preparation = 'визийн бичиг баримтын бэлтгэл'; arrival & settling-in = 'ирэх, суурьших'.",
+    "student:v15.services.scope.personal_roadmap: avoided 'суралцах төлөвлөгөө' (reserved for the 학업계획서 document) and wrote 'алхам алхмын бэлтгэлийн төлөвлөгөө'.",
+    "register.prior.*: level labels made bare nouns so 'Та {{level}} төгссөн үү?' reads naturally (Та бакалавр төгссөн үү?); high school = 'бүрэн дунд сургууль' (Mongolian official term) in both places.",
+    "'Admitted' rendered as 'элсэлт батлагдлаа / тэнцлээ', not 'та элсэлээ' (which means already enrolled); admission offer = 'элсэлтийн санал'; 'securing your place' = 'суралцах эрхээ баталгаажуулах' (байр would collide with housing).",
+    "mobile:login.networkError: dropped the Android-emulator/LAN-IP instructions that are not in the English and would confuse students.",
+    "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary aligned to the English (it listed transfer periods/retention the English does not mention).",
+    "Sessions: 'сесс/сешн' replaced with 'нэвтрэлт/төхөөрөмж' wording; 'Sign-in & sessions' -> 'Нэвтрэлт ба төхөөрөмжүүд' (owner may prefer another label).",
+    "Null entries (v21.pay.*, v29.mfa.*, v3.agency.waitingOn.*, v4.uni.actor.*, v4.uni.toReview_*) translated fresh."
+  ],
+  "student:applications.emptyCta": {
+    "text": "Тохирох хөтөлбөрүүдээ харах",
+    "why": "'тохирол' unnatural; matches = programs that fit"
+  },
+  "student:applications.emptyText": {
+    "text": "Тохирох хөтөлбөрүүдээсээ нэгийг сонгож эхлээрэй. Өөрийн хурдаар бэлтгэж болно.",
+    "why": "natural phrasing for matches"
+  },
+  "student:dashboard.arrival.cta": {
+    "text": "Ирэх бэлтгэлийн жагсаалтыг нээх",
+    "why": "'Ирэх жагсаалт' unclear"
+  },
+  "student:dashboard.arrival.landing": {
+    "text": "{{date}}-нд газардана",
+    "why": "natural word order"
+  },
+  "student:dashboard.arrival.noFlight": {
+    "text": "Таныг тосох, эхний өдрүүдийг тань төлөвлөхийн тулд нислэгийн мэдээллээ нэмнэ үү.",
+    "why": "'тосолт' unnatural; pickup = тосох"
+  },
+  "student:dashboard.counselor.noneCta": {
+    "text": "Багцуудыг харах",
+    "why": "EN says 'See the plans'; плэн term = багц"
+  },
+  "student:dashboard.stageText.ENROLL": {
+    "text": "Элсэлтийн санал авсанд баяр хүргэе! Суралцах эрхээ баталгаажуулъя.",
+    "why": "'байр' collides with housing; offer = элсэлтийн санал"
+  },
+  "student:dashboard.stageText.VISA": {
+    "text": "Элсэлт тань батлагдлаа. Дараагийн алхам — оюутны виз.",
+    "why": "'Та элсэлээ' means already enrolled"
+  },
+  "student:documents.privacy.short": {
+    "text": "Шифрлэгдсэн хадгалагдана. Өргөдөл илгээх хүртэл зөвхөн та болон Hangyul-ийн баг нээж чадна.",
+    "why": "team name consistency"
+  },
+  "student:essays.new.subtitle": {
+    "text": "Дасгал хийх, эсвэл жагсаалтад хараахан ороогүй их сургуульд зориулж.",
+    "why": "calque word order"
+  },
+  "student:home.allMatches": {
+    "text": "Тохирох бүх хөтөлбөр",
+    "why": "matches term"
+  },
+  "student:home.closestSub": {
+    "text": "Нийтэлсэн бүх шаардлагыг хараахан хангаагүй байна. Юу дутуу байгааг яг тодорхой харуулна.",
+    "why": "'харуулав' literary past; present reads naturally"
+  },
+  "student:home.team": {
+    "text": "Hangyul Univ-ийн баг",
+    "why": "'баг тань' odd; genitive needed"
+  },
+  "student:housing.noUni": {
+    "text": "Анхны өргөдлөө гаргасны дараа байрны хэсэг нээгдэнэ",
+    "why": "clearer causal order"
+  },
+  "student:login.aside.note": {
+    "text": "Олон жижиг алхам — нэг удаад нэг л тодорхой алхам.",
+    "why": "literal calque"
+  },
+  "student:login.aside.point3": {
+    "text": "Таны хэлээр ярьдаг Hangyul-ийн багийн жинхэнэ хүмүүстэй хамт бэлтгээрэй.",
+    "why": "EN names the team, not advisors"
+  },
+  "student:messages.new.subtitle": {
+    "text": "Hangyul-ийн баг энд хариулна.",
+    "why": "team name consistency"
+  },
+  "student:messages.team": {
+    "text": "Hangyul Univ-ийн баг",
+    "why": "genitive missing"
+  },
+  "student:onboarding.basics.residenceHint": {
+    "text": "Зарим элчин сайдын яам визийн мэдүүлгийг зөвхөн тухайн улсад оршин суугчдаас хүлээн авдаг.",
+    "why": "'оршин суугчдаас виз хүлээж авдаг' wrong meaning"
+  },
+  "student:onboarding.education.levels.ASSOCIATE": {
+    "text": "Дипломын боловсрол / коллеж",
+    "why": "'Коллеж / дипломын' incomplete"
+  },
+  "student:onboarding.education.levels.DOCTORATE": {
+    "text": "Докторын зэрэг",
+    "why": "'Доктор' = a doctor"
+  },
+  "student:onboarding.education.normalized": {
+    "text": "Хөрвүүлсэн оноо",
+    "why": "'хэвшүүлсэн' = habituated"
+  },
+  "student:onboarding.education.previewEmpty": {
+    "text": "Хөрвүүлсэн оноог харахын тулд GPA болон хэмжүүрээ оруулна уу.",
+    "why": "same term as method text"
+  },
+  "student:onboarding.goals.degreeSub.LANGUAGE": {
+    "text": "Эхлээд солонгос хэл, өөрийн хурдаар",
+    "why": "MN added promo not in EN"
+  },
+  "student:onboarding.passport.numberHint": {
+    "text": "Заавал биш. Бид зөвхөн сүүлийн хэдэн цифрийг хадгална; бүтэн дугаар таны паспортын баримт дээр үлдэнэ.",
+    "why": "'оронгууд' unnatural"
+  },
+  "student:onboarding.passport.visa.D-4": {
+    "text": "D-4 (хэлний сургалт)",
+    "why": "D-4 = language course, not trainee"
+  },
+  "student:onboarding.preferences.housingSub.DORM": {
+    "text": "Эхний курсын ихэнх гадаад оюутан үүнийг сонгодог",
+    "why": "grammar; natural phrasing"
+  },
+  "student:onboarding.steps.sponsor.subtitle": {
+    "text": "Их сургууль, визийн ажилтнууд санхүүгийн дэмжлэгийн талаар асуудаг. Зорилгоо хэлбэл Hangyul-ийн баг таныг чиглүүлэхэд хялбар болно.",
+    "why": "team name; EN says guide, not help better"
+  },
+  "student:profile.saved": {
+    "text": "Профайл шинэчлэгдлээ. Тохирох хөтөлбөрүүдийг дахин тооцлоо",
+    "why": "repetition; matches term"
+  },
+  "student:register.consent.MARKETING.summary": {
+    "text": "Заавал биш. Имэйл эсвэл мессежээр; хүссэн үедээ татгалзаж болно.",
+    "why": "'Сонголтот' unnatural"
+  },
+  "student:register.consent.PRIVACY.summary": {
+    "text": "Бүртгэл үүсгэх, хамгаалах зорилгоор имэйл, гар утасны дугаар, нэр, иргэншил, нууц үг (шифрлэж хадгална).",
+    "why": "'хэш' jargon; EN says stored encrypted"
+  },
+  "student:register.consent.text": {
+    "text": "Бүртгэл үүсгэхийн тулд заавал зөвшөөрөх зүйлсийг зөвшөөрөх шаардлагатай. Заавал биш зөвшөөрлийг Тохиргооноос хүссэн үедээ цуцалж болно.",
+    "why": "'Сонголтот' unnatural"
+  },
+  "student:register.consent.title": {
+    "text": "Таны мэдээллийг бид хэрхэн ашиглах вэ",
+    "why": "EN is warm; MN legalistic"
+  },
+  "student:register.done.cta": {
+    "text": "Хөтөлбөр үзэж эхлэх",
+    "why": "'Хайж эхлэх' vague"
+  },
+  "student:register.errors.session": {
+    "text": "Бүртгэлийн хугацаа дууссан байна. Эхнээс нь дахин эхэлнэ үү.",
+    "why": "'сешн' calque"
+  },
+  "student:register.fromCheck": {
+    "text": "Таны хариултууд профайлд тань хадгалагдсан тул бүртгүүлмэгц тохирох хөтөлбөрүүд тань бэлэн байна.",
+    "why": "matches term"
+  },
+  "student:register.prior.level.ASSOCIATE": {
+    "text": "2–3 жилийн коллеж",
+    "why": "bare noun for the question frame"
+  },
+  "student:register.prior.level.BACHELOR": {
+    "text": "бакалавр",
+    "why": "bare noun for the question frame"
+  },
+  "student:register.prior.level.HIGH_SCHOOL": {
+    "text": "бүрэн дунд сургууль",
+    "why": "official term; consistent with onboarding"
+  },
+  "student:register.prior.level.MASTER": {
+    "text": "магистр",
+    "why": "bare noun for the question frame"
+  },
+  "student:register.prior.question": {
+    "text": "Та {{level}} төгссөн үү?",
+    "why": "'{{level}}-аа' breaks with inserted nouns"
+  },
+  "student:services.success.assigned": {
+    "text": "{{agency}} танд тусална",
+    "why": "natural word order"
+  },
+  "student:settings.data.confirmText": {
+    "text": "Таны профайл, баримт, мессежийг 10 хоногийн дотор устгана. Хуулиар хадгалах ёстой бүртгэл (төлбөрийн бүртгэл гэх мэт) үүнд хамаарахгүй. Идэвхтэй өргөдлүүдийг татна.",
+    "why": "sentence was tangled; one meaning"
+  },
+  "student:settings.privacy.purpose.SHARE_WITH_UNIVERSITY.title": {
+    "text": "Өргөдлөө илгээсэн их сургуулиудтай хуваалцах",
+    "why": "'өргөдлөө өргөдөл гаргасан' repetition"
+  },
+  "student:settings.sessions.text": {
+    "text": "Энэ төхөөрөмж дээр 30 хүртэл хоног нэвтэрсэн хэвээр байна. Эндээс гарвал зөвхөн энэ төхөөрөмж дээрх нэвтрэлт дуусна; бүх төхөөрөмжөөс гарахын тулд нууц үгээ солих эсвэл тусламжийн багтай холбогдоно уу.",
+    "why": "'сесс' calque"
+  },
+  "student:settings.sessions.title": {
+    "text": "Нэвтрэлт ба төхөөрөмжүүд",
+    "why": "'сесс' calque"
+  },
+  "student:v15.services.allowance.key.mock_interviews": {
+    "text": "Дадлагын ярилцлага",
+    "why": "one term for mock interview"
+  },
+  "student:v15.services.allowance.title": {
+    "text": "Багтсан зүйл ба ашигласан хэмжээ",
+    "why": "EN: what is included and used"
+  },
+  "student:v15.services.scope.dormitory_support": {
+    "text": "Дотуур байр",
+    "why": "EN is just 'Dormitory'"
+  },
+  "student:v15.services.scope.personal_roadmap": {
+    "text": "Танд зориулсан алхам алхмын бэлтгэлийн төлөвлөгөө",
+    "why": "collided with study-plan document term"
+  },
+  "student:v15.services.scope.pre_arrival_orientation": {
+    "text": "Явахаас өмнөх онлайн танилцуулга",
+    "why": "'чиглүүлэг' uncommon"
+  },
+  "student:v15.services.scope.priority_response": {
+    "text": "Hangyul-ийн багаас эн тэргүүнд хариу",
+    "why": "team name; natural phrasing"
+  },
+  "student:v15.services.scope.title": {
+    "text": "Таны багцад багтсан",
+    "why": "EN: included in your plan"
+  },
+  "student:v15.services.scope.visa_support": {
+    "text": "Визийн бичиг баримтын бэлтгэл",
+    "why": "glossary: visa document preparation"
+  },
+  "student:v15.services.subtitle": {
+    "text": "Багцад тань юу багтаж, юу үлдсэнийг хараад, хараахан сонгоогүй бол багц сонгоорой.",
+    "why": "simpler, warmer"
+  },
+  "student:v17.gate.named": {
+    "text": "{{what}} багцад багтдаг. Эхлэхийн тулд багц сонгоно уу.",
+    "why": "'Hangyul багцад багтсан үйлчилгээ' clumsy"
+  },
+  "student:v17.gate.what.applications": {
+    "text": "таны өргөдлүүд",
+    "why": "EN: your applications, not management"
+  },
+  "student:v17.gate.what.arrival": {
+    "text": "ирэх, суурьших үеийн тусламж",
+    "why": "glossary: arrival and settling-in help"
+  },
+  "student:v17.gate.what.compare": {
+    "text": "зэрэгцүүлсэн харьцуулалт",
+    "why": "EN: side-by-side comparison"
+  },
+  "student:v17.gate.what.essays": {
+    "text": "өөрийн танилцуулга, суралцах төлөвлөгөөний засвар",
+    "why": "EN names both documents"
+  },
+  "student:v17.gate.what.help": {
+    "text": "Hangyul-ийн багийн тусламж",
+    "why": "'консьерж' not Mongolian"
+  },
+  "student:v17.gate.what.home": {
+    "text": "таны бэлтгэлийн талбар",
+    "why": "'орон зай' calque"
+  },
+  "student:v17.gate.what.housing": {
+    "text": "дотуур байрны тусламж",
+    "why": "EN: dormitory help"
+  },
+  "student:v17.gate.what.messages": {
+    "text": "Hangyul-ийн багтай мессеж солилцох",
+    "why": "MN was just the team name"
+  },
+  "student:v17.gate.what.saved": {
+    "text": "таны хадгалсан сургуулиуд",
+    "why": "EN: your shortlist"
+  },
+  "student:v17.gate.what.scholarships": {
+    "text": "танд тохирох тэтгэлэг",
+    "why": "'тэтгэлэг тохируулах' unclear"
+  },
+  "student:v17.gate.what.tasks": {
+    "text": "таны даалгаврын жагсаалт",
+    "why": "EN: task list"
+  },
+  "student:v17.gate.what.visa": {
+    "text": "визийн бичиг баримтын бэлтгэл",
+    "why": "glossary term"
+  },
+  "student:v17.pay.afterPay": {
+    "text": "Таныг Toss Payments руу шилжүүлнэ; гадаадын картаар (Visa, Mastercard, JCB) төлж болно. Төлбөр батлагдмагц багц тань эхэлнэ.",
+    "why": "fragmented sentence"
+  },
+  "student:v17.upgrade.amount": {
+    "text": "Дээд багц руу шилжих үнэ",
+    "why": "'шинэчлэлт' = update/renew"
+  },
+  "student:v17.upgrade.cta": {
+    "text": "{{plan}} руу шилжих",
+    "why": "'шинэчлэх' = update"
+  },
+  "student:v17.upgrade.feature.document_review": {
+    "text": "Бичиг баримтын нарийвчилсан шалгалт",
+    "why": "word order; 'гүнзгий' odd"
+  },
+  "student:v17.upgrade.feature.essay_review": {
+    "text": "Өөрийн танилцуулгын засвар",
+    "why": "EN: personal statement"
+  },
+  "student:v17.upgrade.feature.managed_application": {
+    "text": "Тантай хамт хөтлөх өргөдөл",
+    "why": "one term for managed application"
+  },
+  "student:v17.upgrade.feature.mock_interview": {
+    "text": "Дадлагын ярилцлага",
+    "why": "one term for mock interview"
+  },
+  "student:v17.upgrade.feature.recommendations": {
+    "text": "Санал болгох их сургуулиуд",
+    "why": "one term for recommendation"
+  },
+  "student:v17.upgrade.title": {
+    "text": "{{feature}} нь {{plan}} багцад багтдаг.",
+    "why": "'багцад байна' vague"
+  },
+  "student:v21.pay.cardFailed": {
+    "text": "Төлбөр амжилтгүй боллоо",
+    "why": "was null"
+  },
+  "student:v21.pay.cardSecure": {
+    "text": "Таны картын мэдээлэл шифрлэгдсэн холболтоор зөвхөн Hangyul руу, тэндээс манай төлбөрийн үйлчилгээ үзүүлэгч рүү очно. Бид картын дугаарыг тань хэзээ ч хадгалдаггүй.",
+    "why": "was null"
+  },
+  "student:v21.pay.cardTitle": {
+    "text": "Картаар төлөх",
+    "why": "was null"
+  },
+  "student:v21.pay.declined": {
+    "text": "Карт хүлээн авагдсангүй: {{reason}} Өөр карт ашиглах эсвэл банкнаасаа лавлана уу.",
+    "why": "was null"
+  },
+  "student:v21.pay.expiry": {
+    "text": "Хүчинтэй хугацаа",
+    "why": "was null"
+  },
+  "student:v21.pay.holder": {
+    "text": "Карт эзэмшигчийн нэр",
+    "why": "was null"
+  },
+  "student:v21.pay.notConfigured": {
+    "text": "Картаар төлөх боломж энд хараахан байхгүй. Дараа дахин оролдох эсвэл бидэнтэй холбогдоно уу.",
+    "why": "was null"
+  },
+  "student:v21.pay.number": {
+    "text": "Картын дугаар",
+    "why": "was null"
+  },
+  "student:v21.pay.numberInvalid": {
+    "text": "Картын дугаараа шалгана уу.",
+    "why": "was null"
+  },
+  "student:v21.pay.optional": {
+    "text": "заавал биш",
+    "why": "was null"
+  },
+  "student:v21.pay.payCta": {
+    "text": "Энэ картаар төлөх",
+    "why": "was null"
+  },
+  "student:v21.pay.processing": {
+    "text": "Төлбөрийг боловсруулж байна…",
+    "why": "was null"
+  },
+  "student:v21.pay.savedDelete": {
+    "text": "Хасах",
+    "why": "was null"
+  },
+  "student:v21.pay.savedDeleteBody": {
+    "text": "{{card}} картыг таны бүртгэлээс устгана. Аль хэдийн хийсэн төлбөрт нөлөөлөхгүй.",
+    "why": "was null"
+  },
+  "student:v21.pay.savedDeleteFailed": {
+    "text": "Картыг хасаж чадсангүй. Дахин оролдоно уу.",
+    "why": "was null"
+  },
+  "student:v21.pay.savedDeleteTitle": {
+    "text": "Энэ картыг хасах уу?",
+    "why": "was null"
+  },
+  "student:v21.pay.savedNotReusable": {
+    "text": "Дараагийн худалдан авалтад картаа дахин оруулна.",
+    "why": "was null"
+  },
+  "student:v21.pay.savedTitle": {
+    "text": "Таны карт",
+    "why": "was null"
+  },
+  "student:v21.pay.tooMany": {
+    "text": "Картын оролдлого хэт олон байна. Хэдэн минут хүлээгээд дахин оролдоно уу.",
+    "why": "was null"
+  },
+  "student:v22.checkout.oneTime": {
+    "text": "Нэг удаагийн төлбөр · захиалгат төлбөр биш",
+    "why": "subscription = захиалгат төлбөр"
+  },
+  "student:v22.home.appTeam.follow": {
+    "text": "{{university}}-ийн элсэлтийн албатай явцыг тодруулж байна",
+    "why": "EN names the admissions office"
+  },
+  "student:v22.home.appTeam.letter": {
+    "text": "{{university}}-ийн стандарт элсэлтийн зөвшөөрлийн явцыг тодруулж байна",
+    "why": "official document name"
+  },
+  "student:v22.home.appsQuiet_one": {
+    "text": "Таны өргөдөл их сургуульд байна. Одоогоор танаас хийх зүйл алга.",
+    "why": "'юу ч шаардахгүй' harsh"
+  },
+  "student:v22.home.appsQuiet_other": {
+    "text": "Таны {{count}} өргөдөл бүгд их сургуулиудад байна. Одоогоор танаас хийх зүйл алга.",
+    "why": "'юу ч шаардахгүй' harsh"
+  },
+  "student:v29.services.unrationed.TEAM": {
+    "text": "Таны багаас тогтмол холбогдоно",
+    "why": "EN: follow-up, not generic support"
+  },
+  "student:v29.services.upgrade.amountPending": {
+    "text": "Hangyul Univ-ийн баг тохиролцоно",
+    "why": "EN: arranged, not announced"
+  },
+  "student:writing.needYou": {
+    "text": "Таны бичих эсвэл засах ээлж",
+    "why": "EN: your turn to write or revise"
+  },
+  "student:writing.others": {
+    "text": "Hangyul-ийн баг хянаж байгаа эсвэл дууссан",
+    "why": "'баг дээр' unclear"
+  },
+  "student:writing.status.AI_PRECHECK": {
+    "text": "Илгээсэн",
+    "why": "EN says Submitted"
+  },
+  "student:writing.status.APPROVED": {
+    "text": "Бэлэн",
+    "why": "EN says Ready"
+  },
+  "student:writing.status.CHANGES_REQUESTED": {
+    "text": "Засвар хүссэн",
+    "why": "EN: changes requested"
+  },
+  "student:writing.status.FINAL_REVIEW": {
+    "text": "Hangyul-ийн баг хянаж байна",
+    "why": "team name consistency"
+  },
+  "student:writing.status.STUDENT_REVISION": {
+    "text": "Засвар хүссэн",
+    "why": "EN: changes requested"
+  },
+  "student:writing.status.SUBMITTED": {
+    "text": "Илгээсэн",
+    "why": "match AI_PRECHECK; EN identical"
+  },
+  "mobile:agency.deadlines.subtitle": {
+    "text": "Ойрын 30 хоногт таны оюутнуудад тулгарах эцсийн хугацаа.",
+    "why": "grammar"
+  },
+  "mobile:agency.reviews.notReviewable": {
+    "text": "Энэ баримт хяналт хүлээгээгүй байна.",
+    "why": "grammar"
+  },
+  "mobile:login.networkError": {
+    "text": "{{url}} хаягаар Hangyul-тэй яг одоо холбогдож чадсангүй. Холболтоо шалгаад түр хүлээгээд дахин оролдоно уу.",
+    "why": "dropped dev-only emulator text"
+  },
+  "mobile:more.noPlanHint": {
+    "text": "Багц сонговол Hangyul тантай хамт ажиллаж эхэлнэ",
+    "why": "EN: works with you"
+  },
+  "mobile:more.supportHint": {
+    "text": "Hangyul-ийн багт мессеж бичих",
+    "why": "EN names the team, not advisor"
+  },
+  "mobile:plan.allowance.essay_review_rounds": {
+    "text": "Өөрийн танилцуулга, суралцах төлөвлөгөөний засвар",
+    "why": "EN names both documents"
+  },
+  "mobile:plan.allowance.follow_up_consultations": {
+    "text": "Дараагийн зөвлөгөө",
+    "why": "one term; 'нэмэлт' = extra"
+  },
+  "mobile:plan.allowance.max_managed_applications": {
+    "text": "Тантай хамт хөтлөх өргөдөл",
+    "why": "one term for managed application"
+  },
+  "mobile:plan.allowance.max_recommended_institutions": {
+    "text": "Санал болгох их сургуулиуд",
+    "why": "one term for recommendation"
+  },
+  "mobile:plan.allowance.mock_interviews": {
+    "text": "Дадлагын ярилцлага",
+    "why": "one term for mock interview"
+  },
+  "mobile:plan.card": {
+    "text": "Гадаадын картаар (Visa, Mastercard, JCB) төлж болно.",
+    "why": "'хилийн чанадын' stilted"
+  },
+  "mobile:plan.chooseLede": {
+    "text": "Нэг удаагийн төлбөр, захиалгат төлбөр биш. Бэлтгэлийн турш багц тань тантай хамт байна.",
+    "why": "MN dropped half the meaning"
+  },
+  "mobile:plan.ongoing": {
+    "text": "Үйлчилгээний хугацааны турш",
+    "why": "EN: throughout the service period"
+  },
+  "mobile:plan.paid": {
+    "text": "Төлсөн дүн",
+    "why": "EN: amount paid"
+  },
+  "mobile:plan.upgradeTitle": {
+    "text": "Дээд багц руу шилжих",
+    "why": "'шинэчлэх' = update"
+  },
+  "mobile:settings.rtlNote": {
+    "text": "Баруунаас зүүн тийш бичигдэх текст одоо хэрэглэгдлээ; бүх дэлгэцийн бүтэц аппыг дараагийн удаа нээхэд толин тусгалаар солигдоно.",
+    "why": "grammar"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Twilio Inc. (АНУ) баталгаажуулах мессеж, имэйлийг хүргэж, Cloudflare, Inc. (АНУ) бүртгэл автомат биш эсэхийг шалгана. Татгалзах арга зэрэг дэлгэрэнгүйг Нууцлалын бодлогоос үзнэ үү. Татгалзвал бүртгэл үүсгэх боломжгүй.",
+    "why": "MN added content not in EN"
+  },
+  "mobile:signup.consent.MARKETING.summary": {
+    "text": "Заавал биш. Имэйл эсвэл мессежээр; хүссэн үедээ татгалзаж болно.",
+    "why": "'Сонголтот' unnatural"
+  },
+  "mobile:signup.consentText": {
+    "text": "Бүртгэл үүсгэхийн тулд заавал зөвшөөрөх зүйлсийг зөвшөөрөх шаардлагатай. Заавал биш зөвшөөрлийг Тохиргооноос хүссэн үедээ цуцалж болно.",
+    "why": "'Сонголтот' unnatural"
+  },
+  "mobile:signup.consentTitle": {
+    "text": "Таны мэдээллийг бид хэрхэн ашиглах вэ",
+    "why": "EN is warm; MN legalistic"
+  },
+  "mobile:signup.degree.DOCTORATE": {
+    "text": "Докторантур",
+    "why": "'Доктор' = a doctor"
+  },
+  "mobile:signup.optional": {
+    "text": "Заавал биш",
+    "why": "'Сонголтот' unnatural"
+  },
+  "mobile:signup.quickGo": {
+    "text": "Тохирох хөтөлбөрүүдээ харах",
+    "why": "matches term"
+  },
+  "mobile:signup.quickLevel": {
+    "text": "Түвшин",
+    "why": "EN is just Level"
+  },
+  "mobile:signup.steps.done": {
+    "text": "Дууссан",
+    "why": "'Болсон' colloquial"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.body": {
+    "text": "Та {{university}}-ийн элсэлтийн саналыг хүлээн авч байна. Сургалтын төлбөр төлөх, стандарт элсэлтийн зөвшөөрөл авах алхмуудад Hangyul Univ-ийн баг таныг чиглүүлнэ.",
+    "why": "team name; official letter name"
+  },
+  "mobile:student.documents.fixFallback": {
+    "text": "Hangyul-ийн баг энэ баримтад засвар хүссэн.",
+    "why": "EN names the team"
+  },
+  "mobile:student.messages.subtitle": {
+    "text": "Hangyul Univ-ийн багтай ярилцаарай.",
+    "why": "EN names the team; 'чатлах' slang"
+  },
+  "mobile:student.nextAction.COMPARE_OFFERS": {
+    "text": "Элсэлтийн {{count}} саналаа харьцуулах",
+    "why": "EN: admission offers"
+  },
+  "mobile:student.nextAction.RESPOND_OFFER": {
+    "text": "Элсэлтийн саналдаа хариу өгнө үү",
+    "why": "EN: admission offer"
+  },
+  "mobile:student.profile.completion": {
+    "text": "Профайлын бүрэн байдал",
+    "why": "'гүйцэтгэл' = performance"
+  },
+  "mobile:student.profile.step.sponsor": {
+    "text": "Санхүүжүүлэгч",
+    "why": "'батлан даагч' = guarantor"
+  },
+  "mobile:student.tasks.subtitle": {
+    "text": "Hangyul-ийн багаас ирсэн даалгавар болон өргөдлийн шалгах жагсаалт.",
+    "why": "EN names team and checklists"
+  },
+  "mobile:university.applicants.reference": {
+    "text": "Таны лавлах дугаар",
+    "why": "EN: reference number"
+  },
+  "mobile:university.login.tagline": {
+    "text": "Танай гадаад харилцааны албанд зориулсан: өргөдөл гаргагч, шийдвэр, элсэгчдийн бүлэг.",
+    "why": "'бүлгүүд' vague; international office"
+  },
+  "mobile:v23.team.name": {
+    "text": "Hangyul Univ-ийн баг",
+    "why": "genitive missing"
+  },
+  "mobile:v29.mfa.codeHint": {
+    "text": "Баталгаажуулагч аппын 6 оронтой кодыг эсвэл сэргээх кодыг оруулна уу.",
+    "why": "was null"
+  },
+  "mobile:v29.mfa.codeLabel": {
+    "text": "Баталгаажуулах код",
+    "why": "was null"
+  },
+  "mobile:v29.mfa.enrollOnWeb": {
+    "text": "Энэ бүртгэлд хоёр шатлалт баталгаажуулалт шаардлагатай. Эхлээд вэб консол дээр тохируулаад, дараа нь эндээс нэвтэрнэ үү.",
+    "why": "was null"
+  },
+  "mobile:v29.mfa.verify": {
+    "text": "Баталгаажуулж нэвтрэх",
+    "why": "was null"
+  },
+  "mobile:v29.mfa.wrongCode": {
+    "text": "Код буруу эсвэл хугацаа нь дууссан байна. Шинэ код оруулна уу.",
+    "why": "was null"
+  },
+  "mobile:v29.plan.arrival": {
+    "text": "Ирэх ба суурьших",
+    "why": "glossary: arrival and settling-in"
+  },
+  "mobile:v29.plan.supportDays": {
+    "text": "Анхны зөвлөгөөнөөс хойш {{count}} хоногийн зөвлөгөөний дэмжлэг",
+    "why": "MN dropped 'consultation support'"
+  },
+  "mobile:v29.plan.supportUntil": {
+    "text": "Зөвлөгөөний дэмжлэг {{date}} хүртэл",
+    "why": "EN: consultation support"
+  },
+  "mobile:v29.plan.termToAgree": {
+    "text": "Үйлчилгээ эхлэхэд тохиролцоно",
+    "why": "'Эхлэхэд' has no subject"
+  },
+  "mobile:v29.plan.unrationed.TEAM": {
+    "text": "Таны багаас тогтмол холбогдоно",
+    "why": "EN: follow-up"
+  },
+  "mobile:v3.agency.waitingOn.agency": {
+    "text": "Агентлагийн багийг хүлээж байна",
+    "why": "was null"
+  },
+  "mobile:v3.agency.waitingOn.counselor": {
+    "text": "Зөвлөхийг хүлээж байна",
+    "why": "was null"
+  },
+  "mobile:v3.agency.waitingOn.external": {
+    "text": "Гадны байгууллагыг хүлээж байна",
+    "why": "was null"
+  },
+  "mobile:v3.agency.waitingOn.hangyul": {
+    "text": "Hangyul-ийг хүлээж байна",
+    "why": "was null"
+  },
+  "mobile:v3.agency.waitingOn.none": {
+    "text": "Хүлээж буй зүйл алга",
+    "why": "was null"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Таны элсэлтийн зөвшөөрөл бэлэн. Визийн бичиг баримтаа бэлтгэж эхлээрэй.",
+    "why": "EN: start your visa documents"
+  },
+  "mobile:v3.appStatus.OFFERED": {
+    "text": "Та элсэлтийн санал авлаа.",
+    "why": "'санал' alone ambiguous"
+  },
+  "mobile:v3.appStatus.PROFILE_REVIEW": {
+    "text": "Hangyul Univ-ийн баг профайлыг тань шалгаж байна.",
+    "why": "EN names the team"
+  },
+  "mobile:v3.appStatus.REJECTED": {
+    "text": "Их сургууль энэ удаад элсэлтийн санал өгсөнгүй.",
+    "why": "'суудал' unnatural here"
+  },
+  "mobile:v3.application.reviewBody": {
+    "text": "{{date}}-нд илгээсэн. Их сургууль өөр баримт бичиг эсвэл ярилцлага хүсч магадгүй. Hangyul-ийн баг явцыг нь хянаж байна.",
+    "why": "EN: team follows progress"
+  },
+  "mobile:v3.application.uni.waiting": {
+    "text": "Таны илгээхийг хүлээж байна",
+    "why": "grammar"
+  },
+  "mobile:v3.docAction.IN_REVIEW": {
+    "text": "Hangyul-ийн баг шалгаж байна",
+    "why": "EN names the team"
+  },
+  "mobile:v3.docAction.LEGALIZE": {
+    "text": "Апостиль эсвэл консулын баталгаажуулалт хэрэгтэй",
+    "why": "official term"
+  },
+  "mobile:v3.documents.allSet": {
+    "text": "Одоогоор танаас хийх зүйл алга.",
+    "why": "'шаардлагагүй' harsh"
+  },
+  "mobile:v3.home.nextBody.DOCUMENT_UPLOAD": {
+    "text": "Тод скан эсвэл зураг байршуулаарай. Hangyul-ийн баг шалгаад засах зүйл байвал хэлнэ.",
+    "why": "EN names the team"
+  },
+  "mobile:v3.home.nextBody.ESSAY_WRITE": {
+    "text": "Ноорогоос эхлээрэй. Hangyul-ийн баг тантай хамт хянана.",
+    "why": "EN names the team"
+  },
+  "mobile:v3.home.nextBody.WAIT": {
+    "text": "Одоогоор танаас хийх зүйл алга. Ямар нэг зүйл өөрчлөгдмөгц бид танд мэдэгдэнэ.",
+    "why": "'шаардлагагүй' harsh"
+  },
+  "mobile:v3.home.noCounselor": {
+    "text": "Багц сонговол Hangyul Univ-ийн баг таны хэлээр тантай хамт ажиллана.",
+    "why": "team name; 'дэмжлэгийн багц' not a term"
+  },
+  "mobile:v3.home.stageLine.admission": {
+    "text": "Тэнцлээ. Одоо суралцах эрхээ баталгаажуулж байна",
+    "why": "consistent with ENROLL wording"
+  },
+  "mobile:v3.home.stageLine.apply": {
+    "text": "Их сургуулиуд өргөдлийг тань хянаж байна",
+    "why": "EN: universities are reviewing"
+  },
+  "mobile:v3.home.stageLine.visa": {
+    "text": "Оюутны визээ бэлтгэж байна",
+    "why": "'авч байна' implies outcome"
+  },
+  "mobile:v3.home.team": {
+    "text": "Hangyul Univ-ийн баг",
+    "why": "EN names the team, not advisor"
+  },
+  "mobile:v3.match.close": {
+    "text": "Шаардлага хараахан хангагдаагүй — нэг л алхам дутуу",
+    "why": "clearer; EN 'one step away'"
+  },
+  "mobile:v3.match.notYet": {
+    "text": "Шаардлага хараахан хангагдаагүй",
+    "why": "grammar"
+  },
+  "mobile:v3.messages.attachUnavailable": {
+    "text": "Хавсралт хараахан боломжгүй байна.",
+    "why": "EN has no 'server'"
+  },
+  "mobile:v3.offer.body": {
+    "text": "{{university}} танд {{program}} хөтөлбөрт суралцах санал тавилаа.",
+    "why": "'суудал' unnatural"
+  },
+  "mobile:v3.offer.deadline": {
+    "text": "{{date}} гэхэд саналыг хүлээн авч, сургалтын төлбөрөө төлөөрэй · {{left}}",
+    "why": "EN: accept, not reply"
+  },
+  "mobile:v3.profile.places": {
+    "text": "Таны мэдээлэл",
+    "why": "'зүйлс' odd"
+  },
+  "mobile:v3.profile.unlock.default": {
+    "text": "Тохирох хөтөлбөрүүдийг тань илүү оновчтой болгоно",
+    "why": "matches term"
+  },
+  "mobile:v3.profile.unlock.sponsor": {
+    "text": "Визийн санхүүгийн баримт бичгээ эрт бэлтгэх боломж олгоно",
+    "why": "MN promised we prepare it"
+  },
+  "mobile:v3.push.idle": {
+    "text": "Баримт бичиг хянагдах, эцсийн хугацаа ойртох эсвэл Hangyul-ийн баг хариулах үед push мэдэгдэл аваарай.",
+    "why": "EN names the team"
+  },
+  "mobile:v3.uni.check.notProvided": {
+    "text": "мэдүүлээгүй",
+    "why": "'өгөөгүй' vague"
+  },
+  "mobile:v3.uni.check.state.missing": {
+    "text": "Мэдүүлээгүй",
+    "why": "'Өгөөгүй' vague"
+  },
+  "mobile:v3.uni.requestLabelHint": {
+    "text": "жишээ нь: Апостильтой бүрэн дунд боловсролын гэрчилгээ",
+    "why": "official term for high school"
+  },
+  "mobile:v3.uni.tab.pipeline": {
+    "text": "Тойм",
+    "why": "EN: Overview"
+  },
+  "mobile:v3.uni.view.enrolment": {
+    "text": "Виз ба элсэлт",
+    "why": "'бүртгэл' reserved for sign-up"
+  },
+  "mobile:v3.university.deadline": {
+    "text": "Өргөдлийн эцсийн хугацаа",
+    "why": "EN: Apply by"
+  },
+  "mobile:v3.university.documentsCount": {
+    "text": "{{count}} баримт бичиг · {{legal}} нь апостиль эсвэл консулын баталгаажуулалт шаардана",
+    "why": "official term"
+  },
+  "mobile:v3.upload.privacy": {
+    "text": "Таны баримт бичгийг зөвхөн та болон Hangyul-ийн баг нээж чадна. Их сургууль зөвхөн таныг тухайн сургуульд өргөдөл илгээсний дараа харна.",
+    "why": "EN names the team"
+  },
+  "mobile:v3.visa.beforeTitle": {
+    "text": "Визийн бэлтгэл элсэлтийн санал авсны дараа эхэлнэ",
+    "why": "MN said the visa itself starts"
+  },
+  "mobile:v3.visa.blockers": {
+    "text": "Эхлээд хэрэгтэй",
+    "why": "EN: needed first"
+  },
+  "mobile:v3.visa.phase.apply": {
+    "text": "Визийн мэдүүлэг",
+    "why": "bare 'Мэдүүлэг' ambiguous"
+  },
+  "mobile:v3.visa.phase.decision": {
+    "text": "ЭСЯ-ны шийдвэр",
+    "why": "EN: embassy decision"
+  },
+  "mobile:v3.visa.title": {
+    "text": "{{type}} визээ бэлтгэх",
+    "why": "EN: preparing; 'визний' misspelt"
+  },
+  "mobile:v4.application.reviewLate": {
+    "text": "Ердийнхөөс удаж байна. Hangyul-ийн багт хоцорч байгааг мэдэгдсэн. Дахин байршуулах шаардлагагүй.",
+    "why": "EN names the team"
+  },
+  "mobile:v4.application.waitBody": {
+    "text": "Hangyul-ийн баг таны илгээсэн зүйлийг шалгаж байна. Өөрчлөх зүйл байвал бид танд хэлнэ.",
+    "why": "EN names the team"
+  },
+  "mobile:v4.application.writeOnWeb": {
+    "text": "Үүнийг вэб дээр бичээрэй. Hangyul-ийн багийн сэтгэгдэл ч тэнд харагдана.",
+    "why": "team name; 'веб' spelling"
+  },
+  "mobile:v4.documents.lateLine": {
+    "text": "Hangyul-ийн багт хоцорсон гэж тэмдэглэгдсэн",
+    "why": "EN names the team"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.text": {
+    "text": "Hangyul-ийн баг сэтгэгдэл үлдээсэн. Зөвшөөрөгдөх хүртэл өргөдлийг тань илгээх боломжгүй.",
+    "why": "EN names the team"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.text": {
+    "text": "Hangyul-ийн баг тантай хамт хянана. Ноорогоос эхлээрэй. Төгс байх шаардлагагүй.",
+    "why": "EN names the team"
+  },
+  "mobile:v4.uni.actor.AGENCY": {
+    "text": "Түнш агентлаг",
+    "why": "was null"
+  },
+  "mobile:v4.uni.actor.HANGYUL": {
+    "text": "Hangyul",
+    "why": "was null"
+  },
+  "mobile:v4.uni.actor.STUDENT": {
+    "text": "Өргөдөл гаргагч",
+    "why": "was null"
+  },
+  "mobile:v4.uni.actor.SYSTEM": {
+    "text": "Автомат",
+    "why": "was null"
+  },
+  "mobile:v4.uni.actor.UNIVERSITY": {
+    "text": "Танай их сургууль",
+    "why": "was null"
+  },
+  "mobile:v4.uni.toReview_one": {
+    "text": "Хянах · {{count}}",
+    "why": "was null"
+  },
+  "mobile:v4.uni.toReview_other": {
+    "text": "Хянах · {{count}}",
+    "why": "was null"
+  }
+}

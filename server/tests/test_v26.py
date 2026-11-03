@@ -10,9 +10,9 @@ API = "/api/v1"
 
 
 def _login(client, email, client_kind):
-    r = client.post(f"{API}/auth/demo-login", json={"email": email, "client": client_kind})
-    assert r.status_code == 200, r.text
-    return {"Authorization": f"Bearer {r.json()['access_token']}"}
+    from tests.conftest import login
+
+    return login(client, email, client_kind)
 
 
 def test_students_filter_rejects_unknown_stage_with_422_not_500(client):

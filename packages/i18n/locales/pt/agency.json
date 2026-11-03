@@ -1,638 +1,1218 @@
 {
- "apps": {
-  "allStatuses": "Todos os estados",
-  "allUniversities": "Todas as universidades",
-  "closed": "Fechado",
-  "col": {
-   "intake": "Ingresso",
-   "program": "Universidade / programa",
-   "status": "Estado",
-   "student": "Estudante"
+  "apps": {
+    "allStatuses": "Todos os estados",
+    "allUniversities": "Todas as universidades",
+    "closed": "Fechado",
+    "col": {
+      "intake": "Entrada",
+      "program": "Universidade / programa",
+      "status": "Estado",
+      "student": "Estudante"
+    },
+    "deadline": "Prazo",
+    "detail": "Candidatura",
+    "empty": "Nenhuma candidatura corresponde a estes filtros. Altere-os ou limpe-os.",
+    "flagged": "Assinalada",
+    "onlyFlagged": "Só assinaladas",
+    "searchPh": "Pesquisar estudante, programa, universidade ou referência…",
+    "sort": "Ordenar por",
+    "sortBy": {
+      "deadline": "Prazo",
+      "submitted": "Enviadas recentemente",
+      "updated": "Atualizadas recentemente",
+      "readiness": "Prontidão"
+    },
+    "uniHint": "Filtra pelo nome da universidade",
+    "university": "Universidade",
+    "actor": {
+      "AGENCY": "Agência",
+      "STUDENT": "Estudante",
+      "SYSTEM": "Sistema",
+      "UNIVERSITY": "Universidade"
+    },
+    "checklist": "Lista de documentos",
+    "checklistCount": "{{ready}} de {{total}} itens prontos",
+    "confirmMove": "Mover para «{{status}}»",
+    "externalRef": "Referência da universidade",
+    "externalRefHint": "O número da candidatura no portal da universidade, se o tiver.",
+    "flag": "Assinalar",
+    "flagReason": "Motivo",
+    "flagTitle": "Assinalar para acompanhamento",
+    "history": "Histórico de estados",
+    "legalization": "Certificação notarial e legalização",
+    "moveTo": "Alterar o estado da candidatura",
+    "moved": "Candidatura movida para {{status}}.",
+    "noTransitions": "Nesta fase, a sua organização não pode alterar o estado.",
+    "note": "Nota",
+    "noteHint": "Guardada no histórico de estados.",
+    "readiness": "Prontidão",
+    "reused": "Reutilizado do cofre",
+    "scholarship": "Nota sobre bolsa",
+    "semester": "Início do semestre",
+    "submitBlocked": "Faltam documentos obrigatórios, por isso o envio está bloqueado:",
+    "submitted": "Enviada",
+    "translation": "Tradução",
+    "withdrawWarn": "A desistência desta candidatura é definitiva."
   },
-  "deadline": "Prazo",
-  "detail": "Candidatura",
-  "empty": "Nenhuma candidatura corresponde a estes filtros.",
-  "flagged": "Assinalada",
-  "onlyFlagged": "Só assinaladas",
-  "searchPh": "Pesquisar estudante, programa, universidade ou referência…",
-  "sort": "Ordenar por",
-  "sortBy": {
-   "deadline": "Prazo",
-   "submitted": "Enviadas recentemente",
-   "updated": "Atualizadas recentemente"
+  "docs": {
+    "allCategories": "Todas as categorias",
+    "assigned": {
+      "any": "Todos",
+      "me": "Atribuídos a mim",
+      "unassigned": "Sem atribuição"
+    },
+    "backToQueue": "Fila",
+    "bulkVerify": "Verificar selecionados",
+    "bulkVerifyText": "Verifique apenas documentos que abriu e conferiu. Cada estudante é notificado e cada decisão fica inscrita no registo de auditoria com o seu nome.",
+    "bulkVerifyTitle_other": "Verificar {{count}} documentos?",
+    "category": "Categoria",
+    "chooseCategory": "Escolha um tipo de documento",
+    "durDays": "{{count}} d",
+    "durHours": "{{count}} h",
+    "file": "Ficheiro",
+    "fileHint": "PDF, PNG, JPEG ou WebP, até 15 MB.",
+    "pick": "Escolha um documento para rever",
+    "pickText": "Use J / K para percorrer a fila.",
+    "position": "{{n}} de {{total}}",
+    "queue": "Fila de revisão",
+    "reviewer": "Revisão de documentos",
+    "sc": {
+      "cancel": "Cancelar",
+      "changes": "Pedir correção",
+      "checks": "Escolher uma verificação ou um motivo",
+      "nav": "Documento seguinte / anterior",
+      "send": "Enviar pedido de correção",
+      "verify": "Verificar"
+    },
+    "selectDoc": "Selecionar {{doc}} de {{name}}",
+    "shortcuts": "Atalhos",
+    "upload": "Carregar",
+    "uploadForHint": "Use esta opção quando um estudante enviar um documento por outra via (por exemplo, por e-mail). Vai para o cofre de documentos do estudante, fica marcado como carregado por si e aguarda revisão como qualquer outro carregamento.",
+    "uploadForStudent": "Carregar em nome de um estudante",
+    "bulkVerifyTitle_many": "Verificar {{count}} documentos?",
+    "uploadForName": "Carregar para {{name}}",
+    "bulkAssign": "Atribuir revisor",
+    "bulkAssigned_one": "{{count}} documento atribuído",
+    "bulkAssigned_other": "{{count}} documentos atribuídos",
+    "bulkFailed_one": "{{count}} documento não pôde ser alterado (já revisto ou fora dos seus casos)",
+    "bulkFailed_other": "{{count}} documentos não puderam ser alterados (já revistos ou fora dos seus casos)",
+    "bulkLabel": "Ações para os documentos selecionados",
+    "bulkVerified_one": "{{count}} documento verificado",
+    "bulkVerified_other": "{{count}} documentos verificados",
+    "bulkVerifyTitle_one": "Verificar {{count}} documento?",
+    "empty": "A fila está vazia",
+    "emptyBy": {
+      "any": "Não há documentos à espera de revisão.",
+      "me": "Neste momento não tem nada atribuído.",
+      "unassigned": "Todos os documentos em espera têm revisor."
+    },
+    "notInQueue": "Fora da fila de revisão",
+    "subSla": "{{count}} à espera de revisão · {{late}} acima da meta de {{hours}} horas",
+    "sub_other": "{{count}} documentos à espera de revisão, do mais antigo para o mais recente.",
+    "uploadedFor": "Adicionado ao cofre de documentos de {{name}}",
+    "you": "você"
   },
-  "uniHint": "Filtra pelo nome da universidade",
-  "university": "Universidade"
- },
- "docs": {
-  "allCategories": "Todas as categorias",
-  "assigned": {
-   "any": "Todos",
-   "me": "Atribuídos a mim",
-   "unassigned": "Sem atribuição"
+  "essaysPage": {
+    "col": {
+      "reviewer": "Revisor"
+    }
   },
-  "backToQueue": "Fila",
-  "bulkVerify": "Verificar selecionados",
-  "bulkVerifyText": "Verifique apenas documentos que abriu e conferiu. Cada estudante é notificado e cada decisão fica registada no registo de auditoria em seu nome.",
-  "bulkVerifyTitle_other": "Verificar {{count}} documentos?",
-  "category": "Categoria",
-  "chooseCategory": "Escolha um tipo de documento",
-  "durDays": "{{count}} d",
-  "durHours": "{{count}} h",
-  "file": "Ficheiro",
-  "fileHint": "PDF, PNG, JPEG ou WebP, até 15 MB.",
-  "pick": "Escolha um documento para rever",
-  "pickText": "Use J / K para percorrer a fila.",
-  "position": "{{n}} de {{total}}",
-  "queue": "Fila de revisão",
-  "reviewer": "Revisão de documentos",
-  "sc": {
-   "cancel": "Cancelar",
-   "changes": "Pedir alterações",
-   "checks": "Escolher uma verificação ou um motivo",
-   "nav": "Documento seguinte / anterior",
-   "send": "Enviar pedido de correção",
-   "verify": "Verificar"
+  "inbox": {
+    "all": "Todas",
+    "attach": "Anexar",
+    "audienceStudent": "{{name}} vai ver isto",
+    "createTask": "Criar tarefa a partir desta mensagem",
+    "inbox": "Caixa de entrada",
+    "internalBanner": "Interno — não visível para o estudante",
+    "internalNote": "Nota interna",
+    "mention": "Mencionar",
+    "message": "Mensagem",
+    "messagePh": "Escreva uma resposta… (Ctrl+Enter para enviar)",
+    "messages": "Mensagens",
+    "mode": "Tipo de mensagem",
+    "modeMessage": "Mensagem",
+    "needsReply": "Precisa de resposta",
+    "needsReplyShort": "Resposta pendente",
+    "new": "Nova mensagem",
+    "newHint": "O estudante é notificado por e-mail e na aplicação.",
+    "pick": "Escolha uma conversa",
+    "pickText": "Ou inicie uma nova com qualquer estudante que acompanhe.",
+    "searchPh": "Pesquisar pessoas ou assuntos…",
+    "sendTo": "Enviar a {{name}}",
+    "subReply_other": "{{count}} conversas à espera da sua resposta",
+    "subUnread_other": "{{count}} conversas não lidas",
+    "subject": "Assunto",
+    "thread": "Conversa",
+    "unread": "Não lidas",
+    "unreadN_one": "{{count}} mensagem não lida",
+    "subReply_many": "{{count}} conversas à espera da sua resposta",
+    "subUnread_many": "{{count}} conversas não lidas",
+    "audienceTeam": "Só a sua equipa vê isto",
+    "manageTemplates": "Gerir modelos…",
+    "noMessages": "Ainda não há mensagens.",
+    "notePh": "Escreva uma nota interna para a sua equipa… (Ctrl+Enter para guardar)",
+    "noteSaved": "Nota interna guardada.",
+    "openFile": "Abrir ficheiro",
+    "participants": "participantes",
+    "removeFile": "Remover {{name}}",
+    "saveNote": "Guardar nota",
+    "sent": "Mensagem enviada.",
+    "subReply_one": "{{count}} conversa à espera da sua resposta",
+    "subUnread_one": "{{count}} conversa não lida",
+    "system": "Sistema",
+    "taskCreated": "Tarefa criada a partir desta mensagem",
+    "taskDue": "Prazo da tarefa",
+    "taskHint": "A tarefa vai para o primeiro colega mencionado ou, se não houver, para si.",
+    "unreadN_other": "{{count}} mensagens não lidas",
+    "willNotify_other": "{{count}} colegas serão notificados"
   },
-  "selectDoc": "Selecionar {{doc}} de {{name}}",
-  "shortcuts": "Atalhos",
-  "upload": "Carregar",
-  "uploadForHint": "Use esta opção quando um estudante enviar um documento por outra via (por exemplo, por e-mail). Vai para o cofre de documentos do estudante, fica marcado como carregado por si e aguarda revisão como qualquer outro carregamento.",
-  "uploadForStudent": "Carregar por um estudante",
-  "bulkVerifyTitle_many": "Verificar {{count}} documentos?",
-  "uploadForName": "Carregar para {{name}}"
- },
- "essaysPage": {
-  "col": {
-   "reviewer": "Revisor"
-  }
- },
- "inbox": {
-  "all": "Todas",
-  "attach": "Anexar",
-  "audienceStudent": "{{name}} vai ver isto",
-  "createTask": "Criar tarefa a partir desta mensagem",
-  "inbox": "Caixa de entrada",
-  "internalBanner": "Interno — não visível para o estudante",
-  "internalNote": "Nota interna",
-  "mention": "Mencionar",
-  "message": "Mensagem",
-  "messagePh": "Escreva uma resposta… (Ctrl+Enter para enviar)",
-  "messages": "Mensagens",
-  "mode": "Tipo de mensagem",
-  "modeMessage": "Mensagem",
-  "needsReply": "Precisa de resposta",
-  "needsReplyShort": "À espera da sua resposta",
-  "new": "Nova mensagem",
-  "newHint": "O estudante é notificado por e-mail e na aplicação.",
-  "pick": "Escolha uma conversa",
-  "pickText": "Ou inicie uma nova com qualquer estudante que acompanhe.",
-  "searchPh": "Pesquisar pessoas ou assuntos…",
-  "sendTo": "Enviar a {{name}}",
-  "subReply_other": "{{count}} conversas à espera da sua resposta",
-  "subUnread_other": "{{count}} conversas não lidas",
-  "subject": "Assunto",
-  "thread": "Conversa",
-  "unread": "Não lidas",
-  "unreadN_one": "{{count}} mensagem não lida",
-  "subReply_many": "{{count}} conversas à espera da sua resposta",
-  "subUnread_many": "{{count}} conversas não lidas"
- },
- "misc": {
-  "student": "Estudante",
-  "breadcrumb": "Trilho de navegação"
- },
- "review": {
-  "check": {
-   "dates": "A data de emissão é recente e não expirou",
-   "issuer": "A instituição emissora, o carimbo ou a assinatura estão visíveis",
-   "legible": "Completo e legível — todas as páginas, sem margens cortadas",
-   "name": "Nome e data de nascimento coincidem com o passaporte",
-   "translation": "Tradução certificada anexada"
-  },
-  "checked": "{{n}} de {{total}} verificados",
-  "checklist": "Antes de verificar",
-  "expires": "Validade",
-  "issued": "Emissão",
-  "issuingCountry": "País emissor",
-  "language": "Idioma",
-  "metadata": "Detalhes",
-  "noPdfViewer": "Este navegador não consegue mostrar PDF dentro da página.",
-  "openTab": "Abrir num novo separador",
-  "requestChanges": "Pedir alterações",
-  "scan": "Análise antivírus",
-  "secureNote": "As ligações de pré-visualização expiram após 5 minutos e cada acesso é registado.",
-  "translation": "Tradução",
-  "translationNeeded": "Tradução certificada obrigatória",
-  "uploaded": "Carregado",
-  "verify": "Verificar",
-  "verifyHint": "Escolha primeiro as verificações, ou confirme para verificar sem elas"
- },
- "savedViews": {
-  "name": "Nome",
-  "namePh": "p. ex. Vietname · primavera 2027 · urgente",
-  "personal": "Só eu",
-  "save": "Guardar vista",
-  "saveHintEmpty": "Não há filtros definidos, por isso esta vista vai mostrar todos os estudantes. Adicione filtros primeiro para a tornar mais útil.",
-  "saveTitle": "Guardar esta vista",
-  "shareWith": "Quem a pode usar",
-  "team": "Toda a equipa"
- },
- "settings": {
-  "deadlinesHint": "Todos os próximos prazos dos seus casos",
-  "notificationsHint": "Histórico completo de notificações"
- },
- "shell": {
-  "product": "Consola da Agência",
-  "searchLabel": "Pesquisar estudantes",
-  "searchPlaceholder": "Pesquisar estudantes por nome ou e-mail…"
- },
- "sidebar": {
-  "documents": "Documentos",
-  "essays": "Textos",
-  "universities": "Universidades"
- },
- "students": {
-  "col": {
-   "intakeShort": "Ingresso",
-   "updated": "Atualizado"
-  },
-  "dShort_other": "{{count}} d",
-  "deadlineShort": "Prazo {{date}}",
-  "subCount": "{{count}} estudantes nos seus casos",
-  "view": {
-   "attention": "Precisa de atenção",
-   "waiting_student": "À espera do estudante"
-  },
-  "dShort_many": "{{count}} d"
- },
- "today": {
-  "morning": "Bom dia, {{name}}",
-  "phase": {
-   "admitted": "Admitidos",
-   "applied": "Candidatados",
-   "leads": "Novos e atribuídos",
-   "preparing": "Em preparação",
-   "visa": "Visto e chegada"
-  },
-  "evening": "Boa noite, {{name}}"
- },
- "v11": {
-  "manage": {
-   "auditHint": "Quem alterou o quê, e quando",
-   "catalogHint": "Universidades, programas e respetivos requisitos",
-   "org": "Organização",
-   "paymentsHint": "Faturas e pagamentos",
-   "people": "Pessoas e fornecedores",
-   "servicesHint": "Casos de serviço que está a prestar a estudantes",
-   "settingsHint": "O perfil e as preferências da sua agência",
-   "sub": "Definições e material de referência da sua agência.",
-   "teamHint": "Contas de administrador: convidar, desativar",
-   "templatesHint": "Modelos de mensagens e listas de verificação",
-   "vendorsHint": "Alojamento, recolha e outros fornecedores que reserva",
-   "work": "Como trabalha"
+  "misc": {
+    "student": "Estudante",
+    "breadcrumb": "Caminho de navegação",
+    "change": "Alterar",
+    "days_other": "{{count}} dias",
+    "hours_other": "{{count}} horas",
+    "internalTag": "Interno",
+    "no": "Não",
+    "notFoundText": "A página pode ter mudado de endereço ou pode não ter acesso a ela.",
+    "searchStudents": "Pesquisar os seus estudantes…",
+    "unassigned": "Sem atribuição",
+    "yes": "Sim"
   },
   "review": {
-   "sub": "Documentos e textos à sua espera.",
-   "title": "Revisão"
-  }
- },
- "v22": {
-  "nav": {
-   "insights": "Estatísticas",
-   "messages": "Mensagens",
-   "settings": "Definições",
-   "students": "Estudantes",
-   "today": "Hoje",
-   "work": "Candidaturas e documentos"
+    "check": {
+      "dates": "A data de emissão é recente e não expirou",
+      "issuer": "A instituição emissora, o carimbo ou a assinatura estão visíveis",
+      "legible": "Completo e legível — todas as páginas, sem margens cortadas",
+      "name": "Nome e data de nascimento coincidem com o passaporte",
+      "translation": "Tradução certificada anexada"
+    },
+    "checked": "{{n}} de {{total}} verificados",
+    "checklist": "Antes de verificar",
+    "expires": "Validade",
+    "issued": "Emissão",
+    "issuingCountry": "País emissor",
+    "language": "Idioma",
+    "metadata": "Detalhes",
+    "noPdfViewer": "Este navegador não consegue mostrar PDF dentro da página.",
+    "openTab": "Abrir num novo separador",
+    "requestChanges": "Pedir alterações",
+    "scan": "Análise antivírus",
+    "secureNote": "As ligações de pré-visualização expiram após 5 minutos e cada acesso é registado.",
+    "translation": "Tradução",
+    "translationNeeded": "Tradução certificada obrigatória",
+    "uploaded": "Carregado",
+    "verify": "Verificar",
+    "verifyHint": "Escolha primeiro as verificações, ou confirme para verificar sem elas"
   },
-  "stage": {
-   "admitted": "Admitidos",
-   "all": "Todos",
-   "arrived": "Chegaram",
-   "closedN_other": "{{count}} encerrados",
-   "counselling": "Aconselhamento",
-   "documents": "Documentos",
-   "new": "Novos",
-   "ready": "Prontos",
-   "review": "Análise da universidade",
-   "strip": "Processo",
-   "submitted": "Enviadas",
-   "visa": "Visto",
-   "closedN_many": "{{count}} encerrados"
+  "savedViews": {
+    "name": "Nome",
+    "namePh": "p. ex. Vietname · primavera 2027 · urgente",
+    "personal": "Só eu",
+    "save": "Guardar vista",
+    "saveHintEmpty": "Não há filtros definidos, por isso esta vista vai mostrar todos os estudantes. Adicione filtros primeiro para a tornar mais útil.",
+    "saveTitle": "Guardar esta vista",
+    "shareWith": "Quem a pode usar",
+    "team": "Toda a equipa",
+    "delete": "Eliminar {{name}}",
+    "saveHint_one": "Guarda o filtro e a ordenação atuais para abrir esta lista com um clique.",
+    "saveHint_other": "Guarda os {{count}} filtros e a ordenação atuais para abrir esta lista com um clique.",
+    "saved": "«{{name}}» guardada"
   },
-  "team": {
-   "title": "Contas de administrador"
+  "settings": {
+    "deadlinesHint": "Todos os próximos prazos dos seus casos",
+    "notificationsHint": "Histórico completo de notificações",
+    "account": "Conta",
+    "language": "Idioma",
+    "languageHint": "Idioma da interface. Os dados dos estudantes mantêm-se no idioma original.",
+    "localOnly": "Guardado apenas neste navegador.",
+    "org": "Organização",
+    "poll": "Atualizações em direto",
+    "pollHint": "Atualiza as filas e as contagens a cada minuto.",
+    "scSearch": "Percorrer os resultados da pesquisa global",
+    "scSend": "Enviar mensagem ou guardar nota",
+    "shortcuts": "Atalhos de teclado",
+    "sub": "Preferências pessoais desta consola.",
+    "timezone": "Fuso horário",
+    "updates": "Atualizações em direto"
+  },
+  "shell": {
+    "product": "Consola da Agência",
+    "searchLabel": "Pesquisar estudantes",
+    "searchPlaceholder": "Pesquisar estudantes por nome ou e-mail…",
+    "hqProduct": "Operações Hangyul",
+    "hqView": "Sede Hangyul · todas as agências",
+    "searchAll": "Ver todos os resultados para «{{q}}»"
+  },
+  "sidebar": {
+    "documents": "Documentos",
+    "essays": "Textos",
+    "universities": "Universidades",
+    "agencies": "Agências",
+    "catalog": "Universidades e programas",
+    "hangyul": "Sede Hangyul",
+    "operations": "Operações",
+    "override": "Atribuição manual"
+  },
+  "students": {
+    "col": {
+      "intakeShort": "Entrada",
+      "updated": "Atualizado",
+      "degree": "Grau",
+      "nationality": "Nacionalidade"
+    },
+    "dShort_other": "{{count}} d",
+    "deadlineShort": "Prazo {{date}}",
+    "subCount": "{{count}} estudantes a seu cargo",
+    "view": {
+      "attention": "Precisa de atenção",
+      "waiting_student": "À espera do estudante",
+      "all": "Todos",
+      "arrived": "Chegaram",
+      "deadline": "Prazo próximo",
+      "docs": "Documentos a corrigir",
+      "incomplete": "Documentos incompletos",
+      "mine": "Os meus estudantes",
+      "requested": "Documentos pedidos pela universidade",
+      "university": "À espera da universidade",
+      "visa": "Visto",
+      "waiting_external": "À espera da embaixada ou de terceiros",
+      "waiting_us": "À nossa espera"
+    },
+    "dShort_many": "{{count}} d",
+    "bulk": {
+      "confirmRegen_other": "Recalcular as listas de tarefas automáticas de {{count}} estudantes? As tarefas manuais mantêm-se.",
+      "confirmStage_other": "Mover {{count}} estudantes para «{{stage}}»? A ação fica no registo de auditoria.",
+      "confirmTitle": "Aplicar ação em massa?",
+      "done_other": "{{count}} estudantes atualizados.",
+      "regen": "Regenerar tarefas",
+      "stage": "Mover para a fase…"
+    },
+    "dShort_one": "{{count}} d",
+    "f": {
+      "allDegrees": "Todos os graus",
+      "allNationalities": "Todas as nacionalidades"
+    },
+    "noReply": "SLA de primeira resposta falhado. Este estudante está à espera de resposta",
+    "noReplyShort": "Resposta pendente"
   },
   "today": {
-   "sub": "Todos os estudantes por fase do processo. Escolha uma fase; a tabela abaixo mostra essa fase."
+    "morning": "Bom dia, {{name}}",
+    "phase": {
+      "admitted": "Admitidos",
+      "applied": "Candidatura enviada",
+      "leads": "Novos e atribuídos",
+      "preparing": "Em preparação",
+      "visa": "Visto e chegada",
+      "studying": "A estudar"
+    },
+    "evening": "Boa noite, {{name}}",
+    "afternoon": "Boa tarde, {{name}}",
+    "allClear": "Nada precisa de atenção neste momento. O trabalho novo aparece aqui à medida que chega.",
+    "attention": "Precisa de atenção",
+    "attentionSub": "O item mais urgente aparece primeiro. Abra uma linha para percorrer a lista.",
+    "attentionV4": "Quem precisa de si hoje",
+    "clearList": "Tudo em ordem: {{list}}",
+    "closing": "Candidaturas que fecham em 7 dias",
+    "closingDetail": "Próxima: {{university}} · {{student}}, fecha a {{date}}",
+    "closingV4": "Estudantes com prazo de candidatura nos próximos 7 dias",
+    "cta": {
+      "deadlines": "Ver prazos",
+      "messages": "Abrir caixa de entrada",
+      "reply": "Responder",
+      "review": "Iniciar revisão",
+      "students": "Abrir estudantes",
+      "tasks": "Abrir tarefas"
+    },
+    "deadlines": "Prazos nos próximos 7 dias",
+    "deadlinesDetail": "Próximo: {{title}} · {{student}}, {{when}}",
+    "docs": "Documentos à espera de revisão",
+    "docsDetail": "Mais antigo: {{student}} · {{doc}}, à espera há {{wait}}",
+    "docsOldest": "mais antigo: {{student}} · {{doc}}, carregado {{when}}",
+    "docsSla_one": "{{count}} documento acima da meta de revisão de {{hours}} horas",
+    "docsSla_other": "{{count}} documentos acima da meta de revisão de {{hours}} horas",
+    "essays": "Textos à espera de revisão",
+    "essaysDetail": "Próximo: {{title}} · {{student}}",
+    "keyMove": "mover",
+    "keyOpen": "abrir",
+    "messages": "Conversas com mensagens não lidas",
+    "messagesDetail": "Há mais tempo à espera: {{who}}, {{when}}",
+    "openPipeline": "Abrir o pipeline",
+    "overdueDef": "Tarefas abertas cujo prazo já passou.",
+    "overdueDetail": "Mais antiga: {{title}} · {{student}}, prazo {{when}}",
+    "overdueMine": "As suas tarefas em atraso",
+    "overdueTeam": "Tarefas em atraso em toda a equipa",
+    "pipeline": "Casos por fase",
+    "pipelineSub": "{{count}} estudantes. Selecione uma fase para ver quem está nela.",
+    "pipelineSubV4_one": "{{count}} estudante",
+    "pipelineSubV4_other": "{{count}} estudantes",
+    "replies": "Estudantes à espera de resposta",
+    "repliesDetail": "A última mensagem deles ainda não teve resposta.",
+    "repliesOldest": "Há mais tempo à espera: {{student}}, {{when}}",
+    "repliesV4": "Respostas pendentes",
+    "requests": "Pedidos de documentos das universidades",
+    "requestsDetail": "O estudante tem de o carregar. Confirme que chega.",
+    "sla": "Estudantes a quem é devida uma primeira resposta em 24 horas",
+    "slaDetail": "{{student}} · resposta até {{when}}",
+    "unread": "Conversas não lidas",
+    "unreadDetail": "Mais recente: {{who}}, {{when}}",
+    "upcoming": "Próximos prazos",
+    "upcomingEmpty": "Sem prazos nos próximos 14 dias.",
+    "upcomingSub": "Próximos 14 dias",
+    "upcomingV4": "Próximos 14 dias",
+    "v5": {
+      "andMore_one": "e mais {{count}}",
+      "andMore_other": "e mais {{count}}",
+      "checks": "Verificações de documentos que precisam de revisor",
+      "services": {
+        "needs_assignment": "Novos pedidos de serviço por atribuir",
+        "overdue": "Casos de serviço acima do tempo de resposta",
+        "today": "Casos de serviço com prazo hoje"
+      },
+      "servicesCta": "Abrir serviços",
+      "servicesDetail": "{{type}} · {{student}} · {{reason}}",
+      "visa": "Casos de visto que precisam de si",
+      "visaCta": "Abrir",
+      "writingDetail": "{{essay}} · {{student}}, {{university}}",
+      "writingDue": "Revisões de textos com prazo nas próximas 48 horas",
+      "writingDue48": "prazo {{when}}",
+      "writingOverdue": "Revisões de textos acima do tempo prometido",
+      "writingRevised_one": "{{count}} correção do estudante",
+      "writingRevised_other": "{{count}} correções do estudante"
+    },
+    "waitingOn": "Casos por parte em espera",
+    "workload": "Carga da equipa",
+    "workloadSub": "Estudantes ativos e trabalho aberto por pessoa"
   },
-  "work": {
-   "allCountries": "Todos os países",
-   "allIntakes": "Todos os ingressos",
-   "allViews": "Todos os estudantes",
-   "anyWaiting": "À espera de qualquer pessoa",
-   "closedHint": "Estudantes recusados e que desistiram",
-   "col": {
-    "activity": "Última atividade",
-    "country": "País",
-    "due": "Prazo",
-    "next": "Próxima ação",
-    "stage": "Fase atual",
-    "student": "Estudante",
-    "university": "Universidade",
-    "waiting": "À espera de"
-   },
-   "emptyFiltered": "Nenhum estudante corresponde a estes filtros",
-   "noUpcoming": "Sem prazos nos próximos 14 dias",
-   "saveView": "Guardar vista",
-   "searchPh": "Pesquisar estudantes…",
-   "showAll": "Mostrar todos os {{count}}",
-   "showing": "A mostrar {{shown}} de {{total}}",
-   "teamViews": "Vistas da equipa",
-   "top": "Mais urgentes primeiro",
-   "upcoming_other": "{{count}} prazos em 14 dias",
-   "view": "Vista",
-   "upcoming_many": "{{count}} prazos em 14 dias",
-   "owner": "Responsável"
+  "v11": {
+    "manage": {
+      "auditHint": "Quem alterou o quê, e quando",
+      "catalogHint": "Universidades, programas e respetivos requisitos",
+      "org": "Organização",
+      "paymentsHint": "Faturas e pagamentos",
+      "people": "Pessoas e fornecedores",
+      "servicesHint": "Casos de serviço que está a prestar a estudantes",
+      "settingsHint": "O perfil e as preferências da sua agência",
+      "sub": "Definições e material de referência da sua agência.",
+      "teamHint": "Contas de administrador: convidar, desativar",
+      "templatesHint": "Modelos de mensagens e listas de verificação",
+      "vendorsHint": "Alojamento, recolha e outros fornecedores que reserva",
+      "work": "Como trabalha"
+    },
+    "review": {
+      "sub": "Documentos e textos à sua espera.",
+      "title": "Revisão"
+    }
   },
-  "ws": {
-   "appsTitle": "Candidaturas",
-   "conversation": "Conversa recente",
-   "details": "Detalhes",
-   "detailsHint": "Todos os detalhes, quando precisar deles.",
-   "hideDetails": "Ocultar detalhes",
-   "needsAction": "Requer ação",
-   "noConversation": "Ainda sem conversas.",
-   "seeAll": "Ver tudo",
-   "tab": {
-    "application": "Candidatura",
-    "communication": "Comunicação",
-    "more": "Tarefas e serviços",
-    "profile": "Perfil e plano"
-   }
-  }
- },
- "v23": {
-  "work": {
-   "submissionsNeed_other": "{{count}} envios precisam da equipa",
-   "submissionsNeed_many": "{{count}} envios precisam da equipa"
-  }
- },
- "v7": {
-  "today": {
-   "overdueN_one": "{{count}} em atraso",
-   "overdueN_other": "{{count}} em atraso"
-  }
- },
- "v8": {
-  "apps": {
-   "remaining": "Itens em falta"
+  "v22": {
+    "nav": {
+      "insights": "Indicadores",
+      "messages": "Mensagens",
+      "settings": "Definições",
+      "students": "Estudantes",
+      "today": "Hoje",
+      "work": "Candidaturas e documentos",
+      "hqAccounts": "Contas de universidades"
+    },
+    "stage": {
+      "admitted": "Admitidos",
+      "all": "Todos",
+      "arrived": "Chegaram",
+      "closedN_other": "{{count}} encerrados",
+      "counselling": "Consulta",
+      "documents": "Documentos",
+      "new": "Novos",
+      "ready": "Prontos para envio",
+      "review": "Análise da universidade",
+      "strip": "Fases",
+      "submitted": "Enviadas",
+      "visa": "Visto",
+      "closedN_many": "{{count}} encerrados",
+      "closed": "Encerrados",
+      "stripHint": "Selecione uma fase para mostrar só os seus estudantes. A contagem é igual às linhas abaixo."
+    },
+    "team": {
+      "title": "Contas de administrador",
+      "active": "Ativa",
+      "count_other": "{{count}} contas",
+      "devNote": "Desenvolvimento: o código foi impresso na consola da API, não enviado por e-mail.",
+      "disable": "Desativar",
+      "disableReason": "Motivo",
+      "disableReasonPh": "Saiu da agência",
+      "disableText": "Deixa de poder iniciar sessão. Os estudantes, revisões e tarefas em aberto passam automaticamente para colegas.",
+      "disableTitle": "Desativar {{name}}?",
+      "disabled": "Desativada",
+      "email": "E-mail",
+      "empty": "Ainda não há contas.",
+      "enable": "Ativar",
+      "invite": "Convidar um administrador",
+      "inviteSub": "Recebe um e-mail com um código único para definir a palavra-passe.",
+      "lastLogin": "Último início de sessão",
+      "mailFailed": "Não foi possível enviar o convite por e-mail. Peça que use «Esqueceu-se da palavra-passe?» com este endereço.",
+      "name": "Nome",
+      "never": "Nunca",
+      "sendInvite": "Enviar convite",
+      "sent": "Convite enviado",
+      "sentTo": "Enviámos um convite para {{email}}.",
+      "status": "Estado",
+      "sub": "Todos os administradores têm as mesmas permissões.",
+      "unverified": "Convidado · ainda não verificado",
+      "you": "Você"
+    },
+    "today": {
+      "sub": "Todos os estudantes por fase do processo. Escolha uma fase; a tabela abaixo mostra essa fase."
+    },
+    "work": {
+      "allCountries": "Todos os países",
+      "allIntakes": "Todos os semestres de entrada",
+      "allViews": "Todos os estudantes",
+      "anyWaiting": "Qualquer parte",
+      "closedHint": "Estudantes não admitidos ou que desistiram",
+      "col": {
+        "activity": "Última atividade",
+        "country": "País",
+        "due": "Prazo",
+        "next": "Próxima ação",
+        "stage": "Fase atual",
+        "student": "Estudante",
+        "university": "Universidade",
+        "waiting": "À espera de"
+      },
+      "emptyFiltered": "Nenhum estudante corresponde a estes filtros. Experimente alterá-los.",
+      "noUpcoming": "Sem prazos nos próximos 14 dias",
+      "saveView": "Guardar vista",
+      "searchPh": "Pesquisar estudantes…",
+      "showAll": "Mostrar todos os {{count}}",
+      "showing": "A mostrar {{shown}} de {{total}}",
+      "teamViews": "Vistas da equipa",
+      "top": "Mais urgentes primeiro",
+      "upcoming_other": "{{count}} prazos nos próximos 14 dias",
+      "view": "Vista",
+      "upcoming_many": "{{count}} prazos em 14 dias",
+      "owner": "Responsável",
+      "bulkOwner": "Definir responsável…",
+      "confirmOwner_other": "Definir {{name}} como responsável por {{count}} estudantes?",
+      "deleteView": "Eliminar esta vista",
+      "empty": "Nenhum estudante nesta fase",
+      "myViews": "As minhas vistas",
+      "showTop": "Mostrar os 10 primeiros",
+      "total_other": "{{count}} estudantes"
+    },
+    "ws": {
+      "appsTitle": "Candidaturas",
+      "conversation": "Conversa recente",
+      "details": "Detalhes",
+      "detailsHint": "Todos os detalhes, quando precisar deles.",
+      "hideDetails": "Ocultar detalhes",
+      "needsAction": "Requer ação",
+      "noConversation": "Ainda não há conversa. Envie a primeira mensagem.",
+      "seeAll": "Ver tudo",
+      "tab": {
+        "application": "Candidatura",
+        "communication": "Comunicação",
+        "more": "Tarefas e serviços",
+        "profile": "Perfil e plano"
+      },
+      "docFix_other": "{{count}} documentos a corrigir",
+      "docReview_other": "{{count}} documentos a rever",
+      "needsActionEmpty": "Nada está à sua espera para este estudante.",
+      "openThread": "Abrir conversa"
+    },
+    "hq": {
+      "accounts": {
+        "adminUser": "Utilizador administrador",
+        "assigned": "Universidade atribuída",
+        "empty": "Ainda não há contas de universidades.",
+        "invite": "Convidar um administrador de universidade",
+        "noUniversity": "Sem universidade associada",
+        "pickUniversity": "Universidade",
+        "pickUniversityPh": "Escolha uma universidade parceira",
+        "reassign": "Mudar de universidade",
+        "reassignText": "A conta passa para a organização da universidade escolhida. A anterior é desativada.",
+        "reassignTitle": "Mover {{name}} para outra universidade",
+        "search": "Pesquisar por nome, e-mail ou universidade…",
+        "sub": "Utilizadores administradores das universidades parceiras. Todos os administradores de universidade têm as mesmas permissões.",
+        "title": "Contas de universidades",
+        "university": "Universidade"
+      }
+    }
   },
-  "channel": {
-   "IN_APP": "Na aplicação"
+  "v23": {
+    "work": {
+      "submissionsNeed_other": "{{count}} candidaturas aguardam envio pela equipa",
+      "submissionsNeed_many": "{{count}} envios precisam da equipa",
+      "memberFilter": "A mostrar os estudantes de um membro da equipa",
+      "openAll": "Abrir todos os {{count}} em Estudantes",
+      "submissionsNeed_one": "{{count}} candidatura aguarda envio pela equipa"
+    }
   },
-  "nav": {
-   "operations": "Operações"
+  "v7": {
+    "today": {
+      "overdueN_one": "{{count}} em atraso",
+      "overdueN_other": "{{count}} em atraso"
+    }
   },
-  "ops": {
-   "ageing": {
-    "caption": "Casos ativos por fase e dias desde a última movimentação do caso",
-    "cellLabel": "{{count}} estudantes em {{phase}}, {{bucket}} desde a última movimentação — mostrar",
-    "longest": "Mais tempo sem movimentação",
-    "oldest": "Caso mais antigo: {{name}} não avança há {{count}} dias ({{stage}}).",
-    "phase": "Fase",
-    "q": "Que casos pararam e em que fase? Escolha uma célula para listar esses estudantes.",
-    "title": "Antiguidade dos casos por fase"
-   },
-   "backlog": {
-    "documents": "Revisões de documentos",
-    "essays": "Revisões de textos",
-    "openDocs_other": "{{count}} revisões de documentos em aberto",
-    "openEssays_other": "{{count}} revisões de textos em aberto",
-    "openTasks_other": "{{count}} tarefas da equipa em aberto",
-    "q": "O trabalho em aberto está a crescer ou a diminuir? Tarefas da equipa, revisões de documentos e revisões de textos em aberto no fim de cada uma das últimas 8 semanas.",
-    "tasks": "Tarefas da equipa",
-    "title": "Evolução do trabalho pendente",
-    "up_other": "+{{count}} em 8 semanas",
-    "openDocs_many": "{{count}} revisões de documentos em aberto",
-    "openEssays_many": "{{count}} revisões de textos em aberto",
-    "openTasks_many": "{{count}} tarefas da equipa em aberto",
-    "up_many": "+{{count}} em 8 semanas"
-   },
-   "bucket": {
-    "0_7": "0–7 dias",
-    "15_30": "15–30 dias",
-    "30_plus": "30+ dias",
-    "8_14": "8–14 dias"
-   },
-   "days_one": "{{count}} dia",
-   "days_other": "{{count}} dias",
-   "deadlines": {
-    "inDays_other": "daqui a {{count}} dias",
-    "q": "Candidaturas com prazo nos próximos {{count}} dias a que ainda faltam itens obrigatórios.",
-    "title": "Prazos em risco",
-    "inDays_many": "daqui a {{count}} dias",
-    "inDays_one": "daqui a {{count}} dia"
-   },
-   "generated": "Atualizado {{when}}",
-   "load": {
-    "over_one": "{{count}} pessoa acima da capacidade",
-    "q": "Quem está sobrecarregado? Casos ativos por pessoa face a uma divisão equitativa da capacidade da agência.",
-    "title": "Carga dos consultores vs. capacidade"
-   },
-   "open": "Abrir",
-   "openNow": "Em aberto",
-   "outcomes": "Resultados",
-   "since": "desde {{when}}",
-   "sla": {
-    "docs": "Revisão de documentos há mais de 48 h",
-    "essays": "Revisão de textos fora do prazo prometido",
-    "first": "Primeira resposta atrasada",
-    "q": "Que compromissos já foram falhados?",
-    "title": "Incumprimentos de SLA"
-   },
-   "stages": {
-    "median_other": "mediana de {{count}} dias",
-    "now_one": "{{n}} lá agora",
-    "now_other": "{{n}} lá agora",
-    "q": "Onde é que as candidaturas esperam mais tempo? Mediana de dias em cada estado (permanências terminadas no último ano).",
-    "slowest": "Mais lenta: {{stage}} — mediana de {{count}} dias em {{n}} permanências.",
-    "title": "Fases lentas",
-    "tooFew": "poucos dados para avaliar ({{n}} de {{min}})",
-    "unrated_other": "{{count}} estados com menos de {{min}} permanências concluídas (não avaliados)",
-    "median_many": "mediana de {{count}} dias",
-    "now_many": "{{n}} lá agora",
-    "unrated_many": "{{count}} estados com menos de {{min}} permanências concluídas (não avaliados)"
-   },
-   "sub": "Onde as operações estão a falhar: trabalho pendente, casos parados, sobrecarga, compromissos falhados, prazos em risco e fases lentas. Cada número abre os respetivos registos.",
-   "switch": "Vista",
-   "total": "Total",
-   "days_many": "{{count}} dias",
-   "allN_other": "Ver os {{count}}"
+  "v8": {
+    "apps": {
+      "remaining": "Itens em falta"
+    },
+    "channel": {
+      "IN_APP": "Na aplicação"
+    },
+    "nav": {
+      "operations": "Operações"
+    },
+    "ops": {
+      "ageing": {
+        "caption": "Casos ativos por fase e dias desde a última movimentação do caso",
+        "cellLabel": "{{count}} estudantes em {{phase}}, {{bucket}} desde a última movimentação — mostrar",
+        "longest": "Mais tempo sem movimentação",
+        "oldest": "Caso mais antigo: {{name}} não avança há {{count}} dias ({{stage}}).",
+        "phase": "Fase",
+        "q": "Que casos pararam e em que fase? Escolha uma célula para listar esses estudantes.",
+        "title": "Antiguidade dos casos por fase"
+      },
+      "backlog": {
+        "documents": "Revisões de documentos",
+        "essays": "Revisões de textos",
+        "openDocs_other": "{{count}} revisões de documentos em aberto",
+        "openEssays_other": "{{count}} revisões de textos em aberto",
+        "openTasks_other": "{{count}} tarefas da equipa em aberto",
+        "q": "O trabalho em aberto está a crescer ou a diminuir? Tarefas da equipa, revisões de documentos e revisões de textos em aberto no fim de cada uma das últimas 8 semanas.",
+        "tasks": "Tarefas da equipa",
+        "title": "Evolução do trabalho pendente",
+        "up_other": "+{{count}} em 8 semanas",
+        "openDocs_many": "{{count}} revisões de documentos em aberto",
+        "openEssays_many": "{{count}} revisões de textos em aberto",
+        "openTasks_many": "{{count}} tarefas da equipa em aberto",
+        "up_many": "+{{count}} em 8 semanas"
+      },
+      "bucket": {
+        "0_7": "0–7 dias",
+        "15_30": "15–30 dias",
+        "30_plus": "30+ dias",
+        "8_14": "8–14 dias"
+      },
+      "days_one": "{{count}} dia",
+      "days_other": "{{count}} dias",
+      "deadlines": {
+        "inDays_other": "daqui a {{count}} dias",
+        "q": "Candidaturas com prazo nos próximos {{count}} dias a que ainda faltam itens obrigatórios.",
+        "title": "Prazos em risco",
+        "inDays_many": "daqui a {{count}} dias",
+        "inDays_one": "daqui a {{count}} dia"
+      },
+      "generated": "Atualizado {{when}}",
+      "load": {
+        "over_one": "{{count}} pessoa acima da capacidade",
+        "q": "Quem está sobrecarregado? Casos ativos por pessoa face a uma divisão equitativa da capacidade da agência.",
+        "title": "Carga dos consultores vs. capacidade"
+      },
+      "open": "Abrir",
+      "openNow": "Em aberto",
+      "outcomes": "Resultados",
+      "since": "desde {{when}}",
+      "sla": {
+        "docs": "Revisão de documentos há mais de 48 h",
+        "essays": "Revisão de textos fora do prazo prometido",
+        "first": "Primeira resposta atrasada",
+        "q": "Que compromissos já foram falhados?",
+        "title": "Incumprimentos de SLA"
+      },
+      "stages": {
+        "median_other": "mediana de {{count}} dias",
+        "now_one": "{{n}} lá agora",
+        "now_other": "{{n}} lá agora",
+        "q": "Onde é que as candidaturas esperam mais tempo? Mediana de dias em cada estado (permanências terminadas no último ano).",
+        "slowest": "Mais lenta: {{stage}} — mediana de {{count}} dias em {{n}} permanências.",
+        "title": "Fases lentas",
+        "tooFew": "poucos dados para avaliar ({{n}} de {{min}})",
+        "unrated_other": "{{count}} estados com menos de {{min}} permanências concluídas (não avaliados)",
+        "median_many": "mediana de {{count}} dias",
+        "now_many": "{{n}} lá agora",
+        "unrated_many": "{{count}} estados com menos de {{min}} permanências concluídas (não avaliados)"
+      },
+      "sub": "Onde as operações estão a falhar: trabalho pendente, casos parados, sobrecarga, compromissos falhados, prazos em risco e fases lentas. Cada número abre os respetivos registos.",
+      "switch": "Vista",
+      "total": "Total",
+      "days_many": "{{count}} dias",
+      "allN_other": "Ver os {{count}}"
+    },
+    "view": {
+      "deadline7": "Prazo < 7 dias",
+      "docs": "Documentos a corrigir",
+      "new_paid": "Novos estudantes pagantes",
+      "student_silent": "À espera do estudante > 3 dias",
+      "unassigned": "Sem atribuição",
+      "university": "À espera da universidade",
+      "urgent": "Os meus casos urgentes",
+      "visa_blocked": "Visto bloqueado"
+    },
+    "move": {
+      "lastMoved_other": "último avanço há {{count}} dias",
+      "why": "Porque é que este processo não avança?"
+    }
   },
-  "view": {
-   "deadline7": "Prazo < 7 dias",
-   "docs": "Documentos a corrigir",
-   "new_paid": "Novos estudantes pagantes",
-   "student_silent": "À espera do estudante > 3 dias",
-   "unassigned": "Sem atribuição",
-   "university": "À espera da universidade",
-   "urgent": "Os meus casos urgentes",
-   "visa_blocked": "Visto bloqueado"
-  },
-  "move": {
-   "lastMoved_other": "último avanço há {{count}} dias",
-   "why": "Porque é que este processo não avança?"
-  }
- },
- "v9": {
-  "msg": {
-   "link": "Associar a uma candidatura",
-   "state": {
-    "READ": "Lida"
-   }
-  },
-  "next": {
-   "app": {
-    "OFFERED": "responder à oferta"
-   },
-   "essay_review": "Rever o texto",
-   "final_check": "Verificação final e entrega · {{university}}",
-   "reply_owed": "Responder ao estudante",
-   "review_unassigned_one": "Atribuir um revisor a {{count}} documento",
-   "student": {
-    "submit_on_portal": "enviar no portal oficial e registar a referência",
-    "university_request": "carregar o documento pedido por {{university}}"
-   },
-   "studentSays": "Estudante: {{what}}",
-   "submit": "Enviar pelo estudante e registar a referência",
-   "universitySays": "Universidade: {{what}}",
-   "taskTitle": "Em atraso: {{title}}"
-  },
-  "ops": {
-   "blocked": {
-    "q_other": "Que casos estão à espera de alguém e não avançam há mais de {{count}} dias?",
-    "title": "Casos bloqueados",
-    "q_many": "Que casos estão à espera de alguém e não avançam há mais de {{count}} dias?"
-   },
-   "cases_other": "{{count}} casos",
-   "days_other": "{{count}} dias",
-   "pointsOf": "{{n}} / {{cap}} pontos",
-   "q": {
-    "blocked": "Caso bloqueado há mais tempo",
-    "deadlines": "Prazos em risco",
-    "overloaded": "Acima da capacidade",
-    "sla": "Incumprimentos de SLA",
-    "stage": "Fase mais lenta",
-    "unpaid": "Casos pagos sem atribuição"
-   },
-   "questions": "Seis perguntas",
-   "slaRisk_one": "{{count}} em risco de SLA",
-   "unpaid": {
-    "none": "Todos os casos pagos têm um responsável.",
-    "q": "Que estudantes pagaram um serviço mas não têm responsável pelo processo?",
-    "title": "Casos pagos sem atribuição"
-   },
-   "weightsLink": "Ponderações",
-   "cases_many": "{{count}} casos",
-   "days_many": "{{count}} dias",
-   "slaRisk_other": "{{count}} em risco de SLA"
-  },
-  "owner": {
-   "agency": "Equipa da agência"
-  },
-  "q": {
-   "tab": "Qualidade do processo"
-  },
-  "team": {
-   "onLeave": "De licença até {{date}}"
+  "v9": {
+    "msg": {
+      "link": "Associar a uma candidatura",
+      "state": {
+        "READ": "Lida"
+      }
+    },
+    "next": {
+      "app": {
+        "OFFERED": "responder à oferta"
+      },
+      "essay_review": "Rever o texto",
+      "final_check": "Verificação final e entrega · {{university}}",
+      "reply_owed": "Responder ao estudante",
+      "review_unassigned_one": "Atribuir um revisor a {{count}} documento",
+      "student": {
+        "submit_on_portal": "enviar no portal oficial e registar a referência",
+        "university_request": "carregar o documento pedido por {{university}}"
+      },
+      "studentSays": "Estudante: {{what}}",
+      "submit": "Enviar pelo estudante e registar a referência",
+      "universitySays": "Universidade: {{what}}",
+      "taskTitle": "Em atraso: {{title}}"
+    },
+    "ops": {
+      "blocked": {
+        "q_other": "Que casos estão à espera de alguém e não avançam há mais de {{count}} dias?",
+        "title": "Casos bloqueados",
+        "q_many": "Que casos estão à espera de alguém e não avançam há mais de {{count}} dias?"
+      },
+      "cases_other": "{{count}} casos",
+      "days_other": "{{count}} dias",
+      "pointsOf": "{{n}} / {{cap}} pontos",
+      "q": {
+        "blocked": "Caso bloqueado há mais tempo",
+        "deadlines": "Prazos em risco",
+        "overloaded": "Acima da capacidade",
+        "sla": "Incumprimentos de SLA",
+        "stage": "Fase mais lenta",
+        "unpaid": "Casos pagos sem atribuição"
+      },
+      "questions": "Seis perguntas",
+      "slaRisk_one": "{{count}} em risco de SLA",
+      "unpaid": {
+        "none": "Todos os casos pagos têm um responsável.",
+        "q": "Que estudantes pagaram um serviço mas não têm responsável pelo processo?",
+        "title": "Casos pagos sem atribuição"
+      },
+      "weightsLink": "Ponderações",
+      "cases_many": "{{count}} casos",
+      "days_many": "{{count}} dias",
+      "slaRisk_other": "{{count}} em risco de SLA"
+    },
+    "owner": {
+      "agency": "Equipa da agência"
+    },
+    "q": {
+      "tab": "Qualidade do processo"
+    },
+    "team": {
+      "onLeave": "De licença até {{date}}"
+    },
+    "waiting": {
+      "on": {
+        "agency": "À espera da equipa da agência",
+        "counselor": "À espera de um consultor",
+        "external": "À espera de uma entidade externa",
+        "hangyul": "À espera da Hangyul",
+        "student": "À espera do estudante",
+        "university": "À espera da universidade"
+      },
+      "party": {
+        "agency": "Equipa da agência",
+        "counselor": "Consultor",
+        "external": "Entidade externa",
+        "student": "Estudante",
+        "university": "Universidade"
+      },
+      "reason": {
+        "essay_review": "texto à espera de revisão",
+        "final_check": "verificação final antes do envio",
+        "rail_confirmation": "falta o número de confirmação",
+        "reply_owed": "o estudante está à espera de resposta",
+        "review_unassigned_one": "{{count}} documento para rever · sem revisor",
+        "student_task_one": "{{count}} tarefa por fazer",
+        "student_task_other": "{{count}} tarefas por fazer",
+        "submit": "autorizado a enviar",
+        "submit_on_portal": "para enviar no portal oficial",
+        "university_request": "a universidade pediu um documento",
+        "student_task_many": "{{count}} tarefas por fazer",
+        "task_one": "{{count}} tarefa em atraso"
+      },
+      "title": "À espera de"
+    },
+    "meet": {
+      "decisions": "Decisões",
+      "notes": "O que foi discutido",
+      "oneper": "Um por linha.",
+      "recordTitle": "Registar uma reunião",
+      "save": "Guardar registo da reunião",
+      "scheduleNext": "Marcar a próxima reunião",
+      "staffTasks": "Seguimento para a equipa",
+      "studentHint": "Um por linha. O estudante vê estes pontos.",
+      "studentTasks": "Tarefas para o estudante"
+    },
+    "strip": {
+      "deadline": "Prazo",
+      "next": "Próxima ação",
+      "why": "Porque não avança"
+    }
   },
   "waiting": {
-   "on": {
-    "agency": "À espera da equipa da agência",
-    "counselor": "À espera de um consultor",
-    "external": "À espera de uma entidade externa",
-    "hangyul": "À espera da Hangyul",
-    "student": "À espera do estudante",
-    "university": "À espera da universidade"
-   },
-   "party": {
-    "agency": "Equipa da agência",
-    "counselor": "Consultor",
-    "external": "Entidade externa",
-    "student": "Estudante",
-    "university": "Universidade"
-   },
-   "reason": {
-    "essay_review": "texto à espera de revisão",
-    "final_check": "verificação final antes do envio",
-    "rail_confirmation": "falta o número de confirmação",
-    "reply_owed": "o estudante está à espera de resposta",
-    "review_unassigned_one": "{{count}} documento para rever · sem revisor",
-    "student_task_one": "{{count}} tarefa por fazer",
-    "student_task_other": "{{count}} tarefas por fazer",
-    "submit": "autorizado a enviar",
-    "submit_on_portal": "para enviar no portal oficial",
-    "university_request": "a universidade pediu um documento",
-    "student_task_many": "{{count}} tarefas por fazer",
-    "task_one": "{{count}} tarefa em atraso"
-   },
-   "title": "À espera de"
+    "app": {
+      "DRAFT": "candidatura não iniciada",
+      "INTERVIEW": "entrevista",
+      "OFFERED": "resposta à oferta",
+      "OFFER_ACCEPTED": "fatura das propinas",
+      "SUBMITTED": "enviada",
+      "UNIVERSITY_REVIEW": "em análise",
+      "VISA_ISSUED": "planos de chegada",
+      "WAITLISTED": "em lista de espera",
+      "DOCUMENT_PREPARATION": "a preparar documentos",
+      "VISA_PREPARATION": "documentos do visto",
+      "ADDITIONAL_DOCUMENTS": "universidade pediu um documento",
+      "ADMISSION_CERTIFICATE_ISSUED": "iniciar o visto",
+      "ADMISSION_CERTIFICATE_PENDING": "carta de admissão",
+      "PROFILE_REVIEW": "verificação do perfil",
+      "READY": "pronta para envio",
+      "TUITION_PAID": "carta de admissão",
+      "TUITION_PENDING": "pagamento das propinas",
+      "VISA_SUBMITTED": "decisão sobre o visto (embaixada)"
+    },
+    "reason": {
+      "student_task_one": "{{count}} tarefa por fazer",
+      "student_task_other": "{{count}} tarefas por fazer",
+      "student_task_many": "{{count}} tarefas por fazer",
+      "first_contact": "primeiro contacto em dívida",
+      "fix_one": "{{count}} documento a corrigir",
+      "fix_other": "{{count}} documentos a corrigir",
+      "overdue_task_one": "{{count}} tarefa em atraso",
+      "overdue_task_other": "{{count}} tarefas em atraso",
+      "reply": "o estudante respondeu",
+      "review_one": "{{count}} documento a rever",
+      "review_other": "{{count}} documentos a rever"
+    }
   },
-  "meet": {
-   "decisions": "Decisões",
-   "notes": "O que foi discutido",
-   "oneper": "Um por linha.",
-   "recordTitle": "Registar uma reunião",
-   "save": "Guardar registo da reunião",
-   "scheduleNext": "Marcar a próxima reunião",
-   "staffTasks": "Seguimento para a equipa",
-   "studentHint": "Um por linha. O estudante vê estes pontos.",
-   "studentTasks": "Tarefas para o estudante"
-  },
-  "strip": {
-   "deadline": "Prazo",
-   "next": "Próxima ação",
-   "why": "Porque não avança"
-  }
- },
- "waiting": {
-  "app": {
-   "DRAFT": "candidatura não iniciada",
-   "INTERVIEW": "entrevista",
-   "OFFERED": "resposta à oferta",
-   "OFFER_ACCEPTED": "fatura das propinas",
-   "SUBMITTED": "enviada",
-   "UNIVERSITY_REVIEW": "em análise",
-   "VISA_ISSUED": "planos de chegada",
-   "WAITLISTED": "em lista de espera",
-   "DOCUMENT_PREPARATION": "a preparar documentos",
-   "VISA_PREPARATION": "documentos do visto"
-  },
-  "reason": {
-   "student_task_one": "{{count}} tarefa por fazer",
-   "student_task_other": "{{count}} tarefas por fazer",
-   "student_task_many": "{{count}} tarefas por fazer"
-  }
- },
- "ws": {
-  "itemsInReview_one": "{{count}} em revisão",
-  "itemsNone": "Todos os itens prontos",
-  "itemsRemain_other": "Faltam {{count}} itens",
-  "itemsRemain_many": "Faltam {{count}} itens",
-  "act": {
-   "message": "Mensagem",
-   "task": "Tarefa"
-  },
-  "block": {
-   "deadline_one": "A candidatura a {{uni}} fecha daqui a {{count}} dia"
-  },
-  "consulate": "Consulado",
-  "docsHint": "Todos os documentos do cofre de documentos do estudante, reutilizados em todas as suas candidaturas.",
-  "more": "Mais ações",
-  "profileComplete": "Perfil {{pct}}% preenchido",
-  "tab": {
-   "applications": "Candidaturas",
-   "documents": "Documentos",
-   "essays": "Escrita",
-   "visa": "Visto"
-  },
-  "targetEntry": "Data de entrada prevista",
-  "visaIssued": "Emitido em",
-  "visaNotes": "Notas do processo (equipa)",
-  "visaProgress": "Progresso da lista do visto",
-  "visaStatus": "Estado do visto",
-  "visaSubmitted": "Pedido entregue em",
-  "visaType": "Visto {{type}}"
- },
- "v25": {
-  "today": {
-   "title": "Hoje",
-   "urgent": "urgentes",
-   "deadline7": "vencem em 7 dias",
-   "waiting_counselor": "aguardam nossa resposta",
-   "student_silent": "estudantes que não respondem",
-   "requested": "solicitações de universidades"
-  }
- },
- "v26": {
   "ws": {
-   "replyOwed": "O estudante está à espera da sua resposta",
-   "reply": "Responder",
-   "requests": "Pedidos de universidades",
-   "requestFrom": "{{university}} pede: {{label}}",
-   "requestedOn": "Pedido a {{date}}"
+    "itemsInReview_one": "{{count}} item em revisão",
+    "itemsNone": "Todos os itens prontos",
+    "itemsRemain_other": "Faltam {{count}} itens",
+    "itemsRemain_many": "Faltam {{count}} itens",
+    "act": {
+      "message": "Mensagem",
+      "task": "Tarefa",
+      "call": "Marcar consulta"
+    },
+    "block": {
+      "deadline_one": "A candidatura a {{uni}} fecha daqui a {{count}} dia",
+      "deadline_other": "A candidatura a {{uni}} fecha daqui a {{count}} dias",
+      "overdue": "Em atraso: {{title}}",
+      "review_one": "{{count}} documento à espera da sua revisão",
+      "review_other": "{{count}} documentos à espera da sua revisão",
+      "sla": "À espera da sua primeira resposta",
+      "slaDetail": "A meta de primeira resposta passou {{when}}",
+      "uniRequest": "{{uni}} pediu documentos adicionais"
+    },
+    "consulate": "Consulado",
+    "docsHint": "Todos os documentos do cofre de documentos do estudante, reutilizados em todas as suas candidaturas.",
+    "more": "Mais ações",
+    "profileComplete": "Perfil {{pct}}% preenchido",
+    "tab": {
+      "applications": "Candidaturas",
+      "documents": "Documentos",
+      "essays": "Textos",
+      "visa": "Visto",
+      "history": "Histórico",
+      "messages": "Mensagens",
+      "portfolio": "Portefólio",
+      "tasks": "Tarefas"
+    },
+    "targetEntry": "Data de chegada prevista",
+    "visaIssued": "Emitido em",
+    "visaNotes": "Notas do processo (equipa)",
+    "visaProgress": "Progresso da lista do visto",
+    "visaStatus": "Estado do visto",
+    "visaSubmitted": "Pedido apresentado em",
+    "visaType": "Visto {{type}}",
+    "activityNote": "Do registo de auditoria: consultas, alterações e decisões sobre os registos deste estudante.",
+    "apptHint": "Consultas e entrevistas simuladas com este estudante.",
+    "assignedBy": "Atribuído por {{by}}",
+    "blockedBy": "Concluir primeiro: {{deps}}",
+    "blockers": "Bloqueios",
+    "budget": "Orçamento anual",
+    "by": {
+      "ENGINE": "o motor de correspondência",
+      "MANUAL": "um administrador",
+      "OPERATIONS_OVERRIDE": "operações da Hangyul (atribuição manual)",
+      "ORDER": "uma compra de serviço"
+    },
+    "dob": "Data de nascimento",
+    "education": "Formação",
+    "expires": "Expira a {{date}}",
+    "factor": {
+      "country": "Experiência com o país",
+      "degree": "Experiência com o grau",
+      "language": "Correspondência de idioma",
+      "preference": "Preferência do estudante",
+      "sla": "Histórico recente de SLA",
+      "university": "Universidades pretendidas",
+      "workload": "Capacidade disponível"
+    },
+    "fields": "Áreas",
+    "gpaNorm": "{{pct}}% normalizado",
+    "identity": "Identidade e residência",
+    "itemsInReview_other": "{{count}} itens em revisão",
+    "itemsRemain_one": "Falta {{count}} item",
+    "languages": "Exames de língua",
+    "level": {
+      "ASSOCIATE": "Técnico superior",
+      "BACHELOR": "Licenciatura",
+      "DOCTORATE": "Doutoramento",
+      "HIGH_SCHOOL": "Ensino secundário",
+      "MASTER": "Mestrado"
+    },
+    "maskedHint": "Mascarado por privacidade. O número completo está apenas no cofre do estudante.",
+    "noActivity": "Ainda não há atividade registada",
+    "noApps": "Ainda não há candidaturas",
+    "noAppsText": "As candidaturas aparecem aqui quando o estudante iniciar uma.",
+    "noBreakdown": "Não foi registada nenhuma decomposição da pontuação para esta atribuição.",
+    "noConversations": "Ainda não há conversas com este estudante",
+    "noDocs": "Ainda não há documentos no cofre",
+    "noEducation": "Ainda não foi adicionada formação.",
+    "noEssays": "Ainda não há textos",
+    "noLanguages": "Ainda não há resultados de exames de língua.",
+    "noVisa": "Ainda não há processo de visto",
+    "noVisaText": "O processo de visto abre automaticamente quando a universidade emite a carta de admissão padrão (standard admission letter).",
+    "notAssigned": "Sem agência atribuída",
+    "passport": "Passaporte",
+    "passportExpiry": "Validade do passaporte",
+    "planned": "prevista",
+    "preferences": "Preferências",
+    "profileTitle": "Perfil",
+    "regions": "Regiões",
+    "residence": "País de residência",
+    "scholarship": "Precisa de bolsa",
+    "score": "Pontuação de correspondência {{score}} / 100",
+    "selfReported": "declarado pelo estudante",
+    "sinceDate": "Atribuído desde {{date}}",
+    "sponsor": "Financiador",
+    "sponsorKind": {
+      "EMPLOYER": "Empregador",
+      "PARENTS": "Pais",
+      "RELATIVE": "Familiar",
+      "SCHOLARSHIP": "Bolsa",
+      "SELF": "O próprio estudante"
+    },
+    "stage": "Fase do pipeline",
+    "tasksHint": "Tarefas da equipa e tarefas visíveis para o estudante.",
+    "visaHistory": "Histórico de vistos coreanos",
+    "weightsNote": "Pontos obtidos por fator face ao respetivo peso (peso total {{total}}). As pontuações explicam a escolha; não são uma avaliação de qualidade.",
+    "whyAssigned": "Porquê esta atribuição?"
+  },
+  "v25": {
+    "today": {
+      "title": "Hoje",
+      "urgent": "urgentes",
+      "deadline7": "vencem em 7 dias",
+      "waiting_counselor": "aguardam nossa resposta",
+      "student_silent": "estudantes que não respondem",
+      "requested": "solicitações de universidades"
+    }
+  },
+  "v26": {
+    "ws": {
+      "replyOwed": "O estudante está à espera da sua resposta",
+      "reply": "Responder",
+      "requests": "Pedidos de universidades",
+      "requestFrom": "{{university}} pediu: {{label}}",
+      "requestedOn": "Pedido a {{date}}"
+    }
+  },
+  "consult": {
+    "channel": {
+      "IN_PERSON": "Presencial",
+      "PHONE": "Telefone",
+      "VIDEO": "Videochamada"
+    },
+    "channelLabel": "Canal",
+    "duration": "Duração",
+    "kind": {
+      "CONSULTATION": "Consulta",
+      "INTERVIEW": "Entrevista",
+      "INTERVIEW_PREP": "Treino de entrevista"
+    },
+    "kindLabel": "Tipo",
+    "minutes_other": "{{count}} min",
+    "new": "Marcar consulta",
+    "notes": "Ordem de trabalhos / notas",
+    "notesHint": "Visível para o estudante nos detalhes da marcação.",
+    "notifyNote": "O estudante recebe uma notificação com a data e a hora no seu próprio fuso horário.",
+    "schedule": "Marcar",
+    "when": "Data e hora"
+  },
+  "tasksPage": {
+    "create": "Criar tarefa",
+    "description": "Detalhes",
+    "due": "Prazo",
+    "forStudent": "Atribuir ao estudante (fica visível na aplicação dele)",
+    "me": "eu",
+    "new": "Nova tarefa",
+    "owner": "Responsável",
+    "priority": "Prioridade",
+    "title": "Tarefas",
+    "type": "Tipo"
+  },
+  "v15": {
+    "plan": {
+      "PREMIUM": "Premium",
+      "title": "Plano adquirido: {{plan}}"
+    },
+    "readiness": {
+      "READY": "Pronto a enviar",
+      "SUBMITTED": "Enviada"
+    },
+    "scope": {
+      "strip": "Plano"
+    }
+  },
+  "v27": {
+    "guide": {
+      "missingTitle": "Guia de admissão não verificado",
+      "current": "Lista de documentos de",
+      "missingBody": "O guia oficial atual desta universidade e nível ainda não foi verificado, por isso não é mostrada nenhuma lista de documentos. Aparece assim que as operações da Hangyul verificarem o guia.",
+      "previous": "Com base no guia da ronda anterior; o novo guia está a ser verificado",
+      "source": "Guia oficial",
+      "verified": "verificado a {{date}}"
+    },
+    "stage": {
+      "ADMIT": "Oferta e matrícula",
+      "APPLY": "Candidatura enviada",
+      "ARRIVAL": "Chegada",
+      "CONSULT": "Consulta",
+      "DOCUMENTS": "Documentos",
+      "REVIEW": "Análise da universidade",
+      "VISA": "Visto",
+      "label": "Fase do processo",
+      "nextSr": "fase seguinte",
+      "recent": "Última alteração há {{count}} dias",
+      "overdue": "Prazo ultrapassado",
+      "stalled": "Parado há {{count}} dias"
+    },
+    "evidence": {
+      "age": "Emitido há menos de",
+      "ageDays": "{{count}} dias",
+      "byNationality": "por nacionalidade; país emissor ainda desconhecido",
+      "extra": "Também",
+      "form": "Entregar como",
+      "legal": "Legalização",
+      "none": "Ainda não carregado",
+      "open": "Mostrar evidência",
+      "proof": "Carregamento do estudante",
+      "quote": "Texto do guia",
+      "when": "Aplica-se quando"
+    },
+    "form": {
+      "COPY": "Cópia",
+      "EITHER": "Original ou cópia"
+    },
+    "hq": {
+      "guidesNone": "Não há guias de admissão por verificar.",
+      "guidesSub": "Sem um guia atual verificado, os estudantes não veem a lista de documentos. Ordenado por estudantes em espera.",
+      "guidesTitle": "Guias de admissão por verificar",
+      "kind": {
+        "CONFLICT": "As fontes oficiais divergem",
+        "MISSING_GUIDE": "Sem guia verificado",
+        "REVIEW_REQUIRED": "Precisa de revisão",
+        "SPOT_CHECK": "Conferir por amostragem com o original",
+        "STALE": "O guia é de uma ronda anterior"
+      },
+      "waiting": "{{count}} candidaturas em preparação"
+    },
+    "ifApplies": "Se aplicável",
+    "issue": {
+      "APOSTILLE": "Precisa de apostila",
+      "CHINA_CHSI": "Precisa de verificação CHSI",
+      "CONSULAR": "Precisa de legalização consular",
+      "DONE": "Concluído",
+      "FIX": "Precisa de correção",
+      "IN_REVIEW": "Em revisão",
+      "LEGALIZATION_REVIEW": "Via de legalização a confirmar",
+      "NOTARIZATION": "Precisa de certificação notarial",
+      "ORIGINAL_CHECKED": "Original conferido",
+      "TRANSLATION": "Precisa de tradução",
+      "UPLOAD": "Por carregar"
+    },
+    "legal": {
+      "APOSTILLE": "Apostila",
+      "CHINA_CHSI": "Verificação CHSI (China) ou apostila",
+      "CONSULAR": "Legalização consular",
+      "NONE": "Não necessária",
+      "STAFF_REVIEW": "Confirmar segundo o país emissor",
+      "UNSPECIFIED": "Não indicado no guia"
+    },
+    "party": {
+      "agency": "Ação nossa",
+      "student": "Ação do estudante"
+    },
+    "submit": {
+      "IN_PERSON": "Presencial",
+      "MAIL": "Por correio",
+      "ONLINE": "Formulário online",
+      "UPLOAD": "Carregamento online",
+      "UPLOAD_MAIL": "Carregar e depois enviar o original por correio"
+    }
+  },
+  "v28": {
+    "stage": {
+      "next": "Seguinte: {{stage}}",
+      "of": "Fase {{n}} de {{total}}"
+    }
+  },
+  "actions": {
+    "moreFilters": "Mais filtros"
+  },
+  "dash": {
+    "days_other": "{{count}} dias",
+    "period": "Período do relatório",
+    "subHq": "Visão transversal de todas as agências: estudantes ativos, filas e SLA.",
+    "workload": {
+      "member": "Membro da equipa",
+      "open": "Tarefas abertas",
+      "overdue": "Em atraso",
+      "students": "Estudantes ativos"
+    }
+  },
+  "login": {
+    "asideFoot": "Os dados de cada organização ficam separados e cada acesso é registado. Os estudantes nunca veem as notas internas.",
+    "asideLead": "Estudantes, candidaturas, documentos e mensagens num só espaço de trabalho.",
+    "asideTitle": "Quem precisa de si, porquê e até quando, a começar por hoje.",
+    "p1Text": "Cada contagem por fase abre exatamente esses estudantes.",
+    "p1Title": "Estudantes por fase",
+    "p2Text": "Correções de documentos, prazos de candidatura e respostas pendentes, por ordem de prazo.",
+    "p2Title": "Trabalho com prazo",
+    "p3Text": "Pré-visualizações seguras e listas de verificação; correções pedidas com um motivo claro.",
+    "p3Title": "Revisão de documentos",
+    "p4Text": "Os estudantes recebem comunicações da equipa Hangyul Univ; quem fez o trabalho fica no registo de auditoria.",
+    "p4Title": "Os estudantes veem a equipa Hangyul Univ",
+    "subtitle": "Para a equipa de operações da Hangyul e para as agências de estudos no estrangeiro parceiras.",
+    "title": "Entrar na Consola da Agência"
+  },
+  "notifs": {
+    "filter": "Filtrar",
+    "sub": "Tudo o que aconteceu enquanto esteve ausente."
+  },
+  "v29": {
+    "guide": {
+      "field": {
+        "checklist": "lista de documentos",
+        "current_intake": "guia desta ronda",
+        "deadline": "prazo de candidatura",
+        "source_url": "fonte oficial",
+        "submission_method": "método de entrega",
+        "verified_date": "data de verificação"
+      },
+      "verifyRequired": "Verifique antes de uma candidatura gerida: {{fields}}"
+    },
+    "plan": {
+      "addOnStatus": {
+        "ACTIVE": "Em curso",
+        "APPROVED": "Ativo (antigo)",
+        "AWAITING_PAYMENT": "A aguardar pagamento",
+        "COMPLETED": "Concluído",
+        "OFFERED": "Proposto"
+      },
+      "duty": {
+        "dedicated": "Equipa dedicada · respostas prioritárias",
+        "docs": {
+          "CHECKLIST": "Documentos: lista de verificação",
+          "INTENSIVE": "Documentos: revisão aprofundada",
+          "REVIEW_GUIDANCE": "Documentos: revisão e indicações sobre o que corrigir"
+        },
+        "dorm": {
+          "APPLICATION": "Residência: apoio na candidatura e outras opções de alojamento",
+          "INFORMATION": "Residência: informação",
+          "SCHEDULE": "Residência: calendário de candidatura acompanhado"
+        },
+        "settle": {
+          "FULL": "Instalação: D-30 a D+30",
+          "INFORMATION": "Instalação: informação básica",
+          "NONE": "Instalação: não incluída"
+        },
+        "visa": {
+          "DOCUMENT_PREP": "Visto: apoio na preparação dos documentos",
+          "GUIDANCE": "Visto: orientação sobre o processo",
+          "INTENSIVE": "Visto: documentos e datas-chave acompanhados"
+        }
+      },
+      "legacy": "Comprado na versão {{version}}",
+      "offer": {
+        "howItWorks": "Só se aplica depois de o estudante ver o preço e o âmbito, aceitar e pagar.",
+        "open": "Propor um serviço adicional",
+        "quantity": "Quantidade ({{unit}})",
+        "quote": "Orçamento à medida: indique o preço e o âmbito",
+        "range": "Intervalo recomendado {{min}}–{{max}}",
+        "scope": "Nota de âmbito (visível para o estudante)",
+        "scopeRequired": "Âmbito (obrigatório, visível para o estudante)",
+        "send": "Propor ao estudante",
+        "service": "Serviço",
+        "total": "O estudante paga {{amount}}",
+        "unitPrice": "Preço unitário (USD)"
+      },
+      "term": {
+        "arrival": "Chegada",
+        "arrivalLabel": "Data de chegada prevista",
+        "arrivalUnknown": "Data de chegada não confirmada",
+        "arrivalWindow": "Preparação desde {{from}} · chega a {{arrive}} · termina a {{until}}",
+        "ended": "Período de serviço terminado",
+        "endsLabel": "Fim do contrato",
+        "notStarted": "Antes da primeira consulta",
+        "saved": "Datas do serviço guardadas.",
+        "set": "Guardar datas",
+        "since": "Início a {{date}}",
+        "support": "Consultas até {{date}}",
+        "supportDays": "{{count}} dias a contar da primeira consulta",
+        "title": "Período de serviço",
+        "toAgree": "Período de serviço não definido",
+        "until": "Até {{date}}"
+      },
+      "unrationed": {
+        "CONTRACTED_DOCUMENTS": "Sem limite dentro dos documentos e do calendário contratados",
+        "PRIORITY": "Respostas prioritárias",
+        "ROUNDS": "Incluído",
+        "TEAM": "Acompanhamento pela equipa"
+      },
+      "usedSoFar": "{{count}} realizadas"
+    }
+  },
+  "v30": {
+    "def": {
+      "ops": {
+        "ageing": "Dias desde a última movimentação do caso: a mais recente entre uma mudança de fase do pipeline, uma mudança de estado da candidatura ou a atribuição a esta agência.",
+        "backlog": "Trabalho em aberto no fim de cada semana: tarefas da equipa (não as tarefas do próprio estudante) ainda não concluídas, versões de documentos ainda não revistas e textos submetidos para revisão e ainda não revistos (ronda de revisão atual).",
+        "blocked": "Um caso está bloqueado quando espera por uma parte e não se move há mais de 14 dias. Do mais antigo para o mais recente.",
+        "deadlines": "Candidaturas ainda não enviadas cujo prazo de candidatura termina em 14 dias e às quais ainda faltam itens obrigatórios.",
+        "load": "Carga ponderada por pessoa: cada tipo de trabalho em aberto a seu cargo × o respetivo peso (tabela de pesos da agência), face à capacidade pessoal nos mesmos pontos. Sobrecarga = carga acima da capacidade. Pessoas ausentes não recebem trabalho novo.",
+        "sla": "Primeira resposta não dada dentro do prazo; documentos à espera de revisão há mais de 48 horas; revisões de textos acima do tempo de revisão prometido.",
+        "stages": "Mediana de dias que uma candidatura permaneceu num estado antes de avançar (permanências terminadas nos últimos 365 dias). Omitido abaixo de {{n}} permanências.",
+        "unassigned_paid": "Pagou um serviço Hangyul e nenhum consultor é responsável pelo caso (ou, para a Hangyul, ainda não há agência atribuída)."
+      },
+      "svc": {
+        "arrival": "Recolhas no aeroporto concluídas ÷ recolhas cuja hora de chegada já passou (canceladas excluídas)",
+        "completion": "Concluídos ÷ casos criados no período (cancelados excluídos)",
+        "resolution": "Mediana de horas entre o pedido e a conclusão, apenas casos concluídos",
+        "sla": "Casos em que a equipa agiu depois do SLA (ou ainda não agiu e o SLA já passou) ÷ casos cujo SLA já venceu"
+      }
+    }
+  },
+  "v31": {
+    "stage": {
+      "closed": "Encerrados"
+    }
   }
- },
- "consult": {
-  "channel": {
-   "IN_PERSON": "Presencial",
-   "PHONE": "Telefone",
-   "VIDEO": "Videochamada"
-  },
-  "channelLabel": "Canal",
-  "duration": "Duração",
-  "kind": {
-   "CONSULTATION": "Consulta",
-   "INTERVIEW": "Entrevista",
-   "INTERVIEW_PREP": "Treino de entrevista"
-  },
-  "kindLabel": "Tipo",
-  "minutes_other": "{{count}} min",
-  "new": "Marcar consulta",
-  "notes": "Ordem de trabalhos / notas",
-  "notesHint": "Visível para o estudante nos detalhes da marcação.",
-  "notifyNote": "O estudante recebe uma notificação com a data e a hora no seu próprio fuso horário.",
-  "schedule": "Marcar",
-  "when": "Data e hora"
- },
- "tasksPage": {
-  "create": "Criar tarefa",
-  "description": "Detalhes",
-  "due": "Prazo",
-  "forStudent": "Atribuir ao estudante (fica visível na aplicação dele)",
-  "me": "eu",
-  "new": "Nova tarefa",
-  "owner": "Responsável",
-  "priority": "Prioridade",
-  "title": "Tarefas",
-  "type": "Tipo"
- },
- "v15": {
-  "plan": {
-   "PREMIUM": "Premium",
-   "title": "Plano adquirido: {{plan}}"
-  },
-  "readiness": {
-   "READY": "Pronto a enviar",
-   "SUBMITTED": "Enviada"
-  },
-  "scope": {
-   "strip": "Plano"
-  }
- },
- "v27": {
-  "guide": {
-   "missingTitle": "Guia de candidatura não verificado"
-  },
-  "stage": {
-   "ADMIT": "Oferta e matrícula",
-   "APPLY": "Candidatura enviada",
-   "ARRIVAL": "Chegada",
-   "CONSULT": "Consulta",
-   "DOCUMENTS": "Documentos",
-   "REVIEW": "Análise da universidade",
-   "VISA": "Visto",
-   "label": "Fase do processo",
-   "nextSr": "fase seguinte",
-   "recent": "Última alteração há {{count}} dias"
-  }
- },
- "v28": {
-  "stage": {
-   "next": "Seguinte: {{stage}}",
-   "of": "Fase {{n}} de {{total}}"
-  }
- }
 }

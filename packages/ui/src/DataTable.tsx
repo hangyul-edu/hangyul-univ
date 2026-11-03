@@ -17,7 +17,8 @@ import {
 import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 
 import { Popover } from './overlays';
-import { Button, Checkbox, Select, Skeleton } from './primitives';
+import { Button, Checkbox, Skeleton } from './primitives';
+import { Select } from './select';
 
 export type { ColumnDef } from '@tanstack/react-table';
 

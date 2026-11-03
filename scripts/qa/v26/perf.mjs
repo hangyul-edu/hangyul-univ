@@ -4,7 +4,8 @@
 //
 // Per route (median of 3 cold loads, fresh context each, 1440×900, no throttling — lab, local): LCP, CLS, long-task total,
 // request count, transferred JS / CSS / image bytes, API request count and duplicate API requests. Writes
-// docs/qa/v26/perf-<label>.json. Signed-in routes use the dev `?demo=` sign-in (the build sets VITE_DEMO_LOGINS=true).
+// docs/qa/v26/perf-<label>.json. Signed-in routes sign in a fixture account through the real login (isolated test DB).
+import { FIXTURE_PASSWORD } from '../auth.mjs';
 import { execFileSync, spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -19,7 +20,7 @@ const PLAN = {
   agency: { login: 'counselor@lotus.demo.hangyul.kr', routes: ['/', `/students/${IDS.agencyStudent}`] },
   university: { login: 'admin@pusan.univ.demo.hangyul.kr', routes: ['/', '/analytics'] },
 };
-const env = { ...process.env, VITE_DEMO_LOGINS: 'true', HG_API_URL: 'http://127.0.0.1:8001',
+const env = { ...process.env, HG_API_URL: 'http://127.0.0.1:8001',
   VITE_MARKETING_URL: `http://localhost:${PORTS.marketing}`, VITE_STUDENT_APP_URL: `http://localhost:${PORTS.student}`,
   VITE_AGENCY_APP_URL: `http://localhost:${PORTS.agency}`, VITE_UNIVERSITY_APP_URL: `http://localhost:${PORTS.university}` };
 const [mode, label = 'before'] = process.argv.slice(2);
@@ -47,8 +48,10 @@ async function measureOnce(browser, base, login, route) {
   });
   const p = await ctx.newPage();
   if (login) {
-    await p.goto(`${base}/login?demo=${encodeURIComponent(login)}&lang=ko`, { waitUntil: 'networkidle' });
-    await p.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 20000 }).catch(() => {});
+    // The request context shares the browser's cookie jar: the refresh cookie set here is what the app restores from.
+    const client = login.includes('univ.') ? 'university' : login.includes('@lotus') || login.includes('@demo.') && !login.startsWith('student') ? 'agency' : 'student';
+    await p.request.post('http://127.0.0.1:8001/api/v1/auth/login', { data: { email: login, password: FIXTURE_PASSWORD, client } });
+    await p.goto(`${base}/?lang=ko`, { waitUntil: 'networkidle' });
   }
   const bytes = { js: 0, css: 0, img: 0, other: 0 }; let requests = 0; const api = [];
   p.on('response', async (res) => {

@@ -13,9 +13,8 @@ import type { ServiceProduct } from '@hangyul/types';
 import { PLANS, planPresentationByCode, planText } from '@hangyul/types';
 import { screen } from '@testing-library/react';
 import { i18next } from '@hangyul/i18n';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { bypassEnabled, PAID_STATE_QUERY_KEYS } from '../lib/devpay';
 import { renderUI } from '../test/utils';
 import { OrderBlock, PlanCard } from './Services';
 
@@ -50,20 +49,6 @@ describe('the plan cards show the approved plan content', () => {
 describe('the order block', () => {
   const real = { p: product('ALL_IN_ONE'), busy: false, error: null, onPay: () => {}, cardMode: false };
 
-  it('keeps the real payment CTA as the only primary action when the test action is present', () => {
-    const onTestActivate = vi.fn();
-    renderUI(<OrderBlock {...real} onTestActivate={onTestActivate} />);
-    // The amount rides on the button but is `aria-hidden`, so it is not part of the accessible name.
-    const pay = screen.getByRole('button', { name: 'Pay and get started' });
-    expect(pay).toHaveClass('hg-btn--primary');
-    expect(pay).toHaveTextContent('$349');
-    const test = screen.getByRole('button', { name: 'Test: start on the selected plan' });
-    expect(test).toHaveClass('hg-btn--ghost');
-    expect(test).not.toHaveClass('hg-btn--primary');
-    test.click();
-    expect(onTestActivate).toHaveBeenCalledOnce();
-  });
-
   it('is the real payment path alone in a production build', () => {
     renderUI(<OrderBlock {...real} />);
     expect(screen.getByRole('button', { name: 'Pay and get started' })).toBeInTheDocument();
@@ -71,21 +56,3 @@ describe('the order block', () => {
   });
 });
 
-describe('the local paid-state gate', () => {
-  it('is on in a dev server, off in a production build, and overridable either way', () => {
-    expect(bypassEnabled({ DEV: true })).toBe(true);
-    expect(bypassEnabled({ DEV: false })).toBe(false);
-    expect(bypassEnabled({})).toBe(false);
-    expect(bypassEnabled({ DEV: false, VITE_ENABLE_TEST_PAYMENT_BYPASS: 'true' })).toBe(true);
-    // What a QA sweep that must see the production composition sets.
-    expect(bypassEnabled({ DEV: true, VITE_ENABLE_TEST_PAYMENT_BYPASS: 'false' })).toBe(false);
-  });
-
-  it('refreshes the plan the route paywall reads', () => {
-    // `services` carries the plan (`lib/queries.ts` → `useMyPlan`); without it the app would navigate to a
-    // home page that bounces straight back to `/services?gate=…`.
-    expect(PAID_STATE_QUERY_KEYS).toContain('services');
-    expect(PAID_STATE_QUERY_KEYS).toContain('dashboard');
-    expect(PAID_STATE_QUERY_KEYS).toContain('tasks');
-  });
-});

@@ -1,5 +1,5 @@
 import { ApiError } from '@hangyul/api-client';
-import { i18next } from '@hangyul/i18n';
+import { i18next, useTranslation } from '@hangyul/i18n';
 import { AuthProvider, useAuth } from '@hangyul/auth';
 import type { Namespace } from '@hangyul/i18n';
 import type { ClientApp } from '@hangyul/types';
@@ -8,10 +8,12 @@ import Constants from 'expo-constants';
 import { useFonts } from 'expo-font';
 import { DefaultTheme, ThemeProvider, type Theme } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { CloudOff } from 'lucide-react-native';
 import { useEffect, useState, type ReactNode } from 'react';
 import { ActivityIndicator, AppState, Image, Platform, StyleSheet, View, type AppStateStatus } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { EmptyState } from '../components/States';
 import { FontsReadyContext, fontAssets } from '../fonts';
 import { theme } from '../theme';
 import { createMobileApi } from './api';
@@ -63,6 +65,17 @@ export const navTheme: Theme = {
     notification: theme.color.primary,
   },
 };
+
+/** V32: the service could not be reached while restoring the session — branded, localized, one action. */
+export function ServiceUnavailable({ onRetry }: { onRetry: () => void }) {
+  const { t } = useTranslation('common');
+  return (
+    <View style={styles.splash} accessibilityRole="summary">
+      <Image source={require('../../assets/brand/symbol-192.png')} style={styles.logo} resizeMode="contain" />
+      <EmptyState icon={CloudOff} title={t('states.unavailableTitle')} body={t('states.unavailableText')} actionLabel={t('actions.retry')} onAction={onRetry} />
+    </View>
+  );
+}
 
 export function BrandSplash() {
   return (
@@ -144,8 +157,9 @@ function QueryResetOnLogout({ children }: { children: ReactNode }) {
 /** `hold` keeps the signed-out tree on screen although a session already exists — the native sign-up uses it so the
  *  "account created" step and the quick profile are shown before the app takes over (V22). */
 export function AuthGate({ children, login, hold = false }: { children: ReactNode; login: ReactNode; hold?: boolean }) {
-  const { status } = useAuth();
+  const { status, retry } = useAuth();
   if (status === 'loading') return <BrandSplash />;
+  if (status === 'unavailable') return <ServiceUnavailable onRetry={() => void retry()} />;
   if (status === 'anonymous' || hold) return <>{login}</>;
   return <>{children}</>;
 }

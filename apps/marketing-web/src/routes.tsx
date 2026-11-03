@@ -55,9 +55,6 @@ export const routes: RouteObject[] = [
       { path: 'universities/:slug', lazy: page(() => import('./pages/UniversityDetail')) },
       { path: 'privacy', lazy: page(() => import('./pages/legal/Privacy')) },
       { path: 'terms', lazy: page(() => import('./pages/legal/Terms')) },
-      // Development tooling, and the only place it exists (brief Part 1). The whole branch is compiled out of a
-      // production build, so neither the route nor the persona list it reaches ships.
-      ...(import.meta.env.DEV ? [{ path: '__dev', lazy: page(() => import('./pages/DevTools')) }] : []),
       ...Object.entries(REDIRECTS).map(([from, to]) => ({ path: from.slice(1), element: <Navigate to={to} replace /> })),
       { path: 'guides/*', element: <GuideRedirect /> },
       { path: '*', lazy: page(() => import('./pages/NotFound')) },

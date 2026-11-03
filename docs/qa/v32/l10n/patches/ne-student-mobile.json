@@ -1,0 +1,785 @@
+{
+  "_notes": [
+    "Terminology unified per glossary (one term per concept): consultation = परामर्श (काउन्सेलिङ dropped); plan = प्लान everywhere (mobile:plan.*/more.* used योजना, which collides with अध्ययन योजना = study plan); matches = मिल्ने कार्यक्रम / मिल्ने विश्वविद्यालय (म्याच reads as a sports match in Nepali); document review = कागजात समीक्षा; 'checked' = जाँच, 'verified' = प्रमाणित (reserved for official verification); team = टोली (टिम dropped); apostille = एपोस्टिल (one key had अपोस्टिल); GPA kept Latin (जीपीए dropped); sign up = साइन अप (दर्ता dropped so it pairs with साइन इन).",
+    "Student-facing 'परामर्शदाता/सल्लाहकार/समीक्षक' (counselor) replaced by Hangyul टोली / Hangyul Univ टोली following the English; staff-facing mobile:university.* / mobile:v3.uni.* keep परामर्शदाता.",
+    "Personal statement rendered as पर्सनल स्टेटमेन्ट (the term Nepali applicants actually use; no established native term) and study plan as अध्ययन योजना; 'स्टडी प्लान एडिटिङ' dropped. Owner may prefer a native coinage for personal statement.",
+    "Standard admission letter = मानक भर्ना पत्र; the English name is added in parentheses once, in mobile:v3.offer.step.letter, because the student will meet it in English on the visa paperwork.",
+    "Consular legalization = कन्सुलर प्रमाणीकरण (मानार्थ: embassy/consulate authentication); plain प्रमाणीकरण was ambiguous with 'verification' in mobile:v3.docAction.LEGALIZE, v3.university.documentsCount, v4.application.nextLegalize, v3.reviews.legalization.",
+    "student:register.consent.CROSS_BORDER_VERIFICATION.summary (and mobile twin) dropped 'transfer details, timing, retention period' which the Korean-derived Nepali carried but the reviewed English does not; label now says the email/number are processed abroad to verify them, not 'identity verification'.",
+    "mobile:login.networkError: dropped the Android-emulator / LAN-IP developer hint, matching the English customer meaning.",
+    "mobile:plan.chooseLede: 'एक पटकको भुक्तानीले पूरै प्रक्रिया समेट्छ' (one payment covers the whole process) overpromised for Basic; now mirrors the English.",
+    "mobile:v3.profile.unlock.sponsor: 'तयार गर्छ' claimed we prepare the visa financial documents; now says the student can prepare them early (as in the English).",
+    "student:onboarding.goals.degreeSub.LANGUAGE: dropped the added marketing clause 'धेरैले रोज्ने सजिलो सुरुवात' not present in the English.",
+    "Greetings: 'Good afternoon' kept as नमस्ते (no natural Nepali afternoon greeting); 'High school' unified as उच्च माध्यमिक (+2) across onboarding and register.prior.",
+    "Digit style is mixed across the file (Devanagari ७/१० vs ASCII 7/10, usually ASCII next to units like MB). Left as is; owner may want one rule.",
+    "mobile:v3.reviews.summary / att.breached use वाचा (promise) for the SLA 'promise' — kept, it is the agency vocabulary."
+  ],
+  "student:applications.emptyCta": {
+    "text": "मिल्ने कार्यक्रम हेर्नुहोस्",
+    "why": "matches = मिल्ने कार्यक्रम, not म्याच"
+  },
+  "student:applications.emptyText": {
+    "text": "सुरु गर्न आफूलाई मिल्ने कार्यक्रमबाट एउटा छान्नुहोस्। आफ्नै गतिमा तयारी गर्न सक्नुहुन्छ।",
+    "why": "matches term; natural phrasing"
+  },
+  "student:dashboard.arrival.landing": {
+    "text": "{{date}} मा अवतरण",
+    "why": "natural word order"
+  },
+  "student:dashboard.counselor.nextCall": {
+    "text": "अर्को परामर्श: {{when}}",
+    "why": "consultation = परामर्श"
+  },
+  "student:dashboard.counselor.noneCta": {
+    "text": "प्लानहरू हेर्नुहोस्",
+    "why": "says plans, not support options"
+  },
+  "student:dashboard.stageText.ENROLL": {
+    "text": "भर्ना प्रस्तावका लागि बधाई छ! अब आफ्नो स्थान पक्का गरौँ।",
+    "why": "admission offer explicit"
+  },
+  "student:dashboard.stageText.MATCH": {
+    "text": "तपाईंलाई मिल्ने कार्यक्रम तयार छन्। कहाँ आवेदन दिने छान्नुहोस्।",
+    "why": "matches term; no म्याच"
+  },
+  "student:dashboard.stageText.PROFILE": {
+    "text": "तपाईंलाई मिल्ने कार्यक्रम हेर्न प्रोफाइल पूरा गर्नुहोस्।",
+    "why": "matches term consistent"
+  },
+  "student:dashboard.stageText.VISA": {
+    "text": "तपाईंको भर्ना स्वीकृत भयो। अर्को चरण: विद्यार्थी भिसा।",
+    "why": "admitted ≠ enrolled; clearer"
+  },
+  "student:documents.legal.intro": {
+    "text": "हरेक चरण पूरा गरेपछि पूरा भयो भनी चिन्ह लगाउनुहोस्। अन्तिम कागजात हामी जाँच्छौँ।",
+    "why": "check ≠ verify (प्रमाणित reserved)"
+  },
+  "student:home.documentsSub_one": {
+    "text": "{{count}} कागजातमा तपाईंको ध्यान चाहिन्छ",
+    "why": "plural family consistent"
+  },
+  "student:home.documentsSub_other": {
+    "text": "{{count}} कागजातमा तपाईंको ध्यान चाहिन्छ",
+    "why": "plural family consistent"
+  },
+  "student:home.team": {
+    "text": "Hangyul Univ टोली",
+    "why": "matches English label"
+  },
+  "student:login.aside.point3": {
+    "text": "तपाईंको भाषा बोल्ने Hangyul टोलीका वास्तविक मानिसहरूसँग तयारी गर्नुहोस्।",
+    "why": "team, not counselor; 'prepare'"
+  },
+  "student:login.createAccount": {
+    "text": "साइन अप गर्नुहोस्",
+    "why": "sign up = साइन अप everywhere"
+  },
+  "student:messages.call": {
+    "text": "भिडियो परामर्श {{when}}",
+    "why": "consultation = परामर्श"
+  },
+  "student:onboarding.basics.residenceHint": {
+    "text": "केही दूतावासले आफ्नै देशका बासिन्दाबाट मात्र भिसा आवेदन लिन्छन्।",
+    "why": "'own country' was missing"
+  },
+  "student:onboarding.education.gpaScale": {
+    "text": "पूर्णाङ्क",
+    "why": "'out of' = full marks in Nepali"
+  },
+  "student:onboarding.education.gpaValue": {
+    "text": "तपाईंको GPA",
+    "why": "GPA kept Latin, consistent"
+  },
+  "student:onboarding.education.previewEmpty": {
+    "text": "सामान्यीकृत स्कोर हेर्न GPA र त्यसको स्केल लेख्नुहोस्।",
+    "why": "GPA kept Latin, consistent"
+  },
+  "student:onboarding.education.levels.HIGH_SCHOOL": {
+    "text": "उच्च माध्यमिक (+2)",
+    "why": "one term for high school"
+  },
+  "student:onboarding.goals.degreeSub.LANGUAGE": {
+    "text": "पहिले कोरियाली भाषा, आफ्नै गतिमा",
+    "why": "drop added marketing clause"
+  },
+  "student:onboarding.passport.visa.D-4": {
+    "text": "D-4 (भाषा कोर्स)",
+    "why": "language course, not trainee"
+  },
+  "student:onboarding.steps.language.subtitle": {
+    "text": "आधिकारिक अङ्क भए अझ धेरै कार्यक्रम तपाईंलाई मिल्छन्, तर धेरै विद्यार्थी अङ्कबिनै सुरु गर्छन्।",
+    "why": "no म्याच loanword"
+  },
+  "student:profile.saved": {
+    "text": "प्रोफाइल अपडेट भयो। मिल्ने कार्यक्रम पनि अपडेट भए",
+    "why": "matches term consistent"
+  },
+  "student:register.consent.CROSS_BORDER_VERIFICATION.label": {
+    "text": "मेरो इमेल र मोबाइल नम्बर प्रमाणित गर्न तिनलाई विदेशमा प्रशोधन गरिन्छ भन्ने म स्वीकार गर्छु",
+    "why": "verify them, not identity"
+  },
+  "student:register.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Twilio Inc. (संयुक्त राज्य अमेरिका) ले प्रमाणीकरण एसएमएस र इमेल पठाउँछ; Cloudflare, Inc. (संयुक्त राज्य अमेरिका) ले साइन अप स्वचालित होइन भनी जाँच्छ। अस्वीकार गर्ने तरिकासहित विवरण गोपनीयता नीतिमा छ। अस्वीकार गरेमा खाता बनाउन सकिँदैन।",
+    "why": "match English; drop extra clauses"
+  },
+  "student:register.consent.title": {
+    "text": "तपाईंको जानकारी हामी कसरी प्रयोग गर्छौँ",
+    "why": "warm, matches English"
+  },
+  "student:register.phoneHint": {
+    "text": "हामी एसएमएसमार्फत एक पटक प्रयोग हुने कोड पठाउँछौँ। सामान्य एसएमएस शुल्क लाग्न सक्छ।",
+    "why": "one-time code; standard rates"
+  },
+  "student:register.prior.level.HIGH_SCHOOL": {
+    "text": "उच्च माध्यमिक (+2)",
+    "why": "one term for high school"
+  },
+  "student:register.verify.delivery.RECIPIENT_INVALID.sms": {
+    "text": "यो नम्बरमा एसएमएस पठाउन सकिँदैन। कृपया देश कोड र मोबाइल नम्बर जाँच्नुहोस्।",
+    "why": "एसएमएस spelling consistent"
+  },
+  "student:register.verify.delivery.RECIPIENT_REJECTED.sms": {
+    "text": "यो नम्बरले हाम्रा एसएमएस ब्लक गरेको छ। अनब्लक गर्नुहोस् वा अर्को नम्बर प्रयोग गर्नुहोस्।",
+    "why": "एसएमएस spelling consistent"
+  },
+  "student:register.verify.delivery.REGION_UNSUPPORTED.sms": {
+    "text": "यो देशका नम्बरमा अहिलेसम्म एसएमएस पठाउन सकिँदैन। अर्को मोबाइल नम्बर प्रयोग गर्नुहोस् वा support@talkhangyul.com मा लेख्नुहोस्।",
+    "why": "एसएमएस spelling consistent"
+  },
+  "student:register.verify.delivery.SERVICE_CONFIG.sms": {
+    "text": "हाम्रो एसएमएस सेवामा केही समस्या भयो। तपाईंले भरेका सबै कुरा सुरक्षित छन्। {{seconds}} सेकेन्डपछि फेरि प्रयास गर्नुहोस्।",
+    "why": "एसएमएस spelling consistent"
+  },
+  "student:register.verify.delivery.UNREACHABLE.sms": {
+    "text": "अहिले हाम्रो एसएमएस सेवामा जोडिन सकिएन। तपाईंले भरेका सबै कुरा सुरक्षित छन्। {{seconds}} सेकेन्डपछि फेरि प्रयास गर्नुहोस्।",
+    "why": "एसएमएस spelling consistent"
+  },
+  "student:settings.language.note": {
+    "text": "केही भाषा मेसिनबाट अनुवाद गरिएका हुन् र समीक्षा हुँदैछन्।",
+    "why": "grammar"
+  },
+  "student:settings.privacy.purpose.OUTCOME_RESEARCH.title": {
+    "text": "मेरा पहिचान हटाइएका नतिजा अनुसन्धानमा प्रयोग गर्नुहोस्",
+    "why": "anonymized = पहिचान हटाइएका"
+  },
+  "student:settings.sessions.text": {
+    "text": "यो उपकरणमा तपाईं 30 दिनसम्म साइन इन रहनुहुन्छ। यहाँ साइन आउट गर्दा यो सत्र मात्र सकिन्छ; सबैतिरबाट साइन आउट गर्न पासवर्ड बदल्नुहोस् वा सहयोग टोलीलाई सम्पर्क गर्नुहोस्।",
+    "why": "टिम → टोली"
+  },
+  "student:v15.services.allowance.key.essay_review_rounds": {
+    "text": "पर्सनल स्टेटमेन्ट र अध्ययन योजना सम्पादन",
+    "why": "study plan = अध्ययन योजना"
+  },
+  "student:v15.services.allowance.key.follow_up_consultations": {
+    "text": "फलो-अप परामर्श",
+    "why": "consultation = परामर्श"
+  },
+  "student:v15.services.allowance.key.max_managed_applications": {
+    "text": "टोलीले व्यवस्थापन गर्ने आवेदन",
+    "why": "one term for managed application"
+  },
+  "student:v15.services.chosen": {
+    "text": "वेबसाइटमा तपाईंले छान्नुभएको प्लान।",
+    "why": "plan = प्लान"
+  },
+  "student:v15.services.external": {
+    "text": "सेवा शुल्कमा समावेश छैन: विश्वविद्यालय आवेदन शुल्क, शिक्षण शुल्क, अनुवाद, नोटरी र एपोस्टिल, भिसा शुल्क र बसोबास खर्च।",
+    "why": "एपोस्टिल spelling consistent"
+  },
+  "student:v15.services.scope.consultation": {
+    "text": "परामर्श",
+    "why": "consultation = परामर्श"
+  },
+  "student:v15.services.scope.personal_roadmap": {
+    "text": "विदेश अध्ययनको व्यक्तिगत रोडम्याप",
+    "why": "was identical to 'study plan'"
+  },
+  "student:v15.services.scope.visa_support": {
+    "text": "भिसा कागजात तयारी",
+    "why": "visa document preparation, not visa"
+  },
+  "student:v17.gate.named": {
+    "text": "{{what}} प्लानमा समावेश छ। सुरु गर्न प्लान छान्नुहोस्।",
+    "why": "drop हाङ्ग्युल transliteration"
+  },
+  "student:v17.gate.what.applications": {
+    "text": "तपाईंका आवेदन",
+    "why": "English says your applications"
+  },
+  "student:v17.gate.what.arrival": {
+    "text": "आगमन र बसाइ मिलाउने सहयोग",
+    "why": "settling-in was missing"
+  },
+  "student:v17.gate.what.documents": {
+    "text": "कागजात समीक्षा",
+    "why": "document review one term"
+  },
+  "student:v17.gate.what.essays": {
+    "text": "पर्सनल स्टेटमेन्ट र अध्ययन योजना सम्पादन",
+    "why": "names both documents"
+  },
+  "student:v17.gate.what.help": {
+    "text": "Hangyul टोलीको सहयोग",
+    "why": "no 'concierge'"
+  },
+  "student:v17.gate.what.housing": {
+    "text": "छात्रावास सहयोग",
+    "why": "help was missing"
+  },
+  "student:v17.gate.what.messages": {
+    "text": "Hangyul टोलीसँग सन्देश",
+    "why": "says messages, not team"
+  },
+  "student:v17.gate.what.saved": {
+    "text": "तपाईंले सेभ गरेका विश्वविद्यालय",
+    "why": "shortlist = saved list"
+  },
+  "student:v17.gate.what.tasks": {
+    "text": "तपाईंको कार्य सूची",
+    "why": "task list, not plan"
+  },
+  "student:v17.gate.what.visa": {
+    "text": "भिसा कागजात तयारी",
+    "why": "visa document preparation"
+  },
+  "student:v17.upgrade.feature.document_review": {
+    "text": "विस्तृत कागजात समीक्षा",
+    "why": "document review one term"
+  },
+  "student:v17.upgrade.feature.essay_review": {
+    "text": "पर्सनल स्टेटमेन्ट सम्पादन",
+    "why": "personal statement named"
+  },
+  "student:v17.upgrade.feature.managed_application": {
+    "text": "टोलीले व्यवस्थापन गर्ने आवेदन",
+    "why": "one term for managed application"
+  },
+  "student:v17.upgrade.title": {
+    "text": "{{feature}} {{plan}} मा समावेश छ।",
+    "why": "'part of' = included"
+  },
+  "student:v21.pay.cardFailed": {
+    "text": "भुक्तानी पूरा भएन",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.cardSecure": {
+    "text": "तपाईंको कार्ड विवरण इन्क्रिप्ट गरिएको जडानमार्फत Hangyul मा मात्र जान्छ, र त्यहाँबाट हाम्रो भुक्तानी सेवा प्रदायकमा। हामी तपाईंको कार्ड नम्बर कहिल्यै भण्डारण गर्दैनौँ।",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.cardTitle": {
+    "text": "कार्डबाट भुक्तानी गर्नुहोस्",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.declined": {
+    "text": "कार्ड स्वीकार भएन: {{reason}} अर्को कार्ड प्रयास गर्नुहोस्, वा आफ्नो बैंकसँग बुझ्नुहोस्।",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.expiry": {
+    "text": "म्याद",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.holder": {
+    "text": "कार्डमा भएको नाम",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.notConfigured": {
+    "text": "कार्ड भुक्तानी यहाँ अझै उपलब्ध छैन। कृपया पछि फेरि प्रयास गर्नुहोस् वा हामीलाई सम्पर्क गर्नुहोस्।",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.number": {
+    "text": "कार्ड नम्बर",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.numberInvalid": {
+    "text": "कृपया कार्ड नम्बर जाँच्नुहोस्।",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.optional": {
+    "text": "ऐच्छिक",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.payCta": {
+    "text": "यो कार्डबाट भुक्तानी गर्नुहोस्",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.processing": {
+    "text": "तपाईंको भुक्तानी प्रशोधन हुँदैछ…",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.savedDelete": {
+    "text": "हटाउनुहोस्",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.savedDeleteBody": {
+    "text": "हामी {{card}} तपाईंको खाताबाट मेटाउनेछौँ। तपाईंले पहिले गरिसकेको भुक्तानीमा यसको असर पर्दैन।",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.savedDeleteFailed": {
+    "text": "कार्ड हटाउन सकिएन। कृपया फेरि प्रयास गर्नुहोस्।",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.savedDeleteTitle": {
+    "text": "यो कार्ड हटाउने?",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.savedNotReusable": {
+    "text": "भविष्यमा किन्दा तपाईंले कार्ड विवरण फेरि लेख्नुपर्नेछ।",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.savedTitle": {
+    "text": "तपाईंको कार्ड",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.tooMany": {
+    "text": "कार्डबाट धेरै पटक प्रयास भयो। कृपया केही मिनेट पर्खेर फेरि प्रयास गर्नुहोस्।",
+    "why": "was untranslated"
+  },
+  "student:v22.checkout.oneTime": {
+    "text": "एक पटकको भुक्तानी · सदस्यता होइन",
+    "why": "subscription, not auto-pay"
+  },
+  "student:v22.home.appTeam.follow": {
+    "text": "{{university}} को भर्ना कार्यालयसँग प्रगति बुझ्दै",
+    "why": "admissions office was missing"
+  },
+  "student:v22.home.appTeam.letter": {
+    "text": "{{university}} बाट आउने तपाईंको मानक भर्ना पत्रको स्थिति बुझ्दै",
+    "why": "official term: standard admission letter"
+  },
+  "student:v26.explore.otherLevel": {
+    "text": "अर्को डिग्री तहका कार्यक्रम धमिलो देखाइएका छन् ({{count}})।",
+    "why": "dimmed = धमिलो"
+  },
+  "student:v26.now.scopeToggle": {
+    "text": "यो प्लानमा समावेश सबै कुरा हेर्नुहोस्",
+    "why": "it is an action"
+  },
+  "student:v29.services.legacyContract": {
+    "text": "यो प्लान तपाईंले किन्दा लागू भएको सेवा सम्झौता ({{version}}) अनुसार दिइन्छ।",
+    "why": "plan = प्लान"
+  },
+  "student:v29.services.unrationed.TEAM": {
+    "text": "तपाईंको टोलीबाट फलो-अप",
+    "why": "follow-up, not 'extra help'"
+  },
+  "student:v29.services.upgrade.amountPending": {
+    "text": "Hangyul Univ टोलीले मिलाउनेछ",
+    "why": "arranged, not 'will inform'"
+  },
+  "student:writing.needYou": {
+    "text": "तपाईंले लेख्ने वा सुधार्ने पालो",
+    "why": "says what to do"
+  },
+  "student:writing.others": {
+    "text": "Hangyul टोलीले समीक्षा गर्दै गरेका वा पूरा भएका",
+    "why": "being reviewed was unclear"
+  },
+  "student:writing.status.AI_PRECHECK": {
+    "text": "पेस गरियो",
+    "why": "English says Submitted"
+  },
+  "student:writing.status.APPROVED": {
+    "text": "तयार",
+    "why": "English says Ready"
+  },
+  "student:writing.status.CHANGES_REQUESTED": {
+    "text": "सुधार अनुरोध गरिएको",
+    "why": "requested, not suggested"
+  },
+  "student:writing.status.FINAL_REVIEW": {
+    "text": "Hangyul टोलीले समीक्षा गर्दैछ",
+    "why": "same label as AGENCY_REVIEW"
+  },
+  "student:writing.status.STUDENT_REVISION": {
+    "text": "सुधार अनुरोध गरिएको",
+    "why": "same label as CHANGES_REQUESTED"
+  },
+  "student:writing.status.SUBMITTED": {
+    "text": "पेस गरियो",
+    "why": "one label for Submitted"
+  },
+  "student:writing.subtitle": {
+    "text": "तपाईंका पर्सनल स्टेटमेन्ट र अध्ययन योजना। Hangyul टोलीले संरचना र स्पष्टतामा टिप्पणी दिन्छ। विचार र शब्द तपाईंकै रहन्छन्।",
+    "why": "study plan = अध्ययन योजना"
+  },
+  "mobile:agency.messages.title": {
+    "text": "सन्देशहरू",
+    "why": "English says Messages"
+  },
+  "mobile:login.networkError": {
+    "text": "{{url}} मा अहिले Hangyul सँग जोडिन सकिएन। कृपया इन्टरनेट जडान जाँचेर केही बेरपछि फेरि प्रयास गर्नुहोस्।",
+    "why": "drop developer emulator hint"
+  },
+  "mobile:messages.emptyBody": {
+    "text": "तपाईंको टोलीसँगका सन्देश यहाँ देखिनेछन्।",
+    "why": "टिम → टोली"
+  },
+  "mobile:messages.internalOn": {
+    "text": "आन्तरिक नोट: तपाईंको टोलीले मात्र देख्नेछ",
+    "why": "टिम → टोली"
+  },
+  "mobile:messages.internalPlaceholder": {
+    "text": "आन्तरिक नोट लेख्नुहोस् (टोलीका लागि मात्र)…",
+    "why": "टिम → टोली"
+  },
+  "mobile:more.allowanceSpent": {
+    "text": "यो प्लानमा समावेश सबै कुरा प्रयोग भइसक्यो। कुन प्लानले बढी समेट्छ, प्लान पृष्ठमा देखिन्छ।",
+    "why": "plan = प्लान"
+  },
+  "mobile:more.noPlan": {
+    "text": "अझै प्लान छैन",
+    "why": "plan = प्लान"
+  },
+  "mobile:more.noPlanHint": {
+    "text": "प्लान छान्नुहोस्, त्यसपछि Hangyul तपाईंसँग काम सुरु गर्छ",
+    "why": "plan = प्लान; 'with you'"
+  },
+  "mobile:more.plan": {
+    "text": "प्लान",
+    "why": "plan = प्लान"
+  },
+  "mobile:more.supportHint": {
+    "text": "Hangyul टोलीलाई सन्देश पठाउनुहोस्",
+    "why": "team, not advisor"
+  },
+  "mobile:plan.allowance.essay_review_rounds": {
+    "text": "पर्सनल स्टेटमेन्ट र अध्ययन योजना सम्पादन",
+    "why": "names both documents"
+  },
+  "mobile:plan.allowance.follow_up_consultations": {
+    "text": "फलो-अप परामर्श",
+    "why": "same term as student app"
+  },
+  "mobile:plan.allowance.max_managed_applications": {
+    "text": "टोलीले व्यवस्थापन गर्ने आवेदन",
+    "why": "one term for managed application"
+  },
+  "mobile:plan.chooseLede": {
+    "text": "एक पटकको भुक्तानी, सदस्यता होइन। तयारी गर्दा तपाईंको प्लान तपाईंसँगै रहन्छ।",
+    "why": "overpromised 'covers whole process'"
+  },
+  "mobile:plan.chooseTitle": {
+    "text": "प्लान छान्नुहोस्",
+    "why": "plan = प्लान"
+  },
+  "mobile:plan.highestAlready": {
+    "text": "तपाईं पहिले नै सबैभन्दा माथिल्लो प्लानमा हुनुहुन्छ।",
+    "why": "honorific verb; प्लान"
+  },
+  "mobile:plan.included": {
+    "text": "तपाईंको प्लानमा समावेश",
+    "why": "plan = प्लान"
+  },
+  "mobile:plan.ongoing": {
+    "text": "सेवा अवधिभर",
+    "why": "service period named"
+  },
+  "mobile:plan.paid": {
+    "text": "तिरेको रकम",
+    "why": "amount paid, not 'payment'"
+  },
+  "mobile:plan.plansTitle": {
+    "text": "प्लानहरू",
+    "why": "plan = प्लान"
+  },
+  "mobile:plan.upgradeTitle": {
+    "text": "अपग्रेड",
+    "why": "same term as student app"
+  },
+  "mobile:plan.webNote": {
+    "text": "प्लानको इतिहास र रसिद वेबमा छन्।",
+    "why": "plan = प्लान"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.label": {
+    "text": "मेरो इमेल र मोबाइल नम्बर प्रमाणित गर्न तिनलाई विदेशमा प्रशोधन गरिन्छ भन्ने म स्वीकार गर्छु",
+    "why": "verify them, not identity"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Twilio Inc. (संयुक्त राज्य अमेरिका) ले प्रमाणीकरण एसएमएस र इमेल पठाउँछ; Cloudflare, Inc. (संयुक्त राज्य अमेरिका) ले साइन अप स्वचालित होइन भनी जाँच्छ। अस्वीकार गर्ने तरिकासहित विवरण गोपनीयता नीतिमा छ। अस्वीकार गरेमा खाता बनाउन सकिँदैन।",
+    "why": "match English; drop extra clauses"
+  },
+  "mobile:signup.consentTitle": {
+    "text": "तपाईंको जानकारी हामी कसरी प्रयोग गर्छौँ",
+    "why": "warm, matches English"
+  },
+  "mobile:signup.quickLevel": {
+    "text": "स्तर",
+    "why": "English says Level only"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.body": {
+    "text": "तपाईं {{university}} को प्रस्ताव स्वीकार गर्दै हुनुहुन्छ। शिक्षण शुल्क तिर्ने र मानक भर्ना पत्र लिने प्रक्रियामा Hangyul Univ टोलीले तपाईंलाई मार्गदर्शन गर्नेछ।",
+    "why": "team, not counselor; official term"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.body": {
+    "text": "{{university}} मा तपाईंको आवेदन बन्द हुनेछ। एपबाट यसलाई उल्टाउन सकिँदैन।",
+    "why": "'cannot be undone' natural"
+  },
+  "mobile:student.applications.emptyBody": {
+    "text": "आफूलाई मिल्ने कार्यक्रमबाट सुरु गर्नुहोस्: जसका सर्त तपाईंले पूरा गर्नुहुन्छ।",
+    "why": "matches term; no म्याच"
+  },
+  "mobile:student.documents.fixFallback": {
+    "text": "Hangyul टोलीले यो कागजातमा सुधार मागेको छ।",
+    "why": "team, not reviewer"
+  },
+  "mobile:student.messages.subtitle": {
+    "text": "Hangyul Univ टोलीसँग कुरा गर्नुहोस्।",
+    "why": "team, not counselor"
+  },
+  "mobile:student.nextAction.COMPARE_OFFERS": {
+    "text": "आफ्ना {{count}} भर्ना प्रस्ताव तुलना गर्नुहोस्",
+    "why": "admission offers; imperative"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.language": {
+    "text": "{{count}} कार्यक्रम जाँच गर्न भाषा स्कोर थप्नुहोस्",
+    "why": "score term consistent"
+  },
+  "mobile:student.nextAction.RESPOND_OFFER": {
+    "text": "आफ्नो भर्ना प्रस्तावको जवाफ दिनुहोस्",
+    "why": "admission offer"
+  },
+  "mobile:student.nextAction.REVIEW_MATCHES": {
+    "text": "तपाईंलाई मिल्ने विश्वविद्यालय हेर्नुहोस्",
+    "why": "matches term; no म्याच"
+  },
+  "mobile:student.tasks.subtitle": {
+    "text": "Hangyul टोलीबाट आएका कार्य र तपाईंका आवेदन चेकलिस्ट।",
+    "why": "team; checklists, not system"
+  },
+  "mobile:university.flagged.addBody": {
+    "text": "यो चिन्ह र कारण तपाईंको विश्वविद्यालय टोलीले मात्र देख्नेछ।",
+    "why": "टिम → टोली"
+  },
+  "mobile:university.inbox.title": {
+    "text": "सन्देशहरू",
+    "why": "English says Messages"
+  },
+  "mobile:v29.mfa.codeHint": {
+    "text": "आफ्नो अथेन्टिकेटर एपको ६ अङ्कको कोड वा रिकभरी कोड लेख्नुहोस्।",
+    "why": "was untranslated"
+  },
+  "mobile:v29.mfa.codeLabel": {
+    "text": "प्रमाणीकरण कोड",
+    "why": "was untranslated"
+  },
+  "mobile:v29.mfa.enrollOnWeb": {
+    "text": "यो खातामा दुई-चरण प्रमाणीकरण आवश्यक छ। पहिले वेब कन्सोलमा सेटअप गर्नुहोस्, त्यसपछि यहाँ साइन इन गर्नुहोस्।",
+    "why": "was untranslated"
+  },
+  "mobile:v29.mfa.verify": {
+    "text": "प्रमाणित गरी साइन इन गर्नुहोस्",
+    "why": "was untranslated"
+  },
+  "mobile:v29.mfa.wrongCode": {
+    "text": "कोड गलत छ वा म्याद सकिएको छ। नयाँ कोड लेख्नुहोस्।",
+    "why": "was untranslated"
+  },
+  "mobile:v29.plan.supportDays": {
+    "text": "पहिलो परामर्शदेखि {{count}} दिनसम्म परामर्श सहयोग",
+    "why": "'consultation support' was missing"
+  },
+  "mobile:v29.plan.supportUntil": {
+    "text": "{{date}} सम्म परामर्श सहयोग",
+    "why": "'support' was missing"
+  },
+  "mobile:v29.plan.termToAgree": {
+    "text": "सेवा सुरु हुँदा तय गरिन्छ",
+    "why": "service start explicit"
+  },
+  "mobile:v29.plan.unrationed.TEAM": {
+    "text": "तपाईंको टोलीबाट फलो-अप",
+    "why": "follow-up; matches student key"
+  },
+  "mobile:v3.agency.waitingOn.agency": {
+    "text": "एजेन्सी टोलीको प्रतीक्षामा",
+    "why": "was untranslated"
+  },
+  "mobile:v3.agency.waitingOn.counselor": {
+    "text": "परामर्शदाताको प्रतीक्षामा",
+    "why": "was untranslated"
+  },
+  "mobile:v3.agency.waitingOn.external": {
+    "text": "बाहिरी कार्यालयको प्रतीक्षामा",
+    "why": "was untranslated"
+  },
+  "mobile:v3.agency.waitingOn.hangyul": {
+    "text": "Hangyul को प्रतीक्षामा",
+    "why": "was untranslated"
+  },
+  "mobile:v3.agency.waitingOn.none": {
+    "text": "कुनै प्रतीक्षा छैन",
+    "why": "was untranslated"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "तपाईंको भर्ना पत्र तयार छ। अब भिसाका कागजात तयार गर्न सुरु गर्नुहोस्।",
+    "why": "one clear next step"
+  },
+  "mobile:v3.appStatus.PROFILE_REVIEW": {
+    "text": "Hangyul Univ टोलीले तपाईंको प्रोफाइल जाँच गर्दैछ।",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.docAction.IN_REVIEW": {
+    "text": "Hangyul टोलीले जाँच गर्दै",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.docAction.LEGALIZE": {
+    "text": "एपोस्टिल वा कन्सुलर प्रमाणीकरण चाहिन्छ",
+    "why": "consular legalization named"
+  },
+  "mobile:v3.documents.legalize": {
+    "text": "जाँच भयो, तर कोरियाली विश्वविद्यालयले स्वीकार गर्नुअघि अझै {{path}} गर्नुपर्छ",
+    "why": "checked ≠ verified"
+  },
+  "mobile:v3.home.nextBody.DOCUMENT_UPLOAD": {
+    "text": "स्पष्ट स्क्यान वा फोटो अपलोड गर्नुहोस्। Hangyul टोलीले जाँच गरी केही सुधार्नुपर्ने भए बताउँछ।",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.home.nextBody.ESSAY_WRITE": {
+    "text": "मोटामोटी मस्यौदाबाट सुरु गर्नुहोस्। Hangyul टोलीले तपाईंसँगै समीक्षा गर्नेछ।",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.home.noCounselor": {
+    "text": "प्लान छान्नुहोस्, त्यसपछि Hangyul Univ टोलीले तपाईंकै भाषामा तपाईंसँग काम गर्छ।",
+    "why": "plan = प्लान; 'works with you'"
+  },
+  "mobile:v3.home.stageLine.admission": {
+    "text": "भर्ना स्वीकृत। अब आफ्नो स्थान पक्का गर्दै",
+    "why": "admitted; matches ENROLL copy"
+  },
+  "mobile:v3.home.stageLine.apply": {
+    "text": "विश्वविद्यालयहरूले तपाईंका आवेदन समीक्षा गर्दैछन्",
+    "why": "says who is reviewing"
+  },
+  "mobile:v3.home.stageLine.visa": {
+    "text": "विद्यार्थी भिसाको तयारी गर्दै",
+    "why": "preparing, not 'taking'"
+  },
+  "mobile:v3.home.team": {
+    "text": "Hangyul Univ टोली",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.journey.step": {
+    "text": "{{total}} मध्ये चरण {{n}}: {{stage}}",
+    "why": "word order as sibling keys"
+  },
+  "mobile:v3.match.close": {
+    "text": "अझै योग्य छैन — एक कदम बाँकी",
+    "why": "'one step away' explicit"
+  },
+  "mobile:v3.messages.attachUnavailable": {
+    "text": "संलग्नक अझै उपलब्ध छैन।",
+    "why": "drop 'on this server'"
+  },
+  "mobile:v3.offer.deadline": {
+    "text": "{{date}} सम्म स्वीकार गरी शिक्षण शुल्क तिर्नुहोस् · {{left}}",
+    "why": "accept, not 'reply'"
+  },
+  "mobile:v3.offer.step.letter": {
+    "text": "आफ्नो मानक भर्ना पत्र (Standard Admission Letter) प्राप्त गर्नुहोस्",
+    "why": "official term with English name"
+  },
+  "mobile:v3.profile.places": {
+    "text": "तपाईंका विवरण",
+    "why": "'details', not 'things'"
+  },
+  "mobile:v3.profile.unlock.language": {
+    "text": "TOPIK, IELTS वा TOEFL चाहिने कार्यक्रमसँग तपाईंलाई मिलाउन मद्दत गर्छ",
+    "why": "no म्याच loanword"
+  },
+  "mobile:v3.profile.unlock.sponsor": {
+    "text": "भिसाका आर्थिक कागजात तपाईंले अगाडि नै तयार गर्न सक्नुहुन्छ",
+    "why": "we do not prepare them"
+  },
+  "mobile:v3.push.idle": {
+    "text": "कागजात समीक्षा हुँदा, अन्तिम मिति नजिकिँदा वा Hangyul टोलीले जवाफ दिँदा पुस सूचना पाउनुहोस्।",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.quick.createAccount": {
+    "text": "जारी राख्न साइन अप गर्नुहोस्",
+    "why": "sign up = साइन अप"
+  },
+  "mobile:v3.reviews.legalization": {
+    "text": "एपोस्टिल / कन्सुलर प्रमाणीकरण",
+    "why": "disambiguate from verification"
+  },
+  "mobile:v3.uni.check.gpa": {
+    "text": "GPA",
+    "why": "GPA kept Latin, consistent"
+  },
+  "mobile:v3.uni.graduation": {
+    "text": "उत्तीर्ण भएका",
+    "why": "graduated term consistent"
+  },
+  "mobile:v3.uni.tab.pipeline": {
+    "text": "अवलोकन",
+    "why": "English says Overview; no CRM word"
+  },
+  "mobile:v3.university.documentsCount": {
+    "text": "{{count}} कागजात · {{legal}} लाई एपोस्टिल वा कन्सुलर प्रमाणीकरण चाहिन्छ",
+    "why": "consular legalization named"
+  },
+  "mobile:v3.university.gpaMin": {
+    "text": "अधिकतम GPA को कम्तीमा {{pct}}%",
+    "why": "GPA kept Latin, consistent"
+  },
+  "mobile:v3.upload.privacy": {
+    "text": "तपाईं र Hangyul टोलीले मात्र तपाईंका कागजात खोल्न सक्नुहुन्छ। विश्वविद्यालयले तपाईंले त्यहाँ आवेदन पेस गरेपछि मात्र देख्छ।",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.visa.beforeTitle": {
+    "text": "भिसा तयारी भर्ना प्रस्ताव आएपछि सुरु हुन्छ",
+    "why": "after the offer, not enrollment"
+  },
+  "mobile:v3.visa.blockers": {
+    "text": "पहिले चाहिने",
+    "why": "'needed first', not 'waiting'"
+  },
+  "mobile:v3.visa.phase.apply": {
+    "text": "भिसा आवेदन",
+    "why": "visa named; was ambiguous"
+  },
+  "mobile:v3.visa.phase.decision": {
+    "text": "दूतावासको निर्णय",
+    "why": "embassy named"
+  },
+  "mobile:v3.visa.title": {
+    "text": "तपाईंको {{type}} भिसाको तयारी",
+    "why": "preparing, not 'plan'"
+  },
+  "mobile:v4.application.reviewLate": {
+    "text": "सामान्यभन्दा बढी समय लागिरहेको छ। ढिलो भएको कुरा Hangyul टोलीलाई जानकारी दिइएको छ। फेरि अपलोड गर्नु पर्दैन।",
+    "why": "team, not counselor"
+  },
+  "mobile:v4.application.waitBody": {
+    "text": "तपाईंले पठाएका कुरा Hangyul टोलीले जाँच गर्दैछ। केही परिवर्तन गर्नुपरे हामी तपाईंलाई जानकारी दिनेछौँ।",
+    "why": "team, not counselor"
+  },
+  "mobile:v4.application.writeOnWeb": {
+    "text": "वेबमा लेख्नुहोस्। Hangyul टोलीका टिप्पणी पनि त्यहीँ देखिन्छन्।",
+    "why": "team, not counselor"
+  },
+  "mobile:v4.application.nextLegalize": {
+    "text": "आफ्नो {{item}} को एपोस्टिल वा कन्सुलर प्रमाणीकरण गराउनुहोस्",
+    "why": "consular legalization named"
+  },
+  "mobile:v4.documents.late": {
+    "text": "बढी समय लागिरहेको",
+    "why": "'longer' was missing"
+  },
+  "mobile:v4.documents.lateLine": {
+    "text": "Hangyul टोलीलाई ढिलाइको सूचना दिइएको",
+    "why": "team, not counselor"
+  },
+  "mobile:v4.home.item.RENEW.text": {
+    "text": "तपाईंले अपलोड गरेको कागजातको म्याद सकिएको छ।",
+    "why": "grammar"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.text": {
+    "text": "Hangyul टोलीले टिप्पणी दिएको छ। यो स्वीकृत नभएसम्म तपाईंको आवेदन पेस गर्न सकिँदैन।",
+    "why": "team, not counselor"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.text": {
+    "text": "Hangyul टोलीले तपाईंसँगै समीक्षा गर्नेछ। मोटामोटी मस्यौदाबाट सुरु गर्नुहोस्। पूर्ण हुनु पर्दैन।",
+    "why": "team, not counselor"
+  }
+}

@@ -1,0 +1,2201 @@
+{
+  "_notes": [
+    "388 keys had no Filipino (cur = null); all are translated here. Register: the existing corpus is consistently informal second person (ikaw/mo), which is how Filipino consumer apps address users; new strings follow it. Switching the Student app to kayo/po would be a full re-render of ~1,000 strings, not a patch — owner's call.",
+    "Hangyul team: every remaining 'tagapayo' / 'counselor mo' / 'tagasuri' in student-facing copy is aligned to 'Team Hangyul' (or 'Team Hangyul Univ' where the English says Hangyul Univ team), matching the English that no longer names a personal counselor. 'Counselor' is kept only in agency/university staff strings where the English keeps it.",
+    "Plan (purchasable package): unified on the loan word 'plan' (already the majority form). 'Plano' collides with study plan / cost plan in Filipino, so v17.gate.*, v17.upgrade.currentPlan, v17.pay.afterPay, v29.services.legacyContract and v3.home.noCounselor were moved off 'plano' / 'support plan'.",
+    "Official document names stay official: 'standard admission letter' and 'admission letter' replace the literal 'karaniwang liham ng pagtanggap' / 'liham ng pagtanggap' / 'admission certificate'; 'consular legalization' replaces the vague 'legalisasyon' / 'ipa-legalize'. Student visa is 'student visa' everywhere (was also 'visa ng estudyante').",
+    "Visa: 'Paghahanda ng visa' / 'paghahanda sa visa' read as 'we prepare your visa'; rendered 'paghahanda ng mga dokumento para sa visa' (visa document preparation) in v15 scope and v17 gate.",
+    "Checklist: 'talaan' (list/record) and 'checklist' were two terms for one concept; unified on 'checklist', which is what Filipino students say. Interview: 'panayam' / 'kapanayamin' unified on 'interview'. Essay: 'sanaysay' unified on 'essay'. Task: 'task' unified on 'gawain'. Matches: 'match' unified on 'tugma'.",
+    "Language names in the document-language picker were half Filipino, half English (Hapon, Tsino, Ruso vs Korean, Thai). 'Hapon'/'Tsino' name the people rather than the language, so Japanese, Chinese and Russian are now in English like the other entries; 'Ingles' is kept because it is the standard Filipino word.",
+    "'mamaya' (later today) was used for 'later' in a multi-month process (passport.noSub, sponsor.goalHint, prior.why); replaced with 'sa bandang huli' / 'sa susunod'.",
+    "Sign in / sign out: 'Pumasok' / 'Lumabas?' are ambiguous (enter / leave); unified on 'Mag-sign in' / 'Mag-sign out', which the Student settings copy already uses.",
+    "mobile:login.networkError still carried the Android-emulator / LAN-IP developer hint in Filipino; re-rendered from the English (customer meaning only).",
+    "Signup consent (CROSS_BORDER_VERIFICATION) in the native app listed 'items transferred, period, retention' that the English does not; aligned to the Student web wording so both flows read the same.",
+    "mobile:v16.pay.status.FAILED is 'Nabigo' (standard status word) while the title/fail copy stays soft ('Hindi natuloy ang bayad'); both avoid 'error'.",
+    "Owner decision: student:onboarding.education.institutionPh is localized to 'University of the Philippines' and sponsor.goalPh to 'Korean at Pilipino' companies (market-specific examples, kept)."
+  ],
+  "student:dashboard.arrival.landing": {
+    "text": "Lalapag sa {{date}}",
+    "why": "future landing date reads naturally"
+  },
+  "student:dashboard.arrival.noFlight": {
+    "text": "Idagdag ang iyong flight para maplano namin ang sundo sa iyo at ang mga unang araw mo.",
+    "why": "'lipad' is not 'flight'"
+  },
+  "student:dashboard.counselor.noneCta": {
+    "text": "Tingnan ang mga plan",
+    "why": "says plans, not 'support options'"
+  },
+  "student:dashboard.counselor.noneText": {
+    "text": "Kapag may plan ka, susuriin ng Team Hangyul ang iyong mga dokumento, essay at estratehiya sa sarili mong wika.",
+    "why": "review = suri; natural Filipino"
+  },
+  "student:dashboard.stageText.MATCH": {
+    "text": "Handa na ang iyong mga tugma. Piliin kung saan ka mag-a-apply.",
+    "why": "one term: tugma"
+  },
+  "student:documents.legal.intro": {
+    "text": "Markahan ang bawat hakbang kapag tapos mo na. Susuriin namin ang huling dokumento.",
+    "why": "check, not verify (reserved)"
+  },
+  "student:documents.upload.done": {
+    "text": "Na-upload na. Susuriin namin ito sa lalong madaling panahon",
+    "why": "'shortly', not 'agad'"
+  },
+  "student:documents.upload.langs.ja": {
+    "text": "Japanese",
+    "why": "Hapon = the people; align list"
+  },
+  "student:documents.upload.langs.ru": {
+    "text": "Russian",
+    "why": "align language list"
+  },
+  "student:documents.upload.langs.zh": {
+    "text": "Chinese",
+    "why": "Tsino = the people; align list"
+  },
+  "student:essays.emptyText": {
+    "text": "Awtomatikong nagagawa ang mga essay kapag nagsimula ka ng aplikasyon, o puwede kang magsimula ng sarili mo.",
+    "why": "plural marker; grammar"
+  },
+  "student:essays.new.cta": {
+    "text": "Gumawa ng essay",
+    "why": "one term: essay"
+  },
+  "student:essays.new.limit": {
+    "text": "Limit sa bilang ng salita",
+    "why": "clearer label"
+  },
+  "student:essays.new.title": {
+    "text": "Magsimula ng bagong essay",
+    "why": "one term: essay"
+  },
+  "student:essays.new.type": {
+    "text": "Uri ng essay",
+    "why": "one term: essay"
+  },
+  "student:home.docAction.IN_REVIEW": {
+    "text": "Sinusuri",
+    "why": "was missing"
+  },
+  "student:home.docAction.LEGALIZE": {
+    "text": "Kailangan ng apostille",
+    "why": "was missing"
+  },
+  "student:home.docAction.OPEN": {
+    "text": "Buksan",
+    "why": "was missing"
+  },
+  "student:home.documentsSub_one": {
+    "text": "{{count}} dokumento ang kailangan mong asikasuhin",
+    "why": "drop 'aksyon' CRM-ish wording"
+  },
+  "student:home.documentsSub_other": {
+    "text": "{{count}} dokumento ang kailangan mong asikasuhin",
+    "why": "drop 'aksyon' CRM-ish wording"
+  },
+  "student:home.team": {
+    "text": "Team Hangyul Univ",
+    "why": "matches English; consistent"
+  },
+  "student:housing.noDorms": {
+    "text": "Hindi pa naglalathala ng impormasyon tungkol sa dormitoryo ang unibersidad na ito.",
+    "why": "was missing"
+  },
+  "student:housing.noUni": {
+    "text": "Bubukas ang Tirahan sa unang aplikasyon mo",
+    "why": "was missing"
+  },
+  "student:housing.noUniCta": {
+    "text": "Pumunta sa mga aplikasyon",
+    "why": "was missing"
+  },
+  "student:housing.noUniText": {
+    "text": "Kapag nakapag-apply ka na, ipapakita namin ang mga opsyon sa dormitoryo at ang gastos para sa unibersidad na iyon.",
+    "why": "was missing"
+  },
+  "student:housing.subtitle": {
+    "text": "Ikumpara ang mga opsyon sa dormitoryo at subaybayan ang iyong mga hakbang sa tirahan.",
+    "why": "was missing"
+  },
+  "student:housing.title": {
+    "text": "Tirahan",
+    "why": "was missing"
+  },
+  "student:login.aside.point3": {
+    "text": "Maghanda kasama ang mga totoong tao sa Team Hangyul na nagsasalita ng iyong wika.",
+    "why": "English says Hangyul team, not counselor"
+  },
+  "student:messages.call": {
+    "text": "Konsultasyon sa video {{when}}",
+    "why": "natural word order"
+  },
+  "student:onboarding.basics.residenceHint": {
+    "text": "May mga embahadang tumatanggap lang ng aplikasyon sa visa mula sa mga residente ng sarili nilang bansa.",
+    "why": "'of their own country' was dropped"
+  },
+  "student:onboarding.goals.degreeSub.LANGUAGE": {
+    "text": "Magsimula sa wikang Korean, sa sarili mong bilis",
+    "why": "match English; drop invented claim"
+  },
+  "student:onboarding.goals.term": {
+    "text": "Term ng pagsisimula",
+    "why": "clearer label"
+  },
+  "student:onboarding.passport.noSub": {
+    "text": "Okay lang. Kakailanganin mo ito sa bandang huli para sa visa",
+    "why": "'mamaya' = later today"
+  },
+  "student:onboarding.passport.visa.D-4": {
+    "text": "D-4 (kurso sa wika)",
+    "why": "language course, not learner"
+  },
+  "student:onboarding.passport.visa.F": {
+    "text": "F (paninirahan o pamilya)",
+    "why": "residence in Filipino"
+  },
+  "student:onboarding.preferences.housingOpt.NO_PREFERENCE": {
+    "text": "Kahit alin",
+    "why": "'kahit saan' means anywhere"
+  },
+  "student:onboarding.sponsor.goalHint": {
+    "text": "Sapat na ang isa o dalawang pangungusap. Makatutulong ito sa iyong study plan sa bandang huli.",
+    "why": "study plan term; 'mamaya'"
+  },
+  "student:onboarding.steps.basics.eyebrow": {
+    "text": "Tungkol sa iyo",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.education.eyebrow": {
+    "text": "Ang iyong pag-aaral",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.goals.eyebrow": {
+    "text": "Ang iyong layunin",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.language.eyebrow": {
+    "text": "Mga wika",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.passport.eyebrow": {
+    "text": "Paglalakbay",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.preferences.eyebrow": {
+    "text": "Budget at pamumuhay",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.sponsor.eyebrow": {
+    "text": "Huling hakbang",
+    "why": "was missing"
+  },
+  "student:profile.title": {
+    "text": "Ang iyong profile",
+    "why": "was missing"
+  },
+  "student:register.captcha.failed": {
+    "text": "Kumpletuhin ang pag-verify at subukan muli.",
+    "why": "it is a verification, not a review"
+  },
+  "student:register.captcha.text": {
+    "text": "Pinipigilan nito ang mga automated na pag-sign up.",
+    "why": "grammar; one clear sentence"
+  },
+  "student:register.consent.PRIVACY.summary": {
+    "text": "Email, mobile number, pangalan, nasyonalidad at password (naka-encrypt), para magawa at maprotektahan ang account mo.",
+    "why": "'password hash' is jargon"
+  },
+  "student:register.consent.title": {
+    "text": "Paano namin hinahawakan ang iyong impormasyon",
+    "why": "match English; plain"
+  },
+  "student:register.done.cta": {
+    "text": "Magsimulang mag-explore",
+    "why": "explore, not search"
+  },
+  "student:register.errors.session": {
+    "text": "Nag-expire na ang iyong sign-up session. Magsimula muli.",
+    "why": "redundant phrase removed"
+  },
+  "student:register.exists": {
+    "text": "May account na gamit ang email na ito. Subukang mag-sign in na lang.",
+    "why": "sign in term"
+  },
+  "student:register.prior.why": {
+    "text": "Hinihingi ito ng mga unibersidad sa resulta mo. Sa sagot mo, makukumpirma namin agad ang mga programang iyon. Puwede mong idagdag ang iyong school at grades sa susunod.",
+    "why": "'mamaya' = later today"
+  },
+  "student:register.verify.sendEmail": {
+    "text": "Ipadala ang code",
+    "why": "send, not get"
+  },
+  "student:register.verify.sendPhone": {
+    "text": "Ipadala ang code",
+    "why": "send, not get"
+  },
+  "student:register.verify.text": {
+    "text": "Ilagay ang mga code na ipinadala namin. May bisa ang bawat code sa loob ng 5 minuto.",
+    "why": "plural codes"
+  },
+  "student:settings.data.done.DELETE": {
+    "text": "Na-request ang pagbura. Matatapos bago ang {{date}}",
+    "why": "future tense; 'bago o sa' awkward"
+  },
+  "student:settings.data.done.EXPORT": {
+    "text": "Na-request ang export. Handa bago ang {{date}}",
+    "why": "future; awkward phrase"
+  },
+  "student:tasks.doneToast": {
+    "text": "Tapos na ang gawain. Galing!",
+    "why": "one term: gawain"
+  },
+  "student:v15.services.allowance.key.consultation_sessions": {
+    "text": "Diagnostic na konsultasyon",
+    "why": "one term: konsultasyon"
+  },
+  "student:v15.services.allowance.key.max_managed_applications": {
+    "text": "Mga aplikasyong inaasikaso namin kasama mo",
+    "why": "one managed-application rendering"
+  },
+  "student:v15.services.chosen": {
+    "text": "Ang plan na pinili mo sa website.",
+    "why": "register (mo) and plan term"
+  },
+  "student:v15.services.scope.personal_roadmap": {
+    "text": "Personal na roadmap para sa pag-aaral sa ibang bansa",
+    "why": "avoid 'plano sa pag-aaral' = study plan"
+  },
+  "student:v15.services.scope.settlement_support": {
+    "text": "Tulong pagkatapos mong dumating",
+    "why": "match English; one rendering"
+  },
+  "student:v15.services.scope.visa_support": {
+    "text": "Paghahanda ng mga dokumento para sa visa",
+    "why": "we prepare documents, not visas"
+  },
+  "student:v16.pay.amount": {
+    "text": "Halaga",
+    "why": "was missing"
+  },
+  "student:v16.pay.cancelled": {
+    "text": "Kinansela mo ang bayad. Walang sinisingil.",
+    "why": "was missing"
+  },
+  "student:v16.pay.couldNotStart": {
+    "text": "Hindi namin mabuksan ang payment window.",
+    "why": "was missing"
+  },
+  "student:v16.pay.cta": {
+    "text": "Magbayad at magsimula",
+    "why": "was missing"
+  },
+  "student:v16.pay.fail.title": {
+    "text": "Hindi natuloy ang bayad",
+    "why": "was missing"
+  },
+  "student:v16.pay.method": {
+    "text": "Paraan",
+    "why": "was missing"
+  },
+  "student:v16.pay.methodCard": {
+    "text": "Card",
+    "why": "was missing"
+  },
+  "student:v16.pay.notCharged": {
+    "text": "Walang sinisingil.",
+    "why": "was missing"
+  },
+  "student:v16.pay.orderNo": {
+    "text": "Order",
+    "why": "was missing"
+  },
+  "student:v16.pay.orderTitle": {
+    "text": "Ang iyong order",
+    "why": "was missing"
+  },
+  "student:v16.pay.receipt": {
+    "text": "Tingnan ang resibo",
+    "why": "was missing"
+  },
+  "student:v16.pay.retry": {
+    "text": "Subukan ulit magbayad",
+    "why": "was missing"
+  },
+  "student:v16.pay.sdkDown": {
+    "text": "Hindi ma-load ang payment window. Suriin ang koneksyon mo at subukan ulit.",
+    "why": "was missing"
+  },
+  "student:v16.pay.selected": {
+    "text": "Napili",
+    "why": "was missing"
+  },
+  "student:v16.pay.status.CANCELLED": {
+    "text": "Kinansela",
+    "why": "was missing"
+  },
+  "student:v16.pay.status.FAILED": {
+    "text": "Nabigo",
+    "why": "was missing"
+  },
+  "student:v16.pay.status.PENDING": {
+    "text": "Nakabinbin",
+    "why": "was missing"
+  },
+  "student:v16.pay.success.cta": {
+    "text": "Simulan ang paghahanda ko",
+    "why": "was missing"
+  },
+  "student:v16.pay.success.text": {
+    "text": "Sinisimulan mo na ang paghahanda mo para mag-aral sa Korea gamit ang {{name}}.",
+    "why": "was missing"
+  },
+  "student:v16.pay.success.title": {
+    "text": "Kumpleto na ang bayad",
+    "why": "was missing"
+  },
+  "student:v17.gate.general": {
+    "text": "Kasama sa isang plan ang bahaging ito ng Hangyul. Pumili ng plan para magsimula.",
+    "why": "plan term; match English"
+  },
+  "student:v17.gate.named": {
+    "text": "Kasama sa isang plan ang {{what}}. Pumili ng plan para magsimula.",
+    "why": "match English; plan term"
+  },
+  "student:v17.gate.what.arrival": {
+    "text": "tulong sa pagdating at pag-settle",
+    "why": "arrival and settling-in help"
+  },
+  "student:v17.gate.what.essays": {
+    "text": "pag-edit ng personal statement at study plan",
+    "why": "editing, not review; glossary terms"
+  },
+  "student:v17.gate.what.help": {
+    "text": "tulong mula sa Team Hangyul",
+    "why": "match English"
+  },
+  "student:v17.gate.what.housing": {
+    "text": "tulong sa dormitoryo",
+    "why": "dormitory help, not housing"
+  },
+  "student:v17.gate.what.messages": {
+    "text": "mga mensahe sa Team Hangyul",
+    "why": "was a bare name"
+  },
+  "student:v17.gate.what.tasks": {
+    "text": "listahan ng mga gawain mo",
+    "why": "task list, not plan"
+  },
+  "student:v17.gate.what.visa": {
+    "text": "paghahanda ng mga dokumento para sa visa",
+    "why": "we prepare documents, not visas"
+  },
+  "student:v17.pay.afterPay": {
+    "text": "Dadalhin ka sa Toss Payments, at makakabayad ka gamit ang card mula sa ibang bansa (Visa, Mastercard, JCB). Magsisimula ang plan mo sa oras na maaprubahan ang bayad.",
+    "why": "plan term"
+  },
+  "student:v17.upgrade.amount": {
+    "text": "Presyo ng upgrade",
+    "why": "label lost 'price'"
+  },
+  "student:v17.upgrade.currentPlan": {
+    "text": "Kasalukuyang plan",
+    "why": "plan term"
+  },
+  "student:v17.upgrade.feature.document_review": {
+    "text": "Masinsinang pagsusuri ng dokumento",
+    "why": "intensive, not 'whole'"
+  },
+  "student:v17.upgrade.feature.essay_review": {
+    "text": "Pag-edit ng personal statement",
+    "why": "editing; glossary term"
+  },
+  "student:v17.upgrade.feature.managed_application": {
+    "text": "Mga aplikasyong inaasikaso namin kasama mo",
+    "why": "one managed-application rendering"
+  },
+  "student:v17.upgrade.feature.recommendations": {
+    "text": "Mga rekomendasyon ng unibersidad",
+    "why": "grammar"
+  },
+  "student:v17.upgrade.feature.settlement": {
+    "text": "Tulong pagkatapos mong dumating",
+    "why": "one rendering; match English"
+  },
+  "student:v21.pay.cardFailed": {
+    "text": "Hindi natuloy ang bayad",
+    "why": "was missing"
+  },
+  "student:v21.pay.cardSecure": {
+    "text": "Ang mga detalye ng card mo ay napupunta lang sa Hangyul sa pamamagitan ng naka-encrypt na koneksyon, at mula roon sa aming payment provider. Hindi namin kailanman itinatago ang numero ng card mo.",
+    "why": "was missing"
+  },
+  "student:v21.pay.cardTitle": {
+    "text": "Magbayad gamit ang card",
+    "why": "was missing"
+  },
+  "student:v21.pay.declined": {
+    "text": "Hindi tinanggap ang card: {{reason}} Sumubok ng ibang card, o magtanong sa bangko mo.",
+    "why": "was missing"
+  },
+  "student:v21.pay.expiry": {
+    "text": "Expiry",
+    "why": "was missing"
+  },
+  "student:v21.pay.holder": {
+    "text": "Pangalan sa card",
+    "why": "was missing"
+  },
+  "student:v21.pay.notConfigured": {
+    "text": "Hindi pa available dito ang pagbabayad gamit ang card. Pakisubukan muli mamaya o makipag-ugnayan sa amin.",
+    "why": "was missing"
+  },
+  "student:v21.pay.number": {
+    "text": "Numero ng card",
+    "why": "was missing"
+  },
+  "student:v21.pay.numberInvalid": {
+    "text": "Pakisuri ang numero ng card.",
+    "why": "was missing"
+  },
+  "student:v21.pay.optional": {
+    "text": "opsyonal",
+    "why": "was missing"
+  },
+  "student:v21.pay.payCta": {
+    "text": "Magbayad gamit ang card na ito",
+    "why": "was missing"
+  },
+  "student:v21.pay.processing": {
+    "text": "Pinoproseso ang bayad mo…",
+    "why": "was missing"
+  },
+  "student:v21.pay.savedDelete": {
+    "text": "Alisin",
+    "why": "was missing"
+  },
+  "student:v21.pay.savedDeleteBody": {
+    "text": "Buburahin namin ang {{card}} mula sa account mo. Hindi nito maaapektuhan ang bayad na nagawa mo na.",
+    "why": "was missing"
+  },
+  "student:v21.pay.savedDeleteFailed": {
+    "text": "Hindi maalis ang card. Pakisubukan muli.",
+    "why": "was missing"
+  },
+  "student:v21.pay.savedDeleteTitle": {
+    "text": "Alisin ang card na ito?",
+    "why": "was missing"
+  },
+  "student:v21.pay.savedNotReusable": {
+    "text": "Ilalagay mo ulit ang card mo sa susunod na pagbili.",
+    "why": "was missing"
+  },
+  "student:v21.pay.savedTitle": {
+    "text": "Ang iyong card",
+    "why": "was missing"
+  },
+  "student:v21.pay.tooMany": {
+    "text": "Masyadong maraming pagsubok sa card. Maghintay ng ilang minuto bago subukan ulit.",
+    "why": "was missing"
+  },
+  "student:v22.checkout.included": {
+    "text": "Ano ang kasama",
+    "why": "match English"
+  },
+  "student:v22.checkout.oneTime": {
+    "text": "Isang beses na bayad · hindi subscription",
+    "why": "match English"
+  },
+  "student:v22.home.appTeam.follow": {
+    "text": "Nagpa-follow up sa admissions office ng {{university}}",
+    "why": "admissions office was dropped"
+  },
+  "student:v22.home.appTeam.letter": {
+    "text": "Sinusubaybayan ang iyong standard admission letter mula sa {{university}}",
+    "why": "official document name"
+  },
+  "student:v22.home.appsNeedYou": {
+    "text": "Mga aplikasyong kailangan mong asikasuhin",
+    "why": "drop 'aksyon' wording"
+  },
+  "student:v22.journey.stageOf": {
+    "text": "Yugto {{n}} sa {{total}}",
+    "why": "'n of total' = sa"
+  },
+  "student:v26.explore.otherLevel": {
+    "text": "Nakalabo ang pagpapakita ng mga programa sa ibang degree level ({{count}}).",
+    "why": "'dimmed' was unclear"
+  },
+  "student:v26.now.scopeToggle": {
+    "text": "Tingnan ang lahat ng kasama sa plan na ito",
+    "why": "it is an action"
+  },
+  "student:v29.services.legacyContract": {
+    "text": "Ibinibigay ang plan na ito ayon sa service contract na umiiral noong binili mo ito ({{version}}).",
+    "why": "plan term"
+  },
+  "student:writing.needYou": {
+    "text": "Ikaw na ang susulat o magrerebisa",
+    "why": "match English; drop 'aksyon'"
+  },
+  "student:writing.others": {
+    "text": "Sinusuri ng Team Hangyul, o tapos na",
+    "why": "match English"
+  },
+  "mobile:agency.deadlines.empty": {
+    "text": "Walang deadline sa susunod na 30 araw",
+    "why": "was missing"
+  },
+  "mobile:agency.deadlines.subtitle": {
+    "text": "Mga deadline ng iyong mga estudyante sa susunod na 30 araw.",
+    "why": "was missing"
+  },
+  "mobile:agency.deadlines.title": {
+    "text": "Mga paalala",
+    "why": "was missing"
+  },
+  "mobile:agency.login.tagline": {
+    "text": "Ang mga estudyante, review at mensahe mo, nasa mobile.",
+    "why": "no 'caseload'; concise"
+  },
+  "mobile:agency.messages.subtitle": {
+    "text": "Mga usapan ng estudyante at mga internal na tala.",
+    "why": "was missing"
+  },
+  "mobile:agency.messages.title": {
+    "text": "Mga mensahe",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.detailTitle": {
+    "text": "Review",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.empty": {
+    "text": "Walang nakapilang review",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.emptyBody": {
+    "text": "Lalabas dito ang mga bagong upload ng iyong mga estudyante.",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.history": {
+    "text": "Kasaysayan ng review",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.lastReason": {
+    "text": "Nakaraang kahilingan sa pagwawasto",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.noFile": {
+    "text": "Wala pang na-upload na file para sa dokumentong ito.",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.sendToStudent": {
+    "text": "Ipadala sa estudyante",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.tabA11y_one": {
+    "text": "Mga review, {{count}} ang naghihintay",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.tabA11y_other": {
+    "text": "Mga review, {{count}} ang naghihintay",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.title": {
+    "text": "Mga review ng dokumento",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.verify": {
+    "text": "I-verify ang dokumento",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.waitingDays_one": {
+    "text": "{{count}} araw nang naghihintay",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.waitingDays_other": {
+    "text": "{{count}} araw nang naghihintay",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.waitingHours_one": {
+    "text": "{{count}} oras nang naghihintay",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.waitingHours_other": {
+    "text": "{{count}} oras nang naghihintay",
+    "why": "was missing"
+  },
+  "mobile:agency.students.detailTitle": {
+    "text": "Estudyante",
+    "why": "was missing"
+  },
+  "mobile:agency.tasks.unassigned": {
+    "text": "Walang nakatalaga",
+    "why": "was missing"
+  },
+  "mobile:app.agency": {
+    "text": "Hangyul Agency",
+    "why": "was missing; product name"
+  },
+  "mobile:app.university": {
+    "text": "Hangyul University",
+    "why": "was missing; product name"
+  },
+  "mobile:login.networkError": {
+    "text": "Hindi maabot ang Hangyul sa ngayon sa {{url}}. Pakisuri ang koneksyon mo at subukan ulit maya-maya.",
+    "why": "drop developer emulator hint"
+  },
+  "mobile:more.active": {
+    "text": "Aktibo",
+    "why": "was missing"
+  },
+  "mobile:more.allowanceSpent": {
+    "text": "Nagamit mo na ang lahat ng kasama sa plan na ito. Makikita sa screen ng plan kung aling plan ang mas malawak ang saklaw.",
+    "why": "was missing"
+  },
+  "mobile:more.choose": {
+    "text": "Pumili",
+    "why": "was missing"
+  },
+  "mobile:more.noPlan": {
+    "text": "Wala pang plan",
+    "why": "was missing"
+  },
+  "mobile:more.noPlanHint": {
+    "text": "Pumili ng plan at magsisimulang makipagtulungan sa iyo ang Hangyul",
+    "why": "was missing"
+  },
+  "mobile:more.plan": {
+    "text": "Plan",
+    "why": "was missing"
+  },
+  "mobile:more.support": {
+    "text": "Humingi ng tulong",
+    "why": "was missing"
+  },
+  "mobile:more.supportHint": {
+    "text": "Magpadala ng mensahe sa Team Hangyul",
+    "why": "was missing"
+  },
+  "mobile:more.webNote": {
+    "text": "Sa web ginagawa ang pag-edit ng profile at pagbabayad.",
+    "why": "was missing"
+  },
+  "mobile:plan.allowance.consultation_sessions": {
+    "text": "Diagnostic na konsultasyon",
+    "why": "one term: konsultasyon"
+  },
+  "mobile:plan.allowance.essay_review_rounds": {
+    "text": "Pag-edit ng personal statement at study plan",
+    "why": "was missing"
+  },
+  "mobile:plan.allowance.follow_up_consultations": {
+    "text": "Mga follow-up na konsultasyon",
+    "why": "was missing"
+  },
+  "mobile:plan.allowance.max_managed_applications": {
+    "text": "Mga aplikasyong inaasikaso namin kasama mo",
+    "why": "was missing"
+  },
+  "mobile:plan.allowance.max_recommended_institutions": {
+    "text": "Mga rekomendasyon ng unibersidad",
+    "why": "was missing"
+  },
+  "mobile:plan.allowance.mock_interviews": {
+    "text": "Mga mock interview",
+    "why": "was missing"
+  },
+  "mobile:plan.browserFailed": {
+    "text": "Hindi mabuksan ang browser. Pakibayaran sa web.",
+    "why": "was missing"
+  },
+  "mobile:plan.card": {
+    "text": "Makakabayad ka gamit ang card mula sa ibang bansa (Visa, Mastercard, JCB).",
+    "why": "was missing"
+  },
+  "mobile:plan.chooseLede": {
+    "text": "Isang bayad, walang subscription. Mananatili sa iyo ang plan mo habang naghahanda ka.",
+    "why": "was missing"
+  },
+  "mobile:plan.chooseTitle": {
+    "text": "Pumili ng plan",
+    "why": "was missing"
+  },
+  "mobile:plan.handoff": {
+    "text": "Sa browser mo nangyayari ang pagbabayad at babalik ito sa app kapag tapos na.",
+    "why": "was missing"
+  },
+  "mobile:plan.highestAlready": {
+    "text": "Nasa pinakamataas na plan ka na.",
+    "why": "was missing"
+  },
+  "mobile:plan.included": {
+    "text": "Kasama sa plan mo",
+    "why": "was missing"
+  },
+  "mobile:plan.oneTime": {
+    "text": "Isang bayad",
+    "why": "was missing"
+  },
+  "mobile:plan.ongoing": {
+    "text": "Sa buong panahon ng serbisyo",
+    "why": "was missing"
+  },
+  "mobile:plan.paid": {
+    "text": "Halagang binayaran",
+    "why": "was missing"
+  },
+  "mobile:plan.pay": {
+    "text": "Magbayad",
+    "why": "was missing"
+  },
+  "mobile:plan.plansTitle": {
+    "text": "Mga plan",
+    "why": "was missing"
+  },
+  "mobile:plan.selected": {
+    "text": "Napili",
+    "why": "was missing"
+  },
+  "mobile:plan.upgradeTitle": {
+    "text": "Upgrade",
+    "why": "was missing"
+  },
+  "mobile:plan.webNote": {
+    "text": "Nasa web ang kasaysayan ng plan at mga resibo.",
+    "why": "was missing"
+  },
+  "mobile:settings.elsewhere": {
+    "text": "Sa ibang lugar",
+    "why": "was missing"
+  },
+  "mobile:settings.notificationsHint": {
+    "text": "Tingnan ang mga notification na natanggap mo",
+    "why": "was missing"
+  },
+  "mobile:settings.signOutBody": {
+    "text": "Kakailanganin mo ang iyong email at password para makapag-sign in ulit.",
+    "why": "'makapag-pumasok' is ungrammatical"
+  },
+  "mobile:settings.signOutTitle": {
+    "text": "Mag-sign out?",
+    "why": "'Lumabas' is ambiguous"
+  },
+  "mobile:settings.title": {
+    "text": "Mga setting",
+    "why": "was missing"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.label": {
+    "text": "Nauunawaan ko na ipoproseso sa ibang bansa ang aking email at mobile number para ma-verify ang mga ito",
+    "why": "align with web; match English"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Ang Twilio Inc. (Estados Unidos) ang nagpapadala ng verification text at email; ang Cloudflare, Inc. (Estados Unidos) ang sumusuri na hindi automated ang pag-sign up. Nasa Patakaran sa Privacy ang mga detalye, pati kung paano tumanggi. Kapag tumanggi ka, hindi makakagawa ng account.",
+    "why": "extra claims not in English; align web"
+  },
+  "mobile:signup.consentTitle": {
+    "text": "Paano namin hinahawakan ang iyong impormasyon",
+    "why": "match English; plain"
+  },
+  "mobile:signup.degree.TRANSFER": {
+    "text": "Transfer",
+    "why": "short label"
+  },
+  "mobile:signup.lang.NONE": {
+    "text": "Wala pang test",
+    "why": "one term: test"
+  },
+  "mobile:signup.login": {
+    "text": "Mag-sign in",
+    "why": "'Pumasok' is ambiguous"
+  },
+  "mobile:signup.password": {
+    "text": "Password",
+    "why": "label only"
+  },
+  "mobile:signup.progress": {
+    "text": "Hakbang {{n}} sa {{total}}: {{step}}",
+    "why": "'n of total' = sa"
+  },
+  "mobile:signup.quickLevel": {
+    "text": "Antas",
+    "why": "label matches English"
+  },
+  "mobile:signup.steps.account": {
+    "text": "Account",
+    "why": "spelling used everywhere else"
+  },
+  "mobile:signup.verifyText": {
+    "text": "Ilagay ang mga code na ipinadala namin. May bisa ang bawat code sa loob ng 5 minuto.",
+    "why": "plural codes"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.body": {
+    "text": "Tinatanggap mo ang alok mula sa {{university}}. Gagabayan ka ng Team Hangyul Univ sa pagbabayad ng matrikula at sa pagkuha ng iyong standard admission letter.",
+    "why": "team, not counselor; official name"
+  },
+  "mobile:student.applications.emptyBody": {
+    "text": "Magsimula sa iyong mga tugma: mga programang pasok ka sa mga kinakailangan.",
+    "why": "one term: tugma"
+  },
+  "mobile:student.documents.emptyBody": {
+    "text": "I-upload ang iyong pasaporte, mga transcript at test score mula sa web app.",
+    "why": "'test marka' is wrong order"
+  },
+  "mobile:student.documents.fixFallback": {
+    "text": "Humiling ang Team Hangyul ng pagbabago sa dokumentong ito.",
+    "why": "team, not reviewer; match English"
+  },
+  "mobile:student.messages.subtitle": {
+    "text": "Makipag-usap sa Team Hangyul Univ.",
+    "why": "team, not counselor"
+  },
+  "mobile:student.nextAction.COMPARE_OFFERS": {
+    "text": "Ikumpara ang iyong {{count}} alok sa admission",
+    "why": "admission offers"
+  },
+  "mobile:student.tasks.overdue": {
+    "text": "Overdue ({{count}})",
+    "why": "'deadline' reserved for universities"
+  },
+  "mobile:student.tasks.subtitle": {
+    "text": "Mga gawain mula sa Team Hangyul at sa mga checklist ng iyong aplikasyon.",
+    "why": "team; no 'application engine'"
+  },
+  "mobile:student.tasks.title": {
+    "text": "Checklist",
+    "why": "one term: checklist"
+  },
+  "mobile:university.applicants.anonymous": {
+    "text": "Aplikante",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.confirmBody": {
+    "text": "Aabisuhan si {{name}} at ang kanyang counselor. Magdagdag ng tala para sa record (opsyonal).",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.confirmTitle": {
+    "text": "Palitan ang status sa “{{status}}”?",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.detailTitle": {
+    "text": "Aplikante",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.history": {
+    "text": "Kasaysayan ng status",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.interview": {
+    "text": "Interview",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.moveTo": {
+    "text": "Ilipat sa: {{status}}",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.notShared": {
+    "text": "Hindi pa ibinabahagi sa iyong unibersidad",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.note": {
+    "text": "Tala",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.previewHint": {
+    "text": "Nagbubukas ng secure na preview na may expiry",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.reference": {
+    "text": "Ang iyong reference number",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.submitted": {
+    "text": "Naisumite noong {{date}}",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.submittedLabel": {
+    "text": "Naisumite",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.viaAgency": {
+    "text": "Sa pamamagitan ng {{agency}}",
+    "why": "was missing"
+  },
+  "mobile:university.flagged.add": {
+    "text": "I-flag para sa follow-up",
+    "why": "was missing"
+  },
+  "mobile:university.flagged.addBody": {
+    "text": "Ang team lang ng iyong unibersidad ang makakakita ng flag at dahilang ito.",
+    "why": "was missing"
+  },
+  "mobile:university.flagged.flagged": {
+    "text": "Naka-flag",
+    "why": "was missing"
+  },
+  "mobile:university.flagged.reason": {
+    "text": "Dahilan",
+    "why": "was missing"
+  },
+  "mobile:university.flagged.remove": {
+    "text": "Alisin ang flag",
+    "why": "was missing"
+  },
+  "mobile:university.flagged.removeTitle": {
+    "text": "Alisin ang flag sa aplikasyong ito?",
+    "why": "was missing"
+  },
+  "mobile:university.inbox.title": {
+    "text": "Mga mensahe",
+    "why": "was missing"
+  },
+  "mobile:university.login.tagline": {
+    "text": "Mga aplikante, desisyon at cohort para sa iyong international office.",
+    "why": "was missing"
+  },
+  "mobile:v29.mfa.codeHint": {
+    "text": "Ilagay ang 6-digit na code mula sa iyong authenticator app, o isang recovery code.",
+    "why": "was missing"
+  },
+  "mobile:v29.mfa.codeLabel": {
+    "text": "Verification code",
+    "why": "was missing"
+  },
+  "mobile:v29.mfa.enrollOnWeb": {
+    "text": "Kailangan ng two-step verification ang account na ito. I-set up muna ito sa web console, saka mag-sign in dito.",
+    "why": "was missing"
+  },
+  "mobile:v29.mfa.verify": {
+    "text": "I-verify at mag-sign in",
+    "why": "was missing"
+  },
+  "mobile:v29.mfa.wrongCode": {
+    "text": "Mali o expired na ang code. Maglagay ng bago.",
+    "why": "was missing"
+  },
+  "mobile:v29.plan.supportDays": {
+    "text": "{{count}} araw na suporta sa konsultasyon mula sa unang konsultasyon mo",
+    "why": "'consultation support' was dropped"
+  },
+  "mobile:v29.plan.supportUntil": {
+    "text": "Suporta sa konsultasyon hanggang {{date}}",
+    "why": "'support' was dropped"
+  },
+  "mobile:v29.plan.termToAgree": {
+    "text": "Pagkakasunduan kapag nagsimula ang serbisyo",
+    "why": "'pagsimula' incomplete"
+  },
+  "mobile:v3.agency.allClear": {
+    "text": "Ayos ang lahat: {{list}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.applications_one": {
+    "text": "{{count}} aplikasyon",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.applications_other": {
+    "text": "{{count}} aplikasyon",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.assigned": {
+    "text": "Nakatalaga kay {{counselor}} · mula {{since}}",
+    "why": "assigned, not 'held by'"
+  },
+  "mobile:v3.agency.att.breached_one": {
+    "text": "{{count}} na ang lampas sa pangako",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.breached_other": {
+    "text": "{{count}} na ang lampas sa pangako",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.closing_one": {
+    "text": "Aplikasyong magsasara sa loob ng 7 araw",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.closing_other": {
+    "text": "Mga aplikasyong magsasara sa loob ng 7 araw",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.docs_one": {
+    "text": "Dokumentong naghihintay ng review",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.docs_other": {
+    "text": "Mga dokumentong naghihintay ng review",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.next": {
+    "text": "Susunod: {{uni}} para kay {{who}}, {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.overSla": {
+    "text": "{{count}} ang higit {{hours}} oras nang naghihintay",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.overdue_one": {
+    "text": "Overdue na gawain",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.overdue_other": {
+    "text": "Mga overdue na gawain",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.replies_one": {
+    "text": "Estudyanteng naghihintay ng sagot mo",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.replies_other": {
+    "text": "Mga estudyanteng naghihintay ng sagot mo",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.since": {
+    "text": "Pinakaluma mula kay {{who}}, {{when}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.sla_one": {
+    "text": "Estudyanteng nanganganib mahuli ang unang sagot",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.sla_other": {
+    "text": "Mga estudyanteng nanganganib mahuli ang unang sagot",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.block.deadline": {
+    "text": "Malapit nang magsara ang aplikasyon sa {{uni}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.block.fix": {
+    "text": "Kailangang ayusin ng estudyante ang {{doc}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.block.requested": {
+    "text": "Humingi ng karagdagang dokumento ang {{uni}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.block.review": {
+    "text": "Naghihintay ng review mo ang {{doc}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.block.sla": {
+    "text": "Nakatakda na ang unang sagot",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.blockers_one": {
+    "text": "{{count}} bagay ang pumipigil sa estudyanteng ito",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.blockers_other": {
+    "text": "{{count}} bagay ang pumipigil sa estudyanteng ito",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.clear.closing": {
+    "text": "mga deadline ngayong linggo",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.clear.docs": {
+    "text": "mga review ng dokumento",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.clear.overdue": {
+    "text": "mga overdue na gawain",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.clear.replies": {
+    "text": "mga sagot sa estudyante",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.clear.sla": {
+    "text": "mga unang sagot",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.conversationSubject": {
+    "text": "Ang iyong team para sa pag-aaral sa Korea",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.deadline": {
+    "text": "{{uni}} {{when}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.documents": {
+    "text": "Mga dokumento · {{verified}} sa {{total}} ang na-verify",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.dueToday_one": {
+    "text": "Due ngayon · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.dueToday_other": {
+    "text": "Due ngayon · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.findStudent": {
+    "text": "Maghanap ng estudyante",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.firstMessage": {
+    "text": "Padalhan ng mensahe si {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.greeting.afternoon": {
+    "text": "Magandang hapon, {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.greeting.evening": {
+    "text": "Magandang gabi, {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.greeting.morning": {
+    "text": "Magandang umaga, {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.message": {
+    "text": "Mensahe",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.messageLabel": {
+    "text": "Mensahe",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.needsAttention": {
+    "text": "Kailangan ng atensyon",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.nextAction": {
+    "text": "Susunod: {{what}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.noBlockers": {
+    "text": "Walang pumipigil sa estudyanteng ito",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.noBlockersBody": {
+    "text": "Nasa tamang takbo ang mga dokumento, deadline at sagot.",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.noStudents": {
+    "text": "Walang estudyante sa view na ito",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.noStudentsBody": {
+    "text": "Sumubok ng ibang view o i-clear ang paghahanap.",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.searchPlaceholder": {
+    "text": "Pangalan o email",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.stage": {
+    "text": "Yugto",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.stageNote": {
+    "text": "Tala para sa team (opsyonal)",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.stageTo": {
+    "text": "Ilipat sa {{stage}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.teamView": {
+    "text": "Team · {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.toFix_one": {
+    "text": "{{count}} dokumentong aayusin",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.toFix_other": {
+    "text": "{{count}} dokumentong aayusin",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.today": {
+    "text": "Ngayon",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.upload": {
+    "text": "I-upload",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.uploadFor": {
+    "text": "{{doc}} para kay {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.uploadWhat": {
+    "text": "Aling dokumento ang ina-upload mo?",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.uploaded": {
+    "text": "Na-upload sa vault ng estudyante. Handa na itong i-review.",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.all": {
+    "text": "Lahat",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.attention": {
+    "text": "Kailangan ng atensyon",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.deadline": {
+    "text": "Malapit na ang deadline",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.docs": {
+    "text": "Mga dokumentong aayusin",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.mine": {
+    "text": "Mga estudyante ko",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.sla": {
+    "text": "Mga estudyanteng lampas o malapit na sa pangako ng unang sagot",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.university": {
+    "text": "Hinihintay ang unibersidad",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.visa": {
+    "text": "Visa",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.waiting_student": {
+    "text": "Hinihintay ang estudyante",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.waiting_us": {
+    "text": "Hinihintay tayo",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.agency": {
+    "text": "Hinihintay ang agency team",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.counselor": {
+    "text": "Hinihintay ang counselor",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.external": {
+    "text": "Hinihintay ang panlabas na opisina",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.hangyul": {
+    "text": "Hinihintay ang Hangyul",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.none": {
+    "text": "Walang hinihintay",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.student": {
+    "text": "Hinihintay ang estudyante",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.university": {
+    "text": "Hinihintay ang unibersidad",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.us": {
+    "text": "Hinihintay tayo",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Handa na ang iyong admission letter. Simulan na ang mga dokumento para sa visa.",
+    "why": "official name; next step is documents"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_PENDING": {
+    "text": "Hinihintay ang iyong standard admission letter.",
+    "why": "official document name"
+  },
+  "mobile:v3.appStatus.INTERVIEW": {
+    "text": "Gusto kang i-interview ng unibersidad.",
+    "why": "one term: interview"
+  },
+  "mobile:v3.appStatus.PROFILE_REVIEW": {
+    "text": "Sinusuri ng Team Hangyul Univ ang iyong profile.",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.appStatus.TUITION_PAID": {
+    "text": "Natanggap na ang matrikula. Inihahanda ng unibersidad ang iyong admission letter.",
+    "why": "official document name"
+  },
+  "mobile:v3.application.due": {
+    "text": "Due sa {{date}}",
+    "why": "task due date, not deadline"
+  },
+  "mobile:v3.application.reviewBody": {
+    "text": "Naisumite noong {{date}}. Maaaring humingi ang unibersidad ng isa pang dokumento o ng interview. Sinusubaybayan ng Team Hangyul ang takbo nito.",
+    "why": "interview term; match English"
+  },
+  "mobile:v3.application.teamMonitoring": {
+    "text": "Nakikipag-ugnayan sa unibersidad",
+    "why": "'in touch', not monitoring"
+  },
+  "mobile:v3.application.timeline": {
+    "text": "Timeline",
+    "why": "short, common label"
+  },
+  "mobile:v3.deadlines.bucket.later_other": {
+    "text": "Mamaya ngayong buwan · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.bucket.overdue_other": {
+    "text": "Overdue · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.bucket.week_other": {
+    "text": "Susunod na 7 araw · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.emptyView": {
+    "text": "Walang due sa view na ito",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.student": {
+    "text": "Estudyante",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.who.all": {
+    "text": "Lahat",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.who.mine": {
+    "text": "Akin",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.who.unassigned": {
+    "text": "Walang nakatalaga",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.you": {
+    "text": "Ikaw",
+    "why": "was missing"
+  },
+  "mobile:v3.docAction.IN_REVIEW": {
+    "text": "Sinusuri ng Team Hangyul",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.docAction.LEGALIZE": {
+    "text": "Kailangan ng apostille o consular legalization",
+    "why": "official term"
+  },
+  "mobile:v3.documents.legalize": {
+    "text": "Nasuri na, pero kailangan pa ng {{path}} bago ito tanggapin ng isang unibersidad sa Korea",
+    "why": "checked, not verified"
+  },
+  "mobile:v3.documents.needYou_one": {
+    "text": "{{count}} ang naghihintay sa iyo",
+    "why": "'kailangan ka' ungrammatical"
+  },
+  "mobile:v3.documents.needYou_other": {
+    "text": "{{count}} ang naghihintay sa iyo",
+    "why": "'kailangan ka' ungrammatical"
+  },
+  "mobile:v3.documents.needsYou": {
+    "text": "Naghihintay sa iyo",
+    "why": "'kailangan ka' ungrammatical"
+  },
+  "mobile:v3.home.documents_one": {
+    "text": "{{count}} dokumento ang naghihintay sa iyo",
+    "why": "'kailangan ka' ungrammatical"
+  },
+  "mobile:v3.home.documents_other": {
+    "text": "{{count}} dokumento ang naghihintay sa iyo",
+    "why": "'kailangan ka' ungrammatical"
+  },
+  "mobile:v3.home.due": {
+    "text": "Due sa {{date}} · {{left}}",
+    "why": "task due date, not deadline"
+  },
+  "mobile:v3.home.nextBody.APPLICATION_DEADLINE": {
+    "text": "Tapusin ang checklist para maisumite sa tamang oras ang iyong aplikasyon.",
+    "why": "one term: checklist"
+  },
+  "mobile:v3.home.nextBody.DOCUMENT_UPLOAD": {
+    "text": "Mag-upload ng malinaw na scan o litrato. Susuriin ito ng Team Hangyul at sasabihin sa iyo kung may kailangang ayusin.",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.home.nextBody.ESSAY_WRITE": {
+    "text": "Magsimula sa magaspang na draft. Susuriin ito ng Team Hangyul kasama ka.",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.home.nextBody.VISA_STEP": {
+    "text": "Tapusin ang susunod na item sa iyong checklist sa visa.",
+    "why": "one term: checklist"
+  },
+  "mobile:v3.home.nextCta.ARRIVAL_CHECKLIST": {
+    "text": "Buksan ang checklist sa pagdating",
+    "why": "one term: checklist"
+  },
+  "mobile:v3.home.nextCta.INTERVIEW": {
+    "text": "Maghanda para sa interview",
+    "why": "one term: interview"
+  },
+  "mobile:v3.home.noCounselor": {
+    "text": "Pumili ng plan at makikipagtulungan sa iyo ang Team Hangyul Univ sa sarili mong wika.",
+    "why": "plan term; match English"
+  },
+  "mobile:v3.home.stageLine.apply": {
+    "text": "Sinusuri ng mga unibersidad ang iyong mga aplikasyon",
+    "why": "match English"
+  },
+  "mobile:v3.home.stageLine.visa": {
+    "text": "Inihahanda ang iyong student visa",
+    "why": "preparing, not 'getting'; term"
+  },
+  "mobile:v3.home.team": {
+    "text": "Team Hangyul Univ",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.messages.attachUnavailable": {
+    "text": "Hindi pa available ang mga attachment.",
+    "why": "no 'server' wording"
+  },
+  "mobile:v3.messages.conversations": {
+    "text": "Mga usapan",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.deadline": {
+    "text": "Tanggapin at magbayad ng matrikula bago ang {{date}} · {{left}}",
+    "why": "accept, not reply"
+  },
+  "mobile:v3.offer.step.letter": {
+    "text": "Tanggapin ang iyong standard admission letter",
+    "why": "official document name"
+  },
+  "mobile:v3.offer.step.visa": {
+    "text": "Ihanda ang iyong student visa",
+    "why": "one term: student visa"
+  },
+  "mobile:v3.profile.unlock.sponsor": {
+    "text": "Nagbibigay-daan para maihanda mo nang maaga ang mga pinansyal na dokumento para sa visa",
+    "why": "'early' and agent were lost"
+  },
+  "mobile:v3.push.idle": {
+    "text": "Makatanggap ng push alert kapag nasuri na ang isang dokumento, malapit na ang deadline o sumagot ang Team Hangyul.",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.reviews.beforeVerify": {
+    "text": "Bago ka mag-verify",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.bulkBody": {
+    "text": "Gawin lang ito para sa mga dokumentong nabuksan at nasuri mo na. Aabisuhan ang bawat estudyante.",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.bulkDone": {
+    "text": "{{ok}} na-verify, {{failed}} nilaktawan",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.bulkTitle_one": {
+    "text": "I-verify ang {{count}} dokumento?",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.bulkTitle_other": {
+    "text": "I-verify ang {{count}} dokumento?",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.check.date": {
+    "text": "Sapat na bago ang petsa ng pagkaka-isyu at hindi pa expired",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.check.issuer": {
+    "text": "Nakikita ang nag-isyu, selyo o pirma",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.check.legal": {
+    "text": "Nakakabit ang {{path}} at tugma sa dokumento",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.check.legible": {
+    "text": "Kumpleto at nababasa ang bawat page",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.check.name": {
+    "text": "Tugma sa pasaporte ang pangalan at petsa ng kapanganakan",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.correctionTitle": {
+    "text": "Ano ang dapat ayusin ng estudyante?",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.expires": {
+    "text": "Balido hanggang",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.issuedIn": {
+    "text": "Bansang nag-isyu",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.issuedOn": {
+    "text": "Petsa ng pagkaka-isyu",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.legalization": {
+    "text": "Legalization",
+    "why": "was missing; official term"
+  },
+  "mobile:v3.reviews.notNeeded": {
+    "text": "Hindi kailangan",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.open": {
+    "text": "Buksan ang {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.overSla": {
+    "text": "{{waiting}} · lampas na sa pangako ng review",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.reason": {
+    "text": "Mensahe sa estudyante",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.requestCorrection": {
+    "text": "Humiling ng pagwawasto",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.required": {
+    "text": "Kinakailangan",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.select": {
+    "text": "Pumili",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.studentSees": {
+    "text": "Makikita ni {{name}} ang eksaktong tekstong ito sa tabi ng dokumento.",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.studentSeesGeneric": {
+    "text": "Makikita ng estudyante ang eksaktong tekstong ito sa tabi ng dokumento.",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.summary": {
+    "text": "{{count}} ang naghihintay · {{over}} ang lampas sa {{hours}} oras na pangako ng review",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.templates": {
+    "text": "Mga template ng team",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.translation": {
+    "text": "Salin",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.uploaded": {
+    "text": "na-upload {{when}}",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.verifyN_one": {
+    "text": "I-verify ang {{count}} dokumento",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.verifyN_other": {
+    "text": "I-verify ang {{count}} dokumento",
+    "why": "was missing"
+  },
+  "mobile:v3.settings.consoleHint": {
+    "text": "Pinamamahalaan sa web console ng agency ang mga miyembro ng team, billing at export.",
+    "why": "was missing"
+  },
+  "mobile:v3.settings.work": {
+    "text": "Ang iyong trabaho",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.empty.team": {
+    "text": "Walang bukas na gawain ang team",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.empty.today": {
+    "text": "Walang due ngayon",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.empty.waiting": {
+    "text": "Walang gawaing naghihintay sa iba",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.empty.week": {
+    "text": "Walang due ngayong linggo",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.open": {
+    "text": "Bukas",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.overdue": {
+    "text": "Overdue · {{when}}",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.view.overdue": {
+    "text": "Overdue",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.view.team": {
+    "text": "Team",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.view.today": {
+    "text": "Ngayon",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.view.waiting": {
+    "text": "Naghihintay",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.view.week": {
+    "text": "Ngayong linggo",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.waitingOn": {
+    "text": "Hinihintay: {{what}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.allClear": {
+    "text": "Walang kailangang desisyon sa ngayon.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.allCohorts": {
+    "text": "Lahat ng estudyante ng Hangyul",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.allIntakes": {
+    "text": "Lahat ng intake",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.applicant": {
+    "text": "Aplikante",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.gpa": {
+    "text": "GPA",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.interview": {
+    "text": "Interview",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.interviewRequired": {
+    "text": "Kinakailangan ng programang ito",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.level": {
+    "text": "Level {{level}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.minimum": {
+    "text": "Minimum {{need}} · Aplikante {{have}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.notProvided": {
+    "text": "hindi ibinigay",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.state.below": {
+    "text": "Mababa sa minimum",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.state.meets": {
+    "text": "Pasok",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.state.missing": {
+    "text": "Hindi ibinigay",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.state.planned": {
+    "text": "Nakaplano ang test",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.state.unscheduled": {
+    "text": "Hindi pa nakatakda",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.topik": {
+    "text": "TOPIK",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.checksNote": {
+    "text": "Ikinukumpara ang mga score na iniulat ng aplikante sa mga nakalathalang minimum ng programa. Tumutulong ito sa iyong pagsusuri; hindi ito ang nagpapasya.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.checksTitle": {
+    "text": "Pagsusuri ng mga kinakailangan",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.closed": {
+    "text": "Sarado: {{rejected}} hindi tinanggap, {{withdrawn}} binawi. Kailangan ng hindi bababa sa {{min}} tao para sa mga rate.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.cohortIntro_one": {
+    "text": "{{count}} estudyante ang dumating sa inyo sa pamamagitan ng Hangyul. Ganito ang kalagayan nila.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.cohortIntro_other": {
+    "text": "{{count}} estudyante ang dumating sa inyo sa pamamagitan ng Hangyul. Ganito ang kalagayan nila.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.cohortNote": {
+    "text": "Lalabas ang mga rate kapag hindi bababa sa {{min}} estudyante ang kwalipikado. Hanggang {{date}}.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.cohort_one": {
+    "text": "{{label}} · {{count}} estudyante",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.cohort_other": {
+    "text": "{{label}} · {{count}} estudyante",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.conv": {
+    "text": "{{pct}} ng nakaraang hakbang · {{n}} sa {{d}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.convFew": {
+    "text": "{{n}} sa {{d}} mula sa nakaraang hakbang · masyadong kaunti para i-rate",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.admitted_one": {
+    "text": "tinanggap na estudyanteng hindi pa nagbabayad ng matrikula",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.admitted_other": {
+    "text": "mga tinanggap na estudyanteng hindi pa nagbabayad ng matrikula",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.documents_one": {
+    "text": "hinihintay ang mga dokumento ng estudyante",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.documents_other": {
+    "text": "hinihintay ang mga dokumento ng mga estudyante",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.flagged_one": {
+    "text": "naka-flag na aplikasyon",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.flagged_other": {
+    "text": "mga naka-flag na aplikasyon",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.interview_one": {
+    "text": "interview na isasagawa o ima-mark",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.interview_other": {
+    "text": "mga interview na isasagawa o ima-mark",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.offer_one": {
+    "text": "alok na naghihintay ng sagot ng estudyante",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.offer_other": {
+    "text": "mga alok na naghihintay ng sagot ng estudyante",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.returned_one": {
+    "text": "dokumentong ibinalik ng estudyante",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.returned_other": {
+    "text": "mga dokumentong ibinalik ng mga estudyante",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.review_one": {
+    "text": "aplikasyong susuriin",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.review_other": {
+    "text": "mga aplikasyong susuriin",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionContext_one": {
+    "text": "{{ready}} sa {{total}} kinakailangang dokumento ang handa na · {{count}} bukas na kahilingan.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionContext_other": {
+    "text": "{{ready}} sa {{total}} kinakailangang dokumento ang handa na · {{count}} bukas na kahilingan.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionDocs": {
+    "text": "{{ready}} sa {{total}} kinakailangang dokumento ang handa na.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.admitted": {
+    "text": "Kumpirmahin ang bayad kapag dumating",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.documents": {
+    "text": "Walang aksyon hangga't hindi sila nag-a-upload",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.flagged": {
+    "text": "Minarkahan para sa mas masusing pagsusuri",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.interview": {
+    "text": "Itala ang resulta pagkatapos ng interview",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.offer": {
+    "text": "Nagpa-follow up ang Hangyul sa estudyante",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.returned": {
+    "text": "Suriin muli ang hiningi mo",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.review": {
+    "text": "Naisumite at sapat na ang kumpleto para magpasya",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.docsTitle": {
+    "text": "Mga dokumento · {{ready}} sa {{total}} ang handa na",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.dueOn": {
+    "text": "due {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.empty.all": {
+    "text": "Walang aplikante rito",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.empty.flagged": {
+    "text": "Walang naka-flag na aplikasyon",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.empty.review": {
+    "text": "Walang aplikasyong naghihintay ng review",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.graduation": {
+    "text": "Nakapagtapos",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.latest": {
+    "text": "Pinakabagong susuriin",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.ADDITIONAL_DOCUMENTS": {
+    "text": "Humingi ng karagdagang dokumento",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Mag-isyu ng admission letter",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.INTERVIEW": {
+    "text": "Imbitahan sa interview",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.OFFERED": {
+    "text": "Mag-alok",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.REJECTED": {
+    "text": "Huwag tanggapin",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.TUITION_PAID": {
+    "text": "Kumpirmahing bayad na ang matrikula",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.TUITION_PENDING": {
+    "text": "Magpadala ng invoice ng matrikula",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.UNIVERSITY_REVIEW": {
+    "text": "Simulan ang pagsusuri",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.WAITLISTED": {
+    "text": "Waitlist",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.nOfD": {
+    "text": "{{n}} sa {{d}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.needsTitle": {
+    "text": "Kailangan ng desisyon mo",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.noMinimums": {
+    "text": "Wala pang nakalathalang minimum ang programang ito.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.nothingToReview": {
+    "text": "Walang naghihintay ng review",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.openRequests_one": {
+    "text": "{{count}} dokumentong hiniling",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.openRequests_other": {
+    "text": "{{count}} dokumentong hiniling",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.otherDecisions": {
+    "text": "Iba pang desisyon",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.populationAll_one": {
+    "text": "Batay sa {{count}} naisumiteng aplikasyon, lahat ng intake.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.populationAll_other": {
+    "text": "Batay sa {{count}} naisumiteng aplikasyon, lahat ng intake.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.populationIntake_one": {
+    "text": "Batay sa {{count}} naisumiteng aplikasyon para sa {{intake}}.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.populationIntake_other": {
+    "text": "Batay sa {{count}} naisumiteng aplikasyon para sa {{intake}}.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.reason": {
+    "text": "Dahilan (ibinabahagi sa Hangyul)",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.request": {
+    "text": "Kahilingan",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestLabel": {
+    "text": "Ano ang kailangan mo?",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestLabelHint": {
+    "text": "hal. High-school diploma na may apostille",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestNote": {
+    "text": "Mga tagubilin para sa estudyante",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestNoteHint": {
+    "text": "Ano mismo ang kulang at paano ito aayusin",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestSend": {
+    "text": "Ipadala ang kahilingan",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestTitle": {
+    "text": "Humiling ng dokumento kay {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestWho": {
+    "text": "Aabisuhan ang estudyante at ang kanyang Hangyul counselor, at makikita nila ang eksaktong tekstong ito.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestedOn": {
+    "text": "Hiniling noong {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.retention": {
+    "text": "Nag-aaral pa",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.search": {
+    "text": "Maghanap ng pangalan, programa o reference",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.ACCEPTED": {
+    "text": "Tinanggap ang alok",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.ARRIVED": {
+    "text": "Dumating sa Korea",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.ENROLLED": {
+    "text": "Naka-enroll",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.OFFERED": {
+    "text": "Inalok",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.REVIEWED": {
+    "text": "Nasuri",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.SUBMITTED": {
+    "text": "Naisumite",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.TUITION_PAID": {
+    "text": "Nagbayad ng matrikula",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.VISA_ISSUED": {
+    "text": "Na-isyu ang visa",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.tab.applicants": {
+    "text": "Mga aplikante",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.tab.pipeline": {
+    "text": "Pangkalahatan",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.tab.students": {
+    "text": "Mga estudyante",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.tooFew": {
+    "text": "Masyadong kaunti para i-rate",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.admitted": {
+    "text": "Tinanggap",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.all": {
+    "text": "Lahat",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.documents": {
+    "text": "Kulang na dokumento",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.enrolment": {
+    "text": "Visa at pag-enroll",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.flagged": {
+    "text": "Naka-flag",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.interview": {
+    "text": "Interview",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.offer": {
+    "text": "Alok",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.review": {
+    "text": "Kailangang suriin",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.waitingStudent": {
+    "text": "Hinihintay ang estudyante",
+    "why": "was missing"
+  },
+  "mobile:v3.university.documentsCount": {
+    "text": "{{count}} dokumento · {{legal}} ang kailangan ng apostille o consular legalization",
+    "why": "official term"
+  },
+  "mobile:v3.university.interview": {
+    "text": "Interview",
+    "why": "one term: interview"
+  },
+  "mobile:v3.university.interviewYes": {
+    "text": "Maaari kang i-interview ng unibersidad",
+    "why": "one term: interview"
+  },
+  "mobile:v3.visa.beforeBody": {
+    "text": "Kapag tinanggap mo ang alok at nagbayad ng matrikula, mag-iisyu ang unibersidad ng iyong admission letter. Makikita mo na ngayon kung ano ang kakailanganin mo at puwede ka nang magsimulang mangalap ng mga ito.",
+    "why": "Filipino terms; 'mag-ipon' means save money"
+  },
+  "mobile:v3.visa.beforeTitle": {
+    "text": "Magsisimula ang paghahanda sa visa pagkatapos ng iyong alok sa admission",
+    "why": "preparation starts, not the visa"
+  },
+  "mobile:v3.visa.blockers": {
+    "text": "Kailangan muna",
+    "why": "'needed first', not 'waiting'"
+  },
+  "mobile:v3.visa.checklist": {
+    "text": "Ang iyong checklist · {{done}} sa {{total}} ang tapos na",
+    "why": "one term: checklist"
+  },
+  "mobile:v3.visa.phase.apply": {
+    "text": "Aplikasyon sa visa",
+    "why": "'visa' was dropped"
+  },
+  "mobile:v3.visa.phase.decision": {
+    "text": "Desisyon ng embahada",
+    "why": "'embassy' was dropped"
+  },
+  "mobile:v3.visa.phase.letter": {
+    "text": "Admission letter",
+    "why": "official document name"
+  },
+  "mobile:v3.visa.title": {
+    "text": "Inihahanda ang iyong {{type}} visa",
+    "why": "match English; no 'plan'"
+  },
+  "mobile:v3.visa.titleGeneric": {
+    "text": "Ang iyong student visa",
+    "why": "one term: student visa"
+  },
+  "mobile:v4.application.nextLegalize": {
+    "text": "Kumuha ng apostille o consular legalization para sa iyong {{item}}",
+    "why": "official term"
+  },
+  "mobile:v4.application.reviewLate": {
+    "text": "Mas matagal kaysa karaniwan. Nasabihan na ang Team Hangyul na naantala ito. Hindi mo na kailangang i-upload ulit.",
+    "why": "team, not counselor"
+  },
+  "mobile:v4.application.waitBody": {
+    "text": "Sinusuri ng Team Hangyul ang ipinadala mo. Sasabihan ka namin kung may kailangang baguhin.",
+    "why": "team, not counselor"
+  },
+  "mobile:v4.application.writeOnWeb": {
+    "text": "Isulat ito sa web. Doon din lalabas ang mga komento ng Team Hangyul.",
+    "why": "team, not counselor"
+  },
+  "mobile:v4.documents.lateLine": {
+    "text": "minarkahang naantala para sa Team Hangyul",
+    "why": "team, not counselor"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.text": {
+    "text": "May iniwang komento ang Team Hangyul. Hindi maisusumite ang iyong aplikasyon hangga't hindi ito naaaprubahan.",
+    "why": "team, not counselor"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.text": {
+    "text": "Susuriin ito ng Team Hangyul kasama ka. Magsimula sa magaspang na draft. Hindi kailangang perpekto.",
+    "why": "team, not counselor"
+  },
+  "mobile:v4.uni.actor.AGENCY": {
+    "text": "Partner agency",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.actor.HANGYUL": {
+    "text": "Hangyul",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.actor.STUDENT": {
+    "text": "Aplikante",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.actor.SYSTEM": {
+    "text": "Awtomatiko",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.actor.UNIVERSITY": {
+    "text": "Ang iyong unibersidad",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.toReview_one": {
+    "text": "Susuriin · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.toReview_other": {
+    "text": "Susuriin · {{count}}",
+    "why": "was missing"
+  }
+}

@@ -13,6 +13,10 @@
  *   · the Korean and English text of every description and every line, written out here so the assertion
  *     does not read the strings from the file it is checking.
  *
+ * V32 (REPORT §436): the ENGLISH lines were re-rendered from the Korean meaning in the V32 copy pass (the owner's
+ * request that foreign-language copy be concrete and natural); the Korean pins are the owner's approved source and did
+ * not change. Both halves were updated here deliberately, as this file demands.
+ *
  * A strings table in a test is usually a smell. Here it is the point: this is the owner's approved copy
  * (한귤 UNIV_20261019 §3), and a change to it should have to be made twice — once in the locale file and
  * once here, deliberately.
@@ -41,10 +45,10 @@ const APPROVED = {
     en: {
       description: "For students who want to set a direction and choose the right universities first",
       benefits: [
-        "Personal diagnostic consultation + 1 follow-up",
+        "Personal diagnostic consultation + 1 follow-up consultation",
         "Up to 3 universities or language institutes recommended",
         "Entry requirements, tuition and key dates compared",
-        "Admission document checklist",
+        "Essential admission-document checklist",
         "Visa preparation steps for your nationality",
       ],
     },
@@ -64,11 +68,11 @@ const APPROVED = {
     en: {
       description: "For students who want support through applying and preparing admission documents",
       benefits: [
-        "Everything in Basic · up to 5 recommendations",
+        "Everything in Basic · up to 5 recommended universities",
         "Up to 2 university applications managed",
         "Up to 2 rounds of statement and study-plan editing",
-        "Document review with correction guidance",
-        "Visa documents prepared · dormitory deadlines tracked",
+        "Admission documents reviewed, with notes on what to fix",
+        "Help preparing your visa documents · dormitory application dates tracked",
       ],
     },
   },
@@ -85,12 +89,12 @@ const APPROVED = {
       ],
     },
     en: {
-      description: "For students who want support through visa, arrival and the first weeks in Korea",
+      description: "For students who want support from applying through visa, arrival and the first weeks in Korea",
       benefits: [
-        "Everything in All-in-One · up to 7 recommendations",
+        "Everything in All-in-One · up to 7 recommended universities",
         "Up to 3 applications managed · 1 mock interview",
         "Editing of your contracted application documents, no round limit",
-        "Intensive visa scheduling · dormitory application support",
+        "Visa documents and key dates closely managed · help with your dormitory application",
         "30 days before arrival to 30 days after · dedicated team, priority replies",
       ],
     },

@@ -220,20 +220,18 @@ a.hg-metric:hover { background: var(--hg-surface-hover); text-decoration: none; 
 .hg-label__opt { font-weight: var(--hg-weight-regular); color: var(--hg-text-tertiary); margin-inline-start: 4px; }
 .hg-hint { font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); line-height: 1.45; }
 .hg-error { font-size: var(--hg-text-xs); color: var(--hg-status-danger-fg); font-weight: var(--hg-weight-medium); }
-.hg-input, .hg-select, .hg-textarea {
+.hg-input, .hg-textarea {
   width: 100%; min-height: 44px; padding: 10px 12px; border-radius: var(--hg-radius-md); border: 1px solid var(--hg-control-secondary-border);
   background: var(--hg-surface); color: var(--hg-text); font-size: var(--hg-text-md);
   transition: border-color var(--hg-motion-fast), box-shadow var(--hg-motion-fast);
 }
-@media (max-width: 767px) { .hg-input, .hg-select, .hg-textarea { font-size: 16px; min-height: 44px; } }
+@media (max-width: 767px) { .hg-input, .hg-textarea { font-size: 16px; min-height: 44px; } }
 .hg-input::placeholder, .hg-textarea::placeholder { color: var(--hg-text-tertiary); opacity: 0.8; }
-.hg-input:hover, .hg-select:hover, .hg-textarea:hover { border-color: var(--hg-control-secondary-border-hover); }
-.hg-input:focus, .hg-select:focus, .hg-textarea:focus { outline: none; border-color: var(--hg-primary); box-shadow: var(--hg-shadow-focus); }
-.hg-input[aria-invalid='true'], .hg-select[aria-invalid='true'], .hg-textarea[aria-invalid='true'] { border-color: var(--hg-status-danger-solid); }
-.hg-input:disabled, .hg-select:disabled, .hg-textarea:disabled { background: var(--hg-surface-sunken); color: var(--hg-text-tertiary); }
+.hg-input:hover, .hg-textarea:hover { border-color: var(--hg-control-secondary-border-hover); }
+.hg-input:focus, .hg-textarea:focus { outline: none; border-color: var(--hg-primary); box-shadow: var(--hg-shadow-focus); }
+.hg-input[aria-invalid='true'], .hg-textarea[aria-invalid='true'] { border-color: var(--hg-status-danger-solid); }
+.hg-input:disabled, .hg-textarea:disabled { background: var(--hg-surface-sunken); color: var(--hg-text-tertiary); }
 .hg-textarea { min-height: 104px; resize: vertical; line-height: var(--hg-leading-normal); }
-.hg-select { appearance: none; padding-inline-end: 34px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%236B717B' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m7 10 5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
-[dir='rtl'] .hg-select { background-position: left 10px center; }
 /* ---------- FilterSelect (V30) — a toolbar filter, not a form field. See `FilterSelect` in primitives.tsx.
    Content-sized: `category  value ⌄` read as one control, the chevron 6 px after the value (never pinned to
    the far edge), the native <select> invisibly covering the whole face so every pixel of it opens the list. */
@@ -243,33 +241,79 @@ a.hg-metric:hover { background: var(--hg-surface-hover); text-decoration: none; 
   min-height: var(--hg-fsel-h, 44px); padding-inline: 14px 12px;
   border: 1px solid var(--hg-control-secondary-border); border-radius: var(--hg-control-radius);
   background: var(--hg-control-secondary-bg); color: var(--hg-control-secondary-text);
-  font-size: var(--hg-text-base); line-height: 1.2; white-space: nowrap; cursor: pointer;
+  font: inherit; font-size: var(--hg-text-base); line-height: 1.2; white-space: nowrap; cursor: pointer; text-align: start;
   transition: border-color var(--hg-motion-fast), background-color var(--hg-motion-fast), box-shadow var(--hg-motion-fast);
 }
+.hg-fsel[data-open] { border-color: var(--hg-control-secondary-border-hover); background: var(--hg-control-secondary-bg-hover); }
 .hg-fsel--sm { --hg-fsel-h: 36px; padding-inline: 12px 10px; font-size: var(--hg-text-sm); }
 .hg-fsel--block { display: flex; inline-size: 100%; }
 .hg-fsel--block .hg-fsel__value { flex: 1 1 auto; }
-.hg-fsel__face { display: inline-flex; align-items: center; gap: 6px; min-inline-size: 0; pointer-events: none; }
+.hg-fsel__face { display: inline-flex; align-items: center; gap: 6px; min-inline-size: 0; }
 .hg-fsel__label { color: var(--hg-text-secondary); font-weight: var(--hg-weight-regular); }
 .hg-fsel__label::after { content: '·'; margin-inline-start: 6px; color: var(--hg-text-tertiary); }
 .hg-fsel__value { font-weight: var(--hg-weight-semibold); min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; }
 .hg-fsel__chev { inline-size: 16px; block-size: 16px; flex: none; color: var(--hg-text-secondary); margin-inline-start: 0; }
-.hg-fsel__native {
-  position: absolute; inset: 0; inline-size: 100%; block-size: 100%; margin: 0; padding: 0;
-  opacity: 0; appearance: none; border: 0; cursor: pointer;
-  font-size: 16px; /* iOS: <16px zooms the page on focus */
-}
 .hg-fsel:hover { border-color: var(--hg-control-secondary-border-hover); background: var(--hg-control-secondary-bg-hover); }
-.hg-fsel:has(.hg-fsel__native:focus-visible) { outline: 3px solid var(--hg-primary); outline-offset: 2px; }
+.hg-fsel:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 2px; }
 .hg-fsel:focus-within { border-color: var(--hg-control-secondary-border-hover); }
 .hg-fsel[data-active] { border-color: var(--hg-text); box-shadow: inset 0 0 0 1px var(--hg-text); }
 .hg-fsel[data-active] .hg-fsel__label { color: var(--hg-text); }
-.hg-fsel:has(.hg-fsel__native:disabled) { opacity: 0.55; cursor: not-allowed; }
+.hg-fsel:disabled { opacity: 0.55; cursor: not-allowed; }
 @media (max-width: 767px) { .hg-fsel { --hg-fsel-h: 44px; } .hg-fsel--sm { --hg-fsel-h: 40px; } }
 /* In a drawer / filter sheet a filter is a full-width row, value at the start, chevron at the end. */
 .hg-drawer .hg-fsel, .ag-filterbar__drawer .hg-fsel { display: flex; inline-size: 100%; }
 .hg-drawer .hg-fsel .hg-fsel__face, .ag-filterbar__drawer .hg-fsel .hg-fsel__face { flex: 1 1 auto; }
 .hg-drawer .hg-fsel .hg-fsel__value, .ag-filterbar__drawer .hg-fsel .hg-fsel__value { flex: 1 1 auto; }
+
+/* ── V32: the service-unavailable state (app.tsx ServiceUnavailable). */
+.hg-unavailable { min-height: 100dvh; display: grid; place-items: center; padding: 24px 16px; background: var(--hg-bg-canvas); }
+.hg-unavailable__card { display: grid; gap: 12px; justify-items: center; text-align: center; max-width: 420px; }
+.hg-unavailable__card .hg-title-md { margin-top: 8px; }
+.hg-unavailable__card .hg-muted { margin: 0; line-height: var(--hg-leading-normal); }
+.hg-unavailable__card .hg-btn { margin-top: 8px; }
+
+/* ── V32: the canonical selection control (select.tsx). Closed face below; the list is shared by both variants. */
+.hg-sel {
+  display: inline-flex; align-items: center; gap: 8px; width: 100%; min-height: 44px; padding: 10px 12px;
+  border-radius: var(--hg-radius-md); border: 1px solid var(--hg-control-secondary-border);
+  background: var(--hg-surface); color: var(--hg-text); font: inherit; font-size: var(--hg-text-md); line-height: 1.3;
+  text-align: start; cursor: pointer; transition: border-color var(--hg-motion-fast), box-shadow var(--hg-motion-fast), background-color var(--hg-motion-fast);
+}
+.hg-sel--sm { min-height: 36px; padding: 6px 10px; font-size: var(--hg-text-base); width: auto; }
+@media (max-width: 767px) { .hg-sel { font-size: 16px; min-height: 44px; } .hg-sel--sm { min-height: 40px; } }
+.hg-sel__value { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hg-sel__chev { width: 16px; height: 16px; flex: none; color: var(--hg-text-secondary); transition: transform var(--hg-motion-fast); }
+.hg-sel:hover { border-color: var(--hg-control-secondary-border-hover); }
+.hg-sel[data-open] { border-color: var(--hg-primary); box-shadow: var(--hg-shadow-focus); }
+.hg-sel[data-open] .hg-sel__chev, .hg-fsel[data-open] .hg-fsel__chev { transform: rotate(180deg); }
+.hg-sel:focus-visible { outline: none; border-color: var(--hg-primary); box-shadow: var(--hg-shadow-focus); }
+.hg-sel[aria-invalid='true'] { border-color: var(--hg-status-danger-solid); }
+.hg-sel:disabled { background: var(--hg-surface-sunken); color: var(--hg-text-tertiary); cursor: not-allowed; }
+
+/* The opened list: a quiet white card — our radius, our hairline, a restrained shadow, warm selection. */
+.hg-select-popup {
+  position: fixed; z-index: calc(var(--hg-z-modal) + 2); max-width: min(360px, calc(100vw - 32px));
+  background: var(--hg-surface); border: 1px solid var(--hg-border); border-radius: var(--hg-radius-lg); box-shadow: var(--hg-shadow-lg);
+  animation: hg-fade var(--hg-motion-fast) ease-out;
+}
+.hg-select-popup[data-placement='bottom'] { animation-name: hg-pop-down; }
+.hg-select-popup[data-placement='top'] { animation-name: hg-pop-up; }
+.hg-listbox { max-height: min(var(--hg-popover-avail, 320px), 320px); overflow-y: auto; overscroll-behavior: contain; padding: 6px; outline: none; }
+.hg-listbox--sheet { max-height: none; padding: 0; }
+.hg-listbox__group { padding: 10px 12px 4px; font-size: var(--hg-text-xs); font-weight: var(--hg-weight-semibold); letter-spacing: 0.02em; text-transform: uppercase; color: var(--hg-text-tertiary); }
+.hg-listbox__group:not(:first-child) { margin-top: 4px; border-top: 1px solid var(--hg-border-subtle); padding-top: 10px; }
+.hg-listbox__opt {
+  display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 8px 12px; border-radius: var(--hg-radius-sm);
+  font-size: var(--hg-text-base); color: var(--hg-text); cursor: pointer; user-select: none;
+}
+.hg-listbox__text { flex: 1 1 auto; min-width: 0; }
+.hg-listbox__check { width: 16px; height: 16px; flex: none; color: var(--hg-primary); }
+.hg-listbox__opt[data-active] { background: var(--hg-surface-warm); }
+.hg-listbox__opt[aria-selected='true'] { color: var(--hg-primary-text); font-weight: var(--hg-weight-semibold); }
+.hg-listbox__opt[aria-selected='true'][data-active] { background: var(--hg-primary-subtle); }
+.hg-listbox__opt[aria-disabled='true'] { color: var(--hg-text-tertiary); cursor: not-allowed; opacity: 0.6; }
+.hg-listbox--sheet .hg-listbox__opt { min-height: 48px; border-radius: 0; padding-inline: 20px; }
+.hg-listbox--sheet .hg-listbox__opt + .hg-listbox__opt { border-top: 1px solid var(--hg-border-subtle); }
 
 .hg-input--sm { min-height: 36px; padding: 6px 10px; font-size: var(--hg-text-base); }
 @media (max-width: 767px) { .hg-input--sm { min-height: 40px; font-size: 16px; } }
@@ -563,8 +607,6 @@ button.hg-check-item { background: none; border: 0; width: 100%; text-align: sta
 .hg-table-bulk { background: var(--hg-surface-warm); }
 .hg-table tbody tr:focus-visible { outline: 2px solid var(--hg-focus); outline-offset: -2px; }
 /* Compact selects keep room for the chevron (the small-input padding must not override it). */
-.hg-select.hg-input--sm { padding-inline-end: 30px; background-position: right 8px center; }
-[dir='rtl'] .hg-select.hg-input--sm { background-position: left 8px center; }
 
 /* V8: responsive column priority — low-priority columns fold into an expandable details row instead of side-scrolling */
 .hg-table__toggle { width: 44px; padding-inline: 4px !important; text-align: end; }

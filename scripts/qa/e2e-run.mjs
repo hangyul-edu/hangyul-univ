@@ -2,7 +2,7 @@
 //   node scripts/qa/e2e-run.mjs [playwright args…]
 // 1. clones hangyul_univ_e2e from the pristine template (scripts/qa/e2e-db.mjs; build it once with `template`)
 // 2. API on :8090 against that database (no reload)
-// 3. production builds of the four apps into dist-e2e (demo logins on, cross-app links → 460x), `vite preview` on 4600–4603
+// 3. production builds of the four apps into dist-e2e (cross-app links → 460x), `vite preview` on 4600–4603
 // 4. Playwright with HG_E2E_* pointing at the isolated stack; then stops only what it started.
 import { execFileSync, spawn } from 'node:child_process';
 
@@ -20,7 +20,12 @@ const wait = async (url, ms = 90_000) => {
 const E2E_STORAGE = './var/uploads-e2e';
 import { rmSync, mkdirSync } from 'node:fs';
 rmSync(`server/${E2E_STORAGE}`, { recursive: true, force: true }); mkdirSync(`server/${E2E_STORAGE}`, { recursive: true });
-const stop = () => { for (const p of started) { try { process.kill(-p.pid, 'SIGTERM'); } catch { /* gone */ } } try { rmSync(`server/${E2E_STORAGE}`, { recursive: true, force: true }); } catch { /* fine */ } };
+const stop = () => {
+  for (const p of started) { try { process.kill(-p.pid, 'SIGTERM'); } catch { /* gone */ } }
+  try { rmSync(`server/${E2E_STORAGE}`, { recursive: true, force: true }); } catch { /* fine */ }
+  // V32: the cloned database is dropped with the stack, so no synthetic data outlives the run (teardown-check verifies).
+  try { execFileSync('node', ['scripts/qa/e2e-db.mjs', 'drop'], { stdio: 'ignore' }); } catch { /* the template stays */ }
+};
 process.on('exit', stop);
 process.on('SIGINT', () => process.exit(130));
 
@@ -31,7 +36,6 @@ for (const port of [API_PORT, ...Object.values(PORTS)]) {
 sh('node', ['scripts/qa/e2e-db.mjs', 'fresh']);
 const env = {
   ...process.env,
-  VITE_DEMO_LOGINS: 'true',
   VITE_MARKETING_URL: `http://localhost:${PORTS.marketing}`,
   VITE_STUDENT_APP_URL: `http://localhost:${PORTS.student}`,
   VITE_AGENCY_APP_URL: `http://localhost:${PORTS.agency}`,
@@ -58,7 +62,9 @@ await wait(`http://localhost:${API_PORT}/healthz`);
 for (const port of Object.values(PORTS)) await wait(`http://localhost:${port}/`);
 let code = 0;
 try {
-  sh('npx', ['playwright', 'test', ...process.argv.slice(2)], {
+  // `--vitest <dir>`: an API-integration vitest suite (e.g. apps/student-mobile) against this stack instead of Playwright
+  const vitest = process.argv[2] === '--vitest' ? process.argv[3] : null;
+  sh('npx', vitest ? ['vitest', 'run', '--root', vitest, 'integration'] : ['playwright', 'test', ...process.argv.slice(2)], {
     env: {
       ...process.env,
       HG_E2E_API: `http://localhost:${API_PORT}`,
@@ -66,7 +72,9 @@ try {
       HG_E2E_STUDENT: `http://localhost:${PORTS.student}`,
       HG_E2E_AGENCY: `http://localhost:${PORTS.agency}`,
       HG_E2E_UNIVERSITY: `http://localhost:${PORTS.university}`,
+      HG_E2E_DB_URL: DB_URL, // for the fixture helpers a spec runs against the e2e database (scripts/fixture_pay.py)
       HG_E2E_KEEP: '1', // the database is thrown away after the run; no purge needed
+      HG_QA_API: `http://localhost:${API_PORT}/api/v1`,
     },
   });
 } catch (e) { code = e.status ?? 1; }

@@ -91,4 +91,5 @@ if (failures.length) {
   for (const f of failures) console.error(`  ${f}\n`);
   process.exit(1);
 }
-console.log(`Koreanasha copy fidelity: OK — ${checked}/${manifest.strings.length * CANONICAL.length} strings (${CANONICAL.join(' + ')}) match the owner-supplied source exactly (substitutions: brand/count only).`);
+const revised = manifest.strings.filter((s) => s.ruRevised).length;
+console.log(`Koreanasha copy fidelity: OK — ${checked}/${manifest.strings.length * CANONICAL.length} strings (${CANONICAL.join(' + ')}) match the pinned text (substitutions: brand/count only); ko is the owner's source verbatim, ${revised} ru entries were re-rendered in V32 (ruRevised).`);

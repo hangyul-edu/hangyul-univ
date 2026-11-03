@@ -113,21 +113,22 @@ lockup is the BI-kit asset** (`logo-combined.png` + an @2x and a light-ink varia
 `docs/TEMPLATE_EDUAN_INVENTORY.md`, `docs/TEMPLATE_YNEX_INVENTORY.md`; photography and brand assets:
 `docs/MEDIA_LICENSE_AUDIT.md` (which absorbed `MARKETING_ASSETS.md` in V26).
 
-## Demo data
+## Data in a runtime database (V32)
 
-The seed creates realistic but **fictional** people, agencies, partnerships (`is_demo`) and numbers
-(`verification_status = DEMO`). Program lists, tuition, fees, dates and dorm costs are sample data.
+A development or production database holds **reference data and nothing else**: the 425-institution directory from
+대학알리미, Study in Korea and Wikidata (every field carrying its source, every unsourced field absent), the verified
+scholarships, language rules and admission guides, legalization and visa rules, the visa playbooks, the three approved
+plans and the editorial articles. There are **no demo people, agencies, partnerships, programmes, prices, deadlines or
+dorm costs** in a runtime database, no `is_demo` or `verification_status = DEMO` rows, and no test accounts: sign-in is
+the real registration flow everywhere; the V16–V31 shortcuts ("테스트 계정으로 로그인" and "테스트: 선택한 플랜으로 시작") were removed
+from the product in V32.
 
-**V12 changed how that is handled, not whether it is true.** V10 and V11 labelled every unverified figure
-"Sample data" in the UI. The rule now is the brief's sharper one: *a public surface does not render a value it
-cannot verify at all.* So no cost, deadline, requirement or match reaches a public page — not labelled, not
-dimmed, not footnoted — and the labels themselves are gone from ordinary product chrome, because a product
-covered in "DEMO" badges reads as a development build whatever the badges say. Seeded figures still exist on the
-authenticated surfaces that need them, and `/__dev` (development builds only) says plainly which data is which.
-
-The **public institution directory is the exception that proves it**: 425 institutions from 대학알리미, Study in
-Korea and Wikidata, every field carrying the source that produced it, and every field with no source simply
-absent. It needs no label because there is nothing on it to disclaim.
+Synthetic data still exists where automated tests need it — `server/app/seed/fixtures.py`, loaded only into databases
+whose name contains `test` or `e2e` and dropped with the run (`npm run qa:v32-data-clean` and the teardown check prove
+the runtime database stayed clean). The public rule from V12 is unchanged and now trivially true: a public surface
+renders only what it can verify, because nothing else exists to render. Authenticated products with no real members
+show their real first-user states (empty applications, empty documents, a clear next step), never fabricated cases; when
+the private API itself cannot be reached they show the branded service-unavailable state with Retry.
 
 ## V9 — what the product is now (2026-10-14)
 

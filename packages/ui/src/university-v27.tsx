@@ -12,7 +12,8 @@ import type { InstAdmissions, InstScholarship, InstScholarshipPick, StudyLevel, 
 import { cx, formatDate, formatNumber, scholarshipName } from '@hangyul/utils';
 import { useState, type ReactNode } from 'react';
 
-import { FilterSelect } from './primitives';
+import {  } from './primitives';
+import { FilterSelect } from './select';
 import './styles/university-v27.css';
 
 const CATS = ['GKS', 'UNIVERSITY', 'LANGUAGE', 'ACADEMIC', 'DEPARTMENT', 'FOUNDATION', 'HOUSING'];

@@ -72,7 +72,8 @@ from app.models.enums import (
     DocumentCategory as DC,
 )
 from app.seed import essay_text
-from app.seed.run import DEMO_PASSWORD, NOW, TODAY, make_user, tiny_pdf
+from app.seed.fixtures import DEMO_PASSWORD, make_user
+from app.seed.run import NOW, TODAY, tiny_pdf
 from app.services.notify import notify
 from app.services.readiness import application_readiness
 from app.services.tasks_engine import generate_for_student

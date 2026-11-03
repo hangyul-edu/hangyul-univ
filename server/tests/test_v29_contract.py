@@ -32,10 +32,33 @@ def _buy(client, code: str) -> dict:
     # Uzbekistan, like test_v21b: twenty paid Vietnamese students here would shift the load-balanced agency assignment
     # that test_v9_adversarial asserts for the next Vietnamese Premium student.
     reg = register_student(client, nationality="UZ")
-    r = client.post(f"{API}/me/orders/dev-complete", json={"product_code": code}, headers=reg["h"])
-    assert r.status_code == 200, r.text
     uid = client.get(f"{API}/auth/me", headers=reg["h"]).json()["user"]["id"]
+    _grant(uid, code)  # the fixture activation: the same transition a payment performs, no provider (V32)
     return {"h": reg["h"], "id": uid}
+
+
+def _grant(user_id: str, code: str) -> None:
+    import uuid
+
+    from app.core.db import SessionLocal
+    from app.models import User
+    from app.seed.fixtures import grant_plan
+
+    with SessionLocal() as db:
+        grant_plan(db, db.get(User, uuid.UUID(user_id)), code)
+        db.commit()
+
+
+def _pay(order_id: str) -> None:
+    import uuid
+
+    from app.core.db import SessionLocal
+    from app.models import Order
+    from app.seed.fixtures import pay_order
+
+    with SessionLocal() as db:
+        pay_order(db, db.get(Order, uuid.UUID(order_id)))
+        db.commit()
 
 
 def _draft(client, h) -> dict:
@@ -145,8 +168,7 @@ def test_managed_applications_stop_at_the_contract_and_the_next_one_is_an_add_on
     dec = client.post(f"{API}/me/add-ons/{offer.json()['id']}", headers=s["h"], json={"approve": True}).json()
     assert dec["status"] == "AWAITING_PAYMENT" and dec["order"]["amount_minor"] == 4000
     assert _advance(client, s["h"], extra["id"]).status_code == 409, "approval without payment grants nothing"
-    paid = client.post(f"{API}/me/orders/{dec['order']['order_id']}/dev-complete", headers=s["h"])
-    assert paid.status_code == 200, paid.text
+    _pay(dec["order"]["order_id"])
     assert _advance(client, s["h"], extra["id"]).status_code == 200
 
 
@@ -190,7 +212,7 @@ def test_premium_unlimited_never_reaches_a_new_document(client, ops):
                     json={"code": "EXTRA_ESSAY_ROUND", "unit_amount_minor": 2500, "subject_type": "essay", "subject_id": cv})
     assert o.status_code == 201, o.text
     dec = client.post(f"{API}/me/add-ons/{o.json()['id']}", headers=s["h"], json={"approve": True}).json()
-    client.post(f"{API}/me/orders/{dec['order']['order_id']}/dev-complete", headers=s["h"])
+    _pay(dec["order"]["order_id"])
     assert _submit(client, s["h"], cv).status_code == 200
     _send_back(client, ops, cv)
     assert _submit(client, s["h"], cv).status_code == 409, "one paid round, one round"
@@ -265,7 +287,7 @@ def test_a_service_case_add_on_opens_real_work_once_paid_and_completes_with_it(c
     with SessionLocal() as db:
         assert db.scalar(select(ServiceAddOn.case_id).where(ServiceAddOn.id == uuid.UUID(aid))) is None
     for _ in range(2):  # idempotent: paying twice activates once
-        assert client.post(f"{API}/me/orders/{dec['order']['order_id']}/dev-complete", headers=s["h"]).status_code == 200
+        _pay(dec["order"]["order_id"])
     with SessionLocal() as db:
         row = db.get(ServiceAddOn, uuid.UUID(aid))
         assert row.status == AddOnStatus.ACTIVE and row.case_id is not None

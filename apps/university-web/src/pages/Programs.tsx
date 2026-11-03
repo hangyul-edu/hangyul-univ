@@ -3,7 +3,7 @@ import { useAuth } from '@hangyul/auth';
 import { BookOpen, CalendarDays, Clock, ExternalLink, Eye, Pencil, Receipt, Search, Users, Wallet } from '@hangyul/icons';
 import { useLocale } from '@hangyul/i18n';
 import type { Intake, Program, RequirementProposal } from '@hangyul/types';
-import { Button, Drawer, EmptyState, FilterSelect, QueryState, SkeletonCard, useToast } from '@hangyul/ui';
+import { Button, Drawer, EmptyState, FilterSelect, QueryState, Select, SkeletonCard, useToast } from '@hangyul/ui';
 import { Col, DateTimeline, PageHeader, Row, SoftBadge, YCard } from '@hangyul/ynex-ui';
 import { cx, daysUntil, formatDate, formatDateTime, formatMoney, formatNumber } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -369,9 +369,9 @@ export default function Programs() {
                       {degrees.map((d) => <option key={d} value={d}>{t(`common:degreeShort.${d}`)}</option>)}
                     </FilterSelect>
                     <label className="hg-label uc-only-compact mb-0" htmlFor="prog-pick">{t('university:filters.program')}</label>
-                    <select id="prog-pick" className="form-select uc-only-compact w-100" value={selected.id} onChange={(e) => select(e.target.value)}>
+                    <Select id="prog-pick" className="uc-only-compact" style={{ width: '100%' }} value={selected.id} onChange={(e) => select(e.target.value)}>
                       {filtered.map((p) => <option key={p.id} value={p.id}>{p.name_en}{p.is_active === false ? ` (${t('university:v8.pr.inactive')})` : ''}</option>)}
-                    </select>
+                    </Select>
                   </div>
                   <ul className="list-unstyled mb-0 uc-only-wide uv7-master__items">
                     {filtered.map((p) => {

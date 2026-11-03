@@ -15,7 +15,7 @@ same files. Provenance rules:
   * fields the re-validation could NOT confirm are listed in ``v9_revalidation.unconfirmed`` (never guessed);
   * ``verification_status`` is VERIFIED only when nothing is left unconfirmed;
   * time-versioned rules (Kyrgyzstan 2027-01-01) live in ``scheduled_changes`` with ``effective_from`` and are NOT
-    applied to the current values (see app/seed/extra_95_visa_data.py ``materialize``);
+    applied to the current values (see app/seed/visa_playbooks.py ``materialize``);
   * announced-but-not-in-force MOJ plans (2026-10-07) are ``watch_items`` only, never rules.
 
 Usage (from server/):  .venv/bin/python scripts/v9_visa_research_apply.py

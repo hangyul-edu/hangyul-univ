@@ -98,7 +98,7 @@ def seed(db: Session, ctx: dict[str, Any]) -> None:
     db.add(WritingPolicy(organization_id=None, first_review_hours=48, revision_review_hours=48, final_review_hours=24))
 
     # ---- Hangyul writing specialist
-    from app.seed import run as R
+    from app.seed import fixtures as R
 
     hangyul = ctx.get("hangyul") or db.scalar(select(Organization).where(Organization.type == OrgType.HANGYUL))
     writer = R.make_user(db, "writing@demo.hangyul.kr", "Yoo Ha-neul", locale="ko", roles=[Role.HANGYUL_COUNSELOR])

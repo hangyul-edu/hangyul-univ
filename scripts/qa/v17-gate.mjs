@@ -10,6 +10,7 @@
  *   npm run qa:v17
  *   SKIP_BUILD=1 npm run qa:v17      # skip the review-bundle section (~4 min of vite builds)
  */
+import { apiToken } from './auth.mjs';
 import { chromium } from '@playwright/test';
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
@@ -37,9 +38,7 @@ async function signIn(page, base, email) {
   await page.click('button[type=submit]');
   await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 60_000 });
 }
-const token = (email, client) => fetch(`${API}/api/v1/auth/demo-login`, {
-  method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, client }),
-}).then((r) => r.json()).then((j) => j.access_token);
+const token = (email, client) => apiToken(`${API}/api/v1`, email, client);
 
 /* ------------------------------------------------------------------------------ 1. USD, end to end */
 head('USD is the product currency, in the manifest, the API and the page');

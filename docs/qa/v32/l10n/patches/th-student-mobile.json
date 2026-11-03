@@ -1,0 +1,2053 @@
+{
+  "_notes": [
+    "Missing Thai: 402 keys had no `cur` at all (payments, agency/university apps, housing, MFA, eyebrows). All are translated here; staff-facing mobile:agency.* / mobile:university.* / mobile:v3.uni.* / mobile:v3.reviews.* are kept short and formal, student strings warm with คุณ.",
+    "'plan' (purchasable package) stays แพ็กเกจ throughout: the existing Thai uses it consistently, and แผน alone collides with แผนการศึกษา (study plan). Glossary 'avoid package' is an English-side rule; owner to confirm if แผนบริการ is preferred instead.",
+    "Student-facing 'ที่ปรึกษา' (counselor) replaced with ทีม Hangyul / ทีม Hangyul Univ per V22 team identity; agency/university strings keep ที่ปรึกษา (staff-facing). Existing 'ทีม Hangyul' vs 'ทีม Hangyul Univ' variation in untouched keys left as is (both are the team name).",
+    "Official terms used: อะพอสตีย์ (was อะพอสทิล/Apostille), การรับรองโดยสถานกงสุล for consular legalization, หนังสือตอบรับเข้าศึกษาแบบมาตรฐาน for the standard admission letter (was ฉบับมาตรฐาน in two keys).",
+    "One term per concept: personal statement = เรียงความแนะนำตนเอง, study plan = แผนการศึกษา, editing = ตรวจแก้, managed application = ใบสมัครที่ทีมดูแลร่วมกับคุณ, priority response = ตอบกลับเป็นลำดับแรก, eligibility = ผ่านเกณฑ์ (mobile:v3.match.* changed from มีคุณสมบัติ).",
+    "visa_support / gate.what.visa / stageLine.visa: 'เตรียมวีซ่า' → 'เตรียมเอกสารวีซ่า' or 'กำลังเตรียมวีซ่านักศึกษาของคุณ' so Hangyul never reads as issuing the visa. mobile:v3.offer.step.visa 'เตรียมวีซ่านักศึกษา' left: it is the student's own step.",
+    "mobile:login.networkError: dropped the Android-emulator / LAN-IP hint, matching the reviewed English (dev-only).",
+    "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary: dropped 'items transferred, timing, retention period' which are not in the reviewed English; now identical to the web version.",
+    "student:onboarding.sponsor.goalPh keeps 'บริษัทไทย' (Thai companies) instead of the English 'Vietnamese companies': market-local example, meaning unchanged. Owner may prefer a neutral example.",
+    "mobile:v3.reviews.verify / verifyN / bulkTitle: 'Verify document' rendered ยืนยันเอกสาร (confirm it checks out), not รับรอง, which Thai readers would take as apostille/notary-style certification.",
+    "mobile:v3.reviews.legalization field label rendered การรับรองเอกสาร (covers apostille or consular legalization); the {{path}} value names the exact route.",
+    "Counts: 'documents' uses รายการ consistently (home.documentsSub, docsChecking, needYou); students use คน; attachments use ไฟล์; messages use ข้อความ. _one forms carry {{count}} like _other since Thai has no plural morphology.",
+    "Keys left in Latin on purpose: IELTS, TOEFL iBT, TOPIK, Hangyul Univ/Agency/University, {{from}} – {{until}}, {{min}}–{{max}} (no translatable text)."
+  ],
+  "student:dashboard.arrival.landing": {
+    "text": "เดินทางถึง {{date}}",
+    "why": "landing = arrival, not aircraft touchdown"
+  },
+  "student:dashboard.counselor.noneCta": {
+    "text": "ดูแพ็กเกจ",
+    "why": "says \"plans\", not \"help options\""
+  },
+  "student:documents.upload.countryHint": {
+    "text": "ใช้ตัดสินว่าต้องมีอะพอสตีย์ (apostille) หรือไม่",
+    "why": "official apostille spelling"
+  },
+  "student:essays.comments_one": {
+    "text": "{{count}} ความคิดเห็น",
+    "why": "missing Thai"
+  },
+  "student:home.closestSub": {
+    "text": "คุณยังไม่ผ่านเกณฑ์ที่ประกาศไว้ครบทุกข้อ นี่คือสิ่งที่ยังขาดอยู่",
+    "why": "drop awkward \"อย่างชัดเจน\""
+  },
+  "student:home.docAction.IN_REVIEW": {
+    "text": "กำลังตรวจสอบ",
+    "why": "missing Thai"
+  },
+  "student:home.docAction.LEGALIZE": {
+    "text": "ต้องมีอะพอสตีย์",
+    "why": "missing Thai"
+  },
+  "student:home.docAction.OPEN": {
+    "text": "เปิด",
+    "why": "missing Thai"
+  },
+  "student:home.documentsSub_other": {
+    "text": "มีเอกสาร {{count}} รายการที่รอคุณดำเนินการ",
+    "why": "align wording with _one form"
+  },
+  "student:home.otherTasks_one": {
+    "text": "งานอื่นอีก {{count}} รายการ",
+    "why": "missing Thai"
+  },
+  "student:home.team": {
+    "text": "ทีม Hangyul Univ",
+    "why": "team display name, no \"ของคุณ\""
+  },
+  "student:housing.noDorms": {
+    "text": "มหาวิทยาลัยนี้ยังไม่ได้เผยแพร่ข้อมูลหอพัก",
+    "why": "missing Thai"
+  },
+  "student:housing.noUni": {
+    "text": "ส่วนที่พักจะเปิดเมื่อคุณมีใบสมัครแรก",
+    "why": "missing Thai"
+  },
+  "student:housing.noUniCta": {
+    "text": "ไปที่ใบสมัคร",
+    "why": "missing Thai"
+  },
+  "student:housing.noUniText": {
+    "text": "เมื่อคุณสมัครแล้ว เราจะแสดงตัวเลือกหอพักและค่าใช้จ่ายของมหาวิทยาลัยนั้น",
+    "why": "missing Thai"
+  },
+  "student:housing.subtitle": {
+    "text": "เปรียบเทียบตัวเลือกหอพักและติดตามขั้นตอนเรื่องที่พักของคุณ",
+    "why": "missing Thai"
+  },
+  "student:housing.title": {
+    "text": "ที่พัก",
+    "why": "missing Thai"
+  },
+  "student:login.aside.point3": {
+    "text": "เตรียมตัวไปกับคนจริง ๆ ในทีม Hangyul ที่พูดภาษาของคุณ",
+    "why": "team identity, not \"counselor\""
+  },
+  "student:messages.unread_one": {
+    "text": "ข้อความที่ยังไม่ได้อ่าน {{count}} ข้อความ",
+    "why": "missing Thai"
+  },
+  "student:onboarding.goals.degreeSub.LANGUAGE": {
+    "text": "เริ่มจากภาษาเกาหลีก่อน ตามจังหวะของคุณเอง",
+    "why": "drop invented \"popular, not heavy\""
+  },
+  "student:onboarding.passport.visa.D-4": {
+    "text": "D-4 (หลักสูตรภาษา)",
+    "why": "D-4 is the language-course visa"
+  },
+  "student:onboarding.steps.basics.eyebrow": {
+    "text": "เกี่ยวกับคุณ",
+    "why": "missing Thai"
+  },
+  "student:onboarding.steps.education.eyebrow": {
+    "text": "การศึกษาของคุณ",
+    "why": "missing Thai"
+  },
+  "student:onboarding.steps.goals.eyebrow": {
+    "text": "เป้าหมายของคุณ",
+    "why": "missing Thai"
+  },
+  "student:onboarding.steps.language.eyebrow": {
+    "text": "ภาษา",
+    "why": "missing Thai"
+  },
+  "student:onboarding.steps.passport.eyebrow": {
+    "text": "การเดินทาง",
+    "why": "missing Thai"
+  },
+  "student:onboarding.steps.preferences.eyebrow": {
+    "text": "งบประมาณและการใช้ชีวิต",
+    "why": "missing Thai"
+  },
+  "student:onboarding.steps.sponsor.eyebrow": {
+    "text": "ขั้นตอนสุดท้าย",
+    "why": "missing Thai"
+  },
+  "student:profile.title": {
+    "text": "โปรไฟล์ของคุณ",
+    "why": "missing Thai"
+  },
+  "student:register.consent.title": {
+    "text": "เราจัดการข้อมูลของคุณอย่างไร",
+    "why": "plain heading, matches English"
+  },
+  "student:register.steps.consent": {
+    "text": "ความยินยอม",
+    "why": "noun form for a step label"
+  },
+  "student:v15.services.allowance.key.max_managed_applications": {
+    "text": "ใบสมัครที่ทีมดูแลร่วมกับคุณ",
+    "why": "shorter label, same meaning"
+  },
+  "student:v15.services.allowance.title": {
+    "text": "สิ่งที่รวมอยู่ และที่คุณใช้ไปแล้ว",
+    "why": "say \"used\", not \"usage\""
+  },
+  "student:v15.services.external": {
+    "text": "ไม่รวมในค่าบริการ: ค่าสมัครของมหาวิทยาลัย ค่าเล่าเรียน ค่าแปล ค่ารับรองโดยโนตารีและอะพอสตีย์ ค่าธรรมเนียมวีซ่า และค่าที่พัก",
+    "why": "official apostille term"
+  },
+  "student:v15.services.scope.priority_response": {
+    "text": "ทีม Hangyul ตอบกลับเป็นลำดับแรก",
+    "why": "one term for priority response"
+  },
+  "student:v15.services.scope.visa_support": {
+    "text": "เตรียมเอกสารวีซ่า",
+    "why": "visa documents, never the visa"
+  },
+  "student:v16.pay.amount": {
+    "text": "จำนวนเงิน",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.cancelled": {
+    "text": "คุณยกเลิกการชำระเงินแล้ว ยังไม่มีการตัดเงิน",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.couldNotStart": {
+    "text": "เปิดหน้าต่างชำระเงินไม่ได้",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.cta": {
+    "text": "ชำระเงินและเริ่มต้น",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.fail.title": {
+    "text": "การชำระเงินไม่สำเร็จ",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.method": {
+    "text": "วิธีชำระเงิน",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.methodCard": {
+    "text": "บัตร",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.notCharged": {
+    "text": "ยังไม่มีการตัดเงิน",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.orderNo": {
+    "text": "คำสั่งซื้อ",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.orderTitle": {
+    "text": "คำสั่งซื้อของคุณ",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.receipt": {
+    "text": "ดูใบเสร็จ",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.retry": {
+    "text": "ลองชำระเงินอีกครั้ง",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.sdkDown": {
+    "text": "โหลดหน้าต่างชำระเงินไม่ได้ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.selected": {
+    "text": "เลือกแล้ว",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.status.CANCELLED": {
+    "text": "ยกเลิกแล้ว",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.status.FAILED": {
+    "text": "ไม่สำเร็จ",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.status.PENDING": {
+    "text": "รอดำเนินการ",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.success.cta": {
+    "text": "เริ่มเตรียมตัว",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.success.text": {
+    "text": "คุณกำลังเริ่มเตรียมตัวเรียนต่อเกาหลีด้วย {{name}}",
+    "why": "missing Thai"
+  },
+  "student:v16.pay.success.title": {
+    "text": "ชำระเงินเรียบร้อย",
+    "why": "missing Thai"
+  },
+  "student:v17.gate.named": {
+    "text": "แพ็กเกจรวม{{what}}ไว้แล้ว เลือกแพ็กเกจเพื่อเริ่มต้น",
+    "why": "match English; no \"Hangyul takes care\""
+  },
+  "student:v17.gate.what.arrival": {
+    "text": "การดูแลเมื่อเดินทางถึงและช่วงตั้งหลัก",
+    "why": "add settling-in"
+  },
+  "student:v17.gate.what.compare": {
+    "text": "การเปรียบเทียบแบบเคียงข้างกัน",
+    "why": "natural Thai for side-by-side"
+  },
+  "student:v17.gate.what.essays": {
+    "text": "การตรวจแก้เรียงความแนะนำตนเองและแผนการศึกษา",
+    "why": "one term: personal statement/study plan"
+  },
+  "student:v17.gate.what.help": {
+    "text": "ความช่วยเหลือจากทีม Hangyul",
+    "why": "match English; not \"personal care\""
+  },
+  "student:v17.gate.what.housing": {
+    "text": "ความช่วยเหลือเรื่องหอพัก",
+    "why": "dormitory help, not \"housing\""
+  },
+  "student:v17.gate.what.messages": {
+    "text": "การส่งข้อความกับทีม Hangyul",
+    "why": "was just \"Hangyul Univ team\""
+  },
+  "student:v17.gate.what.tasks": {
+    "text": "รายการงานของคุณ",
+    "why": "task list, not \"work plan\""
+  },
+  "student:v17.gate.what.visa": {
+    "text": "การเตรียมเอกสารวีซ่า",
+    "why": "visa documents, never the visa"
+  },
+  "student:v17.upgrade.amount": {
+    "text": "ราคาอัปเกรด",
+    "why": "it is a price label"
+  },
+  "student:v17.upgrade.cta": {
+    "text": "อัปเกรดเป็น {{plan}}",
+    "why": "upgrade, not generic \"change\""
+  },
+  "student:v17.upgrade.feature.document_review": {
+    "text": "ตรวจเอกสารอย่างละเอียด",
+    "why": "intensive, not \"all documents\""
+  },
+  "student:v17.upgrade.feature.essay_review": {
+    "text": "ตรวจแก้เรียงความแนะนำตนเอง",
+    "why": "one term for personal statement"
+  },
+  "student:v17.upgrade.feature.managed_application": {
+    "text": "ใบสมัครที่ทีมดูแลร่วมกับคุณ",
+    "why": "one term; \"full-service filing\" overpromises"
+  },
+  "student:v17.upgrade.feature.settlement": {
+    "text": "การดูแลหลังเดินทางถึง",
+    "why": "align with v15 scope term"
+  },
+  "student:v21.pay.cardFailed": {
+    "text": "การชำระเงินไม่สำเร็จ",
+    "why": "missing Thai"
+  },
+  "student:v21.pay.cardSecure": {
+    "text": "ข้อมูลบัตรของคุณส่งถึง Hangyul ผ่านการเชื่อมต่อที่เข้ารหัสเท่านั้น แล้วส่งต่อไปยังผู้ให้บริการชำระเงินของเรา เราไม่เก็บหมายเลขบัตรของคุณ",
+    "why": "missing Thai"
+  },
+  "student:v21.pay.cardTitle": {
+    "text": "ชำระด้วยบัตร",
+    "why": "missing Thai"
+  },
+  "student:v21.pay.declined": {
+    "text": "บัตรไม่ได้รับการยอมรับ: {{reason}} ลองใช้บัตรอื่น หรือสอบถามธนาคารของคุณ",
+    "why": "missing Thai"
+  },
+  "student:v21.pay.expiry": {
+    "text": "วันหมดอายุ",
+    "why": "missing Thai"
+  },
+  "student:v21.pay.holder": {
+    "text": "ชื่อบนบัตร",
+    "why": "missing Thai"
+  },
+  "student:v21.pay.notConfigured": {
+    "text": "ตอนนี้ยังชำระด้วยบัตรที่นี่ไม่ได้ โปรดลองอีกครั้งในภายหลังหรือติดต่อเรา",
+    "why": "missing Thai"
+  },
+  "student:v21.pay.number": {
+    "text": "หมายเลขบัตร",
+    "why": "missing Thai"
+  },
+  "student:v21.pay.numberInvalid": {
+    "text": "โปรดตรวจสอบหมายเลขบัตร",
+    "why": "missing Thai"
+  },
+  "student:v21.pay.optional": {
+    "text": "ไม่บังคับ",
+    "why": "missing Thai"
+  },
+  "student:v21.pay.payCta": {
+    "text": "ชำระด้วยบัตรนี้",
+    "why": "missing Thai"
+  },
+  "student:v21.pay.processing": {
+    "text": "กำลังดำเนินการชำระเงิน…",
+    "why": "missing Thai"
+  },
+  "student:v21.pay.savedDelete": {
+    "text": "นำออก",
+    "why": "missing Thai"
+  },
+  "student:v21.pay.savedDeleteBody": {
+    "text": "เราจะลบ {{card}} ออกจากบัญชีของคุณ ไม่มีผลต่อการชำระเงินที่ทำไปแล้ว",
+    "why": "missing Thai"
+  },
+  "student:v21.pay.savedDeleteFailed": {
+    "text": "นำบัตรออกไม่ได้ โปรดลองอีกครั้ง",
+    "why": "missing Thai"
+  },
+  "student:v21.pay.savedDeleteTitle": {
+    "text": "นำบัตรนี้ออกหรือไม่",
+    "why": "missing Thai"
+  },
+  "student:v21.pay.savedNotReusable": {
+    "text": "ครั้งหน้าที่ซื้อ คุณจะต้องกรอกข้อมูลบัตรอีกครั้ง",
+    "why": "missing Thai"
+  },
+  "student:v21.pay.savedTitle": {
+    "text": "บัตรของคุณ",
+    "why": "missing Thai"
+  },
+  "student:v21.pay.tooMany": {
+    "text": "ลองใช้บัตรหลายครั้งเกินไป โปรดรอสักสองสามนาทีแล้วลองอีกครั้ง",
+    "why": "missing Thai"
+  },
+  "student:v22.checkout.oneTime": {
+    "text": "ชำระครั้งเดียว · ไม่ใช่การสมัครสมาชิก",
+    "why": "subscription, not \"auto-pay\""
+  },
+  "student:v22.home.appTeam.follow": {
+    "text": "กำลังติดตามความคืบหน้ากับฝ่ายรับสมัครของ {{university}}",
+    "why": "add admissions office"
+  },
+  "student:v22.home.appTeam.letter": {
+    "text": "กำลังติดตามหนังสือตอบรับเข้าศึกษาแบบมาตรฐานจาก {{university}}",
+    "why": "official document name"
+  },
+  "student:v22.home.docsChecking_other": {
+    "text": "กำลังตรวจเอกสาร {{count}} รายการ",
+    "why": "same classifier as _one"
+  },
+  "student:v26.explore.otherLevel": {
+    "text": "หลักสูตรระดับการศึกษาอื่นจะแสดงแบบจางลง ({{count}})",
+    "why": "dimmed, plainly"
+  },
+  "student:v26.now.scopeToggle": {
+    "text": "ดูทุกอย่างที่แพ็กเกจนี้รวมไว้",
+    "why": "it is an action, add \"ดู\""
+  },
+  "student:v29.services.catalogue.premiumEditing": {
+    "text": "แพ็กเกจ Premium รวมการตรวจแก้เอกสารตามสัญญาของคุณไว้แล้ว",
+    "why": "one term for editing"
+  },
+  "student:v29.services.unrationed.TEAM": {
+    "text": "ทีมของคุณติดตามให้ต่อเนื่อง",
+    "why": "clearer phrasing"
+  },
+  "student:v29.services.upgrade.amountPending": {
+    "text": "ทีม Hangyul Univ จะตกลงกับคุณโดยตรง",
+    "why": "arranged, not just \"informed\""
+  },
+  "student:writing.needYou": {
+    "text": "ถึงตาคุณเขียนหรือแก้ไข",
+    "why": "say what to do"
+  },
+  "student:writing.others": {
+    "text": "ทีม Hangyul กำลังตรวจ หรือเสร็จแล้ว",
+    "why": "clearer than \"with the team\""
+  },
+  "student:writing.status.FINAL_REVIEW": {
+    "text": "ทีม Hangyul กำลังตรวจ",
+    "why": "same English as AGENCY_REVIEW"
+  },
+  "mobile:agency.deadlines.empty": {
+    "text": "ไม่มีกำหนดส่งใน 30 วันข้างหน้า",
+    "why": "missing Thai"
+  },
+  "mobile:agency.deadlines.subtitle": {
+    "text": "กำหนดส่งของนักศึกษาที่คุณดูแลใน 30 วันข้างหน้า",
+    "why": "missing Thai"
+  },
+  "mobile:agency.deadlines.title": {
+    "text": "รายการเตือน",
+    "why": "missing Thai"
+  },
+  "mobile:agency.messages.subtitle": {
+    "text": "การสนทนากับนักศึกษาและบันทึกภายใน",
+    "why": "missing Thai"
+  },
+  "mobile:agency.messages.title": {
+    "text": "ข้อความ",
+    "why": "missing Thai"
+  },
+  "mobile:agency.reviews.detailTitle": {
+    "text": "การตรวจ",
+    "why": "missing Thai"
+  },
+  "mobile:agency.reviews.empty": {
+    "text": "ไม่มีเอกสารรอตรวจ",
+    "why": "missing Thai"
+  },
+  "mobile:agency.reviews.emptyBody": {
+    "text": "เอกสารที่นักศึกษาอัปโหลดใหม่จะแสดงที่นี่",
+    "why": "missing Thai"
+  },
+  "mobile:agency.reviews.history": {
+    "text": "ประวัติการตรวจ",
+    "why": "missing Thai"
+  },
+  "mobile:agency.reviews.lastReason": {
+    "text": "คำขอแก้ไขครั้งก่อน",
+    "why": "missing Thai"
+  },
+  "mobile:agency.reviews.noFile": {
+    "text": "ยังไม่มีไฟล์อัปโหลดสำหรับเอกสารนี้",
+    "why": "missing Thai"
+  },
+  "mobile:agency.reviews.reasonPlaceholder": {
+    "text": "ตัวอย่าง: ไม่มีหน้าอะพอสตีย์ โปรดอัปโหลดให้ครบทุกหน้า",
+    "why": "official apostille spelling"
+  },
+  "mobile:agency.reviews.sendToStudent": {
+    "text": "ส่งให้นักศึกษา",
+    "why": "missing Thai"
+  },
+  "mobile:agency.reviews.tab": {
+    "text": "งาน",
+    "why": "short tab label = \"Work\""
+  },
+  "mobile:agency.reviews.tabA11y_one": {
+    "text": "การตรวจ รอ {{count}} รายการ",
+    "why": "missing Thai"
+  },
+  "mobile:agency.reviews.tabA11y_other": {
+    "text": "การตรวจ รอ {{count}} รายการ",
+    "why": "missing Thai"
+  },
+  "mobile:agency.reviews.title": {
+    "text": "การตรวจเอกสาร",
+    "why": "missing Thai"
+  },
+  "mobile:agency.reviews.verify": {
+    "text": "ยืนยันเอกสาร",
+    "why": "missing Thai"
+  },
+  "mobile:agency.reviews.waitingDays_one": {
+    "text": "รอมาแล้ว {{count}} วัน",
+    "why": "missing Thai"
+  },
+  "mobile:agency.reviews.waitingDays_other": {
+    "text": "รอมาแล้ว {{count}} วัน",
+    "why": "missing Thai"
+  },
+  "mobile:agency.reviews.waitingHours_one": {
+    "text": "รอมาแล้ว {{count}} ชั่วโมง",
+    "why": "missing Thai"
+  },
+  "mobile:agency.reviews.waitingHours_other": {
+    "text": "รอมาแล้ว {{count}} ชั่วโมง",
+    "why": "missing Thai"
+  },
+  "mobile:agency.students.detailTitle": {
+    "text": "นักศึกษา",
+    "why": "missing Thai"
+  },
+  "mobile:agency.tasks.unassigned": {
+    "text": "ยังไม่ได้มอบหมาย",
+    "why": "missing Thai"
+  },
+  "mobile:app.agency": {
+    "text": "Hangyul Agency",
+    "why": "product name, keep Latin"
+  },
+  "mobile:app.university": {
+    "text": "Hangyul University",
+    "why": "product name, keep Latin"
+  },
+  "mobile:login.networkError": {
+    "text": "ตอนนี้ยังเชื่อมต่อกับ Hangyul ที่ {{url}} ไม่ได้ โปรดตรวจสอบการเชื่อมต่อแล้วลองอีกครั้งในอีกสักครู่",
+    "why": "drop emulator/LAN dev hint"
+  },
+  "mobile:login.webSignup": {
+    "text": "ยังไม่มีบัญชี? สร้างบัญชีได้เลยในแอป",
+    "why": "natural \"new here?\""
+  },
+  "mobile:messages.sendInternal": {
+    "text": "เก็บบันทึกภายใน",
+    "why": "avoid \"บันทึกบันทึก\""
+  },
+  "mobile:messages.unreadCount_one": {
+    "text": "ข้อความที่ยังไม่ได้อ่าน {{count}} ข้อความ",
+    "why": "missing Thai"
+  },
+  "mobile:more.active": {
+    "text": "กำลังใช้งาน",
+    "why": "missing Thai"
+  },
+  "mobile:more.allowanceSpent": {
+    "text": "คุณใช้ทุกอย่างที่แพ็กเกจนี้รวมไว้ครบแล้ว หน้าแพ็กเกจจะแสดงว่าแพ็กเกจใดครอบคลุมมากกว่า",
+    "why": "missing Thai"
+  },
+  "mobile:more.choose": {
+    "text": "เลือก",
+    "why": "missing Thai"
+  },
+  "mobile:more.noPlan": {
+    "text": "ยังไม่มีแพ็กเกจ",
+    "why": "missing Thai"
+  },
+  "mobile:more.noPlanHint": {
+    "text": "เลือกแพ็กเกจ แล้ว Hangyul จะเริ่มทำงานร่วมกับคุณ",
+    "why": "missing Thai"
+  },
+  "mobile:more.plan": {
+    "text": "แพ็กเกจ",
+    "why": "missing Thai"
+  },
+  "mobile:more.support": {
+    "text": "ขอความช่วยเหลือ",
+    "why": "missing Thai"
+  },
+  "mobile:more.supportHint": {
+    "text": "ส่งข้อความถึงทีม Hangyul",
+    "why": "missing Thai"
+  },
+  "mobile:more.webNote": {
+    "text": "การแก้ไขโปรไฟล์และการชำระเงินทำบนเว็บ",
+    "why": "missing Thai"
+  },
+  "mobile:plan.allowance.essay_review_rounds": {
+    "text": "ตรวจแก้เรียงความแนะนำตนเองและแผนการศึกษา",
+    "why": "missing Thai"
+  },
+  "mobile:plan.allowance.follow_up_consultations": {
+    "text": "ปรึกษาติดตามผล",
+    "why": "missing Thai"
+  },
+  "mobile:plan.allowance.max_managed_applications": {
+    "text": "ใบสมัครที่ทีมดูแลร่วมกับคุณ",
+    "why": "missing Thai"
+  },
+  "mobile:plan.allowance.max_recommended_institutions": {
+    "text": "การแนะนำมหาวิทยาลัย",
+    "why": "missing Thai"
+  },
+  "mobile:plan.allowance.mock_interviews": {
+    "text": "สัมภาษณ์จำลอง",
+    "why": "missing Thai"
+  },
+  "mobile:plan.browserFailed": {
+    "text": "เปิดเบราว์เซอร์ไม่ได้ โปรดชำระเงินบนเว็บ",
+    "why": "missing Thai"
+  },
+  "mobile:plan.card": {
+    "text": "คุณชำระด้วยบัตรต่างประเทศได้ (Visa, Mastercard, JCB)",
+    "why": "missing Thai"
+  },
+  "mobile:plan.chooseLede": {
+    "text": "ชำระครั้งเดียว ไม่ใช่การสมัครสมาชิก แพ็กเกจของคุณอยู่กับคุณตลอดช่วงที่เตรียมตัว",
+    "why": "missing Thai"
+  },
+  "mobile:plan.chooseTitle": {
+    "text": "เลือกแพ็กเกจ",
+    "why": "missing Thai"
+  },
+  "mobile:plan.handoff": {
+    "text": "การชำระเงินทำในเบราว์เซอร์ของคุณ และจะกลับมาที่แอปเมื่อเสร็จแล้ว",
+    "why": "missing Thai"
+  },
+  "mobile:plan.highestAlready": {
+    "text": "คุณใช้แพ็กเกจสูงสุดอยู่แล้ว",
+    "why": "missing Thai"
+  },
+  "mobile:plan.included": {
+    "text": "สิ่งที่รวมอยู่ในแพ็กเกจ",
+    "why": "missing Thai"
+  },
+  "mobile:plan.oneTime": {
+    "text": "ชำระครั้งเดียว",
+    "why": "missing Thai"
+  },
+  "mobile:plan.ongoing": {
+    "text": "ตลอดระยะเวลาบริการ",
+    "why": "missing Thai"
+  },
+  "mobile:plan.paid": {
+    "text": "ยอดที่ชำระ",
+    "why": "missing Thai"
+  },
+  "mobile:plan.pay": {
+    "text": "ชำระเงิน",
+    "why": "missing Thai"
+  },
+  "mobile:plan.plansTitle": {
+    "text": "แพ็กเกจ",
+    "why": "missing Thai"
+  },
+  "mobile:plan.selected": {
+    "text": "เลือกแล้ว",
+    "why": "missing Thai"
+  },
+  "mobile:plan.upgradeTitle": {
+    "text": "อัปเกรด",
+    "why": "missing Thai"
+  },
+  "mobile:plan.webNote": {
+    "text": "ประวัติแพ็กเกจและใบเสร็จดูได้บนเว็บ",
+    "why": "missing Thai"
+  },
+  "mobile:settings.elsewhere": {
+    "text": "ที่อื่น",
+    "why": "missing Thai"
+  },
+  "mobile:settings.notificationsHint": {
+    "text": "ดูการแจ้งเตือนที่คุณได้รับ",
+    "why": "missing Thai"
+  },
+  "mobile:settings.title": {
+    "text": "การตั้งค่า",
+    "why": "missing Thai"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.label": {
+    "text": "ฉันรับทราบว่าอีเมลและหมายเลขโทรศัพท์มือถือของฉันจะได้รับการประมวลผลในต่างประเทศเพื่อการยืนยัน",
+    "why": "align with web; drop \"notice\""
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Twilio Inc. (สหรัฐอเมริกา) เป็นผู้ส่ง SMS และอีเมลยืนยัน ส่วน Cloudflare, Inc. (สหรัฐอเมริกา) ตรวจสอบว่าการสมัครไม่ได้ทำโดยระบบอัตโนมัติ รายละเอียดรวมถึงวิธีปฏิเสธอยู่ในนโยบายความเป็นส่วนตัว หากปฏิเสธจะไม่สามารถสร้างบัญชีได้",
+    "why": "drop items not in English; align web"
+  },
+  "mobile:signup.consent.PRIVACY.summary": {
+    "text": "อีเมล หมายเลขโทรศัพท์มือถือ ชื่อ สัญชาติ และรหัสผ่าน (จัดเก็บแบบเข้ารหัส) เพื่อสร้างและปกป้องบัญชีของคุณ",
+    "why": "full sentence, no dash"
+  },
+  "mobile:signup.consentTitle": {
+    "text": "เราจัดการข้อมูลของคุณอย่างไร",
+    "why": "plain heading, matches English"
+  },
+  "mobile:signup.steps.consent": {
+    "text": "ความยินยอม",
+    "why": "noun form for a step label"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.body": {
+    "text": "คุณกำลังตอบรับข้อเสนอจาก {{university}} ทีม Hangyul Univ จะแนะนำขั้นตอนการชำระค่าเล่าเรียนและการขอรับหนังสือตอบรับเข้าศึกษาแบบมาตรฐานให้คุณ",
+    "why": "team identity; official letter name"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.body": {
+    "text": "ใบสมัครของคุณที่ {{university}} จะถูกปิด และย้อนกลับจากในแอปไม่ได้",
+    "why": "\"cannot be undone\", not \"cancel withdrawal\""
+  },
+  "mobile:student.documents.fixFallback": {
+    "text": "ทีม Hangyul ขอให้แก้ไขเอกสารนี้",
+    "why": "team identity; name the document"
+  },
+  "mobile:student.matches.deadline": {
+    "text": "ปิดรับสมัคร {{date}} · {{due}}",
+    "why": "university deadline, not task due date"
+  },
+  "mobile:student.messages.subtitle": {
+    "text": "คุยกับทีม Hangyul Univ",
+    "why": "team identity, not \"counselor\""
+  },
+  "mobile:student.messages.unreadA11y_one": {
+    "text": "ข้อความ ยังไม่ได้อ่าน {{count}} ข้อความ",
+    "why": "missing Thai"
+  },
+  "mobile:student.nextAction.COMPARE_OFFERS": {
+    "text": "เปรียบเทียบข้อเสนอการรับเข้า {{count}} รายการของคุณ",
+    "why": "say admission offers"
+  },
+  "mobile:student.nextAction.RESPOND_OFFER": {
+    "text": "ตอบกลับข้อเสนอการรับเข้าของคุณ",
+    "why": "one term for admission offer"
+  },
+  "mobile:student.tasks.subtitle": {
+    "text": "งานจากทีม Hangyul และเช็กลิสต์ใบสมัครของคุณ",
+    "why": "team identity; checklists, not \"system\""
+  },
+  "mobile:university.applicants.anonymous": {
+    "text": "ผู้สมัคร",
+    "why": "missing Thai"
+  },
+  "mobile:university.applicants.confirmBody": {
+    "text": "{{name}} และที่ปรึกษาของผู้สมัครจะได้รับแจ้ง เพิ่มบันทึกเพื่อเก็บเป็นหลักฐาน (ไม่บังคับ)",
+    "why": "missing Thai"
+  },
+  "mobile:university.applicants.confirmTitle": {
+    "text": "เปลี่ยนสถานะเป็น “{{status}}” หรือไม่",
+    "why": "missing Thai"
+  },
+  "mobile:university.applicants.detailTitle": {
+    "text": "ผู้สมัคร",
+    "why": "missing Thai"
+  },
+  "mobile:university.applicants.history": {
+    "text": "ประวัติสถานะ",
+    "why": "missing Thai"
+  },
+  "mobile:university.applicants.interview": {
+    "text": "สัมภาษณ์",
+    "why": "missing Thai"
+  },
+  "mobile:university.applicants.moveTo": {
+    "text": "ย้ายไปที่: {{status}}",
+    "why": "missing Thai"
+  },
+  "mobile:university.applicants.notShared": {
+    "text": "ยังไม่ได้แชร์กับมหาวิทยาลัยของคุณ",
+    "why": "missing Thai"
+  },
+  "mobile:university.applicants.note": {
+    "text": "บันทึก",
+    "why": "missing Thai"
+  },
+  "mobile:university.applicants.previewHint": {
+    "text": "เปิดตัวอย่างแบบปลอดภัยซึ่งมีวันหมดอายุ",
+    "why": "missing Thai"
+  },
+  "mobile:university.applicants.reference": {
+    "text": "หมายเลขอ้างอิงของคุณ",
+    "why": "missing Thai"
+  },
+  "mobile:university.applicants.submitted": {
+    "text": "ส่งเมื่อ {{date}}",
+    "why": "missing Thai"
+  },
+  "mobile:university.applicants.submittedLabel": {
+    "text": "ส่งแล้ว",
+    "why": "missing Thai"
+  },
+  "mobile:university.applicants.viaAgency": {
+    "text": "ผ่าน {{agency}}",
+    "why": "missing Thai"
+  },
+  "mobile:university.flagged.add": {
+    "text": "ติดธงเพื่อติดตาม",
+    "why": "missing Thai"
+  },
+  "mobile:university.flagged.addBody": {
+    "text": "เฉพาะทีมของมหาวิทยาลัยคุณเท่านั้นที่เห็นธงและเหตุผลนี้",
+    "why": "missing Thai"
+  },
+  "mobile:university.flagged.flagged": {
+    "text": "ติดธงแล้ว",
+    "why": "missing Thai"
+  },
+  "mobile:university.flagged.reason": {
+    "text": "เหตุผล",
+    "why": "missing Thai"
+  },
+  "mobile:university.flagged.remove": {
+    "text": "นำธงออก",
+    "why": "missing Thai"
+  },
+  "mobile:university.flagged.removeTitle": {
+    "text": "นำธงออกจากใบสมัครนี้หรือไม่",
+    "why": "missing Thai"
+  },
+  "mobile:university.inbox.title": {
+    "text": "ข้อความ",
+    "why": "missing Thai"
+  },
+  "mobile:university.login.tagline": {
+    "text": "ผู้สมัคร การตัดสินใจ และรุ่นนักศึกษา สำหรับฝ่ายวิเทศสัมพันธ์ของคุณ",
+    "why": "missing Thai"
+  },
+  "mobile:v29.mfa.codeHint": {
+    "text": "กรอกรหัส 6 หลักจากแอป Authenticator ของคุณ หรือรหัสกู้คืน",
+    "why": "missing Thai"
+  },
+  "mobile:v29.mfa.codeLabel": {
+    "text": "รหัสยืนยัน",
+    "why": "missing Thai"
+  },
+  "mobile:v29.mfa.enrollOnWeb": {
+    "text": "บัญชีนี้ต้องใช้การยืนยันสองขั้นตอน โปรดตั้งค่าในคอนโซลบนเว็บก่อน แล้วจึงเข้าสู่ระบบที่นี่",
+    "why": "missing Thai"
+  },
+  "mobile:v29.mfa.verify": {
+    "text": "ยืนยันและเข้าสู่ระบบ",
+    "why": "missing Thai"
+  },
+  "mobile:v29.mfa.wrongCode": {
+    "text": "รหัสไม่ถูกต้องหรือหมดอายุแล้ว กรอกรหัสใหม่",
+    "why": "missing Thai"
+  },
+  "mobile:v29.plan.arrival": {
+    "text": "เดินทางถึงและตั้งหลัก",
+    "why": "arrival, not travel"
+  },
+  "mobile:v29.plan.supportDays": {
+    "text": "ให้คำปรึกษา {{count}} วันนับจากการปรึกษาครั้งแรก",
+    "why": "say what the days are"
+  },
+  "mobile:v29.plan.unrationed.PRIORITY": {
+    "text": "ตอบกลับเป็นลำดับแรก",
+    "why": "one term with student app"
+  },
+  "mobile:v29.plan.unrationed.TEAM": {
+    "text": "ทีมของคุณติดตามให้ต่อเนื่อง",
+    "why": "clearer phrasing"
+  },
+  "mobile:v3.agency.allClear": {
+    "text": "เรียบร้อยทั้งหมด: {{list}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.applications_one": {
+    "text": "ใบสมัคร {{count}} รายการ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.applications_other": {
+    "text": "ใบสมัคร {{count}} รายการ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.att.breached_one": {
+    "text": "{{count}} รายการเกินเวลาที่สัญญาไว้แล้ว",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.att.breached_other": {
+    "text": "{{count}} รายการเกินเวลาที่สัญญาไว้แล้ว",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.att.closing_one": {
+    "text": "ใบสมัครที่จะปิดรับภายใน 7 วัน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.att.closing_other": {
+    "text": "ใบสมัครที่จะปิดรับภายใน 7 วัน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.att.docs_one": {
+    "text": "เอกสารที่รอการตรวจ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.att.docs_other": {
+    "text": "เอกสารที่รอการตรวจ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.att.next": {
+    "text": "ถัดไป: {{uni}} ของ {{who}}, {{date}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.att.overSla": {
+    "text": "{{count}} รายการรอนานกว่า {{hours}} ชม.",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.att.overdue_one": {
+    "text": "งานที่เลยกำหนด",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.att.overdue_other": {
+    "text": "งานที่เลยกำหนด",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.att.replies_one": {
+    "text": "นักศึกษาที่รอคำตอบจากคุณ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.att.replies_other": {
+    "text": "นักศึกษาที่รอคำตอบจากคุณ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.att.since": {
+    "text": "ค้างนานที่สุดจาก {{who}}, {{when}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.att.sla_one": {
+    "text": "นักศึกษาที่เสี่ยงได้รับการตอบกลับครั้งแรกล่าช้า",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.att.sla_other": {
+    "text": "นักศึกษาที่เสี่ยงได้รับการตอบกลับครั้งแรกล่าช้า",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.block.deadline": {
+    "text": "{{uni}} ใกล้ปิดรับสมัคร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.block.fix": {
+    "text": "{{doc}} ต้องให้นักศึกษาแก้ไข",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.block.requested": {
+    "text": "{{uni}} ขอเอกสารเพิ่มเติม",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.block.review": {
+    "text": "{{doc}} รอการตรวจจากคุณ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.block.sla": {
+    "text": "ถึงกำหนดตอบกลับครั้งแรก",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.blockers_one": {
+    "text": "มี {{count}} เรื่องที่ทำให้นักศึกษาคนนี้ติดอยู่",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.blockers_other": {
+    "text": "มี {{count}} เรื่องที่ทำให้นักศึกษาคนนี้ติดอยู่",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.clear.closing": {
+    "text": "กำหนดส่งสัปดาห์นี้",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.clear.docs": {
+    "text": "การตรวจเอกสาร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.clear.overdue": {
+    "text": "งานเลยกำหนด",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.clear.replies": {
+    "text": "การตอบกลับนักศึกษา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.clear.sla": {
+    "text": "การตอบกลับครั้งแรก",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.conversationSubject": {
+    "text": "ทีมดูแลการเรียนต่อเกาหลีของคุณ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.deadline": {
+    "text": "{{uni}} {{when}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.documents": {
+    "text": "เอกสาร · ยืนยันแล้ว {{verified}} จาก {{total}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.dueToday_one": {
+    "text": "ครบกำหนดวันนี้ · {{count}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.dueToday_other": {
+    "text": "ครบกำหนดวันนี้ · {{count}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.findStudent": {
+    "text": "ค้นหานักศึกษา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.firstMessage": {
+    "text": "ส่งข้อความถึง {{name}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.greeting.afternoon": {
+    "text": "สวัสดีตอนบ่าย {{name}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.greeting.evening": {
+    "text": "สวัสดีตอนเย็น {{name}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.greeting.morning": {
+    "text": "สวัสดีตอนเช้า {{name}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.message": {
+    "text": "ข้อความ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.messageLabel": {
+    "text": "ข้อความ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.needsAttention": {
+    "text": "ต้องดำเนินการ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.nextAction": {
+    "text": "ถัดไป: {{what}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.noBlockers": {
+    "text": "นักศึกษาคนนี้ไม่มีเรื่องค้าง",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.noBlockersBody": {
+    "text": "เอกสาร กำหนดส่ง และการตอบกลับเป็นไปตามแผนทั้งหมด",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.noStudents": {
+    "text": "ไม่มีนักศึกษาในมุมมองนี้",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.noStudentsBody": {
+    "text": "ลองมุมมองอื่นหรือล้างการค้นหา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.searchPlaceholder": {
+    "text": "ชื่อหรืออีเมล",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.stage": {
+    "text": "ขั้นตอน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.stageNote": {
+    "text": "บันทึกถึงทีม (ไม่บังคับ)",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.stageTo": {
+    "text": "ย้ายไป {{stage}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.teamView": {
+    "text": "ทีม · {{name}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.toFix_one": {
+    "text": "เอกสารต้องแก้ {{count}} รายการ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.toFix_other": {
+    "text": "เอกสารต้องแก้ {{count}} รายการ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.today": {
+    "text": "วันนี้",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.upload": {
+    "text": "อัปโหลด",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.uploadFor": {
+    "text": "{{doc}} ของ {{name}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.uploadWhat": {
+    "text": "คุณกำลังอัปโหลดเอกสารใด",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.uploaded": {
+    "text": "อัปโหลดเข้าคลังเอกสารของนักศึกษาแล้ว พร้อมให้ตรวจ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.view.all": {
+    "text": "ทั้งหมด",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.view.attention": {
+    "text": "ต้องดำเนินการ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.view.deadline": {
+    "text": "ใกล้ปิดรับ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.view.docs": {
+    "text": "เอกสารต้องแก้",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.view.mine": {
+    "text": "นักศึกษาของฉัน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.view.sla": {
+    "text": "นักศึกษาที่เกินหรือใกล้เวลาตอบกลับครั้งแรกที่สัญญาไว้",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.view.university": {
+    "text": "รอมหาวิทยาลัย",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.view.visa": {
+    "text": "วีซ่า",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.view.waiting_student": {
+    "text": "รอนักศึกษา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.view.waiting_us": {
+    "text": "รอเรา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.waitingOn.agency": {
+    "text": "รอทีมเอเจนซี",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.waitingOn.counselor": {
+    "text": "รอที่ปรึกษา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.waitingOn.external": {
+    "text": "รอหน่วยงานภายนอก",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.waitingOn.hangyul": {
+    "text": "รอ Hangyul",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.waitingOn.none": {
+    "text": "ไม่มีรายการรอ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.waitingOn.student": {
+    "text": "รอนักศึกษา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.waitingOn.university": {
+    "text": "รอมหาวิทยาลัย",
+    "why": "missing Thai"
+  },
+  "mobile:v3.agency.waitingOn.us": {
+    "text": "รอเรา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "หนังสือตอบรับเข้าศึกษาของคุณพร้อมแล้ว เริ่มเตรียมเอกสารวีซ่าได้เลย",
+    "why": "one clear next step"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_PENDING": {
+    "text": "รอหนังสือตอบรับเข้าศึกษาแบบมาตรฐานของคุณ",
+    "why": "official document name"
+  },
+  "mobile:v3.appStatus.PROFILE_REVIEW": {
+    "text": "ทีม Hangyul Univ กำลังตรวจสอบโปรไฟล์ของคุณ",
+    "why": "team identity, not \"counselor\""
+  },
+  "mobile:v3.appStatus.VISA_PREPARATION": {
+    "text": "คุณกำลังเตรียมเอกสารยื่นขอวีซ่า",
+    "why": "natural Thai for visa application"
+  },
+  "mobile:v3.appStatus.VISA_SUBMITTED": {
+    "text": "ยื่นขอวีซ่าแล้ว",
+    "why": "natural Thai for visa application"
+  },
+  "mobile:v3.application.due": {
+    "text": "กำหนดส่ง {{date}}",
+    "why": "due date, not bare \"set\""
+  },
+  "mobile:v3.application.reviewBody": {
+    "text": "ส่งเมื่อ {{date}} มหาวิทยาลัยอาจขอเอกสารเพิ่มหรือนัดสัมภาษณ์ ทีม Hangyul กำลังติดตามความคืบหน้าอยู่",
+    "why": "team identity; follow progress"
+  },
+  "mobile:v3.application.teamMonitoring": {
+    "text": "กำลังประสานกับมหาวิทยาลัย",
+    "why": "\"in touch\", not \"tracking\""
+  },
+  "mobile:v3.deadlines.bucket.later_other": {
+    "text": "ช่วงหลังของเดือนนี้ · {{count}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.deadlines.bucket.overdue_other": {
+    "text": "เลยกำหนด · {{count}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.deadlines.bucket.week_other": {
+    "text": "7 วันข้างหน้า · {{count}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.deadlines.emptyView": {
+    "text": "ไม่มีรายการครบกำหนดในมุมมองนี้",
+    "why": "missing Thai"
+  },
+  "mobile:v3.deadlines.student": {
+    "text": "นักศึกษา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.deadlines.who.all": {
+    "text": "ทั้งหมด",
+    "why": "missing Thai"
+  },
+  "mobile:v3.deadlines.who.mine": {
+    "text": "ของฉัน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.deadlines.who.unassigned": {
+    "text": "ยังไม่ได้มอบหมาย",
+    "why": "missing Thai"
+  },
+  "mobile:v3.deadlines.you": {
+    "text": "คุณ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.discover.any": {
+    "text": "ไม่จำกัด",
+    "why": "filter \"Any\" differs from \"All\""
+  },
+  "mobile:v3.discover.showResults_one": {
+    "text": "แสดง {{count}} หลักสูตร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.discover.summary_one": {
+    "text": "คุณผ่านเกณฑ์ที่ประกาศของ {{count}} หลักสูตร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.docAction.IN_REVIEW": {
+    "text": "ทีม Hangyul กำลังตรวจสอบ",
+    "why": "team identity, not \"counselor\""
+  },
+  "mobile:v3.docAction.LEGALIZE": {
+    "text": "ต้องมีอะพอสตีย์หรือการรับรองโดยสถานกงสุล",
+    "why": "official terms"
+  },
+  "mobile:v3.documents.needYou_one": {
+    "text": "{{count}} รายการรอคุณ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.documents.state.legalize": {
+    "text": "ต้องมีอะพอสตีย์",
+    "why": "official apostille spelling"
+  },
+  "mobile:v3.home.documentsHint": {
+    "text": "อัปโหลด แก้ไข หรือขออะพอสตีย์",
+    "why": "official apostille spelling"
+  },
+  "mobile:v3.home.documents_one": {
+    "text": "เอกสาร {{count}} รายการรอคุณ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.home.due": {
+    "text": "กำหนดส่ง {{date}} · {{left}}",
+    "why": "due date, not bare \"set\""
+  },
+  "mobile:v3.home.nextBody.DOCUMENT_UPLOAD": {
+    "text": "อัปโหลดไฟล์สแกนหรือรูปถ่ายที่ชัดเจน ทีม Hangyul จะตรวจและแจ้งหากต้องแก้ไข",
+    "why": "team identity, not \"counselor\""
+  },
+  "mobile:v3.home.nextBody.ESSAY_WRITE": {
+    "text": "เริ่มจากฉบับร่างคร่าว ๆ ทีม Hangyul จะตรวจไปพร้อมกับคุณ",
+    "why": "team identity, not \"counselor\""
+  },
+  "mobile:v3.home.noCounselor": {
+    "text": "เลือกแพ็กเกจ แล้วทีม Hangyul Univ จะทำงานร่วมกับคุณในภาษาของคุณ",
+    "why": "works with you; no \"help package\""
+  },
+  "mobile:v3.home.otherTasks_one": {
+    "text": "งานอื่นอีก {{count}} รายการ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.home.stageLine.apply": {
+    "text": "มหาวิทยาลัยกำลังพิจารณาใบสมัครของคุณ",
+    "why": "say what is happening"
+  },
+  "mobile:v3.home.stageLine.visa": {
+    "text": "กำลังเตรียมวีซ่านักศึกษาของคุณ",
+    "why": "preparing, not \"applying\""
+  },
+  "mobile:v3.home.team": {
+    "text": "ทีม Hangyul Univ",
+    "why": "team identity, not \"counselor\""
+  },
+  "mobile:v3.home.unread_one": {
+    "text": "ข้อความที่ยังไม่ได้อ่าน {{count}} ข้อความ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.match.close": {
+    "text": "ยังไม่ผ่านเกณฑ์ อีกแค่ขั้นเดียว",
+    "why": "one term with \"ผ่านเกณฑ์\""
+  },
+  "mobile:v3.match.notYet": {
+    "text": "ยังไม่ผ่านเกณฑ์",
+    "why": "one term with \"ผ่านเกณฑ์\""
+  },
+  "mobile:v3.messages.attachUnavailable": {
+    "text": "ยังแนบไฟล์ไม่ได้ในตอนนี้",
+    "why": "no \"server\" wording"
+  },
+  "mobile:v3.messages.attachmentOnly_one": {
+    "text": "ส่งไฟล์แนบ {{count}} ไฟล์",
+    "why": "missing Thai"
+  },
+  "mobile:v3.messages.conversations": {
+    "text": "การสนทนา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.offer.deadline": {
+    "text": "ตอบรับและชำระค่าเล่าเรียนภายใน {{date}} · {{left}}",
+    "why": "accept, not \"reply\""
+  },
+  "mobile:v3.offer.step.letter": {
+    "text": "รับหนังสือตอบรับเข้าศึกษาแบบมาตรฐาน",
+    "why": "official document name"
+  },
+  "mobile:v3.profile.unlock.sponsor": {
+    "text": "ช่วยให้คุณเตรียมเอกสารทางการเงินสำหรับวีซ่าได้ล่วงหน้า",
+    "why": "add \"early\"; full sentence"
+  },
+  "mobile:v3.push.idle": {
+    "text": "รับการแจ้งเตือนเมื่อเอกสารได้รับการตรวจ ใกล้ถึงกำหนดส่ง หรือทีม Hangyul ตอบกลับ",
+    "why": "team identity, not \"counselor\""
+  },
+  "mobile:v3.reviews.beforeVerify": {
+    "text": "ก่อนยืนยัน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.bulkBody": {
+    "text": "ทำเฉพาะกับเอกสารที่คุณเปิดดูและตรวจแล้วเท่านั้น นักศึกษาแต่ละคนจะได้รับแจ้ง",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.bulkDone": {
+    "text": "ยืนยันแล้ว {{ok}} รายการ ข้าม {{failed}} รายการ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.bulkTitle_one": {
+    "text": "ยืนยันเอกสาร {{count}} รายการหรือไม่",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.bulkTitle_other": {
+    "text": "ยืนยันเอกสาร {{count}} รายการหรือไม่",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.check.date": {
+    "text": "วันที่ออกเอกสารยังไม่เก่าเกินไปและยังไม่หมดอายุ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.check.issuer": {
+    "text": "มองเห็นผู้ออกเอกสาร ตราประทับ หรือลายเซ็น",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.check.legal": {
+    "text": "แนบ{{path}}มาแล้วและตรงกับเอกสาร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.check.legible": {
+    "text": "ทุกหน้าครบถ้วนและอ่านได้ชัดเจน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.check.name": {
+    "text": "ชื่อและวันเกิดตรงกับหนังสือเดินทาง",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.correctionTitle": {
+    "text": "นักศึกษาต้องแก้ไขอะไร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.expires": {
+    "text": "ใช้ได้ถึง",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.issuedIn": {
+    "text": "ออกในประเทศ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.issuedOn": {
+    "text": "ออกเมื่อ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.legalization": {
+    "text": "การรับรองเอกสาร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.notNeeded": {
+    "text": "ไม่จำเป็น",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.open": {
+    "text": "เปิด {{name}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.overSla": {
+    "text": "{{waiting}} · เกินเวลาตรวจที่สัญญาไว้",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.reason": {
+    "text": "ข้อความถึงนักศึกษา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.requestCorrection": {
+    "text": "ขอให้แก้ไข",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.required": {
+    "text": "จำเป็น",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.select": {
+    "text": "เลือก",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.studentSees": {
+    "text": "{{name}} จะเห็นข้อความนี้ตามตัวอักษรข้างเอกสาร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.studentSeesGeneric": {
+    "text": "นักศึกษาจะเห็นข้อความนี้ตามตัวอักษรข้างเอกสาร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.summary": {
+    "text": "รอ {{count}} รายการ · {{over}} รายการเกินเวลาตรวจที่สัญญาไว้ {{hours}} ชั่วโมง",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.templates": {
+    "text": "เทมเพลตของทีม",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.translation": {
+    "text": "คำแปล",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.uploaded": {
+    "text": "อัปโหลดเมื่อ {{when}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.verifyN_one": {
+    "text": "ยืนยันเอกสาร {{count}} รายการ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.reviews.verifyN_other": {
+    "text": "ยืนยันเอกสาร {{count}} รายการ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.settings.consoleHint": {
+    "text": "จัดการสมาชิกทีม การเรียกเก็บเงิน และการส่งออกข้อมูลได้ในคอนโซลเว็บของเอเจนซี",
+    "why": "missing Thai"
+  },
+  "mobile:v3.settings.work": {
+    "text": "งานของคุณ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.tasks.empty.team": {
+    "text": "ทีมไม่มีงานค้าง",
+    "why": "missing Thai"
+  },
+  "mobile:v3.tasks.empty.today": {
+    "text": "ไม่มีงานครบกำหนดวันนี้",
+    "why": "missing Thai"
+  },
+  "mobile:v3.tasks.empty.waiting": {
+    "text": "ไม่มีงานที่รอสิ่งอื่นอยู่",
+    "why": "missing Thai"
+  },
+  "mobile:v3.tasks.empty.week": {
+    "text": "ไม่มีงานครบกำหนดสัปดาห์นี้",
+    "why": "missing Thai"
+  },
+  "mobile:v3.tasks.open": {
+    "text": "ค้างอยู่",
+    "why": "missing Thai"
+  },
+  "mobile:v3.tasks.overdue": {
+    "text": "เลยกำหนด · {{when}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.tasks.view.overdue": {
+    "text": "เลยกำหนด",
+    "why": "missing Thai"
+  },
+  "mobile:v3.tasks.view.team": {
+    "text": "ทีม",
+    "why": "missing Thai"
+  },
+  "mobile:v3.tasks.view.today": {
+    "text": "วันนี้",
+    "why": "missing Thai"
+  },
+  "mobile:v3.tasks.view.waiting": {
+    "text": "รออยู่",
+    "why": "missing Thai"
+  },
+  "mobile:v3.tasks.view.week": {
+    "text": "สัปดาห์นี้",
+    "why": "missing Thai"
+  },
+  "mobile:v3.tasks.waitingOn": {
+    "text": "รอ: {{what}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.allClear": {
+    "text": "ขณะนี้ไม่มีรายการที่ต้องตัดสินใจ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.allCohorts": {
+    "text": "นักศึกษา Hangyul ทั้งหมด",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.allIntakes": {
+    "text": "ทุกรอบรับเข้า",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.applicant": {
+    "text": "ผู้สมัคร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.check.gpa": {
+    "text": "เกรดเฉลี่ย",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.check.interview": {
+    "text": "สัมภาษณ์",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.check.interviewRequired": {
+    "text": "หลักสูตรนี้กำหนดให้มี",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.check.level": {
+    "text": "ระดับ {{level}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.check.minimum": {
+    "text": "ขั้นต่ำ {{need}} · ผู้สมัคร {{have}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.check.notProvided": {
+    "text": "ไม่ได้ระบุ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.check.state.below": {
+    "text": "ต่ำกว่าขั้นต่ำ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.check.state.meets": {
+    "text": "ผ่าน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.check.state.missing": {
+    "text": "ไม่ได้ระบุ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.check.state.planned": {
+    "text": "วางแผนจะสอบ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.check.state.unscheduled": {
+    "text": "ยังไม่ได้กำหนดสอบ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.check.topik": {
+    "text": "TOPIK",
+    "why": "missing Thai; official test name"
+  },
+  "mobile:v3.uni.checksNote": {
+    "text": "เปรียบเทียบคะแนนที่ผู้สมัครรายงานเองกับเกณฑ์ขั้นต่ำที่หลักสูตรประกาศ ใช้ประกอบการพิจารณาของคุณเท่านั้น ไม่ได้ตัดสินแทน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.checksTitle": {
+    "text": "ตรวจสอบคุณสมบัติ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.closed": {
+    "text": "ปิดแล้ว: ไม่รับเข้า {{rejected}} ราย ถอน {{withdrawn}} ราย อัตราจะแสดงเมื่อมีอย่างน้อย {{min}} คน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.cohortIntro_one": {
+    "text": "นักศึกษา {{count}} คนมาถึงคุณผ่าน Hangyul นี่คือความคืบหน้าของพวกเขา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.cohortIntro_other": {
+    "text": "นักศึกษา {{count}} คนมาถึงคุณผ่าน Hangyul นี่คือความคืบหน้าของพวกเขา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.cohortNote": {
+    "text": "อัตราจะแสดงเมื่อมีนักศึกษาที่เข้าเกณฑ์อย่างน้อย {{min}} คน ข้อมูล ณ {{date}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.cohort_one": {
+    "text": "{{label}} · นักศึกษา {{count}} คน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.cohort_other": {
+    "text": "{{label}} · นักศึกษา {{count}} คน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.conv": {
+    "text": "{{pct}} ของขั้นก่อนหน้า · {{n}} จาก {{d}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.convFew": {
+    "text": "{{n}} จาก {{d}} ของขั้นก่อนหน้า · น้อยเกินกว่าจะคำนวณอัตรา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decision.admitted_one": {
+    "text": "ผู้ได้รับการตอบรับที่ยังไม่ชำระค่าเล่าเรียน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decision.admitted_other": {
+    "text": "ผู้ได้รับการตอบรับที่ยังไม่ชำระค่าเล่าเรียน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decision.documents_one": {
+    "text": "รอเอกสารจากผู้สมัคร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decision.documents_other": {
+    "text": "รอเอกสารจากผู้สมัคร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decision.flagged_one": {
+    "text": "ใบสมัครที่ติดธง",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decision.flagged_other": {
+    "text": "ใบสมัครที่ติดธง",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decision.interview_one": {
+    "text": "การสัมภาษณ์ที่ต้องจัดหรือให้คะแนน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decision.interview_other": {
+    "text": "การสัมภาษณ์ที่ต้องจัดหรือให้คะแนน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decision.offer_one": {
+    "text": "ข้อเสนอที่รอคำตอบจากผู้สมัคร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decision.offer_other": {
+    "text": "ข้อเสนอที่รอคำตอบจากผู้สมัคร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decision.returned_one": {
+    "text": "เอกสารที่ผู้สมัครส่งกลับมา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decision.returned_other": {
+    "text": "เอกสารที่ผู้สมัครส่งกลับมา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decision.review_one": {
+    "text": "ใบสมัครที่ต้องพิจารณา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decision.review_other": {
+    "text": "ใบสมัครที่ต้องพิจารณา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decisionContext_one": {
+    "text": "เอกสารที่กำหนดพร้อม {{ready}} จาก {{total}} · คำขอค้างอยู่ {{count}} รายการ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decisionContext_other": {
+    "text": "เอกสารที่กำหนดพร้อม {{ready}} จาก {{total}} · คำขอค้างอยู่ {{count}} รายการ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decisionDocs": {
+    "text": "เอกสารที่กำหนดพร้อม {{ready}} จาก {{total}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decisionHint.admitted": {
+    "text": "ยืนยันการชำระเงินเมื่อได้รับ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decisionHint.documents": {
+    "text": "ไม่ต้องดำเนินการจนกว่าผู้สมัครจะอัปโหลด",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decisionHint.flagged": {
+    "text": "ทำเครื่องหมายไว้เพื่อพิจารณาอย่างละเอียด",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decisionHint.interview": {
+    "text": "บันทึกผลหลังการสัมภาษณ์",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decisionHint.offer": {
+    "text": "Hangyul ติดตามกับผู้สมัคร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decisionHint.returned": {
+    "text": "ตรวจสิ่งที่คุณขอไปอีกครั้ง",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.decisionHint.review": {
+    "text": "ส่งแล้วและครบพอที่จะตัดสินใจ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.docsTitle": {
+    "text": "เอกสาร · พร้อม {{ready}} จาก {{total}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.dueOn": {
+    "text": "กำหนด {{date}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.empty.all": {
+    "text": "ไม่มีผู้สมัครในมุมมองนี้",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.empty.flagged": {
+    "text": "ไม่มีใบสมัครที่ติดธง",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.empty.review": {
+    "text": "ไม่มีใบสมัครที่รอการพิจารณา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.graduation": {
+    "text": "สำเร็จการศึกษา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.latest": {
+    "text": "ล่าสุดที่รอพิจารณา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.move.ADDITIONAL_DOCUMENTS": {
+    "text": "ขอเอกสารเพิ่มเติม",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.move.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "ออกหนังสือตอบรับเข้าศึกษา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.move.INTERVIEW": {
+    "text": "เชิญสัมภาษณ์",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.move.OFFERED": {
+    "text": "เสนอรับเข้า",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.move.REJECTED": {
+    "text": "ไม่รับเข้า",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.move.TUITION_PAID": {
+    "text": "ยืนยันการชำระค่าเล่าเรียน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.move.TUITION_PENDING": {
+    "text": "ส่งใบแจ้งค่าเล่าเรียน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.move.UNIVERSITY_REVIEW": {
+    "text": "เริ่มพิจารณา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.move.WAITLISTED": {
+    "text": "รายชื่อสำรอง",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.nOfD": {
+    "text": "{{n}} จาก {{d}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.needsTitle": {
+    "text": "รอการตัดสินใจของคุณ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.noMinimums": {
+    "text": "หลักสูตรนี้ยังไม่ได้ประกาศเกณฑ์ขั้นต่ำ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.nothingToReview": {
+    "text": "ไม่มีรายการรอพิจารณา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.openRequests_one": {
+    "text": "ขอเอกสารแล้ว {{count}} รายการ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.openRequests_other": {
+    "text": "ขอเอกสารแล้ว {{count}} รายการ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.otherDecisions": {
+    "text": "การตัดสินใจอื่น ๆ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.populationAll_one": {
+    "text": "อ้างอิงจากใบสมัครที่ส่งแล้ว {{count}} รายการ ทุกรอบรับเข้า",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.populationAll_other": {
+    "text": "อ้างอิงจากใบสมัครที่ส่งแล้ว {{count}} รายการ ทุกรอบรับเข้า",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.populationIntake_one": {
+    "text": "อ้างอิงจากใบสมัครที่ส่งแล้ว {{count}} รายการ สำหรับ {{intake}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.populationIntake_other": {
+    "text": "อ้างอิงจากใบสมัครที่ส่งแล้ว {{count}} รายการ สำหรับ {{intake}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.reason": {
+    "text": "เหตุผล (แชร์กับ Hangyul)",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.request": {
+    "text": "ขอเอกสาร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.requestLabel": {
+    "text": "คุณต้องการอะไร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.requestLabelHint": {
+    "text": "เช่น ใบประกาศนียบัตรมัธยมปลายที่มีอะพอสตีย์",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.requestNote": {
+    "text": "คำแนะนำสำหรับผู้สมัคร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.requestNoteHint": {
+    "text": "ขาดอะไรและต้องแก้ไขอย่างไร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.requestSend": {
+    "text": "ส่งคำขอ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.requestTitle": {
+    "text": "ขอเอกสารจาก {{name}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.requestWho": {
+    "text": "ผู้สมัครและที่ปรึกษา Hangyul ของผู้สมัครจะได้รับแจ้งและเห็นข้อความนี้ตามตัวอักษร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.requestedOn": {
+    "text": "ขอเมื่อ {{date}}",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.retention": {
+    "text": "ยังศึกษาอยู่",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.search": {
+    "text": "ค้นหาชื่อ หลักสูตร หรือหมายเลขอ้างอิง",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.step.ACCEPTED": {
+    "text": "ตอบรับข้อเสนอแล้ว",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.step.ARRIVED": {
+    "text": "เดินทางถึงเกาหลีแล้ว",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.step.ENROLLED": {
+    "text": "ลงทะเบียนแล้ว",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.step.OFFERED": {
+    "text": "เสนอรับเข้าแล้ว",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.step.REVIEWED": {
+    "text": "พิจารณาแล้ว",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.step.SUBMITTED": {
+    "text": "ส่งแล้ว",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.step.TUITION_PAID": {
+    "text": "ชำระค่าเล่าเรียนแล้ว",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.step.VISA_ISSUED": {
+    "text": "ได้รับวีซ่าแล้ว",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.tab.applicants": {
+    "text": "ผู้สมัคร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.tab.pipeline": {
+    "text": "ภาพรวม",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.tab.students": {
+    "text": "นักศึกษา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.tooFew": {
+    "text": "น้อยเกินกว่าจะคำนวณอัตรา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.view.admitted": {
+    "text": "รับเข้าแล้ว",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.view.all": {
+    "text": "ทั้งหมด",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.view.documents": {
+    "text": "เอกสารไม่ครบ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.view.enrolment": {
+    "text": "วีซ่าและการลงทะเบียน",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.view.flagged": {
+    "text": "ติดธง",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.view.interview": {
+    "text": "สัมภาษณ์",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.view.offer": {
+    "text": "ข้อเสนอ",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.view.review": {
+    "text": "รอพิจารณา",
+    "why": "missing Thai"
+  },
+  "mobile:v3.uni.waitingStudent": {
+    "text": "รอผู้สมัคร",
+    "why": "missing Thai"
+  },
+  "mobile:v3.university.documentsCount": {
+    "text": "เอกสาร {{count}} รายการ · {{legal}} รายการต้องมีอะพอสตีย์หรือการรับรองโดยสถานกงสุล",
+    "why": "official terms"
+  },
+  "mobile:v3.upload.privacy": {
+    "text": "มีเพียงคุณและทีม Hangyul ที่เปิดเอกสารของคุณได้ มหาวิทยาลัยจะเห็นเอกสารหลังจากคุณส่งใบสมัครถึงมหาวิทยาลัยนั้นเท่านั้น",
+    "why": "team identity, not \"counselor\""
+  },
+  "mobile:v3.visa.beforeTitle": {
+    "text": "การเตรียมวีซ่าเริ่มหลังคุณได้รับการตอบรับ",
+    "why": "preparation, not vague \"visa matters\""
+  },
+  "mobile:v3.visa.blockers": {
+    "text": "ต้องทำก่อน",
+    "why": "\"needed first\", not \"waiting at\""
+  },
+  "mobile:v3.visa.phase.apply": {
+    "text": "การยื่นขอวีซ่า",
+    "why": "name the visa"
+  },
+  "mobile:v3.visa.phase.decision": {
+    "text": "ผลพิจารณาจากสถานทูต",
+    "why": "say embassy"
+  },
+  "mobile:v3.visa.title": {
+    "text": "กำลังเตรียมวีซ่า {{type}} ของคุณ",
+    "why": "preparing, not \"plan\""
+  },
+  "mobile:v4.application.doneSummary_one": {
+    "text": "เสร็จแล้ว {{count}} รายการ: {{items}}",
+    "why": "missing Thai"
+  },
+  "mobile:v4.application.nextLegalize": {
+    "text": "ขออะพอสตีย์หรือการรับรองโดยสถานกงสุลสำหรับ{{item}}ของคุณ",
+    "why": "official terms"
+  },
+  "mobile:v4.application.reviewLate": {
+    "text": "ใช้เวลานานกว่าปกติ ทีม Hangyul ได้รับแจ้งเรื่องความล่าช้าแล้ว คุณไม่ต้องอัปโหลดใหม่",
+    "why": "team identity, not \"counselor\""
+  },
+  "mobile:v4.application.waitBody": {
+    "text": "ทีม Hangyul กำลังตรวจสิ่งที่คุณส่ง เราจะแจ้งหากต้องแก้ไขอะไร",
+    "why": "team identity, not \"counselor\""
+  },
+  "mobile:v4.application.writeOnWeb": {
+    "text": "เขียนบนเว็บ ความเห็นของทีม Hangyul จะแสดงที่นั่นด้วย",
+    "why": "team identity, not \"counselor\""
+  },
+  "mobile:v4.documents.lateLine": {
+    "text": "แจ้งทีม Hangyul แล้วว่าล่าช้า",
+    "why": "team identity, not \"counselor\""
+  },
+  "mobile:v4.home.item.LEGALIZE.title": {
+    "text": "ขออะพอสตีย์สำหรับ{{label}}ที่ใช้กับ {{university}}",
+    "why": "official apostille spelling"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.text": {
+    "text": "ทีม Hangyul แสดงความคิดเห็นไว้ ส่งใบสมัครไม่ได้จนกว่าจะได้รับการอนุมัติ",
+    "why": "team identity, not \"counselor\""
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.text": {
+    "text": "ทีม Hangyul จะตรวจไปพร้อมกับคุณ เริ่มจากฉบับร่างคร่าว ๆ ก่อน ไม่จำเป็นต้องสมบูรณ์แบบ",
+    "why": "team identity, not \"counselor\""
+  },
+  "mobile:v4.uni.actor.AGENCY": {
+    "text": "เอเจนซีพันธมิตร",
+    "why": "missing Thai"
+  },
+  "mobile:v4.uni.actor.HANGYUL": {
+    "text": "Hangyul",
+    "why": "missing Thai; brand name"
+  },
+  "mobile:v4.uni.actor.STUDENT": {
+    "text": "ผู้สมัคร",
+    "why": "missing Thai"
+  },
+  "mobile:v4.uni.actor.SYSTEM": {
+    "text": "อัตโนมัติ",
+    "why": "missing Thai"
+  },
+  "mobile:v4.uni.actor.UNIVERSITY": {
+    "text": "มหาวิทยาลัยของคุณ",
+    "why": "missing Thai"
+  },
+  "mobile:v4.uni.toReview_one": {
+    "text": "รอพิจารณา · {{count}}",
+    "why": "missing Thai"
+  },
+  "mobile:v4.uni.toReview_other": {
+    "text": "รอพิจารณา · {{count}}",
+    "why": "missing Thai"
+  },
+  "mobile:v4.visa.showDone_one": {
+    "text": "แสดง {{count}} ขั้นตอนที่เสร็จแล้ว",
+    "why": "missing Thai"
+  }
+}

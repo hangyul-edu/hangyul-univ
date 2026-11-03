@@ -188,7 +188,10 @@ const otp = StyleSheet.create({
 
 // ------------------------------------------------------------------------------------------- legal document sheet
 export function legalUrl(doc: string, locale: string): string {
-  const base = (process.env.EXPO_PUBLIC_MARKETING_URL ?? (Platform.OS === 'android' ? 'http://10.0.2.2:3100' : 'http://localhost:3100')).replace(/\/$/, '');
+  // The local fallback is development-only: a production build without EXPO_PUBLIC_MARKETING_URL still opens the public
+  // site, never an emulator address (V32: the sign-up consent documents pointed at 10.0.2.2 in a store build).
+  const fallback = __DEV__ ? (Platform.OS === 'android' ? 'http://10.0.2.2:3100' : 'http://localhost:3100') : 'https://univ.talkhangyul.com';
+  const base = (process.env.EXPO_PUBLIC_MARKETING_URL ?? fallback).replace(/\/$/, '');
   const [path, hash] = doc.split('#');
   return `${base}${path}?lang=${encodeURIComponent(locale)}&embed=1${hash ? `#${hash}` : ''}`;
 }

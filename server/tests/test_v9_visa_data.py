@@ -11,7 +11,7 @@ from sqlalchemy import select
 
 from app.models import StudentProfile, User
 from app.models.v5_visa_routes import VisaRoute
-from app.seed.extra_95_visa_data import load, load_dataset, materialize
+from app.seed.visa_playbooks import load, load_dataset, materialize
 from app.services import concierge
 from app.services import visa_routes as vr
 from tests.conftest import login

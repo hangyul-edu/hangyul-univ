@@ -33,12 +33,11 @@ import { Button, Callout, QueryState, SkeletonCard, useToast } from '@hangyul/ui
 import { formatDate, formatDateTime, formatMoney } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 
 import { PageIntro } from '../components/bits';
 import { GateNotice } from '../components/Upgrade';
 import { rememberAppReturn } from '../lib/apphandoff';
-import { PAID_STATE_QUERY_KEYS, TEST_PAYMENT_BYPASS_BUILD } from '../lib/devpay';
 import { tr, useT } from '../lib/i18n';
 import { readPlanParam } from '../lib/quick';
 import { openTossCheckout } from '../lib/toss';
@@ -48,6 +47,12 @@ const MARKETING_URL = (import.meta.env.VITE_MARKETING_URL as string | undefined)
 /** The purchase-terms version the summary renders; the API refuses a stale one (REPORT §245 L5). */
 const PURCHASE_TERMS_VERSION = '2026-10-30';
 import { SavedCards } from '../components/SavedCards';
+
+/**
+ * Everything that changes the moment an order is paid. `services` carries the plan itself and is what the route
+ * paywall reads (`lib/queries.ts` → `useMyPlan`), so it is invalidated and awaited before the app navigates.
+ */
+const PAID_STATE_QUERY_KEYS = ['services', 'plan', 'dashboard', 'profile', 'tasks', 'applications', 'conversations', 'notifications'] as const;
 
 const planName = (t: (k: string, o?: Record<string, unknown>) => string, p: Pick<ServiceProduct, 'code' | 'name_en'>) =>
   tr(t, `services.${p.code}.name`, p.name_en);
@@ -166,12 +171,10 @@ const defOf = (a: ServiceAddOn): AddOnDef | null =>
  * never a range — before deciding. Approving creates the order to pay; nothing is switched on until it is paid. Declining
  * is a one-click terminal answer that costs nothing, and the decline control is as prominent as the approve one.
  */
-function AddOns({ items, onDecide, onPay, pending, cardMode, testPay }: {
+function AddOns({ items, onDecide, onPay, pending, cardMode }: {
   items: ServiceAddOn[]; pending: string | null; cardMode: boolean;
   onDecide: (id: string, approve: boolean) => void;
   onPay: (a: ServiceAddOn, card?: CardValue) => void;
-  /** The non-production paid-state action for an add-on order, or undefined. */
-  testPay?: (a: ServiceAddOn) => void;
 }) {
   const { t, locale } = useT();
   const A = 'v29.services.addOn';
@@ -206,7 +209,6 @@ function AddOns({ items, onDecide, onPay, pending, cardMode, testPay }: {
                   ? <CardForm amount={money(a)} busy={pending === a.id} error={null} onSubmit={(card) => onPay(a, card)} />
                   : <Button variant="primary" size="sm" loading={pending === a.id}
                       onClick={() => (cardMode ? setPaying(a.id) : onPay(a))}>{t(`${A}.pay`, { amount: money(a) })}</Button>}
-                {testPay && <Button variant="ghost" size="sm" onClick={() => testPay(a)}>{t('v21.testPay.cta')}</Button>}
               </div>
             )}
           </li>
@@ -254,7 +256,7 @@ function AddOnCatalogue({ plan }: { plan: StudentPlan }) {
  * because the owner has not defined upgrade pricing — the server refuses an upgrade order (`UPGRADE_POLICY_REQUIRED`)
  * and this says so plainly, with the one useful next step: ask the team.
  */
-function UpgradePanel({ from, to, onTest }: { from: PlanCode; to: PlanCode; onTest?: () => void }) {
+function UpgradePanel({ from, to }: { from: PlanCode; to: PlanCode }) {
   const { t } = useT();
   const o = upgradeOffer(from, to);
   if (!o) return null;
@@ -272,12 +274,11 @@ function UpgradePanel({ from, to, onTest }: { from: PlanCode; to: PlanCode; onTe
       <p className="hg-small">{t(`${U}.used`)}</p>
       <Callout tone="info">{t(`${U}.pricePending`)}</Callout>
       <Link to={`/messages?compose=upgrade:${to.toLowerCase()}`} className="hg-btn hg-btn--primary sv29-upgrade__ask">{t(`${U}.ask`)}</Link>
-      {onTest && <div className="sv16-order__test"><Button variant="ghost" size="sm" onClick={onTest}>{t('v21.testPay.cta')}</Button><p className="hg-subtle hg-xs">{t('v21.testPay.note')}</p></div>}
     </section>
   );
 }
 
-function CurrentPlan({ plan, now, cardMode, testPayAvailable }: { plan: StudentPlan; now: ServiceNowLine[]; cardMode: boolean; testPayAvailable: boolean }) {
+function CurrentPlan({ plan, now, cardMode }: { plan: StudentPlan; now: ServiceNowLine[]; cardMode: boolean }) {
   const { t, locale } = useT();
   const api = useApi();
   const qc = useQueryClient();
@@ -298,7 +299,6 @@ function CurrentPlan({ plan, now, cardMode, testPayAvailable }: { plan: StudentP
     },
     onSuccess: refresh, onError: fail,
   });
-  const testPay = useMutation({ mutationFn: (a: ServiceAddOn) => api.me.devCompleteAddOnOrder(a.order_id!), onSuccess: refresh, onError: fail });
   return (
     <section className="hg-panel sv15-current" aria-labelledby="sv15-current-h">
       <header className="sv15-current__head">
@@ -329,8 +329,7 @@ function CurrentPlan({ plan, now, cardMode, testPayAvailable }: { plan: StudentP
       </details>
       <AddOns items={plan.add_ons} pending={pending} cardMode={cardMode}
         onDecide={(id, approve) => { setPending(id); m.mutate({ id, approve }); }}
-        onPay={(a, card) => { setPending(a.id); pay.mutate({ a, card }); }}
-        testPay={testPayAvailable ? (a) => { setPending(a.id); testPay.mutate(a); } : undefined} />
+        onPay={(a, card) => { setPending(a.id); pay.mutate({ a, card }); }} />
       <AddOnCatalogue plan={plan} />
     </section>
   );
@@ -418,17 +417,11 @@ function NowLines({ lines }: { lines: ServiceNowLine[] }) {
  * Hangyul's and the student never leaves: one section, one price, one action that both registers
  * the card and pays — which is what §35 asks for and what the API actually does in one call.
  */
-export function OrderBlock({ p, busy, error, onPay, cardMode, onTestActivate, testBusy, benefits }: {
+export function OrderBlock({ p, busy, error, onPay, cardMode, benefits }: {
   p: ServiceProduct; busy: boolean; error: string | null;
   onPay: (card?: CardValue) => void; cardMode: boolean;
   /** V22: the plan's approved benefit lines, shown once more where the money is (REPORT §245 L5). */
   benefits?: string[];
-  /**
-   * The local paid-state action, or `undefined` in a production build (`lib/devpay.ts`). It is a prop
-   * rather than a flag read in here so this component has no opinion about when it exists — and so the
-   * test that asserts the real CTA survives can render both states.
-   */
-  onTestActivate?: () => void; testBusy?: boolean;
 }) {
   const { t, locale } = useT();
   const amount = p.price ? formatMoney(p.price.amount_minor, p.price.currency, locale, { minor: true, gap: true, symbolOnly: true }) : '—';
@@ -467,14 +460,6 @@ export function OrderBlock({ p, busy, error, onPay, cardMode, onTestActivate, te
           </Button>
           <p className="hg-subtle hg-xs sv16-order__after">{t('v17.pay.afterPay')}</p>
         </>
-      )}
-      {/* Local QA only, and it must not compete with the thing above it: a quiet ghost button under a
-          hairline, at `sm`, with no icon and no amount. The real CTA is the only primary action here. */}
-      {onTestActivate && (
-        <div className="sv16-order__test">
-          <Button variant="ghost" size="sm" loading={testBusy} onClick={onTestActivate}>{t('v21.testPay.cta')}</Button>
-          <p className="hg-subtle hg-xs">{t('v21.testPay.note')}</p>
-        </div>
       )}
     </section>
   );
@@ -552,7 +537,6 @@ export default function Services() {
   const qc = useQueryClient();
   const toast = useToast();
   const [sp, setSp] = useSearchParams();
-  const navigate = useNavigate();
   const q = useQuery({ queryKey: ['services'], queryFn: () => api.me.services() });
   // The plan chosen on the public pricing section, carried here through registration (REPORT §118).
   const chosen = readPlanParam(sp);
@@ -604,24 +588,6 @@ export default function Services() {
    */
   const payCfg = useQuery({ queryKey: ['payments-config'], queryFn: () => api.me.paymentsConfig(), staleTime: 5 * 60_000 });
   const cardMode = payCfg.data?.foreign_card?.enabled === true;
-
-  /**
-   * **The local paid-state action** (`lib/devpay.ts`). Both halves must agree: this bundle was built with
-   * it, *and* the server says it will honour it. A button that 404s is worse than no button, and the
-   * server's answer is the one that actually decides — the build flag only keeps it out of production code.
-   */
-  const testPayAvailable = TEST_PAYMENT_BYPASS_BUILD && payCfg.data?.test_payment_bypass === true;
-  const testPay = useMutation({
-    mutationFn: (code: string) => api.me.devCompleteOrder(code),
-    onSuccess: async () => {
-      // `services` first and awaited: it carries the plan the route paywall reads, and navigating before
-      // that refetch lands would be bounced straight back here with `?gate=…`.
-      await qc.invalidateQueries({ queryKey: ['services'] });
-      PAID_STATE_QUERY_KEYS.filter((k) => k !== 'services').forEach((k) => qc.invalidateQueries({ queryKey: [k] }));
-      navigate('/');
-    },
-    onError: (e) => toast.error((e as Error).message),
-  });
 
   const purchaseTermsVersion = PURCHASE_TERMS_VERSION;
   const pay = async (card?: CardValue) => {
@@ -691,7 +657,7 @@ export default function Services() {
       <QueryState query={q} skeleton={<SkeletonCard lines={8} />}>
         {(d) => (
           <>
-            {d.plan && <CurrentPlan plan={d.plan} now={d.now ?? []} cardMode={cardMode} testPayAvailable={testPayAvailable} />}
+            {d.plan && <CurrentPlan plan={d.plan} now={d.now ?? []} cardMode={cardMode} />}
             {cardMode && <SavedCards />}
             {/* Before a plan is bought the order comes first: the question on this screen is "do I pay now,
                 and for what", and the answer should not be below three cards. Once a plan is owned the
@@ -712,16 +678,13 @@ export default function Services() {
             {/* V29: with a plan owned, moving up is a conversation — the upgrade price is an owner decision not yet taken,
                 and the server refuses an upgrade order. The panel shows exactly what would change. */}
             {d.plan && upgradeIntent && selected && selected.code !== d.plan.code && (
-              <UpgradePanel from={d.plan.code} to={selected.code as PlanCode}
-                onTest={testPayAvailable ? () => testPay.mutate(selected.code) : undefined} />
+              <UpgradePanel from={d.plan.code} to={selected.code as PlanCode} />
             )}
             {!d.plan && selected
               && (
                 <OrderBlock
                   p={selected} busy={busy} error={error} onPay={pay} cardMode={cardMode}
                   benefits={(() => { const pres = planPresentationByCode(selected.code); return pres ? planText(t, pres).benefits : []; })()}
-                  onTestActivate={testPayAvailable ? () => testPay.mutate(selected.code) : undefined}
-                  testBusy={testPay.isPending}
                 />
               )}
             {d.plan && !upgradeIntent ? (

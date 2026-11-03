@@ -1,0 +1,3334 @@
+{
+ "_notes": [
+  "Null `cur` = key missing from the ar locale; all 636 are translated. Agency: imperative, concise, أنت singular (the operator). University: formal, analytical, singular address (جامعتك); documents.sharingRule/subtitle used plural معكم/جامعتكم and are aligned to the singular used everywhere else.",
+  "Numeric ranges: every range is rendered as «من X إلى Y» (agency:v29.plan.offer.range, university:metric.period). No en dash between numbers: with Western digits in RTL text a dash range can be read in either direction. Latin tokens (D-30 / D+30, D-2/D-4, SLA, SAML, OpenID Connect, Client secret, CHSI, KTX) kept intact.",
+  "Plural families: every family touched carries all six CLDR forms (_zero/_one/_two/_few/_many/_other) with {{count}} in each (the applier checks placeholders against the English, so number-word forms without {{count}} are not used). Pattern: one «1 مستند», two «2 مستندان», few «3 مستندات», many «11 مستندًا», other/zero «100 مستند». Count-bearing strings with no plural family were phrased count-neutrally (students.subCount, today.pipelineSub, v27.stage.stalled, v29.plan.usedSoFar, university:v25.chip.days).",
+  "Intake (입학 시기) was «موعد القبول» (= admission date), confusable with the adjacent Deadline column; now «فصل الالتحاق» everywhere (agency cols, work/filters allIntakes, university filters, v30.def.visaOutcome). Same change in the marketing/common patch.",
+  "Insights nav was «الإحصاءات» (statistics) in both consoles while university:v28.pipe.label already said «التحليلات»; unified on «التحليلات».",
+  "Not admitted = «غير مقبول», never «مرفوض» (rejected) in closed-count strings (agency:v22.work.closedHint, university:v22.closed/closedN).",
+  "Financial sponsor = «الممول» (agency:ws.sponsor), not «كفيل», which in the Gulf means the iqama/residency sponsor. Owner may confirm.",
+  "Verify/verified = «تحقق» family throughout (guides, documents); notarization = «التوثيق لدى كاتب العدل», legalization = «التصديق», apostille = «الأبوستيل», consular legalization = «التصديق القنصلي», standard admission letter = «خطاب القبول القياسي» (short labels keep «خطاب القبول»).",
+  "Greetings: Arabic has one greeting for afternoon and evening (مساء الخير); today.afternoon and today.evening are intentionally identical; morning punctuation aligned (comma, not يا).",
+  "university:kpi.yield rendered as «نسبة الالتحاق» (offers that led to enrollment); owner may prefer a longer gloss if the KPI tile allows. Reply owed = «رد مستحق» in both agency keys (inbox.needsReplyShort, students.noReplyShort)."
+ ],
+ "agency:actions.moreFilters": {
+  "text": "مزيد من عوامل التصفية",
+  "why": "missing"
+ },
+ "agency:apps.actor.AGENCY": {
+  "text": "الوكالة",
+  "why": "missing"
+ },
+ "agency:apps.actor.HANGYUL": {
+  "text": "Hangyul",
+  "why": "brand, kept Latin"
+ },
+ "agency:apps.actor.STUDENT": {
+  "text": "الطالب",
+  "why": "missing"
+ },
+ "agency:apps.actor.SYSTEM": {
+  "text": "النظام",
+  "why": "missing"
+ },
+ "agency:apps.actor.UNIVERSITY": {
+  "text": "الجامعة",
+  "why": "missing"
+ },
+ "agency:apps.checklist": {
+  "text": "قائمة المستندات",
+  "why": "missing"
+ },
+ "agency:apps.checklistCount": {
+  "text": "‏{{ready}} من {{total}} بنود جاهزة",
+  "why": "missing"
+ },
+ "agency:apps.col.intake": {
+  "text": "فصل الالتحاق",
+  "why": "intake ≠ admission date; confusable with deadline"
+ },
+ "agency:apps.col.program": {
+  "text": "الجامعة والبرنامج",
+  "why": "slash read as either/or"
+ },
+ "agency:apps.confirmMove": {
+  "text": "نقل إلى «{{status}}»",
+  "why": "missing"
+ },
+ "agency:apps.empty": {
+  "text": "لا توجد طلبات تطابق عوامل التصفية هذه. غيّرها أو امسحها.",
+  "why": "second sentence dropped"
+ },
+ "agency:apps.externalRef": {
+  "text": "مرجع الجامعة",
+  "why": "missing"
+ },
+ "agency:apps.externalRefHint": {
+  "text": "رقم الطلب من بوابة الجامعة، إن كان لديك.",
+  "why": "missing"
+ },
+ "agency:apps.flag": {
+  "text": "تعليم",
+  "why": "missing"
+ },
+ "agency:apps.flagReason": {
+  "text": "سبب التعليم",
+  "why": "missing"
+ },
+ "agency:apps.flagTitle": {
+  "text": "تعليم للمتابعة",
+  "why": "missing"
+ },
+ "agency:apps.history": {
+  "text": "سجل الحالة",
+  "why": "missing"
+ },
+ "agency:apps.legalization": {
+  "text": "التوثيق والتصديق",
+  "why": "missing"
+ },
+ "agency:apps.moveTo": {
+  "text": "تغيير حالة الطلب",
+  "why": "missing"
+ },
+ "agency:apps.moved": {
+  "text": "نُقل الطلب إلى {{status}}.",
+  "why": "missing"
+ },
+ "agency:apps.noTransitions": {
+  "text": "لا تتوفر لمؤسستك تغييرات في الحالة عند هذه المرحلة.",
+  "why": "missing"
+ },
+ "agency:apps.note": {
+  "text": "ملاحظة",
+  "why": "missing"
+ },
+ "agency:apps.noteHint": {
+  "text": "تُحفَظ في سجل الحالة.",
+  "why": "missing"
+ },
+ "agency:apps.readiness": {
+  "text": "الجاهزية",
+  "why": "missing"
+ },
+ "agency:apps.reused": {
+  "text": "مُعاد استخدامه من الخزنة",
+  "why": "missing"
+ },
+ "agency:apps.scholarship": {
+  "text": "ملاحظة المنحة",
+  "why": "missing"
+ },
+ "agency:apps.semester": {
+  "text": "بداية الفصل الدراسي",
+  "why": "missing"
+ },
+ "agency:apps.sortBy.readiness": {
+  "text": "الجاهزية",
+  "why": "missing"
+ },
+ "agency:apps.submitBlocked": {
+  "text": "المستندات المطلوبة ناقصة، لذا التقديم متوقف:",
+  "why": "missing"
+ },
+ "agency:apps.submitted": {
+  "text": "تم التقديم",
+  "why": "missing"
+ },
+ "agency:apps.translation": {
+  "text": "الترجمة",
+  "why": "missing"
+ },
+ "agency:apps.withdrawWarn": {
+  "text": "سحب هذا الطلب نهائي ولا يمكن التراجع عنه.",
+  "why": "missing"
+ },
+ "agency:dash.days_zero": {
+  "text": "‏{{count}} يوم",
+  "why": "Arabic plural family"
+ },
+ "agency:dash.days_one": {
+  "text": "‏{{count}} يوم",
+  "why": "Arabic plural family"
+ },
+ "agency:dash.days_two": {
+  "text": "‏{{count}} يومان",
+  "why": "Arabic plural family"
+ },
+ "agency:dash.days_few": {
+  "text": "‏{{count}} أيام",
+  "why": "Arabic plural family"
+ },
+ "agency:dash.days_many": {
+  "text": "‏{{count}} يومًا",
+  "why": "Arabic plural family"
+ },
+ "agency:dash.days_other": {
+  "text": "‏{{count}} يوم",
+  "why": "missing"
+ },
+ "agency:dash.period": {
+  "text": "فترة التقرير",
+  "why": "missing"
+ },
+ "agency:dash.subHq": {
+  "text": "نظرة عبر الوكالات على كل الطلاب النشطين وقوائم الانتظار ومؤشرات SLA.",
+  "why": "missing"
+ },
+ "agency:dash.workload.member": {
+  "text": "عضو الفريق",
+  "why": "missing"
+ },
+ "agency:dash.workload.open": {
+  "text": "المهام المفتوحة",
+  "why": "missing"
+ },
+ "agency:dash.workload.overdue": {
+  "text": "متأخرة",
+  "why": "missing"
+ },
+ "agency:dash.workload.students": {
+  "text": "الطلاب النشطون",
+  "why": "missing"
+ },
+ "agency:docs.bulkAssign": {
+  "text": "إسناد مراجع",
+  "why": "missing"
+ },
+ "agency:docs.bulkAssigned_zero": {
+  "text": "أُسند {{count}} مستند",
+  "why": "Arabic plural family"
+ },
+ "agency:docs.bulkAssigned_one": {
+  "text": "أُسند {{count}} مستند",
+  "why": "missing"
+ },
+ "agency:docs.bulkAssigned_two": {
+  "text": "أُسند {{count}} مستندان",
+  "why": "Arabic plural family"
+ },
+ "agency:docs.bulkAssigned_few": {
+  "text": "أُسندت {{count}} مستندات",
+  "why": "Arabic plural family"
+ },
+ "agency:docs.bulkAssigned_many": {
+  "text": "أُسند {{count}} مستندًا",
+  "why": "Arabic plural family"
+ },
+ "agency:docs.bulkAssigned_other": {
+  "text": "أُسند {{count}} مستند",
+  "why": "missing"
+ },
+ "agency:docs.bulkFailed_zero": {
+  "text": "تعذّر تغيير {{count}} مستند (تمت مراجعته بالفعل أو ليس ضمن حالاتك)",
+  "why": "Arabic plural family"
+ },
+ "agency:docs.bulkFailed_one": {
+  "text": "تعذّر تغيير {{count}} مستند (تمت مراجعته بالفعل أو ليس ضمن حالاتك)",
+  "why": "missing"
+ },
+ "agency:docs.bulkFailed_two": {
+  "text": "تعذّر تغيير {{count}} مستندين (تمت مراجعتهما بالفعل أو ليسا ضمن حالاتك)",
+  "why": "Arabic plural family"
+ },
+ "agency:docs.bulkFailed_few": {
+  "text": "تعذّر تغيير {{count}} مستندات (تمت مراجعتها بالفعل أو ليست ضمن حالاتك)",
+  "why": "Arabic plural family"
+ },
+ "agency:docs.bulkFailed_many": {
+  "text": "تعذّر تغيير {{count}} مستندًا (تمت مراجعتها بالفعل أو ليست ضمن حالاتك)",
+  "why": "Arabic plural family"
+ },
+ "agency:docs.bulkFailed_other": {
+  "text": "تعذّر تغيير {{count}} مستند (تمت مراجعتها بالفعل أو ليست ضمن حالاتك)",
+  "why": "missing"
+ },
+ "agency:docs.bulkLabel": {
+  "text": "إجراءات للمستندات المحددة",
+  "why": "missing"
+ },
+ "agency:docs.bulkVerified_zero": {
+  "text": "تم التحقق من {{count}} مستند",
+  "why": "Arabic plural family"
+ },
+ "agency:docs.bulkVerified_one": {
+  "text": "تم التحقق من {{count}} مستند",
+  "why": "missing"
+ },
+ "agency:docs.bulkVerified_two": {
+  "text": "تم التحقق من {{count}} مستندين",
+  "why": "Arabic plural family"
+ },
+ "agency:docs.bulkVerified_few": {
+  "text": "تم التحقق من {{count}} مستندات",
+  "why": "Arabic plural family"
+ },
+ "agency:docs.bulkVerified_many": {
+  "text": "تم التحقق من {{count}} مستندًا",
+  "why": "Arabic plural family"
+ },
+ "agency:docs.bulkVerified_other": {
+  "text": "تم التحقق من {{count}} مستند",
+  "why": "missing"
+ },
+ "agency:docs.bulkVerifyTitle_one": {
+  "text": "هل تريد التحقق من {{count}} مستند؟",
+  "why": "missing"
+ },
+ "agency:docs.empty": {
+  "text": "قائمة الانتظار فارغة",
+  "why": "missing"
+ },
+ "agency:docs.emptyBy.any": {
+  "text": "لا توجد مستندات بانتظار المراجعة.",
+  "why": "missing"
+ },
+ "agency:docs.emptyBy.me": {
+  "text": "لا شيء مُسند إليك حاليًا.",
+  "why": "missing"
+ },
+ "agency:docs.emptyBy.unassigned": {
+  "text": "لكل مستند منتظر مراجع.",
+  "why": "missing"
+ },
+ "agency:docs.notInQueue": {
+  "text": "ليس في قائمة المراجعة",
+  "why": "missing"
+ },
+ "agency:docs.sc.changes": {
+  "text": "طلب تصحيح",
+  "why": "one term: correction, as in sc.send"
+ },
+ "agency:docs.subSla": {
+  "text": "‏{{count}} بانتظار المراجعة · {{late}} تجاوزت هدف {{hours}} ساعة",
+  "why": "missing"
+ },
+ "agency:docs.sub_zero": {
+  "text": "‏{{count}} مستند بانتظار المراجعة، الأقدم أولًا.",
+  "why": "Arabic plural family"
+ },
+ "agency:docs.sub_one": {
+  "text": "‏{{count}} مستند بانتظار المراجعة، الأقدم أولًا.",
+  "why": "Arabic plural family"
+ },
+ "agency:docs.sub_two": {
+  "text": "‏{{count}} مستندان بانتظار المراجعة، الأقدم أولًا.",
+  "why": "Arabic plural family"
+ },
+ "agency:docs.sub_few": {
+  "text": "‏{{count}} مستندات بانتظار المراجعة، الأقدم أولًا.",
+  "why": "Arabic plural family"
+ },
+ "agency:docs.sub_many": {
+  "text": "‏{{count}} مستندًا بانتظار المراجعة، الأقدم أولًا.",
+  "why": "Arabic plural family"
+ },
+ "agency:docs.sub_other": {
+  "text": "‏{{count}} مستند بانتظار المراجعة، الأقدم أولًا.",
+  "why": "missing"
+ },
+ "agency:docs.uploadedFor": {
+  "text": "أُضيف إلى خزنة مستندات {{name}}",
+  "why": "missing"
+ },
+ "agency:docs.you": {
+  "text": "أنت",
+  "why": "missing"
+ },
+ "agency:inbox.audienceTeam": {
+  "text": "لا يرى هذا إلا فريقك",
+  "why": "missing"
+ },
+ "agency:inbox.manageTemplates": {
+  "text": "إدارة القوالب…",
+  "why": "missing"
+ },
+ "agency:inbox.needsReplyShort": {
+  "text": "رد مستحق",
+  "why": "one term for Reply owed"
+ },
+ "agency:inbox.noMessages": {
+  "text": "لا توجد رسائل بعد.",
+  "why": "missing"
+ },
+ "agency:inbox.notePh": {
+  "text": "اكتب ملاحظة داخلية لفريقك… (Ctrl+Enter للحفظ)",
+  "why": "missing"
+ },
+ "agency:inbox.noteSaved": {
+  "text": "حُفظت الملاحظة الداخلية.",
+  "why": "missing"
+ },
+ "agency:inbox.openFile": {
+  "text": "فتح الملف",
+  "why": "missing"
+ },
+ "agency:inbox.participants": {
+  "text": "المشاركون",
+  "why": "missing"
+ },
+ "agency:inbox.removeFile": {
+  "text": "إزالة {{name}}",
+  "why": "missing"
+ },
+ "agency:inbox.saveNote": {
+  "text": "حفظ الملاحظة",
+  "why": "missing"
+ },
+ "agency:inbox.sent": {
+  "text": "أُرسلت الرسالة.",
+  "why": "missing"
+ },
+ "agency:inbox.subReply_zero": {
+  "text": "‏{{count}} محادثة بانتظار ردك",
+  "why": "Arabic plural family"
+ },
+ "agency:inbox.subReply_one": {
+  "text": "‏{{count}} محادثة بانتظار ردك",
+  "why": "missing"
+ },
+ "agency:inbox.subReply_two": {
+  "text": "‏{{count}} محادثتان بانتظار ردك",
+  "why": "Arabic plural family"
+ },
+ "agency:inbox.subReply_few": {
+  "text": "‏{{count}} محادثات بانتظار ردك",
+  "why": "Arabic plural family"
+ },
+ "agency:inbox.subReply_many": {
+  "text": "‏{{count}} محادثة بانتظار ردك",
+  "why": "Arabic plural family"
+ },
+ "agency:inbox.subUnread_zero": {
+  "text": "‏{{count}} محادثة غير مقروءة",
+  "why": "Arabic plural family"
+ },
+ "agency:inbox.subUnread_one": {
+  "text": "‏{{count}} محادثة غير مقروءة",
+  "why": "missing"
+ },
+ "agency:inbox.subUnread_two": {
+  "text": "‏{{count}} محادثتان غير مقروءتين",
+  "why": "Arabic plural family"
+ },
+ "agency:inbox.subUnread_few": {
+  "text": "‏{{count}} محادثات غير مقروءة",
+  "why": "Arabic plural family"
+ },
+ "agency:inbox.subUnread_many": {
+  "text": "‏{{count}} محادثة غير مقروءة",
+  "why": "Arabic plural family"
+ },
+ "agency:inbox.system": {
+  "text": "النظام",
+  "why": "missing"
+ },
+ "agency:inbox.taskCreated": {
+  "text": "أُنشئت مهمة من هذه الرسالة",
+  "why": "missing"
+ },
+ "agency:inbox.taskDue": {
+  "text": "استحقاق المهمة",
+  "why": "missing"
+ },
+ "agency:inbox.taskHint": {
+  "text": "تُسند المهمة إلى أول زميل مذكور في الرسالة، أو إليك.",
+  "why": "missing"
+ },
+ "agency:inbox.unreadN_zero": {
+  "text": "‏{{count}} رسالة غير مقروءة",
+  "why": "Arabic plural family"
+ },
+ "agency:inbox.unreadN_two": {
+  "text": "‏{{count}} رسالتان غير مقروءتين",
+  "why": "Arabic plural family"
+ },
+ "agency:inbox.unreadN_few": {
+  "text": "‏{{count}} رسائل غير مقروءة",
+  "why": "Arabic plural family"
+ },
+ "agency:inbox.unreadN_many": {
+  "text": "‏{{count}} رسالة غير مقروءة",
+  "why": "Arabic plural family"
+ },
+ "agency:inbox.unreadN_other": {
+  "text": "‏{{count}} رسالة غير مقروءة",
+  "why": "missing"
+ },
+ "agency:inbox.willNotify_zero": {
+  "text": "سيُبلَّغ {{count}} زميل",
+  "why": "Arabic plural family"
+ },
+ "agency:inbox.willNotify_one": {
+  "text": "سيُبلَّغ {{count}} زميل",
+  "why": "Arabic plural family"
+ },
+ "agency:inbox.willNotify_two": {
+  "text": "سيُبلَّغ {{count}} زميلان",
+  "why": "Arabic plural family"
+ },
+ "agency:inbox.willNotify_few": {
+  "text": "سيُبلَّغ {{count}} زملاء",
+  "why": "Arabic plural family"
+ },
+ "agency:inbox.willNotify_many": {
+  "text": "سيُبلَّغ {{count}} زميلًا",
+  "why": "Arabic plural family"
+ },
+ "agency:inbox.willNotify_other": {
+  "text": "سيُبلَّغ {{count}} زميل",
+  "why": "missing"
+ },
+ "agency:login.asideFoot": {
+  "text": "تُحفَظ بيانات كل مؤسسة منفصلةً عن غيرها، ويُسجَّل كل وصول. لا يرى الطلاب الملاحظات الداخلية أبدًا.",
+  "why": "missing"
+ },
+ "agency:login.asideLead": {
+  "text": "الطلاب، وأعمال الطلبات والمستندات، والرسائل في مساحة عمل واحدة.",
+  "why": "missing"
+ },
+ "agency:login.asideTitle": {
+  "text": "من يحتاج إليك، ولماذا، وحتى متى، بدءًا من اليوم.",
+  "why": "missing"
+ },
+ "agency:login.p1Text": {
+  "text": "كل عدد عند مرحلة يفتح طلاب تلك المرحلة تحديدًا.",
+  "why": "missing"
+ },
+ "agency:login.p1Title": {
+  "text": "الطلاب حسب المرحلة",
+  "why": "missing"
+ },
+ "agency:login.p2Text": {
+  "text": "تصحيحات المستندات، والمواعيد النهائية للتقديم، والردود المستحقة، مرتبة حسب تاريخ الاستحقاق.",
+  "why": "missing"
+ },
+ "agency:login.p2Title": {
+  "text": "أعمال لها تواريخ استحقاق",
+  "why": "missing"
+ },
+ "agency:login.p3Text": {
+  "text": "معاينات آمنة وقوائم تحقق؛ وطلبات تصحيح بسبب واضح.",
+  "why": "missing"
+ },
+ "agency:login.p3Title": {
+  "text": "مراجعة المستندات",
+  "why": "missing"
+ },
+ "agency:login.p4Text": {
+  "text": "يتواصل الطلاب مع فريق Hangyul Univ؛ أما من أنجز العمل فيبقى في سجل التدقيق.",
+  "why": "missing"
+ },
+ "agency:login.p4Title": {
+  "text": "يرى الطلاب فريق Hangyul Univ",
+  "why": "missing"
+ },
+ "agency:login.subtitle": {
+  "text": "لموظفي عمليات Hangyul ووكالات الدراسة في الخارج الشريكة.",
+  "why": "missing"
+ },
+ "agency:login.title": {
+  "text": "تسجيل الدخول إلى لوحة تحكم الوكالة",
+  "why": "missing"
+ },
+ "agency:misc.change": {
+  "text": "تغيير",
+  "why": "missing"
+ },
+ "agency:misc.days_zero": {
+  "text": "‏{{count}} يوم",
+  "why": "Arabic plural family"
+ },
+ "agency:misc.days_one": {
+  "text": "‏{{count}} يوم",
+  "why": "Arabic plural family"
+ },
+ "agency:misc.days_two": {
+  "text": "‏{{count}} يومان",
+  "why": "Arabic plural family"
+ },
+ "agency:misc.days_few": {
+  "text": "‏{{count}} أيام",
+  "why": "Arabic plural family"
+ },
+ "agency:misc.days_many": {
+  "text": "‏{{count}} يومًا",
+  "why": "Arabic plural family"
+ },
+ "agency:misc.days_other": {
+  "text": "‏{{count}} يوم",
+  "why": "missing"
+ },
+ "agency:misc.hours_zero": {
+  "text": "‏{{count}} ساعة",
+  "why": "Arabic plural family"
+ },
+ "agency:misc.hours_one": {
+  "text": "‏{{count}} ساعة",
+  "why": "Arabic plural family"
+ },
+ "agency:misc.hours_two": {
+  "text": "‏{{count}} ساعتان",
+  "why": "Arabic plural family"
+ },
+ "agency:misc.hours_few": {
+  "text": "‏{{count}} ساعات",
+  "why": "Arabic plural family"
+ },
+ "agency:misc.hours_many": {
+  "text": "‏{{count}} ساعة",
+  "why": "Arabic plural family"
+ },
+ "agency:misc.hours_other": {
+  "text": "‏{{count}} ساعة",
+  "why": "missing"
+ },
+ "agency:misc.internalTag": {
+  "text": "داخلي",
+  "why": "missing"
+ },
+ "agency:misc.no": {
+  "text": "لا",
+  "why": "missing"
+ },
+ "agency:misc.notFoundText": {
+  "text": "ربما نُقلت الصفحة، أو ليس لديك صلاحية الوصول إليها.",
+  "why": "missing"
+ },
+ "agency:misc.searchStudents": {
+  "text": "ابحث عن طلابك…",
+  "why": "missing"
+ },
+ "agency:misc.unassigned": {
+  "text": "غير مُسند",
+  "why": "missing"
+ },
+ "agency:misc.yes": {
+  "text": "نعم",
+  "why": "missing"
+ },
+ "agency:notifs.filter": {
+  "text": "تصفية",
+  "why": "missing"
+ },
+ "agency:notifs.sub": {
+  "text": "كل ما حدث أثناء غيابك.",
+  "why": "missing"
+ },
+ "agency:savedViews.delete": {
+  "text": "حذف {{name}}",
+  "why": "missing"
+ },
+ "agency:savedViews.saveHint_one": {
+  "text": "يحفظ عامل التصفية والترتيب الحاليين لتفتح هذه القائمة بنقرة واحدة.",
+  "why": "missing"
+ },
+ "agency:savedViews.saveHint_zero": {
+  "text": "يحفظ عوامل التصفية الحالية ({{count}}) والترتيب لتفتح هذه القائمة بنقرة واحدة.",
+  "why": "Arabic plural family"
+ },
+ "agency:savedViews.saveHint_two": {
+  "text": "يحفظ عوامل التصفية الحالية ({{count}}) والترتيب لتفتح هذه القائمة بنقرة واحدة.",
+  "why": "Arabic plural family"
+ },
+ "agency:savedViews.saveHint_few": {
+  "text": "يحفظ عوامل التصفية الحالية ({{count}}) والترتيب لتفتح هذه القائمة بنقرة واحدة.",
+  "why": "Arabic plural family"
+ },
+ "agency:savedViews.saveHint_many": {
+  "text": "يحفظ عوامل التصفية الحالية ({{count}}) والترتيب لتفتح هذه القائمة بنقرة واحدة.",
+  "why": "Arabic plural family"
+ },
+ "agency:savedViews.saveHint_other": {
+  "text": "يحفظ عوامل التصفية الحالية ({{count}}) والترتيب لتفتح هذه القائمة بنقرة واحدة.",
+  "why": "missing"
+ },
+ "agency:savedViews.saved": {
+  "text": "حُفظ «{{name}}»",
+  "why": "missing"
+ },
+ "agency:settings.account": {
+  "text": "الحساب",
+  "why": "missing"
+ },
+ "agency:settings.language": {
+  "text": "اللغة",
+  "why": "missing"
+ },
+ "agency:settings.languageHint": {
+  "text": "لغة الواجهة. تبقى بيانات الطلاب بلغتها الأصلية.",
+  "why": "missing"
+ },
+ "agency:settings.localOnly": {
+  "text": "يُحفَظ في هذا المتصفح فقط.",
+  "why": "missing"
+ },
+ "agency:settings.org": {
+  "text": "المؤسسة",
+  "why": "missing"
+ },
+ "agency:settings.poll": {
+  "text": "التحديثات المباشرة",
+  "why": "missing"
+ },
+ "agency:settings.pollHint": {
+  "text": "تحديث قوائم الانتظار والأعداد كل دقيقة.",
+  "why": "missing"
+ },
+ "agency:settings.scSearch": {
+  "text": "التنقل بين نتائج البحث العام",
+  "why": "missing"
+ },
+ "agency:settings.scSend": {
+  "text": "إرسال رسالة أو حفظ ملاحظة",
+  "why": "missing"
+ },
+ "agency:settings.shortcuts": {
+  "text": "اختصارات لوحة المفاتيح",
+  "why": "missing"
+ },
+ "agency:settings.sub": {
+  "text": "التفضيلات الشخصية لهذه اللوحة.",
+  "why": "missing"
+ },
+ "agency:settings.timezone": {
+  "text": "المنطقة الزمنية",
+  "why": "missing"
+ },
+ "agency:settings.updates": {
+  "text": "التحديثات المباشرة",
+  "why": "missing"
+ },
+ "agency:shell.hqProduct": {
+  "text": "عمليات Hangyul",
+  "why": "missing"
+ },
+ "agency:shell.hqView": {
+  "text": "مقر Hangyul · كل الوكالات",
+  "why": "missing"
+ },
+ "agency:shell.searchAll": {
+  "text": "عرض كل النتائج لـ «{{q}}»",
+  "why": "missing"
+ },
+ "agency:sidebar.agencies": {
+  "text": "الوكالات",
+  "why": "missing"
+ },
+ "agency:sidebar.catalog": {
+  "text": "الجامعات والبرامج",
+  "why": "missing"
+ },
+ "agency:sidebar.hangyul": {
+  "text": "مقر Hangyul",
+  "why": "missing"
+ },
+ "agency:sidebar.operations": {
+  "text": "العمليات",
+  "why": "missing"
+ },
+ "agency:sidebar.override": {
+  "text": "تجاوز الإسناد",
+  "why": "missing"
+ },
+ "agency:students.bulk.confirmRegen_zero": {
+  "text": "هل تريد إعادة حساب قوائم المهام التلقائية لـ {{count}} طالب؟ تُحفظ المهام اليدوية.",
+  "why": "Arabic plural family"
+ },
+ "agency:students.bulk.confirmRegen_one": {
+  "text": "هل تريد إعادة حساب قائمة المهام التلقائية لـ {{count}} طالب؟ تُحفظ المهام اليدوية.",
+  "why": "Arabic plural family"
+ },
+ "agency:students.bulk.confirmRegen_two": {
+  "text": "هل تريد إعادة حساب قوائم المهام التلقائية لـ {{count}} طالبين؟ تُحفظ المهام اليدوية.",
+  "why": "Arabic plural family"
+ },
+ "agency:students.bulk.confirmRegen_few": {
+  "text": "هل تريد إعادة حساب قوائم المهام التلقائية لـ {{count}} طلاب؟ تُحفظ المهام اليدوية.",
+  "why": "Arabic plural family"
+ },
+ "agency:students.bulk.confirmRegen_many": {
+  "text": "هل تريد إعادة حساب قوائم المهام التلقائية لـ {{count}} طالبًا؟ تُحفظ المهام اليدوية.",
+  "why": "Arabic plural family"
+ },
+ "agency:students.bulk.confirmRegen_other": {
+  "text": "هل تريد إعادة حساب قوائم المهام التلقائية لـ {{count}} طالب؟ تُحفظ المهام اليدوية.",
+  "why": "missing"
+ },
+ "agency:students.bulk.confirmStage_zero": {
+  "text": "هل تريد نقل {{count}} طالب إلى «{{stage}}»؟ يُسجَّل هذا في سجل التدقيق.",
+  "why": "Arabic plural family"
+ },
+ "agency:students.bulk.confirmStage_one": {
+  "text": "هل تريد نقل {{count}} طالب إلى «{{stage}}»؟ يُسجَّل هذا في سجل التدقيق.",
+  "why": "Arabic plural family"
+ },
+ "agency:students.bulk.confirmStage_two": {
+  "text": "هل تريد نقل {{count}} طالبين إلى «{{stage}}»؟ يُسجَّل هذا في سجل التدقيق.",
+  "why": "Arabic plural family"
+ },
+ "agency:students.bulk.confirmStage_few": {
+  "text": "هل تريد نقل {{count}} طلاب إلى «{{stage}}»؟ يُسجَّل هذا في سجل التدقيق.",
+  "why": "Arabic plural family"
+ },
+ "agency:students.bulk.confirmStage_many": {
+  "text": "هل تريد نقل {{count}} طالبًا إلى «{{stage}}»؟ يُسجَّل هذا في سجل التدقيق.",
+  "why": "Arabic plural family"
+ },
+ "agency:students.bulk.confirmStage_other": {
+  "text": "هل تريد نقل {{count}} طالب إلى «{{stage}}»؟ يُسجَّل هذا في سجل التدقيق.",
+  "why": "missing"
+ },
+ "agency:students.bulk.confirmTitle": {
+  "text": "هل تريد تطبيق الإجراء الجماعي؟",
+  "why": "missing"
+ },
+ "agency:students.bulk.done_zero": {
+  "text": "تم تحديث {{count}} طالب.",
+  "why": "Arabic plural family"
+ },
+ "agency:students.bulk.done_one": {
+  "text": "تم تحديث {{count}} طالب.",
+  "why": "Arabic plural family"
+ },
+ "agency:students.bulk.done_two": {
+  "text": "تم تحديث {{count}} طالبين.",
+  "why": "Arabic plural family"
+ },
+ "agency:students.bulk.done_few": {
+  "text": "تم تحديث {{count}} طلاب.",
+  "why": "Arabic plural family"
+ },
+ "agency:students.bulk.done_many": {
+  "text": "تم تحديث {{count}} طالبًا.",
+  "why": "Arabic plural family"
+ },
+ "agency:students.bulk.done_other": {
+  "text": "تم تحديث {{count}} طالب.",
+  "why": "missing"
+ },
+ "agency:students.bulk.regen": {
+  "text": "إعادة إنشاء المهام",
+  "why": "missing"
+ },
+ "agency:students.bulk.stage": {
+  "text": "نقل إلى مرحلة…",
+  "why": "missing"
+ },
+ "agency:students.col.degree": {
+  "text": "الدرجة العلمية",
+  "why": "missing"
+ },
+ "agency:students.col.intakeShort": {
+  "text": "فصل الالتحاق",
+  "why": "one term for intake"
+ },
+ "agency:students.col.nationality": {
+  "text": "الجنسية",
+  "why": "missing"
+ },
+ "agency:students.dShort_one": {
+  "text": "‏{{count}} ي",
+  "why": "missing"
+ },
+ "agency:students.f.allDegrees": {
+  "text": "كل الدرجات العلمية",
+  "why": "missing"
+ },
+ "agency:students.f.allNationalities": {
+  "text": "كل الجنسيات",
+  "why": "missing"
+ },
+ "agency:students.noReply": {
+  "text": "فات موعد الرد الأول (SLA). هذا الطالب ينتظر ردًا",
+  "why": "missing"
+ },
+ "agency:students.noReplyShort": {
+  "text": "رد مستحق",
+  "why": "missing"
+ },
+ "agency:students.subCount": {
+  "text": "الطلاب الذين تتابعهم: {{count}}",
+  "why": "count-neutral; avoids wrong plural"
+ },
+ "agency:students.view.all": {
+  "text": "الكل",
+  "why": "missing"
+ },
+ "agency:students.view.arrived": {
+  "text": "وصل",
+  "why": "missing"
+ },
+ "agency:students.view.deadline": {
+  "text": "موعد نهائي قريب",
+  "why": "missing"
+ },
+ "agency:students.view.docs": {
+  "text": "مستندات تحتاج إلى تصحيح",
+  "why": "missing"
+ },
+ "agency:students.view.incomplete": {
+  "text": "مستندات ناقصة",
+  "why": "missing"
+ },
+ "agency:students.view.mine": {
+  "text": "طلابي",
+  "why": "missing"
+ },
+ "agency:students.view.requested": {
+  "text": "مستندات طلبتها الجامعة",
+  "why": "missing"
+ },
+ "agency:students.view.university": {
+  "text": "بانتظار الجامعة",
+  "why": "missing"
+ },
+ "agency:students.view.visa": {
+  "text": "التأشيرة",
+  "why": "missing"
+ },
+ "agency:students.view.waiting_external": {
+  "text": "بانتظار السفارة أو طرف آخر",
+  "why": "missing"
+ },
+ "agency:students.view.waiting_us": {
+  "text": "بانتظارنا",
+  "why": "missing"
+ },
+ "agency:today.afternoon": {
+  "text": "مساء الخير، {{name}}",
+  "why": "missing"
+ },
+ "agency:today.allClear": {
+  "text": "لا شيء يحتاج إلى متابعة الآن. ستظهر الأعمال الجديدة هنا فور ورودها.",
+  "why": "missing"
+ },
+ "agency:today.attention": {
+  "text": "بحاجة إلى متابعة",
+  "why": "missing"
+ },
+ "agency:today.attentionSub": {
+  "text": "يُعرض البند الأكثر إلحاحًا أولًا. افتح صفًا للعمل على القائمة.",
+  "why": "missing"
+ },
+ "agency:today.attentionV4": {
+  "text": "من يحتاج إليك اليوم",
+  "why": "missing"
+ },
+ "agency:today.clearList": {
+  "text": "كل شيء على ما يرام: {{list}}",
+  "why": "missing"
+ },
+ "agency:today.closing": {
+  "text": "طلبات يُغلق تقديمها خلال 7 أيام",
+  "why": "missing"
+ },
+ "agency:today.closingDetail": {
+  "text": "التالي: {{university}} · {{student}}، يُغلق في {{date}}",
+  "why": "missing"
+ },
+ "agency:today.closingV4": {
+  "text": "طلاب موعدهم النهائي للتقديم خلال 7 أيام",
+  "why": "missing"
+ },
+ "agency:today.cta.deadlines": {
+  "text": "عرض المواعيد النهائية",
+  "why": "missing"
+ },
+ "agency:today.cta.messages": {
+  "text": "فتح البريد الوارد",
+  "why": "missing"
+ },
+ "agency:today.cta.reply": {
+  "text": "رد",
+  "why": "missing"
+ },
+ "agency:today.cta.review": {
+  "text": "بدء المراجعة",
+  "why": "missing"
+ },
+ "agency:today.cta.students": {
+  "text": "فتح الطلاب",
+  "why": "missing"
+ },
+ "agency:today.cta.tasks": {
+  "text": "فتح المهام",
+  "why": "missing"
+ },
+ "agency:today.deadlines": {
+  "text": "المواعيد النهائية خلال 7 أيام",
+  "why": "missing"
+ },
+ "agency:today.deadlinesDetail": {
+  "text": "التالي: {{title}} · {{student}}، {{when}}",
+  "why": "missing"
+ },
+ "agency:today.docs": {
+  "text": "مستندات بانتظار المراجعة",
+  "why": "missing"
+ },
+ "agency:today.docsDetail": {
+  "text": "الأقدم: {{student}} · {{doc}}، في الانتظار منذ {{wait}}",
+  "why": "missing"
+ },
+ "agency:today.docsOldest": {
+  "text": "الأقدم: {{student}} · {{doc}}، رُفع {{when}}",
+  "why": "missing"
+ },
+ "agency:today.docsSla_zero": {
+  "text": "‏{{count}} مستند تجاوز هدف المراجعة ({{hours}} ساعة)",
+  "why": "Arabic plural family"
+ },
+ "agency:today.docsSla_one": {
+  "text": "‏{{count}} مستند تجاوز هدف المراجعة ({{hours}} ساعة)",
+  "why": "missing"
+ },
+ "agency:today.docsSla_two": {
+  "text": "‏{{count}} مستندان تجاوزا هدف المراجعة ({{hours}} ساعة)",
+  "why": "Arabic plural family"
+ },
+ "agency:today.docsSla_few": {
+  "text": "‏{{count}} مستندات تجاوزت هدف المراجعة ({{hours}} ساعة)",
+  "why": "Arabic plural family"
+ },
+ "agency:today.docsSla_many": {
+  "text": "‏{{count}} مستندًا تجاوز هدف المراجعة ({{hours}} ساعة)",
+  "why": "Arabic plural family"
+ },
+ "agency:today.docsSla_other": {
+  "text": "‏{{count}} مستند تجاوز هدف المراجعة ({{hours}} ساعة)",
+  "why": "missing"
+ },
+ "agency:today.essays": {
+  "text": "مقالات بانتظار المراجعة",
+  "why": "missing"
+ },
+ "agency:today.essaysDetail": {
+  "text": "التالي: {{title}} · {{student}}",
+  "why": "missing"
+ },
+ "agency:today.evening": {
+  "text": "مساء الخير، {{name}}",
+  "why": "same as afternoon; Arabic has one greeting"
+ },
+ "agency:today.keyMove": {
+  "text": "تنقّل",
+  "why": "missing"
+ },
+ "agency:today.keyOpen": {
+  "text": "فتح",
+  "why": "missing"
+ },
+ "agency:today.messages": {
+  "text": "محادثات فيها رسائل غير مقروءة",
+  "why": "missing"
+ },
+ "agency:today.messagesDetail": {
+  "text": "الأطول انتظارًا: {{who}}، {{when}}",
+  "why": "missing"
+ },
+ "agency:today.morning": {
+  "text": "صباح الخير، {{name}}",
+  "why": "punctuation consistent with evening"
+ },
+ "agency:today.openPipeline": {
+  "text": "فتح مسار الحالات",
+  "why": "missing"
+ },
+ "agency:today.overdueDef": {
+  "text": "مهام مفتوحة انقضى تاريخ استحقاقها.",
+  "why": "missing"
+ },
+ "agency:today.overdueDetail": {
+  "text": "الأقدم: {{title}} · {{student}}، الاستحقاق {{when}}",
+  "why": "missing"
+ },
+ "agency:today.overdueMine": {
+  "text": "مهامك المتأخرة",
+  "why": "missing"
+ },
+ "agency:today.overdueTeam": {
+  "text": "المهام المتأخرة على مستوى الفريق",
+  "why": "missing"
+ },
+ "agency:today.phase.studying": {
+  "text": "يدرس",
+  "why": "missing"
+ },
+ "agency:today.pipeline": {
+  "text": "الحالات حسب المرحلة",
+  "why": "missing"
+ },
+ "agency:today.pipelineSub": {
+  "text": "عدد الطلاب: {{count}}. اختر مرحلة لعرض من فيها.",
+  "why": "missing"
+ },
+ "agency:today.pipelineSubV4_zero": {
+  "text": "‏{{count}} طالب",
+  "why": "Arabic plural family"
+ },
+ "agency:today.pipelineSubV4_one": {
+  "text": "‏{{count}} طالب",
+  "why": "missing"
+ },
+ "agency:today.pipelineSubV4_two": {
+  "text": "‏{{count}} طالبان",
+  "why": "Arabic plural family"
+ },
+ "agency:today.pipelineSubV4_few": {
+  "text": "‏{{count}} طلاب",
+  "why": "Arabic plural family"
+ },
+ "agency:today.pipelineSubV4_many": {
+  "text": "‏{{count}} طالبًا",
+  "why": "Arabic plural family"
+ },
+ "agency:today.pipelineSubV4_other": {
+  "text": "‏{{count}} طالب",
+  "why": "missing"
+ },
+ "agency:today.replies": {
+  "text": "طلاب ينتظرون ردًا",
+  "why": "missing"
+ },
+ "agency:today.repliesDetail": {
+  "text": "آخر رسالة لهم لم يُرد عليها بعد.",
+  "why": "missing"
+ },
+ "agency:today.repliesOldest": {
+  "text": "الأطول انتظارًا: {{student}}، {{when}}",
+  "why": "missing"
+ },
+ "agency:today.repliesV4": {
+  "text": "ردود مستحقة",
+  "why": "missing"
+ },
+ "agency:today.requests": {
+  "text": "طلبات مستندات من الجامعات",
+  "why": "missing"
+ },
+ "agency:today.requestsDetail": {
+  "text": "على الطالب رفعه. تأكد من وصوله.",
+  "why": "missing"
+ },
+ "agency:today.sla": {
+  "text": "طلاب يستحقون ردًا أول خلال 24 ساعة",
+  "why": "missing"
+ },
+ "agency:today.slaDetail": {
+  "text": "‏{{student}} · الرد مستحق {{when}}",
+  "why": "missing"
+ },
+ "agency:today.unread": {
+  "text": "محادثات غير مقروءة",
+  "why": "missing"
+ },
+ "agency:today.unreadDetail": {
+  "text": "الأحدث: {{who}}، {{when}}",
+  "why": "missing"
+ },
+ "agency:today.upcoming": {
+  "text": "المواعيد النهائية القادمة",
+  "why": "missing"
+ },
+ "agency:today.upcomingEmpty": {
+  "text": "لا مواعيد نهائية خلال الأيام الـ14 القادمة.",
+  "why": "missing"
+ },
+ "agency:today.upcomingSub": {
+  "text": "الأيام الـ14 القادمة",
+  "why": "missing"
+ },
+ "agency:today.upcomingV4": {
+  "text": "الأيام الـ14 القادمة",
+  "why": "missing"
+ },
+ "agency:today.v5.andMore_zero": {
+  "text": "و{{count}} أخرى",
+  "why": "Arabic plural family"
+ },
+ "agency:today.v5.andMore_one": {
+  "text": "و{{count}} أخرى",
+  "why": "missing"
+ },
+ "agency:today.v5.andMore_two": {
+  "text": "و{{count}} أخرى",
+  "why": "Arabic plural family"
+ },
+ "agency:today.v5.andMore_few": {
+  "text": "و{{count}} أخرى",
+  "why": "Arabic plural family"
+ },
+ "agency:today.v5.andMore_many": {
+  "text": "و{{count}} أخرى",
+  "why": "Arabic plural family"
+ },
+ "agency:today.v5.andMore_other": {
+  "text": "و{{count}} أخرى",
+  "why": "missing"
+ },
+ "agency:today.v5.checks": {
+  "text": "فحوصات مستندات تحتاج إلى مراجع",
+  "why": "missing"
+ },
+ "agency:today.v5.checksDetail": {
+  "text": "‏{{student}} · {{doc}}: {{what}}",
+  "why": "missing"
+ },
+ "agency:today.v5.services.needs_assignment": {
+  "text": "طلبات خدمة جديدة للإسناد",
+  "why": "missing"
+ },
+ "agency:today.v5.services.overdue": {
+  "text": "حالات خدمة تجاوزت وقت الاستجابة",
+  "why": "missing"
+ },
+ "agency:today.v5.services.today": {
+  "text": "حالات خدمة تستحق اليوم",
+  "why": "missing"
+ },
+ "agency:today.v5.servicesCta": {
+  "text": "فتح الخدمات",
+  "why": "missing"
+ },
+ "agency:today.v5.servicesDetail": {
+  "text": "‏{{type}} · {{student}} · {{reason}}",
+  "why": "missing"
+ },
+ "agency:today.v5.visa": {
+  "text": "حالات تأشيرة تحتاج إليك",
+  "why": "missing"
+ },
+ "agency:today.v5.visaCta": {
+  "text": "فتح",
+  "why": "missing"
+ },
+ "agency:today.v5.writingDetail": {
+  "text": "‏{{essay}} · {{student}}، {{university}}",
+  "why": "missing"
+ },
+ "agency:today.v5.writingDue": {
+  "text": "مراجعات مقالات تستحق خلال 48 ساعة",
+  "why": "missing"
+ },
+ "agency:today.v5.writingDue48": {
+  "text": "تستحق {{when}}",
+  "why": "missing"
+ },
+ "agency:today.v5.writingOverdue": {
+  "text": "مراجعات مقالات تجاوزت الوقت الموعود",
+  "why": "missing"
+ },
+ "agency:today.v5.writingRevised_zero": {
+  "text": "‏{{count}} تعديل من الطلاب",
+  "why": "Arabic plural family"
+ },
+ "agency:today.v5.writingRevised_one": {
+  "text": "‏{{count}} تعديل من طالب",
+  "why": "missing"
+ },
+ "agency:today.v5.writingRevised_two": {
+  "text": "‏{{count}} تعديلان من الطلاب",
+  "why": "Arabic plural family"
+ },
+ "agency:today.v5.writingRevised_few": {
+  "text": "‏{{count}} تعديلات من الطلاب",
+  "why": "Arabic plural family"
+ },
+ "agency:today.v5.writingRevised_many": {
+  "text": "‏{{count}} تعديلًا من الطلاب",
+  "why": "Arabic plural family"
+ },
+ "agency:today.v5.writingRevised_other": {
+  "text": "‏{{count}} تعديل من الطلاب",
+  "why": "missing"
+ },
+ "agency:today.waitingOn": {
+  "text": "الحالات حسب الطرف المنتظر",
+  "why": "missing"
+ },
+ "agency:today.workload": {
+  "text": "عبء عمل الفريق",
+  "why": "missing"
+ },
+ "agency:today.workloadSub": {
+  "text": "الطلاب النشطون والأعمال المفتوحة لكل شخص",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.adminUser": {
+  "text": "المستخدم المسؤول",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.assigned": {
+  "text": "الجامعة المُسندة",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.empty": {
+  "text": "لا توجد حسابات جامعات بعد.",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.invite": {
+  "text": "دعوة مسؤول جامعة",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.noUniversity": {
+  "text": "لا جامعة مرتبطة",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.pickUniversity": {
+  "text": "الجامعة",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.pickUniversityPh": {
+  "text": "اختر جامعة شريكة",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.reassign": {
+  "text": "تغيير الجامعة",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.reassignText": {
+  "text": "تنتقل عضويته إلى مؤسسة الجامعة المختارة، وتُعطَّل العضوية القديمة.",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.reassignTitle": {
+  "text": "نقل {{name}} إلى جامعة أخرى",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.search": {
+  "text": "ابحث بالاسم أو البريد الإلكتروني أو الجامعة…",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.sub": {
+  "text": "المستخدمون المسؤولون في الجامعات الشريكة. لكل مسؤولي الجامعات الصلاحيات نفسها.",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.title": {
+  "text": "حسابات الجامعات",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.university": {
+  "text": "الجامعة",
+  "why": "missing"
+ },
+ "agency:v22.nav.hqAccounts": {
+  "text": "حسابات الجامعات",
+  "why": "missing"
+ },
+ "agency:v22.nav.insights": {
+  "text": "التحليلات",
+  "why": "Insights ≠ statistics; aligned with university"
+ },
+ "agency:v22.stage.closed": {
+  "text": "مغلقة",
+  "why": "missing"
+ },
+ "agency:v22.stage.closedN_one": {
+  "text": "‏{{count}} مغلقة",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.stage.ready": {
+  "text": "جاهز للتقديم",
+  "why": "'ready' alone is vague"
+ },
+ "agency:v22.stage.stripHint": {
+  "text": "اختر مرحلة لعرض طلابها فقط. يساوي العدد عدد الصفوف أدناه.",
+  "why": "missing"
+ },
+ "agency:v22.team.active": {
+  "text": "نشط",
+  "why": "missing"
+ },
+ "agency:v22.team.count_zero": {
+  "text": "‏{{count}} حساب",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.team.count_one": {
+  "text": "‏{{count}} حساب",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.team.count_two": {
+  "text": "‏{{count}} حسابان",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.team.count_few": {
+  "text": "‏{{count}} حسابات",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.team.count_many": {
+  "text": "‏{{count}} حسابًا",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.team.count_other": {
+  "text": "‏{{count}} حساب",
+  "why": "missing"
+ },
+ "agency:v22.team.devNote": {
+  "text": "بيئة التطوير: طُبع الرمز في وحدة تحكم API ولم يُرسل بالبريد.",
+  "why": "missing"
+ },
+ "agency:v22.team.disable": {
+  "text": "تعطيل",
+  "why": "missing"
+ },
+ "agency:v22.team.disableReason": {
+  "text": "السبب",
+  "why": "missing"
+ },
+ "agency:v22.team.disableReasonPh": {
+  "text": "غادر الوكالة",
+  "why": "missing"
+ },
+ "agency:v22.team.disableText": {
+  "text": "لن يتمكن من تسجيل الدخول بعد الآن. تنتقل طلابه ومراجعاته ومهامه المفتوحة إلى الزملاء تلقائيًا.",
+  "why": "missing"
+ },
+ "agency:v22.team.disableTitle": {
+  "text": "هل تريد تعطيل {{name}}؟",
+  "why": "missing"
+ },
+ "agency:v22.team.disabled": {
+  "text": "معطَّل",
+  "why": "missing"
+ },
+ "agency:v22.team.email": {
+  "text": "البريد الإلكتروني",
+  "why": "missing"
+ },
+ "agency:v22.team.empty": {
+  "text": "لا توجد حسابات بعد.",
+  "why": "missing"
+ },
+ "agency:v22.team.enable": {
+  "text": "تفعيل",
+  "why": "missing"
+ },
+ "agency:v22.team.invite": {
+  "text": "دعوة مسؤول",
+  "why": "missing"
+ },
+ "agency:v22.team.inviteSub": {
+  "text": "يتلقى بريدًا إلكترونيًا فيه رمز لمرة واحدة لتعيين كلمة مرور.",
+  "why": "missing"
+ },
+ "agency:v22.team.lastLogin": {
+  "text": "آخر تسجيل دخول",
+  "why": "missing"
+ },
+ "agency:v22.team.mailFailed": {
+  "text": "تعذّر إرسال الدعوة بالبريد الإلكتروني. اطلب منه استخدام «نسيت كلمة المرور» بهذا العنوان.",
+  "why": "missing"
+ },
+ "agency:v22.team.name": {
+  "text": "الاسم",
+  "why": "missing"
+ },
+ "agency:v22.team.never": {
+  "text": "أبدًا",
+  "why": "missing"
+ },
+ "agency:v22.team.sendInvite": {
+  "text": "إرسال الدعوة",
+  "why": "missing"
+ },
+ "agency:v22.team.sent": {
+  "text": "أُرسلت الدعوة",
+  "why": "missing"
+ },
+ "agency:v22.team.sentTo": {
+  "text": "أرسلنا دعوة إلى {{email}}.",
+  "why": "missing"
+ },
+ "agency:v22.team.status": {
+  "text": "الحالة",
+  "why": "missing"
+ },
+ "agency:v22.team.sub": {
+  "text": "لكل المسؤولين الصلاحيات نفسها.",
+  "why": "missing"
+ },
+ "agency:v22.team.unverified": {
+  "text": "مدعو · لم يُتحقق منه بعد",
+  "why": "missing"
+ },
+ "agency:v22.team.you": {
+  "text": "أنت",
+  "why": "missing"
+ },
+ "agency:v22.work.allIntakes": {
+  "text": "كل فصول الالتحاق",
+  "why": "one term for intake"
+ },
+ "agency:v22.work.bulkOwner": {
+  "text": "تعيين المسؤول…",
+  "why": "missing"
+ },
+ "agency:v22.work.closedHint": {
+  "text": "الطلاب غير المقبولين والمنسحبون",
+  "why": "not admitted ≠ rejected"
+ },
+ "agency:v22.work.confirmOwner_zero": {
+  "text": "هل تريد تعيين {{name}} مسؤولًا عن {{count}} طالب؟",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.work.confirmOwner_one": {
+  "text": "هل تريد تعيين {{name}} مسؤولًا عن {{count}} طالب؟",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.work.confirmOwner_two": {
+  "text": "هل تريد تعيين {{name}} مسؤولًا عن {{count}} طالبين؟",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.work.confirmOwner_few": {
+  "text": "هل تريد تعيين {{name}} مسؤولًا عن {{count}} طلاب؟",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.work.confirmOwner_many": {
+  "text": "هل تريد تعيين {{name}} مسؤولًا عن {{count}} طالبًا؟",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.work.confirmOwner_other": {
+  "text": "هل تريد تعيين {{name}} مسؤولًا عن {{count}} طالب؟",
+  "why": "missing"
+ },
+ "agency:v22.work.deleteView": {
+  "text": "حذف هذا العرض",
+  "why": "missing"
+ },
+ "agency:v22.work.empty": {
+  "text": "لا طلاب في هذه المرحلة",
+  "why": "missing"
+ },
+ "agency:v22.work.emptyFiltered": {
+  "text": "لا يوجد طلاب يطابقون عوامل التصفية هذه. جرّب تغييرها.",
+  "why": "second sentence dropped"
+ },
+ "agency:v22.work.myViews": {
+  "text": "عروضي",
+  "why": "missing"
+ },
+ "agency:v22.work.showTop": {
+  "text": "عرض أهم 10",
+  "why": "missing"
+ },
+ "agency:v22.work.total_zero": {
+  "text": "‏{{count}} طالب",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.work.total_one": {
+  "text": "‏{{count}} طالب",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.work.total_two": {
+  "text": "‏{{count}} طالبان",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.work.total_few": {
+  "text": "‏{{count}} طلاب",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.work.total_many": {
+  "text": "‏{{count}} طالبًا",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.work.total_other": {
+  "text": "‏{{count}} طالب",
+  "why": "missing"
+ },
+ "agency:v22.work.upcoming_one": {
+  "text": "‏{{count}} موعد نهائي خلال 14 يومًا",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.ws.docFix_zero": {
+  "text": "‏{{count}} مستند يحتاج إلى تصحيح",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.ws.docFix_one": {
+  "text": "‏{{count}} مستند يحتاج إلى تصحيح",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.ws.docFix_two": {
+  "text": "‏{{count}} مستندان يحتاجان إلى تصحيح",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.ws.docFix_few": {
+  "text": "‏{{count}} مستندات تحتاج إلى تصحيح",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.ws.docFix_many": {
+  "text": "‏{{count}} مستندًا يحتاج إلى تصحيح",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.ws.docFix_other": {
+  "text": "‏{{count}} مستند يحتاج إلى تصحيح",
+  "why": "missing"
+ },
+ "agency:v22.ws.docReview_zero": {
+  "text": "‏{{count}} مستند للمراجعة",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.ws.docReview_one": {
+  "text": "‏{{count}} مستند للمراجعة",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.ws.docReview_two": {
+  "text": "‏{{count}} مستندان للمراجعة",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.ws.docReview_few": {
+  "text": "‏{{count}} مستندات للمراجعة",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.ws.docReview_many": {
+  "text": "‏{{count}} مستندًا للمراجعة",
+  "why": "Arabic plural family"
+ },
+ "agency:v22.ws.docReview_other": {
+  "text": "‏{{count}} مستند للمراجعة",
+  "why": "missing"
+ },
+ "agency:v22.ws.needsActionEmpty": {
+  "text": "لا شيء بانتظارك لهذا الطالب.",
+  "why": "missing"
+ },
+ "agency:v22.ws.noConversation": {
+  "text": "لا توجد محادثة بعد. أرسل الرسالة الأولى.",
+  "why": "second sentence dropped"
+ },
+ "agency:v22.ws.openThread": {
+  "text": "فتح المحادثة",
+  "why": "missing"
+ },
+ "agency:v23.work.memberFilter": {
+  "text": "عرض طلاب عضو واحد من الفريق",
+  "why": "missing"
+ },
+ "agency:v23.work.openAll": {
+  "text": "فتح الكل ({{count}}) في الطلاب",
+  "why": "missing"
+ },
+ "agency:v23.work.submissionsNeed_zero": {
+  "text": "‏{{count}} طلب بانتظار تقديم الفريق",
+  "why": "Arabic plural family"
+ },
+ "agency:v23.work.submissionsNeed_one": {
+  "text": "‏{{count}} طلب بانتظار تقديم الفريق",
+  "why": "missing"
+ },
+ "agency:v23.work.submissionsNeed_two": {
+  "text": "‏{{count}} طلبان بانتظار تقديم الفريق",
+  "why": "Arabic plural family"
+ },
+ "agency:v23.work.submissionsNeed_few": {
+  "text": "‏{{count}} طلبات بانتظار تقديم الفريق",
+  "why": "Arabic plural family"
+ },
+ "agency:v23.work.submissionsNeed_many": {
+  "text": "‏{{count}} طلبًا بانتظار تقديم الفريق",
+  "why": "Arabic plural family"
+ },
+ "agency:v23.work.submissionsNeed_other": {
+  "text": "‏{{count}} طلب بانتظار تقديم الفريق",
+  "why": "'needs the team' was vague"
+ },
+ "agency:v26.ws.requestFrom": {
+  "text": "طلبت {{university}}: {{label}}",
+  "why": "past tense, natural word order"
+ },
+ "agency:v27.evidence.age": {
+  "text": "صادر خلال",
+  "why": "missing"
+ },
+ "agency:v27.evidence.ageDays": {
+  "text": "‏{{count}} يوم",
+  "why": "missing"
+ },
+ "agency:v27.evidence.byNationality": {
+  "text": "حسب الجنسية؛ بلد الإصدار غير معروف بعد",
+  "why": "missing"
+ },
+ "agency:v27.evidence.extra": {
+  "text": "أيضًا",
+  "why": "missing"
+ },
+ "agency:v27.evidence.form": {
+  "text": "يُقدَّم بصيغة",
+  "why": "missing"
+ },
+ "agency:v27.evidence.legal": {
+  "text": "التصديق",
+  "why": "missing"
+ },
+ "agency:v27.evidence.none": {
+  "text": "لم يُرفع بعد",
+  "why": "missing"
+ },
+ "agency:v27.evidence.open": {
+  "text": "عرض الدليل",
+  "why": "missing"
+ },
+ "agency:v27.evidence.proof": {
+  "text": "ما رفعه الطالب",
+  "why": "missing"
+ },
+ "agency:v27.evidence.quote": {
+  "text": "نص الدليل الرسمي",
+  "why": "missing"
+ },
+ "agency:v27.evidence.when": {
+  "text": "ينطبق عندما",
+  "why": "missing"
+ },
+ "agency:v27.form.COPY": {
+  "text": "نسخة",
+  "why": "missing"
+ },
+ "agency:v27.form.EITHER": {
+  "text": "أصل أو نسخة",
+  "why": "missing"
+ },
+ "agency:v27.form.ORIGINAL": {
+  "text": "أصل",
+  "why": "missing"
+ },
+ "agency:v27.guide.current": {
+  "text": "قائمة المستندات من",
+  "why": "missing"
+ },
+ "agency:v27.guide.missingBody": {
+  "text": "لم يُتحقق من الدليل الرسمي الحالي لهذه الجامعة وهذه المرحلة، لذا لا تُعرض قائمة مستندات. تظهر القائمة بعد أن تتحقق عمليات Hangyul من الدليل.",
+  "why": "missing"
+ },
+ "agency:v27.guide.missingTitle": {
+  "text": "لم يُتحقق من دليل القبول",
+  "why": "one term: verify = تحقق"
+ },
+ "agency:v27.guide.previous": {
+  "text": "استنادًا إلى دليل الدورة السابقة؛ الدليل الجديد قيد الفحص",
+  "why": "missing"
+ },
+ "agency:v27.guide.source": {
+  "text": "الدليل الرسمي",
+  "why": "missing"
+ },
+ "agency:v27.guide.verified": {
+  "text": "تم التحقق {{date}}",
+  "why": "missing"
+ },
+ "agency:v27.hq.guidesNone": {
+  "text": "لا أدلة قبول بحاجة إلى تحقق.",
+  "why": "missing"
+ },
+ "agency:v27.hq.guidesSub": {
+  "text": "من دون دليل حالي متحقَّق منه، لا يرى الطلاب قائمة مستندات. مرتبة حسب عدد الطلاب المنتظرين.",
+  "why": "missing"
+ },
+ "agency:v27.hq.guidesTitle": {
+  "text": "أدلة قبول بحاجة إلى تحقق",
+  "why": "missing"
+ },
+ "agency:v27.hq.kind.CONFLICT": {
+  "text": "المصادر الرسمية متعارضة",
+  "why": "missing"
+ },
+ "agency:v27.hq.kind.MISSING_GUIDE": {
+  "text": "لا دليل متحقَّق منه",
+  "why": "missing"
+ },
+ "agency:v27.hq.kind.REVIEW_REQUIRED": {
+  "text": "بحاجة إلى مراجعة",
+  "why": "missing"
+ },
+ "agency:v27.hq.kind.SPOT_CHECK": {
+  "text": "فحص عشوائي مقابل الأصل",
+  "why": "missing"
+ },
+ "agency:v27.hq.kind.STALE": {
+  "text": "الدليل من دورة سابقة",
+  "why": "missing"
+ },
+ "agency:v27.hq.waiting": {
+  "text": "‏{{count}} طلب قيد التحضير",
+  "why": "missing"
+ },
+ "agency:v27.ifApplies": {
+  "text": "إن انطبق",
+  "why": "missing"
+ },
+ "agency:v27.issue.APOSTILLE": {
+  "text": "يلزم الأبوستيل",
+  "why": "missing"
+ },
+ "agency:v27.issue.CHINA_CHSI": {
+  "text": "يلزم التحقق عبر CHSI",
+  "why": "missing"
+ },
+ "agency:v27.issue.CONSULAR": {
+  "text": "يلزم التصديق القنصلي",
+  "why": "missing"
+ },
+ "agency:v27.issue.DONE": {
+  "text": "تم",
+  "why": "missing"
+ },
+ "agency:v27.issue.FIX": {
+  "text": "يحتاج إلى تصحيح",
+  "why": "missing"
+ },
+ "agency:v27.issue.IN_REVIEW": {
+  "text": "قيد المراجعة",
+  "why": "missing"
+ },
+ "agency:v27.issue.LEGALIZATION_REVIEW": {
+  "text": "مسار التصديق بحاجة إلى تحديد",
+  "why": "missing"
+ },
+ "agency:v27.issue.NOTARIZATION": {
+  "text": "يلزم التوثيق لدى كاتب العدل",
+  "why": "missing"
+ },
+ "agency:v27.issue.ORIGINAL_CHECKED": {
+  "text": "تم فحص الأصل",
+  "why": "missing"
+ },
+ "agency:v27.issue.TRANSLATION": {
+  "text": "تلزم الترجمة",
+  "why": "missing"
+ },
+ "agency:v27.issue.UPLOAD": {
+  "text": "يحتاج إلى رفع",
+  "why": "missing"
+ },
+ "agency:v27.legal.APOSTILLE": {
+  "text": "الأبوستيل",
+  "why": "missing"
+ },
+ "agency:v27.legal.CHINA_CHSI": {
+  "text": "تحقق CHSI الصيني أو الأبوستيل",
+  "why": "missing"
+ },
+ "agency:v27.legal.CONSULAR": {
+  "text": "التصديق القنصلي",
+  "why": "missing"
+ },
+ "agency:v27.legal.NONE": {
+  "text": "غير مطلوب",
+  "why": "missing"
+ },
+ "agency:v27.legal.STAFF_REVIEW": {
+  "text": "يُحدَّد حسب بلد الإصدار",
+  "why": "missing"
+ },
+ "agency:v27.legal.UNSPECIFIED": {
+  "text": "غير مذكور في الدليل",
+  "why": "missing"
+ },
+ "agency:v27.party.agency": {
+  "text": "إجراؤنا",
+  "why": "missing"
+ },
+ "agency:v27.party.student": {
+  "text": "إجراء الطالب",
+  "why": "missing"
+ },
+ "agency:v27.stage.overdue": {
+  "text": "انقضى الموعد النهائي",
+  "why": "missing"
+ },
+ "agency:v27.stage.stalled": {
+  "text": "أيام التوقف: {{count}}",
+  "why": "missing; count-neutral"
+ },
+ "agency:v27.submit.IN_PERSON": {
+  "text": "حضوريًا",
+  "why": "missing"
+ },
+ "agency:v27.submit.MAIL": {
+  "text": "بالبريد",
+  "why": "missing"
+ },
+ "agency:v27.submit.ONLINE": {
+  "text": "نموذج إلكتروني",
+  "why": "missing"
+ },
+ "agency:v27.submit.UPLOAD": {
+  "text": "رفع إلكتروني",
+  "why": "missing"
+ },
+ "agency:v27.submit.UPLOAD_MAIL": {
+  "text": "رفع إلكتروني ثم إرسال الأصل بالبريد",
+  "why": "missing"
+ },
+ "agency:v29.guide.field.checklist": {
+  "text": "قائمة المستندات",
+  "why": "missing"
+ },
+ "agency:v29.guide.field.current_intake": {
+  "text": "دليل هذه الدورة",
+  "why": "missing"
+ },
+ "agency:v29.guide.field.deadline": {
+  "text": "الموعد النهائي",
+  "why": "missing"
+ },
+ "agency:v29.guide.field.source_url": {
+  "text": "المصدر الرسمي",
+  "why": "missing"
+ },
+ "agency:v29.guide.field.submission_method": {
+  "text": "طريقة التقديم",
+  "why": "missing"
+ },
+ "agency:v29.guide.field.verified_date": {
+  "text": "تاريخ التحقق",
+  "why": "missing"
+ },
+ "agency:v29.guide.verifyRequired": {
+  "text": "تحقق قبل التقديم المُدار: {{fields}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.addOnStatus.ACTIVE": {
+  "text": "قيد التنفيذ",
+  "why": "missing"
+ },
+ "agency:v29.plan.addOnStatus.APPROVED": {
+  "text": "نشطة (قديمة)",
+  "why": "missing"
+ },
+ "agency:v29.plan.addOnStatus.AWAITING_PAYMENT": {
+  "text": "بانتظار الدفع",
+  "why": "missing"
+ },
+ "agency:v29.plan.addOnStatus.COMPLETED": {
+  "text": "مكتملة",
+  "why": "missing"
+ },
+ "agency:v29.plan.addOnStatus.OFFERED": {
+  "text": "مقترحة",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.dedicated": {
+  "text": "فريق مخصّص · ردود ذات أولوية",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.docs.CHECKLIST": {
+  "text": "المستندات: قائمة",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.docs.INTENSIVE": {
+  "text": "المستندات: مراجعة معمّقة",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.docs.REVIEW_GUIDANCE": {
+  "text": "المستندات: مراجعة مع ملاحظات بما يلزم تصحيحه",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.dorm.APPLICATION": {
+  "text": "السكن الجامعي: المساعدة في التقديم وخيارات سكن أخرى",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.dorm.INFORMATION": {
+  "text": "السكن الجامعي: معلومات",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.dorm.SCHEDULE": {
+  "text": "السكن الجامعي: متابعة مواعيد التقديم",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.settle.FULL": {
+  "text": "الاستقرار: من D-30 إلى D+30",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.settle.INFORMATION": {
+  "text": "الاستقرار: معلومات أساسية",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.settle.NONE": {
+  "text": "الاستقرار: غير مشمول",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.visa.DOCUMENT_PREP": {
+  "text": "التأشيرة: المساعدة في تجهيز المستندات",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.visa.GUIDANCE": {
+  "text": "التأشيرة: إرشاد حول الإجراءات",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.visa.INTENSIVE": {
+  "text": "التأشيرة: متابعة المستندات والمواعيد الرئيسية",
+  "why": "missing"
+ },
+ "agency:v29.plan.legacy": {
+  "text": "اشتُريت ضمن {{version}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.howItWorks": {
+  "text": "لا تسري إلا بعد أن يطّلع الطالب على السعر والنطاق ويوافق ويدفع.",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.open": {
+  "text": "اقتراح خدمة إضافية",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.quantity": {
+  "text": "الكمية ({{unit}})",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.quote": {
+  "text": "عرض سعر مخصص: أدخل السعر والنطاق",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.range": {
+  "text": "النطاق الموصى به من {{min}} إلى {{max}}",
+  "why": "missing; range as من…إلى"
+ },
+ "agency:v29.plan.offer.scope": {
+  "text": "ملاحظة النطاق (تظهر للطالب)",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.scopeRequired": {
+  "text": "النطاق (مطلوب، يظهر للطالب)",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.send": {
+  "text": "اقتراح على الطالب",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.service": {
+  "text": "الخدمة",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.total": {
+  "text": "يدفع الطالب {{amount}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.unitPrice": {
+  "text": "سعر الوحدة (USD)",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.arrival": {
+  "text": "الوصول",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.arrivalLabel": {
+  "text": "تاريخ الوصول المخطط",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.arrivalUnknown": {
+  "text": "تاريخ الوصول غير مؤكد",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.arrivalWindow": {
+  "text": "التحضير من {{from}} · الوصول {{arrive}} · الانتهاء {{until}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.ended": {
+  "text": "انتهت مدة الخدمة",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.endsLabel": {
+  "text": "نهاية العقد",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.notStarted": {
+  "text": "قبل الاستشارة الأولى",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.saved": {
+  "text": "حُفظت تواريخ الخدمة.",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.set": {
+  "text": "حفظ التواريخ",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.since": {
+  "text": "بدأت {{date}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.support": {
+  "text": "الاستشارات حتى {{date}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.supportDays": {
+  "text": "‏{{count}} يوم من الاستشارة الأولى",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.title": {
+  "text": "مدة الخدمة",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.toAgree": {
+  "text": "مدة الخدمة غير محددة",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.until": {
+  "text": "حتى {{date}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.unrationed.CONTRACTED_DOCUMENTS": {
+  "text": "بلا حد ضمن المستندات والجدول الزمني المتعاقد عليهما",
+  "why": "missing"
+ },
+ "agency:v29.plan.unrationed.PRIORITY": {
+  "text": "ردود ذات أولوية",
+  "why": "missing"
+ },
+ "agency:v29.plan.unrationed.ROUNDS": {
+  "text": "مشمول",
+  "why": "missing"
+ },
+ "agency:v29.plan.unrationed.TEAM": {
+  "text": "متابعة الفريق",
+  "why": "missing"
+ },
+ "agency:v29.plan.usedSoFar": {
+  "text": "المنجز: {{count}}",
+  "why": "missing; count-neutral"
+ },
+ "agency:v30.def.ops.ageing": {
+  "text": "الأيام منذ آخر حركة للحالة: الأحدث بين تغيير مرحلة المسار، أو تغيير حالة طلب، أو الإسناد إلى هذه الوكالة.",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.backlog": {
+  "text": "الأعمال المفتوحة في نهاية كل أسبوع: مهام الفريق (لا مهام الطالب الخاصة) غير المنجزة، ونسخ المستندات التي لم تُراجَع، والمقالات المقدَّمة للمراجعة ولم تُراجَع بعد (جولة المراجعة الحالية).",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.blocked": {
+  "text": "تُعدّ الحالة متوقفة عندما تنتظر طرفًا ما ولم تتحرك لأكثر من 14 يومًا. الأقدم أولًا.",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.deadlines": {
+  "text": "طلبات لم تُقدَّم بعد، موعدها النهائي للتقديم خلال 14 يومًا، وما زالت تنقصها بنود مطلوبة.",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.load": {
+  "text": "العبء المرجّح لكل شخص: كل نوع من الأعمال المفتوحة لديه × وزنه (جدول أوزان الوكالة)، مقارنةً بطاقته الشخصية بالنقاط نفسها. محمّل فوق طاقته = العبء أعلى من الطاقة. لا تُسند أعمال جديدة إلى من هم في إجازة.",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.sla": {
+  "text": "رد أول لم يُقدَّم في موعده؛ ومستندات تنتظر المراجعة أكثر من 48 ساعة؛ ومراجعات مقالات تجاوزت وقت المراجعة الموعود.",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.stages": {
+  "text": "وسيط عدد الأيام التي بقي فيها الطلب في حالة ما قبل الانتقال (الفترات التي انتهت خلال آخر 365 يومًا). يُحجَب عندما يقل عدد الفترات عن {{n}}.",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.unassigned_paid": {
+  "text": "دفع ثمن خدمة من Hangyul، ولا يوجد مستشار مسؤول عن الحالة (أو، بالنسبة إلى Hangyul، لم تُسند إلى وكالة بعد).",
+  "why": "missing"
+ },
+ "agency:v30.def.svc.arrival": {
+  "text": "عمليات الاستقبال من المطار المكتملة ÷ عمليات الاستقبال التي انقضى وقت وصولها (باستثناء الملغاة)",
+  "why": "missing"
+ },
+ "agency:v30.def.svc.completion": {
+  "text": "المكتملة ÷ الحالات المنشأة خلال الفترة (باستثناء الملغاة)",
+  "why": "missing"
+ },
+ "agency:v30.def.svc.resolution": {
+  "text": "وسيط عدد الساعات من الطلب إلى الإنجاز، للحالات المكتملة فقط",
+  "why": "missing"
+ },
+ "agency:v30.def.svc.sla": {
+  "text": "الحالات التي تصرّف فيها الفريق بعد انقضاء SLA (أو لم يتصرف وانقضى SLA) ÷ الحالات التي حلّ موعد SLA لها",
+  "why": "missing"
+ },
+ "agency:v31.stage.closed": {
+  "text": "مغلقة",
+  "why": "missing"
+ },
+ "agency:waiting.app.ADDITIONAL_DOCUMENTS": {
+  "text": "طلبت الجامعة مستندًا",
+  "why": "missing"
+ },
+ "agency:waiting.app.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "بدء التأشيرة",
+  "why": "missing"
+ },
+ "agency:waiting.app.ADMISSION_CERTIFICATE_PENDING": {
+  "text": "خطاب القبول",
+  "why": "missing"
+ },
+ "agency:waiting.app.PROFILE_REVIEW": {
+  "text": "فحص الملف",
+  "why": "missing"
+ },
+ "agency:waiting.app.READY": {
+  "text": "جاهز للتقديم",
+  "why": "missing"
+ },
+ "agency:waiting.app.TUITION_PAID": {
+  "text": "خطاب القبول",
+  "why": "missing"
+ },
+ "agency:waiting.app.TUITION_PENDING": {
+  "text": "دفع الرسوم الدراسية",
+  "why": "missing"
+ },
+ "agency:waiting.app.VISA_SUBMITTED": {
+  "text": "قرار التأشيرة (السفارة)",
+  "why": "missing"
+ },
+ "agency:waiting.reason.first_contact": {
+  "text": "التواصل الأول مستحق",
+  "why": "missing"
+ },
+ "agency:waiting.reason.fix_zero": {
+  "text": "‏{{count}} مستند يحتاج إلى تصحيح",
+  "why": "Arabic plural family"
+ },
+ "agency:waiting.reason.fix_one": {
+  "text": "‏{{count}} مستند يحتاج إلى تصحيح",
+  "why": "missing"
+ },
+ "agency:waiting.reason.fix_two": {
+  "text": "‏{{count}} مستندان يحتاجان إلى تصحيح",
+  "why": "Arabic plural family"
+ },
+ "agency:waiting.reason.fix_few": {
+  "text": "‏{{count}} مستندات تحتاج إلى تصحيح",
+  "why": "Arabic plural family"
+ },
+ "agency:waiting.reason.fix_many": {
+  "text": "‏{{count}} مستندًا يحتاج إلى تصحيح",
+  "why": "Arabic plural family"
+ },
+ "agency:waiting.reason.fix_other": {
+  "text": "‏{{count}} مستند يحتاج إلى تصحيح",
+  "why": "missing"
+ },
+ "agency:waiting.reason.overdue_task_zero": {
+  "text": "‏{{count}} مهمة متأخرة",
+  "why": "Arabic plural family"
+ },
+ "agency:waiting.reason.overdue_task_one": {
+  "text": "‏{{count}} مهمة متأخرة",
+  "why": "missing"
+ },
+ "agency:waiting.reason.overdue_task_two": {
+  "text": "‏{{count}} مهمتان متأخرتان",
+  "why": "Arabic plural family"
+ },
+ "agency:waiting.reason.overdue_task_few": {
+  "text": "‏{{count}} مهام متأخرة",
+  "why": "Arabic plural family"
+ },
+ "agency:waiting.reason.overdue_task_many": {
+  "text": "‏{{count}} مهمة متأخرة",
+  "why": "Arabic plural family"
+ },
+ "agency:waiting.reason.overdue_task_other": {
+  "text": "‏{{count}} مهمة متأخرة",
+  "why": "missing"
+ },
+ "agency:waiting.reason.reply": {
+  "text": "رد الطالب",
+  "why": "missing"
+ },
+ "agency:waiting.reason.review_zero": {
+  "text": "‏{{count}} مستند للمراجعة",
+  "why": "Arabic plural family"
+ },
+ "agency:waiting.reason.review_one": {
+  "text": "‏{{count}} مستند للمراجعة",
+  "why": "missing"
+ },
+ "agency:waiting.reason.review_two": {
+  "text": "‏{{count}} مستندان للمراجعة",
+  "why": "Arabic plural family"
+ },
+ "agency:waiting.reason.review_few": {
+  "text": "‏{{count}} مستندات للمراجعة",
+  "why": "Arabic plural family"
+ },
+ "agency:waiting.reason.review_many": {
+  "text": "‏{{count}} مستندًا للمراجعة",
+  "why": "Arabic plural family"
+ },
+ "agency:waiting.reason.review_other": {
+  "text": "‏{{count}} مستند للمراجعة",
+  "why": "missing"
+ },
+ "agency:ws.act.call": {
+  "text": "حجز استشارة",
+  "why": "missing"
+ },
+ "agency:ws.activityNote": {
+  "text": "من سجل التدقيق: عمليات العرض والتغييرات والقرارات على سجلات هذا الطالب.",
+  "why": "missing"
+ },
+ "agency:ws.apptHint": {
+  "text": "الاستشارات والمقابلات التجريبية مع هذا الطالب.",
+  "why": "missing"
+ },
+ "agency:ws.assignedBy": {
+  "text": "أُسند بواسطة {{by}}",
+  "why": "missing"
+ },
+ "agency:ws.block.deadline_zero": {
+  "text": "يُغلق التقديم إلى {{uni}} خلال {{count}} يوم",
+  "why": "Arabic plural family"
+ },
+ "agency:ws.block.deadline_two": {
+  "text": "يُغلق التقديم إلى {{uni}} خلال {{count}} يومين",
+  "why": "Arabic plural family"
+ },
+ "agency:ws.block.deadline_few": {
+  "text": "يُغلق التقديم إلى {{uni}} خلال {{count}} أيام",
+  "why": "Arabic plural family"
+ },
+ "agency:ws.block.deadline_many": {
+  "text": "يُغلق التقديم إلى {{uni}} خلال {{count}} يومًا",
+  "why": "Arabic plural family"
+ },
+ "agency:ws.block.deadline_other": {
+  "text": "يُغلق التقديم إلى {{uni}} خلال {{count}} يوم",
+  "why": "missing"
+ },
+ "agency:ws.block.overdue": {
+  "text": "متأخر: {{title}}",
+  "why": "missing"
+ },
+ "agency:ws.block.sla": {
+  "text": "بانتظار ردك الأول",
+  "why": "missing"
+ },
+ "agency:ws.block.slaDetail": {
+  "text": "انقضى هدف الرد الأول {{when}}",
+  "why": "missing"
+ },
+ "agency:ws.block.uniRequest": {
+  "text": "طلبت {{uni}} مستندات إضافية",
+  "why": "missing"
+ },
+ "agency:ws.blockedBy": {
+  "text": "أنجز أولًا: {{deps}}",
+  "why": "missing"
+ },
+ "agency:ws.blockers": {
+  "text": "العوائق",
+  "why": "missing"
+ },
+ "agency:ws.budget": {
+  "text": "الميزانية السنوية",
+  "why": "missing"
+ },
+ "agency:ws.by.ENGINE": {
+  "text": "محرك المطابقة",
+  "why": "missing"
+ },
+ "agency:ws.by.MANUAL": {
+  "text": "مسؤول",
+  "why": "missing"
+ },
+ "agency:ws.by.OPERATIONS_OVERRIDE": {
+  "text": "عمليات Hangyul (تجاوز)",
+  "why": "missing"
+ },
+ "agency:ws.by.ORDER": {
+  "text": "شراء خدمة",
+  "why": "missing"
+ },
+ "agency:ws.dob": {
+  "text": "تاريخ الميلاد",
+  "why": "missing"
+ },
+ "agency:ws.education": {
+  "text": "التعليم",
+  "why": "missing"
+ },
+ "agency:ws.expires": {
+  "text": "ينتهي {{date}}",
+  "why": "missing"
+ },
+ "agency:ws.factor.country": {
+  "text": "الخبرة بالبلد",
+  "why": "missing"
+ },
+ "agency:ws.factor.degree": {
+  "text": "الخبرة بالدرجة العلمية",
+  "why": "missing"
+ },
+ "agency:ws.factor.language": {
+  "text": "تطابق اللغة",
+  "why": "missing"
+ },
+ "agency:ws.factor.preference": {
+  "text": "تفضيل الطالب",
+  "why": "missing"
+ },
+ "agency:ws.factor.sla": {
+  "text": "سجل SLA الأخير",
+  "why": "missing"
+ },
+ "agency:ws.factor.university": {
+  "text": "الجامعات المستهدفة",
+  "why": "missing"
+ },
+ "agency:ws.factor.workload": {
+  "text": "الطاقة المتاحة",
+  "why": "missing"
+ },
+ "agency:ws.fields": {
+  "text": "التخصصات",
+  "why": "missing"
+ },
+ "agency:ws.gpa": {
+  "text": "المعدل التراكمي (GPA)",
+  "why": "missing"
+ },
+ "agency:ws.gpaNorm": {
+  "text": "‏{{pct}}% بعد التوحيد",
+  "why": "missing"
+ },
+ "agency:ws.identity": {
+  "text": "الهوية والإقامة",
+  "why": "missing"
+ },
+ "agency:ws.itemsInReview_two": {
+  "text": "‏{{count}} بندان قيد المراجعة",
+  "why": "Arabic plural family"
+ },
+ "agency:ws.itemsInReview_few": {
+  "text": "‏{{count}} بنود قيد المراجعة",
+  "why": "Arabic plural family"
+ },
+ "agency:ws.itemsInReview_many": {
+  "text": "‏{{count}} بندًا قيد المراجعة",
+  "why": "Arabic plural family"
+ },
+ "agency:ws.itemsInReview_other": {
+  "text": "‏{{count}} بند قيد المراجعة",
+  "why": "missing"
+ },
+ "agency:ws.itemsRemain_one": {
+  "text": "‏{{count}} بند متبقٍ",
+  "why": "missing"
+ },
+ "agency:ws.languages": {
+  "text": "اختبارات اللغة",
+  "why": "missing"
+ },
+ "agency:ws.level.ASSOCIATE": {
+  "text": "دبلوم مشارك",
+  "why": "missing"
+ },
+ "agency:ws.level.BACHELOR": {
+  "text": "بكالوريوس",
+  "why": "missing"
+ },
+ "agency:ws.level.DOCTORATE": {
+  "text": "دكتوراه",
+  "why": "missing"
+ },
+ "agency:ws.level.HIGH_SCHOOL": {
+  "text": "ثانوية",
+  "why": "missing"
+ },
+ "agency:ws.level.MASTER": {
+  "text": "ماجستير",
+  "why": "missing"
+ },
+ "agency:ws.maskedHint": {
+  "text": "مُقنَّع للخصوصية. الرقم الكامل موجود في خزنة الطالب فقط.",
+  "why": "missing"
+ },
+ "agency:ws.noActivity": {
+  "text": "لا نشاط مسجّل بعد",
+  "why": "missing"
+ },
+ "agency:ws.noApps": {
+  "text": "لا طلبات بعد",
+  "why": "missing"
+ },
+ "agency:ws.noAppsText": {
+  "text": "تظهر الطلبات هنا عندما يبدأ الطالب طلبًا.",
+  "why": "missing"
+ },
+ "agency:ws.noBreakdown": {
+  "text": "لم يُسجَّل تفصيل للنقاط لهذا الإسناد.",
+  "why": "missing"
+ },
+ "agency:ws.noConversations": {
+  "text": "لا محادثات مع هذا الطالب بعد",
+  "why": "missing"
+ },
+ "agency:ws.noDocs": {
+  "text": "لا مستندات في الخزنة بعد",
+  "why": "missing"
+ },
+ "agency:ws.noEducation": {
+  "text": "لم تُضَف مؤهلات دراسية بعد.",
+  "why": "missing"
+ },
+ "agency:ws.noEssays": {
+  "text": "لا مقالات بعد",
+  "why": "missing"
+ },
+ "agency:ws.noLanguages": {
+  "text": "لا نتائج اختبارات لغة بعد.",
+  "why": "missing"
+ },
+ "agency:ws.noVisa": {
+  "text": "لا حالة تأشيرة بعد",
+  "why": "missing"
+ },
+ "agency:ws.noVisaText": {
+  "text": "تُفتح حالة التأشيرة تلقائيًا عندما تصدر الجامعة خطاب القبول القياسي.",
+  "why": "missing"
+ },
+ "agency:ws.notAssigned": {
+  "text": "غير مُسند إلى وكالة",
+  "why": "missing"
+ },
+ "agency:ws.passport": {
+  "text": "جواز السفر",
+  "why": "missing"
+ },
+ "agency:ws.passportExpiry": {
+  "text": "انتهاء جواز السفر",
+  "why": "missing"
+ },
+ "agency:ws.planned": {
+  "text": "مخطط",
+  "why": "missing"
+ },
+ "agency:ws.preferences": {
+  "text": "التفضيلات",
+  "why": "missing"
+ },
+ "agency:ws.profileTitle": {
+  "text": "الملف",
+  "why": "missing"
+ },
+ "agency:ws.regions": {
+  "text": "المناطق",
+  "why": "missing"
+ },
+ "agency:ws.residence": {
+  "text": "بلد الإقامة",
+  "why": "missing"
+ },
+ "agency:ws.scholarship": {
+  "text": "يحتاج إلى منحة",
+  "why": "missing"
+ },
+ "agency:ws.score": {
+  "text": "درجة التطابق {{score}} / 100",
+  "why": "missing"
+ },
+ "agency:ws.selfReported": {
+  "text": "حسب إفادة الطالب",
+  "why": "missing"
+ },
+ "agency:ws.sinceDate": {
+  "text": "مُسند منذ {{date}}",
+  "why": "missing"
+ },
+ "agency:ws.sponsor": {
+  "text": "الممول",
+  "why": "missing; كفيل = iqama sponsor in Gulf"
+ },
+ "agency:ws.sponsorKind.EMPLOYER": {
+  "text": "جهة العمل",
+  "why": "missing"
+ },
+ "agency:ws.sponsorKind.PARENTS": {
+  "text": "الوالدان",
+  "why": "missing"
+ },
+ "agency:ws.sponsorKind.RELATIVE": {
+  "text": "قريب",
+  "why": "missing"
+ },
+ "agency:ws.sponsorKind.SCHOLARSHIP": {
+  "text": "منحة",
+  "why": "missing"
+ },
+ "agency:ws.sponsorKind.SELF": {
+  "text": "ذاتي",
+  "why": "missing"
+ },
+ "agency:ws.stage": {
+  "text": "مرحلة المسار",
+  "why": "missing"
+ },
+ "agency:ws.tab.history": {
+  "text": "السجل",
+  "why": "missing"
+ },
+ "agency:ws.tab.messages": {
+  "text": "الرسائل",
+  "why": "missing"
+ },
+ "agency:ws.tab.portfolio": {
+  "text": "ملف الأعمال",
+  "why": "missing"
+ },
+ "agency:ws.tab.tasks": {
+  "text": "المهام",
+  "why": "missing"
+ },
+ "agency:ws.targetEntry": {
+  "text": "تاريخ الوصول المخطط",
+  "why": "one term; 'entry' ≠ arrival"
+ },
+ "agency:ws.tasksHint": {
+  "text": "مهام الفريق والمهام المرئية للطالب لهذا الطالب.",
+  "why": "missing"
+ },
+ "agency:ws.visaHistory": {
+  "text": "سجل التأشيرات الكورية",
+  "why": "missing"
+ },
+ "agency:ws.weightsNote": {
+  "text": "النقاط المكتسبة لكل عامل من وزنه (الوزن الإجمالي {{total}}). تفسّر الدرجات الاختيار، وليست تقييمًا للجودة.",
+  "why": "missing"
+ },
+ "agency:ws.whyAssigned": {
+  "text": "لماذا هذا الإسناد؟",
+  "why": "missing"
+ },
+ "university:af.applications": {
+  "text": "الطلبات",
+  "why": "missing"
+ },
+ "university:af.fromPrevious": {
+  "text": "من الخطوة السابقة",
+  "why": "missing"
+ },
+ "university:af.lowN": {
+  "text": "العدد أقل من أن تُحسب نسبة",
+  "why": "missing"
+ },
+ "university:af.step": {
+  "text": "الخطوة",
+  "why": "missing"
+ },
+ "university:af.stepDef.ARRIVED": {
+  "text": "أبلغ الطالب عن وصوله إلى كوريا (أو سُجّل).",
+  "why": "missing"
+ },
+ "university:af.stepDef.REVIEWED": {
+  "text": "بدأ فريقك المراجعة، أو طلب مستندات، أو أجرى مقابلة، أو اتخذ قرارًا.",
+  "why": "missing"
+ },
+ "university:af.stepDef.SUBMITTED": {
+  "text": "الطلبات المقدَّمة إلى جامعتك.",
+  "why": "missing"
+ },
+ "university:af.stepDef.TUITION_PAID": {
+  "text": "أكّدت دفع الرسوم الدراسية.",
+  "why": "missing"
+ },
+ "university:af.stepDef.VISA_ISSUED": {
+  "text": "صدرت تأشيرة الطالب D-2/D-4.",
+  "why": "missing"
+ },
+ "university:af.title": {
+  "text": "مسار القبول",
+  "why": "missing"
+ },
+ "university:analytics.dim.agency": {
+  "text": "الوكالة",
+  "why": "missing"
+ },
+ "university:analytics.dim.nationality": {
+  "text": "الجنسية",
+  "why": "missing"
+ },
+ "university:analytics.dim.program": {
+  "text": "البرنامج",
+  "why": "missing"
+ },
+ "university:applicants.customStatus_zero": {
+  "text": "‏{{count}} حالة محددة",
+  "why": "Arabic plural family"
+ },
+ "university:applicants.customStatus_one": {
+  "text": "‏{{count}} حالة محددة",
+  "why": "Arabic plural family"
+ },
+ "university:applicants.customStatus_two": {
+  "text": "‏{{count}} حالتان محددتان",
+  "why": "Arabic plural family"
+ },
+ "university:applicants.customStatus_few": {
+  "text": "‏{{count}} حالات محددة",
+  "why": "Arabic plural family"
+ },
+ "university:applicants.customStatus_many": {
+  "text": "‏{{count}} حالة محددة",
+  "why": "Arabic plural family"
+ },
+ "university:applicants.customStatus_other": {
+  "text": "‏{{count}} حالة محددة",
+  "why": "missing"
+ },
+ "university:applicants.flagged": {
+  "text": "مُعلَّم",
+  "why": "missing"
+ },
+ "university:applicants.requested_zero": {
+  "text": "‏{{count}} مستند مطلوب",
+  "why": "Arabic plural family"
+ },
+ "university:applicants.requested_one": {
+  "text": "‏{{count}} مستند مطلوب",
+  "why": "noun was missing"
+ },
+ "university:applicants.requested_two": {
+  "text": "‏{{count}} مستندان مطلوبان",
+  "why": "Arabic plural family"
+ },
+ "university:applicants.requested_few": {
+  "text": "‏{{count}} مستندات مطلوبة",
+  "why": "Arabic plural family"
+ },
+ "university:applicants.requested_many": {
+  "text": "‏{{count}} مستندًا مطلوبًا",
+  "why": "Arabic plural family"
+ },
+ "university:applicants.requested_other": {
+  "text": "‏{{count}} مستند مطلوب",
+  "why": "missing"
+ },
+ "university:applicants.sortBy.submitted": {
+  "text": "المُقدَّمة مؤخرًا",
+  "why": "same wording as agency"
+ },
+ "university:applicants.status": {
+  "text": "الحالة",
+  "why": "missing"
+ },
+ "university:common.yes": {
+  "text": "نعم",
+  "why": "missing"
+ },
+ "university:dash.noApplicants": {
+  "text": "لا توجد طلبات مقدَّمة لعوامل التصفية هذه بعد.",
+  "why": "missing"
+ },
+ "university:decision.action.ADDITIONAL_DOCUMENTS": {
+  "text": "طلب مستندات",
+  "why": "missing"
+ },
+ "university:decision.action.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "إصدار خطاب القبول",
+  "why": "missing"
+ },
+ "university:decision.action.ADMISSION_CERTIFICATE_PENDING": {
+  "text": "تعليم خطاب القبول قيد الإصدار",
+  "why": "missing"
+ },
+ "university:decision.action.ENROLLED": {
+  "text": "تأكيد التسجيل",
+  "why": "missing"
+ },
+ "university:decision.action.INTERVIEW": {
+  "text": "جدولة مقابلة",
+  "why": "missing"
+ },
+ "university:decision.action.OFFERED": {
+  "text": "تقديم عرض قبول",
+  "why": "missing"
+ },
+ "university:decision.action.REJECTED": {
+  "text": "رفض",
+  "why": "missing"
+ },
+ "university:decision.action.TUITION_PAID": {
+  "text": "تأكيد دفع الرسوم الدراسية",
+  "why": "missing"
+ },
+ "university:decision.action.TUITION_PENDING": {
+  "text": "إصدار فاتورة الرسوم الدراسية",
+  "why": "missing"
+ },
+ "university:decision.action.UNIVERSITY_REVIEW": {
+  "text": "بدء المراجعة",
+  "why": "missing"
+ },
+ "university:decision.action.WAITLISTED": {
+  "text": "وضع على قائمة الانتظار",
+  "why": "missing"
+ },
+ "university:decision.certificateInfo": {
+  "text": "إصدار خطاب القبول القياسي يفتح حالة تأشيرة الطالب تلقائيًا.",
+  "why": "missing"
+ },
+ "university:decision.confirm": {
+  "text": "نقل {{student}} من «{{from}}» إلى «{{to}}». يُبلَّغ الطالب ووكالته.",
+  "why": "missing"
+ },
+ "university:decision.done": {
+  "text": "نُقل الطلب إلى «{{status}}».",
+  "why": "missing"
+ },
+ "university:decision.interviewAt": {
+  "text": "تاريخ المقابلة ووقتها",
+  "why": "missing"
+ },
+ "university:decision.none": {
+  "text": "لا إجراء مستحق على الجامعة عند هذه المرحلة.",
+  "why": "missing"
+ },
+ "university:decision.note": {
+  "text": "ملاحظة",
+  "why": "missing"
+ },
+ "university:decision.noteHint": {
+  "text": "تُحفَظ في سجل الحالة وتُشارَك مع الطالب والوكالة.",
+  "why": "missing"
+ },
+ "university:decision.readOnly": {
+  "text": "دورك للقراءة فقط. اطلب من مسؤول قبول أو مسؤول النظام اتخاذ القرارات.",
+  "why": "missing"
+ },
+ "university:decision.reason": {
+  "text": "السبب",
+  "why": "missing"
+ },
+ "university:decision.reasonHint": {
+  "text": "يُحفَظ في سجل الطلب. يرى المتقدم ملخصًا مهذبًا، ويرى مستشاره سببك.",
+  "why": "missing"
+ },
+ "university:decision.rejectWarning": {
+  "text": "قرارات الرفض نهائية في Hangyul. فكّر في قائمة الانتظار إن كان قد يتوفر مقعد.",
+  "why": "missing"
+ },
+ "university:decision.scholarshipNote": {
+  "text": "ملاحظة المنحة",
+  "why": "missing"
+ },
+ "university:decision.scholarshipNoteHint": {
+  "text": "مثال: «إعفاء من 30% من الرسوم الدراسية، الفصل الأول». تظهر للطالب مع عرض القبول.",
+  "why": "missing"
+ },
+ "university:decision.title": {
+  "text": "القرار",
+  "why": "missing"
+ },
+ "university:decision.tuitionAmount": {
+  "text": "مبلغ الرسوم الدراسية (KRW)",
+  "why": "missing"
+ },
+ "university:decision.tuitionDue": {
+  "text": "تاريخ استحقاق الدفع",
+  "why": "missing"
+ },
+ "university:detail.applicant": {
+  "text": "المتقدم",
+  "why": "missing"
+ },
+ "university:detail.decided": {
+  "text": "تاريخ القرار",
+  "why": "missing"
+ },
+ "university:detail.externalRef": {
+  "text": "مرجعك",
+  "why": "missing"
+ },
+ "university:detail.externalRefHint": {
+  "text": "رقم المتقدم أو رقم القبول لديك (مرئي لـ Hangyul والوكالة).",
+  "why": "missing"
+ },
+ "university:detail.gpaNormalized": {
+  "text": "المعدل التراكمي {{value}}% (موحَّد)",
+  "why": "missing"
+ },
+ "university:detail.gpaUnknown": {
+  "text": "المعدل التراكمي غير مقدَّم",
+  "why": "missing"
+ },
+ "university:detail.history": {
+  "text": "سجل الحالة",
+  "why": "missing"
+ },
+ "university:detail.interview": {
+  "text": "المقابلة",
+  "why": "missing"
+ },
+ "university:detail.legalization": {
+  "text": "الأبوستيل أو التصديق القنصلي",
+  "why": "missing"
+ },
+ "university:detail.noEducation": {
+  "text": "لم تُشارَك سجلات تعليمية.",
+  "why": "missing"
+ },
+ "university:detail.notShared": {
+  "text": "غير مُشارَك",
+  "why": "missing"
+ },
+ "university:detail.notSharedHint": {
+  "text": "لم يشارك الطالب هذا المستند مع جامعتك.",
+  "why": "missing"
+ },
+ "university:detail.optionalDoc": {
+  "text": "اختياري",
+  "why": "missing"
+ },
+ "university:detail.refSaved": {
+  "text": "حُفظ المرجع",
+  "why": "missing"
+ },
+ "university:detail.residence": {
+  "text": "بلد الإقامة",
+  "why": "missing"
+ },
+ "university:detail.scholarshipNote": {
+  "text": "ملاحظة المنحة",
+  "why": "missing"
+ },
+ "university:detail.selfReported": {
+  "text": "حسب إفادة الطالب",
+  "why": "missing"
+ },
+ "university:detail.sharingNote": {
+  "text": "يمكنك الاطلاع على المستندات التي شاركها الطالب مع جامعتك عند التقديم. يُسجَّل كل اطلاع.",
+  "why": "missing"
+ },
+ "university:detail.side": {
+  "text": "تفاصيل الطلب",
+  "why": "missing"
+ },
+ "university:detail.translation": {
+  "text": "الترجمة",
+  "why": "missing"
+ },
+ "university:detail.tuition": {
+  "text": "الرسوم الدراسية",
+  "why": "missing"
+ },
+ "university:detail.verified": {
+  "text": "تم التحقق منه",
+  "why": "missing"
+ },
+ "university:documents.analystNote": {
+  "text": "يمكن للمحللين معاينة المستندات دون تنزيلها.",
+  "why": "missing"
+ },
+ "university:documents.expires": {
+  "text": "ينتهي",
+  "why": "missing"
+ },
+ "university:documents.file": {
+  "text": "الملف",
+  "why": "missing"
+ },
+ "university:documents.hangyulBody": {
+  "text": "بصفتك من فريق Hangyul، لست مقيّدًا بجامعة واحدة في هذه الصفحة. افتح طلبًا لترى تحديدًا المستندات التي شاركها الطالب مع تلك الجامعة.",
+  "why": "missing"
+ },
+ "university:documents.hangyulTitle": {
+  "text": "افتح المستندات من طلب",
+  "why": "missing"
+ },
+ "university:documents.issued": {
+  "text": "تاريخ الإصدار",
+  "why": "missing"
+ },
+ "university:documents.legalization": {
+  "text": "التوثيق والتصديق",
+  "why": "notarization was dropped"
+ },
+ "university:documents.openApplication": {
+  "text": "فتح الطلب",
+  "why": "missing"
+ },
+ "university:documents.openTab": {
+  "text": "فتح في علامة تبويب جديدة",
+  "why": "missing"
+ },
+ "university:documents.sharingRule": {
+  "text": "يشارك الطلاب المستندات مع جامعتك عند تقديم الطلب. المستندات غير المشتركة لا تظهر هنا أبدًا. ويُسجَّل كل اطلاع.",
+  "why": "singular address, as elsewhere"
+ },
+ "university:documents.subtitle": {
+  "text": "المستندات التي شاركها الطلاب مع جامعتك.",
+  "why": "singular address, as elsewhere"
+ },
+ "university:documents.usedIn": {
+  "text": "مستخدم في الطلبات",
+  "why": "missing"
+ },
+ "university:filters.allIntakes": {
+  "text": "كل فصول الالتحاق",
+  "why": "one term for intake"
+ },
+ "university:filters.allIntakesOption": {
+  "text": "كل فصول الالتحاق",
+  "why": "one term for intake"
+ },
+ "university:filters.intake": {
+  "text": "فصل الالتحاق",
+  "why": "one term for intake"
+ },
+ "university:header.certificationHint": {
+  "text": "حالة اعتماد IEQAS (اعتماد وزارة التعليم لاستقطاب الطلاب الدوليين ودعمهم)",
+  "why": "missing"
+ },
+ "university:header.hangyulView": {
+  "text": "عرض فريق Hangyul",
+  "why": "missing"
+ },
+ "university:header.partner": {
+  "text": "شريك Hangyul",
+  "why": "missing"
+ },
+ "university:kpi.definitionOf": {
+  "text": "تعريف {{label}}",
+  "why": "missing"
+ },
+ "university:kpi.insufficientDetail": {
+  "text": "يُعرَض عند توفر {{min}} سجلًا (حاليًا {{n}}).",
+  "why": "wrong emphasis vs English"
+ },
+ "university:kpi.retention": {
+  "text": "معدل الاستبقاء",
+  "why": "'rate' was dropped"
+ },
+ "university:kpi.sample": {
+  "text": "n = {{n}}",
+  "why": "missing"
+ },
+ "university:kpi.viewList": {
+  "text": "عرض القائمة",
+  "why": "missing"
+ },
+ "university:kpi.yield": {
+  "text": "نسبة الالتحاق",
+  "why": "missing"
+ },
+ "university:login.ssoContinue": {
+  "text": "المتابعة بحساب جامعتك",
+  "why": "missing"
+ },
+ "university:login.ssoEnforced": {
+  "text": "تشترط {{org}} تسجيل الدخول الموحّد. استخدم الزر أعلاه.",
+  "why": "missing"
+ },
+ "university:login.ssoHint": {
+  "text": "تستخدم {{org}} تسجيل الدخول الموحّد. يمكنك أيضًا تسجيل الدخول بكلمة المرور.",
+  "why": "missing"
+ },
+ "university:login.ssoUnavailable": {
+  "text": "‏{{org}} مهيأة لتسجيل الدخول عبر SAML، وهو غير متاح بعد. تواصل مع دعم Hangyul.",
+  "why": "missing"
+ },
+ "university:login.subtitle": {
+  "text": "لمكاتب الشؤون الدولية وفرق القبول في الجامعات الشريكة لـ Hangyul.",
+  "why": "missing"
+ },
+ "university:login.title": {
+  "text": "تسجيل الدخول إلى لوحة تحكم الجامعة",
+  "why": "missing"
+ },
+ "university:metric.period": {
+  "text": "المقدَّمة من {{from}} إلى {{to}}",
+  "why": "missing; range as من…إلى"
+ },
+ "university:metric.population": {
+  "text": "المجموعة: الطلبات المقدَّمة · {{intake}} · {{n}} طلب",
+  "why": "missing"
+ },
+ "university:nav.programsRules": {
+  "text": "البرامج والمتطلبات",
+  "why": "requirements, not rules"
+ },
+ "university:nav.settingsTeam": {
+  "text": "الإعدادات والفريق",
+  "why": "missing"
+ },
+ "university:nav.students": {
+  "text": "الطلاب المسجّلون",
+  "why": "'enrolled' was dropped"
+ },
+ "university:notFound.body": {
+  "text": "الصفحة التي تبحث عنها غير موجودة أو نُقلت.",
+  "why": "missing"
+ },
+ "university:notFound.cta": {
+  "text": "العودة إلى لوحة التحكم",
+  "why": "missing"
+ },
+ "university:notifications.subtitle": {
+  "text": "تحديثات عن الطلبات والمستندات والرسائل.",
+  "why": "missing"
+ },
+ "university:notifications.unread": {
+  "text": "غير مقروءة",
+  "why": "missing"
+ },
+ "university:picker.body": {
+  "text": "أنت مسجّل الدخول بصفتك من فريق Hangyul. اختر الجامعة الشريكة التي تريد عرضها. تُقصَر كل الصفحات بعدها على تلك الجامعة.",
+  "why": "missing"
+ },
+ "university:picker.label": {
+  "text": "الجامعة",
+  "why": "missing"
+ },
+ "university:picker.placeholder": {
+  "text": "اختر جامعة شريكة…",
+  "why": "missing"
+ },
+ "university:picker.title": {
+  "text": "اختر جامعة",
+  "why": "missing"
+ },
+ "university:settings.hangyulTeam": {
+  "text": "تعرض هذه الجامعة بصفتك من فريق Hangyul. يدير فريقها مسؤول الجامعة.",
+  "why": "missing"
+ },
+ "university:settings.noTeam": {
+  "text": "لا يوجد أعضاء في الفريق. اطلب من Hangyul إضافة أعضاء.",
+  "why": "second sentence dropped"
+ },
+ "university:settings.sso": {
+  "text": "تسجيل الدخول الموحّد",
+  "why": "missing"
+ },
+ "university:settings.ssoAdminOnly": {
+  "text": "يدير مسؤول جامعتك تسجيل الدخول الموحّد.",
+  "why": "missing"
+ },
+ "university:settings.ssoDomains": {
+  "text": "نطاقات البريد الإلكتروني",
+  "why": "missing"
+ },
+ "university:settings.ssoEnforce": {
+  "text": "تسجيل الدخول بكلمة المرور محظور",
+  "why": "missing"
+ },
+ "university:settings.ssoNone": {
+  "text": "غير مهيأ. يمكن لـ Hangyul ربط مزوّد الهوية لديك (OpenID Connect). تواصل مع جهة اتصالك في Hangyul.",
+  "why": "missing"
+ },
+ "university:settings.ssoNote": {
+  "text": "لا تُخزَّن الأسرار في قاعدة بيانات Hangyul Univ أبدًا. SAML غير متاح بعد.",
+  "why": "missing"
+ },
+ "university:settings.ssoOff": {
+  "text": "مهيأ، غير مفعّل",
+  "why": "missing"
+ },
+ "university:settings.ssoOn": {
+  "text": "مفعّل",
+  "why": "missing"
+ },
+ "university:settings.ssoProtocol": {
+  "text": "البروتوكول",
+  "why": "missing"
+ },
+ "university:settings.ssoSecret": {
+  "text": "سر العميل (Client secret)",
+  "why": "missing; technical term glossed"
+ },
+ "university:settings.ssoSecretMissing": {
+  "text": "غير موجود في بيئة النشر",
+  "why": "missing"
+ },
+ "university:settings.ssoSecretOk": {
+  "text": "موفَّر من بيئة النشر",
+  "why": "missing"
+ },
+ "university:settings.ssoStatus": {
+  "text": "الحالة",
+  "why": "missing"
+ },
+ "university:settings.ssoSub": {
+  "text": "السماح للموظفين بتسجيل الدخول بحسابات جامعتهم.",
+  "why": "missing"
+ },
+ "university:settings.subtitle": {
+  "text": "صلاحياتك وفريق {{university}} على Hangyul.",
+  "why": "missing"
+ },
+ "university:settings.teamSub": {
+  "text": "الأشخاص في جامعتك الذين لديهم صلاحية الوصول إلى لوحة التحكم",
+  "why": "missing"
+ },
+ "university:settings.you": {
+  "text": "صلاحياتك",
+  "why": "missing"
+ },
+ "university:settings.youShort": {
+  "text": "أنت",
+  "why": "missing"
+ },
+ "university:stage.ADMITTED": {
+  "text": "مقبول",
+  "why": "missing"
+ },
+ "university:stage.APPLIED": {
+  "text": "تم التقديم",
+  "why": "missing"
+ },
+ "university:stage.ARRIVED": {
+  "text": "وصل",
+  "why": "missing"
+ },
+ "university:stage.ENROLLED": {
+  "text": "مسجّل",
+  "why": "missing"
+ },
+ "university:stage.GRADUATED": {
+  "text": "متخرج",
+  "why": "missing"
+ },
+ "university:stage.INTERESTED": {
+  "text": "مهتم",
+  "why": "missing"
+ },
+ "university:stage.PREPARING": {
+  "text": "قيد التحضير",
+  "why": "missing"
+ },
+ "university:stage.RETAINED": {
+  "text": "مستمر",
+  "why": "missing"
+ },
+ "university:stage.TUITION_PAID": {
+  "text": "دُفعت الرسوم الدراسية",
+  "why": "missing"
+ },
+ "university:stage.VISA_ISSUED": {
+  "text": "صدرت التأشيرة",
+  "why": "missing"
+ },
+ "university:v22.closed": {
+  "text": "‏{{n}} مغلقة (غير مقبولة أو منسحبة)",
+  "why": "missing"
+ },
+ "university:v22.empty.admitted": {
+  "text": "لا عروض قبول معلّقة.",
+  "why": "missing"
+ },
+ "university:v22.empty.decision": {
+  "text": "لا أحد على قائمة الانتظار.",
+  "why": "missing"
+ },
+ "university:v22.empty.documents": {
+  "text": "لا طلب بانتظار مستندات.",
+  "why": "missing"
+ },
+ "university:v22.empty.documents_check": {
+  "text": "لا طلب مقدَّم بانتظار فحص مستنداته.",
+  "why": "missing"
+ },
+ "university:v22.empty.enrolled": {
+  "text": "لا طلاب مسجّلون يطابقون عوامل التصفية هذه.",
+  "why": "missing"
+ },
+ "university:v22.empty.enrolment": {
+  "text": "لا متقدمين بين عرض القبول والتسجيل.",
+  "why": "missing"
+ },
+ "university:v22.empty.in_review": {
+  "text": "لا طلبات قيد المراجعة حاليًا.",
+  "why": "missing"
+ },
+ "university:v22.empty.received": {
+  "text": "لا طلبات مستلمة بانتظار بدء المراجعة.",
+  "why": "missing"
+ },
+ "university:v22.in.closedN": {
+  "text": "‏{{n}} مغلقة (غير مقبولة أو منسحبة)",
+  "why": "missing"
+ },
+ "university:v22.in.dropText": {
+  "text": "‏{{lost}} من {{of}} ({{pct}}) لم يصلوا إلى الخطوة التالية.",
+  "why": "order and wording per English"
+ },
+ "university:v22.in.noDrop": {
+  "text": "لا تُظهر أي خطوة فيها {{min}} متقدمًا أو أكثر تراجعًا بعد.",
+  "why": "missing"
+ },
+ "university:v22.in.q.dropoff": {
+  "text": "أين يتوقف المتقدمون؟",
+  "why": "formal register; 'we lose them' was informal"
+ },
+ "university:v22.in.q.settle": {
+  "text": "هل يستقر الطلاب بعد التسجيل؟",
+  "why": "explicit subject"
+ },
+ "university:v22.manage.inactive": {
+  "text": "غير نشط",
+  "why": "missing"
+ },
+ "university:v22.nav.insights": {
+  "text": "التحليلات",
+  "why": "Insights ≠ statistics; matches pipe.label"
+ },
+ "university:v22.stageHint.documents_check": {
+  "text": "مُقدَّم؛ لم يكتمل فحص المستندات بعد",
+  "why": "per English; 'office confirmed' invented"
+ },
+ "university:v22.stageHint.enrolment": {
+  "text": "الرسوم الدراسية وخطاب القبول والتأشيرة قيد الإجراء",
+  "why": "one term: خطاب القبول; 'in progress' dropped"
+ },
+ "university:v22.stageHint.received": {
+  "text": "اكتمل فحص المستندات. ابدأ المراجعة",
+  "why": "per English"
+ },
+ "university:v23.co.openCohort": {
+  "text": "عرض طلاب هذه الدفعة",
+  "why": "missing"
+ },
+ "university:v25.chip.days": {
+  "text": "الأيام الـ{{count}} الأخيرة",
+  "why": "count-neutral; يومًا wrong for 3–10"
+ },
+ "university:v25.chip.submitted_within": {
+  "text": "قُدّمت خلال",
+  "why": "'submission period' was a different meaning"
+ },
+ "university:v25.chip.updated_within": {
+  "text": "حُدّثت خلال",
+  "why": "'change period' was a different meaning"
+ },
+ "university:v25.head.moved": {
+  "text": "طلبات تغيّرت حالتها هذا الأسبوع",
+  "why": "status, not stage"
+ },
+ "university:v25.in.offerRate": {
+  "text": "معدل عروض القبول",
+  "why": "offer rate ≠ admission rate"
+ },
+ "university:v25.in.submittedSub": {
+  "text": "المجموعة نفسها كما في مسار القبول",
+  "why": "funnel = مسار القبول (af.title)"
+ },
+ "university:v28.pipe.label": {
+  "text": "النتائج حتى الآن؛ التفاصيل في التحليلات",
+  "why": "per English"
+ },
+ "university:v28.pipe.step.ACCEPTED": {
+  "text": "قُبِل العرض",
+  "why": "same labels as af.stepName"
+ },
+ "university:v28.pipe.step.ENROLLED": {
+  "text": "مسجّل",
+  "why": "same labels as af.stepName"
+ },
+ "university:v28.pipe.step.OFFERED": {
+  "text": "عُرض عليه القبول",
+  "why": "same labels as af.stepName"
+ },
+ "university:v28.pipe.step.SUBMITTED": {
+  "text": "تم التقديم",
+  "why": "same labels as af.stepName"
+ },
+ "university:v28.pipe.title": {
+  "text": "النتائج حتى الآن",
+  "why": "per English"
+ },
+ "university:v30.def.visaOutcome": {
+  "text": "التأشيرات المرفوضة ÷ قرارات التأشيرة (الصادرة + المرفوضة) للطلبات المقدَّمة إلى جامعتك من هذه الوكالة، في فصل الالتحاق المحدد. لا يُحتسب الرفض إلا إذا سُجّل في حالة تأشيرة الطالب؛ أما النتائج غير المسجّلة فتُدرج على حدة ولا تُفترض أبدًا.",
+  "why": "missing"
+ }
+}

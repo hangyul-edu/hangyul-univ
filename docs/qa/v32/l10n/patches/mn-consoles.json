@@ -1,0 +1,2209 @@
+{
+  "_notes": [
+    "492 keys had no Mongolian at all (null); all are translated here. Agency copy is imperative and dense; University copy is formal and analytical.",
+    "caseload → 'хариуцсан оюутнууд'; SLA kept as 'SLA' (staff vocabulary, already used in the file); 'first-response SLA' spelled out as 'анхны хариуны SLA'.",
+    "standard admission letter → 'стандарт элсэлтийн зөвшөөрөл' (agency:ws.noVisaText, university:decision.certificateInfo); short 'admission letter' → 'элсэлтийн зөвшөөрөл', matching the common patch.",
+    "Not admitted / withdrawn → 'тэнцээгүй' / 'өргөдлөө татсан' in the University console; 'татгалзсан' was being used for both withdrawn and refused.",
+    "Hangyul HQ → 'Hangyul төв'; Hangyul Operations → 'Hangyul үйл ажиллагаа' (matches common:role.HANGYUL_OPERATIONS).",
+    "Stage names shared by both consoles: In review 'Хянагдаж байна', Offered 'Санал илгээсэн' (university), Offer accepted 'Санал хүлээн авсан', University review 'Их сургуулийн хяналт'.",
+    "Settling in D-30 to D+30 rendered as 'ирэхээс 30 хоногийн өмнөөс 30 хоногийн дараа хүртэл' — the D-30/D+30 notation is not read in Mongolia.",
+    "agency:dash.subHq / login.* mention 'queue and SLA' — kept as operational terms ('дараалал', 'SLA').",
+    "Single sign-on → 'нэгдсэн нэвтрэлт (SSO)'; protocol names (OpenID Connect, SAML) stay Latin."
+  ],
+  "agency:actions.moreFilters": {
+    "text": "Бусад шүүлтүүр",
+    "why": "missing"
+  },
+  "agency:apps.actor.AGENCY": {
+    "text": "Агентлаг",
+    "why": "missing"
+  },
+  "agency:apps.actor.HANGYUL": {
+    "text": "Hangyul",
+    "why": "missing"
+  },
+  "agency:apps.actor.STUDENT": {
+    "text": "Оюутан",
+    "why": "missing"
+  },
+  "agency:apps.actor.SYSTEM": {
+    "text": "Систем",
+    "why": "missing"
+  },
+  "agency:apps.actor.UNIVERSITY": {
+    "text": "Их сургууль",
+    "why": "missing"
+  },
+  "agency:apps.checklist": {
+    "text": "Бичиг баримтын жагсаалт",
+    "why": "missing"
+  },
+  "agency:apps.checklistCount": {
+    "text": "{{total}}-оос {{ready}} бэлэн",
+    "why": "missing"
+  },
+  "agency:apps.confirmMove": {
+    "text": "“{{status}}” руу шилжүүлэх",
+    "why": "missing"
+  },
+  "agency:apps.empty": {
+    "text": "Эдгээр шүүлтүүрт тохирох өргөдөл алга. Шүүлтүүрээ өөрчлөх эсвэл арилгана уу.",
+    "why": "second sentence dropped"
+  },
+  "agency:apps.externalRef": {
+    "text": "Их сургуулийн дугаар",
+    "why": "missing"
+  },
+  "agency:apps.externalRefHint": {
+    "text": "Их сургуулийн порталаас өгсөн өргөдлийн дугаар, байгаа бол.",
+    "why": "missing"
+  },
+  "agency:apps.flag": {
+    "text": "Тэмдэглэх",
+    "why": "missing"
+  },
+  "agency:apps.flagReason": {
+    "text": "Тэмдэглэсэн шалтгаан",
+    "why": "missing"
+  },
+  "agency:apps.flagTitle": {
+    "text": "Дахин хянахаар тэмдэглэх",
+    "why": "missing"
+  },
+  "agency:apps.history": {
+    "text": "Төлвийн түүх",
+    "why": "missing"
+  },
+  "agency:apps.legalization": {
+    "text": "Нотариат ба баталгаажуулалт",
+    "why": "missing"
+  },
+  "agency:apps.moveTo": {
+    "text": "Өргөдлийн төлөв өөрчлөх",
+    "why": "missing"
+  },
+  "agency:apps.moved": {
+    "text": "Өргөдлийг {{status}} руу шилжүүллээ.",
+    "why": "missing"
+  },
+  "agency:apps.noTransitions": {
+    "text": "Энэ шатанд танай байгууллагад боломжтой төлвийн өөрчлөлт алга.",
+    "why": "missing"
+  },
+  "agency:apps.note": {
+    "text": "Тэмдэглэл",
+    "why": "missing"
+  },
+  "agency:apps.noteHint": {
+    "text": "Төлвийн түүхэнд хадгалагдана.",
+    "why": "missing"
+  },
+  "agency:apps.readiness": {
+    "text": "Бэлэн байдал",
+    "why": "missing"
+  },
+  "agency:apps.reused": {
+    "text": "Баримтын сангаас дахин ашигласан",
+    "why": "missing"
+  },
+  "agency:apps.scholarship": {
+    "text": "Тэтгэлгийн тэмдэглэл",
+    "why": "missing"
+  },
+  "agency:apps.semester": {
+    "text": "Хичээл эхлэх",
+    "why": "missing"
+  },
+  "agency:apps.sortBy.readiness": {
+    "text": "Бэлэн байдлаар",
+    "why": "missing"
+  },
+  "agency:apps.submitBlocked": {
+    "text": "Шаардлагатай баримт дутуу тул илгээх боломжгүй:",
+    "why": "missing"
+  },
+  "agency:apps.submitted": {
+    "text": "Илгээсэн",
+    "why": "missing"
+  },
+  "agency:apps.translation": {
+    "text": "Орчуулга",
+    "why": "missing"
+  },
+  "agency:apps.withdrawWarn": {
+    "text": "Татсан өргөдлийг буцаах боломжгүй.",
+    "why": "missing"
+  },
+  "agency:dash.days_other": {
+    "text": "{{count}} хоног",
+    "why": "missing"
+  },
+  "agency:dash.period": {
+    "text": "Тайлант хугацаа",
+    "why": "missing"
+  },
+  "agency:dash.subHq": {
+    "text": "Бүх агентлагийн идэвхтэй оюутан, дараалал, SLA-г нэг дороос харах.",
+    "why": "missing"
+  },
+  "agency:dash.workload.member": {
+    "text": "Багийн гишүүн",
+    "why": "missing"
+  },
+  "agency:dash.workload.open": {
+    "text": "Нээлттэй даалгавар",
+    "why": "missing"
+  },
+  "agency:dash.workload.overdue": {
+    "text": "Хугацаа хэтэрсэн",
+    "why": "missing"
+  },
+  "agency:dash.workload.students": {
+    "text": "Идэвхтэй оюутан",
+    "why": "missing"
+  },
+  "agency:docs.bulkAssign": {
+    "text": "Хянагч хуваарилах",
+    "why": "missing"
+  },
+  "agency:docs.bulkAssigned_one": {
+    "text": "{{count}} баримт хуваариллаа",
+    "why": "missing"
+  },
+  "agency:docs.bulkAssigned_other": {
+    "text": "{{count}} баримт хуваариллаа",
+    "why": "missing"
+  },
+  "agency:docs.bulkFailed_one": {
+    "text": "{{count}} баримтыг өөрчилж чадсангүй (аль хэдийн хянасан эсвэл таны хариуцсан оюутных биш)",
+    "why": "missing"
+  },
+  "agency:docs.bulkFailed_other": {
+    "text": "{{count}} баримтыг өөрчилж чадсангүй (аль хэдийн хянасан эсвэл таны хариуцсан оюутных биш)",
+    "why": "missing"
+  },
+  "agency:docs.bulkLabel": {
+    "text": "Сонгосон баримтад хийх үйлдэл",
+    "why": "missing"
+  },
+  "agency:docs.bulkVerified_one": {
+    "text": "{{count}} баримт баталгаажлаа",
+    "why": "missing"
+  },
+  "agency:docs.bulkVerified_other": {
+    "text": "{{count}} баримт баталгаажлаа",
+    "why": "missing"
+  },
+  "agency:docs.bulkVerifyTitle_one": {
+    "text": "{{count}} баримтыг баталгаажуулах уу?",
+    "why": "missing"
+  },
+  "agency:docs.empty": {
+    "text": "Дараалал хоосон",
+    "why": "missing"
+  },
+  "agency:docs.emptyBy.any": {
+    "text": "Хяналт хүлээж буй баримт алга.",
+    "why": "missing"
+  },
+  "agency:docs.emptyBy.me": {
+    "text": "Одоогоор танд хуваарилсан зүйл алга.",
+    "why": "missing"
+  },
+  "agency:docs.emptyBy.unassigned": {
+    "text": "Хүлээж буй баримт бүрт хянагч бий.",
+    "why": "missing"
+  },
+  "agency:docs.notInQueue": {
+    "text": "Хяналтын дараалалд байхгүй",
+    "why": "missing"
+  },
+  "agency:docs.position": {
+    "text": "{{n}} / {{total}}",
+    "why": "'-ийн' order reads backwards"
+  },
+  "agency:docs.subSla": {
+    "text": "{{count}} хяналт хүлээж байна · {{late}} нь {{hours}} цагийн зорилтыг хэтэрсэн",
+    "why": "missing"
+  },
+  "agency:docs.sub_other": {
+    "text": "{{count}} баримт хяналт хүлээж байна, хамгийн хуучин нь эхэнд.",
+    "why": "missing"
+  },
+  "agency:docs.uploadedFor": {
+    "text": "{{name}}-ийн баримтын санд нэмлээ",
+    "why": "missing"
+  },
+  "agency:docs.you": {
+    "text": "та",
+    "why": "missing"
+  },
+  "agency:inbox.audienceTeam": {
+    "text": "Зөвхөн танай баг харна",
+    "why": "missing"
+  },
+  "agency:inbox.manageTemplates": {
+    "text": "Загвар удирдах…",
+    "why": "missing"
+  },
+  "agency:inbox.needsReplyShort": {
+    "text": "Хариу өгөх",
+    "why": "chip; was a full sentence"
+  },
+  "agency:inbox.noMessages": {
+    "text": "Мессеж хараахан алга.",
+    "why": "missing"
+  },
+  "agency:inbox.notePh": {
+    "text": "Багтаа дотоод тэмдэглэл бичих… (хадгалах бол Ctrl+Enter)",
+    "why": "missing"
+  },
+  "agency:inbox.noteSaved": {
+    "text": "Дотоод тэмдэглэл хадгалагдлаа.",
+    "why": "missing"
+  },
+  "agency:inbox.openFile": {
+    "text": "Файл нээх",
+    "why": "missing"
+  },
+  "agency:inbox.participants": {
+    "text": "оролцогч",
+    "why": "missing"
+  },
+  "agency:inbox.removeFile": {
+    "text": "{{name}}-г хасах",
+    "why": "missing"
+  },
+  "agency:inbox.saveNote": {
+    "text": "Тэмдэглэл хадгалах",
+    "why": "missing"
+  },
+  "agency:inbox.sent": {
+    "text": "Мессеж илгээгдлээ.",
+    "why": "missing"
+  },
+  "agency:inbox.subReply_one": {
+    "text": "Таны хариуг хүлээж буй {{count}} харилцан яриа",
+    "why": "missing"
+  },
+  "agency:inbox.subUnread_one": {
+    "text": "{{count}} уншаагүй харилцан яриа",
+    "why": "missing"
+  },
+  "agency:inbox.system": {
+    "text": "Систем",
+    "why": "missing"
+  },
+  "agency:inbox.taskCreated": {
+    "text": "Энэ мессежээс даалгавар үүсгэлээ",
+    "why": "missing"
+  },
+  "agency:inbox.taskDue": {
+    "text": "Даалгаврын хугацаа",
+    "why": "missing"
+  },
+  "agency:inbox.taskHint": {
+    "text": "Даалгавар эхний дурдсан багийн гишүүнд, хэн ч дурдаагүй бол танд очно.",
+    "why": "missing"
+  },
+  "agency:inbox.unreadN_other": {
+    "text": "{{count}} уншаагүй мессеж",
+    "why": "missing"
+  },
+  "agency:inbox.willNotify_other": {
+    "text": "Багийн {{count}} гишүүнд мэдэгдэл очно",
+    "why": "missing"
+  },
+  "agency:login.asideFoot": {
+    "text": "Байгууллага бүрийн өгөгдлийг тусад нь хадгалж, хандалт бүрийг бүртгэнэ. Оюутан дотоод тэмдэглэлийг хэзээ ч харахгүй.",
+    "why": "missing"
+  },
+  "agency:login.asideLead": {
+    "text": "Оюутан, өргөдөл ба баримтын ажил, мессеж — нэг ажлын талбарт.",
+    "why": "missing"
+  },
+  "agency:login.asideTitle": {
+    "text": "Хэнд, яагаад, хэзээ гэхэд та хэрэгтэй вэ — өнөөдрөөс эхлээд.",
+    "why": "missing"
+  },
+  "agency:login.p1Text": {
+    "text": "Шат бүрийн тоон дээр дарахад яг тэр оюутнууд нээгдэнэ.",
+    "why": "missing"
+  },
+  "agency:login.p1Title": {
+    "text": "Оюутнууд шатаар",
+    "why": "missing"
+  },
+  "agency:login.p2Text": {
+    "text": "Баримтын засвар, өргөдлийн эцсийн хугацаа, хариу өгөх мессеж — дуусах хугацааны дарааллаар.",
+    "why": "missing"
+  },
+  "agency:login.p2Title": {
+    "text": "Хугацаатай ажил",
+    "why": "missing"
+  },
+  "agency:login.p3Text": {
+    "text": "Аюулгүй урьдчилсан харагдац, бичиг баримтын жагсаалт; засварыг тодорхой шалтгаантай хүснэ.",
+    "why": "missing"
+  },
+  "agency:login.p3Title": {
+    "text": "Баримт хянах",
+    "why": "missing"
+  },
+  "agency:login.p4Text": {
+    "text": "Оюутан Hangyul Univ-ийн багаас мэдээлэл авна; ажлыг хэн хийснийг аудитын бүртгэл хадгална.",
+    "why": "missing"
+  },
+  "agency:login.p4Title": {
+    "text": "Оюутанд Hangyul Univ-ийн баг харагдана",
+    "why": "missing"
+  },
+  "agency:login.subtitle": {
+    "text": "Hangyul-ийн үйл ажиллагааны ажилтнууд болон түнш агентлагуудад зориулсан.",
+    "why": "missing"
+  },
+  "agency:login.title": {
+    "text": "Агентлагийн консолд нэвтрэх",
+    "why": "missing"
+  },
+  "agency:misc.breadcrumb": {
+    "text": "Байршлын зам",
+    "why": "one term with common"
+  },
+  "agency:misc.change": {
+    "text": "Өөрчлөх",
+    "why": "missing"
+  },
+  "agency:misc.days_other": {
+    "text": "{{count}} хоног",
+    "why": "missing"
+  },
+  "agency:misc.hours_other": {
+    "text": "{{count}} цаг",
+    "why": "missing"
+  },
+  "agency:misc.internalTag": {
+    "text": "Дотоод",
+    "why": "missing"
+  },
+  "agency:misc.no": {
+    "text": "Үгүй",
+    "why": "missing"
+  },
+  "agency:misc.notFoundText": {
+    "text": "Хуудас шилжсэн эсвэл танд хандах эрх байхгүй байж магадгүй.",
+    "why": "missing"
+  },
+  "agency:misc.searchStudents": {
+    "text": "Оюутнуудаа хайх…",
+    "why": "missing"
+  },
+  "agency:misc.unassigned": {
+    "text": "Хуваарилаагүй",
+    "why": "missing"
+  },
+  "agency:misc.yes": {
+    "text": "Тийм",
+    "why": "missing"
+  },
+  "agency:notifs.filter": {
+    "text": "Шүүх",
+    "why": "missing"
+  },
+  "agency:notifs.sub": {
+    "text": "Таныг эзгүй байх хооронд болсон бүх зүйл.",
+    "why": "missing"
+  },
+  "agency:savedViews.delete": {
+    "text": "{{name}}-г устгах",
+    "why": "missing"
+  },
+  "agency:savedViews.saveHint_one": {
+    "text": "Одоогийн шүүлтүүр, эрэмбийг хадгалж, энэ жагсаалтыг нэг товшилтоор нээнэ.",
+    "why": "missing"
+  },
+  "agency:savedViews.saveHint_other": {
+    "text": "Одоогийн {{count}} шүүлтүүр, эрэмбийг хадгалж, энэ жагсаалтыг нэг товшилтоор нээнэ.",
+    "why": "missing"
+  },
+  "agency:savedViews.saved": {
+    "text": "“{{name}}” хадгалагдлаа",
+    "why": "missing"
+  },
+  "agency:settings.account": {
+    "text": "Бүртгэл",
+    "why": "missing"
+  },
+  "agency:settings.language": {
+    "text": "Хэл",
+    "why": "missing"
+  },
+  "agency:settings.languageHint": {
+    "text": "Интерфейсийн хэл. Оюутны өгөгдөл эх хэлээрээ хадгалагдана.",
+    "why": "missing"
+  },
+  "agency:settings.localOnly": {
+    "text": "Зөвхөн энэ хөтөчид хадгалагдана.",
+    "why": "missing"
+  },
+  "agency:settings.org": {
+    "text": "Байгууллага",
+    "why": "missing"
+  },
+  "agency:settings.poll": {
+    "text": "Шууд шинэчлэл",
+    "why": "missing"
+  },
+  "agency:settings.pollHint": {
+    "text": "Дараалал, тоог минут тутамд шинэчилнэ.",
+    "why": "missing"
+  },
+  "agency:settings.scSearch": {
+    "text": "Ерөнхий хайлтын үр дүнгээр шилжих",
+    "why": "missing"
+  },
+  "agency:settings.scSend": {
+    "text": "Мессеж илгээх эсвэл тэмдэглэл хадгалах",
+    "why": "missing"
+  },
+  "agency:settings.shortcuts": {
+    "text": "Товчлол",
+    "why": "missing"
+  },
+  "agency:settings.sub": {
+    "text": "Энэ консолын хувийн тохиргоо.",
+    "why": "missing"
+  },
+  "agency:settings.timezone": {
+    "text": "Цагийн бүс",
+    "why": "missing"
+  },
+  "agency:settings.updates": {
+    "text": "Шууд шинэчлэл",
+    "why": "missing"
+  },
+  "agency:shell.hqProduct": {
+    "text": "Hangyul үйл ажиллагаа",
+    "why": "missing"
+  },
+  "agency:shell.hqView": {
+    "text": "Hangyul төв · бүх агентлаг",
+    "why": "missing"
+  },
+  "agency:shell.searchAll": {
+    "text": "“{{q}}”-ийн бүх үр дүнг харах",
+    "why": "missing"
+  },
+  "agency:sidebar.agencies": {
+    "text": "Агентлагууд",
+    "why": "missing"
+  },
+  "agency:sidebar.catalog": {
+    "text": "Их сургууль ба хөтөлбөр",
+    "why": "missing"
+  },
+  "agency:sidebar.hangyul": {
+    "text": "Hangyul төв",
+    "why": "missing"
+  },
+  "agency:sidebar.operations": {
+    "text": "Үйл ажиллагаа",
+    "why": "missing"
+  },
+  "agency:sidebar.override": {
+    "text": "Хуваарилалтыг гараар өөрчлөх",
+    "why": "missing"
+  },
+  "agency:students.bulk.confirmRegen_other": {
+    "text": "{{count}} оюутны автомат даалгаврын жагсаалтыг дахин тооцох уу? Гараар үүсгэсэн даалгавар хэвээр үлдэнэ.",
+    "why": "missing"
+  },
+  "agency:students.bulk.confirmStage_other": {
+    "text": "{{count}} оюутныг “{{stage}}” руу шилжүүлэх үү? Аудитын бүртгэлд тэмдэглэгдэнэ.",
+    "why": "missing"
+  },
+  "agency:students.bulk.confirmTitle": {
+    "text": "Бөөнөөр үйлдэл хийх үү?",
+    "why": "missing"
+  },
+  "agency:students.bulk.done_other": {
+    "text": "{{count}} оюутныг шинэчиллээ.",
+    "why": "missing"
+  },
+  "agency:students.bulk.regen": {
+    "text": "Даалгавар дахин үүсгэх",
+    "why": "missing"
+  },
+  "agency:students.bulk.stage": {
+    "text": "Шат руу шилжүүлэх…",
+    "why": "missing"
+  },
+  "agency:students.col.degree": {
+    "text": "Зэрэг",
+    "why": "missing"
+  },
+  "agency:students.col.nationality": {
+    "text": "Иргэншил",
+    "why": "missing"
+  },
+  "agency:students.dShort_one": {
+    "text": "{{count}}х",
+    "why": "missing"
+  },
+  "agency:students.dShort_other": {
+    "text": "{{count}}х",
+    "why": "compact, no space"
+  },
+  "agency:students.f.allDegrees": {
+    "text": "Бүх зэрэг",
+    "why": "missing"
+  },
+  "agency:students.f.allNationalities": {
+    "text": "Бүх иргэншил",
+    "why": "missing"
+  },
+  "agency:students.noReply": {
+    "text": "Анхны хариуны SLA хэтэрсэн. Энэ оюутан хариу хүлээж байна",
+    "why": "missing"
+  },
+  "agency:students.noReplyShort": {
+    "text": "Хариу өгөх",
+    "why": "missing"
+  },
+  "agency:students.view.all": {
+    "text": "Бүгд",
+    "why": "missing"
+  },
+  "agency:students.view.arrived": {
+    "text": "Ирсэн",
+    "why": "missing"
+  },
+  "agency:students.view.deadline": {
+    "text": "Хугацаа ойртсон",
+    "why": "missing"
+  },
+  "agency:students.view.docs": {
+    "text": "Засах баримттай",
+    "why": "missing"
+  },
+  "agency:students.view.incomplete": {
+    "text": "Баримт дутуу",
+    "why": "missing"
+  },
+  "agency:students.view.mine": {
+    "text": "Миний оюутнууд",
+    "why": "missing"
+  },
+  "agency:students.view.requested": {
+    "text": "Их сургууль баримт хүссэн",
+    "why": "missing"
+  },
+  "agency:students.view.university": {
+    "text": "Их сургуулийг хүлээж буй",
+    "why": "missing"
+  },
+  "agency:students.view.visa": {
+    "text": "Виз",
+    "why": "missing"
+  },
+  "agency:students.view.waiting_external": {
+    "text": "Элчин сайдын яам эсвэл бусад талыг хүлээж буй",
+    "why": "missing"
+  },
+  "agency:students.view.waiting_student": {
+    "text": "Оюутныг хүлээж буй",
+    "why": "one form with other waiting_* chips"
+  },
+  "agency:students.view.waiting_us": {
+    "text": "Биднийг хүлээж буй",
+    "why": "missing"
+  },
+  "agency:today.afternoon": {
+    "text": "Өдрийн мэнд, {{name}}",
+    "why": "missing"
+  },
+  "agency:today.allClear": {
+    "text": "Одоогоор анхаарах зүйл алга. Шинэ ажил ирмэгц энд харагдана.",
+    "why": "missing"
+  },
+  "agency:today.attention": {
+    "text": "Анхаарал шаардлагатай",
+    "why": "missing"
+  },
+  "agency:today.attentionSub": {
+    "text": "Хамгийн яаралтай нь эхэнд. Мөрийг нээгээд жагсаалтаар дараалан ажиллана уу.",
+    "why": "missing"
+  },
+  "agency:today.attentionV4": {
+    "text": "Өнөөдөр хэнд та хэрэгтэй вэ",
+    "why": "missing"
+  },
+  "agency:today.clearList": {
+    "text": "Бүгд цэвэр: {{list}}",
+    "why": "missing"
+  },
+  "agency:today.closing": {
+    "text": "7 хоногийн дотор хаагдах өргөдөл",
+    "why": "missing"
+  },
+  "agency:today.closingDetail": {
+    "text": "Дараагийнх: {{university}} · {{student}}, {{date}}-нд хаагдана",
+    "why": "missing"
+  },
+  "agency:today.closingV4": {
+    "text": "7 хоногийн дотор өргөдлийн эцсийн хугацаа нь болох оюутнууд",
+    "why": "missing"
+  },
+  "agency:today.cta.deadlines": {
+    "text": "Хугацаануудыг харах",
+    "why": "missing"
+  },
+  "agency:today.cta.messages": {
+    "text": "Ирсэн мессеж нээх",
+    "why": "missing"
+  },
+  "agency:today.cta.reply": {
+    "text": "Хариулах",
+    "why": "missing"
+  },
+  "agency:today.cta.review": {
+    "text": "Хяналт эхлэх",
+    "why": "missing"
+  },
+  "agency:today.cta.students": {
+    "text": "Оюутнуудыг нээх",
+    "why": "missing"
+  },
+  "agency:today.cta.tasks": {
+    "text": "Даалгавруудыг нээх",
+    "why": "missing"
+  },
+  "agency:today.deadlines": {
+    "text": "Ойрын 7 хоногийн хугацаанууд",
+    "why": "missing"
+  },
+  "agency:today.deadlinesDetail": {
+    "text": "Дараагийнх: {{title}} · {{student}}, {{when}}",
+    "why": "missing"
+  },
+  "agency:today.docs": {
+    "text": "Хяналт хүлээж буй баримт",
+    "why": "missing"
+  },
+  "agency:today.docsDetail": {
+    "text": "Хамгийн хуучин: {{student}} · {{doc}}, {{wait}} хүлээж байна",
+    "why": "missing"
+  },
+  "agency:today.docsOldest": {
+    "text": "хамгийн хуучин: {{student}} · {{doc}}, {{when}} байршуулсан",
+    "why": "missing"
+  },
+  "agency:today.docsSla_one": {
+    "text": "{{count}} баримт {{hours}} цагийн хяналтын зорилтыг хэтэрсэн",
+    "why": "missing"
+  },
+  "agency:today.docsSla_other": {
+    "text": "{{count}} баримт {{hours}} цагийн хяналтын зорилтыг хэтэрсэн",
+    "why": "missing"
+  },
+  "agency:today.essays": {
+    "text": "Хяналт хүлээж буй эссэ",
+    "why": "missing"
+  },
+  "agency:today.essaysDetail": {
+    "text": "Дараагийнх: {{title}} · {{student}}",
+    "why": "missing"
+  },
+  "agency:today.keyMove": {
+    "text": "шилжих",
+    "why": "missing"
+  },
+  "agency:today.keyOpen": {
+    "text": "нээх",
+    "why": "missing"
+  },
+  "agency:today.messages": {
+    "text": "Уншаагүй мессежтэй харилцан яриа",
+    "why": "missing"
+  },
+  "agency:today.messagesDetail": {
+    "text": "Хамгийн удаан хүлээж буй: {{who}}, {{when}}",
+    "why": "missing"
+  },
+  "agency:today.openPipeline": {
+    "text": "Явцын самбар нээх",
+    "why": "missing"
+  },
+  "agency:today.overdueDef": {
+    "text": "Дуусах хугацаа нь өнгөрсөн нээлттэй даалгавар.",
+    "why": "missing"
+  },
+  "agency:today.overdueDetail": {
+    "text": "Хамгийн хуучин: {{title}} · {{student}}, хугацаа {{when}}",
+    "why": "missing"
+  },
+  "agency:today.overdueMine": {
+    "text": "Таны хугацаа хэтэрсэн даалгавар",
+    "why": "missing"
+  },
+  "agency:today.overdueTeam": {
+    "text": "Багийн хугацаа хэтэрсэн даалгавар",
+    "why": "missing"
+  },
+  "agency:today.phase.studying": {
+    "text": "Суралцаж буй",
+    "why": "missing"
+  },
+  "agency:today.pipeline": {
+    "text": "Хариуцсан оюутнууд шатаар",
+    "why": "missing"
+  },
+  "agency:today.pipelineSub": {
+    "text": "{{count}} оюутан. Шат сонгоод хэн байгааг харна уу.",
+    "why": "missing"
+  },
+  "agency:today.pipelineSubV4_one": {
+    "text": "{{count}} оюутан",
+    "why": "missing"
+  },
+  "agency:today.pipelineSubV4_other": {
+    "text": "{{count}} оюутан",
+    "why": "missing"
+  },
+  "agency:today.replies": {
+    "text": "Хариу хүлээж буй оюутнууд",
+    "why": "missing"
+  },
+  "agency:today.repliesDetail": {
+    "text": "Сүүлийн мессежид нь хараахан хариулаагүй.",
+    "why": "missing"
+  },
+  "agency:today.repliesOldest": {
+    "text": "Хамгийн удаан хүлээж буй: {{student}}, {{when}}",
+    "why": "missing"
+  },
+  "agency:today.repliesV4": {
+    "text": "Хариу өгөх мессеж",
+    "why": "missing"
+  },
+  "agency:today.requests": {
+    "text": "Их сургуулиудын баримтын хүсэлт",
+    "why": "missing"
+  },
+  "agency:today.requestsDetail": {
+    "text": "Оюутан өөрөө байршуулах ёстой. Ирсэн эсэхийг шалгана уу.",
+    "why": "missing"
+  },
+  "agency:today.sla": {
+    "text": "24 цагийн дотор анхны хариу авах ёстой оюутнууд",
+    "why": "missing"
+  },
+  "agency:today.slaDetail": {
+    "text": "{{student}} · хариу өгөх хугацаа {{when}}",
+    "why": "missing"
+  },
+  "agency:today.unread": {
+    "text": "Уншаагүй харилцан яриа",
+    "why": "missing"
+  },
+  "agency:today.unreadDetail": {
+    "text": "Сүүлийнх: {{who}}, {{when}}",
+    "why": "missing"
+  },
+  "agency:today.upcoming": {
+    "text": "Ойртож буй хугацаанууд",
+    "why": "missing"
+  },
+  "agency:today.upcomingEmpty": {
+    "text": "Ойрын 14 хоногт хугацаа алга.",
+    "why": "missing"
+  },
+  "agency:today.upcomingSub": {
+    "text": "Ойрын 14 хоног",
+    "why": "missing"
+  },
+  "agency:today.upcomingV4": {
+    "text": "Ойрын 14 хоног",
+    "why": "missing"
+  },
+  "agency:today.v5.andMore_one": {
+    "text": "дахиад {{count}}",
+    "why": "missing"
+  },
+  "agency:today.v5.andMore_other": {
+    "text": "дахиад {{count}}",
+    "why": "missing"
+  },
+  "agency:today.v5.checks": {
+    "text": "Хянагч шаардлагатай баримтын шалгалт",
+    "why": "missing"
+  },
+  "agency:today.v5.checksDetail": {
+    "text": "{{student}} · {{doc}}: {{what}}",
+    "why": "missing"
+  },
+  "agency:today.v5.services.needs_assignment": {
+    "text": "Хуваарилах шинэ үйлчилгээний хүсэлт",
+    "why": "missing"
+  },
+  "agency:today.v5.services.overdue": {
+    "text": "Хариу өгөх хугацаа нь хэтэрсэн үйлчилгээний хэрэг",
+    "why": "missing"
+  },
+  "agency:today.v5.services.today": {
+    "text": "Өнөөдөр дуусах үйлчилгээний хэрэг",
+    "why": "missing"
+  },
+  "agency:today.v5.servicesCta": {
+    "text": "Үйлчилгээг нээх",
+    "why": "missing"
+  },
+  "agency:today.v5.servicesDetail": {
+    "text": "{{type}} · {{student}} · {{reason}}",
+    "why": "missing"
+  },
+  "agency:today.v5.visa": {
+    "text": "Таны оролцоо шаардлагатай визийн хэрэг",
+    "why": "missing"
+  },
+  "agency:today.v5.visaCta": {
+    "text": "Нээх",
+    "why": "missing"
+  },
+  "agency:today.v5.writingDetail": {
+    "text": "{{essay}} · {{student}}, {{university}}",
+    "why": "missing"
+  },
+  "agency:today.v5.writingDue": {
+    "text": "48 цагийн дотор дуусах эссэ хяналт",
+    "why": "missing"
+  },
+  "agency:today.v5.writingDue48": {
+    "text": "хугацаа {{when}}",
+    "why": "missing"
+  },
+  "agency:today.v5.writingOverdue": {
+    "text": "Амласан хугацаа нь хэтэрсэн эссэ хяналт",
+    "why": "missing"
+  },
+  "agency:today.v5.writingRevised_one": {
+    "text": "оюутны {{count}} засвар",
+    "why": "missing"
+  },
+  "agency:today.v5.writingRevised_other": {
+    "text": "оюутны {{count}} засвар",
+    "why": "missing"
+  },
+  "agency:today.waitingOn": {
+    "text": "Хэргүүд хүлээж буй талаар",
+    "why": "missing"
+  },
+  "agency:today.workload": {
+    "text": "Багийн ачаалал",
+    "why": "missing"
+  },
+  "agency:today.workloadSub": {
+    "text": "Хүн тус бүрийн идэвхтэй оюутан, нээлттэй ажил",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.adminUser": {
+    "text": "Админ хэрэглэгч",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.assigned": {
+    "text": "Хуваарилсан их сургууль",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.empty": {
+    "text": "Их сургуулийн бүртгэл хараахан алга.",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.invite": {
+    "text": "Их сургуулийн админ урих",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.noUniversity": {
+    "text": "Их сургууль холбоогүй",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.pickUniversity": {
+    "text": "Их сургууль",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.pickUniversityPh": {
+    "text": "Түнш их сургууль сонгох",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.reassign": {
+    "text": "Их сургууль солих",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.reassignText": {
+    "text": "Гишүүнчлэл нь сонгосон их сургуулийн байгууллага руу шилжинэ. Хуучныг нь идэвхгүй болгоно.",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.reassignTitle": {
+    "text": "{{name}}-г өөр их сургууль руу шилжүүлэх",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.search": {
+    "text": "Нэр, имэйл эсвэл их сургуулиар хайх…",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.sub": {
+    "text": "Түнш их сургуулиудын админ хэрэглэгчид. Их сургуулийн администратор бүр ижил эрхтэй.",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.title": {
+    "text": "Их сургуулийн бүртгэлүүд",
+    "why": "missing"
+  },
+  "agency:v22.hq.accounts.university": {
+    "text": "Их сургууль",
+    "why": "missing"
+  },
+  "agency:v22.nav.hqAccounts": {
+    "text": "Их сургуулийн бүртгэлүүд",
+    "why": "missing"
+  },
+  "agency:v22.stage.closed": {
+    "text": "Хаагдсан",
+    "why": "missing"
+  },
+  "agency:v22.stage.ready": {
+    "text": "Илгээхэд бэлэн",
+    "why": "'Бэлэн' alone ambiguous"
+  },
+  "agency:v22.stage.stripHint": {
+    "text": "Шат сонгоход зөвхөн тэр шатны оюутнууд харагдана. Тоо нь доорх мөрийн тоотой тэнцүү.",
+    "why": "missing"
+  },
+  "agency:v22.team.active": {
+    "text": "Идэвхтэй",
+    "why": "missing"
+  },
+  "agency:v22.team.count_other": {
+    "text": "{{count}} бүртгэл",
+    "why": "missing"
+  },
+  "agency:v22.team.devNote": {
+    "text": "Хөгжүүлэлт: кодыг имэйлээр биш, API консолд хэвлэсэн.",
+    "why": "missing"
+  },
+  "agency:v22.team.disable": {
+    "text": "Идэвхгүй болгох",
+    "why": "missing"
+  },
+  "agency:v22.team.disableReason": {
+    "text": "Шалтгаан",
+    "why": "missing"
+  },
+  "agency:v22.team.disableReasonPh": {
+    "text": "Агентлагаас гарсан",
+    "why": "missing"
+  },
+  "agency:v22.team.disableText": {
+    "text": "Цаашид нэвтрэх боломжгүй болно. Нээлттэй оюутан, хяналт, даалгавар нь автоматаар хамт ажиллагсдад шилжинэ.",
+    "why": "missing"
+  },
+  "agency:v22.team.disableTitle": {
+    "text": "{{name}}-г идэвхгүй болгох уу?",
+    "why": "missing"
+  },
+  "agency:v22.team.disabled": {
+    "text": "Идэвхгүй",
+    "why": "missing"
+  },
+  "agency:v22.team.email": {
+    "text": "Имэйл",
+    "why": "missing"
+  },
+  "agency:v22.team.empty": {
+    "text": "Бүртгэл хараахан алга.",
+    "why": "missing"
+  },
+  "agency:v22.team.enable": {
+    "text": "Идэвхжүүлэх",
+    "why": "missing"
+  },
+  "agency:v22.team.invite": {
+    "text": "Администратор урих",
+    "why": "missing"
+  },
+  "agency:v22.team.inviteSub": {
+    "text": "Нууц үг тохируулах нэг удаагийн код имэйлээр очно.",
+    "why": "missing"
+  },
+  "agency:v22.team.lastLogin": {
+    "text": "Сүүлд нэвтэрсэн",
+    "why": "missing"
+  },
+  "agency:v22.team.mailFailed": {
+    "text": "Урилгыг имэйлээр илгээж чадсангүй. Энэ хаягаар “Нууц үгээ мартсан” хэсгийг ашиглахыг хэлнэ үү.",
+    "why": "missing"
+  },
+  "agency:v22.team.name": {
+    "text": "Нэр",
+    "why": "missing"
+  },
+  "agency:v22.team.never": {
+    "text": "Хэзээ ч",
+    "why": "missing"
+  },
+  "agency:v22.team.sendInvite": {
+    "text": "Урилга илгээх",
+    "why": "missing"
+  },
+  "agency:v22.team.sent": {
+    "text": "Урилга илгээгдлээ",
+    "why": "missing"
+  },
+  "agency:v22.team.sentTo": {
+    "text": "{{email}} хаяг руу урилга илгээлээ.",
+    "why": "missing"
+  },
+  "agency:v22.team.status": {
+    "text": "Төлөв",
+    "why": "missing"
+  },
+  "agency:v22.team.sub": {
+    "text": "Администратор бүр ижил эрхтэй.",
+    "why": "missing"
+  },
+  "agency:v22.team.unverified": {
+    "text": "Урьсан · хараахан баталгаажаагүй",
+    "why": "missing"
+  },
+  "agency:v22.team.you": {
+    "text": "Та",
+    "why": "missing"
+  },
+  "agency:v22.work.bulkOwner": {
+    "text": "Хариуцагч тогтоох…",
+    "why": "missing"
+  },
+  "agency:v22.work.confirmOwner_other": {
+    "text": "{{name}}-г {{count}} оюутны хариуцагчаар тогтоох уу?",
+    "why": "missing"
+  },
+  "agency:v22.work.deleteView": {
+    "text": "Энэ харагдацыг устгах",
+    "why": "missing"
+  },
+  "agency:v22.work.empty": {
+    "text": "Энэ шатанд оюутан алга",
+    "why": "missing"
+  },
+  "agency:v22.work.emptyFiltered": {
+    "text": "Эдгээр шүүлтүүрт тохирох оюутан алга. Шүүлтүүрээ өөрчилж үзнэ үү.",
+    "why": "second sentence dropped"
+  },
+  "agency:v22.work.myViews": {
+    "text": "Миний харагдац",
+    "why": "missing"
+  },
+  "agency:v22.work.showTop": {
+    "text": "Эхний 10-ыг харуулах",
+    "why": "missing"
+  },
+  "agency:v22.work.total_other": {
+    "text": "{{count}} оюутан",
+    "why": "missing"
+  },
+  "agency:v22.ws.docFix_other": {
+    "text": "Засах {{count}} баримт",
+    "why": "missing"
+  },
+  "agency:v22.ws.docReview_other": {
+    "text": "Хянах {{count}} баримт",
+    "why": "missing"
+  },
+  "agency:v22.ws.needsActionEmpty": {
+    "text": "Энэ оюутны хувьд таныг хүлээж буй зүйл алга.",
+    "why": "missing"
+  },
+  "agency:v22.ws.noConversation": {
+    "text": "Харилцан яриа хараахан алга. Эхний мессежийг илгээнэ үү.",
+    "why": "second sentence dropped"
+  },
+  "agency:v22.ws.openThread": {
+    "text": "Харилцан яриа нээх",
+    "why": "missing"
+  },
+  "agency:v23.work.memberFilter": {
+    "text": "Багийн нэг гишүүний оюутнуудыг харуулж байна",
+    "why": "missing"
+  },
+  "agency:v23.work.openAll": {
+    "text": "Бүх {{count}}-ыг Оюутнууд хэсэгт нээх",
+    "why": "missing"
+  },
+  "agency:v23.work.submissionsNeed_one": {
+    "text": "{{count}} өргөдөл багийн илгээлтийг хүлээж байна",
+    "why": "missing"
+  },
+  "agency:v23.work.submissionsNeed_other": {
+    "text": "{{count}} өргөдөл багийн илгээлтийг хүлээж байна",
+    "why": "'илгээлт … оролцоо' unclear"
+  },
+  "agency:v26.ws.requestFrom": {
+    "text": "{{university}} хүссэн: {{label}}",
+    "why": "past tense, matches EN"
+  },
+  "agency:v27.evidence.form": {
+    "text": "Илгээх хэлбэр",
+    "why": "'Хэлбэр' alone unclear"
+  },
+  "agency:v27.evidence.open": {
+    "text": "Нотолгоо харах",
+    "why": "EN says show evidence"
+  },
+  "agency:v27.evidence.proof": {
+    "text": "Оюутны байршуулсан файл",
+    "why": "'нотолгоо' ≠ upload"
+  },
+  "agency:v27.hq.guidesNone": {
+    "text": "Шалгах элсэлтийн журам алга.",
+    "why": "object dropped"
+  },
+  "agency:v27.hq.kind.SPOT_CHECK": {
+    "text": "Эх хувьтай тулгаж шалгах",
+    "why": "EN says original, not PDF"
+  },
+  "agency:v27.stage.REVIEW": {
+    "text": "Их сургуулийн хяналт",
+    "why": "one term with v22.stage.review"
+  },
+  "agency:v29.guide.field.checklist": {
+    "text": "бичиг баримтын жагсаалт",
+    "why": "missing"
+  },
+  "agency:v29.guide.field.current_intake": {
+    "text": "энэ элсэлтийн журам",
+    "why": "missing"
+  },
+  "agency:v29.guide.field.deadline": {
+    "text": "эцсийн хугацаа",
+    "why": "missing"
+  },
+  "agency:v29.guide.field.source_url": {
+    "text": "албан ёсны эх сурвалж",
+    "why": "missing"
+  },
+  "agency:v29.guide.field.submission_method": {
+    "text": "илгээх арга",
+    "why": "missing"
+  },
+  "agency:v29.guide.field.verified_date": {
+    "text": "шалгасан огноо",
+    "why": "missing"
+  },
+  "agency:v29.guide.verifyRequired": {
+    "text": "Хамт хөтлөх өргөдлөөс өмнө шалгах: {{fields}}",
+    "why": "missing"
+  },
+  "agency:v29.plan.addOnStatus.ACTIVE": {
+    "text": "Явагдаж байна",
+    "why": "missing"
+  },
+  "agency:v29.plan.addOnStatus.APPROVED": {
+    "text": "Идэвхтэй (хуучин)",
+    "why": "missing"
+  },
+  "agency:v29.plan.addOnStatus.AWAITING_PAYMENT": {
+    "text": "Төлбөр хүлээж байна",
+    "why": "missing"
+  },
+  "agency:v29.plan.addOnStatus.COMPLETED": {
+    "text": "Дууссан",
+    "why": "missing"
+  },
+  "agency:v29.plan.addOnStatus.OFFERED": {
+    "text": "Санал болгосон",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.dedicated": {
+    "text": "Тусгайлан хуваарилсан баг · нэн тэргүүнд хариулна",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.docs.CHECKLIST": {
+    "text": "Баримт: жагсаалт",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.docs.INTENSIVE": {
+    "text": "Баримт: нарийвчилсан хяналт",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.docs.REVIEW_GUIDANCE": {
+    "text": "Баримт: хянаж, засах зүйлийг заана",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.dorm.APPLICATION": {
+    "text": "Дотуур байр: өргөдөлд туслах, өөр байрны хувилбар",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.dorm.INFORMATION": {
+    "text": "Дотуур байр: мэдээлэл",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.dorm.SCHEDULE": {
+    "text": "Дотуур байр: өргөдлийн хугацааг хянана",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.settle.FULL": {
+    "text": "Суурьших: ирэхээс 30 хоногийн өмнөөс 30 хоногийн дараа хүртэл",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.settle.INFORMATION": {
+    "text": "Суурьших: үндсэн мэдээлэл",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.settle.NONE": {
+    "text": "Суурьших: багтаагүй",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.visa.DOCUMENT_PREP": {
+    "text": "Виз: бичиг баримт бэлтгэхэд туслана",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.visa.GUIDANCE": {
+    "text": "Виз: үйл явцын заавар",
+    "why": "missing"
+  },
+  "agency:v29.plan.duty.visa.INTENSIVE": {
+    "text": "Виз: бичиг баримт, гол хугацааг хянана",
+    "why": "missing"
+  },
+  "agency:v29.plan.legacy": {
+    "text": "{{version}}-ийн үед худалдан авсан",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.howItWorks": {
+    "text": "Оюутан үнэ, хүрээг үзэж, зөвшөөрч, төлбөр төлсний дараа л хүчин төгөлдөр болно.",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.open": {
+    "text": "Нэмэлт үйлчилгээ санал болгох",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.quantity": {
+    "text": "Тоо хэмжээ ({{unit}})",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.quote": {
+    "text": "Тусгай үнэ: үнэ болон хүрээг оруулна уу",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.range": {
+    "text": "Санал болгох хүрээ {{min}}–{{max}}",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.scope": {
+    "text": "Хүрээний тайлбар (оюутанд харагдана)",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.scopeRequired": {
+    "text": "Хүрээ (заавал, оюутанд харагдана)",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.send": {
+    "text": "Оюутанд санал болгох",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.service": {
+    "text": "Үйлчилгээ",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.total": {
+    "text": "Оюутан {{amount}} төлнө",
+    "why": "missing"
+  },
+  "agency:v29.plan.offer.unitPrice": {
+    "text": "Нэгж үнэ (USD)",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.arrival": {
+    "text": "Ирэлт",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.arrivalLabel": {
+    "text": "Ирэхээр төлөвлөсөн огноо",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.arrivalUnknown": {
+    "text": "Ирэх огноо баталгаажаагүй",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.arrivalWindow": {
+    "text": "Бэлтгэл {{from}}-аас · ирэх {{arrive}} · дуусах {{until}}",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.ended": {
+    "text": "Үйлчилгээний хугацаа дууссан",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.endsLabel": {
+    "text": "Гэрээ дуусах",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.notStarted": {
+    "text": "Анхны зөвлөгөөнөөс өмнө",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.saved": {
+    "text": "Үйлчилгээний огноог хадгаллаа.",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.set": {
+    "text": "Огноо хадгалах",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.since": {
+    "text": "{{date}}-нд эхэлсэн",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.support": {
+    "text": "Зөвлөгөө {{date}} хүртэл",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.supportDays": {
+    "text": "Анхны зөвлөгөөнөөс хойш {{count}} хоног",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.title": {
+    "text": "Үйлчилгээний хугацаа",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.toAgree": {
+    "text": "Үйлчилгээний хугацаа тогтоогоогүй",
+    "why": "missing"
+  },
+  "agency:v29.plan.term.until": {
+    "text": "{{date}} хүртэл",
+    "why": "missing"
+  },
+  "agency:v29.plan.unrationed.CONTRACTED_DOCUMENTS": {
+    "text": "Гэрээнд заасан баримт, хуваарийн хүрээнд хязгааргүй",
+    "why": "missing"
+  },
+  "agency:v29.plan.unrationed.PRIORITY": {
+    "text": "Нэн тэргүүнд хариулна",
+    "why": "missing"
+  },
+  "agency:v29.plan.unrationed.ROUNDS": {
+    "text": "Багтсан",
+    "why": "missing"
+  },
+  "agency:v29.plan.unrationed.TEAM": {
+    "text": "Багийн үргэлжилсэн дэмжлэг",
+    "why": "missing"
+  },
+  "agency:v29.plan.usedSoFar": {
+    "text": "{{count}} хийсэн",
+    "why": "missing"
+  },
+  "agency:v30.def.ops.ageing": {
+    "text": "Хэрэг сүүлд хөдөлснөөс хойших хоног: явцын шат өөрчлөгдсөн, өргөдлийн төлөв өөрчлөгдсөн эсвэл энэ агентлагт хуваарилагдсаны хамгийн сүүлийнх.",
+    "why": "missing"
+  },
+  "agency:v30.def.ops.backlog": {
+    "text": "Долоо хоног бүрийн эцсийн нээлттэй ажил: дуусаагүй багийн даалгавар (оюутны өөрийн даалгавар орохгүй), хянаагүй баримтын хувилбар, хяналтад ирүүлсэн ч хянаагүй эссэ (одоогийн хяналтын үе).",
+    "why": "missing"
+  },
+  "agency:v30.def.ops.blocked": {
+    "text": "Хэрэг аль нэг талыг хүлээж, 14 хоногоос дээш хөдлөөгүй бол саад тулгарсанд тооцно. Хамгийн хуучин нь эхэнд.",
+    "why": "missing"
+  },
+  "agency:v30.def.ops.deadlines": {
+    "text": "Хараахан илгээгээгүй, өргөдлийн эцсийн хугацаа нь 14 хоногийн дотор болох, шаардлагатай зүйл нь дутуу хэвээр байгаа өргөдөл.",
+    "why": "missing"
+  },
+  "agency:v30.def.ops.load": {
+    "text": "Хүн тус бүрийн жигнэсэн ачаалал: хариуцаж буй нээлттэй ажлын төрөл бүр × түүний жин (агентлагийн жингийн хүснэгт), ижил оноогоор тооцсон хувийн багтаамжтай харьцуулна. Хэт ачаалалтай = ачаалал багтаамжаас их. Чөлөөтэй хүнд шинэ ажил хуваарилахгүй.",
+    "why": "missing"
+  },
+  "agency:v30.def.ops.sla": {
+    "text": "Хугацаандаа өгөөгүй анхны хариу; 48 цагаас дээш хяналт хүлээсэн баримт; амласан хугацааг хэтэрсэн эссэ хяналт.",
+    "why": "missing"
+  },
+  "agency:v30.def.ops.stages": {
+    "text": "Өргөдөл нэг төлөвт байгаад дараагийнх руу шилжсэн медиан хоног (сүүлийн 365 хоногт дууссан байдал). {{n}}-ээс цөөн бол харуулахгүй.",
+    "why": "missing"
+  },
+  "agency:v30.def.ops.unassigned_paid": {
+    "text": "Hangyul-ийн үйлчилгээний төлбөр төлсөн ч хэргийг хариуцсан зөвлөх алга (Hangyul-ийн хувьд агентлаг хараахан хуваарилаагүй).",
+    "why": "missing"
+  },
+  "agency:v30.def.svc.arrival": {
+    "text": "Дууссан нисэх буудлаас тосолт ÷ ирэх цаг нь өнгөрсөн тосолт (цуцалсныг оруулахгүй)",
+    "why": "missing"
+  },
+  "agency:v30.def.svc.completion": {
+    "text": "Дууссан ÷ тухайн хугацаанд үүссэн хэрэг (цуцалсныг оруулахгүй)",
+    "why": "missing"
+  },
+  "agency:v30.def.svc.resolution": {
+    "text": "Хүсэлтээс дуусах хүртэлх медиан цаг, зөвхөн дууссан хэрэг",
+    "why": "missing"
+  },
+  "agency:v30.def.svc.sla": {
+    "text": "Баг SLA-гийн дараа арга хэмжээ авсан (эсвэл аваагүй бөгөөд SLA өнгөрсөн) хэрэг ÷ SLA-гийн хугацаа нь болсон хэрэг",
+    "why": "missing"
+  },
+  "agency:v31.stage.closed": {
+    "text": "Хаагдсан",
+    "why": "missing"
+  },
+  "agency:waiting.app.ADDITIONAL_DOCUMENTS": {
+    "text": "их сургууль баримт хүссэн",
+    "why": "missing"
+  },
+  "agency:waiting.app.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "визийг эхлүүлэх",
+    "why": "missing"
+  },
+  "agency:waiting.app.ADMISSION_CERTIFICATE_PENDING": {
+    "text": "элсэлтийн зөвшөөрөл",
+    "why": "missing"
+  },
+  "agency:waiting.app.PROFILE_REVIEW": {
+    "text": "профайлын шалгалт",
+    "why": "missing"
+  },
+  "agency:waiting.app.READY": {
+    "text": "илгээхэд бэлэн",
+    "why": "missing"
+  },
+  "agency:waiting.app.TUITION_PAID": {
+    "text": "элсэлтийн зөвшөөрөл",
+    "why": "missing"
+  },
+  "agency:waiting.app.TUITION_PENDING": {
+    "text": "сургалтын төлбөр",
+    "why": "missing"
+  },
+  "agency:waiting.app.VISA_SUBMITTED": {
+    "text": "визийн шийдвэр (элчин сайдын яам)",
+    "why": "missing"
+  },
+  "agency:waiting.reason.first_contact": {
+    "text": "анхны холбоо барих хугацаа болсон",
+    "why": "missing"
+  },
+  "agency:waiting.reason.fix_one": {
+    "text": "засах {{count}} баримт",
+    "why": "missing"
+  },
+  "agency:waiting.reason.fix_other": {
+    "text": "засах {{count}} баримт",
+    "why": "missing"
+  },
+  "agency:waiting.reason.overdue_task_one": {
+    "text": "хугацаа хэтэрсэн {{count}} даалгавар",
+    "why": "missing"
+  },
+  "agency:waiting.reason.overdue_task_other": {
+    "text": "хугацаа хэтэрсэн {{count}} даалгавар",
+    "why": "missing"
+  },
+  "agency:waiting.reason.reply": {
+    "text": "оюутан хариулсан",
+    "why": "missing"
+  },
+  "agency:waiting.reason.review_one": {
+    "text": "хянах {{count}} баримт",
+    "why": "missing"
+  },
+  "agency:waiting.reason.review_other": {
+    "text": "хянах {{count}} баримт",
+    "why": "missing"
+  },
+  "agency:ws.act.call": {
+    "text": "Зөвлөгөө товлох",
+    "why": "consultation, not a call"
+  },
+  "agency:ws.apptHint": {
+    "text": "Энэ оюутантай хийх зөвлөгөө, туршилтын ярилцлага.",
+    "why": "mock interview term unified"
+  },
+  "agency:ws.blockedBy": {
+    "text": "Эхлээд дуусгах: {{deps}}",
+    "why": "EN says finish first"
+  },
+  "agency:ws.by.ENGINE": {
+    "text": "автомат хуваарилалт",
+    "why": "'тохируулах систем' unclear"
+  },
+  "agency:ws.by.MANUAL": {
+    "text": "администратор",
+    "why": "EN says administrator"
+  },
+  "agency:ws.factor.workload": {
+    "text": "Чөлөөт багтаамж",
+    "why": "'боломжит ачаалал' inverts meaning"
+  },
+  "agency:ws.identity": {
+    "text": "Хувийн мэдээлэл ба оршин суух",
+    "why": "'статус' vague"
+  },
+  "agency:ws.itemsInReview_one": {
+    "text": "{{count}} зүйл хянагдаж байна",
+    "why": "noun dropped"
+  },
+  "agency:ws.itemsInReview_other": {
+    "text": "{{count}} зүйл хянагдаж байна",
+    "why": "noun dropped"
+  },
+  "agency:ws.noVisaText": {
+    "text": "Их сургууль стандарт элсэлтийн зөвшөөрөл олгомогц визийн хэрэг автоматаар нээгдэнэ.",
+    "why": "official document name"
+  },
+  "agency:ws.sinceDate": {
+    "text": "{{date}}-аас хойш хуваарилагдсан",
+    "why": "'бидэнтэй хамт' ≠ assigned"
+  },
+  "agency:ws.tab.essays": {
+    "text": "Эссэ",
+    "why": "one term with sidebar"
+  },
+  "agency:ws.visaProgress": {
+    "text": "Визийн бүрдүүлэлтийн явц",
+    "why": "'жагсаалтын явц' unclear"
+  },
+  "university:af.applications": {
+    "text": "Өргөдөл",
+    "why": "missing"
+  },
+  "university:af.foot": {
+    "text": "Өргөдөл бүрийг хүрсэн шат бүрт нь тоолно. {{min}}-ээс цөөн бүртгэлтэй бол хувийг харуулахгүй. Хаагдсан: {{rejected}} тэнцээгүй, {{withdrawn}} өргөдлөө татсан.",
+    "why": "withdrawn ≠ 'татгалзсан'"
+  },
+  "university:af.fromPrevious": {
+    "text": "Өмнөх шатнаас",
+    "why": "missing"
+  },
+  "university:af.lowN": {
+    "text": "Хувь гаргахад хэт цөөн",
+    "why": "missing"
+  },
+  "university:af.step": {
+    "text": "Шат",
+    "why": "missing"
+  },
+  "university:af.stepDef.ARRIVED": {
+    "text": "Оюутан Солонгост ирснээ мэдэгдсэн (эсвэл элссэн).",
+    "why": "missing"
+  },
+  "university:af.stepDef.REVIEWED": {
+    "text": "Танай баг хяналт эхлүүлсэн, баримт хүссэн, ярилцлага хийсэн эсвэл шийдвэр гаргасан.",
+    "why": "missing"
+  },
+  "university:af.stepDef.SUBMITTED": {
+    "text": "Танай их сургуульд илгээсэн өргөдөл.",
+    "why": "missing"
+  },
+  "university:af.stepDef.TUITION_PAID": {
+    "text": "Та сургалтын төлбөр төлснийг баталгаажуулсан.",
+    "why": "missing"
+  },
+  "university:af.stepDef.VISA_ISSUED": {
+    "text": "Оюутны D-2/D-4 виз олгогдсон.",
+    "why": "missing"
+  },
+  "university:af.title": {
+    "text": "Элсэлтийн юүлүүр",
+    "why": "missing"
+  },
+  "university:analytics.dim.agency": {
+    "text": "Агентлаг",
+    "why": "missing"
+  },
+  "university:analytics.dim.nationality": {
+    "text": "Иргэншил",
+    "why": "missing"
+  },
+  "university:analytics.dim.program": {
+    "text": "Хөтөлбөр",
+    "why": "missing"
+  },
+  "university:applicants.customStatus_other": {
+    "text": "{{count}} төлөв сонгосон",
+    "why": "missing"
+  },
+  "university:applicants.flagged": {
+    "text": "Тэмдэглэсэн",
+    "why": "missing"
+  },
+  "university:applicants.requested_one": {
+    "text": "{{count}} баримт хүссэн",
+    "why": "noun dropped"
+  },
+  "university:applicants.requested_other": {
+    "text": "{{count}} баримт хүссэн",
+    "why": "missing"
+  },
+  "university:applicants.status": {
+    "text": "Төлөв",
+    "why": "missing"
+  },
+  "university:common.yes": {
+    "text": "Тийм",
+    "why": "missing"
+  },
+  "university:dash.noApplicants": {
+    "text": "Эдгээр шүүлтүүрт илгээсэн өргөдөл хараахан алга.",
+    "why": "missing"
+  },
+  "university:decision.action.ADDITIONAL_DOCUMENTS": {
+    "text": "Баримт хүсэх",
+    "why": "missing"
+  },
+  "university:decision.action.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Элсэлтийн зөвшөөрөл олгох",
+    "why": "missing"
+  },
+  "university:decision.action.ADMISSION_CERTIFICATE_PENDING": {
+    "text": "Элсэлтийн зөвшөөрөл хүлээгдэж буйгаар тэмдэглэх",
+    "why": "missing"
+  },
+  "university:decision.action.ENROLLED": {
+    "text": "Элсэлтийг баталгаажуулах",
+    "why": "missing"
+  },
+  "university:decision.action.INTERVIEW": {
+    "text": "Ярилцлага товлох",
+    "why": "missing"
+  },
+  "university:decision.action.OFFERED": {
+    "text": "Санал илгээх",
+    "why": "missing"
+  },
+  "university:decision.action.REJECTED": {
+    "text": "Татгалзах",
+    "why": "missing"
+  },
+  "university:decision.action.TUITION_PAID": {
+    "text": "Төлбөр төлснийг баталгаажуулах",
+    "why": "missing"
+  },
+  "university:decision.action.TUITION_PENDING": {
+    "text": "Төлбөрийн нэхэмжлэх гаргах",
+    "why": "missing"
+  },
+  "university:decision.action.UNIVERSITY_REVIEW": {
+    "text": "Хяналт эхлүүлэх",
+    "why": "missing"
+  },
+  "university:decision.action.WAITLISTED": {
+    "text": "Хүлээлгийн жагсаалтад оруулах",
+    "why": "missing"
+  },
+  "university:decision.certificateInfo": {
+    "text": "Стандарт элсэлтийн зөвшөөрөл олгоход оюутны визийн хэрэг автоматаар нээгдэнэ.",
+    "why": "missing"
+  },
+  "university:decision.confirm": {
+    "text": "{{student}}-г “{{from}}”-оос “{{to}}” руу шилжүүлнэ. Оюутан болон агентлагт нь мэдэгдэл очно.",
+    "why": "missing"
+  },
+  "university:decision.done": {
+    "text": "Өргөдлийг “{{status}}” руу шилжүүллээ.",
+    "why": "missing"
+  },
+  "university:decision.interviewAt": {
+    "text": "Ярилцлагын огноо, цаг",
+    "why": "missing"
+  },
+  "university:decision.none": {
+    "text": "Энэ шатанд их сургуулийн зүгээс хийх үйлдэл алга.",
+    "why": "missing"
+  },
+  "university:decision.note": {
+    "text": "Тэмдэглэл",
+    "why": "missing"
+  },
+  "university:decision.noteHint": {
+    "text": "Төлвийн түүхэнд хадгалагдаж, оюутан болон агентлагт харагдана.",
+    "why": "missing"
+  },
+  "university:decision.readOnly": {
+    "text": "Таны эрх зөвхөн унших. Шийдвэр гаргахыг элсэлтийн ажилтан эсвэл администратороос хүснэ үү.",
+    "why": "missing"
+  },
+  "university:decision.reason": {
+    "text": "Шалтгаан",
+    "why": "missing"
+  },
+  "university:decision.reasonHint": {
+    "text": "Өргөдлийн түүхэнд хадгалагдана. Өргөдөл гаргагч хүндэтгэлтэй хураангуйг, зөвлөх нь таны шалтгааныг харна.",
+    "why": "missing"
+  },
+  "university:decision.rejectWarning": {
+    "text": "Hangyul-д татгалзсан шийдвэрийг буцаах боломжгүй. Суудал гарч магадгүй бол хүлээлгийн жагсаалтад оруулахыг бодолцоно уу.",
+    "why": "missing"
+  },
+  "university:decision.scholarshipNote": {
+    "text": "Тэтгэлгийн тэмдэглэл",
+    "why": "missing"
+  },
+  "university:decision.scholarshipNoteHint": {
+    "text": "Жишээ нь: “Эхний улиралд сургалтын төлбөрийн 30% хөнгөлөлт”. Саналын хамт оюутанд харагдана.",
+    "why": "missing"
+  },
+  "university:decision.title": {
+    "text": "Шийдвэр",
+    "why": "missing"
+  },
+  "university:decision.tuitionAmount": {
+    "text": "Сургалтын төлбөрийн дүн (вон)",
+    "why": "missing"
+  },
+  "university:decision.tuitionDue": {
+    "text": "Төлбөр төлөх эцсийн огноо",
+    "why": "missing"
+  },
+  "university:detail.applicant": {
+    "text": "Өргөдөл гаргагч",
+    "why": "missing"
+  },
+  "university:detail.decided": {
+    "text": "Шийдвэрийн огноо",
+    "why": "missing"
+  },
+  "university:detail.externalRef": {
+    "text": "Танай дугаар",
+    "why": "missing"
+  },
+  "university:detail.externalRefHint": {
+    "text": "Танай их сургуулийн өргөдөл гаргагчийн эсвэл элсэлтийн дугаар (Hangyul болон агентлагт харагдана).",
+    "why": "missing"
+  },
+  "university:detail.gpaNormalized": {
+    "text": "GPA {{value}}% (хөрвүүлсэн)",
+    "why": "missing"
+  },
+  "university:detail.gpaUnknown": {
+    "text": "GPA өгөөгүй",
+    "why": "missing"
+  },
+  "university:detail.history": {
+    "text": "Төлвийн түүх",
+    "why": "missing"
+  },
+  "university:detail.interview": {
+    "text": "Ярилцлага",
+    "why": "missing"
+  },
+  "university:detail.legalization": {
+    "text": "Апостиль эсвэл консулын баталгаажуулалт",
+    "why": "missing"
+  },
+  "university:detail.noEducation": {
+    "text": "Боловсролын мэдээлэл хуваалцаагүй.",
+    "why": "missing"
+  },
+  "university:detail.notShared": {
+    "text": "Хуваалцаагүй",
+    "why": "missing"
+  },
+  "university:detail.notSharedHint": {
+    "text": "Оюутан энэ баримтыг танай их сургуультай хуваалцаагүй.",
+    "why": "missing"
+  },
+  "university:detail.optionalDoc": {
+    "text": "Заавал биш",
+    "why": "missing"
+  },
+  "university:detail.refSaved": {
+    "text": "Дугаар хадгалагдлаа",
+    "why": "missing"
+  },
+  "university:detail.residence": {
+    "text": "Оршин суугаа улс",
+    "why": "missing"
+  },
+  "university:detail.scholarshipNote": {
+    "text": "Тэтгэлгийн тэмдэглэл",
+    "why": "missing"
+  },
+  "university:detail.selfReported": {
+    "text": "Өөрөө мэдүүлсэн",
+    "why": "missing"
+  },
+  "university:detail.sharingNote": {
+    "text": "Оюутны өргөдөл илгээхдээ танай их сургуультай хуваалцсан баримтыг үзэх боломжтой. Үзсэн бүрийг бүртгэнэ.",
+    "why": "missing"
+  },
+  "university:detail.side": {
+    "text": "Өргөдлийн дэлгэрэнгүй",
+    "why": "missing"
+  },
+  "university:detail.translation": {
+    "text": "Орчуулга",
+    "why": "missing"
+  },
+  "university:detail.tuition": {
+    "text": "Сургалтын төлбөр",
+    "why": "missing"
+  },
+  "university:detail.verified": {
+    "text": "Баталгаажсан",
+    "why": "missing"
+  },
+  "university:documents.analystNote": {
+    "text": "Шинжээч баримтыг урьдчилан үзэх боломжтой ч татаж авах боломжгүй.",
+    "why": "missing"
+  },
+  "university:documents.expires": {
+    "text": "Хүчинтэй хугацаа",
+    "why": "missing"
+  },
+  "university:documents.file": {
+    "text": "Файл",
+    "why": "missing"
+  },
+  "university:documents.hangyulBody": {
+    "text": "Hangyul-ийн ажилтны хувьд та энэ хуудсанд нэг их сургуулиар хязгаарлагдахгүй. Оюутан тухайн их сургуультай яг ямар баримт хуваалцсаныг харахын тулд өргөдлийг нээнэ үү.",
+    "why": "missing"
+  },
+  "university:documents.hangyulTitle": {
+    "text": "Баримтыг өргөдлөөс нээх",
+    "why": "missing"
+  },
+  "university:documents.issued": {
+    "text": "Олгосон огноо",
+    "why": "missing"
+  },
+  "university:documents.legalization": {
+    "text": "Нотариат ба баталгаажуулалт",
+    "why": "notarization dropped"
+  },
+  "university:documents.openApplication": {
+    "text": "Өргөдөл нээх",
+    "why": "missing"
+  },
+  "university:documents.openTab": {
+    "text": "Шинэ таб дээр нээх",
+    "why": "missing"
+  },
+  "university:documents.usedIn": {
+    "text": "Ашигласан өргөдөл",
+    "why": "missing"
+  },
+  "university:header.certificationHint": {
+    "text": "IEQAS магадлан итгэмжлэлийн төлөв (гадаад оюутан элсүүлэх, дэмжихэд Боловсролын яамнаас олгодог магадлан итгэмжлэл)",
+    "why": "missing"
+  },
+  "university:header.hangyulView": {
+    "text": "Hangyul-ийн ажилтны харагдац",
+    "why": "missing"
+  },
+  "university:header.partner": {
+    "text": "Hangyul-ийн түнш",
+    "why": "missing"
+  },
+  "university:kpi.definitionOf": {
+    "text": "{{label}}-ийн тодорхойлолт",
+    "why": "missing"
+  },
+  "university:kpi.insufficientDetail": {
+    "text": "{{min}} бүртгэл болоход харуулна (одоогоор {{n}}).",
+    "why": "order reversed, clearer"
+  },
+  "university:kpi.sample": {
+    "text": "n = {{n}}",
+    "why": "missing"
+  },
+  "university:kpi.viewList": {
+    "text": "Жагсаалт харах",
+    "why": "missing"
+  },
+  "university:kpi.yield": {
+    "text": "Элсэлтийн хувь",
+    "why": "missing"
+  },
+  "university:login.ssoContinue": {
+    "text": "Их сургуулийн бүртгэлээрээ үргэлжлүүлэх",
+    "why": "missing"
+  },
+  "university:login.ssoEnforced": {
+    "text": "{{org}} нэгдсэн нэвтрэлт (SSO) шаарддаг. Дээрх товчийг ашиглана уу.",
+    "why": "missing"
+  },
+  "university:login.ssoHint": {
+    "text": "{{org}} нэгдсэн нэвтрэлт (SSO) ашигладаг. Нууц үгээрээ ч нэвтэрч болно.",
+    "why": "missing"
+  },
+  "university:login.ssoUnavailable": {
+    "text": "{{org}} SAML нэвтрэлтээр тохируулагдсан ч энэ нь одоогоор боломжгүй. Hangyul-ийн дэмжлэгийн багтай холбогдоно уу.",
+    "why": "missing"
+  },
+  "university:login.subtitle": {
+    "text": "Hangyul-ийн түнш их сургуулиудын гадаад харилцааны алба, элсэлтийн багт зориулсан.",
+    "why": "missing"
+  },
+  "university:login.title": {
+    "text": "Их сургуулийн консолд нэвтрэх",
+    "why": "missing"
+  },
+  "university:metric.ofN": {
+    "text": "{{num}} / {{den}}",
+    "why": "'-ээс' order reads backwards"
+  },
+  "university:metric.period": {
+    "text": "{{from}} – {{to}} хооронд илгээсэн",
+    "why": "missing"
+  },
+  "university:metric.population": {
+    "text": "Хамрах хүрээ: илгээсэн өргөдөл · {{intake}} · {{n}} өргөдөл",
+    "why": "missing"
+  },
+  "university:nav.programsRules": {
+    "text": "Хөтөлбөр ба шаардлага",
+    "why": "requirements, not rules"
+  },
+  "university:nav.settingsTeam": {
+    "text": "Тохиргоо ба баг",
+    "why": "missing"
+  },
+  "university:nav.students": {
+    "text": "Элссэн оюутнууд",
+    "why": "'enrolled' dropped"
+  },
+  "university:notFound.body": {
+    "text": "Таны хайсан хуудас байхгүй эсвэл шилжсэн байна.",
+    "why": "missing"
+  },
+  "university:notFound.cta": {
+    "text": "Хяналтын самбар руу буцах",
+    "why": "missing"
+  },
+  "university:notifications.subtitle": {
+    "text": "Өргөдөл, баримт, мессежийн шинэчлэл.",
+    "why": "missing"
+  },
+  "university:notifications.unread": {
+    "text": "Уншаагүй",
+    "why": "missing"
+  },
+  "university:picker.body": {
+    "text": "Та Hangyul-ийн ажилтнаар нэвтэрсэн байна. Үзэх түнш их сургуулиа сонгоно уу. Үүний дараа хуудас бүр тухайн их сургуулийн хүрээнд харагдана.",
+    "why": "missing"
+  },
+  "university:picker.label": {
+    "text": "Их сургууль",
+    "why": "missing"
+  },
+  "university:picker.placeholder": {
+    "text": "Түнш их сургууль сонгох…",
+    "why": "missing"
+  },
+  "university:picker.title": {
+    "text": "Их сургууль сонгох",
+    "why": "missing"
+  },
+  "university:settings.hangyulTeam": {
+    "text": "Та энэ их сургуулийг Hangyul-ийн ажилтнаар үзэж байна. Багийг нь их сургуулийн администратор удирдана.",
+    "why": "missing"
+  },
+  "university:settings.noTeam": {
+    "text": "Багийн гишүүн алга. Гишүүн нэмэхийг Hangyul-аас хүснэ үү.",
+    "why": "second sentence dropped"
+  },
+  "university:settings.sso": {
+    "text": "Нэгдсэн нэвтрэлт (SSO)",
+    "why": "missing"
+  },
+  "university:settings.ssoAdminOnly": {
+    "text": "Нэгдсэн нэвтрэлтийг танай их сургуулийн администратор удирдана.",
+    "why": "missing"
+  },
+  "university:settings.ssoDomains": {
+    "text": "Имэйлийн домэйн",
+    "why": "missing"
+  },
+  "university:settings.ssoEnforce": {
+    "text": "Нууц үгээр нэвтрэхийг хаасан",
+    "why": "missing"
+  },
+  "university:settings.ssoNone": {
+    "text": "Тохируулаагүй. Hangyul танай нэвтрэлтийн үйлчилгээг (OpenID Connect) холбож өгч болно. Hangyul-ийн хариуцсан ажилтантайгаа холбогдоно уу.",
+    "why": "missing"
+  },
+  "university:settings.ssoNote": {
+    "text": "Нууц түлхүүрийг Hangyul Univ-ийн өгөгдлийн санд хэзээ ч хадгалахгүй. SAML одоогоор боломжгүй.",
+    "why": "missing"
+  },
+  "university:settings.ssoOff": {
+    "text": "Тохируулсан, идэвхжүүлээгүй",
+    "why": "missing"
+  },
+  "university:settings.ssoOn": {
+    "text": "Идэвхтэй",
+    "why": "missing"
+  },
+  "university:settings.ssoProtocol": {
+    "text": "Протокол",
+    "why": "missing"
+  },
+  "university:settings.ssoSecret": {
+    "text": "Client secret",
+    "why": "missing"
+  },
+  "university:settings.ssoSecretMissing": {
+    "text": "Байршуулалтад алга",
+    "why": "missing"
+  },
+  "university:settings.ssoSecretOk": {
+    "text": "Байршуулалтаас өгсөн",
+    "why": "missing"
+  },
+  "university:settings.ssoStatus": {
+    "text": "Төлөв",
+    "why": "missing"
+  },
+  "university:settings.ssoSub": {
+    "text": "Ажилтнууд их сургуулийн бүртгэлээрээ нэвтрэх боломж.",
+    "why": "missing"
+  },
+  "university:settings.subtitle": {
+    "text": "Таны хандалт болон Hangyul дээрх {{university}}-ийн баг.",
+    "why": "missing"
+  },
+  "university:settings.teamSub": {
+    "text": "Консолд хандах эрхтэй танай их сургуулийн хүмүүс",
+    "why": "missing"
+  },
+  "university:settings.you": {
+    "text": "Таны хандалт",
+    "why": "missing"
+  },
+  "university:settings.youShort": {
+    "text": "та",
+    "why": "missing"
+  },
+  "university:stage.ADMITTED": {
+    "text": "Тэнцсэн",
+    "why": "missing"
+  },
+  "university:stage.APPLIED": {
+    "text": "Өргөдөл гаргасан",
+    "why": "missing"
+  },
+  "university:stage.ARRIVED": {
+    "text": "Ирсэн",
+    "why": "missing"
+  },
+  "university:stage.ENROLLED": {
+    "text": "Элссэн",
+    "why": "missing"
+  },
+  "university:stage.GRADUATED": {
+    "text": "Төгссөн",
+    "why": "missing"
+  },
+  "university:stage.INTERESTED": {
+    "text": "Сонирхож буй",
+    "why": "missing"
+  },
+  "university:stage.PREPARING": {
+    "text": "Бэлтгэж байна",
+    "why": "missing"
+  },
+  "university:stage.RETAINED": {
+    "text": "Үргэлжлүүлэн суралцаж буй",
+    "why": "missing"
+  },
+  "university:stage.TUITION_PAID": {
+    "text": "Сургалтын төлбөр төлсөн",
+    "why": "missing"
+  },
+  "university:stage.VISA_ISSUED": {
+    "text": "Виз олгосон",
+    "why": "missing"
+  },
+  "university:v22.closed": {
+    "text": "Хаагдсан: {{n}} (тэнцээгүй эсвэл өргөдлөө татсан)",
+    "why": "not admitted/withdrawn terms"
+  },
+  "university:v22.empty.enrolment": {
+    "text": "Одоогоор санал ба элсэлтийн хооронд байгаа өргөдөл гаргагч алга.",
+    "why": "'хүн' too informal"
+  },
+  "university:v22.empty.in_review": {
+    "text": "Одоогоор хянагдаж буй өргөдөл алга.",
+    "why": "'зүйл' vague"
+  },
+  "university:v22.empty.received": {
+    "text": "Хяналт эхлэхийг хүлээж буй ирсэн өргөдөл алга.",
+    "why": "'нээхийг хүлээж буй зүйл' unclear"
+  },
+  "university:v22.in.closedN": {
+    "text": "Хаагдсан: {{n}} (тэнцээгүй эсвэл өргөдлөө татсан)",
+    "why": "not admitted/withdrawn terms"
+  },
+  "university:v22.in.dropText": {
+    "text": "{{of}}-оос {{lost}} ({{pct}}) дараагийн шатанд хүрээгүй.",
+    "why": "order and meaning per EN"
+  },
+  "university:v22.in.noDrop": {
+    "text": "{{min}} ба түүнээс дээш өргөдөл гаргагчтай аль ч шатанд уналт хараахан алга.",
+    "why": "garbled sentence"
+  },
+  "university:v22.in.q.admit": {
+    "text": "Ямар өргөдөл гаргагчид тэнцэж, элсдэг вэ?",
+    "why": "subject dropped"
+  },
+  "university:v22.in.q.dropoff": {
+    "text": "Өргөдөл гаргагчид аль шатанд хасагддаг вэ?",
+    "why": "'бид тэднийг алддаг' informal"
+  },
+  "university:v22.in.q.settle": {
+    "text": "Элссэний дараа оюутнууд тогтвортой суралцаж байна уу?",
+    "why": "retention, not adapting"
+  },
+  "university:v22.manage.settingsHint": {
+    "text": "Таны бүртгэл, хэл, нэгдсэн нэвтрэлт (SSO), багийн өөрчлөлт",
+    "why": "'нэг удаагийн нэвтрэлт' = one-time login"
+  },
+  "university:v22.stageHint.documents_check": {
+    "text": "Илгээсэн; баримтын шалгалт хараахан дуусаагүй",
+    "why": "matches EN"
+  },
+  "university:v22.stageHint.enrolment": {
+    "text": "Сургалтын төлбөр, элсэлтийн зөвшөөрөл, виз явагдаж байна",
+    "why": "'in progress' dropped"
+  },
+  "university:v22.stageHint.received": {
+    "text": "Баримтын шалгалт дууссан. Хяналтыг эхлүүлнэ үү",
+    "why": "matches EN"
+  },
+  "university:v23.co.openCohort": {
+    "text": "Энэ бүлгийн оюутнуудыг харуулах",
+    "why": "missing"
+  },
+  "university:v25.in.offerRate": {
+    "text": "Элсэлтийн саналын хувь",
+    "why": "offer ≠ admitted"
+  },
+  "university:v28.pipe.label": {
+    "text": "Өнөөдрийг хүртэлх үр дүн; дэлгэрэнгүйг Статистик хэсгээс",
+    "why": "nav is 'Статистик'"
+  },
+  "university:v28.pipe.step.ACCEPTED": {
+    "text": "Санал хүлээн авсан",
+    "why": "one term with af.stepName"
+  },
+  "university:v28.pipe.step.OFFERED": {
+    "text": "Санал илгээсэн",
+    "why": "one term with af.stepName"
+  },
+  "university:v28.pipe.title": {
+    "text": "Өнөөдрийг хүртэлх үр дүн",
+    "why": "'явц' not in EN"
+  },
+  "university:v30.def.visaOutcome": {
+    "text": "Энэ агентлагаас танай их сургуульд гаргасан өргөдлийн, сонгосон элсэлт дэх виз татгалзсан ÷ визийн шийдвэр (олгосон + татгалзсан). Татгалзлыг зөвхөн оюутны визийн хэрэгт бүртгэсэн үед тоолно; бүртгээгүй үр дүнг тусад нь жагсаах ба хэзээ ч таамаглахгүй.",
+    "why": "missing"
+  }
+}

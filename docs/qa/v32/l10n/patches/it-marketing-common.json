@@ -1,0 +1,915 @@
+{
+ "_notes": [
+  "Address form: marketing + common use a consistent informal 'tu' (students); console strings are out of scope here.",
+  "Gender neutrality (V31 open item): every string that addressed the reader or described one student with a masculine default was rewritten to be neutral by construction: nominal phrasing (Iscrizione completata, Ammissione negata, Ritiro), invariable predicates (a posto, può candidarsi), 'chi…' clauses (chi si candida, chi amministra), 'la persona…' (la persona che segui), and impersonal verbs (Indica cosa va corretto). No o/a slash forms. Generic plural nouns for groups ('studenti internazionali', 'matricole') were kept as the unmarked plural; role titles in common:role.* (Amministratore, Revisore) were left as functional labels — owner decision whether to neutralise those too.",
+  "'Offer' (admission offer) is rendered as 'ammissione' (Ammissione ottenuta / Ammissione accettata): 'offerta' in Italian reads as a commercial deal; this also fixes the former 'Non ammesso' / 'Respinto' masculine statuses to 'Ammissione negata'.",
+  "Standard admission letter (표준입학허가서) = 'lettera di ammissione standard', with '(standard admission letter)' added once in long-form text; status chips use 'Lettera di ammissione standard emessa / in attesa'.",
+  "Dormitory = 'residenza universitaria' everywhere (replacing the mixed 'studentato' / 'alloggi'); 'alloggio' is kept for the broader housing topic.",
+  "Document review = 'verifica' (In verifica, Verifica documenti); 'revisione' is reserved for essay editing. The student's revision status is 'In correzione'.",
+  "Transcript = 'certificato dei voti' (replacing 'certificato degli esami'); certified translation = 'traduzione giurata'; junior college = 'college professionale' (one term, replacing 'college biennale'); GKS stays 'Global Korea Scholarship (GKS)'; KIIP keeps its official English name.",
+  "University recommendation = 'università consigliate' (and 'proposta di università' in refund-stage labels); 'raccomandazione' was avoided because in Italian it connotes favouritism.",
+  "'What this university stands for' was mistranslated as 'A cosa serve questa università' (= what is it for); fixed to 'I valori di questa università'.",
+  "Ulsan city text no longer names Hyundai (the English does not); matches the source.",
+  "common:notify.serviceCase is a pure $t() composition and was copied verbatim as the Italian line."
+ ],
+ "marketing:seo.home.description": {
+  "text": "Trova l'università coreana giusta, prepara i documenti e organizza visto e arrivo, con informazioni verificate e il team Hangyul in un unico posto.",
+  "why": "matches English; no invented 'persone vere'"
+ },
+ "marketing:v11.faq.q1.a": {
+  "text": "Questi sono i documenti necessari per l'ammissione. Alcune università e alcuni corsi ne chiedono altri, e puoi presentare anche lettere di raccomandazione di insegnanti o datori di lavoro, oppure un attestato di partecipazione a un'olimpiade.<br><br>1. * Diploma di scuola superiore o di college professionale, tradotto in inglese, con autenticazione notarile e apostille<br>2. Certificato dei voti, tradotto in inglese, con autenticazione notarile e apostille<br>3. Copia del passaporto<br>4. Copie dei passaporti di entrambi i genitori. Se un genitore non ha il passaporto, copia della sua carta d'identità, tradotta in inglese e con autenticazione notarile<br>5. Certificato di nascita o certificato di rapporto familiare, tradotto e con autenticazione notarile<br>6. Prova della conoscenza del coreano o dell'inglese (TOPIK, TOEFL, IELTS o documento equivalente)<br>7. Certificato di saldo bancario di almeno 15.000 USD, valido 30 giorni (l'importo può variare in base alla sede dell'università)",
+  "why": "glossary terms: raccomandazione, certificato dei voti, college professionale"
+ },
+ "marketing:v11.faq.q8.a": {
+  "text": "La maggior parte delle università coreane non ha limiti di età, ma alcune sì. Se ti riguarda, possiamo suggerirti università in cui l'età non è un problema. In ogni caso ti serve il diploma di scuola superiore o di college professionale.",
+  "why": "one term for junior college"
+ },
+ "marketing:v11.faq.q9.a": {
+  "text": "Sì. Puoi candidarti a un'università coreana appena ottieni il diploma di scuola superiore o di college professionale.",
+  "why": "one term for junior college"
+ },
+ "marketing:v11.services.lede": {
+  "text": "Un solo team ti segue, dalla preparazione della candidatura<br>fino al tuo ambientamento in Corea.",
+  "why": "gender-neutral (was 'ti sei sistemato')"
+ },
+ "marketing:v11.services.s1.text": {
+  "text": "Ti proponiamo università e istituti di lingua coreana adatti al tuo percorso e ai tuoi obiettivi. In una consulenza individuale esaminiamo le borse di studio a cui puoi candidarti, poi prepariamo con te i documenti per l'ammissione e teniamo i contatti con l'università man mano che la candidatura avanza.",
+  "why": "says what we do, as in English"
+ },
+ "marketing:v11.services.s2.title": {
+  "text": "Dopo l'ammissione: supporto fino al tuo ambientamento in Corea",
+  "why": "gender-neutral (was 'ti sei sistemato')"
+ },
+ "marketing:v12.directory.countShort_one": {
+  "text": "{{count}} istituto",
+  "why": "missing"
+ },
+ "marketing:v12.directory.countShort_other": {
+  "text": "{{count}} istituti",
+  "why": "missing"
+ },
+ "marketing:v12.directory.count_one": {
+  "text": "{{count}} istituto",
+  "why": "missing"
+ },
+ "marketing:v12.directory.emptyText": {
+  "text": "Scegli un'altra regione o esplora tutta la Corea.",
+  "why": "missing"
+ },
+ "marketing:v12.directory.emptyTitle": {
+  "text": "Nessun istituto in questa regione",
+  "why": "missing"
+ },
+ "marketing:v12.directory.inRegion": {
+  "text": "Università in {{region}}",
+  "why": "missing"
+ },
+ "marketing:v12.directory.matching": {
+  "text": "Risultati per “{{q}}”",
+  "why": "missing"
+ },
+ "marketing:v12.establishment.NATIONAL": {
+  "text": "Nazionale",
+  "why": "missing"
+ },
+ "marketing:v12.establishment.PUBLIC": {
+  "text": "Pubblica",
+  "why": "missing"
+ },
+ "marketing:v12.ieqas.certifiedWhat": {
+  "text": "Valutata ogni anno dal Ministero della Giustizia e dal Ministero dell'Istruzione. Chi si candida a un istituto certificato viene valutato con criteri meno rigidi per il visto.",
+  "why": "neutral 'chi si candida'"
+ },
+ "marketing:v12.ieqas.excellent": {
+  "text": "Certificata IEQAS — eccellente",
+  "why": "missing"
+ },
+ "marketing:v12.legal.effective": {
+  "text": "In vigore dal {{date}}",
+  "why": "missing"
+ },
+ "marketing:v12.map.hide": {
+  "text": "Nascondi la mappa",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.collect.documents.items": {
+  "text": "Passaporto, documento d'identità, fotografia, certificati dei voti, certificati di diploma o di laurea (anche previsti), certificati di rapporto familiare e di nascita, estratti conto bancari, documenti dello sponsor, prove di impiego e di reddito, certificati TOPIK, IELTS e TOEFL, lettere di raccomandazione, lettere di motivazione, progetti di studio, CV, apostille, autenticazioni notarili e traduzioni giurate, carta di soggiorno, visto, lettera di ammissione standard (standard admission letter)",
+  "why": "official term for admission letter; glossary terms"
+ },
+ "marketing:v12.privacy.contact.colField": {
+  "text": "Campo",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.colValue": {
+  "text": "Dettaglio",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.department": {
+  "text": "Ufficio",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.email": {
+  "text": "Email",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.h": {
+  "text": "Responsabile della protezione dei dati e contatti",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.officer": {
+  "text": "Responsabile della protezione dei dati",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.phone": {
+  "text": "Telefono",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.cookies.essential": {
+  "text": "Hangyul Univ usa un solo cookie essenziale, per mantenere attiva la tua sessione. Non può essere letto da JavaScript, viene inviato solo al percorso di autenticazione ed è eliminato quando esci.",
+  "why": "gender-neutral (was 'mantenerti connesso')"
+ },
+ "marketing:v12.privacy.processors.colContact": {
+  "text": "Contatto",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.processors.colRetention": {
+  "text": "Conservazione presso il responsabile",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.processors.none": {
+  "text": "Attualmente nessun responsabile esterno tratta informazioni personali per conto di Hangyul in produzione. Se cambierà, il responsabile e le attività affidate saranno pubblicati qui e annunciati prima dell'inizio.",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.retention.months_one": {
+  "text": "{{count}} mese",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.retention.years_one": {
+  "text": "{{count}} anno",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.rights.how": {
+  "text": "Puoi presentare direttamente una richiesta di accesso, esportazione o cancellazione nelle <settings>impostazioni dell'account</settings>. Le richieste vengono registrate con una scadenza e puoi seguirne l'avanzamento nella stessa schermata.",
+  "why": "gender-neutral (was 'tu stesso')"
+ },
+ "marketing:v12.privacy.scope": {
+  "text": "Questa informativa si applica al sito web e alle app mobili di Hangyul Univ e ai servizi di preparazione e candidatura per lo studio all'estero forniti da Hangyul. Hangyul rispetta il Personal Information Protection Act (la legge coreana sulla protezione dei dati personali) e la normativa correlata.",
+  "why": "official name plus natural explanation"
+ },
+ "marketing:v12.privacy.security.roles": {
+  "text": "Separazione dei ruoli: in un'agenzia, chi segue le consulenze vede solo gli studenti che gli sono assegnati; in un'università, chi fa analisi ha accesso in sola lettura.",
+  "why": "gender-neutral roles"
+ },
+ "marketing:v12.privacy.sharing.agency.when": {
+  "text": "Quando acquisti un piano che include il supporto di un'agenzia o accetti l'assegnazione a un'agenzia",
+  "why": "gender-neutral (was 'essere assegnato')"
+ },
+ "marketing:v12.privacy.transfer.none": {
+  "text": "Attualmente non è in uso alcun responsabile che trasferisca informazioni personali fuori dalla Corea. Se un trasferimento all'estero diventasse necessario, destinatario, paese, finalità, informazioni, tempi, modalità e periodo di conservazione saranno pubblicati qui e annunciati prima dell'inizio.",
+  "why": "missing"
+ },
+ "marketing:v12.seo.directory.description": {
+  "text": "Tutte le università, i college professionali e gli istituti post-laurea del registro pubblico nazionale, per regione.",
+  "why": "one term for junior college"
+ },
+ "marketing:v12.terms.definitions.agency.def": {
+  "text": "Un'agenzia per lo studio all'estero convenzionata con Hangyul che svolge le consulenze e il lavoro sui documenti per un membro.",
+  "why": "natural Italian ('convenzionata')"
+ },
+ "marketing:v12.terms.effective.h": {
+  "text": "Data di entrata in vigore",
+  "why": "missing"
+ },
+ "marketing:v12.terms.effective.p": {
+  "text": "Questi termini entrano in vigore il {{date}}.",
+  "why": "missing"
+ },
+ "marketing:v12.terms.law.h": {
+  "text": "Legge applicabile e foro competente",
+  "why": "missing"
+ },
+ "marketing:v12.terms.refunds.stage.RECOMMENDATION_DONE": {
+  "text": "Università consigliate consegnate",
+  "why": "one term; avoids 'raccomandazione'"
+ },
+ "marketing:v12.terms.refunds.stage.RECOMMENDATION_STARTED": {
+  "text": "Lavoro sulle università consigliate iniziato",
+  "why": "one term; avoids 'raccomandazione'"
+ },
+ "marketing:v12.terms.refunds.stage.SETTLEMENT_STARTED": {
+  "text": "Supporto per visto, arrivo e ambientamento iniziato",
+  "why": "'ambientamento' = settling in"
+ },
+ "marketing:v12.terms.services.arrival": {
+  "text": "Supporto per alloggio, arrivo e ambientamento",
+  "why": "'sistemazione' duplicated 'alloggio'"
+ },
+ "marketing:v12.terms.services.visa": {
+  "text": "Indicazioni per la preparazione dei documenti per il visto",
+  "why": "we prepare documents, not the visa"
+ },
+ "marketing:v12.uni.back": {
+  "text": "Torna alle università in Corea",
+  "why": "missing"
+ },
+ "marketing:v14.legal.division": {
+  "text": "Settore di attività",
+  "why": "Korean 업태 = business type"
+ },
+ "marketing:v14.legal.ecommerce": {
+  "text": "Numero di registrazione per il commercio elettronico",
+  "why": "clearer official label"
+ },
+ "marketing:v14.media.alt.seoulRiver": {
+  "text": "Lo skyline di {{region}} oltre il fiume al tramonto.",
+  "why": "missing"
+ },
+ "marketing:v15.pricing.compare.item": {
+  "text": "Servizio",
+  "why": "was empty"
+ },
+ "marketing:v15.pricing.lede": {
+  "text": "Scegli quanto aiuto ti serve: una consulenza di orientamento, aiuto con le candidature o supporto completo fino all'ambientamento in Corea.",
+  "why": "gender-neutral (was 'ti sei sistemato')"
+ },
+ "marketing:v17.quick.ctaWhy": {
+  "text": "Hangyul segue con te candidature, documenti e preparazione dei documenti per il visto.",
+  "why": "no implied visa handling"
+ },
+ "marketing:v17.uni.missionTitle": {
+  "text": "I valori di questa università",
+  "why": "mistranslation ('what is it for')"
+ },
+ "marketing:v20.city.Chungbuk.body": {
+  "text": "Il Chungcheong Settentrionale è l'unica provincia coreana senza sbocco sul mare. Cheongju ne è il centro e la principale città universitaria, abbastanza vicina sia a Sejong sia a Daejeon da condividerne il mercato del lavoro.\nLa provincia è nota per i paesaggi calcarei di Danyang e per una vita da studenti più tranquilla ed economica rispetto alle grandi città.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungbuk.line": {
+  "text": "Senza sbocco sul mare, centrale e costruita intorno a Cheongju.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungbuk.청주": {
+  "text": "Cheongju",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungnam.아산": {
+  "text": "Asan",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungnam.천안": {
+  "text": "Cheonan",
+  "why": "missing"
+ },
+ "marketing:v20.city.Daegu.body": {
+  "text": "Daegu si trova in una conca nel sud-est ed è la città più calda della Corea in agosto e una delle più fredde a gennaio. Ha un centro compatto e percorribile a piedi, una lunga tradizione tessile diventata industria della moda e dei dispositivi medici, e un costo della vita nettamente inferiore a Seul o Busan.\nCon il KTX, Seul è a un'ora e tre quarti e Busan a cinquanta minuti.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Daegu.line": {
+  "text": "Una città dell'interno in una conca tra le montagne, nota per tessile, medicina e caldo.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Daejeon.body": {
+  "text": "Daejeon è cresciuta intorno a Daedeok Innopolis, un polo di istituti di ricerca pubblici e centri di R&S aziendali, e le università della città ne portano l'impronta. Se vieni per ingegneria o scienze naturali, i laboratori sono qui.\nÈ quasi esattamente al centro del Paese: un'ora da Seul con il KTX e un'ora da Busan.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.body": {
+  "text": "Il Gangwon comprende la catena del Taebaek, le sedi delle Olimpiadi invernali 2018 e le spiagge della costa orientale. Chuncheon, Gangneung e Wonju sono le città universitarie: nessuna è grande, e tutte sono più economiche e tranquille di qualsiasi posto nell'area della capitale.\nQui gli inverni sono inverni veri. Il KTX collega Seul a Gangneung in circa due ore.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.강릉": {
+  "text": "Gangneung",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.원주": {
+  "text": "Wonju",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.춘천": {
+  "text": "Chuncheon",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gwangju.body": {
+  "text": "Gwangju è la città più grande delle province di Jeolla e ne porta la fama per la cucina e per la rivolta democratica del 1980, ancora oggi la cosa per cui è più conosciuta in Corea.\nÈ una delle città metropolitane più economiche in cui vivere, ha una scena artistica apprezzata ed è a circa due ore da Seul con il KTX.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gwangju.line": {
+  "text": "Il centro culturale e politico del sud-ovest, e un posto economico in cui studiare.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.body": {
+  "text": "Il Gyeongsang Settentrionale comprende Gyeongju, capitale di Silla per un millennio e di fatto un museo a cielo aperto, e Pohang, città dell'acciaio che ospita anche una delle università di scienze e ingegneria più forti della Corea. Andong, più nell'interno, è il centro della tradizione confuciana coreana.\nÈ una provincia grande e varia, e tutta più economica dell'area della capitale.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.line": {
+  "text": "I mille anni di storia di Gyeongju e l'acciaio di Pohang, nella stessa provincia.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.경주": {
+  "text": "Gyeongju",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.구미": {
+  "text": "Gumi",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.포항": {
+  "text": "Pohang",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.고양": {
+  "text": "Goyang",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.부천": {
+  "text": "Bucheon",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.성남": {
+  "text": "Seongnam",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.수원": {
+  "text": "Suwon",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.안양": {
+  "text": "Anyang",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.용인": {
+  "text": "Yongin",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongnam.김해": {
+  "text": "Gimhae",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongnam.진주": {
+  "text": "Jinju",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongnam.창원": {
+  "text": "Changwon",
+  "why": "missing"
+ },
+ "marketing:v20.city.Incheon.line": {
+  "text": "La porta d'ingresso della Corea: qui ci sono l'aeroporto e anche Songdo.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeju.body": {
+  "text": "Jeju è a 85 chilometri dalla terraferma, costruita intorno al vulcano Hallasan e abbastanza calda da avere una vegetazione quasi subtropicale. È la meta di vacanza del resto del Paese, e questo ne plasma l'economia e gli affitti.\nLe università sono poche e piccole. I voli per Seul partono ogni pochi minuti e durano un'ora.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeju.line": {
+  "text": "Un'isola vulcanica al largo della costa meridionale, con un clima diverso dal resto della Corea.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.body": {
+  "text": "Il Jeolla Settentrionale è agricolo, pianeggiante a ovest e montuoso a est, e Jeonju ne è il centro: una città di circa 650.000 abitanti con il più grande quartiere di hanok rimasto nel Paese e una fama gastronomica che nessun'altra città coreana contesta.\nIl costo della vita è tra i più bassi di tutte le città universitarie, e Seul è a poco meno di due ore di KTX.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.line": {
+  "text": "Jeonju, e la regione considerata la patria della cucina coreana.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.익산": {
+  "text": "Iksan",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.전주": {
+  "text": "Jeonju",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.body": {
+  "text": "Il Jeolla Meridionale ha più isole di tutto il resto della Corea messo insieme, le zone umide della baia di Suncheon e il porto di Yeosu. È la meno urbanizzata delle province continentali, e le università qui sono di conseguenza piccole e molto unite.\nSe cerchi un posto tranquillo con una costa e un costo della vita molto basso, è questo.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.line": {
+  "text": "La costa sud-occidentale, le sue isole e il ritmo più lento del Paese.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.목포": {
+  "text": "Mokpo",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.순천": {
+  "text": "Suncheon",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.여수": {
+  "text": "Yeosu",
+  "why": "missing"
+ },
+ "marketing:v20.city.Sejong.body": {
+  "text": "Sejong è la città più nuova della Corea e la più pianificata: la maggior parte dei ministeri centrali si è trasferita qui da Seul, e la rete stradale, i parchi e gli edifici pubblici risalgono tutti agli ultimi quindici anni.\nÈ piccola, tranquilla e nuovissima, a venti minuti da Daejeon e a un'ora e mezza da Seul.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Sejong.line": {
+  "text": "Una città costruita dal nulla dal 2012 per ospitare i ministeri.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Ulsan.body": {
+  "text": "Ulsan ha il reddito medio più alto tra le città coreane, e il motivo salta all'occhio: il cantiere navale più grande del mondo, uno stabilimento automobilistico grande quanto un quartiere e un polo petrolchimico lungo la costa. Qui si assumono laureati in ingegneria.\nPer gli standard coreani è una città piccola, a mezz'ora da Busan, con l'avvistamento delle balene, una lunga spiaggia e il fiume Taehwa che attraversa il centro.",
+  "why": "English does not name Hyundai"
+ },
+ "marketing:v20.city.Ulsan.line": {
+  "text": "La capitale industriale della Corea: cantieri navali, auto e petrolchimica.",
+  "why": "missing"
+ },
+ "marketing:v20.dir.filterType": {
+  "text": "Tipo di istituto",
+  "why": "label was ambiguous"
+ },
+ "marketing:v20.dir.tierVideo": {
+  "text": "Video ufficiale",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.busanGwangan": {
+  "text": "Il ponte Gwangan illuminato di notte sulla baia, a {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.daejeonExpo": {
+  "text": "Il ponte Expo illuminato sul fiume, a {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.gyeongjuBulguksa": {
+  "text": "Il tempio Bulguksa a Gyeongju, in {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.jeonjuHanok": {
+  "text": "I tetti di tegole del villaggio hanok di Jeonju, in {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.seoulCheonggyecheon": {
+  "text": "La passeggiata lungo il torrente Cheonggyecheon nel centro di {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.seoulYeouido": {
+  "text": "Il fiume Han a Yeouido, a {{region}}, al crepuscolo",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.sokchoSeorak": {
+  "text": "Lo skyline di Sokcho sotto la cresta del Seoraksan, in {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.ulsanBridge": {
+  "text": "Il ponte di Ulsan sul porto, a {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.uni.intl.dormLine": {
+  "text": "L'università pubblica informazioni proprie sulle residenze universitarie.",
+  "why": "one term for dormitory"
+ },
+ "marketing:v20.uni.link.dormitory": {
+  "text": "Residenza universitaria",
+  "why": "one term for dormitory"
+ },
+ "marketing:v20.uni.match.NOT_YET": {
+  "text": "Qui sarà aperta per te quando avrai un punteggio di lingua.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.POSSIBLE": {
+  "text": "In base alle risposte che hai dato, vale la pena candidarsi qui.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.STRONG": {
+  "text": "I programmi di questa università sono in linea con le risposte che hai dato.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.ieqas": {
+  "text": "È nell'elenco certificato IEQAS, che prevede criteri meno rigidi per il visto.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.language": {
+  "text": "Il suo corso di lingua coreana è nell'elenco certificato, quindi puoi iniziare dalla lingua.",
+  "why": "missing"
+ },
+ "marketing:v21.uni.placeWhere": {
+  "text": "A {{city}}, {{region}}.",
+  "why": "missing"
+ },
+ "marketing:v23.dir.region": {
+  "text": "Provincia o città",
+  "why": "natural label"
+ },
+ "marketing:v28.uni.why.gks": {
+  "text": "Partecipa alla Global Korea Scholarship (GKS)",
+  "why": "official name in full"
+ },
+ "common:a11y.progress": {
+  "text": "Completato al {{value}} per cento",
+  "why": "Italian spelling 'per cento'"
+ },
+ "common:appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "Lettera di ammissione standard emessa",
+  "why": "official document name"
+ },
+ "common:appStatus.ADMISSION_CERTIFICATE_PENDING": {
+  "text": "Lettera di ammissione standard in attesa",
+  "why": "official document name"
+ },
+ "common:appStatus.ENROLLED": {
+  "text": "Iscrizione completata",
+  "why": "gender-neutral (was 'Iscritto')"
+ },
+ "common:appStatus.OFFERED": {
+  "text": "Ammissione ottenuta",
+  "why": "'offerta' reads as a commercial deal"
+ },
+ "common:appStatus.OFFER_ACCEPTED": {
+  "text": "Ammissione accettata",
+  "why": "'offerta' reads as a commercial deal"
+ },
+ "common:appStatus.REJECTED": {
+  "text": "Ammissione negata",
+  "why": "gender-neutral (was 'Non ammesso')"
+ },
+ "common:auth.noAccount": {
+  "text": "Prima volta su Hangyul Univ?",
+  "why": "gender-neutral (was 'Nuovo')"
+ },
+ "common:certification.UNKNOWN": {
+  "text": "Stato di certificazione non noto",
+  "why": "matches English"
+ },
+ "common:degree.ASSOCIATE": {
+  "text": "Diploma biennale (associate degree)",
+  "why": "one term across common:degree and fit.level"
+ },
+ "common:docCategory.ADMISSION_LETTER": {
+  "text": "Lettera di ammissione standard",
+  "why": "official document name"
+ },
+ "common:docCategory.EXPECTED_GRADUATION_CERTIFICATE": {
+  "text": "Certificato di prossimo conseguimento del titolo",
+  "why": "covers diploma and degree"
+ },
+ "common:docCategory.IELTS": {
+  "text": "Certificato IELTS",
+  "why": "consistent with TOPIK"
+ },
+ "common:docCategory.TOEFL": {
+  "text": "Certificato TOEFL",
+  "why": "consistent with TOPIK"
+ },
+ "common:docCategory.TRANSCRIPT": {
+  "text": "Certificato dei voti",
+  "why": "one term for transcript"
+ },
+ "common:docStatus.NEEDS_REVIEW": {
+  "text": "In verifica",
+  "why": "document review = verifica"
+ },
+ "common:essayStatus.AGENCY_REVIEW": {
+  "text": "In mano al team Hangyul",
+  "why": "natural Italian"
+ },
+ "common:essayStatus.STUDENT_REVISION": {
+  "text": "In correzione",
+  "why": "gender-neutral, clearer"
+ },
+ "common:essayType.RECOMMENDATION": {
+  "text": "Lettera di raccomandazione",
+  "why": "matches docCategory"
+ },
+ "common:fit.level.ASSOCIATE": {
+  "text": "Diploma biennale (associate degree)",
+  "why": "one term across common:degree and fit.level"
+ },
+ "common:fit.levelValue.KIIP": {
+  "text": "Livello {{level}}",
+  "why": "KIIP has levels, not phases"
+ },
+ "common:fit.q.gpa": {
+  "text": "Qual è la tua media (GPA)?",
+  "why": "keeps GPA as in English"
+ },
+ "common:fit.q.level": {
+  "text": "A quale livello vuoi studiare?",
+  "why": "English asks the level"
+ },
+ "common:fit.test.KIIP": {
+  "text": "Korea Immigration and Integration Program (KIIP)",
+  "why": "official programme name"
+ },
+ "common:housingStatus.DORM_APPLYING": {
+  "text": "Domanda per la residenza universitaria",
+  "why": "one term for dormitory"
+ },
+ "common:housingStatus.DORM_CONFIRMED": {
+  "text": "Residenza universitaria confermata",
+  "why": "one term for dormitory"
+ },
+ "common:i18n.v9.websiteOnly": {
+  "text": "Solo sito web pubblico",
+  "why": "missing"
+ },
+ "common:matchReason.DORM_AVAILABLE": {
+  "text": "Residenza universitaria per studenti internazionali",
+  "why": "one term for dormitory"
+ },
+ "common:matchReason.NATIONALITY_RESTRICTED": {
+  "text": "Non aperto a chi ha la tua nazionalità",
+  "why": "gender-neutral"
+ },
+ "common:matchReason.SCHOLARSHIP_CANDIDATE": {
+  "text": "Possibile borsa di studio",
+  "why": "gender-neutral; matches 'may qualify'"
+ },
+ "common:nav.admissionRules": {
+  "text": "Requisiti di ammissione",
+  "why": "glossary term"
+ },
+ "common:nav.partnership": {
+  "text": "Accordo di partnership",
+  "why": "matches English"
+ },
+ "common:notify.application.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "{{university}}: lo stato della candidatura è ora «Lettera di ammissione standard emessa»",
+  "why": "missing"
+ },
+ "common:notify.application.OFFERED": {
+  "text": "{{university}}: lo stato della candidatura è ora «Ammissione ottenuta»",
+  "why": "missing"
+ },
+ "common:notify.documentRequest.agency": {
+  "text": "{{university}} ha chiesto un altro documento alla persona che segui: {{document}}",
+  "why": "missing"
+ },
+ "common:notify.documentRequest.fulfilled": {
+  "text": "Il documento richiesto è stato inviato: {{document}}",
+  "why": "missing"
+ },
+ "common:notify.documentRequest.student": {
+  "text": "{{university}} ti ha chiesto un altro documento: {{document}}",
+  "why": "missing"
+ },
+ "common:notify.documentUploadedForYou": {
+  "text": "{{author}} ha aggiunto {{document}} ai tuoi documenti",
+  "why": "missing"
+ },
+ "common:notify.newStudent": {
+  "text": "Nuova assegnazione: {{student}}",
+  "why": "gender-neutral (was 'Nuovo studente assegnato')"
+ },
+ "common:notify.serviceCase": {
+  "text": "$t(concierge:type.{{type}}): $t(concierge:status.{{type}}.{{status}})",
+  "why": "missing"
+ },
+ "common:notify.writingEscalation": {
+  "text": "Revisione dell'elaborato in ritardo, inoltrata al responsabile: {{title}} ({{student}})",
+  "why": "missing"
+ },
+ "common:notify.writingOverdue": {
+  "text": "La tua revisione dell'elaborato è in ritardo: {{title}}",
+  "why": "missing"
+ },
+ "common:pipeline.ACTIVE_STUDENT": {
+  "text": "Percorso attivo",
+  "why": "gender-neutral (was 'Studente attivo')"
+ },
+ "common:pipeline.APPLIED": {
+  "text": "Candidatura inviata",
+  "why": "gender-neutral (was 'Candidato')"
+ },
+ "common:pipeline.ARRIVED": {
+  "text": "Arrivo completato",
+  "why": "gender-neutral (was 'Arrivato')"
+ },
+ "common:pipeline.ASSIGNED": {
+  "text": "Assegnazione completata",
+  "why": "gender-neutral (was 'Assegnato')"
+ },
+ "common:pipeline.ENROLLED": {
+  "text": "Iscrizione completata",
+  "why": "gender-neutral (was 'Iscritto')"
+ },
+ "common:pipeline.GRADUATED": {
+  "text": "Laurea conseguita",
+  "why": "gender-neutral (was 'Laureato')"
+ },
+ "common:pipeline.OFFERED": {
+  "text": "Ammissione ottenuta",
+  "why": "same term as appStatus"
+ },
+ "common:pipeline.QUALIFIED": {
+  "text": "Idoneità confermata",
+  "why": "gender-neutral (was 'Qualificato')"
+ },
+ "common:pipeline.READY_TO_APPLY": {
+  "text": "Può candidarsi",
+  "why": "gender-neutral (was 'Pronto')"
+ },
+ "common:pipeline.REJECTED": {
+  "text": "Ammissione negata",
+  "why": "gender-neutral (was 'Respinto')"
+ },
+ "common:pipeline.WITHDRAWN": {
+  "text": "Ritiro",
+  "why": "gender-neutral (was 'Ritirato')"
+ },
+ "common:states.forbiddenDetail": {
+  "text": "Se ti serve l'accesso, chiedi a chi amministra la tua organizzazione.",
+  "why": "matches English; gender-neutral"
+ },
+ "common:states.noResults": {
+  "text": "Nessun risultato corrisponde ai filtri. Prova a toglierne qualcuno o azzerali.",
+  "why": "second sentence was dropped"
+ },
+ "common:states.unavailableText": {
+  "text": "Al momento non è possibile raggiungere Hangyul. Riprova tra qualche istante.",
+  "why": "was still English"
+ },
+ "common:states.unavailableTitle": {
+  "text": "Stiamo preparando il servizio",
+  "why": "was still English"
+ },
+ "common:table.clearSelection": {
+  "text": "Annulla selezione",
+  "why": "missing"
+ },
+ "common:table.hideDetails": {
+  "text": "Nascondi dettagli",
+  "why": "missing"
+ },
+ "common:task.concierge.handle": {
+  "text": "{{type}}: {{student}}",
+  "why": "missing"
+ },
+ "common:task.firstContact": {
+  "text": "Primo contatto con la persona appena assegnata",
+  "why": "missing"
+ },
+ "common:task.payTuition": {
+  "text": "Paga le tasse universitarie di {{university}}",
+  "why": "missing"
+ },
+ "common:task.reviewDocument": {
+  "text": "Verificare {{category}}",
+  "why": "missing"
+ },
+ "common:task.submissionAgency": {
+  "text": "Inviare la candidatura di {{student}} a {{university}} (su delega)",
+  "why": "missing"
+ },
+ "common:task.submissionConfirm": {
+  "text": "Aggiungi il numero di conferma o la ricevuta di {{university}}",
+  "why": "missing"
+ },
+ "common:task.universityRequest": {
+  "text": "{{university}} ha richiesto documenti aggiuntivi",
+  "why": "missing"
+ },
+ "common:task.visaroute.embassyRequest": {
+  "text": "Invia all'ambasciata quanto richiesto",
+  "why": "missing"
+ },
+ "common:task.writingOverdue": {
+  "text": "Revisione dell'elaborato in ritardo: {{essayType}} di {{student}} — da revisionare subito",
+  "why": "'review it now' was dropped"
+ },
+ "common:taskType.DOCUMENT_REVIEW": {
+  "text": "Verifica documento",
+  "why": "document review = verifica"
+ },
+ "common:taskType.DORM_APPLICATION": {
+  "text": "Residenza universitaria",
+  "why": "one term for dormitory"
+ },
+ "common:tier.COMPETITIVE": {
+  "text": "Possibile corrispondenza",
+  "why": "matches 'Possible match'"
+ },
+ "common:tier.REACH": {
+  "text": "Requisiti non ancora soddisfatti",
+  "why": "matches English; 'Ambizioso' was wrong"
+ },
+ "common:tier.RECOMMENDED": {
+  "text": "Consigliata",
+  "why": "agrees with 'università'"
+ },
+ "common:uni27.cat.GKS": {
+  "text": "Global Korea Scholarship (GKS)",
+  "why": "official name"
+ },
+ "common:uni27.house.eyebrow": {
+  "text": "Residenza universitaria",
+  "why": "one term for dormitory"
+ },
+ "common:uni27.house.notAvailable": {
+  "text": "Le informazioni pubblicate dall'università non confermano una residenza universitaria per studenti internazionali.",
+  "why": "one term for dormitory"
+ },
+ "common:uni27.schol.automatic": {
+  "text": "Assegnata in fase di selezione, senza domanda separata",
+  "why": "matches 'when selected'"
+ },
+ "common:uni27.schol.dorm": {
+  "text": "contributo per la residenza universitaria",
+  "why": "one term for dormitory"
+ },
+ "common:uni27.schol.strongest": {
+  "text": "Borsa più alta per le matricole",
+  "why": "natural, gender-neutral"
+ },
+ "common:uni27.schol.strongestFor": {
+  "text": "Borsa più alta per le matricole di {{level}}",
+  "why": "natural, gender-neutral"
+ },
+ "common:uni27.service.COUNSELING": {
+  "text": "Counseling",
+  "why": "Italian universities use this term"
+ },
+ "common:uni27.stage.BOTH": {
+  "text": "Matricole e studenti già iscritti",
+  "why": "clear, natural"
+ },
+ "common:uni27.stage.ENROLLED": {
+  "text": "Studenti già iscritti",
+  "why": "clearer than 'iscritti'"
+ },
+ "common:uni27.stage.NEW": {
+  "text": "Matricole",
+  "why": "natural, gender-neutral"
+ },
+ "common:v29.addon.item.settlement": {
+  "text": "Supporto extra per ambientarti",
+  "why": "gender-neutral verb"
+ },
+ "common:v29.addon.pickupNote": {
+  "text": "L'accoglienza in aeroporto viene organizzata tramite un servizio di trasporto partner.",
+  "why": "one term for airport pickup"
+ },
+ "common:v29.addon.unit.APPLICATION": {
+  "text": "1 candidatura",
+  "why": "one term for application"
+ },
+ "common:v29.pricing.all_in_one.f2": {
+  "text": "Fino a 2 candidature universitarie gestite con te",
+  "why": "natural; matches managed-application term"
+ },
+ "common:v29.pricing.all_in_one.f5": {
+  "text": "Aiuto con i documenti per il visto · seguiamo le date della domanda di residenza universitaria",
+  "why": "help, not preparation by us; one dorm term"
+ },
+ "common:v29.pricing.all_in_one.position": {
+  "text": "Per chi vuole supporto nella candidatura e nella preparazione dei documenti di ammissione",
+  "why": "natural phrasing"
+ },
+ "common:v29.pricing.basic.f4": {
+  "text": "Checklist essenziale dei documenti di ammissione",
+  "why": "matches English"
+ },
+ "common:v29.pricing.compare.group.consult": {
+  "text": "Consulenza e università consigliate",
+  "why": "'consigli' was vague"
+ },
+ "common:v29.pricing.compare.group.settle": {
+  "text": "Visto e ambientamento",
+  "why": "settling in = ambientamento"
+ },
+ "common:v29.pricing.compare.row.arrival": {
+  "text": "Ambientamento dopo l'arrivo",
+  "why": "matches English"
+ },
+ "common:v29.pricing.compare.row.recommended": {
+  "text": "Università e istituti di lingua consigliati",
+  "why": "language institutes were dropped"
+ },
+ "common:v29.pricing.compare.row.visa": {
+  "text": "Preparazione dei documenti per il visto",
+  "why": "we prepare documents, not the visa"
+ },
+ "common:v29.pricing.compare.value.documents.CHECKLIST": {
+  "text": "Checklist essenziale dei documenti",
+  "why": "matches English"
+ },
+ "common:v29.pricing.compare.value.dormitory.INFORMATION": {
+  "text": "Informazioni sulla residenza universitaria",
+  "why": "one term for dormitory"
+ },
+ "common:v29.pricing.premium.f4": {
+  "text": "Documenti e date chiave del visto seguiti da vicino · aiuto con la domanda di residenza universitaria",
+  "why": "documents were dropped; one dorm term"
+ },
+ "common:v9.l10n.exactWording": {
+  "text": "Formulazione esatta (inglese)",
+  "why": "missing"
+ },
+ "common:v9.l10n.rule.degree_level": {
+  "text": "Non offerto per questo livello di studio",
+  "why": "missing"
+ },
+ "common:v9.l10n.rule.ielts_gte": {
+  "text": "IELTS {{value}} o superiore",
+  "why": "missing"
+ },
+ "common:visaStatus.READY_TO_APPLY": {
+  "text": "Domanda da presentare",
+  "why": "gender-neutral (was 'Pronto')"
+ },
+ "common:validation.reasonRequired": {
+  "text": "Indica cosa va corretto.",
+  "why": "gender-neutral (was 'allo studente')"
+ }
+}

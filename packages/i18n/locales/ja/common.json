@@ -46,7 +46,7 @@
     "refresh": "更新",
     "loadMore": "さらに読み込む",
     "showMore": "もっと見る",
-    "showLess": "閉じる",
+    "showLess": "折りたたむ",
     "menu": "メニュー",
     "language": "言語",
     "switchOrg": "組織を切り替え",
@@ -59,7 +59,7 @@
     "error": "問題が発生しました。",
     "errorDetail": "読み込めませんでした。接続を確認して、もう一度お試しください。",
     "empty": "まだ何もありません。",
-    "noResults": "条件に一致する結果はありません。",
+    "noResults": "条件に一致する結果はありません。条件を減らすか、クリアしてください。",
     "forbidden": "アクセス権がありません。",
     "forbiddenDetail": "アクセスが必要な場合は、組織の管理者にお問い合わせください。",
     "notFound": "ページが見つかりません。",
@@ -69,7 +69,9 @@
     "insufficientDataDetail": "少ないデータで誤解が生じないよう、{{n}} 件以上のデータがそろってから表示します。",
     "comingSoon": "近日公開",
     "saving": "保存中…",
-    "savedAt": "{{time}} に保存しました"
+    "savedAt": "{{time}} に保存しました",
+    "unavailableTitle": "サービスの準備をしています",
+    "unavailableText": "現在 Hangyul に接続できません。しばらくしてからもう一度お試しください。"
   },
   "freshness": {
     "verified": "{{date}} に確認済み",
@@ -117,7 +119,7 @@
     "applicants": "出願者",
     "funnel": "募集ファネル",
     "intakes": "入学時期",
-    "admissionRules": "入学基準",
+    "admissionRules": "出願要件",
     "offers": "合格通知",
     "partnerAgencies": "提携エージェント",
     "cohorts": "学生コホート",
@@ -252,8 +254,8 @@
     "ENROLLED": "入学済み",
     "VISA_PREPARATION": "ビザ準備",
     "VISA_ISSUED": "ビザ発給済み",
-    "ARRIVAL_PREPARATION": "渡航準備",
-    "ARRIVED": "到着済み",
+    "ARRIVAL_PREPARATION": "入国準備",
+    "ARRIVED": "入国済み",
     "ACTIVE_STUDENT": "在学生",
     "GRADUATED": "卒業",
     "WITHDRAWN": "取り下げ"
@@ -353,7 +355,7 @@
   "taskStatus": {
     "OPEN": "未対応",
     "IN_PROGRESS": "進行中",
-    "BLOCKED": "保留（ブロック中）",
+    "BLOCKED": "ブロック中",
     "DONE": "完了",
     "CANCELLED": "キャンセル済み"
   },
@@ -384,7 +386,7 @@
     "GENERAL": "タスク"
   },
   "tier": {
-    "STRONG": "高い適合",
+    "STRONG": "適合度が高い",
     "COMPETITIVE": "可能性あり",
     "REACH": "まだ出願資格なし",
     "NOT_ELIGIBLE": "まだ出願資格なし",
@@ -449,7 +451,7 @@
     "WITHIN_BUDGET": "年間予算内です",
     "SLIGHTLY_OVER_BUDGET": "予算を少し超えます。奨学金で差額をまかなえる可能性があります",
     "OVER_BUDGET": "予算を上回ります",
-    "SCHOLARSHIP_CANDIDATE": "奨学金候補",
+    "SCHOLARSHIP_CANDIDATE": "奨学金の対象になる可能性あり",
     "PREFERRED_REGION": "希望の地域にあります",
     "DORM_AVAILABLE": "留学生向けの寮あり"
   },
@@ -458,7 +460,7 @@
     "tomorrow": "明日",
     "daysLeft_one": "残り {{count}} 日",
     "daysLeft_other": "残り {{count}} 日",
-    "overdue": "期限切れ",
+    "overdue": "期限超過",
     "overdueBy_one": "{{count}} 日超過",
     "overdueBy_other": "{{count}} 日超過",
     "due": "期限 {{date}}"
@@ -518,7 +520,7 @@
     "documentRequest": {
       "agency": "{{university}} から担当学生に追加書類の提出依頼がありました：{{document}}",
       "student": "{{university}} から追加書類の提出依頼がありました：{{document}}",
-      "fulfilled": "ご依頼の書類が申請者から届きました: {{document}}"
+      "fulfilled": "ご依頼の書類が志願者から届きました：{{document}}"
     },
     "documentUploadedForYou": "{{author}} があなたの書類に {{document}} を追加しました",
     "serviceCase": "$t(concierge:type.{{type}})：$t(concierge:status.{{type}}.{{status}})",
@@ -722,7 +724,8 @@
       "settlement": "生活立ち上げサポートを行う"
     },
     "universityRequestItem": "{{university}}からの依頼書類：{{item}}",
-    "sendStudyPlanFeedback": "学業計画書のフィードバック要約を送る"
+    "sendStudyPlanFeedback": "学業計画書のフィードバック要約を送る",
+    "submissionAgency": "{{student}}さんの{{university}}への出願を提出する（代理提出の委任あり）"
   },
   "i18n": {
     "machine": "この翻訳は機械翻訳で、まだ確認されていません。翻訳済みはアプリの {{percent}}% のため、一部の表現が不正確だったり英語のまま表示されたりすることがあります。",
@@ -777,7 +780,7 @@
       "dorm": "寮費の支援",
       "living": "生活費の支援",
       "conditions": "条件",
-      "automatic": "合格時に自動で支給（申請不要）",
+      "automatic": "選考で選ばれると自動で支給（別途申請不要）",
       "apply": "別途申請・選考あり",
       "renewal": "継続して受けるには"
     },
@@ -817,7 +820,7 @@
     "service": {
       "BUDDY": "バディ制度",
       "ORIENTATION": "オリエンテーション",
-      "AIRPORT_PICKUP": "空港出迎え",
+      "AIRPORT_PICKUP": "空港送迎",
       "VISA_HELP": "ビザの案内",
       "CAREER": "就職支援",
       "JOB_PART_TIME": "アルバイトの案内",
@@ -849,7 +852,7 @@
     },
     "level": {
       "LANGUAGE": "韓国語研修",
-      "ASSOCIATE": "準学士",
+      "ASSOCIATE": "専門学士",
       "BACHELOR": "学士",
       "TRANSFER": "学士編入",
       "MASTER": "修士",
@@ -899,7 +902,7 @@
       "CAMBRIDGE": "Cambridge English",
       "PTE": "PTE Academic"
     },
-    "levelLabel": "取得級",
+    "levelLabel": "レベル",
     "scoreLabel": "スコア",
     "chooseLevel": "選択してください",
     "levelValue": {
@@ -1018,7 +1021,7 @@
         "f1": "All-in-One の内容をすべて含む · おすすめ大学 最大7校",
         "f2": "最大3校の出願を管理 · 模擬面接1回",
         "f3": "契約した出願書類の添削は回数制限なし",
-        "f4": "ビザ日程を集中管理 · 寮の申込サポート",
+        "f4": "ビザ書類と主要日程を集中管理 · 寮の申込サポート",
         "f5": "入国30日前から入国後30日まで · 専任チームが優先対応"
       },
       "compare": {
@@ -1035,7 +1038,7 @@
           "documents": "書類チェック",
           "essay": "自己紹介書・学業計画書の添削",
           "interview": "模擬面接",
-          "visa": "ビザ準備",
+          "visa": "ビザ書類の準備",
           "dormitory": "寮",
           "arrival": "入国後のサポート",
           "dedicated": "専任チーム · 優先対応"
@@ -1065,7 +1068,7 @@
           },
           "visa": {
             "GUIDANCE": "国籍別の手続きのご案内",
-            "DOCUMENT_PREP": "申請書類の準備サポート",
+            "DOCUMENT_PREP": "ビザ書類の準備サポート",
             "INTENSIVE": "書類と主要日程を集中管理"
           },
           "dormitory": {
@@ -1110,15 +1113,15 @@
       },
       "unit": {
         "UNIVERSITY": "1校",
-        "EDIT_ROUND": "1回",
+        "EDIT_ROUND": "添削1回",
         "SESSION": "1回",
-        "APPLICATION": "1件",
+        "APPLICATION": "出願1件",
         "ARRANGEMENT": "手配1回",
         "AGREED_SCOPE": "合意した範囲"
       },
       "range": "{{min}}–{{max}}",
       "quote": "個別見積もり",
-      "pickupNote": "空港送迎は、提携する送迎会社の手配をお手伝いするサービスです。",
+      "pickupNote": "空港送迎は、提携する送迎会社を通じて手配します。",
       "premiumMock": "Premium には初回の模擬面接が含まれています。"
     }
   },

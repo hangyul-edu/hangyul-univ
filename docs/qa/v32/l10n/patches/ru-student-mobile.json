@@ -1,0 +1,2083 @@
+{
+  "_notes": [
+    "plan: unified to «тариф» everywhere (student:v16/v17 and mobile:v3.home.noCounselor said «план»); «план» collides with «план обучения» (study plan) and «тариф» is already the term in marketing/common/agency ru files.",
+    "standard admission letter (표준입학허가서): rendered «стандартное приглашение на обучение» per the brief's official-name list, and plain «приглашение на обучение» where the English says only «admission letter». The 29 strings in other ru namespaces outside this job (student/mobile keys not in the job, success, visaroute) still say «письмо о зачислении» — owner to decide on a global rename.",
+    "Student-facing «консультант» replaced by «команда Hangyul / Hangyul Univ» (V22 team identity, matches the reviewed English); staff-facing agency/university strings keep «консультант» where the English says counselor.",
+    "Plurals: Russian `_other` is the CLDR fractional form (genitive singular, e.g. «1,5 сообщения») and was left as is; the `_few`/`_many` forms already in packages/i18n for existing families were checked and are correct. Every newly translated family carries `_one/_few/_many/_other`; count-neutral strings (e.g. «Срок сегодня · {{count}}») repeat the same text in all four forms. Strings with a count but no plural family (att.overSla, reviews.summary) were phrased count-neutrally («Ждут дольше {{hours}} ч: {{count}}»).",
+    "University app: «applicant» = «абитуриент» (already the term in ru/university.json), replacing «кандидат» in mobile:university.applicants.*.",
+    "conversation = «диалог» (was a mix of «переписка»/«диалог»); interview = «собеседование» (plan allowances said «интервью»); «Closes {{date}}» for application deadlines = «Приём до {{date}}».",
+    "mobile:v3.agency.waitingOn.* rendered as «Ход за …» (whose move it is) so student/university/us read naturally; view.* filters use «Ждут студента / университет / нас».",
+    "student:v17.gate.named: the {{what}} values are nominative noun phrases, so the frame is «В тариф входит: {{what}}.» (colon keeps nominative and lowercase valid).",
+    "student:onboarding.education.institutionPh keeps «Hanoi National University» untranslated (glossary: never invent a translated institution name).",
+    "Applier note: scripts/i18n/v32/apply-patch.mjs refuses the 58 new `_few`/`_many` forms as UNKNOWN KEY because the English bundle has no such keys (dry run: 459 applied, 58 refused). The ru runtime needs them (i18next does not fall back from a missing `_few` to `_other`), so they stay in this patch; the applier should accept extra CLDR forms when the English has `_other`, as the V28 validator did.",
+    "mobile:v3.home.stageLine.visa: «Оформляем студенческую визу» implied Hangyul issues the visa; now «Готовим документы на студенческую визу»."
+  ],
+  "student:dashboard.counselor.noneCta": {
+    "text": "Посмотреть тарифы",
+    "why": "plan = тариф, one term"
+  },
+  "student:dashboard.counselor.noneText": {
+    "text": "После выбора тарифа команда Hangyul проверяет ваши документы, эссе и стратегию поступления на вашем языке.",
+    "why": "natural opening, тариф"
+  },
+  "student:dashboard.stageText.DECISION": {
+    "text": "Ваши заявки — на рассмотрении в университетах.",
+    "why": "natural phrasing"
+  },
+  "student:dashboard.stageText.ENROLL": {
+    "text": "Поздравляем с предложением о зачислении! Давайте закрепим за вами место.",
+    "why": "«предложение» alone is ambiguous"
+  },
+  "student:dashboard.stageText.VISA": {
+    "text": "Вы приняты. Следующий шаг — студенческая виза.",
+    "why": "admitted = приняты, enrolled = зачислены"
+  },
+  "student:documents.drawer.country": {
+    "text": "Страна выдачи",
+    "why": "same label as upload.country"
+  },
+  "student:documents.drawer.expiredText": {
+    "text": "Загрузите новый, действующий документ, чтобы ваши заявки оставались в силе.",
+    "why": "«актуальный экземпляр» unnatural"
+  },
+  "student:documents.upload.expires": {
+    "text": "Действителен до",
+    "why": "same label as drawer.expires"
+  },
+  "student:home.closes": {
+    "text": "Приём до {{date}}",
+    "why": "application deadline wording"
+  },
+  "student:home.docAction.IN_REVIEW": {
+    "text": "На проверке",
+    "why": "missing translation"
+  },
+  "student:home.docAction.LEGALIZE": {
+    "text": "Нужен апостиль",
+    "why": "missing translation"
+  },
+  "student:home.docAction.OPEN": {
+    "text": "Открыть",
+    "why": "missing translation"
+  },
+  "student:home.docAction.RENEW": {
+    "text": "Срок истёк. Загрузите новый",
+    "why": "«Обновите» ambiguous"
+  },
+  "student:home.docAction.TOO_OLD": {
+    "text": "Выдан слишком давно. Получите новый",
+    "why": "clarity, matches mobile"
+  },
+  "student:home.documents": {
+    "text": "Документы, которые ждут вас",
+    "why": "«к обработке» is CRM tone"
+  },
+  "student:home.recommendedSub": {
+    "text": "Программы, где вы соответствуете опубликованным требованиям.",
+    "why": "unclunky relative clause"
+  },
+  "student:login.aside.point1": {
+    "text": "Узнайте, какие программы вам подходят, и почему — с понятным объяснением для каждой.",
+    "why": "natural phrasing"
+  },
+  "student:login.aside.point3": {
+    "text": "Готовьтесь вместе с живыми людьми из команды Hangyul, которые говорят на вашем языке.",
+    "why": "team identity, not консультант"
+  },
+  "student:messages.empty": {
+    "text": "Диалогов пока нет",
+    "why": "conversation = диалог"
+  },
+  "student:messages.new.title": {
+    "text": "Новый диалог",
+    "why": "conversation = диалог"
+  },
+  "student:messages.pick": {
+    "text": "Выберите диалог",
+    "why": "conversation = диалог"
+  },
+  "student:onboarding.basics.legalText": {
+    "text": "Для официальных документов из страны {{country}} обычно нужен этот шаг, прежде чем корейские университеты их примут: {{path}}. Когда придёт время, мы подскажем, что делать.",
+    "why": "«пропустить через шаг» unnatural"
+  },
+  "student:onboarding.basics.residenceHint": {
+    "text": "Некоторые посольства принимают заявления на визу только от жителей своей страны.",
+    "why": "dropped «of their own country»"
+  },
+  "student:onboarding.education.institutionPh": {
+    "text": "например: Hanoi National University",
+    "why": "keep institution name official"
+  },
+  "student:onboarding.education.level": {
+    "text": "Высший уровень образования (завершённый или текущий)",
+    "why": "clarity"
+  },
+  "student:onboarding.education.levels.ASSOCIATE": {
+    "text": "Колледж / среднее профессиональное",
+    "why": "Russian equivalent of associate"
+  },
+  "student:onboarding.education.status": {
+    "text": "Статус обучения",
+    "why": "fits the three options"
+  },
+  "student:onboarding.goals.degreeSub.ASSOCIATE": {
+    "text": "Прикладная программа на 2–3 года",
+    "why": "natural phrasing"
+  },
+  "student:onboarding.goals.degreeSub.BACHELOR": {
+    "text": "4-летний бакалавриат",
+    "why": "natural phrasing"
+  },
+  "student:onboarding.goals.degreeSub.LANGUAGE": {
+    "text": "Начните с корейского языка, в своём темпе",
+    "why": "match English, drop «частый старт»"
+  },
+  "student:onboarding.goals.fieldsHint": {
+    "text": "Можно выбрать несколько.",
+    "why": "natural phrasing"
+  },
+  "student:onboarding.goals.term": {
+    "text": "Семестр поступления",
+    "why": "clarity"
+  },
+  "student:onboarding.goals.year": {
+    "text": "Год поступления",
+    "why": "clarity"
+  },
+  "student:onboarding.language.level.NONE": {
+    "text": "Пока не владею",
+    "why": "«Пока никак» colloquial"
+  },
+  "student:onboarding.passport.previousHint": {
+    "text": "От этого зависит, какие визовые шаги вам понадобятся.",
+    "why": "clarity"
+  },
+  "student:onboarding.passport.visa.D-2": {
+    "text": "D-2 (студенческая)",
+    "why": "visa type, not person"
+  },
+  "student:onboarding.passport.visa.D-4": {
+    "text": "D-4 (языковые курсы)",
+    "why": "match English"
+  },
+  "student:onboarding.passport.visa.E-7": {
+    "text": "E-7 (рабочая)",
+    "why": "consistent adjective form"
+  },
+  "student:onboarding.passport.visa.F": {
+    "text": "F (резидентская или семейная)",
+    "why": "clarity"
+  },
+  "student:onboarding.preferences.budget": {
+    "text": "Годовой бюджет на обучение и проживание",
+    "why": "natural phrasing"
+  },
+  "student:onboarding.preferences.budgetHint": {
+    "text": "Достаточно примерной суммы. По ней мы отметим программы, которые могут оказаться дороже вашего бюджета.",
+    "why": "natural phrasing"
+  },
+  "student:onboarding.preferences.housingOpt.NO_PREFERENCE": {
+    "text": "Нет предпочтений",
+    "why": "«Без разницы» too colloquial"
+  },
+  "student:onboarding.preferences.housingOpt.OFF_CAMPUS": {
+    "text": "Жильё вне кампуса",
+    "why": "natural phrasing"
+  },
+  "student:onboarding.sponsor.goalHint": {
+    "text": "Достаточно одного-двух предложений. Позже это поможет с планом обучения.",
+    "why": "study plan = план обучения"
+  },
+  "student:onboarding.sponsor.goalPh": {
+    "text": "например: работать в маркетинге, связывая корейские и вьетнамские компании.",
+    "why": "natural phrasing"
+  },
+  "student:onboarding.steps.preferences.subtitle": {
+    "text": "Бюджет, стипендии и жильё помогают нам упорядочить программы для вас.",
+    "why": "«ранжировать» is jargon"
+  },
+  "student:onboarding.steps.sponsor.subtitle": {
+    "text": "Университеты и визовые службы спрашивают о финансовой поддержке. Зная вашу цель, команда Hangyul сможет лучше вас направлять.",
+    "why": "«визовые офицеры» is a calque"
+  },
+  "student:register.consent.CROSS_BORDER_VERIFICATION.label": {
+    "text": "Я понимаю, что мои эл. почта и номер телефона обрабатываются за рубежом для их подтверждения",
+    "why": "verify them ≠ identity; shorter"
+  },
+  "student:register.errors.session": {
+    "text": "Время сеанса регистрации истекло. Начните заново.",
+    "why": "natural phrasing"
+  },
+  "student:register.prior.why": {
+    "text": "Университеты из вашей подборки требуют этого. Ваш ответ позволит сразу подтвердить эти программы. Учебное заведение и оценки можно добавить позже.",
+    "why": "natural phrasing"
+  },
+  "student:settings.language.note": {
+    "text": "Некоторые языки переведены автоматически и ещё проходят проверку.",
+    "why": "«переведены машинно» unnatural"
+  },
+  "student:settings.privacy.purpose.MARKETING.text": {
+    "text": "Редкие письма. Отписаться можно в любой момент.",
+    "why": "natural phrasing"
+  },
+  "student:settings.privacy.purpose.SHARE_WITH_AGENCY.title": {
+    "text": "Передавать мой профиль партнёрскому агентству команды Hangyul",
+    "why": "consistent with university toggle"
+  },
+  "student:v15.services.allowance.key.max_managed_applications": {
+    "text": "Заявки с сопровождением",
+    "why": "one term for managed application"
+  },
+  "student:v15.services.allowance.key.mock_interviews": {
+    "text": "Пробные собеседования",
+    "why": "interview = собеседование"
+  },
+  "student:v15.services.scope.consultation_minutes": {
+    "text": "{{count}}-минутная консультация",
+    "why": "reads for any count"
+  },
+  "student:v15.services.scope.interview_preparation": {
+    "text": "Подготовка к собеседованию",
+    "why": "interview = собеседование"
+  },
+  "student:v15.services.scope.personal_roadmap": {
+    "text": "Личный план подготовки к учёбе в Корее",
+    "why": "full meaning"
+  },
+  "student:v15.services.scope.pre_arrival_orientation": {
+    "text": "Онлайн-инструктаж перед отъездом",
+    "why": "«ориентация» is a calque"
+  },
+  "student:v15.services.scope.settlement_support": {
+    "text": "Помощь после приезда",
+    "why": "same string as v17 feature"
+  },
+  "student:v15.services.scope.visa_support": {
+    "text": "Подготовка визовых документов",
+    "why": "glossary term; no visa promise"
+  },
+  "student:v16.pay.chooseSubtitle": {
+    "text": "Выберите тариф в зависимости от того, сколько помощи вам нужно от Hangyul. Один платёж, без подписки.",
+    "why": "natural phrasing"
+  },
+  "student:v16.pay.status.FAILED": {
+    "text": "Не прошёл",
+    "why": "avoid «ошибка» status"
+  },
+  "student:v16.pay.success.text": {
+    "text": "Вы начинаете подготовку к учёбе в Корее с тарифом «{{name}}».",
+    "why": "plan = тариф"
+  },
+  "student:v17.gate.general": {
+    "text": "Эта часть Hangyul входит в тариф. Выберите тариф, чтобы начать.",
+    "why": "plan = тариф"
+  },
+  "student:v17.gate.named": {
+    "text": "В тариф входит: {{what}}. Выберите тариф, чтобы начать.",
+    "why": "nominative-safe slot, тариф"
+  },
+  "student:v17.gate.what.applications": {
+    "text": "ваши заявки",
+    "why": "match English"
+  },
+  "student:v17.gate.what.arrival": {
+    "text": "помощь с приездом и обустройством",
+    "why": "match English"
+  },
+  "student:v17.gate.what.essays": {
+    "text": "редактура мотивационного письма и плана обучения",
+    "why": "match English, one term"
+  },
+  "student:v17.gate.what.help": {
+    "text": "помощь команды Hangyul",
+    "why": "«консьерж» not in English"
+  },
+  "student:v17.gate.what.home": {
+    "text": "ваше рабочее пространство для подготовки",
+    "why": "clarity"
+  },
+  "student:v17.gate.what.housing": {
+    "text": "помощь с общежитием",
+    "why": "match English"
+  },
+  "student:v17.gate.what.messages": {
+    "text": "переписка с командой Hangyul",
+    "why": "match English"
+  },
+  "student:v17.gate.what.tasks": {
+    "text": "список задач",
+    "why": "match English"
+  },
+  "student:v17.gate.what.visa": {
+    "text": "подготовка визовых документов",
+    "why": "glossary term"
+  },
+  "student:v17.pay.afterPay": {
+    "text": "Вы перейдёте в Toss Payments и сможете оплатить зарубежной картой (Visa, Mastercard, JCB). Тариф начнёт действовать сразу после подтверждения платежа.",
+    "why": "natural phrasing, тариф"
+  },
+  "student:v17.upgrade.currentPlan": {
+    "text": "Текущий тариф",
+    "why": "plan = тариф"
+  },
+  "student:v17.upgrade.feature.essay_review": {
+    "text": "Редактура мотивационного письма",
+    "why": "one term for editing"
+  },
+  "student:v17.upgrade.feature.managed_application": {
+    "text": "Заявки с сопровождением",
+    "why": "one term for managed application"
+  },
+  "student:v17.upgrade.feature.mock_interview": {
+    "text": "Пробное собеседование",
+    "why": "interview = собеседование"
+  },
+  "student:v17.upgrade.feature.recommendations": {
+    "text": "Рекомендации университетов",
+    "why": "glossary: recommendation, not подбор"
+  },
+  "student:v17.upgrade.feature.settlement": {
+    "text": "Помощь после приезда",
+    "why": "one term"
+  },
+  "student:v17.upgrade.title": {
+    "text": "{{feature}} входит в тариф «{{plan}}».",
+    "why": "plan = тариф"
+  },
+  "student:v21.pay.cardFailed": {
+    "text": "Платёж не прошёл",
+    "why": "missing translation"
+  },
+  "student:v21.pay.cardSecure": {
+    "text": "Данные карты передаются только в Hangyul по зашифрованному соединению и дальше — нашему платёжному провайдеру. Мы никогда не храним номер карты.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.cardTitle": {
+    "text": "Оплата картой",
+    "why": "missing translation"
+  },
+  "student:v21.pay.declined": {
+    "text": "Карта не принята: {{reason}} Попробуйте другую карту или обратитесь в свой банк.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.expiry": {
+    "text": "Срок действия",
+    "why": "missing translation"
+  },
+  "student:v21.pay.holder": {
+    "text": "Имя на карте",
+    "why": "missing translation"
+  },
+  "student:v21.pay.notConfigured": {
+    "text": "Оплата картой здесь пока недоступна. Попробуйте позже или свяжитесь с нами.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.number": {
+    "text": "Номер карты",
+    "why": "missing translation"
+  },
+  "student:v21.pay.numberInvalid": {
+    "text": "Проверьте номер карты.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.optional": {
+    "text": "необязательно",
+    "why": "missing translation"
+  },
+  "student:v21.pay.payCta": {
+    "text": "Оплатить этой картой",
+    "why": "missing translation"
+  },
+  "student:v21.pay.processing": {
+    "text": "Обрабатываем платёж…",
+    "why": "missing translation"
+  },
+  "student:v21.pay.savedDelete": {
+    "text": "Удалить",
+    "why": "missing translation"
+  },
+  "student:v21.pay.savedDeleteBody": {
+    "text": "Мы удалим {{card}} из вашего аккаунта. На уже совершённые платежи это не влияет.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.savedDeleteFailed": {
+    "text": "Не удалось удалить карту. Попробуйте ещё раз.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.savedDeleteTitle": {
+    "text": "Удалить эту карту?",
+    "why": "missing translation"
+  },
+  "student:v21.pay.savedNotReusable": {
+    "text": "При следующей покупке нужно будет ввести карту заново.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.savedTitle": {
+    "text": "Ваша карта",
+    "why": "missing translation"
+  },
+  "student:v21.pay.tooMany": {
+    "text": "Слишком много попыток оплаты. Подождите несколько минут, прежде чем пробовать снова.",
+    "why": "missing translation"
+  },
+  "student:v22.home.appTeam.follow": {
+    "text": "Уточняем статус в приёмной комиссии {{university}}",
+    "why": "dropped «admissions office»"
+  },
+  "student:v22.home.appTeam.letter": {
+    "text": "Уточняем статус вашего стандартного приглашения на обучение от {{university}}",
+    "why": "official document name"
+  },
+  "student:v22.home.appTeam.visa": {
+    "text": "Отслеживаем ваше заявление на визу",
+    "why": "one term: заявление на визу"
+  },
+  "student:v22.home.teamNowEmpty": {
+    "text": "Сейчас на нашей стороне ничего не в работе. Ваш следующий шаг — выше.",
+    "why": "clarity"
+  },
+  "student:v29.services.catalogue.premiumEditing": {
+    "text": "Редактура документов по договору уже входит в Premium.",
+    "why": "one term for editing"
+  },
+  "student:v29.services.catalogue.title": {
+    "text": "Посмотреть дополнительные услуги",
+    "why": "no abbreviation"
+  },
+  "student:v29.services.unrationed.CONTRACTED_DOCUMENTS": {
+    "text": "Без ограничения по числу правок для документов по договору",
+    "why": "«кругов» unnatural"
+  },
+  "student:v29.services.unrationed.TEAM": {
+    "text": "Сопровождение от вашей команды",
+    "why": "match English"
+  },
+  "student:v29.services.upgrade.amountPending": {
+    "text": "Согласует команда Hangyul Univ",
+    "why": "arranged ≠ сообщит"
+  },
+  "student:writing.needYou": {
+    "text": "Ваша очередь писать или дорабатывать",
+    "why": "match English"
+  },
+  "student:writing.others": {
+    "text": "На проверке у команды Hangyul или готово",
+    "why": "clarity"
+  },
+  "student:writing.promise": {
+    "text": "Hangyul никогда не пишет и не придумывает текст за вас. Комментарии касаются структуры, ясности, грамматики и тех частей задания, которые остались без ответа.",
+    "why": "feedback = комментарии; clarity"
+  },
+  "mobile:agency.messages.title": {
+    "text": "Сообщения",
+    "why": "match English label"
+  },
+  "mobile:login.networkError": {
+    "text": "Сейчас не удаётся связаться с Hangyul по адресу {{url}}. Проверьте подключение и попробуйте ещё раз через минуту.",
+    "why": "drop dev hint, match English"
+  },
+  "mobile:messages.empty": {
+    "text": "Диалогов пока нет",
+    "why": "conversation = диалог"
+  },
+  "mobile:more.noPlanHint": {
+    "text": "Выберите тариф — и Hangyul начнёт работать с вами",
+    "why": "match English"
+  },
+  "mobile:more.supportHint": {
+    "text": "Напишите команде Hangyul",
+    "why": "team identity"
+  },
+  "mobile:plan.allowance.essay_review_rounds": {
+    "text": "Редактура мотивационного письма и плана обучения",
+    "why": "match English, one term"
+  },
+  "mobile:plan.allowance.follow_up_consultations": {
+    "text": "Повторные консультации",
+    "why": "same as student key"
+  },
+  "mobile:plan.allowance.max_managed_applications": {
+    "text": "Заявки с сопровождением",
+    "why": "one term for managed application"
+  },
+  "mobile:plan.allowance.max_recommended_institutions": {
+    "text": "Рекомендации университетов",
+    "why": "glossary: recommendation"
+  },
+  "mobile:plan.allowance.mock_interviews": {
+    "text": "Пробные собеседования",
+    "why": "interview = собеседование"
+  },
+  "mobile:plan.chooseLede": {
+    "text": "Один платёж, без подписки. Тариф остаётся с вами на всё время подготовки.",
+    "why": "«покрывает весь процесс» overpromises"
+  },
+  "mobile:plan.handoff": {
+    "text": "Оплата проходит в браузере; после завершения вы вернётесь в приложение.",
+    "why": "natural phrasing"
+  },
+  "mobile:plan.ongoing": {
+    "text": "Весь срок действия услуги",
+    "why": "match English"
+  },
+  "mobile:plan.upgradeTitle": {
+    "text": "Повышение тарифа",
+    "why": "title, not verb"
+  },
+  "mobile:plan.webNote": {
+    "text": "История тарифов и чеки — на сайте.",
+    "why": "receipt = чек"
+  },
+  "mobile:settings.elsewhere": {
+    "text": "Вне приложения",
+    "why": "clarity"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.label": {
+    "text": "Я понимаю, что мои эл. почта и номер телефона обрабатываются за рубежом для их подтверждения",
+    "why": "verify them ≠ identity; shorter"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Twilio Inc. (США) доставляет SMS и письма с кодом подтверждения, а Cloudflare, Inc. (США) проверяет, что регистрация не автоматическая. Подробности, в том числе как отказаться, — в Политике конфиденциальности. Без согласия создать аккаунт невозможно.",
+    "why": "match English, same as web"
+  },
+  "mobile:signup.degree.TRANSFER": {
+    "text": "Перевод из другого вуза",
+    "why": "«Перевод» alone = translation"
+  },
+  "mobile:signup.lang.NONE": {
+    "text": "Пока не сдавал(а)",
+    "why": "natural phrasing"
+  },
+  "mobile:signup.quickGo": {
+    "text": "Показать подборку",
+    "why": "matches = подборка"
+  },
+  "mobile:signup.quickSkip": {
+    "text": "Пока пропустить",
+    "why": "natural word order"
+  },
+  "mobile:signup.view": {
+    "text": "Прочитать",
+    "why": "match English"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.body": {
+    "text": "Вы принимаете предложение от {{university}}. Команда Hangyul Univ поможет вам с оплатой обучения и получением стандартного приглашения на обучение.",
+    "why": "team identity, official document"
+  },
+  "mobile:student.applications.emptyBody": {
+    "text": "Начните с подборки — программ, требованиям которых вы соответствуете.",
+    "why": "clarity"
+  },
+  "mobile:student.documents.emptyBody": {
+    "text": "Загрузите паспорт, выписки с оценками и результаты тестов в веб-приложении.",
+    "why": "transcript in plain Russian"
+  },
+  "mobile:student.documents.fixFallback": {
+    "text": "Команда Hangyul попросила исправить этот документ.",
+    "why": "team identity, match English"
+  },
+  "mobile:student.matches.deadline": {
+    "text": "Приём до {{date}} · {{due}}",
+    "why": "application deadline wording"
+  },
+  "mobile:student.messages.subtitle": {
+    "text": "Общайтесь с командой Hangyul Univ.",
+    "why": "match English"
+  },
+  "mobile:student.nextAction.COMPARE_OFFERS": {
+    "text": "Сравните предложения о зачислении ({{count}})",
+    "why": "clarity"
+  },
+  "mobile:student.nextAction.RESPOND_OFFER": {
+    "text": "Ответьте на предложение о зачислении",
+    "why": "clarity"
+  },
+  "mobile:student.tasks.subtitle": {
+    "text": "Задачи от команды Hangyul и из чек-листов ваших заявок.",
+    "why": "team identity, match English"
+  },
+  "mobile:university.applicants.anonymous": {
+    "text": "Абитуриент",
+    "why": "applicant = абитуриент (university.json)"
+  },
+  "mobile:university.applicants.confirmBody": {
+    "text": "{{name}} и консультант получат уведомление. Добавьте примечание для истории (необязательно).",
+    "why": "natural phrasing"
+  },
+  "mobile:university.applicants.detailTitle": {
+    "text": "Абитуриент",
+    "why": "applicant = абитуриент"
+  },
+  "mobile:university.applicants.reference": {
+    "text": "Ваш регистрационный номер",
+    "why": "clarity"
+  },
+  "mobile:university.flagged.add": {
+    "text": "Отметить для дальнейшей работы",
+    "why": "clarity"
+  },
+  "mobile:university.inbox.title": {
+    "text": "Сообщения",
+    "why": "match English label"
+  },
+  "mobile:university.login.tagline": {
+    "text": "Абитуриенты, решения и группы — для вашего международного отдела.",
+    "why": "applicant = абитуриент"
+  },
+  "mobile:v29.mfa.codeHint": {
+    "text": "Введите 6-значный код из приложения-аутентификатора или резервный код.",
+    "why": "missing translation"
+  },
+  "mobile:v29.mfa.codeLabel": {
+    "text": "Код подтверждения",
+    "why": "missing translation"
+  },
+  "mobile:v29.mfa.enrollOnWeb": {
+    "text": "Для этого аккаунта нужна двухэтапная проверка. Сначала настройте её в веб-консоли, затем войдите здесь.",
+    "why": "missing translation"
+  },
+  "mobile:v29.mfa.verify": {
+    "text": "Подтвердить и войти",
+    "why": "missing translation"
+  },
+  "mobile:v29.mfa.wrongCode": {
+    "text": "Код неверный или истёк. Введите новый.",
+    "why": "missing translation"
+  },
+  "mobile:v29.plan.supportDays": {
+    "text": "Консультации в течение {{count}} дней с первой консультации",
+    "why": "match English"
+  },
+  "mobile:v29.plan.term": {
+    "text": "Срок действия услуги",
+    "why": "glossary: service period"
+  },
+  "mobile:v29.plan.termToAgree": {
+    "text": "Согласуется при начале услуги",
+    "why": "clarity"
+  },
+  "mobile:v29.plan.unrationed.CONTRACTED_DOCUMENTS": {
+    "text": "Без лимита по числу правок для документов по договору",
+    "why": "«кругов» unnatural"
+  },
+  "mobile:v29.plan.unrationed.TEAM": {
+    "text": "Сопровождение от вашей команды",
+    "why": "match English"
+  },
+  "mobile:v3.agency.allClear": {
+    "text": "Всё в порядке: {{list}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.applications_one": {
+    "text": "{{count}} заявка",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.applications_few": {
+    "text": "{{count}} заявки",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.applications_many": {
+    "text": "{{count}} заявок",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.applications_other": {
+    "text": "{{count}} заявки",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.breached_one": {
+    "text": "{{count}} уже вне обещанного срока",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.breached_few": {
+    "text": "{{count}} уже вне обещанного срока",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.breached_many": {
+    "text": "{{count}} уже вне обещанного срока",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.breached_other": {
+    "text": "{{count}} уже вне обещанного срока",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.closing_one": {
+    "text": "Заявка закрывается в ближайшие 7 дней",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.closing_few": {
+    "text": "Заявки закрываются в ближайшие 7 дней",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.closing_many": {
+    "text": "Заявки закрываются в ближайшие 7 дней",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.closing_other": {
+    "text": "Заявки закрываются в ближайшие 7 дней",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.docs_one": {
+    "text": "Документ ждёт проверки",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.docs_few": {
+    "text": "Документы ждут проверки",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.docs_many": {
+    "text": "Документы ждут проверки",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.docs_other": {
+    "text": "Документы ждут проверки",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.next": {
+    "text": "Ближайший: {{uni}} для {{who}}, {{date}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.overSla": {
+    "text": "Ждут дольше {{hours}} ч: {{count}}",
+    "why": "missing translation; count-neutral"
+  },
+  "mobile:v3.agency.att.overdue_one": {
+    "text": "Просроченная задача",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.overdue_few": {
+    "text": "Просроченные задачи",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.overdue_many": {
+    "text": "Просроченные задачи",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.overdue_other": {
+    "text": "Просроченные задачи",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.replies_one": {
+    "text": "Студент ждёт вашего ответа",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.replies_few": {
+    "text": "Студенты ждут вашего ответа",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.replies_many": {
+    "text": "Студенты ждут вашего ответа",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.replies_other": {
+    "text": "Студенты ждут вашего ответа",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.since": {
+    "text": "Самое давнее от {{who}}, {{when}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.sla_one": {
+    "text": "Студент: риск опоздать с первым ответом",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.sla_few": {
+    "text": "Студенты: риск опоздать с первым ответом",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.sla_many": {
+    "text": "Студенты: риск опоздать с первым ответом",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.sla_other": {
+    "text": "Студенты: риск опоздать с первым ответом",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.block.deadline": {
+    "text": "Приём в {{uni}} скоро закрывается",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.block.fix": {
+    "text": "{{doc}}: студент должен исправить",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.block.requested": {
+    "text": "{{uni}} запросил дополнительные документы",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.block.review": {
+    "text": "{{doc}} ждёт вашей проверки",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.block.sla": {
+    "text": "Пора дать первый ответ",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.blockers_one": {
+    "text": "{{count}} препятствие у этого студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.blockers_few": {
+    "text": "{{count}} препятствия у этого студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.blockers_many": {
+    "text": "{{count}} препятствий у этого студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.blockers_other": {
+    "text": "{{count}} препятствия у этого студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.clear.closing": {
+    "text": "сроки на этой неделе",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.clear.docs": {
+    "text": "проверки документов",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.clear.overdue": {
+    "text": "просроченные задачи",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.clear.replies": {
+    "text": "ответы студентам",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.clear.sla": {
+    "text": "первые ответы",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.conversationSubject": {
+    "text": "Ваша команда по учёбе в Корее",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.deadline": {
+    "text": "{{uni}} {{when}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.documents": {
+    "text": "Документы · подтверждено {{verified}} из {{total}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.dueToday_one": {
+    "text": "Срок сегодня · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.dueToday_few": {
+    "text": "Срок сегодня · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.dueToday_many": {
+    "text": "Срок сегодня · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.dueToday_other": {
+    "text": "Срок сегодня · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.findStudent": {
+    "text": "Найти студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.firstMessage": {
+    "text": "Написать: {{name}}",
+    "why": "missing translation; case-safe"
+  },
+  "mobile:v3.agency.greeting.afternoon": {
+    "text": "Добрый день, {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.greeting.evening": {
+    "text": "Добрый вечер, {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.greeting.morning": {
+    "text": "Доброе утро, {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.message": {
+    "text": "Сообщение",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.messageLabel": {
+    "text": "Сообщение",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.needsAttention": {
+    "text": "Требует внимания",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.nextAction": {
+    "text": "Далее: {{what}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.noBlockers": {
+    "text": "Этого студента ничто не задерживает",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.noBlockersBody": {
+    "text": "Документы, сроки и ответы — всё по графику.",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.noStudents": {
+    "text": "В этом списке нет студентов",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.noStudentsBody": {
+    "text": "Выберите другой список или очистите поиск.",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.searchPlaceholder": {
+    "text": "Имя или эл. почта",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.stage": {
+    "text": "Этап",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.stageNote": {
+    "text": "Заметка для команды (необязательно)",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.stageTo": {
+    "text": "Перевести в: {{stage}}",
+    "why": "missing translation; case-safe"
+  },
+  "mobile:v3.agency.teamView": {
+    "text": "Команда · {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.toFix_one": {
+    "text": "Исправить: {{count}} документ",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.toFix_few": {
+    "text": "Исправить: {{count}} документа",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.toFix_many": {
+    "text": "Исправить: {{count}} документов",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.toFix_other": {
+    "text": "Исправить: {{count}} документа",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.today": {
+    "text": "Сегодня",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.upload": {
+    "text": "Загрузить",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.uploadFor": {
+    "text": "{{doc}} для {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.uploadWhat": {
+    "text": "Какой документ вы загружаете?",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.uploaded": {
+    "text": "Загружено в хранилище студента. Готово к проверке.",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.all": {
+    "text": "Все",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.attention": {
+    "text": "Требуют внимания",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.deadline": {
+    "text": "Скоро срок",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.docs": {
+    "text": "Документы на исправление",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.mine": {
+    "text": "Мои студенты",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.sla": {
+    "text": "Студенты с просроченным или близким сроком первого ответа",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.university": {
+    "text": "Ждут университет",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.visa": {
+    "text": "Виза",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.waiting_student": {
+    "text": "Ждут студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.waiting_us": {
+    "text": "Ждут нас",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.agency": {
+    "text": "Ход за командой агентства",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.counselor": {
+    "text": "Ход за консультантом",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.external": {
+    "text": "Ход за внешней организацией",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.hangyul": {
+    "text": "Ход за Hangyul",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.none": {
+    "text": "Никто не задерживает",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.student": {
+    "text": "Ход за студентом",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.university": {
+    "text": "Ход за университетом",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.us": {
+    "text": "Ход за нами",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Приглашение на обучение готово. Начните собирать визовые документы.",
+    "why": "official document; match English"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_PENDING": {
+    "text": "Ждём ваше стандартное приглашение на обучение.",
+    "why": "official document name"
+  },
+  "mobile:v3.appStatus.PROFILE_REVIEW": {
+    "text": "Команда Hangyul Univ проверяет ваш профиль.",
+    "why": "team identity"
+  },
+  "mobile:v3.appStatus.TUITION_PAID": {
+    "text": "Оплата обучения получена. Университет готовит ваше приглашение на обучение.",
+    "why": "official document"
+  },
+  "mobile:v3.appStatus.TUITION_PENDING": {
+    "text": "Оплатите обучение напрямую университету до указанного срока.",
+    "why": "clarity"
+  },
+  "mobile:v3.application.reviewBody": {
+    "text": "Подано {{date}}. Университет может запросить ещё один документ или собеседование. Команда Hangyul следит за её продвижением.",
+    "why": "team identity, match English"
+  },
+  "mobile:v3.application.closes": {
+    "text": "Приём до {{date}} · {{left}}",
+    "why": "application deadline wording"
+  },
+  "mobile:v3.deadlines.bucket.later_one": {
+    "text": "Позже в этом месяце · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.bucket.later_few": {
+    "text": "Позже в этом месяце · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.bucket.later_many": {
+    "text": "Позже в этом месяце · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.bucket.later_other": {
+    "text": "Позже в этом месяце · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.bucket.overdue_one": {
+    "text": "Просрочено · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.bucket.overdue_few": {
+    "text": "Просрочено · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.bucket.overdue_many": {
+    "text": "Просрочено · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.bucket.overdue_other": {
+    "text": "Просрочено · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.bucket.week_one": {
+    "text": "Ближайшие 7 дней · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.bucket.week_few": {
+    "text": "Ближайшие 7 дней · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.bucket.week_many": {
+    "text": "Ближайшие 7 дней · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.bucket.week_other": {
+    "text": "Ближайшие 7 дней · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.emptyView": {
+    "text": "В этом списке нет сроков",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.student": {
+    "text": "Студент",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.who.all": {
+    "text": "Все",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.who.mine": {
+    "text": "Мои",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.who.unassigned": {
+    "text": "Не назначены",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.you": {
+    "text": "Вы",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.closes": {
+    "text": "приём до {{date}}",
+    "why": "application deadline wording"
+  },
+  "mobile:v3.discover.explain.possible": {
+    "text": "Вы соответствуете опубликованному минимуму, но один момент требует внимания — обычно бюджет или срок подачи.",
+    "why": "no «дедлайн»; clarity"
+  },
+  "mobile:v3.docAction.IN_REVIEW": {
+    "text": "Проверяет команда Hangyul",
+    "why": "team identity"
+  },
+  "mobile:v3.docAction.LEGALIZE": {
+    "text": "Нужен апостиль или консульская легализация",
+    "why": "official term"
+  },
+  "mobile:v3.home.closes": {
+    "text": "Приём до {{date}} · {{left}}",
+    "why": "application deadline wording"
+  },
+  "mobile:v3.home.nextBody.APPLICATION_DEADLINE": {
+    "text": "Завершите чек-лист, чтобы заявку можно было подать вовремя.",
+    "why": "clarity"
+  },
+  "mobile:v3.home.nextBody.DOCUMENT_UPLOAD": {
+    "text": "Загрузите чёткий скан или фото. Команда Hangyul проверит его и сообщит, если что-то нужно исправить.",
+    "why": "team identity"
+  },
+  "mobile:v3.home.nextBody.ESSAY_WRITE": {
+    "text": "Начните с черновика. Команда Hangyul разберёт его вместе с вами.",
+    "why": "team identity"
+  },
+  "mobile:v3.home.noCounselor": {
+    "text": "Выберите тариф — и команда Hangyul Univ будет работать с вами на вашем языке.",
+    "why": "plan = тариф"
+  },
+  "mobile:v3.home.stageLine.apply": {
+    "text": "Университеты рассматривают ваши заявки",
+    "why": "match English"
+  },
+  "mobile:v3.home.stageLine.visa": {
+    "text": "Готовим документы на студенческую визу",
+    "why": "«оформляем визу» overpromises"
+  },
+  "mobile:v3.home.team": {
+    "text": "Команда Hangyul Univ",
+    "why": "team identity"
+  },
+  "mobile:v3.messages.attachUnavailable": {
+    "text": "Вложения пока недоступны.",
+    "why": "drop «на этом сервере»"
+  },
+  "mobile:v3.messages.conversations": {
+    "text": "Диалоги",
+    "why": "missing translation"
+  },
+  "mobile:v3.offer.deadline": {
+    "text": "Примите предложение и оплатите обучение до {{date}} · {{left}}",
+    "why": "accept ≠ ответьте"
+  },
+  "mobile:v3.offer.step.letter": {
+    "text": "Получите стандартное приглашение на обучение",
+    "why": "official document name"
+  },
+  "mobile:v3.profile.unlock.passport": {
+    "text": "Нужен для подачи любой заявки",
+    "why": "clarity"
+  },
+  "mobile:v3.profile.unlock.sponsor": {
+    "text": "Позволит заранее подготовить финансовые документы для визы",
+    "why": "we do not prepare them for you"
+  },
+  "mobile:v3.push.idle": {
+    "text": "Получайте уведомление, когда документ проверен, срок близко или команда Hangyul ответила.",
+    "why": "team identity"
+  },
+  "mobile:v3.reviews.beforeVerify": {
+    "text": "Перед подтверждением",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.bulkBody": {
+    "text": "Делайте это только для документов, которые вы открыли и проверили. Каждый студент получит уведомление.",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.bulkDone": {
+    "text": "Подтверждено: {{ok}}, пропущено: {{failed}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.bulkTitle_one": {
+    "text": "Подтвердить {{count}} документ?",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.bulkTitle_few": {
+    "text": "Подтвердить {{count}} документа?",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.bulkTitle_many": {
+    "text": "Подтвердить {{count}} документов?",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.bulkTitle_other": {
+    "text": "Подтвердить {{count}} документа?",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.check.date": {
+    "text": "Дата выдачи достаточно свежая, срок действия не истёк",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.check.issuer": {
+    "text": "Виден выдавший орган, печать или подпись",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.check.legal": {
+    "text": "{{path}}: есть и соответствует документу",
+    "why": "missing translation; gender-safe"
+  },
+  "mobile:v3.reviews.check.legible": {
+    "text": "Все страницы целиком и читаемы",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.check.name": {
+    "text": "Имя и дата рождения совпадают с паспортом",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.correctionTitle": {
+    "text": "Что должен исправить студент?",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.expires": {
+    "text": "Действителен до",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.issuedIn": {
+    "text": "Страна выдачи",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.issuedOn": {
+    "text": "Дата выдачи",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.legalization": {
+    "text": "Легализация",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.notNeeded": {
+    "text": "Не требуется",
+    "why": "missing translation; gender-safe"
+  },
+  "mobile:v3.reviews.open": {
+    "text": "Открыть {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.overSla": {
+    "text": "{{waiting}} · сверх обещанного срока проверки",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.reason": {
+    "text": "Сообщение студенту",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.requestCorrection": {
+    "text": "Запросить исправление",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.required": {
+    "text": "Обязательно",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.select": {
+    "text": "Выбрать",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.studentSees": {
+    "text": "{{name}} увидит именно этот текст рядом с документом.",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.studentSeesGeneric": {
+    "text": "Студент увидит именно этот текст рядом с документом.",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.summary": {
+    "text": "Ожидают: {{count}} · сверх {{hours}}-часового срока проверки: {{over}}",
+    "why": "missing translation; count-neutral"
+  },
+  "mobile:v3.reviews.templates": {
+    "text": "Шаблоны команды",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.translation": {
+    "text": "Перевод",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.uploaded": {
+    "text": "загружен {{when}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.verifyN_one": {
+    "text": "Подтвердить {{count}} документ",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.verifyN_few": {
+    "text": "Подтвердить {{count}} документа",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.verifyN_many": {
+    "text": "Подтвердить {{count}} документов",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.verifyN_other": {
+    "text": "Подтвердить {{count}} документа",
+    "why": "missing translation"
+  },
+  "mobile:v3.settings.consoleHint": {
+    "text": "Участники команды, оплата и выгрузки настраиваются в веб-консоли агентства.",
+    "why": "missing translation"
+  },
+  "mobile:v3.settings.work": {
+    "text": "Ваша работа",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.empty.team": {
+    "text": "У команды нет открытых задач",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.empty.today": {
+    "text": "На сегодня сроков нет",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.empty.waiting": {
+    "text": "Нет задач, ожидающих чего-то ещё",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.empty.week": {
+    "text": "На этой неделе сроков нет",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.open": {
+    "text": "Открытые",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.overdue": {
+    "text": "Просрочено · {{when}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.view.overdue": {
+    "text": "Просроченные",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.view.team": {
+    "text": "Команда",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.view.today": {
+    "text": "Сегодня",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.view.waiting": {
+    "text": "В ожидании",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.view.week": {
+    "text": "Эта неделя",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.waitingOn": {
+    "text": "Ожидает: {{what}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.allClear": {
+    "text": "Сейчас ничего не требует решения.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.allCohorts": {
+    "text": "Все студенты Hangyul",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.allIntakes": {
+    "text": "Все наборы",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.applicant": {
+    "text": "Абитуриент",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.gpa": {
+    "text": "Средний балл (GPA)",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.interview": {
+    "text": "Собеседование",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.interviewRequired": {
+    "text": "Требуется для этой программы",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.level": {
+    "text": "Уровень {{level}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.minimum": {
+    "text": "Минимум {{need}} · У абитуриента {{have}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.notProvided": {
+    "text": "не указано",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.state.below": {
+    "text": "Ниже минимума",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.state.meets": {
+    "text": "Соответствует",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.state.missing": {
+    "text": "Не указано",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.state.planned": {
+    "text": "Тест запланирован",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.state.unscheduled": {
+    "text": "Не запланирован",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.topik": {
+    "text": "TOPIK",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.checksNote": {
+    "text": "Сравнивает заявленные абитуриентом баллы с опубликованными минимумами программы. Это помощь при рассмотрении, а не решение.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.checksTitle": {
+    "text": "Проверка требований",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.closed": {
+    "text": "Закрыто: {{rejected}} не приняты, {{withdrawn}} отозваны. Показатели рассчитываются при минимум {{min}} чел.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohortIntro_one": {
+    "text": "{{count}} студент пришёл к вам через Hangyul. Вот как у него идут дела.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohortIntro_few": {
+    "text": "{{count}} студента пришли к вам через Hangyul. Вот как у них идут дела.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohortIntro_many": {
+    "text": "{{count}} студентов пришли к вам через Hangyul. Вот как у них идут дела.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohortIntro_other": {
+    "text": "{{count}} студента пришли к вам через Hangyul. Вот как у них идут дела.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohortNote": {
+    "text": "Показатели появляются, когда набирается не менее {{min}} студентов. Данные на {{date}}.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohort_one": {
+    "text": "{{label}} · {{count}} студент",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohort_few": {
+    "text": "{{label}} · {{count}} студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohort_many": {
+    "text": "{{label}} · {{count}} студентов",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohort_other": {
+    "text": "{{label}} · {{count}} студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.conv": {
+    "text": "{{pct}} от предыдущего шага · {{n}} из {{d}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.convFew": {
+    "text": "{{n}} из {{d}} с предыдущего шага · слишком мало для оценки",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.admitted_one": {
+    "text": "принятый студент ещё не оплатил обучение",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.admitted_few": {
+    "text": "принятых студента ещё не оплатили обучение",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.admitted_many": {
+    "text": "принятых студентов ещё не оплатили обучение",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.admitted_other": {
+    "text": "принятых студента ещё не оплатили обучение",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.documents_one": {
+    "text": "ждёт документов студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.documents_few": {
+    "text": "ждут документов студентов",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.documents_many": {
+    "text": "ждут документов студентов",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.documents_other": {
+    "text": "ждут документов студентов",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.flagged_one": {
+    "text": "помеченная заявка",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.flagged_few": {
+    "text": "помеченные заявки",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.flagged_many": {
+    "text": "помеченных заявок",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.flagged_other": {
+    "text": "помеченные заявки",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.interview_one": {
+    "text": "собеседование: провести или оценить",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.interview_few": {
+    "text": "собеседования: провести или оценить",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.interview_many": {
+    "text": "собеседований: провести или оценить",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.interview_other": {
+    "text": "собеседования: провести или оценить",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.offer_one": {
+    "text": "предложение ждёт ответа студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.offer_few": {
+    "text": "предложения ждут ответа студентов",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.offer_many": {
+    "text": "предложений ждут ответа студентов",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.offer_other": {
+    "text": "предложения ждут ответа студентов",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.returned_one": {
+    "text": "документ, возвращённый студентом",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.returned_few": {
+    "text": "документа, возвращённых студентами",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.returned_many": {
+    "text": "документов, возвращённых студентами",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.returned_other": {
+    "text": "документа, возвращённых студентами",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.review_one": {
+    "text": "заявка на рассмотрение",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.review_few": {
+    "text": "заявки на рассмотрение",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.review_many": {
+    "text": "заявок на рассмотрение",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.review_other": {
+    "text": "заявки на рассмотрение",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionContext_one": {
+    "text": "Готово {{ready}} из {{total}} обязательных документов · открыт {{count}} запрос.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionContext_few": {
+    "text": "Готово {{ready}} из {{total}} обязательных документов · открыто {{count}} запроса.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionContext_many": {
+    "text": "Готово {{ready}} из {{total}} обязательных документов · открыто {{count}} запросов.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionContext_other": {
+    "text": "Готово {{ready}} из {{total}} обязательных документов · открыто {{count}} запроса.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionDocs": {
+    "text": "Готово {{ready}} из {{total}} обязательных документов.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.admitted": {
+    "text": "Подтвердите оплату, когда она поступит",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.documents": {
+    "text": "Действий нет, пока документы не загружены",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.flagged": {
+    "text": "Помечено для внимательного рассмотрения",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.interview": {
+    "text": "Зафиксируйте результат после собеседования",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.offer": {
+    "text": "Hangyul напоминает студенту",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.returned": {
+    "text": "Перепроверьте то, что вы запрашивали",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.review": {
+    "text": "Подана и достаточно полна для решения",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.docsTitle": {
+    "text": "Документы · готово {{ready}} из {{total}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.dueOn": {
+    "text": "срок {{date}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.empty.all": {
+    "text": "Здесь нет абитуриентов",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.empty.flagged": {
+    "text": "Помеченных заявок нет",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.empty.review": {
+    "text": "Нет заявок, ожидающих рассмотрения",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.graduation": {
+    "text": "Окончили",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.latest": {
+    "text": "Последние на рассмотрение",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.ADDITIONAL_DOCUMENTS": {
+    "text": "Запросить документы",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Выдать приглашение на обучение",
+    "why": "missing translation; official document"
+  },
+  "mobile:v3.uni.move.INTERVIEW": {
+    "text": "Пригласить на собеседование",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.OFFERED": {
+    "text": "Сделать предложение",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.REJECTED": {
+    "text": "Не принимать",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.TUITION_PAID": {
+    "text": "Подтвердить оплату обучения",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.TUITION_PENDING": {
+    "text": "Отправить счёт за обучение",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.UNIVERSITY_REVIEW": {
+    "text": "Начать рассмотрение",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.WAITLISTED": {
+    "text": "В лист ожидания",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.nOfD": {
+    "text": "{{n}} из {{d}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.needsTitle": {
+    "text": "Требует вашего решения",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.noMinimums": {
+    "text": "У этой программы пока нет опубликованных минимумов.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.nothingToReview": {
+    "text": "Нет заявок на рассмотрении",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.openRequests_one": {
+    "text": "Запрошен {{count}} документ",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.openRequests_few": {
+    "text": "Запрошено {{count}} документа",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.openRequests_many": {
+    "text": "Запрошено {{count}} документов",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.openRequests_other": {
+    "text": "Запрошено {{count}} документа",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.otherDecisions": {
+    "text": "Другие решения",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.populationAll_one": {
+    "text": "На основе {{count}} поданной заявки, все наборы.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.populationAll_few": {
+    "text": "На основе {{count}} поданных заявок, все наборы.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.populationAll_many": {
+    "text": "На основе {{count}} поданных заявок, все наборы.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.populationAll_other": {
+    "text": "На основе {{count}} поданной заявки, все наборы.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.populationIntake_one": {
+    "text": "На основе {{count}} поданной заявки на {{intake}}.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.populationIntake_few": {
+    "text": "На основе {{count}} поданных заявок на {{intake}}.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.populationIntake_many": {
+    "text": "На основе {{count}} поданных заявок на {{intake}}.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.populationIntake_other": {
+    "text": "На основе {{count}} поданной заявки на {{intake}}.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.reason": {
+    "text": "Причина (видна Hangyul)",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.request": {
+    "text": "Запрос",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestLabel": {
+    "text": "Что вам нужно?",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestLabelHint": {
+    "text": "например: аттестат с апостилем",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestNote": {
+    "text": "Инструкции для студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestNoteHint": {
+    "text": "Чего именно не хватает и как это исправить",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestSend": {
+    "text": "Отправить запрос",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestTitle": {
+    "text": "Запросить документ у {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestWho": {
+    "text": "Студент и его консультант Hangyul получат уведомление и увидят именно эту формулировку.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestedOn": {
+    "text": "Запрошено {{date}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.retention": {
+    "text": "Продолжают учёбу",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.search": {
+    "text": "Поиск по имени, программе или номеру",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.ACCEPTED": {
+    "text": "Приняли предложение",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.ARRIVED": {
+    "text": "Прибыли в Корею",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.ENROLLED": {
+    "text": "Зачислены",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.OFFERED": {
+    "text": "Получили предложение",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.REVIEWED": {
+    "text": "Рассмотрены",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.SUBMITTED": {
+    "text": "Поданы",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.TUITION_PAID": {
+    "text": "Оплатили обучение",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.VISA_ISSUED": {
+    "text": "Виза выдана",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.tab.applicants": {
+    "text": "Абитуриенты",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.tab.pipeline": {
+    "text": "Обзор",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.tab.students": {
+    "text": "Студенты",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.tooFew": {
+    "text": "Слишком мало для оценки",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.admitted": {
+    "text": "Приняты",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.all": {
+    "text": "Все",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.documents": {
+    "text": "Нет документов",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.enrolment": {
+    "text": "Виза и зачисление",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.flagged": {
+    "text": "Помеченные",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.interview": {
+    "text": "Собеседование",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.offer": {
+    "text": "Предложение",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.review": {
+    "text": "На рассмотрение",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.waitingStudent": {
+    "text": "Ожидает студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.documentsCount": {
+    "text": "Документов: {{count}} · нужен апостиль или консульская легализация: {{legal}}",
+    "why": "official term"
+  },
+  "mobile:v3.university.estimate": {
+    "text": "Итого (оценка)",
+    "why": "natural label"
+  },
+  "mobile:v3.university.verdict.COMPETITIVE": {
+    "text": "Вы соответствуете опубликованным минимумам. Один момент требует внимания.",
+    "why": "«одно требует» unnatural"
+  },
+  "mobile:v3.upload.privacy": {
+    "text": "Открыть ваши документы можете только вы и команда Hangyul. Университет видит их только после того, как вы подадите туда заявку.",
+    "why": "team identity"
+  },
+  "mobile:v3.visa.beforeBody": {
+    "text": "Когда вы примете предложение и оплатите обучение, университет выдаст приглашение на обучение. Уже сейчас можно посмотреть, что понадобится, и начать собирать документы.",
+    "why": "official document"
+  },
+  "mobile:v3.visa.beforeTitle": {
+    "text": "Подготовка визы начинается после предложения о зачислении",
+    "why": "match English"
+  },
+  "mobile:v3.visa.blockers": {
+    "text": "Сначала нужно",
+    "why": "match English"
+  },
+  "mobile:v3.visa.phase.apply": {
+    "text": "Подача заявления",
+    "why": "clarity"
+  },
+  "mobile:v3.visa.phase.decision": {
+    "text": "Решение посольства",
+    "why": "match English"
+  },
+  "mobile:v3.visa.phase.letter": {
+    "text": "Приглашение на обучение",
+    "why": "official document"
+  },
+  "mobile:v3.visa.title": {
+    "text": "Подготовка визы {{type}}",
+    "why": "match English; no «план получения»"
+  },
+  "mobile:v4.application.nextLegalize": {
+    "text": "Поставьте апостиль или пройдите консульскую легализацию для «{{item}}»",
+    "why": "official term"
+  },
+  "mobile:v4.application.reviewLate": {
+    "text": "Проверка занимает больше времени, чем обычно. Команде Hangyul сообщили о задержке. Загружать документ снова не нужно.",
+    "why": "team identity"
+  },
+  "mobile:v4.application.waitBody": {
+    "text": "Команда Hangyul проверяет то, что вы отправили. Мы сообщим, если что-то нужно изменить.",
+    "why": "team identity"
+  },
+  "mobile:v4.application.writeOnWeb": {
+    "text": "Напишите это на сайте. Комментарии команды Hangyul появятся там же.",
+    "why": "team identity"
+  },
+  "mobile:v4.documents.lateLine": {
+    "text": "команда Hangyul видит отметку о задержке",
+    "why": "team identity"
+  },
+  "mobile:v4.home.item.LEGALIZE.text": {
+    "text": "Корейские университеты принимают этот документ только после его легализации. Мы покажем шаги для вашей страны.",
+    "why": "authenticated = легализация, not заверение"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.text": {
+    "text": "Команда Hangyul оставила комментарии. Заявку нельзя подать, пока текст не одобрен.",
+    "why": "team identity"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.text": {
+    "text": "Команда Hangyul разберёт его вместе с вами. Начните с черновика — он не обязан быть идеальным.",
+    "why": "team identity"
+  },
+  "mobile:v4.uni.actor.AGENCY": {
+    "text": "Партнёрское агентство",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.actor.HANGYUL": {
+    "text": "Команда Hangyul",
+    "why": "missing translation; applier refuses bare brand"
+  },
+  "mobile:v4.uni.actor.STUDENT": {
+    "text": "Абитуриент",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.actor.SYSTEM": {
+    "text": "Автоматически",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.actor.UNIVERSITY": {
+    "text": "Ваш университет",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.toReview_one": {
+    "text": "На рассмотрение · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.toReview_few": {
+    "text": "На рассмотрение · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.toReview_many": {
+    "text": "На рассмотрение · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.toReview_other": {
+    "text": "На рассмотрение · {{count}}",
+    "why": "missing translation"
+  }
+}

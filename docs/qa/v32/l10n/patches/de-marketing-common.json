@@ -1,0 +1,808 @@
+{
+ "_notes": [
+  "Register: marketing and common are du (144 du / 4 Sie in the job's existing cur) and stay du. Common strings that also render inside the Agency/University consoles (states.error/forbidden/offline/noResults/unavailable*, validation.reasonRequired, notify.writingOverdue, task.*) are written pronoun-free; the one agency-only notification (notify.documentRequest.agency) uses Sie.",
+  "university = «Hochschule» (marketing 210× vs Universität 64×); nav/directory labels in this job moved to Hochschule. Owner decision: the privacy policy and terms (marketing:v12.privacy.*, v12.terms.*) and several v17/v20 uni-page lines still say «Universität»; left unchurned (legal copy, meaning identical).",
+  "admission letter = «Zulassungsschreiben», standard admission letter = «Standard-Zulassungsschreiben» (same as the de student-mobile patch); common:appStatus.ADMISSION_CERTIFICATE_*, docCategory.ADMISSION_LETTER and the privacy document list aligned. admission interview = «Auswahlgespräch» (was «Vorstellungsgespräch», a job-interview word) in appStatus/pipeline/taskType/task.interview.",
+  "Glossary alignment: application deadline = «Bewerbungsschluss» (taskType.APPLICATION_DEADLINE, matchReason.DEADLINE_*, task.deadlinePassed); visa document preparation = «Vorbereitung der Visumsunterlagen» / «Visumsunterlagen» in short labels; dormitory = «Wohnheim» (uni27.house.*, v20.uni.link.dormitory, schol.dorm); university recommendation = «Hochschulempfehlung»; plan = «Paket»; additional service = «Zusatzleistung» (established).",
+  "Gender-neutral: removed every slash form in the job (Bewerber/innen, Berater/in, Studierende/r, Kandidat/in, der/dem). Roles are function nouns: Beratung, Dokumentenprüfung, Teamleitung, Geschäftsführung, Hangyul-Beratung, Analyse, Bewerbungsprüfung, Studierende. Owner decision: if role labels must name a person, the alternative is «Beratende Person» etc.; privacy column «Empfänger» kept (legal term for organisations).",
+  "Promise checks: marketing:seo.home.description («regle Visum») and v17.quick.ctaWhy («übernimmt … Visum») implied Hangyul handles the visa; rewritten to preparation wording. v20.city.Ulsan.body dropped an added brand name (Hyundai). v11.services.s1.text restored 'prepare your admission documents with you and communicate with the university'. uni27.schol.automatic no longer says 'awarded with admission' (English: when selected).",
+  "common:states.unavailableTitle/Text were English; now «Wir bereiten den Dienst gerade vor» / «Hangyul ist gerade nicht erreichbar. Bitte in einem Moment erneut versuchen.» (no error wording). marketing:v20.city.*.<Hangul> place-name keys take the same romanization as English (run with --allow-same). common:auth.strength.0 is empty in English and left empty.",
+  "Plurals: German _one/_other; every new _one carries {{count}} (directory.count_one, countShort_one, retention.months_one/years_one). common:v29.pricing.compare.value.rounds/supportDays already have _other siblings in de and are correct."
+ ],
+ "marketing:nav.universities": {
+  "text": "Hochschulen",
+  "why": "Label is 'Universities'; Hochschule is the bundle term"
+ },
+ "marketing:notFound.text": {
+  "text": "Vielleicht wurde sie verschoben, oder der Link ist veraltet. Von hier aus geht es weiter:",
+  "why": "Smoother; mirrors 'good places to continue'"
+ },
+ "marketing:seo.home.description": {
+  "text": "Finde die passende koreanische Hochschule, bereite deine Unterlagen vor und mach dich bereit für Visum und Ankunft – mit geprüften Informationen und dem Hangyul-Team an einem Ort.",
+  "why": "'regle Visum' overclaimed; name the Hangyul team"
+ },
+ "marketing:v11.cta.title": {
+  "text": "Plane noch heute dein Studium in Korea",
+  "why": "Natural word order, no comma splice"
+ },
+ "marketing:v11.services.s1.text": {
+  "text": "Wir schlagen dir Hochschulen und koreanische Sprachinstitute vor, die zu deinen Leistungen und Zielen passen. In einer persönlichen Beratung gehen wir die Stipendien durch, für die du dich bewerben könntest. Dann bereiten wir mit dir deine Zulassungsunterlagen vor und halten im Lauf der Bewerbung den Kontakt zur Hochschule.",
+  "why": "Restores document preparation and ongoing university contact"
+ },
+ "marketing:v11.unis.all": {
+  "text": "Alle Hochschulen ansehen",
+  "why": "'See all'; Hochschule term"
+ },
+ "marketing:v12.directory.countShort_one": {
+  "text": "{{count}} Hochschule",
+  "why": "Missing translation"
+ },
+ "marketing:v12.directory.countShort_other": {
+  "text": "{{count}} Hochschulen",
+  "why": "Missing translation"
+ },
+ "marketing:v12.directory.count_one": {
+  "text": "{{count}} Hochschule",
+  "why": "Missing translation"
+ },
+ "marketing:v12.directory.emptyText": {
+  "text": "Wähle eine andere Region oder sieh dir ganz Korea an.",
+  "why": "Missing translation"
+ },
+ "marketing:v12.directory.emptyTitle": {
+  "text": "In dieser Region sind keine Hochschulen aufgeführt",
+  "why": "Missing translation"
+ },
+ "marketing:v12.directory.inRegion": {
+  "text": "Hochschulen in {{region}}",
+  "why": "Missing translation"
+ },
+ "marketing:v12.directory.matching": {
+  "text": "Treffer für „{{q}}“",
+  "why": "Missing translation"
+ },
+ "marketing:v12.directory.navShort": {
+  "text": "Hochschulen in Korea",
+  "why": "Hochschule is the bundle term"
+ },
+ "marketing:v12.establishment.NATIONAL": {
+  "text": "Staatlich",
+  "why": "Missing translation"
+ },
+ "marketing:v12.establishment.PUBLIC": {
+  "text": "Öffentlich",
+  "why": "Missing translation"
+ },
+ "marketing:v12.ieqas.certifiedWhat": {
+  "text": "Jährlich vom Justiz- und vom Bildungsministerium geprüft. Wer sich an einer zertifizierten Hochschule bewirbt, wird nach erleichterten Visumkriterien beurteilt.",
+  "why": "Slash form not gender-neutral"
+ },
+ "marketing:v12.ieqas.excellent": {
+  "text": "IEQAS-zertifiziert – ausgezeichnet",
+  "why": "Missing translation"
+ },
+ "marketing:v12.legal.effective": {
+  "text": "Gültig ab {{date}}",
+  "why": "Missing translation"
+ },
+ "marketing:v12.map.hide": {
+  "text": "Karte ausblenden",
+  "why": "Missing translation"
+ },
+ "marketing:v12.privacy.collect.documents.items": {
+  "text": "Reisepass, Personalausweis, Foto, Notenauszüge, Abschlusszeugnisse und Bescheinigungen über den voraussichtlichen Abschluss, Bescheinigungen über Familienverhältnisse und Geburtsurkunden, Kontoauszüge, Unterlagen des Sponsors, Beschäftigungs- und Einkommensnachweise, TOPIK-, IELTS- und TOEFL-Ergebnisse, Empfehlungsschreiben, Motivationsschreiben, Studienpläne, Lebenslauf, Apostillen, Beglaubigungen und beglaubigte Übersetzungen, Aufenthaltskarte, Visum, Standard-Zulassungsschreiben",
+  "why": "Official name: standard admission letter"
+ },
+ "marketing:v12.privacy.contact.colField": {
+  "text": "Angabe",
+  "why": "Missing translation"
+ },
+ "marketing:v12.privacy.contact.colValue": {
+  "text": "Details",
+  "why": "Missing translation"
+ },
+ "marketing:v12.privacy.contact.department": {
+  "text": "Abteilung",
+  "why": "Missing translation"
+ },
+ "marketing:v12.privacy.contact.email": {
+  "text": "E-Mail",
+  "why": "Missing translation"
+ },
+ "marketing:v12.privacy.contact.h": {
+  "text": "Datenschutzverantwortliche Person und Kontakt",
+  "why": "Missing translation; gender-neutral"
+ },
+ "marketing:v12.privacy.contact.officer": {
+  "text": "Datenschutzverantwortliche Person",
+  "why": "Missing translation; gender-neutral"
+ },
+ "marketing:v12.privacy.contact.phone": {
+  "text": "Telefon",
+  "why": "Missing translation"
+ },
+ "marketing:v12.privacy.processors.colContact": {
+  "text": "Kontakt",
+  "why": "Missing translation"
+ },
+ "marketing:v12.privacy.processors.colRetention": {
+  "text": "Aufbewahrung beim Auftragsverarbeiter",
+  "why": "Missing translation"
+ },
+ "marketing:v12.privacy.processors.none": {
+  "text": "Derzeit verarbeitet im Produktivbetrieb kein Auftragsverarbeiter personenbezogene Daten im Auftrag von Hangyul. Ändert sich das, werden der Auftragsverarbeiter und die übertragenen Tätigkeiten hier veröffentlicht und vor Beginn angekündigt.",
+  "why": "Missing translation"
+ },
+ "marketing:v12.privacy.processors.sendgrid.items": {
+  "text": "E-Mail-Adresse, der E-Mail-Text mit dem Code (nur so lange gespeichert, wie die Zustellung es erfordert), Versand- und Zustellereignisse",
+  "why": "Delivery = Zustellung, not Empfang"
+ },
+ "marketing:v12.privacy.processors.twilio_sms.items": {
+  "text": "Handynummer, der SMS-Text mit dem Code, Versand- und Zustellzeiten, Zustellergebnis",
+  "why": "Delivery = Zustellung, not Empfang"
+ },
+ "marketing:v12.privacy.retention.months_one": {
+  "text": "{{count}} Monat",
+  "why": "Missing translation"
+ },
+ "marketing:v12.privacy.retention.years_one": {
+  "text": "{{count}} Jahr",
+  "why": "Missing translation"
+ },
+ "marketing:v12.privacy.transfer.none": {
+  "text": "Derzeit ist kein Auftragsverarbeiter im Einsatz, der personenbezogene Daten ins Ausland übermittelt. Wird eine Übermittlung ins Ausland nötig, veröffentlichen wir Empfänger, Land, Zweck, Daten, Zeitpunkt, Art und Aufbewahrungsdauer hier und kündigen sie vor Beginn an.",
+  "why": "Missing translation"
+ },
+ "marketing:v12.seo.university.description": {
+  "text": "Offizielle Informationen über {{name}} in {{region}}.",
+  "why": "'zur' presumed a feminine name"
+ },
+ "marketing:v12.terms.effective.h": {
+  "text": "Inkrafttreten",
+  "why": "Missing translation"
+ },
+ "marketing:v12.terms.effective.p": {
+  "text": "Diese Bedingungen treten am {{date}} in Kraft.",
+  "why": "Missing translation"
+ },
+ "marketing:v12.terms.law.h": {
+  "text": "Anwendbares Recht und Gerichtsstand",
+  "why": "Missing translation"
+ },
+ "marketing:v12.terms.refunds.stage.APPLICATION_WORK_STARTED": {
+  "text": "Arbeit an der Bewerbung begonnen",
+  "why": "'Application work', not 'support'"
+ },
+ "marketing:v12.terms.refunds.stage.RECOMMENDATION_DONE": {
+  "text": "Hochschulempfehlung erbracht",
+  "why": "Glossary: Hochschulempfehlung"
+ },
+ "marketing:v12.terms.refunds.stage.RECOMMENDATION_STARTED": {
+  "text": "Arbeit an der Hochschulempfehlung begonnen",
+  "why": "Glossary: Hochschulempfehlung"
+ },
+ "marketing:v12.terms.services.visa": {
+  "text": "Anleitung zur Vorbereitung deiner Visumsunterlagen",
+  "why": "Glossary: visa document preparation"
+ },
+ "marketing:v12.uni.back": {
+  "text": "Zurück zu den Hochschulen in Korea",
+  "why": "Missing translation"
+ },
+ "marketing:v14.media.alt.seoulRiver": {
+  "text": "Die Skyline von {{region}} jenseits des Flusses bei Sonnenuntergang.",
+  "why": "Missing translation"
+ },
+ "marketing:v15.pricing.compare.item": {
+  "text": "Leistung",
+  "why": "Empty value; table column header"
+ },
+ "marketing:v17.quick.ctaWhy": {
+  "text": "Hangyul geht Bewerbungen, Unterlagen und die Vorbereitung der Visumsunterlagen gemeinsam mit dir an.",
+  "why": "'übernimmt' overclaimed; glossary visa document preparation"
+ },
+ "marketing:v20.city.Chungbuk.body": {
+  "text": "Nord-Chungcheong ist die einzige koreanische Provinz ohne Küste. Cheongju ist ihr Zentrum und ihre wichtigste Hochschulstadt, nah genug an Sejong und Daejeon, um deren Arbeitsmarkt mitzunutzen.\nDie Provinz ist bekannt für die Kalksteinlandschaft um Danyang und für ein ruhigeres, günstigeres Studierendenleben als in den Großstädten.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Chungbuk.line": {
+  "text": "Ohne Küste, zentral gelegen und rund um Cheongju gewachsen.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Chungbuk.청주": {
+  "text": "Cheongju",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Chungnam.아산": {
+  "text": "Asan",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Chungnam.천안": {
+  "text": "Cheonan",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Daegu.body": {
+  "text": "Daegu liegt in einem Talkessel im Südosten und ist im August die heißeste Stadt Koreas, im Januar eine der kältesten. Die Stadt hat ein dichtes, gut zu Fuß erkundbares Zentrum und eine lange Textiltradition, aus der eine Mode- und Medizintechnikindustrie hervorgegangen ist. Die Lebenshaltungskosten liegen spürbar unter denen von Seoul oder Busan.\nMit dem KTX bist du in einer Stunde und 45 Minuten in Seoul und in fünfzig Minuten in Busan.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Daegu.line": {
+  "text": "Eine Stadt im Landesinneren, in einem Becken zwischen Bergen, bekannt für Textilien, Medizin und Hitze.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Daejeon.body": {
+  "text": "Daejeon ist rund um Daedeok Innopolis gewachsen, einen Cluster aus staatlichen Forschungsinstituten und Forschungszentren von Unternehmen, und das prägt die Hochschulen hier. Wenn du für Ingenieur- oder Naturwissenschaften kommst: Hier sind die Labore.\nDie Stadt liegt fast genau in der Mitte des Landes, mit dem KTX eine Stunde von Seoul und eine Stunde von Busan entfernt.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Gangwon.body": {
+  "text": "In Gangwon liegen das Taebaek-Gebirge, die Austragungsorte der Olympischen Winterspiele 2018 und die Strände der Ostküste. Chuncheon, Gangneung und Wonju sind die Hochschulstädte; keine davon ist groß, und alle sind günstiger und ruhiger als jeder Ort in der Hauptstadtregion.\nDie Winter hier sind echte Winter. Mit dem KTX bist du von Seoul aus in etwa zwei Stunden in Gangneung.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Gangwon.강릉": {
+  "text": "Gangneung",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Gangwon.원주": {
+  "text": "Wonju",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Gangwon.춘천": {
+  "text": "Chuncheon",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Gwangju.body": {
+  "text": "Gwangju ist die größte Stadt der Jeolla-Provinzen und teilt ihren Ruf für gutes Essen und für den demokratischen Aufstand von 1980, für den die Stadt in Korea bis heute am bekanntesten ist.\nSie gehört zu den günstigeren Großstädten, hat eine angesehene Kunstszene und ist mit dem KTX etwa zwei Stunden von Seoul entfernt.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Gwangju.line": {
+  "text": "Das kulturelle und politische Zentrum des Südwestens und ein bezahlbarer Studienort.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Gyeongbuk.body": {
+  "text": "In Nord-Gyeongsang liegen Gyeongju, ein Jahrtausend lang Hauptstadt von Silla und praktisch ein Freilichtmuseum, und Pohang, eine Stahlstadt, in der auch eine der stärksten natur- und ingenieurwissenschaftlichen Hochschulen Koreas liegt. Andong, weiter im Landesinneren, ist das Zentrum der konfuzianischen Tradition Koreas.\nEs ist eine große, vielfältige Provinz, und überall ist sie günstiger als die Hauptstadtregion.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Gyeongbuk.line": {
+  "text": "Gyeongjus tausend Jahre Geschichte und Pohangs Stahl in einer Provinz.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Gyeongbuk.경주": {
+  "text": "Gyeongju",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Gyeongbuk.구미": {
+  "text": "Gumi",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Gyeongbuk.포항": {
+  "text": "Pohang",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Gyeonggi.고양": {
+  "text": "Goyang",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Gyeonggi.부천": {
+  "text": "Bucheon",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Gyeonggi.성남": {
+  "text": "Seongnam",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Gyeonggi.수원": {
+  "text": "Suwon",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Gyeonggi.안양": {
+  "text": "Anyang",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Gyeonggi.용인": {
+  "text": "Yongin",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Gyeongnam.김해": {
+  "text": "Gimhae",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Gyeongnam.진주": {
+  "text": "Jinju",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Gyeongnam.창원": {
+  "text": "Changwon",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Incheon.line": {
+  "text": "Koreas Tor zur Welt: Hier liegen der Flughafen und Songdo.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Jeju.body": {
+  "text": "Jeju liegt 85 Kilometer vor dem Festland, rund um den Vulkan Hallasan, und ist so warm, dass die Vegetation subtropisch wirkt. Für den Rest des Landes ist die Insel ein Urlaubsziel, und das prägt Wirtschaft und Mieten.\nEs gibt hier nur wenige Hochschulen, und sie sind klein. Flüge nach Seoul starten alle paar Minuten und dauern eine Stunde.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Jeju.line": {
+  "text": "Eine Vulkaninsel vor der Südküste, mit einem anderen Klima als der Rest Koreas.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Jeonbuk.body": {
+  "text": "Nord-Jeolla ist landwirtschaftlich geprägt, im Westen flach und im Osten bergig. Sein Zentrum ist Jeonju: eine Stadt mit rund 650.000 Menschen, dem größten erhaltenen Hanok-Viertel des Landes und einem kulinarischen Ruf, den ihr keine andere koreanische Stadt streitig macht.\nDie Lebenshaltungskosten gehören zu den niedrigsten aller Hochschulstädte, und Seoul ist mit dem KTX knapp zwei Stunden entfernt.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Jeonbuk.line": {
+  "text": "Jeonju und die Region, die als Heimat der koreanischen Küche gilt.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Jeonbuk.익산": {
+  "text": "Iksan",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Jeonbuk.전주": {
+  "text": "Jeonju",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Jeonnam.body": {
+  "text": "Süd-Jeolla hat mehr Inseln als der Rest Koreas zusammen, dazu die Feuchtgebiete der Suncheon-Bucht und den Hafen von Yeosu. Es ist die am wenigsten städtische Provinz des Festlands, und die Hochschulen hier sind entsprechend klein und familiär.\nWenn du einen ruhigen Ort mit Küste und sehr niedrigen Lebenshaltungskosten suchst, bist du hier richtig.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Jeonnam.line": {
+  "text": "Die Südwestküste, ihre Inseln und das langsamste Tempo im Land.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Jeonnam.목포": {
+  "text": "Mokpo",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Jeonnam.순천": {
+  "text": "Suncheon",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Jeonnam.여수": {
+  "text": "Yeosu",
+  "why": "Missing translation; place name"
+ },
+ "marketing:v20.city.Sejong.body": {
+  "text": "Sejong ist Koreas jüngste und am gezieltesten geplante Stadt: Die meisten zentralen Ministerien sind von Seoul hierher umgezogen, und Straßennetz, Parks und öffentliche Gebäude stammen alle aus den letzten fünfzehn Jahren.\nDie Stadt ist klein, ruhig und sehr neu, zwanzig Minuten von Daejeon und anderthalb Stunden von Seoul entfernt.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Sejong.line": {
+  "text": "Eine Stadt, die seit 2012 aus dem Nichts gebaut wurde, um die Ministerien aufzunehmen.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.city.Seoul.body": {
+  "text": "In Seoul lebt etwa ein Viertel der Bevölkerung des Landes in einem einzigen Großraum, und die meisten bekannten Hochschulen liegen in einer Handvoll Viertel: Sinchon, Anam, Gwanak und Heukseok. Die U-Bahn fährt bis etwa Mitternacht, und eine Fahrt zum Studierendentarif quer durch die Stadt kostet rund 1.500 Won. Wohnort und Studienort müssen also nicht im selben Bezirk liegen.\nSeoul ist der teuerste Ort Koreas zum Wohnen und der einfachste, um einen Nebenjob, englischsprachige Angebote und Leute aus deinem Heimatland zu finden.",
+  "why": "'Studierendenfahrt' unidiomatic"
+ },
+ "marketing:v20.city.Ulsan.body": {
+  "text": "Ulsan hat das höchste Durchschnittseinkommen aller koreanischen Städte, und der Grund ist leicht zu sehen: die größte Werft der Welt, ein Autowerk, das einen eigenen Stadtteil bildet, und ein Petrochemie-Komplex entlang der Küste. Wer Ingenieurwesen studiert hat, findet hier Arbeit.\nFür koreanische Verhältnisse ist es eine kleine Stadt, eine halbe Stunde von Busan entfernt, mit Walbeobachtung, einem langen Strand und dem Fluss Taehwa mitten durch die Stadt.",
+  "why": "Dropped brand name not in English"
+ },
+ "marketing:v20.city.Ulsan.line": {
+  "text": "Koreas Industriehauptstadt: Schiffbau, Autos und Petrochemie.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.dir.filterType": {
+  "text": "Art der Einrichtung",
+  "why": "'Institution type', not 'institution'"
+ },
+ "marketing:v20.dir.tierVideo": {
+  "text": "Offizielles Video",
+  "why": "Missing translation"
+ },
+ "marketing:v20.media.alt.busanGwangan": {
+  "text": "Die nachts beleuchtete Gwangan-Brücke über der Bucht in {{region}}",
+  "why": "Missing translation"
+ },
+ "marketing:v20.media.alt.daejeonExpo": {
+  "text": "Die beleuchtete Expo-Brücke über dem Fluss in {{region}}",
+  "why": "Missing translation"
+ },
+ "marketing:v20.media.alt.gyeongjuBulguksa": {
+  "text": "Der Tempel Bulguksa bei Gyeongju in {{region}}",
+  "why": "Missing translation"
+ },
+ "marketing:v20.media.alt.jeonjuHanok": {
+  "text": "Die Ziegeldächer des Hanok-Dorfs Jeonju in {{region}}",
+  "why": "Missing translation"
+ },
+ "marketing:v20.media.alt.seoulCheonggyecheon": {
+  "text": "Der Uferweg am Cheonggyecheon mitten durch {{region}}",
+  "why": "Missing translation"
+ },
+ "marketing:v20.media.alt.seoulYeouido": {
+  "text": "Der Han-Fluss bei Yeouido in {{region}} in der Abenddämmerung",
+  "why": "Missing translation"
+ },
+ "marketing:v20.media.alt.sokchoSeorak": {
+  "text": "Die Skyline von Sokcho unterhalb des Seoraksan-Kamms in {{region}}",
+  "why": "Missing translation"
+ },
+ "marketing:v20.media.alt.ulsanBridge": {
+  "text": "Die Ulsan-Brücke über dem Hafen in {{region}}",
+  "why": "Missing translation"
+ },
+ "marketing:v20.uni.campusEyebrow": {
+  "text": "Campus",
+  "why": "Eyebrow label is just 'Campus'"
+ },
+ "marketing:v20.uni.intl.dormLine": {
+  "text": "Die Hochschule veröffentlicht eigene Informationen zu ihren Wohnheimen.",
+  "why": "Dormitory, not housing in general"
+ },
+ "marketing:v20.uni.link.dormitory": {
+  "text": "Wohnheim",
+  "why": "Glossary: dormitory = Wohnheim"
+ },
+ "marketing:v20.uni.match.NOT_YET": {
+  "text": "Hier für dich offen, sobald du ein Sprachtestergebnis hast.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.uni.match.POSSIBLE": {
+  "text": "Nach deinen Antworten lohnt sich hier eine Bewerbung.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.uni.match.STRONG": {
+  "text": "Studiengänge hier passen zu deinen Antworten.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.uni.match.ieqas": {
+  "text": "Sie steht auf der IEQAS-Zertifizierungsliste; dadurch gelten erleichterte Visumkriterien.",
+  "why": "Missing translation"
+ },
+ "marketing:v20.uni.match.language": {
+  "text": "Ihr Koreanisch-Sprachkurs steht auf der Zertifizierungsliste, du kannst also mit der Sprache beginnen.",
+  "why": "Missing translation"
+ },
+ "marketing:v21.dir.resultsLabel": {
+  "text": "Hochschulen",
+  "why": "Hochschule is the bundle term"
+ },
+ "marketing:v21.uni.placeWhere": {
+  "text": "In {{city}}, {{region}}.",
+  "why": "Missing translation"
+ },
+ "marketing:v28.uni.why.gks": {
+  "text": "Nimmt am Global Korea Scholarship (GKS) teil",
+  "why": "Keep official scholarship name"
+ },
+ "common:appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "Zulassungsschreiben ausgestellt",
+  "why": "One term: Zulassungsschreiben"
+ },
+ "common:appStatus.ADMISSION_CERTIFICATE_PENDING": {
+  "text": "Zulassungsschreiben ausstehend",
+  "why": "One term: Zulassungsschreiben"
+ },
+ "common:appStatus.INTERVIEW": {
+  "text": "Auswahlgespräch",
+  "why": "Admission interview, not job interview"
+ },
+ "common:appStatus.VISA_PREPARATION": {
+  "text": "Visumsunterlagen in Vorbereitung",
+  "why": "Glossary: visa document preparation"
+ },
+ "common:docCategory.ADMISSION_LETTER": {
+  "text": "Zulassungsschreiben",
+  "why": "One term: Zulassungsschreiben"
+ },
+ "common:docCategory.TOPIK": {
+  "text": "TOPIK-Ergebnis",
+  "why": "Score report, matches IELTS/TOEFL labels"
+ },
+ "common:eligibility.ELIGIBLE": {
+  "text": "Berechtigt",
+  "why": "Status label, parallel to siblings"
+ },
+ "common:essayStatus.APPROVED": {
+  "text": "Freigegeben",
+  "why": "Natural for an approved essay"
+ },
+ "common:fit.q.level": {
+  "text": "Auf welchem Niveau möchtest du studieren?",
+  "why": "Asked 'what', English asks 'which level'"
+ },
+ "common:i18n.v9.websiteOnly": {
+  "text": "Nur auf der öffentlichen Website",
+  "why": "Missing translation"
+ },
+ "common:matchReason.DEADLINE_FEASIBLE": {
+  "text": "Genug Zeit, um die Dokumente vor dem Bewerbungsschluss fertigzustellen",
+  "why": "Glossary: application deadline = Bewerbungsschluss"
+ },
+ "common:matchReason.DEADLINE_SOON": {
+  "text": "Bewerbungsschluss in {{days}} Tagen. Fang jetzt an",
+  "why": "Glossary: application deadline = Bewerbungsschluss"
+ },
+ "common:matchReason.NATIONALITY_RESTRICTED": {
+  "text": "Nicht offen für Bewerbende deiner Staatsangehörigkeit",
+  "why": "Gender-neutral: Bewerbende"
+ },
+ "common:matchReason.SCHOLARSHIP_CANDIDATE": {
+  "text": "Stipendium möglich",
+  "why": "Slash form; English says 'may qualify'"
+ },
+ "common:nav.admissionRules": {
+  "text": "Zulassungsvoraussetzungen",
+  "why": "'Requirements', not 'rules'"
+ },
+ "common:nav.applicants": {
+  "text": "Bewerbende",
+  "why": "Gender-neutral: Bewerbende"
+ },
+ "common:nav.partnership": {
+  "text": "Partnerschaftsvereinbarung",
+  "why": "Label is the agreement itself"
+ },
+ "common:nav.performance": {
+  "text": "Kennzahlen",
+  "why": "'Leistung' collides with services"
+ },
+ "common:nav.services": {
+  "text": "Leistungen",
+  "why": "Matches marketing 'Leistungen'"
+ },
+ "common:notify.application.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "{{university}}: Bewerbungsstatus ist jetzt „Zulassungsschreiben ausgestellt“",
+  "why": "Missing translation"
+ },
+ "common:notify.application.OFFERED": {
+  "text": "{{university}}: Bewerbungsstatus ist jetzt „Zusage erhalten“",
+  "why": "Missing translation"
+ },
+ "common:notify.documentRequest.agency": {
+  "text": "{{university}} hat für eine von Ihnen betreute Person ein weiteres Dokument angefordert: {{document}}",
+  "why": "Missing translation; staff-facing Sie"
+ },
+ "common:notify.documentRequest.fulfilled": {
+  "text": "Die bewerbende Person hat das angeforderte Dokument gesendet: {{document}}",
+  "why": "Missing translation; staff-facing"
+ },
+ "common:notify.documentRequest.student": {
+  "text": "{{university}} hat ein weiteres Dokument von dir angefordert: {{document}}",
+  "why": "Missing translation"
+ },
+ "common:notify.documentUploadedForYou": {
+  "text": "{{author}} hat {{document}} zu deinen Dokumenten hinzugefügt",
+  "why": "Missing translation"
+ },
+ "common:notify.newStudent": {
+  "text": "Neu zugewiesen: {{student}}",
+  "why": "Slash form not gender-neutral"
+ },
+ "common:notify.serviceCase": {
+  "text": "$t(concierge:type.{{type}}): $t(concierge:status.{{type}}.{{status}})",
+  "why": "Missing; nesting resolves to German"
+ },
+ "common:notify.visaIssued": {
+  "text": "Dein Visum wurde erteilt. Jetzt kannst du deine Ankunft planen.",
+  "why": "Match status label 'Visum erteilt'"
+ },
+ "common:notify.writingEscalation": {
+  "text": "Verspätete Essay-Prüfung eskaliert: {{title}} ({{student}})",
+  "why": "Missing translation"
+ },
+ "common:notify.writingOverdue": {
+  "text": "Essay-Prüfung überfällig: {{title}}",
+  "why": "Missing translation; pronoun-free for staff"
+ },
+ "common:pipeline.ACTIVE_STUDENT": {
+  "text": "Studium läuft",
+  "why": "Slash form not gender-neutral"
+ },
+ "common:pipeline.INTERVIEW": {
+  "text": "Auswahlgespräch",
+  "why": "Admission interview, not job interview"
+ },
+ "common:pipeline.REJECTED": {
+  "text": "Nicht zugelassen",
+  "why": "Matches English and appStatus"
+ },
+ "common:pipeline.SERVICE_PURCHASED": {
+  "text": "Leistung gekauft",
+  "why": "Bundle term Leistung, not Service"
+ },
+ "common:pipeline.VISA_PREPARATION": {
+  "text": "Visumsunterlagen",
+  "why": "Glossary: visa document preparation"
+ },
+ "common:role.AGENCY_COUNSELOR": {
+  "text": "Beratung",
+  "why": "Slash form; role as function noun"
+ },
+ "common:role.AGENCY_DOCUMENT_REVIEWER": {
+  "text": "Dokumentenprüfung",
+  "why": "Slash form; role as function noun"
+ },
+ "common:role.AGENCY_MANAGER": {
+  "text": "Teamleitung",
+  "why": "Slash form; role as function noun"
+ },
+ "common:role.AGENCY_OWNER": {
+  "text": "Geschäftsführung",
+  "why": "Slash form; role as function noun"
+ },
+ "common:role.HANGYUL_COUNSELOR": {
+  "text": "Hangyul-Beratung",
+  "why": "Slash form; role as function noun"
+ },
+ "common:role.STUDENT": {
+  "text": "Studierende",
+  "why": "Slash form not gender-neutral"
+ },
+ "common:role.UNIVERSITY_ANALYST": {
+  "text": "Analyse",
+  "why": "Slash form; role as function noun"
+ },
+ "common:role.UNIVERSITY_REVIEWER": {
+  "text": "Bewerbungsprüfung",
+  "why": "Slash form; role as function noun"
+ },
+ "common:states.errorDetail": {
+  "text": "Das konnte nicht geladen werden. Bitte Verbindung prüfen und erneut versuchen.",
+  "why": "Shared with consoles; pronoun-free"
+ },
+ "common:states.forbidden": {
+  "text": "Kein Zugriff auf diesen Bereich.",
+  "why": "Shared with consoles; pronoun-free"
+ },
+ "common:states.forbiddenDetail": {
+  "text": "Für Zugriff bitte an die Administration der Organisation wenden.",
+  "why": "Pronoun-free; 'den Admin' not gender-neutral"
+ },
+ "common:states.noResults": {
+  "text": "Keine Ergebnisse für diese Filter. Einige Filter entfernen oder alle zurücksetzen.",
+  "why": "Restores dropped second sentence"
+ },
+ "common:states.offline": {
+  "text": "Keine Internetverbindung.",
+  "why": "Shared with consoles; pronoun-free"
+ },
+ "common:states.unavailableText": {
+  "text": "Hangyul ist gerade nicht erreichbar. Bitte in einem Moment erneut versuchen.",
+  "why": "Was English; glossary service-unavailable wording"
+ },
+ "common:states.unavailableTitle": {
+  "text": "Wir bereiten den Dienst gerade vor",
+  "why": "Was English; glossary service-unavailable wording"
+ },
+ "common:table.clearSelection": {
+  "text": "Auswahl aufheben",
+  "why": "Missing translation"
+ },
+ "common:table.details": {
+  "text": "Details",
+  "why": "Match 'Details anzeigen/ausblenden'"
+ },
+ "common:table.hideDetails": {
+  "text": "Details ausblenden",
+  "why": "Missing translation"
+ },
+ "common:task.concierge.handle": {
+  "text": "{{type}}: {{student}}",
+  "why": "Missing translation"
+ },
+ "common:task.deadlinePassed": {
+  "text": "Bewerbungsschluss verstrichen: {{student}}, {{university}} ({{program}})",
+  "why": "University closing date = Bewerbungsschluss"
+ },
+ "common:task.firstContact": {
+  "text": "Erstkontakt mit neu zugewiesener studierender Person",
+  "why": "Missing translation"
+ },
+ "common:task.interview": {
+  "text": "Auswahlgespräch mit {{university}}",
+  "why": "Admission interview term"
+ },
+ "common:task.payTuition": {
+  "text": "Studiengebühren für {{university}} bezahlen",
+  "why": "Missing translation"
+ },
+ "common:task.reviewDocument": {
+  "text": "{{category}} prüfen",
+  "why": "Missing translation"
+ },
+ "common:task.submissionAgency": {
+  "text": "Bewerbung von {{student}} bei {{university}} einreichen (autorisiert)",
+  "why": "Missing translation"
+ },
+ "common:task.submissionConfirm": {
+  "text": "Bestätigungsnummer oder Beleg von {{university}} eintragen",
+  "why": "Missing translation"
+ },
+ "common:task.universityRequest": {
+  "text": "{{university}} hat weitere Dokumente angefordert",
+  "why": "Missing translation"
+ },
+ "common:task.visaroute.embassyRequest": {
+  "text": "Der Botschaft die angeforderten Unterlagen senden",
+  "why": "Missing translation"
+ },
+ "common:task.writingOverdue": {
+  "text": "Überfällige Essay-Prüfung: {{essayType}} für {{student}} – jetzt prüfen",
+  "why": "Restores dropped 'review it now'"
+ },
+ "common:taskType.APPLICATION_DEADLINE": {
+  "text": "Bewerbungsschluss",
+  "why": "Glossary: application deadline"
+ },
+ "common:taskType.INTERVIEW": {
+  "text": "Auswahlgespräch",
+  "why": "Admission interview term"
+ },
+ "common:tier.COMPETITIVE": {
+  "text": "Möglicher Treffer",
+  "why": "English 'Possible match'"
+ },
+ "common:tier.REACH": {
+  "text": "Noch nicht berechtigt",
+  "why": "English 'Not eligible yet'; 'Ambitioniert' differs"
+ },
+ "common:uni27.cat.HOUSING": {
+  "text": "Wohnheim- und Lebenshaltungszuschüsse",
+  "why": "Dormitory, per glossary"
+ },
+ "common:uni27.house.eyebrow": {
+  "text": "Wohnheim",
+  "why": "Glossary: dormitory = Wohnheim"
+ },
+ "common:uni27.house.title": {
+  "text": "Wohnheime der Hochschule",
+  "why": "English plural"
+ },
+ "common:uni27.intl.levelPick": {
+  "text": "Niveau wählen",
+  "why": "Levels include language programs"
+ },
+ "common:uni27.schol.automatic": {
+  "text": "Wird bei Auswahl vergeben, keine eigene Bewerbung",
+  "why": "'Selected', not 'admitted'"
+ },
+ "common:uni27.schol.dorm": {
+  "text": "Wohnheimzuschuss",
+  "why": "Dormitory, per glossary"
+ },
+ "common:v29.addon.item.extra_edit": {
+  "text": "1 zusätzliche Korrekturrunde: Motivationsschreiben oder Studienplan",
+  "why": "Restores the count '1'"
+ },
+ "common:v29.addon.unit.APPLICATION": {
+  "text": "1 Bewerbung",
+  "why": "Application, not Antrag"
+ },
+ "common:v29.pricing.basic.f4": {
+  "text": "Checkliste der wichtigsten Zulassungsunterlagen",
+  "why": "'Essential' checklist; not every document"
+ },
+ "common:v29.pricing.compare.row.arrival": {
+  "text": "Einleben nach der Ankunft",
+  "why": "Restores 'settling in'"
+ },
+ "common:v29.pricing.compare.row.recommended": {
+  "text": "Empfohlene Hochschulen und Sprachinstitute",
+  "why": "Restores dropped language institutes"
+ },
+ "common:v29.pricing.compare.row.visa": {
+  "text": "Vorbereitung der Visumsunterlagen",
+  "why": "Glossary: visa document preparation"
+ },
+ "common:v29.pricing.premium.f4": {
+  "text": "Visumsunterlagen und wichtige Termine eng betreut · Hilfe beim Wohnheimantrag",
+  "why": "Restores visa documents, matches compare row"
+ },
+ "common:v9.l10n.exactWording": {
+  "text": "Genauer Wortlaut (Englisch)",
+  "why": "Missing translation"
+ },
+ "common:v9.l10n.rule.degree_level": {
+  "text": "Für diesen Abschluss nicht angeboten",
+  "why": "Missing translation"
+ },
+ "common:v9.l10n.rule.ielts_gte": {
+  "text": "IELTS {{value}} oder höher",
+  "why": "Missing translation"
+ },
+ "common:validation.reasonRequired": {
+  "text": "Bitte angeben, was die studierende Person korrigieren soll.",
+  "why": "Slash form not gender-neutral"
+ }
+}

@@ -1,0 +1,549 @@
+{
+ "_notes": [
+  "Brand name: marketing:v17.quick.cta/ctaWhy used 韩橘 (a Chinese rendering of 한귤) while every other zh-Hans string, the logo and the English keep 'Hangyul'. Changed to Hangyul for one-term-per-concept; if 韩橘 is an official Chinese brand name the owner should say so and it should then be used everywhere.",
+  "표준입학허가서 is rendered 标准入学许可书 wherever the document is meant (privacy document list, agency visa text, university enrolment hint); the short status chips keep 入学许可书 as the English keeps 'Admission letter'. 录取通知书 (offer letter) was wrong for this document.",
+  "Lists inside Chinese prose used the middle dot (·) as a list separator (e.g. 文件访问·审核·导出记录). In running text this reads as a typo; replaced with 、/与. Short chips and group labels (釜山·庆南, 新增·已分配) keep the dot, which is normal UI shorthand.",
+  "common:states.unavailableTitle/unavailableText were still English; translated with the glossary wording (no 'error', no 'failed').",
+  "common:fit.q.level (KO 어떤 과정을 공부하고 싶으세요?) and common:fit.levelLabel (KO 취득 급수 = the test level attained) are faithful to the Korean source even though the English says 'level' in both; left as they are.",
+  "common:fit.reason.unverified/unverifiedIeqas keep 在咨询时 because the Korean source (상담에서 함께 확인해요) says it; the English dropped it. Not a promise of an outcome.",
+  "Document-noun: marketing and the student-facing common strings say 材料, the consoles mostly say 文件. Both are natural Chinese and a full unification would touch hundreds of lines; left as is except where one screen mixed them.",
+  "KEYS MISSING FROM THE zh-Hans BUNDLE (cur = null, 89 keys: the v12 privacy-contact/processor tables, v20 city bodies and lines, city names, media alts, v20 match lines): these render in English today, so they were translated here; apply-patch.mjs creates a missing translation when the English has the key (dry run: 134 applied, 0 refused). All city names are the standard Chinese renderings of the hanja (청주 清州, 구미 龟尾, 여수 丽水 …).",
+  "Verified: every patched value keeps exactly the English {{placeholder}} set."
+ ],
+ "marketing:seo.home.description": {
+  "text": "从找大学、备材料、办签证到抵达韩国，一站搞定：信息经过核实，Hangyul 团队全程陪伴。",
+  "why": "names the team as EN/KO do; drops salesy 真人"
+ },
+ "marketing:v11.faq.q6.q": {
+  "text": "哪些大学为留学生提供奖学金？",
+  "why": "留学生used everywhere else for international students"
+ },
+ "marketing:v12.privacy.collect.automatic.items": {
+  "text": "IP 地址、浏览器与设备信息、登录时间及结果、服务使用记录、文件访问、审核及导出记录",
+  "why": "middle dots in prose list"
+ },
+ "marketing:v12.privacy.collect.documents.items": {
+  "text": "护照、身份证、证件照、成绩单、毕业证书及预计毕业证明、亲属关系证明及出生证明、存款证明、担保人材料、在职及收入证明、TOPIK、IELTS、TOEFL 成绩单、推荐信、个人陈述、学习计划书、简历、海牙认证、公证及认证翻译件、外国人登录证、签证、标准入学许可书",
+  "why": "official document name; list punctuation"
+ },
+ "marketing:v12.privacy.collect.profile.items": {
+  "text": "国籍、居住国家、出生日期、性别、遮蔽后的护照号码及有效期、韩国签证记录、学历、学校、毕业状态、GPA、语言成绩、意向学位、专业、地区及入学批次、预算、奖学金需求、住宿偏好、学费资助方、职业目标",
+  "why": "middle dots in prose list"
+ },
+ "marketing:v12.terms.definitions.h": {
+  "text": "定义",
+  "why": "standard T&C heading"
+ },
+ "marketing:v12.terms.refunds.stage.SETTLEMENT_STARTED": {
+  "text": "签证、入境与安顿支持已开始",
+  "why": "middle dots in prose"
+ },
+ "marketing:v12.terms.services.arrival": {
+  "text": "住宿、入境与安顿支持",
+  "why": "middle dots in prose"
+ },
+ "marketing:v12.terms.services.visa": {
+  "text": "签证材料准备指导",
+  "why": "EN: guidance on preparing visa documents"
+ },
+ "marketing:v12.uni.intlTitle": {
+  "text": "留学生相关信息",
+  "why": "留学生环境 is unidiomatic"
+ },
+ "marketing:v15.pricing.compare.item": {
+  "text": "服务",
+  "why": "was empty"
+ },
+ "marketing:v17.quick.cta": {
+  "text": "和 Hangyul 一起准备",
+  "why": "brand name consistency"
+ },
+ "marketing:v17.quick.ctaWhy": {
+  "text": "申请、材料和签证准备，Hangyul 和你一起完成。",
+  "why": "brand name consistency"
+ },
+ "marketing:v20.city.Ulsan.body": {
+  "text": "蔚山是韩国平均收入最高的城市，原因一目了然：世界最大的造船厂、本身就占了一个区的汽车工厂，以及沿海的石化工业区。工科毕业生在这里很受欢迎。\n按韩国的标准，蔚山是座小城市，距釜山半小时车程，可以出海观鲸，有绵长的海滩，太和江穿城而过。",
+  "why": "source names no car maker"
+ },
+ "marketing:v20.uni.intl.dormLine": {
+  "text": "学校公布了自己的宿舍信息。",
+  "why": "自行公开 reads oddly"
+ },
+ "marketing:v23.privacy.retention.twilio_sms": {
+  "text": "短信记录默认保存 13 个月（400 天）；Hangyul 已要求对短信正文做脱敏处理。",
+  "why": "redacted = 脱敏"
+ },
+ "common:auth.noAccount": {
+  "text": "还没有账号？",
+  "why": "natural sign-in prompt"
+ },
+ "common:brand.tagline": {
+  "text": "韩国留学，最简单的一条路。",
+  "why": "matches KO 가장 쉬운 길; shorter"
+ },
+ "common:docCategory.CERTIFIED_TRANSLATION": {
+  "text": "认证翻译件",
+  "why": "it is a document, not an activity"
+ },
+ "common:eligibility.ELIGIBLE": {
+  "text": "符合条件",
+  "why": "chip; parallel with 不符合条件"
+ },
+ "common:intakeLabel": {
+  "text": "{{year}} 年{{term}}",
+  "why": "Chinese date order"
+ },
+ "common:legalization.status.NOT_REQUIRED": {
+  "text": "无需认证",
+  "why": "bare 无需 is not a label"
+ },
+ "common:legalization.status.REQUIRED": {
+  "text": "需要认证",
+  "why": "bare 需要 is not a label"
+ },
+ "common:matchReason.SCHOLARSHIP_CANDIDATE": {
+  "text": "可能符合奖学金条件",
+  "why": "候选 is not natural here"
+ },
+ "common:nav.admissionRules": {
+  "text": "入学要求",
+  "why": "KO 입학 요건; 规则 is wrong"
+ },
+ "common:nav.cohorts": {
+  "text": "学生届次",
+  "why": "cohort = 届次 (used in Insights)"
+ },
+ "common:nav.dashboard": {
+  "text": "概览",
+  "why": "仪表盘 is a car term for most readers"
+ },
+ "common:nav.partnership": {
+  "text": "合作协议",
+  "why": "KO 제휴 계약"
+ },
+ "common:pipeline.ARRIVED": {
+  "text": "已入境",
+  "why": "consoles use 入境 for arrival"
+ },
+ "common:states.forbiddenDetail": {
+  "text": "如需访问权限，请联系你所在组织的管理员。",
+  "why": "accuracy to EN"
+ },
+ "common:states.noResults": {
+  "text": "没有符合筛选条件的结果。试试减少或清除筛选条件。",
+  "why": "second sentence was dropped"
+ },
+ "common:states.unavailableTitle": {
+  "text": "服务连接准备中",
+  "why": "was English"
+ },
+ "common:states.unavailableText": {
+  "text": "目前无法连接到 Hangyul，请稍后再试。",
+  "why": "was English"
+ },
+ "common:task.v29.studentPreArrival": {
+  "text": "为抵达韩国做好准备",
+  "why": "naturalness"
+ },
+ "common:v29.addon.item.extra_application": {
+  "text": "额外管理 1 所大学的申请",
+  "why": "clearer than 申请管理院校"
+ },
+ "common:v29.pricing.all_in_one.f4": {
+  "text": "入学材料审核，并指出需要修改的地方",
+  "why": "EN: admission documents, notes on fixes"
+ },
+ "common:v29.pricing.all_in_one.f5": {
+  "text": "协助准备签证材料 · 跟进宿舍申请日期",
+  "why": "EN: help preparing, not preparing"
+ },
+ "common:v29.pricing.basic.f4": {
+  "text": "基本入学材料清单",
+  "why": "KO 기본 입학 서류 체크리스트"
+ },
+ "common:v29.pricing.compare.value.documents.CHECKLIST": {
+  "text": "基本材料清单",
+  "why": "matches basic.f4"
+ },
+ "common:v29.pricing.compare.row.recommended": {
+  "text": "推荐大学与语学堂",
+  "why": "KO 추천 대학·어학당"
+ },
+ "common:v29.pricing.compare.row.visa": {
+  "text": "签证材料准备",
+  "why": "glossary term"
+ },
+ "common:v29.pricing.notes.documentsVary": {
+  "text": "所需材料因国籍、学历和申请的课程层次而异。",
+  "why": "study level, not 申请阶段"
+ },
+ "common:v29.pricing.premium.f4": {
+  "text": "签证材料与关键日期重点管理 · 协助申请宿舍",
+  "why": "documents were dropped"
+ },
+ "common:v29.pricing.premium.f5": {
+  "text": "入境前 30 天至入境后 30 天 · 专属团队，优先回复",
+  "why": "全程协助 not in source"
+ },
+ "common:visaStatus.REJECTED": {
+  "text": "拒签",
+  "why": "chip"
+ },
+ "marketing:v12.directory.countShort_one": {
+  "text": "{{count}} 所",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.directory.countShort_other": {
+  "text": "{{count}} 所",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.directory.count_one": {
+  "text": "{{count}} 所院校",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.directory.emptyText": {
+  "text": "换一个地区，或浏览韩国全境。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.directory.emptyTitle": {
+  "text": "该地区暂无收录的院校",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.directory.inRegion": {
+  "text": "{{region}}的大学",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.directory.matching": {
+  "text": "匹配“{{q}}”",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.establishment.NATIONAL": {
+  "text": "国立",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.establishment.PUBLIC": {
+  "text": "公立",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.ieqas.excellent": {
+  "text": "IEQAS 认证 — 优秀",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.legal.effective": {
+  "text": "自 {{date}} 起生效",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.map.hide": {
+  "text": "隐藏地图",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.privacy.contact.colField": {
+  "text": "项目",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.privacy.contact.colValue": {
+  "text": "内容",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.privacy.contact.department": {
+  "text": "部门",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.privacy.contact.email": {
+  "text": "电子邮箱",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.privacy.contact.h": {
+  "text": "个人信息保护负责人及联系方式",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.privacy.contact.officer": {
+  "text": "个人信息保护负责人",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.privacy.contact.phone": {
+  "text": "电话",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.privacy.processors.colContact": {
+  "text": "联系方式",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.privacy.processors.colRetention": {
+  "text": "受托方保存期限",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.privacy.processors.none": {
+  "text": "目前在正式环境中没有受托方代表 Hangyul 处理个人信息。如有变更，将在此公布受托方及其受托业务，并在开始前公告。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.privacy.retention.months_one": {
+  "text": "{{count}} 个月",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.privacy.retention.years_one": {
+  "text": "{{count}} 年",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.privacy.transfer.none": {
+  "text": "目前未使用任何将个人信息转移至韩国境外的受托方。如需境外转移，将在此公布接收方、国家、目的、信息项目、时间、方式和保存期限，并在开始前公告。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.terms.effective.h": {
+  "text": "生效日期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.terms.effective.p": {
+  "text": "本条款自 {{date}} 起生效。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.terms.law.h": {
+  "text": "适用法律与管辖",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v12.uni.back": {
+  "text": "返回韩国大学列表",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v14.media.alt.seoulRiver": {
+  "text": "日落时分隔河眺望{{region}}的天际线。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Chungbuk.body": {
+  "text": "忠清北道是韩国唯一不临海的道。清州是道的中心，也是主要的大学城，离世宗和大田都很近，可以共享它们的就业市场。\n这里以丹阳的石灰岩风景闻名，学生生活比大都市更安静，也更省钱。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Chungbuk.line": {
+  "text": "地处内陆、位居中部，以清州为中心。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Chungbuk.청주": {
+  "text": "清州",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Chungnam.아산": {
+  "text": "牙山",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Chungnam.천안": {
+  "text": "天安",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Daegu.body": {
+  "text": "大邱坐落在韩国东南部的盆地里，八月是全国最热的城市，一月则是最冷的城市之一。市中心紧凑、适合步行；悠久的纺织业传统已发展成时尚和医疗器械产业；生活成本明显低于首尔和釜山。\n坐 KTX 到首尔约 1 小时 45 分钟，到釜山 50 分钟。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Daegu.line": {
+  "text": "群山环抱的内陆盆地城市，以纺织、医疗和炎热著称。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Daejeon.body": {
+  "text": "大田围绕大德研究开发特区发展起来，这里聚集了政府研究机构和企业研发中心，大学也深受其影响。如果你想学工科或自然科学，实验室就在这里。\n大田几乎位于韩国正中央：坐 KTX 到首尔 1 小时，到釜山也是 1 小时。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gangwon.body": {
+  "text": "江原道拥有太白山脉、2018 年冬奥会场馆和东海岸的海滩。春川、江陵和原州是这里的大学城；它们都不算大，但都比首都圈任何地方更便宜、更安静。\n这里的冬天是真正的冬天。从首尔坐 KTX 到江陵约 2 小时。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gangwon.강릉": {
+  "text": "江陵",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gangwon.원주": {
+  "text": "原州",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gangwon.춘천": {
+  "text": "春川",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gwangju.body": {
+  "text": "光州是全罗地区最大的城市，继承了这一地区的美食声誉，也因 1980 年的民主运动而闻名，这至今仍是这座城市在韩国最广为人知的一面。\n光州是生活成本较低的广域市之一，艺术氛围浓厚，坐 KTX 到首尔约 2 小时。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gwangju.line": {
+  "text": "韩国西南部的文化与政治中心，留学花费不高。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gyeongbuk.body": {
+  "text": "庆尚北道有庆州——千年新罗古都，整座城市就像一座露天博物馆；也有浦项——一座钢铁之城，同时拥有韩国最强的理工科大学之一。更靠内陆的安东则是韩国儒家传统的中心。\n这是一个面积大、风貌多样的道，而且处处都比首都圈便宜。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gyeongbuk.line": {
+  "text": "庆州的千年历史与浦项的钢铁，同在一个道里。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gyeongbuk.경주": {
+  "text": "庆州",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gyeongbuk.구미": {
+  "text": "龟尾",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gyeongbuk.포항": {
+  "text": "浦项",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gyeonggi.고양": {
+  "text": "高阳",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gyeonggi.부천": {
+  "text": "富川",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gyeonggi.성남": {
+  "text": "城南",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gyeonggi.수원": {
+  "text": "水原",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gyeonggi.안양": {
+  "text": "安养",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gyeonggi.용인": {
+  "text": "龙仁",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gyeongnam.김해": {
+  "text": "金海",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gyeongnam.진주": {
+  "text": "晋州",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Gyeongnam.창원": {
+  "text": "昌原",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Incheon.line": {
+  "text": "韩国的门户城市：机场在这里，松岛也在这里。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Jeju.body": {
+  "text": "济州岛距韩国本土 85 公里，围绕汉拿山火山而建，气候温暖到植被看起来像亚热带。这里是全韩国人的度假胜地，这也塑造了它的经济和房租。\n岛上的大学不多，规模也小。飞往首尔的航班每隔几分钟一班，航程 1 小时。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Jeju.line": {
+  "text": "南海岸外的火山岛，气候与韩国其他地方截然不同。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Jeonbuk.body": {
+  "text": "全罗北道以农业为主，西部平坦，东部多山，全州是它的中心：这座约 65 万人口的城市拥有韩国现存最大的韩屋村，美食声誉更是无人能及。\n这里的生活成本在所有大学城中几乎最低，坐 KTX 到首尔不到 2 小时。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Jeonbuk.line": {
+  "text": "全州，以及被称为韩国美食之乡的地区。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Jeonbuk.익산": {
+  "text": "益山",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Jeonbuk.전주": {
+  "text": "全州",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Jeonnam.body": {
+  "text": "全罗南道的岛屿比韩国其他地方加起来还多，还有顺天湾湿地和丽水港。这是韩国本土城市化程度最低的道，这里的大学也相应地规模小、关系紧密。\n如果你想要一个安静、靠海、生活成本很低的地方，就是这里。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Jeonnam.line": {
+  "text": "西南海岸、星罗棋布的岛屿，以及全国最慢的生活节奏。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Jeonnam.목포": {
+  "text": "木浦",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Jeonnam.순천": {
+  "text": "顺天",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Jeonnam.여수": {
+  "text": "丽水",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Sejong.body": {
+  "text": "世宗是韩国最新、也是规划最周密的城市：大部分中央部委从首尔迁到了这里，街道布局、公园和公共建筑都是近十五年建成的。\n它小而安静，一切都很新，距大田 20 分钟，距首尔 1 个半小时。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Sejong.line": {
+  "text": "2012 年起从零建起的城市，为容纳政府各部委而生。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.city.Ulsan.line": {
+  "text": "韩国的工业之都：造船、汽车和石化。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.dir.tierVideo": {
+  "text": "官方视频",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.media.alt.busanGwangan": {
+  "text": "夜晚灯光点亮的广安大桥横跨{{region}}的海湾",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.media.alt.daejeonExpo": {
+  "text": "灯光点亮的世博桥横跨{{region}}的河面",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.media.alt.gyeongjuBulguksa": {
+  "text": "{{region}}庆州的佛国寺",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.media.alt.jeonjuHanok": {
+  "text": "{{region}}全州韩屋村的瓦片屋顶",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.media.alt.seoulCheonggyecheon": {
+  "text": "穿过{{region}}市中心的清溪川步道",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.media.alt.seoulYeouido": {
+  "text": "黄昏时分{{region}}汝矣岛的汉江",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.media.alt.sokchoSeorak": {
+  "text": "雪岳山山脊下{{region}}束草的天际线",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.media.alt.ulsanBridge": {
+  "text": "横跨{{region}}港口的蔚山大桥",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.uni.match.NOT_YET": {
+  "text": "有了语言成绩，这里就向你开放。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.uni.match.POSSIBLE": {
+  "text": "根据你的回答，这里值得申请。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.uni.match.STRONG": {
+  "text": "这里的课程符合你的回答。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.uni.match.ieqas": {
+  "text": "已列入 IEQAS 认证名单，签证审查标准相应放宽。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v20.uni.match.language": {
+  "text": "其韩语课程已列入认证名单，你可以先从语言课开始。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "marketing:v21.uni.placeWhere": {
+  "text": "位于{{region}}{{city}}。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "common:task.submissionAgency": {
+  "text": "提交 {{student}} 的{{university}}申请（已获授权）",
+  "why": "missing in zh-Hans; rendered in English"
+ }
+}

@@ -14,7 +14,12 @@ export interface TokenStore {
 }
 
 export class ApiError extends Error {
-  constructor(public status: number, message: string, public body?: unknown) {
+  /**
+   * V32: the service itself could not be reached — a network failure, our own timeout, a gateway answer (502/503/504)
+   * or a non-JSON error page where the API should be (a host with no API behind `/api/*`). Distinct from a 4xx the
+   * API answered on purpose, so the apps can show "we're getting the service ready" instead of a raw transport message.
+   */
+  constructor(public status: number, message: string, public body?: unknown, public unreachable = false) {
     super(message);
     this.name = 'ApiError';
   }
@@ -127,20 +132,30 @@ export function createApiClient(cfg: ApiClientConfig) {
     return ct.includes('application/json') ? res.json() : res.text();
   }
 
+  // V32: whether the last session restore failed because the service could not be reached (not because the visitor
+  // simply has no session). The auth provider reads it to show the service-unavailable state instead of the login page.
+  let unavailable = false;
+
   async function refresh(): Promise<boolean> {
     if (!refreshing) {
       refreshing = (async () => {
         try {
           const refresh_token = cfg.tokenStore ? await cfg.tokenStore.getRefreshToken() : undefined;
-          if (cfg.tokenStore && !refresh_token) return false;
+          if (cfg.tokenStore && !refresh_token) { unavailable = false; return false; }
           const res = await f(`${base}/auth/refresh`, {
             method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ client: cfg.client, refresh_token }),
           });
-          if (!res.ok || res.status === 204) { await setSession(null); return false; }
+          if (!res.ok || res.status === 204) {
+            unavailable = res.status !== 204 && res.status !== 401 && isUnreachable(res, await parse(res).catch(() => undefined));
+            await setSession(null);
+            return false;
+          }
+          unavailable = false;
           await setSession((await res.json()) as T.TokenResponse);
           return true;
         } catch {
+          unavailable = true;
           return false;
         } finally {
           setTimeout(() => { refreshing = null; }, 0);
@@ -148,6 +163,13 @@ export function createApiClient(cfg: ApiClientConfig) {
       })();
     }
     return refreshing;
+  }
+
+  /** A gateway answer, or an error page that is not the API's JSON, where the API should be. */
+  function isUnreachable(res: Response, data: unknown): boolean {
+    if (res.status === 502 || res.status === 503 || res.status === 504) return true;
+    const json = (res.headers.get('content-type') ?? '').includes('application/json');
+    return !json && (res.status === 404 || res.status === 405 || res.status >= 500) && typeof data !== 'object';
   }
 
   async function request<R>(path: string, opts: RequestOptions = {}, retried = false): Promise<R> {
@@ -167,7 +189,8 @@ export function createApiClient(cfg: ApiClientConfig) {
     } catch (e) {
       // Only our own deadline becomes a 408. A caller that aborted (a component unmounting, a superseded
       // search) must keep throwing its AbortError, or react-query would record a cancelled query as failed.
-      if (dl.timedOut) throw new ApiError(408, `Request timed out after ${Math.round(limit / 1000)}s`);
+      if (dl.timedOut) throw new ApiError(408, `Request timed out after ${Math.round(limit / 1000)}s`, undefined, true);
+      if (e instanceof TypeError) throw new ApiError(0, 'Service unreachable', undefined, true);
       throw e;
     } finally {
       dl.release();
@@ -179,7 +202,7 @@ export function createApiClient(cfg: ApiClientConfig) {
       const data = await parse(res).catch(() => undefined);
       const detail = (data as { detail?: unknown })?.detail;
       const msg = typeof detail === 'string' ? detail : Array.isArray(detail) ? detail.map((d: { msg?: string }) => d.msg).join(', ') : res.statusText;
-      throw new ApiError(res.status, msg || `Request failed (${res.status})`, data);
+      throw new ApiError(res.status, msg || `Request failed (${res.status})`, data, isUnreachable(res, data));
     }
     if (opts.raw) return res as unknown as R;
     return (await parse(res)) as R;
@@ -194,18 +217,14 @@ export function createApiClient(cfg: ApiClientConfig) {
   return {
     config: cfg,
     get session() { return session; },
+    /** V32: the last session restore failed because the service was unreachable. */
+    get unavailable() { return unavailable; },
     get isAuthenticated() { return !!accessToken; },
     request, get, post, put, patch, del,
 
     auth: {
       async login(email: string, password: string, org_id?: string) {
         const tr = await post<T.TokenResponse>('/auth/login', { email, password, client: cfg.client, org_id });
-        await setSession(tr);
-        return tr;
-      },
-      /** Development-only persona sign-in (Demo access). The API refuses it in production. */
-      async demoLogin(email: string) {
-        const tr = await post<T.TokenResponse>('/auth/demo-login', { email, client: cfg.client });
         await setSession(tr);
         return tr;
       },
@@ -312,9 +331,7 @@ export function createApiClient(cfg: ApiClientConfig) {
        * card, no billing key, no provider transaction id. The server answers 404 unless it is running
        * in development/test, so this is never a path in production.
        */
-      devCompleteOrder: (product_code: string) => post<T.TestPaidStateResult>('/me/orders/dev-complete', { product_code }),
       /** V29 — the same non-production paid-state action for an approved add-on's order (production answers 404). */
-      devCompleteAddOnOrder: (orderId: string) => post<{ status: string; plan: T.StudentPlan | null }>(`/me/orders/${orderId}/dev-complete`, {}),
       /**
        * V21 — register the card **and** pay, in one call (brief §34, §35).
        *

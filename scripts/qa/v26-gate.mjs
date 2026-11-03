@@ -6,6 +6,7 @@
 //
 // Sections: HYGIENE · NAV · STUDENT · AGENCY · UNIVERSITY · VISUAL · MEDIA · I18N · PERF · A11Y
 // Exit 0 only when every check that ran passed. Waits are predicates (never a fixed sleep), reruns are not retried.
+import { apiToken } from './auth.mjs';
 import { execFileSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -27,7 +28,7 @@ const ok = (section, name, cond, evidence = '') => {
 const info = (line) => console.log(`  INFO  ${line}`);
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
 const exists = (p) => fs.existsSync(path.join(ROOT, p));
-const token = async (client, email) => (await (await fetch(`${API}/auth/demo-login`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, client }) })).json()).access_token;
+const token = (client, email) => apiToken(API, email, client);
 const get = async (t, p) => { const r = await fetch(`${API}${p}`, { headers: { Authorization: `Bearer ${t}` } }); return r.ok ? r.json() : { __status: r.status }; };
 const py = (args, env = {}) => spawnSync(path.join(ROOT, 'server/.venv/bin/python'), args, { cwd: path.join(ROOT, 'server'), encoding: 'utf8', env: { ...process.env, HG_ENV: 'development', ...env } });
 

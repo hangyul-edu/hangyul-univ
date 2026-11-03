@@ -1,5 +1,5 @@
 from app.models.enums import ApplicationStatus as S
-from app.seed.run import history_path
+from app.seed.fixtures import history_path
 
 
 def test_history_path_ends_on_the_final_status():

@@ -18,7 +18,8 @@ import {
 import { cx, fitReasonText, formatNumber, resolveUniversityVisual, scholarshipName } from '@hangyul/utils';
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 
-import { Button, Field, FilterSelect, Input, OptionCards, Select } from './primitives';
+import { Button, Field, Input, OptionCards } from './primitives';
+import { FilterSelect, Select } from './select';
 import { UniversityLogo, UniversityPhoto } from './university';
 import './styles/quickfit.css';
 

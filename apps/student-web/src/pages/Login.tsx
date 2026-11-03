@@ -1,7 +1,6 @@
 import { brandAssets, CheckCircle2 } from '@hangyul/icons';
 import { carryQuery, LoginScreen } from '@hangyul/ui';
-import { lazy, Suspense } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router';
+import { Link, useLocation } from 'react-router';
 
 import { useT } from '../lib/i18n';
 
@@ -31,20 +30,9 @@ function Aside() {
   );
 }
 
-/**
- * V23 — **테스트 계정으로 로그인** on the Student login page too (REPORT §271 S1). Same component and the same rule as the
- * consoles: a build-time constant decides whether the chunk exists at all, so a production build carries neither the
- * button, its copy nor a single seeded address (`qa:v23` greps the built bundle). The API refuses `/auth/demo-login` in
- * production regardless.
- */
-const TEST_LOGIN = import.meta.env.DEV || import.meta.env.VITE_DEMO_LOGINS === 'true';
-const TestAccountSignIn = TEST_LOGIN ? lazy(() => import('@hangyul/ui/test-access')) : null;
-
 export default function Login() {
   const { t } = useT();
   const loc = useLocation();
-  const nav = useNavigate();
-  const next = new URLSearchParams(loc.search).get('next');
   return (
     <LoginScreen
       product={t('product')}
@@ -52,11 +40,6 @@ export default function Login() {
       subtitle={t('login.subtitle')}
       aside={<Aside />}
       footer={<>
-        {TestAccountSignIn && (
-          <Suspense fallback={null}>
-            <TestAccountSignIn product="student" onDone={() => nav(next && next.startsWith('/') && !next.startsWith('//') ? next : '/', { replace: true })} />
-          </Suspense>
-        )}
         <p className="hg-muted hg-small" style={{ textAlign: 'center' }}>
           {/* V10: carry `next=` (and any quick-check prefill) across to sign-up, so a visitor who arrived from
               the public site without an account still lands on the action they clicked. */}

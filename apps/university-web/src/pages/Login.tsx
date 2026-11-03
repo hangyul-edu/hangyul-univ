@@ -4,8 +4,7 @@ import type { SSOLookup } from '@hangyul/types';
 import { ChartColumn, ClipboardCheck, FileSearch, ShieldCheck, Users } from '@hangyul/icons';
 import { ButtonLink } from '@hangyul/ui';
 import { AuthCover } from '@hangyul/ynex-ui';
-import { lazy, Suspense, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useEffect, useState } from 'react';
 
 import { StaffLoginScreen } from '../components/security/StaffLoginScreen';
 
@@ -41,17 +40,8 @@ function SSOOption() {
   );
 }
 
-/**
- * The test-account sign-in (V16, REPORT §134), lazily imported behind a build-time constant — see the note
- * in the Agency console's `Login.tsx` for why a runtime guard is not equivalent. Which seeded account the
- * one click uses, and why, lives with the personas in `@hangyul/auth/demo-personas`.
- */
-const TEST_LOGIN = import.meta.env.DEV || import.meta.env.VITE_DEMO_LOGINS === 'true';
-const TestAccountSignIn = TEST_LOGIN ? lazy(() => import('@hangyul/ui/test-access')) : null;
-
 export default function Login() {
   const { t } = useLocale('university');
-  const nav = useNavigate();
   const points = [
     { icon: <Users aria-hidden />, title: t('v8.login.p1Title'), text: t('v8.login.p1Text') },
     { icon: <FileSearch aria-hidden />, title: t('v8.login.p2Title'), text: t('v8.login.p2Text') },
@@ -64,14 +54,7 @@ export default function Login() {
     <AuthCover tone="navy" eyebrow={t('product')} title={t('v8.login.asideTitle')} lead={t('v8.login.asideLead')} points={points}
       foot={<><ShieldCheck aria-hidden size={16} />{t('v8.login.asideFoot')}</>}>
       <StaffLoginScreen product={t('product')} title={t('login.title')} subtitle={t('login.subtitle')}
-        footer={<>
-          <SSOOption />
-          {TestAccountSignIn && (
-            <Suspense fallback={null}>
-              <TestAccountSignIn product="university" onDone={() => nav('/', { replace: true })} />
-            </Suspense>
-          )}
-        </>} />
+        footer={<SSOOption />} />
     </AuthCover>
   );
 }

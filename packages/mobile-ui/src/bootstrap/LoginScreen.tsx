@@ -4,7 +4,7 @@ import { useTranslation } from '@hangyul/i18n';
 import { loginSchema, type LoginInput } from '@hangyul/validation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LogIn } from 'lucide-react-native';
-import { useRef, useState, type ComponentType, type ReactNode } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View, type TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -27,17 +27,8 @@ export interface LoginScreenProps {
   secondary?: ReactNode;
 }
 
-/**
- * V23 (REPORT §274 N3): **테스트 계정으로 로그인**, visible on the login screen of every non-production build.
- * `TEST_LOGIN` is a build-time expression Metro inlines and folds, so in a production build (`EXPO_PUBLIC_TEST_LOGIN=false`)
- * the `require` below is dead code removed before dependency collection — the component and the persona module never
- * enter the bundle. Do not turn this into a runtime check or a static import (see components/TestAccountSignIn.tsx).
- */
-const TEST_LOGIN = __DEV__ || process.env.EXPO_PUBLIC_TEST_LOGIN === 'true';
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const TestAccountSignIn: ComponentType<{ client: 'student' | 'agency' | 'university' }> | null = TEST_LOGIN ? require('../components/TestAccountSignIn').TestAccountSignIn : null;
 
-/** Email/password sign-in (zod loginSchema); non-production builds add the test-account sign-in under it (no passwords). */
+/** Email/password sign-in (zod loginSchema). */
 export function LoginScreen({ client, productName, tagline, extra, secondary }: LoginScreenProps) {
   const { t } = useTranslation();
   const { login, api } = useAuth();
@@ -80,7 +71,8 @@ export function LoginScreen({ client, productName, tagline, extra, secondary }: 
     } catch (e) {
       if (e instanceof ApiError && (e.status === 401 || e.status === 400)) setServerError(t('common:auth.invalid'));
       else if (e instanceof ApiError) setServerError(e.message || t('common:states.error'));
-      else setServerError(t('mobile:login.networkError', { url: getApiBaseUrl() }));
+      // The emulator hint is for engineers; a customer sees the service-unavailable wording (V32).
+      else setServerError(__DEV__ ? t('mobile:login.networkError', { url: getApiBaseUrl() }) : t('common:states.unavailableText'));
     }
   });
 
@@ -148,7 +140,6 @@ export function LoginScreen({ client, productName, tagline, extra, secondary }: 
               ? <Button label={t('mobile:v29.mfa.verify')} icon={LogIn} onPress={() => void verify()} loading={verifying} disabled={code.trim().length < 6} fullWidth />
               : <Button label={t('common:actions.signIn')} icon={LogIn} onPress={() => void submit()} loading={isSubmitting} fullWidth />}
             {secondary ?? <AppText variant="caption" align="center">{t('mobile:login.webSignup')}</AppText>}
-            {TestAccountSignIn ? <TestAccountSignIn client={client} /> : null}
           </View>
           {extra}
 

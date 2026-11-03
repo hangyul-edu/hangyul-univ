@@ -3,18 +3,20 @@ import type { Role, Session } from '@hangyul/types';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 
 /** Platform-neutral auth state (works in React DOM and React Native). */
-export type AuthStatus = 'loading' | 'authenticated' | 'anonymous';
+/** `unavailable` (V32): the service could not be reached while restoring the session — the apps show a branded
+ *  "we're getting the service ready" state with Retry instead of a login page that cannot work. */
+export type AuthStatus = 'loading' | 'authenticated' | 'anonymous' | 'unavailable';
 
 interface AuthContextValue {
   status: AuthStatus;
   session: Session | null;
   api: ApiClient;
   login: (email: string, password: string, orgId?: string) => Promise<Session>;
-  /** Development-only one-click persona sign-in (Demo access). */
-  demoLogin: (email: string) => Promise<Session>;
   logout: () => Promise<void>;
   register: ApiClient['auth']['register'];
   switchOrg: (orgId: string) => Promise<Session>;
+  /** Try the session restore again (the service-unavailable state's Retry). */
+  retry: () => Promise<void>;
   hasRole: (...roles: Role[]) => boolean;
   /** True when the session belongs to Hangyul staff (cross-tenant operations view). */
   isHangyul: boolean;
@@ -36,7 +38,7 @@ export function AuthProvider({ api, children }: { api: ApiClient; children: Reac
       setStatus(s ? 'authenticated' : 'anonymous');
     };
     if (!api.isAuthenticated) {
-      api.auth.restore().then((ok) => { if (alive && !ok) setStatus('anonymous'); });
+      api.auth.restore().then((ok) => { if (alive && !ok) setStatus(api.unavailable ? 'unavailable' : 'anonymous'); });
     }
     return () => { alive = false; api.config.onSessionChange = prev; };
   }, [api]);
@@ -45,11 +47,12 @@ export function AuthProvider({ api, children }: { api: ApiClient; children: Reac
     const tr = await api.auth.login(email, password, orgId);
     return { user: tr.user, roles: tr.roles, memberships: tr.memberships, active_org: tr.active_org };
   }, [api]);
-  const demoLogin = useCallback(async (email: string) => {
-    const tr = await api.auth.demoLogin(email);
-    return { user: tr.user, roles: tr.roles, memberships: tr.memberships, active_org: tr.active_org };
-  }, [api]);
   const logout = useCallback(() => api.auth.logout(), [api]);
+  const retry = useCallback(async () => {
+    setStatus('loading');
+    const ok = await api.auth.restore();
+    if (!ok) setStatus(api.unavailable ? 'unavailable' : 'anonymous');
+  }, [api]);
   const switchOrg = useCallback(async (orgId: string) => {
     const tr = await api.auth.switchOrg(orgId);
     return { user: tr.user, roles: tr.roles, memberships: tr.memberships, active_org: tr.active_org };
@@ -58,11 +61,11 @@ export function AuthProvider({ api, children }: { api: ApiClient; children: Reac
   const value = useMemo<AuthContextValue>(() => {
     const roles = new Set(session?.roles ?? []);
     return {
-      status, session, api, login, demoLogin, logout, switchOrg, register: api.auth.register,
+      status, session, api, login, logout, switchOrg, retry, register: api.auth.register,
       hasRole: (...r: Role[]) => r.some((x) => roles.has(x)),
       isHangyul: [...roles].some((r) => r.startsWith('HANGYUL_')),
     };
-  }, [status, session, api, login, demoLogin, logout, switchOrg]);
+  }, [status, session, api, login, logout, switchOrg, retry]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
@@ -82,6 +85,3 @@ export function useApi(): ApiClient {
   return useAuth().api;
 }
 
-// V6: the Demo access personas live in './demo-personas' (import '@hangyul/auth/demo-personas'), loaded only by
-// development builds so production bundles never contain demo account emails.
-export type { DemoPersona, DemoProduct } from './demo-personas';

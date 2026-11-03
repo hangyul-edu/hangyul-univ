@@ -1,0 +1,2328 @@
+{
+  "_notes": [
+    "Agency console: the person Hangyul serves is 'học viên' (as in common and agency:ws.*); the 'sinh viên' keys in agency:apps/misc/students/v22 were aligned. University console keeps 'ứng viên' (applicant) and 'sinh viên' (enrolled/university student).",
+    "Document review = 'kiểm tra giấy tờ' (queue, hints, counts); Verify = 'xác minh' (was 'duyệt', which collides with the 'Đã xác minh' status); essay review = 'duyệt bài luận'. 'Request correction' = 'yêu cầu sửa' (was 'yêu cầu bổ sung' = request more documents).",
+    "Team task = 'công việc'; the student's own to-dos stay 'việc cần làm'. Agency = 'trung tâm' in short labels (column/chip), 'trung tâm du học' only in prose.",
+    "'Deadline' as a generic column/sort label stays 'Hạn chót'; where the English says application deadline (login.p2Text, today.closingV4, v29.guide.field.deadline, v30.def.ops.deadlines, ws.block.deadline) it is 'hạn nộp hồ sơ'; a task due date is 'hạn'.",
+    "Service period (glossary) = 'thời hạn dịch vụ'; 'Contract end' kept as 'Kết thúc hợp đồng' because the English key says contract.",
+    "'Standard admission letter' = 'giấy báo nhập học tiêu chuẩn' (ws.noVisaText, decision.certificateInfo), consistent with the common status label; owner may prefer 'giấy phép nhập học tiêu chuẩn' if that is the term used with Vietnamese visa agents.",
+    "university:kpi.yield rendered 'Tỷ lệ nhập học' (offers that led to enrollment, per v25.in.yield); owner to confirm if a more specific label is wanted.",
+    "agency:ws.tab.portfolio left as 'Danh mục hồ sơ' (unclear whether it is the student's document portfolio or the university shortlist)."
+  ],
+  "agency:actions.moreFilters": {
+    "text": "Thêm bộ lọc",
+    "why": "translate"
+  },
+  "agency:apps.actor.AGENCY": {
+    "text": "Trung tâm",
+    "why": "translate"
+  },
+  "agency:apps.actor.HANGYUL": {
+    "text": "Hangyul",
+    "why": "translate"
+  },
+  "agency:apps.actor.STUDENT": {
+    "text": "Học viên",
+    "why": "translate"
+  },
+  "agency:apps.actor.SYSTEM": {
+    "text": "Hệ thống",
+    "why": "translate"
+  },
+  "agency:apps.actor.UNIVERSITY": {
+    "text": "Trường",
+    "why": "translate"
+  },
+  "agency:apps.checklist": {
+    "text": "Danh sách giấy tờ",
+    "why": "translate"
+  },
+  "agency:apps.checklistCount": {
+    "text": "{{ready}}/{{total}} mục đã sẵn sàng",
+    "why": "translate"
+  },
+  "agency:apps.confirmMove": {
+    "text": "Chuyển sang “{{status}}”",
+    "why": "translate"
+  },
+  "agency:apps.externalRef": {
+    "text": "Mã tham chiếu của trường",
+    "why": "translate"
+  },
+  "agency:apps.externalRefHint": {
+    "text": "Số hồ sơ trên cổng của trường, nếu bạn có.",
+    "why": "translate"
+  },
+  "agency:apps.flag": {
+    "text": "Gắn cờ",
+    "why": "translate"
+  },
+  "agency:apps.flagReason": {
+    "text": "Lý do gắn cờ",
+    "why": "translate"
+  },
+  "agency:apps.flagTitle": {
+    "text": "Gắn cờ để theo dõi",
+    "why": "translate"
+  },
+  "agency:apps.history": {
+    "text": "Lịch sử trạng thái",
+    "why": "translate"
+  },
+  "agency:apps.legalization": {
+    "text": "Công chứng & hợp pháp hóa",
+    "why": "translate"
+  },
+  "agency:apps.moveTo": {
+    "text": "Đổi trạng thái hồ sơ",
+    "why": "translate"
+  },
+  "agency:apps.moved": {
+    "text": "Hồ sơ đã chuyển sang {{status}}.",
+    "why": "translate"
+  },
+  "agency:apps.noTransitions": {
+    "text": "Ở giai đoạn này, tổ chức của bạn không thể đổi trạng thái.",
+    "why": "translate"
+  },
+  "agency:apps.note": {
+    "text": "Ghi chú",
+    "why": "translate"
+  },
+  "agency:apps.noteHint": {
+    "text": "Lưu trong lịch sử trạng thái.",
+    "why": "translate"
+  },
+  "agency:apps.readiness": {
+    "text": "Mức sẵn sàng",
+    "why": "translate"
+  },
+  "agency:apps.sortBy.readiness": {
+    "text": "Mức sẵn sàng",
+    "why": "translate"
+  },
+  "agency:apps.reused": {
+    "text": "Dùng lại từ kho giấy tờ",
+    "why": "translate"
+  },
+  "agency:apps.scholarship": {
+    "text": "Ghi chú học bổng",
+    "why": "translate"
+  },
+  "agency:apps.semester": {
+    "text": "Học kỳ bắt đầu",
+    "why": "translate"
+  },
+  "agency:apps.submitBlocked": {
+    "text": "Còn thiếu giấy tờ bắt buộc nên chưa thể nộp:",
+    "why": "translate"
+  },
+  "agency:apps.submitted": {
+    "text": "Đã nộp",
+    "why": "translate"
+  },
+  "agency:apps.translation": {
+    "text": "Bản dịch",
+    "why": "translate"
+  },
+  "agency:apps.withdrawWarn": {
+    "text": "Rút hồ sơ này là quyết định cuối cùng, không thể hoàn tác.",
+    "why": "translate"
+  },
+  "agency:dash.days_other": {
+    "text": "{{count}} ngày",
+    "why": "translate"
+  },
+  "agency:dash.period": {
+    "text": "Kỳ báo cáo",
+    "why": "translate"
+  },
+  "agency:dash.subHq": {
+    "text": "Toàn cảnh mọi học viên đang hoạt động, hàng chờ và SLA trên tất cả trung tâm.",
+    "why": "translate"
+  },
+  "agency:dash.workload.member": {
+    "text": "Thành viên",
+    "why": "translate"
+  },
+  "agency:dash.workload.open": {
+    "text": "Công việc đang mở",
+    "why": "translate"
+  },
+  "agency:dash.workload.overdue": {
+    "text": "Quá hạn",
+    "why": "translate"
+  },
+  "agency:dash.workload.students": {
+    "text": "Học viên đang hoạt động",
+    "why": "translate"
+  },
+  "agency:docs.bulkAssign": {
+    "text": "Phân công người kiểm tra",
+    "why": "translate"
+  },
+  "agency:docs.bulkAssigned_one": {
+    "text": "Đã phân công {{count}} giấy tờ",
+    "why": "translate"
+  },
+  "agency:docs.bulkAssigned_other": {
+    "text": "Đã phân công {{count}} giấy tờ",
+    "why": "translate"
+  },
+  "agency:docs.bulkFailed_one": {
+    "text": "{{count}} giấy tờ không thể thay đổi (đã kiểm tra xong hoặc không thuộc danh sách bạn phụ trách)",
+    "why": "translate"
+  },
+  "agency:docs.bulkFailed_other": {
+    "text": "{{count}} giấy tờ không thể thay đổi (đã kiểm tra xong hoặc không thuộc danh sách bạn phụ trách)",
+    "why": "translate"
+  },
+  "agency:docs.bulkLabel": {
+    "text": "Thao tác với giấy tờ đã chọn",
+    "why": "translate"
+  },
+  "agency:docs.bulkVerified_one": {
+    "text": "Đã xác minh {{count}} giấy tờ",
+    "why": "translate"
+  },
+  "agency:docs.bulkVerified_other": {
+    "text": "Đã xác minh {{count}} giấy tờ",
+    "why": "translate"
+  },
+  "agency:docs.bulkVerifyTitle_one": {
+    "text": "Xác minh {{count}} giấy tờ?",
+    "why": "translate"
+  },
+  "agency:docs.empty": {
+    "text": "Hàng chờ trống",
+    "why": "translate"
+  },
+  "agency:docs.emptyBy.any": {
+    "text": "Không có giấy tờ nào đang chờ kiểm tra.",
+    "why": "translate"
+  },
+  "agency:docs.emptyBy.me": {
+    "text": "Hiện không có gì được phân công cho bạn.",
+    "why": "translate"
+  },
+  "agency:docs.emptyBy.unassigned": {
+    "text": "Mọi giấy tờ đang chờ đều đã có người kiểm tra.",
+    "why": "translate"
+  },
+  "agency:docs.notInQueue": {
+    "text": "Không nằm trong hàng chờ kiểm tra",
+    "why": "translate"
+  },
+  "agency:docs.subSla": {
+    "text": "{{count}} đang chờ kiểm tra · {{late}} quá mốc {{hours}} giờ",
+    "why": "translate"
+  },
+  "agency:docs.sub_other": {
+    "text": "{{count}} giấy tờ đang chờ kiểm tra, cũ nhất xếp trước.",
+    "why": "translate"
+  },
+  "agency:docs.uploadedFor": {
+    "text": "Đã thêm vào kho giấy tờ của {{name}}",
+    "why": "translate"
+  },
+  "agency:docs.you": {
+    "text": "bạn",
+    "why": "translate"
+  },
+  "agency:inbox.audienceTeam": {
+    "text": "Chỉ nhóm của bạn thấy nội dung này",
+    "why": "translate"
+  },
+  "agency:inbox.manageTemplates": {
+    "text": "Quản lý mẫu tin…",
+    "why": "translate"
+  },
+  "agency:inbox.noMessages": {
+    "text": "Chưa có tin nhắn nào.",
+    "why": "translate"
+  },
+  "agency:inbox.notePh": {
+    "text": "Viết ghi chú nội bộ cho nhóm… (Ctrl+Enter để lưu)",
+    "why": "translate"
+  },
+  "agency:inbox.noteSaved": {
+    "text": "Đã lưu ghi chú nội bộ.",
+    "why": "translate"
+  },
+  "agency:inbox.openFile": {
+    "text": "Mở tệp",
+    "why": "translate"
+  },
+  "agency:inbox.participants": {
+    "text": "người tham gia",
+    "why": "translate"
+  },
+  "agency:inbox.removeFile": {
+    "text": "Gỡ {{name}}",
+    "why": "translate"
+  },
+  "agency:inbox.saveNote": {
+    "text": "Lưu ghi chú",
+    "why": "translate"
+  },
+  "agency:inbox.sent": {
+    "text": "Đã gửi tin nhắn.",
+    "why": "translate"
+  },
+  "agency:inbox.subReply_one": {
+    "text": "{{count}} cuộc trò chuyện đang chờ bạn trả lời",
+    "why": "translate"
+  },
+  "agency:inbox.subUnread_one": {
+    "text": "{{count}} cuộc trò chuyện chưa đọc",
+    "why": "translate"
+  },
+  "agency:inbox.system": {
+    "text": "Hệ thống",
+    "why": "translate"
+  },
+  "agency:inbox.taskCreated": {
+    "text": "Đã tạo công việc từ tin nhắn này",
+    "why": "translate"
+  },
+  "agency:inbox.taskDue": {
+    "text": "Hạn công việc",
+    "why": "translate"
+  },
+  "agency:inbox.taskHint": {
+    "text": "Công việc được giao cho đồng nghiệp đầu tiên được nhắc tên; nếu không có thì giao cho bạn.",
+    "why": "translate"
+  },
+  "agency:inbox.unreadN_other": {
+    "text": "{{count}} tin nhắn chưa đọc",
+    "why": "translate"
+  },
+  "agency:inbox.willNotify_other": {
+    "text": "{{count}} đồng nghiệp sẽ được thông báo",
+    "why": "translate"
+  },
+  "agency:login.asideFoot": {
+    "text": "Dữ liệu của mỗi tổ chức được tách riêng và mọi lượt truy cập đều được ghi lại. Học viên không bao giờ thấy ghi chú nội bộ.",
+    "why": "translate"
+  },
+  "agency:login.asideLead": {
+    "text": "Học viên, hồ sơ, giấy tờ và tin nhắn trong cùng một không gian làm việc.",
+    "why": "translate"
+  },
+  "agency:login.asideTitle": {
+    "text": "Ai đang cần bạn, vì sao và đến khi nào, bắt đầu từ hôm nay.",
+    "why": "translate"
+  },
+  "agency:login.p1Text": {
+    "text": "Mỗi con số theo giai đoạn mở đúng những học viên đó.",
+    "why": "translate"
+  },
+  "agency:login.p1Title": {
+    "text": "Học viên theo giai đoạn",
+    "why": "translate"
+  },
+  "agency:login.p2Text": {
+    "text": "Giấy tờ cần sửa, hạn nộp hồ sơ và tin nhắn cần trả lời, xếp theo hạn.",
+    "why": "translate"
+  },
+  "agency:login.p2Title": {
+    "text": "Việc có hạn",
+    "why": "translate"
+  },
+  "agency:login.p3Text": {
+    "text": "Xem trước an toàn và danh sách kiểm tra; yêu cầu sửa luôn kèm lý do rõ ràng.",
+    "why": "translate"
+  },
+  "agency:login.p3Title": {
+    "text": "Kiểm tra giấy tờ",
+    "why": "translate"
+  },
+  "agency:login.p4Text": {
+    "text": "Học viên nhận phản hồi từ đội ngũ Hangyul Univ; ai làm việc gì được lưu trong nhật ký kiểm tra.",
+    "why": "translate"
+  },
+  "agency:login.p4Title": {
+    "text": "Học viên thấy đội ngũ Hangyul Univ",
+    "why": "translate"
+  },
+  "agency:login.subtitle": {
+    "text": "Dành cho nhân viên vận hành Hangyul và các trung tâm du học đối tác.",
+    "why": "translate"
+  },
+  "agency:login.title": {
+    "text": "Đăng nhập Bảng điều khiển trung tâm",
+    "why": "translate"
+  },
+  "agency:misc.change": {
+    "text": "Thay đổi",
+    "why": "translate"
+  },
+  "agency:misc.days_other": {
+    "text": "{{count}} ngày",
+    "why": "translate"
+  },
+  "agency:misc.hours_other": {
+    "text": "{{count}} giờ",
+    "why": "translate"
+  },
+  "agency:misc.internalTag": {
+    "text": "Nội bộ",
+    "why": "translate"
+  },
+  "agency:misc.no": {
+    "text": "Không",
+    "why": "translate"
+  },
+  "agency:misc.notFoundText": {
+    "text": "Trang có thể đã được chuyển đi, hoặc bạn không có quyền truy cập.",
+    "why": "translate"
+  },
+  "agency:misc.searchStudents": {
+    "text": "Tìm học viên của bạn…",
+    "why": "translate"
+  },
+  "agency:misc.unassigned": {
+    "text": "Chưa phân công",
+    "why": "translate"
+  },
+  "agency:misc.yes": {
+    "text": "Có",
+    "why": "translate"
+  },
+  "agency:notifs.filter": {
+    "text": "Lọc",
+    "why": "translate"
+  },
+  "agency:notifs.sub": {
+    "text": "Mọi việc đã diễn ra khi bạn vắng mặt.",
+    "why": "translate"
+  },
+  "agency:savedViews.delete": {
+    "text": "Xóa {{name}}",
+    "why": "translate"
+  },
+  "agency:savedViews.saveHint_one": {
+    "text": "Lưu bộ lọc và cách sắp xếp hiện tại để mở lại danh sách này chỉ với một cú nhấp.",
+    "why": "translate"
+  },
+  "agency:savedViews.saveHint_other": {
+    "text": "Lưu {{count}} bộ lọc và cách sắp xếp hiện tại để mở lại danh sách này chỉ với một cú nhấp.",
+    "why": "translate"
+  },
+  "agency:savedViews.saved": {
+    "text": "Đã lưu “{{name}}”",
+    "why": "translate"
+  },
+  "agency:settings.account": {
+    "text": "Tài khoản",
+    "why": "translate"
+  },
+  "agency:settings.language": {
+    "text": "Ngôn ngữ",
+    "why": "translate"
+  },
+  "agency:settings.languageHint": {
+    "text": "Ngôn ngữ giao diện. Dữ liệu học viên giữ nguyên ngôn ngữ gốc.",
+    "why": "translate"
+  },
+  "agency:settings.localOnly": {
+    "text": "Chỉ lưu trong trình duyệt này.",
+    "why": "translate"
+  },
+  "agency:settings.org": {
+    "text": "Tổ chức",
+    "why": "translate"
+  },
+  "agency:settings.poll": {
+    "text": "Cập nhật trực tiếp",
+    "why": "translate"
+  },
+  "agency:settings.pollHint": {
+    "text": "Làm mới hàng chờ và số liệu mỗi phút.",
+    "why": "translate"
+  },
+  "agency:settings.scSearch": {
+    "text": "Di chuyển trong kết quả tìm kiếm chung",
+    "why": "translate"
+  },
+  "agency:settings.scSend": {
+    "text": "Gửi tin nhắn hoặc lưu ghi chú",
+    "why": "translate"
+  },
+  "agency:settings.shortcuts": {
+    "text": "Phím tắt",
+    "why": "translate"
+  },
+  "agency:settings.sub": {
+    "text": "Tùy chọn cá nhân cho bảng điều khiển này.",
+    "why": "translate"
+  },
+  "agency:settings.timezone": {
+    "text": "Múi giờ",
+    "why": "translate"
+  },
+  "agency:settings.updates": {
+    "text": "Cập nhật trực tiếp",
+    "why": "translate"
+  },
+  "agency:shell.hqProduct": {
+    "text": "Vận hành Hangyul",
+    "why": "translate"
+  },
+  "agency:shell.hqView": {
+    "text": "Hangyul HQ · tất cả trung tâm",
+    "why": "translate"
+  },
+  "agency:shell.searchAll": {
+    "text": "Xem tất cả kết quả cho “{{q}}”",
+    "why": "translate"
+  },
+  "agency:sidebar.agencies": {
+    "text": "Trung tâm",
+    "why": "translate"
+  },
+  "agency:sidebar.catalog": {
+    "text": "Trường & chương trình",
+    "why": "translate"
+  },
+  "agency:sidebar.hangyul": {
+    "text": "Hangyul HQ",
+    "why": "translate"
+  },
+  "agency:sidebar.operations": {
+    "text": "Vận hành",
+    "why": "translate"
+  },
+  "agency:sidebar.override": {
+    "text": "Điều chỉnh phân công",
+    "why": "translate"
+  },
+  "agency:students.bulk.confirmRegen_other": {
+    "text": "Tính lại danh sách công việc tự động cho {{count}} học viên? Công việc tạo thủ công được giữ nguyên.",
+    "why": "translate"
+  },
+  "agency:students.bulk.confirmStage_other": {
+    "text": "Chuyển {{count}} học viên sang “{{stage}}”? Thao tác này được ghi vào nhật ký kiểm tra.",
+    "why": "translate"
+  },
+  "agency:students.bulk.confirmTitle": {
+    "text": "Áp dụng thao tác hàng loạt?",
+    "why": "translate"
+  },
+  "agency:students.bulk.done_other": {
+    "text": "Đã cập nhật {{count}} học viên.",
+    "why": "translate"
+  },
+  "agency:students.bulk.regen": {
+    "text": "Tạo lại công việc",
+    "why": "translate"
+  },
+  "agency:students.bulk.stage": {
+    "text": "Chuyển sang giai đoạn…",
+    "why": "translate"
+  },
+  "agency:students.col.degree": {
+    "text": "Bậc học",
+    "why": "translate"
+  },
+  "agency:students.col.nationality": {
+    "text": "Quốc tịch",
+    "why": "translate"
+  },
+  "agency:students.dShort_one": {
+    "text": "{{count}} ngày",
+    "why": "translate"
+  },
+  "agency:students.f.allDegrees": {
+    "text": "Tất cả bậc học",
+    "why": "translate"
+  },
+  "agency:students.f.allNationalities": {
+    "text": "Tất cả quốc tịch",
+    "why": "translate"
+  },
+  "agency:students.noReply": {
+    "text": "Đã lỡ SLA phản hồi đầu tiên. Học viên này đang chờ trả lời",
+    "why": "translate"
+  },
+  "agency:students.noReplyShort": {
+    "text": "Chưa trả lời",
+    "why": "translate"
+  },
+  "agency:students.view.all": {
+    "text": "Tất cả",
+    "why": "translate"
+  },
+  "agency:students.view.arrived": {
+    "text": "Đã nhập cảnh",
+    "why": "translate"
+  },
+  "agency:students.view.deadline": {
+    "text": "Sắp đến hạn",
+    "why": "translate"
+  },
+  "agency:students.view.docs": {
+    "text": "Giấy tờ cần sửa",
+    "why": "translate"
+  },
+  "agency:students.view.incomplete": {
+    "text": "Giấy tờ chưa đủ",
+    "why": "translate"
+  },
+  "agency:students.view.mine": {
+    "text": "Học viên của tôi",
+    "why": "translate"
+  },
+  "agency:students.view.requested": {
+    "text": "Trường yêu cầu giấy tờ",
+    "why": "translate"
+  },
+  "agency:students.view.university": {
+    "text": "Chờ trường",
+    "why": "translate"
+  },
+  "agency:students.view.visa": {
+    "text": "Visa",
+    "why": "translate"
+  },
+  "agency:students.view.waiting_external": {
+    "text": "Chờ đại sứ quán hoặc bên khác",
+    "why": "translate"
+  },
+  "agency:students.view.waiting_us": {
+    "text": "Chờ chúng ta",
+    "why": "translate"
+  },
+  "agency:today.afternoon": {
+    "text": "Chào buổi chiều, {{name}}",
+    "why": "translate"
+  },
+  "agency:today.allClear": {
+    "text": "Hiện không có gì cần xử lý. Việc mới sẽ xuất hiện ở đây khi phát sinh.",
+    "why": "translate"
+  },
+  "agency:today.attention": {
+    "text": "Cần chú ý",
+    "why": "translate"
+  },
+  "agency:today.attentionSub": {
+    "text": "Mục gấp nhất hiển thị trước. Mở từng dòng để xử lý lần lượt.",
+    "why": "translate"
+  },
+  "agency:today.attentionV4": {
+    "text": "Ai cần bạn hôm nay",
+    "why": "translate"
+  },
+  "agency:today.clearList": {
+    "text": "Đã xong: {{list}}",
+    "why": "translate"
+  },
+  "agency:today.closing": {
+    "text": "Hồ sơ đóng trong 7 ngày tới",
+    "why": "translate"
+  },
+  "agency:today.closingDetail": {
+    "text": "Tiếp theo: {{university}} · {{student}}, đóng ngày {{date}}",
+    "why": "translate"
+  },
+  "agency:today.closingV4": {
+    "text": "Học viên có hạn nộp hồ sơ trong 7 ngày tới",
+    "why": "translate"
+  },
+  "agency:today.cta.deadlines": {
+    "text": "Xem hạn",
+    "why": "translate"
+  },
+  "agency:today.cta.messages": {
+    "text": "Mở hộp thư",
+    "why": "translate"
+  },
+  "agency:today.cta.reply": {
+    "text": "Trả lời",
+    "why": "translate"
+  },
+  "agency:today.cta.review": {
+    "text": "Bắt đầu kiểm tra",
+    "why": "translate"
+  },
+  "agency:today.cta.students": {
+    "text": "Mở học viên",
+    "why": "translate"
+  },
+  "agency:today.cta.tasks": {
+    "text": "Mở công việc",
+    "why": "translate"
+  },
+  "agency:today.deadlines": {
+    "text": "Hạn trong 7 ngày tới",
+    "why": "translate"
+  },
+  "agency:today.deadlinesDetail": {
+    "text": "Tiếp theo: {{title}} · {{student}}, {{when}}",
+    "why": "translate"
+  },
+  "agency:today.docs": {
+    "text": "Giấy tờ chờ kiểm tra",
+    "why": "translate"
+  },
+  "agency:today.docsDetail": {
+    "text": "Cũ nhất: {{student}} · {{doc}}, đã chờ {{wait}}",
+    "why": "translate"
+  },
+  "agency:today.docsOldest": {
+    "text": "cũ nhất: {{student}} · {{doc}}, tải lên {{when}}",
+    "why": "translate"
+  },
+  "agency:today.docsSla_one": {
+    "text": "{{count}} giấy tờ quá mốc kiểm tra {{hours}} giờ",
+    "why": "translate"
+  },
+  "agency:today.docsSla_other": {
+    "text": "{{count}} giấy tờ quá mốc kiểm tra {{hours}} giờ",
+    "why": "translate"
+  },
+  "agency:today.essays": {
+    "text": "Bài luận chờ duyệt",
+    "why": "translate"
+  },
+  "agency:today.essaysDetail": {
+    "text": "Tiếp theo: {{title}} · {{student}}",
+    "why": "translate"
+  },
+  "agency:today.keyMove": {
+    "text": "di chuyển",
+    "why": "translate"
+  },
+  "agency:today.keyOpen": {
+    "text": "mở",
+    "why": "translate"
+  },
+  "agency:today.messages": {
+    "text": "Cuộc trò chuyện có tin chưa đọc",
+    "why": "translate"
+  },
+  "agency:today.messagesDetail": {
+    "text": "Chờ lâu nhất: {{who}}, {{when}}",
+    "why": "translate"
+  },
+  "agency:today.openPipeline": {
+    "text": "Mở quy trình",
+    "why": "translate"
+  },
+  "agency:today.overdueDef": {
+    "text": "Công việc đang mở đã quá hạn.",
+    "why": "translate"
+  },
+  "agency:today.overdueDetail": {
+    "text": "Cũ nhất: {{title}} · {{student}}, hạn {{when}}",
+    "why": "translate"
+  },
+  "agency:today.overdueMine": {
+    "text": "Công việc quá hạn của bạn",
+    "why": "translate"
+  },
+  "agency:today.overdueTeam": {
+    "text": "Công việc quá hạn của cả nhóm",
+    "why": "translate"
+  },
+  "agency:today.phase.studying": {
+    "text": "Đang học",
+    "why": "translate"
+  },
+  "agency:today.pipeline": {
+    "text": "Học viên theo giai đoạn",
+    "why": "translate"
+  },
+  "agency:today.pipelineSub": {
+    "text": "{{count}} học viên. Chọn một giai đoạn để xem ai đang ở đó.",
+    "why": "translate"
+  },
+  "agency:today.pipelineSubV4_one": {
+    "text": "{{count}} học viên",
+    "why": "translate"
+  },
+  "agency:today.pipelineSubV4_other": {
+    "text": "{{count}} học viên",
+    "why": "translate"
+  },
+  "agency:today.replies": {
+    "text": "Học viên đang chờ trả lời",
+    "why": "translate"
+  },
+  "agency:today.repliesDetail": {
+    "text": "Tin nhắn gần nhất của họ chưa được trả lời.",
+    "why": "translate"
+  },
+  "agency:today.repliesOldest": {
+    "text": "Chờ lâu nhất: {{student}}, {{when}}",
+    "why": "translate"
+  },
+  "agency:today.repliesV4": {
+    "text": "Tin cần trả lời",
+    "why": "translate"
+  },
+  "agency:today.requests": {
+    "text": "Yêu cầu giấy tờ từ trường",
+    "why": "translate"
+  },
+  "agency:today.requestsDetail": {
+    "text": "Học viên phải tải lên. Hãy kiểm tra giấy tờ đã đến chưa.",
+    "why": "translate"
+  },
+  "agency:today.sla": {
+    "text": "Học viên cần được phản hồi lần đầu trong 24 giờ",
+    "why": "translate"
+  },
+  "agency:today.slaDetail": {
+    "text": "{{student}} · hạn phản hồi {{when}}",
+    "why": "translate"
+  },
+  "agency:today.unread": {
+    "text": "Cuộc trò chuyện chưa đọc",
+    "why": "translate"
+  },
+  "agency:today.unreadDetail": {
+    "text": "Mới nhất: {{who}}, {{when}}",
+    "why": "translate"
+  },
+  "agency:today.upcoming": {
+    "text": "Hạn sắp tới",
+    "why": "translate"
+  },
+  "agency:today.upcomingEmpty": {
+    "text": "Không có hạn nào trong 14 ngày tới.",
+    "why": "translate"
+  },
+  "agency:today.upcomingSub": {
+    "text": "14 ngày tới",
+    "why": "translate"
+  },
+  "agency:today.upcomingV4": {
+    "text": "14 ngày tới",
+    "why": "translate"
+  },
+  "agency:today.v5.andMore_one": {
+    "text": "và {{count}} mục khác",
+    "why": "translate"
+  },
+  "agency:today.v5.andMore_other": {
+    "text": "và {{count}} mục khác",
+    "why": "translate"
+  },
+  "agency:today.v5.checks": {
+    "text": "Giấy tờ cần người kiểm tra",
+    "why": "translate"
+  },
+  "agency:today.v5.checksDetail": {
+    "text": "{{student}} · {{doc}}: {{what}}",
+    "why": "translate"
+  },
+  "agency:today.v5.services.needs_assignment": {
+    "text": "Yêu cầu dịch vụ mới cần phân công",
+    "why": "translate"
+  },
+  "agency:today.v5.services.overdue": {
+    "text": "Yêu cầu dịch vụ quá thời gian phản hồi",
+    "why": "translate"
+  },
+  "agency:today.v5.services.today": {
+    "text": "Yêu cầu dịch vụ đến hạn hôm nay",
+    "why": "translate"
+  },
+  "agency:today.v5.servicesCta": {
+    "text": "Mở dịch vụ",
+    "why": "translate"
+  },
+  "agency:today.v5.servicesDetail": {
+    "text": "{{type}} · {{student}} · {{reason}}",
+    "why": "translate"
+  },
+  "agency:today.v5.visa": {
+    "text": "Hồ sơ visa cần bạn xử lý",
+    "why": "translate"
+  },
+  "agency:today.v5.visaCta": {
+    "text": "Mở",
+    "why": "translate"
+  },
+  "agency:today.v5.writingDetail": {
+    "text": "{{essay}} · {{student}}, {{university}}",
+    "why": "translate"
+  },
+  "agency:today.v5.writingDue": {
+    "text": "Bài luận cần duyệt trong 48 giờ tới",
+    "why": "translate"
+  },
+  "agency:today.v5.writingDue48": {
+    "text": "hạn {{when}}",
+    "why": "translate"
+  },
+  "agency:today.v5.writingOverdue": {
+    "text": "Bài luận quá thời gian duyệt đã cam kết",
+    "why": "translate"
+  },
+  "agency:today.v5.writingRevised_one": {
+    "text": "{{count}} bản sửa của học viên",
+    "why": "translate"
+  },
+  "agency:today.v5.writingRevised_other": {
+    "text": "{{count}} bản sửa của học viên",
+    "why": "translate"
+  },
+  "agency:today.waitingOn": {
+    "text": "Hồ sơ theo bên đang chờ",
+    "why": "translate"
+  },
+  "agency:today.workload": {
+    "text": "Khối lượng công việc của nhóm",
+    "why": "translate"
+  },
+  "agency:today.workloadSub": {
+    "text": "Học viên đang hoạt động và công việc đang mở của từng người",
+    "why": "translate"
+  },
+  "agency:v22.hq.accounts.adminUser": {
+    "text": "Tài khoản quản trị",
+    "why": "translate"
+  },
+  "agency:v22.hq.accounts.assigned": {
+    "text": "Trường được gán",
+    "why": "translate"
+  },
+  "agency:v22.hq.accounts.empty": {
+    "text": "Chưa có tài khoản trường nào.",
+    "why": "translate"
+  },
+  "agency:v22.hq.accounts.invite": {
+    "text": "Mời quản trị viên của trường",
+    "why": "translate"
+  },
+  "agency:v22.hq.accounts.noUniversity": {
+    "text": "Chưa liên kết trường",
+    "why": "translate"
+  },
+  "agency:v22.hq.accounts.pickUniversity": {
+    "text": "Trường",
+    "why": "translate"
+  },
+  "agency:v22.hq.accounts.pickUniversityPh": {
+    "text": "Chọn trường đối tác",
+    "why": "translate"
+  },
+  "agency:v22.hq.accounts.reassign": {
+    "text": "Đổi trường",
+    "why": "translate"
+  },
+  "agency:v22.hq.accounts.reassignText": {
+    "text": "Tư cách thành viên của họ chuyển sang tổ chức của trường được chọn. Tổ chức cũ bị vô hiệu hóa.",
+    "why": "translate"
+  },
+  "agency:v22.hq.accounts.reassignTitle": {
+    "text": "Chuyển {{name}} sang trường khác",
+    "why": "translate"
+  },
+  "agency:v22.hq.accounts.search": {
+    "text": "Tìm theo tên, email hoặc trường…",
+    "why": "translate"
+  },
+  "agency:v22.hq.accounts.sub": {
+    "text": "Tài khoản quản trị của các trường đối tác. Mọi quản trị viên của trường đều có cùng quyền hạn.",
+    "why": "translate"
+  },
+  "agency:v22.hq.accounts.title": {
+    "text": "Tài khoản trường",
+    "why": "translate"
+  },
+  "agency:v22.hq.accounts.university": {
+    "text": "Trường",
+    "why": "translate"
+  },
+  "agency:v22.nav.hqAccounts": {
+    "text": "Tài khoản trường",
+    "why": "translate"
+  },
+  "agency:v22.stage.closed": {
+    "text": "Đã đóng",
+    "why": "translate"
+  },
+  "agency:v22.stage.stripHint": {
+    "text": "Chọn một giai đoạn để chỉ hiển thị học viên ở giai đoạn đó. Con số bằng số dòng bên dưới.",
+    "why": "translate"
+  },
+  "agency:v22.team.active": {
+    "text": "Đang hoạt động",
+    "why": "translate"
+  },
+  "agency:v22.team.count_other": {
+    "text": "{{count}} tài khoản",
+    "why": "translate"
+  },
+  "agency:v22.team.devNote": {
+    "text": "Môi trường phát triển: mã được in ra console API, không gửi qua email.",
+    "why": "translate"
+  },
+  "agency:v22.team.disable": {
+    "text": "Vô hiệu hóa",
+    "why": "translate"
+  },
+  "agency:v22.team.disableReason": {
+    "text": "Lý do",
+    "why": "translate"
+  },
+  "agency:v22.team.disableReasonPh": {
+    "text": "Đã rời trung tâm",
+    "why": "translate"
+  },
+  "agency:v22.team.disableText": {
+    "text": "Họ không thể đăng nhập nữa. Học viên, giấy tờ đang kiểm tra và công việc đang mở của họ được tự động chuyển cho đồng nghiệp.",
+    "why": "translate"
+  },
+  "agency:v22.team.disableTitle": {
+    "text": "Vô hiệu hóa {{name}}?",
+    "why": "translate"
+  },
+  "agency:v22.team.disabled": {
+    "text": "Đã vô hiệu hóa",
+    "why": "translate"
+  },
+  "agency:v22.team.email": {
+    "text": "Email",
+    "why": "translate"
+  },
+  "agency:v22.team.empty": {
+    "text": "Chưa có tài khoản nào.",
+    "why": "translate"
+  },
+  "agency:v22.team.enable": {
+    "text": "Kích hoạt",
+    "why": "translate"
+  },
+  "agency:v22.team.invite": {
+    "text": "Mời quản trị viên",
+    "why": "translate"
+  },
+  "agency:v22.team.inviteSub": {
+    "text": "Họ sẽ nhận email kèm mã một lần để đặt mật khẩu.",
+    "why": "translate"
+  },
+  "agency:v22.team.lastLogin": {
+    "text": "Đăng nhập gần nhất",
+    "why": "translate"
+  },
+  "agency:v22.team.mailFailed": {
+    "text": "Không gửi được email mời. Hãy nhờ họ dùng “Quên mật khẩu” với địa chỉ này.",
+    "why": "translate"
+  },
+  "agency:v22.team.name": {
+    "text": "Tên",
+    "why": "translate"
+  },
+  "agency:v22.team.never": {
+    "text": "Chưa bao giờ",
+    "why": "translate"
+  },
+  "agency:v22.team.sendInvite": {
+    "text": "Gửi lời mời",
+    "why": "translate"
+  },
+  "agency:v22.team.sent": {
+    "text": "Đã gửi lời mời",
+    "why": "translate"
+  },
+  "agency:v22.team.sentTo": {
+    "text": "Đã gửi lời mời đến {{email}}.",
+    "why": "translate"
+  },
+  "agency:v22.team.status": {
+    "text": "Trạng thái",
+    "why": "translate"
+  },
+  "agency:v22.team.sub": {
+    "text": "Mọi quản trị viên đều có cùng quyền hạn.",
+    "why": "translate"
+  },
+  "agency:v22.team.unverified": {
+    "text": "Đã mời · chưa xác minh",
+    "why": "translate"
+  },
+  "agency:v22.team.you": {
+    "text": "Bạn",
+    "why": "translate"
+  },
+  "agency:v22.work.bulkOwner": {
+    "text": "Đặt người phụ trách…",
+    "why": "translate"
+  },
+  "agency:v22.work.confirmOwner_other": {
+    "text": "Đặt {{name}} làm người phụ trách {{count}} học viên?",
+    "why": "translate"
+  },
+  "agency:v22.work.deleteView": {
+    "text": "Xóa chế độ xem này",
+    "why": "translate"
+  },
+  "agency:v22.work.empty": {
+    "text": "Không có học viên ở giai đoạn này",
+    "why": "translate"
+  },
+  "agency:v22.work.myViews": {
+    "text": "Chế độ xem của tôi",
+    "why": "translate"
+  },
+  "agency:v22.work.showTop": {
+    "text": "Hiển thị 10 đầu",
+    "why": "translate"
+  },
+  "agency:v22.work.total_other": {
+    "text": "{{count}} học viên",
+    "why": "translate"
+  },
+  "agency:v22.ws.docFix_other": {
+    "text": "{{count}} giấy tờ cần sửa",
+    "why": "translate"
+  },
+  "agency:v22.ws.docReview_other": {
+    "text": "{{count}} giấy tờ cần kiểm tra",
+    "why": "translate"
+  },
+  "agency:v22.ws.needsActionEmpty": {
+    "text": "Không có gì đang chờ bạn với học viên này.",
+    "why": "translate"
+  },
+  "agency:v22.ws.openThread": {
+    "text": "Mở cuộc trò chuyện",
+    "why": "translate"
+  },
+  "agency:v23.work.memberFilter": {
+    "text": "Đang hiển thị học viên của một thành viên",
+    "why": "translate"
+  },
+  "agency:v23.work.openAll": {
+    "text": "Mở tất cả {{count}} trong mục Học viên",
+    "why": "translate"
+  },
+  "agency:v23.work.submissionsNeed_one": {
+    "text": "{{count}} hồ sơ chờ nhóm nộp",
+    "why": "translate"
+  },
+  "agency:v29.guide.field.checklist": {
+    "text": "danh sách giấy tờ",
+    "why": "translate"
+  },
+  "agency:v29.guide.field.current_intake": {
+    "text": "hướng dẫn của đợt này",
+    "why": "translate"
+  },
+  "agency:v29.guide.field.deadline": {
+    "text": "hạn nộp hồ sơ",
+    "why": "translate"
+  },
+  "agency:v29.guide.field.source_url": {
+    "text": "nguồn chính thức",
+    "why": "translate"
+  },
+  "agency:v29.guide.field.submission_method": {
+    "text": "cách nộp",
+    "why": "translate"
+  },
+  "agency:v29.guide.field.verified_date": {
+    "text": "ngày xác minh",
+    "why": "translate"
+  },
+  "agency:v29.guide.verifyRequired": {
+    "text": "Cần xác minh trước khi nộp hồ sơ do Hangyul quản lý: {{fields}}",
+    "why": "translate"
+  },
+  "agency:v29.plan.addOnStatus.ACTIVE": {
+    "text": "Đang thực hiện",
+    "why": "translate"
+  },
+  "agency:v29.plan.addOnStatus.APPROVED": {
+    "text": "Đang hiệu lực (phiên bản cũ)",
+    "why": "translate"
+  },
+  "agency:v29.plan.addOnStatus.AWAITING_PAYMENT": {
+    "text": "Chờ thanh toán",
+    "why": "translate"
+  },
+  "agency:v29.plan.addOnStatus.COMPLETED": {
+    "text": "Xong",
+    "why": "translate"
+  },
+  "agency:v29.plan.addOnStatus.OFFERED": {
+    "text": "Đã đề xuất",
+    "why": "translate"
+  },
+  "agency:v29.plan.duty.dedicated": {
+    "text": "Đội ngũ riêng · phản hồi ưu tiên",
+    "why": "translate"
+  },
+  "agency:v29.plan.duty.docs.CHECKLIST": {
+    "text": "Giấy tờ: danh sách cần chuẩn bị",
+    "why": "translate"
+  },
+  "agency:v29.plan.duty.docs.INTENSIVE": {
+    "text": "Giấy tờ: kiểm tra chuyên sâu",
+    "why": "translate"
+  },
+  "agency:v29.plan.duty.docs.REVIEW_GUIDANCE": {
+    "text": "Giấy tờ: kiểm tra và chỉ ra điểm cần sửa",
+    "why": "translate"
+  },
+  "agency:v29.plan.duty.dorm.APPLICATION": {
+    "text": "Ký túc xá: hỗ trợ đăng ký và chỗ ở khác",
+    "why": "translate"
+  },
+  "agency:v29.plan.duty.dorm.INFORMATION": {
+    "text": "Ký túc xá: thông tin",
+    "why": "translate"
+  },
+  "agency:v29.plan.duty.dorm.SCHEDULE": {
+    "text": "Ký túc xá: theo dõi lịch đăng ký",
+    "why": "translate"
+  },
+  "agency:v29.plan.duty.settle.FULL": {
+    "text": "Ổn định cuộc sống: D-30 đến D+30",
+    "why": "translate"
+  },
+  "agency:v29.plan.duty.settle.INFORMATION": {
+    "text": "Ổn định cuộc sống: thông tin cơ bản",
+    "why": "translate"
+  },
+  "agency:v29.plan.duty.settle.NONE": {
+    "text": "Ổn định cuộc sống: không bao gồm",
+    "why": "translate"
+  },
+  "agency:v29.plan.duty.visa.DOCUMENT_PREP": {
+    "text": "Visa: hỗ trợ chuẩn bị hồ sơ",
+    "why": "translate"
+  },
+  "agency:v29.plan.duty.visa.GUIDANCE": {
+    "text": "Visa: hướng dẫn quy trình",
+    "why": "translate"
+  },
+  "agency:v29.plan.duty.visa.INTENSIVE": {
+    "text": "Visa: quản lý hồ sơ và các mốc quan trọng",
+    "why": "translate"
+  },
+  "agency:v29.plan.legacy": {
+    "text": "Mua theo {{version}}",
+    "why": "translate"
+  },
+  "agency:v29.plan.offer.howItWorks": {
+    "text": "Chỉ có hiệu lực sau khi học viên đã xem giá và phạm vi, đồng ý và thanh toán.",
+    "why": "translate"
+  },
+  "agency:v29.plan.offer.open": {
+    "text": "Đề xuất dịch vụ bổ sung",
+    "why": "translate"
+  },
+  "agency:v29.plan.offer.quantity": {
+    "text": "Số lượng ({{unit}})",
+    "why": "translate"
+  },
+  "agency:v29.plan.offer.quote": {
+    "text": "Báo giá riêng: nhập giá và phạm vi",
+    "why": "translate"
+  },
+  "agency:v29.plan.offer.range": {
+    "text": "Khoảng giá đề xuất {{min}}–{{max}}",
+    "why": "translate"
+  },
+  "agency:v29.plan.offer.scope": {
+    "text": "Ghi chú phạm vi (học viên sẽ thấy)",
+    "why": "translate"
+  },
+  "agency:v29.plan.offer.scopeRequired": {
+    "text": "Phạm vi (bắt buộc, học viên sẽ thấy)",
+    "why": "translate"
+  },
+  "agency:v29.plan.offer.send": {
+    "text": "Đề xuất cho học viên",
+    "why": "translate"
+  },
+  "agency:v29.plan.offer.service": {
+    "text": "Dịch vụ",
+    "why": "translate"
+  },
+  "agency:v29.plan.offer.total": {
+    "text": "Học viên thanh toán {{amount}}",
+    "why": "translate"
+  },
+  "agency:v29.plan.offer.unitPrice": {
+    "text": "Đơn giá (USD)",
+    "why": "translate"
+  },
+  "agency:v29.plan.term.arrival": {
+    "text": "Nhập cảnh",
+    "why": "translate"
+  },
+  "agency:v29.plan.term.arrivalLabel": {
+    "text": "Ngày dự kiến nhập cảnh",
+    "why": "translate"
+  },
+  "agency:v29.plan.term.arrivalUnknown": {
+    "text": "Chưa xác nhận ngày nhập cảnh",
+    "why": "translate"
+  },
+  "agency:v29.plan.term.arrivalWindow": {
+    "text": "Chuẩn bị từ {{from}} · nhập cảnh {{arrive}} · kết thúc {{until}}",
+    "why": "translate"
+  },
+  "agency:v29.plan.term.ended": {
+    "text": "Thời hạn dịch vụ đã kết thúc",
+    "why": "translate"
+  },
+  "agency:v29.plan.term.endsLabel": {
+    "text": "Kết thúc hợp đồng",
+    "why": "translate"
+  },
+  "agency:v29.plan.term.notStarted": {
+    "text": "Trước buổi tư vấn đầu tiên",
+    "why": "translate"
+  },
+  "agency:v29.plan.term.saved": {
+    "text": "Đã lưu ngày dịch vụ.",
+    "why": "translate"
+  },
+  "agency:v29.plan.term.set": {
+    "text": "Lưu ngày",
+    "why": "translate"
+  },
+  "agency:v29.plan.term.since": {
+    "text": "Bắt đầu {{date}}",
+    "why": "translate"
+  },
+  "agency:v29.plan.term.support": {
+    "text": "Tư vấn đến {{date}}",
+    "why": "translate"
+  },
+  "agency:v29.plan.term.supportDays": {
+    "text": "{{count}} ngày kể từ buổi tư vấn đầu tiên",
+    "why": "translate"
+  },
+  "agency:v29.plan.term.title": {
+    "text": "Thời hạn dịch vụ",
+    "why": "translate"
+  },
+  "agency:v29.plan.term.toAgree": {
+    "text": "Chưa đặt thời hạn dịch vụ",
+    "why": "translate"
+  },
+  "agency:v29.plan.term.until": {
+    "text": "Đến {{date}}",
+    "why": "translate"
+  },
+  "agency:v29.plan.unrationed.CONTRACTED_DOCUMENTS": {
+    "text": "Không giới hạn trong phạm vi hồ sơ và lịch trình đã ký",
+    "why": "translate"
+  },
+  "agency:v29.plan.unrationed.PRIORITY": {
+    "text": "Phản hồi ưu tiên",
+    "why": "translate"
+  },
+  "agency:v29.plan.unrationed.ROUNDS": {
+    "text": "Bao gồm",
+    "why": "translate"
+  },
+  "agency:v29.plan.unrationed.TEAM": {
+    "text": "Đội ngũ theo sát",
+    "why": "translate"
+  },
+  "agency:v29.plan.usedSoFar": {
+    "text": "Đã dùng {{count}}",
+    "why": "translate"
+  },
+  "agency:v30.def.ops.ageing": {
+    "text": "Số ngày kể từ lần hồ sơ chuyển động gần nhất: mốc muộn nhất trong các lần đổi giai đoạn, đổi trạng thái hồ sơ ứng tuyển hoặc phân công cho trung tâm này.",
+    "why": "translate"
+  },
+  "agency:v30.def.ops.backlog": {
+    "text": "Việc còn mở vào cuối mỗi tuần: công việc của nhóm (không tính việc riêng của học viên) chưa xong, phiên bản giấy tờ chưa kiểm tra, và bài luận đã nộp để duyệt nhưng chưa duyệt (lượt duyệt hiện tại).",
+    "why": "translate"
+  },
+  "agency:v30.def.ops.blocked": {
+    "text": "Hồ sơ bị vướng khi đang chờ một bên và không chuyển động quá 14 ngày. Cũ nhất xếp trước.",
+    "why": "translate"
+  },
+  "agency:v30.def.ops.deadlines": {
+    "text": "Hồ sơ chưa nộp có hạn nộp hồ sơ trong 14 ngày tới và vẫn thiếu mục bắt buộc.",
+    "why": "translate"
+  },
+  "agency:v30.def.ops.load": {
+    "text": "Tải trọng có trọng số của từng người: mỗi loại việc đang mở họ nắm giữ × trọng số của loại đó (bảng trọng số của trung tâm), so với năng lực cá nhân tính theo cùng thang điểm. Quá tải = tải trọng vượt năng lực. Người đang nghỉ không được giao việc mới.",
+    "why": "translate"
+  },
+  "agency:v30.def.ops.sla": {
+    "text": "Phản hồi đầu tiên chưa gửi đúng hạn; giấy tờ chờ kiểm tra quá 48 giờ; bài luận quá thời gian duyệt đã cam kết.",
+    "why": "translate"
+  },
+  "agency:v30.def.ops.stages": {
+    "text": "Số ngày trung vị một hồ sơ ở trong một trạng thái trước khi chuyển tiếp (các lượt kết thúc trong 365 ngày qua). Không hiển thị khi dưới {{n}} lượt.",
+    "why": "translate"
+  },
+  "agency:v30.def.ops.unassigned_paid": {
+    "text": "Đã thanh toán dịch vụ Hangyul nhưng chưa có tư vấn viên phụ trách hồ sơ (hoặc, với Hangyul, chưa phân công trung tâm nào).",
+    "why": "translate"
+  },
+  "agency:v30.def.svc.arrival": {
+    "text": "Số lượt đón sân bay đã hoàn thành ÷ số lượt đón đã qua giờ hạ cánh (không tính đã hủy)",
+    "why": "translate"
+  },
+  "agency:v30.def.svc.completion": {
+    "text": "Đã hoàn thành ÷ số yêu cầu tạo trong kỳ (không tính đã hủy)",
+    "why": "translate"
+  },
+  "agency:v30.def.svc.resolution": {
+    "text": "Số giờ trung vị từ lúc yêu cầu đến khi hoàn thành, chỉ tính yêu cầu đã hoàn thành",
+    "why": "translate"
+  },
+  "agency:v30.def.svc.sla": {
+    "text": "Số yêu cầu nhóm xử lý sau SLA (hoặc chưa xử lý và đã quá SLA) ÷ số yêu cầu đã đến hạn SLA",
+    "why": "translate"
+  },
+  "agency:v31.stage.closed": {
+    "text": "Đã đóng",
+    "why": "translate"
+  },
+  "agency:waiting.app.ADDITIONAL_DOCUMENTS": {
+    "text": "trường yêu cầu giấy tờ",
+    "why": "translate"
+  },
+  "agency:waiting.app.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "bắt đầu visa",
+    "why": "translate"
+  },
+  "agency:waiting.app.ADMISSION_CERTIFICATE_PENDING": {
+    "text": "giấy báo nhập học",
+    "why": "translate"
+  },
+  "agency:waiting.app.PROFILE_REVIEW": {
+    "text": "kiểm tra hồ sơ cá nhân",
+    "why": "translate"
+  },
+  "agency:waiting.app.READY": {
+    "text": "sẵn sàng nộp",
+    "why": "translate"
+  },
+  "agency:waiting.app.TUITION_PAID": {
+    "text": "giấy báo nhập học",
+    "why": "translate"
+  },
+  "agency:waiting.app.TUITION_PENDING": {
+    "text": "đóng học phí",
+    "why": "translate"
+  },
+  "agency:waiting.app.VISA_SUBMITTED": {
+    "text": "quyết định visa (đại sứ quán)",
+    "why": "translate"
+  },
+  "agency:waiting.reason.first_contact": {
+    "text": "đến hạn liên hệ lần đầu",
+    "why": "translate"
+  },
+  "agency:waiting.reason.fix_one": {
+    "text": "{{count}} giấy tờ cần sửa",
+    "why": "translate"
+  },
+  "agency:waiting.reason.fix_other": {
+    "text": "{{count}} giấy tờ cần sửa",
+    "why": "translate"
+  },
+  "agency:waiting.reason.overdue_task_one": {
+    "text": "{{count}} công việc quá hạn",
+    "why": "translate"
+  },
+  "agency:waiting.reason.overdue_task_other": {
+    "text": "{{count}} công việc quá hạn",
+    "why": "translate"
+  },
+  "agency:waiting.reason.reply": {
+    "text": "học viên đã trả lời",
+    "why": "translate"
+  },
+  "agency:waiting.reason.review_one": {
+    "text": "{{count}} giấy tờ cần kiểm tra",
+    "why": "translate"
+  },
+  "agency:waiting.reason.review_other": {
+    "text": "{{count}} giấy tờ cần kiểm tra",
+    "why": "translate"
+  },
+  "university:af.applications": {
+    "text": "Hồ sơ",
+    "why": "translate"
+  },
+  "university:af.fromPrevious": {
+    "text": "So với bước trước",
+    "why": "translate"
+  },
+  "university:af.lowN": {
+    "text": "Quá ít để tính tỷ lệ",
+    "why": "translate"
+  },
+  "university:af.step": {
+    "text": "Bước",
+    "why": "translate"
+  },
+  "university:af.stepDef.ARRIVED": {
+    "text": "Sinh viên đã báo nhập cảnh Hàn Quốc (hoặc đã nhập học).",
+    "why": "translate"
+  },
+  "university:af.stepDef.REVIEWED": {
+    "text": "Đội ngũ của bạn đã bắt đầu xét duyệt, yêu cầu giấy tờ, phỏng vấn hoặc ra quyết định.",
+    "why": "translate"
+  },
+  "university:af.stepDef.SUBMITTED": {
+    "text": "Hồ sơ đã nộp vào trường của bạn.",
+    "why": "translate"
+  },
+  "university:af.stepDef.TUITION_PAID": {
+    "text": "Bạn đã xác nhận việc đóng học phí.",
+    "why": "translate"
+  },
+  "university:af.stepDef.VISA_ISSUED": {
+    "text": "Sinh viên đã được cấp visa D-2/D-4.",
+    "why": "translate"
+  },
+  "university:af.title": {
+    "text": "Phễu tuyển sinh",
+    "why": "translate"
+  },
+  "university:analytics.dim.agency": {
+    "text": "Trung tâm",
+    "why": "translate"
+  },
+  "university:analytics.dim.nationality": {
+    "text": "Quốc tịch",
+    "why": "translate"
+  },
+  "university:analytics.dim.program": {
+    "text": "Chương trình",
+    "why": "translate"
+  },
+  "university:applicants.customStatus_other": {
+    "text": "Đã chọn {{count}} trạng thái",
+    "why": "translate"
+  },
+  "university:applicants.flagged": {
+    "text": "Đã gắn cờ",
+    "why": "translate"
+  },
+  "university:applicants.requested_other": {
+    "text": "Đã yêu cầu {{count}} giấy tờ",
+    "why": "translate"
+  },
+  "university:applicants.status": {
+    "text": "Trạng thái",
+    "why": "translate"
+  },
+  "university:common.yes": {
+    "text": "Có",
+    "why": "translate"
+  },
+  "university:dash.noApplicants": {
+    "text": "Chưa có hồ sơ đã nộp nào theo các bộ lọc này.",
+    "why": "translate"
+  },
+  "university:decision.action.ADDITIONAL_DOCUMENTS": {
+    "text": "Yêu cầu giấy tờ",
+    "why": "translate"
+  },
+  "university:decision.action.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Cấp giấy báo nhập học",
+    "why": "translate"
+  },
+  "university:decision.action.ADMISSION_CERTIFICATE_PENDING": {
+    "text": "Đánh dấu chờ cấp giấy báo nhập học",
+    "why": "translate"
+  },
+  "university:decision.action.ENROLLED": {
+    "text": "Xác nhận nhập học",
+    "why": "translate"
+  },
+  "university:decision.action.INTERVIEW": {
+    "text": "Lên lịch phỏng vấn",
+    "why": "translate"
+  },
+  "university:decision.action.OFFERED": {
+    "text": "Gửi thư mời nhập học",
+    "why": "translate"
+  },
+  "university:decision.action.REJECTED": {
+    "text": "Từ chối",
+    "why": "translate"
+  },
+  "university:decision.action.TUITION_PAID": {
+    "text": "Xác nhận đã đóng học phí",
+    "why": "translate"
+  },
+  "university:decision.action.TUITION_PENDING": {
+    "text": "Phát hành giấy báo học phí",
+    "why": "translate"
+  },
+  "university:decision.action.UNIVERSITY_REVIEW": {
+    "text": "Bắt đầu xét duyệt",
+    "why": "translate"
+  },
+  "university:decision.action.WAITLISTED": {
+    "text": "Đưa vào danh sách chờ",
+    "why": "translate"
+  },
+  "university:decision.certificateInfo": {
+    "text": "Việc cấp giấy báo nhập học tiêu chuẩn sẽ tự động mở hồ sơ visa của sinh viên.",
+    "why": "translate"
+  },
+  "university:decision.confirm": {
+    "text": "Chuyển {{student}} từ “{{from}}” sang “{{to}}”. Sinh viên và trung tâm của họ sẽ được thông báo.",
+    "why": "translate"
+  },
+  "university:decision.done": {
+    "text": "Hồ sơ đã chuyển sang “{{status}}”.",
+    "why": "translate"
+  },
+  "university:decision.interviewAt": {
+    "text": "Ngày giờ phỏng vấn",
+    "why": "translate"
+  },
+  "university:decision.none": {
+    "text": "Trường không có việc cần làm ở giai đoạn này.",
+    "why": "translate"
+  },
+  "university:decision.note": {
+    "text": "Ghi chú",
+    "why": "translate"
+  },
+  "university:decision.noteHint": {
+    "text": "Lưu trong lịch sử trạng thái và chia sẻ với sinh viên cùng trung tâm.",
+    "why": "translate"
+  },
+  "university:decision.readOnly": {
+    "text": "Vai trò của bạn chỉ có quyền xem. Hãy đề nghị cán bộ tuyển sinh hoặc quản trị viên ra quyết định.",
+    "why": "translate"
+  },
+  "university:decision.reason": {
+    "text": "Lý do",
+    "why": "translate"
+  },
+  "university:decision.reasonHint": {
+    "text": "Lưu trong lịch sử hồ sơ. Ứng viên thấy một bản tóm tắt lịch sự; tư vấn viên của họ thấy lý do của bạn.",
+    "why": "translate"
+  },
+  "university:decision.rejectWarning": {
+    "text": "Quyết định từ chối trên Hangyul là cuối cùng. Hãy cân nhắc đưa vào danh sách chờ nếu có thể còn chỗ.",
+    "why": "translate"
+  },
+  "university:decision.scholarshipNote": {
+    "text": "Ghi chú học bổng",
+    "why": "translate"
+  },
+  "university:decision.scholarshipNoteHint": {
+    "text": "VD: “Giảm 30% học phí, học kỳ đầu”. Hiển thị cho sinh viên cùng thư mời.",
+    "why": "translate"
+  },
+  "university:decision.title": {
+    "text": "Quyết định",
+    "why": "translate"
+  },
+  "university:decision.tuitionAmount": {
+    "text": "Số tiền học phí (KRW)",
+    "why": "translate"
+  },
+  "university:decision.tuitionDue": {
+    "text": "Hạn thanh toán",
+    "why": "translate"
+  },
+  "university:detail.applicant": {
+    "text": "Ứng viên",
+    "why": "translate"
+  },
+  "university:detail.decided": {
+    "text": "Ngày quyết định",
+    "why": "translate"
+  },
+  "university:detail.externalRef": {
+    "text": "Mã tham chiếu của bạn",
+    "why": "translate"
+  },
+  "university:detail.externalRefHint": {
+    "text": "Số ứng viên hoặc số nhập học của riêng trường (Hangyul và trung tâm nhìn thấy).",
+    "why": "translate"
+  },
+  "university:detail.gpaNormalized": {
+    "text": "GPA {{value}}% (quy đổi)",
+    "why": "translate"
+  },
+  "university:detail.gpaUnknown": {
+    "text": "Chưa cung cấp GPA",
+    "why": "translate"
+  },
+  "university:detail.history": {
+    "text": "Lịch sử trạng thái",
+    "why": "translate"
+  },
+  "university:detail.interview": {
+    "text": "Phỏng vấn",
+    "why": "translate"
+  },
+  "university:detail.legalization": {
+    "text": "Apostille hoặc hợp pháp hóa lãnh sự",
+    "why": "translate"
+  },
+  "university:detail.noEducation": {
+    "text": "Chưa chia sẻ thông tin học vấn.",
+    "why": "translate"
+  },
+  "university:detail.notShared": {
+    "text": "Chưa chia sẻ",
+    "why": "translate"
+  },
+  "university:detail.notSharedHint": {
+    "text": "Sinh viên chưa chia sẻ giấy tờ này với trường của bạn.",
+    "why": "translate"
+  },
+  "university:detail.optionalDoc": {
+    "text": "Không bắt buộc",
+    "why": "translate"
+  },
+  "university:detail.refSaved": {
+    "text": "Đã lưu mã tham chiếu",
+    "why": "translate"
+  },
+  "university:detail.residence": {
+    "text": "Quốc gia cư trú",
+    "why": "translate"
+  },
+  "university:detail.scholarshipNote": {
+    "text": "Ghi chú học bổng",
+    "why": "translate"
+  },
+  "university:detail.selfReported": {
+    "text": "Tự khai",
+    "why": "translate"
+  },
+  "university:detail.sharingNote": {
+    "text": "Bạn có thể xem giấy tờ sinh viên đã chia sẻ với trường khi nộp hồ sơ. Mọi lượt xem đều được ghi lại.",
+    "why": "translate"
+  },
+  "university:detail.side": {
+    "text": "Chi tiết hồ sơ",
+    "why": "translate"
+  },
+  "university:detail.translation": {
+    "text": "Bản dịch",
+    "why": "translate"
+  },
+  "university:detail.tuition": {
+    "text": "Học phí",
+    "why": "translate"
+  },
+  "university:detail.verified": {
+    "text": "Đã xác minh",
+    "why": "translate"
+  },
+  "university:documents.analystNote": {
+    "text": "Chuyên viên phân tích có thể xem trước giấy tờ nhưng không tải xuống được.",
+    "why": "translate"
+  },
+  "university:documents.expires": {
+    "text": "Hết hạn",
+    "why": "translate"
+  },
+  "university:documents.file": {
+    "text": "Tệp",
+    "why": "translate"
+  },
+  "university:documents.hangyulBody": {
+    "text": "Là nhân viên Hangyul, bạn không bị giới hạn ở một trường trên trang này. Mở một hồ sơ để xem chính xác những giấy tờ sinh viên đã chia sẻ với trường đó.",
+    "why": "translate"
+  },
+  "university:documents.hangyulTitle": {
+    "text": "Mở giấy tờ từ một hồ sơ",
+    "why": "translate"
+  },
+  "university:documents.issued": {
+    "text": "Ngày cấp",
+    "why": "translate"
+  },
+  "university:documents.openApplication": {
+    "text": "Mở hồ sơ",
+    "why": "translate"
+  },
+  "university:documents.openTab": {
+    "text": "Mở trong thẻ mới",
+    "why": "translate"
+  },
+  "university:documents.usedIn": {
+    "text": "Dùng trong hồ sơ",
+    "why": "translate"
+  },
+  "university:header.certificationHint": {
+    "text": "Tình trạng chứng nhận IEQAS (chứng nhận của Bộ Giáo dục về năng lực tuyển sinh và hỗ trợ sinh viên quốc tế)",
+    "why": "translate"
+  },
+  "university:header.hangyulView": {
+    "text": "Chế độ xem của nhân viên Hangyul",
+    "why": "translate"
+  },
+  "university:header.partner": {
+    "text": "Đối tác của Hangyul",
+    "why": "translate"
+  },
+  "university:kpi.definitionOf": {
+    "text": "Định nghĩa của {{label}}",
+    "why": "translate"
+  },
+  "university:kpi.sample": {
+    "text": "n = {{n}}",
+    "why": "translate"
+  },
+  "university:kpi.viewList": {
+    "text": "Xem danh sách",
+    "why": "translate"
+  },
+  "university:kpi.yield": {
+    "text": "Tỷ lệ nhập học",
+    "why": "translate"
+  },
+  "university:login.ssoContinue": {
+    "text": "Tiếp tục bằng tài khoản của trường",
+    "why": "translate"
+  },
+  "university:login.ssoEnforced": {
+    "text": "{{org}} yêu cầu đăng nhập một lần (SSO). Hãy dùng nút phía trên.",
+    "why": "translate"
+  },
+  "university:login.ssoHint": {
+    "text": "{{org}} dùng đăng nhập một lần (SSO). Bạn cũng có thể đăng nhập bằng mật khẩu.",
+    "why": "translate"
+  },
+  "university:login.ssoUnavailable": {
+    "text": "{{org}} được thiết lập đăng nhập SAML, hiện chưa khả dụng. Hãy liên hệ bộ phận hỗ trợ của Hangyul.",
+    "why": "translate"
+  },
+  "university:login.subtitle": {
+    "text": "Dành cho phòng quốc tế và bộ phận tuyển sinh của các trường đối tác Hangyul.",
+    "why": "translate"
+  },
+  "university:login.title": {
+    "text": "Đăng nhập Bảng điều khiển trường",
+    "why": "translate"
+  },
+  "university:metric.period": {
+    "text": "nộp từ {{from}} – {{to}}",
+    "why": "translate"
+  },
+  "university:metric.population": {
+    "text": "Tập dữ liệu: hồ sơ đã nộp · {{intake}} · {{n}} hồ sơ",
+    "why": "translate"
+  },
+  "university:nav.settingsTeam": {
+    "text": "Cài đặt & nhóm",
+    "why": "translate"
+  },
+  "university:notFound.body": {
+    "text": "Trang bạn tìm không tồn tại hoặc đã được chuyển đi.",
+    "why": "translate"
+  },
+  "university:notFound.cta": {
+    "text": "Về bảng điều khiển",
+    "why": "translate"
+  },
+  "university:notifications.subtitle": {
+    "text": "Cập nhật về hồ sơ, giấy tờ và tin nhắn.",
+    "why": "translate"
+  },
+  "university:notifications.unread": {
+    "text": "Chưa đọc",
+    "why": "translate"
+  },
+  "university:picker.body": {
+    "text": "Bạn đang đăng nhập với tư cách nhân viên Hangyul. Hãy chọn trường đối tác để xem. Mọi trang sau đó sẽ giới hạn trong trường đó.",
+    "why": "translate"
+  },
+  "university:picker.label": {
+    "text": "Trường",
+    "why": "translate"
+  },
+  "university:picker.placeholder": {
+    "text": "Chọn trường đối tác…",
+    "why": "translate"
+  },
+  "university:picker.title": {
+    "text": "Chọn trường",
+    "why": "translate"
+  },
+  "university:settings.hangyulTeam": {
+    "text": "Bạn đang xem trường này với tư cách nhân viên Hangyul. Nhóm của trường do quản trị viên của trường quản lý.",
+    "why": "translate"
+  },
+  "university:settings.sso": {
+    "text": "Đăng nhập một lần (SSO)",
+    "why": "translate"
+  },
+  "university:settings.ssoAdminOnly": {
+    "text": "Quản trị viên của trường quản lý đăng nhập một lần.",
+    "why": "translate"
+  },
+  "university:settings.ssoDomains": {
+    "text": "Tên miền email",
+    "why": "translate"
+  },
+  "university:settings.ssoEnforce": {
+    "text": "Đã chặn đăng nhập bằng mật khẩu",
+    "why": "translate"
+  },
+  "university:settings.ssoNone": {
+    "text": "Chưa thiết lập. Hangyul có thể kết nối nhà cung cấp định danh của trường (OpenID Connect). Hãy liên hệ đầu mối Hangyul của bạn.",
+    "why": "translate"
+  },
+  "university:settings.ssoNote": {
+    "text": "Khóa bí mật không bao giờ được lưu trong cơ sở dữ liệu của Hangyul Univ. SAML hiện chưa khả dụng.",
+    "why": "translate"
+  },
+  "university:settings.ssoOff": {
+    "text": "Đã cấu hình, chưa bật",
+    "why": "translate"
+  },
+  "university:settings.ssoOn": {
+    "text": "Đã bật",
+    "why": "translate"
+  },
+  "university:settings.ssoProtocol": {
+    "text": "Giao thức",
+    "why": "translate"
+  },
+  "university:settings.ssoSecret": {
+    "text": "Client secret",
+    "why": "translate"
+  },
+  "university:settings.ssoSecretMissing": {
+    "text": "Thiếu trong bản triển khai",
+    "why": "translate"
+  },
+  "university:settings.ssoSecretOk": {
+    "text": "Do bản triển khai cung cấp",
+    "why": "translate"
+  },
+  "university:settings.ssoStatus": {
+    "text": "Trạng thái",
+    "why": "translate"
+  },
+  "university:settings.ssoSub": {
+    "text": "Cho phép nhân viên đăng nhập bằng tài khoản của trường.",
+    "why": "translate"
+  },
+  "university:settings.subtitle": {
+    "text": "Quyền truy cập của bạn và nhóm {{university}} trên Hangyul.",
+    "why": "translate"
+  },
+  "university:settings.teamSub": {
+    "text": "Những người ở trường bạn có quyền truy cập bảng điều khiển",
+    "why": "translate"
+  },
+  "university:settings.you": {
+    "text": "Quyền truy cập của bạn",
+    "why": "translate"
+  },
+  "university:settings.youShort": {
+    "text": "bạn",
+    "why": "translate"
+  },
+  "university:stage.ADMITTED": {
+    "text": "Đã trúng tuyển",
+    "why": "translate"
+  },
+  "university:stage.APPLIED": {
+    "text": "Đã nộp hồ sơ",
+    "why": "translate"
+  },
+  "university:stage.ARRIVED": {
+    "text": "Đã nhập cảnh",
+    "why": "translate"
+  },
+  "university:stage.ENROLLED": {
+    "text": "Đã nhập học",
+    "why": "translate"
+  },
+  "university:stage.GRADUATED": {
+    "text": "Đã tốt nghiệp",
+    "why": "translate"
+  },
+  "university:stage.INTERESTED": {
+    "text": "Quan tâm",
+    "why": "translate"
+  },
+  "university:stage.PREPARING": {
+    "text": "Đang chuẩn bị",
+    "why": "translate"
+  },
+  "university:stage.RETAINED": {
+    "text": "Tiếp tục học",
+    "why": "translate"
+  },
+  "university:stage.TUITION_PAID": {
+    "text": "Đã đóng học phí",
+    "why": "translate"
+  },
+  "university:stage.VISA_ISSUED": {
+    "text": "Đã cấp visa",
+    "why": "translate"
+  },
+  "university:v23.co.openCohort": {
+    "text": "Xem sinh viên của khóa này",
+    "why": "translate"
+  },
+  "university:v30.def.visaOutcome": {
+    "text": "Visa bị từ chối ÷ số quyết định visa (đã cấp + bị từ chối) của các hồ sơ nộp vào trường bạn từ trung tâm này, trong kỳ nhập học đã chọn. Một lần từ chối chỉ được tính khi đã ghi nhận trên hồ sơ visa của sinh viên; kết quả chưa ghi nhận được liệt kê riêng, không bao giờ suy đoán.",
+    "why": "translate"
+  },
+  "agency:apps.col.student": {
+    "text": "Học viên",
+    "why": "student term"
+  },
+  "agency:apps.empty": {
+    "text": "Không có hồ sơ nào khớp bộ lọc này. Hãy đổi hoặc xóa bộ lọc.",
+    "why": "restore dropped sentence"
+  },
+  "agency:apps.searchPh": {
+    "text": "Tìm học viên, chương trình, trường hoặc mã hồ sơ…",
+    "why": "student term"
+  },
+  "agency:docs.bulkVerify": {
+    "text": "Xác minh mục đã chọn",
+    "why": "verify term"
+  },
+  "agency:docs.bulkVerifyText": {
+    "text": "Chỉ xác minh những giấy tờ bạn đã mở và kiểm tra. Mỗi học viên sẽ được thông báo và mọi quyết định đều được ghi vào nhật ký kiểm tra dưới tên bạn.",
+    "why": "verify/student terms"
+  },
+  "agency:docs.bulkVerifyTitle_other": {
+    "text": "Xác minh {{count}} giấy tờ?",
+    "why": "verify term"
+  },
+  "agency:docs.pick": {
+    "text": "Chọn giấy tờ để kiểm tra",
+    "why": "document review term"
+  },
+  "agency:docs.queue": {
+    "text": "Hàng chờ kiểm tra",
+    "why": "document review term"
+  },
+  "agency:docs.reviewer": {
+    "text": "Kiểm tra giấy tờ",
+    "why": "document review term"
+  },
+  "agency:docs.sc.changes": {
+    "text": "Yêu cầu sửa",
+    "why": "\"bổ sung\" means request more documents"
+  },
+  "agency:docs.sc.send": {
+    "text": "Gửi yêu cầu sửa",
+    "why": "same as sc.changes"
+  },
+  "agency:docs.sc.verify": {
+    "text": "Xác minh",
+    "why": "verify term"
+  },
+  "agency:docs.uploadForHint": {
+    "text": "Dùng khi học viên gửi giấy tờ bằng cách khác (ví dụ qua email). Giấy tờ sẽ được thêm vào kho giấy tờ của học viên, ghi nhận là do bạn tải lên và chờ kiểm tra như mọi tệp khác.",
+    "why": "student/review terms"
+  },
+  "agency:docs.uploadForStudent": {
+    "text": "Tải lên thay học viên",
+    "why": "student term"
+  },
+  "agency:inbox.internalBanner": {
+    "text": "Nội bộ — học viên không thấy",
+    "why": "student term"
+  },
+  "agency:inbox.needsReplyShort": {
+    "text": "Chưa trả lời",
+    "why": "short chip"
+  },
+  "agency:inbox.newHint": {
+    "text": "Học viên sẽ được thông báo qua email và trong ứng dụng.",
+    "why": "student term"
+  },
+  "agency:misc.student": {
+    "text": "Học viên",
+    "why": "student term"
+  },
+  "agency:savedViews.saveHintEmpty": {
+    "text": "Chưa có bộ lọc nào nên chế độ xem này sẽ hiển thị mọi học viên. Hãy thêm bộ lọc trước để hữu ích hơn.",
+    "why": "student term"
+  },
+  "agency:settings.deadlinesHint": {
+    "text": "Mọi hạn chót sắp tới của các học viên bạn phụ trách",
+    "why": "student term"
+  },
+  "agency:shell.searchLabel": {
+    "text": "Tìm học viên",
+    "why": "student term"
+  },
+  "agency:shell.searchPlaceholder": {
+    "text": "Tìm học viên theo tên hoặc email…",
+    "why": "student term"
+  },
+  "agency:students.subCount": {
+    "text": "{{count}} học viên bạn phụ trách",
+    "why": "student term"
+  },
+  "agency:students.view.waiting_student": {
+    "text": "Chờ học viên",
+    "why": "student term"
+  },
+  "agency:v22.nav.students": {
+    "text": "Học viên",
+    "why": "student term"
+  },
+  "agency:v22.stage.ready": {
+    "text": "Sẵn sàng nộp",
+    "why": "\"submit\" was dropped"
+  },
+  "agency:v22.stage.strip": {
+    "text": "Giai đoạn",
+    "why": "stages, not process"
+  },
+  "agency:v22.stage.visa": {
+    "text": "Visa",
+    "why": "one term; \"thị thực\" used nowhere else"
+  },
+  "agency:v22.work.allViews": {
+    "text": "Tất cả học viên",
+    "why": "student term"
+  },
+  "agency:v22.work.closedHint": {
+    "text": "Học viên không trúng tuyển và đã rút",
+    "why": "match status label; student term"
+  },
+  "agency:v22.work.col.student": {
+    "text": "Học viên",
+    "why": "student term"
+  },
+  "agency:v22.work.emptyFiltered": {
+    "text": "Không có học viên nào khớp bộ lọc này. Hãy thử đổi bộ lọc.",
+    "why": "restore dropped sentence"
+  },
+  "agency:v22.work.searchPh": {
+    "text": "Tìm học viên…",
+    "why": "student term"
+  },
+  "agency:v22.ws.noConversation": {
+    "text": "Chưa có cuộc trò chuyện nào. Hãy gửi tin nhắn đầu tiên.",
+    "why": "restore dropped sentence"
+  },
+  "agency:v22.ws.tab.more": {
+    "text": "Công việc & dịch vụ",
+    "why": "task term"
+  },
+  "agency:v23.work.submissionsNeed_other": {
+    "text": "{{count}} hồ sơ chờ nhóm nộp",
+    "why": "clarity; match _one"
+  },
+  "agency:v26.ws.replyOwed": {
+    "text": "Học viên đang chờ bạn trả lời",
+    "why": "student term"
+  },
+  "agency:v27.evidence.form": {
+    "text": "Nộp dưới dạng",
+    "why": "closer to \"Submit as\""
+  },
+  "agency:v27.evidence.open": {
+    "text": "Xem căn cứ",
+    "why": "label said \"reasons and sources\""
+  },
+  "agency:v27.evidence.proof": {
+    "text": "Tệp học viên tải lên",
+    "why": "\"bằng chứng\" overstates"
+  },
+  "agency:v27.hq.guidesNone": {
+    "text": "Không có hướng dẫn tuyển sinh nào cần xác minh.",
+    "why": "was generic"
+  },
+  "agency:v27.hq.guidesTitle": {
+    "text": "Hướng dẫn tuyển sinh cần xác minh",
+    "why": "verify, not review"
+  },
+  "agency:v27.hq.kind.SPOT_CHECK": {
+    "text": "Đối chiếu nhanh với bản gốc",
+    "why": "original, not PDF"
+  },
+  "agency:v27.issue.IN_REVIEW": {
+    "text": "Đang kiểm tra",
+    "why": "document review term"
+  },
+  "agency:v27.stage.stalled": {
+    "text": "Đứng yên {{count}} ngày",
+    "why": "\"dừng\" reads as stopped"
+  },
+  "agency:waiting.app.VISA_ISSUED": {
+    "text": "kế hoạch nhập cảnh",
+    "why": "arrival plans"
+  },
+  "agency:ws.act.call": {
+    "text": "Đặt lịch tư vấn",
+    "why": "consultation, not call"
+  },
+  "agency:ws.act.task": {
+    "text": "Công việc",
+    "why": "task term"
+  },
+  "agency:ws.apptHint": {
+    "text": "Các buổi tư vấn và phỏng vấn thử với học viên này.",
+    "why": "mock interview term"
+  },
+  "agency:ws.block.deadline_one": {
+    "text": "Hạn nộp hồ sơ {{uni}} còn {{count}} ngày",
+    "why": "application deadline term"
+  },
+  "agency:ws.block.deadline_other": {
+    "text": "Hạn nộp hồ sơ {{uni}} còn {{count}} ngày",
+    "why": "application deadline term"
+  },
+  "agency:ws.block.review_one": {
+    "text": "{{count}} giấy tờ đang chờ bạn kiểm tra",
+    "why": "document review term"
+  },
+  "agency:ws.block.review_other": {
+    "text": "{{count}} giấy tờ đang chờ bạn kiểm tra",
+    "why": "document review term"
+  },
+  "agency:ws.blockedBy": {
+    "text": "Cần xong trước: {{deps}}",
+    "why": "\"Finish first\", not waiting"
+  },
+  "agency:ws.by.MANUAL": {
+    "text": "một quản trị viên",
+    "why": "administrator"
+  },
+  "agency:ws.identity": {
+    "text": "Danh tính & cư trú",
+    "why": "residence was dropped"
+  },
+  "agency:ws.itemsInReview_one": {
+    "text": "{{count}} mục đang kiểm tra",
+    "why": "noun missing; review term"
+  },
+  "agency:ws.itemsInReview_other": {
+    "text": "{{count}} mục đang kiểm tra",
+    "why": "noun missing; review term"
+  },
+  "agency:ws.noVisaText": {
+    "text": "Hồ sơ visa tự động mở khi trường cấp giấy báo nhập học tiêu chuẩn.",
+    "why": "official document name"
+  },
+  "agency:ws.notAssigned": {
+    "text": "Chưa phân công cho trung tâm nào",
+    "why": "agency term"
+  },
+  "agency:ws.sinceDate": {
+    "text": "Phân công từ {{date}}",
+    "why": "\"đồng hành\" is marketing tone"
+  },
+  "agency:ws.tab.essays": {
+    "text": "Bài luận",
+    "why": "one term for essays"
+  },
+  "agency:ws.tasksHint": {
+    "text": "Công việc của nhóm và công việc học viên nhìn thấy, dành cho học viên này.",
+    "why": "unnatural wording"
+  },
+  "agency:ws.visaProgress": {
+    "text": "Tiến độ danh sách giấy tờ visa",
+    "why": "checklist term"
+  },
+  "university:applicants.emptyText": {
+    "text": "Hồ sơ sẽ xuất hiện tại đây ngay khi học viên của Hangyul nộp.",
+    "why": "student term"
+  },
+  "university:applicants.requested_one": {
+    "text": "Đã yêu cầu {{count}} giấy tờ",
+    "why": "noun missing"
+  },
+  "university:documents.legalization": {
+    "text": "Công chứng & hợp pháp hóa",
+    "why": "notarization was dropped"
+  },
+  "university:kpi.insufficientDetail": {
+    "text": "Hiển thị khi có từ {{min}} hồ sơ (hiện có {{n}}).",
+    "why": "match English meaning"
+  },
+  "university:nav.students": {
+    "text": "Sinh viên đã nhập học",
+    "why": "enrolled was dropped"
+  },
+  "university:settings.noTeam": {
+    "text": "Chưa có thành viên nào. Hãy đề nghị Hangyul thêm thành viên.",
+    "why": "restore dropped sentence"
+  },
+  "university:v22.empty.enrolment": {
+    "text": "Không có ứng viên nào đang ở giữa bước nhận thư mời và nhập học.",
+    "why": "clarity; formal tone"
+  },
+  "university:v22.empty.received": {
+    "text": "Không có hồ sơ đã tiếp nhận nào đang chờ bắt đầu xét duyệt.",
+    "why": "match English meaning"
+  },
+  "university:v22.in.dropText": {
+    "text": "{{lost}}/{{of}} ({{pct}}) không đi tiếp bước sau.",
+    "why": "natural order"
+  },
+  "university:v22.in.largestDrop": {
+    "text": "Mức sụt giảm lớn nhất",
+    "why": "analytics term"
+  },
+  "university:v22.in.noDrop": {
+    "text": "Chưa có bước nào (từ {{min}} ứng viên trở lên) cho thấy sụt giảm.",
+    "why": "clarity"
+  },
+  "university:v22.in.q.admit": {
+    "text": "Ứng viên nào trúng tuyển và nhập học?",
+    "why": "formal tone"
+  },
+  "university:v22.in.q.dropoff": {
+    "text": "Ứng viên rời đi ở bước nào?",
+    "why": "formal tone; \"chúng ta mất họ\" is casual"
+  },
+  "university:v22.in.q.settle": {
+    "text": "Sinh viên có ổn định sau khi nhập học không?",
+    "why": "formal tone"
+  },
+  "university:v22.stage.documents": {
+    "text": "Đã yêu cầu giấy tờ",
+    "why": "documents, not \"bổ sung\""
+  },
+  "university:v22.stageHint.documents_check": {
+    "text": "Đã nộp; chưa hoàn tất kiểm tra giấy tờ",
+    "why": "match English meaning"
+  },
+  "university:v22.stageHint.enrolment": {
+    "text": "Học phí, giấy báo nhập học và visa đang được xử lý",
+    "why": "\"in progress\" was dropped"
+  },
+  "university:v22.stageHint.received": {
+    "text": "Đã kiểm tra giấy tờ xong. Bắt đầu xét duyệt",
+    "why": "match English meaning"
+  },
+  "university:v25.head.moved": {
+    "text": "hồ sơ đổi trạng thái trong tuần",
+    "why": "status, not stage"
+  },
+  "university:v25.head.requests": {
+    "text": "yêu cầu giấy tờ chưa được phản hồi",
+    "why": "document, not application"
+  },
+  "university:v28.pipe.label": {
+    "text": "Kết quả đến nay; xem chi tiết trong Thống kê",
+    "why": "match English meaning"
+  },
+  "university:v28.pipe.step.ACCEPTED": {
+    "text": "Đã chấp nhận thư mời",
+    "why": "object missing"
+  },
+  "university:v28.pipe.title": {
+    "text": "Kết quả đến nay",
+    "why": "match English meaning"
+  }
+}

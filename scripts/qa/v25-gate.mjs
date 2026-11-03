@@ -17,6 +17,7 @@
 //           navigation, ?lang and ?plan survive login, 390-px overflow, console errors on every visited page
 //
 // Exit 0 only when every check that ran passed. The photo-coverage number is printed, never turned green by itself.
+import { apiToken } from './auth.mjs';
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -43,7 +44,7 @@ const flat = (o, p = '', out = {}) => { for (const [k, v] of Object.entries(o)) 
 const { MARKET_LOCALES } = await import(path.join(ROOT, 'scripts/i18n/v23/markets.mjs'));
 const bundle = (loc, ns) => { const p = path.join(ROOT, 'packages/i18n/locales', loc, `${ns}.json`); return fs.existsSync(p) ? flat(JSON.parse(fs.readFileSync(p, 'utf8'))) : {}; };
 const SERVABLE = new Set(['HANGYUL_OWNED', 'OWNER_AUTHORISED', 'COMMERCIAL_NO_ATTRIBUTION', 'CC0_PUBLIC_DOMAIN', 'ATTRIBUTION_SUPPORTED']);
-const token = async (client, email) => (await (await fetch(`${API}/auth/demo-login`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, client }) })).json()).access_token;
+const token = (client, email) => apiToken(API, email, client);
 const get = async (t, p) => (await fetch(`${API}${p}`, { headers: { Authorization: `Bearer ${t}` } })).json();
 
 // V26 (REPORT §347, GATE_CHANGES G-CSS): the version layers were merged into src/styles/*.css; each source keeps a
@@ -117,10 +118,10 @@ function staticPart() {
   }
   ok('L10N', `${keys.length} V25 keys × ${MARKET_LOCALES.length} markets: present, placeholders intact, no English/Hangul leakage`, bad.length === 0, bad.slice(0, 4).join('; ') || `${keys.length * MARKET_LOCALES.length} strings`);
 
-  ok('SECURITY', 'native test sign-in still behind TEST_LOGIN require()', /TEST_LOGIN \? require\('\.\.\/components\/TestAccountSignIn'\)/.test(read('packages/mobile-ui/src/bootstrap/LoginScreen.tsx')));
-  const py = spawnSync(path.join(ROOT, 'server/.venv/bin/python'), ['-m', 'pytest', '-q', '-p', 'no:cacheprovider', 'tests/test_v23_environment.py', 'tests/test_v21b_test_paid_state.py'], { cwd: path.join(ROOT, 'server'), encoding: 'utf8', env: { ...process.env } });
+  ok('SECURITY', 'no native test sign-in (V32)', !/TEST_LOGIN|TestAccountSignIn/.test(read('packages/mobile-ui/src/bootstrap/LoginScreen.tsx')));
+  const py = spawnSync(path.join(ROOT, 'server/.venv/bin/python'), ['-m', 'pytest', '-q', '-p', 'no:cacheprovider', 'tests/test_v23_environment.py'], { cwd: path.join(ROOT, 'server'), encoding: 'utf8', env: { ...process.env } });
   const pyLine = ((py.stdout ?? String(py.error ?? '')).match(/\d+ passed[^\n]*/) ?? [''])[0];
-  ok('SECURITY', 'production refuses test sign-in and the paid-state bypass (pytest: environment + paid-state)', py.status === 0, pyLine);
+  ok('SECURITY', 'server environment fails closed (pytest: environment)', py.status === 0, pyLine);
   const secret = spawnSync('node', ['scripts/qa/v21/security-scan.mjs', '--no-runtime'], { cwd: ROOT, encoding: 'utf8' });
   ok('SECURITY', 'no production secret in source or mobile config (security scan)', secret.status === 0, (secret.stdout.trim().split('\n').pop() ?? '').slice(0, 120));
 }

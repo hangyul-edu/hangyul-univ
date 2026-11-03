@@ -1,0 +1,779 @@
+{
+ "_notes": [
+  "A null `cur` means the key is missing from packages/i18n/locales/uz (confirmed: it falls back to English on the live site); every such key is translated here, as the brief requires for English-visible copy.",
+  "Plan = 'tarif' everywhere (already the pricing term; 'reja' is reserved for oʻqish rejasi = study plan).",
+  "Personal statement stays 'motivatsion xat': it is the term Uzbek applicants actually use and it is already consistent across 9 keys; owner may prefer 'oʻzini tanishtirish xati' (literal 자기소개서) — not changed.",
+  "International students unified on 'xorijiy talabalar' (was xorijiy / xalqaro / chet ellik). Dormitory unified on 'yotoqxona'; 'turar joy' kept only for housing as a topic.",
+  "Enrolled/enrollment = 'oʻqishga kirdi / oʻqishga kirish' (natural Uzbek, distinct from 'qabul qilindi' = admitted); appStatus/pipeline ENROLLED were 'Qabul qilindi' = admitted, fixed.",
+  "Tuition = 'oʻqish toʻlovi' (one term); in the two terms-of-service sentences 'kontrakt' is kept once in brackets because that is the word Uzbek families use.",
+  "Institution type: NATIONAL = 'Davlat' (국립, state-founded), PUBLIC = 'Munitsipal' (공립, local-government). The old common:institution pair 'Milliy / Davlat' put 'Davlat' on the wrong value. Owner may prefer another gloss for 공립.",
+  "Korean place names follow the convention already fixed in common:region (Russian-derived Uzbek: Pusan, Tegu, Kanvon, Chungchxon…); the 23 new city chips (Chxongju, Kannin, Poxan, Mokpxo …) follow it. Owner decision: students will see Revised-Romanization names (Pohang, Mokpo) on English documents; switching the whole set to English spellings would be a single consistent change if preferred.",
+  "Standard admission letter rendered as 'standart qabul xati (standard admission letter)' where the official document is meant; short status chips keep 'qabul xati'. Residence card = 'chet ellik roʻyxat kartasi (residence card)'.",
+  "Suffixes are attached directly to numbers/placeholders per Uzbek orthography ({{max}}dan, {{university}}ga); where a date placeholder would take a suffix the label form 'Tekshirilgan: {{date}}' is used instead.",
+  "Ulsan body: 'Hyundai' was in the Uzbek but not in the source; removed (back-check E)."
+ ],
+ "marketing:seo.home.description": {
+  "text": "Oʻzingizga mos Koreya universitetini toping, hujjatlarni tayyorlang, viza va kelishga tayyorlaning — tekshirilgan maʼlumotlar va Hangyul jamoasi bir joyda.",
+  "why": "'jonli jamoa' unnatural; matches EN"
+ },
+ "marketing:v11.faq.q1.q": {
+  "text": "Ariza topshirish uchun qanday hujjatlar kerak?",
+  "why": "avoid hujjat…hujjat repetition"
+ },
+ "marketing:v11.faq.q1.a": {
+  "text": "Qabul uchun kerakli hujjatlar quyida. Baʼzi universitet va fakultetlar qoʻshimcha hujjat soʻraydi. Oʻqituvchi yoki ish beruvchining tavsiyanomasini yoki olimpiadada qatnashganlik haqidagi guvohnomani ham topshirishingiz mumkin.<br><br>1. * Ingliz tiliga tarjima qilingan, notarial tasdiqlangan va apostil qoʻyilgan maktab yoki kollejni tamomlaganlik haqidagi hujjat (attestat yoki diplom)<br>2. Ingliz tiliga tarjima qilingan, notarial tasdiqlangan va apostil qoʻyilgan baholar qaydnomasi (transkript)<br>3. Pasport nusxasi<br>4. Ota-onangizning har ikkisining pasporti nusxasi. Agar ota yoki onada pasport boʻlmasa, shaxsiy guvohnomasi nusxasi ingliz tiliga tarjima qilinib, notarial tasdiqlanadi<br>5. Tarjima qilingan va notarial tasdiqlangan tugʻilganlik haqidagi guvohnoma yoki qarindoshlik munosabatini tasdiqlovchi hujjat<br>6. Koreys yoki ingliz tilini bilishingizni tasdiqlovchi hujjat (TOPIK, TOEFL, IELTS yoki unga teng dalil)<br>7. Hisobda kamida 15 000 AQSH dollari borligini koʻrsatuvchi, 30 kun amal qiladigan bank maʼlumotnomasi (summa universitet joylashuviga qarab farq qilishi mumkin)",
+  "why": "item 4 grammar (har ikkisining)"
+ },
+ "marketing:v11.faq.q3.a": {
+  "text": "Universitetlar TOPIK, TOEFL va IELTS natijalarini qabul qiladi. Baʼzilari Koreyadagi universitet qoshidagi koreys tili markazi sertifikatini, universitetning oʻz koreys tili imtihonidan oʻtganlik hujjatini yoki King Sejong Institute (Sejong instituti) sertifikatini (oʻrta 1-daraja va undan yuqori) ham qabul qiladi.",
+  "why": "official name first; clearer level phrase"
+ },
+ "marketing:v11.services.s1.text": {
+  "text": "Baholaringiz va maqsadlaringizga mos universitetlar hamda universitet qoshidagi koreys tili markazlarini tavsiya qilamiz. Yakkama-yakka maslahatda siz topshira oladigan stipendiyalarni koʻrib chiqamiz, soʻng qabul hujjatlaringizni siz bilan birga tayyorlaymiz va ariza jarayoni davomida universitet bilan muloqot qilamiz.",
+  "why": "restore 'prepare with you' and 'communicate'"
+ },
+ "marketing:v11.unis.title": {
+  "text": "<h2 class=\"mb-4\">Tanlash uchun<br><span class=\"text-blue\">{{count}}dan ortiq Koreya universiteti</span></h2>",
+  "why": "suffix attaches to number"
+ },
+ "marketing:v12.directory.countShort_one": {
+  "text": "{{count}} ta muassasa",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.directory.countShort_other": {
+  "text": "{{count}} ta muassasa",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.directory.count_one": {
+  "text": "{{count}} ta muassasa",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.directory.emptyText": {
+  "text": "Boshqa hududni tanlang yoki butun Koreya boʻyicha koʻring.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.directory.emptyTitle": {
+  "text": "Bu hududda muassasalar roʻyxatga kiritilmagan",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.directory.inRegion": {
+  "text": "{{region}} hududidagi universitetlar",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.directory.matching": {
+  "text": "“{{q}}” boʻyicha natijalar",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.establishment.NATIONAL": {
+  "text": "Davlat",
+  "why": "missing; 국립 = state-founded"
+ },
+ "marketing:v12.establishment.PUBLIC": {
+  "text": "Munitsipal",
+  "why": "missing; 공립 = local-government"
+ },
+ "marketing:v12.footer.explore": {
+  "text": "Koʻrib chiqish",
+  "why": "footer heading is a noun"
+ },
+ "marketing:v12.ieqas.certified": {
+  "text": "IEQAS sertifikatiga ega",
+  "why": "natural phrasing"
+ },
+ "marketing:v12.ieqas.excellent": {
+  "text": "IEQAS sertifikatiga ega — aʼlo",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.ieqas.languageWhat": {
+  "text": "Ushbu muassasaning koreys tili dasturi sertifikatlangan dasturlar roʻyxatida.",
+  "why": "clearer noun"
+ },
+ "marketing:v12.legal.effective": {
+  "text": "Kuchga kirish sanasi: {{date}}",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.map.hide": {
+  "text": "Xaritani yashirish",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.privacy.collect.counselling.items": {
+  "text": "Maslahat yozuvlari va xabarlar, motivatsion xat va oʻqish rejasi qoralamalari hamda ularning tahrir tarixi, tahrir izohlari, universitet soʻrovlari, ariza jarayoni yozuvlari",
+  "why": "fix 'va … va' chain"
+ },
+ "marketing:v12.privacy.collect.documents.items": {
+  "text": "Pasport, shaxsiy guvohnoma, fotosurat, baholar qaydnomasi, oʻqishni tamomlaganlik va tamomlash arafasidaligi haqidagi hujjatlar, qarindoshlik va tugʻilganlik haqidagi guvohnomalar, bank koʻchirmalari, homiy hujjatlari, ish joyi va daromadni tasdiqlovchi hujjatlar, TOPIK, IELTS va TOEFL natijalari, tavsiyanomalar, motivatsion xatlar, oʻqish rejalari, rezyume, apostil, notarial tasdiqlash va tasdiqlangan tarjimalar, chet ellik roʻyxat kartasi (residence card), viza, standart qabul xati (standard admission letter)",
+  "why": "official document names"
+ },
+ "marketing:v12.privacy.collect.security.purpose": {
+  "text": "Parolni qoʻpol kuch bilan tanlash (brute-force) va avtomatlashtirilgan hujumlarni aniqlash va toʻxtatish",
+  "why": "'kuch bilan buzish' unclear"
+ },
+ "marketing:v12.privacy.contact.colField": {
+  "text": "Maydon",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.privacy.contact.colValue": {
+  "text": "Maʼlumot",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.privacy.contact.department": {
+  "text": "Boʻlim",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.privacy.contact.email": {
+  "text": "Elektron pochta",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.privacy.contact.h": {
+  "text": "Shaxsiy maʼlumotlar boʻyicha masʼul shaxs va aloqa",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.privacy.contact.officer": {
+  "text": "Shaxsiy maʼlumotlar boʻyicha masʼul shaxs",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.privacy.contact.phone": {
+  "text": "Telefon",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.privacy.processors.colContact": {
+  "text": "Aloqa",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.privacy.processors.colRetention": {
+  "text": "Qayta ishlovchida saqlash muddati",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.privacy.processors.none": {
+  "text": "Hozirda ishchi muhitda Hangyul nomidan shaxsiy maʼlumotlarni qayta ishlovchi tashqi tomon yoʻq. Bu oʻzgarsa, qayta ishlovchi va unga topshiriladigan ish shu yerda eʼlon qilinadi va ish boshlanishidan oldin xabar beriladi.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.privacy.retention.months_one": {
+  "text": "{{count}} oy",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.privacy.retention.years_one": {
+  "text": "{{count}} yil",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.privacy.sharing.sponsor.purpose": {
+  "text": "Siz tanlagan jarayon holatini ulashish",
+  "why": "remove doubled 'ulashish'"
+ },
+ "marketing:v12.privacy.sharing.whenApplying": {
+  "text": "Agar ariza yoki xorijda oʻqishni qoʻllab-quvvatlash xizmatlaridan foydalansangiz, siz tanlagan xizmat va arizangiz qaysi bosqichga yetganiga qarab, bu xizmatlar uchun zarur maʼlumotlar siz ariza topshirayotgan universitetga yoki sizga biriktirilgan agentlikka berilishi mumkin.",
+  "why": "'ishingiz' ambiguous (job)"
+ },
+ "marketing:v12.privacy.transfer.none": {
+  "text": "Hozirda shaxsiy maʼlumotlarni Koreyadan tashqariga uzatuvchi qayta ishlovchi yoʻq. Agar xorijga uzatish zarur boʻlsa, oluvchi, mamlakat, maqsad, maʼlumotlar, vaqti, usuli va saqlash muddati shu yerda eʼlon qilinadi va uzatish boshlanishidan oldin xabar beriladi.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v11.services.s2.text": {
+  "text": "Qabul qilinganingizdan keyingi qadamlarda yordam beramiz: viza arizasi, chet ellik roʻyxat kartasi (residence card) va darslarga yozilish. Shunda oʻqishni ishonch bilan boshlaysiz.",
+  "why": "residence card term unified"
+ },
+ "marketing:v12.terms.effective.h": {
+  "text": "Kuchga kirish sanasi",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.terms.effective.p": {
+  "text": "Ushbu shartlar {{date}} sanasidan kuchga kiradi.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.terms.law.h": {
+  "text": "Qoʻllaniladigan qonun va yurisdiksiya",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v12.terms.fees.h": {
+  "text": "Narxlar va toʻlov",
+  "why": "'toʻlovlar va toʻlov qilish' redundant"
+ },
+ "marketing:v12.terms.refunds.stage.APPLICATION_WORK_STARTED": {
+  "text": "Ariza ustida ish boshlandi",
+  "why": "EN says work started, not help"
+ },
+ "marketing:v12.uni.back": {
+  "text": "Koreya universitetlari roʻyxatiga qaytish",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v14.legal.brn": {
+  "text": "Biznes roʻyxat raqami",
+  "why": "noun phrase, not a process"
+ },
+ "marketing:v14.legal.ecommerce": {
+  "text": "Elektron tijorat roʻyxat raqami",
+  "why": "match the legal term used elsewhere"
+ },
+ "marketing:v14.media.alt.seoulRiver": {
+  "text": "Quyosh botishida daryo ortidan koʻringan {{region}} shahar manzarasi.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v15.pricing.compare.item": {
+  "text": "Xizmat",
+  "why": "empty string"
+ },
+ "marketing:v17.quick.ctaWhy": {
+  "text": "Arizalar, hujjatlar va vizaga tayyorgarlikni Hangyul siz bilan birga olib boradi.",
+  "why": "'vizani qiladi' reads as a promise"
+ },
+ "marketing:v17.quick.notAnOffer": {
+  "text": "Bu eʼlon qilingan qabul talablari bilan solishtirish, taklif yoki bashorat emas. Qarorni universitet chiqaradi.",
+  "why": "wrong apostrophe; clearer last sentence"
+ },
+ "marketing:v20.city.Chungbuk.body": {
+  "text": "Shimoliy Chungchxon — Koreyaning dengizga chiqish yoʻli boʻlmagan yagona viloyati. Chxongju uning markazi va asosiy universitet shahri; Sejong va Tejonga shunchalik yaqinki, ularning ish bozori bilan oʻrtoqlashadi.\nViloyat Tanyangning ohaktosh manzaralari bilan hamda yirik shaharlarga qaraganda tinchroq va arzonroq talabalik hayoti bilan tanilgan.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Chungbuk.line": {
+  "text": "Dengizdan uzoq, markazda va Chxongju atrofida shakllangan.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Chungbuk.청주": {
+  "text": "Chxongju",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Chungnam.body": {
+  "text": "Janubiy Chungchxon gʻarbiy sohildan ichkarigacha choʻzilgan, uning universitet shaharlari Chxonan va Asan esa Seul metrosining 1-liniyasida ham, KTX yoʻnalishida ham joylashgan. Poytaxt hududiga yaqinlik va viloyatdagi arzon ijara uygʻunligi tufayli bir nechta yirik universitet bu yerda kampus qurgan.\nQadimgi Pekche poytaxtlari Kongju va Puyo ham shu viloyatda va yarim kunlik sayohatga arziydi.",
+  "why": "province name as in common:region"
+ },
+ "marketing:v20.city.Chungnam.아산": {
+  "text": "Asan",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Chungnam.천안": {
+  "text": "Chxonan",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Daegu.body": {
+  "text": "Tegu janubi-sharqdagi togʻlar orasidagi botiqda joylashgan: avgustda Koreyaning eng issiq, yanvarda esa eng sovuq shaharlaridan biri. Zich va piyoda yurish qulay markazi, keyinchalik moda va tibbiy asbob-uskunalar sanoatiga aylangan uzoq toʻqimachilik tarixi bor, yashash xarajatlari esa Seul yoki Pusandan sezilarli darajada past.\nKTX bilan Seulgacha bir soat qirq besh daqiqa, Pusangacha ellik daqiqa.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Daegu.line": {
+  "text": "Togʻlar orasidagi botiqda joylashgan ichki shahar: toʻqimachilik, tibbiyot va jazirama bilan tanilgan.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Daejeon.body": {
+  "text": "Tejon davlat ilmiy institutlari va korporativ tadqiqot markazlari klasteri boʻlgan Tedok Innopolis atrofida rivojlangan va bu yerdagi universitetlar ham shu muhitda shakllangan. Agar muhandislik yoki tabiiy fanlar uchun kelayotgan boʻlsangiz, laboratoriyalar aynan shu yerda.\nShahar deyarli mamlakatning qoq markazida: KTX bilan Seulgacha bir soat, Pusangacha ham bir soat.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gangwon.body": {
+  "text": "Kanvonda Txebek togʻ tizmasi, 2018-yilgi Qishki Olimpiada obyektlari va sharqiy sohil plyajlari joylashgan. Universitet shaharlari — Chxunchxon, Kannin va Vonju; ularning birortasi katta emas va barchasi poytaxt hududidagi har qanday joydan arzonroq va tinchroq.\nBu yerda qish — haqiqiy qish. KTX Seuldan Kanningacha taxminan ikki soatda yetib boradi.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gangwon.강릉": {
+  "text": "Kannin",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gangwon.원주": {
+  "text": "Vonju",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gangwon.춘천": {
+  "text": "Chxunchxon",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gwangju.body": {
+  "text": "Kvanju — Cholla viloyatlarining eng yirik shahri; ularning taomlar bilan bogʻliq shuhratini ham, 1980-yilgi demokratik qoʻzgʻolon xotirasini ham oʻzida mujassam etgan — Koreyada shahar hanuz eng koʻp shu bilan tanilgan.\nBu yashash uchun arzonroq yirik shaharlardan biri, sanʼat muhiti eʼtirofga sazovor, KTX bilan Seulgacha taxminan ikki soat.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gwangju.line": {
+  "text": "Janubi-gʻarbning madaniy va siyosiy markazi hamda oʻqish uchun hamyonbop shahar.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gyeongbuk.body": {
+  "text": "Shimoliy Kyongsanda ming yil davomida Silla poytaxti boʻlgan va amalda ochiq osmon ostidagi muzeyga aylangan Kyongju hamda Koreyaning eng kuchli fan va muhandislik universitetlaridan biri joylashgan poʻlat shahri Poxan bor. Ichkariroqdagi Andon esa koreys konfutsiychilik anʼanalarining markazi.\nBu katta va rang-barang viloyat, va uning har bir burchagi poytaxt hududidan arzonroq.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gyeongbuk.line": {
+  "text": "Kyongjuning ming yillik tarixi va Poxan poʻlati — bitta viloyatda.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gyeongbuk.경주": {
+  "text": "Kyongju",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gyeongbuk.구미": {
+  "text": "Kumi",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gyeongbuk.포항": {
+  "text": "Poxan",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gyeonggi.고양": {
+  "text": "Koyan",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gyeonggi.부천": {
+  "text": "Puchxon",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gyeonggi.성남": {
+  "text": "Songnam",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gyeonggi.수원": {
+  "text": "Suvon",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gyeonggi.안양": {
+  "text": "Anyan",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gyeonggi.용인": {
+  "text": "Yongin",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gyeongnam.김해": {
+  "text": "Kimxe",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gyeongnam.진주": {
+  "text": "Chinju",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Gyeongnam.창원": {
+  "text": "Changvon",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Incheon.body": {
+  "text": "Inchxon — siz qoʻnadigan shahar. U oʻzi ham universitet shahri: Songdo xalqaro biznes hududi soʻnggi yigirma yil ichida dengizdan olingan yerda qurilgan va hozir u yerda bir nechta kampus, jumladan, xorijiy universitetlarning Koreyadagi filiallari joylashgan.\nAeroport temir yoʻli Seul markazigacha bir soatdan kam vaqtda olib boradi, Inchxonning eski qismi (Xitoy mahallasi, port, Volmido) esa yangi hududdan butunlay boshqa shaharga oʻxshaydi.",
+  "why": "city name as in common:region"
+ },
+ "marketing:v20.city.Incheon.line": {
+  "text": "Koreyaning darvoza shahri: aeroport ham, Songdo ham shu yerda.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Jeju.body": {
+  "text": "Cheju materikdan 85 kilometr uzoqda, Xallasan vulqoni atrofida joylashgan va shunchalik iliqki, oʻsimliklari subtropikka oʻxshaydi. Bu butun mamlakat uchun dam olish maskani, bu esa uning iqtisodiyoti va ijara narxlarini belgilaydi.\nBu yerda universitetlar kam va ular kichik. Seulga reyslar har bir necha daqiqada uchadi va bir soat davom etadi.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Jeju.line": {
+  "text": "Janubiy sohil yaqinidagi vulqon oroli, iqlimi Koreyaning qolgan qismidan farq qiladi.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Jeonbuk.body": {
+  "text": "Shimoliy Cholla — qishloq xoʻjaligi viloyati: gʻarbi tekis, sharqi togʻli, markazi esa Chonju — mamlakatdagi eng katta saqlanib qolgan xanok mahallasiga ega, taomlari bilan hech bir Koreya shahri bahslasha olmaydigan 650 mingga yaqin aholili shahar.\nYashash xarajatlari universitet shaharlari orasida eng pastlaridan, KTX bilan Seulgacha ikki soatdan sal kam.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Jeonbuk.line": {
+  "text": "Chonju va koreys taomlarining vatani sanalgan hudud.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Jeonbuk.익산": {
+  "text": "Iksan",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Jeonbuk.전주": {
+  "text": "Chonju",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Jeonnam.body": {
+  "text": "Janubiy Chollada Koreyaning qolgan qismidagidan ham koʻp orollar, Sunchxon qoʻltigʻi botqoqliklari va Yosu porti bor. Bu materikdagi eng kam urbanizatsiyalashgan viloyat, shunga yarasha universitetlari ham kichik va ahil.\nAgar sohili bor, tinch va yashash xarajatlari juda past joy izlayotgan boʻlsangiz — bu aynan shu.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Jeonnam.line": {
+  "text": "Janubi-gʻarbiy sohil, uning orollari va mamlakatdagi eng shoshilmas hayot ritmi.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Jeonnam.목포": {
+  "text": "Mokpxo",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Jeonnam.순천": {
+  "text": "Sunchxon",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Jeonnam.여수": {
+  "text": "Yosu",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Sejong.body": {
+  "text": "Sejong — Koreyaning eng yangi va eng puxta rejalashtirilgan shahri: markaziy vazirliklarning aksariyati Seuldan shu yerga koʻchgan, koʻchalar tarhi, bogʻlar va jamoat binolari esa soʻnggi oʻn besh yil ichida qurilgan.\nShahar kichik, tinch va juda yangi; Tejongacha yigirma daqiqa, Seulgacha bir yarim soat.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Sejong.line": {
+  "text": "Hukumat vazirliklarini joylashtirish uchun 2012-yildan boshlab boʻsh joyda qurilgan shahar.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.city.Ulsan.body": {
+  "text": "Ulsan Koreya shaharlari orasida eng yuqori oʻrtacha daromadga ega va buning sababi yaqqol koʻrinadi: dunyodagi eng katta kemasozlik zavodi, oʻzi alohida tumanga teng avtomobil zavodi va sohil boʻylab neft-kimyo majmuasi. Muhandislik bitiruvchilari shu yerda ishga olinadi.\nKoreya oʻlchovlarida bu kichik shahar, Pusandan yarim soatlik yoʻlda; kitlarni tomosha qilish, uzun plyaj va markazdan oqib oʻtadigan Txexva daryosi bor.",
+  "why": "drop 'Hyundai' not in source"
+ },
+ "marketing:v20.city.Ulsan.line": {
+  "text": "Koreyaning sanoat poytaxti: kemasozlik, avtomobillar va neft-kimyo.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.dir.tierVideo": {
+  "text": "Rasmiy video",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.dir.typeAll": {
+  "text": "Barchasi",
+  "why": "short filter label"
+ },
+ "marketing:v20.media.alt.busanGwangan": {
+  "text": "{{region}}dagi qoʻltiq uzra kechasi yoritilgan Kvanan koʻprigi",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.media.alt.daejeonExpo": {
+  "text": "{{region}}dagi daryo uzra yoritilgan Ekspo koʻprigi",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.media.alt.gyeongjuBulguksa": {
+  "text": "{{region}}dagi Kyongju shahridagi Pulguksa ibodatxonasi",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.media.alt.jeonjuHanok": {
+  "text": "{{region}}dagi Chonju xanok qishlogʻining cherepitsa tomlari",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.media.alt.seoulCheonggyecheon": {
+  "text": "{{region}} markazidan oʻtuvchi Chxonggyechxon soyi boʻyidagi piyodalar yoʻli",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.media.alt.seoulYeouido": {
+  "text": "Qorongʻi tushganda {{region}}dagi Yoido yaqinidagi Xan daryosi",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.media.alt.sokchoSeorak": {
+  "text": "{{region}}dagi Soraksan tizmasi ostidagi Sokchxo shahri manzarasi",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.media.alt.ulsanBridge": {
+  "text": "{{region}}dagi port uzra Ulsan koʻprigi",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.uni.intl.dormLine": {
+  "text": "Universitet oʻz yotoqxonasi haqidagi maʼlumotlarni eʼlon qiladi.",
+  "why": "dormitory = yotoqxona (one term)"
+ },
+ "marketing:v20.uni.link.dormitory": {
+  "text": "Yotoqxona",
+  "why": "dormitory = yotoqxona (one term)"
+ },
+ "marketing:v20.uni.match.NOT_YET": {
+  "text": "Til imtihoni natijangiz boʻlgach, bu yerga ariza bera olasiz.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.uni.match.POSSIBLE": {
+  "text": "Bergan javoblaringizga koʻra bu yerga ariza topshirishga arziydi.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.uni.match.STRONG": {
+  "text": "Bu yerdagi dasturlar bergan javoblaringizga mos keladi.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.uni.match.ieqas": {
+  "text": "IEQAS sertifikatlangan muassasalar roʻyxatida; bu viza mezonlarini yengillashtiradi.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v20.uni.match.language": {
+  "text": "Koreys tili kursi sertifikatlangan roʻyxatda, shuning uchun til kursidan boshlashingiz mumkin.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v21.uni.placeWhere": {
+  "text": "{{region}}, {{city}}.",
+  "why": "missing (English fallback)"
+ },
+ "marketing:v28.uni.why.gks": {
+  "text": "Global Korea Scholarship (GKS) dasturida ishtirok etadi",
+  "why": "official scholarship name in full"
+ },
+ "common:actions.exportCsv": {
+  "text": "CSV eksport qilish",
+  "why": "button needs a verb"
+ },
+ "common:appStatus.ENROLLED": {
+  "text": "Oʻqishga kirdi",
+  "why": "'qabul qilindi' means admitted, not enrolled"
+ },
+ "common:auth.signInTo": {
+  "text": "{{product}}ga kirish",
+  "why": "suffix attaches to the name"
+ },
+ "common:docCategory.TOPIK": {
+  "text": "TOPIK natijasi",
+  "why": "match IELTS/TOEFL wording"
+ },
+ "marketing:v11.faq.q6.q": {
+  "text": "Qaysi universitetlar xorijiy talabalarga stipendiya beradi?",
+  "why": "one term: xorijiy talabalar"
+ },
+ "marketing:v20.uni.intl.admissionsLine": {
+  "text": "Xorijiy talabalar uchun alohida qabul tartibi bor.",
+  "why": "one term: xorijiy talabalar"
+ },
+ "marketing:v12.uni.intlTitle": {
+  "text": "Xorijiy talabalar uchun",
+  "why": "one term: xorijiy talabalar"
+ },
+ "marketing:v20.uni.intlEyebrow": {
+  "text": "Xorijiy talabalar",
+  "why": "one term: xorijiy talabalar"
+ },
+ "marketing:v28.uni.why.scholarships": {
+  "text": "Xorijiy talabalar uchun {{count}} ta tasdiqlangan stipendiya",
+  "why": "one term: xorijiy talabalar"
+ },
+ "common:eligibility.ELIGIBLE": {
+  "text": "Talablarga mos",
+  "why": "chip label, keep short"
+ },
+ "common:eligibility.POSSIBLE": {
+  "text": "Ehtimol mos",
+  "why": "chip label, keep short"
+ },
+ "common:essayStatus.STUDENT_REVISION": {
+  "text": "Tuzatilmoqda",
+  "why": "collided with docStatus.PROCESSING"
+ },
+ "common:fit.gpa.customMax": {
+  "text": "Transkriptingizdagi maksimal ball",
+  "why": "transcript term unified"
+ },
+ "common:fit.gpa.help": {
+  "text": "GPAni hisoblashda yordam",
+  "why": "suffix attaches"
+ },
+ "common:fit.gpa.normalised": {
+  "text": "{{max}}dan {{value}}. Maksimal ballning {{pct}}% sifatida solishtiramiz.",
+  "why": "suffix attaches to number"
+ },
+ "common:fit.gpa.outOf": {
+  "text": "{{max}}dan",
+  "why": "suffix attaches to number"
+ },
+ "common:fit.gpa.outOfScale": {
+  "text": "Bu {{max}}dan yuqori boʻlishi mumkin emas.",
+  "why": "suffix attaches to number"
+ },
+ "common:fit.gpa.percent": {
+  "text": "100dan (foiz)",
+  "why": "suffix attaches to number"
+ },
+ "common:fit.gpa.used": {
+  "text": "Baholaringiz maksimal ballning {{pct}}% sifatida solishtirildi ({{max}}dan {{value}}). Universitetlar baholarni boshqacha hisoblashi mumkin.",
+  "why": "suffix attaches to number"
+ },
+ "common:fit.gpa.value": {
+  "text": "GPA ballingiz",
+  "why": "label says 'your'"
+ },
+ "common:fit.gpa.why": {
+  "text": "Transkriptingizda qanday yozilgan boʻlsa, shunday kiriting. Hisoblab oʻtkazish shart emas.",
+  "why": "transcript term unified"
+ },
+ "common:fit.level.LANGUAGE": {
+  "text": "Koreys tili dasturi",
+  "why": "match common:degree.LANGUAGE"
+ },
+ "common:fit.q.level": {
+  "text": "Qaysi darajada oʻqimoqchisiz?",
+  "why": "EN asks for the level"
+ },
+ "common:fit.scoreRange": {
+  "text": "{{min}}dan {{max}}gacha ball kiriting.",
+  "why": "suffix attaches to number"
+ },
+ "common:fit.test.KING_SEJONG": {
+  "text": "King Sejong Institute (Sejong instituti)",
+  "why": "official name first"
+ },
+ "common:fit.tier.MEETS.title": {
+  "text": "Minimal talablariga javob beradigan universitetlar",
+  "why": "word order"
+ },
+ "common:freshness.verified": {
+  "text": "Tekshirilgan: {{date}}",
+  "why": "clearer with a label"
+ },
+ "common:institution.NATIONAL": {
+  "text": "Davlat",
+  "why": "국립 = state; 'Milliy' is a calque"
+ },
+ "common:institution.PUBLIC": {
+  "text": "Munitsipal",
+  "why": "공립 = local-government; avoid clash with Davlat"
+ },
+ "common:matchReason.DEGREE_MISMATCH": {
+  "text": "Siz izlayotgan darajadan farq qiladi",
+  "why": "natural phrasing"
+ },
+ "common:matchReason.EDUCATION_UNKNOWN": {
+  "text": "Mosligingizni aniqlash uchun taʼlim maʼlumotlaringizni qoʻshing",
+  "why": "'muvofiqlik' is bureaucratic"
+ },
+ "common:matchReason.GPA_UNKNOWN": {
+  "text": "Akademik minimalni tekshirish uchun GPA ballingizni qoʻshing",
+  "why": "avoid apostrophe-suffix on acronym"
+ },
+ "common:matchReason.NATIONALITY_RESTRICTED": {
+  "text": "Sizning fuqaroligingiz uchun ochiq emas",
+  "why": "simpler, same meaning"
+ },
+ "common:matchReason.SCHOLARSHIP_CANDIDATE": {
+  "text": "Stipendiyaga nomzod boʻlishingiz mumkin",
+  "why": "'may' was dropped"
+ },
+ "common:nav.admissionRules": {
+  "text": "Qabul talablari",
+  "why": "glossary: application requirement"
+ },
+ "common:nav.partnership": {
+  "text": "Hamkorlik shartnomasi",
+  "why": "'agreement' was dropped"
+ },
+ "common:notify.application.OFFERED": {
+  "text": "{{university}}: ariza holati endi “Qabul qarori olindi”",
+  "why": "quote must match appStatus.OFFERED"
+ },
+ "common:notify.documentRequest.fulfilled": {
+  "text": "Abituriyent siz soʻragan hujjatni yubordi: {{document}}",
+  "why": "wrong apostrophe; applicant = abituriyent"
+ },
+ "common:notify.message": {
+  "text": "{{author}}dan yangi xabar",
+  "why": "suffix attaches"
+ },
+ "common:pipeline.ENROLLED": {
+  "text": "Oʻqishga kirdi",
+  "why": "match appStatus.ENROLLED"
+ },
+ "common:pipeline.REJECTED": {
+  "text": "Qabul qilinmadi",
+  "why": "match appStatus.REJECTED"
+ },
+ "common:pipeline.TUITION_PENDING": {
+  "text": "Oʻqish toʻlovi kutilmoqda",
+  "why": "say which payment"
+ },
+ "common:pipeline.VISA_PREPARATION": {
+  "text": "Vizaga tayyorgarlik",
+  "why": "match appStatus.VISA_PREPARATION"
+ },
+ "common:role.AGENCY_ADMIN": {
+  "text": "Administrator",
+  "why": "match role.UNIVERSITY_ADMIN"
+ },
+ "common:states.error": {
+  "text": "Xatolik yuz berdi.",
+  "why": "'notoʻgʻri ketdi' is a calque"
+ },
+ "common:states.noResults": {
+  "text": "Filtrlaringizga mos natija topilmadi. Baʼzilarini olib tashlang yoki hammasini tozalang.",
+  "why": "second sentence was dropped"
+ },
+ "common:states.unavailableText": {
+  "text": "Hozir Hangyul bilan bogʻlanib boʻlmadi. Birozdan keyin qayta urinib koʻring.",
+  "why": "was still English"
+ },
+ "common:states.unavailableTitle": {
+  "text": "Xizmatni tayyorlayapmiz",
+  "why": "was still English"
+ },
+ "common:table.pageOf": {
+  "text": "Sahifa {{page}}/{{pages}}",
+  "why": "clearer order"
+ },
+ "common:task.submissionAgency": {
+  "text": "{{student}}ning {{university}} arizasini topshiring (vakolat berilgan)",
+  "why": "missing (English fallback)"
+ },
+ "common:task.submitProgramApplication": {
+  "text": "{{program}} arizangizni {{university}}ga topshiring",
+  "why": "suffix attaches"
+ },
+ "common:task.visaroute.embassyRequest": {
+  "text": "Elchixona soʻragan hujjatlarni yuboring",
+  "why": "'narsa' too vague"
+ },
+ "common:task.writingOverdue": {
+  "text": "Esse tekshiruvi kechikdi: {{student}} uchun {{essayType}} — hozir koʻrib chiqing",
+  "why": "'review it now' was dropped"
+ },
+ "common:taskType.APPLICATION_DEADLINE": {
+  "text": "Ariza topshirish muddati",
+  "why": "glossary: application deadline"
+ },
+ "common:uni27.cat.ACADEMIC": {
+  "text": "Aʼlo oʻzlashtirish stipendiyalari",
+  "why": "natural scholarship name"
+ },
+ "common:uni27.cat.GKS": {
+  "text": "Global Korea Scholarship (GKS)",
+  "why": "official name"
+ },
+ "common:uni27.intl.gks": {
+  "text": "Global Korea Scholarship (GKS) universiteti sifatida belgilangan: {{programmes}}",
+  "why": "official name"
+ },
+ "common:uni27.house.eyebrow": {
+  "text": "Yotoqxona",
+  "why": "dormitory = yotoqxona"
+ },
+ "common:v29.addon.item.extra_edit": {
+  "text": "1 ta qoʻshimcha tahrir bosqichi: motivatsion xat yoki oʻqish rejasi",
+  "why": "'1 round' was dropped"
+ },
+ "common:v29.addon.unit.EDIT_ROUND": {
+  "text": "1 tahrir bosqichi",
+  "why": "'1 bosqich' ambiguous"
+ },
+ "common:v29.pricing.all_in_one.f5": {
+  "text": "Viza hujjatlarini tayyorlashda yordam · yotoqxona ariza muddatlarini kuzatib boramiz",
+  "why": "'help' not 'we prepare'"
+ },
+ "common:v29.pricing.basic.f4": {
+  "text": "Zarur qabul hujjatlari roʻyxati",
+  "why": "'essential' was dropped"
+ },
+ "common:v29.pricing.compare.row.arrival": {
+  "text": "Kelganingizdan keyin joylashib olish",
+  "why": "'settling in' was dropped"
+ },
+ "common:v29.pricing.compare.row.recommended": {
+  "text": "Tavsiya etilgan universitetlar va til markazlari",
+  "why": "'language institutes' was dropped"
+ },
+ "common:v29.pricing.compare.row.visa": {
+  "text": "Viza hujjatlarini tayyorlash",
+  "why": "glossary: visa document preparation"
+ },
+ "common:v29.pricing.compare.value.documents.CHECKLIST": {
+  "text": "Zarur hujjatlar roʻyxati",
+  "why": "'essential' was dropped"
+ },
+ "common:v29.pricing.compare.value.essayContract": {
+  "text": "Shartnoma doirasida tahrirlar soni cheklanmagan",
+  "why": "'bosqichlar' unclear"
+ },
+ "common:v29.pricing.compare.value.rounds": {
+  "text": "{{count}} tagacha tahrir",
+  "why": "'bosqich' unclear"
+ },
+ "common:v29.pricing.compare.value.livingInfo": {
+  "text": "Yashash haqida asosiy maʼlumot",
+  "why": "natural phrasing"
+ },
+ "common:v29.pricing.premium.f4": {
+  "text": "Viza hujjatlari va muhim sanalar yaqindan nazoratda · yotoqxonaga ariza topshirishda yordam",
+  "why": "'documents' was dropped"
+ },
+ "common:visaStatus.ELIGIBILITY_CHECK": {
+  "text": "Moslik tekshirilmoqda",
+  "why": "'muvofiqlik' bureaucratic"
+ },
+ "common:nav.applicants": {
+  "text": "Abituriyentlar",
+  "why": "applicant = abituriyent (university console)"
+ },
+ "marketing:v12.terms.fees.tuition": {
+  "text": "Hangyul universitet oʻqish toʻlovini (kontrakt) yigʻmaydi. Oʻqish toʻlovi bevosita universitetga aʼzoning oʻz nomidan toʻlanadi.",
+  "why": "tuition term unified, kontrakt kept as gloss"
+ },
+ "marketing:v12.terms.refunds.visaRefusal": {
+  "text": "Agar oʻqish toʻlovi toʻlangandan keyin viza rad etilsa, uni qaytarish asosi va miqdori oʻsha universitetning qaytarish qoidalariga muvofiq boʻladi. Pul aʼzoning oʻz nomidagi hisob raqamiga qaytariladi.",
+  "why": "tuition term unified"
+ }
+}

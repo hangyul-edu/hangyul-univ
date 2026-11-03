@@ -1,0 +1,4552 @@
+{
+  "_notes": [
+    "Register: the Student web app and the student-facing native strings use the warm singular 'tu' (Romanian consumer apps: Vinted, Glovo, ING Home'Bank); every existing 'dumneavoastră' student string was converted so one register runs through. Staff-facing strings (mobile:agency.*, mobile:university.*, mobile:v3.agency/reviews/tasks/deadlines/uni/settings.*, mobile:v4.uni/reviews.*, mobile:v29.mfa.*) use the formal plural ('dumneavoastră', 'Solicitați', 'Validați') — concise, operational.",
+    "One term per concept: plan = plan (all 'pachet' removed; 'pachet' sounded like a tourism package and collided with marketing copy); consultation = consultație (all 'sesiune de consultanță' removed); application = candidatură / a depune; document review = verificare, while 'verify' (the official act of marking a document verified) = a valida / validat, so the two reads are never confused; university review of an application = evaluare; essay = eseu (was 'texte'); personal statement = scrisoare de intenție (one key said 'scrisoare de motivație'); study plan = plan de studiu; dormitory = cămin, housing = cazare; arrival and settling-in help = ajutor la sosire și instalare; additional service = serviciu suplimentar; standard admission letter = scrisoare standard de admitere; apostille = apostilă; consular legalization = supralegalizare consulară; certified translation = traducere autorizată; transcript = foaie matricolă.",
+    "'Matches' (automatic eligibility results) is rendered as 'programele potrivite (pentru tine)' / 'universitățile potrivite'; the literal 'potriviri' reads as a word puzzle in Romanian. Short badge labels keep 'Potrivire posibilă / puternică'. 'University recommendation' (the team's proposal) stays 'recomandare de universități' so the two concepts never merge.",
+    "Romanian plurals: added `_few` (2–19 and numbers ending 02–19) for every counted noun; `_other` (20+) carries the mandatory 'de'. Keys whose count sits beside a noun inside a sentence with no plural forms (COMPARE_OFFERS, PROFILE_UNLOCK.*, university.documentsCount) were reshaped to put the number in parentheses or after a colon so 'de' is not needed. mobile:v29.plan.supportDays was given the same colon shape; if the day count is always ≥20 the owner may prefer '{{count}} de zile'.",
+    "Gender: Romanian past participles agree with the reader ('admis/admisă'); status lines were worded gender-neutrally ('Ai primit admiterea', 'Înmatricularea este gata', 'Încă nu îndeplinești cerințele') instead of assuming masculine.",
+    "Where the current Romanian said 'consilierul tău' but the English says 'the Hangyul team' (v3.home.nextBody.ESSAY_WRITE, v4.application.reviewLate/writeOnWeb, v4.home.item.WRITE_ESSAY.text) the team wording was restored; where it said 'Hangyul Univ' but the English says 'Hangyul team', aligned to the English. mobile:signup CROSS_BORDER summary had extra claims (data transferred, retention period) not in the English and was aligned to the web version. PRIVACY summary said 'hash-ul parolei'; aligned to 'parolă (stocată criptat)' as in the English.",
+    "App names mobile:app.* (Hangyul Univ / Hangyul Agency / Hangyul University) are official product names and stay in English, as do GKS, TOPIK, IELTS, TOEFL iBT, visa codes and the example institution name in institutionPh.",
+    "Promises: no outcome was added, dropped or softened; 'Hangyul nu încasează niciodată taxa de școlarizare', 'Hangyul nu scrie și nu inventează conținut', visa/admission lines all say what the team does (pregătim, urmărim, verificăm)."
+  ],
+  "student:applications.add": {
+    "text": "Adaugă o candidatură",
+    "why": "tu register"
+  },
+  "student:applications.closed": {
+    "text": "Candidaturi închise",
+    "why": "was missing"
+  },
+  "student:applications.empty": {
+    "text": "Nicio candidatură încă",
+    "why": "tu register, natural"
+  },
+  "student:applications.emptyCta": {
+    "text": "Vezi programele potrivite",
+    "why": "matches = programe potrivite; tu"
+  },
+  "student:applications.emptyText": {
+    "text": "Alege un program dintre cele potrivite pentru tine ca să începi. Te poți pregăti în ritmul tău.",
+    "why": "tu register, natural"
+  },
+  "student:applications.updated": {
+    "text": "Actualizată pe {{date}}",
+    "why": "was missing"
+  },
+  "student:dashboard.arrival.cta": {
+    "text": "Deschide lista pentru sosire",
+    "why": "was missing"
+  },
+  "student:dashboard.arrival.landing": {
+    "text": "Aterizezi pe {{date}}",
+    "why": "was missing"
+  },
+  "student:dashboard.arrival.noFlight": {
+    "text": "Adaugă-ți zborul ca să-ți putem planifica preluarea și primele zile.",
+    "why": "was missing"
+  },
+  "student:dashboard.counselor.message": {
+    "text": "Scrie echipei",
+    "why": "tu register"
+  },
+  "student:dashboard.counselor.nextCall": {
+    "text": "Următoarea consultație: {{when}}",
+    "why": "one term: consultație"
+  },
+  "student:dashboard.counselor.noneCta": {
+    "text": "Vezi planurile",
+    "why": "was missing"
+  },
+  "student:dashboard.counselor.noneText": {
+    "text": "Cu un plan, echipa Hangyul îți verifică documentele, eseurile și strategia, în limba ta.",
+    "why": "plan not pachet"
+  },
+  "student:dashboard.counselor.unread_few": {
+    "text": "{{count}} mesaje necitite",
+    "why": "ro few form (2–19)"
+  },
+  "student:dashboard.deadlines.empty": {
+    "text": "Niciun termen în următoarele săptămâni.",
+    "why": "was missing"
+  },
+  "student:dashboard.journey.title": {
+    "text": "Progresul tău",
+    "why": "tu register"
+  },
+  "student:dashboard.nextAction.TASK.ctaDefault": {
+    "text": "Începe acum",
+    "why": "was missing"
+  },
+  "student:dashboard.stageText.APPLY": {
+    "text": "Îți pregătești candidaturile. Pas cu pas.",
+    "why": "was missing"
+  },
+  "student:dashboard.stageText.ARRIVAL": {
+    "text": "Viza ta e gata. E timpul să-ți planifici sosirea!",
+    "why": "was missing"
+  },
+  "student:dashboard.stageText.DECISION": {
+    "text": "Candidaturile tale sunt la universități.",
+    "why": "was missing"
+  },
+  "student:dashboard.stageText.ENROLL": {
+    "text": "Felicitări pentru ofertă! Hai să-ți asigurăm locul.",
+    "why": "was missing"
+  },
+  "student:dashboard.stageText.EXPLORE": {
+    "text": "Hai să începem prin a te cunoaște.",
+    "why": "was missing"
+  },
+  "student:dashboard.stageText.STUDENT_LIFE": {
+    "text": "Bun venit în Coreea. Suntem în continuare aici dacă ai nevoie de noi.",
+    "why": "was missing"
+  },
+  "student:dashboard.stageText.VISA": {
+    "text": "Ai primit admiterea. Urmează: viza de student.",
+    "why": "gender-neutral wording"
+  },
+  "student:documents.drawer.country": {
+    "text": "Emis în",
+    "why": "was missing"
+  },
+  "student:documents.drawer.expired": {
+    "text": "Acest document a expirat",
+    "why": "was missing"
+  },
+  "student:documents.drawer.expiredText": {
+    "text": "Încarcă o copie actuală, ca să-ți rămână valabile candidaturile.",
+    "why": "was missing"
+  },
+  "student:documents.drawer.expires": {
+    "text": "Expiră",
+    "why": "was missing"
+  },
+  "student:documents.drawer.file": {
+    "text": "Ultimul fișier",
+    "why": "was missing"
+  },
+  "student:documents.drawer.fixDefault": {
+    "text": "Acest document trebuie modificat. Corectează-l și încarcă o versiune nouă.",
+    "why": "was missing"
+  },
+  "student:documents.drawer.fixTitle": {
+    "text": "Ce trebuie corectat",
+    "why": "was missing"
+  },
+  "student:documents.drawer.inReview": {
+    "text": "Verificăm acest document. Deocamdată nu trebuie să faci nimic.",
+    "why": "was missing"
+  },
+  "student:documents.drawer.issued": {
+    "text": "Data emiterii",
+    "why": "was missing"
+  },
+  "student:documents.drawer.newVersion": {
+    "text": "Versiune nouă",
+    "why": "was missing"
+  },
+  "student:documents.drawer.reviewMeta": {
+    "text": "Versiunea {{version}} · {{when}}",
+    "why": "was missing"
+  },
+  "student:documents.drawer.reviews": {
+    "text": "Istoricul verificărilor",
+    "why": "was missing"
+  },
+  "student:documents.drawer.title": {
+    "text": "Document",
+    "why": "short label, no article"
+  },
+  "student:documents.drawer.translation": {
+    "text": "Traducere",
+    "why": "was missing"
+  },
+  "student:documents.drawer.translationNo": {
+    "text": "Nu este necesară",
+    "why": "was missing"
+  },
+  "student:documents.drawer.translationYes": {
+    "text": "Este necesară o traducere autorizată",
+    "why": "was missing"
+  },
+  "student:documents.drawer.uploadFixed": {
+    "text": "Încarcă versiunea corectată",
+    "why": "was missing"
+  },
+  "student:documents.drawer.versions": {
+    "text": "Versiuni",
+    "why": "was missing"
+  },
+  "student:documents.drawer.viewVersion": {
+    "text": "Vezi versiunea {{version}}",
+    "why": "was missing"
+  },
+  "student:documents.privacy.short": {
+    "text": "Stocat criptat. Până depui o candidatură, doar tu și echipa Hangyul îl puteți deschide.",
+    "why": "candidatură, team name as in EN"
+  },
+  "student:documents.reusable": {
+    "text": "Reutilizabil",
+    "why": "was missing"
+  },
+  "student:documents.upload.category": {
+    "text": "Tip de document",
+    "why": "was missing"
+  },
+  "student:documents.upload.choose": {
+    "text": "Alege un fișier",
+    "why": "was missing"
+  },
+  "student:documents.upload.country": {
+    "text": "Țara emitentă",
+    "why": "was missing"
+  },
+  "student:documents.upload.countryHint": {
+    "text": "Stabilește dacă este nevoie de apostilă.",
+    "why": "was missing"
+  },
+  "student:documents.upload.expires": {
+    "text": "Data expirării",
+    "why": "was missing"
+  },
+  "student:documents.upload.file": {
+    "text": "Fișier",
+    "why": "was missing"
+  },
+  "student:documents.upload.fileHint": {
+    "text": "PDF, JPG, PNG sau WEBP, de până la {{mb}} MB.",
+    "why": "was missing"
+  },
+  "student:documents.upload.issued": {
+    "text": "Data emiterii",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.en": {
+    "text": "Engleză",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.id": {
+    "text": "Indoneziană",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.ja": {
+    "text": "Japoneză",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.ko": {
+    "text": "Coreeană",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.mn": {
+    "text": "Mongolă",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.ne": {
+    "text": "Nepaleză",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.other": {
+    "text": "Altă limbă",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.ru": {
+    "text": "Rusă",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.th": {
+    "text": "Thailandeză",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.uz": {
+    "text": "Uzbecă",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.vi": {
+    "text": "Vietnameză",
+    "why": "was missing"
+  },
+  "student:documents.upload.langs.zh": {
+    "text": "Chineză",
+    "why": "was missing"
+  },
+  "student:documents.upload.language": {
+    "text": "Limba documentului",
+    "why": "was missing"
+  },
+  "student:documents.upload.subtitle": {
+    "text": "E suficientă o scanare clară sau o poză făcută cu telefonul. Îl verificăm și îți spunem dacă trebuie corectat ceva.",
+    "why": "was missing"
+  },
+  "student:documents.upload.title": {
+    "text": "Încarcă un document",
+    "why": "was missing"
+  },
+  "student:documents.upload.titleLabel": {
+    "text": "Nume",
+    "why": "was missing"
+  },
+  "student:documents.upload.types": {
+    "text": "PDF, JPG, PNG sau WEBP",
+    "why": "was missing"
+  },
+  "student:documents.upload.versionTitle": {
+    "text": "Încarcă o versiune nouă",
+    "why": "was missing"
+  },
+  "student:essays.comments_one": {
+    "text": "{{count}} comentariu",
+    "why": "was missing"
+  },
+  "student:essays.comments_few": {
+    "text": "{{count}} comentarii",
+    "why": "ro few form (2–19)"
+  },
+  "student:essays.edited": {
+    "text": "Editat {{when}}",
+    "why": "was missing"
+  },
+  "student:essays.empty": {
+    "text": "Niciun eseu încă",
+    "why": "essay = eseu; tu"
+  },
+  "student:essays.emptyText": {
+    "text": "Eseurile se creează automat când începi o candidatură, dar poți începe și tu unul.",
+    "why": "essay = eseu; tu"
+  },
+  "student:essays.new.button": {
+    "text": "Eseu nou",
+    "why": "essay = eseu"
+  },
+  "student:essays.new.cta": {
+    "text": "Creează eseul",
+    "why": "was missing"
+  },
+  "student:essays.new.limit": {
+    "text": "Limită de cuvinte",
+    "why": "was missing"
+  },
+  "student:essays.new.name": {
+    "text": "Titlu",
+    "why": "was missing"
+  },
+  "student:essays.new.subtitle": {
+    "text": "Pentru exercițiu sau pentru o universitate care nu apare încă în listă.",
+    "why": "was missing"
+  },
+  "student:essays.new.title": {
+    "text": "Începe un eseu nou",
+    "why": "was missing"
+  },
+  "student:essays.new.type": {
+    "text": "Tip de eseu",
+    "why": "was missing"
+  },
+  "student:home.allMatches": {
+    "text": "Toate programele potrivite",
+    "why": "was missing"
+  },
+  "student:home.applications": {
+    "text": "Candidaturile tale",
+    "why": "tu register"
+  },
+  "student:home.arrivalProgress": {
+    "text": "{{done}} din 11 pași pentru sosire finalizați",
+    "why": "was missing"
+  },
+  "student:home.closest": {
+    "text": "Cele mai apropiate de profilul tău",
+    "why": "was missing"
+  },
+  "student:home.docAction.IN_REVIEW": {
+    "text": "În verificare",
+    "why": "was missing"
+  },
+  "student:home.docAction.LEGALIZE": {
+    "text": "Necesită apostilă",
+    "why": "was missing"
+  },
+  "student:home.docAction.OPEN": {
+    "text": "Deschide",
+    "why": "was missing"
+  },
+  "student:home.documentsSub_one": {
+    "text": "{{count}} document are nevoie de atenția ta",
+    "why": "tu register"
+  },
+  "student:home.documentsSub_few": {
+    "text": "{{count}} documente au nevoie de atenția ta",
+    "why": "ro few form (2–19)"
+  },
+  "student:home.documentsSub_other": {
+    "text": "{{count}} de documente au nevoie de atenția ta",
+    "why": "tu register"
+  },
+  "student:home.greet.afternoon": {
+    "text": "Bună ziua, {{name}}",
+    "why": "was missing"
+  },
+  "student:home.next": {
+    "text": "Următorul tău pas",
+    "why": "tu register"
+  },
+  "student:home.nextItem": {
+    "text": "Urmează: {{item}}",
+    "why": "natural"
+  },
+  "student:home.otherTasks_one": {
+    "text": "Încă {{count}} sarcină",
+    "why": "was missing"
+  },
+  "student:home.otherTasks_few": {
+    "text": "Încă {{count}} sarcini",
+    "why": "ro few form (2–19)"
+  },
+  "student:home.recommended": {
+    "text": "Recomandate pentru tine",
+    "why": "was missing"
+  },
+  "student:home.recommendedSub": {
+    "text": "Programe la care îndeplinești cerințele publicate.",
+    "why": "was missing"
+  },
+  "student:home.team": {
+    "text": "Echipa Hangyul Univ",
+    "why": "as in EN, one team name"
+  },
+  "student:housing.noDorms": {
+    "text": "Această universitate nu a publicat încă informații despre cămin.",
+    "why": "was missing"
+  },
+  "student:housing.noUni": {
+    "text": "Cazarea se deschide odată cu prima ta candidatură",
+    "why": "was missing"
+  },
+  "student:housing.noUniCta": {
+    "text": "Mergi la candidaturi",
+    "why": "was missing"
+  },
+  "student:housing.noUniText": {
+    "text": "După ce candidezi, îți arătăm opțiunile de cămin și costurile pentru acea universitate.",
+    "why": "was missing"
+  },
+  "student:housing.subtitle": {
+    "text": "Compară opțiunile de cămin și urmărește-ți pașii pentru cazare.",
+    "why": "was missing"
+  },
+  "student:housing.title": {
+    "text": "Cazare",
+    "why": "was missing"
+  },
+  "student:login.aside.eyebrow": {
+    "text": "Studiază în Coreea, pas cu pas",
+    "why": "was missing"
+  },
+  "student:login.aside.note": {
+    "text": "Mii de pași mici, câte un pas clar pe rând.",
+    "why": "was missing"
+  },
+  "student:login.aside.point2": {
+    "text": "Păstrează fiecare document într-un singur seif securizat și refolosește-l la toate candidaturile.",
+    "why": "was missing"
+  },
+  "student:login.aside.point3": {
+    "text": "Pregătește-te cu oameni adevărați din echipa Hangyul, care vorbesc limba ta.",
+    "why": "was missing"
+  },
+  "student:login.createAccount": {
+    "text": "Creează cont",
+    "why": "sign up = creează cont"
+  },
+  "student:login.subtitle": {
+    "text": "Continuă de unde ai rămas. Lista de pași, mesajele și termenele te așteaptă.",
+    "why": "tu register"
+  },
+  "student:login.title": {
+    "text": "Bine ai revenit",
+    "why": "tu register"
+  },
+  "student:messages.call": {
+    "text": "Consultație video {{when}}",
+    "why": "one term: consultație"
+  },
+  "student:messages.composer": {
+    "text": "Scrie un mesaj…",
+    "why": "tu register"
+  },
+  "student:messages.empty": {
+    "text": "Nicio conversație încă",
+    "why": "tu register"
+  },
+  "student:messages.emptyText": {
+    "text": "Întreabă orice: documente, termene, viața în Coreea.",
+    "why": "tu register"
+  },
+  "student:messages.new.body": {
+    "text": "Mesaj",
+    "why": "was missing"
+  },
+  "student:messages.new.subject": {
+    "text": "Subiect",
+    "why": "was missing"
+  },
+  "student:messages.new.subtitle": {
+    "text": "Echipa Hangyul îți răspunde aici.",
+    "why": "team name as in EN; tu"
+  },
+  "student:messages.new.title": {
+    "text": "Conversație nouă",
+    "why": "was missing"
+  },
+  "student:messages.pick": {
+    "text": "Alege o conversație",
+    "why": "tu register"
+  },
+  "student:messages.pickText": {
+    "text": "Sau începe una nouă cu echipa Hangyul.",
+    "why": "tu register"
+  },
+  "student:messages.subtitle": {
+    "text": "Vorbește cu echipa Hangyul. Răspunsurile sosesc de obicei într-o zi lucrătoare.",
+    "why": "tu register"
+  },
+  "student:messages.unread_one": {
+    "text": "{{count}} mesaj necitit",
+    "why": "was missing"
+  },
+  "student:messages.unread_few": {
+    "text": "{{count}} mesaje necitite",
+    "why": "ro few form (2–19)"
+  },
+  "student:messages.visibility": {
+    "text": "Vizibil pentru tine și echipa Hangyul",
+    "why": "tu register"
+  },
+  "student:notifications.emptyText": {
+    "text": "Te anunțăm când ceva are nevoie de atenția ta.",
+    "why": "tu register"
+  },
+  "student:notifications.subtitle": {
+    "text": "Noutăți despre candidaturile, documentele și mesajele tale.",
+    "why": "tu register"
+  },
+  "student:onboarding.basics.dobHint": {
+    "text": "Unele burse au limite de vârstă.",
+    "why": "was missing"
+  },
+  "student:onboarding.basics.legalText": {
+    "text": "Documentele oficiale din {{country}} au de obicei nevoie de acest pas înainte să fie acceptate de universitățile coreene: {{path}}. Te îndrumăm când vine momentul.",
+    "why": "was missing"
+  },
+  "student:onboarding.basics.legalTitle": {
+    "text": "Bine de știut pentru mai târziu",
+    "why": "was missing"
+  },
+  "student:onboarding.basics.nationality": {
+    "text": "Cetățenia ta",
+    "why": "tu register"
+  },
+  "student:onboarding.basics.residence": {
+    "text": "Unde locuiești acum?",
+    "why": "tu register"
+  },
+  "student:onboarding.basics.residenceHint": {
+    "text": "Unele ambasade acceptă cereri de viză doar de la rezidenții propriei țări.",
+    "why": "was missing"
+  },
+  "student:onboarding.education.country": {
+    "text": "Țara în care ai studiat",
+    "why": "was missing"
+  },
+  "student:onboarding.education.gpa": {
+    "text": "Media ta (GPA)",
+    "why": "GPA = medie; tu"
+  },
+  "student:onboarding.education.gpaHint": {
+    "text": "Introdu media pe scala folosită de școala ta.",
+    "why": "was missing"
+  },
+  "student:onboarding.education.gpaScale": {
+    "text": "Din",
+    "why": "was missing"
+  },
+  "student:onboarding.education.gpaValue": {
+    "text": "Media ta",
+    "why": "was missing"
+  },
+  "student:onboarding.education.gradYear": {
+    "text": "Anul absolvirii",
+    "why": "was missing"
+  },
+  "student:onboarding.education.institutionPh": {
+    "text": "ex. Hanoi National University",
+    "why": "was missing; official name kept"
+  },
+  "student:onboarding.education.levels.ASSOCIATE": {
+    "text": "Studii postliceale / colegiu",
+    "why": "was missing"
+  },
+  "student:onboarding.education.levels.BACHELOR": {
+    "text": "Licență",
+    "why": "was missing"
+  },
+  "student:onboarding.education.levels.DOCTORATE": {
+    "text": "Doctorat",
+    "why": "was missing"
+  },
+  "student:onboarding.education.levels.MASTER": {
+    "text": "Master",
+    "why": "was missing"
+  },
+  "student:onboarding.education.major": {
+    "text": "Specializare sau profil",
+    "why": "was missing"
+  },
+  "student:onboarding.education.normalized": {
+    "text": "Scor normalizat",
+    "why": "was missing"
+  },
+  "student:onboarding.education.previewEmpty": {
+    "text": "Introdu media și scala ca să vezi scorul normalizat.",
+    "why": "was missing"
+  },
+  "student:onboarding.education.status": {
+    "text": "Situația absolvirii",
+    "why": "was missing"
+  },
+  "student:onboarding.education.statuses.EXPECTED": {
+    "text": "Absolv în curând",
+    "why": "was missing"
+  },
+  "student:onboarding.education.statuses.GRADUATED": {
+    "text": "Am absolvit",
+    "why": "was missing"
+  },
+  "student:onboarding.education.statuses.IN_PROGRESS": {
+    "text": "Încă studiez",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.degreeSub.ASSOCIATE": {
+    "text": "Studii practice de 2–3 ani",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.degreeSub.BACHELOR": {
+    "text": "Licență de 4 ani",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.degreeSub.DOCTORATE": {
+    "text": "Studii de cercetare (doctorat)",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.degreeSub.LANGUAGE": {
+    "text": "Începe cu limba coreeană, în ritmul tău",
+    "why": "matches EN; dropped added claim"
+  },
+  "student:onboarding.goals.degreeSub.MASTER": {
+    "text": "Studii postuniversitare, după licență",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.degreeSub.TRANSFER": {
+    "text": "Continuă studiile pe care le-ai început",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.fields": {
+    "text": "Domeniile care te interesează",
+    "why": "tu register"
+  },
+  "student:onboarding.goals.fieldsHint": {
+    "text": "Alege câte vrei.",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.intake": {
+    "text": "Când ai vrea să începi?",
+    "why": "tu register"
+  },
+  "student:onboarding.goals.intakeHint": {
+    "text": "Universitățile coreene încep în primăvară (martie) și în toamnă (septembrie).",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.term": {
+    "text": "Semestrul de început",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.termLabel.FALL": {
+    "text": "Toamnă (septembrie)",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.termLabel.SPRING": {
+    "text": "Primăvară (martie)",
+    "why": "was missing"
+  },
+  "student:onboarding.goals.year": {
+    "text": "Anul de început",
+    "why": "was missing"
+  },
+  "student:onboarding.language.english": {
+    "text": "Cum ți-ai evalua engleza?",
+    "why": "tu register"
+  },
+  "student:onboarding.language.have": {
+    "text": "Am un rezultat",
+    "why": "was missing"
+  },
+  "student:onboarding.language.korean": {
+    "text": "Cum ți-ai evalua coreeana?",
+    "why": "tu register"
+  },
+  "student:onboarding.language.level.BEGINNER": {
+    "text": "Începător",
+    "why": "was missing"
+  },
+  "student:onboarding.language.level.NATIVE": {
+    "text": "Nativ",
+    "why": "was missing"
+  },
+  "student:onboarding.language.level.NONE": {
+    "text": "Deloc, deocamdată",
+    "why": "was missing"
+  },
+  "student:onboarding.language.planning": {
+    "text": "Plănuiesc să-l susțin",
+    "why": "was missing"
+  },
+  "student:onboarding.language.score": {
+    "text": "Rezultat ({{range}})",
+    "why": "was missing"
+  },
+  "student:onboarding.language.test.TOEFL_IBT": {
+    "text": "TOEFL iBT",
+    "why": "was missing"
+  },
+  "student:onboarding.language.testSub.IELTS": {
+    "text": "Test de engleză, benzi 0–9",
+    "why": "was missing"
+  },
+  "student:onboarding.language.testSub.TOEFL_IBT": {
+    "text": "Test de engleză, 0–120",
+    "why": "was missing"
+  },
+  "student:onboarding.language.testSub.TOPIK": {
+    "text": "Test de limba coreeană (Test of Proficiency in Korean), nivelurile 1–6",
+    "why": "was missing"
+  },
+  "student:onboarding.language.tests": {
+    "text": "Ce examene ai susținut sau plănuiești să susții?",
+    "why": "tu register"
+  },
+  "student:onboarding.language.testsHint": {
+    "text": "Sari peste dacă nu ai început încă.",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.currentVisa": {
+    "text": "Viza ta actuală",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.expiry": {
+    "text": "Data expirării pașaportului",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.expiryHint": {
+    "text": "Ideal ar fi să fie valabil pe toată perioada studiilor.",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.has": {
+    "text": "Ai un pașaport valabil?",
+    "why": "tu register"
+  },
+  "student:onboarding.passport.inKorea": {
+    "text": "Ești acum în Coreea?",
+    "why": "tu register"
+  },
+  "student:onboarding.passport.inKoreaNo": {
+    "text": "Nu, sunt în altă țară",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.inKoreaYes": {
+    "text": "Da, sunt în Coreea",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.no": {
+    "text": "Nu încă",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.number": {
+    "text": "Numărul pașaportului",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.numberHint": {
+    "text": "Opțional. Păstrăm doar ultimele cifre; numărul complet rămâne pe documentul pașaportului.",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.previousHint": {
+    "text": "Poate schimba ce pași de viză ți se aplică.",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.previousVisa": {
+    "text": "Ai mai avut o viză coreeană?",
+    "why": "tu register"
+  },
+  "student:onboarding.passport.visa.C-3": {
+    "text": "C-3 (vizită scurtă)",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.visa.D-2": {
+    "text": "D-2 (student)",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.visa.D-4": {
+    "text": "D-4 (curs de limbă)",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.visa.E-7": {
+    "text": "E-7 (muncă)",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.visa.NONE": {
+    "text": "Niciodată",
+    "why": "was missing"
+  },
+  "student:onboarding.passport.visa.OTHER": {
+    "text": "Alta",
+    "why": "was missing"
+  },
+  "student:onboarding.preferences.budgetOver": {
+    "text": "Peste {{amount}}",
+    "why": "was missing"
+  },
+  "student:onboarding.preferences.budgetUpTo": {
+    "text": "Până la {{amount}}",
+    "why": "was missing"
+  },
+  "student:onboarding.preferences.housing": {
+    "text": "Unde ai vrea să locuiești?",
+    "why": "tu register"
+  },
+  "student:onboarding.preferences.housingOpt.NO_PREFERENCE": {
+    "text": "Fără preferință",
+    "why": "was missing"
+  },
+  "student:onboarding.preferences.housingOpt.OFF_CAMPUS": {
+    "text": "Cameră în afara campusului",
+    "why": "was missing"
+  },
+  "student:onboarding.preferences.housingSub.DORM": {
+    "text": "Majoritatea studenților internaționali din anul întâi aleg asta",
+    "why": "was missing"
+  },
+  "student:onboarding.preferences.perMonth": {
+    "text": "aproximativ {{amount}} pe lună",
+    "why": "was missing"
+  },
+  "student:onboarding.preferences.regionsHint": {
+    "text": "Lasă gol dacă îți convine oriunde în Coreea.",
+    "why": "was missing"
+  },
+  "student:onboarding.preferences.scholarship": {
+    "text": "Ai nevoie de o bursă?",
+    "why": "tu register"
+  },
+  "student:onboarding.preferences.scholarshipNo": {
+    "text": "Ar fi bine, dar nu e esențial",
+    "why": "was missing"
+  },
+  "student:onboarding.preferences.scholarshipYesSub": {
+    "text": "Îți evidențiem programele cu burse la care ai putea fi eligibil",
+    "why": "was missing"
+  },
+  "student:onboarding.sponsor.goal": {
+    "text": "Ce ai vrea să faci după absolvire?",
+    "why": "tu register"
+  },
+  "student:onboarding.sponsor.goalHint": {
+    "text": "Una sau două propoziții sunt suficiente. Te ajută mai târziu la planul de studiu.",
+    "why": "was missing"
+  },
+  "student:onboarding.sponsor.goalPh": {
+    "text": "ex. Să lucrez în marketing între companii coreene și vietnameze.",
+    "why": "was missing"
+  },
+  "student:onboarding.sponsor.option.EMPLOYER": {
+    "text": "Angajatorul meu",
+    "why": "was missing"
+  },
+  "student:onboarding.sponsor.option.OTHER": {
+    "text": "Altcineva",
+    "why": "was missing"
+  },
+  "student:onboarding.sponsor.option.RELATIVE": {
+    "text": "O altă rudă",
+    "why": "was missing"
+  },
+  "student:onboarding.sponsor.option.SCHOLARSHIP": {
+    "text": "O bursă",
+    "why": "was missing"
+  },
+  "student:onboarding.sponsor.option.SELF": {
+    "text": "Eu",
+    "why": "was missing"
+  },
+  "student:onboarding.sponsor.who": {
+    "text": "Cine îți va plăti studiile?",
+    "why": "tu register"
+  },
+  "student:onboarding.sponsor.whoHint": {
+    "text": "Cererile de viză au nevoie de dovada fondurilor de la această persoană sau organizație.",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.basics.eyebrow": {
+    "text": "Despre tine",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.basics.subtitle": {
+    "text": "Așa aflăm ce documente și ce reguli de viză ți se aplică.",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.basics.title": {
+    "text": "De unde ești?",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.education.eyebrow": {
+    "text": "Studiile tale",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.education.subtitle": {
+    "text": "Folosim aceste date ca să verificăm cerințele de admitere. Deocamdată e bună și o estimare.",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.education.title": {
+    "text": "Spune-ne despre studiile tale actuale",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.goals.eyebrow": {
+    "text": "Obiectivul tău",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.goals.title": {
+    "text": "Ce ai vrea să studiezi?",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.language.eyebrow": {
+    "text": "Limbi",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.language.title": {
+    "text": "Cum stai cu coreeana și engleza?",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.passport.eyebrow": {
+    "text": "Călătorie",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.passport.title": {
+    "text": "Pașaport și istoric de vize",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.preferences.eyebrow": {
+    "text": "Buget și viață",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.preferences.subtitle": {
+    "text": "Bugetul, bursele și cazarea ne ajută să ordonăm programele pentru tine.",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.preferences.title": {
+    "text": "Ce contează pentru tine în viața de zi cu zi?",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.sponsor.eyebrow": {
+    "text": "Ultimul pas",
+    "why": "was missing"
+  },
+  "student:onboarding.steps.sponsor.subtitle": {
+    "text": "Universitățile și ofițerii de vize întreabă despre susținerea financiară. Dacă îți cunoaștem obiectivul, echipa Hangyul te poate îndruma mai bine.",
+    "why": "team name as in EN"
+  },
+  "student:onboarding.steps.sponsor.title": {
+    "text": "Cine îți susține studiile?",
+    "why": "was missing"
+  },
+  "student:profile.anywhere": {
+    "text": "Oriunde în Coreea",
+    "why": "was missing"
+  },
+  "student:profile.institutionMissing": {
+    "text": "Școala nu a fost adăugată încă",
+    "why": "was missing"
+  },
+  "student:profile.planned": {
+    "text": "{{test}} (planificat)",
+    "why": "was missing"
+  },
+  "student:profile.saved": {
+    "text": "Profil actualizat. Programele potrivite au fost reîmprospătate",
+    "why": "matches = programe potrivite"
+  },
+  "student:profile.section.basics": {
+    "text": "Despre tine",
+    "why": "tu register"
+  },
+  "student:profile.title": {
+    "text": "Profilul tău",
+    "why": "was missing"
+  },
+  "student:register.consent.MARKETING.summary": {
+    "text": "Opțional. Prin e-mail sau SMS; te poți dezabona oricând.",
+    "why": "tu register"
+  },
+  "student:register.consent.PRIVACY.summary": {
+    "text": "E-mail, număr de mobil, nume, cetățenie și parolă (stocată criptat), pentru crearea și protejarea contului tău.",
+    "why": "matches EN, no hash jargon"
+  },
+  "student:register.continue": {
+    "text": "Continuă",
+    "why": "tu register"
+  },
+  "student:register.eyebrow": {
+    "text": "Începi gratuit",
+    "why": "tu register"
+  },
+  "student:register.nationalityHint": {
+    "text": "Cetățenia ta stabilește ce documente și ce pași pentru viză ți se aplică.",
+    "why": "tu register"
+  },
+  "student:register.passwordConfirmLabel": {
+    "text": "Confirmă parola",
+    "why": "tu register"
+  },
+  "student:register.passwordHint": {
+    "text": "Cel puțin 10 caractere. O propoziție pe care o ții minte ușor funcționează cel mai bine.",
+    "why": "tu register, same as mobile"
+  },
+  "student:register.phoneHint": {
+    "text": "Îți trimitem un cod unic prin SMS. Se pot aplica tarifele standard.",
+    "why": "tu register"
+  },
+  "student:register.privacyNote": {
+    "text": "Documentele și datele tale personale sunt partajate doar cu echipa Hangyul care te sprijină (inclusiv agenția sa parteneră) și cu universitățile pe care le alegi. Îți poți exporta sau șterge datele oricând.",
+    "why": "tu register"
+  },
+  "student:register.subtitle": {
+    "text": "Patru pași scurți. Îți verificăm e-mailul și numărul de mobil, ca să rămână ale tale contul și documentele.",
+    "why": "tu register"
+  },
+  "student:register.title": {
+    "text": "Creează-ți contul",
+    "why": "tu register"
+  },
+  "student:services.success.assigned": {
+    "text": "{{agency}} te va sprijini",
+    "why": "was missing"
+  },
+  "student:settings.account.preferred": {
+    "text": "Cum să-ți spunem?",
+    "why": "tu register"
+  },
+  "student:settings.account.saved": {
+    "text": "Cont actualizat",
+    "why": "was missing"
+  },
+  "student:settings.data.confirm": {
+    "text": "Solicită ștergerea",
+    "why": "tu register"
+  },
+  "student:settings.data.confirmText": {
+    "text": "Îți ștergem profilul, documentele și mesajele în 10 zile, cu excepția evidențelor pe care trebuie să le păstrăm prin lege (de exemplu, evidențele plăților). Candidaturile active vor fi retrase.",
+    "why": "tu register"
+  },
+  "student:settings.data.confirmTitle": {
+    "text": "Îți ștergi contul?",
+    "why": "tu register"
+  },
+  "student:settings.data.delete": {
+    "text": "Șterge-mi contul",
+    "why": "tu register"
+  },
+  "student:settings.data.export": {
+    "text": "Solicită exportul datelor",
+    "why": "tu register"
+  },
+  "student:settings.data.kind.DELETE": {
+    "text": "Ștergerea contului",
+    "why": "was missing"
+  },
+  "student:settings.data.note": {
+    "text": "Vrei să ne spui ceva?",
+    "why": "tu register"
+  },
+  "student:settings.data.status.COMPLETED": {
+    "text": "Finalizată",
+    "why": "was missing"
+  },
+  "student:settings.data.status.IN_REVIEW": {
+    "text": "În curs",
+    "why": "was missing"
+  },
+  "student:settings.data.status.REJECTED": {
+    "text": "Respinsă",
+    "why": "was missing"
+  },
+  "student:settings.data.subtitle": {
+    "text": "Descarcă o copie a datelor tale sau cere-ne să-ți ștergem contul.",
+    "why": "tu register"
+  },
+  "student:settings.data.title": {
+    "text": "Datele tale",
+    "why": "tu register"
+  },
+  "student:settings.privacy.purpose.MARKETING.text": {
+    "text": "E-mailuri ocazionale. Te poți dezabona oricând.",
+    "why": "tu register"
+  },
+  "student:settings.privacy.purpose.SHARE_WITH_AGENCY.text": {
+    "text": "Necesar pentru ca echipa Hangyul să poată verifica documentele și eseurile.",
+    "why": "essay = eseu"
+  },
+  "student:settings.privacy.purpose.SHARE_WITH_UNIVERSITY.text": {
+    "text": "Doar pentru candidaturile pe care le depui.",
+    "why": "tu register"
+  },
+  "student:settings.privacy.saved": {
+    "text": "Opțiune de confidențialitate salvată",
+    "why": "was missing"
+  },
+  "student:settings.privacy.subtitle": {
+    "text": "Tu decizi. Le poți schimba oricând.",
+    "why": "tu register"
+  },
+  "student:settings.privacy.who.agency": {
+    "text": "Agenția parteneră a echipei Hangyul: profilul, documentele și eseurile tale, doar după ce ai un plan.",
+    "why": "plan, eseu, tu"
+  },
+  "student:settings.privacy.who.university": {
+    "text": "Universitățile: doar candidatura și documentele pe care le depui la ele.",
+    "why": "tu register"
+  },
+  "student:settings.privacy.who.you": {
+    "text": "Tu: tot ce se află în contul tău.",
+    "why": "tu register"
+  },
+  "student:settings.sessions.text": {
+    "text": "Rămâi conectat pe acest dispozitiv până la 30 de zile. Deconectarea de aici încheie doar această sesiune; ca să te deconectezi de pe toate dispozitivele, schimbă-ți parola sau contactează asistența.",
+    "why": "tu register"
+  },
+  "student:settings.subtitle": {
+    "text": "Contul, limba și opțiunile tale de confidențialitate.",
+    "why": "tu register"
+  },
+  "student:tasks.emptyText": {
+    "text": "Sarcinile noi apar aici când ai ceva de făcut.",
+    "why": "was missing"
+  },
+  "student:tasks.markDone": {
+    "text": "Marchează „{{title}}” ca finalizată",
+    "why": "was missing"
+  },
+  "student:tasks.title": {
+    "text": "Sarcini",
+    "why": "was missing"
+  },
+  "student:v15.services.allowance.key.max_managed_applications": {
+    "text": "Candidaturi gestionate",
+    "why": "short label, one term"
+  },
+  "student:v15.services.allowance.key.mock_interviews": {
+    "text": "Interviuri de probă",
+    "why": "was missing"
+  },
+  "student:v15.services.allowance.title": {
+    "text": "Ce este inclus și ce ai folosit",
+    "why": "tu register"
+  },
+  "student:v15.services.choose": {
+    "text": "Alege {{name}}",
+    "why": "was missing"
+  },
+  "student:v15.services.chosen": {
+    "text": "Planul pe care l-ai ales pe site.",
+    "why": "was missing"
+  },
+  "student:v15.services.current": {
+    "text": "Planul tău",
+    "why": "plan not pachet; tu"
+  },
+  "student:v15.services.scope.consultation": {
+    "text": "Consultație",
+    "why": "one term: consultație"
+  },
+  "student:v15.services.scope.consultation_minutes": {
+    "text": "Consultație de {{count}} minute",
+    "why": "was missing"
+  },
+  "student:v15.services.scope.interview_preparation": {
+    "text": "Pregătire pentru interviu",
+    "why": "was missing"
+  },
+  "student:v15.services.scope.personal_roadmap": {
+    "text": "Un parcurs personal pentru studiile în străinătate",
+    "why": "was missing"
+  },
+  "student:v15.services.scope.pre_arrival_orientation": {
+    "text": "Orientare online înainte de plecare",
+    "why": "was missing"
+  },
+  "student:v15.services.scope.priority_response": {
+    "text": "Răspuns prioritar din partea echipei Hangyul",
+    "why": "team name as in EN"
+  },
+  "student:v15.services.scope.settlement_support": {
+    "text": "Ajutor după sosire",
+    "why": "says what we do"
+  },
+  "student:v15.services.scope.title": {
+    "text": "Inclus în planul tău",
+    "why": "plan; tu"
+  },
+  "student:v15.services.scope.visa_support": {
+    "text": "Pregătirea documentelor de viză",
+    "why": "glossary term; no visa promise"
+  },
+  "student:v15.services.subtitle": {
+    "text": "Vezi ce acoperă planul tău și ce a mai rămas, și alege un plan dacă nu ai făcut-o încă.",
+    "why": "plan; tu"
+  },
+  "student:v15.services.title": {
+    "text": "Planuri de servicii",
+    "why": "plan not pachet"
+  },
+  "student:v15.services.upgrade": {
+    "text": "Treci la {{name}}",
+    "why": "tu register"
+  },
+  "student:v16.pay.amount": {
+    "text": "Sumă",
+    "why": "was missing"
+  },
+  "student:v16.pay.cancelled": {
+    "text": "Ai anulat plata. Nu s-a încasat nimic.",
+    "why": "was missing"
+  },
+  "student:v16.pay.chooseSubtitle": {
+    "text": "Alege planul potrivit pentru cât ajutor vrei de la Hangyul. O singură plată, fără abonament.",
+    "why": "plan; tu"
+  },
+  "student:v16.pay.couldNotStart": {
+    "text": "Nu am putut deschide fereastra de plată.",
+    "why": "was missing"
+  },
+  "student:v16.pay.cta": {
+    "text": "Plătește și începe",
+    "why": "was missing"
+  },
+  "student:v16.pay.fail.default": {
+    "text": "Plata nu a fost finalizată. Nu s-a încasat nimic. Te rugăm să încerci din nou.",
+    "why": "natural wording"
+  },
+  "student:v16.pay.fail.title": {
+    "text": "Plata nu a reușit",
+    "why": "was missing"
+  },
+  "student:v16.pay.method": {
+    "text": "Metodă",
+    "why": "was missing"
+  },
+  "student:v16.pay.methodCard": {
+    "text": "Card",
+    "why": "was missing"
+  },
+  "student:v16.pay.notCharged": {
+    "text": "Nu s-a încasat nimic.",
+    "why": "was missing"
+  },
+  "student:v16.pay.orderNo": {
+    "text": "Comandă",
+    "why": "was missing"
+  },
+  "student:v16.pay.orderTitle": {
+    "text": "Comanda ta",
+    "why": "was missing"
+  },
+  "student:v16.pay.receipt": {
+    "text": "Vezi chitanța",
+    "why": "was missing"
+  },
+  "student:v16.pay.retry": {
+    "text": "Încearcă plata din nou",
+    "why": "was missing"
+  },
+  "student:v16.pay.sdkDown": {
+    "text": "Fereastra de plată nu a putut fi încărcată. Verifică-ți conexiunea și încearcă din nou.",
+    "why": "was missing"
+  },
+  "student:v16.pay.selected": {
+    "text": "Selectat",
+    "why": "was missing"
+  },
+  "student:v16.pay.status.CANCELLED": {
+    "text": "Anulată",
+    "why": "was missing"
+  },
+  "student:v16.pay.status.FAILED": {
+    "text": "Nereușită",
+    "why": "was missing"
+  },
+  "student:v16.pay.status.PAID": {
+    "text": "Plătită",
+    "why": "agrees with plată (f.)"
+  },
+  "student:v16.pay.status.PENDING": {
+    "text": "În așteptare",
+    "why": "was missing"
+  },
+  "student:v16.pay.success.cta": {
+    "text": "Începe pregătirea",
+    "why": "was missing"
+  },
+  "student:v16.pay.success.text": {
+    "text": "Începi pregătirea pentru studii în Coreea cu {{name}}.",
+    "why": "was missing"
+  },
+  "student:v16.pay.success.title": {
+    "text": "Plată finalizată",
+    "why": "was missing"
+  },
+  "student:v17.gate.general": {
+    "text": "Această parte din Hangyul este inclusă într-un plan. Alege unul ca să începi.",
+    "why": "matches EN"
+  },
+  "student:v17.gate.named": {
+    "text": "Un plan include {{what}}. Alege unul ca să începi.",
+    "why": "matches EN; lowercase slot"
+  },
+  "student:v17.gate.what.applications": {
+    "text": "candidaturile tale",
+    "why": "lowercase, fits sentence"
+  },
+  "student:v17.gate.what.arrival": {
+    "text": "ajutor la sosire și instalare",
+    "why": "glossary term"
+  },
+  "student:v17.gate.what.budget": {
+    "text": "planul tău de costuri",
+    "why": "lowercase, fits sentence"
+  },
+  "student:v17.gate.what.compare": {
+    "text": "comparația alăturată",
+    "why": "lowercase, fits sentence"
+  },
+  "student:v17.gate.what.documents": {
+    "text": "verificarea documentelor",
+    "why": "lowercase, fits sentence"
+  },
+  "student:v17.gate.what.essays": {
+    "text": "editarea scrisorii de intenție și a planului de studiu",
+    "why": "one term, matches EN"
+  },
+  "student:v17.gate.what.family": {
+    "text": "vizualizarea pentru familie",
+    "why": "lowercase, fits sentence"
+  },
+  "student:v17.gate.what.help": {
+    "text": "ajutor din partea echipei Hangyul",
+    "why": "matches EN"
+  },
+  "student:v17.gate.what.home": {
+    "text": "spațiul tău de pregătire",
+    "why": "lowercase, fits sentence"
+  },
+  "student:v17.gate.what.housing": {
+    "text": "ajutor pentru cămin",
+    "why": "matches EN"
+  },
+  "student:v17.gate.what.messages": {
+    "text": "mesajele cu echipa Hangyul",
+    "why": "matches EN"
+  },
+  "student:v17.gate.what.saved": {
+    "text": "lista ta scurtă",
+    "why": "matches EN"
+  },
+  "student:v17.gate.what.scholarships": {
+    "text": "potrivirea burselor",
+    "why": "matches EN"
+  },
+  "student:v17.gate.what.tasks": {
+    "text": "lista ta de sarcini",
+    "why": "matches EN"
+  },
+  "student:v17.gate.what.visa": {
+    "text": "pregătirea documentelor de viză",
+    "why": "glossary term"
+  },
+  "student:v17.upgrade.amount": {
+    "text": "Prețul trecerii la noul plan",
+    "why": "matches EN"
+  },
+  "student:v17.upgrade.cta": {
+    "text": "Treci la {{plan}}",
+    "why": "button, tu"
+  },
+  "student:v17.upgrade.feature.document_review": {
+    "text": "Verificare aprofundată a documentelor",
+    "why": "matches EN"
+  },
+  "student:v17.upgrade.feature.essay_review": {
+    "text": "Editarea scrisorii de intenție",
+    "why": "one term"
+  },
+  "student:v17.upgrade.feature.recommendations": {
+    "text": "Recomandări de universități",
+    "why": "glossary term"
+  },
+  "student:v17.upgrade.feature.settlement": {
+    "text": "Ajutor după sosire",
+    "why": "matches EN"
+  },
+  "student:v21.pay.afterCard": {
+    "text": "O singură plată. Planul tău începe imediat ce plata este aprobată. Nu se reînnoiește și nu există plăți recurente.",
+    "why": "plan not pachet"
+  },
+  "student:v21.pay.cardFailed": {
+    "text": "Plata nu a reușit",
+    "why": "was missing"
+  },
+  "student:v21.pay.cardSecure": {
+    "text": "Datele cardului ajung doar la Hangyul, printr-o conexiune criptată, și mai departe la furnizorul nostru de plăți. Nu stocăm niciodată numărul cardului.",
+    "why": "was missing"
+  },
+  "student:v21.pay.cardTitle": {
+    "text": "Plătește cu cardul",
+    "why": "was missing"
+  },
+  "student:v21.pay.declined": {
+    "text": "Cardul nu a fost acceptat: {{reason}} Încearcă alt card sau verifică la banca ta.",
+    "why": "was missing"
+  },
+  "student:v21.pay.expiry": {
+    "text": "Expiră",
+    "why": "was missing"
+  },
+  "student:v21.pay.holder": {
+    "text": "Numele de pe card",
+    "why": "was missing"
+  },
+  "student:v21.pay.notConfigured": {
+    "text": "Plata cu cardul nu este încă disponibilă aici. Încearcă mai târziu sau scrie-ne.",
+    "why": "was missing"
+  },
+  "student:v21.pay.number": {
+    "text": "Numărul cardului",
+    "why": "was missing"
+  },
+  "student:v21.pay.numberInvalid": {
+    "text": "Te rugăm să verifici numărul cardului.",
+    "why": "was missing"
+  },
+  "student:v21.pay.optional": {
+    "text": "opțional",
+    "why": "was missing"
+  },
+  "student:v21.pay.payCta": {
+    "text": "Plătește cu acest card",
+    "why": "was missing"
+  },
+  "student:v21.pay.processing": {
+    "text": "Procesăm plata…",
+    "why": "was missing"
+  },
+  "student:v21.pay.savedDelete": {
+    "text": "Elimină",
+    "why": "was missing"
+  },
+  "student:v21.pay.savedDeleteBody": {
+    "text": "Vom șterge {{card}} din contul tău. Plățile deja făcute nu sunt afectate.",
+    "why": "was missing"
+  },
+  "student:v21.pay.savedDeleteFailed": {
+    "text": "Cardul nu a putut fi eliminat. Te rugăm să încerci din nou.",
+    "why": "was missing"
+  },
+  "student:v21.pay.savedDeleteTitle": {
+    "text": "Elimini acest card?",
+    "why": "was missing"
+  },
+  "student:v21.pay.savedNotReusable": {
+    "text": "La o achiziție viitoare vei introduce cardul din nou.",
+    "why": "was missing"
+  },
+  "student:v21.pay.savedTitle": {
+    "text": "Cardul tău",
+    "why": "was missing"
+  },
+  "student:v21.pay.tooMany": {
+    "text": "Prea multe încercări cu cardul. Așteaptă câteva minute înainte să încerci din nou.",
+    "why": "was missing"
+  },
+  "student:v22.compare.budgetSub": {
+    "text": "Cât ar putea costa fiecare opțiune în primul an, cui plătești și când.",
+    "why": "tu register"
+  },
+  "student:v22.home.appTeam.follow": {
+    "text": "Verificăm stadiul cu biroul de admitere de la {{university}}",
+    "why": "matches EN"
+  },
+  "student:v22.home.appTeam.letter": {
+    "text": "Urmărim scrisoarea ta standard de admitere de la {{university}}",
+    "why": "official document name"
+  },
+  "student:v22.home.appsNeedYou": {
+    "text": "Candidaturi care au nevoie de tine",
+    "why": "tu register"
+  },
+  "student:v22.home.appsQuiet_one": {
+    "text": "Candidatura ta este la universitate. Acum nu ai nimic de făcut.",
+    "why": "tu register"
+  },
+  "student:v22.home.appsQuiet_few": {
+    "text": "Toate cele {{count}} candidaturi sunt la universități. Acum nu ai nimic de făcut.",
+    "why": "ro few form (2–19)"
+  },
+  "student:v22.home.appsQuiet_other": {
+    "text": "Toate cele {{count}} de candidaturi sunt la universități. Acum nu ai nimic de făcut.",
+    "why": "ro other form needs de"
+  },
+  "student:v22.home.docsChecking_few": {
+    "text": "{{count}} documente sunt în verificare",
+    "why": "ro few form (2–19)"
+  },
+  "student:v22.home.docsChecking_other": {
+    "text": "{{count}} de documente sunt în verificare",
+    "why": "same shape as one/few"
+  },
+  "student:v22.home.teamNowEmpty": {
+    "text": "Momentan nu avem nimic în lucru. Următorul tău pas este mai sus.",
+    "why": "tu register"
+  },
+  "student:v26.now.otherPlans": {
+    "text": "Vezi celelalte planuri",
+    "why": "plan; tu"
+  },
+  "student:v26.now.scopeToggle": {
+    "text": "Vezi tot ce include acest plan",
+    "why": "plan; matches EN"
+  },
+  "student:v29.services.catalogue.premiumEditing": {
+    "text": "Premium include deja editarea documentelor din contract.",
+    "why": "editing = editare"
+  },
+  "student:writing.needYou": {
+    "text": "E rândul tău să scrii sau să revizuiești",
+    "why": "matches EN; tu"
+  },
+  "student:writing.others": {
+    "text": "În verificare la echipa Hangyul sau finalizate",
+    "why": "matches EN"
+  },
+  "student:writing.promise": {
+    "text": "Hangyul nu scrie și nu inventează niciodată conținut în locul tău. Observațiile semnalează structura, claritatea, gramatica și părțile din cerință la care nu ai răspuns.",
+    "why": "tu register"
+  },
+  "student:writing.status.AI_PRECHECK": {
+    "text": "Trimis",
+    "why": "was missing"
+  },
+  "student:writing.status.APPROVED": {
+    "text": "Gata",
+    "why": "was missing"
+  },
+  "student:writing.status.CHANGES_REQUESTED": {
+    "text": "Modificări solicitate",
+    "why": "was missing"
+  },
+  "student:writing.status.FINAL_REVIEW": {
+    "text": "În verificare la echipa Hangyul",
+    "why": "same as AGENCY_REVIEW, one term"
+  },
+  "student:writing.status.STUDENT_REVISION": {
+    "text": "Modificări solicitate",
+    "why": "was missing"
+  },
+  "student:writing.status.SUBMITTED": {
+    "text": "Trimis",
+    "why": "was missing"
+  },
+  "student:writing.subtitle": {
+    "text": "Scrisorile tale de intenție și planurile de studiu. Echipa Hangyul comentează structura și claritatea. Ideile și cuvintele rămân ale tale.",
+    "why": "tu register"
+  },
+  "mobile:agency.deadlines.empty": {
+    "text": "Niciun termen în următoarele 30 de zile",
+    "why": "was missing"
+  },
+  "mobile:agency.deadlines.subtitle": {
+    "text": "Termenele studenților dumneavoastră în următoarele 30 de zile.",
+    "why": "was missing"
+  },
+  "mobile:agency.deadlines.title": {
+    "text": "Mementouri",
+    "why": "was missing"
+  },
+  "mobile:agency.login.tagline": {
+    "text": "Studenții, verificările și mesajele dumneavoastră, pe mobil.",
+    "why": "staff formal register; no CRM word"
+  },
+  "mobile:agency.messages.subtitle": {
+    "text": "Conversații cu studenții și note interne.",
+    "why": "was missing"
+  },
+  "mobile:agency.messages.title": {
+    "text": "Mesaje",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.detailTitle": {
+    "text": "Verificare",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.empty": {
+    "text": "Coada de verificare este goală",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.emptyBody": {
+    "text": "Documentele noi încărcate de studenții dumneavoastră apar aici.",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.history": {
+    "text": "Istoricul verificărilor",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.lastReason": {
+    "text": "Solicitarea anterioară de corectare",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.noFile": {
+    "text": "Niciun fișier încărcat încă pentru acest document.",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.sendToStudent": {
+    "text": "Trimiteți studentului",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.tabA11y_one": {
+    "text": "Verificări, {{count}} în așteptare",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.tabA11y_other": {
+    "text": "Verificări, {{count}} în așteptare",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.title": {
+    "text": "Verificarea documentelor",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.verify": {
+    "text": "Validați documentul",
+    "why": "verify = validare (official)"
+  },
+  "mobile:agency.reviews.waitingDays_one": {
+    "text": "Așteaptă de {{count}} zi",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.waitingDays_few": {
+    "text": "Așteaptă de {{count}} zile",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:agency.reviews.waitingDays_other": {
+    "text": "Așteaptă de {{count}} de zile",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.waitingHours_one": {
+    "text": "Așteaptă de {{count}} oră",
+    "why": "was missing"
+  },
+  "mobile:agency.reviews.waitingHours_few": {
+    "text": "Așteaptă de {{count}} ore",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:agency.reviews.waitingHours_other": {
+    "text": "Așteaptă de {{count}} de ore",
+    "why": "was missing"
+  },
+  "mobile:agency.students.detailTitle": {
+    "text": "Student",
+    "why": "was missing"
+  },
+  "mobile:agency.tasks.unassigned": {
+    "text": "Nealocată",
+    "why": "was missing"
+  },
+  "mobile:app.agency": {
+    "text": "Hangyul Agency",
+    "why": "official app name"
+  },
+  "mobile:app.student": {
+    "text": "Hangyul Univ",
+    "why": "official app name"
+  },
+  "mobile:app.university": {
+    "text": "Hangyul University",
+    "why": "official app name"
+  },
+  "mobile:login.networkError": {
+    "text": "Hangyul nu poate fi accesat momentan la {{url}}. Verifică-ți conexiunea și încearcă din nou peste câteva momente.",
+    "why": "was missing; glossary wording"
+  },
+  "mobile:login.webSignup": {
+    "text": "Ești nou aici? Creează-ți contul în aplicație.",
+    "why": "matches EN exactly"
+  },
+  "mobile:messages.empty": {
+    "text": "Nicio conversație încă",
+    "why": "was missing"
+  },
+  "mobile:messages.emptyBody": {
+    "text": "Mesajele cu echipa ta apar aici.",
+    "why": "was missing"
+  },
+  "mobile:messages.internalLabel": {
+    "text": "Notă internă",
+    "why": "was missing"
+  },
+  "mobile:messages.internalOn": {
+    "text": "Notă internă: o vede doar echipa dumneavoastră",
+    "why": "was missing"
+  },
+  "mobile:messages.internalPlaceholder": {
+    "text": "Scrieți o notă internă (doar pentru echipă)…",
+    "why": "was missing"
+  },
+  "mobile:messages.noMessages": {
+    "text": "Niciun mesaj încă",
+    "why": "was missing"
+  },
+  "mobile:messages.placeholder": {
+    "text": "Scrie un mesaj…",
+    "why": "was missing"
+  },
+  "mobile:messages.sendInternal": {
+    "text": "Salvați nota internă",
+    "why": "was missing"
+  },
+  "mobile:messages.unreadCount_one": {
+    "text": "{{count}} mesaj necitit",
+    "why": "was missing"
+  },
+  "mobile:messages.unreadCount_few": {
+    "text": "{{count}} mesaje necitite",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:messages.unreadCount_other": {
+    "text": "{{count}} de mesaje necitite",
+    "why": "was missing"
+  },
+  "mobile:more.active": {
+    "text": "Activ",
+    "why": "was missing"
+  },
+  "mobile:more.allowanceSpent": {
+    "text": "Ai folosit tot ce include acest plan. Pe ecranul planului vezi ce plan acoperă mai mult.",
+    "why": "was missing"
+  },
+  "mobile:more.choose": {
+    "text": "Alege",
+    "why": "was missing"
+  },
+  "mobile:more.noPlan": {
+    "text": "Niciun plan încă",
+    "why": "was missing"
+  },
+  "mobile:more.noPlanHint": {
+    "text": "Alege un plan și Hangyul începe să lucreze cu tine",
+    "why": "was missing"
+  },
+  "mobile:more.plan": {
+    "text": "Plan",
+    "why": "was missing"
+  },
+  "mobile:more.support": {
+    "text": "Cere ajutor",
+    "why": "was missing"
+  },
+  "mobile:more.supportHint": {
+    "text": "Scrie echipei Hangyul",
+    "why": "was missing"
+  },
+  "mobile:more.webNote": {
+    "text": "Editarea profilului și plata se fac pe web.",
+    "why": "was missing"
+  },
+  "mobile:notifications.unread": {
+    "text": "Necitite",
+    "why": "was missing"
+  },
+  "mobile:plan.allowance.essay_review_rounds": {
+    "text": "Editarea scrisorii de intenție și a planului de studiu",
+    "why": "was missing"
+  },
+  "mobile:plan.allowance.follow_up_consultations": {
+    "text": "Consultații ulterioare",
+    "why": "was missing"
+  },
+  "mobile:plan.allowance.max_managed_applications": {
+    "text": "Candidaturi gestionate",
+    "why": "was missing"
+  },
+  "mobile:plan.allowance.max_recommended_institutions": {
+    "text": "Recomandări de universități",
+    "why": "was missing"
+  },
+  "mobile:plan.allowance.mock_interviews": {
+    "text": "Interviuri de probă",
+    "why": "was missing"
+  },
+  "mobile:plan.browserFailed": {
+    "text": "Browserul nu a putut fi deschis. Te rugăm să plătești pe web.",
+    "why": "was missing"
+  },
+  "mobile:plan.card": {
+    "text": "Poți plăti cu un card străin (Visa, Mastercard, JCB).",
+    "why": "was missing"
+  },
+  "mobile:plan.chooseLede": {
+    "text": "O singură plată, fără abonament. Planul tău rămâne activ cât timp te pregătești.",
+    "why": "was missing"
+  },
+  "mobile:plan.chooseTitle": {
+    "text": "Alege un plan",
+    "why": "was missing"
+  },
+  "mobile:plan.handoff": {
+    "text": "Plata se face în browser și revii în aplicație când este gata.",
+    "why": "was missing"
+  },
+  "mobile:plan.highestAlready": {
+    "text": "Ai deja planul cel mai cuprinzător.",
+    "why": "was missing"
+  },
+  "mobile:plan.included": {
+    "text": "Inclus în planul tău",
+    "why": "was missing"
+  },
+  "mobile:plan.oneTime": {
+    "text": "O singură plată",
+    "why": "was missing"
+  },
+  "mobile:plan.ongoing": {
+    "text": "Pe toată perioada serviciului",
+    "why": "was missing"
+  },
+  "mobile:plan.paid": {
+    "text": "Sumă plătită",
+    "why": "was missing"
+  },
+  "mobile:plan.pay": {
+    "text": "Plătește",
+    "why": "was missing"
+  },
+  "mobile:plan.plansTitle": {
+    "text": "Planuri",
+    "why": "was missing"
+  },
+  "mobile:plan.selected": {
+    "text": "Selectat",
+    "why": "was missing"
+  },
+  "mobile:plan.upgradeTitle": {
+    "text": "Schimbare de plan",
+    "why": "was missing"
+  },
+  "mobile:plan.webNote": {
+    "text": "Istoricul planurilor și chitanțele sunt pe web.",
+    "why": "was missing"
+  },
+  "mobile:settings.elsewhere": {
+    "text": "În altă parte",
+    "why": "was missing"
+  },
+  "mobile:settings.language": {
+    "text": "Limbă",
+    "why": "was missing"
+  },
+  "mobile:settings.languageHint": {
+    "text": "Alege limba aplicației. Unele limbi sunt traduceri automate, încă în curs de verificare.",
+    "why": "was missing"
+  },
+  "mobile:settings.machineDraft": {
+    "text": "traducere automată",
+    "why": "was missing"
+  },
+  "mobile:settings.notificationsHint": {
+    "text": "Vezi notificările primite",
+    "why": "was missing"
+  },
+  "mobile:settings.rtlNote": {
+    "text": "Textul de la dreapta la stânga se aplică acum; întreaga interfață se oglindește data viitoare când deschizi aplicația.",
+    "why": "was missing"
+  },
+  "mobile:settings.selected": {
+    "text": "selectat",
+    "why": "was missing"
+  },
+  "mobile:settings.server": {
+    "text": "Server: {{url}}",
+    "why": "was missing"
+  },
+  "mobile:settings.signOutBody": {
+    "text": "Vei avea nevoie de e-mail și parolă ca să te conectezi din nou.",
+    "why": "was missing"
+  },
+  "mobile:settings.signOutTitle": {
+    "text": "Te deconectezi?",
+    "why": "was missing"
+  },
+  "mobile:settings.title": {
+    "text": "Setări",
+    "why": "was missing"
+  },
+  "mobile:settings.version": {
+    "text": "Versiunea {{version}}",
+    "why": "was missing"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Twilio Inc. (Statele Unite) trimite SMS-ul și e-mailul de verificare, iar Cloudflare, Inc. (Statele Unite) verifică faptul că înregistrarea nu este automată. Detaliile, inclusiv modul de refuz, se află în Politica de confidențialitate. În caz de refuz, contul nu poate fi creat.",
+    "why": "matches EN; dropped extra claims"
+  },
+  "mobile:signup.consent.PRIVACY.summary": {
+    "text": "E-mail, număr de mobil, nume, cetățenie și parolă (stocată criptat), pentru crearea și protejarea contului tău.",
+    "why": "same wording as web"
+  },
+  "mobile:signup.lang.NONE": {
+    "text": "Niciun examen încă",
+    "why": "natural"
+  },
+  "mobile:signup.login": {
+    "text": "Conectare",
+    "why": "sign in = conectare"
+  },
+  "mobile:signup.quickGo": {
+    "text": "Arată-mi programele potrivite",
+    "why": "matches = programe potrivite"
+  },
+  "mobile:signup.steps.consent": {
+    "text": "Acord",
+    "why": "matches EN Agreement"
+  },
+  "mobile:student.applications.active": {
+    "text": "Active",
+    "why": "was missing"
+  },
+  "mobile:student.applications.closed": {
+    "text": "Închise",
+    "why": "was missing"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.body": {
+    "text": "Accepți oferta de la {{university}}. Echipa Hangyul Univ te îndrumă la plata taxei de școlarizare și la obținerea scrisorii standard de admitere.",
+    "why": "was missing"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.cta": {
+    "text": "Acceptă oferta",
+    "why": "was missing"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.title": {
+    "text": "Accepți această ofertă?",
+    "why": "was missing"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.body": {
+    "text": "Candidatura ta la {{university}} va fi închisă. Acest lucru nu poate fi anulat din aplicație.",
+    "why": "was missing"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.cta": {
+    "text": "Retrage candidatura",
+    "why": "was missing"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.title": {
+    "text": "Retragi această candidatură?",
+    "why": "was missing"
+  },
+  "mobile:student.applications.detailTitle": {
+    "text": "Candidatură",
+    "why": "was missing"
+  },
+  "mobile:student.applications.empty": {
+    "text": "Nicio candidatură activă",
+    "why": "was missing"
+  },
+  "mobile:student.applications.emptyBody": {
+    "text": "Pornește de la programele potrivite pentru tine: cele ale căror cerințe le îndeplinești.",
+    "why": "matches = programe potrivite"
+  },
+  "mobile:student.applications.emptyClosed": {
+    "text": "Nicio candidatură închisă",
+    "why": "was missing"
+  },
+  "mobile:student.applications.submittedOn": {
+    "text": "Depusă la {{date}}",
+    "why": "was missing"
+  },
+  "mobile:student.applications.subtitle": {
+    "text": "Urmărește toate candidaturile într-un singur loc.",
+    "why": "was missing"
+  },
+  "mobile:student.documents.detailTitle": {
+    "text": "Document",
+    "why": "was missing"
+  },
+  "mobile:student.documents.empty": {
+    "text": "Seiful tău de documente este gol",
+    "why": "was missing"
+  },
+  "mobile:student.documents.emptyBody": {
+    "text": "Încarcă pașaportul, foile matricole și rezultatele testelor din aplicația web.",
+    "why": "was missing"
+  },
+  "mobile:student.documents.file": {
+    "text": "{{name}} · versiunea {{version}}",
+    "why": "was missing"
+  },
+  "mobile:student.documents.fixFallback": {
+    "text": "Echipa Hangyul a cerut o modificare la acest document.",
+    "why": "was missing"
+  },
+  "mobile:student.documents.fixTitle": {
+    "text": "Ce trebuie corectat",
+    "why": "was missing"
+  },
+  "mobile:student.documents.openFile": {
+    "text": "Deschide previzualizarea securizată",
+    "why": "was missing"
+  },
+  "mobile:student.documents.reviews": {
+    "text": "Istoricul verificărilor",
+    "why": "was missing"
+  },
+  "mobile:student.documents.translationBody": {
+    "text": "Pentru acest document este necesară o traducere autorizată în coreeană sau engleză.",
+    "why": "was missing"
+  },
+  "mobile:student.explore.clear": {
+    "text": "Șterge căutarea",
+    "why": "was missing"
+  },
+  "mobile:student.explore.save": {
+    "text": "Salvează {{name}}",
+    "why": "was missing"
+  },
+  "mobile:student.explore.searchPlaceholder": {
+    "text": "Caută programe sau universități",
+    "why": "was missing"
+  },
+  "mobile:student.explore.unsave": {
+    "text": "Elimină {{name}} din salvate",
+    "why": "was missing"
+  },
+  "mobile:student.matches.deadline": {
+    "text": "Termen {{date}} · {{due}}",
+    "why": "was missing"
+  },
+  "mobile:student.messages.subtitle": {
+    "text": "Vorbește cu echipa Hangyul Univ.",
+    "why": "was missing"
+  },
+  "mobile:student.messages.unreadA11y_one": {
+    "text": "Mesaje, {{count}} necitit",
+    "why": "was missing"
+  },
+  "mobile:student.messages.unreadA11y_other": {
+    "text": "Mesaje, {{count}} necitite",
+    "why": "was missing"
+  },
+  "mobile:student.nextAction.ARRIVAL_CHECKLIST": {
+    "text": "Pregătește-te pentru sosirea în Coreea",
+    "why": "was missing"
+  },
+  "mobile:student.nextAction.COMPARE_OFFERS": {
+    "text": "Compară ofertele tale de admitere ({{count}})",
+    "why": "was missing; count-safe shape"
+  },
+  "mobile:student.nextAction.COMPLETE_PROFILE": {
+    "text": "Completează-ți profilul ca să vezi ce universități ți se potrivesc",
+    "why": "was missing"
+  },
+  "mobile:student.nextAction.FINISH_APPLICATION": {
+    "text": "Finalizează candidatura la {{university}}. Mai ai de făcut: {{remaining}}",
+    "why": "natural, one next step"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.budget": {
+    "text": "Adaugă-ți bugetul ca să ordonăm programele după cost ({{count}})",
+    "why": "was missing; count-safe shape"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.education": {
+    "text": "Adaugă-ți studiile ca să verificăm programele ({{count}})",
+    "why": "was missing; count-safe shape"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.gpa": {
+    "text": "Adaugă-ți notele ca să verificăm programele ({{count}})",
+    "why": "was missing; count-safe shape"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.language": {
+    "text": "Adaugă-ți rezultatul la limbă ca să verificăm programele ({{count}})",
+    "why": "was missing; count-safe shape"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.other": {
+    "text": "Completează-ți profilul ca să verificăm programele ({{count}})",
+    "why": "was missing; count-safe shape"
+  },
+  "mobile:student.nextAction.RESPOND_OFFER": {
+    "text": "Răspunde la oferta ta de admitere",
+    "why": "was missing"
+  },
+  "mobile:student.nextAction.REVIEW_MATCHES": {
+    "text": "Vezi universitățile potrivite pentru tine",
+    "why": "was missing"
+  },
+  "mobile:student.profile.completion": {
+    "text": "Profil completat",
+    "why": "was missing"
+  },
+  "mobile:student.profile.step.basics": {
+    "text": "Informații de bază",
+    "why": "was missing"
+  },
+  "mobile:student.profile.step.education": {
+    "text": "Studii",
+    "why": "was missing"
+  },
+  "mobile:student.profile.step.goals": {
+    "text": "Obiective de studiu",
+    "why": "was missing"
+  },
+  "mobile:student.profile.step.language": {
+    "text": "Rezultate la limbă",
+    "why": "was missing"
+  },
+  "mobile:student.profile.step.passport": {
+    "text": "Pașaport",
+    "why": "was missing"
+  },
+  "mobile:student.profile.step.preferences": {
+    "text": "Preferințe",
+    "why": "was missing"
+  },
+  "mobile:student.profile.step.sponsor": {
+    "text": "Susținător financiar",
+    "why": "was missing"
+  },
+  "mobile:student.saved.empty": {
+    "text": "Nimic salvat încă",
+    "why": "was missing"
+  },
+  "mobile:student.saved.emptyBody": {
+    "text": "Apasă inima de pe un program ca să-i salvezi universitatea aici.",
+    "why": "was missing"
+  },
+  "mobile:student.tasks.confirmTitle": {
+    "text": "Marchezi această sarcină ca finalizată?",
+    "why": "was missing"
+  },
+  "mobile:student.tasks.empty": {
+    "text": "Nimic de făcut acum",
+    "why": "was missing"
+  },
+  "mobile:student.tasks.emptyBody": {
+    "text": "Adăugăm sarcini aici când ceva are nevoie de atenția ta.",
+    "why": "was missing"
+  },
+  "mobile:student.tasks.overdue": {
+    "text": "Întârziate ({{count}})",
+    "why": "was missing"
+  },
+  "mobile:student.tasks.subtitle": {
+    "text": "Sarcini de la echipa Hangyul și listele tale de pași pentru candidaturi.",
+    "why": "was missing"
+  },
+  "mobile:student.tasks.title": {
+    "text": "Lista de pași",
+    "why": "was missing"
+  },
+  "mobile:student.tasks.upcoming": {
+    "text": "De făcut",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.anonymous": {
+    "text": "Candidat",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.confirmBody": {
+    "text": "{{name}} și consilierul său vor fi notificați. Adăugați o notă pentru evidență (opțional).",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.confirmTitle": {
+    "text": "Schimbați statusul în „{{status}}”?",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.detailTitle": {
+    "text": "Candidat",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.history": {
+    "text": "Istoricul statusurilor",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.interview": {
+    "text": "Interviu",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.moveTo": {
+    "text": "Mutare în: {{status}}",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.notShared": {
+    "text": "Nepartajat încă cu universitatea dumneavoastră",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.note": {
+    "text": "Notă",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.previewHint": {
+    "text": "Deschide o previzualizare securizată, cu expirare",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.reference": {
+    "text": "Numărul dumneavoastră de referință",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.submitted": {
+    "text": "Depusă la {{date}}",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.submittedLabel": {
+    "text": "Depusă",
+    "why": "was missing"
+  },
+  "mobile:university.applicants.viaAgency": {
+    "text": "Prin {{agency}}",
+    "why": "was missing"
+  },
+  "mobile:university.flagged.add": {
+    "text": "Marcați pentru urmărire",
+    "why": "was missing"
+  },
+  "mobile:university.flagged.addBody": {
+    "text": "Doar echipa universității dumneavoastră va vedea acest marcaj și motivul.",
+    "why": "was missing"
+  },
+  "mobile:university.flagged.flagged": {
+    "text": "Marcată",
+    "why": "was missing"
+  },
+  "mobile:university.flagged.reason": {
+    "text": "Motiv",
+    "why": "was missing"
+  },
+  "mobile:university.flagged.remove": {
+    "text": "Eliminați marcajul",
+    "why": "was missing"
+  },
+  "mobile:university.flagged.removeTitle": {
+    "text": "Eliminați marcajul de pe această candidatură?",
+    "why": "was missing"
+  },
+  "mobile:university.inbox.title": {
+    "text": "Mesaje",
+    "why": "was missing"
+  },
+  "mobile:university.login.tagline": {
+    "text": "Candidați, decizii și cohorte pentru biroul dumneavoastră de relații internaționale.",
+    "why": "was missing"
+  },
+  "mobile:v26.uni.head.label": {
+    "text": "Ce necesită atenția dumneavoastră acum",
+    "why": "no abbreviation"
+  },
+  "mobile:v26.uni.head.moved": {
+    "text": "Mutate săptămâna aceasta",
+    "why": "shorter, matches EN"
+  },
+  "mobile:v29.mfa.codeHint": {
+    "text": "Introduceți codul de 6 cifre din aplicația de autentificare sau un cod de recuperare.",
+    "why": "was missing"
+  },
+  "mobile:v29.mfa.codeLabel": {
+    "text": "Cod de verificare",
+    "why": "was missing"
+  },
+  "mobile:v29.mfa.enrollOnWeb": {
+    "text": "Acest cont necesită verificare în doi pași. Configurați-o mai întâi în consola web, apoi conectați-vă aici.",
+    "why": "was missing"
+  },
+  "mobile:v29.mfa.verify": {
+    "text": "Verificați și conectați-vă",
+    "why": "was missing"
+  },
+  "mobile:v29.mfa.wrongCode": {
+    "text": "Codul este greșit sau a expirat. Introduceți unul nou.",
+    "why": "was missing"
+  },
+  "mobile:v29.plan.supportDays": {
+    "text": "Consultații: {{count}} zile de la prima consultație",
+    "why": "restores consultation meaning"
+  },
+  "mobile:v29.plan.supportUntil": {
+    "text": "Consultații până la {{date}}",
+    "why": "one term: consultație"
+  },
+  "mobile:v29.plan.termToAgree": {
+    "text": "Se stabilește la începerea serviciului",
+    "why": "matches EN"
+  },
+  "mobile:v29.plan.unrationed.TEAM": {
+    "text": "Urmărire din partea echipei tale",
+    "why": "matches EN follow-up"
+  },
+  "mobile:v3.agency.allClear": {
+    "text": "Totul în regulă: {{list}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.applications_one": {
+    "text": "{{count}} candidatură",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.applications_few": {
+    "text": "{{count}} candidaturi",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:v3.agency.applications_other": {
+    "text": "{{count}} de candidaturi",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.breached_one": {
+    "text": "{{count}} deja peste termenul promis",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.breached_other": {
+    "text": "{{count}} deja peste termenul promis",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.closing_one": {
+    "text": "Candidatură care se închide în 7 zile",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.closing_other": {
+    "text": "Candidaturi care se închid în 7 zile",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.docs_one": {
+    "text": "Document în așteptarea verificării",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.docs_other": {
+    "text": "Documente în așteptarea verificării",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.next": {
+    "text": "Urmează: {{uni}} pentru {{who}}, {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.overSla": {
+    "text": "{{count}} așteaptă de peste {{hours}} h",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.overdue_one": {
+    "text": "Sarcină întârziată",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.overdue_other": {
+    "text": "Sarcini întârziate",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.replies_one": {
+    "text": "Student în așteptarea răspunsului dumneavoastră",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.replies_other": {
+    "text": "Studenți în așteptarea răspunsului dumneavoastră",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.since": {
+    "text": "Cel mai vechi de la {{who}}, {{when}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.sla_one": {
+    "text": "Student cu risc de prim răspuns întârziat",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.att.sla_other": {
+    "text": "Studenți cu risc de prim răspuns întârziat",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.block.deadline": {
+    "text": "Candidatura la {{uni}} se închide în curând",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.block.fix": {
+    "text": "{{doc}} necesită o corectare din partea studentului",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.block.requested": {
+    "text": "{{uni}} a cerut documente suplimentare",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.block.review": {
+    "text": "{{doc}} așteaptă verificarea dumneavoastră",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.block.sla": {
+    "text": "Primul răspuns este scadent",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.blockers_one": {
+    "text": "{{count}} lucru blochează acest student",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.blockers_few": {
+    "text": "{{count}} lucruri blochează acest student",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:v3.agency.blockers_other": {
+    "text": "{{count}} de lucruri blochează acest student",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.clear.closing": {
+    "text": "termene săptămâna aceasta",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.clear.docs": {
+    "text": "verificări de documente",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.clear.overdue": {
+    "text": "sarcini întârziate",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.clear.replies": {
+    "text": "răspunsuri către studenți",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.clear.sla": {
+    "text": "prime răspunsuri",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.conversationSubject": {
+    "text": "Echipa ta pentru studii în Coreea",
+    "why": "was missing; student-visible"
+  },
+  "mobile:v3.agency.deadline": {
+    "text": "{{uni}} {{when}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.documents": {
+    "text": "Documente · {{verified}} din {{total}} validate",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.dueToday_one": {
+    "text": "Scadente azi · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.dueToday_other": {
+    "text": "Scadente azi · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.findStudent": {
+    "text": "Căutați un student",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.firstMessage": {
+    "text": "Mesaj către {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.greeting.afternoon": {
+    "text": "Bună ziua, {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.greeting.evening": {
+    "text": "Bună seara, {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.greeting.morning": {
+    "text": "Bună dimineața, {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.message": {
+    "text": "Mesaj",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.messageLabel": {
+    "text": "Mesaj",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.needsAttention": {
+    "text": "Necesită atenție",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.nextAction": {
+    "text": "Urmează: {{what}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.noBlockers": {
+    "text": "Nimic nu blochează acest student",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.noBlockersBody": {
+    "text": "Documentele, termenele și răspunsurile sunt în grafic.",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.noStudents": {
+    "text": "Niciun student în această vizualizare",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.noStudentsBody": {
+    "text": "Încercați altă vizualizare sau ștergeți căutarea.",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.searchPlaceholder": {
+    "text": "Nume sau e-mail",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.stage": {
+    "text": "Etapă",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.stageNote": {
+    "text": "Notă pentru echipă (opțional)",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.stageTo": {
+    "text": "Mutare în {{stage}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.teamView": {
+    "text": "Echipă · {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.toFix_one": {
+    "text": "{{count}} doc. de corectat",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.toFix_few": {
+    "text": "{{count}} doc. de corectat",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:v3.agency.toFix_other": {
+    "text": "{{count}} de doc. de corectat",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.today": {
+    "text": "Azi",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.upload": {
+    "text": "Încărcare",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.uploadFor": {
+    "text": "{{doc}} pentru {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.uploadWhat": {
+    "text": "Ce document încărcați?",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.uploaded": {
+    "text": "Încărcat în seiful studentului. Este gata de verificare.",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.all": {
+    "text": "Toți",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.attention": {
+    "text": "Necesită atenție",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.deadline": {
+    "text": "Termen apropiat",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.docs": {
+    "text": "Documente de corectat",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.mine": {
+    "text": "Studenții mei",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.sla": {
+    "text": "Studenți peste sau aproape de termenul promis pentru primul răspuns",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.university": {
+    "text": "În așteptarea universității",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.visa": {
+    "text": "Viză",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.waiting_student": {
+    "text": "În așteptarea studentului",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.view.waiting_us": {
+    "text": "În așteptarea noastră",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.agency": {
+    "text": "În așteptarea echipei agenției",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.counselor": {
+    "text": "În așteptarea consilierului",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.external": {
+    "text": "În așteptarea unei instituții externe",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.hangyul": {
+    "text": "În așteptarea Hangyul",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.none": {
+    "text": "Nimic în așteptare",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.student": {
+    "text": "În așteptarea studentului",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.university": {
+    "text": "În așteptarea universității",
+    "why": "was missing"
+  },
+  "mobile:v3.agency.waitingOn.us": {
+    "text": "În așteptarea noastră",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.ADDITIONAL_DOCUMENTS": {
+    "text": "Universitatea a cerut încă un document.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Scrisoarea ta de admitere este gata. Începe documentele de viză.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_PENDING": {
+    "text": "Așteptăm scrisoarea ta standard de admitere.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.DOCUMENT_PREPARATION": {
+    "text": "Îți pregătești documentele.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.DRAFT": {
+    "text": "Ai început această candidatură.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.ENROLLED": {
+    "text": "Înmatricularea este gata. Bun venit în Coreea.",
+    "why": "was missing; gender-neutral"
+  },
+  "mobile:v3.appStatus.INTERVIEW": {
+    "text": "Universitatea vrea să te intervieveze.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.OFFERED": {
+    "text": "Ai primit o ofertă.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.OFFER_ACCEPTED": {
+    "text": "Ai acceptat oferta. Urmează: taxa de școlarizare.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.PROFILE_REVIEW": {
+    "text": "Echipa Hangyul Univ îți verifică profilul.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.REJECTED": {
+    "text": "Universitatea nu a oferit un loc de data aceasta.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.SUBMITTED": {
+    "text": "Depusă la {{university}}.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.TUITION_PAID": {
+    "text": "Taxa de școlarizare a fost primită. Universitatea îți pregătește scrisoarea de admitere.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.TUITION_PENDING": {
+    "text": "Plătește taxa de școlarizare direct universității, până la termen.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.UNIVERSITY_REVIEW": {
+    "text": "{{university}} îți analizează candidatura.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.VISA_PREPARATION": {
+    "text": "Îți pregătești cererea de viză.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.VISA_SUBMITTED": {
+    "text": "Cererea de viză a fost depusă.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.WAITLISTED": {
+    "text": "Ești pe lista de așteptare.",
+    "why": "was missing"
+  },
+  "mobile:v3.appStatus.WITHDRAWN": {
+    "text": "Această candidatură a fost retrasă.",
+    "why": "was missing"
+  },
+  "mobile:v3.application.closes": {
+    "text": "Se închide pe {{date}} · {{left}}",
+    "why": "was missing"
+  },
+  "mobile:v3.application.due": {
+    "text": "Scadent pe {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.application.ready": {
+    "text": "Gata de depus",
+    "why": "was missing"
+  },
+  "mobile:v3.application.readyBody": {
+    "text": "Tot ce este necesar este la locul lui.",
+    "why": "was missing"
+  },
+  "mobile:v3.application.reviewBody": {
+    "text": "Depusă pe {{date}}. Universitatea poate cere încă un document sau un interviu. Echipa Hangyul îi urmărește evoluția.",
+    "why": "was missing"
+  },
+  "mobile:v3.application.reviewTitle": {
+    "text": "{{university}} îți analizează candidatura",
+    "why": "was missing"
+  },
+  "mobile:v3.application.reviewing": {
+    "text": "Verificăm {{item}}",
+    "why": "was missing"
+  },
+  "mobile:v3.application.submit": {
+    "text": "Depune candidatura",
+    "why": "was missing"
+  },
+  "mobile:v3.application.teamMonitoring": {
+    "text": "În legătură cu universitatea",
+    "why": "was missing"
+  },
+  "mobile:v3.application.teamWaiting": {
+    "text": "Așteptăm documentele tale",
+    "why": "was missing"
+  },
+  "mobile:v3.application.timeline": {
+    "text": "Cronologie",
+    "why": "was missing"
+  },
+  "mobile:v3.application.uni.decided": {
+    "text": "Decizie luată",
+    "why": "was missing"
+  },
+  "mobile:v3.application.uni.reviewing": {
+    "text": "Îți analizează candidatura",
+    "why": "was missing"
+  },
+  "mobile:v3.application.uni.waiting": {
+    "text": "Așteaptă depunerea candidaturii tale",
+    "why": "was missing"
+  },
+  "mobile:v3.application.university": {
+    "text": "Universitate",
+    "why": "was missing"
+  },
+  "mobile:v3.application.uploadRequested": {
+    "text": "Încarcă acest document",
+    "why": "was missing"
+  },
+  "mobile:v3.application.who": {
+    "text": "Cine face ce",
+    "why": "was missing"
+  },
+  "mobile:v3.application.withdraw": {
+    "text": "Retrage această candidatură",
+    "why": "was missing"
+  },
+  "mobile:v3.application.you": {
+    "text": "Tu",
+    "why": "was missing"
+  },
+  "mobile:v3.common.all": {
+    "text": "Vezi tot",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.bucket.later_other": {
+    "text": "Mai târziu luna aceasta · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.bucket.overdue_other": {
+    "text": "Întârziate · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.bucket.week_other": {
+    "text": "Următoarele 7 zile · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.emptyView": {
+    "text": "Nimic scadent în această vizualizare",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.student": {
+    "text": "Student",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.who.all": {
+    "text": "Toate",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.who.mine": {
+    "text": "Ale mele",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.who.unassigned": {
+    "text": "Nealocate",
+    "why": "was missing"
+  },
+  "mobile:v3.deadlines.you": {
+    "text": "Dumneavoastră",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.all": {
+    "text": "Toate",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.any": {
+    "text": "Oricare",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.closes": {
+    "text": "se închide pe {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.degree": {
+    "text": "Ce vrei să studiezi?",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.emptyVerdict": {
+    "text": "Nimic aici deocamdată",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.explain.notyet": {
+    "text": "O cerință publicată nu este îndeplinită încă. Fiecare rând spune exact care.",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.explain.strong": {
+    "text": "Îndeplinești toate cerințele de bază publicate și se potrivește cu bugetul și planurile tale.",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.filters": {
+    "text": "Filtre",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.filtersN": {
+    "text": "Filtre · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.forYou": {
+    "text": "Pentru tine",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.language": {
+    "text": "Limba de predare",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.noLanguageMin": {
+    "text": "Fără cerință minimă de limbă",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.openOnly": {
+    "text": "Deschise pentru candidaturi",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.perYear": {
+    "text": "≈ {{amount}} / an",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.saved": {
+    "text": "Salvate · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.savedEmpty": {
+    "text": "Nicio universitate salvată încă",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.savedEmptyBody": {
+    "text": "Apasă inima de pe orice program ca să-l păstrezi aici pentru mai târziu.",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.showResults_one": {
+    "text": "Arată {{count}} program",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.showResults_few": {
+    "text": "Arată {{count}} programe",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:v3.discover.showResults_other": {
+    "text": "Arată {{count}} de programe",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.summary_one": {
+    "text": "Îndeplinești cerințele publicate pentru {{count}} program.",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.summary_few": {
+    "text": "Îndeplinești cerințele publicate pentru {{count}} programe.",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:v3.discover.summary_other": {
+    "text": "Îndeplinești cerințele publicate pentru {{count}} de programe.",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.tuition": {
+    "text": "Taxa de școlarizare pe semestru",
+    "why": "was missing"
+  },
+  "mobile:v3.discover.upTo": {
+    "text": "Până la {{amount}} mil. ₩",
+    "why": "was missing"
+  },
+  "mobile:v3.docAction.FIX": {
+    "text": "Trebuie corectat",
+    "why": "was missing"
+  },
+  "mobile:v3.docAction.IN_REVIEW": {
+    "text": "În verificare la echipa Hangyul",
+    "why": "was missing"
+  },
+  "mobile:v3.docAction.LEGALIZE": {
+    "text": "Necesită apostilă sau supralegalizare consulară",
+    "why": "was missing"
+  },
+  "mobile:v3.docAction.UPLOAD": {
+    "text": "Neîncărcat încă",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.allSet": {
+    "text": "Nimic de făcut acum.",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.checking": {
+    "text": "În verificare",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.howTo": {
+    "text": "Cum obții {{path}}",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.issuedIn": {
+    "text": "Emis în",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.issuedOn": {
+    "text": "Emis pe",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.needYou_one": {
+    "text": "{{count}} are nevoie de tine",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.needYou_other": {
+    "text": "{{count}} au nevoie de tine",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.neededFor": {
+    "text": "Necesar pentru {{university}}",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.needsYou": {
+    "text": "Ai ceva de făcut",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.newVersion": {
+    "text": "Încarcă o versiune nouă",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.ready": {
+    "text": "Gata",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.readyOf": {
+    "text": "{{ready}} din {{total}} documente gata",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.readyTitle": {
+    "text": "Gata",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.sourceVerified": {
+    "text": "Sursă oficială · verificată pe {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.state.fix": {
+    "text": "Trebuie corectat",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.state.legalize": {
+    "text": "Necesită apostilă",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.state.ready": {
+    "text": "Gata",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.state.review": {
+    "text": "În verificare",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.submitted": {
+    "text": "Depus {{when}}",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.upload": {
+    "text": "Încarcă",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.validUntil": {
+    "text": "Valabil până pe {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.documents.validUntilLabel": {
+    "text": "Valabil până la",
+    "why": "was missing"
+  },
+  "mobile:v3.home.applications": {
+    "text": "Candidaturile tale",
+    "why": "was missing"
+  },
+  "mobile:v3.home.closes": {
+    "text": "Se închide pe {{date}} · {{left}}",
+    "why": "was missing"
+  },
+  "mobile:v3.home.documentsHint": {
+    "text": "Încarcă, corectează sau obține o apostilă",
+    "why": "was missing"
+  },
+  "mobile:v3.home.documents_one": {
+    "text": "{{count}} document are nevoie de tine",
+    "why": "was missing"
+  },
+  "mobile:v3.home.documents_few": {
+    "text": "{{count}} documente au nevoie de tine",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:v3.home.documents_other": {
+    "text": "{{count}} de documente au nevoie de tine",
+    "why": "was missing"
+  },
+  "mobile:v3.home.due": {
+    "text": "Scadent pe {{date}} · {{left}}",
+    "why": "was missing"
+  },
+  "mobile:v3.home.findUniversities": {
+    "text": "Găsește universități",
+    "why": "was missing"
+  },
+  "mobile:v3.home.greeting.afternoon": {
+    "text": "Bună ziua, {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.home.greeting.evening": {
+    "text": "Bună seara, {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.home.greeting.morning": {
+    "text": "Bună dimineața, {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.home.message": {
+    "text": "Mesaj",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextBody.APPLICATION_DEADLINE": {
+    "text": "Termină lista de pași, ca să poată fi depusă candidatura la timp.",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextBody.DOCUMENT_UPLOAD": {
+    "text": "Încarcă o scanare clară sau o poză. Echipa Hangyul o verifică și îți spune dacă trebuie corectat ceva.",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextBody.ESSAY_WRITE": {
+    "text": "Începe cu o ciornă. Echipa Hangyul o va revizui împreună cu tine.",
+    "why": "team, not counselor, as in EN"
+  },
+  "mobile:v3.home.nextBody.REVIEW_MATCHES": {
+    "text": "Am comparat profilul tău cu cerințele publicate. Salvează câteva, apoi începe o candidatură.",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextBody.TUITION_PAYMENT": {
+    "text": "Taxa de școlarizare se plătește direct universității, în numele tău.",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextBody.UNIVERSITY_REQUEST": {
+    "text": "Universitatea a cerut încă un document înainte să poată decide.",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextBody.VISA_STEP": {
+    "text": "Completează următorul punct din lista ta pentru viză.",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextBody.WAIT": {
+    "text": "Nimic de făcut acum. Îți spunem imediat ce se schimbă ceva.",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.APPLICATION_DEADLINE": {
+    "text": "Deschide candidatura",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.APPLICATION_SUBMIT": {
+    "text": "Verifică și depune",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.ARRIVAL_CHECKLIST": {
+    "text": "Deschide lista pentru sosire",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.COMPARE_OFFERS": {
+    "text": "Compară ofertele",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.COMPLETE_PROFILE": {
+    "text": "Continuă profilul",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.DOCUMENT_UPLOAD": {
+    "text": "Încarcă documentul",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.ESSAY_WRITE": {
+    "text": "Deschide ciorna",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.INTERVIEW": {
+    "text": "Pregătește-te pentru interviu",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.RESPOND_OFFER": {
+    "text": "Vezi oferta",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.REVIEW_MATCHES": {
+    "text": "Vezi universitățile mele",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.TUITION_PAYMENT": {
+    "text": "Vezi detaliile de plată",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.UNIVERSITY_REQUEST": {
+    "text": "Vezi ce a cerut universitatea",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCta.VISA_STEP": {
+    "text": "Deschide pașii pentru viză",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextCtaDefault": {
+    "text": "Începe acum",
+    "why": "was missing"
+  },
+  "mobile:v3.home.nextEyebrow": {
+    "text": "Ce ai de făcut acum",
+    "why": "was missing"
+  },
+  "mobile:v3.home.noApplications": {
+    "text": "Nicio candidatură încă. Începe cu universitățile care ți se potrivesc.",
+    "why": "was missing"
+  },
+  "mobile:v3.home.noCounselor": {
+    "text": "Alege un plan, iar echipa Hangyul Univ lucrează cu tine în limba ta.",
+    "why": "plan, as in EN"
+  },
+  "mobile:v3.home.otherTasks_one": {
+    "text": "Încă {{count}} sarcină",
+    "why": "was missing"
+  },
+  "mobile:v3.home.otherTasks_few": {
+    "text": "Încă {{count}} sarcini",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:v3.home.otherTasks_other": {
+    "text": "Încă {{count}} de sarcini",
+    "why": "was missing"
+  },
+  "mobile:v3.home.stageLine.admission": {
+    "text": "Admitere primită. Acum îți asiguri locul",
+    "why": "gender-neutral"
+  },
+  "mobile:v3.home.stageLine.apply": {
+    "text": "Universitățile îți analizează candidaturile",
+    "why": "was missing"
+  },
+  "mobile:v3.home.stageLine.arrival": {
+    "text": "Te pregătești să ajungi în Coreea",
+    "why": "was missing"
+  },
+  "mobile:v3.home.stageLine.discover": {
+    "text": "Cauți universitățile potrivite",
+    "why": "was missing"
+  },
+  "mobile:v3.home.stageLine.prepare": {
+    "text": "Îți pregătești candidaturile",
+    "why": "was missing"
+  },
+  "mobile:v3.home.stageLine.visa": {
+    "text": "Îți pregătești viza de student",
+    "why": "was missing"
+  },
+  "mobile:v3.home.team": {
+    "text": "Echipa Hangyul Univ",
+    "why": "was missing"
+  },
+  "mobile:v3.home.unread_one": {
+    "text": "{{count}} mesaj necitit",
+    "why": "was missing"
+  },
+  "mobile:v3.home.unread_few": {
+    "text": "{{count}} mesaje necitite",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:v3.home.unread_other": {
+    "text": "{{count}} de mesaje necitite",
+    "why": "was missing"
+  },
+  "mobile:v3.home.upcoming": {
+    "text": "Urmează",
+    "why": "was missing"
+  },
+  "mobile:v3.journey.admission": {
+    "text": "Admitere",
+    "why": "was missing"
+  },
+  "mobile:v3.journey.apply": {
+    "text": "Candidatură",
+    "why": "was missing"
+  },
+  "mobile:v3.journey.arrival": {
+    "text": "Sosire",
+    "why": "was missing"
+  },
+  "mobile:v3.journey.discover": {
+    "text": "Explorare",
+    "why": "was missing"
+  },
+  "mobile:v3.journey.next": {
+    "text": "Urmează: {{stage}}",
+    "why": "was missing"
+  },
+  "mobile:v3.journey.of": {
+    "text": "· {{n}} din {{total}}",
+    "why": "was missing"
+  },
+  "mobile:v3.journey.prepare": {
+    "text": "Pregătire",
+    "why": "was missing"
+  },
+  "mobile:v3.journey.step": {
+    "text": "Pasul {{n}} din {{total}}: {{stage}}",
+    "why": "was missing"
+  },
+  "mobile:v3.journey.visa": {
+    "text": "Viză",
+    "why": "was missing"
+  },
+  "mobile:v3.match.close": {
+    "text": "Încă nu îndeplinești cerințele — la un pas distanță",
+    "why": "was missing; gender-neutral"
+  },
+  "mobile:v3.match.notYet": {
+    "text": "Încă nu îndeplinești cerințele",
+    "why": "was missing; gender-neutral"
+  },
+  "mobile:v3.match.possible": {
+    "text": "Potrivire posibilă",
+    "why": "was missing"
+  },
+  "mobile:v3.match.strong": {
+    "text": "Potrivire puternică",
+    "why": "was missing"
+  },
+  "mobile:v3.messages.attach": {
+    "text": "Atașează un fișier",
+    "why": "was missing"
+  },
+  "mobile:v3.messages.attachUnavailable": {
+    "text": "Atașamentele nu sunt disponibile încă.",
+    "why": "was missing"
+  },
+  "mobile:v3.messages.attachmentOnly_one": {
+    "text": "{{count}} atașament trimis",
+    "why": "was missing"
+  },
+  "mobile:v3.messages.attachmentOnly_few": {
+    "text": "{{count}} atașamente trimise",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:v3.messages.attachmentOnly_other": {
+    "text": "{{count}} de atașamente trimise",
+    "why": "was missing"
+  },
+  "mobile:v3.messages.conversations": {
+    "text": "Conversații",
+    "why": "was missing"
+  },
+  "mobile:v3.messages.openAttachment": {
+    "text": "Deschide {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.messages.removeAttachment": {
+    "text": "Elimină {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.accept": {
+    "text": "Acceptă oferta",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.body": {
+    "text": "{{university}} ți-a oferit un loc la {{program}}.",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.deadline": {
+    "text": "Acceptă și plătește taxa de școlarizare până pe {{date}} · {{left}}",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.next": {
+    "text": "Ce urmează",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.scholarship": {
+    "text": "Bursă",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.step.accept": {
+    "text": "Acceptă oferta",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.step.letter": {
+    "text": "Primești scrisoarea standard de admitere",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.step.review": {
+    "text": "Verifică oferta și eventualele condiții",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.step.tuition": {
+    "text": "Plătește taxa de școlarizare direct universității",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.step.visa": {
+    "text": "Pregătește-ți viza de student",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.tuition": {
+    "text": "Taxă de școlarizare",
+    "why": "was missing"
+  },
+  "mobile:v3.offer.tuitionDirect": {
+    "text": "Hangyul nu încasează niciodată taxa de școlarizare. Plătește universității, în numele tău, conform instrucțiunilor ei.",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.completeTitle": {
+    "text": "Profilul tău este complet",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.done": {
+    "text": "Gata",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.editOnWeb": {
+    "text": "Poți modifica aceste răspunsuri oricând, pe web.",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.places": {
+    "text": "Datele tale",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.todo": {
+    "text": "De adăugat",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.unlock.basics": {
+    "text": "Ne spune ce reguli de documente și viză ți se aplică",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.unlock.default": {
+    "text": "Face mai precisă lista programelor potrivite",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.unlock.education": {
+    "text": "Elimină programele ale căror cerințe academice nu le îndeplinești",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.unlock.goals": {
+    "text": "Arată programe la nivelul și perioada de început pe care le vrei",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.unlock.passport": {
+    "text": "Necesar înainte de depunerea oricărei candidaturi",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.unlock.preferences": {
+    "text": "Ordonează universitățile după bugetul și orașul tău",
+    "why": "was missing"
+  },
+  "mobile:v3.profile.unlock.sponsor": {
+    "text": "Îți permite să pregătești din timp documentele financiare pentru viză",
+    "why": "was missing"
+  },
+  "mobile:v3.push.denied": {
+    "text": "Alertele sunt oprite. Pornește-le pentru Hangyul din setările telefonului.",
+    "why": "was missing"
+  },
+  "mobile:v3.push.enable": {
+    "text": "Pornește alertele",
+    "why": "was missing"
+  },
+  "mobile:v3.push.error": {
+    "text": "Nu am putut porni alertele. Încearcă din nou.",
+    "why": "was missing"
+  },
+  "mobile:v3.push.idle": {
+    "text": "Primește o alertă push când un document este verificat, un termen se apropie sau echipa Hangyul răspunde.",
+    "why": "was missing"
+  },
+  "mobile:v3.push.on": {
+    "text": "Alertele sunt pornite. Poți schimba asta din setările telefonului.",
+    "why": "was missing"
+  },
+  "mobile:v3.push.pending-server": {
+    "text": "Alertele sunt permise pe acest telefon. Trimiterea push nu este încă activă; totul apare în continuare în această listă.",
+    "why": "was missing"
+  },
+  "mobile:v3.push.title": {
+    "text": "Alerte pe acest telefon",
+    "why": "was missing"
+  },
+  "mobile:v3.quick.again": {
+    "text": "Schimbă-mi răspunsurile",
+    "why": "was missing"
+  },
+  "mobile:v3.quick.open": {
+    "text": "Vezi ce opțiuni ai. Nu ai nevoie de cont",
+    "why": "matches EN, clearer"
+  },
+  "mobile:v3.reviews.beforeVerify": {
+    "text": "Înainte de validare",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.bulkBody": {
+    "text": "Doar pentru documentele pe care le-ați deschis și verificat. Fiecare student este notificat.",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.bulkDone": {
+    "text": "{{ok}} validate, {{failed}} omise",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.bulkTitle_one": {
+    "text": "Validați {{count}} document?",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.bulkTitle_few": {
+    "text": "Validați {{count}} documente?",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:v3.reviews.bulkTitle_other": {
+    "text": "Validați {{count}} de documente?",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.check.date": {
+    "text": "Data emiterii este suficient de recentă și documentul nu a expirat",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.check.issuer": {
+    "text": "Emitentul, ștampila sau semnătura sunt vizibile",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.check.legal": {
+    "text": "{{path}} este atașată și corespunde documentului",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.check.legible": {
+    "text": "Fiecare pagină este completă și lizibilă",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.check.name": {
+    "text": "Numele și data nașterii corespund cu pașaportul",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.correctionTitle": {
+    "text": "Ce trebuie să corecteze studentul?",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.expires": {
+    "text": "Valabil până la",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.issuedIn": {
+    "text": "Emis în",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.issuedOn": {
+    "text": "Emis pe",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.legalization": {
+    "text": "Legalizare",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.notNeeded": {
+    "text": "Nu este necesară",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.open": {
+    "text": "Deschideți {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.overSla": {
+    "text": "{{waiting}} · peste termenul promis de verificare",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.reason": {
+    "text": "Mesaj către student",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.requestCorrection": {
+    "text": "Solicitați o corectare",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.required": {
+    "text": "Obligatoriu",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.select": {
+    "text": "Selectați",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.studentSees": {
+    "text": "{{name}} vede exact acest text lângă document.",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.studentSeesGeneric": {
+    "text": "Studentul vede exact acest text lângă document.",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.summary": {
+    "text": "{{count}} în așteptare · {{over}} peste termenul promis de verificare de {{hours}} ore",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.templates": {
+    "text": "Șabloanele echipei",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.translation": {
+    "text": "Traducere",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.uploaded": {
+    "text": "încărcat {{when}}",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.verifyN_one": {
+    "text": "Validați {{count}} document",
+    "why": "was missing"
+  },
+  "mobile:v3.reviews.verifyN_few": {
+    "text": "Validați {{count}} documente",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:v3.reviews.verifyN_other": {
+    "text": "Validați {{count}} de documente",
+    "why": "was missing"
+  },
+  "mobile:v3.settings.consoleHint": {
+    "text": "Membrii echipei, facturarea și exporturile se gestionează în consola web a agenției.",
+    "why": "was missing"
+  },
+  "mobile:v3.settings.work": {
+    "text": "Activitatea dumneavoastră",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.empty.team": {
+    "text": "Echipa nu are sarcini deschise",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.empty.today": {
+    "text": "Nimic scadent azi",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.empty.waiting": {
+    "text": "Nicio sarcină nu așteaptă altceva",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.empty.week": {
+    "text": "Nimic scadent săptămâna aceasta",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.open": {
+    "text": "Deschise",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.overdue": {
+    "text": "Întârziată · {{when}}",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.view.overdue": {
+    "text": "Întârziate",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.view.team": {
+    "text": "Echipă",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.view.today": {
+    "text": "Azi",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.view.waiting": {
+    "text": "În așteptare",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.view.week": {
+    "text": "Săptămâna aceasta",
+    "why": "was missing"
+  },
+  "mobile:v3.tasks.waitingOn": {
+    "text": "În așteptarea: {{what}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.allClear": {
+    "text": "Nimic nu necesită o decizie acum.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.allCohorts": {
+    "text": "Toți studenții Hangyul",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.allIntakes": {
+    "text": "Toate sesiunile de admitere",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.applicant": {
+    "text": "Candidat",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.gpa": {
+    "text": "Medie (GPA)",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.interview": {
+    "text": "Interviu",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.interviewRequired": {
+    "text": "Obligatoriu pentru acest program",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.level": {
+    "text": "Nivel {{level}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.minimum": {
+    "text": "Minim {{need}} · Candidat {{have}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.notProvided": {
+    "text": "nefurnizat",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.state.below": {
+    "text": "Sub minim",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.state.meets": {
+    "text": "Îndeplinește",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.state.missing": {
+    "text": "Nefurnizat",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.state.planned": {
+    "text": "Test planificat",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.state.unscheduled": {
+    "text": "Neprogramat",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.check.topik": {
+    "text": "TOPIK",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.checksNote": {
+    "text": "Compară rezultatele declarate de candidat cu minimele publicate ale programului. Sprijină evaluarea dumneavoastră; nu decide.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.checksTitle": {
+    "text": "Verificarea cerințelor",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.closed": {
+    "text": "Închise: {{rejected}} neadmiși, {{withdrawn}} retrași. Ratele necesită cel puțin {{min}} persoane.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.cohortIntro_one": {
+    "text": "{{count}} student a venit la dumneavoastră prin Hangyul. Iată cum evoluează.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.cohortIntro_few": {
+    "text": "{{count}} studenți au venit la dumneavoastră prin Hangyul. Iată cum evoluează.",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:v3.uni.cohortIntro_other": {
+    "text": "{{count}} de studenți au venit la dumneavoastră prin Hangyul. Iată cum evoluează.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.cohortNote": {
+    "text": "Ratele apar când cel puțin {{min}} studenți se califică. La data de {{date}}.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.cohort_one": {
+    "text": "{{label}} · {{count}} student",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.cohort_few": {
+    "text": "{{label}} · {{count}} studenți",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:v3.uni.cohort_other": {
+    "text": "{{label}} · {{count}} de studenți",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.conv": {
+    "text": "{{pct}} din pasul anterior · {{n}} din {{d}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.convFew": {
+    "text": "{{n}} din {{d}} din pasul anterior · prea puțini pentru o rată",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.admitted_one": {
+    "text": "student admis care nu a plătit încă taxa de școlarizare",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.admitted_other": {
+    "text": "studenți admiși care nu au plătit încă taxa de școlarizare",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.documents_one": {
+    "text": "în așteptarea documentelor studentului",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.documents_other": {
+    "text": "în așteptarea documentelor studenților",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.flagged_one": {
+    "text": "candidatură marcată",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.flagged_other": {
+    "text": "candidaturi marcate",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.interview_one": {
+    "text": "interviu de susținut sau de notat",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.interview_other": {
+    "text": "interviuri de susținut sau de notat",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.offer_one": {
+    "text": "ofertă în așteptarea răspunsului studentului",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.offer_other": {
+    "text": "oferte în așteptarea răspunsului studenților",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.returned_one": {
+    "text": "document returnat de student",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.returned_other": {
+    "text": "documente returnate de studenți",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.review_one": {
+    "text": "candidatură de evaluat",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decision.review_other": {
+    "text": "candidaturi de evaluat",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionContext_one": {
+    "text": "{{ready}} din {{total}} documente obligatorii gata · {{count}} solicitare deschisă.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionContext_few": {
+    "text": "{{ready}} din {{total}} documente obligatorii gata · {{count}} solicitări deschise.",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:v3.uni.decisionContext_other": {
+    "text": "{{ready}} din {{total}} documente obligatorii gata · {{count}} de solicitări deschise.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionDocs": {
+    "text": "{{ready}} din {{total}} documente obligatorii gata.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.admitted": {
+    "text": "Confirmați plata când sosește",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.documents": {
+    "text": "Nicio acțiune până la încărcare",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.flagged": {
+    "text": "Marcată pentru o analiză atentă",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.interview": {
+    "text": "Înregistrați rezultatul după interviu",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.offer": {
+    "text": "Hangyul urmărește răspunsul studentului",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.returned": {
+    "text": "Reverificați ce ați solicitat",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.decisionHint.review": {
+    "text": "Depusă și suficient de completă pentru o decizie",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.docsTitle": {
+    "text": "Documente · {{ready}} din {{total}} gata",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.dueOn": {
+    "text": "scadent pe {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.empty.all": {
+    "text": "Niciun candidat aici",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.empty.flagged": {
+    "text": "Nicio candidatură marcată",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.empty.review": {
+    "text": "Nicio candidatură în așteptarea evaluării",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.graduation": {
+    "text": "Absolvit",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.latest": {
+    "text": "Cele mai recente de evaluat",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.ADDITIONAL_DOCUMENTS": {
+    "text": "Solicitați documente suplimentare",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Emiteți scrisoarea de admitere",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.INTERVIEW": {
+    "text": "Invitați la interviu",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.OFFERED": {
+    "text": "Faceți o ofertă",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.REJECTED": {
+    "text": "Nu admiteți",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.TUITION_PAID": {
+    "text": "Confirmați plata taxei",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.TUITION_PENDING": {
+    "text": "Trimiteți factura pentru taxă",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.UNIVERSITY_REVIEW": {
+    "text": "Începeți evaluarea",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.move.WAITLISTED": {
+    "text": "Listă de așteptare",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.nOfD": {
+    "text": "{{n}} din {{d}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.needsTitle": {
+    "text": "Necesită decizia dumneavoastră",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.noMinimums": {
+    "text": "Acest program nu are încă minime publicate.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.nothingToReview": {
+    "text": "Nimic în așteptarea evaluării",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.openRequests_one": {
+    "text": "{{count}} document solicitat",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.openRequests_few": {
+    "text": "{{count}} documente solicitate",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:v3.uni.openRequests_other": {
+    "text": "{{count}} de documente solicitate",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.otherDecisions": {
+    "text": "Alte decizii",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.populationAll_one": {
+    "text": "Pe baza a {{count}} candidatură depusă, toate sesiunile.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.populationAll_few": {
+    "text": "Pe baza a {{count}} candidaturi depuse, toate sesiunile.",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:v3.uni.populationAll_other": {
+    "text": "Pe baza a {{count}} de candidaturi depuse, toate sesiunile.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.populationIntake_one": {
+    "text": "Pe baza a {{count}} candidatură depusă pentru {{intake}}.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.populationIntake_few": {
+    "text": "Pe baza a {{count}} candidaturi depuse pentru {{intake}}.",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:v3.uni.populationIntake_other": {
+    "text": "Pe baza a {{count}} de candidaturi depuse pentru {{intake}}.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.reason": {
+    "text": "Motiv (partajat cu Hangyul)",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.request": {
+    "text": "Solicitare",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestLabel": {
+    "text": "De ce aveți nevoie?",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestLabelHint": {
+    "text": "ex. Diplomă de bacalaureat apostilată",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestNote": {
+    "text": "Instrucțiuni pentru student",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestNoteHint": {
+    "text": "Ce anume lipsește și cum se corectează",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestSend": {
+    "text": "Trimiteți solicitarea",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestTitle": {
+    "text": "Solicitați un document de la {{name}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestWho": {
+    "text": "Studentul și consilierul său Hangyul sunt notificați și văd exact această formulare.",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.requestedOn": {
+    "text": "Solicitat pe {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.retention": {
+    "text": "Încă studiază",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.search": {
+    "text": "Căutați după nume, program sau referință",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.ACCEPTED": {
+    "text": "Ofertă acceptată",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.ARRIVED": {
+    "text": "Sosit în Coreea",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.ENROLLED": {
+    "text": "Înmatriculat",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.OFFERED": {
+    "text": "Ofertă făcută",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.REVIEWED": {
+    "text": "Evaluată",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.SUBMITTED": {
+    "text": "Depusă",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.TUITION_PAID": {
+    "text": "Taxă plătită",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.step.VISA_ISSUED": {
+    "text": "Viză emisă",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.tab.applicants": {
+    "text": "Candidați",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.tab.pipeline": {
+    "text": "Prezentare generală",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.tab.students": {
+    "text": "Studenți",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.tooFew": {
+    "text": "Prea puțini pentru o rată",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.admitted": {
+    "text": "Admiși",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.all": {
+    "text": "Toate",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.documents": {
+    "text": "Documente lipsă",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.enrolment": {
+    "text": "Viză și înmatriculare",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.flagged": {
+    "text": "Marcate",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.interview": {
+    "text": "Interviu",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.offer": {
+    "text": "Ofertă",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.view.review": {
+    "text": "Necesită evaluare",
+    "why": "was missing"
+  },
+  "mobile:v3.uni.waitingStudent": {
+    "text": "În așteptarea studentului",
+    "why": "was missing"
+  },
+  "mobile:v3.university.admissionsSite": {
+    "text": "Site-ul de admitere pentru studenți internaționali",
+    "why": "was missing"
+  },
+  "mobile:v3.university.deadline": {
+    "text": "Candidează până pe",
+    "why": "was missing"
+  },
+  "mobile:v3.university.documents": {
+    "text": "Documente",
+    "why": "was missing"
+  },
+  "mobile:v3.university.documentsCount": {
+    "text": "Documente: {{count}} · {{legal}} necesită apostilă sau supralegalizare consulară",
+    "why": "was missing; count-safe shape"
+  },
+  "mobile:v3.university.dorm": {
+    "text": "Cămin pe semestru",
+    "why": "was missing"
+  },
+  "mobile:v3.university.dormRange": {
+    "text": "{{min}}–{{max}}",
+    "why": "was missing"
+  },
+  "mobile:v3.university.estimate": {
+    "text": "Total estimat",
+    "why": "was missing"
+  },
+  "mobile:v3.university.estimateNote": {
+    "text": "Estimare pe baza taxei de școlarizare publicate și a unui cost lunar de trai tipic pentru oraș.",
+    "why": "was missing"
+  },
+  "mobile:v3.university.fee": {
+    "text": "Taxă de candidatură",
+    "why": "was missing"
+  },
+  "mobile:v3.university.gpa": {
+    "text": "Note",
+    "why": "was missing"
+  },
+  "mobile:v3.university.gpaMin": {
+    "text": "Cel puțin {{pct}}% din media maximă",
+    "why": "was missing"
+  },
+  "mobile:v3.university.intake": {
+    "text": "Sesiune de admitere",
+    "why": "was missing"
+  },
+  "mobile:v3.university.interview": {
+    "text": "Interviu",
+    "why": "was missing"
+  },
+  "mobile:v3.university.interviewYes": {
+    "text": "Universitatea te poate chema la interviu",
+    "why": "was missing"
+  },
+  "mobile:v3.university.language": {
+    "text": "Limbă",
+    "why": "was missing"
+  },
+  "mobile:v3.university.links": {
+    "text": "Informații oficiale",
+    "why": "was missing"
+  },
+  "mobile:v3.university.living": {
+    "text": "Costuri de trai (12 luni)",
+    "why": "was missing"
+  },
+  "mobile:v3.university.noIntake": {
+    "text": "Nicio sesiune de admitere deschisă",
+    "why": "was missing"
+  },
+  "mobile:v3.university.noVerdict": {
+    "text": "Completează-ți profilul ca să vezi dacă îndeplinești cerințele acestui program.",
+    "why": "was missing"
+  },
+  "mobile:v3.university.notPublished": {
+    "text": "Nepublicat",
+    "why": "was missing"
+  },
+  "mobile:v3.university.program": {
+    "text": "Program",
+    "why": "was missing"
+  },
+  "mobile:v3.university.requirements": {
+    "text": "Cerințe",
+    "why": "was missing"
+  },
+  "mobile:v3.university.start": {
+    "text": "Începe candidatura",
+    "why": "was missing"
+  },
+  "mobile:v3.university.verdict.COMPETITIVE": {
+    "text": "Îndeplinești minimele publicate. Un lucru necesită atenție.",
+    "why": "was missing"
+  },
+  "mobile:v3.university.verdict.NOT_ELIGIBLE": {
+    "text": "O cerință publicată nu este îndeplinită încă.",
+    "why": "was missing"
+  },
+  "mobile:v3.university.verdict.REACH": {
+    "text": "Ești aproape. La o singură cerință ești puțin sub nivel.",
+    "why": "clearer"
+  },
+  "mobile:v3.university.verdict.RECOMMENDED": {
+    "text": "Recomandat pentru tine.",
+    "why": "was missing"
+  },
+  "mobile:v3.university.verdict.STRONG": {
+    "text": "Îndeplinești toate cerințele de bază publicate și se potrivește cu bugetul tău.",
+    "why": "was missing"
+  },
+  "mobile:v3.university.website": {
+    "text": "Site-ul universității",
+    "why": "was missing"
+  },
+  "mobile:v3.university.yearCost": {
+    "text": "Costul primului an (estimare)",
+    "why": "was missing"
+  },
+  "mobile:v3.upload.camera": {
+    "text": "Fă o poză",
+    "why": "was missing"
+  },
+  "mobile:v3.upload.cameraHint": {
+    "text": "Așază documentul pe o suprafață plană, în lumină bună",
+    "why": "was missing"
+  },
+  "mobile:v3.upload.failed": {
+    "text": "Nu am putut deschide fișierul. Te rugăm să încerci din nou.",
+    "why": "was missing"
+  },
+  "mobile:v3.upload.files": {
+    "text": "Alege un fișier",
+    "why": "was missing"
+  },
+  "mobile:v3.upload.filesHint": {
+    "text": "PDF, JPG sau PNG, de până la 15 MB",
+    "why": "was missing"
+  },
+  "mobile:v3.upload.library": {
+    "text": "Alege din poze",
+    "why": "was missing"
+  },
+  "mobile:v3.upload.privacy": {
+    "text": "Doar tu și echipa Hangyul puteți deschide documentele tale. O universitate le vede doar după ce depui o candidatură la ea.",
+    "why": "was missing"
+  },
+  "mobile:v3.upload.tooLarge": {
+    "text": "Fișierul depășește 15 MB. Încearcă o scanare PDF sau o poză mai mică.",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.after": {
+    "text": "Vine după: {{list}}",
+    "why": "matches EN"
+  },
+  "mobile:v3.visa.beforeBody": {
+    "text": "După ce accepți o ofertă și plătești taxa de școlarizare, universitatea îți emite scrisoarea standard de admitere. Poți vedea deja de ce vei avea nevoie și poți începe să aduni actele.",
+    "why": "official document name"
+  },
+  "mobile:v3.visa.beforeTitle": {
+    "text": "Pregătirea vizei începe după oferta de admitere",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.blockers": {
+    "text": "Necesare mai întâi",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.checklist": {
+    "text": "Lista ta · {{done}} din {{total}} finalizate",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.forNationality": {
+    "text": "Specific cetățeniei tale",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.now": {
+    "text": "Ce ai de făcut acum",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.phase.admission": {
+    "text": "Admitere",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.phase.apply": {
+    "text": "Cererea de viză",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.phase.decision": {
+    "text": "Decizia ambasadei",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.phase.documents": {
+    "text": "Documente de viză",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.phase.letter": {
+    "text": "Scrisoare de admitere",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.preview": {
+    "text": "De ce vei avea nevoie",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.seeRequirement": {
+    "text": "Vezi cerința oficială",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.sourceChecked": {
+    "text": "Sursă oficială · verificată pe {{date}}",
+    "why": "was missing"
+  },
+  "mobile:v3.visa.title": {
+    "text": "Îți pregătești viza {{type}}",
+    "why": "matches EN"
+  },
+  "mobile:v3.visa.titleGeneric": {
+    "text": "Viza ta de student",
+    "why": "was missing"
+  },
+  "mobile:v4.application.blocks": {
+    "text": "Candidatura ta nu poate fi depusă până nu se rezolvă asta.",
+    "why": "was missing"
+  },
+  "mobile:v4.application.blocksUni": {
+    "text": "{{university}} așteaptă acest lucru înainte să continue.",
+    "why": "was missing"
+  },
+  "mobile:v4.application.doneSummary_one": {
+    "text": "{{count}} finalizat: {{items}}",
+    "why": "was missing"
+  },
+  "mobile:v4.application.doneSummary_other": {
+    "text": "{{count}} finalizate: {{items}}",
+    "why": "was missing"
+  },
+  "mobile:v4.application.next": {
+    "text": "Următorul tău pas",
+    "why": "was missing"
+  },
+  "mobile:v4.application.nextFix": {
+    "text": "Corectează: {{item}}",
+    "why": "was missing"
+  },
+  "mobile:v4.application.nextLegalize": {
+    "text": "Obține apostila sau supralegalizarea consulară pentru: {{item}}",
+    "why": "was missing"
+  },
+  "mobile:v4.application.nextRequest": {
+    "text": "{{university}} a cerut: {{item}}",
+    "why": "was missing"
+  },
+  "mobile:v4.application.nextUpload": {
+    "text": "Încarcă: {{item}}",
+    "why": "was missing"
+  },
+  "mobile:v4.application.nextWrite": {
+    "text": "Scrie: {{item}}",
+    "why": "was missing"
+  },
+  "mobile:v4.application.nothingForYou": {
+    "text": "Nu ai nimic de făcut acum",
+    "why": "was missing"
+  },
+  "mobile:v4.application.openDocument": {
+    "text": "Deschide documentul",
+    "why": "was missing"
+  },
+  "mobile:v4.application.reviewLate": {
+    "text": "Durează mai mult decât de obicei. Echipa Hangyul a fost anunțată de întârziere. Nu trebuie să-l încarci din nou.",
+    "why": "team, not counselor, as in EN"
+  },
+  "mobile:v4.application.waitBody": {
+    "text": "Echipa Hangyul verifică ce ai trimis. Îți spunem dacă trebuie schimbat ceva.",
+    "why": "was missing"
+  },
+  "mobile:v4.application.waitTitle": {
+    "text": "Nu ai nimic de făcut acum",
+    "why": "was missing"
+  },
+  "mobile:v4.application.writeOnWeb": {
+    "text": "Scrie-l pe web. Comentariile echipei Hangyul apar tot acolo.",
+    "why": "team, not counselor, as in EN"
+  },
+  "mobile:v4.discover.firstYear": {
+    "text": "{{range}} primul an",
+    "why": "was missing"
+  },
+  "mobile:v4.documents.late": {
+    "text": "Durează mai mult",
+    "why": "was missing"
+  },
+  "mobile:v4.documents.lateLine": {
+    "text": "semnalat ca întârziat echipei Hangyul",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.FIX.cta": {
+    "text": "Vezi cum îl corectezi",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.FIX.text": {
+    "text": "Candidatura ta nu poate fi depusă până nu este corectat.",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.FIX.title": {
+    "text": "Corectează: {{label}} pentru {{university}}",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.LEGALIZE.cta": {
+    "text": "Vezi pașii",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.LEGALIZE.text": {
+    "text": "Universitățile coreene acceptă acest document doar după ce este autentificat. Îți arătăm pașii pentru țara ta.",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.LEGALIZE.title": {
+    "text": "Obține apostila pentru: {{label}} ({{university}})",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.RENEW.cta": {
+    "text": "Vezi ce ai de făcut",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.RENEW.text": {
+    "text": "Cel încărcat a expirat.",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.RENEW.title": {
+    "text": "Obține din nou: {{label}} ({{university}})",
+    "why": "was missing; gender-safe"
+  },
+  "mobile:v4.home.item.REQUEST.cta": {
+    "text": "Încarcă și trimite",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.REQUEST.text": {
+    "text": "Universitatea a cerut acest document. Candidatura ta nu poate avansa până nu ajunge.",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.REQUEST.title": {
+    "text": "Trimite: {{label}} către {{university}}",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.cta": {
+    "text": "Deschide ciorna",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.text": {
+    "text": "Echipa Hangyul a lăsat comentarii. Candidatura ta nu poate fi depusă până nu este aprobat.",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.title": {
+    "text": "Revizuiește: {{label}} pentru {{university}}",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.TOO_OLD.cta": {
+    "text": "Vezi ce ai de făcut",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.TOO_OLD.text": {
+    "text": "Universitatea are nevoie de o copie emisă recent.",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.TOO_OLD.title": {
+    "text": "Obține o copie mai recentă: {{label}} ({{university}})",
+    "why": "was missing; gender-safe"
+  },
+  "mobile:v4.home.item.UPLOAD.cta": {
+    "text": "Încarcă-l",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.UPLOAD.text": {
+    "text": "Candidatura ta nu poate fi depusă fără el.",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.UPLOAD.title": {
+    "text": "Încarcă: {{label}} pentru {{university}}",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.cta": {
+    "text": "Începe să scrii",
+    "why": "was missing"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.text": {
+    "text": "Echipa Hangyul îl va revizui împreună cu tine. Începe cu o ciornă. Nu trebuie să fie perfectă.",
+    "why": "team, not counselor, as in EN"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.title": {
+    "text": "Scrie: {{label}} pentru {{university}}",
+    "why": "was missing"
+  },
+  "mobile:v4.reviews.tickAll": {
+    "text": "{{done}} din {{total}} bifate. Bifați toate punctele pentru a valida.",
+    "why": "staff formal register"
+  },
+  "mobile:v4.uni.actor.AGENCY": {
+    "text": "Agenție parteneră",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.actor.HANGYUL": {
+    "text": "Hangyul",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.actor.STUDENT": {
+    "text": "Candidat",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.actor.SYSTEM": {
+    "text": "Automat",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.actor.UNIVERSITY": {
+    "text": "Universitatea dumneavoastră",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.toReview_one": {
+    "text": "De evaluat · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v4.uni.toReview_other": {
+    "text": "De evaluat · {{count}}",
+    "why": "was missing"
+  },
+  "mobile:v4.university.continue": {
+    "text": "Continuă candidatura",
+    "why": "was missing"
+  },
+  "mobile:v4.university.firstYear": {
+    "text": "Primul an, estimat",
+    "why": "was missing"
+  },
+  "mobile:v4.university.tuitionYear": {
+    "text": "Taxă de școlarizare pe an",
+    "why": "was missing"
+  },
+  "mobile:v4.visa.hideDone": {
+    "text": "Ascunde pașii finalizați",
+    "why": "was missing"
+  },
+  "mobile:v4.visa.showDone_one": {
+    "text": "Arată {{count}} pas finalizat",
+    "why": "was missing"
+  },
+  "mobile:v4.visa.showDone_few": {
+    "text": "Arată {{count}} pași finalizați",
+    "why": "ro few form (2–19)"
+  },
+  "mobile:v4.visa.showDone_other": {
+    "text": "Arată {{count}} de pași finalizați",
+    "why": "was missing"
+  },
+  "student:dashboard.stageText.MATCH": {
+    "text": "Programele potrivite pentru tine sunt gata. Alege unde candidezi.",
+    "why": "matches = programe potrivite"
+  },
+  "student:dashboard.stageText.PROFILE": {
+    "text": "Completează-ți profilul ca să vezi programele potrivite pentru tine.",
+    "why": "matches = programe potrivite"
+  },
+  "student:v15.services.allowance.key.follow_up_consultations": {
+    "text": "Consultații ulterioare",
+    "why": "one term: consultație"
+  }
+}

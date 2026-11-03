@@ -885,119 +885,6 @@ def activate_paid_order(db: Session, order: Order, prod: ServiceProduct, prof: S
     return assignment
 
 
-# ---------------- the local paid-state activation (V21 b, REPORT §243.2) ----------------
-
-#: What the Payment row records as its provider. Deliberately **not** a provider's name and deliberately
-#: not shaped like one of their transaction ids: a reconciliation that mistook one of these rows for a
-#: Toss payment would be the worst outcome this feature could have.
-TEST_PAID_PROVIDER = "test-bypass"
-
-
-class TestPaidStateIn(BaseModel):
-    product_code: str
-
-
-@router.post("/orders/dev-complete", tags=["services"])
-def dev_complete_order(body: TestPaidStateIn, p: Principal = Depends(require_student), db: Session = Depends(get_db)):
-    """Activate the selected plan as if a payment had completed — **development and test only**.
-
-    Why this exists. Inspecting the paid student product otherwise costs a real card transaction, and a
-    plan is bought once per account; the owner was re-registering accounts to look at a screen. What it is
-    *not* is a second payment path: it reaches no payment provider, it has no card, it creates no billing
-    key and it writes no credential. It performs the one state transition a successful payment performs —
-    ``activate_paid_order`` — with the real Order, the real price and the real entitlements, so the student
-    app and the API cannot disagree about what the student owns. That is the whole difference between this
-    and a `localStorage` flag, which would have made every subsequent screen lie.
-
-    Four guards, and the first of them is the only one that matters:
-
-    * **production answers 404.** `test_payment_bypass_enabled` is false when `HG_ENV=production`, and the
-      explicit flag cannot override it (`app/core/config.py`). 404 rather than 403 because a 403 would
-      confirm the route exists.
-    * **authentication** — `require_student`, like every other `/me` route.
-    * **this student only.** The order is created for the caller; no order id crosses the wire at all, so
-      there is nothing to point at somebody else's.
-    * **no duplicate active plan.** A plan already owned is returned as it stands rather than bought twice,
-      and a *lower* plan is refused, because the product has no downgrade (``upgradeOffer`` returns
-      ``None`` for one and the refund policy is unapproved — REPORT §152, §155).
-    """
-    settings = get_settings()
-    if not settings.test_payment_bypass_enabled:
-        raise HTTPException(404, "Not found")
-    prod = db.scalar(select(ServiceProduct).where(ServiceProduct.code == body.product_code, ServiceProduct.is_active.is_(True)))
-    if not prod:
-        raise HTTPException(404, "Service not found")
-
-    # Already owned → the existing order, untouched. Clicking the button twice must not produce two PAID
-    # orders for one plan, and `purchased_product` would hide that from the UI while the history showed it.
-    paid = db.scalar(select(Order).where(Order.user_id == p.id, Order.product_id == prod.id,
-                                        Order.status == OrderStatus.PAID).order_by(Order.paid_at.desc()))
-    if paid is not None:
-        return {**_order_payload(db, paid, prod), "already_paid": True, "provider": TEST_PAID_PROVIDER,
-                "assignment": None, "plan": entitlements_svc.student_plan(db, p.id)}
-
-    current = entitlements_svc.purchased_product(db, p.id)
-    if current is not None and prod.sort_order <= current.sort_order:
-        raise HTTPException(409, detail={
-            "code": "NOT_AN_UPGRADE",
-            "current": current.code,
-            "message": f"{current.code} is already active; {prod.code} is not an upgrade on it.",
-        })
-
-    price = _plan_price(prod)
-    if price is None:
-        raise HTTPException(409, "This service has no price configured.")
-    # Reuse the order the student already started if there is one: the card form creates a PENDING order
-    # before the digits are typed, and abandoning it to create a second one would leave a row for the
-    # recovery sweep to puzzle over.
-    order = db.scalar(select(Order).where(Order.user_id == p.id, Order.product_id == prod.id,
-                                          Order.status == OrderStatus.PENDING).order_by(Order.created_at.desc()))
-    if order is None:
-        plan = entitlements_svc.plan_def(prod.code)
-        order = Order(user_id=p.id, product_id=prod.id, price_id=price.id, currency=price.currency,
-                      amount_minor=price.amount_minor, kind="UPGRADE" if current is not None else "PLAN",
-                      catalog_version=entitlements_svc.catalog_version(),
-                      plan_snapshot=entitlements_svc.snapshot(plan, amount_minor=price.amount_minor, currency=price.currency) if plan else None)
-        db.add(order)
-        db.flush()
-    db.add(Payment(order_id=order.id, provider=TEST_PAID_PROVIDER,
-                   provider_ref=f"testbypass_{secrets.token_hex(6)}", status="PAID",
-                   amount_minor=order.amount_minor, currency=order.currency,
-                   raw={"simulated_paid_state": True, "payment_provider_called": False, "env": settings.env}))
-    assignment = activate_paid_order(db, order, prod, get_profile(db, p.id), p.user, provider=TEST_PAID_PROVIDER)
-    audit(db, action="order.test_paid_state", entity_type="order", entity_id=order.id, actor=p,
-          subject_user_id=p.id, detail={"product": prod.code, "env": settings.env, "provider_called": False})
-    db.commit()
-    return {**_order_payload(db, order, prod), "already_paid": False, "provider": TEST_PAID_PROVIDER,
-            "assignment": assignment, "plan": entitlements_svc.student_plan(db, p.id)}
-
-
-@router.post("/orders/{order_id}/dev-complete", tags=["services"])
-def dev_complete_add_on_order(order_id: uuid.UUID, p: Principal = Depends(require_student), db: Session = Depends(get_db)):
-    """V29: the same local paid-state action for an **add-on** order the student approved — development and test only.
-
-    Production answers 404 whatever the flags say (``test_payment_bypass_enabled`` is false there). It performs the one
-    state transition a successful payment performs, so the add-on lifecycle can be reviewed without a card.
-    """
-    if not get_settings().test_payment_bypass_enabled:
-        raise HTTPException(404, "Not found")
-    order = db.scalar(select(Order).where(Order.id == order_id).with_for_update())
-    if order is None or order.user_id != p.id or order.kind != "ADD_ON":
-        raise HTTPException(404, "Order not found.")
-    prod = db.get(ServiceProduct, order.product_id)
-    if order.status != OrderStatus.PAID:
-        if order.status != OrderStatus.PENDING:
-            raise HTTPException(409, "This order can no longer be paid.")
-        db.add(Payment(order_id=order.id, provider=TEST_PAID_PROVIDER, provider_ref=f"testbypass_{secrets.token_hex(6)}", status="PAID",
-                       amount_minor=order.amount_minor, currency=order.currency,
-                       raw={"simulated_paid_state": True, "payment_provider_called": False, "env": get_settings().env}))
-        activate_paid_order(db, order, prod, get_profile(db, p.id), p.user, provider=TEST_PAID_PROVIDER)
-        audit(db, action="order.test_paid_state", entity_type="order", entity_id=order.id, actor=p, subject_user_id=p.id,
-              detail={"kind": "ADD_ON", "env": get_settings().env, "provider_called": False})
-        db.commit()
-    return {**_order_payload(db, order, prod), "plan": entitlements_svc.student_plan(db, p.id)}
-
-
 payments_router = APIRouter(prefix="/payments", tags=["services"])
 
 
@@ -1725,10 +1612,6 @@ def payment_config(p: Principal = Depends(require_student)):
         "currency": "USD",
         "usd_readiness": s.usd_readiness,
         "live_usd_checkout_enabled": s.live_usd_checkout_enabled,
-        # V21 b — may this server activate a plan without a payment (REPORT §243.2)? The student app asks
-        # before it renders the local paid-state button, so the server is the authority on whether it
-        # exists, not a build flag. False in production by construction.
-        "test_payment_bypass": s.test_payment_bypass_enabled,
         # V21 — the route a student's plan purchase actually takes, and its own two readiness states.
         # `card_form: "hangyul"` is the contract the student UI reads: Hangyul renders the fields and
         # there is no provider window to open. `reusable_credential` is false because this merchant

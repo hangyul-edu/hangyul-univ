@@ -60,10 +60,10 @@ button.hg-strip__btn:hover { background: var(--hg-surface-warm); color: var(--hg
 .hg-pipe__viewcount { font-size: 20px; line-height: 1.15; font-weight: 650; letter-spacing: -0.01em; }
 
 .hg-pipe__rail {
-  flex: 1 1 0; min-width: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(72px, 1fr); gap: 3px;
+  flex: 1 1 0; min-width: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(min-content, 1fr); gap: 3px; /* V32: a stage is never narrower than its longest word */
   list-style: none; margin: 0; padding: 0; overflow-x: auto; scrollbar-width: thin; scroll-snap-type: x proximity;
 }
-.hg-pipe__stage { display: flex; min-width: 0; scroll-snap-align: start; }
+.hg-pipe__stage { display: flex; min-width: min-content; scroll-snap-align: start; } /* V32: a word is never clipped; the rail scrolls instead */
 /* V31: the side with more stages fades out (logical: inline-start/end flip in RTL via the gradient direction). */
 .hg-pipe__rail[data-more="end"] { mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); }
 .hg-pipe__rail[data-more="start"] { mask-image: linear-gradient(to left, #000 calc(100% - 40px), transparent); }
@@ -72,15 +72,19 @@ button.hg-strip__btn:hover { background: var(--hg-surface-warm); color: var(--hg
 [dir="rtl"] .hg-pipe__rail[data-more="start"] { mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); }
 .hg-pipe__btn {
   display: grid; grid-template-rows: auto auto auto; align-content: start; gap: 2px; inline-size: 100%;
-  padding: 8px 10px 0; border: 0; border-radius: var(--hg-radius-md) var(--hg-radius-md) 0 0; background: transparent;
+  padding: 8px 7px 0; border: 0; border-radius: var(--hg-radius-md) var(--hg-radius-md) 0 0; background: transparent;
   color: var(--hg-text); font: inherit; text-align: start; cursor: pointer; transition: background-color var(--hg-motion-fast);
 }
 .hg-pipe__btn.is-static { cursor: default; }
 button.hg-pipe__btn:hover { background: var(--hg-surface-hover); }
 .hg-pipe__btn:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--hg-primary); }
-.hg-pipe__label { font-size: var(--hg-text-sm); font-weight: 500; color: var(--hg-text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* V32: a stage name may take two lines ("University review", "Ready to submit") and a word is never clipped: the
+   track is at least as wide as the longest word (min-content), the rail scrolls when even that does not fit. A fixed
+   two-line box keeps every count on the same baseline across the rail. */
+.hg-pipe__label { font-size: var(--hg-text-xs); font-weight: 500; line-height: 1.2; block-size: 2.4em; letter-spacing: -0.01em; color: var(--hg-text-secondary);
+  white-space: normal; overflow: visible; overflow-wrap: normal; word-break: keep-all; } /* visible: a hidden overflow zeroes the min-content minimum */
 .hg-pipe__count { font-size: 22px; line-height: 1.15; font-weight: 650; letter-spacing: -0.01em; color: var(--hg-text); }
-.hg-pipe__seg { display: block; block-size: 4px; margin: 8px -10px 0; background: var(--hg-border); overflow: hidden; }
+.hg-pipe__seg { display: block; block-size: 4px; margin: 8px -7px 0; background: var(--hg-border); overflow: hidden; }
 .hg-pipe__stage:first-child .hg-pipe__seg { border-start-start-radius: 2px; border-end-start-radius: 2px; }
 .hg-pipe__stage:last-child .hg-pipe__seg { border-start-end-radius: 2px; border-end-end-radius: 2px; }
 .hg-pipe__fill { display: block; block-size: 100%; background: #8C867C; }

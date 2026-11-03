@@ -1,0 +1,2936 @@
+{
+ "_notes": [
+  "Register: both consoles are Sie. The job's existing cur had 22 du strings and 0 Sie (the de agency/university bundles are du/impersonal throughout); all 22 plus three du imperatives without a pronoun (docs.pick, inbox.pick, savedViews.saveHintEmpty) moved to Sie or infinitive labels. Buttons and labels stay infinitive/noun style (\"Dokument zur Prüfung auswählen\"). Owner decision: any du string in de/agency.json or de/university.json outside this job should be moved to Sie the same way.",
+  "Tone: Agency = short operational labels (\"Antwort ausstehend\", \"Bewerbungsschluss in {{count}} Tagen\"); University = formal/analytical (\"Wo steigen Bewerbende aus?\" replaced the colloquial \"Wo verlieren wir sie?\"; dropText now states the figures in English order).",
+  "university = «Hochschule» in all console copy (filters, columns, sidebars, picker, notes). Product names kept as the bundle has them: «Agentur-Konsole», «Universitäts-Konsole» (login titles follow). Hangyul HQ / Hangyul Operations stay as product names.",
+  "Glossary terms: application deadline = «Bewerbungsschluss» (apps.deadline, sortBy, ws.block.deadline_*, applicants.col.deadline, guide.field.deadline); task due = «fällig»; generic «Frist» only where the English deadline is not a university closing date (today.deadlines/upcoming lists mix both). admission letter = «Zulassungsschreiben», standard admission letter = «Standard-Zulassungsschreiben»; interview = «Auswahlgespräch»; mock interview = «Probeinterview»; vault = «Dokumentensafe» (ws.docsHint said «Dokumentenordner»); service period = «Leistungszeitraum»; additional service = «Zusatzleistung»; apostille / konsularische Legalisation / notarielle Beglaubigung as in common; visa issued = «erteilt» (af.stepName.VISA_ISSUED and ws.visaIssued aligned); funnel = «Zulassungstrichter».",
+  "Gender-neutral: removed every slash form (Studierende/r, Bewerber/in, Administrator/innen, Absolvent/innen, der/die). Singular person = «studierende Person» / «bewerbende Person»; plural «Studierende» / «Bewerbende»; staff = «Personal», «Mitarbeitende», «Kolleginnen und Kollegen» once (team.disableText); «die Administration» for 'an administrator / admin'.",
+  "Meaning fixes beyond nulls: dropped instructions restored (apps.empty, v22.work.emptyFiltered, v22.ws.noConversation, settings.noTeam); docs.sc.changes 'Request correction'; v22.stageHint.documents_check no longer adds 'das Büro'; stageHint.received no longer says 'formal geprüft – Prüfung öffnen'; v28.pipe.* now 'Outcomes to date'; v25.in.offerRate = Zusagequote (was Zulassungsquote); v22.work.closedHint 'not admitted' (was 'abgelehnt').",
+  "Plurals: German _one/_other; every _one carries {{count}}. Families present only as _other in the job (dash.days_other, misc.days_other/hours_other, students.bulk.*_other, team.count_other, work.total_other, applicants.customStatus_other, docFix/docReview_other) were translated with the plural noun. evidence.age/ageDays are a dt/dd pair, rendered «Höchstalter des Dokuments» / «{{count}} Tage».",
+  "Owner decision: intake stays «Semesterstart» (bundle term in both consoles) although the university bundle elsewhere uses «Aufnahmetermin» 7×; pick one bundle-wide."
+ ],
+ "agency:actions.moreFilters": {
+  "text": "Weitere Filter",
+  "why": "Missing translation"
+ },
+ "agency:apps.actor.AGENCY": {
+  "text": "Agentur",
+  "why": "Missing translation"
+ },
+ "agency:apps.actor.HANGYUL": {
+  "text": "Hangyul",
+  "why": "Missing translation; brand name"
+ },
+ "agency:apps.actor.STUDENT": {
+  "text": "Studierende",
+  "why": "Missing translation"
+ },
+ "agency:apps.actor.SYSTEM": {
+  "text": "System",
+  "why": "Missing translation"
+ },
+ "agency:apps.actor.UNIVERSITY": {
+  "text": "Hochschule",
+  "why": "Missing translation"
+ },
+ "agency:apps.allUniversities": {
+  "text": "Alle Hochschulen",
+  "why": "One term: Hochschule"
+ },
+ "agency:apps.checklist": {
+  "text": "Dokumenten-Checkliste",
+  "why": "Missing translation"
+ },
+ "agency:apps.checklistCount": {
+  "text": "{{ready}} von {{total}} Punkten bereit",
+  "why": "Missing translation"
+ },
+ "agency:apps.col.program": {
+  "text": "Hochschule & Studiengang",
+  "why": "One term: Hochschule"
+ },
+ "agency:apps.col.student": {
+  "text": "Studierende",
+  "why": "Slash form not gender-neutral"
+ },
+ "agency:apps.confirmMove": {
+  "text": "Nach „{{status}}“ verschieben",
+  "why": "Missing translation"
+ },
+ "agency:apps.deadline": {
+  "text": "Bewerbungsschluss",
+  "why": "Glossary: application deadline"
+ },
+ "agency:apps.empty": {
+  "text": "Keine Bewerbungen entsprechen diesen Filtern. Filter ändern oder zurücksetzen.",
+  "why": "Restores dropped instruction"
+ },
+ "agency:apps.externalRef": {
+  "text": "Referenz der Hochschule",
+  "why": "Missing translation"
+ },
+ "agency:apps.externalRefHint": {
+  "text": "Die Bewerbungsnummer aus dem Hochschulportal, falls vorhanden.",
+  "why": "Missing translation"
+ },
+ "agency:apps.flag": {
+  "text": "Markieren",
+  "why": "Missing translation"
+ },
+ "agency:apps.flagReason": {
+  "text": "Grund der Markierung",
+  "why": "Missing translation"
+ },
+ "agency:apps.flagTitle": {
+  "text": "Zur Nachverfolgung markieren",
+  "why": "Missing translation"
+ },
+ "agency:apps.history": {
+  "text": "Statusverlauf",
+  "why": "Missing translation"
+ },
+ "agency:apps.legalization": {
+  "text": "Beglaubigung & Legalisation",
+  "why": "Missing translation"
+ },
+ "agency:apps.moveTo": {
+  "text": "Bewerbungsstatus ändern",
+  "why": "Missing translation"
+ },
+ "agency:apps.moved": {
+  "text": "Bewerbung nach „{{status}}“ verschoben.",
+  "why": "Missing translation"
+ },
+ "agency:apps.noTransitions": {
+  "text": "In dieser Phase stehen Ihrer Organisation keine Statusänderungen zur Verfügung.",
+  "why": "Missing translation"
+ },
+ "agency:apps.note": {
+  "text": "Notiz",
+  "why": "Missing translation"
+ },
+ "agency:apps.noteHint": {
+  "text": "Wird im Statusverlauf gespeichert.",
+  "why": "Missing translation"
+ },
+ "agency:apps.readiness": {
+  "text": "Vollständigkeit",
+  "why": "Missing translation"
+ },
+ "agency:apps.reused": {
+  "text": "Aus dem Dokumentensafe übernommen",
+  "why": "Missing translation"
+ },
+ "agency:apps.scholarship": {
+  "text": "Stipendiennotiz",
+  "why": "Missing translation"
+ },
+ "agency:apps.searchPh": {
+  "text": "Studierende, Studiengang, Hochschule oder Referenz suchen …",
+  "why": "One term: Hochschule"
+ },
+ "agency:apps.semester": {
+  "text": "Semesterbeginn",
+  "why": "Missing translation"
+ },
+ "agency:apps.sortBy.deadline": {
+  "text": "Bewerbungsschluss",
+  "why": "Glossary: application deadline"
+ },
+ "agency:apps.sortBy.readiness": {
+  "text": "Vollständigkeit",
+  "why": "Missing translation"
+ },
+ "agency:apps.submitBlocked": {
+  "text": "Erforderliche Dokumente fehlen, daher ist die Einreichung gesperrt:",
+  "why": "Missing translation"
+ },
+ "agency:apps.submitted": {
+  "text": "Eingereicht",
+  "why": "Missing translation"
+ },
+ "agency:apps.translation": {
+  "text": "Übersetzung",
+  "why": "Missing translation"
+ },
+ "agency:apps.uniHint": {
+  "text": "Filtert nach Name der Hochschule",
+  "why": "One term: Hochschule"
+ },
+ "agency:apps.university": {
+  "text": "Hochschule",
+  "why": "One term: Hochschule"
+ },
+ "agency:apps.withdrawWarn": {
+  "text": "Das Zurückziehen ist für diese Bewerbung endgültig.",
+  "why": "Missing translation"
+ },
+ "agency:dash.days_other": {
+  "text": "{{count}} Tage",
+  "why": "Missing translation"
+ },
+ "agency:dash.period": {
+  "text": "Berichtszeitraum",
+  "why": "Missing translation"
+ },
+ "agency:dash.subHq": {
+  "text": "Agenturübergreifende Sicht auf alle aktiven Studierenden, Warteschlangen und SLAs.",
+  "why": "Missing translation"
+ },
+ "agency:dash.workload.member": {
+  "text": "Teammitglied",
+  "why": "Missing translation"
+ },
+ "agency:dash.workload.open": {
+  "text": "Offene Aufgaben",
+  "why": "Missing translation"
+ },
+ "agency:dash.workload.overdue": {
+  "text": "Überfällig",
+  "why": "Missing translation"
+ },
+ "agency:dash.workload.students": {
+  "text": "Aktive Studierende",
+  "why": "Missing translation"
+ },
+ "agency:docs.bulkAssign": {
+  "text": "Prüfende Person zuweisen",
+  "why": "Missing translation"
+ },
+ "agency:docs.bulkAssigned_one": {
+  "text": "{{count}} Dokument zugewiesen",
+  "why": "Missing translation"
+ },
+ "agency:docs.bulkAssigned_other": {
+  "text": "{{count}} Dokumente zugewiesen",
+  "why": "Missing translation"
+ },
+ "agency:docs.bulkFailed_one": {
+  "text": "{{count}} Dokument konnte nicht geändert werden (bereits geprüft oder nicht in Ihren Fällen)",
+  "why": "Missing translation"
+ },
+ "agency:docs.bulkFailed_other": {
+  "text": "{{count}} Dokumente konnten nicht geändert werden (bereits geprüft oder nicht in Ihren Fällen)",
+  "why": "Missing translation"
+ },
+ "agency:docs.bulkLabel": {
+  "text": "Aktionen für ausgewählte Dokumente",
+  "why": "Missing translation"
+ },
+ "agency:docs.bulkVerified_one": {
+  "text": "{{count}} Dokument verifiziert",
+  "why": "Missing translation"
+ },
+ "agency:docs.bulkVerified_other": {
+  "text": "{{count}} Dokumente verifiziert",
+  "why": "Missing translation"
+ },
+ "agency:docs.bulkVerifyText": {
+  "text": "Verifizieren Sie nur Dokumente, die Sie geöffnet und geprüft haben. Alle betroffenen Studierenden werden benachrichtigt, und jede Entscheidung wird unter Ihrem Namen im Audit-Log festgehalten.",
+  "why": "Console register: Sie"
+ },
+ "agency:docs.bulkVerifyTitle_one": {
+  "text": "{{count}} Dokument verifizieren?",
+  "why": "Missing translation"
+ },
+ "agency:docs.empty": {
+  "text": "Warteschlange ist leer",
+  "why": "Missing translation"
+ },
+ "agency:docs.emptyBy.any": {
+  "text": "Keine Dokumente warten auf Prüfung.",
+  "why": "Missing translation"
+ },
+ "agency:docs.emptyBy.me": {
+  "text": "Ihnen ist derzeit nichts zugewiesen.",
+  "why": "Missing translation"
+ },
+ "agency:docs.emptyBy.unassigned": {
+  "text": "Jedes wartende Dokument hat eine prüfende Person.",
+  "why": "Missing translation"
+ },
+ "agency:docs.notInQueue": {
+  "text": "Nicht in der Prüfwarteschlange",
+  "why": "Missing translation"
+ },
+ "agency:docs.pick": {
+  "text": "Dokument zur Prüfung auswählen",
+  "why": "Console register; no du imperative"
+ },
+ "agency:docs.pickText": {
+  "text": "Mit J / K navigieren Sie durch die Warteschlange.",
+  "why": "Console register: Sie"
+ },
+ "agency:docs.sc.changes": {
+  "text": "Korrektur anfordern",
+  "why": "English 'Request correction'"
+ },
+ "agency:docs.subSla": {
+  "text": "{{count}} warten auf Prüfung · {{late}} über dem {{hours}}-Stunden-Ziel",
+  "why": "Missing translation"
+ },
+ "agency:docs.sub_other": {
+  "text": "{{count}} Dokumente warten auf Prüfung, älteste zuerst.",
+  "why": "Missing translation"
+ },
+ "agency:docs.uploadForHint": {
+  "text": "Nutzen Sie dies, wenn Studierende ein Dokument auf anderem Weg schicken (z. B. per E-Mail). Es landet in deren Dokumentensafe, wird als von Ihnen hochgeladen markiert und wartet wie jeder andere Upload auf die Prüfung.",
+  "why": "Console register: Sie"
+ },
+ "agency:docs.uploadedFor": {
+  "text": "Zum Dokumentensafe von {{name}} hinzugefügt",
+  "why": "Missing translation"
+ },
+ "agency:docs.you": {
+  "text": "Sie",
+  "why": "Missing translation"
+ },
+ "agency:inbox.audienceTeam": {
+  "text": "Nur Ihr Team sieht das",
+  "why": "Missing translation"
+ },
+ "agency:inbox.manageTemplates": {
+  "text": "Vorlagen verwalten …",
+  "why": "Missing translation"
+ },
+ "agency:inbox.needsReplyShort": {
+  "text": "Antwort ausstehend",
+  "why": "Short label 'Reply owed'; Sie register"
+ },
+ "agency:inbox.newHint": {
+  "text": "Die studierende Person wird per E-Mail und in der App benachrichtigt.",
+  "why": "Slash form not gender-neutral"
+ },
+ "agency:inbox.noMessages": {
+  "text": "Noch keine Nachrichten.",
+  "why": "Missing translation"
+ },
+ "agency:inbox.notePh": {
+  "text": "Interne Notiz für Ihr Team schreiben … (Strg+Enter zum Speichern)",
+  "why": "Missing translation"
+ },
+ "agency:inbox.noteSaved": {
+  "text": "Interne Notiz gespeichert.",
+  "why": "Missing translation"
+ },
+ "agency:inbox.openFile": {
+  "text": "Datei öffnen",
+  "why": "Missing translation"
+ },
+ "agency:inbox.participants": {
+  "text": "Teilnehmende",
+  "why": "Missing translation"
+ },
+ "agency:inbox.pick": {
+  "text": "Unterhaltung auswählen",
+  "why": "Console register; no du imperative"
+ },
+ "agency:inbox.pickText": {
+  "text": "Oder beginnen Sie eine neue mit einer von Ihnen betreuten studierenden Person.",
+  "why": "Sie register; slash form removed"
+ },
+ "agency:inbox.removeFile": {
+  "text": "{{name}} entfernen",
+  "why": "Missing translation"
+ },
+ "agency:inbox.saveNote": {
+  "text": "Notiz speichern",
+  "why": "Missing translation"
+ },
+ "agency:inbox.sent": {
+  "text": "Nachricht gesendet.",
+  "why": "Missing translation"
+ },
+ "agency:inbox.subReply_one": {
+  "text": "{{count}} Unterhaltung wartet auf Ihre Antwort",
+  "why": "Missing translation"
+ },
+ "agency:inbox.subReply_other": {
+  "text": "{{count}} Unterhaltungen warten auf Ihre Antwort",
+  "why": "Console register: Sie"
+ },
+ "agency:inbox.subUnread_one": {
+  "text": "{{count}} ungelesene Unterhaltung",
+  "why": "Missing translation"
+ },
+ "agency:inbox.system": {
+  "text": "System",
+  "why": "Missing translation"
+ },
+ "agency:inbox.taskCreated": {
+  "text": "Aufgabe aus dieser Nachricht erstellt",
+  "why": "Missing translation"
+ },
+ "agency:inbox.taskDue": {
+  "text": "Aufgabe fällig",
+  "why": "Missing translation"
+ },
+ "agency:inbox.taskHint": {
+  "text": "Die Aufgabe geht an das zuerst erwähnte Teammitglied oder an Sie.",
+  "why": "Missing translation"
+ },
+ "agency:inbox.unreadN_other": {
+  "text": "{{count}} ungelesene Nachrichten",
+  "why": "Missing translation"
+ },
+ "agency:inbox.willNotify_other": {
+  "text": "{{count}} Teammitglieder werden benachrichtigt",
+  "why": "Missing translation"
+ },
+ "agency:login.asideFoot": {
+  "text": "Die Daten jeder Organisation werden getrennt gehalten, und jeder Zugriff wird protokolliert. Studierende sehen interne Notizen nie.",
+  "why": "Missing translation"
+ },
+ "agency:login.asideLead": {
+  "text": "Studierende, Bewerbungs- und Dokumentenarbeit sowie Nachrichten in einem Arbeitsbereich.",
+  "why": "Missing translation"
+ },
+ "agency:login.asideTitle": {
+  "text": "Wer Sie braucht, warum und bis wann – beginnend mit heute.",
+  "why": "Missing translation"
+ },
+ "agency:login.p1Text": {
+  "text": "Jede Zahl pro Phase öffnet genau diese Studierenden.",
+  "why": "Missing translation"
+ },
+ "agency:login.p1Title": {
+  "text": "Studierende nach Phase",
+  "why": "Missing translation"
+ },
+ "agency:login.p2Text": {
+  "text": "Dokumentkorrekturen, Bewerbungsschlüsse und ausstehende Antworten, nach Fälligkeit sortiert.",
+  "why": "Missing translation"
+ },
+ "agency:login.p2Title": {
+  "text": "Aufgaben mit Fälligkeit",
+  "why": "Missing translation"
+ },
+ "agency:login.p3Text": {
+  "text": "Sichere Vorschauen und Checklisten; Korrekturen mit klarem Grund anfordern.",
+  "why": "Missing translation"
+ },
+ "agency:login.p3Title": {
+  "text": "Dokumentenprüfung",
+  "why": "Missing translation"
+ },
+ "agency:login.p4Text": {
+  "text": "Studierende hören vom Hangyul Univ-Team; wer die Arbeit erledigt hat, steht im Audit-Log.",
+  "why": "Missing translation"
+ },
+ "agency:login.p4Title": {
+  "text": "Studierende sehen das Hangyul Univ-Team",
+  "why": "Missing translation"
+ },
+ "agency:login.subtitle": {
+  "text": "Für das Betriebsteam von Hangyul und Partneragenturen für das Auslandsstudium.",
+  "why": "Missing translation"
+ },
+ "agency:login.title": {
+  "text": "Bei der Agentur-Konsole anmelden",
+  "why": "Missing translation"
+ },
+ "agency:misc.change": {
+  "text": "Ändern",
+  "why": "Missing translation"
+ },
+ "agency:misc.days_other": {
+  "text": "{{count}} Tage",
+  "why": "Missing translation"
+ },
+ "agency:misc.hours_other": {
+  "text": "{{count}} Stunden",
+  "why": "Missing translation"
+ },
+ "agency:misc.internalTag": {
+  "text": "Intern",
+  "why": "Missing translation"
+ },
+ "agency:misc.no": {
+  "text": "Nein",
+  "why": "Missing translation"
+ },
+ "agency:misc.notFoundText": {
+  "text": "Die Seite wurde möglicherweise verschoben, oder Sie haben keinen Zugriff darauf.",
+  "why": "Missing translation"
+ },
+ "agency:misc.searchStudents": {
+  "text": "Ihre Studierenden suchen …",
+  "why": "Missing translation"
+ },
+ "agency:misc.student": {
+  "text": "Studierende",
+  "why": "Slash form not gender-neutral"
+ },
+ "agency:misc.unassigned": {
+  "text": "Nicht zugewiesen",
+  "why": "Missing translation"
+ },
+ "agency:misc.yes": {
+  "text": "Ja",
+  "why": "Missing translation"
+ },
+ "agency:notifs.filter": {
+  "text": "Filter",
+  "why": "Missing translation"
+ },
+ "agency:notifs.sub": {
+  "text": "Alles, was während Ihrer Abwesenheit passiert ist.",
+  "why": "Missing translation"
+ },
+ "agency:savedViews.delete": {
+  "text": "{{name}} löschen",
+  "why": "Missing translation"
+ },
+ "agency:savedViews.saveHintEmpty": {
+  "text": "Es sind keine Filter gesetzt, daher zeigt diese Ansicht alle Studierenden. Fügen Sie zuerst Filter hinzu, damit sie nützlicher wird.",
+  "why": "Console register: Sie"
+ },
+ "agency:savedViews.saveHint_one": {
+  "text": "Speichert den aktuellen Filter und die Sortierung, damit Sie diese Liste mit einem Klick öffnen können.",
+  "why": "Missing translation"
+ },
+ "agency:savedViews.saveHint_other": {
+  "text": "Speichert die aktuellen {{count}} Filter und die Sortierung, damit Sie diese Liste mit einem Klick öffnen können.",
+  "why": "Missing translation"
+ },
+ "agency:savedViews.saved": {
+  "text": "„{{name}}“ gespeichert",
+  "why": "Missing translation"
+ },
+ "agency:settings.account": {
+  "text": "Konto",
+  "why": "Missing translation"
+ },
+ "agency:settings.deadlinesHint": {
+  "text": "Alle anstehenden Fristen in Ihren Fällen",
+  "why": "Console register: Sie"
+ },
+ "agency:settings.language": {
+  "text": "Sprache",
+  "why": "Missing translation"
+ },
+ "agency:settings.languageHint": {
+  "text": "Sprache der Oberfläche. Daten von Studierenden bleiben in ihrer Originalsprache.",
+  "why": "Missing translation"
+ },
+ "agency:settings.localOnly": {
+  "text": "Nur in diesem Browser gespeichert.",
+  "why": "Missing translation"
+ },
+ "agency:settings.org": {
+  "text": "Organisation",
+  "why": "Missing translation"
+ },
+ "agency:settings.poll": {
+  "text": "Live-Aktualisierung",
+  "why": "Missing translation"
+ },
+ "agency:settings.pollHint": {
+  "text": "Warteschlangen und Zahlen jede Minute aktualisieren.",
+  "why": "Missing translation"
+ },
+ "agency:settings.scSearch": {
+  "text": "In globalen Suchergebnissen navigieren",
+  "why": "Missing translation"
+ },
+ "agency:settings.scSend": {
+  "text": "Nachricht senden oder Notiz speichern",
+  "why": "Missing translation"
+ },
+ "agency:settings.shortcuts": {
+  "text": "Tastenkürzel",
+  "why": "Missing translation"
+ },
+ "agency:settings.sub": {
+  "text": "Persönliche Einstellungen für diese Konsole.",
+  "why": "Missing translation"
+ },
+ "agency:settings.timezone": {
+  "text": "Zeitzone",
+  "why": "Missing translation"
+ },
+ "agency:settings.updates": {
+  "text": "Live-Aktualisierung",
+  "why": "Missing translation"
+ },
+ "agency:shell.hqProduct": {
+  "text": "Hangyul Operations",
+  "why": "Missing translation; product name"
+ },
+ "agency:shell.hqView": {
+  "text": "Hangyul HQ · alle Agenturen",
+  "why": "Missing translation"
+ },
+ "agency:shell.searchAll": {
+  "text": "Alle Ergebnisse für „{{q}}“ anzeigen",
+  "why": "Missing translation"
+ },
+ "agency:sidebar.agencies": {
+  "text": "Agenturen",
+  "why": "Missing translation"
+ },
+ "agency:sidebar.catalog": {
+  "text": "Hochschulen & Studiengänge",
+  "why": "Missing translation"
+ },
+ "agency:sidebar.hangyul": {
+  "text": "Hangyul HQ",
+  "why": "Missing translation; product name"
+ },
+ "agency:sidebar.operations": {
+  "text": "Betrieb",
+  "why": "Missing translation"
+ },
+ "agency:sidebar.override": {
+  "text": "Zuweisung übersteuern",
+  "why": "Missing translation"
+ },
+ "agency:sidebar.universities": {
+  "text": "Hochschulen",
+  "why": "One term: Hochschule"
+ },
+ "agency:students.bulk.confirmRegen_other": {
+  "text": "Automatische Aufgabenlisten für {{count}} Studierende neu berechnen? Manuelle Aufgaben bleiben erhalten.",
+  "why": "Missing translation"
+ },
+ "agency:students.bulk.confirmStage_other": {
+  "text": "{{count}} Studierende in „{{stage}}“ verschieben? Das wird im Audit-Log festgehalten.",
+  "why": "Missing translation"
+ },
+ "agency:students.bulk.confirmTitle": {
+  "text": "Sammelaktion ausführen?",
+  "why": "Missing translation"
+ },
+ "agency:students.bulk.done_other": {
+  "text": "{{count}} Studierende aktualisiert.",
+  "why": "Missing translation"
+ },
+ "agency:students.bulk.regen": {
+  "text": "Aufgaben neu erzeugen",
+  "why": "Missing translation"
+ },
+ "agency:students.bulk.stage": {
+  "text": "In Phase verschieben …",
+  "why": "Missing translation"
+ },
+ "agency:students.col.degree": {
+  "text": "Abschluss",
+  "why": "Missing translation"
+ },
+ "agency:students.col.nationality": {
+  "text": "Staatsangehörigkeit",
+  "why": "Missing translation"
+ },
+ "agency:students.dShort_one": {
+  "text": "{{count}} T.",
+  "why": "Missing translation"
+ },
+ "agency:students.f.allDegrees": {
+  "text": "Alle Abschlüsse",
+  "why": "Missing translation"
+ },
+ "agency:students.f.allNationalities": {
+  "text": "Alle Staatsangehörigkeiten",
+  "why": "Missing translation"
+ },
+ "agency:students.noReply": {
+  "text": "Erstantwort-SLA verpasst. Diese studierende Person wartet auf eine Antwort",
+  "why": "Missing translation"
+ },
+ "agency:students.noReplyShort": {
+  "text": "Antwort ausstehend",
+  "why": "Missing translation"
+ },
+ "agency:students.subCount": {
+  "text": "{{count}} Studierende in Ihren Fällen",
+  "why": "Console register: Sie"
+ },
+ "agency:students.view.all": {
+  "text": "Alle",
+  "why": "Missing translation"
+ },
+ "agency:students.view.arrived": {
+  "text": "Angekommen",
+  "why": "Missing translation"
+ },
+ "agency:students.view.deadline": {
+  "text": "Bewerbungsschluss bald",
+  "why": "Missing translation"
+ },
+ "agency:students.view.docs": {
+  "text": "Dokumente zu korrigieren",
+  "why": "Missing translation"
+ },
+ "agency:students.view.incomplete": {
+  "text": "Dokumente unvollständig",
+  "why": "Missing translation"
+ },
+ "agency:students.view.mine": {
+  "text": "Meine Studierenden",
+  "why": "Missing translation"
+ },
+ "agency:students.view.requested": {
+  "text": "Von der Hochschule angeforderte Dokumente",
+  "why": "Missing translation"
+ },
+ "agency:students.view.university": {
+  "text": "Wartet auf Hochschule",
+  "why": "Missing translation"
+ },
+ "agency:students.view.visa": {
+  "text": "Visum",
+  "why": "Missing translation"
+ },
+ "agency:students.view.waiting_external": {
+  "text": "Wartet auf Botschaft oder andere Stelle",
+  "why": "Missing translation"
+ },
+ "agency:students.view.waiting_us": {
+  "text": "Wartet auf uns",
+  "why": "Missing translation"
+ },
+ "agency:today.afternoon": {
+  "text": "Guten Tag, {{name}}",
+  "why": "Missing translation"
+ },
+ "agency:today.allClear": {
+  "text": "Gerade ist nichts zu tun. Neue Arbeit erscheint hier, sobald sie eingeht.",
+  "why": "Missing translation"
+ },
+ "agency:today.attention": {
+  "text": "Braucht Aufmerksamkeit",
+  "why": "Missing translation"
+ },
+ "agency:today.attentionSub": {
+  "text": "Der dringendste Punkt steht oben. Öffnen Sie eine Zeile, um die Liste abzuarbeiten.",
+  "why": "Missing translation"
+ },
+ "agency:today.attentionV4": {
+  "text": "Wer Sie heute braucht",
+  "why": "Missing translation"
+ },
+ "agency:today.clearList": {
+  "text": "Alles erledigt: {{list}}",
+  "why": "Missing translation"
+ },
+ "agency:today.closing": {
+  "text": "Bewerbungen mit Bewerbungsschluss in 7 Tagen",
+  "why": "Missing translation"
+ },
+ "agency:today.closingDetail": {
+  "text": "Als Nächstes: {{university}} · {{student}}, Bewerbungsschluss {{date}}",
+  "why": "Missing translation"
+ },
+ "agency:today.closingV4": {
+  "text": "Studierende mit Bewerbungsschluss in 7 Tagen",
+  "why": "Missing translation"
+ },
+ "agency:today.cta.deadlines": {
+  "text": "Fristen ansehen",
+  "why": "Missing translation"
+ },
+ "agency:today.cta.messages": {
+  "text": "Posteingang öffnen",
+  "why": "Missing translation"
+ },
+ "agency:today.cta.reply": {
+  "text": "Antworten",
+  "why": "Missing translation"
+ },
+ "agency:today.cta.review": {
+  "text": "Prüfung starten",
+  "why": "Missing translation"
+ },
+ "agency:today.cta.students": {
+  "text": "Studierende öffnen",
+  "why": "Missing translation"
+ },
+ "agency:today.cta.tasks": {
+  "text": "Aufgaben öffnen",
+  "why": "Missing translation"
+ },
+ "agency:today.deadlines": {
+  "text": "Fristen in den nächsten 7 Tagen",
+  "why": "Missing translation"
+ },
+ "agency:today.deadlinesDetail": {
+  "text": "Als Nächstes: {{title}} · {{student}}, {{when}}",
+  "why": "Missing translation"
+ },
+ "agency:today.docs": {
+  "text": "Dokumente warten auf Prüfung",
+  "why": "Missing translation"
+ },
+ "agency:today.docsDetail": {
+  "text": "Am ältesten: {{student}} · {{doc}}, wartet seit {{wait}}",
+  "why": "Missing translation"
+ },
+ "agency:today.docsOldest": {
+  "text": "am ältesten: {{student}} · {{doc}}, hochgeladen {{when}}",
+  "why": "Missing translation"
+ },
+ "agency:today.docsSla_one": {
+  "text": "{{count}} Dokument über dem {{hours}}-Stunden-Prüfziel",
+  "why": "Missing translation"
+ },
+ "agency:today.docsSla_other": {
+  "text": "{{count}} Dokumente über dem {{hours}}-Stunden-Prüfziel",
+  "why": "Missing translation"
+ },
+ "agency:today.essays": {
+  "text": "Essays warten auf Prüfung",
+  "why": "Missing translation"
+ },
+ "agency:today.essaysDetail": {
+  "text": "Als Nächstes: {{title}} · {{student}}",
+  "why": "Missing translation"
+ },
+ "agency:today.keyMove": {
+  "text": "bewegen",
+  "why": "Missing translation"
+ },
+ "agency:today.keyOpen": {
+  "text": "öffnen",
+  "why": "Missing translation"
+ },
+ "agency:today.messages": {
+  "text": "Unterhaltungen mit ungelesenen Nachrichten",
+  "why": "Missing translation"
+ },
+ "agency:today.messagesDetail": {
+  "text": "Am längsten wartend: {{who}}, {{when}}",
+  "why": "Missing translation"
+ },
+ "agency:today.openPipeline": {
+  "text": "Pipeline öffnen",
+  "why": "Missing translation"
+ },
+ "agency:today.overdueDef": {
+  "text": "Offene Aufgaben, deren Fälligkeitsdatum überschritten ist.",
+  "why": "Missing translation"
+ },
+ "agency:today.overdueDetail": {
+  "text": "Am ältesten: {{title}} · {{student}}, fällig {{when}}",
+  "why": "Missing translation"
+ },
+ "agency:today.overdueMine": {
+  "text": "Ihre überfälligen Aufgaben",
+  "why": "Missing translation"
+ },
+ "agency:today.overdueTeam": {
+  "text": "Überfällige Aufgaben im Team",
+  "why": "Missing translation"
+ },
+ "agency:today.phase.studying": {
+  "text": "Im Studium",
+  "why": "Missing translation"
+ },
+ "agency:today.pipeline": {
+  "text": "Fälle nach Phase",
+  "why": "Missing translation"
+ },
+ "agency:today.pipelineSub": {
+  "text": "{{count}} Studierende. Wählen Sie eine Phase, um zu sehen, wer sich darin befindet.",
+  "why": "Missing translation"
+ },
+ "agency:today.pipelineSubV4_one": {
+  "text": "{{count}} studierende Person",
+  "why": "Missing translation"
+ },
+ "agency:today.pipelineSubV4_other": {
+  "text": "{{count}} Studierende",
+  "why": "Missing translation"
+ },
+ "agency:today.replies": {
+  "text": "Studierende warten auf eine Antwort",
+  "why": "Missing translation"
+ },
+ "agency:today.repliesDetail": {
+  "text": "Die letzte Nachricht der studierenden Person ist noch unbeantwortet.",
+  "why": "Missing translation"
+ },
+ "agency:today.repliesOldest": {
+  "text": "Am längsten wartend: {{student}}, {{when}}",
+  "why": "Missing translation"
+ },
+ "agency:today.repliesV4": {
+  "text": "Ausstehende Antworten",
+  "why": "Missing translation"
+ },
+ "agency:today.requests": {
+  "text": "Dokumentanfragen von Hochschulen",
+  "why": "Missing translation"
+ },
+ "agency:today.requestsDetail": {
+  "text": "Die studierende Person muss es hochladen. Prüfen, ob es eingeht.",
+  "why": "Missing translation"
+ },
+ "agency:today.sla": {
+  "text": "Studierende, denen innerhalb von 24 Stunden eine Erstantwort zusteht",
+  "why": "Missing translation"
+ },
+ "agency:today.slaDetail": {
+  "text": "{{student}} · Antwort fällig {{when}}",
+  "why": "Missing translation"
+ },
+ "agency:today.unread": {
+  "text": "Ungelesene Unterhaltungen",
+  "why": "Missing translation"
+ },
+ "agency:today.unreadDetail": {
+  "text": "Neueste: {{who}}, {{when}}",
+  "why": "Missing translation"
+ },
+ "agency:today.upcoming": {
+  "text": "Anstehende Fristen",
+  "why": "Missing translation"
+ },
+ "agency:today.upcomingEmpty": {
+  "text": "Keine Fristen in den nächsten 14 Tagen.",
+  "why": "Missing translation"
+ },
+ "agency:today.upcomingSub": {
+  "text": "Nächste 14 Tage",
+  "why": "Missing translation"
+ },
+ "agency:today.upcomingV4": {
+  "text": "Nächste 14 Tage",
+  "why": "Missing translation"
+ },
+ "agency:today.v5.andMore_one": {
+  "text": "und {{count}} weitere",
+  "why": "Missing translation"
+ },
+ "agency:today.v5.andMore_other": {
+  "text": "und {{count}} weitere",
+  "why": "Missing translation"
+ },
+ "agency:today.v5.checks": {
+  "text": "Dokumentprüfpunkte, die eine prüfende Person brauchen",
+  "why": "Missing translation"
+ },
+ "agency:today.v5.checksDetail": {
+  "text": "{{student}} · {{doc}}: {{what}}",
+  "why": "Missing translation"
+ },
+ "agency:today.v5.services.needs_assignment": {
+  "text": "Neue Leistungsanfragen zuzuweisen",
+  "why": "Missing translation"
+ },
+ "agency:today.v5.services.overdue": {
+  "text": "Leistungsfälle über der Antwortzeit",
+  "why": "Missing translation"
+ },
+ "agency:today.v5.services.today": {
+  "text": "Heute fällige Leistungsfälle",
+  "why": "Missing translation"
+ },
+ "agency:today.v5.servicesCta": {
+  "text": "Leistungen öffnen",
+  "why": "Missing translation"
+ },
+ "agency:today.v5.servicesDetail": {
+  "text": "{{type}} · {{student}} · {{reason}}",
+  "why": "Missing translation"
+ },
+ "agency:today.v5.visa": {
+  "text": "Visumfälle, die Sie brauchen",
+  "why": "Missing translation"
+ },
+ "agency:today.v5.visaCta": {
+  "text": "Öffnen",
+  "why": "Missing translation"
+ },
+ "agency:today.v5.writingDetail": {
+  "text": "{{essay}} · {{student}}, {{university}}",
+  "why": "Missing translation"
+ },
+ "agency:today.v5.writingDue": {
+  "text": "Essay-Prüfungen fällig in 48 Stunden",
+  "why": "Missing translation"
+ },
+ "agency:today.v5.writingDue48": {
+  "text": "fällig {{when}}",
+  "why": "Missing translation"
+ },
+ "agency:today.v5.writingOverdue": {
+  "text": "Essay-Prüfungen über der zugesagten Zeit",
+  "why": "Missing translation"
+ },
+ "agency:today.v5.writingRevised_one": {
+  "text": "{{count}} Überarbeitung durch Studierende",
+  "why": "Missing translation"
+ },
+ "agency:today.v5.writingRevised_other": {
+  "text": "{{count}} Überarbeitungen durch Studierende",
+  "why": "Missing translation"
+ },
+ "agency:today.waitingOn": {
+  "text": "Fälle nach wartender Partei",
+  "why": "Missing translation"
+ },
+ "agency:today.workload": {
+  "text": "Auslastung im Team",
+  "why": "Missing translation"
+ },
+ "agency:today.workloadSub": {
+  "text": "Aktive Studierende und offene Arbeit pro Person",
+  "why": "Missing translation"
+ },
+ "agency:v22.hq.accounts.adminUser": {
+  "text": "Admin-Konto",
+  "why": "Missing translation"
+ },
+ "agency:v22.hq.accounts.assigned": {
+  "text": "Zugeordnete Hochschule",
+  "why": "Missing translation"
+ },
+ "agency:v22.hq.accounts.empty": {
+  "text": "Noch keine Hochschulkonten.",
+  "why": "Missing translation"
+ },
+ "agency:v22.hq.accounts.invite": {
+  "text": "Hochschul-Admin einladen",
+  "why": "Missing translation"
+ },
+ "agency:v22.hq.accounts.noUniversity": {
+  "text": "Keine Hochschule verknüpft",
+  "why": "Missing translation"
+ },
+ "agency:v22.hq.accounts.pickUniversity": {
+  "text": "Hochschule",
+  "why": "Missing translation"
+ },
+ "agency:v22.hq.accounts.pickUniversityPh": {
+  "text": "Partnerhochschule wählen",
+  "why": "Missing translation"
+ },
+ "agency:v22.hq.accounts.reassign": {
+  "text": "Hochschule ändern",
+  "why": "Missing translation"
+ },
+ "agency:v22.hq.accounts.reassignText": {
+  "text": "Die Mitgliedschaft wechselt zur Organisation der gewählten Hochschule. Die bisherige wird deaktiviert.",
+  "why": "Missing translation"
+ },
+ "agency:v22.hq.accounts.reassignTitle": {
+  "text": "{{name}} zu einer anderen Hochschule verschieben",
+  "why": "Missing translation"
+ },
+ "agency:v22.hq.accounts.search": {
+  "text": "Nach Name, E-Mail oder Hochschule suchen …",
+  "why": "Missing translation"
+ },
+ "agency:v22.hq.accounts.sub": {
+  "text": "Admin-Konten der Partnerhochschulen. Alle Hochschul-Admins haben dieselben Berechtigungen.",
+  "why": "Missing translation"
+ },
+ "agency:v22.hq.accounts.title": {
+  "text": "Hochschulkonten",
+  "why": "Missing translation"
+ },
+ "agency:v22.hq.accounts.university": {
+  "text": "Hochschule",
+  "why": "Missing translation"
+ },
+ "agency:v22.nav.hqAccounts": {
+  "text": "Hochschulkonten",
+  "why": "Missing translation"
+ },
+ "agency:v22.stage.closed": {
+  "text": "Abgeschlossen",
+  "why": "Missing translation"
+ },
+ "agency:v22.stage.ready": {
+  "text": "Bereit zum Einreichen",
+  "why": "Restores 'to submit'"
+ },
+ "agency:v22.stage.review": {
+  "text": "Prüfung durch die Hochschule",
+  "why": "One term: Hochschule"
+ },
+ "agency:v22.stage.strip": {
+  "text": "Phasen",
+  "why": "'Stages', not 'Ablauf'"
+ },
+ "agency:v22.stage.stripHint": {
+  "text": "Wählen Sie eine Phase, um nur deren Studierende anzuzeigen. Die Zahl entspricht den Zeilen unten.",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.active": {
+  "text": "Aktiv",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.count_other": {
+  "text": "{{count}} Konten",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.devNote": {
+  "text": "Entwicklung: Der Code wurde in der API-Konsole ausgegeben, nicht per E-Mail versendet.",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.disable": {
+  "text": "Deaktivieren",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.disableReason": {
+  "text": "Grund",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.disableReasonPh": {
+  "text": "Hat die Agentur verlassen",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.disableText": {
+  "text": "Das Konto kann sich nicht mehr anmelden. Offene Studierende, Prüfungen und Aufgaben gehen automatisch an Kolleginnen und Kollegen über.",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.disableTitle": {
+  "text": "{{name}} deaktivieren?",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.disabled": {
+  "text": "Deaktiviert",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.email": {
+  "text": "E-Mail",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.empty": {
+  "text": "Noch keine Konten.",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.enable": {
+  "text": "Aktivieren",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.invite": {
+  "text": "Admin einladen",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.inviteSub": {
+  "text": "Die Person erhält eine E-Mail mit einem Einmalcode zum Festlegen eines Passworts.",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.lastLogin": {
+  "text": "Letzte Anmeldung",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.mailFailed": {
+  "text": "Die Einladung konnte nicht per E-Mail versendet werden. Bitten Sie die Person, mit dieser Adresse „Passwort vergessen“ zu nutzen.",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.name": {
+  "text": "Name",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.never": {
+  "text": "Nie",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.sendInvite": {
+  "text": "Einladung senden",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.sent": {
+  "text": "Einladung gesendet",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.sentTo": {
+  "text": "Wir haben eine Einladung an {{email}} gesendet.",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.status": {
+  "text": "Status",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.sub": {
+  "text": "Alle Admins haben dieselben Berechtigungen.",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.title": {
+  "text": "Admin-Konten",
+  "why": "Gender-neutral; matches 'Admin' role label"
+ },
+ "agency:v22.team.unverified": {
+  "text": "Eingeladen · noch nicht bestätigt",
+  "why": "Missing translation"
+ },
+ "agency:v22.team.you": {
+  "text": "Sie",
+  "why": "Missing translation"
+ },
+ "agency:v22.work.anyWaiting": {
+  "text": "Wartet auf jemanden",
+  "why": "More natural than 'irgendwen'"
+ },
+ "agency:v22.work.bulkOwner": {
+  "text": "Zuständigkeit festlegen …",
+  "why": "Missing translation"
+ },
+ "agency:v22.work.closedHint": {
+  "text": "Nicht zugelassene und zurückgezogene Studierende",
+  "why": "English 'Not admitted', not 'rejected'"
+ },
+ "agency:v22.work.col.student": {
+  "text": "Studierende",
+  "why": "Slash form not gender-neutral"
+ },
+ "agency:v22.work.col.university": {
+  "text": "Hochschule",
+  "why": "One term: Hochschule"
+ },
+ "agency:v22.work.confirmOwner_other": {
+  "text": "{{name}} als zuständige Person für {{count}} Studierende festlegen?",
+  "why": "Missing translation"
+ },
+ "agency:v22.work.deleteView": {
+  "text": "Diese Ansicht löschen",
+  "why": "Missing translation"
+ },
+ "agency:v22.work.empty": {
+  "text": "Keine Studierenden in dieser Phase",
+  "why": "Missing translation"
+ },
+ "agency:v22.work.emptyFiltered": {
+  "text": "Keine Studierenden entsprechen diesen Filtern. Filter ändern.",
+  "why": "Restores dropped instruction"
+ },
+ "agency:v22.work.myViews": {
+  "text": "Meine Ansichten",
+  "why": "Missing translation"
+ },
+ "agency:v22.work.showTop": {
+  "text": "Top 10 anzeigen",
+  "why": "Missing translation"
+ },
+ "agency:v22.work.total_other": {
+  "text": "{{count}} Studierende",
+  "why": "Missing translation"
+ },
+ "agency:v22.work.upcoming_other": {
+  "text": "{{count}} Fristen in den nächsten 14 Tagen",
+  "why": "Restores 'next'"
+ },
+ "agency:v22.ws.detailsHint": {
+  "text": "Alle Details, wenn Sie sie brauchen.",
+  "why": "Console register: Sie"
+ },
+ "agency:v22.ws.docFix_other": {
+  "text": "{{count}} Dokumente zu korrigieren",
+  "why": "Missing translation"
+ },
+ "agency:v22.ws.docReview_other": {
+  "text": "{{count}} Dokumente zu prüfen",
+  "why": "Missing translation"
+ },
+ "agency:v22.ws.needsActionEmpty": {
+  "text": "Bei dieser studierenden Person wartet nichts auf Sie.",
+  "why": "Missing translation"
+ },
+ "agency:v22.ws.noConversation": {
+  "text": "Noch keine Unterhaltung. Senden Sie die erste Nachricht.",
+  "why": "Restores dropped instruction"
+ },
+ "agency:v22.ws.openThread": {
+  "text": "Unterhaltung öffnen",
+  "why": "Missing translation"
+ },
+ "agency:v22.ws.tab.more": {
+  "text": "Aufgaben & Leistungen",
+  "why": "Bundle term Leistungen"
+ },
+ "agency:v22.ws.tab.profile": {
+  "text": "Profil & Paket",
+  "why": "Match sibling tab style"
+ },
+ "agency:v23.work.memberFilter": {
+  "text": "Studierende eines Teammitglieds werden angezeigt",
+  "why": "Missing translation"
+ },
+ "agency:v23.work.openAll": {
+  "text": "Alle {{count}} unter „Studierende“ öffnen",
+  "why": "Missing translation"
+ },
+ "agency:v23.work.submissionsNeed_one": {
+  "text": "{{count}} Bewerbung wartet auf Einreichung durch das Team",
+  "why": "Missing translation"
+ },
+ "agency:v23.work.submissionsNeed_other": {
+  "text": "{{count}} Bewerbungen warten auf Einreichung durch das Team",
+  "why": "Clearer than 'brauchen das Team'"
+ },
+ "agency:v26.ws.replyOwed": {
+  "text": "Die studierende Person wartet auf Ihre Antwort",
+  "why": "Sie register; slash form removed"
+ },
+ "agency:v26.ws.requests": {
+  "text": "Anfragen von Hochschulen",
+  "why": "One term: Hochschule"
+ },
+ "agency:v27.evidence.age": {
+  "text": "Höchstalter des Dokuments",
+  "why": "Missing translation; reads as a label"
+ },
+ "agency:v27.evidence.ageDays": {
+  "text": "{{count}} Tage",
+  "why": "Missing translation"
+ },
+ "agency:v27.evidence.byNationality": {
+  "text": "nach Staatsangehörigkeit; Ausstellungsland noch unbekannt",
+  "why": "Missing translation"
+ },
+ "agency:v27.evidence.extra": {
+  "text": "Zusätzlich",
+  "why": "Missing translation"
+ },
+ "agency:v27.evidence.form": {
+  "text": "Einreichen als",
+  "why": "Missing translation"
+ },
+ "agency:v27.evidence.legal": {
+  "text": "Legalisation",
+  "why": "Missing translation"
+ },
+ "agency:v27.evidence.none": {
+  "text": "Noch nicht hochgeladen",
+  "why": "Missing translation"
+ },
+ "agency:v27.evidence.open": {
+  "text": "Nachweis anzeigen",
+  "why": "Missing translation"
+ },
+ "agency:v27.evidence.proof": {
+  "text": "Upload der studierenden Person",
+  "why": "Missing translation"
+ },
+ "agency:v27.evidence.quote": {
+  "text": "Wortlaut im Leitfaden",
+  "why": "Missing translation"
+ },
+ "agency:v27.evidence.when": {
+  "text": "Gilt, wenn",
+  "why": "Missing translation"
+ },
+ "agency:v27.form.COPY": {
+  "text": "Kopie",
+  "why": "Missing translation"
+ },
+ "agency:v27.form.EITHER": {
+  "text": "Original oder Kopie",
+  "why": "Missing translation"
+ },
+ "agency:v27.form.ORIGINAL": {
+  "text": "Original",
+  "why": "Missing translation"
+ },
+ "agency:v27.guide.current": {
+  "text": "Dokumentenliste aus",
+  "why": "Missing translation"
+ },
+ "agency:v27.guide.missingBody": {
+  "text": "Der aktuelle offizielle Leitfaden für diese Hochschule und Stufe ist nicht geprüft, daher wird keine Dokumentenliste angezeigt. Sie erscheint, sobald das Hangyul-Betriebsteam den Leitfaden geprüft hat.",
+  "why": "Missing translation"
+ },
+ "agency:v27.guide.previous": {
+  "text": "Beruht auf dem Leitfaden der vorigen Runde; der neue Leitfaden wird geprüft",
+  "why": "Missing translation"
+ },
+ "agency:v27.guide.source": {
+  "text": "Offizieller Leitfaden",
+  "why": "Missing translation"
+ },
+ "agency:v27.guide.verified": {
+  "text": "geprüft am {{date}}",
+  "why": "Missing translation"
+ },
+ "agency:v27.hq.guidesNone": {
+  "text": "Keine Bewerbungsleitfäden zu prüfen.",
+  "why": "Missing translation"
+ },
+ "agency:v27.hq.guidesSub": {
+  "text": "Ohne geprüften aktuellen Leitfaden sehen Studierende keine Dokumentenliste. Sortiert nach Zahl wartender Studierender.",
+  "why": "Missing translation"
+ },
+ "agency:v27.hq.guidesTitle": {
+  "text": "Zu prüfende Bewerbungsleitfäden",
+  "why": "Missing translation"
+ },
+ "agency:v27.hq.kind.CONFLICT": {
+  "text": "Offizielle Quellen widersprechen sich",
+  "why": "Missing translation"
+ },
+ "agency:v27.hq.kind.MISSING_GUIDE": {
+  "text": "Kein geprüfter Leitfaden",
+  "why": "Missing translation"
+ },
+ "agency:v27.hq.kind.REVIEW_REQUIRED": {
+  "text": "Prüfung nötig",
+  "why": "Missing translation"
+ },
+ "agency:v27.hq.kind.SPOT_CHECK": {
+  "text": "Stichprobe gegen das Original",
+  "why": "Missing translation"
+ },
+ "agency:v27.hq.kind.STALE": {
+  "text": "Leitfaden aus einer früheren Runde",
+  "why": "Missing translation"
+ },
+ "agency:v27.hq.waiting": {
+  "text": "{{count}} Bewerbungen in Vorbereitung",
+  "why": "Missing translation"
+ },
+ "agency:v27.ifApplies": {
+  "text": "Falls zutreffend",
+  "why": "Missing translation"
+ },
+ "agency:v27.issue.APOSTILLE": {
+  "text": "Apostille nötig",
+  "why": "Missing translation"
+ },
+ "agency:v27.issue.CHINA_CHSI": {
+  "text": "CHSI-Verifizierung nötig",
+  "why": "Missing translation"
+ },
+ "agency:v27.issue.CONSULAR": {
+  "text": "Konsularische Legalisation nötig",
+  "why": "Missing translation"
+ },
+ "agency:v27.issue.DONE": {
+  "text": "Erledigt",
+  "why": "Missing translation"
+ },
+ "agency:v27.issue.FIX": {
+  "text": "Korrektur nötig",
+  "why": "Missing translation"
+ },
+ "agency:v27.issue.IN_REVIEW": {
+  "text": "In Prüfung",
+  "why": "Missing translation"
+ },
+ "agency:v27.issue.LEGALIZATION_REVIEW": {
+  "text": "Legalisationsweg zu prüfen",
+  "why": "Missing translation"
+ },
+ "agency:v27.issue.NOTARIZATION": {
+  "text": "Notarielle Beglaubigung nötig",
+  "why": "Missing translation"
+ },
+ "agency:v27.issue.ORIGINAL_CHECKED": {
+  "text": "Original geprüft",
+  "why": "Missing translation"
+ },
+ "agency:v27.issue.TRANSLATION": {
+  "text": "Übersetzung nötig",
+  "why": "Missing translation"
+ },
+ "agency:v27.issue.UPLOAD": {
+  "text": "Upload nötig",
+  "why": "Missing translation"
+ },
+ "agency:v27.legal.APOSTILLE": {
+  "text": "Apostille",
+  "why": "Missing translation"
+ },
+ "agency:v27.legal.CHINA_CHSI": {
+  "text": "CHSI-Verifizierung (China) oder Apostille",
+  "why": "Missing translation"
+ },
+ "agency:v27.legal.CONSULAR": {
+  "text": "Konsularische Legalisation",
+  "why": "Missing translation"
+ },
+ "agency:v27.legal.NONE": {
+  "text": "Nicht nötig",
+  "why": "Missing translation"
+ },
+ "agency:v27.legal.STAFF_REVIEW": {
+  "text": "Anhand des Ausstellungslands prüfen",
+  "why": "Missing translation"
+ },
+ "agency:v27.legal.UNSPECIFIED": {
+  "text": "Im Leitfaden nicht angegeben",
+  "why": "Missing translation"
+ },
+ "agency:v27.party.agency": {
+  "text": "Unsere Aufgabe",
+  "why": "Missing translation"
+ },
+ "agency:v27.party.student": {
+  "text": "Aufgabe der studierenden Person",
+  "why": "Missing translation"
+ },
+ "agency:v27.stage.ADMIT": {
+  "text": "Zusage & Einschreibung",
+  "why": "Match '&' style of siblings"
+ },
+ "agency:v27.stage.APPLY": {
+  "text": "Bewerbung eingereicht",
+  "why": "'Sent' application = eingereicht"
+ },
+ "agency:v27.stage.overdue": {
+  "text": "Frist verstrichen",
+  "why": "Missing translation"
+ },
+ "agency:v27.stage.stalled": {
+  "text": "Seit {{count}} Tagen unverändert",
+  "why": "Missing translation"
+ },
+ "agency:v27.submit.IN_PERSON": {
+  "text": "Persönlich",
+  "why": "Missing translation"
+ },
+ "agency:v27.submit.MAIL": {
+  "text": "Per Post",
+  "why": "Missing translation"
+ },
+ "agency:v27.submit.ONLINE": {
+  "text": "Onlineformular",
+  "why": "Missing translation"
+ },
+ "agency:v27.submit.UPLOAD": {
+  "text": "Online-Upload",
+  "why": "Missing translation"
+ },
+ "agency:v27.submit.UPLOAD_MAIL": {
+  "text": "Hochladen, dann Original per Post senden",
+  "why": "Missing translation"
+ },
+ "agency:v29.guide.field.checklist": {
+  "text": "Dokumenten-Checkliste",
+  "why": "Missing translation"
+ },
+ "agency:v29.guide.field.current_intake": {
+  "text": "Leitfaden dieser Runde",
+  "why": "Missing translation"
+ },
+ "agency:v29.guide.field.deadline": {
+  "text": "Bewerbungsschluss",
+  "why": "Missing translation"
+ },
+ "agency:v29.guide.field.source_url": {
+  "text": "offizielle Quelle",
+  "why": "Missing translation"
+ },
+ "agency:v29.guide.field.submission_method": {
+  "text": "Einreichungsweg",
+  "why": "Missing translation"
+ },
+ "agency:v29.guide.field.verified_date": {
+  "text": "Prüfdatum",
+  "why": "Missing translation"
+ },
+ "agency:v29.guide.verifyRequired": {
+  "text": "Vor einer betreuten Bewerbung prüfen: {{fields}}",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.addOnStatus.ACTIVE": {
+  "text": "In Bearbeitung",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.addOnStatus.APPROVED": {
+  "text": "Aktiv (Altvertrag)",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.addOnStatus.AWAITING_PAYMENT": {
+  "text": "Zahlung ausstehend",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.addOnStatus.COMPLETED": {
+  "text": "Erledigt",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.addOnStatus.OFFERED": {
+  "text": "Vorgeschlagen",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.duty.dedicated": {
+  "text": "Festes Team · vorrangige Antworten",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.duty.docs.CHECKLIST": {
+  "text": "Unterlagen: Checkliste",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.duty.docs.INTENSIVE": {
+  "text": "Unterlagen: intensive Prüfung",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.duty.docs.REVIEW_GUIDANCE": {
+  "text": "Unterlagen: Prüfung mit Hinweisen zur Korrektur",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.duty.dorm.APPLICATION": {
+  "text": "Wohnheim: Hilfe beim Antrag und andere Wohnmöglichkeiten",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.duty.dorm.INFORMATION": {
+  "text": "Wohnheim: Informationen",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.duty.dorm.SCHEDULE": {
+  "text": "Wohnheim: Antragsfristen im Blick",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.duty.settle.FULL": {
+  "text": "Einleben: D-30 bis D+30",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.duty.settle.INFORMATION": {
+  "text": "Einleben: Grundinformationen",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.duty.settle.NONE": {
+  "text": "Einleben: nicht enthalten",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.duty.visa.DOCUMENT_PREP": {
+  "text": "Visum: Hilfe bei der Vorbereitung der Unterlagen",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.duty.visa.GUIDANCE": {
+  "text": "Visum: Erklärung des Ablaufs",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.duty.visa.INTENSIVE": {
+  "text": "Visum: Unterlagen und wichtige Termine betreut",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.legacy": {
+  "text": "Gekauft unter {{version}}",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.offer.howItWorks": {
+  "text": "Gilt erst, wenn die studierende Person Preis und Umfang gesehen, zugestimmt und bezahlt hat.",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.offer.open": {
+  "text": "Zusatzleistung vorschlagen",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.offer.quantity": {
+  "text": "Menge ({{unit}})",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.offer.quote": {
+  "text": "Individuelles Angebot: Preis und Umfang eingeben",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.offer.range": {
+  "text": "Empfohlene Spanne {{min}}–{{max}}",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.offer.scope": {
+  "text": "Hinweis zum Umfang (für Studierende sichtbar)",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.offer.scopeRequired": {
+  "text": "Umfang (erforderlich, für Studierende sichtbar)",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.offer.send": {
+  "text": "Der studierenden Person vorschlagen",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.offer.service": {
+  "text": "Leistung",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.offer.total": {
+  "text": "Zu zahlen: {{amount}}",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.offer.unitPrice": {
+  "text": "Stückpreis (USD)",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.term.arrival": {
+  "text": "Ankunft",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.term.arrivalLabel": {
+  "text": "Geplantes Ankunftsdatum",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.term.arrivalUnknown": {
+  "text": "Ankunftsdatum nicht bestätigt",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.term.arrivalWindow": {
+  "text": "Vorbereitung ab {{from}} · Ankunft {{arrive}} · endet {{until}}",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.term.ended": {
+  "text": "Leistungszeitraum beendet",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.term.endsLabel": {
+  "text": "Vertragsende",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.term.notStarted": {
+  "text": "Vor der ersten Beratung",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.term.saved": {
+  "text": "Leistungsdaten gespeichert.",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.term.set": {
+  "text": "Daten speichern",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.term.since": {
+  "text": "Begonnen am {{date}}",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.term.support": {
+  "text": "Beratungen bis {{date}}",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.term.supportDays": {
+  "text": "{{count}} Tage ab der ersten Beratung",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.term.title": {
+  "text": "Leistungszeitraum",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.term.toAgree": {
+  "text": "Leistungszeitraum nicht festgelegt",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.term.until": {
+  "text": "Bis {{date}}",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.unrationed.CONTRACTED_DOCUMENTS": {
+  "text": "Keine Begrenzung im Rahmen der vertraglich vereinbarten Unterlagen und des Zeitplans",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.unrationed.PRIORITY": {
+  "text": "Vorrangige Antworten",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.unrationed.ROUNDS": {
+  "text": "Enthalten",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.unrationed.TEAM": {
+  "text": "Nachbetreuung durch das Team",
+  "why": "Missing translation"
+ },
+ "agency:v29.plan.usedSoFar": {
+  "text": "{{count}} erledigt",
+  "why": "Missing translation"
+ },
+ "agency:v30.def.ops.ageing": {
+  "text": "Tage seit der letzten Bewegung des Falls: der späteste Zeitpunkt aus Phasenwechsel, Änderung des Bewerbungsstatus oder Zuweisung an diese Agentur.",
+  "why": "Missing translation"
+ },
+ "agency:v30.def.ops.backlog": {
+  "text": "Offene Arbeit am Ende jeder Woche: noch nicht erledigte Teamaufgaben (nicht die eigenen Aufgaben der Studierenden), noch nicht geprüfte Dokumentversionen und zur Prüfung eingereichte, noch nicht geprüfte Essays (aktuelle Prüfrunde).",
+  "why": "Missing translation"
+ },
+ "agency:v30.def.ops.blocked": {
+  "text": "Ein Fall gilt als blockiert, wenn er auf eine Partei wartet und sich seit mehr als 14 Tagen nicht bewegt hat. Älteste zuerst.",
+  "why": "Missing translation"
+ },
+ "agency:v30.def.ops.deadlines": {
+  "text": "Noch nicht eingereichte Bewerbungen, deren Bewerbungsschluss innerhalb von 14 Tagen liegt und bei denen noch erforderliche Punkte fehlen.",
+  "why": "Missing translation"
+ },
+ "agency:v30.def.ops.load": {
+  "text": "Gewichtete Last pro Person: jede Art offener Arbeit × ihr Gewicht (Gewichtstabelle der Agentur), verglichen mit der persönlichen Kapazität in denselben Punkten. Überlastet = Last über der Kapazität. Abwesende Personen erhalten keine neue Arbeit.",
+  "why": "Missing translation"
+ },
+ "agency:v30.def.ops.sla": {
+  "text": "Erstantwort nicht bis zur Fälligkeit gegeben; Dokumente länger als 48 Stunden in der Prüfwarteschlange; Essay-Prüfungen über der zugesagten Prüfzeit.",
+  "why": "Missing translation"
+ },
+ "agency:v30.def.ops.stages": {
+  "text": "Median der Tage, die eine Bewerbung in einem Status blieb, bevor sie weiterging (Aufenthalte, die in den letzten 365 Tagen endeten). Unter {{n}} Aufenthalten nicht angezeigt.",
+  "why": "Missing translation"
+ },
+ "agency:v30.def.ops.unassigned_paid": {
+  "text": "Für eine Hangyul-Leistung bezahlt, aber keine Beratungsperson ist für den Fall zuständig (bei Hangyul: noch keine Agentur zugewiesen).",
+  "why": "Missing translation"
+ },
+ "agency:v30.def.svc.arrival": {
+  "text": "Erledigte Flughafenabholungen ÷ Abholungen, deren Ankunftszeit vorbei ist (ohne stornierte)",
+  "why": "Missing translation"
+ },
+ "agency:v30.def.svc.completion": {
+  "text": "Erledigte ÷ im Zeitraum angelegte Fälle (ohne stornierte)",
+  "why": "Missing translation"
+ },
+ "agency:v30.def.svc.resolution": {
+  "text": "Median der Stunden von Anfrage bis Erledigung, nur erledigte Fälle",
+  "why": "Missing translation"
+ },
+ "agency:v30.def.svc.sla": {
+  "text": "Fälle, in denen das Team nach Ablauf des SLA gehandelt hat (oder nicht gehandelt hat und das SLA abgelaufen ist) ÷ Fälle mit fälligem SLA",
+  "why": "Missing translation"
+ },
+ "agency:v31.stage.closed": {
+  "text": "Abgeschlossen",
+  "why": "Missing translation"
+ },
+ "agency:waiting.app.ADDITIONAL_DOCUMENTS": {
+  "text": "Hochschule hat ein Dokument angefordert",
+  "why": "Missing translation"
+ },
+ "agency:waiting.app.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "Visum starten",
+  "why": "Missing translation"
+ },
+ "agency:waiting.app.ADMISSION_CERTIFICATE_PENDING": {
+  "text": "Zulassungsschreiben",
+  "why": "Missing translation"
+ },
+ "agency:waiting.app.INTERVIEW": {
+  "text": "Auswahlgespräch",
+  "why": "Admission interview term"
+ },
+ "agency:waiting.app.PROFILE_REVIEW": {
+  "text": "Profilprüfung",
+  "why": "Missing translation"
+ },
+ "agency:waiting.app.READY": {
+  "text": "bereit zum Einreichen",
+  "why": "Missing translation"
+ },
+ "agency:waiting.app.TUITION_PAID": {
+  "text": "Zulassungsschreiben",
+  "why": "Missing translation"
+ },
+ "agency:waiting.app.TUITION_PENDING": {
+  "text": "Zahlung der Studiengebühren",
+  "why": "Missing translation"
+ },
+ "agency:waiting.app.VISA_SUBMITTED": {
+  "text": "Visumentscheidung (Botschaft)",
+  "why": "Missing translation"
+ },
+ "agency:waiting.reason.first_contact": {
+  "text": "Erstkontakt fällig",
+  "why": "Missing translation"
+ },
+ "agency:waiting.reason.fix_one": {
+  "text": "{{count}} Dokument zu korrigieren",
+  "why": "Missing translation"
+ },
+ "agency:waiting.reason.fix_other": {
+  "text": "{{count}} Dokumente zu korrigieren",
+  "why": "Missing translation"
+ },
+ "agency:waiting.reason.overdue_task_one": {
+  "text": "{{count}} überfällige Aufgabe",
+  "why": "Missing translation"
+ },
+ "agency:waiting.reason.overdue_task_other": {
+  "text": "{{count}} überfällige Aufgaben",
+  "why": "Missing translation"
+ },
+ "agency:waiting.reason.reply": {
+  "text": "studierende Person hat geantwortet",
+  "why": "Missing translation"
+ },
+ "agency:waiting.reason.review_one": {
+  "text": "{{count}} Dokument zu prüfen",
+  "why": "Missing translation"
+ },
+ "agency:waiting.reason.review_other": {
+  "text": "{{count}} Dokumente zu prüfen",
+  "why": "Missing translation"
+ },
+ "agency:ws.act.call": {
+  "text": "Beratung buchen",
+  "why": "Missing translation"
+ },
+ "agency:ws.activityNote": {
+  "text": "Aus dem Audit-Log: Aufrufe, Änderungen und Entscheidungen zu den Daten dieser studierenden Person.",
+  "why": "Missing translation"
+ },
+ "agency:ws.apptHint": {
+  "text": "Beratungen und Probeinterviews mit dieser studierenden Person.",
+  "why": "Missing translation"
+ },
+ "agency:ws.assignedBy": {
+  "text": "Zugewiesen durch {{by}}",
+  "why": "Missing translation"
+ },
+ "agency:ws.block.deadline_one": {
+  "text": "Bewerbungsschluss bei {{uni}} in {{count}} Tag",
+  "why": "Glossary: application deadline"
+ },
+ "agency:ws.block.deadline_other": {
+  "text": "Bewerbungsschluss bei {{uni}} in {{count}} Tagen",
+  "why": "Missing translation"
+ },
+ "agency:ws.block.overdue": {
+  "text": "Überfällig: {{title}}",
+  "why": "Missing translation"
+ },
+ "agency:ws.block.review_one": {
+  "text": "{{count}} Dokument wartet auf Ihre Prüfung",
+  "why": "Missing translation"
+ },
+ "agency:ws.block.review_other": {
+  "text": "{{count}} Dokumente warten auf Ihre Prüfung",
+  "why": "Missing translation"
+ },
+ "agency:ws.block.sla": {
+  "text": "Wartet auf Ihre Erstantwort",
+  "why": "Missing translation"
+ },
+ "agency:ws.block.slaDetail": {
+  "text": "Das Ziel für die Erstantwort ist {{when}} verstrichen",
+  "why": "Missing translation"
+ },
+ "agency:ws.block.uniRequest": {
+  "text": "{{uni}} hat weitere Dokumente angefordert",
+  "why": "Missing translation"
+ },
+ "agency:ws.blockedBy": {
+  "text": "Zuerst erledigen: {{deps}}",
+  "why": "Missing translation"
+ },
+ "agency:ws.blockers": {
+  "text": "Blocker",
+  "why": "Missing translation"
+ },
+ "agency:ws.budget": {
+  "text": "Jahresbudget",
+  "why": "Missing translation"
+ },
+ "agency:ws.by.ENGINE": {
+  "text": "die Matching-Engine",
+  "why": "Missing translation"
+ },
+ "agency:ws.by.MANUAL": {
+  "text": "die Administration",
+  "why": "Missing translation"
+ },
+ "agency:ws.by.OPERATIONS_OVERRIDE": {
+  "text": "Hangyul-Betrieb (Übersteuerung)",
+  "why": "Missing translation"
+ },
+ "agency:ws.by.ORDER": {
+  "text": "einen Leistungskauf",
+  "why": "Missing translation"
+ },
+ "agency:ws.dob": {
+  "text": "Geburtsdatum",
+  "why": "Missing translation"
+ },
+ "agency:ws.docsHint": {
+  "text": "Alle Dokumente im Dokumentensafe der studierenden Person. Sie werden für alle Bewerbungen wiederverwendet.",
+  "why": "One term: Dokumentensafe (vault)"
+ },
+ "agency:ws.education": {
+  "text": "Ausbildung",
+  "why": "Missing translation"
+ },
+ "agency:ws.expires": {
+  "text": "Läuft ab am {{date}}",
+  "why": "Missing translation"
+ },
+ "agency:ws.factor.country": {
+  "text": "Länderkenntnis",
+  "why": "Missing translation"
+ },
+ "agency:ws.factor.degree": {
+  "text": "Erfahrung mit dem Abschluss",
+  "why": "Missing translation"
+ },
+ "agency:ws.factor.language": {
+  "text": "Sprachliche Passung",
+  "why": "Missing translation"
+ },
+ "agency:ws.factor.preference": {
+  "text": "Wunsch der studierenden Person",
+  "why": "Missing translation"
+ },
+ "agency:ws.factor.sla": {
+  "text": "Jüngste SLA-Bilanz",
+  "why": "Missing translation"
+ },
+ "agency:ws.factor.university": {
+  "text": "Zielhochschulen",
+  "why": "Missing translation"
+ },
+ "agency:ws.factor.workload": {
+  "text": "Freie Kapazität",
+  "why": "Missing translation"
+ },
+ "agency:ws.fields": {
+  "text": "Fachrichtungen",
+  "why": "Missing translation"
+ },
+ "agency:ws.gpa": {
+  "text": "Notendurchschnitt (GPA)",
+  "why": "Missing translation"
+ },
+ "agency:ws.gpaNorm": {
+  "text": "{{pct}} % normalisiert",
+  "why": "Missing translation"
+ },
+ "agency:ws.identity": {
+  "text": "Identität & Wohnsitz",
+  "why": "Missing translation"
+ },
+ "agency:ws.itemsInReview_one": {
+  "text": "{{count}} Punkt in Prüfung",
+  "why": "Restores 'item'"
+ },
+ "agency:ws.itemsInReview_other": {
+  "text": "{{count}} Punkte in Prüfung",
+  "why": "Missing translation"
+ },
+ "agency:ws.itemsRemain_one": {
+  "text": "{{count}} Punkt offen",
+  "why": "Missing translation"
+ },
+ "agency:ws.languages": {
+  "text": "Sprachtests",
+  "why": "Missing translation"
+ },
+ "agency:ws.level.ASSOCIATE": {
+  "text": "Associate Degree",
+  "why": "Missing translation"
+ },
+ "agency:ws.level.BACHELOR": {
+  "text": "Bachelor",
+  "why": "Missing translation"
+ },
+ "agency:ws.level.DOCTORATE": {
+  "text": "Promotion",
+  "why": "Missing translation"
+ },
+ "agency:ws.level.HIGH_SCHOOL": {
+  "text": "Sekundarschule",
+  "why": "Missing translation"
+ },
+ "agency:ws.level.MASTER": {
+  "text": "Master",
+  "why": "Missing translation"
+ },
+ "agency:ws.maskedHint": {
+  "text": "Aus Datenschutzgründen maskiert. Die vollständige Nummer steht nur im Dokumentensafe der studierenden Person.",
+  "why": "Missing translation"
+ },
+ "agency:ws.noActivity": {
+  "text": "Noch keine Aktivität erfasst",
+  "why": "Missing translation"
+ },
+ "agency:ws.noApps": {
+  "text": "Noch keine Bewerbungen",
+  "why": "Missing translation"
+ },
+ "agency:ws.noAppsText": {
+  "text": "Bewerbungen erscheinen hier, sobald die studierende Person eine beginnt.",
+  "why": "Missing translation"
+ },
+ "agency:ws.noBreakdown": {
+  "text": "Für diese Zuweisung wurde keine Punkteaufschlüsselung erfasst.",
+  "why": "Missing translation"
+ },
+ "agency:ws.noConversations": {
+  "text": "Noch keine Unterhaltungen mit dieser studierenden Person",
+  "why": "Missing translation"
+ },
+ "agency:ws.noDocs": {
+  "text": "Noch keine Dokumente im Dokumentensafe",
+  "why": "Missing translation"
+ },
+ "agency:ws.noEducation": {
+  "text": "Noch keine Ausbildung eingetragen.",
+  "why": "Missing translation"
+ },
+ "agency:ws.noEssays": {
+  "text": "Noch keine Essays",
+  "why": "Missing translation"
+ },
+ "agency:ws.noLanguages": {
+  "text": "Noch keine Sprachtestergebnisse.",
+  "why": "Missing translation"
+ },
+ "agency:ws.noVisa": {
+  "text": "Noch kein Visumfall",
+  "why": "Missing translation"
+ },
+ "agency:ws.noVisaText": {
+  "text": "Ein Visumfall wird automatisch eröffnet, sobald die Hochschule das Standard-Zulassungsschreiben ausstellt.",
+  "why": "Missing translation"
+ },
+ "agency:ws.notAssigned": {
+  "text": "Keiner Agentur zugewiesen",
+  "why": "Missing translation"
+ },
+ "agency:ws.passport": {
+  "text": "Reisepass",
+  "why": "Missing translation"
+ },
+ "agency:ws.passportExpiry": {
+  "text": "Ablauf des Reisepasses",
+  "why": "Missing translation"
+ },
+ "agency:ws.planned": {
+  "text": "geplant",
+  "why": "Missing translation"
+ },
+ "agency:ws.preferences": {
+  "text": "Präferenzen",
+  "why": "Missing translation"
+ },
+ "agency:ws.profileTitle": {
+  "text": "Profil",
+  "why": "Missing translation"
+ },
+ "agency:ws.regions": {
+  "text": "Regionen",
+  "why": "Missing translation"
+ },
+ "agency:ws.residence": {
+  "text": "Wohnsitzland",
+  "why": "Missing translation"
+ },
+ "agency:ws.scholarship": {
+  "text": "Stipendium benötigt",
+  "why": "Missing translation"
+ },
+ "agency:ws.score": {
+  "text": "Passungswert {{score}} / 100",
+  "why": "Missing translation"
+ },
+ "agency:ws.selfReported": {
+  "text": "selbst angegeben",
+  "why": "Missing translation"
+ },
+ "agency:ws.sinceDate": {
+  "text": "Zugewiesen seit {{date}}",
+  "why": "Missing translation"
+ },
+ "agency:ws.sponsor": {
+  "text": "Finanzierung durch",
+  "why": "Missing translation"
+ },
+ "agency:ws.sponsorKind.EMPLOYER": {
+  "text": "Arbeitgeber",
+  "why": "Missing translation"
+ },
+ "agency:ws.sponsorKind.PARENTS": {
+  "text": "Eltern",
+  "why": "Missing translation"
+ },
+ "agency:ws.sponsorKind.RELATIVE": {
+  "text": "Verwandte",
+  "why": "Missing translation"
+ },
+ "agency:ws.sponsorKind.SCHOLARSHIP": {
+  "text": "Stipendium",
+  "why": "Missing translation"
+ },
+ "agency:ws.sponsorKind.SELF": {
+  "text": "Selbst",
+  "why": "Missing translation"
+ },
+ "agency:ws.stage": {
+  "text": "Pipeline-Phase",
+  "why": "Missing translation"
+ },
+ "agency:ws.tab.essays": {
+  "text": "Texte",
+  "why": "'Schreiben' reads as 'letter'; sidebar says Texte"
+ },
+ "agency:ws.tab.history": {
+  "text": "Verlauf",
+  "why": "Missing translation"
+ },
+ "agency:ws.tab.messages": {
+  "text": "Nachrichten",
+  "why": "Missing translation"
+ },
+ "agency:ws.tab.portfolio": {
+  "text": "Portfolio",
+  "why": "Missing translation"
+ },
+ "agency:ws.tab.tasks": {
+  "text": "Aufgaben",
+  "why": "Missing translation"
+ },
+ "agency:ws.targetEntry": {
+  "text": "Geplantes Ankunftsdatum",
+  "why": "Same term as plan.term.arrivalLabel"
+ },
+ "agency:ws.tasksHint": {
+  "text": "Aufgaben des Teams und für die studierende Person sichtbare Aufgaben.",
+  "why": "Missing translation"
+ },
+ "agency:ws.visaHistory": {
+  "text": "Bisherige koreanische Visa",
+  "why": "Missing translation"
+ },
+ "agency:ws.visaIssued": {
+  "text": "Erteilt am",
+  "why": "Match status 'Visum erteilt'"
+ },
+ "agency:ws.weightsNote": {
+  "text": "Erzielte Punkte je Faktor im Verhältnis zu seinem Gewicht (Gesamtgewicht {{total}}). Die Werte erklären die Auswahl; sie sind keine Qualitätsbewertung.",
+  "why": "Missing translation"
+ },
+ "agency:ws.whyAssigned": {
+  "text": "Warum diese Zuweisung?",
+  "why": "Missing translation"
+ },
+ "university:af.applications": {
+  "text": "Bewerbungen",
+  "why": "Missing translation"
+ },
+ "university:af.fromPrevious": {
+  "text": "Vom vorigen Schritt",
+  "why": "Missing translation"
+ },
+ "university:af.lowN": {
+  "text": "Zu wenige für eine Quote",
+  "why": "Missing translation"
+ },
+ "university:af.step": {
+  "text": "Schritt",
+  "why": "Missing translation"
+ },
+ "university:af.stepDef.ACCEPTED": {
+  "text": "Die bewerbende Person hat Ihre Zusage angenommen.",
+  "why": "Sie register; slash form removed"
+ },
+ "university:af.stepDef.ARRIVED": {
+  "text": "Die studierende Person hat ihre Ankunft in Korea gemeldet (oder ist eingeschrieben).",
+  "why": "Missing translation"
+ },
+ "university:af.stepDef.ENROLLED": {
+  "text": "Sie haben die Einschreibung bestätigt.",
+  "why": "Console register: Sie"
+ },
+ "university:af.stepDef.OFFERED": {
+  "text": "Sie haben eine Zusage erteilt.",
+  "why": "Console register: Sie"
+ },
+ "university:af.stepDef.REVIEWED": {
+  "text": "Ihr Team hat eine Prüfung begonnen, Dokumente angefordert, ein Auswahlgespräch geführt oder entschieden.",
+  "why": "Missing translation"
+ },
+ "university:af.stepDef.SUBMITTED": {
+  "text": "An Ihre Hochschule eingereichte Bewerbungen.",
+  "why": "Missing translation"
+ },
+ "university:af.stepDef.TUITION_PAID": {
+  "text": "Sie haben die Zahlung der Studiengebühren bestätigt.",
+  "why": "Missing translation"
+ },
+ "university:af.stepDef.VISA_ISSUED": {
+  "text": "Das Visum D-2/D-4 der studierenden Person wurde erteilt.",
+  "why": "Missing translation"
+ },
+ "university:af.stepName.VISA_ISSUED": {
+  "text": "Visum erteilt",
+  "why": "One term: erteilt"
+ },
+ "university:af.title": {
+  "text": "Zulassungstrichter",
+  "why": "Missing translation"
+ },
+ "university:analytics.dim.agency": {
+  "text": "Agentur",
+  "why": "Missing translation"
+ },
+ "university:analytics.dim.nationality": {
+  "text": "Staatsangehörigkeit",
+  "why": "Missing translation"
+ },
+ "university:analytics.dim.program": {
+  "text": "Studiengang",
+  "why": "Missing translation"
+ },
+ "university:applicants.col.deadline": {
+  "text": "Bewerbungsschluss",
+  "why": "Glossary: application deadline"
+ },
+ "university:applicants.col.student": {
+  "text": "Bewerbende",
+  "why": "Slash form not gender-neutral"
+ },
+ "university:applicants.customStatus_other": {
+  "text": "{{count}} Status ausgewählt",
+  "why": "Missing translation"
+ },
+ "university:applicants.flagged": {
+  "text": "Markiert",
+  "why": "Missing translation"
+ },
+ "university:applicants.privacyNote": {
+  "text": "Es werden nur Bewerbungen an Ihre Hochschule aufgeführt. Exporte werden im Audit-Trail protokolliert.",
+  "why": "Sie register; one term Hochschule"
+ },
+ "university:applicants.requested_one": {
+  "text": "{{count}} Dokument angefordert",
+  "why": "Restores 'document'"
+ },
+ "university:applicants.requested_other": {
+  "text": "{{count}} Dokumente angefordert",
+  "why": "Missing translation"
+ },
+ "university:applicants.sortBy.deadline": {
+  "text": "Frühester Bewerbungsschluss",
+  "why": "Glossary: application deadline"
+ },
+ "university:applicants.status": {
+  "text": "Status",
+  "why": "Missing translation"
+ },
+ "university:common.yes": {
+  "text": "Ja",
+  "why": "Missing translation"
+ },
+ "university:dash.noApplicants": {
+  "text": "Für diese Filter gibt es noch keine eingereichten Bewerbungen.",
+  "why": "Missing translation"
+ },
+ "university:decision.action.ADDITIONAL_DOCUMENTS": {
+  "text": "Dokumente anfordern",
+  "why": "Missing translation"
+ },
+ "university:decision.action.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "Zulassungsschreiben ausstellen",
+  "why": "Missing translation"
+ },
+ "university:decision.action.ADMISSION_CERTIFICATE_PENDING": {
+  "text": "Zulassungsschreiben als ausstehend markieren",
+  "why": "Missing translation"
+ },
+ "university:decision.action.ENROLLED": {
+  "text": "Einschreibung bestätigen",
+  "why": "Missing translation"
+ },
+ "university:decision.action.INTERVIEW": {
+  "text": "Auswahlgespräch planen",
+  "why": "Missing translation"
+ },
+ "university:decision.action.OFFERED": {
+  "text": "Zusage erteilen",
+  "why": "Missing translation"
+ },
+ "university:decision.action.REJECTED": {
+  "text": "Ablehnen",
+  "why": "Missing translation"
+ },
+ "university:decision.action.TUITION_PAID": {
+  "text": "Zahlung der Studiengebühren bestätigen",
+  "why": "Missing translation"
+ },
+ "university:decision.action.TUITION_PENDING": {
+  "text": "Rechnung über Studiengebühren ausstellen",
+  "why": "Missing translation"
+ },
+ "university:decision.action.UNIVERSITY_REVIEW": {
+  "text": "Prüfung beginnen",
+  "why": "Missing translation"
+ },
+ "university:decision.action.WAITLISTED": {
+  "text": "Auf die Warteliste setzen",
+  "why": "Missing translation"
+ },
+ "university:decision.certificateInfo": {
+  "text": "Mit der Ausstellung des Standard-Zulassungsschreibens wird automatisch der Visumfall der studierenden Person eröffnet.",
+  "why": "Missing translation"
+ },
+ "university:decision.confirm": {
+  "text": "{{student}} von „{{from}}“ nach „{{to}}“ verschieben. Die studierende Person und ihre Agentur werden benachrichtigt.",
+  "why": "Missing translation"
+ },
+ "university:decision.done": {
+  "text": "Bewerbung nach „{{status}}“ verschoben.",
+  "why": "Missing translation"
+ },
+ "university:decision.interviewAt": {
+  "text": "Datum und Uhrzeit des Auswahlgesprächs",
+  "why": "Missing translation"
+ },
+ "university:decision.none": {
+  "text": "In dieser Phase ist keine Aktion der Hochschule fällig.",
+  "why": "Missing translation"
+ },
+ "university:decision.note": {
+  "text": "Notiz",
+  "why": "Missing translation"
+ },
+ "university:decision.noteHint": {
+  "text": "Wird im Statusverlauf gespeichert und mit der studierenden Person und der Agentur geteilt.",
+  "why": "Missing translation"
+ },
+ "university:decision.readOnly": {
+  "text": "Ihre Rolle hat nur Lesezugriff. Entscheidungen treffen die Zulassungsstelle oder die Administration.",
+  "why": "Missing translation"
+ },
+ "university:decision.reason": {
+  "text": "Grund",
+  "why": "Missing translation"
+ },
+ "university:decision.reasonHint": {
+  "text": "Wird im Bewerbungsverlauf gespeichert. Die bewerbende Person sieht eine respektvolle Zusammenfassung, die zuständige Beratung sieht Ihre Begründung.",
+  "why": "Missing translation"
+ },
+ "university:decision.rejectWarning": {
+  "text": "Ablehnungen sind in Hangyul endgültig. Erwägen Sie die Warteliste, falls ein Platz frei werden könnte.",
+  "why": "Missing translation"
+ },
+ "university:decision.scholarshipNote": {
+  "text": "Hinweis zum Stipendium",
+  "why": "Missing translation"
+ },
+ "university:decision.scholarshipNoteHint": {
+  "text": "Z. B. „30 % Erlass der Studiengebühren im ersten Semester“. Wird der studierenden Person mit der Zusage angezeigt.",
+  "why": "Missing translation"
+ },
+ "university:decision.title": {
+  "text": "Entscheidung",
+  "why": "Missing translation"
+ },
+ "university:decision.tuitionAmount": {
+  "text": "Höhe der Studiengebühren (KRW)",
+  "why": "Missing translation"
+ },
+ "university:decision.tuitionDue": {
+  "text": "Zahlungsfrist",
+  "why": "Missing translation"
+ },
+ "university:detail.applicant": {
+  "text": "Bewerbende Person",
+  "why": "Missing translation"
+ },
+ "university:detail.decided": {
+  "text": "Entscheidungsdatum",
+  "why": "Missing translation"
+ },
+ "university:detail.externalRef": {
+  "text": "Ihre Referenz",
+  "why": "Missing translation"
+ },
+ "university:detail.externalRefHint": {
+  "text": "Ihre eigene Bewerbungs- oder Zulassungsnummer (für Hangyul und die Agentur sichtbar).",
+  "why": "Missing translation"
+ },
+ "university:detail.gpaNormalized": {
+  "text": "GPA {{value}} % (normalisiert)",
+  "why": "Missing translation"
+ },
+ "university:detail.gpaUnknown": {
+  "text": "GPA nicht angegeben",
+  "why": "Missing translation"
+ },
+ "university:detail.history": {
+  "text": "Statusverlauf",
+  "why": "Missing translation"
+ },
+ "university:detail.interview": {
+  "text": "Auswahlgespräch",
+  "why": "Missing translation"
+ },
+ "university:detail.legalization": {
+  "text": "Apostille oder konsularische Legalisation",
+  "why": "Missing translation"
+ },
+ "university:detail.noEducation": {
+  "text": "Keine Bildungsnachweise geteilt.",
+  "why": "Missing translation"
+ },
+ "university:detail.notShared": {
+  "text": "Nicht geteilt",
+  "why": "Missing translation"
+ },
+ "university:detail.notSharedHint": {
+  "text": "Die studierende Person hat dieses Dokument nicht mit Ihrer Hochschule geteilt.",
+  "why": "Missing translation"
+ },
+ "university:detail.optionalDoc": {
+  "text": "Optional",
+  "why": "Missing translation"
+ },
+ "university:detail.refSaved": {
+  "text": "Referenz gespeichert",
+  "why": "Missing translation"
+ },
+ "university:detail.residence": {
+  "text": "Wohnsitzland",
+  "why": "Missing translation"
+ },
+ "university:detail.scholarshipNote": {
+  "text": "Hinweis zum Stipendium",
+  "why": "Missing translation"
+ },
+ "university:detail.selfReported": {
+  "text": "Selbst angegeben",
+  "why": "Missing translation"
+ },
+ "university:detail.sharingNote": {
+  "text": "Sie können die Dokumente einsehen, die die studierende Person bei der Einreichung mit Ihrer Hochschule geteilt hat. Jeder Aufruf wird protokolliert.",
+  "why": "Missing translation"
+ },
+ "university:detail.side": {
+  "text": "Bewerbungsdetails",
+  "why": "Missing translation"
+ },
+ "university:detail.translation": {
+  "text": "Übersetzung",
+  "why": "Missing translation"
+ },
+ "university:detail.tuition": {
+  "text": "Studiengebühren",
+  "why": "Missing translation"
+ },
+ "university:detail.verified": {
+  "text": "Geprüft",
+  "why": "Missing translation"
+ },
+ "university:documents.analystNote": {
+  "text": "Personen mit Analyse-Rolle können Dokumente in der Vorschau ansehen, aber nicht herunterladen.",
+  "why": "Missing translation"
+ },
+ "university:documents.emptyText": {
+  "text": "Dokumente erscheinen hier, sobald Studierende Bewerbungen an Ihre Hochschule einreichen.",
+  "why": "Console register: Sie"
+ },
+ "university:documents.expires": {
+  "text": "Läuft ab",
+  "why": "Missing translation"
+ },
+ "university:documents.file": {
+  "text": "Datei",
+  "why": "Missing translation"
+ },
+ "university:documents.hangyulBody": {
+  "text": "Als Hangyul-Personal sind Sie auf dieser Seite nicht auf eine Hochschule beschränkt. Öffnen Sie eine Bewerbung, um genau zu sehen, welche Dokumente die studierende Person mit dieser Hochschule geteilt hat.",
+  "why": "Missing translation"
+ },
+ "university:documents.hangyulTitle": {
+  "text": "Dokumente aus einer Bewerbung öffnen",
+  "why": "Missing translation"
+ },
+ "university:documents.issued": {
+  "text": "Ausgestellt",
+  "why": "Missing translation"
+ },
+ "university:documents.legalization": {
+  "text": "Beglaubigung & Legalisation",
+  "why": "Restores notarization"
+ },
+ "university:documents.openApplication": {
+  "text": "Bewerbung öffnen",
+  "why": "Missing translation"
+ },
+ "university:documents.openTab": {
+  "text": "In neuem Tab öffnen",
+  "why": "Missing translation"
+ },
+ "university:documents.sharingRule": {
+  "text": "Studierende teilen Dokumente mit Ihrer Hochschule, wenn sie eine Bewerbung einreichen. Nicht geteilte Dokumente erscheinen hier nie. Jeder Aufruf wird protokolliert.",
+  "why": "Sie register; 'with your university'"
+ },
+ "university:documents.student": {
+  "text": "Studierende",
+  "why": "Slash form not gender-neutral"
+ },
+ "university:documents.subtitle": {
+  "text": "Dokumente, die Studierende mit Ihrer Hochschule geteilt haben.",
+  "why": "Console register: Sie"
+ },
+ "university:documents.usedIn": {
+  "text": "In Bewerbungen verwendet",
+  "why": "Missing translation"
+ },
+ "university:header.certificationHint": {
+  "text": "IEQAS-Zertifizierungsstatus (Akkreditierung des Bildungsministeriums für die Gewinnung und Betreuung internationaler Studierender)",
+  "why": "Missing translation"
+ },
+ "university:header.hangyulView": {
+  "text": "Ansicht für Hangyul-Personal",
+  "why": "Missing translation"
+ },
+ "university:header.partner": {
+  "text": "Hangyul-Partner",
+  "why": "Missing translation"
+ },
+ "university:kpi.definitionOf": {
+  "text": "Definition von {{label}}",
+  "why": "Missing translation"
+ },
+ "university:kpi.insufficientDetail": {
+  "text": "Wird ab {{min}} Datensätzen angezeigt (derzeit {{n}}).",
+  "why": "Clearer order, matches English"
+ },
+ "university:kpi.sample": {
+  "text": "n = {{n}}",
+  "why": "Missing translation"
+ },
+ "university:kpi.viewList": {
+  "text": "Liste ansehen",
+  "why": "Missing translation"
+ },
+ "university:kpi.yield": {
+  "text": "Einschreibungsquote",
+  "why": "Missing translation"
+ },
+ "university:login.ssoContinue": {
+  "text": "Mit Ihrem Hochschulkonto fortfahren",
+  "why": "Missing translation"
+ },
+ "university:login.ssoEnforced": {
+  "text": "{{org}} erfordert Single Sign-on. Nutzen Sie die Schaltfläche oben.",
+  "why": "Missing translation"
+ },
+ "university:login.ssoHint": {
+  "text": "{{org}} nutzt Single Sign-on. Sie können sich auch mit Ihrem Passwort anmelden.",
+  "why": "Missing translation"
+ },
+ "university:login.ssoUnavailable": {
+  "text": "{{org}} ist für die SAML-Anmeldung eingerichtet, die noch nicht verfügbar ist. Wenden Sie sich an den Hangyul-Support.",
+  "why": "Missing translation"
+ },
+ "university:login.subtitle": {
+  "text": "Für International Offices und Zulassungsteams an Partnerhochschulen von Hangyul.",
+  "why": "Missing translation"
+ },
+ "university:login.title": {
+  "text": "Bei der Universitäts-Konsole anmelden",
+  "why": "Missing translation; product name as in bundle"
+ },
+ "university:metric.period": {
+  "text": "eingereicht {{from}} – {{to}}",
+  "why": "Missing translation"
+ },
+ "university:metric.population": {
+  "text": "Grundgesamtheit: eingereichte Bewerbungen · {{intake}} · {{n}} Bewerbungen",
+  "why": "Missing translation"
+ },
+ "university:nav.programsRules": {
+  "text": "Studiengänge & Anforderungen",
+  "why": "'Requirements', not 'rules'"
+ },
+ "university:nav.settingsTeam": {
+  "text": "Einstellungen & Team",
+  "why": "Missing translation"
+ },
+ "university:nav.students": {
+  "text": "Eingeschriebene Studierende",
+  "why": "Restores 'enrolled'"
+ },
+ "university:notFound.body": {
+  "text": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
+  "why": "Missing translation"
+ },
+ "university:notFound.cta": {
+  "text": "Zurück zum Dashboard",
+  "why": "Missing translation"
+ },
+ "university:notifications.subtitle": {
+  "text": "Neuigkeiten zu Bewerbungen, Dokumenten und Nachrichten.",
+  "why": "Missing translation"
+ },
+ "university:notifications.unread": {
+  "text": "Ungelesen",
+  "why": "Missing translation"
+ },
+ "university:picker.body": {
+  "text": "Sie sind als Hangyul-Personal angemeldet. Wählen Sie die Partnerhochschule, die Sie ansehen möchten. Alle Seiten beziehen sich dann auf diese Hochschule.",
+  "why": "Missing translation"
+ },
+ "university:picker.label": {
+  "text": "Hochschule",
+  "why": "Missing translation"
+ },
+ "university:picker.placeholder": {
+  "text": "Partnerhochschule wählen …",
+  "why": "Missing translation"
+ },
+ "university:picker.title": {
+  "text": "Hochschule wählen",
+  "why": "Missing translation"
+ },
+ "university:search.label": {
+  "text": "Bewerbende suchen",
+  "why": "Slash form not gender-neutral"
+ },
+ "university:search.placeholder": {
+  "text": "Bewerbende, Studiengänge, Referenzen suchen …",
+  "why": "Slash form not gender-neutral"
+ },
+ "university:settings.hangyulTeam": {
+  "text": "Sie sehen diese Hochschule als Hangyul-Personal. Das Team der Hochschule wird von deren Administration verwaltet.",
+  "why": "Missing translation"
+ },
+ "university:settings.noTeam": {
+  "text": "Keine Teammitglieder. Bitten Sie Hangyul, Mitglieder hinzuzufügen.",
+  "why": "Restores dropped instruction"
+ },
+ "university:settings.sso": {
+  "text": "Single Sign-on",
+  "why": "Missing translation"
+ },
+ "university:settings.ssoAdminOnly": {
+  "text": "Single Sign-on wird von der Administration Ihrer Hochschule verwaltet.",
+  "why": "Missing translation"
+ },
+ "university:settings.ssoDomains": {
+  "text": "E-Mail-Domains",
+  "why": "Missing translation"
+ },
+ "university:settings.ssoEnforce": {
+  "text": "Passwort-Anmeldung gesperrt",
+  "why": "Missing translation"
+ },
+ "university:settings.ssoNone": {
+  "text": "Nicht eingerichtet. Hangyul kann Ihren Identitätsanbieter (OpenID Connect) anbinden. Wenden Sie sich an Ihre Kontaktperson bei Hangyul.",
+  "why": "Missing translation"
+ },
+ "university:settings.ssoNote": {
+  "text": "Geheimnisse werden nie in der Datenbank von Hangyul Univ gespeichert. SAML ist noch nicht verfügbar.",
+  "why": "Missing translation"
+ },
+ "university:settings.ssoOff": {
+  "text": "Konfiguriert, nicht aktiviert",
+  "why": "Missing translation"
+ },
+ "university:settings.ssoOn": {
+  "text": "Aktiviert",
+  "why": "Missing translation"
+ },
+ "university:settings.ssoProtocol": {
+  "text": "Protokoll",
+  "why": "Missing translation"
+ },
+ "university:settings.ssoSecret": {
+  "text": "Client Secret",
+  "why": "Missing translation"
+ },
+ "university:settings.ssoSecretMissing": {
+  "text": "Fehlt im Deployment",
+  "why": "Missing translation"
+ },
+ "university:settings.ssoSecretOk": {
+  "text": "Vom Deployment bereitgestellt",
+  "why": "Missing translation"
+ },
+ "university:settings.ssoStatus": {
+  "text": "Status",
+  "why": "Missing translation"
+ },
+ "university:settings.ssoSub": {
+  "text": "Mitarbeitende melden sich mit ihren Hochschulkonten an.",
+  "why": "Missing translation"
+ },
+ "university:settings.subtitle": {
+  "text": "Ihr Zugang und das Team von {{university}} bei Hangyul.",
+  "why": "Missing translation"
+ },
+ "university:settings.teamSub": {
+  "text": "Personen an Ihrer Hochschule mit Zugang zur Konsole",
+  "why": "Missing translation"
+ },
+ "university:settings.you": {
+  "text": "Ihr Zugang",
+  "why": "Missing translation"
+ },
+ "university:settings.youShort": {
+  "text": "Sie",
+  "why": "Missing translation"
+ },
+ "university:stage.ADMITTED": {
+  "text": "Zugelassen",
+  "why": "Missing translation"
+ },
+ "university:stage.APPLIED": {
+  "text": "Beworben",
+  "why": "Missing translation"
+ },
+ "university:stage.ARRIVED": {
+  "text": "Angekommen",
+  "why": "Missing translation"
+ },
+ "university:stage.ENROLLED": {
+  "text": "Eingeschrieben",
+  "why": "Missing translation"
+ },
+ "university:stage.GRADUATED": {
+  "text": "Abgeschlossen",
+  "why": "Missing translation"
+ },
+ "university:stage.INTERESTED": {
+  "text": "Interessiert",
+  "why": "Missing translation"
+ },
+ "university:stage.PREPARING": {
+  "text": "In Vorbereitung",
+  "why": "Missing translation"
+ },
+ "university:stage.RETAINED": {
+  "text": "Weiterhin eingeschrieben",
+  "why": "Missing translation"
+ },
+ "university:stage.TUITION_PAID": {
+  "text": "Studiengebühren bezahlt",
+  "why": "Missing translation"
+ },
+ "university:stage.VISA_ISSUED": {
+  "text": "Visum erteilt",
+  "why": "Missing translation"
+ },
+ "university:v22.allN": {
+  "text": "{{n}} Bewerbende",
+  "why": "Slash form not gender-neutral"
+ },
+ "university:v22.closed": {
+  "text": "{{n}} abgeschlossen (nicht zugelassen oder zurückgezogen)",
+  "why": "Missing translation"
+ },
+ "university:v22.empty.admitted": {
+  "text": "Keine offenen Zusagen.",
+  "why": "Missing translation"
+ },
+ "university:v22.empty.decision": {
+  "text": "Niemand steht auf der Warteliste.",
+  "why": "Missing translation"
+ },
+ "university:v22.empty.documents": {
+  "text": "Keine Bewerbung wartet auf Dokumente.",
+  "why": "Missing translation"
+ },
+ "university:v22.empty.documents_check": {
+  "text": "Keine eingereichte Bewerbung wartet auf die Dokumentenprüfung.",
+  "why": "Missing translation"
+ },
+ "university:v22.empty.enrolled": {
+  "text": "Keine eingeschriebenen Studierenden entsprechen diesen Filtern.",
+  "why": "Missing translation"
+ },
+ "university:v22.empty.enrolment": {
+  "text": "Keine Bewerbenden zwischen Zusage und Einschreibung.",
+  "why": "Missing translation"
+ },
+ "university:v22.empty.in_review": {
+  "text": "Derzeit sind keine Bewerbungen in Prüfung.",
+  "why": "Missing translation"
+ },
+ "university:v22.empty.received": {
+  "text": "Keine eingegangenen Bewerbungen warten auf den Beginn der Prüfung.",
+  "why": "Missing translation"
+ },
+ "university:v22.in.byCohortFoot": {
+  "text": "Verbleib: nach dem zweiten Semester weiterhin eingeschrieben, beurlaubt oder abgeschlossen. Abschluss: Anteil mit Abschluss unter den Studierenden, deren voraussichtliches Abschlussdatum vorbei ist. Quoten erfordern {{min}} oder mehr Studierende.",
+  "why": "Slash form not gender-neutral"
+ },
+ "university:v22.in.closedN": {
+  "text": "{{n}} abgeschlossen (nicht zugelassen oder zurückgezogen)",
+  "why": "Missing translation"
+ },
+ "university:v22.in.dropText": {
+  "text": "{{lost}} von {{of}} ({{pct}}) haben den nächsten Schritt nicht erreicht.",
+  "why": "Precise, matches English order"
+ },
+ "university:v22.in.noDrop": {
+  "text": "Noch kein Schritt mit {{min}} oder mehr Bewerbenden zeigt einen Rückgang.",
+  "why": "Missing translation"
+ },
+ "university:v22.in.q.dropoff": {
+  "text": "Wo steigen Bewerbende aus?",
+  "why": "Analytical, not colloquial 'we lose them'"
+ },
+ "university:v22.in.q.origin": {
+  "text": "Woher kommen die Bewerbenden?",
+  "why": "Slash form not gender-neutral"
+ },
+ "university:v22.manage.agenciesHint": {
+  "text": "Agenturen, die Ihnen Bewerbende schicken",
+  "why": "Sie register; slash form removed"
+ },
+ "university:v22.manage.inactive": {
+  "text": "Inaktiv",
+  "why": "Missing translation"
+ },
+ "university:v22.manage.notificationsHint": {
+  "text": "Worüber die Konsole Sie informiert und wie",
+  "why": "Console register: Sie"
+ },
+ "university:v22.manage.settingsHint": {
+  "text": "Ihr Konto, Sprache, Single Sign-on und Teamänderungen",
+  "why": "Console register: Sie"
+ },
+ "university:v22.manage.teamManage": {
+  "text": "Bewerbende eines ausscheidenden Mitglieds neu zuweisen",
+  "why": "Slash form not gender-neutral"
+ },
+ "university:v22.manage.teamNote": {
+  "text": "Alle Mitglieder Ihrer Hochschule haben Admin-Rechte – es gibt keine Rollen zu vergeben. Bitten Sie Hangyul, Personen hinzuzufügen oder zu entfernen.",
+  "why": "Sie register; slash form removed"
+ },
+ "university:v22.manage.teamSub": {
+  "text": "Alle an Ihrer Hochschule mit Zugang zur Konsole. Jedes Mitglied kann alles.",
+  "why": "Console register: Sie"
+ },
+ "university:v22.stageHint.documents": {
+  "text": "Wartet auf angeforderte Dokumente der bewerbenden Person",
+  "why": "Slash form not gender-neutral"
+ },
+ "university:v22.stageHint.documents_check": {
+  "text": "Eingereicht; Dokumentenprüfung noch nicht abgeschlossen",
+  "why": "Matches English; no added 'office'"
+ },
+ "university:v22.stageHint.enrolment": {
+  "text": "Studiengebühren, Zulassungsschreiben und Visum in Bearbeitung",
+  "why": "Restores 'in progress'; one term"
+ },
+ "university:v22.stageHint.in_review": {
+  "text": "In Prüfung oder im Auswahlgespräch",
+  "why": "Admission interview term"
+ },
+ "university:v22.stageHint.received": {
+  "text": "Dokumentenprüfung abgeschlossen. Prüfung beginnen",
+  "why": "Matches English meaning"
+ },
+ "university:v23.co.openCohort": {
+  "text": "Studierende dieser Kohorte anzeigen",
+  "why": "Missing translation"
+ },
+ "university:v25.head.moved": {
+  "text": "Bewerbungen mit Statusänderung diese Woche",
+  "why": "'Status', not stage"
+ },
+ "university:v25.in.offerRate": {
+  "text": "Zusagequote",
+  "why": "Offer rate; matches byProgram"
+ },
+ "university:v25.in.submittedSub": {
+  "text": "gleiche Grundgesamtheit wie der Zulassungstrichter",
+  "why": "One term for funnel"
+ },
+ "university:v28.pipe.label": {
+  "text": "Bisherige Ergebnisse; Details unter „Auswertungen“",
+  "why": "Matches English meaning"
+ },
+ "university:v28.pipe.step.ACCEPTED": {
+  "text": "Zusage angenommen",
+  "why": "Restores 'offer'"
+ },
+ "university:v28.pipe.step.OFFERED": {
+  "text": "Zusage erteilt",
+  "why": "University perspective; matches funnel"
+ },
+ "university:v28.pipe.title": {
+  "text": "Bisherige Ergebnisse",
+  "why": "Matches English 'Outcomes to date'"
+ },
+ "university:v30.def.visaOutcome": {
+  "text": "Abgelehnte Visa ÷ Visumentscheidungen (erteilt + abgelehnt) für Bewerbungen dieser Agentur an Ihre Hochschule im gewählten Semesterstart. Eine Ablehnung zählt nur, wenn sie im Visumfall der studierenden Person erfasst wurde; nicht erfasste Ergebnisse werden separat aufgeführt und nie unterstellt.",
+  "why": "Missing translation"
+ }
+}

@@ -1,0 +1,548 @@
+{
+  "_notes": [
+    "Reviewed all 469 keys against current English; no null cur in this job. 134 patched, the rest kept.",
+    "Current English splits sentences with periods; the success/writing/concierge strings still carried the old em-dash joins. Rewritten as separate sentences to match EN and the rest of the id student copy.",
+    "'Tim Hangyul Univ' normalized to 'tim Hangyul' to match EN 'the Hangyul team' (dashboard.counselor.team keeps 'Tim Hangyul Univ', as EN does). The id locale outside this job is still split (~79 'Hangyul Univ' vs ~37 'Hangyul'); owner to confirm the house form.",
+    "Standard admission letter = 'surat penerimaan standar' (applicationDetail ADMISSION_CERTIFICATE_ISSUED). Stage VISA_PREPARATION = 'Menyiapkan dokumen visa Anda' (glossary: visa document preparation).",
+    "'Terverifikasi' kept where it means data read from an official source (visaroute NO_ROUTE/OTHER_RESIDENCE, submission.partial/placeholder, mobile dataUnverified, legalFlow UNVERIFIED); changed to 'diperiksa' only for the team's document check (DOCUMENT_PREPARATION).",
+    "'Konselor Anda' kept wherever current EN still says 'your counselor' (visaroute, writing, concierge); 'tim Hangyul' where EN says the Hangyul team.",
+    "phase.discover.label 'Temukan' -> 'Jelajahi' (EN 'Explore'); owner may want the same in any other journey-stage label outside this job.",
+    "v9.sponsor.foot: removed the extra sentence ('Semua keputusan dibuat oleh universitas dan kedutaan.') that current EN does not have."
+  ],
+  "student:applicationDetail.statusText.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Surat penerimaan standar Anda sudah siap. Ini dokumen utama untuk permohonan visa Anda.",
+    "why": "Glossary: standard admission letter"
+  },
+  "student:applicationDetail.statusText.DOCUMENT_PREPARATION": {
+    "text": "Selesaikan daftar periksa di bawah satu per satu. Setelah semuanya diperiksa, tim Hangyul akan menandainya siap dikirim.",
+    "why": "Verification reserved for official checks"
+  },
+  "student:applicationDetail.statusText.INTERVIEW": {
+    "text": "Anda diundang wawancara. Periksa jadwalnya dan bersiaplah bersama tim Hangyul.",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:applicationDetail.statusText.PROFILE_REVIEW": {
+    "text": "Tim Hangyul sedang meninjau profil Anda untuk program ini.",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:applicationDetail.statusText.REJECTED": {
+    "text": "Universitas tidak memberikan tempat kali ini. Tim Hangyul bisa membantu Anda merencanakan langkah berikutnya.",
+    "why": "EN says 'can help'"
+  },
+  "student:applicationDetail.transition.PROFILE_REVIEW": {
+    "text": "Minta tim Hangyul meninjau",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:dashboard.nextAction.APPLICATION_ITEM.REVISE_ESSAY.text": {
+    "text": "Tim Hangyul meninggalkan komentar. Pendaftaran Anda tidak bisa dikirim sampai esai ini disetujui.",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:dashboard.nextAction.FINISH_APPLICATION.text": {
+    "text": "Masih ada {{remaining}} item sebelum pendaftaran bisa dikirim. Setelah semuanya diperiksa, tim Hangyul akan mengirimnya.",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:dashboard.nextAction.FINISH_APPLICATION.text_other": {
+    "text": "Masih ada {{remaining}} item sebelum pendaftaran bisa dikirim. Setelah semuanya diperiksa, tim Hangyul akan mengirimnya.",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:dashboard.nextAction.TASK.text.INTERVIEW": {
+    "text": "Periksa jadwal wawancara dan latih beberapa pertanyaan umum bersama tim Hangyul.",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:legalFlow.step.verify.why": {
+    "text": "Tim Hangyul memeriksanya sekali, lalu dokumen ini dipakai ulang untuk setiap pendaftaran.",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:matches.guarantee.noTerms": {
+    "text": "Ketentuannya diatur oleh perjanjian kemitraan — tim Hangyul akan memastikannya bersama Anda.",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:offers.note": {
+    "text": "Perkiraan total sudah termasuk biaya hidup dan memakai aturan perencana anggaran. Bicarakan dengan tim Hangyul sebelum menolak tawaran.",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:phase.discover.label": {
+    "text": "Jelajahi",
+    "why": "EN stage is Explore"
+  },
+  "student:services.feature.counselor_assignment": {
+    "text": "Tim Hangyul di sisi Anda",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:services.success.pending": {
+    "text": "Kami sedang menyiapkan paket Anda bersama tim Hangyul. Anda akan segera menerima notifikasi.",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:servicesV3.promise.full": {
+    "text": "Tim Hangyul mendampingi Anda dari awal sampai akhir",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:servicesV3.subtitle": {
+    "text": "Anda bisa melakukan semuanya sendiri secara gratis. Paket berbayar menambahkan orang: tim Hangyul memeriksa pekerjaan Anda, atau mendampingi Anda dari daftar pilihan hingga kedatangan.",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:servicesV3.who.counselor": {
+    "text": "Tim Hangyul",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:stage.VISA_PREPARATION": {
+    "text": "Menyiapkan dokumen visa Anda",
+    "why": "Glossary: visa document preparation"
+  },
+  "student:support.new.subtitle": {
+    "text": "Ceritakan apa yang terjadi. Tim Hangyul akan membalas di Pesan.",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:tasksV3.owner.counselor": {
+    "text": "Tim Hangyul",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:tasksV3.owner.team": {
+    "text": "Tim Hangyul",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:tasksV3.summary": {
+    "text": "{{mine}} untuk Anda · {{theirs}} di tangan tim Hangyul",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:tasksV3.summaryMine_other": {
+    "text": "{{count}} tugas untuk Anda. Saat ini tidak ada yang sedang menunggu tim Hangyul.",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:university.housing.emptyText": {
+    "text": "Tim Hangyul bisa membantu Anda mencari pilihan tempat tinggal lain di dekat kampus.",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:university.partner.benefit.DEDICATED_COUNSELOR": {
+    "text": "Dukungan khusus tim Hangyul untuk universitas ini",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:v4.ws.helpTextNoName": {
+    "text": "Tim Hangyul siap membantu pendaftaran ini.",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:v4.ws.who.team": {
+    "text": "Tim Hangyul",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:v4.ws.yourCounselor": {
+    "text": "tim Hangyul",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:v8.budget.fee.text.NONE": {
+    "text": "Opsional. Anda bisa mendaftar sendiri dengan paket gratis; paket berbayar menambahkan dukungan tim Hangyul dan tinjauan.",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:v9.funds.whose.UNKNOWN": {
+    "text": "Atas nama siapa: tim Hangyul akan memastikannya ke kedutaan",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:v9.refund.ruleUnknown": {
+    "text": "Tim Hangyul akan memastikan aturan dan jumlah pengembalian dana universitas bersama Anda.",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:v9.sponsor.foot": {
+    "text": "Dibagikan oleh {{name}} melalui Hangyul · data per {{date}}",
+    "why": "Removed sentence not in EN"
+  },
+  "student:ws3.offer.step2.text": {
+    "text": "Kami memberi tahu universitas dan tim Hangyul.",
+    "why": "EN 'Hangyul team'; one team form"
+  },
+  "student:ws3.offer.step4.text": {
+    "text": "Universitas menerbitkannya setelah pembayaran. Ini dokumen utama untuk permohonan visa Anda.",
+    "why": "Consistent with admission letter line"
+  },
+  "success:block.ready": {
+    "text": "Siap. Tidak ada hal lain yang memengaruhi pendaftaran ini",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:group.sent": {
+    "text": "Terkirim, menunggu keputusan",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:item.DEADLINE_TIGHT.why": {
+    "text": "Langkah seperti legalisasi butuh waktu berminggu-minggu. Mulai yang paling lama hari ini.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:item.DOC_IN_REVIEW.why": {
+    "text": "Biasanya dalam 2 hari kerja. Tidak ada yang perlu dilakukan.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:item.DOC_REVIEW_LATE.why": {
+    "text": "Prosesnya lebih lama dari biasanya. Kami sudah memberi tahu konselor Anda.",
+    "why": "EN: we've told your counselor"
+  },
+  "success:item.ESSAY_REVIEW.why": {
+    "text": "Tidak ada yang perlu dilakukan. Konselor Anda sedang membacanya.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:item.FIELD_DIFFERENT.why": {
+    "text": "Tidak masalah jika memang disengaja. Rencana studi Anda sebaiknya menjelaskan alasannya.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:item.FINAL_CHECK.title": {
+    "text": "Semuanya sudah masuk. Berikutnya pemeriksaan akhir",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:item.LANGUAGE_RECOMMENDED.why": {
+    "text": "Perkuliahan dalam bahasa Korea cukup berat, dan level yang lebih tinggi membantu Anda mengikutinya. Ini tidak wajib untuk mendaftar.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:item.SCHOLARSHIP_APPLY.why": {
+    "text": "Beasiswa ini perlu pendaftaran tersendiri. Anda tampaknya memenuhi kriteria yang dipublikasikan.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:item.SCHOLARSHIP_NONE.why": {
+    "text": "Anda menyebutkan bahwa Anda membutuhkan beasiswa. Tanyakan pilihan lain kepada konselor Anda.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:item.SUBMISSION_CONFIRM.why": {
+    "text": "Anda menyampaikan bahwa pendaftaran sudah dikirim. Tambahkan nomor konfirmasi atau tanda terima untuk menyelesaikannya.",
+    "why": "EN is an instruction"
+  },
+  "success:obs.ADMITTED": {
+    "text": "Anda sudah menerima tempat di {{university}}. Rencana Anda sudah pasti.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:obs.ALL_NOT_YET": {
+    "text": "Belum ada pendaftaran Anda yang memenuhi semua syarat minimum yang dipublikasikan. Tambahkan pilihan yang syaratnya sudah Anda penuhi.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:obs.ALL_OVER_BUDGET": {
+    "text": "Semua pendaftaran Anda melebihi anggaran Anda. Rencanakan pendanaannya atau tambahkan pilihan yang lebih murah.",
+    "why": "'dimulai di atas' mistranslated 'is above'"
+  },
+  "success:obs.ALL_POSSIBLE": {
+    "text": "Semua pendaftaran Anda berstatus Mungkin cocok. Pertimbangkan untuk menambahkan satu yang Sangat cocok.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:obs.COMPARE_OFFERS": {
+    "text": "Anda punya {{count}} tawaran. Bandingkan secara berdampingan sebelum memutuskan.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:obs.FEW_OPTIONS": {
+    "text": "Anda hanya mendaftar ke satu program. Pilihan kedua yang realistis melindungi Anda jika Anda tidak diterima.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:obs.MANY_APPLICATIONS": {
+    "text": "{{count}} pendaftaran sedang berjalan. Masing-masing memerlukan esai dan pemeriksaan tersendiri.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:obs.NO_APPLICATIONS": {
+    "text": "Anda belum memulai pendaftaran. Program yang Sangat cocok adalah tempat yang baik untuk memulai.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:obs.SOME_NOT_YET": {
+    "text": "Anda belum memenuhi salah satu syarat minimum yang dipublikasikan untuk {{universities}}. Pastikan usahanya sepadan.",
+    "why": "Follow EN sentence order"
+  },
+  "success:submission.authorize.activeTitle": {
+    "text": "Izin diberikan. Berikutnya {{agency}} mengirimnya",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.authorize.changed": {
+    "text": "Ada dokumen yang berubah setelah Anda memberi izin. {{agency}} akan memeriksanya bersama Anda sebelum mengirim.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.authorize.done": {
+    "text": "Izin diberikan. {{agency}} akan mengirimnya.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.authorize.feeValue": {
+    "text": "{{amount}}, dibayar oleh {{payer}} kepada {{payee}}",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.authorize.feeValueNoPayee": {
+    "text": "{{amount}}, dibayar oleh {{payer}}",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.authorize.form": {
+    "text": "Formulir pendaftaran, dari profil Anda",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.authorize.withdrawn": {
+    "text": "Izin ditarik. Tidak ada yang dikirim.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.fee.CONFIRMED": {
+    "text": "Biaya pendaftaran {{amount}}, pembayaran dikonfirmasi",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.fee.PAID": {
+    "text": "Biaya pendaftaran {{amount}}. Menurut Anda sudah dibayar",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.fee.UNPAID": {
+    "text": "Biaya pendaftaran {{amount}}, dibayar kepada {{payee}} di portal",
+    "why": "Drop duplicated clause; match EN"
+  },
+  "success:submission.fee.UNPAID_NP": {
+    "text": "Biaya pendaftaran {{amount}}. Anda membayarnya di portal",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.fee.separate": {
+    "text": "Ini biaya pendaftaran universitas. Ini bukan biaya layanan Hangyul Anda dan bukan biaya kuliah.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.guided.enterHint": {
+    "text": "Dari profil Hangyul Anda. Ketik nomor paspor Anda langsung dari paspornya, karena Hangyul hanya menyimpannya dalam bentuk tersamar.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.guided.originals": {
+    "text": "Simpan dokumen aslinya. {{university}} memintanya dikirim lewat pos.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.partial": {
+    "text": "Sebagian terverifikasi. Konselor Anda akan memastikan detailnya.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.placeholder": {
+    "text": "Cara pengiriman belum diverifikasi. Konselor Anda akan memastikannya.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.receiptTitle": {
+    "text": "Tanda terima pendaftaran untuk {{university}}",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.safety": {
+    "text": "Jangan pernah membagikan kata sandi portal Anda. Hangyul tidak akan pernah memintanya.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.savedConfirmed": {
+    "text": "Terkonfirmasi. Pendaftaran Anda ditandai sudah dikirim.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.selfRequired": {
+    "text": "{{university}} mewajibkan Anda mengirim pendaftaran sendiri di {{portal}}. Semuanya sudah disiapkan, dan ini butuh sekitar {{minutes}} menit.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.sessionExpired": {
+    "text": "Sesi Anda sudah berakhir. Silakan masuk lagi. Tidak ada yang tersimpan.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "success:submission.unconfirmedTitle": {
+    "text": "Anda menyampaikan bahwa pendaftaran sudah dikirim. Tambahkan konfirmasinya untuk menyelesaikan",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:auto.studentNote": {
+    "text": "Pemeriksaan otomatis berbasis aturan, bukan manusia. Pemeriksaan ini menunjukkan kalimat yang perlu dicek dan tidak pernah mengubah atau menulis teks Anda.",
+    "why": "Restore 'automatic check'; no dash"
+  },
+  "writing:finding.GENERIC_PHRASE": {
+    "text": "Banyak pendaftar memakai frasa ini. Detail nyata dari pengalaman Anda sendiri akan lebih bermakna.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:finding.LONG_SENTENCE": {
+    "text": "Kalimat ini terdiri dari {{words}} kata. Pertimbangkan untuk memecahnya agar lebih mudah diikuti.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:finding.NAME_MISSPELLED": {
+    "text": "Maksud Anda “{{expected}}”, bukan “{{found}}”? Nama harus ditulis dengan tepat.",
+    "why": "Follow EN question form"
+  },
+  "writing:finding.NOT_SPECIFIC": {
+    "text": "Teks ini tidak pernah menyebut {{university}} atau programnya. Seperti yang tertulis, teks ini bisa dikirim ke universitas mana saja.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:finding.OTHER_PROGRAM": {
+    "text": "Menyebut program {{found}}, padahal pendaftaran ini untuk {{expected}}. Pastikan paragrafnya bukan hasil pakai ulang.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:finding.OTHER_UNIVERSITY": {
+    "text": "Menyebut {{name}}, padahal teks ini untuk {{target}}. Pastikan teksnya tidak disalin dari pendaftaran lain.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:finding.OVERCLAIM": {
+    "text": "Klaim yang mutlak. Pembaca lebih percaya pada bukti daripada kata-kata berlebihan.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:finding.OVER_CHAR_LIMIT": {
+    "text": "{{count}} karakter, {{over}} melebihi batas {{limit}} karakter.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:finding.OVER_LIMIT": {
+    "text": "{{count}} kata, {{over}} melebihi batas {{limit}} kata.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:finding.PROMPT_PART_MISSING_other": {
+    "text": "Pemeriksaan otomatis: {{count}} bagian pertanyaan mungkin belum dijawab. Beri penilaian “Menjawab pertanyaan” untuk memastikan",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:finding.REPEATED_OPENER": {
+    "text": "{{count}} kalimat diawali dengan cara yang sama. Coba variasikan awal kalimat.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:finding.SIMILAR_TEXT": {
+    "text": "Bagian teks ({{passages}}) identik dengan dokumen lain di Hangyul. Bicarakan dengan mahasiswa sebelum menyetujui, dan jangan pernah membagikan teks yang lain.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:finding.UNDER_CHAR_LENGTH": {
+    "text": "{{count}} dari {{limit}} karakter. Masih ada ruang untuk detail lebih banyak.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:finding.UNDER_LENGTH": {
+    "text": "{{count}} dari {{limit}} kata. Masih ada ruang untuk detail lebih banyak.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:prompt.unknownStudent": {
+    "text": "Kami belum punya pertanyaan persis dari universitas ini. Konselor Anda akan memastikannya. Anda bisa mulai menulis tentang motivasi, latar belakang, dan rencana Anda.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:sl.LATE": {
+    "text": "Memakan waktu lebih lama dari perkiraan. {{name}} sedang menanganinya.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:sl.LATE_FLAGGED": {
+    "text": "Memakan waktu lebih lama dari perkiraan. Kami sudah memberi tahu manajer {{org}}. Anda tidak perlu melakukan apa pun.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:sl.LATE_FLAGGED_HANGYUL": {
+    "text": "Memakan waktu lebih lama dari perkiraan. Kami sudah memberi tahu tim Hangyul. Anda tidak perlu melakukan apa pun.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:sl.READY": {
+    "text": "Siap. Pendaftaran Anda memakai versi {{version}}.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:sl.WAITING_REVIEWER": {
+    "text": "Dikirim {{submitted}}. Kami sedang menugaskan peninjau.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:student.checked": {
+    "text": "Sudah diperiksa. Tidak ada yang diubah di teks Anda",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:student.factsSub": {
+    "text": "Kalimat-kalimat ini menyebut hal yang berbeda dari profil Anda. Hanya Anda yang bisa menentukan mana yang benar. Perbaiki kalimatnya atau perbarui profil Anda.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:student6.accepted": {
+    "text": "Anda menerima ini. Disimpan sebagai versi {{version}}",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:student6.acceptedToast": {
+    "text": "Saran diterima. Teks Anda sudah diperbarui",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:student6.approvedVersion": {
+    "text": "Disetujui dan dipakai oleh pendaftaran Anda",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:student6.noComments": {
+    "text": "Belum ada komentar. Catatan peninjau Anda akan muncul di sini, di samping teks Anda.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:student6.pendingNote_other": {
+    "text": "{{count}} saran masih terbuka. Tidak apa-apa. Anda boleh memilih untuk tidak menerimanya.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "writing:student6.usedBy": {
+    "text": "Versi {{version}} sudah disetujui. Pendaftaran {{university}} Anda memakainya.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:arrived.text": {
+    "text": "Beri tahu kami bahwa Anda sudah tiba. Kami akan memulai hitung mundur kartu izin tinggal Anda dan menampilkan langkah untuk minggu-minggu pertama.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:cost.included": {
+    "text": "Termasuk dalam paket Hangyul Anda tanpa biaya tambahan",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:feedback.gaveNo": {
+    "text": "Anda menyampaikan bahwa ini tidak berjalan baik. Tim Anda akan menghubungi Anda.",
+    "why": "EN: will contact you"
+  },
+  "concierge:feedback.thanks": {
+    "text": "Terima kasih. Ini membantu kami menjadi lebih baik.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:flight.notLive": {
+    "text": "Jadwal penerbangan diisi oleh Anda atau konselor Anda. Ini bukan data langsung dari maskapai.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:help.sentOps": {
+    "text": "Terkirim. Tim operasional Hangyul sudah menerimanya.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:help.sentTeam": {
+    "text": "Terkirim. Konselor Anda sudah menerimanya.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:housing.askedToast": {
+    "text": "Terkirim. Tim Anda akan mengatur kunjungan untuk melihat tempatnya.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:housing.compare.OFF_CAMPUS": {
+    "text": "Lebih banyak pilihan dan privasi. Perlu uang jaminan (sering kali besar) dan kontrak. Konselor Anda bisa meninjaunya bersama Anda sebelum Anda menandatanganinya.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:housing.dormExplain.NOT_ASSIGNED": {
+    "text": "Tidak mendapat kamar kali ini. Konselor Anda akan membantu Anda dengan pilihan lain.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:housing.foundOwnSub": {
+    "text": "Bagikan kontraknya sebelum Anda menandatangani. Konselor Anda akan memeriksanya bersama Anda.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:housing.tempRequested": {
+    "text": "Terkirim. Tim Anda akan menyarankan beberapa pilihan.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:lease.intro": {
+    "text": "Unggah usulan kontrak dan isi apa yang bisa Anda baca. Konselor Anda akan meninjaunya bersama Anda. Kami memeriksa ketentuan yang kosong atau tidak jelas. Ini bukan nasihat hukum.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:lease.sent": {
+    "text": "Terkirim. Konselor Anda akan meninjaunya bersama Anda.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:official.needsReview": {
+    "text": "Kami masih memastikan ini ke sumber resmi. Tanyakan kepada konselor Anda sebelum mengandalkannya.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:pickup.explain.FLIGHT_DELAYED": {
+    "text": "Penerbangan Anda terlambat, jadi jam penjemputan sudah disesuaikan. Anda tidak perlu melakukan apa pun.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:pickup.explain.NO_SHOW": {
+    "text": "Sopir tidak menemukan Anda. Tim Anda akan menghubungi Anda, atau Anda bisa membuka 'Butuh bantuan di Korea?'.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:pickup.handle": {
+    "text": "Nama pengguna atau nomor ponsel Anda di aplikasi tersebut",
+    "why": "Locale term is ponsel, not HP"
+  },
+  "concierge:pickup.needFlight": {
+    "text": "Tambahkan penerbangan Anda dulu. Kami merencanakan penjemputan sesuai jam kedatangan Anda.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:pickup.requested": {
+    "text": "Penjemputan diminta. Tim Anda akan mengonfirmasinya.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:residence.groupNo": {
+    "text": "Universitas Anda tidak mengajukan secara kolektif. Pesan kunjungan Anda sendiri di HiKorea.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:residence.groupYes": {
+    "text": "Universitas Anda mengajukan kartu izin tinggal secara kolektif. Anda bisa memilih cara itu daripada memesan kunjungan sendiri.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:residence.lateText": {
+    "text": "Hubungi konselor Anda hari ini. Mereka akan membantu Anda dengan kantor imigrasi.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:residence.waiting": {
+    "text": "Sudah diajukan. Kartu biasanya jadi dalam satu hingga beberapa minggu, tergantung kantornya. Jangan meninggalkan Korea selama menunggu kecuali imigrasi mengizinkan.",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:step.documents_to_carry.text": {
+    "text": "Simpan dokumen asli di tas kabin Anda. Anda memerlukannya untuk kartu izin tinggal di minggu-minggu pertama:",
+    "why": "Match EN sentence split, no dash"
+  },
+  "concierge:step.residence_setup.text": {
+    "text": "Setelah mendarat, ajukan kartu izin tinggal dalam 90 hari dan daftar ke Asuransi Kesehatan Nasional.",
+    "why": "Removed framing not in EN"
+  }
+}

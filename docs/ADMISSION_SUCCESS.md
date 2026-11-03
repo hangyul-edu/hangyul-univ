@@ -101,7 +101,7 @@ The same document is counted once across applications. The API equivalent is `GE
 - **Language recommendations.** SAMPLE rows: TOPIK 4 recommended for the Korean-taught BBA at Korea, Yonsei, Sogang and Seoul National.
 - **Sample submission records.** Every seeded application already past SUBMITTED gets one: `DEMO-…` confirmation, recorded by the agency. Payable fees are set to CONFIRMED.
 - **Portfolio review.** One sample review for Lan.
-- **FLOW A persona.** `student.nepal@demo.hangyul.kr` (created in `extra_15_v5_personas.py`): nothing is pre-recorded, so the hand-off starts clean.
+- **FLOW A persona.** The Nepal student fixture (created in `extra_15_v5_personas.py`, test databases only — V32): nothing is pre-recorded, so the hand-off starts clean.
 
 ## Known limitations
 

@@ -1,4 +1,4 @@
-// Backend helper: npm run db:migrate | db:seed | db:reset | test:api | lint:api
+// Backend helper: npm run db:migrate | db:seed | db:reset | db:fixtures | test:api | lint:api
 import { run, hasVenv, PY, SERVER, c } from './lib.mjs';
 
 const cmd = process.argv[2];
@@ -10,6 +10,8 @@ switch (cmd) {
   case 'migrate': py('-m', 'alembic', 'upgrade', 'head'); break;
   case 'seed': py('-m', 'app.seed.run'); break;
   case 'reset': py('-m', 'app.seed.run', '--reset'); break;
+  // V32: synthetic test fixtures — refused by the module itself unless the database name contains test/e2e.
+  case 'fixtures': py('-m', 'app.seed.fixtures'); break;
   case 'test': py('-m', 'pytest', '-q', '-p', 'no:warnings'); break;
   case 'lint': py('-m', 'ruff', 'check', 'app', 'tests', 'scripts', 'alembic'); break; // V26: the whole server tree, not a subset (REPORT §349, RC-23)
   case 'daily': py('-m', 'app.jobs.daily'); break;

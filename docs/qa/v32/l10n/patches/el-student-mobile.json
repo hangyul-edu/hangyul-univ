@@ -1,0 +1,4329 @@
+{
+  "_notes": [
+    "Register: Student web app and the student mobile app use informal singular (εσύ); the existing Greek mixed σας/σου screen by screen, so every plural student string was moved to singular. Staff-facing mobile:agency.* / mobile:university.* / v3.uni / v3.reviews use concise formal plural (σας) or impersonal labels. Shared mobile shell strings (login.networkError, settings.*, messages.*) follow the student register.",
+    "plan → πακέτο (kept from existing copy): 'πλάνο' already means 'cost plan' / 'task plan' in Greek and would collide; 'πακέτο' is the natural word for a purchasable package and is used consistently.",
+    "matches → αντιστοιχίες (kept); 'προτάσεις' was removed from mobile:signup.quickGo because it collides with the paid 'university recommendation' (πρόταση/προτεινόμενα πανεπιστήμια).",
+    "Glossary terms fixed one-per-concept: document review = έλεγχος εγγράφων (not δικαιολογητικών); managed application = αιτήσεις με πλήρη διαχείριση; consultation = συμβουλευτική συνάντηση; follow-up consultations = συμπληρωματικές συμβουλευτικές συναντήσεις; mock interview = δοκιμαστική συνέντευξη; visa document preparation = προετοιμασία εγγράφων βίζας (never 'προετοιμασία βίζας'); dormitory = φοιτητική εστία; arrival and settling-in help = βοήθεια με την άφιξη και την εγκατάσταση / βοήθεια μετά την άφιξή σου; apostille = Apostille (official), consular legalization = προξενική επικύρωση; standard admission letter = τυπική επιστολή εισαγωγής; admission letter = επιστολή εισαγωγής (replaced 'επιστολή αποδοχής'); nationality = υπηκοότητα (replaced 'ιθαγένεια'); 'verify/επαληθεύω' reserved for official verification, team checks are 'ελέγχω'.",
+    "sign-up vs enrollment both render as 'εγγραφή' in Greek; context disambiguates (Εγγραφή = account sign-up; 'εγγραφή στο πανεπιστήμιο' / 'Βίζα και εγγραφή' for enrollment).",
+    "student:v17.gate.named was rebuilt as 'Τα πακέτα περιλαμβάνουν {{what}}.' so all v17.gate.what.* values are now lowercase accusative phrases; they must not be reused as standalone headings.",
+    "Admitted/enrolled states avoid gendered participles (Σε δέχτηκαν, Η εγγραφή σου ολοκληρώθηκε) so they read correctly for any student.",
+    "Where the existing Greek said 'ο σύμβουλός σου' but the English says 'the Hangyul team' (v3.home.nextBody.ESSAY_WRITE, v4.application.reviewLate/writeOnWeb, v4.home.item.WRITE_ESSAY.text), it was aligned to the team: a named counselor is not promised.",
+    "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary carried extra legal content (data items, retention period) not in the reviewed English; aligned to the web version. Owner should confirm the legal text is meant to be identical on web and mobile."
+  ],
+  "student:applications.closed": {
+    "text": "Κλειστές αιτήσεις",
+    "why": "missing Greek; translated"
+  },
+  "student:applications.emptyCta": {
+    "text": "Δες τις αντιστοιχίες μου",
+    "why": "register: singular εσύ for student"
+  },
+  "student:applications.emptyText": {
+    "text": "Διάλεξε ένα πρόγραμμα από τις αντιστοιχίες σου για να ξεκινήσεις. Μπορείς να προετοιμαστείς με τον δικό σου ρυθμό.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:applications.updated": {
+    "text": "Ενημερώθηκε {{date}}",
+    "why": "missing Greek; translated"
+  },
+  "student:dashboard.arrival.cta": {
+    "text": "Άνοιξε τη λίστα άφιξης",
+    "why": "missing Greek; translated"
+  },
+  "student:dashboard.arrival.landing": {
+    "text": "Προσγείωση {{date}}",
+    "why": "missing Greek; translated"
+  },
+  "student:dashboard.arrival.noFlight": {
+    "text": "Πρόσθεσε την πτήση σου για να οργανώσουμε την παραλαβή σου και τις πρώτες μέρες.",
+    "why": "missing Greek; translated"
+  },
+  "student:dashboard.counselor.noneCta": {
+    "text": "Δες τα πακέτα",
+    "why": "missing Greek; translated"
+  },
+  "student:dashboard.deadlines.empty": {
+    "text": "Καμία προθεσμία τις επόμενες εβδομάδες.",
+    "why": "missing Greek; translated"
+  },
+  "student:dashboard.journey.title": {
+    "text": "Η πρόοδός σου",
+    "why": "register: singular εσύ for student"
+  },
+  "student:dashboard.nextAction.TASK.ctaDefault": {
+    "text": "Ξεκίνα τώρα",
+    "why": "missing Greek; translated"
+  },
+  "student:dashboard.stageText.APPLY": {
+    "text": "Ετοιμάζεις τις αιτήσεις σου. Ένα βήμα τη φορά.",
+    "why": "missing Greek; translated"
+  },
+  "student:dashboard.stageText.ARRIVAL": {
+    "text": "Η βίζα σου είναι έτοιμη. Ώρα να σχεδιάσεις την άφιξή σου!",
+    "why": "missing Greek; translated"
+  },
+  "student:dashboard.stageText.DECISION": {
+    "text": "Οι αιτήσεις σου βρίσκονται στα πανεπιστήμια.",
+    "why": "missing Greek; translated"
+  },
+  "student:dashboard.stageText.ENROLL": {
+    "text": "Συγχαρητήρια για την προσφορά θέσης! Ας εξασφαλίσουμε τη θέση σου.",
+    "why": "missing Greek; translated"
+  },
+  "student:dashboard.stageText.EXPLORE": {
+    "text": "Ας ξεκινήσουμε γνωρίζοντάς σε καλύτερα.",
+    "why": "missing Greek; translated"
+  },
+  "student:dashboard.stageText.STUDENT_LIFE": {
+    "text": "Καλώς ήρθες στην Κορέα. Είμαστε ακόμη εδώ αν μας χρειαστείς.",
+    "why": "missing Greek; translated"
+  },
+  "student:dashboard.stageText.VISA": {
+    "text": "Σε δέχτηκαν. Επόμενο βήμα: η φοιτητική σου βίζα.",
+    "why": "natural 'admitted' phrasing, gender-neutral"
+  },
+  "student:documents.drawer.country": {
+    "text": "Χώρα έκδοσης",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.drawer.expired": {
+    "text": "Αυτό το έγγραφο έχει λήξει",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.drawer.expiredText": {
+    "text": "Ανέβασε ένα ισχύον αντίγραφο για να παραμείνουν έγκυρες οι αιτήσεις σου.",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.drawer.expires": {
+    "text": "Λήγει",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.drawer.file": {
+    "text": "Τελευταίο αρχείο",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.drawer.fixDefault": {
+    "text": "Αυτό το έγγραφο χρειάζεται αλλαγή. Διόρθωσέ το και ανέβασε νέα έκδοση.",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.drawer.fixTitle": {
+    "text": "Τι να διορθώσεις",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.drawer.inReview": {
+    "text": "Ελέγχουμε αυτό το έγγραφο. Δεν χρειάζεται να κάνεις κάτι τώρα.",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.drawer.issued": {
+    "text": "Ημερομηνία έκδοσης",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.drawer.newVersion": {
+    "text": "Νέα έκδοση",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.drawer.reviewMeta": {
+    "text": "Έκδοση {{version}} · {{when}}",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.drawer.reviews": {
+    "text": "Ιστορικό ελέγχων",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.drawer.translation": {
+    "text": "Μετάφραση",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.drawer.translationNo": {
+    "text": "Δεν χρειάζεται",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.drawer.translationYes": {
+    "text": "Χρειάζεται επικυρωμένη μετάφραση",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.drawer.uploadFixed": {
+    "text": "Ανέβασε τη διορθωμένη έκδοση",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.drawer.versions": {
+    "text": "Εκδόσεις",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.drawer.viewVersion": {
+    "text": "Προβολή έκδοσης {{version}}",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.legal.intro": {
+    "text": "Σημείωσε κάθε βήμα ως ολοκληρωμένο μόλις το κάνεις. Το τελικό έγγραφο θα το ελέγξουμε εμείς.",
+    "why": "'check' not 'verify' (reserved term)"
+  },
+  "student:documents.reusable": {
+    "text": "Επαναχρησιμοποιήσιμο",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.category": {
+    "text": "Τύπος εγγράφου",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.choose": {
+    "text": "Επίλεξε αρχείο",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.country": {
+    "text": "Χώρα έκδοσης",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.countryHint": {
+    "text": "Καθορίζει αν χρειάζεται Apostille.",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.expires": {
+    "text": "Ημερομηνία λήξης",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.file": {
+    "text": "Αρχείο",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.fileHint": {
+    "text": "PDF, JPG, PNG ή WEBP, έως {{mb}} MB.",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.issued": {
+    "text": "Ημερομηνία έκδοσης",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.langs.en": {
+    "text": "Αγγλικά",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.langs.id": {
+    "text": "Ινδονησιακά",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.langs.ja": {
+    "text": "Ιαπωνικά",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.langs.ko": {
+    "text": "Κορεατικά",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.langs.mn": {
+    "text": "Μογγολικά",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.langs.ne": {
+    "text": "Νεπαλικά",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.langs.other": {
+    "text": "Άλλη",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.langs.ru": {
+    "text": "Ρωσικά",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.langs.th": {
+    "text": "Ταϊλανδικά",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.langs.uz": {
+    "text": "Ουζμπεκικά",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.langs.vi": {
+    "text": "Βιετναμέζικα",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.langs.zh": {
+    "text": "Κινεζικά",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.language": {
+    "text": "Γλώσσα του εγγράφου",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.subtitle": {
+    "text": "Μια καθαρή σάρωση ή φωτογραφία από το κινητό αρκεί. Θα το ελέγξουμε και θα σου πούμε αν χρειάζεται κάποια διόρθωση.",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.title": {
+    "text": "Ανέβασμα εγγράφου",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.titleLabel": {
+    "text": "Όνομα",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.types": {
+    "text": "PDF, JPG, PNG ή WEBP",
+    "why": "missing Greek; translated"
+  },
+  "student:documents.upload.versionTitle": {
+    "text": "Ανέβασμα νέας έκδοσης",
+    "why": "missing Greek; translated"
+  },
+  "student:essays.comments_one": {
+    "text": "{{count}} σχόλιο",
+    "why": "missing Greek; translated"
+  },
+  "student:essays.edited": {
+    "text": "Τελευταία επεξεργασία {{when}}",
+    "why": "missing Greek; translated"
+  },
+  "student:essays.emptyText": {
+    "text": "Τα κείμενα δημιουργούνται αυτόματα όταν ξεκινάς μια αίτηση, ή μπορείς να ξεκινήσεις ένα εσύ.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:essays.new.cta": {
+    "text": "Δημιουργία κειμένου",
+    "why": "missing Greek; translated"
+  },
+  "student:essays.new.limit": {
+    "text": "Όριο λέξεων",
+    "why": "missing Greek; translated"
+  },
+  "student:essays.new.name": {
+    "text": "Τίτλος",
+    "why": "missing Greek; translated"
+  },
+  "student:essays.new.subtitle": {
+    "text": "Για εξάσκηση ή για πανεπιστήμιο που δεν υπάρχει ακόμη στη λίστα.",
+    "why": "missing Greek; translated"
+  },
+  "student:essays.new.title": {
+    "text": "Ξεκίνα νέο κείμενο",
+    "why": "missing Greek; translated"
+  },
+  "student:essays.new.type": {
+    "text": "Τύπος κειμένου",
+    "why": "missing Greek; translated"
+  },
+  "student:home.allMatches": {
+    "text": "Όλες οι αντιστοιχίες",
+    "why": "missing Greek; translated"
+  },
+  "student:home.applications": {
+    "text": "Οι αιτήσεις σου",
+    "why": "register: singular εσύ for student"
+  },
+  "student:home.arrivalProgress": {
+    "text": "{{done}} από 11 βήματα άφιξης ολοκληρώθηκαν",
+    "why": "missing Greek; translated"
+  },
+  "student:home.closest": {
+    "text": "Πιο κοντά στο προφίλ σου",
+    "why": "missing Greek; translated"
+  },
+  "student:home.docAction.IN_REVIEW": {
+    "text": "Σε έλεγχο",
+    "why": "missing Greek; translated"
+  },
+  "student:home.docAction.LEGALIZE": {
+    "text": "Χρειάζεται Apostille",
+    "why": "missing Greek; translated"
+  },
+  "student:home.docAction.OPEN": {
+    "text": "Άνοιγμα",
+    "why": "missing Greek; translated"
+  },
+  "student:home.documentsSub_one": {
+    "text": "{{count}} έγγραφο χρειάζεται την προσοχή σου",
+    "why": "register: singular εσύ for student"
+  },
+  "student:home.documentsSub_other": {
+    "text": "{{count}} έγγραφα χρειάζονται την προσοχή σου",
+    "why": "register: singular εσύ for student"
+  },
+  "student:home.greet.afternoon": {
+    "text": "Καλό απόγευμα, {{name}}",
+    "why": "missing Greek; translated"
+  },
+  "student:home.next": {
+    "text": "Το επόμενο βήμα σου",
+    "why": "register: singular εσύ for student"
+  },
+  "student:home.otherTasks_one": {
+    "text": "{{count}} άλλη εργασία",
+    "why": "missing Greek; translated"
+  },
+  "student:home.recommended": {
+    "text": "Προτεινόμενα για εσένα",
+    "why": "missing Greek; translated"
+  },
+  "student:home.recommendedSub": {
+    "text": "Προγράμματα όπου καλύπτεις τις δημοσιευμένες απαιτήσεις.",
+    "why": "missing Greek; translated"
+  },
+  "student:home.team": {
+    "text": "Ομάδα Hangyul Univ",
+    "why": "official team name, consistent everywhere"
+  },
+  "student:housing.noDorms": {
+    "text": "Αυτό το πανεπιστήμιο δεν έχει δημοσιεύσει ακόμη πληροφορίες για τις εστίες.",
+    "why": "missing Greek; translated"
+  },
+  "student:housing.noUni": {
+    "text": "Η στέγαση ξεκλειδώνει με την πρώτη σου αίτηση",
+    "why": "missing Greek; translated"
+  },
+  "student:housing.noUniCta": {
+    "text": "Μετάβαση στις αιτήσεις",
+    "why": "missing Greek; translated"
+  },
+  "student:housing.noUniText": {
+    "text": "Μόλις κάνεις αίτηση, θα σου δείξουμε τις επιλογές εστίας και το κόστος για το συγκεκριμένο πανεπιστήμιο.",
+    "why": "missing Greek; translated"
+  },
+  "student:housing.subtitle": {
+    "text": "Σύγκρινε επιλογές εστίας και παρακολούθησε τα βήματα για τη στέγασή σου.",
+    "why": "missing Greek; translated"
+  },
+  "student:housing.title": {
+    "text": "Στέγαση",
+    "why": "missing Greek; translated"
+  },
+  "student:login.aside.eyebrow": {
+    "text": "Σπουδές στην Κορέα, βήμα βήμα",
+    "why": "missing Greek; translated"
+  },
+  "student:login.aside.note": {
+    "text": "Χιλιάδες μικρά βήματα, ένα καθαρό επόμενο βήμα τη φορά.",
+    "why": "missing Greek; translated"
+  },
+  "student:login.aside.point2": {
+    "text": "Κράτα κάθε έγγραφο σε έναν ασφαλή χώρο και χρησιμοποίησέ το ξανά σε κάθε αίτηση.",
+    "why": "missing Greek; translated"
+  },
+  "student:login.aside.point3": {
+    "text": "Προετοιμάσου με πραγματικούς ανθρώπους της ομάδας Hangyul που μιλούν τη γλώσσα σου.",
+    "why": "missing Greek; translated"
+  },
+  "student:login.subtitle": {
+    "text": "Συνέχισε από εκεί που σταμάτησες. Η λίστα, τα μηνύματα και οι προθεσμίες σου σε περιμένουν.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:login.title": {
+    "text": "Καλώς ήρθες ξανά",
+    "why": "register: singular εσύ for student"
+  },
+  "student:messages.composer": {
+    "text": "Γράψε ένα μήνυμα…",
+    "why": "register: singular εσύ for student"
+  },
+  "student:messages.emptyText": {
+    "text": "Ρώτα οτιδήποτε: έγγραφα, προθεσμίες, ζωή στην Κορέα.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:messages.new.body": {
+    "text": "Μήνυμα",
+    "why": "missing Greek; translated"
+  },
+  "student:messages.new.subject": {
+    "text": "Θέμα",
+    "why": "missing Greek; translated"
+  },
+  "student:messages.new.title": {
+    "text": "Νέα συνομιλία",
+    "why": "missing Greek; translated"
+  },
+  "student:messages.pick": {
+    "text": "Επίλεξε μια συνομιλία",
+    "why": "register: singular εσύ for student"
+  },
+  "student:messages.pickText": {
+    "text": "Ή ξεκίνα μια νέα με την ομάδα της Hangyul.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:messages.subtitle": {
+    "text": "Μίλησε με την ομάδα της Hangyul. Οι απαντήσεις συνήθως έρχονται μέσα σε μία εργάσιμη ημέρα.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:messages.team": {
+    "text": "Ομάδα Hangyul Univ",
+    "why": "official team name, consistent everywhere"
+  },
+  "student:messages.unread_one": {
+    "text": "{{count}} μη αναγνωσμένο μήνυμα",
+    "why": "missing Greek; translated"
+  },
+  "student:messages.visibility": {
+    "text": "Ορατό σε εσένα και στην ομάδα της Hangyul",
+    "why": "register: singular εσύ for student"
+  },
+  "student:notifications.emptyText": {
+    "text": "Θα σε ενημερώσουμε όταν κάτι χρειάζεται την προσοχή σου.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:notifications.subtitle": {
+    "text": "Ενημερώσεις για τις αιτήσεις, τα έγγραφα και τα μηνύματά σου.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:onboarding.basics.dobHint": {
+    "text": "Ορισμένες υποτροφίες έχουν όρια ηλικίας.",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.basics.legalText": {
+    "text": "Τα επίσημα έγγραφα από {{country}} συνήθως χρειάζονται αυτό το βήμα πριν τα δεχτούν τα κορεατικά πανεπιστήμια: {{path}}. Θα σε καθοδηγήσουμε όταν έρθει η ώρα.",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.basics.legalTitle": {
+    "text": "Καλό να το ξέρεις για αργότερα",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.basics.nationality": {
+    "text": "Η υπηκοότητά σου",
+    "why": "register: singular εσύ for student"
+  },
+  "student:onboarding.basics.residence": {
+    "text": "Πού μένεις τώρα;",
+    "why": "register: singular εσύ for student"
+  },
+  "student:onboarding.basics.residenceHint": {
+    "text": "Ορισμένες πρεσβείες δέχονται αιτήσεις βίζας μόνο από κατοίκους της χώρας τους.",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.education.country": {
+    "text": "Χώρα σπουδών",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.education.gpa": {
+    "text": "Οι βαθμοί σου (GPA)",
+    "why": "register: singular εσύ for student"
+  },
+  "student:onboarding.education.gpaHint": {
+    "text": "Γράψε τον μέσο όρο σου στην κλίμακα του σχολείου σου.",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.education.gpaScale": {
+    "text": "Με άριστα το",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.education.gpaValue": {
+    "text": "Ο μέσος όρος σου",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.education.gradYear": {
+    "text": "Έτος αποφοίτησης",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.education.institutionPh": {
+    "text": "π.χ. Hanoi National University",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.education.level": {
+    "text": "Ανώτερο επίπεδο που έχεις ολοκληρώσει ή παρακολουθείς",
+    "why": "register: singular εσύ for student"
+  },
+  "student:onboarding.education.levels.ASSOCIATE": {
+    "text": "Δίπλωμα κολεγίου (Associate)",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.education.levels.BACHELOR": {
+    "text": "Πτυχίο (Bachelor)",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.education.levels.DOCTORATE": {
+    "text": "Διδακτορικό",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.education.levels.MASTER": {
+    "text": "Μεταπτυχιακό (Master)",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.education.major": {
+    "text": "Ειδίκευση ή κατεύθυνση",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.education.normalized": {
+    "text": "Κανονικοποιημένη βαθμολογία",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.education.previewEmpty": {
+    "text": "Γράψε τον μέσο όρο και την κλίμακά του για να δεις την κανονικοποιημένη βαθμολογία.",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.education.status": {
+    "text": "Κατάσταση αποφοίτησης",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.education.statuses.EXPECTED": {
+    "text": "Αποφοιτώ σύντομα",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.education.statuses.GRADUATED": {
+    "text": "Έχω αποφοιτήσει",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.education.statuses.IN_PROGRESS": {
+    "text": "Σπουδάζω ακόμη",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.goals.degreeSub.ASSOCIATE": {
+    "text": "Πρακτικό δίπλωμα 2–3 ετών",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.goals.degreeSub.BACHELOR": {
+    "text": "Τετραετές προπτυχιακό πτυχίο",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.goals.degreeSub.DOCTORATE": {
+    "text": "Ερευνητικός τίτλος (PhD)",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.goals.degreeSub.LANGUAGE": {
+    "text": "Ξεκίνα με κορεατικά, με τον δικό σου ρυθμό",
+    "why": "match English meaning; drop invented copy"
+  },
+  "student:onboarding.goals.degreeSub.MASTER": {
+    "text": "Μεταπτυχιακό μετά το πτυχίο",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.goals.degreeSub.TRANSFER": {
+    "text": "Συνέχισε σπουδές που έχεις ήδη ξεκινήσει",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.goals.fields": {
+    "text": "Πεδία που σε ενδιαφέρουν",
+    "why": "register: singular εσύ for student"
+  },
+  "student:onboarding.goals.fieldsHint": {
+    "text": "Διάλεξε όσα θέλεις.",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.goals.intake": {
+    "text": "Πότε θα ήθελες να ξεκινήσεις;",
+    "why": "register: singular εσύ for student"
+  },
+  "student:onboarding.goals.intakeHint": {
+    "text": "Τα κορεατικά πανεπιστήμια ξεκινούν την άνοιξη (Μάρτιο) και το φθινόπωρο (Σεπτέμβριο).",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.goals.term": {
+    "text": "Εξάμηνο έναρξης",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.goals.termLabel.FALL": {
+    "text": "Φθινόπωρο (Σεπτέμβριος)",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.goals.termLabel.SPRING": {
+    "text": "Άνοιξη (Μάρτιος)",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.goals.year": {
+    "text": "Έτος έναρξης",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.language.english": {
+    "text": "Πώς θα αξιολογούσες τα αγγλικά σου;",
+    "why": "register: singular εσύ for student"
+  },
+  "student:onboarding.language.have": {
+    "text": "Έχω βαθμολογία",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.language.korean": {
+    "text": "Πώς θα αξιολογούσες τα κορεατικά σου;",
+    "why": "register: singular εσύ for student"
+  },
+  "student:onboarding.language.level.BEGINNER": {
+    "text": "Αρχάριο",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.language.level.NATIVE": {
+    "text": "Μητρική",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.language.level.NONE": {
+    "text": "Καθόλου ακόμη",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.language.planning": {
+    "text": "Σκοπεύω να τη δώσω",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.language.score": {
+    "text": "Βαθμολογία ({{range}})",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.language.test.TOEFL_IBT": {
+    "text": "TOEFL iBT",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.language.testSub.IELTS": {
+    "text": "Εξέταση αγγλικών, κλίμακα 0–9",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.language.testSub.TOEFL_IBT": {
+    "text": "Εξέταση αγγλικών, 0–120",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.language.testSub.TOPIK": {
+    "text": "Εξέταση κορεατικής γλώσσας (TOPIK), επίπεδα 1–6",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.language.tests": {
+    "text": "Ποιες εξετάσεις έχεις δώσει ή σκοπεύεις να δώσεις;",
+    "why": "register: singular εσύ for student"
+  },
+  "student:onboarding.language.testsHint": {
+    "text": "Παράλειψέ το αν δεν έχεις ξεκινήσει ακόμη.",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.passport.currentVisa": {
+    "text": "Η τρέχουσα βίζα σου",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.passport.expiry": {
+    "text": "Ημερομηνία λήξης διαβατηρίου",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.passport.expiryHint": {
+    "text": "Ιδανικά να ισχύει για όλη τη διάρκεια των σπουδών σου.",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.passport.has": {
+    "text": "Έχεις διαβατήριο σε ισχύ;",
+    "why": "register: singular εσύ for student"
+  },
+  "student:onboarding.passport.inKorea": {
+    "text": "Βρίσκεσαι στην Κορέα αυτή τη στιγμή;",
+    "why": "register: singular εσύ for student"
+  },
+  "student:onboarding.passport.inKoreaNo": {
+    "text": "Όχι, είμαι στο εξωτερικό",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.passport.inKoreaYes": {
+    "text": "Ναι, είμαι στην Κορέα",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.passport.no": {
+    "text": "Όχι ακόμη",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.passport.number": {
+    "text": "Αριθμός διαβατηρίου",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.passport.numberHint": {
+    "text": "Προαιρετικό. Κρατάμε μόνο τα τελευταία ψηφία· ο πλήρης αριθμός μένει στο έγγραφο του διαβατηρίου σου.",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.passport.previousHint": {
+    "text": "Μπορεί να αλλάξει ποια βήματα βίζας ισχύουν για εσένα.",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.passport.previousVisa": {
+    "text": "Είχες ποτέ κορεατική βίζα;",
+    "why": "register: singular εσύ for student"
+  },
+  "student:onboarding.passport.visa.C-3": {
+    "text": "C-3 (σύντομη επίσκεψη)",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.passport.visa.D-2": {
+    "text": "D-2 (φοιτητική)",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.passport.visa.D-4": {
+    "text": "D-4 (μαθήματα γλώσσας)",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.passport.visa.E-7": {
+    "text": "E-7 (εργασία)",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.passport.visa.NONE": {
+    "text": "Ποτέ",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.passport.visa.OTHER": {
+    "text": "Άλλη",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.preferences.budgetOver": {
+    "text": "Πάνω από {{amount}}",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.preferences.budgetUpTo": {
+    "text": "Έως {{amount}}",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.preferences.housing": {
+    "text": "Πού θα ήθελες να μένεις;",
+    "why": "register: singular εσύ for student"
+  },
+  "student:onboarding.preferences.housingOpt.DORM": {
+    "text": "Φοιτητική εστία",
+    "why": "one term for dormitory"
+  },
+  "student:onboarding.preferences.housingOpt.NO_PREFERENCE": {
+    "text": "Χωρίς προτίμηση",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.preferences.housingOpt.OFF_CAMPUS": {
+    "text": "Δωμάτιο εκτός πανεπιστημιούπολης",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.preferences.housingSub.DORM": {
+    "text": "Οι περισσότεροι πρωτοετείς διεθνείς φοιτητές επιλέγουν αυτό",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.preferences.perMonth": {
+    "text": "περίπου {{amount}} τον μήνα",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.preferences.regionsHint": {
+    "text": "Άφησέ το κενό αν σου κάνει οπουδήποτε στην Κορέα.",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.preferences.scholarship": {
+    "text": "Χρειάζεσαι υποτροφία;",
+    "why": "register: singular εσύ for student"
+  },
+  "student:onboarding.preferences.scholarshipNo": {
+    "text": "Καλό θα ήταν, αλλά όχι απαραίτητο",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.preferences.scholarshipYesSub": {
+    "text": "Θα επισημάνουμε προγράμματα με υποτροφίες για τις οποίες ίσως πληροίς τις προϋποθέσεις",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.sponsor.goal": {
+    "text": "Τι θα ήθελες να κάνεις μετά την αποφοίτηση;",
+    "why": "register: singular εσύ for student"
+  },
+  "student:onboarding.sponsor.goalHint": {
+    "text": "Μία ή δύο προτάσεις αρκούν. Βοηθά αργότερα στο σχέδιο σπουδών σου.",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.sponsor.goalPh": {
+    "text": "π.χ. Να δουλέψω στο μάρκετινγκ ανάμεσα σε κορεατικές και βιετναμέζικες εταιρείες.",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.sponsor.option.EMPLOYER": {
+    "text": "Ο εργοδότης μου",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.sponsor.option.OTHER": {
+    "text": "Κάποιος άλλος",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.sponsor.option.RELATIVE": {
+    "text": "Άλλος συγγενής",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.sponsor.option.SCHOLARSHIP": {
+    "text": "Υποτροφία",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.sponsor.option.SELF": {
+    "text": "Εγώ",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.sponsor.who": {
+    "text": "Ποιος θα πληρώσει τις σπουδές σου;",
+    "why": "register: singular εσύ for student"
+  },
+  "student:onboarding.sponsor.whoHint": {
+    "text": "Οι αιτήσεις βίζας χρειάζονται απόδειξη οικονομικών πόρων από αυτό το πρόσωπο ή οργανισμό.",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.steps.basics.eyebrow": {
+    "text": "Για εσένα",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.steps.basics.subtitle": {
+    "text": "Έτσι ξέρουμε ποια έγγραφα και ποιοι κανόνες βίζας ισχύουν για εσένα.",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.steps.basics.title": {
+    "text": "Από πού είσαι;",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.steps.education.eyebrow": {
+    "text": "Οι σπουδές σου",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.steps.education.subtitle": {
+    "text": "Το χρησιμοποιούμε για να ελέγξουμε τις προϋποθέσεις εισαγωγής. Μια εκτίμηση αρκεί προς το παρόν.",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.steps.education.title": {
+    "text": "Πες μας για τις σπουδές σου",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.steps.goals.eyebrow": {
+    "text": "Ο στόχος σου",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.steps.goals.title": {
+    "text": "Τι θα ήθελες να σπουδάσεις;",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.steps.language.eyebrow": {
+    "text": "Γλώσσες",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.steps.language.subtitle": {
+    "text": "Μια επίσημη βαθμολογία σε αντιστοιχίζει με περισσότερα προγράμματα, αλλά πολλοί φοιτητές ξεκινούν χωρίς.",
+    "why": "'score' is βαθμολογία; clearer verb"
+  },
+  "student:onboarding.steps.language.title": {
+    "text": "Πώς είναι τα κορεατικά και τα αγγλικά σου;",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.steps.passport.eyebrow": {
+    "text": "Ταξίδι",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.steps.passport.title": {
+    "text": "Διαβατήριο και ιστορικό βίζας",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.steps.preferences.eyebrow": {
+    "text": "Προϋπολογισμός και ζωή",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.steps.preferences.subtitle": {
+    "text": "Ο προϋπολογισμός, οι υποτροφίες και η στέγαση μάς βοηθούν να κατατάξουμε τα προγράμματα για εσένα.",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.steps.preferences.title": {
+    "text": "Τι έχει σημασία για εσένα στην καθημερινότητα;",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.steps.sponsor.eyebrow": {
+    "text": "Τελευταίο βήμα",
+    "why": "missing Greek; translated"
+  },
+  "student:onboarding.steps.sponsor.title": {
+    "text": "Ποιος στηρίζει τις σπουδές σου;",
+    "why": "missing Greek; translated"
+  },
+  "student:profile.anywhere": {
+    "text": "Οπουδήποτε στην Κορέα",
+    "why": "missing Greek; translated"
+  },
+  "student:profile.institutionMissing": {
+    "text": "Δεν έχει προστεθεί σχολείο ακόμη",
+    "why": "missing Greek; translated"
+  },
+  "student:profile.planned": {
+    "text": "{{test}} (προγραμματισμένο)",
+    "why": "missing Greek; translated"
+  },
+  "student:profile.section.basics": {
+    "text": "Για εσένα",
+    "why": "register: singular εσύ for student"
+  },
+  "student:profile.title": {
+    "text": "Το προφίλ σου",
+    "why": "missing Greek; translated"
+  },
+  "student:register.consent.MARKETING.summary": {
+    "text": "Προαιρετικό. Μέσω email ή SMS· μπορείς να διαγραφείς ανά πάσα στιγμή.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:register.consent.PRIVACY.summary": {
+    "text": "Email, αριθμός κινητού, όνομα, υπηκοότητα και κωδικός πρόσβασης (αποθηκεύεται κρυπτογραφημένος), για τη δημιουργία και την προστασία του λογαριασμού σου.",
+    "why": "match English 'stored encrypted'; singular"
+  },
+  "student:register.eyebrow": {
+    "text": "Ξεκίνα δωρεάν",
+    "why": "register: singular εσύ for student"
+  },
+  "student:register.nameHint": {
+    "text": "Όπως αναγράφεται στο διαβατήριό σου.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:register.nationalityHint": {
+    "text": "Από την υπηκοότητά σου εξαρτάται ποια έγγραφα και ποια βήματα βίζας ισχύουν για εσένα.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:register.passwordHint": {
+    "text": "Τουλάχιστον 10 χαρακτήρες. Μια πρόταση που θυμάσαι εύκολα είναι ό,τι καλύτερο.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:register.phoneHint": {
+    "text": "Σου στέλνουμε έναν κωδικό μίας χρήσης με SMS. Ενδέχεται να ισχύουν οι συνήθεις χρεώσεις.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:register.privacyNote": {
+    "text": "Τα έγγραφα και τα προσωπικά σου στοιχεία κοινοποιούνται μόνο στην ομάδα της Hangyul που σε υποστηρίζει (μαζί με το συνεργαζόμενο γραφείο της) και στα πανεπιστήμια που επιλέγεις. Μπορείς να εξαγάγεις ή να διαγράψεις τα δεδομένα σου οποιαδήποτε στιγμή.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:register.subtitle": {
+    "text": "Τέσσερα σύντομα βήματα. Επαληθεύουμε το email και το κινητό σου, ώστε ο λογαριασμός και τα έγγραφά σου να παραμένουν δικά σου.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:register.title": {
+    "text": "Δημιούργησε τον λογαριασμό σου",
+    "why": "register: singular εσύ for student"
+  },
+  "student:services.success.assigned": {
+    "text": "{{agency}} θα σε υποστηρίξει",
+    "why": "missing Greek; translated"
+  },
+  "student:settings.account.fullHint": {
+    "text": "Όπως αναγράφεται στο διαβατήριό σου.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:settings.account.preferred": {
+    "text": "Πώς να σε αποκαλούμε;",
+    "why": "register: singular εσύ for student"
+  },
+  "student:settings.account.saved": {
+    "text": "Ο λογαριασμός ενημερώθηκε",
+    "why": "missing Greek; translated"
+  },
+  "student:settings.data.confirmText": {
+    "text": "Θα διαγράψουμε το προφίλ, τα έγγραφα και τα μηνύματά σου μέσα σε 10 ημέρες, εκτός από αρχεία που πρέπει να κρατήσουμε βάσει νόμου (όπως αρχεία πληρωμών). Οι ενεργές αιτήσεις θα αποσυρθούν.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:settings.data.confirmTitle": {
+    "text": "Διαγραφή του λογαριασμού σου;",
+    "why": "register: singular εσύ for student"
+  },
+  "student:settings.data.kind.DELETE": {
+    "text": "Διαγραφή λογαριασμού",
+    "why": "missing Greek; translated"
+  },
+  "student:settings.data.note": {
+    "text": "Θέλεις να μας πεις κάτι;",
+    "why": "register: singular εσύ for student"
+  },
+  "student:settings.data.status.COMPLETED": {
+    "text": "Ολοκληρώθηκε",
+    "why": "missing Greek; translated"
+  },
+  "student:settings.data.status.IN_REVIEW": {
+    "text": "Σε εξέλιξη",
+    "why": "missing Greek; translated"
+  },
+  "student:settings.data.status.REJECTED": {
+    "text": "Απορρίφθηκε",
+    "why": "missing Greek; translated"
+  },
+  "student:settings.data.subtitle": {
+    "text": "Κατέβασε ένα αντίγραφο των δεδομένων σου ή ζήτησέ μας να διαγράψουμε τον λογαριασμό σου.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:settings.data.title": {
+    "text": "Τα δεδομένα σου",
+    "why": "register: singular εσύ for student"
+  },
+  "student:settings.privacy.purpose.MARKETING.text": {
+    "text": "Περιστασιακά email. Μπορείς να διαγραφείς οποιαδήποτε στιγμή.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:settings.privacy.purpose.SHARE_WITH_UNIVERSITY.text": {
+    "text": "Μόνο για αιτήσεις που υποβάλλεις.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:settings.privacy.saved": {
+    "text": "Η επιλογή απορρήτου αποθηκεύτηκε",
+    "why": "missing Greek; translated"
+  },
+  "student:settings.privacy.subtitle": {
+    "text": "Εσύ έχεις τον έλεγχο. Άλλαξέ τα όποτε θέλεις.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:settings.privacy.who.agency": {
+    "text": "Το συνεργαζόμενο γραφείο της ομάδας της Hangyul: το προφίλ, τα έγγραφα και τα κείμενά σου, μόνο αφού αποκτήσεις πακέτο.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:settings.privacy.who.university": {
+    "text": "Πανεπιστήμια: μόνο η αίτηση και τα έγγραφα που τους υποβάλλεις.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:settings.privacy.who.you": {
+    "text": "Εσύ: όλα όσα υπάρχουν στον λογαριασμό σου.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:settings.sessions.text": {
+    "text": "Η σύνδεσή σου σε αυτή τη συσκευή διατηρείται για έως 30 ημέρες. Η αποσύνδεση εδώ τερματίζει μόνο αυτή τη συνεδρία· για αποσύνδεση από παντού, άλλαξε τον κωδικό σου ή επικοινώνησε με την υποστήριξη.",
+    "why": "singular; avoids gendered participle"
+  },
+  "student:settings.subtitle": {
+    "text": "Οι επιλογές σου για λογαριασμό, γλώσσα και απόρρητο.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:tasks.emptyText": {
+    "text": "Νέες εργασίες εμφανίζονται εδώ όταν υπάρχει κάτι να κάνεις.",
+    "why": "missing Greek; translated"
+  },
+  "student:tasks.markDone": {
+    "text": "Σήμανση «{{title}}» ως ολοκληρωμένης",
+    "why": "missing Greek; translated"
+  },
+  "student:tasks.title": {
+    "text": "Εργασίες",
+    "why": "missing Greek; translated"
+  },
+  "student:v15.services.allowance.key.follow_up_consultations": {
+    "text": "Συμπληρωματικές συμβουλευτικές συναντήσεις",
+    "why": "'παρακολούθησης' reads as monitoring; clearer"
+  },
+  "student:v15.services.allowance.key.max_managed_applications": {
+    "text": "Αιτήσεις με πλήρη διαχείριση",
+    "why": "one term for managed application"
+  },
+  "student:v15.services.allowance.key.mock_interviews": {
+    "text": "Δοκιμαστικές συνεντεύξεις",
+    "why": "missing Greek; translated"
+  },
+  "student:v15.services.allowance.title": {
+    "text": "Τι περιλαμβάνεται και τι έχεις χρησιμοποιήσει",
+    "why": "register: singular εσύ for student"
+  },
+  "student:v15.services.choose": {
+    "text": "Επιλογή {{name}}",
+    "why": "missing Greek; translated"
+  },
+  "student:v15.services.chosen": {
+    "text": "Το πακέτο που επέλεξες στον ιστότοπο.",
+    "why": "missing Greek; translated"
+  },
+  "student:v15.services.current": {
+    "text": "Το πακέτο σου",
+    "why": "register: singular εσύ for student"
+  },
+  "student:v15.services.scope.consultation_minutes": {
+    "text": "Συμβουλευτική συνάντηση {{count}} λεπτών",
+    "why": "missing Greek; translated"
+  },
+  "student:v15.services.scope.document_review": {
+    "text": "Έλεγχος εγγράφων",
+    "why": "one term: έγγραφα, not δικαιολογητικά"
+  },
+  "student:v15.services.scope.dormitory_support": {
+    "text": "Φοιτητική εστία",
+    "why": "one term for dormitory"
+  },
+  "student:v15.services.scope.interview_preparation": {
+    "text": "Προετοιμασία για τη συνέντευξη",
+    "why": "missing Greek; translated"
+  },
+  "student:v15.services.scope.personal_roadmap": {
+    "text": "Προσωπικός οδικός χάρτης για τις σπουδές στο εξωτερικό",
+    "why": "missing Greek; translated"
+  },
+  "student:v15.services.scope.pre_arrival_orientation": {
+    "text": "Διαδικτυακή ενημέρωση πριν ταξιδέψεις",
+    "why": "missing Greek; translated"
+  },
+  "student:v15.services.scope.settlement_support": {
+    "text": "Βοήθεια μετά την άφιξή σου",
+    "why": "say what we do; singular"
+  },
+  "student:v15.services.scope.title": {
+    "text": "Περιλαμβάνονται στο πακέτο σου",
+    "why": "register: singular εσύ for student"
+  },
+  "student:v15.services.scope.visa_support": {
+    "text": "Προετοιμασία εγγράφων βίζας",
+    "why": "glossary: document preparation, never 'visa'"
+  },
+  "student:v15.services.subtitle": {
+    "text": "Δες τι καλύπτει το πακέτο σου και τι απομένει, και διάλεξε πακέτο αν δεν το έχεις κάνει ακόμη.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:v16.pay.amount": {
+    "text": "Ποσό",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.cancelled": {
+    "text": "Ακύρωσες την πληρωμή. Δεν έγινε καμία χρέωση.",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.chooseSubtitle": {
+    "text": "Διάλεξε το πακέτο ανάλογα με το πόση βοήθεια θέλεις από τη Hangyul. Μία πληρωμή, χωρίς συνδρομή.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:v16.pay.couldNotStart": {
+    "text": "Δεν μπορέσαμε να ανοίξουμε το παράθυρο πληρωμής.",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.cta": {
+    "text": "Πληρωμή και έναρξη",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.fail.title": {
+    "text": "Η πληρωμή δεν ολοκληρώθηκε",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.method": {
+    "text": "Τρόπος πληρωμής",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.methodCard": {
+    "text": "Κάρτα",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.notCharged": {
+    "text": "Δεν έγινε καμία χρέωση.",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.orderNo": {
+    "text": "Παραγγελία",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.orderTitle": {
+    "text": "Η παραγγελία σου",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.receipt": {
+    "text": "Προβολή απόδειξης",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.retry": {
+    "text": "Δοκίμασε ξανά την πληρωμή",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.sdkDown": {
+    "text": "Το παράθυρο πληρωμής δεν φορτώθηκε. Έλεγξε τη σύνδεσή σου και δοκίμασε ξανά.",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.selected": {
+    "text": "Επιλεγμένο",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.status.CANCELLED": {
+    "text": "Ακυρώθηκε",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.status.FAILED": {
+    "text": "Απέτυχε",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.status.PENDING": {
+    "text": "Σε εκκρεμότητα",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.success.cta": {
+    "text": "Ξεκινάω την προετοιμασία μου",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.success.text": {
+    "text": "Ξεκινάς την προετοιμασία σου για σπουδές στην Κορέα με το {{name}}.",
+    "why": "missing Greek; translated"
+  },
+  "student:v16.pay.success.title": {
+    "text": "Η πληρωμή ολοκληρώθηκε",
+    "why": "missing Greek; translated"
+  },
+  "student:v17.gate.named": {
+    "text": "Τα πακέτα περιλαμβάνουν {{what}}. Διάλεξε ένα για να ξεκινήσεις.",
+    "why": "match English; {{what}} now accusative lowercase"
+  },
+  "student:v17.gate.what.applications": {
+    "text": "τις αιτήσεις σου",
+    "why": "fits gate.named sentence"
+  },
+  "student:v17.gate.what.arrival": {
+    "text": "βοήθεια με την άφιξη και την εγκατάσταση",
+    "why": "glossary term; fits sentence"
+  },
+  "student:v17.gate.what.budget": {
+    "text": "το πλάνο κόστους σου",
+    "why": "fits gate.named sentence"
+  },
+  "student:v17.gate.what.compare": {
+    "text": "σύγκριση δίπλα-δίπλα",
+    "why": "fits gate.named sentence"
+  },
+  "student:v17.gate.what.documents": {
+    "text": "έλεγχο εγγράφων",
+    "why": "one term; fits sentence"
+  },
+  "student:v17.gate.what.essays": {
+    "text": "διόρθωση προσωπικής δήλωσης και σχεδίου σπουδών",
+    "why": "glossary terms; fits sentence"
+  },
+  "student:v17.gate.what.family": {
+    "text": "την προβολή για την οικογένεια",
+    "why": "fits gate.named sentence"
+  },
+  "student:v17.gate.what.help": {
+    "text": "βοήθεια από την ομάδα της Hangyul",
+    "why": "match English; fits sentence"
+  },
+  "student:v17.gate.what.home": {
+    "text": "τον χώρο προετοιμασίας σου",
+    "why": "fits gate.named sentence"
+  },
+  "student:v17.gate.what.housing": {
+    "text": "βοήθεια με την εστία",
+    "why": "match English 'dormitory help'"
+  },
+  "student:v17.gate.what.messages": {
+    "text": "μηνύματα με την ομάδα της Hangyul",
+    "why": "match English; was 'the team'"
+  },
+  "student:v17.gate.what.saved": {
+    "text": "τη λίστα επιλογών σου",
+    "why": "shortlist; fits sentence"
+  },
+  "student:v17.gate.what.scholarships": {
+    "text": "αντιστοίχιση υποτροφιών",
+    "why": "match English; fits sentence"
+  },
+  "student:v17.gate.what.tasks": {
+    "text": "τη λίστα εργασιών σου",
+    "why": "match English; fits sentence"
+  },
+  "student:v17.gate.what.visa": {
+    "text": "προετοιμασία εγγράφων βίζας",
+    "why": "glossary term; fits sentence"
+  },
+  "student:v17.upgrade.amount": {
+    "text": "Τιμή αναβάθμισης",
+    "why": "semantic: price, not 'change plan'"
+  },
+  "student:v17.upgrade.cta": {
+    "text": "Αναβάθμιση σε {{plan}}",
+    "why": "upgrade, not 'change'"
+  },
+  "student:v17.upgrade.feature.consultation": {
+    "text": "Επιπλέον συμβουλευτική συνάντηση",
+    "why": "one term for consultation"
+  },
+  "student:v17.upgrade.feature.document_review": {
+    "text": "Εντατικός έλεγχος εγγράφων",
+    "why": "match 'intensive'; one term"
+  },
+  "student:v17.upgrade.feature.essay_review": {
+    "text": "Διόρθωση προσωπικής δήλωσης",
+    "why": "glossary term"
+  },
+  "student:v17.upgrade.feature.managed_application": {
+    "text": "Αιτήσεις με πλήρη διαχείριση",
+    "why": "one term for managed application"
+  },
+  "student:v17.upgrade.feature.settlement": {
+    "text": "Βοήθεια μετά την άφιξή σου",
+    "why": "say what we do"
+  },
+  "student:v17.upgrade.title": {
+    "text": "Το {{plan}} περιλαμβάνει: {{feature}}.",
+    "why": "natural word order with placeholders"
+  },
+  "student:v21.pay.cardFailed": {
+    "text": "Η πληρωμή δεν ολοκληρώθηκε",
+    "why": "missing Greek; translated"
+  },
+  "student:v21.pay.cardSecure": {
+    "text": "Τα στοιχεία της κάρτας σου πηγαίνουν μόνο στη Hangyul μέσω κρυπτογραφημένης σύνδεσης και από εκεί στον πάροχο πληρωμών μας. Δεν αποθηκεύουμε ποτέ τον αριθμό της κάρτας σου.",
+    "why": "missing Greek; translated"
+  },
+  "student:v21.pay.cardTitle": {
+    "text": "Πληρωμή με κάρτα",
+    "why": "missing Greek; translated"
+  },
+  "student:v21.pay.declined": {
+    "text": "Η κάρτα δεν έγινε δεκτή: {{reason}} Δοκίμασε άλλη κάρτα ή ρώτησε την τράπεζά σου.",
+    "why": "missing Greek; translated"
+  },
+  "student:v21.pay.expiry": {
+    "text": "Λήξη",
+    "why": "missing Greek; translated"
+  },
+  "student:v21.pay.holder": {
+    "text": "Όνομα κατόχου",
+    "why": "missing Greek; translated"
+  },
+  "student:v21.pay.notConfigured": {
+    "text": "Η πληρωμή με κάρτα δεν είναι ακόμη διαθέσιμη εδώ. Δοκίμασε αργότερα ή επικοινώνησε μαζί μας.",
+    "why": "missing Greek; translated"
+  },
+  "student:v21.pay.number": {
+    "text": "Αριθμός κάρτας",
+    "why": "missing Greek; translated"
+  },
+  "student:v21.pay.numberInvalid": {
+    "text": "Έλεγξε τον αριθμό της κάρτας.",
+    "why": "missing Greek; translated"
+  },
+  "student:v21.pay.optional": {
+    "text": "προαιρετικό",
+    "why": "missing Greek; translated"
+  },
+  "student:v21.pay.payCta": {
+    "text": "Πληρωμή με αυτή την κάρτα",
+    "why": "missing Greek; translated"
+  },
+  "student:v21.pay.processing": {
+    "text": "Επεξεργασία της πληρωμής σου…",
+    "why": "missing Greek; translated"
+  },
+  "student:v21.pay.savedDelete": {
+    "text": "Αφαίρεση",
+    "why": "missing Greek; translated"
+  },
+  "student:v21.pay.savedDeleteBody": {
+    "text": "Θα διαγράψουμε την {{card}} από τον λογαριασμό σου. Δεν επηρεάζει πληρωμή που έχεις ήδη κάνει.",
+    "why": "missing Greek; translated"
+  },
+  "student:v21.pay.savedDeleteFailed": {
+    "text": "Η κάρτα δεν μπόρεσε να αφαιρεθεί. Δοκίμασε ξανά.",
+    "why": "missing Greek; translated"
+  },
+  "student:v21.pay.savedDeleteTitle": {
+    "text": "Αφαίρεση αυτής της κάρτας;",
+    "why": "missing Greek; translated"
+  },
+  "student:v21.pay.savedNotReusable": {
+    "text": "Σε μελλοντική αγορά θα ξαναβάλεις τα στοιχεία της κάρτας σου.",
+    "why": "missing Greek; translated"
+  },
+  "student:v21.pay.savedTitle": {
+    "text": "Η κάρτα σου",
+    "why": "missing Greek; translated"
+  },
+  "student:v21.pay.tooMany": {
+    "text": "Πάρα πολλές προσπάθειες με κάρτα. Περίμενε λίγα λεπτά πριν δοκιμάσεις ξανά.",
+    "why": "missing Greek; translated"
+  },
+  "student:v22.compare.budgetSub": {
+    "text": "Πόσο είναι πιθανό να κοστίσει κάθε επιλογή τον πρώτο χρόνο, σε ποιον πληρώνεις και πότε.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:v22.home.appTeam.follow": {
+    "text": "Ενημερωνόμαστε από το γραφείο εισαγωγών του {{university}}",
+    "why": "English names the admissions office"
+  },
+  "student:v22.home.appTeam.letter": {
+    "text": "Παρακολουθούμε την τυπική επιστολή εισαγωγής σου από {{university}}",
+    "why": "official document name"
+  },
+  "student:v22.home.appsNeedYou": {
+    "text": "Αιτήσεις που σε χρειάζονται",
+    "why": "register: singular εσύ for student"
+  },
+  "student:v22.home.appsQuiet_one": {
+    "text": "Η αίτησή σου βρίσκεται στο πανεπιστήμιο. Δεν χρειάζεται να κάνεις τίποτα τώρα.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:v22.home.teamNowEmpty": {
+    "text": "Τίποτα δεν βρίσκεται σε εξέλιξη από τη μεριά μας αυτή τη στιγμή. Το επόμενο βήμα σου είναι παραπάνω.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:v26.now.otherPlans": {
+    "text": "Δες τα άλλα πακέτα",
+    "why": "register: singular εσύ for student"
+  },
+  "student:v26.now.scopeToggle": {
+    "text": "Δες όλα όσα περιλαμβάνει αυτό το πακέτο",
+    "why": "English is an action, not a heading"
+  },
+  "student:writing.needYou": {
+    "text": "Σειρά σου να γράψεις ή να διορθώσεις",
+    "why": "match English meaning; singular"
+  },
+  "student:writing.others": {
+    "text": "Σε έλεγχο από την ομάδα της Hangyul, ή ολοκληρωμένα",
+    "why": "match English meaning"
+  },
+  "student:writing.promise": {
+    "text": "Η Hangyul δεν γράφει ούτε επινοεί ποτέ περιεχόμενο για εσένα. Τα σχόλια επισημαίνουν τη δομή, τη σαφήνεια, τη γραμματική και τα σημεία της εκφώνησης που δεν απαντήθηκαν.",
+    "why": "register: singular εσύ for student"
+  },
+  "student:writing.status.AI_PRECHECK": {
+    "text": "Υποβλήθηκε",
+    "why": "missing Greek; translated"
+  },
+  "student:writing.status.APPROVED": {
+    "text": "Έτοιμο",
+    "why": "missing Greek; translated"
+  },
+  "student:writing.status.CHANGES_REQUESTED": {
+    "text": "Ζητήθηκαν αλλαγές",
+    "why": "missing Greek; translated"
+  },
+  "student:writing.status.FINAL_REVIEW": {
+    "text": "Σε έλεγχο από την ομάδα της Hangyul",
+    "why": "same wording as AGENCY_REVIEW"
+  },
+  "student:writing.status.STUDENT_REVISION": {
+    "text": "Ζητήθηκαν αλλαγές",
+    "why": "missing Greek; translated"
+  },
+  "student:writing.status.SUBMITTED": {
+    "text": "Υποβλήθηκε",
+    "why": "missing Greek; translated"
+  },
+  "student:writing.subtitle": {
+    "text": "Οι προσωπικές δηλώσεις και τα σχέδια σπουδών σου. Η ομάδα της Hangyul σχολιάζει τη δομή και τη σαφήνεια. Οι ιδέες και τα λόγια παραμένουν δικά σου.",
+    "why": "register: singular εσύ for student"
+  },
+  "mobile:agency.deadlines.empty": {
+    "text": "Καμία προθεσμία τις επόμενες 30 ημέρες",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.deadlines.subtitle": {
+    "text": "Προθεσμίες των φοιτητών σας τις επόμενες 30 ημέρες.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.deadlines.title": {
+    "text": "Υπενθυμίσεις",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.login.tagline": {
+    "text": "Οι φοιτητές σας, οι έλεγχοι και τα μηνύματα στο κινητό.",
+    "why": "staff-facing: concise, formal plural"
+  },
+  "mobile:agency.messages.subtitle": {
+    "text": "Συνομιλίες με φοιτητές και εσωτερικές σημειώσεις.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.messages.title": {
+    "text": "Μηνύματα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.reviews.detailTitle": {
+    "text": "Έλεγχος",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.reviews.empty": {
+    "text": "Δεν εκκρεμεί κανένας έλεγχος",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.reviews.emptyBody": {
+    "text": "Τα νέα αρχεία από τους φοιτητές σας θα εμφανίζονται εδώ.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.reviews.history": {
+    "text": "Ιστορικό ελέγχων",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.reviews.lastReason": {
+    "text": "Προηγούμενο αίτημα διόρθωσης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.reviews.noFile": {
+    "text": "Δεν έχει ανέβει ακόμη αρχείο για αυτό το έγγραφο.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.reviews.reasonPlaceholder": {
+    "text": "Για παράδειγμα: Λείπει η σελίδα με την Apostille. Ανέβασε όλες τις σελίδες.",
+    "why": "official name Apostille"
+  },
+  "mobile:agency.reviews.sendToStudent": {
+    "text": "Αποστολή στον φοιτητή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.reviews.tabA11y_one": {
+    "text": "Έλεγχοι, {{count}} σε αναμονή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.reviews.tabA11y_other": {
+    "text": "Έλεγχοι, {{count}} σε αναμονή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.reviews.title": {
+    "text": "Έλεγχοι εγγράφων",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.reviews.verify": {
+    "text": "Επαλήθευση εγγράφου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.reviews.waitingDays_one": {
+    "text": "Σε αναμονή {{count}} ημέρα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.reviews.waitingDays_other": {
+    "text": "Σε αναμονή {{count}} ημέρες",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.reviews.waitingHours_one": {
+    "text": "Σε αναμονή {{count}} ώρα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.reviews.waitingHours_other": {
+    "text": "Σε αναμονή {{count}} ώρες",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.students.detailTitle": {
+    "text": "Φοιτητής",
+    "why": "missing Greek; translated"
+  },
+  "mobile:agency.tasks.unassigned": {
+    "text": "Χωρίς ανάθεση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:app.agency": {
+    "text": "Hangyul Agency",
+    "why": "product name stays official"
+  },
+  "mobile:app.student": {
+    "text": "Hangyul Univ",
+    "why": "product name stays official"
+  },
+  "mobile:app.university": {
+    "text": "Hangyul University",
+    "why": "product name stays official"
+  },
+  "mobile:login.networkError": {
+    "text": "Δεν μπορούμε να συνδεθούμε με το Hangyul αυτή τη στιγμή ({{url}}). Έλεγξε τη σύνδεσή σου και δοκίμασε ξανά σε λίγο.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:messages.empty": {
+    "text": "Δεν υπάρχουν συνομιλίες ακόμη",
+    "why": "missing Greek; translated"
+  },
+  "mobile:messages.emptyBody": {
+    "text": "Εδώ θα εμφανίζονται τα μηνύματα με την ομάδα σου.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:messages.internalLabel": {
+    "text": "Εσωτερική σημείωση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:messages.internalOn": {
+    "text": "Εσωτερική σημείωση: τη βλέπει μόνο η ομάδα σας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:messages.internalPlaceholder": {
+    "text": "Γράψτε εσωτερική σημείωση (μόνο για την ομάδα)…",
+    "why": "missing Greek; translated"
+  },
+  "mobile:messages.noMessages": {
+    "text": "Δεν υπάρχουν μηνύματα ακόμη",
+    "why": "missing Greek; translated"
+  },
+  "mobile:messages.placeholder": {
+    "text": "Γράψε ένα μήνυμα…",
+    "why": "missing Greek; translated"
+  },
+  "mobile:messages.sendInternal": {
+    "text": "Αποθήκευση εσωτερικής σημείωσης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:messages.unreadCount_one": {
+    "text": "{{count}} μη αναγνωσμένο μήνυμα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:messages.unreadCount_other": {
+    "text": "{{count}} μη αναγνωσμένα μηνύματα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:more.active": {
+    "text": "Ενεργό",
+    "why": "missing Greek; translated"
+  },
+  "mobile:more.allowanceSpent": {
+    "text": "Έχεις χρησιμοποιήσει όλα όσα περιλαμβάνει αυτό το πακέτο. Στην οθόνη πακέτων βλέπεις ποιο πακέτο καλύπτει περισσότερα.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:more.choose": {
+    "text": "Επιλογή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:more.noPlan": {
+    "text": "Χωρίς πακέτο ακόμη",
+    "why": "missing Greek; translated"
+  },
+  "mobile:more.noPlanHint": {
+    "text": "Διάλεξε πακέτο και η Hangyul ξεκινά να δουλεύει μαζί σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:more.plan": {
+    "text": "Πακέτο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:more.support": {
+    "text": "Βοήθεια",
+    "why": "missing Greek; translated"
+  },
+  "mobile:more.supportHint": {
+    "text": "Στείλε μήνυμα στην ομάδα της Hangyul",
+    "why": "missing Greek; translated"
+  },
+  "mobile:more.webNote": {
+    "text": "Η επεξεργασία του προφίλ και οι πληρωμές γίνονται στο web.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:notifications.unread": {
+    "text": "Μη αναγνωσμένες",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.allowance.essay_review_rounds": {
+    "text": "Διόρθωση προσωπικής δήλωσης και σχεδίου σπουδών",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.allowance.follow_up_consultations": {
+    "text": "Συμπληρωματικές συμβουλευτικές συναντήσεις",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.allowance.max_managed_applications": {
+    "text": "Αιτήσεις με πλήρη διαχείριση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.allowance.max_recommended_institutions": {
+    "text": "Προτάσεις πανεπιστημίων",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.allowance.mock_interviews": {
+    "text": "Δοκιμαστικές συνεντεύξεις",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.browserFailed": {
+    "text": "Δεν άνοιξε ο browser. Πλήρωσε από το web.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.card": {
+    "text": "Μπορείς να πληρώσεις με κάρτα εξωτερικού (Visa, Mastercard, JCB).",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.chooseLede": {
+    "text": "Μία πληρωμή, χωρίς συνδρομή. Το πακέτο σου σε συνοδεύει όσο προετοιμάζεσαι.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.chooseTitle": {
+    "text": "Διάλεξε πακέτο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.handoff": {
+    "text": "Η πληρωμή γίνεται στον browser και, όταν ολοκληρωθεί, επιστρέφεις στην εφαρμογή.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.highestAlready": {
+    "text": "Έχεις ήδη το ανώτερο πακέτο.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.included": {
+    "text": "Περιλαμβάνονται στο πακέτο σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.oneTime": {
+    "text": "Μία πληρωμή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.ongoing": {
+    "text": "Σε όλη την περίοδο υπηρεσίας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.paid": {
+    "text": "Ποσό που πληρώθηκε",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.pay": {
+    "text": "Πληρωμή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.plansTitle": {
+    "text": "Πακέτα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.selected": {
+    "text": "Επιλεγμένο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.upgradeTitle": {
+    "text": "Αναβάθμιση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:plan.webNote": {
+    "text": "Το ιστορικό πακέτων και οι αποδείξεις βρίσκονται στο web.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:settings.elsewhere": {
+    "text": "Αλλού",
+    "why": "missing Greek; translated"
+  },
+  "mobile:settings.language": {
+    "text": "Γλώσσα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:settings.languageHint": {
+    "text": "Διάλεξε τη γλώσσα της εφαρμογής. Ορισμένες γλώσσες είναι αυτόματα προσχέδια που ελέγχονται ακόμη.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:settings.machineDraft": {
+    "text": "αυτόματο προσχέδιο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:settings.notificationsHint": {
+    "text": "Δες τις ειδοποιήσεις που έχεις λάβει",
+    "why": "missing Greek; translated"
+  },
+  "mobile:settings.rtlNote": {
+    "text": "Το κείμενο από δεξιά προς τα αριστερά εφαρμόζεται τώρα· η πλήρης διάταξη αντιστρέφεται την επόμενη φορά που θα ανοίξεις την εφαρμογή.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:settings.selected": {
+    "text": "επιλεγμένη",
+    "why": "missing Greek; translated"
+  },
+  "mobile:settings.server": {
+    "text": "Διακομιστής: {{url}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:settings.signOutBody": {
+    "text": "Θα χρειαστείς το email και τον κωδικό σου για να συνδεθείς ξανά.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:settings.signOutTitle": {
+    "text": "Αποσύνδεση;",
+    "why": "missing Greek; translated"
+  },
+  "mobile:settings.title": {
+    "text": "Ρυθμίσεις",
+    "why": "missing Greek; translated"
+  },
+  "mobile:settings.version": {
+    "text": "Έκδοση {{version}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Η Twilio Inc. (ΗΠΑ) αποστέλλει το SMS και το email επαλήθευσης και η Cloudflare, Inc. (ΗΠΑ) ελέγχει ότι η εγγραφή δεν είναι αυτοματοποιημένη. Οι λεπτομέρειες, μαζί με τον τρόπο άρνησης, περιγράφονται στην Πολιτική Απορρήτου. Σε περίπτωση άρνησης δεν μπορεί να δημιουργηθεί λογαριασμός.",
+    "why": "drop content not in English; match web"
+  },
+  "mobile:signup.consent.PRIVACY.summary": {
+    "text": "Email, αριθμός κινητού, όνομα, υπηκοότητα και κωδικός πρόσβασης (αποθηκεύεται κρυπτογραφημένος), για τη δημιουργία και την προστασία του λογαριασμού σου.",
+    "why": "one term υπηκοότητα; match web"
+  },
+  "mobile:signup.err.emailInvalid": {
+    "text": "Γράψε μια έγκυρη διεύθυνση email.",
+    "why": "register: singular εσύ for student"
+  },
+  "mobile:signup.err.passwordShort": {
+    "text": "Χρησιμοποίησε τουλάχιστον 10 χαρακτήρες.",
+    "why": "register: singular εσύ for student"
+  },
+  "mobile:signup.haveAccount": {
+    "text": "Έχεις ήδη λογαριασμό;",
+    "why": "register: singular εσύ for student"
+  },
+  "mobile:signup.quickGo": {
+    "text": "Δείξε μου τις αντιστοιχίες μου",
+    "why": "'matches' term; 'προτάσεις' collides with recommendations"
+  },
+  "mobile:student.applications.active": {
+    "text": "Ενεργές",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.applications.closed": {
+    "text": "Κλειστές",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.body": {
+    "text": "Αποδέχεσαι την προσφορά θέσης από {{university}}. Η ομάδα Hangyul Univ θα σε καθοδηγήσει στην πληρωμή των διδάκτρων και στη λήψη της τυπικής επιστολής εισαγωγής.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.cta": {
+    "text": "Αποδοχή προσφοράς",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.title": {
+    "text": "Αποδοχή αυτής της προσφοράς;",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.body": {
+    "text": "Η αίτησή σου στο {{university}} θα κλείσει. Αυτό δεν μπορεί να αναιρεθεί από την εφαρμογή.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.cta": {
+    "text": "Απόσυρση αίτησης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.title": {
+    "text": "Απόσυρση αυτής της αίτησης;",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.applications.detailTitle": {
+    "text": "Αίτηση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.applications.empty": {
+    "text": "Καμία ενεργή αίτηση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.applications.emptyClosed": {
+    "text": "Καμία κλειστή αίτηση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.applications.submittedOn": {
+    "text": "Υποβλήθηκε {{date}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.applications.subtitle": {
+    "text": "Παρακολούθησε κάθε αίτηση σε ένα μέρος.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.documents.detailTitle": {
+    "text": "Έγγραφο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.documents.empty": {
+    "text": "Ο χώρος εγγράφων σου είναι άδειος",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.documents.emptyBody": {
+    "text": "Ανέβασε το διαβατήριο, τις αναλυτικές βαθμολογίες και τα αποτελέσματα εξετάσεων από την εφαρμογή web.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.documents.file": {
+    "text": "{{name}} · έκδοση {{version}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.documents.fixFallback": {
+    "text": "Η ομάδα της Hangyul ζήτησε μια αλλαγή σε αυτό το έγγραφο.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.documents.fixTitle": {
+    "text": "Τι να διορθώσεις",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.documents.openFile": {
+    "text": "Άνοιγμα ασφαλούς προεπισκόπησης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.documents.reviews": {
+    "text": "Ιστορικό ελέγχων",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.documents.translationBody": {
+    "text": "Για αυτό το έγγραφο απαιτείται επικυρωμένη μετάφραση στα κορεατικά ή στα αγγλικά.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.explore.clear": {
+    "text": "Καθαρισμός αναζήτησης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.explore.save": {
+    "text": "Αποθήκευση {{name}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.explore.searchPlaceholder": {
+    "text": "Αναζήτηση προγραμμάτων ή πανεπιστημίων",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.explore.unsave": {
+    "text": "Αφαίρεση {{name}} από τα αποθηκευμένα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.matches.deadline": {
+    "text": "Προθεσμία {{date}} · {{due}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.messages.subtitle": {
+    "text": "Μίλησε με την ομάδα Hangyul Univ.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.messages.unreadA11y_one": {
+    "text": "Μηνύματα, {{count}} μη αναγνωσμένο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.messages.unreadA11y_other": {
+    "text": "Μηνύματα, {{count}} μη αναγνωσμένα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.nextAction.ARRIVAL_CHECKLIST": {
+    "text": "Προετοιμάσου για την άφιξή σου στην Κορέα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.nextAction.COMPARE_OFFERS": {
+    "text": "Σύγκρινε τις {{count}} προσφορές θέσης σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.nextAction.COMPLETE_PROFILE": {
+    "text": "Ολοκλήρωσε το προφίλ σου για να δεις ποια πανεπιστήμια σου ταιριάζουν",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.nextAction.FINISH_APPLICATION": {
+    "text": "Ολοκλήρωσε την αίτησή σου για {{university}}. Απομένουν: {{remaining}}",
+    "why": "shorter, natural"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.budget": {
+    "text": "Πρόσθεσε τον προϋπολογισμό σου για να καταταχθούν {{count}} προγράμματα κατά κόστος",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.education": {
+    "text": "Πρόσθεσε τις σπουδές σου για να ελεγχθούν {{count}} προγράμματα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.gpa": {
+    "text": "Πρόσθεσε τους βαθμούς σου για να ελεγχθούν {{count}} προγράμματα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.language": {
+    "text": "Πρόσθεσε τη βαθμολογία γλώσσας σου για να ελεγχθούν {{count}} προγράμματα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.other": {
+    "text": "Ολοκλήρωσε το προφίλ σου για να ελεγχθούν {{count}} προγράμματα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.nextAction.RESPOND_OFFER": {
+    "text": "Απάντησε στην προσφορά θέσης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.nextAction.REVIEW_MATCHES": {
+    "text": "Δες τις αντιστοιχίες πανεπιστημίων σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.profile.completion": {
+    "text": "Συμπλήρωση προφίλ",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.profile.step.basics": {
+    "text": "Βασικά στοιχεία",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.profile.step.education": {
+    "text": "Εκπαίδευση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.profile.step.goals": {
+    "text": "Στόχοι σπουδών",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.profile.step.language": {
+    "text": "Βαθμολογίες γλώσσας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.profile.step.passport": {
+    "text": "Διαβατήριο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.profile.step.preferences": {
+    "text": "Προτιμήσεις",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.profile.step.sponsor": {
+    "text": "Οικονομική στήριξη",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.saved.empty": {
+    "text": "Τίποτα αποθηκευμένο ακόμη",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.saved.emptyBody": {
+    "text": "Πάτησε την καρδιά σε ένα πρόγραμμα για να αποθηκεύσεις εδώ το πανεπιστήμιό του.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.tasks.confirmTitle": {
+    "text": "Σήμανση αυτής της εργασίας ως ολοκληρωμένης;",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.tasks.empty": {
+    "text": "Τίποτα να κάνεις τώρα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.tasks.emptyBody": {
+    "text": "Θα προσθέτουμε εδώ εργασίες όταν κάτι χρειάζεται την προσοχή σου.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.tasks.overdue": {
+    "text": "Εκπρόθεσμες ({{count}})",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.tasks.subtitle": {
+    "text": "Εργασίες από την ομάδα της Hangyul και οι λίστες ελέγχου των αιτήσεών σου.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.tasks.title": {
+    "text": "Λίστα ελέγχου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:student.tasks.upcoming": {
+    "text": "Προς εκτέλεση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.applicants.anonymous": {
+    "text": "Υποψήφιος",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.applicants.confirmBody": {
+    "text": "{{name}} και ο αρμόδιος σύμβουλος θα ειδοποιηθούν. Προσθέστε σημείωση για το αρχείο (προαιρετικό).",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.applicants.confirmTitle": {
+    "text": "Αλλαγή κατάστασης σε «{{status}}»;",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.applicants.detailTitle": {
+    "text": "Υποψήφιος",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.applicants.history": {
+    "text": "Ιστορικό κατάστασης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.applicants.interview": {
+    "text": "Συνέντευξη",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.applicants.moveTo": {
+    "text": "Μετάβαση σε: {{status}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.applicants.notShared": {
+    "text": "Δεν έχει κοινοποιηθεί ακόμη στο πανεπιστήμιό σας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.applicants.note": {
+    "text": "Σημείωση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.applicants.previewHint": {
+    "text": "Ανοίγει ασφαλή προεπισκόπηση περιορισμένης διάρκειας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.applicants.reference": {
+    "text": "Ο αριθμός αναφοράς σας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.applicants.submitted": {
+    "text": "Υποβλήθηκε {{date}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.applicants.submittedLabel": {
+    "text": "Υποβλήθηκε",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.applicants.viaAgency": {
+    "text": "Μέσω {{agency}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.flagged.add": {
+    "text": "Σήμανση για παρακολούθηση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.flagged.addBody": {
+    "text": "Μόνο η ομάδα του πανεπιστημίου σας θα βλέπει αυτή τη σήμανση και τον λόγο.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.flagged.flagged": {
+    "text": "Με σήμανση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.flagged.reason": {
+    "text": "Λόγος",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.flagged.remove": {
+    "text": "Αφαίρεση σήμανσης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.flagged.removeTitle": {
+    "text": "Αφαίρεση της σήμανσης από αυτή την αίτηση;",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.inbox.title": {
+    "text": "Μηνύματα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:university.login.tagline": {
+    "text": "Υποψήφιοι, αποφάσεις και φοιτητές ανά περίοδο εισαγωγής, για το γραφείο διεθνών φοιτητών σας.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v18.offline.title": {
+    "text": "Είσαι εκτός σύνδεσης",
+    "why": "register: singular εσύ for student"
+  },
+  "mobile:v29.mfa.codeHint": {
+    "text": "Εισαγάγετε τον 6ψήφιο κωδικό από την εφαρμογή ελέγχου ταυτότητας ή έναν κωδικό ανάκτησης.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v29.mfa.codeLabel": {
+    "text": "Κωδικός επαλήθευσης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v29.mfa.enrollOnWeb": {
+    "text": "Αυτός ο λογαριασμός απαιτεί επαλήθευση δύο βημάτων. Ρυθμίστε την πρώτα στην κονσόλα web και μετά συνδεθείτε εδώ.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v29.mfa.verify": {
+    "text": "Επαλήθευση και σύνδεση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v29.mfa.wrongCode": {
+    "text": "Ο κωδικός είναι λάθος ή έχει λήξει. Εισαγάγετε νέο.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v29.plan.supportDays": {
+    "text": "Συμβουλευτική υποστήριξη {{count}} ημερών από την πρώτη σου συνάντηση",
+    "why": "English says consultation support; was bare days"
+  },
+  "mobile:v29.plan.supportUntil": {
+    "text": "Συμβουλευτική υποστήριξη έως {{date}}",
+    "why": "match English fully"
+  },
+  "mobile:v29.plan.termToAgree": {
+    "text": "Συμφωνείται με την έναρξη της υπηρεσίας",
+    "why": "'agreed', not 'set'"
+  },
+  "mobile:v29.plan.unrationed.TEAM": {
+    "text": "Παρακολούθηση από την ομάδα σου",
+    "why": "match web wording"
+  },
+  "mobile:v3.agency.allClear": {
+    "text": "Όλα εντάξει: {{list}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.applications_one": {
+    "text": "{{count}} αίτηση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.applications_other": {
+    "text": "{{count}} αιτήσεις",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.att.breached_one": {
+    "text": "{{count}} ήδη εκτός δέσμευσης χρόνου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.att.breached_other": {
+    "text": "{{count}} ήδη εκτός δέσμευσης χρόνου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.att.closing_one": {
+    "text": "Αίτηση κλείνει μέσα σε 7 ημέρες",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.att.closing_other": {
+    "text": "Αιτήσεις κλείνουν μέσα σε 7 ημέρες",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.att.docs_one": {
+    "text": "Έγγραφο σε αναμονή ελέγχου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.att.docs_other": {
+    "text": "Έγγραφα σε αναμονή ελέγχου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.att.next": {
+    "text": "Επόμενο: {{uni}} για {{who}}, {{date}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.att.overSla": {
+    "text": "{{count}} σε αναμονή πάνω από {{hours}} ώρες",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.att.overdue_one": {
+    "text": "Εκπρόθεσμη εργασία",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.att.overdue_other": {
+    "text": "Εκπρόθεσμες εργασίες",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.att.replies_one": {
+    "text": "Φοιτητής περιμένει την απάντησή σας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.att.replies_other": {
+    "text": "Φοιτητές περιμένουν την απάντησή σας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.att.since": {
+    "text": "Παλαιότερο από {{who}}, {{when}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.att.sla_one": {
+    "text": "Φοιτητής με κίνδυνο καθυστερημένης πρώτης απάντησης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.att.sla_other": {
+    "text": "Φοιτητές με κίνδυνο καθυστερημένης πρώτης απάντησης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.block.deadline": {
+    "text": "Η αίτηση στο {{uni}} κλείνει σύντομα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.block.fix": {
+    "text": "{{doc}}: χρειάζεται διόρθωση από τον φοιτητή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.block.requested": {
+    "text": "{{uni}} ζήτησε επιπλέον έγγραφα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.block.review": {
+    "text": "{{doc}}: σε αναμονή του ελέγχου σας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.block.sla": {
+    "text": "Εκκρεμεί η πρώτη απάντηση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.blockers_one": {
+    "text": "{{count}} εμπόδιο καθυστερεί αυτόν τον φοιτητή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.blockers_other": {
+    "text": "{{count}} εμπόδια καθυστερούν αυτόν τον φοιτητή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.clear.closing": {
+    "text": "προθεσμίες αυτή την εβδομάδα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.clear.docs": {
+    "text": "έλεγχοι εγγράφων",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.clear.overdue": {
+    "text": "εκπρόθεσμες εργασίες",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.clear.replies": {
+    "text": "απαντήσεις σε φοιτητές",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.clear.sla": {
+    "text": "πρώτες απαντήσεις",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.conversationSubject": {
+    "text": "Η ομάδα σου για σπουδές στην Κορέα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.deadline": {
+    "text": "{{uni}} {{when}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.documents": {
+    "text": "Έγγραφα · {{verified}} από {{total}} επαληθευμένα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.dueToday_one": {
+    "text": "Λήγει σήμερα · {{count}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.dueToday_other": {
+    "text": "Λήγουν σήμερα · {{count}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.findStudent": {
+    "text": "Αναζήτηση φοιτητή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.firstMessage": {
+    "text": "Μήνυμα σε {{name}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.greeting.afternoon": {
+    "text": "Καλό απόγευμα, {{name}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.greeting.evening": {
+    "text": "Καλησπέρα, {{name}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.greeting.morning": {
+    "text": "Καλημέρα, {{name}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.message": {
+    "text": "Μήνυμα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.messageLabel": {
+    "text": "Μήνυμα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.needsAttention": {
+    "text": "Χρειάζεται προσοχή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.nextAction": {
+    "text": "Επόμενο: {{what}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.noBlockers": {
+    "text": "Τίποτα δεν εμποδίζει αυτόν τον φοιτητή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.noBlockersBody": {
+    "text": "Έγγραφα, προθεσμίες και απαντήσεις είναι όλα εντός χρόνου.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.noStudents": {
+    "text": "Κανένας φοιτητής σε αυτή την προβολή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.noStudentsBody": {
+    "text": "Δοκιμάστε άλλη προβολή ή καθαρίστε την αναζήτηση.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.searchPlaceholder": {
+    "text": "Όνομα ή email",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.stage": {
+    "text": "Στάδιο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.stageNote": {
+    "text": "Σημείωση για την ομάδα (προαιρετικό)",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.stageTo": {
+    "text": "Μετάβαση σε {{stage}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.teamView": {
+    "text": "Ομάδα · {{name}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.toFix_one": {
+    "text": "{{count}} έγγραφο για διόρθωση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.toFix_other": {
+    "text": "{{count}} έγγραφα για διόρθωση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.today": {
+    "text": "Σήμερα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.upload": {
+    "text": "Ανέβασμα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.uploadFor": {
+    "text": "{{doc}} για {{name}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.uploadWhat": {
+    "text": "Ποιο έγγραφο ανεβάζετε;",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.uploaded": {
+    "text": "Ανέβηκε στον χώρο εγγράφων του φοιτητή. Έτοιμο για έλεγχο.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.view.all": {
+    "text": "Όλοι",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.view.attention": {
+    "text": "Χρειάζονται προσοχή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.view.deadline": {
+    "text": "Προθεσμία σύντομα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.view.docs": {
+    "text": "Έγγραφα για διόρθωση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.view.mine": {
+    "text": "Οι φοιτητές μου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.view.sla": {
+    "text": "Φοιτητές εκτός ή κοντά στη δέσμευση πρώτης απάντησης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.view.university": {
+    "text": "Αναμονή πανεπιστημίου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.view.visa": {
+    "text": "Βίζα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.view.waiting_student": {
+    "text": "Αναμονή φοιτητή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.view.waiting_us": {
+    "text": "Αναμονή από εμάς",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.waitingOn.agency": {
+    "text": "Αναμονή: ομάδα γραφείου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.waitingOn.counselor": {
+    "text": "Αναμονή: σύμβουλος",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.waitingOn.external": {
+    "text": "Αναμονή: εξωτερική υπηρεσία",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.waitingOn.hangyul": {
+    "text": "Αναμονή: Hangyul",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.waitingOn.none": {
+    "text": "Καμία αναμονή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.waitingOn.student": {
+    "text": "Αναμονή: φοιτητής",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.waitingOn.university": {
+    "text": "Αναμονή: πανεπιστήμιο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.agency.waitingOn.us": {
+    "text": "Αναμονή: εμείς",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.ADDITIONAL_DOCUMENTS": {
+    "text": "Το πανεπιστήμιο ζήτησε ένα ακόμη έγγραφο.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Η τυπική επιστολή εισαγωγής σου είναι έτοιμη. Ξεκίνα τα έγγραφα της βίζας.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_PENDING": {
+    "text": "Αναμονή για την τυπική επιστολή εισαγωγής σου.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.DOCUMENT_PREPARATION": {
+    "text": "Ετοιμάζεις τα έγγραφά σου.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.DRAFT": {
+    "text": "Έχεις ξεκινήσει αυτή την αίτηση.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.ENROLLED": {
+    "text": "Η εγγραφή σου στο πανεπιστήμιο ολοκληρώθηκε. Καλώς ήρθες στην Κορέα.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.INTERVIEW": {
+    "text": "Το πανεπιστήμιο θέλει να σου πάρει συνέντευξη.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.OFFERED": {
+    "text": "Έλαβες προσφορά θέσης.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.OFFER_ACCEPTED": {
+    "text": "Αποδέχτηκες την προσφορά. Επόμενο: δίδακτρα.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.PROFILE_REVIEW": {
+    "text": "Η ομάδα Hangyul Univ ελέγχει το προφίλ σου.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.REJECTED": {
+    "text": "Το πανεπιστήμιο δεν προσέφερε θέση αυτή τη φορά.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.SUBMITTED": {
+    "text": "Υποβλήθηκε στο {{university}}.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.TUITION_PAID": {
+    "text": "Τα δίδακτρα παραλήφθηκαν. Το πανεπιστήμιο ετοιμάζει την επιστολή εισαγωγής σου.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.TUITION_PENDING": {
+    "text": "Πλήρωσε τα δίδακτρα απευθείας στο πανεπιστήμιο μέχρι την προθεσμία.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.UNIVERSITY_REVIEW": {
+    "text": "{{university}} εξετάζει την αίτησή σου.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.VISA_PREPARATION": {
+    "text": "Ετοιμάζεις την αίτηση βίζας σου.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.VISA_SUBMITTED": {
+    "text": "Η αίτηση βίζας υποβλήθηκε.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.WAITLISTED": {
+    "text": "Είσαι στη λίστα αναμονής.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.appStatus.WITHDRAWN": {
+    "text": "Αυτή η αίτηση αποσύρθηκε.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.closes": {
+    "text": "Κλείνει {{date}} · {{left}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.due": {
+    "text": "Προθεσμία {{date}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.ready": {
+    "text": "Έτοιμη για υποβολή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.readyBody": {
+    "text": "Όλα τα απαιτούμενα είναι στη θέση τους.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.reviewBody": {
+    "text": "Υποβλήθηκε {{date}}. Το πανεπιστήμιο μπορεί να ζητήσει άλλο έγγραφο ή συνέντευξη. Η ομάδα της Hangyul παρακολουθεί την πορεία της.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.reviewTitle": {
+    "text": "{{university}} εξετάζει την αίτησή σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.reviewing": {
+    "text": "Ελέγχεται: {{item}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.submit": {
+    "text": "Υποβολή αίτησης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.teamMonitoring": {
+    "text": "Σε επαφή με το πανεπιστήμιο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.teamWaiting": {
+    "text": "Περιμένουμε τα έγγραφά σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.timeline": {
+    "text": "Χρονολόγιο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.uni.decided": {
+    "text": "Ελήφθη απόφαση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.uni.reviewing": {
+    "text": "Εξετάζει την αίτησή σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.uni.waiting": {
+    "text": "Περιμένει την υποβολή σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.university": {
+    "text": "Πανεπιστήμιο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.uploadRequested": {
+    "text": "Ανέβασε αυτό το έγγραφο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.who": {
+    "text": "Ποιος κάνει τι",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.withdraw": {
+    "text": "Απόσυρση αυτής της αίτησης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.application.you": {
+    "text": "Εσύ",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.common.all": {
+    "text": "Όλα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.deadlines.bucket.later_other": {
+    "text": "Αργότερα αυτόν τον μήνα · {{count}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.deadlines.bucket.overdue_other": {
+    "text": "Εκπρόθεσμες · {{count}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.deadlines.bucket.week_other": {
+    "text": "Επόμενες 7 ημέρες · {{count}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.deadlines.emptyView": {
+    "text": "Τίποτα δεν λήγει σε αυτή την προβολή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.deadlines.student": {
+    "text": "Φοιτητής",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.deadlines.who.all": {
+    "text": "Όλες",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.deadlines.who.mine": {
+    "text": "Δικές μου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.deadlines.who.unassigned": {
+    "text": "Χωρίς ανάθεση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.deadlines.you": {
+    "text": "Εσείς",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.all": {
+    "text": "Όλα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.any": {
+    "text": "Οποιοδήποτε",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.closes": {
+    "text": "κλείνει {{date}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.degree": {
+    "text": "Τι θέλεις να σπουδάσεις;",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.emptyVerdict": {
+    "text": "Τίποτα εδώ αυτή τη στιγμή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.explain.notyet": {
+    "text": "Μια δημοσιευμένη απαίτηση δεν καλύπτεται ακόμη. Κάθε γραμμή λέει ακριβώς ποια.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.explain.strong": {
+    "text": "Καλύπτεις κάθε δημοσιευμένη βασική απαίτηση, και ταιριάζει στον προϋπολογισμό και στα σχέδιά σου.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.filters": {
+    "text": "Φίλτρα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.filtersN": {
+    "text": "Φίλτρα · {{count}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.forYou": {
+    "text": "Για εσένα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.language": {
+    "text": "Γλώσσα διδασκαλίας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.noLanguageMin": {
+    "text": "Χωρίς ελάχιστο γλώσσας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.openOnly": {
+    "text": "Ανοιχτά για αιτήσεις",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.perYear": {
+    "text": "≈ {{amount}} / έτος",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.saved": {
+    "text": "Αποθηκευμένα · {{count}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.savedEmpty": {
+    "text": "Δεν υπάρχουν αποθηκευμένα πανεπιστήμια ακόμη",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.savedEmptyBody": {
+    "text": "Πάτησε την καρδιά σε οποιοδήποτε πρόγραμμα για να το κρατήσεις εδώ για αργότερα.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.showResults_one": {
+    "text": "Εμφάνιση {{count}} προγράμματος",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.showResults_other": {
+    "text": "Εμφάνιση {{count}} προγραμμάτων",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.summary_one": {
+    "text": "Καλύπτεις τις δημοσιευμένες απαιτήσεις για {{count}} πρόγραμμα.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.summary_other": {
+    "text": "Καλύπτεις τις δημοσιευμένες απαιτήσεις για {{count}} προγράμματα.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.tuition": {
+    "text": "Δίδακτρα ανά εξάμηνο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.discover.upTo": {
+    "text": "Έως ₩{{amount}} εκατ.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.docAction.FIX": {
+    "text": "Χρειάζεται διόρθωση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.docAction.IN_REVIEW": {
+    "text": "Ελέγχεται από την ομάδα της Hangyul",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.docAction.LEGALIZE": {
+    "text": "Χρειάζεται Apostille ή προξενική επικύρωση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.docAction.UPLOAD": {
+    "text": "Δεν έχει ανέβει ακόμη",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.allSet": {
+    "text": "Τίποτα δεν σε χρειάζεται τώρα.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.checking": {
+    "text": "Ελέγχεται",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.howTo": {
+    "text": "Πώς να αποκτήσεις {{path}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.issuedIn": {
+    "text": "Χώρα έκδοσης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.issuedOn": {
+    "text": "Ημερομηνία έκδοσης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.legalize": {
+    "text": "Ελέγχθηκε, αλλά χρειάζεται ακόμη {{path}} πριν το δεχτεί ένα κορεατικό πανεπιστήμιο",
+    "why": "'checked' not 'verified' (reserved term)"
+  },
+  "mobile:v3.documents.needYou_one": {
+    "text": "{{count}} σε χρειάζεται",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.needYou_other": {
+    "text": "{{count}} σε χρειάζονται",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.neededFor": {
+    "text": "Απαιτείται για {{university}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.needsYou": {
+    "text": "Σε χρειάζεται",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.newVersion": {
+    "text": "Ανέβασε νέα έκδοση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.ready": {
+    "text": "Έτοιμο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.readyOf": {
+    "text": "{{ready}} από {{total}} έγγραφα έτοιμα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.readyTitle": {
+    "text": "Έτοιμα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.sourceVerified": {
+    "text": "Επίσημη πηγή · ελέγχθηκε {{date}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.state.fix": {
+    "text": "Χρειάζεται διόρθωση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.state.legalize": {
+    "text": "Χρειάζεται Apostille",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.state.ready": {
+    "text": "Έτοιμο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.state.review": {
+    "text": "Ελέγχεται",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.submitted": {
+    "text": "Υποβλήθηκε {{when}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.upload": {
+    "text": "Ανέβασμα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.validUntil": {
+    "text": "Ισχύει έως {{date}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.documents.validUntilLabel": {
+    "text": "Ισχύει έως",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.applications": {
+    "text": "Οι αιτήσεις σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.closes": {
+    "text": "Κλείνει {{date}} · {{left}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.documentsHint": {
+    "text": "Ανέβασε, διόρθωσε ή πάρε Apostille",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.documents_one": {
+    "text": "{{count}} έγγραφο σε χρειάζεται",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.documents_other": {
+    "text": "{{count}} έγγραφα σε χρειάζονται",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.due": {
+    "text": "Προθεσμία {{date}} · {{left}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.findUniversities": {
+    "text": "Βρες πανεπιστήμια",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.greeting.afternoon": {
+    "text": "Καλό απόγευμα, {{name}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.greeting.evening": {
+    "text": "Καλησπέρα, {{name}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.greeting.morning": {
+    "text": "Καλημέρα, {{name}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.message": {
+    "text": "Μήνυμα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextBody.APPLICATION_DEADLINE": {
+    "text": "Ολοκλήρωσε τη λίστα ελέγχου ώστε η αίτησή σου να υποβληθεί εγκαίρως.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextBody.DOCUMENT_UPLOAD": {
+    "text": "Ανέβασε μια καθαρή σάρωση ή φωτογραφία. Η ομάδα της Hangyul το ελέγχει και σου λέει αν χρειάζεται διόρθωση.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextBody.ESSAY_WRITE": {
+    "text": "Ξεκίνα με ένα πρόχειρο. Η ομάδα της Hangyul θα το δει μαζί σου.",
+    "why": "English says the Hangyul team, not counselor"
+  },
+  "mobile:v3.home.nextBody.REVIEW_MATCHES": {
+    "text": "Συγκρίναμε το προφίλ σου με τις δημοσιευμένες απαιτήσεις. Αποθήκευσε μερικά και μετά ξεκίνα μια αίτηση.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextBody.TUITION_PAYMENT": {
+    "text": "Τα δίδακτρα πληρώνονται απευθείας στο πανεπιστήμιο, στο όνομά σου.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextBody.UNIVERSITY_REQUEST": {
+    "text": "Το πανεπιστήμιο ζήτησε ένα ακόμη έγγραφο πριν αποφασίσει.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextBody.VISA_STEP": {
+    "text": "Ολοκλήρωσε το επόμενο στοιχείο της λίστας βίζας.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextBody.WAIT": {
+    "text": "Τίποτα δεν σε χρειάζεται τώρα. Θα σου πούμε μόλις αλλάξει κάτι.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextCta.APPLICATION_DEADLINE": {
+    "text": "Άνοιγμα αίτησης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextCta.APPLICATION_SUBMIT": {
+    "text": "Έλεγχος και υποβολή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextCta.ARRIVAL_CHECKLIST": {
+    "text": "Άνοιγμα λίστας άφιξης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextCta.COMPARE_OFFERS": {
+    "text": "Σύγκριση προσφορών",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextCta.COMPLETE_PROFILE": {
+    "text": "Συνέχεια προφίλ",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextCta.DOCUMENT_UPLOAD": {
+    "text": "Ανέβασμα εγγράφου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextCta.ESSAY_WRITE": {
+    "text": "Άνοιγμα πρόχειρου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextCta.INTERVIEW": {
+    "text": "Προετοιμασία συνέντευξης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextCta.RESPOND_OFFER": {
+    "text": "Δες την προσφορά σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextCta.REVIEW_MATCHES": {
+    "text": "Δες τα πανεπιστήμιά μου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextCta.TUITION_PAYMENT": {
+    "text": "Δες τα στοιχεία πληρωμής",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextCta.UNIVERSITY_REQUEST": {
+    "text": "Δες τι ζήτησε το πανεπιστήμιο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextCta.VISA_STEP": {
+    "text": "Άνοιγμα βημάτων βίζας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextCtaDefault": {
+    "text": "Ξεκίνα τώρα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.nextEyebrow": {
+    "text": "Τι να κάνεις τώρα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.noApplications": {
+    "text": "Δεν υπάρχουν αιτήσεις ακόμη. Ξεκίνα με πανεπιστήμια που σου ταιριάζουν.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.noCounselor": {
+    "text": "Διάλεξε πακέτο και η ομάδα Hangyul Univ δουλεύει μαζί σου στη γλώσσα σου.",
+    "why": "one term 'πακέτο'; singular; no promise added"
+  },
+  "mobile:v3.home.otherTasks_one": {
+    "text": "{{count}} άλλη εργασία",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.otherTasks_other": {
+    "text": "{{count}} άλλες εργασίες",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.stageLine.apply": {
+    "text": "Τα πανεπιστήμια εξετάζουν τις αιτήσεις σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.stageLine.arrival": {
+    "text": "Προετοιμασία για την άφιξη στην Κορέα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.stageLine.discover": {
+    "text": "Αναζήτηση των κατάλληλων πανεπιστημίων",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.stageLine.prepare": {
+    "text": "Προετοιμασία των αιτήσεών σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.stageLine.visa": {
+    "text": "Προετοιμασία της φοιτητικής σου βίζας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.team": {
+    "text": "Ομάδα Hangyul Univ",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.unread_one": {
+    "text": "{{count}} μη αναγνωσμένο μήνυμα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.unread_other": {
+    "text": "{{count}} μη αναγνωσμένα μηνύματα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.home.upcoming": {
+    "text": "Προσεχώς",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.journey.admission": {
+    "text": "Εισαγωγή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.journey.apply": {
+    "text": "Αίτηση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.journey.arrival": {
+    "text": "Άφιξη",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.journey.discover": {
+    "text": "Αναζήτηση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.journey.next": {
+    "text": "Επόμενο: {{stage}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.journey.of": {
+    "text": "· {{n}} από {{total}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.journey.prepare": {
+    "text": "Προετοιμασία",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.journey.step": {
+    "text": "Βήμα {{n}} από {{total}}: {{stage}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.journey.visa": {
+    "text": "Βίζα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.match.close": {
+    "text": "Όχι ακόμη επιλέξιμο — ένα βήμα μακριά",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.match.notYet": {
+    "text": "Όχι ακόμη επιλέξιμο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.match.possible": {
+    "text": "Πιθανή αντιστοιχία",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.match.strong": {
+    "text": "Ισχυρή αντιστοιχία",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.messages.attach": {
+    "text": "Επισύναψη αρχείου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.messages.attachUnavailable": {
+    "text": "Τα συνημμένα δεν είναι διαθέσιμα ακόμη.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.messages.attachmentOnly_one": {
+    "text": "Στάλθηκε {{count}} συνημμένο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.messages.attachmentOnly_other": {
+    "text": "Στάλθηκαν {{count}} συνημμένα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.messages.conversations": {
+    "text": "Συνομιλίες",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.messages.openAttachment": {
+    "text": "Άνοιγμα {{name}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.messages.removeAttachment": {
+    "text": "Αφαίρεση {{name}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.offer.accept": {
+    "text": "Αποδοχή προσφοράς",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.offer.body": {
+    "text": "{{university}} σου προσφέρει θέση στο πρόγραμμα {{program}}.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.offer.deadline": {
+    "text": "Αποδοχή και πληρωμή διδάκτρων έως {{date}} · {{left}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.offer.next": {
+    "text": "Τι ακολουθεί",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.offer.scholarship": {
+    "text": "Υποτροφία",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.offer.step.accept": {
+    "text": "Αποδέξου την προσφορά",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.offer.step.letter": {
+    "text": "Λάβε την τυπική επιστολή εισαγωγής σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.offer.step.review": {
+    "text": "Δες την προσφορά και τυχόν όρους",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.offer.step.tuition": {
+    "text": "Πλήρωσε τα δίδακτρα απευθείας στο πανεπιστήμιο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.offer.step.visa": {
+    "text": "Ετοίμασε τη φοιτητική σου βίζα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.offer.tuition": {
+    "text": "Δίδακτρα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.offer.tuitionDirect": {
+    "text": "Η Hangyul δεν εισπράττει ποτέ δίδακτρα. Πλήρωσε το πανεπιστήμιο στο όνομά σου, σύμφωνα με τις οδηγίες του.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.profile.completeTitle": {
+    "text": "Το προφίλ σου είναι πλήρες",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.profile.done": {
+    "text": "Ολοκληρώθηκε",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.profile.editOnWeb": {
+    "text": "Μπορείς να αλλάξεις αυτές τις απαντήσεις στο web όποτε θέλεις.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.profile.places": {
+    "text": "Τα στοιχεία σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.profile.todo": {
+    "text": "Προς συμπλήρωση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.profile.unlock.basics": {
+    "text": "Μας λέει ποιοι κανόνες εγγράφων και βίζας ισχύουν για εσένα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.profile.unlock.default": {
+    "text": "Κάνει τις αντιστοιχίες σου πιο ακριβείς",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.profile.unlock.education": {
+    "text": "Αφαιρεί προγράμματα των οποίων τις ακαδημαϊκές απαιτήσεις δεν καλύπτεις",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.profile.unlock.goals": {
+    "text": "Δείχνει προγράμματα στο επίπεδο και την περίοδο έναρξης που θέλεις",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.profile.unlock.passport": {
+    "text": "Απαιτείται πριν υποβληθεί οποιαδήποτε αίτηση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.profile.unlock.preferences": {
+    "text": "Κατατάσσει τα πανεπιστήμια με βάση τον προϋπολογισμό και την πόλη σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.profile.unlock.sponsor": {
+    "text": "Σου επιτρέπει να ετοιμάσεις νωρίς τα οικονομικά έγγραφα για τη βίζα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.push.denied": {
+    "text": "Οι ειδοποιήσεις είναι απενεργοποιημένες. Ενεργοποίησέ τες στις ρυθμίσεις του κινητού σου για το Hangyul.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.push.enable": {
+    "text": "Ενεργοποίηση ειδοποιήσεων",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.push.error": {
+    "text": "Δεν μπορέσαμε να ενεργοποιήσουμε τις ειδοποιήσεις. Δοκίμασε ξανά.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.push.idle": {
+    "text": "Λάβε ειδοποίηση push όταν ελέγχεται ένα έγγραφο, πλησιάζει μια προθεσμία ή απαντά η ομάδα της Hangyul.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.push.on": {
+    "text": "Οι ειδοποιήσεις είναι ενεργές. Μπορείς να το αλλάξεις στις ρυθμίσεις του κινητού σου.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.push.pending-server": {
+    "text": "Οι ειδοποιήσεις επιτρέπονται σε αυτό το κινητό. Η αποστολή push δεν είναι ακόμη ενεργή· όλα εμφανίζονται κανονικά σε αυτή τη λίστα.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.push.title": {
+    "text": "Ειδοποιήσεις σε αυτό το κινητό",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.quick.again": {
+    "text": "Αλλαγή απαντήσεων",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.quick.createAccount": {
+    "text": "Εγγράψου για να συνεχίσεις",
+    "why": "register: singular εσύ for student"
+  },
+  "mobile:v3.reviews.beforeVerify": {
+    "text": "Πριν την επαλήθευση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.bulkBody": {
+    "text": "Μόνο για έγγραφα που έχετε ανοίξει και ελέγξει. Κάθε φοιτητής ειδοποιείται.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.bulkDone": {
+    "text": "{{ok}} επαληθεύτηκαν, {{failed}} παραλείφθηκαν",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.bulkTitle_one": {
+    "text": "Επαλήθευση {{count}} εγγράφου;",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.bulkTitle_other": {
+    "text": "Επαλήθευση {{count}} εγγράφων;",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.check.date": {
+    "text": "Η ημερομηνία έκδοσης είναι αρκετά πρόσφατη και δεν έχει λήξει",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.check.issuer": {
+    "text": "Εκδότης, σφραγίδα ή υπογραφή είναι ορατά",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.check.legal": {
+    "text": "{{path}}: συνημμένη και αντιστοιχεί στο έγγραφο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.check.legible": {
+    "text": "Κάθε σελίδα είναι πλήρης και ευανάγνωστη",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.check.name": {
+    "text": "Όνομα και ημερομηνία γέννησης συμφωνούν με το διαβατήριο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.correctionTitle": {
+    "text": "Τι πρέπει να διορθώσει ο φοιτητής;",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.expires": {
+    "text": "Ισχύει έως",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.issuedIn": {
+    "text": "Χώρα έκδοσης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.issuedOn": {
+    "text": "Ημερομηνία έκδοσης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.legalization": {
+    "text": "Επικύρωση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.notNeeded": {
+    "text": "Δεν χρειάζεται",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.open": {
+    "text": "Άνοιγμα {{name}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.overSla": {
+    "text": "{{waiting}} · εκτός δέσμευσης ελέγχου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.reason": {
+    "text": "Μήνυμα προς τον φοιτητή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.requestCorrection": {
+    "text": "Αίτημα διόρθωσης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.required": {
+    "text": "Υποχρεωτικό",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.select": {
+    "text": "Επιλογή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.studentSees": {
+    "text": "{{name}} βλέπει ακριβώς αυτό το κείμενο δίπλα στο έγγραφο.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.studentSeesGeneric": {
+    "text": "Ο φοιτητής βλέπει ακριβώς αυτό το κείμενο δίπλα στο έγγραφο.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.summary": {
+    "text": "{{count}} σε αναμονή · {{over}} εκτός της δέσμευσης ελέγχου {{hours}} ωρών",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.templates": {
+    "text": "Πρότυπα ομάδας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.translation": {
+    "text": "Μετάφραση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.uploaded": {
+    "text": "ανέβηκε {{when}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.verifyN_one": {
+    "text": "Επαλήθευση {{count}} εγγράφου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.reviews.verifyN_other": {
+    "text": "Επαλήθευση {{count}} εγγράφων",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.settings.consoleHint": {
+    "text": "Μέλη ομάδας, χρεώσεις και εξαγωγές διαχειρίζονται στην κονσόλα web του γραφείου.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.settings.work": {
+    "text": "Η εργασία σας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.tasks.empty.team": {
+    "text": "Η ομάδα δεν έχει ανοιχτές εργασίες",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.tasks.empty.today": {
+    "text": "Τίποτα δεν λήγει σήμερα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.tasks.empty.waiting": {
+    "text": "Καμία εργασία δεν περιμένει κάτι άλλο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.tasks.empty.week": {
+    "text": "Τίποτα δεν λήγει αυτή την εβδομάδα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.tasks.open": {
+    "text": "Ανοιχτές",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.tasks.overdue": {
+    "text": "Εκπρόθεσμη · {{when}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.tasks.view.overdue": {
+    "text": "Εκπρόθεσμες",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.tasks.view.team": {
+    "text": "Ομάδα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.tasks.view.today": {
+    "text": "Σήμερα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.tasks.view.waiting": {
+    "text": "Σε αναμονή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.tasks.view.week": {
+    "text": "Αυτή την εβδομάδα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.tasks.waitingOn": {
+    "text": "Αναμονή: {{what}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.allClear": {
+    "text": "Τίποτα δεν χρειάζεται απόφαση αυτή τη στιγμή.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.allCohorts": {
+    "text": "Όλοι οι φοιτητές Hangyul",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.allIntakes": {
+    "text": "Όλες οι περίοδοι εισαγωγής",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.applicant": {
+    "text": "Υποψήφιος",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.check.gpa": {
+    "text": "GPA",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.check.interview": {
+    "text": "Συνέντευξη",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.check.interviewRequired": {
+    "text": "Απαιτείται από αυτό το πρόγραμμα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.check.level": {
+    "text": "Επίπεδο {{level}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.check.minimum": {
+    "text": "Ελάχιστο {{need}} · Υποψήφιος {{have}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.check.notProvided": {
+    "text": "δεν δόθηκε",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.check.state.below": {
+    "text": "Κάτω από το ελάχιστο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.check.state.meets": {
+    "text": "Πληροί",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.check.state.missing": {
+    "text": "Δεν δόθηκε",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.check.state.planned": {
+    "text": "Προγραμματισμένη εξέταση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.check.state.unscheduled": {
+    "text": "Δεν έχει προγραμματιστεί",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.check.topik": {
+    "text": "TOPIK",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.checksNote": {
+    "text": "Συγκρίνει τις δηλωθείσες βαθμολογίες με τα δημοσιευμένα ελάχιστα του προγράμματος. Υποστηρίζει την αξιολόγησή σας· δεν αποφασίζει.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.checksTitle": {
+    "text": "Έλεγχος απαιτήσεων",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.closed": {
+    "text": "Κλειστές: {{rejected}} μη εισαχθέντες, {{withdrawn}} αποσύρθηκαν. Τα ποσοστά απαιτούν τουλάχιστον {{min}} άτομα.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.cohortIntro_one": {
+    "text": "{{count}} φοιτητής ήρθε σε εσάς μέσω Hangyul. Δείτε πώς τα πάει.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.cohortIntro_other": {
+    "text": "{{count}} φοιτητές ήρθαν σε εσάς μέσω Hangyul. Δείτε πώς τα πάνε.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.cohortNote": {
+    "text": "Τα ποσοστά εμφανίζονται όταν πληρούν τα κριτήρια τουλάχιστον {{min}} φοιτητές. Στοιχεία {{date}}.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.cohort_one": {
+    "text": "{{label}} · {{count}} φοιτητής",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.cohort_other": {
+    "text": "{{label}} · {{count}} φοιτητές",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.conv": {
+    "text": "{{pct}} του προηγούμενου βήματος · {{n}} από {{d}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.convFew": {
+    "text": "{{n}} από {{d}} από το προηγούμενο βήμα · πολύ λίγοι για ποσοστό",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decision.admitted_one": {
+    "text": "εισαχθείς που δεν έχει πληρώσει δίδακτρα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decision.admitted_other": {
+    "text": "εισαχθέντες που δεν έχουν πληρώσει δίδακτρα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decision.documents_one": {
+    "text": "αναμονή για τα έγγραφα του φοιτητή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decision.documents_other": {
+    "text": "αναμονή για έγγραφα φοιτητών",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decision.flagged_one": {
+    "text": "αίτηση με σήμανση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decision.flagged_other": {
+    "text": "αιτήσεις με σήμανση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decision.interview_one": {
+    "text": "συνέντευξη προς διεξαγωγή ή βαθμολόγηση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decision.interview_other": {
+    "text": "συνεντεύξεις προς διεξαγωγή ή βαθμολόγηση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decision.offer_one": {
+    "text": "προσφορά σε αναμονή απάντησης του φοιτητή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decision.offer_other": {
+    "text": "προσφορές σε αναμονή απάντησης των φοιτητών",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decision.returned_one": {
+    "text": "έγγραφο που επέστρεψε ο φοιτητής",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decision.returned_other": {
+    "text": "έγγραφα που επέστρεψαν οι φοιτητές",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decision.review_one": {
+    "text": "αίτηση προς εξέταση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decision.review_other": {
+    "text": "αιτήσεις προς εξέταση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decisionContext_one": {
+    "text": "{{ready}} από {{total}} απαιτούμενα έγγραφα έτοιμα · {{count}} ανοιχτό αίτημα.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decisionContext_other": {
+    "text": "{{ready}} από {{total}} απαιτούμενα έγγραφα έτοιμα · {{count}} ανοιχτά αιτήματα.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decisionDocs": {
+    "text": "{{ready}} από {{total}} απαιτούμενα έγγραφα έτοιμα.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decisionHint.admitted": {
+    "text": "Επιβεβαιώστε την πληρωμή όταν φτάσει",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decisionHint.documents": {
+    "text": "Καμία ενέργεια μέχρι να ανεβάσουν",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decisionHint.flagged": {
+    "text": "Σημειώθηκε για προσεκτικότερη εξέταση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decisionHint.interview": {
+    "text": "Καταγράψτε το αποτέλεσμα μετά τη συνέντευξη",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decisionHint.offer": {
+    "text": "Η Hangyul παρακολουθεί το θέμα με τον φοιτητή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decisionHint.returned": {
+    "text": "Ελέγξτε ξανά αυτό που ζητήσατε",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.decisionHint.review": {
+    "text": "Υποβλήθηκε και αρκετά πλήρης για απόφαση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.docsTitle": {
+    "text": "Έγγραφα · {{ready}} από {{total}} έτοιμα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.dueOn": {
+    "text": "έως {{date}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.empty.all": {
+    "text": "Κανένας υποψήφιος εδώ",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.empty.flagged": {
+    "text": "Καμία αίτηση με σήμανση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.empty.review": {
+    "text": "Καμία αίτηση σε αναμονή εξέτασης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.graduation": {
+    "text": "Αποφοίτησαν",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.latest": {
+    "text": "Πιο πρόσφατα προς εξέταση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.move.ADDITIONAL_DOCUMENTS": {
+    "text": "Ζητήστε επιπλέον έγγραφα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.move.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Έκδοση επιστολής εισαγωγής",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.move.INTERVIEW": {
+    "text": "Πρόσκληση σε συνέντευξη",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.move.OFFERED": {
+    "text": "Προσφορά θέσης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.move.REJECTED": {
+    "text": "Μη εισαγωγή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.move.TUITION_PAID": {
+    "text": "Επιβεβαίωση πληρωμής διδάκτρων",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.move.TUITION_PENDING": {
+    "text": "Αποστολή τιμολογίου διδάκτρων",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.move.UNIVERSITY_REVIEW": {
+    "text": "Έναρξη εξέτασης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.move.WAITLISTED": {
+    "text": "Λίστα αναμονής",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.nOfD": {
+    "text": "{{n}} από {{d}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.needsTitle": {
+    "text": "Χρειάζεται την απόφασή σας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.noMinimums": {
+    "text": "Αυτό το πρόγραμμα δεν έχει δημοσιευμένα ελάχιστα ακόμη.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.nothingToReview": {
+    "text": "Τίποτα σε αναμονή εξέτασης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.openRequests_one": {
+    "text": "{{count}} έγγραφο ζητήθηκε",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.openRequests_other": {
+    "text": "{{count}} έγγραφα ζητήθηκαν",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.otherDecisions": {
+    "text": "Άλλες αποφάσεις",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.populationAll_one": {
+    "text": "Με βάση {{count}} υποβληθείσα αίτηση, όλες οι περίοδοι εισαγωγής.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.populationAll_other": {
+    "text": "Με βάση {{count}} υποβληθείσες αιτήσεις, όλες οι περίοδοι εισαγωγής.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.populationIntake_one": {
+    "text": "Με βάση {{count}} υποβληθείσα αίτηση για {{intake}}.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.populationIntake_other": {
+    "text": "Με βάση {{count}} υποβληθείσες αιτήσεις για {{intake}}.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.reason": {
+    "text": "Λόγος (κοινοποιείται στη Hangyul)",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.request": {
+    "text": "Αίτημα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.requestLabel": {
+    "text": "Τι χρειάζεστε;",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.requestLabelHint": {
+    "text": "π.χ. Απολυτήριο λυκείου με Apostille",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.requestNote": {
+    "text": "Οδηγίες προς τον φοιτητή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.requestNoteHint": {
+    "text": "Τι ακριβώς λείπει και πώς να διορθωθεί",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.requestSend": {
+    "text": "Αποστολή αιτήματος",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.requestTitle": {
+    "text": "Αίτημα εγγράφου από {{name}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.requestWho": {
+    "text": "Ο φοιτητής και ο σύμβουλός του στη Hangyul ειδοποιούνται και βλέπουν ακριβώς αυτή τη διατύπωση.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.requestedOn": {
+    "text": "Ζητήθηκε {{date}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.retention": {
+    "text": "Σπουδάζουν ακόμη",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.search": {
+    "text": "Αναζήτηση ονόματος, προγράμματος ή αριθμού αναφοράς",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.step.ACCEPTED": {
+    "text": "Αποδέχτηκαν την προσφορά",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.step.ARRIVED": {
+    "text": "Έφτασαν στην Κορέα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.step.ENROLLED": {
+    "text": "Εγγράφηκαν",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.step.OFFERED": {
+    "text": "Έλαβαν προσφορά",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.step.REVIEWED": {
+    "text": "Εξετάστηκαν",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.step.SUBMITTED": {
+    "text": "Υποβλήθηκαν",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.step.TUITION_PAID": {
+    "text": "Πλήρωσαν δίδακτρα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.step.VISA_ISSUED": {
+    "text": "Εκδόθηκε βίζα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.tab.applicants": {
+    "text": "Υποψήφιοι",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.tab.pipeline": {
+    "text": "Επισκόπηση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.tab.students": {
+    "text": "Φοιτητές",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.tooFew": {
+    "text": "Πολύ λίγοι για ποσοστό",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.view.admitted": {
+    "text": "Εισαχθέντες",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.view.all": {
+    "text": "Όλοι",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.view.documents": {
+    "text": "Ελλιπή έγγραφα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.view.enrolment": {
+    "text": "Βίζα και εγγραφή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.view.flagged": {
+    "text": "Με σήμανση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.view.interview": {
+    "text": "Συνέντευξη",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.view.offer": {
+    "text": "Προσφορά",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.view.review": {
+    "text": "Προς εξέταση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.uni.waitingStudent": {
+    "text": "Αναμονή φοιτητή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.admissionsSite": {
+    "text": "Ιστότοπος διεθνών εισαγωγών",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.deadline": {
+    "text": "Αίτηση έως",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.documents": {
+    "text": "Έγγραφα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.documentsCount": {
+    "text": "{{count}} έγγραφα · {{legal}} χρειάζονται Apostille ή προξενική επικύρωση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.dorm": {
+    "text": "Εστία ανά εξάμηνο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.dormRange": {
+    "text": "{{min}}–{{max}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.estimate": {
+    "text": "Εκτιμώμενο σύνολο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.estimateNote": {
+    "text": "Εκτίμηση με βάση τα δημοσιευμένα δίδακτρα και ένα τυπικό μηνιαίο κόστος διαβίωσης για την πόλη.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.fee": {
+    "text": "Τέλος αίτησης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.gpa": {
+    "text": "Βαθμοί",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.gpaMin": {
+    "text": "Τουλάχιστον {{pct}}% του μέγιστου GPA",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.intake": {
+    "text": "Περίοδος εισαγωγής",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.interview": {
+    "text": "Συνέντευξη",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.interviewYes": {
+    "text": "Το πανεπιστήμιο μπορεί να σου πάρει συνέντευξη",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.language": {
+    "text": "Γλώσσα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.links": {
+    "text": "Επίσημες πληροφορίες",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.living": {
+    "text": "Κόστος διαβίωσης (12 μήνες)",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.noIntake": {
+    "text": "Καμία ανοιχτή περίοδος εισαγωγής",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.noVerdict": {
+    "text": "Ολοκλήρωσε το προφίλ σου για να δεις αν καλύπτεις τις απαιτήσεις αυτού του προγράμματος.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.notPublished": {
+    "text": "Δεν έχει δημοσιευτεί",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.program": {
+    "text": "Πρόγραμμα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.requirements": {
+    "text": "Απαιτήσεις",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.start": {
+    "text": "Έναρξη αίτησης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.verdict.COMPETITIVE": {
+    "text": "Καλύπτεις τα δημοσιευμένα ελάχιστα. Κάτι χρειάζεται προσοχή.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.verdict.NOT_ELIGIBLE": {
+    "text": "Μια δημοσιευμένη απαίτηση δεν καλύπτεται ακόμη.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.verdict.RECOMMENDED": {
+    "text": "Προτεινόμενο για εσένα.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.verdict.STRONG": {
+    "text": "Καλύπτεις όλες τις δημοσιευμένες βασικές απαιτήσεις, και ταιριάζει στον προϋπολογισμό σου.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.website": {
+    "text": "Ιστότοπος πανεπιστημίου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.university.yearCost": {
+    "text": "Κόστος πρώτου έτους (εκτίμηση)",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.upload.camera": {
+    "text": "Βγάλε φωτογραφία",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.upload.cameraHint": {
+    "text": "Άπλωσε το έγγραφο σε επίπεδη επιφάνεια με καλό φως",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.upload.failed": {
+    "text": "Δεν μπορέσαμε να ανοίξουμε αυτό το αρχείο. Δοκίμασε ξανά.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.upload.files": {
+    "text": "Επίλεξε αρχείο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.upload.filesHint": {
+    "text": "PDF, JPG ή PNG έως 15 MB",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.upload.library": {
+    "text": "Επιλογή από φωτογραφίες",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.upload.privacy": {
+    "text": "Μόνο εσύ και η ομάδα της Hangyul μπορείτε να ανοίξετε τα έγγραφά σου. Ένα πανεπιστήμιο τα βλέπει μόνο αφού υποβάλεις αίτηση σε αυτό.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.upload.tooLarge": {
+    "text": "Αυτό το αρχείο είναι μεγαλύτερο από 15 MB. Δοκίμασε μια σάρωση PDF ή μικρότερη φωτογραφία.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.visa.beforeBody": {
+    "text": "Μόλις αποδεχτείς μια προσφορά και πληρώσεις τα δίδακτρα, το πανεπιστήμιο εκδίδει την επιστολή εισαγωγής σου. Μπορείς ήδη να δεις τι θα χρειαστείς και να αρχίσεις να το μαζεύεις.",
+    "why": "'admission letter' is επιστολή εισαγωγής, not αποδοχής"
+  },
+  "mobile:v3.visa.beforeTitle": {
+    "text": "Η προετοιμασία της βίζας ξεκινά μετά την προσφορά θέσης",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.visa.blockers": {
+    "text": "Χρειάζεται πρώτα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.visa.checklist": {
+    "text": "Η λίστα σου · {{done}} από {{total}} ολοκληρωμένα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.visa.forNationality": {
+    "text": "Ειδικά για την υπηκοότητά σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.visa.now": {
+    "text": "Τι σε χρειάζεται τώρα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.visa.phase.admission": {
+    "text": "Εισαγωγή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.visa.phase.apply": {
+    "text": "Αίτηση βίζας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.visa.phase.decision": {
+    "text": "Απόφαση πρεσβείας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.visa.phase.documents": {
+    "text": "Έγγραφα βίζας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.visa.phase.letter": {
+    "text": "Επιστολή εισαγωγής",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.visa.preview": {
+    "text": "Τι θα χρειαστείς",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.visa.seeRequirement": {
+    "text": "Δες την επίσημη απαίτηση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.visa.sourceChecked": {
+    "text": "Επίσημη πηγή · ελέγχθηκε {{date}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v3.visa.title": {
+    "text": "Προετοιμασία για τη βίζα {{type}}",
+    "why": "match English; 'plan' was invented"
+  },
+  "mobile:v3.visa.titleGeneric": {
+    "text": "Η φοιτητική σου βίζα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.application.blocks": {
+    "text": "Η αίτησή σου δεν μπορεί να υποβληθεί μέχρι να γίνει αυτό.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.application.blocksUni": {
+    "text": "{{university}} περιμένει αυτό πριν συνεχίσει.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.application.doneSummary_one": {
+    "text": "{{count}} ολοκληρώθηκε: {{items}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.application.doneSummary_other": {
+    "text": "{{count}} ολοκληρώθηκαν: {{items}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.application.next": {
+    "text": "Το επόμενο βήμα σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.application.nextFix": {
+    "text": "Διόρθωσε: {{item}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.application.nextLegalize": {
+    "text": "Πάρε Apostille ή προξενική επικύρωση για: {{item}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.application.nextRequest": {
+    "text": "{{university}} ζήτησε: {{item}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.application.nextUpload": {
+    "text": "Ανέβασε: {{item}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.application.nextWrite": {
+    "text": "Γράψε: {{item}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.application.nothingForYou": {
+    "text": "Τίποτα για εσένα αυτή τη στιγμή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.application.openDocument": {
+    "text": "Άνοιγμα εγγράφου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.application.reviewLate": {
+    "text": "Παίρνει περισσότερο από το συνηθισμένο. Η ομάδα της Hangyul ενημερώθηκε για την καθυστέρηση. Δεν χρειάζεται να το ανεβάσεις ξανά.",
+    "why": "English says the Hangyul team, not counselor"
+  },
+  "mobile:v4.application.waitBody": {
+    "text": "Η ομάδα της Hangyul ελέγχει ό,τι έστειλες. Θα σου πούμε αν κάτι χρειάζεται αλλαγή.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.application.waitTitle": {
+    "text": "Τίποτα για εσένα αυτή τη στιγμή",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.application.writeOnWeb": {
+    "text": "Γράψ' το στο web. Εκεί εμφανίζονται και τα σχόλια της ομάδας της Hangyul.",
+    "why": "English says the Hangyul team, not counselor"
+  },
+  "mobile:v4.discover.firstYear": {
+    "text": "{{range}} τον πρώτο χρόνο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.documents.late": {
+    "text": "Καθυστερεί",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.documents.lateLine": {
+    "text": "σημειώθηκε ως καθυστερημένο για την ομάδα της Hangyul",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.FIX.cta": {
+    "text": "Δες πώς να το διορθώσεις",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.FIX.text": {
+    "text": "Η αίτησή σου δεν μπορεί να υποβληθεί μέχρι να διορθωθεί.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.FIX.title": {
+    "text": "Διόρθωσε: {{label}} για {{university}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.LEGALIZE.cta": {
+    "text": "Δες τα βήματα",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.LEGALIZE.text": {
+    "text": "Τα κορεατικά πανεπιστήμια δέχονται αυτό το έγγραφο μόνο αφού επικυρωθεί. Θα σου δείξουμε τα βήματα για τη χώρα σου.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.LEGALIZE.title": {
+    "text": "Πάρε Apostille: {{label}} για {{university}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.RENEW.cta": {
+    "text": "Δες τι να κάνεις",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.RENEW.text": {
+    "text": "Αυτό που ανέβασες έχει λήξει.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.RENEW.title": {
+    "text": "Βγάλε νέο: {{label}} για {{university}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.REQUEST.cta": {
+    "text": "Ανέβασε και στείλε",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.REQUEST.text": {
+    "text": "Το πανεπιστήμιο ζήτησε αυτό το έγγραφο. Η αίτησή σου δεν προχωρά μέχρι να φτάσει.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.REQUEST.title": {
+    "text": "Στείλε: {{label}} στο {{university}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.cta": {
+    "text": "Άνοιξε το πρόχειρό σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.text": {
+    "text": "Η ομάδα της Hangyul άφησε σχόλια. Η αίτησή σου δεν μπορεί να υποβληθεί μέχρι να εγκριθεί.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.title": {
+    "text": "Αναθεώρησε: {{label}} για {{university}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.TOO_OLD.cta": {
+    "text": "Δες τι να κάνεις",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.TOO_OLD.text": {
+    "text": "Το πανεπιστήμιο χρειάζεται αντίγραφο που εκδόθηκε πρόσφατα.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.TOO_OLD.title": {
+    "text": "Βγάλε πιο πρόσφατο: {{label}} για {{university}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.UPLOAD.cta": {
+    "text": "Ανέβασέ το",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.UPLOAD.text": {
+    "text": "Η αίτησή σου δεν μπορεί να υποβληθεί χωρίς αυτό.",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.UPLOAD.title": {
+    "text": "Ανέβασε: {{label}} για {{university}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.cta": {
+    "text": "Ξεκίνα να γράφεις",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.text": {
+    "text": "Η ομάδα της Hangyul θα το δει μαζί σου. Ξεκίνα με ένα πρόχειρο. Δεν χρειάζεται να είναι τέλειο.",
+    "why": "English says the Hangyul team, not counselor"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.title": {
+    "text": "Γράψε: {{label}} για {{university}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.reviews.tickAll": {
+    "text": "Ελέγχθηκαν {{done}} από {{total}}. Ολοκληρώστε όλους τους ελέγχους για επαλήθευση.",
+    "why": "staff-facing: concise, formal plural"
+  },
+  "mobile:v4.uni.actor.AGENCY": {
+    "text": "Συνεργαζόμενο γραφείο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.uni.actor.HANGYUL": {
+    "text": "Hangyul",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.uni.actor.STUDENT": {
+    "text": "Υποψήφιος",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.uni.actor.SYSTEM": {
+    "text": "Αυτόματο",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.uni.actor.UNIVERSITY": {
+    "text": "Το πανεπιστήμιό σας",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.uni.toReview_one": {
+    "text": "Προς εξέταση · {{count}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.uni.toReview_other": {
+    "text": "Προς εξέταση · {{count}}",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.university.continue": {
+    "text": "Συνέχισε την αίτησή σου",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.university.firstYear": {
+    "text": "Πρώτο έτος, εκτίμηση",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.university.tuitionYear": {
+    "text": "Δίδακτρα ανά έτος",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.visa.hideDone": {
+    "text": "Απόκρυψη ολοκληρωμένων βημάτων",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.visa.showDone_one": {
+    "text": "Εμφάνιση {{count}} ολοκληρωμένου βήματος",
+    "why": "missing Greek; translated"
+  },
+  "mobile:v4.visa.showDone_other": {
+    "text": "Εμφάνιση {{count}} ολοκληρωμένων βημάτων",
+    "why": "missing Greek; translated"
+  }
+}

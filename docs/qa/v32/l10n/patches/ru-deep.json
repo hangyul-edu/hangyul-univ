@@ -1,0 +1,175 @@
+{
+  "_notes": [
+    "Reviewed all 447 keys against the current English; 0 had cur=null. Keys not listed keep cur.",
+    "Terms follow ru-student-mobile/marketing decisions: plan = «тариф», personal statement = «мотивационное письмо», study plan = «план обучения», admission letter = «приглашение на обучение», application deadline = «срок подачи» (no «дедлайн»).",
+    "Application fee = «сбор за подачу заявки» (was «регистрационный сбор»; glossary reserves registration for sign-up/enrollment).",
+    "Admitted stage = «Поступление» / «Вы поступили»: «зачисление» means enrollment in Russian.",
+    "Owner decision: student:v9.discovery.scholarship_one, dossier:summary.S_IN_REVIEW_one and S_MISSING_one have no {{count}} in English, so ru _one reads wrong for 21/31 («Стипендия…», «для вашей заявки»). Adding {{count}} is refused by apply-patch.mjs; kept cur — add {{count}} to the English _one or let the applier accept it.",
+    "Owner decision: «команда Hangyul» and «команда Hangyul Univ» both remain in ru (61 vs 130 uses) — left as is per the prior review; normalise globally if one form is wanted.",
+    "Owner decision: success/writing/visaroute/concierge English still says «your counselor»; ru keeps «консультант» there to match the current English."
+  ],
+  "student:budget.beforeArrivalHint": {
+    "text": "Плата за обучение в первом семестре, сбор за подачу заявки, общежитие за первый семестр и расходы на жизнь в первый месяц",
+    "why": "tuition explicit; application fee, not registration"
+  },
+  "student:budget.possible_few": {
+    "text": "Не учтено ({{count}}): {{names}}. Возможно, вы подходите, но по профилю мы пока не можем это подтвердить.",
+    "why": "match _other punctuation"
+  },
+  "student:budget.possible_many": {
+    "text": "Не учтено ({{count}}): {{names}}. Возможно, вы подходите, но по профилю мы пока не можем это подтвердить.",
+    "why": "match _other punctuation"
+  },
+  "student:dashboard.nextAction.PROFILE_UNLOCK.gpa.text": {
+    "text": "Минимальный балл указан у {{count}} из {{total}} ваших программ. По вашему GPA мы сможем это проверить или честно сказать, требованиям каких программ вы не соответствуете.",
+    "why": "'не проходите' implied admission; qualify = meet requirements"
+  },
+  "student:legalFlow.note.JOINS": {
+    "text": "{{date}} страна {{country}} присоединяется к Апостильной конвенции. До этой даты документам нужна консульская легализация в посольстве или консульстве Кореи.",
+    "why": "removed 'легализация в консульстве' tautology"
+  },
+  "student:phase.admission.label": {
+    "text": "Поступление",
+    "why": "Admitted stage, not enrollment (зачисление)"
+  },
+  "student:servicesV3.subtitle": {
+    "text": "Всё можно сделать самостоятельно и бесплатно. В платных тарифах подключаются люди: команда Hangyul проверяет вашу работу или ведёт вас от шорт-листа до приезда.",
+    "why": "plan = тариф; 'добавляют людей' awkward"
+  },
+  "student:stage.VISA_PREPARATION": {
+    "text": "Подготовка визовых документов",
+    "why": "glossary: visa document preparation"
+  },
+  "student:v4.compare.subtitle": {
+    "text": "Только то, чем программы отличаются, — рядом друг с другом. Мы выделяем лучшее значение в каждой строке, но никогда не выбираем общего победителя.",
+    "why": "'Только различия, рядом' unnatural"
+  },
+  "student:v4.unlock.ielts": {
+    "text": "С IELTS {{score}} вы бы соответствовали требованиям.",
+    "why": "eligible = meet requirements, not 'could apply'"
+  },
+  "student:v4.unlock.topik": {
+    "text": "С TOPIK {{level}} уровня вы бы соответствовали требованиям.",
+    "why": "eligible = meet requirements, not 'could apply'"
+  },
+  "student:v4.verdictText.notyet": {
+    "text": "Одно из опубликованных требований пока не выполнено. В каждой строке указано, какое именно и что поможет его выполнить. Самые близкие — сверху.",
+    "why": "'what would change it' mistranslated"
+  },
+  "student:v4.verdictText.reach": {
+    "text": "Вы соответствуете опубликованным требованиям, но кое-что требует внимания — обычно бюджет или близкий срок подачи. В каждой строке указано, что именно.",
+    "why": "дедлайн -> срок подачи (glossary)"
+  },
+  "student:v4.ws.team.final": {
+    "text": "Финальная проверка перед подачей заявки в {{university}}",
+    "why": "dropped added 'сами'"
+  },
+  "student:v9.sponsor.foot": {
+    "text": "{{name}} поделился(-ась) через Hangyul · данные на {{date}}",
+    "why": "removed sentence absent from English"
+  },
+  "dossier:reason.NEAR_EXPIRY_DATE": {
+    "text": "Срок действия истекает {{date}} — раньше срока подачи в {{university}}. Оформите новый документ заранее.",
+    "why": "дедлайн -> срок подачи (glossary)"
+  },
+  "success:item.DOC_REVIEW_LATE.why": {
+    "text": "Проверка занимает больше обычного. Мы сообщили вашему консультанту.",
+    "why": "matches English: we told counselor"
+  },
+  "success:item.FIELD_DIFFERENT.why": {
+    "text": "Это нормально, если выбор осознанный, — объясните его в плане обучения.",
+    "why": "study plan = план обучения"
+  },
+  "success:item.SUBMISSION_CONFIRM.why": {
+    "text": "Вы сообщили, что подали заявку. Чтобы завершить шаг, добавьте номер подтверждения или квитанцию.",
+    "why": "English is an instruction: add"
+  },
+  "success:obs.ALL_POSSIBLE": {
+    "text": "Все ваши заявки — в группе «Соответствует требованиям, нужна проверка». Подумайте о том, чтобы добавить хотя бы одну из группы «Хорошо подходит».",
+    "why": "ungrammatical; real group label"
+  },
+  "success:submission.fee.CONFIRMED": {
+    "text": "Сбор за подачу заявки {{amount}} — оплата подтверждена",
+    "why": "application fee, not registration fee"
+  },
+  "success:submission.fee.PAID": {
+    "text": "Сбор за подачу заявки {{amount}} — по вашим словам, оплачен",
+    "why": "application fee, not registration fee"
+  },
+  "success:submission.fee.UNPAID": {
+    "text": "Сбор за подачу заявки {{amount}}, получатель: {{payee}} — вы оплачиваете его на портале",
+    "why": "application fee, not registration fee"
+  },
+  "success:submission.fee.UNPAID_NP": {
+    "text": "Сбор за подачу заявки {{amount}} — вы оплачиваете его на портале",
+    "why": "application fee, not registration fee"
+  },
+  "success:submission.fee.separate": {
+    "text": "Это сбор университета за подачу заявки — не плата за услуги Hangyul и не плата за обучение.",
+    "why": "application fee, not registration fee"
+  },
+  "writing:auto.studentNote": {
+    "text": "Это автоматическая проверка по правилам, а не человек. Она отмечает предложения, которые стоит перечитать, и никогда не меняет и не пишет ваш текст.",
+    "why": "restored 'automatic check'"
+  },
+  "writing:finding.GENERIC_PHRASE": {
+    "text": "Эту фразу используют многие поступающие — конкретная деталь из вашего опыта скажет больше.",
+    "why": "заявители stiff; поступающие natural"
+  },
+  "writing:student6.pendingNote_one": {
+    "text": "{{count}} предложенная правка ещё открыта. Это нормально: вы можете её не принимать.",
+    "why": "punctuation; natural phrasing"
+  },
+  "writing:student6.pendingNote_few": {
+    "text": "{{count}} предложенные правки ещё открыты. Это нормально: вы можете их не принимать.",
+    "why": "punctuation; natural phrasing"
+  },
+  "writing:student6.pendingNote_many": {
+    "text": "{{count}} предложенных правок ещё открыты. Это нормально: вы можете их не принимать.",
+    "why": "punctuation; natural phrasing"
+  },
+  "writing:student6.pendingNote_other": {
+    "text": "{{count}} предложенной правки ещё открыты. Это нормально: вы можете их не принимать.",
+    "why": "punctuation; natural phrasing"
+  },
+  "visaroute:caveat.LEGALIZATION_UNCLEAR": {
+    "text": "Список посольства и национальное визовое руководство по-разному описывают, как заверять документы об образовании: нужна переведённая копия или консульская легализация. Консультант уточнит, что нужно вам.",
+    "why": "'переводом' misread translated copy"
+  },
+  "visaroute:degree.COMBINED": {
+    "text": "Интегрированная магистратура и PhD",
+    "why": "'+' shorthand lost 'integrated'"
+  },
+  "visaroute:doc.other_training_plan.name": {
+    "text": "Учебная программа (от учебного заведения)",
+    "why": "avoid clash with план обучения (study plan)"
+  },
+  "visaroute:docStatus.NEAR_EXPIRY": {
+    "text": "Готов, скоро нужно обновить",
+    "why": "infinitive fragment ungrammatical"
+  },
+  "visaroute:docs.previewSub": {
+    "text": "По списку посольства для вашего гражданства. Полный план откроется, когда университет выдаст приглашение на обучение.",
+    "why": "admission letter = приглашение на обучение"
+  },
+  "visaroute:step.apply.title": {
+    "text": "Подайте документы и укажите номер квитанции",
+    "why": "'запишите квитанцию' unnatural"
+  },
+  "visaroute:step.university_papers.why": {
+    "text": "Приглашение на обучение и свидетельство о регистрации выдаёт университет.",
+    "why": "admission letter = приглашение на обучение"
+  },
+  "visaroute:track.handoffText": {
+    "text": "Запись — на официальной странице посольства. Ваш план останется здесь, так что вернитесь и укажите дату и номер квитанции.",
+    "why": "receipt number, not application number"
+  },
+  "concierge:hero.admitted": {
+    "text": "Вы поступили — поздравляем!",
+    "why": "admitted = offer; зачислены means enrolled"
+  },
+  "concierge:step.residence_setup.text": {
+    "text": "После прилёта в течение 90 дней оформите карту регистрации иностранца и подключитесь к Национальному медицинскому страхованию.",
+    "why": "dropped framing absent from English"
+  }
+}

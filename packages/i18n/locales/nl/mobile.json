@@ -6,13 +6,14 @@
     }
   },
   "login": {
-    "webSignup": "Nieuw hier? Maak je account direct in de app aan."
+    "webSignup": "Nieuw hier? Maak je account direct in de app aan.",
+    "networkError": "Hangyul is op dit moment niet bereikbaar op {{url}}. Controleer de verbinding en probeer het zo opnieuw."
   },
   "signup": {
     "title": "Maak je account aan",
-    "subtitle": "Vier korte stappen. We verifiëren je e-mailadres en mobiele nummer, zodat je account echt van jou blijft.",
+    "subtitle": "Vier korte stappen. We verifiëren je e-mailadres en mobiele nummer, zodat je account van jou blijft.",
     "steps": {
-      "account": "Gegevens",
+      "account": "Account",
       "verify": "Verificatie",
       "consent": "Toestemming",
       "done": "Klaar"
@@ -66,7 +67,7 @@
     "captchaWaiting": "Rond de controle af om verder te gaan.",
     "consentTitle": "Zo gaan we met je gegevens om",
     "consentText": "Voor het aanmaken van een account is toestemming voor de verplichte onderdelen nodig. Optionele toestemming kun je op elk moment intrekken via Instellingen.",
-    "consentAll": "Alles accepteren",
+    "consentAll": "Met alles akkoord",
     "required": "Verplicht",
     "optional": "Optioneel",
     "view": "Bekijken",
@@ -80,7 +81,7 @@
       },
       "CROSS_BORDER_VERIFICATION": {
         "label": "Ik heb kennisgenomen van de verwerking van mijn e-mailadres en mobiele nummer in het buitenland voor verificatie",
-        "summary": "Twilio Inc. (Verenigde Staten) verstuurt de verificatie-sms en -e-mail; Cloudflare, Inc. (Verenigde Staten) blokkeert geautomatiseerde registraties. De overgedragen gegevens, het tijdstip, de bewaartermijn en hoe je kunt weigeren staan in het Privacybeleid. Bij weigering kan er geen account worden aangemaakt."
+        "summary": "Twilio Inc. (Verenigde Staten) verstuurt de verificatie-sms en -e-mail; Cloudflare, Inc. (Verenigde Staten) controleert of de registratie niet geautomatiseerd is. Details, ook over hoe je kunt weigeren, staan in het Privacybeleid. Bij weigering kan er geen account worden aangemaakt."
       },
       "MARKETING": {
         "label": "Ik wil nieuws over studeren in Korea en informatie over evenementen ontvangen",
@@ -92,23 +93,23 @@
     "legalVersion": "Versie {{version}}",
     "submit": "Account aanmaken",
     "doneTitle": "Welkom, {{name}}",
-    "doneText": "Je e-mailadres en mobiele nummer zijn geverifieerd. Vertel ons twee dingen en we laten programma's zien die bij je passen.",
+    "doneText": "Je e-mailadres en mobiele nummer zijn geverifieerd. Vertel ons twee dingen en we laten opleidingen zien die bij je passen.",
     "quickDegree": "Wat wil je studeren?",
     "quickLanguage": "Je niveau Koreaans of Engels",
     "quickLevel": "Niveau",
     "quickSkip": "Nu overslaan",
-    "quickGo": "Mijn aanbevelingen bekijken",
+    "quickGo": "Mijn matches bekijken",
     "degree": {
       "LANGUAGE": "Koreaanse taal",
       "BACHELOR": "Bachelor",
-      "TRANSFER": "Overstap",
+      "TRANSFER": "Overstappen (transfer)",
       "MASTER": "Master",
       "DOCTORATE": "Doctoraat"
     },
     "lang": {
       "TOPIK": "TOPIK",
       "IELTS": "IELTS",
-      "NONE": "Nog geen toets",
+      "NONE": "Nog geen test",
       "PREPARING": "In voorbereiding"
     },
     "draftRestored": "We hebben bewaard wat je had ingevuld. De codes moeten mogelijk opnieuw worden verstuurd.",
@@ -164,68 +165,613 @@
     "quick": {
       "createAccount": "Registreer je om verder te gaan",
       "open": "Bekijk je mogelijkheden. Geen account nodig",
-      "dataUnverified": "Sommige gegevens over opleidingen zijn nog niet gecontroleerd. Controleer ze op de officiële website van de universiteit."
+      "dataUnverified": "Sommige gegevens over opleidingen zijn nog niet gecontroleerd. Controleer ze op de officiële website van de universiteit.",
+      "again": "Mijn antwoorden wijzigen"
     },
     "home": {
-      "noCounselor": "Kies een ondersteuningsplan en het Hangyul Univ-team werkt met je in jouw taal.",
+      "noCounselor": "Kies een pakket en het Hangyul Univ-team gaat met je aan de slag in jouw taal.",
       "stageLine": {
-        "admission": "Toegelaten. Nu je plek veiligstellen"
+        "admission": "Toegelaten. Nu je plek veiligstellen",
+        "apply": "Universiteiten beoordelen je aanmeldingen",
+        "arrival": "Je aankomst in Korea voorbereiden",
+        "discover": "De juiste universiteiten vinden",
+        "prepare": "Je aanmeldingen voorbereiden",
+        "visa": "Je studentenvisum voorbereiden"
       },
       "nextBody": {
-        "ESSAY_WRITE": "Begin met een ruwe versie. Je adviseur bespreekt het met je."
-      }
+        "ESSAY_WRITE": "Begin met een ruwe versie. Het Hangyul-team bespreekt het met je.",
+        "APPLICATION_DEADLINE": "Maak de checklist af, zodat je aanmelding op tijd kan worden ingediend.",
+        "DOCUMENT_UPLOAD": "Upload een duidelijke scan of foto. Het Hangyul-team controleert het en laat je weten als er iets moet worden aangepast.",
+        "REVIEW_MATCHES": "We hebben je profiel vergeleken met de gepubliceerde eisen. Sla er een paar op en begin dan een aanmelding.",
+        "TUITION_PAYMENT": "Collegegeld betaal je rechtstreeks aan de universiteit, op je eigen naam.",
+        "UNIVERSITY_REQUEST": "De universiteit heeft om nog een document gevraagd voordat ze kan beslissen.",
+        "VISA_STEP": "Rond het volgende punt op je visumchecklist af.",
+        "WAIT": "Je hoeft nu niets te doen. We laten het je weten zodra er iets verandert."
+      },
+      "applications": "Je aanmeldingen",
+      "closes": "Sluit op {{date}} · {{left}}",
+      "documentsHint": "Uploaden, aanpassen of een apostille regelen",
+      "documents_one": "{{count}} document wacht op jou",
+      "documents_other": "{{count}} documenten wachten op jou",
+      "due": "Uiterlijk {{date}} · {{left}}",
+      "findUniversities": "Universiteiten zoeken",
+      "greeting": {
+        "afternoon": "Goedemiddag, {{name}}",
+        "evening": "Goedenavond, {{name}}",
+        "morning": "Goedemorgen, {{name}}"
+      },
+      "message": "Bericht",
+      "nextCta": {
+        "APPLICATION_DEADLINE": "Aanmelding openen",
+        "APPLICATION_SUBMIT": "Controleren en indienen",
+        "ARRIVAL_CHECKLIST": "Aankomstchecklist openen",
+        "COMPARE_OFFERS": "Aanbiedingen vergelijken",
+        "COMPLETE_PROFILE": "Verder met profiel",
+        "DOCUMENT_UPLOAD": "Document uploaden",
+        "ESSAY_WRITE": "Je concept openen",
+        "INTERVIEW": "Interview voorbereiden",
+        "RESPOND_OFFER": "Je aanbod bekijken",
+        "REVIEW_MATCHES": "Mijn universiteiten bekijken",
+        "TUITION_PAYMENT": "Betaalgegevens bekijken",
+        "UNIVERSITY_REQUEST": "Bekijk wat de universiteit vraagt",
+        "VISA_STEP": "Visumstappen openen"
+      },
+      "nextCtaDefault": "Nu beginnen",
+      "nextEyebrow": "Wat je nu kunt doen",
+      "noApplications": "Nog geen aanmeldingen. Begin met universiteiten die bij je passen.",
+      "otherTasks_one": "{{count}} andere taak",
+      "otherTasks_other": "{{count}} andere taken",
+      "team": "Hangyul Univ-team",
+      "unread_one": "{{count}} ongelezen bericht",
+      "unread_other": "{{count}} ongelezen berichten",
+      "upcoming": "Binnenkort"
     },
     "agency": {
-      "assigned": "Behandeld door {{counselor}} · sinds {{since}}",
+      "assigned": "Toegewezen aan {{counselor}} · sinds {{since}}",
       "att": {
         "oldest": "Oudste: {{what}} ({{who}})",
-        "oldestSelf": "Oudste: {{what}}"
+        "oldestSelf": "Oudste: {{what}}",
+        "breached_one": "{{count}} al over de toegezegde reactietijd",
+        "breached_other": "{{count}} al over de toegezegde reactietijd",
+        "closing_one": "Aanmelding sluit binnen 7 dagen",
+        "closing_other": "Aanmeldingen sluiten binnen 7 dagen",
+        "docs_one": "Document wacht op controle",
+        "docs_other": "Documenten wachten op controle",
+        "next": "Volgende: {{uni}} voor {{who}}, {{date}}",
+        "overSla": "{{count}} wachten langer dan {{hours}} u",
+        "overdue_one": "Taak te laat",
+        "overdue_other": "Taken te laat",
+        "replies_one": "Student wacht op uw antwoord",
+        "replies_other": "Studenten wachten op uw antwoord",
+        "since": "Oudste van {{who}}, {{when}}",
+        "sla_one": "Student met risico op een te late eerste reactie",
+        "sla_other": "Studenten met risico op een te late eerste reactie"
+      },
+      "allClear": "Alles in orde: {{list}}",
+      "applications_one": "{{count}} aanmelding",
+      "applications_other": "{{count}} aanmeldingen",
+      "block": {
+        "deadline": "Aanmelding bij {{uni}} sluit binnenkort",
+        "fix": "{{doc}} moet door de student worden aangepast",
+        "requested": "{{uni}} heeft om meer documenten gevraagd",
+        "review": "{{doc}} wacht op uw controle",
+        "sla": "Eerste reactie verschuldigd"
+      },
+      "blockers_one": "{{count}} punt houdt deze student tegen",
+      "blockers_other": "{{count}} punten houden deze student tegen",
+      "clear": {
+        "closing": "deadlines deze week",
+        "docs": "documentcontroles",
+        "overdue": "taken te laat",
+        "replies": "antwoorden aan studenten",
+        "sla": "eerste reacties"
+      },
+      "conversationSubject": "Je team voor studeren in Korea",
+      "deadline": "{{uni}} {{when}}",
+      "documents": "Documenten · {{verified}} van {{total}} geverifieerd",
+      "dueToday_one": "Vandaag · {{count}}",
+      "dueToday_other": "Vandaag · {{count}}",
+      "findStudent": "Student zoeken",
+      "firstMessage": "{{name}} een bericht sturen",
+      "greeting": {
+        "afternoon": "Goedemiddag, {{name}}",
+        "evening": "Goedenavond, {{name}}",
+        "morning": "Goedemorgen, {{name}}"
+      },
+      "message": "Bericht",
+      "messageLabel": "Bericht",
+      "needsAttention": "Aandacht nodig",
+      "nextAction": "Volgende: {{what}}",
+      "noBlockers": "Niets houdt deze student tegen",
+      "noBlockersBody": "Documenten, deadlines en reacties liggen allemaal op schema.",
+      "noStudents": "Geen studenten in deze weergave",
+      "noStudentsBody": "Probeer een andere weergave of wis de zoekopdracht.",
+      "searchPlaceholder": "Naam of e-mailadres",
+      "stage": "Fase",
+      "stageNote": "Notitie voor het team (optioneel)",
+      "stageTo": "Naar {{stage}}",
+      "teamView": "Team · {{name}}",
+      "toFix_one": "{{count}} document aan te passen",
+      "toFix_other": "{{count}} documenten aan te passen",
+      "today": "Vandaag",
+      "upload": "Uploaden",
+      "uploadFor": "{{doc}} voor {{name}}",
+      "uploadWhat": "Welk document uploadt u?",
+      "uploaded": "Geüpload naar de kluis van de student. Klaar voor controle.",
+      "view": {
+        "all": "Alle",
+        "attention": "Aandacht nodig",
+        "deadline": "Deadline nadert",
+        "docs": "Documenten aan te passen",
+        "mine": "Mijn studenten",
+        "sla": "Studenten over of bijna over de toegezegde eerste reactietijd",
+        "university": "Wacht op universiteit",
+        "visa": "Visum",
+        "waiting_student": "Wacht op student",
+        "waiting_us": "Wacht op ons"
+      },
+      "waitingOn": {
+        "agency": "Wacht op het bureauteam",
+        "counselor": "Wacht op de begeleider",
+        "external": "Wacht op een externe instantie",
+        "hangyul": "Wacht op Hangyul",
+        "none": "Wacht nergens op",
+        "student": "Wacht op student",
+        "university": "Wacht op universiteit",
+        "us": "Wacht op ons"
       }
     },
     "discover": {
       "explain": {
-        "possible": "Je voldoet aan de gepubliceerde minimumeisen, maar één ding vraagt aandacht, meestal het budget of een deadline."
-      }
+        "possible": "Je voldoet aan de gepubliceerde minimumeisen, maar één ding vraagt aandacht, meestal het budget of een deadline.",
+        "notyet": "Aan een gepubliceerde eis is nog niet voldaan. Elke regel zegt precies welke.",
+        "strong": "Je voldoet aan elke gepubliceerde basiseis, en het past bij je budget en plannen."
+      },
+      "all": "Alle",
+      "any": "Maakt niet uit",
+      "closes": "sluit op {{date}}",
+      "degree": "Wat wil je studeren?",
+      "emptyVerdict": "Nu niets te zien",
+      "filters": "Filters",
+      "filtersN": "Filters · {{count}}",
+      "forYou": "Voor jou",
+      "language": "Voertaal",
+      "noLanguageMin": "Geen taaleis",
+      "openOnly": "Aanmelding open",
+      "perYear": "≈ {{amount}} / jaar",
+      "saved": "Opgeslagen · {{count}}",
+      "savedEmpty": "Nog geen opgeslagen universiteiten",
+      "savedEmptyBody": "Tik op het hartje bij een opleiding om die hier te bewaren voor later.",
+      "showResults_one": "{{count}} opleiding tonen",
+      "showResults_other": "{{count}} opleidingen tonen",
+      "summary_one": "Je voldoet aan de gepubliceerde eisen van {{count}} opleiding.",
+      "summary_other": "Je voldoet aan de gepubliceerde eisen van {{count}} opleidingen.",
+      "tuition": "Collegegeld per semester",
+      "upTo": "Tot ₩{{amount}} mln"
     },
     "university": {
       "verdict": {
-        "REACH": "Je bent er bijna. Bij één eis kom je net tekort."
-      }
+        "REACH": "Je bent er bijna. Bij één eis kom je net tekort.",
+        "COMPETITIVE": "Je voldoet aan de gepubliceerde minimumeisen. Eén ding vraagt aandacht.",
+        "NOT_ELIGIBLE": "Aan een gepubliceerde eis is nog niet voldaan.",
+        "RECOMMENDED": "Aanbevolen voor jou.",
+        "STRONG": "Je voldoet aan alle gepubliceerde basiseisen, en het past bij je budget."
+      },
+      "admissionsSite": "Website internationale toelating",
+      "deadline": "Aanmelden vóór",
+      "documents": "Documenten",
+      "documentsCount": "{{count}} documenten · {{legal}} hebben een apostille of consulaire legalisatie nodig",
+      "dorm": "Studentenhuisvesting per semester",
+      "dormRange": "{{min}}–{{max}}",
+      "estimate": "Geschat totaal",
+      "estimateNote": "Schatting op basis van het gepubliceerde collegegeld en gebruikelijke maandelijkse levenskosten in de stad.",
+      "fee": "Aanmeldkosten",
+      "gpa": "Cijfers",
+      "gpaMin": "Minimaal {{pct}}% van de maximale GPA",
+      "intake": "Startmoment",
+      "interview": "Interview",
+      "interviewYes": "De universiteit kan je uitnodigen voor een interview",
+      "language": "Taal",
+      "links": "Officiële informatie",
+      "living": "Levenskosten (12 maanden)",
+      "noIntake": "Geen open startmoment",
+      "noVerdict": "Maak je profiel af om te zien of je aan de eisen van deze opleiding voldoet.",
+      "notPublished": "Niet gepubliceerd",
+      "program": "Opleiding",
+      "requirements": "Eisen",
+      "start": "Aanmelding starten",
+      "website": "Website van de universiteit",
+      "yearCost": "Kosten eerste jaar (schatting)"
     },
     "application": {
       "writingWeb": "Schrijf en bewerk je essays op het web. Daar verschijnen de opmerkingen van je adviseur.",
-      "uploadFor": "{{item}} uploaden"
+      "uploadFor": "{{item}} uploaden",
+      "closes": "Sluit op {{date}} · {{left}}",
+      "due": "Uiterlijk {{date}}",
+      "ready": "Klaar om in te dienen",
+      "readyBody": "Alles wat vereist is, is aanwezig.",
+      "reviewBody": "Ingediend op {{date}}. De universiteit kan om nog een document of een interview vragen. Het Hangyul-team volgt de voortgang.",
+      "reviewTitle": "{{university}} beoordeelt je aanmelding",
+      "reviewing": "{{item}} wordt gecontroleerd",
+      "submit": "Aanmelding indienen",
+      "teamMonitoring": "In contact met de universiteit",
+      "teamWaiting": "Wacht op je documenten",
+      "timeline": "Tijdlijn",
+      "uni": {
+        "decided": "Besluit genomen",
+        "reviewing": "Beoordeelt je aanmelding",
+        "waiting": "Wacht op je indiening"
+      },
+      "university": "Universiteit",
+      "uploadRequested": "Dit document uploaden",
+      "who": "Wie doet wat",
+      "withdraw": "Deze aanmelding intrekken",
+      "you": "Jij"
     },
     "appStatus": {
       "READY": "Alles is gecontroleerd. Klaar om in te dienen.",
-      "VISA_ISSUED": "Je visum is afgegeven. Je kunt nu je aankomst plannen."
+      "VISA_ISSUED": "Je visum is afgegeven. Je kunt nu je aankomst plannen.",
+      "ADDITIONAL_DOCUMENTS": "De universiteit heeft om nog een document gevraagd.",
+      "ADMISSION_CERTIFICATE_ISSUED": "Je toelatingsbrief is klaar. Begin met je visumdocumenten.",
+      "ADMISSION_CERTIFICATE_PENDING": "Wachten op je standaard toelatingsbrief.",
+      "DOCUMENT_PREPARATION": "Je bereidt je documenten voor.",
+      "DRAFT": "Je bent met deze aanmelding begonnen.",
+      "ENROLLED": "Je bent ingeschreven. Welkom in Korea.",
+      "INTERVIEW": "De universiteit wil je interviewen.",
+      "OFFERED": "Je hebt een aanbod ontvangen.",
+      "OFFER_ACCEPTED": "Je hebt het aanbod geaccepteerd. Volgende stap: collegegeld.",
+      "PROFILE_REVIEW": "Het Hangyul Univ-team controleert je profiel.",
+      "REJECTED": "De universiteit heeft deze keer geen plek aangeboden.",
+      "SUBMITTED": "Ingediend bij {{university}}.",
+      "TUITION_PAID": "Collegegeld ontvangen. De universiteit maakt je toelatingsbrief op.",
+      "TUITION_PENDING": "Betaal het collegegeld vóór de deadline rechtstreeks aan de universiteit.",
+      "UNIVERSITY_REVIEW": "{{university}} beoordeelt je aanmelding.",
+      "VISA_PREPARATION": "Je bereidt je visumaanvraag voor.",
+      "VISA_SUBMITTED": "Visumaanvraag ingediend.",
+      "WAITLISTED": "Je staat op de wachtlijst.",
+      "WITHDRAWN": "Deze aanmelding is ingetrokken."
     },
     "docAction": {
       "RENEW": "Verlopen. Nieuwe uploaden",
-      "TOO_OLD": "Te lang geleden afgegeven. Nieuw exemplaar aanvragen"
+      "TOO_OLD": "Te lang geleden afgegeven. Nieuw exemplaar aanvragen",
+      "FIX": "Aanpassing nodig",
+      "IN_REVIEW": "Wordt gecontroleerd door het Hangyul-team",
+      "LEGALIZE": "Apostille of consulaire legalisatie nodig",
+      "UPLOAD": "Nog niet geüpload"
     },
     "documents": {
       "legalize": "Gecontroleerd, maar heeft nog {{path}} nodig voordat een Koreaanse universiteit het accepteert",
-      "howToBody": "Alleen de stappen voor het land van je document worden getoond. Vink elke stap af zodra je hem hebt gedaan."
+      "howToBody": "Alleen de stappen voor het land van je document worden getoond. Vink elke stap af zodra je hem hebt gedaan.",
+      "allSet": "Je hoeft nu niets te doen.",
+      "checking": "Wordt gecontroleerd",
+      "howTo": "Zo regel je de {{path}}",
+      "issuedIn": "Afgegeven in",
+      "issuedOn": "Afgegeven op",
+      "needYou_one": "{{count}} wacht op jou",
+      "needYou_other": "{{count}} wachten op jou",
+      "neededFor": "Nodig voor {{university}}",
+      "needsYou": "Wacht op jou",
+      "newVersion": "Nieuwe versie uploaden",
+      "ready": "Klaar",
+      "readyOf": "{{ready}} van {{total}} documenten klaar",
+      "readyTitle": "Klaar",
+      "sourceVerified": "Officiële bron · gecontroleerd op {{date}}",
+      "state": {
+        "fix": "Aanpassing nodig",
+        "legalize": "Apostille nodig",
+        "ready": "Klaar",
+        "review": "Wordt gecontroleerd"
+      },
+      "submitted": "Ingediend {{when}}",
+      "upload": "Uploaden",
+      "validUntil": "Geldig tot {{date}}",
+      "validUntilLabel": "Geldig tot"
     },
     "visa": {
-      "title": "Je plan voor het {{type}}-visum",
+      "title": "Je {{type}}-visum voorbereiden",
       "beforeBody": "Zodra je een aanbod accepteert en het collegegeld betaalt, geeft de universiteit je toelatingsbrief af. Je kunt nu al zien wat je nodig hebt en beginnen met verzamelen.",
-      "after": "Beschikbaar na: {{list}}"
+      "after": "Komt na: {{list}}",
+      "beforeTitle": "De visumvoorbereiding begint na je toelatingsaanbod",
+      "blockers": "Eerst nodig",
+      "checklist": "Je checklist · {{done}} van {{total}} gedaan",
+      "forNationality": "Specifiek voor jouw nationaliteit",
+      "now": "Wat nu op jou wacht",
+      "phase": {
+        "admission": "Toelating",
+        "apply": "Visumaanvraag",
+        "decision": "Besluit van de ambassade",
+        "documents": "Visumdocumenten",
+        "letter": "Toelatingsbrief"
+      },
+      "preview": "Wat je nodig zult hebben",
+      "seeRequirement": "Bekijk de officiële eis",
+      "sourceChecked": "Officiële bron · gecontroleerd op {{date}}",
+      "titleGeneric": "Je studentenvisum"
     },
     "profile": {
       "unlockTitle": "Wat een volledig profiel je oplevert",
       "unlock": {
-        "language": "Zo kunnen we je matchen met opleidingen die TOPIK, IELTS of TOEFL vragen"
-      }
+        "language": "Zo kunnen we je matchen met opleidingen die TOPIK, IELTS of TOEFL vragen",
+        "basics": "Zo weten we welke document- en visumregels voor jou gelden",
+        "default": "Maakt je matches nauwkeuriger",
+        "education": "Haalt opleidingen weg waarvan je niet aan de academische eisen voldoet",
+        "goals": "Toont opleidingen op het niveau en startmoment dat je wilt",
+        "passport": "Nodig voordat een aanmelding kan worden ingediend",
+        "preferences": "Rangschikt universiteiten op je budget en stad",
+        "sponsor": "Zo kun je je financiële visumdocumenten vroeg voorbereiden"
+      },
+      "completeTitle": "Je profiel is compleet",
+      "done": "Klaar",
+      "editOnWeb": "Je kunt deze antwoorden op elk moment op het web aanpassen.",
+      "places": "Je gegevens",
+      "todo": "Nog toe te voegen"
     },
     "tasks": {
       "empty": {
-        "overdue": "Niets achterstallig. Goed gedaan"
-      }
+        "overdue": "Niets achterstallig. Goed gedaan",
+        "team": "Het team heeft geen open taken",
+        "today": "Niets verschuldigd vandaag",
+        "waiting": "Geen taken wachten op iets anders",
+        "week": "Niets verschuldigd deze week"
+      },
+      "open": "Open",
+      "overdue": "Te laat · {{when}}",
+      "view": {
+        "overdue": "Te laat",
+        "team": "Team",
+        "today": "Vandaag",
+        "waiting": "Wachtend",
+        "week": "Deze week"
+      },
+      "waitingOn": "Wacht op: {{what}}"
     },
     "uni": {
-      "decisionNow": "Besluit"
+      "decisionNow": "Besluit",
+      "allClear": "Er is nu geen besluit nodig.",
+      "allCohorts": "Alle Hangyul-studenten",
+      "allIntakes": "Alle startmomenten",
+      "applicant": "Kandidaat",
+      "check": {
+        "gpa": "GPA",
+        "interview": "Interview",
+        "interviewRequired": "Vereist voor deze opleiding",
+        "level": "Niveau {{level}}",
+        "minimum": "Minimum {{need}} · Kandidaat {{have}}",
+        "notProvided": "niet opgegeven",
+        "state": {
+          "below": "Onder het minimum",
+          "meets": "Voldoet",
+          "missing": "Niet opgegeven",
+          "planned": "Test gepland",
+          "unscheduled": "Niet ingepland"
+        },
+        "topik": "TOPIK"
+      },
+      "checksNote": "Vergelijkt zelf opgegeven scores met de gepubliceerde minimumeisen van de opleiding. Het ondersteunt uw beoordeling; het beslist niet.",
+      "checksTitle": "Controle van de eisen",
+      "closed": "Afgesloten: {{rejected}} niet toegelaten, {{withdrawn}} ingetrokken. Percentages vragen minimaal {{min}} personen.",
+      "cohortIntro_one": "{{count}} student kwam via Hangyul bij u. Zo gaat het met deze student.",
+      "cohortIntro_other": "{{count}} studenten kwamen via Hangyul bij u. Zo gaat het met hen.",
+      "cohortNote": "Percentages verschijnen zodra minimaal {{min}} studenten meetellen. Stand per {{date}}.",
+      "cohort_one": "{{label}} · {{count}} student",
+      "cohort_other": "{{label}} · {{count}} studenten",
+      "conv": "{{pct}} van de vorige stap · {{n}} van {{d}}",
+      "convFew": "{{n}} van {{d}} uit de vorige stap · te weinig voor een percentage",
+      "decision": {
+        "admitted_one": "toegelaten student die nog collegegeld moet betalen",
+        "admitted_other": "toegelaten studenten die nog collegegeld moeten betalen",
+        "documents_one": "wacht op de documenten van de student",
+        "documents_other": "wachten op documenten van studenten",
+        "flagged_one": "gemarkeerde aanmelding",
+        "flagged_other": "gemarkeerde aanmeldingen",
+        "interview_one": "interview af te nemen of te beoordelen",
+        "interview_other": "interviews af te nemen of te beoordelen",
+        "offer_one": "aanbod in afwachting van antwoord van de student",
+        "offer_other": "aanbiedingen in afwachting van antwoord van de student",
+        "returned_one": "document teruggestuurd door de student",
+        "returned_other": "documenten teruggestuurd door studenten",
+        "review_one": "aanmelding te beoordelen",
+        "review_other": "aanmeldingen te beoordelen"
+      },
+      "decisionContext_one": "{{ready}} van {{total}} vereiste documenten klaar · {{count}} verzoek open.",
+      "decisionContext_other": "{{ready}} van {{total}} vereiste documenten klaar · {{count}} verzoeken open.",
+      "decisionDocs": "{{ready}} van {{total}} vereiste documenten klaar.",
+      "decisionHint": {
+        "admitted": "Bevestig de betaling zodra die binnen is",
+        "documents": "Geen actie totdat de student uploadt",
+        "flagged": "Gemarkeerd om nader te bekijken",
+        "interview": "Leg de uitkomst vast na het interview",
+        "offer": "Hangyul volgt dit op met de student",
+        "returned": "Controleer opnieuw wat u hebt gevraagd",
+        "review": "Ingediend en volledig genoeg om te beslissen"
+      },
+      "docsTitle": "Documenten · {{ready}} van {{total}} klaar",
+      "dueOn": "uiterlijk {{date}}",
+      "empty": {
+        "all": "Geen kandidaten hier",
+        "flagged": "Geen gemarkeerde aanmeldingen",
+        "review": "Geen aanmeldingen wachten op beoordeling"
+      },
+      "graduation": "Afgestudeerd",
+      "latest": "Laatst binnengekomen ter beoordeling",
+      "move": {
+        "ADDITIONAL_DOCUMENTS": "Meer documenten vragen",
+        "ADMISSION_CERTIFICATE_ISSUED": "Toelatingsbrief afgeven",
+        "INTERVIEW": "Uitnodigen voor interview",
+        "OFFERED": "Aanbod doen",
+        "REJECTED": "Niet toelaten",
+        "TUITION_PAID": "Collegegeld betaald bevestigen",
+        "TUITION_PENDING": "Collegegeldfactuur sturen",
+        "UNIVERSITY_REVIEW": "Beoordeling starten",
+        "WAITLISTED": "Op wachtlijst"
+      },
+      "nOfD": "{{n}} van {{d}}",
+      "needsTitle": "Wacht op uw besluit",
+      "noMinimums": "Deze opleiding heeft nog geen gepubliceerde minimumeisen.",
+      "nothingToReview": "Niets wacht op beoordeling",
+      "openRequests_one": "{{count}} document gevraagd",
+      "openRequests_other": "{{count}} documenten gevraagd",
+      "otherDecisions": "Overige besluiten",
+      "populationAll_one": "Op basis van {{count}} ingediende aanmelding, alle startmomenten.",
+      "populationAll_other": "Op basis van {{count}} ingediende aanmeldingen, alle startmomenten.",
+      "populationIntake_one": "Op basis van {{count}} ingediende aanmelding voor {{intake}}.",
+      "populationIntake_other": "Op basis van {{count}} ingediende aanmeldingen voor {{intake}}.",
+      "reason": "Reden (gedeeld met Hangyul)",
+      "request": "Verzoek",
+      "requestLabel": "Wat hebt u nodig?",
+      "requestLabelHint": "bijv. Middelbareschooldiploma met apostille",
+      "requestNote": "Instructies voor de student",
+      "requestNoteHint": "Wat er precies ontbreekt en hoe het op te lossen",
+      "requestSend": "Verzoek versturen",
+      "requestTitle": "Een document vragen aan {{name}}",
+      "requestWho": "De student en de Hangyul-begeleider krijgen een melding en zien precies deze tekst.",
+      "requestedOn": "Gevraagd op {{date}}",
+      "retention": "Studeert nog",
+      "search": "Zoek op naam, opleiding of referentie",
+      "step": {
+        "ACCEPTED": "Aanbod geaccepteerd",
+        "ARRIVED": "Aangekomen in Korea",
+        "ENROLLED": "Ingeschreven",
+        "OFFERED": "Aanbod gedaan",
+        "REVIEWED": "Beoordeeld",
+        "SUBMITTED": "Ingediend",
+        "TUITION_PAID": "Collegegeld betaald",
+        "VISA_ISSUED": "Visum afgegeven"
+      },
+      "tab": {
+        "applicants": "Kandidaten",
+        "pipeline": "Overzicht",
+        "students": "Studenten"
+      },
+      "tooFew": "Te weinig voor een percentage",
+      "view": {
+        "admitted": "Toegelaten",
+        "all": "Alle",
+        "documents": "Ontbrekende documenten",
+        "enrolment": "Visum en inschrijving",
+        "flagged": "Gemarkeerd",
+        "interview": "Interview",
+        "offer": "Aanbod",
+        "review": "Te beoordelen"
+      },
+      "waitingStudent": "Wacht op student"
+    },
+    "common": {
+      "all": "Alles bekijken"
+    },
+    "match": {
+      "close": "Nog niet toelaatbaar — één stap verwijderd",
+      "notYet": "Nog niet toelaatbaar",
+      "possible": "Mogelijke match",
+      "strong": "Sterke match"
+    },
+    "journey": {
+      "admission": "Toelating",
+      "apply": "Aanmelden",
+      "arrival": "Aankomst",
+      "discover": "Verkennen",
+      "next": "Volgende: {{stage}}",
+      "of": "· {{n}} van {{total}}",
+      "prepare": "Voorbereiden",
+      "step": "Stap {{n}} van {{total}}: {{stage}}",
+      "visa": "Visum"
+    },
+    "messages": {
+      "attach": "Bestand toevoegen",
+      "attachUnavailable": "Bijlagen zijn nog niet beschikbaar.",
+      "attachmentOnly_one": "{{count}} bijlage verstuurd",
+      "attachmentOnly_other": "{{count}} bijlagen verstuurd",
+      "conversations": "Gesprekken",
+      "openAttachment": "{{name}} openen",
+      "removeAttachment": "{{name}} verwijderen"
+    },
+    "offer": {
+      "accept": "Aanbod accepteren",
+      "body": "{{university}} biedt je een plek aan bij {{program}}.",
+      "deadline": "Accepteren en collegegeld betalen vóór {{date}} · {{left}}",
+      "next": "Wat er nu gebeurt",
+      "scholarship": "Beurs",
+      "step": {
+        "accept": "Accepteer het aanbod",
+        "letter": "Ontvang je standaard toelatingsbrief",
+        "review": "Bekijk het aanbod en eventuele voorwaarden",
+        "tuition": "Betaal het collegegeld rechtstreeks aan de universiteit",
+        "visa": "Bereid je studentenvisum voor"
+      },
+      "tuition": "Collegegeld",
+      "tuitionDirect": "Hangyul int nooit collegegeld. Betaal de universiteit op je eigen naam volgens haar instructies."
+    },
+    "push": {
+      "denied": "Meldingen staan uit. Zet ze aan in de instellingen van je telefoon voor Hangyul.",
+      "enable": "Meldingen aanzetten",
+      "error": "We konden meldingen niet aanzetten. Probeer het opnieuw.",
+      "idle": "Krijg een pushmelding als een document is gecontroleerd, een deadline nadert of het Hangyul-team antwoordt.",
+      "on": "Meldingen staan aan. Je kunt dit wijzigen in de instellingen van je telefoon.",
+      "pending-server": "Meldingen zijn toegestaan op deze telefoon. Pushberichten zijn nog niet actief; alles blijft in deze lijst verschijnen.",
+      "title": "Meldingen op deze telefoon"
+    },
+    "upload": {
+      "camera": "Foto maken",
+      "cameraHint": "Leg het document plat neer bij goed licht",
+      "failed": "We konden dat bestand niet openen. Probeer het opnieuw.",
+      "files": "Kies een bestand",
+      "filesHint": "PDF, JPG of PNG, maximaal 15 MB",
+      "library": "Kies uit foto's",
+      "privacy": "Alleen jij en het Hangyul-team kunnen je documenten openen. Een universiteit ziet ze pas nadat je er een aanmelding hebt ingediend.",
+      "tooLarge": "Dit bestand is groter dan 15 MB. Probeer een pdf-scan of een kleinere foto."
+    },
+    "deadlines": {
+      "bucket": {
+        "later_other": "Later deze maand · {{count}}",
+        "overdue_other": "Te laat · {{count}}",
+        "week_other": "Komende 7 dagen · {{count}}"
+      },
+      "emptyView": "Niets verschuldigd in deze weergave",
+      "student": "Student",
+      "who": {
+        "all": "Alle",
+        "mine": "Van mij",
+        "unassigned": "Niet toegewezen"
+      },
+      "you": "U"
+    },
+    "reviews": {
+      "beforeVerify": "Voordat u verifieert",
+      "bulkBody": "Doe dit alleen voor documenten die u hebt geopend en gecontroleerd. Elke student krijgt een melding.",
+      "bulkDone": "{{ok}} geverifieerd, {{failed}} overgeslagen",
+      "bulkTitle_one": "{{count}} document verifiëren?",
+      "bulkTitle_other": "{{count}} documenten verifiëren?",
+      "check": {
+        "date": "Afgiftedatum is recent genoeg en niet verlopen",
+        "issuer": "Afgever, stempel of handtekening is zichtbaar",
+        "legal": "De {{path}} is bijgevoegd en hoort bij het document",
+        "legible": "Elke pagina is volledig en leesbaar",
+        "name": "Naam en geboortedatum komen overeen met het paspoort"
+      },
+      "correctionTitle": "Wat moet de student aanpassen?",
+      "expires": "Geldig tot",
+      "issuedIn": "Afgegeven in",
+      "issuedOn": "Afgegeven op",
+      "legalization": "Legalisatie",
+      "notNeeded": "Niet nodig",
+      "open": "{{name}} openen",
+      "overSla": "{{waiting}} · over de toegezegde controletijd",
+      "reason": "Bericht aan de student",
+      "requestCorrection": "Correctie vragen",
+      "required": "Verplicht",
+      "select": "Selecteren",
+      "studentSees": "{{name}} ziet precies deze tekst naast het document.",
+      "studentSeesGeneric": "De student ziet precies deze tekst naast het document.",
+      "summary": "{{count}} wachtend · {{over}} over de toegezegde controletijd van {{hours}} uur",
+      "templates": "Teamsjablonen",
+      "translation": "Vertaling",
+      "uploaded": "geüpload {{when}}",
+      "verifyN_one": "{{count}} document verifiëren",
+      "verifyN_other": "{{count}} documenten verifiëren"
+    },
+    "settings": {
+      "consoleHint": "Teamleden, facturering en exports beheert u in de webconsole van het bureau.",
+      "work": "Uw werk"
     }
   },
   "v23": {
@@ -242,19 +788,49 @@
       "tab": "Werk",
       "notReviewable": "Dit document wacht niet op controle.",
       "reasonPlaceholder": "Bijvoorbeeld: de pagina met de apostille ontbreekt. Upload alle pagina's.",
-      "changesDone": "Correctie gevraagd. De student heeft een melding gekregen"
+      "changesDone": "Correctie gevraagd. De student heeft een melding gekregen",
+      "detailTitle": "Controle",
+      "empty": "De controlewachtrij is leeg",
+      "emptyBody": "Nieuwe uploads van uw studenten verschijnen hier.",
+      "history": "Controlegeschiedenis",
+      "lastReason": "Vorig correctieverzoek",
+      "noFile": "Voor dit document is nog geen bestand geüpload.",
+      "sendToStudent": "Naar student sturen",
+      "tabA11y_one": "Controles, {{count}} wachtend",
+      "tabA11y_other": "Controles, {{count}} wachtend",
+      "title": "Documentcontroles",
+      "verify": "Document verifiëren",
+      "waitingDays_one": "Wacht {{count}} dag",
+      "waitingDays_other": "Wacht {{count}} dagen",
+      "waitingHours_one": "Wacht {{count}} uur",
+      "waitingHours_other": "Wacht {{count}} uur"
     },
     "login": {
-      "tagline": "Je dossiers, beoordelingen en berichten op je mobiel."
+      "tagline": "Uw dossiers, controles en berichten op uw telefoon."
     },
     "dashboard": {
       "noOverdue": "Geen achterstallige taken. Goed bezig."
+    },
+    "deadlines": {
+      "empty": "Geen deadlines in de komende 30 dagen",
+      "subtitle": "Deadlines van uw studenten in de komende 30 dagen.",
+      "title": "Herinneringen"
+    },
+    "messages": {
+      "subtitle": "Gesprekken met studenten en interne notities.",
+      "title": "Berichten"
+    },
+    "students": {
+      "detailTitle": "Student"
+    },
+    "tasks": {
+      "unassigned": "Niet toegewezen"
     }
   },
   "v26": {
     "uni": {
       "head": {
-        "label": "Wat nu je aandacht vraagt",
+        "label": "Wat nu uw aandacht vraagt",
         "decide": "Besluit nodig",
         "requests": "Documentverzoeken die op antwoord wachten",
         "fresh": "Nieuw deze week",
@@ -263,7 +839,17 @@
     }
   },
   "messages": {
-    "internalToggle": "Interne notitie, verborgen voor de student"
+    "internalToggle": "Interne notitie, verborgen voor de student",
+    "empty": "Nog geen gesprekken",
+    "emptyBody": "Berichten met het team verschijnen hier.",
+    "internalLabel": "Interne notitie",
+    "internalOn": "Interne notitie: alleen het team ziet dit",
+    "internalPlaceholder": "Schrijf een interne notitie (alleen voor het team)…",
+    "noMessages": "Nog geen berichten",
+    "placeholder": "Schrijf een bericht…",
+    "sendInternal": "Interne notitie opslaan",
+    "unreadCount_one": "{{count}} ongelezen bericht",
+    "unreadCount_other": "{{count}} ongelezen berichten"
   },
   "student": {
     "login": {
@@ -275,23 +861,98 @@
     },
     "nextAction": {
       "WAIT": "Je hoeft nu niets te doen. We laten het je weten als er iets je aandacht nodig heeft",
-      "FINISH_APPLICATION": "Rond je aanmelding bij {{university}} af. Nog openstaande onderdelen: {{remaining}}"
+      "FINISH_APPLICATION": "Rond je aanmelding bij {{university}} af. Nog te doen: {{remaining}}",
+      "ARRIVAL_CHECKLIST": "Bereid je aankomst in Korea voor",
+      "COMPARE_OFFERS": "Vergelijk je {{count}} toelatingsaanbiedingen",
+      "COMPLETE_PROFILE": "Maak je profiel af om te zien welke universiteiten bij je passen",
+      "PROFILE_UNLOCK": {
+        "budget": "Voeg je budget toe om {{count}} opleidingen op kosten te sorteren",
+        "education": "Voeg je opleiding toe om {{count}} opleidingen te controleren",
+        "gpa": "Voeg je cijfers toe om {{count}} opleidingen te controleren",
+        "language": "Voeg je taalscore toe om {{count}} opleidingen te controleren",
+        "other": "Maak je profiel af om {{count}} opleidingen te controleren"
+      },
+      "RESPOND_OFFER": "Reageer op je toelatingsaanbod",
+      "REVIEW_MATCHES": "Bekijk je universiteitsmatches"
     },
     "applications": {
-      "emptyBody": "Begin bij je matches: opleidingen waarvan je aan de eisen voldoet."
+      "emptyBody": "Begin bij je matches: opleidingen waarvan je aan de eisen voldoet.",
+      "active": "Lopend",
+      "closed": "Afgesloten",
+      "confirm": {
+        "OFFER_ACCEPTED": {
+          "body": "Je accepteert je aanbod van {{university}}. Het Hangyul Univ-team begeleidt je bij het betalen van het collegegeld en het ontvangen van je standaard toelatingsbrief.",
+          "cta": "Aanbod accepteren",
+          "title": "Dit aanbod accepteren?"
+        },
+        "WITHDRAWN": {
+          "body": "Je aanmelding bij {{university}} wordt afgesloten. Dit kun je in de app niet ongedaan maken.",
+          "cta": "Aanmelding intrekken",
+          "title": "Deze aanmelding intrekken?"
+        }
+      },
+      "detailTitle": "Aanmelding",
+      "empty": "Geen lopende aanmeldingen",
+      "emptyClosed": "Geen afgesloten aanmeldingen",
+      "submittedOn": "Ingediend op {{date}}",
+      "subtitle": "Volg al je aanmeldingen op één plek."
     },
     "documents": {
       "subtitle": "Je opgeslagen documenten, hergebruikt voor al je aanmeldingen.",
       "verifiedBody": "Gecontroleerd. Je kunt dit document hergebruiken voor andere aanmeldingen.",
-      "legalizationHint": "Vink elke stap af zodra je hem hebt gedaan. Na het uploaden doet ons team de laatste controle."
+      "legalizationHint": "Vink elke stap af zodra je hem hebt gedaan. Na het uploaden doet ons team de laatste controle.",
+      "detailTitle": "Document",
+      "empty": "Je kluis is leeg",
+      "emptyBody": "Upload je paspoort, cijferlijsten en testscores via de web-app.",
+      "file": "{{name}} · versie {{version}}",
+      "fixFallback": "Het Hangyul-team heeft om een aanpassing van dit document gevraagd.",
+      "fixTitle": "Wat moet er anders",
+      "openFile": "Beveiligde voorvertoning openen",
+      "reviews": "Controlegeschiedenis",
+      "translationBody": "Voor dit document is een beëdigde vertaling naar het Koreaans of Engels vereist."
     },
     "matches": {
       "tierHint": {
         "NOT_ELIGIBLE": "Aan een gepubliceerde eis voldoe je nog niet. Zie de redenen hieronder."
-      }
+      },
+      "deadline": "Deadline {{date}} · {{due}}"
     },
     "profile": {
-      "editOnWeb": "Je profiel bewerk je in de webapp. Wijzigingen verschijnen hier automatisch."
+      "editOnWeb": "Je profiel bewerk je in de webapp. Wijzigingen verschijnen hier automatisch.",
+      "completion": "Profiel compleet",
+      "step": {
+        "basics": "Basisgegevens",
+        "education": "Opleiding",
+        "goals": "Studiedoelen",
+        "language": "Taalscores",
+        "passport": "Paspoort",
+        "preferences": "Voorkeuren",
+        "sponsor": "Financiële ondersteuning"
+      }
+    },
+    "explore": {
+      "clear": "Zoekopdracht wissen",
+      "save": "{{name}} opslaan",
+      "searchPlaceholder": "Zoek opleidingen of universiteiten",
+      "unsave": "{{name}} uit opgeslagen verwijderen"
+    },
+    "messages": {
+      "subtitle": "Praat met het Hangyul Univ-team.",
+      "unreadA11y_one": "Berichten, {{count}} ongelezen",
+      "unreadA11y_other": "Berichten, {{count}} ongelezen"
+    },
+    "saved": {
+      "empty": "Nog niets opgeslagen",
+      "emptyBody": "Tik op het hartje bij een opleiding om de universiteit hier te bewaren."
+    },
+    "tasks": {
+      "confirmTitle": "Deze taak markeren als gedaan?",
+      "empty": "Nu niets te doen",
+      "emptyBody": "We zetten hier taken neer als er iets je aandacht nodig heeft.",
+      "overdue": "Te laat ({{count}})",
+      "subtitle": "Taken van het Hangyul-team en je aanmeldchecklists.",
+      "title": "Checklist",
+      "upcoming": "Te doen"
     }
   },
   "university": {
@@ -300,16 +961,58 @@
     },
     "flagged": {
       "hint": "Markeringen zijn intern voor jouw universiteit. Studenten en bureaus zien ze niet.",
-      "emptyBody": "Markeer een aanmelding op de detailpagina om hem later te beoordelen."
+      "emptyBody": "Markeer een aanmelding op de detailpagina om hem later te beoordelen.",
+      "add": "Markeren voor opvolging",
+      "addBody": "Alleen uw universiteitsteam ziet deze markering en de reden.",
+      "flagged": "Gemarkeerd",
+      "reason": "Reden",
+      "remove": "Markering verwijderen",
+      "removeTitle": "De markering van deze aanmelding verwijderen?"
     },
     "cohorts": {
       "riskHint": "Vroegtijdige signalen komen alleen uit gegevens die jullie systemen delen (aanwezigheid, studievoortgang, inschrijving, visumdata). Ze zijn een aanleiding om contact op te nemen met de student, geen voorspelling."
+    },
+    "applicants": {
+      "anonymous": "Kandidaat",
+      "confirmBody": "{{name}} en de begeleider krijgen een melding. Voeg een notitie toe voor het dossier (optioneel).",
+      "confirmTitle": "Status wijzigen naar “{{status}}”?",
+      "detailTitle": "Kandidaat",
+      "history": "Statusgeschiedenis",
+      "interview": "Interview",
+      "moveTo": "Naar: {{status}}",
+      "notShared": "Nog niet gedeeld met uw universiteit",
+      "note": "Notitie",
+      "previewHint": "Opent een beveiligde, tijdelijke voorvertoning",
+      "reference": "Uw referentienummer",
+      "submitted": "Ingediend op {{date}}",
+      "submittedLabel": "Ingediend",
+      "viaAgency": "Via {{agency}}"
+    },
+    "inbox": {
+      "title": "Berichten"
+    },
+    "login": {
+      "tagline": "Kandidaten, besluiten en lichtingen voor uw international office."
     }
   },
   "v4": {
     "application": {
-      "writeOnWeb": "Schrijf het op het web. Daar verschijnen de opmerkingen van je adviseur.",
-      "reviewLate": "Dit duurt langer dan normaal. Je adviseur weet dat het te laat is. Je hoeft niets opnieuw te uploaden."
+      "writeOnWeb": "Schrijf het op het web. Daar verschijnen ook de opmerkingen van het Hangyul-team.",
+      "reviewLate": "Dit duurt langer dan normaal. Het Hangyul-team weet dat het te laat is. Je hoeft het niet opnieuw te uploaden.",
+      "blocks": "Je aanmelding kan pas worden ingediend als dit is gedaan.",
+      "blocksUni": "{{university}} wacht hierop voordat ze verdergaat.",
+      "doneSummary_one": "{{count}} gedaan: {{items}}",
+      "doneSummary_other": "{{count}} gedaan: {{items}}",
+      "next": "Je volgende stap",
+      "nextFix": "Pas je {{item}} aan",
+      "nextLegalize": "Regel een apostille of consulaire legalisatie voor je {{item}}",
+      "nextRequest": "{{university}} heeft gevraagd om: {{item}}",
+      "nextUpload": "Upload je {{item}}",
+      "nextWrite": "Schrijf je {{item}}",
+      "nothingForYou": "Je hoeft nu niets te doen",
+      "openDocument": "Document openen",
+      "waitBody": "Het Hangyul-team controleert wat je hebt gestuurd. We laten het je weten als er iets moet worden aangepast.",
+      "waitTitle": "Je hoeft nu niets te doen"
     },
     "reviews": {
       "tickAll": "{{done}} van {{total}} gecontroleerd. Rond elke controle af om te verifiëren."
@@ -317,33 +1020,158 @@
     "home": {
       "item": {
         "WRITE_ESSAY": {
-          "text": "Je adviseur bespreekt het met je. Begin met een ruwe versie. Die hoeft niet perfect te zijn."
+          "text": "Het Hangyul-team bespreekt het met je. Begin met een ruwe versie. Die hoeft niet perfect te zijn.",
+          "cta": "Beginnen met schrijven",
+          "title": "Schrijf je {{label}} voor {{university}}"
+        },
+        "FIX": {
+          "cta": "Bekijk wat er anders moet",
+          "text": "Je aanmelding kan pas worden ingediend als dit is aangepast.",
+          "title": "Pas je {{label}} voor {{university}} aan"
+        },
+        "LEGALIZE": {
+          "cta": "Bekijk de stappen",
+          "text": "Koreaanse universiteiten accepteren dit document pas als het is gelegaliseerd. We laten je de stappen voor jouw land zien.",
+          "title": "Regel een apostille voor je {{label}} voor {{university}}"
+        },
+        "RENEW": {
+          "cta": "Bekijk wat je moet doen",
+          "text": "Het exemplaar dat je hebt geüpload is verlopen.",
+          "title": "Regel een nieuw(e) {{label}} voor {{university}}"
+        },
+        "REQUEST": {
+          "cta": "Uploaden en versturen",
+          "text": "De universiteit heeft om dit document gevraagd. Je aanmelding kan pas verder als het binnen is.",
+          "title": "Stuur je {{label}} naar {{university}}"
+        },
+        "REVISE_ESSAY": {
+          "cta": "Je concept openen",
+          "text": "Het Hangyul-team heeft opmerkingen achtergelaten. Je aanmelding kan pas worden ingediend als de tekst is goedgekeurd.",
+          "title": "Herzie je {{label}} voor {{university}}"
+        },
+        "TOO_OLD": {
+          "cta": "Bekijk wat je moet doen",
+          "text": "De universiteit heeft een recent afgegeven exemplaar nodig.",
+          "title": "Regel een recenter exemplaar van je {{label}} voor {{university}}"
+        },
+        "UPLOAD": {
+          "cta": "Uploaden",
+          "text": "Zonder dit kan je aanmelding niet worden ingediend.",
+          "title": "Upload je {{label}} voor {{university}}"
         }
       }
+    },
+    "discover": {
+      "firstYear": "{{range}} eerste jaar"
+    },
+    "documents": {
+      "late": "Duurt langer",
+      "lateLine": "bij het Hangyul-team gemarkeerd als te laat"
+    },
+    "university": {
+      "continue": "Verder met je aanmelding",
+      "firstYear": "Eerste jaar, schatting",
+      "tuitionYear": "Collegegeld per jaar"
+    },
+    "visa": {
+      "hideDone": "Afgeronde stappen verbergen",
+      "showDone_one": "{{count}} afgeronde stap tonen",
+      "showDone_other": "{{count}} afgeronde stappen tonen"
+    },
+    "uni": {
+      "actor": {
+        "AGENCY": "Partnerbureau",
+        "HANGYUL": "Hangyul",
+        "STUDENT": "Kandidaat",
+        "SYSTEM": "Automatisch",
+        "UNIVERSITY": "Uw universiteit"
+      },
+      "toReview_one": "Te beoordelen · {{count}}",
+      "toReview_other": "Te beoordelen · {{count}}"
     }
   },
   "v29": {
     "plan": {
       "term": "Serviceperiode",
       "termUntil": "Tot {{date}}",
-      "termToAgree": "Afgesproken bij de start",
-      "supportUntil": "Consult tot {{date}}",
-      "supportDays": "Dagen vanaf je eerste consult: {{count}}",
-      "arrival": "Aankomst en settelen",
+      "termToAgree": "Wordt afgesproken bij de start van de dienst",
+      "supportUntil": "Adviesgesprekken tot {{date}}",
+      "supportDays": "{{count}} dagen begeleiding met adviesgesprekken vanaf je eerste adviesgesprek",
+      "arrival": "Aankomst en eerste weken",
       "arrivalWindow": "{{from}} – {{until}}",
       "unrationed": {
-        "CONTRACTED_DOCUMENTS": "Geen limiet binnen contractdocumenten",
-        "TEAM": "Opvolging door team",
+        "CONTRACTED_DOCUMENTS": "Geen limiet voor de documenten in je contract",
+        "TEAM": "Opvolging door je team",
         "PRIORITY": "Antwoord met voorrang",
         "ROUNDS": "Inbegrepen"
       },
       "upgradePending": "De overstapprijs is nog niet bepaald. Het Hangyul Univ-team spreekt die rechtstreeks met je af.",
       "askTeam": "Vraag het team"
+    },
+    "mfa": {
+      "codeHint": "Voer de 6-cijferige code uit de authenticator-app in, of een herstelcode.",
+      "codeLabel": "Verificatiecode",
+      "enrollOnWeb": "Voor dit account is tweestapsverificatie nodig. Stel die eerst in via de webconsole en log daarna hier in.",
+      "verify": "Verifiëren en inloggen",
+      "wrongCode": "Die code is onjuist of verlopen. Voer een nieuwe in."
     }
   },
   "plan": {
     "allowance": {
-      "consultation_sessions": "Diagnosegesprek"
-    }
+      "consultation_sessions": "Intakegesprek",
+      "essay_review_rounds": "Redactie van motivatiebrief en studieplan",
+      "follow_up_consultations": "Vervolggesprekken",
+      "max_managed_applications": "Begeleide aanmeldingen",
+      "max_recommended_institutions": "Universiteitsaanbevelingen",
+      "mock_interviews": "Oefeninterviews"
+    },
+    "browserFailed": "De browser kon niet worden geopend. Betaal via het web.",
+    "card": "Je kunt betalen met een buitenlandse kaart (Visa, Mastercard, JCB).",
+    "chooseLede": "Eén betaling, geen abonnement. Je pakket blijft van jou zolang je je voorbereidt.",
+    "chooseTitle": "Kies een pakket",
+    "handoff": "Betalen gebeurt in je browser; daarna kom je terug in de app.",
+    "highestAlready": "Je hebt al het hoogste pakket.",
+    "included": "Inbegrepen in je pakket",
+    "oneTime": "Eén betaling",
+    "ongoing": "Tijdens de hele serviceperiode",
+    "paid": "Betaald bedrag",
+    "pay": "Betalen",
+    "plansTitle": "Pakketten",
+    "selected": "Gekozen",
+    "upgradeTitle": "Overstappen",
+    "webNote": "Pakketgeschiedenis en bonnen staan op het web."
+  },
+  "app": {
+    "agency": "Hangyul Agency",
+    "student": "Hangyul Univ",
+    "university": "Hangyul University"
+  },
+  "notifications": {
+    "unread": "Ongelezen"
+  },
+  "settings": {
+    "elsewhere": "Elders",
+    "language": "Taal",
+    "languageHint": "Kies de taal voor deze app. Sommige talen zijn machinevertalingen die nog worden nagekeken.",
+    "machineDraft": "machinevertaling",
+    "notificationsHint": "Bekijk de ontvangen meldingen",
+    "rtlNote": "Tekst van rechts naar links is nu actief; de volledige lay-out wordt gespiegeld bij de volgende start van de app.",
+    "selected": "gekozen",
+    "server": "Server: {{url}}",
+    "signOutBody": "Om opnieuw in te loggen zijn het e-mailadres en wachtwoord nodig.",
+    "signOutTitle": "Uitloggen?",
+    "title": "Instellingen",
+    "version": "Versie {{version}}"
+  },
+  "more": {
+    "active": "Actief",
+    "allowanceSpent": "Je hebt alles gebruikt wat dit pakket omvat. Op het pakketscherm zie je welk pakket meer biedt.",
+    "choose": "Kiezen",
+    "noPlan": "Nog geen pakket",
+    "noPlanHint": "Kies een pakket en Hangyul gaat met je aan de slag",
+    "plan": "Pakket",
+    "support": "Hulp nodig?",
+    "supportHint": "Stuur het Hangyul-team een bericht",
+    "webNote": "Je profiel bewerken en betalen doe je op het web."
   }
 }

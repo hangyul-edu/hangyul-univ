@@ -12,7 +12,7 @@
  */
 import { expect, test } from '@playwright/test';
 
-import { API, apiLogin, registerStudent, uiLogin, URLS } from './helpers';
+import { API, apiLogin, fixturePay, registerStudent, uiLogin, URLS } from './helpers';
 
 test.describe.configure({ mode: 'serial' });
 
@@ -26,11 +26,12 @@ test('the homepage sells exactly the V29 contract', async ({ page }) => {
   const matrix = pricing.locator('table.kn-matrix');
   await expect(matrix).toContainText('No round limit within your contract');
   await expect(matrix).toContainText('Throughout your contract');
-  await expect(pricing.locator('.kn-addons__table tbody tr')).toHaveCount(6);
+  // V31 turned the add-on table into a list (kn-addons__row); the contract is the same six add-ons
+  await expect(pricing.locator('.kn-addons__row')).toHaveCount(6);
   await expect(pricing.locator('.kn-addons__price[data-pricing="QUOTE"]')).toHaveCount(2);
   await pricing.locator('#plan-notes > summary').click();
   await expect(pricing.locator('.kn-notes__list li')).toHaveCount(8);
-  await expect(pricing.locator('.kn-notes__list')).toContainText('the decision is the authority');
+  await expect(pricing.locator('.kn-notes__groups')).toContainText('decided by the immigration authorities');
 });
 
 let student: { email: string; id: string } | null = null;
@@ -43,16 +44,15 @@ test('a new student starts All-in-One and reads the contract on /services', asyn
   await page.goto(`${URLS.student}/services?plan=all_in_one&lang=en`);
   // Before buying: the order block carries the 이용 안내 in full.
   await expect(page.locator('.sv29-notes li')).toHaveCount(7); // premiumScope only for Premium
-  // The paid state, through the server's non-production paid-state action (the isolated e2e build ships no test button).
-  const h0 = await apiLogin(request, email, 'student', password);
-  expect((await request.post(`${API}/me/orders/dev-complete`, { headers: h0, data: { product_code: 'ALL_IN_ONE' } })).ok()).toBeTruthy();
+  // The paid state, through the e2e fixture helper (the same transition a payment performs; no such action exists in the product).
+  fixturePay({ email, product: 'ALL_IN_ONE' });
   await page.goto(`${URLS.student}/services?lang=en`);
   const current = page.locator('.sv15-current');
   await expect(current).toContainText('All-in-One');
   await expect(current.locator('.sv29-term')).toContainText('Consultation support');
-  await current.getByText('Everything this plan includes').click();
+  await current.getByText('See everything this plan includes').click();
   await expect(current.locator('.sv15-scope')).toContainText('Up to 2 rounds');
-  await expect(current.locator('.sv15-scope')).toContainText('Application deadlines managed');
+  await expect(current.locator('.sv15-scope')).toContainText('We track the application dates'); // All-in-One: dormitory dates
   // Upgrade: what changes, and no invented price.
   await page.getByText('See the other plans').click();
   await page.getByRole('button', { name: /Change to Premium/ }).click();
@@ -71,7 +71,9 @@ test('an add-on is proposed at an exact price, approved, paid — and only then 
   await uiLogin(agency, 'agency', 'ops@demo.hangyul.kr', undefined, 'en');
   await agency.goto(`${URLS.agency}/students/${student!.id}?lang=en`);
   await agency.getByRole('button', { name: 'Propose an additional service' }).click();
-  await agency.locator('#ag29-offer-code').selectOption('EXTRA_MANAGED_APPLICATION');
+  // V32: the canonical Hangyul select — open it and choose the option by name, as a counsellor would
+  await agency.locator('#ag29-offer-code').click();
+  await agency.getByRole('option', { name: 'One more managed application' }).click();
   await agency.locator('#ag29-offer-price').fill('60');
   await expect(agency.getByRole('button', { name: 'Propose to student' })).toBeDisabled(); // $60 is outside $30–50
   await agency.locator('#ag29-offer-price').fill('45');
@@ -82,7 +84,7 @@ test('an add-on is proposed at an exact price, approved, paid — and only then 
   await uiLogin(page, 'student', student!.email, 'Hangyul!2026x', 'en');
   await page.goto(`${URLS.student}/services?lang=en`);
   const addOns = page.locator('#addons');
-  await expect(addOns).toContainText('Extra managed application');
+  await expect(addOns).toContainText('One more managed application');
   await expect(addOns).toContainText('$45');
   const before = await (await request.get(`${API}/me/plan`, { headers: await apiLogin(request, student!.email, 'student', 'Hangyul!2026x') })).json();
   const limit = (p: { usage: { key: string; limit: number | null }[] }) => p.usage.find((u) => u.key === 'max_managed_applications')!.limit;
@@ -92,7 +94,7 @@ test('an add-on is proposed at an exact price, approved, paid — and only then 
   expect(limit(approved)).toBe(limit(before)); // approval grants nothing
   const hs = await apiLogin(request, student!.email, 'student', 'Hangyul!2026x');
   const offer = (await (await request.get(`${API}/me/add-ons`, { headers: hs })).json()).find((x: { status: string }) => x.status === 'AWAITING_PAYMENT');
-  expect((await request.post(`${API}/me/orders/${offer.order_id}/dev-complete`, { headers: hs })).ok()).toBeTruthy();
+  fixturePay({ order: offer.order_id });
   await page.reload();
   await expect(page.locator('#addons')).toContainText('Paid · in progress');
   const paid = await (await request.get(`${API}/me/plan`, { headers: await apiLogin(request, student!.email, 'student', 'Hangyul!2026x') })).json();

@@ -39,10 +39,10 @@ export default function NeedsReviewScreen() {
 }
 
 /**
- * V26 (REPORT §337, brief §31): the web console's headline on the phone — who needs a decision, how many requests wait on
- * an answer, what arrived and what moved this week. Each figure is the total of the exact list it opens (same API filter as
- * the web), so the number on the home is the number of rows a tap shows. A zero is shown (a quiet week is information) but
- * does not open anything.
+ * V26 (REPORT §337) put the web console's four headline figures in a 2×2 grid; V31 found that two "this week" zeros
+ * then weighed exactly as much as the six items needing a decision (REPORT §433). V32: one figure leads — how many
+ * applications need a decision — and the other three recede into a single quiet line of secondary counts, each still
+ * the total of the exact list it opens. A zero is still shown (a quiet week is information) but is muted and opens nothing.
  */
 function Headline() {
   const { t } = useTranslation();
@@ -50,21 +50,29 @@ function Headline() {
   const counts = useQueries({
     queries: HEAD_VIEWS.map((v) => ({ queryKey: ['applications', 'count', v], queryFn: () => api.applications.list({ ...viewQuery(v), page_size: 1 }), staleTime: 30_000 })),
   });
+  const n = (v: HeadView) => counts[HEAD_VIEWS.indexOf(v)].data?.total;
+  const decide = n('decide');
+  const open = (v: HeadView) => router.push({ pathname: '/applicants', params: { view: v } });
   return (
     <View style={styles.head2} accessibilityRole="summary" accessibilityLabel={t('v26.uni.head.label')}>
-      {HEAD_VIEWS.map((v: HeadView, i) => {
-        const n = counts[i].data?.total;
-        const body = (
-          <>
-            <AppText variant="metric" color={v === 'decide' && n ? theme.color.primaryText : theme.color.text}>{n ?? '–'}</AppText>
-            <AppText variant="caption" numberOfLines={2}>{t(`v26.uni.head.${v}`)}</AppText>
-          </>
-        );
-        return n ? (
-          <Pressable key={v} style={({ pressed }) => [styles.headItem, pressed && { opacity: 0.6 }]} accessibilityRole="button"
-            accessibilityLabel={`${t(`v26.uni.head.${v}`)} ${n}`} onPress={() => router.push({ pathname: '/applicants', params: { view: v } })}>{body}</Pressable>
-        ) : <View key={v} style={styles.headItem} accessible accessibilityLabel={`${t(`v26.uni.head.${v}`)} 0`}>{body}</View>;
-      })}
+      <Pressable disabled={!decide} onPress={() => open('decide')} accessibilityRole="button" accessibilityLabel={`${t('v26.uni.head.decide')} ${decide ?? 0}`}
+        style={({ pressed }) => [styles.lead, pressed && { opacity: 0.6 }]}>
+        <AppText variant="display" color={decide ? theme.color.primaryText : theme.color.textTertiary}>{decide ?? '–'}</AppText>
+        <AppText variant="subheading">{t('v26.uni.head.decide')}</AppText>
+        {decide ? <ChevronRight size={18} color={theme.color.textTertiary} /> : null}
+      </Pressable>
+      <View style={styles.secondary}>
+        {(['requests', 'fresh', 'moved'] as HeadView[]).map((v) => {
+          const c = n(v);
+          return (
+            <Pressable key={v} disabled={!c} onPress={() => open(v)} accessibilityRole="button" accessibilityLabel={`${t(`v26.uni.head.${v}`)} ${c ?? 0}`}
+              style={({ pressed }) => [styles.secondaryItem, pressed && { opacity: 0.6 }]}>
+              <AppText variant="subheading" color={c ? theme.color.text : theme.color.textTertiary}>{c ?? '–'}</AppText>
+              <AppText variant="caption" numberOfLines={2} color={c ? theme.color.textSecondary : theme.color.textTertiary}>{t(`v26.uni.head.${v}`)}</AppText>
+            </Pressable>
+          );
+        })}
+      </View>
     </View>
   );
 }
@@ -109,6 +117,8 @@ const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', gap: 14, paddingVertical: 14, paddingHorizontal: 16, minHeight: 64 },
   count: { minWidth: 36, textAlign: 'center' },
   clear: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  head2: { flexDirection: 'row', flexWrap: 'wrap', borderTopWidth: StyleSheet.hairlineWidth, borderBottomWidth: StyleSheet.hairlineWidth, borderColor: theme.color.border },
-  headItem: { width: '50%', minHeight: 72, paddingVertical: 12, paddingHorizontal: 4, gap: 2, justifyContent: 'center' },
+  head2: { gap: 10, paddingVertical: 8, borderTopWidth: StyleSheet.hairlineWidth, borderBottomWidth: StyleSheet.hairlineWidth, borderColor: theme.color.border },
+  lead: { flexDirection: 'row', alignItems: 'center', gap: 12, minHeight: 56, paddingVertical: 6 },
+  secondary: { flexDirection: 'row', gap: 12, paddingBottom: 4 },
+  secondaryItem: { flex: 1, gap: 2 },
 });

@@ -1,5 +1,6 @@
 // V6 agency workstream captures: OUT=<dir> node scripts/qa/v6-agency-shots.mjs <email> <widths> <routes...>
-// Signs in through the dev-only demo-login endpoint (client=agency). One Chromium, closed at the end.
+// Signs in with a fixture account through the real login (client=agency). One Chromium, closed at the end.
+import { FIXTURE_PASSWORD } from './auth.mjs';
 import { chromium } from '@playwright/test';
 const [,, email, widthsArg, ...routes] = process.argv;
 const base = process.env.BASE || 'http://localhost:3102';
@@ -9,7 +10,7 @@ const browser = await chromium.launch();
 try {
   const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   const page = await ctx.newPage();
-  const r = await page.request.post(`${base}/api/v1/auth/demo-login`, { data: { email, client: 'agency' } });
+  const r = await page.request.post(`${base}/api/v1/auth/login`, { data: { email, password: FIXTURE_PASSWORD, client: 'agency' } });
   if (!r.ok()) console.log('login failed', r.status());
   const tag = email.split('@')[0];
   for (const w of widthsArg.split(',').map(Number)) {

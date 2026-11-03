@@ -1,0 +1,855 @@
+{
+  "_notes": [
+    "Terminology unified per glossary (one term per concept): plan = тариф (already the dominant term across marketing/pricing/terms; 'план' is reserved for план навчання = study plan); account = акаунт everywhere (common:auth.haveAccount used обліковий запис); personal statement = мотиваційний лист, study plan = план навчання; standard admission letter = стандартний лист про зарахування (was лист про зарахування in the privacy document list); dormitory = гуртожиток (was житло/студентське житло in v20.uni.* and uni27.house.eyebrow); visa document preparation = підготовка візових документів (was підготовка до візи / віза in appStatus, pipeline, pricing rows, terms.services.visa, v17.quick.ctaWhy); application = заявка (unit.APPLICATION and task.applicationCloses used заява); TOPIK/TOEFL/IELTS score report = Результати X.",
+    "Ukrainian plurals: added _few/_many (and corrected _other, which in i18next-uk is the fractional form) for every {{count}} key whose Ukrainian carried a noun: directory.count/countShort, retention.months/years, table.results, time.daysLeft, time.overdueBy. table.selected_* has no noun, so it was left alone. compare.value.rounds and compare.value.supportDays have no plural keys in English, so they were rephrased to forms that work with any number (Раундів: до N; N дн.).",
+    "Download vs upload: common:actions.download = Завантажити, common:actions.upload = Вивантажити (Microsoft/Mozilla uk convention). The old pair 'Завантажити файл' / 'Завантажити' read as the same action. Owner may prefer 'Надіслати' for upload in the student app; flagged for a decision.",
+    "marketing:v12.establishment.NATIONAL/PUBLIC aligned with common:institution.* (Національний / Державний); Korean 공립 (local-government) is rendered Державний, not Комунальний, so the two namespaces match.",
+    "marketing:v12.type.GRADUATE_UNIVERSITY and seo.directory.description: 'заклад післядипломної освіти' means continuing education in Ukraine; replaced with 'заклад магістратури та аспірантури'.",
+    "common:tier.REACH: English is identical to tier.NOT_ELIGIBLE ('Not eligible yet'), so the Ukrainian now matches it; the old 'Амбітний варіант' added a meaning the English does not carry. tier.COMPETITIVE/STRONG re-rendered as 'Можливий варіант' / 'Добре підходить' ('збіг' reads as a coincidence).",
+    "marketing:v20.city.Ulsan.body: removed 'Hyundai', which the English does not name. Gyeonggi.body: Йонъїн (Russian-style apostrophe) corrected to Йонін; all new city names follow the standard Ukrainian transliteration of Korean (Чхонджу, Чхонан, Каннин, Кьонджу, Пхохан, Чонджу, Мокпхо...).",
+    "Alt texts with {{region}}: the region name is inserted in the nominative, so new strings use the pattern '{{region}}: …' or '…, {{region}}' instead of declining it.",
+    "common:task.reviewDocument / notify.documentRequest.*: {{category}} / {{document}} are nominative labels, so the sentence is built with a colon ('Перевірити документ: {{category}}') rather than a case-governed verb. The existing 'Перевірити {{essayType}} для {{university}}' family still has this latent problem for 'Рекомендація' (accusative needed) and for declined university names; left unchanged, flagged for the owner.",
+    "common:appStatus.OFFER_ACCEPTED: 'Згоду на зарахування надано' did not say who accepted; now 'Пропозицію про зарахування прийнято' (the applicant accepted).",
+    "common:docStatus.VERIFIED stays 'Перевірено' and agency's 'Verify' action stays 'Підтвердити' (reviewer confirms the document). This is a deliberate noun/verb split, not two terms for one concept."
+  ],
+  "marketing:nav.universities": {
+    "text": "Університети",
+    "why": "matches English nav label"
+  },
+  "marketing:seo.home.description": {
+    "text": "Знайдіть університет у Кореї, який вам підходить, підготуйте документи та підготуйтеся до візи й приїзду — перевірена інформація та команда Hangyul в одному місці.",
+    "why": "'оформіть візу' implied we issue visas"
+  },
+  "marketing:v11.hero.lede": {
+    "text": "Знайдіть університет у Кореї, який вам підходить, і пройдіть кожен крок разом із нашою командою.<br>Почніть із того, що ви хочете вивчати.",
+    "why": "natural marketing phrasing"
+  },
+  "marketing:v12.directory.countShort_one": {
+    "text": "{{count}} заклад",
+    "why": "missing"
+  },
+  "marketing:v12.directory.countShort_few": {
+    "text": "{{count}} заклади",
+    "why": "uk plural"
+  },
+  "marketing:v12.directory.countShort_many": {
+    "text": "{{count}} закладів",
+    "why": "uk plural"
+  },
+  "marketing:v12.directory.countShort_other": {
+    "text": "{{count}} заклада",
+    "why": "missing; fractional form"
+  },
+  "marketing:v12.directory.count_one": {
+    "text": "{{count}} заклад",
+    "why": "missing"
+  },
+  "marketing:v12.directory.count_few": {
+    "text": "{{count}} заклади",
+    "why": "uk plural"
+  },
+  "marketing:v12.directory.count_many": {
+    "text": "{{count}} закладів",
+    "why": "uk plural"
+  },
+  "marketing:v12.directory.count_other": {
+    "text": "{{count}} заклада",
+    "why": "was wrong for 5+"
+  },
+  "marketing:v12.directory.emptyText": {
+    "text": "Оберіть інший регіон або перегляньте всю Корею.",
+    "why": "missing"
+  },
+  "marketing:v12.directory.emptyTitle": {
+    "text": "У цьому регіоні немає закладів у переліку",
+    "why": "missing"
+  },
+  "marketing:v12.directory.inRegion": {
+    "text": "Університети в регіоні {{region}}",
+    "why": "missing"
+  },
+  "marketing:v12.directory.matching": {
+    "text": "Збіги за запитом «{{q}}»",
+    "why": "missing"
+  },
+  "marketing:v12.establishment.NATIONAL": {
+    "text": "Національний",
+    "why": "missing; matches common"
+  },
+  "marketing:v12.establishment.PUBLIC": {
+    "text": "Державний",
+    "why": "missing; matches common"
+  },
+  "marketing:v12.ieqas.excellent": {
+    "text": "Сертифікат IEQAS — відмінно",
+    "why": "missing"
+  },
+  "marketing:v12.legal.effective": {
+    "text": "Діє з {{date}}",
+    "why": "missing"
+  },
+  "marketing:v12.map.hide": {
+    "text": "Сховати карту",
+    "why": "missing"
+  },
+  "marketing:v12.privacy.collect.documents.items": {
+    "text": "Паспорт, національне посвідчення особи, фото, виписки з оцінками, документи про освіту та довідки про очікуване закінчення навчання, свідоцтва про родинні зв’язки та народження, банківські виписки, документи спонсора, підтвердження роботи й доходу, результати TOPIK, IELTS і TOEFL, рекомендаційні листи, мотиваційні листи, плани навчання, резюме, апостилі, нотаріальні засвідчення й засвідчені переклади, посвідка на проживання, віза, стандартний лист про зарахування",
+    "why": "official document name"
+  },
+  "marketing:v12.privacy.collect.intro": {
+    "text": "Hangyul обробляє наведену нижче інформацію. Якщо ви не користуєтеся певною послугою, ми не збираємо дані, потрібні для неї.",
+    "why": "'a service' meant one feature"
+  },
+  "marketing:v12.privacy.collect.profile.items": {
+    "text": "Громадянство, країна проживання, дата народження, стать, маскований номер паспорта та термін його дії, історія корейських віз, освіта, навчальний заклад, статус випуску, GPA, результати мовних тестів, бажаний ступінь, галузь, регіон і семестр вступу, бюджет, потреба в стипендії, побажання щодо житла, хто фінансує навчання, кар’єрна мета",
+    "why": "'набір' unclear for intake"
+  },
+  "marketing:v12.privacy.contact.colField": {
+    "text": "Поле",
+    "why": "missing"
+  },
+  "marketing:v12.privacy.contact.colValue": {
+    "text": "Значення",
+    "why": "missing"
+  },
+  "marketing:v12.privacy.contact.department": {
+    "text": "Відділ",
+    "why": "missing"
+  },
+  "marketing:v12.privacy.contact.email": {
+    "text": "Електронна пошта",
+    "why": "missing"
+  },
+  "marketing:v12.privacy.contact.h": {
+    "text": "Відповідальний за захист персональних даних і контакти",
+    "why": "missing"
+  },
+  "marketing:v12.privacy.contact.officer": {
+    "text": "Відповідальний за захист персональних даних",
+    "why": "missing"
+  },
+  "marketing:v12.privacy.contact.phone": {
+    "text": "Телефон",
+    "why": "missing"
+  },
+  "marketing:v12.privacy.processors.colContact": {
+    "text": "Контакт",
+    "why": "missing"
+  },
+  "marketing:v12.privacy.processors.colPurpose": {
+    "text": "Доручена робота",
+    "why": "clearer column header"
+  },
+  "marketing:v12.privacy.processors.colRetention": {
+    "text": "Строк зберігання в обробника",
+    "why": "missing"
+  },
+  "marketing:v12.privacy.processors.none": {
+    "text": "Наразі жоден обробник не працює з персональними даними від імені Hangyul у робочому середовищі. Якщо це зміниться, обробника та доручену йому роботу буде опубліковано тут і оголошено до початку роботи.",
+    "why": "missing"
+  },
+  "marketing:v12.privacy.retention.months_one": {
+    "text": "{{count}} місяць",
+    "why": "missing"
+  },
+  "marketing:v12.privacy.retention.months_few": {
+    "text": "{{count}} місяці",
+    "why": "uk plural"
+  },
+  "marketing:v12.privacy.retention.months_many": {
+    "text": "{{count}} місяців",
+    "why": "uk plural"
+  },
+  "marketing:v12.privacy.retention.years_one": {
+    "text": "{{count}} рік",
+    "why": "missing"
+  },
+  "marketing:v12.privacy.retention.years_few": {
+    "text": "{{count}} роки",
+    "why": "uk plural"
+  },
+  "marketing:v12.privacy.retention.years_many": {
+    "text": "{{count}} років",
+    "why": "uk plural"
+  },
+  "marketing:v12.privacy.security.uploads": {
+    "text": "Завантажені файли проходять перевірку типу й розміру та сканування на шкідливе ПЗ, перш ніж потрапити на перевірку документів.",
+    "why": "removed перевіркою/перевіряються repetition"
+  },
+  "marketing:v12.privacy.transfer.none": {
+    "text": "Наразі не використовується жоден обробник, який передає персональні дані за межі Кореї. Якщо передавання за кордон стане необхідним, отримувача, країну, мету, дані, час, спосіб і строк зберігання буде опубліковано тут і оголошено до початку передавання.",
+    "why": "missing"
+  },
+  "marketing:v12.seo.directory.description": {
+    "text": "Усі університети, коледжі та заклади магістратури й аспірантури з національного реєстру публічного розкриття інформації — за регіонами.",
+    "why": "післядипломна освіта = continuing education"
+  },
+  "marketing:v12.terms.effective.h": {
+    "text": "Дата набрання чинності",
+    "why": "missing"
+  },
+  "marketing:v12.terms.effective.p": {
+    "text": "Ці умови набирають чинності {{date}}.",
+    "why": "missing"
+  },
+  "marketing:v12.terms.law.h": {
+    "text": "Застосовне право та юрисдикція",
+    "why": "missing"
+  },
+  "marketing:v12.terms.refunds.colRule": {
+    "text": "Норма закону",
+    "why": "natural legal wording"
+  },
+  "marketing:v12.terms.refunds.stage.APPLICATION_WORK_STARTED": {
+    "text": "Розпочато роботу над заявкою",
+    "why": "matches English"
+  },
+  "marketing:v12.terms.refunds.stagesIntro": {
+    "text": "Що передбачає закон на кожному етапі послуги:",
+    "why": "'законодавче становище' unnatural"
+  },
+  "marketing:v12.terms.services.visa": {
+    "text": "Роз’яснення щодо підготовки візових документів",
+    "why": "glossary term"
+  },
+  "marketing:v12.terms.summary": {
+    "text": "Ці умови встановлюють правила користування сервісом Hangyul Univ, який надає Hangyul, а також права й обов’язки Hangyul і користувачів.",
+    "why": "'умови визначають умови' repetition"
+  },
+  "marketing:v12.type.GRADUATE_UNIVERSITY": {
+    "text": "Заклад магістратури та аспірантури",
+    "why": "післядипломна = continuing education"
+  },
+  "marketing:v12.uni.back": {
+    "text": "Назад до університетів Кореї",
+    "why": "missing"
+  },
+  "marketing:v14.legal.ecommerce": {
+    "text": "Реєстраційний номер суб’єкта електронної комерції",
+    "why": "matches English term"
+  },
+  "marketing:v14.media.alt.seoulRiver": {
+    "text": "{{region}}: панорама міста за річкою на заході сонця.",
+    "why": "missing"
+  },
+  "marketing:v15.pricing.compare.item": {
+    "text": "Послуга",
+    "why": "was empty"
+  },
+  "marketing:v17.quick.ctaWhy": {
+    "text": "Hangyul разом з вами працює над заявками, документами та підготовкою візових документів.",
+    "why": "'візою' implied the visa itself"
+  },
+  "marketing:v17.uni.fromRecommendation": {
+    "text": "Цей університет підібрано за вашими відповідями",
+    "why": "відповідає…відповідям repetition"
+  },
+  "marketing:v17.uni.missionTitle": {
+    "text": "Місія та цінності університету",
+    "why": "'для чого існує' unnatural"
+  },
+  "marketing:v20.city.Chungbuk.body": {
+    "text": "Північна Чхунчхон — єдина провінція Кореї без виходу до моря. Її центр і головне університетське місто — Чхонджу, досить близько і до Седжона, і до Теджона, щоб ділити з ними ринок праці.\nПровінція відома вапняковими краєвидами Таняна та спокійнішим і дешевшим студентським життям, ніж у великих містах.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Chungbuk.line": {
+    "text": "Без виходу до моря, у центрі країни, навколо Чхонджу.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Chungbuk.청주": {
+    "text": "Чхонджу",
+    "why": "missing"
+  },
+  "marketing:v20.city.Chungnam.아산": {
+    "text": "Асан",
+    "why": "missing"
+  },
+  "marketing:v20.city.Chungnam.천안": {
+    "text": "Чхонан",
+    "why": "missing"
+  },
+  "marketing:v20.city.Daegu.body": {
+    "text": "Тегу лежить в улоговині на південному сході: це найспекотніше місто Кореї в серпні й одне з найхолодніших у січні. Тут щільний центр, який легко обійти пішки, давня текстильна історія, що переросла в індустрію моди та медичних приладів, і вартість життя помітно нижча, ніж у Сеулі чи Пусані.\nПоїздом KTX до Сеула — година сорок п’ять, до Пусана — п’ятдесят хвилин.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Daegu.line": {
+    "text": "Місто в гірській улоговині, відоме текстилем, медициною та спекою.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Daejeon.body": {
+    "text": "Теджон виріс навколо Тедок Іннополіса — кластера державних дослідних інститутів і корпоративних центрів R&D, і місцеві університети сформовані ним. Якщо ви їдете по інженерію чи природничі науки, лабораторії саме тут.\nМісто майже точно в центрі країни: година до Сеула поїздом KTX і година до Пусана.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gangwon.body": {
+    "text": "У Канвоні — хребет Тхебек, об’єкти Зимової олімпіади 2018 року та пляжі східного узбережжя. Університетські міста — Чхунчхон, Каннин і Вонджу; жодне з них не велике, і всі вони дешевші й спокійніші за будь-яке місце в столичному регіоні.\nЗими тут справжні. Поїзд KTX довозить із Сеула до Каннина приблизно за дві години.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gangwon.강릉": {
+    "text": "Каннин",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gangwon.원주": {
+    "text": "Вонджу",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gangwon.춘천": {
+    "text": "Чхунчхон",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gwangju.body": {
+    "text": "Кванджу — найбільше місто провінцій Чолла, яке успадкувало їхню славу кухні та пам’ять про демократичне повстання 1980 року — саме з ним місто досі асоціюють у Кореї.\nЦе одне з дешевших для життя великих міст, із визнаною мистецькою сценою, приблизно за дві години від Сеула поїздом KTX.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gwangju.line": {
+    "text": "Культурний і політичний центр південного заходу та доступне місто для навчання.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gyeongbuk.body": {
+    "text": "У Північному Кьонсані — Кьонджу, тисячолітня столиця Сілли й фактично музей просто неба, та Пхохан, сталеливарне місто, де також працює один із найсильніших науково-інженерних університетів Кореї. Андон, далі вглиб країни, — центр корейської конфуціанської традиції.\nЦе велика й різноманітна провінція, і вся вона дешевша за столичний регіон.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gyeongbuk.line": {
+    "text": "Тисяча років історії Кьонджу та сталь Пхохана в одній провінції.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gyeongbuk.경주": {
+    "text": "Кьонджу",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gyeongbuk.구미": {
+    "text": "Кумі",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gyeongbuk.포항": {
+    "text": "Пхохан",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gyeonggi.body": {
+    "text": "Кьонгі оточує Сеул, і університетів тут більше, ніж у будь-якому іншому регіоні, крім самої столиці. Від Сувона, Йоніна, Соннама й Пучхона до центру Сеула 40–70 хвилин метро чи прямим автобусом, а оренда зазвичай на третину дешевша.\nКампуси тут здебільшого більші й самодостатніші, ніж у Сеулі, тож більше студентів живе в університетських гуртожитках, а не в квартирах-студіях поза кампусом.",
+    "why": "Йонъїн is a Russian-style spelling"
+  },
+  "marketing:v20.city.Gyeonggi.고양": {
+    "text": "Коян",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gyeonggi.부천": {
+    "text": "Пучхон",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gyeonggi.성남": {
+    "text": "Соннам",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gyeonggi.수원": {
+    "text": "Сувон",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gyeonggi.안양": {
+    "text": "Анян",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gyeonggi.용인": {
+    "text": "Йонін",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gyeongnam.김해": {
+    "text": "Кімхе",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gyeongnam.진주": {
+    "text": "Чінджу",
+    "why": "missing"
+  },
+  "marketing:v20.city.Gyeongnam.창원": {
+    "text": "Чханвон",
+    "why": "missing"
+  },
+  "marketing:v20.city.Incheon.line": {
+    "text": "Ворота Кореї: тут і аеропорт, і Сондо.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Jeju.body": {
+    "text": "Чеджу лежить за 85 кілометрів від материка, довкола вулкана Халласан, і тут так тепло, що рослинність виглядає субтропічною. Для решти країни це курорт, і це визначає місцеву економіку й ціни на оренду.\nУніверситетів тут мало, і вони невеликі. Літаки до Сеула вилітають кожні кілька хвилин, політ триває годину.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Jeju.line": {
+    "text": "Вулканічний острів біля південного узбережжя з іншим кліматом, ніж у решті Кореї.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Jeonbuk.body": {
+    "text": "Північна Чолла — аграрний край, рівнинний на заході й гористий на сході, а його центр — Чонджу: місто на близько 650 000 мешканців із найбільшим збереженим кварталом ханоків у країні та кулінарною славою, яку не оскаржує жодне інше місто Кореї.\nВартість життя тут одна з найнижчих серед університетських міст, а до Сеула поїздом KTX — трохи менше двох годин.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Jeonbuk.line": {
+    "text": "Чонджу та регіон, який називають батьківщиною корейської кухні.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Jeonbuk.익산": {
+    "text": "Іксан",
+    "why": "missing"
+  },
+  "marketing:v20.city.Jeonbuk.전주": {
+    "text": "Чонджу",
+    "why": "missing"
+  },
+  "marketing:v20.city.Jeonnam.body": {
+    "text": "У Південній Чоллі островів більше, ніж у решті Кореї разом узятій, а ще — водно-болотні угіддя затоки Сунчхон і гавань Йосу. Це найменш урбанізована з материкових провінцій, тож і університети тут невеликі й згуртовані.\nЯкщо вам потрібне тихе місце з узбережжям і дуже низькою вартістю життя — це воно.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Jeonnam.line": {
+    "text": "Південно-західне узбережжя, його острови та найповільніший ритм життя в країні.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Jeonnam.목포": {
+    "text": "Мокпхо",
+    "why": "missing"
+  },
+  "marketing:v20.city.Jeonnam.순천": {
+    "text": "Сунчхон",
+    "why": "missing"
+  },
+  "marketing:v20.city.Jeonnam.여수": {
+    "text": "Йосу",
+    "why": "missing"
+  },
+  "marketing:v20.city.Sejong.body": {
+    "text": "Седжон — наймолодше й найретельніше сплановане місто Кореї: більшість центральних міністерств переїхали сюди із Сеула, а вулиці, парки й громадські будівлі з’явилися за останні п’ятнадцять років.\nВоно невелике, тихе й зовсім нове — двадцять хвилин від Теджона та півтори години від Сеула.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Sejong.line": {
+    "text": "Місто, збудоване з нуля після 2012 року для урядових міністерств.",
+    "why": "missing"
+  },
+  "marketing:v20.city.Seoul.line": {
+    "text": "Половина дослідницьких університетів Кореї — тут, не більш як за годину один від одного.",
+    "why": "natural phrasing"
+  },
+  "marketing:v20.city.Ulsan.body": {
+    "text": "В Ульсані найвищий середній дохід серед міст Кореї, і причину видно одразу: найбільша у світі верф, автозавод завбільшки з цілий район і нафтохімічний комплекс уздовж узбережжя. Тут наймають випускників інженерних спеціальностей.\nЗа корейськими мірками це невелике місто за пів години від Пусана — зі спостереженням за китами, довгим пляжем і річкою Тхехва в центрі.",
+    "why": "English names no brand"
+  },
+  "marketing:v20.city.Ulsan.line": {
+    "text": "Промислова столиця Кореї: суднобудування, автомобілі й нафтохімія.",
+    "why": "missing"
+  },
+  "marketing:v20.dir.filterType": {
+    "text": "Тип закладу",
+    "why": "matches English"
+  },
+  "marketing:v20.dir.tierVideo": {
+    "text": "Офіційне відео",
+    "why": "missing"
+  },
+  "marketing:v20.media.alt.busanGwangan": {
+    "text": "Міст Кванан, підсвічений уночі над затокою, {{region}}",
+    "why": "missing"
+  },
+  "marketing:v20.media.alt.daejeonExpo": {
+    "text": "Міст Експо, підсвічений над річкою, {{region}}",
+    "why": "missing"
+  },
+  "marketing:v20.media.alt.gyeongjuBulguksa": {
+    "text": "Храм Пульгукса в Кьонджу, {{region}}",
+    "why": "missing"
+  },
+  "marketing:v20.media.alt.jeonjuHanok": {
+    "text": "Черепичні дахи села ханоків у Чонджу, {{region}}",
+    "why": "missing"
+  },
+  "marketing:v20.media.alt.seoulCheonggyecheon": {
+    "text": "{{region}}: набережна струмка Чхонгечхон у центрі міста",
+    "why": "missing"
+  },
+  "marketing:v20.media.alt.seoulYeouido": {
+    "text": "{{region}}: річка Хан біля Йоїдо в сутінках",
+    "why": "missing"
+  },
+  "marketing:v20.media.alt.sokchoSeorak": {
+    "text": "Сокчхо під хребтом Сораксан, {{region}}",
+    "why": "missing"
+  },
+  "marketing:v20.media.alt.ulsanBridge": {
+    "text": "Ульсанський міст над гаванню, {{region}}",
+    "why": "missing"
+  },
+  "marketing:v20.uni.intl.admissionsLine": {
+    "text": "Проводить окремий набір для іноземних студентів.",
+    "why": "'окремий вступ' unnatural"
+  },
+  "marketing:v20.uni.intl.dormLine": {
+    "text": "Університет публікує власну інформацію про гуртожитки.",
+    "why": "dormitory = гуртожиток"
+  },
+  "marketing:v20.uni.link.dormitory": {
+    "text": "Гуртожиток",
+    "why": "dormitory = гуртожиток"
+  },
+  "marketing:v20.uni.match.NOT_YET": {
+    "text": "Стане доступним для вас, щойно матимете результат мовного іспиту.",
+    "why": "missing"
+  },
+  "marketing:v20.uni.match.POSSIBLE": {
+    "text": "За вашими відповідями сюди варто подаватися.",
+    "why": "missing"
+  },
+  "marketing:v20.uni.match.STRONG": {
+    "text": "Програми цього університету відповідають вашим відповідям.",
+    "why": "missing"
+  },
+  "marketing:v20.uni.match.degree": {
+    "text": "Тут викладають на обраному вами рівні: {{degree}}.",
+    "why": "natural phrasing"
+  },
+  "marketing:v20.uni.match.ieqas": {
+    "text": "Входить до сертифікованого списку IEQAS, а це пом’якшує візові критерії.",
+    "why": "missing"
+  },
+  "marketing:v20.uni.match.language": {
+    "text": "Його курс корейської мови є в сертифікованому списку, тож можна почати з мови.",
+    "why": "missing"
+  },
+  "marketing:v21.uni.placeWhere": {
+    "text": "{{city}}, {{region}}.",
+    "why": "missing; avoids declension"
+  },
+  "marketing:v28.uni.why.gks": {
+    "text": "Бере участь у програмі Global Korea Scholarship (GKS)",
+    "why": "official name kept"
+  },
+  "common:a11y.primaryNav": {
+    "text": "Основна навігація",
+    "why": "bare 'Основна' unclear"
+  },
+  "common:actions.download": {
+    "text": "Завантажити",
+    "why": "download/upload pair"
+  },
+  "common:actions.upload": {
+    "text": "Вивантажити",
+    "why": "download/upload pair"
+  },
+  "common:appStatus.OFFER_ACCEPTED": {
+    "text": "Пропозицію про зарахування прийнято",
+    "why": "says who accepted"
+  },
+  "common:appStatus.VISA_PREPARATION": {
+    "text": "Підготовка візових документів",
+    "why": "glossary term"
+  },
+  "common:auth.haveAccount": {
+    "text": "Уже маєте акаунт?",
+    "why": "account = акаунт"
+  },
+  "common:certification.UNKNOWN": {
+    "text": "Статус сертифікації невідомий",
+    "why": "matches English"
+  },
+  "common:docCategory.APPLICATION_FORM": {
+    "text": "Форма заявки",
+    "why": "'заява про вступ' unnatural"
+  },
+  "common:docCategory.CONSENT_FORM": {
+    "text": "Форма згоди",
+    "why": "bare 'Згода' ambiguous"
+  },
+  "common:docCategory.TOPIK": {
+    "text": "Результати TOPIK",
+    "why": "one pattern with TOEFL/IELTS"
+  },
+  "common:essayStatus.CHANGES_REQUESTED": {
+    "text": "Потрібні зміни",
+    "why": "'запитано зміни' unnatural"
+  },
+  "common:fit.level.ASSOCIATE": {
+    "text": "Коледж (молодший бакалавр)",
+    "why": "names the degree"
+  },
+  "common:fit.levelValue.KIIP": {
+    "text": "{{level}} рівень",
+    "why": "KIIP uses levels; matches TOPIK"
+  },
+  "common:fit.levelValue.KING_SEJONG": {
+    "text": "Sejong Korean {{level}}",
+    "why": "'Підручник' not in English"
+  },
+  "common:fit.q.level": {
+    "text": "На якому рівні ви хочете навчатися?",
+    "why": "matches English"
+  },
+  "common:fit.reason.far": {
+    "text": "Потрібно {{options}} або вище — це значно вище за ваш поточний результат.",
+    "why": "gender-neutral with any test"
+  },
+  "common:fit.reason.needed": {
+    "text": "Потрібно {{options}} або вище.",
+    "why": "gender-neutral with any test"
+  },
+  "common:i18n.v9.websiteOnly": {
+    "text": "Лише публічний вебсайт",
+    "why": "missing"
+  },
+  "common:matchReason.SCHOLARSHIP_CANDIDATE": {
+    "text": "Може претендувати на стипендію",
+    "why": "'кандидат' overstates"
+  },
+  "common:nav.admissionRules": {
+    "text": "Вимоги до вступу",
+    "why": "requirement = вимога"
+  },
+  "common:nav.partnership": {
+    "text": "Партнерська угода",
+    "why": "matches English"
+  },
+  "common:notify.application.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "{{university}}: статус заявки — «Лист про зарахування видано»",
+    "why": "missing"
+  },
+  "common:notify.application.OFFERED": {
+    "text": "{{university}}: статус заявки — «Отримано рішення про зарахування»",
+    "why": "missing"
+  },
+  "common:notify.documentRequest.agency": {
+    "text": "{{university}} просить вашого студента надати ще один документ: {{document}}",
+    "why": "missing"
+  },
+  "common:notify.documentRequest.fulfilled": {
+    "text": "Від заявника надійшов запитаний вами документ: {{document}}",
+    "why": "missing"
+  },
+  "common:notify.documentRequest.student": {
+    "text": "{{university}} просить вас надати ще один документ: {{document}}",
+    "why": "missing"
+  },
+  "common:notify.documentUploadedForYou": {
+    "text": "{{author}} додав(ла) {{document}} до ваших документів",
+    "why": "missing"
+  },
+  "common:notify.serviceCase": {
+    "text": "$t(concierge:type.{{type}}): $t(concierge:status.{{type}}.{{status}})",
+    "why": "missing; identical to English"
+  },
+  "common:notify.writingEscalation": {
+    "text": "Прострочену перевірку есе ескальовано: {{title}} ({{student}})",
+    "why": "missing"
+  },
+  "common:notify.writingOverdue": {
+    "text": "Вашу перевірку есе прострочено: {{title}}",
+    "why": "missing"
+  },
+  "common:pipeline.ARRIVED": {
+    "text": "Прибув(ла)",
+    "why": "gender-neutral stage"
+  },
+  "common:pipeline.QUALIFIED": {
+    "text": "Кваліфіковано",
+    "why": "gender-neutral stage"
+  },
+  "common:pipeline.READY_TO_APPLY": {
+    "text": "Готово до подання",
+    "why": "gender-neutral; matches appStatus"
+  },
+  "common:pipeline.REJECTED": {
+    "text": "Не зараховано",
+    "why": "one term with appStatus"
+  },
+  "common:pipeline.TUITION_PENDING": {
+    "text": "Очікується оплата навчання",
+    "why": "one term with appStatus"
+  },
+  "common:pipeline.VISA_PREPARATION": {
+    "text": "Підготовка візових документів",
+    "why": "glossary term"
+  },
+  "common:role.AGENCY_DOCUMENT_REVIEWER": {
+    "text": "Рецензент документів",
+    "why": "'перевіряльник' awkward"
+  },
+  "common:states.forbiddenDetail": {
+    "text": "Якщо вам потрібен доступ, зверніться до адміністратора вашої організації.",
+    "why": "matches English"
+  },
+  "common:states.noResults": {
+    "text": "Немає результатів за вашими фільтрами. Приберіть кілька або скиньте їх.",
+    "why": "second sentence dropped"
+  },
+  "common:states.unavailableText": {
+    "text": "Зараз не вдається зв’язатися з Hangyul. Спробуйте ще раз за хвилину.",
+    "why": "was English"
+  },
+  "common:states.unavailableTitle": {
+    "text": "Готуємо підключення до сервісу",
+    "why": "was English"
+  },
+  "common:table.clearSelection": {
+    "text": "Скинути вибір",
+    "why": "missing"
+  },
+  "common:table.hideDetails": {
+    "text": "Сховати подробиці",
+    "why": "missing"
+  },
+  "common:table.results_few": {
+    "text": "{{count}} результати",
+    "why": "uk plural"
+  },
+  "common:table.results_many": {
+    "text": "{{count}} результатів",
+    "why": "uk plural"
+  },
+  "common:task.applicationCloses": {
+    "text": "Прийом заявок закривається: {{university}}, {{program}}",
+    "why": "application = заявка"
+  },
+  "common:task.concierge.handle": {
+    "text": "{{type}}: {{student}}",
+    "why": "missing"
+  },
+  "common:task.firstContact": {
+    "text": "Перший контакт із новопризначеним студентом",
+    "why": "missing"
+  },
+  "common:task.payTuition": {
+    "text": "Оплатіть навчання: {{university}}",
+    "why": "missing"
+  },
+  "common:task.reviewDocument": {
+    "text": "Перевірити документ: {{category}}",
+    "why": "missing"
+  },
+  "common:task.submissionAgency": {
+    "text": "Подати заявку {{student}} до {{university}} (є дозвіл студента)",
+    "why": "missing"
+  },
+  "common:task.submissionConfirm": {
+    "text": "Додайте номер підтвердження або квитанцію від {{university}}",
+    "why": "missing"
+  },
+  "common:task.universityRequest": {
+    "text": "{{university}} запитує додаткові документи",
+    "why": "missing"
+  },
+  "common:task.universityRequestItem": {
+    "text": "{{university}} запитує: {{item}}",
+    "why": "one verb with universityRequest"
+  },
+  "common:task.visaroute.embassyRequest": {
+    "text": "Надішліть посольству те, що воно запросило",
+    "why": "missing"
+  },
+  "common:task.writingOverdue": {
+    "text": "Перевірку есе прострочено: {{essayType}}, {{student}} — перевірте зараз",
+    "why": "call to action dropped"
+  },
+  "common:tier.COMPETITIVE": {
+    "text": "Можливий варіант",
+    "why": "'збіг' = coincidence"
+  },
+  "common:tier.REACH": {
+    "text": "Поки не відповідаєте вимогам",
+    "why": "English equals NOT_ELIGIBLE"
+  },
+  "common:tier.STRONG": {
+    "text": "Добре підходить",
+    "why": "'збіг' = coincidence"
+  },
+  "common:time.daysLeft_few": {
+    "text": "Залишилося {{count}} дні",
+    "why": "uk plural"
+  },
+  "common:time.daysLeft_many": {
+    "text": "Залишилося {{count}} днів",
+    "why": "uk plural"
+  },
+  "common:time.overdueBy_few": {
+    "text": "Прострочено на {{count}} дні",
+    "why": "uk plural"
+  },
+  "common:time.overdueBy_many": {
+    "text": "Прострочено на {{count}} днів",
+    "why": "uk plural"
+  },
+  "common:uni27.cat.GKS": {
+    "text": "Global Korea Scholarship (GKS) — стипендія уряду Кореї",
+    "why": "official name first"
+  },
+  "common:uni27.cat.HOUSING": {
+    "text": "Гуртожиток і допомога на проживання",
+    "why": "dormitory = гуртожиток"
+  },
+  "common:uni27.house.eyebrow": {
+    "text": "Гуртожиток",
+    "why": "dormitory = гуртожиток"
+  },
+  "common:uni27.schol.automatic": {
+    "text": "Призначається під час відбору, окрема заява не потрібна",
+    "why": "'when selected' ≠ enrolment"
+  },
+  "common:uni27.service.ORIENTATION": {
+    "text": "Орієнтаційна програма",
+    "why": "'орієнтація для новачків' unnatural"
+  },
+  "common:v29.addon.unit.APPLICATION": {
+    "text": "1 заявка",
+    "why": "application = заявка"
+  },
+  "common:v29.pricing.all_in_one.f5": {
+    "text": "Допомога з підготовкою візових документів · стежимо за датами подання на гуртожиток",
+    "why": "'help' dropped; dates not deadlines"
+  },
+  "common:v29.pricing.basic.f1": {
+    "text": "Персональна діагностична консультація + 1 повторна консультація",
+    "why": "'та 1 повторна' dangling"
+  },
+  "common:v29.pricing.basic.f3": {
+    "text": "Порівняння вимог до вступу, вартості навчання й ключових дат",
+    "why": "'поруч' unclear for compared"
+  },
+  "common:v29.pricing.basic.f4": {
+    "text": "Чек-лист основних документів для вступу",
+    "why": "matches English"
+  },
+  "common:v29.pricing.compare.row.arrival": {
+    "text": "Облаштування після приїзду",
+    "why": "'Після приїзду' alone unclear"
+  },
+  "common:v29.pricing.compare.row.recommended": {
+    "text": "Рекомендовані університети й мовні центри",
+    "why": "language institutes dropped"
+  },
+  "common:v29.pricing.compare.row.visa": {
+    "text": "Підготовка візових документів",
+    "why": "glossary term"
+  },
+  "common:v29.pricing.compare.value.followUp.TEAM": {
+    "text": "Супровід від вашої команди",
+    "why": "matches English"
+  },
+  "common:v29.pricing.compare.value.rounds": {
+    "text": "Раундів: до {{count}}",
+    "why": "'до 2 раунду' ungrammatical"
+  },
+  "common:v29.pricing.compare.value.supportDays": {
+    "text": "{{count}} дн.",
+    "why": "'30 день' ungrammatical"
+  },
+  "common:v29.pricing.premium.f4": {
+    "text": "Ретельний контроль візових документів і ключових дат · допомога із заявою на гуртожиток",
+    "why": "documents dropped"
+  },
+  "common:v9.l10n.exactWording": {
+    "text": "Точне формулювання (англійською)",
+    "why": "missing"
+  },
+  "common:v9.l10n.rule.degree_level": {
+    "text": "Не пропонується для цього рівня",
+    "why": "missing"
+  },
+  "common:v9.l10n.rule.gpa_percent_gte": {
+    "text": "Успішність: нормалізований GPA {{value}}% або вище",
+    "why": "'приведений' unclear"
+  },
+  "common:v9.l10n.rule.ielts_gte": {
+    "text": "IELTS {{value}} або вище",
+    "why": "missing"
+  }
+}

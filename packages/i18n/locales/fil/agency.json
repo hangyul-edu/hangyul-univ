@@ -1,616 +1,1200 @@
 {
- "apps": {
-  "allStatuses": "Lahat ng status",
-  "allUniversities": "Lahat ng unibersidad",
-  "closed": "Sarado",
-  "col": {
-   "intake": "Pasukan",
-   "program": "Unibersidad / programa",
-   "status": "Katayuan",
-   "student": "Estudyante"
+  "apps": {
+    "allStatuses": "Lahat ng status",
+    "allUniversities": "Lahat ng unibersidad",
+    "closed": "Sarado",
+    "col": {
+      "intake": "Intake",
+      "program": "Unibersidad / programa",
+      "status": "Status",
+      "student": "Estudyante"
+    },
+    "deadline": "Deadline",
+    "detail": "Aplikasyon",
+    "empty": "Walang aplikasyong tugma sa mga filter na ito. Baguhin o i-clear ang mga ito.",
+    "flagged": "Naka-flag",
+    "onlyFlagged": "Naka-flag lang",
+    "searchPh": "Maghanap ng estudyante, programa, unibersidad o reference…",
+    "sort": "Ayusin ayon sa",
+    "sortBy": {
+      "deadline": "Deadline",
+      "submitted": "Kamakailang isinumite",
+      "updated": "Kamakailang na-update",
+      "readiness": "Kahandaan"
+    },
+    "uniHint": "Nagfi-filter ayon sa pangalan ng unibersidad",
+    "university": "Unibersidad",
+    "actor": {
+      "AGENCY": "Ahensya",
+      "STUDENT": "Estudyante",
+      "UNIVERSITY": "Unibersidad",
+      "HANGYUL": "Hangyul",
+      "SYSTEM": "System"
+    },
+    "checklist": "Checklist ng dokumento",
+    "checklistCount": "{{ready}} sa {{total}} item ang handa",
+    "confirmMove": "Ilipat sa “{{status}}”",
+    "externalRef": "Reference ng unibersidad",
+    "externalRefHint": "Ang application number mula sa portal ng unibersidad, kung mayroon ka.",
+    "flag": "I-flag",
+    "flagReason": "Dahilan ng flag",
+    "flagTitle": "I-flag para sa follow-up",
+    "history": "Kasaysayan ng status",
+    "legalization": "Notarization at legalization",
+    "moveTo": "Baguhin ang status ng aplikasyon",
+    "moved": "Nailipat ang aplikasyon sa {{status}}.",
+    "noTransitions": "Walang pagbabago ng status na available sa iyong organisasyon sa yugtong ito.",
+    "note": "Tala",
+    "noteHint": "Naka-save sa kasaysayan ng status.",
+    "readiness": "Kahandaan",
+    "reused": "Ginamit ulit mula sa vault",
+    "scholarship": "Tala sa scholarship",
+    "semester": "Simula ng semestre",
+    "submitBlocked": "Kulang ang mga kinakailangang dokumento, kaya naka-block ang pagsumite:",
+    "submitted": "Naisumite",
+    "translation": "Salin",
+    "withdrawWarn": "Pinal ang pagbawi ng aplikasyong ito."
   },
-  "deadline": "Takdang petsa",
-  "detail": "Aplikasyon",
-  "empty": "Walang aplikasyong tugma sa mga filter na ito.",
-  "flagged": "Naka-flag",
-  "onlyFlagged": "Naka-flag lang",
-  "searchPh": "Maghanap ng estudyante, programa, unibersidad o reference…",
-  "sort": "Ayusin ayon sa",
-  "sortBy": {
-   "deadline": "Takdang petsa",
-   "submitted": "Kamakailang isinumite",
-   "updated": "Kamakailang na-update"
+  "docs": {
+    "allCategories": "Lahat ng kategorya",
+    "assigned": {
+      "any": "Lahat",
+      "me": "Nakatalaga sa akin",
+      "unassigned": "Walang nakatalaga"
+    },
+    "backToQueue": "Queue",
+    "bulkVerify": "I-verify ang napili",
+    "bulkVerifyText": "I-verify lang ang mga dokumentong binuksan at sinuri mo. Aabisuhan ang bawat estudyante, at itatala ang bawat desisyon sa audit log sa ilalim ng iyong pangalan.",
+    "bulkVerifyTitle_other": "I-verify ang {{count}} dokumento?",
+    "category": "Kategorya",
+    "chooseCategory": "Pumili ng uri ng dokumento",
+    "durDays": "{{count}} araw",
+    "durHours": "{{count}} oras",
+    "file": "File",
+    "fileHint": "PDF, PNG, JPEG o WebP, hanggang 15 MB.",
+    "pick": "Pumili ng dokumentong susuriin",
+    "pickText": "Gamitin ang J / K para lumipat sa queue.",
+    "position": "{{n}} sa {{total}}",
+    "queue": "Review queue",
+    "reviewer": "Pagsusuri ng dokumento",
+    "sc": {
+      "cancel": "Kanselahin",
+      "changes": "Humiling ng pagwawasto",
+      "checks": "Pumili ng check o dahilan",
+      "nav": "Susunod / nakaraang dokumento",
+      "send": "Ipadala ang kahilingan sa pagwawasto",
+      "verify": "I-verify"
+    },
+    "selectDoc": "Piliin ang {{doc}} ni {{name}}",
+    "shortcuts": "Mga shortcut",
+    "upload": "I-upload",
+    "uploadForHint": "Gamitin ito kapag ipinadala ng estudyante ang dokumento sa ibang paraan (halimbawa, sa email). Mapupunta ito sa kanyang document vault, mamarkahang in-upload mo, at maghihintay ng pagsusuri gaya ng iba pang upload.",
+    "uploadForStudent": "Mag-upload para sa estudyante",
+    "uploadForName": "Mag-upload para kay {{name}}",
+    "bulkAssign": "Magtalaga ng reviewer",
+    "bulkAssigned_one": "{{count}} dokumento ang naitalaga",
+    "bulkAssigned_other": "{{count}} dokumento ang naitalaga",
+    "bulkFailed_one": "{{count}} dokumento ang hindi mabago (nasuri na o wala sa iyong caseload)",
+    "bulkFailed_other": "{{count}} dokumento ang hindi mabago (nasuri na o wala sa iyong caseload)",
+    "bulkLabel": "Mga aksyon para sa mga napiling dokumento",
+    "bulkVerified_one": "{{count}} dokumento ang na-verify",
+    "bulkVerified_other": "{{count}} dokumento ang na-verify",
+    "bulkVerifyTitle_one": "I-verify ang {{count}} dokumento?",
+    "empty": "Walang laman ang queue",
+    "emptyBy": {
+      "any": "Walang dokumentong naghihintay ng pagsusuri.",
+      "me": "Wala kang nakatalagang dokumento sa ngayon.",
+      "unassigned": "May reviewer na ang bawat naghihintay na dokumento."
+    },
+    "notInQueue": "Wala sa review queue",
+    "subSla": "{{count}} naghihintay ng pagsusuri · {{late}} lampas sa {{hours}}-oras na target",
+    "sub_other": "{{count}} dokumentong naghihintay ng pagsusuri, pinakaluma muna.",
+    "uploadedFor": "Naidagdag sa document vault ni {{name}}",
+    "you": "ikaw"
   },
-  "uniHint": "Nagfi-filter ayon sa pangalan ng unibersidad",
-  "university": "Unibersidad"
- },
- "docs": {
-  "allCategories": "Lahat ng kategorya",
-  "assigned": {
-   "any": "Lahat",
-   "me": "Nakatalaga sa akin",
-   "unassigned": "Walang nakatalaga"
+  "essaysPage": {
+    "col": {
+      "reviewer": "Tagasuri"
+    }
   },
-  "backToQueue": "Pila",
-  "bulkVerify": "I-verify ang napili",
-  "bulkVerifyText": "I-verify lang ang mga dokumentong binuksan at sinuri mo. Aabisuhan ang bawat estudyante, at itatala ang bawat desisyon sa audit log sa ilalim ng iyong pangalan.",
-  "bulkVerifyTitle_other": "I-verify ang {{count}} dokumento?",
-  "category": "Kategorya",
-  "chooseCategory": "Pumili ng uri ng dokumento",
-  "durDays": "{{count}} araw",
-  "durHours": "{{count}} oras",
-  "file": "Talaksan",
-  "fileHint": "PDF, PNG, JPEG o WebP, hanggang 15 MB.",
-  "pick": "Pumili ng dokumentong susuriin",
-  "pickText": "Gamitin ang J / K para gumalaw sa pila.",
-  "position": "{{n}} sa {{total}}",
-  "queue": "Pila ng pagsusuri",
-  "reviewer": "Pagsusuri ng dokumento",
-  "sc": {
-   "cancel": "Kanselahin",
-   "changes": "Humiling ng pagbabago",
-   "checks": "Pumili ng check o dahilan",
-   "nav": "Susunod / nakaraang dokumento",
-   "send": "Ipadala ang kahilingan sa pagwawasto",
-   "verify": "I-verify"
+  "inbox": {
+    "all": "Lahat",
+    "attach": "Mag-attach",
+    "audienceStudent": "Makikita ito ni {{name}}",
+    "createTask": "Gumawa ng task mula sa mensaheng ito",
+    "inbox": "Inbox",
+    "internalBanner": "Internal — hindi nakikita ng estudyante",
+    "internalNote": "Internal na tala",
+    "mention": "Banggitin",
+    "message": "Mensahe",
+    "messagePh": "Sumulat ng sagot… (Ctrl+Enter para ipadala)",
+    "messages": "Mga mensahe",
+    "mode": "Uri ng mensahe",
+    "modeMessage": "Mensahe",
+    "needsReply": "Kailangang sagutin",
+    "needsReplyShort": "Hindi pa nasasagot",
+    "new": "Bagong mensahe",
+    "newHint": "Aabisuhan ang estudyante sa email at sa kanyang app.",
+    "pick": "Pumili ng usapan",
+    "pickText": "O magsimula ng bago sa sinumang estudyante sa iyong caseload.",
+    "searchPh": "Maghanap ng tao o paksa…",
+    "sendTo": "Ipadala kay {{name}}",
+    "subReply_other": "{{count}} usapang naghihintay ng sagot mo",
+    "subUnread_other": "{{count}} hindi pa nababasang usapan",
+    "subject": "Paksa",
+    "thread": "Usapan",
+    "unread": "Hindi pa nababasa",
+    "unreadN_one": "{{count}} hindi pa nababasang mensahe",
+    "audienceTeam": "Team mo lang ang makakakita nito",
+    "manageTemplates": "I-manage ang mga template…",
+    "noMessages": "Wala pang mensahe.",
+    "notePh": "Sumulat ng internal na tala para sa team mo… (Ctrl+Enter para i-save)",
+    "noteSaved": "Na-save ang internal na tala.",
+    "openFile": "Buksan ang file",
+    "participants": "kalahok",
+    "removeFile": "Alisin ang {{name}}",
+    "saveNote": "I-save ang tala",
+    "sent": "Naipadala ang mensahe.",
+    "subReply_one": "{{count}} usapang naghihintay ng sagot mo",
+    "subUnread_one": "{{count}} hindi pa nababasang usapan",
+    "taskCreated": "May nagawang task mula sa mensaheng ito",
+    "taskDue": "Takda ng task",
+    "taskHint": "Mapupunta ang task sa unang nabanggit na kasamahan, o sa iyo.",
+    "unreadN_other": "{{count}} hindi pa nababasang mensahe",
+    "willNotify_other": "{{count}} kasamahan ang aabisuhan",
+    "system": "System"
   },
-  "selectDoc": "Piliin ang {{doc}} mula kay {{name}}",
-  "shortcuts": "Mga shortcut",
-  "upload": "I-upload",
-  "uploadForHint": "Gamitin ito kapag ipinadala ng estudyante ang dokumento sa ibang paraan (halimbawa, sa email). Mapupunta ito sa kanyang taguan ng dokumento, mamarkahang in-upload mo, at maghihintay ng pagsusuri gaya ng iba pang upload.",
-  "uploadForStudent": "Mag-upload para sa estudyante",
-  "uploadForName": "Mag-upload para kay {{name}}"
- },
- "essaysPage": {
-  "col": {
-   "reviewer": "Tagasuri"
-  }
- },
- "inbox": {
-  "all": "Lahat",
-  "attach": "Mag-attach",
-  "audienceStudent": "Makikita ito ni {{name}}",
-  "createTask": "Gumawa ng task mula sa mensaheng ito",
-  "inbox": "Mga papasok na mensahe",
-  "internalBanner": "Internal — hindi nakikita ng estudyante",
-  "internalNote": "Internal na tala",
-  "mention": "Banggitin",
-  "message": "Mensahe",
-  "messagePh": "Sumulat ng sagot… (Ctrl+Enter para ipadala)",
-  "messages": "Mga mensahe",
-  "mode": "Uri ng mensahe",
-  "modeMessage": "Mensahe",
-  "needsReply": "Kailangang sagutin",
-  "needsReplyShort": "Naghihintay ng sagot mo",
-  "new": "Bagong mensahe",
-  "newHint": "Aabisuhan ang estudyante sa email at sa kanyang app.",
-  "pick": "Pumili ng usapan",
-  "pickText": "O magsimula ng bago kasama ang sinumang estudyanteng sinusuportahan mo.",
-  "searchPh": "Maghanap ng tao o paksa…",
-  "sendTo": "Ipadala kay {{name}}",
-  "subReply_other": "{{count}} usapang naghihintay ng sagot mo",
-  "subUnread_other": "{{count}} hindi pa nababasang usapan",
-  "subject": "Paksa",
-  "thread": "Usapan",
-  "unread": "Hindi pa nababasa",
-  "unreadN_one": "{{count}} hindi pa nababasang mensahe"
- },
- "misc": {
-  "student": "Estudyante",
-  "breadcrumb": "Breadcrumb"
- },
- "review": {
-  "check": {
-   "dates": "Sapat na bago ang petsa ng pag-isyu at hindi pa expired",
-   "issuer": "Nakikita ang nag-isyung institusyon, selyo o pirma",
-   "legible": "Kumpleto at nababasa — bawat pahina, walang naputol na gilid",
-   "name": "Tugma sa pasaporte ang pangalan at petsa ng kapanganakan",
-   "translation": "Nakalakip ang sertipikadong salin"
-  },
-  "checked": "{{n}} sa {{total}} ang nasuri",
-  "checklist": "Bago mo i-verify",
-  "expires": "Mag-e-expire",
-  "issued": "Inisyu",
-  "issuingCountry": "Bansang nag-isyu",
-  "language": "Wika",
-  "metadata": "Mga detalye",
-  "noPdfViewer": "Hindi kayang ipakita ng browser na ito ang PDF sa loob ng pahina.",
-  "openTab": "Buksan sa bagong tab",
-  "requestChanges": "Humiling ng pagbabago",
-  "scan": "Pag-scan ng virus",
-  "secureNote": "Nag-e-expire ang mga preview link pagkalipas ng 5 minuto at itinatala ang bawat pag-access.",
-  "translation": "Salin",
-  "translationNeeded": "Kailangan ng sertipikadong salin",
-  "uploaded": "Na-upload",
-  "verify": "I-verify",
-  "verifyHint": "I-tsek muna ang mga pagsusuri, o kumpirmahin para i-verify nang wala ang mga ito"
- },
- "savedViews": {
-  "name": "Pangalan",
-  "namePh": "hal. Vietnam · Spring 2027 · urgent",
-  "personal": "Ako lang",
-  "save": "I-save ang view",
-  "saveHintEmpty": "Walang nakatakdang filter, kaya ipapakita ng view na ito ang bawat estudyante. Magdagdag muna ng filter para mas mapakinabangan ito.",
-  "saveTitle": "I-save ang view na ito",
-  "shareWith": "Sino ang maaaring gumamit nito",
-  "team": "Buong team"
- },
- "settings": {
-  "deadlinesHint": "Bawat paparating na deadline sa iyong caseload",
-  "notificationsHint": "Buong kasaysayan ng abiso"
- },
- "shell": {
-  "product": "Console ng Ahensya",
-  "searchLabel": "Maghanap ng estudyante",
-  "searchPlaceholder": "Maghanap ng estudyante ayon sa pangalan o email…"
- },
- "sidebar": {
-  "documents": "Mga dokumento",
-  "essays": "Mga sanaysay",
-  "universities": "Mga unibersidad"
- },
- "students": {
-  "col": {
-   "intakeShort": "Pasukan",
-   "updated": "Na-update"
-  },
-  "dShort_other": "{{count}}a",
-  "deadlineShort": "Takda sa {{date}}",
-  "subCount": "{{count}} estudyante sa iyong caseload",
-  "view": {
-   "attention": "Kailangang asikasuhin",
-   "waiting_student": "Naghihintay sa estudyante"
-  }
- },
- "today": {
-  "morning": "Magandang umaga, {{name}}",
-  "phase": {
-   "admitted": "Natanggap",
-   "applied": "Nag-apply",
-   "leads": "Bago at nakatalaga",
-   "preparing": "Naghahanda",
-   "visa": "Visa at pagdating"
-  },
-  "evening": "Magandang gabi, {{name}}"
- },
- "v11": {
-  "manage": {
-   "auditHint": "Sino ang nagbago ng ano, at kailan",
-   "catalogHint": "Mga unibersidad, programa at ang kanilang mga kinakailangan",
-   "org": "Organisasyon",
-   "paymentsHint": "Mga invoice at payout",
-   "people": "Mga tao at provider",
-   "servicesHint": "Mga service case na inihahatid mo para sa mga estudyante",
-   "settingsHint": "Profile at mga kagustuhan ng iyong ahensya",
-   "sub": "Mga setting at sangguniang materyal para sa iyong ahensya.",
-   "teamHint": "Mga administrator account: mag-imbita, mag-disable",
-   "templatesHint": "Mga template ng mensahe at checklist",
-   "vendorsHint": "Tirahan, sundo at iba pang provider na bini-book mo",
-   "work": "Paano ka nagtatrabaho"
+  "misc": {
+    "student": "Estudyante",
+    "breadcrumb": "Breadcrumb",
+    "change": "Baguhin",
+    "days_other": "{{count}} araw",
+    "hours_other": "{{count}} oras",
+    "no": "Hindi",
+    "notFoundText": "Maaaring nailipat na ang pahina, o wala kang access dito.",
+    "searchStudents": "Maghanap sa iyong mga estudyante…",
+    "unassigned": "Walang nakatalaga",
+    "yes": "Oo",
+    "internalTag": "Internal"
   },
   "review": {
-   "sub": "Mga dokumento at sulating naghihintay sa iyo.",
-   "title": "Pagsusuri"
-  }
- },
- "v22": {
-  "nav": {
-   "insights": "Mga pananaw",
-   "messages": "Mga mensahe",
-   "settings": "Mga setting",
-   "students": "Mga estudyante",
-   "today": "Ngayon",
-   "work": "Mga aplikasyon at dokumento"
+    "check": {
+      "dates": "Sapat na bago ang petsa ng pag-isyu at hindi pa expired",
+      "issuer": "Nakikita ang nag-isyung institusyon, selyo o pirma",
+      "legible": "Kumpleto at nababasa — bawat pahina, walang naputol na gilid",
+      "name": "Tugma sa pasaporte ang pangalan at petsa ng kapanganakan",
+      "translation": "Nakalakip ang sertipikadong salin"
+    },
+    "checked": "{{n}} sa {{total}} ang nasuri",
+    "checklist": "Bago mo i-verify",
+    "expires": "Mag-e-expire",
+    "issued": "Inisyu",
+    "issuingCountry": "Bansang nag-isyu",
+    "language": "Wika",
+    "metadata": "Mga detalye",
+    "noPdfViewer": "Hindi kayang ipakita ng browser na ito ang PDF sa loob ng pahina.",
+    "openTab": "Buksan sa bagong tab",
+    "requestChanges": "Humiling ng pagbabago",
+    "scan": "Pag-scan ng virus",
+    "secureNote": "Nag-e-expire ang mga preview link pagkalipas ng 5 minuto at itinatala ang bawat pag-access.",
+    "translation": "Salin",
+    "translationNeeded": "Kailangan ng sertipikadong salin",
+    "uploaded": "Na-upload",
+    "verify": "I-verify",
+    "verifyHint": "I-tsek muna ang mga pagsusuri, o kumpirmahin para i-verify nang wala ang mga ito"
   },
-  "stage": {
-   "admitted": "Natanggap",
-   "all": "Lahat",
-   "arrived": "Dumating na",
-   "closedN_other": "{{count}} sarado",
-   "counselling": "Konsultasyon",
-   "documents": "Mga dokumento",
-   "new": "Bago",
-   "ready": "Handa",
-   "review": "Pagsusuri ng unibersidad",
-   "strip": "Proseso",
-   "submitted": "Naisumite",
-   "visa": "Visa"
+  "savedViews": {
+    "name": "Pangalan",
+    "namePh": "hal. Vietnam · Spring 2027 · urgent",
+    "personal": "Ako lang",
+    "save": "I-save ang view",
+    "saveHintEmpty": "Walang nakatakdang filter, kaya ipapakita ng view na ito ang bawat estudyante. Magdagdag muna ng filter para mas mapakinabangan ito.",
+    "saveTitle": "I-save ang view na ito",
+    "shareWith": "Sino ang maaaring gumamit nito",
+    "team": "Buong team",
+    "delete": "Burahin ang {{name}}",
+    "saveHint_one": "Ise-save ang kasalukuyang filter at pagkakaayos para mabuksan mo ang listahang ito sa isang click.",
+    "saveHint_other": "Ise-save ang kasalukuyang {{count}} filter at pagkakaayos para mabuksan mo ang listahang ito sa isang click.",
+    "saved": "Na-save ang “{{name}}”"
   },
-  "team": {
-   "title": "Mga administrator account"
+  "settings": {
+    "deadlinesHint": "Bawat paparating na deadline sa iyong caseload",
+    "notificationsHint": "Buong kasaysayan ng abiso",
+    "language": "Wika",
+    "languageHint": "Wika ng interface. Nananatili sa orihinal na wika ang data ng estudyante.",
+    "localOnly": "Naka-save sa browser na ito lang.",
+    "org": "Organisasyon",
+    "poll": "Live na update",
+    "pollHint": "I-refresh ang mga queue at bilang bawat minuto.",
+    "scSearch": "Mag-navigate sa mga resulta ng global search",
+    "scSend": "Ipadala ang mensahe o i-save ang tala",
+    "shortcuts": "Mga keyboard shortcut",
+    "sub": "Mga personal na kagustuhan para sa console na ito.",
+    "updates": "Live na update",
+    "account": "Account",
+    "timezone": "Time zone"
+  },
+  "shell": {
+    "product": "Agency Console",
+    "searchLabel": "Maghanap ng estudyante",
+    "searchPlaceholder": "Maghanap ng estudyante ayon sa pangalan o email…",
+    "hqView": "Hangyul HQ · lahat ng ahensya",
+    "searchAll": "Tingnan lahat ng resulta para sa “{{q}}”",
+    "hqProduct": "Hangyul Operations"
+  },
+  "sidebar": {
+    "documents": "Mga dokumento",
+    "essays": "Mga essay",
+    "universities": "Mga unibersidad",
+    "agencies": "Mga ahensya",
+    "catalog": "Mga unibersidad at programa",
+    "override": "Override ng assignment",
+    "hangyul": "Hangyul HQ",
+    "operations": "Operations"
+  },
+  "students": {
+    "col": {
+      "intakeShort": "Intake",
+      "updated": "Na-update",
+      "nationality": "Nasyonalidad",
+      "degree": "Degree"
+    },
+    "dShort_other": "{{count}}d",
+    "deadlineShort": "Takda sa {{date}}",
+    "subCount": "{{count}} estudyante sa iyong caseload",
+    "view": {
+      "attention": "Kailangang asikasuhin",
+      "waiting_student": "Naghihintay sa estudyante",
+      "all": "Lahat",
+      "arrived": "Dumating na",
+      "deadline": "Malapit na ang deadline",
+      "docs": "Mga dokumentong aayusin",
+      "incomplete": "Kulang ang mga dokumento",
+      "mine": "Mga estudyante ko",
+      "requested": "Humiling ng dokumento ang unibersidad",
+      "university": "Naghihintay sa unibersidad",
+      "waiting_external": "Naghihintay sa embahada o ibang partido",
+      "waiting_us": "Naghihintay sa atin",
+      "visa": "Visa"
+    },
+    "bulk": {
+      "confirmRegen_other": "Muling kalkulahin ang mga awtomatikong task list para sa {{count}} estudyante? Mananatili ang mga manual na task.",
+      "confirmStage_other": "Ilipat ang {{count}} estudyante sa “{{stage}}”? Itatala ito sa audit log.",
+      "confirmTitle": "Ilapat ang bulk action?",
+      "done_other": "Na-update ang {{count}} estudyante.",
+      "regen": "Muling buuin ang mga task",
+      "stage": "Ilipat sa yugto…"
+    },
+    "f": {
+      "allDegrees": "Lahat ng degree",
+      "allNationalities": "Lahat ng nasyonalidad"
+    },
+    "noReply": "Hindi naabot ang first-response SLA. Naghihintay ng sagot ang estudyanteng ito",
+    "noReplyShort": "Hindi pa nasasagot",
+    "dShort_one": "{{count}}d"
   },
   "today": {
-   "sub": "Bawat estudyante ayon sa hakbang ng proseso. Pumili ng hakbang; ang talahanayan sa ibaba ay para sa hakbang na iyon."
+    "morning": "Magandang umaga, {{name}}",
+    "phase": {
+      "admitted": "Natanggap",
+      "applied": "Nag-apply",
+      "leads": "Bago at nakatalaga",
+      "preparing": "Naghahanda",
+      "visa": "Visa at pagdating",
+      "studying": "Nag-aaral"
+    },
+    "evening": "Magandang gabi, {{name}}",
+    "afternoon": "Magandang hapon, {{name}}",
+    "allClear": "Walang kailangang asikasuhin sa ngayon. Lalabas dito ang bagong gawain pagdating nito.",
+    "attention": "Kailangang asikasuhin",
+    "attentionSub": "Ipinapakita muna ang pinaka-urgent. Buksan ang isang row para dumaan sa listahan.",
+    "attentionV4": "Sino ang nangangailangan sa iyo ngayon",
+    "clearList": "Walang nakabinbin: {{list}}",
+    "closing": "Mga aplikasyong magsasara sa loob ng 7 araw",
+    "closingDetail": "Susunod: {{university}} · {{student}}, magsasara sa {{date}}",
+    "closingV4": "Mga estudyanteng may application deadline sa loob ng 7 araw",
+    "cta": {
+      "deadlines": "Tingnan ang mga deadline",
+      "messages": "Buksan ang inbox",
+      "reply": "Sumagot",
+      "review": "Simulan ang pagsusuri",
+      "students": "Buksan ang mga estudyante",
+      "tasks": "Buksan ang mga task"
+    },
+    "deadlines": "Mga deadline sa susunod na 7 araw",
+    "deadlinesDetail": "Susunod: {{title}} · {{student}}, {{when}}",
+    "docs": "Mga dokumentong naghihintay ng pagsusuri",
+    "docsDetail": "Pinakaluma: {{student}} · {{doc}}, naghihintay nang {{wait}}",
+    "docsOldest": "pinakaluma: {{student}} · {{doc}}, na-upload {{when}}",
+    "docsSla_one": "{{count}} dokumentong lampas sa {{hours}}-oras na target ng pagsusuri",
+    "docsSla_other": "{{count}} dokumentong lampas sa {{hours}}-oras na target ng pagsusuri",
+    "essays": "Mga essay na naghihintay ng pagsusuri",
+    "essaysDetail": "Susunod: {{title}} · {{student}}",
+    "keyMove": "lumipat",
+    "keyOpen": "buksan",
+    "messages": "Mga usapang may hindi pa nababasang mensahe",
+    "messagesDetail": "Pinakamatagal nang naghihintay: {{who}}, {{when}}",
+    "openPipeline": "Buksan ang pipeline",
+    "overdueDef": "Mga bukas na task na lampas na ang takdang petsa.",
+    "overdueDetail": "Pinakaluma: {{title}} · {{student}}, takda {{when}}",
+    "overdueMine": "Mga overdue mong task",
+    "overdueTeam": "Mga overdue na task sa buong team",
+    "pipeline": "Caseload ayon sa yugto",
+    "pipelineSub": "{{count}} estudyante. Pumili ng yugto para makita kung sino ang nandoon.",
+    "pipelineSubV4_one": "{{count}} estudyante",
+    "pipelineSubV4_other": "{{count}} estudyante",
+    "replies": "Mga estudyanteng naghihintay ng sagot",
+    "repliesDetail": "Wala pang sagot ang huli nilang mensahe.",
+    "repliesOldest": "Pinakamatagal nang naghihintay: {{student}}, {{when}}",
+    "repliesV4": "Mga sagot na dapat ibigay",
+    "requests": "Mga kahilingan sa dokumento mula sa mga unibersidad",
+    "requestsDetail": "Dapat itong i-upload ng estudyante. Tiyaking dumating ito.",
+    "sla": "Mga estudyanteng dapat masagot sa loob ng 24 oras",
+    "slaDetail": "{{student}} · takda ng sagot {{when}}",
+    "unread": "Mga hindi pa nababasang usapan",
+    "unreadDetail": "Pinakabago: {{who}}, {{when}}",
+    "upcoming": "Mga paparating na deadline",
+    "upcomingEmpty": "Walang deadline sa susunod na 14 na araw.",
+    "upcomingSub": "Susunod na 14 na araw",
+    "upcomingV4": "Susunod na 14 na araw",
+    "v5": {
+      "andMore_one": "at {{count}} pa",
+      "andMore_other": "at {{count}} pa",
+      "checks": "Mga document check na kailangan ng reviewer",
+      "services": {
+        "needs_assignment": "Mga bagong service request na itatalaga",
+        "overdue": "Mga service case na lampas sa oras ng pagtugon",
+        "today": "Mga service case na takda ngayong araw"
+      },
+      "servicesCta": "Buksan ang mga serbisyo",
+      "servicesDetail": "{{type}} · {{student}} · {{reason}}",
+      "visa": "Mga visa case na nangangailangan sa iyo",
+      "visaCta": "Buksan",
+      "writingDetail": "{{essay}} · {{student}}, {{university}}",
+      "writingDue": "Mga essay review na takda sa loob ng 48 oras",
+      "writingDue48": "takda {{when}}",
+      "writingOverdue": "Mga essay review na lampas sa ipinangakong oras",
+      "writingRevised_one": "{{count}} rebisyon ng estudyante",
+      "writingRevised_other": "{{count}} rebisyon ng estudyante",
+      "checksDetail": "{{student}} · {{doc}}: {{what}}"
+    },
+    "waitingOn": "Mga kaso ayon sa hinihintay na partido",
+    "workload": "Workload ng team",
+    "workloadSub": "Aktibong estudyante at bukas na gawain bawat tao"
   },
-  "work": {
-   "allCountries": "Lahat ng bansa",
-   "allIntakes": "Lahat ng intake",
-   "allViews": "Lahat ng estudyante",
-   "anyWaiting": "Naghihintay sa kahit sino",
-   "closedHint": "Mga estudyanteng tinanggihan at umurong",
-   "col": {
-    "activity": "Huling aktibidad",
-    "country": "Bansa",
-    "due": "Takda",
-    "next": "Susunod na aksyon",
-    "stage": "Kasalukuyang yugto",
-    "student": "Estudyante",
-    "university": "Unibersidad",
-    "waiting": "Naghihintay sa"
-   },
-   "emptyFiltered": "Walang estudyanteng tugma sa mga filter na ito",
-   "noUpcoming": "Walang deadline sa susunod na 14 na araw",
-   "saveView": "I-save ang view",
-   "searchPh": "Maghanap ng estudyante…",
-   "showAll": "Ipakita lahat ng {{count}}",
-   "showing": "Ipinapakita ang {{shown}} sa {{total}}",
-   "teamViews": "Mga view ng team",
-   "top": "Pinakaapurahan muna",
-   "upcoming_other": "{{count}} deadline sa loob ng 14 na araw",
-   "view": "Tingnan",
-   "owner": "May hawak"
+  "v11": {
+    "manage": {
+      "auditHint": "Sino ang nagbago ng ano, at kailan",
+      "catalogHint": "Mga unibersidad, programa at ang kanilang mga kinakailangan",
+      "org": "Organisasyon",
+      "paymentsHint": "Mga invoice at payout",
+      "people": "Mga tao at provider",
+      "servicesHint": "Mga service case na inihahatid mo para sa mga estudyante",
+      "settingsHint": "Profile at mga kagustuhan ng iyong ahensya",
+      "sub": "Mga setting at sangguniang materyal para sa iyong ahensya.",
+      "teamHint": "Mga administrator account: mag-imbita, mag-disable",
+      "templatesHint": "Mga template ng mensahe at checklist",
+      "vendorsHint": "Tirahan, sundo at iba pang provider na bini-book mo",
+      "work": "Paano ka nagtatrabaho"
+    },
+    "review": {
+      "sub": "Mga dokumento at sulating naghihintay sa iyo.",
+      "title": "Pagsusuri"
+    }
   },
-  "ws": {
-   "appsTitle": "Mga aplikasyon",
-   "conversation": "Huling usapan",
-   "details": "Mga detalye",
-   "detailsHint": "Buong detalye, kapag kailangan mo.",
-   "hideDetails": "Itago ang detalye",
-   "needsAction": "Kailangang aksyunan",
-   "noConversation": "Wala pang usapan.",
-   "seeAll": "Tingnan lahat",
-   "tab": {
-    "application": "Aplikasyon",
-    "communication": "Komunikasyon",
-    "more": "Mga task at serbisyo",
-    "profile": "Profile at plan"
-   }
-  }
- },
- "v23": {
-  "work": {
-   "submissionsNeed_other": "{{count}} pagsumite ang nangangailangan sa team"
-  }
- },
- "v7": {
-  "today": {
-   "overdueN_one": "{{count}} lampas na sa takda",
-   "overdueN_other": "{{count}} lampas na sa deadline"
-  }
- },
- "v8": {
-  "apps": {
-   "remaining": "Natitirang item"
+  "v22": {
+    "nav": {
+      "insights": "Insights",
+      "messages": "Mga mensahe",
+      "settings": "Mga setting",
+      "students": "Mga estudyante",
+      "today": "Ngayon",
+      "work": "Mga aplikasyon at dokumento",
+      "hqAccounts": "Mga account ng unibersidad"
+    },
+    "stage": {
+      "admitted": "Natanggap",
+      "all": "Lahat",
+      "arrived": "Dumating na",
+      "closedN_other": "{{count}} sarado",
+      "counselling": "Konsultasyon",
+      "documents": "Mga dokumento",
+      "new": "Bago",
+      "ready": "Handa nang isumite",
+      "review": "Pagsusuri ng unibersidad",
+      "strip": "Mga yugto",
+      "submitted": "Naisumite",
+      "visa": "Visa",
+      "closed": "Sarado",
+      "stripHint": "Pumili ng yugto para ipakita lang ang mga estudyante nito. Katumbas ng bilang ang mga row sa ibaba."
+    },
+    "team": {
+      "title": "Mga administrator account",
+      "active": "Aktibo",
+      "count_other": "{{count}} account",
+      "devNote": "Development: na-print ang code sa API console, hindi ipinadala sa email.",
+      "disable": "I-disable",
+      "disableReason": "Dahilan",
+      "disableReasonPh": "Umalis sa ahensya",
+      "disableText": "Hindi na sila makakapag-sign in. Awtomatikong malilipat sa mga kasamahan ang kanilang mga bukas na estudyante, pagsusuri at task.",
+      "disableTitle": "I-disable si {{name}}?",
+      "disabled": "Naka-disable",
+      "empty": "Wala pang account.",
+      "enable": "I-enable",
+      "invite": "Mag-imbita ng administrator",
+      "inviteSub": "Makakatanggap sila ng email na may one-time code para magtakda ng password.",
+      "lastLogin": "Huling pag-sign in",
+      "mailFailed": "Hindi maipadala sa email ang imbitasyon. Pagamitin sila ng “Nakalimutan ang password” gamit ang address na ito.",
+      "name": "Pangalan",
+      "never": "Hindi pa kailanman",
+      "sendInvite": "Ipadala ang imbitasyon",
+      "sent": "Naipadala ang imbitasyon",
+      "sentTo": "Nag-email kami ng imbitasyon sa {{email}}.",
+      "sub": "Pare-pareho ang permiso ng bawat administrator.",
+      "unverified": "Naimbitahan · hindi pa na-verify",
+      "you": "Ikaw",
+      "email": "Email",
+      "status": "Status"
+    },
+    "today": {
+      "sub": "Bawat estudyante ayon sa hakbang ng proseso. Pumili ng hakbang; ang talahanayan sa ibaba ay para sa hakbang na iyon."
+    },
+    "work": {
+      "allCountries": "Lahat ng bansa",
+      "allIntakes": "Lahat ng intake",
+      "allViews": "Lahat ng estudyante",
+      "anyWaiting": "Naghihintay sa kahit sino",
+      "closedHint": "Mga estudyanteng tinanggihan at umurong",
+      "col": {
+        "activity": "Huling aktibidad",
+        "country": "Bansa",
+        "due": "Takda",
+        "next": "Susunod na aksyon",
+        "stage": "Kasalukuyang yugto",
+        "student": "Estudyante",
+        "university": "Unibersidad",
+        "waiting": "Naghihintay sa"
+      },
+      "emptyFiltered": "Walang estudyanteng tugma sa mga filter na ito. Subukang baguhin ang mga ito.",
+      "noUpcoming": "Walang deadline sa susunod na 14 na araw",
+      "saveView": "I-save ang view",
+      "searchPh": "Maghanap ng estudyante…",
+      "showAll": "Ipakita lahat ng {{count}}",
+      "showing": "Ipinapakita ang {{shown}} sa {{total}}",
+      "teamViews": "Mga view ng team",
+      "top": "Pinaka-urgent muna",
+      "upcoming_other": "{{count}} deadline sa loob ng 14 na araw",
+      "view": "Tingnan",
+      "owner": "Owner",
+      "bulkOwner": "Itakda ang owner…",
+      "confirmOwner_other": "Itakda si {{name}} bilang owner ng {{count}} estudyante?",
+      "deleteView": "Burahin ang view na ito",
+      "empty": "Walang estudyante sa yugtong ito",
+      "myViews": "Mga view ko",
+      "showTop": "Ipakita ang top 10",
+      "total_other": "{{count}} estudyante"
+    },
+    "ws": {
+      "appsTitle": "Mga aplikasyon",
+      "conversation": "Huling usapan",
+      "details": "Mga detalye",
+      "detailsHint": "Buong detalye, kapag kailangan mo.",
+      "hideDetails": "Itago ang detalye",
+      "needsAction": "Kailangang aksyunan",
+      "noConversation": "Wala pang usapan. Ipadala ang unang mensahe.",
+      "seeAll": "Tingnan lahat",
+      "tab": {
+        "application": "Aplikasyon",
+        "communication": "Komunikasyon",
+        "more": "Mga task at serbisyo",
+        "profile": "Profile at plan"
+      },
+      "docFix_other": "{{count}} dokumentong aayusin",
+      "docReview_other": "{{count}} dokumentong susuriin",
+      "needsActionEmpty": "Walang naghihintay sa iyo para sa estudyanteng ito.",
+      "openThread": "Buksan ang usapan"
+    },
+    "hq": {
+      "accounts": {
+        "assigned": "Nakatalagang unibersidad",
+        "empty": "Wala pang account ng unibersidad.",
+        "invite": "Mag-imbita ng admin ng unibersidad",
+        "noUniversity": "Walang naka-link na unibersidad",
+        "pickUniversity": "Unibersidad",
+        "pickUniversityPh": "Pumili ng partner na unibersidad",
+        "reassign": "Palitan ang unibersidad",
+        "reassignText": "Lilipat ang membership nila sa organisasyon ng napiling unibersidad. Ide-deactivate ang luma.",
+        "reassignTitle": "Ilipat si {{name}} sa ibang unibersidad",
+        "search": "Maghanap ayon sa pangalan, email o unibersidad…",
+        "sub": "Mga admin user ng mga partner na unibersidad. Pare-pareho ang permiso ng bawat administrator ng unibersidad.",
+        "title": "Mga account ng unibersidad",
+        "university": "Unibersidad",
+        "adminUser": "Admin user"
+      }
+    }
   },
-  "channel": {
-   "IN_APP": "Sa app"
+  "v23": {
+    "work": {
+      "submissionsNeed_other": "{{count}} aplikasyong naghihintay ng pagsumite ng team",
+      "memberFilter": "Ipinapakita ang mga estudyante ng isang miyembro ng team",
+      "openAll": "Buksan lahat ng {{count}} sa Mga estudyante",
+      "submissionsNeed_one": "{{count}} aplikasyong naghihintay ng pagsumite ng team"
+    }
   },
-  "nav": {
-   "operations": "Operasyon"
+  "v7": {
+    "today": {
+      "overdueN_one": "{{count}} lampas na sa takda",
+      "overdueN_other": "{{count}} lampas na sa deadline"
+    }
   },
-  "ops": {
-   "ageing": {
-    "caption": "Mga aktibong kaso ayon sa yugto at araw mula nang huling gumalaw ang kaso",
-    "cellLabel": "{{count}} estudyante sa {{phase}}, {{bucket}} mula sa huling galaw — ipakita sila",
-    "longest": "Pinakamatagal na walang galaw",
-    "oldest": "Pinakalumang kaso: hindi gumalaw si {{name}} nang {{count}} araw ({{stage}}).",
-    "phase": "Yugto",
-    "q": "Aling mga kaso ang huminto, at sa aling yugto? Pumili ng cell para ilista ang mga estudyanteng iyon.",
-    "title": "Edad ng kaso ayon sa yugto"
-   },
-   "backlog": {
-    "documents": "Pagsusuri ng dokumento",
-    "essays": "Pagsusuri ng sanaysay",
-    "openDocs_other": "{{count}} bukas na pagsusuri ng dokumento ngayon",
-    "openEssays_other": "{{count}} bukas na pagsusuri ng sanaysay ngayon",
-    "openTasks_other": "{{count}} bukas na task ng team ngayon",
-    "q": "Lumalaki ba o lumiliit ang bukas na gawain? Mga bukas na task ng team, pagsusuri ng dokumento at pagsusuri ng sanaysay sa katapusan ng bawat isa sa huling 8 linggo.",
-    "tasks": "Mga task ng team",
-    "title": "Trend ng backlog",
-    "up_other": "+{{count}} sa 8 linggo"
-   },
-   "bucket": {
-    "0_7": "0–7 araw",
-    "15_30": "15–30 araw",
-    "30_plus": "30+ araw",
-    "8_14": "8–14 araw"
-   },
-   "days_one": "{{count}} araw",
-   "days_other": "{{count}} araw",
-   "deadlines": {
-    "inDays_other": "sa loob ng {{count}} araw",
-    "q": "Mga aplikasyong takda sa loob ng {{count}} araw na kulang pa ng mga kinakailangang item.",
-    "title": "Mga deadline na nanganganib",
-    "inDays_one": "sa loob ng {{count}} araw"
-   },
-   "generated": "Na-update {{when}}",
-   "load": {
-    "over_one": "{{count}} tao ang lampas sa kapasidad",
-    "q": "Sino ang sobra ang trabaho? Mga aktibong kaso bawat tao kumpara sa pantay na hati ng kapasidad ng ahensya.",
-    "title": "Load ng tagapayo kumpara sa kapasidad"
-   },
-   "open": "Bukas",
-   "openNow": "Bukas ngayon",
-   "outcomes": "Mga resulta",
-   "since": "mula {{when}}",
-   "sla": {
-    "docs": "Pagsusuri ng dokumento na lampas 48 oras",
-    "essays": "Pagsusuri ng sanaysay na lampas sa ipinangakong oras",
-    "first": "Huli ang unang sagot",
-    "q": "Aling mga pangako ang nasira na?",
-    "title": "Mga paglabag sa SLA"
-   },
-   "stages": {
-    "median_other": "median na {{count}} araw",
-    "now_one": "{{n}} ang naroon ngayon",
-    "now_other": "{{n}} ang naroon ngayon",
-    "q": "Saan pinakamatagal naghihintay ang mga aplikasyon? Median na araw sa bawat status (mga pananatiling natapos sa nakaraang taon).",
-    "slowest": "Pinakamabagal: {{stage}} — median na {{count}} araw sa {{n}} pananatili.",
-    "title": "Mabagal na yugto",
-    "tooFew": "masyadong kaunti para masukat ({{n}} sa {{min}})",
-    "unrated_other": "{{count}} status na may mas kaunti sa {{min}} natapos na pananatili (hindi nasukat)"
-   },
-   "sub": "Kung saan nasisira ang operasyon: backlog, naiipit na kaso, sobrang load, nasirang pangako, nanganganib na deadline at mabagal na yugto. Nagbubukas ng mga tala nito ang bawat numero.",
-   "switch": "Tingnan",
-   "total": "Kabuuan",
-   "allN_other": "Tingnan lahat ng {{count}}"
+  "v8": {
+    "apps": {
+      "remaining": "Natitirang item"
+    },
+    "channel": {
+      "IN_APP": "Sa app"
+    },
+    "nav": {
+      "operations": "Operasyon"
+    },
+    "ops": {
+      "ageing": {
+        "caption": "Mga aktibong kaso ayon sa yugto at araw mula nang huling gumalaw ang kaso",
+        "cellLabel": "{{count}} estudyante sa {{phase}}, {{bucket}} mula sa huling galaw — ipakita sila",
+        "longest": "Pinakamatagal na walang galaw",
+        "oldest": "Pinakalumang kaso: hindi gumalaw si {{name}} nang {{count}} araw ({{stage}}).",
+        "phase": "Yugto",
+        "q": "Aling mga kaso ang huminto, at sa aling yugto? Pumili ng cell para ilista ang mga estudyanteng iyon.",
+        "title": "Edad ng kaso ayon sa yugto"
+      },
+      "backlog": {
+        "documents": "Pagsusuri ng dokumento",
+        "essays": "Pagsusuri ng sanaysay",
+        "openDocs_other": "{{count}} bukas na pagsusuri ng dokumento ngayon",
+        "openEssays_other": "{{count}} bukas na pagsusuri ng sanaysay ngayon",
+        "openTasks_other": "{{count}} bukas na task ng team ngayon",
+        "q": "Lumalaki ba o lumiliit ang bukas na gawain? Mga bukas na task ng team, pagsusuri ng dokumento at pagsusuri ng sanaysay sa katapusan ng bawat isa sa huling 8 linggo.",
+        "tasks": "Mga task ng team",
+        "title": "Trend ng backlog",
+        "up_other": "+{{count}} sa 8 linggo"
+      },
+      "bucket": {
+        "0_7": "0–7 araw",
+        "15_30": "15–30 araw",
+        "30_plus": "30+ araw",
+        "8_14": "8–14 araw"
+      },
+      "days_one": "{{count}} araw",
+      "days_other": "{{count}} araw",
+      "deadlines": {
+        "inDays_other": "sa loob ng {{count}} araw",
+        "q": "Mga aplikasyong takda sa loob ng {{count}} araw na kulang pa ng mga kinakailangang item.",
+        "title": "Mga deadline na nanganganib",
+        "inDays_one": "sa loob ng {{count}} araw"
+      },
+      "generated": "Na-update {{when}}",
+      "load": {
+        "over_one": "{{count}} tao ang lampas sa kapasidad",
+        "q": "Sino ang sobra ang trabaho? Mga aktibong kaso bawat tao kumpara sa pantay na hati ng kapasidad ng ahensya.",
+        "title": "Load ng tagapayo kumpara sa kapasidad"
+      },
+      "open": "Bukas",
+      "openNow": "Bukas ngayon",
+      "outcomes": "Mga resulta",
+      "since": "mula {{when}}",
+      "sla": {
+        "docs": "Pagsusuri ng dokumento na lampas 48 oras",
+        "essays": "Pagsusuri ng sanaysay na lampas sa ipinangakong oras",
+        "first": "Huli ang unang sagot",
+        "q": "Aling mga pangako ang nasira na?",
+        "title": "Mga paglabag sa SLA"
+      },
+      "stages": {
+        "median_other": "median na {{count}} araw",
+        "now_one": "{{n}} ang naroon ngayon",
+        "now_other": "{{n}} ang naroon ngayon",
+        "q": "Saan pinakamatagal naghihintay ang mga aplikasyon? Median na araw sa bawat status (mga pananatiling natapos sa nakaraang taon).",
+        "slowest": "Pinakamabagal: {{stage}} — median na {{count}} araw sa {{n}} pananatili.",
+        "title": "Mabagal na yugto",
+        "tooFew": "masyadong kaunti para masukat ({{n}} sa {{min}})",
+        "unrated_other": "{{count}} status na may mas kaunti sa {{min}} natapos na pananatili (hindi nasukat)"
+      },
+      "sub": "Kung saan nasisira ang operasyon: backlog, naiipit na kaso, sobrang load, nasirang pangako, nanganganib na deadline at mabagal na yugto. Nagbubukas ng mga tala nito ang bawat numero.",
+      "switch": "Tingnan",
+      "total": "Kabuuan",
+      "allN_other": "Tingnan lahat ng {{count}}"
+    },
+    "view": {
+      "deadline7": "Deadline < 7 araw",
+      "docs": "Kailangang iwasto ang dokumento",
+      "new_paid": "Mga bagong nagbayad na estudyante",
+      "student_silent": "Naghihintay sa estudyante > 3 araw",
+      "unassigned": "Walang nakatalaga",
+      "university": "Naghihintay sa unibersidad",
+      "urgent": "Aking mga apurahang kaso",
+      "visa_blocked": "Naharang ang visa"
+    },
+    "move": {
+      "lastMoved_other": "huling umusad {{count}} araw na ang nakalipas",
+      "why": "Bakit hindi umuusad ang kasong ito?"
+    }
   },
-  "view": {
-   "deadline7": "Deadline < 7 araw",
-   "docs": "Kailangang iwasto ang dokumento",
-   "new_paid": "Mga bagong nagbayad na estudyante",
-   "student_silent": "Naghihintay sa estudyante > 3 araw",
-   "unassigned": "Walang nakatalaga",
-   "university": "Naghihintay sa unibersidad",
-   "urgent": "Aking mga apurahang kaso",
-   "visa_blocked": "Naharang ang visa"
-  },
-  "move": {
-   "lastMoved_other": "huling umusad {{count}} araw na ang nakalipas",
-   "why": "Bakit hindi umuusad ang kasong ito?"
-  }
- },
- "v9": {
-  "msg": {
-   "link": "I-link sa isang aplikasyon",
-   "state": {
-    "READ": "Nabasa na"
-   }
-  },
-  "next": {
-   "app": {
-    "OFFERED": "sagutin ang alok"
-   },
-   "essay_review": "Suriin ang sanaysay",
-   "final_check": "Huling pagsusuri at pagpasa · {{university}}",
-   "reply_owed": "Sagutin ang estudyante",
-   "review_unassigned_one": "Magtalaga ng tagasuri para sa {{count}} dokumento",
-   "student": {
-    "submit_on_portal": "magsumite sa opisyal na portal at itala ang reference",
-    "university_request": "i-upload ang dokumentong hiningi ng {{university}}"
-   },
-   "studentSays": "Estudyante: {{what}}",
-   "submit": "Magsumite para sa estudyante at itala ang reference",
-   "universitySays": "Unibersidad: {{what}}",
-   "taskTitle": "Lampas na sa deadline: {{title}}"
-  },
-  "ops": {
-   "blocked": {
-    "q_other": "Aling mga kaso ang naghihintay sa isang tao at hindi gumalaw nang mahigit {{count}} araw?",
-    "title": "Mga naiipit na kaso"
-   },
-   "cases_other": "{{count}} kaso",
-   "days_other": "{{count}} araw",
-   "pointsOf": "{{n}} / {{cap}} puntos",
-   "q": {
-    "blocked": "Pinakalumang naiipit na kaso",
-    "deadlines": "Mga deadline na nanganganib",
-    "overloaded": "Lampas sa kapasidad",
-    "sla": "Mga paglabag sa SLA",
-    "stage": "Pinakamabagal na yugto",
-    "unpaid": "Mga nagbayad na kasong walang nakatalaga"
-   },
-   "questions": "Anim na tanong",
-   "slaRisk_one": "{{count}} nanganganib sa SLA",
-   "unpaid": {
-    "none": "May may-hawak ang bawat nagbayad na kaso.",
-    "q": "Aling mga estudyante ang nagbayad para sa serbisyo pero walang may hawak ng kaso?",
-    "title": "Mga nagbayad na kasong walang nakatalaga"
-   },
-   "weightsLink": "Mga timbang",
-   "slaRisk_other": "{{count}} nanganganib lumampas sa SLA"
-  },
-  "owner": {
-   "agency": "Team ng ahensya"
-  },
-  "q": {
-   "tab": "Kalidad ng proseso"
-  },
-  "team": {
-   "onLeave": "Naka-leave hanggang {{date}}"
+  "v9": {
+    "msg": {
+      "link": "I-link sa isang aplikasyon",
+      "state": {
+        "READ": "Nabasa na"
+      }
+    },
+    "next": {
+      "app": {
+        "OFFERED": "sagutin ang alok"
+      },
+      "essay_review": "Suriin ang sanaysay",
+      "final_check": "Huling pagsusuri at pagpasa · {{university}}",
+      "reply_owed": "Sagutin ang estudyante",
+      "review_unassigned_one": "Magtalaga ng tagasuri para sa {{count}} dokumento",
+      "student": {
+        "submit_on_portal": "magsumite sa opisyal na portal at itala ang reference",
+        "university_request": "i-upload ang dokumentong hiningi ng {{university}}"
+      },
+      "studentSays": "Estudyante: {{what}}",
+      "submit": "Magsumite para sa estudyante at itala ang reference",
+      "universitySays": "Unibersidad: {{what}}",
+      "taskTitle": "Lampas na sa deadline: {{title}}"
+    },
+    "ops": {
+      "blocked": {
+        "q_other": "Aling mga kaso ang naghihintay sa isang tao at hindi gumalaw nang mahigit {{count}} araw?",
+        "title": "Mga naiipit na kaso"
+      },
+      "cases_other": "{{count}} kaso",
+      "days_other": "{{count}} araw",
+      "pointsOf": "{{n}} / {{cap}} puntos",
+      "q": {
+        "blocked": "Pinakalumang naiipit na kaso",
+        "deadlines": "Mga deadline na nanganganib",
+        "overloaded": "Lampas sa kapasidad",
+        "sla": "Mga paglabag sa SLA",
+        "stage": "Pinakamabagal na yugto",
+        "unpaid": "Mga nagbayad na kasong walang nakatalaga"
+      },
+      "questions": "Anim na tanong",
+      "slaRisk_one": "{{count}} nanganganib sa SLA",
+      "unpaid": {
+        "none": "May may-hawak ang bawat nagbayad na kaso.",
+        "q": "Aling mga estudyante ang nagbayad para sa serbisyo pero walang may hawak ng kaso?",
+        "title": "Mga nagbayad na kasong walang nakatalaga"
+      },
+      "weightsLink": "Mga timbang",
+      "slaRisk_other": "{{count}} nanganganib lumampas sa SLA"
+    },
+    "owner": {
+      "agency": "Team ng ahensya"
+    },
+    "q": {
+      "tab": "Kalidad ng proseso"
+    },
+    "team": {
+      "onLeave": "Naka-leave hanggang {{date}}"
+    },
+    "waiting": {
+      "on": {
+        "agency": "Naghihintay sa team ng ahensya",
+        "counselor": "Naghihintay sa tagapayo",
+        "external": "Naghihintay sa panlabas na partido",
+        "hangyul": "Naghihintay sa Hangyul",
+        "student": "Naghihintay sa estudyante",
+        "university": "Naghihintay sa unibersidad"
+      },
+      "party": {
+        "agency": "Team ng ahensya",
+        "counselor": "Tagapayo",
+        "external": "Panlabas na partido",
+        "student": "Estudyante",
+        "university": "Unibersidad"
+      },
+      "reason": {
+        "essay_review": "sanaysay na naghihintay ng pagsusuri",
+        "final_check": "huling pagsusuri bago isumite",
+        "rail_confirmation": "kulang ang confirmation number",
+        "reply_owed": "naghihintay ng sagot ang estudyante",
+        "review_unassigned_one": "{{count}} dokumentong susuriin · walang tagasuri",
+        "student_task_one": "{{count}} task na gagawin",
+        "student_task_other": "{{count}} task na gagawin",
+        "submit": "may pahintulot na magsumite",
+        "submit_on_portal": "magsumite sa opisyal na portal",
+        "university_request": "humingi ang unibersidad ng dokumento",
+        "task_one": "{{count}} task na lampas sa deadline"
+      },
+      "title": "Naghihintay sa"
+    },
+    "meet": {
+      "decisions": "Mga desisyon",
+      "notes": "Mga napag-usapan",
+      "oneper": "Isa bawat linya.",
+      "recordTitle": "Itala ang meeting",
+      "save": "I-save ang tala ng meeting",
+      "scheduleNext": "I-iskedyul ang susunod na meeting",
+      "staffTasks": "Mga follow-up para sa team",
+      "studentHint": "Isa bawat linya. Makikita ito ng estudyante.",
+      "studentTasks": "Mga gagawin ng estudyante"
+    },
+    "strip": {
+      "deadline": "Deadline",
+      "next": "Susunod na aksyon",
+      "why": "Bakit ito nakatigil"
+    }
   },
   "waiting": {
-   "on": {
-    "agency": "Naghihintay sa team ng ahensya",
-    "counselor": "Naghihintay sa tagapayo",
-    "external": "Naghihintay sa panlabas na partido",
-    "hangyul": "Naghihintay sa Hangyul",
-    "student": "Naghihintay sa estudyante",
-    "university": "Naghihintay sa unibersidad"
-   },
-   "party": {
-    "agency": "Team ng ahensya",
-    "counselor": "Tagapayo",
-    "external": "Panlabas na partido",
-    "student": "Estudyante",
-    "university": "Unibersidad"
-   },
-   "reason": {
-    "essay_review": "sanaysay na naghihintay ng pagsusuri",
-    "final_check": "huling pagsusuri bago isumite",
-    "rail_confirmation": "kulang ang confirmation number",
-    "reply_owed": "naghihintay ng sagot ang estudyante",
-    "review_unassigned_one": "{{count}} dokumentong susuriin · walang tagasuri",
-    "student_task_one": "{{count}} task na gagawin",
-    "student_task_other": "{{count}} task na gagawin",
-    "submit": "may pahintulot na magsumite",
-    "submit_on_portal": "magsumite sa opisyal na portal",
-    "university_request": "humingi ang unibersidad ng dokumento",
-    "task_one": "{{count}} task na lampas sa deadline"
-   },
-   "title": "Naghihintay sa"
+    "app": {
+      "DRAFT": "hindi pa nasisimulan ang aplikasyon",
+      "INTERVIEW": "interview",
+      "OFFERED": "sagot sa offer",
+      "OFFER_ACCEPTED": "invoice ng matrikula",
+      "SUBMITTED": "naisumite",
+      "UNIVERSITY_REVIEW": "sinusuri",
+      "VISA_ISSUED": "plano ng pagdating",
+      "WAITLISTED": "nasa waitlist",
+      "DOCUMENT_PREPARATION": "naghahanda ng mga dokumento",
+      "VISA_PREPARATION": "mga dokumento sa visa",
+      "ADDITIONAL_DOCUMENTS": "humiling ng dokumento ang unibersidad",
+      "ADMISSION_CERTIFICATE_ISSUED": "simulan ang visa",
+      "PROFILE_REVIEW": "pagsusuri ng profile",
+      "READY": "handa nang isumite",
+      "TUITION_PENDING": "bayad sa matrikula",
+      "VISA_SUBMITTED": "desisyon sa visa (embahada)",
+      "ADMISSION_CERTIFICATE_PENDING": "admission letter",
+      "TUITION_PAID": "admission letter"
+    },
+    "reason": {
+      "student_task_one": "{{count}} task na gagawin",
+      "student_task_other": "{{count}} task na gagawin",
+      "first_contact": "takda na ang unang pakikipag-ugnayan",
+      "fix_one": "{{count}} dokumentong aayusin",
+      "fix_other": "{{count}} dokumentong aayusin",
+      "overdue_task_one": "{{count}} overdue na task",
+      "overdue_task_other": "{{count}} overdue na task",
+      "reply": "sumagot ang estudyante",
+      "review_one": "{{count}} dokumentong susuriin",
+      "review_other": "{{count}} dokumentong susuriin"
+    }
   },
-  "meet": {
-   "decisions": "Mga desisyon",
-   "notes": "Mga napag-usapan",
-   "oneper": "Isa bawat linya.",
-   "recordTitle": "Itala ang meeting",
-   "save": "I-save ang tala ng meeting",
-   "scheduleNext": "I-iskedyul ang susunod na meeting",
-   "staffTasks": "Mga follow-up para sa team",
-   "studentHint": "Isa bawat linya. Makikita ito ng estudyante.",
-   "studentTasks": "Mga gagawin ng estudyante"
-  },
-  "strip": {
-   "deadline": "Deadline",
-   "next": "Susunod na aksyon",
-   "why": "Bakit ito nakatigil"
-  }
- },
- "waiting": {
-  "app": {
-   "DRAFT": "hindi pa nasisimulan ang aplikasyon",
-   "INTERVIEW": "panayam",
-   "OFFERED": "sagot sa offer",
-   "OFFER_ACCEPTED": "invoice ng matrikula",
-   "SUBMITTED": "naisumite",
-   "UNIVERSITY_REVIEW": "sinusuri",
-   "VISA_ISSUED": "plano ng pagdating",
-   "WAITLISTED": "nasa waitlist",
-   "DOCUMENT_PREPARATION": "naghahanda ng mga dokumento",
-   "VISA_PREPARATION": "mga dokumento sa visa"
-  },
-  "reason": {
-   "student_task_one": "{{count}} task na gagawin",
-   "student_task_other": "{{count}} task na gagawin"
-  }
- },
- "ws": {
-  "itemsInReview_one": "{{count}} sinusuri",
-  "itemsNone": "Handa na ang lahat ng item",
-  "itemsRemain_other": "{{count}} item ang natitira",
-  "act": {
-   "message": "Mensahe",
-   "task": "Task"
-  },
-  "block": {
-   "deadline_one": "Magsasara ang aplikasyon sa {{uni}} sa loob ng {{count}} araw"
-  },
-  "consulate": "Consulate",
-  "docsHint": "Lahat ng dokumento sa vault ng estudyante. Ginagamit ulit sa lahat ng aplikasyon niya.",
-  "more": "Iba pang aksyon",
-  "profileComplete": "{{pct}}% kumpleto ang profile",
-  "tab": {
-   "applications": "Mga aplikasyon",
-   "documents": "Mga dokumento",
-   "essays": "Pagsusulat",
-   "visa": "Visa"
-  },
-  "targetEntry": "Target na petsa ng pagdating",
-  "visaIssued": "Na-issue noong",
-  "visaNotes": "Mga tala sa kaso (staff)",
-  "visaProgress": "Progreso ng visa checklist",
-  "visaStatus": "Status ng visa",
-  "visaSubmitted": "Naisumite noong",
-  "visaType": "Visa {{type}}"
- },
- "v25": {
-  "today": {
-   "title": "Ngayon",
-   "urgent": "apurahan",
-   "deadline7": "takdang petsa sa loob ng 7 araw",
-   "waiting_counselor": "naghihintay ng sagot namin",
-   "student_silent": "estudyanteng hindi sumasagot",
-   "requested": "kahilingan ng unibersidad"
-  }
- },
- "v26": {
   "ws": {
-   "replyOwed": "Naghihintay ng sagot mo ang estudyante",
-   "reply": "Sumagot",
-   "requests": "Mga kahilingan ng unibersidad",
-   "requestFrom": "Hinihingi ng {{university}}: {{label}}",
-   "requestedOn": "Hiniling noong {{date}}"
+    "itemsInReview_one": "{{count}} item na sinusuri",
+    "itemsNone": "Handa na ang lahat ng item",
+    "itemsRemain_other": "{{count}} item ang natitira",
+    "act": {
+      "message": "Mensahe",
+      "task": "Task",
+      "call": "Mag-book ng konsultasyon"
+    },
+    "block": {
+      "deadline_one": "Magsasara ang aplikasyon sa {{uni}} sa loob ng {{count}} araw",
+      "deadline_other": "Magsasara ang aplikasyon sa {{uni}} sa loob ng {{count}} araw",
+      "review_one": "{{count}} dokumento ang naghihintay ng pagsusuri mo",
+      "review_other": "{{count}} dokumento ang naghihintay ng pagsusuri mo",
+      "sla": "Naghihintay ng iyong unang sagot",
+      "slaDetail": "Lumipas ang first-response target {{when}}",
+      "uniRequest": "Humiling ang {{uni}} ng karagdagang dokumento",
+      "overdue": "Overdue: {{title}}"
+    },
+    "consulate": "Consulate",
+    "docsHint": "Lahat ng dokumento sa vault ng estudyante. Ginagamit ulit sa lahat ng aplikasyon niya.",
+    "more": "Iba pang aksyon",
+    "profileComplete": "{{pct}}% kumpleto ang profile",
+    "tab": {
+      "applications": "Mga aplikasyon",
+      "documents": "Mga dokumento",
+      "essays": "Pagsusulat",
+      "visa": "Visa",
+      "history": "Kasaysayan",
+      "messages": "Mga mensahe",
+      "tasks": "Mga task",
+      "portfolio": "Portfolio"
+    },
+    "targetEntry": "Target na petsa ng pagdating",
+    "visaIssued": "Na-issue noong",
+    "visaNotes": "Mga tala sa kaso (staff)",
+    "visaProgress": "Progreso ng visa checklist",
+    "visaStatus": "Status ng visa",
+    "visaSubmitted": "Naisumite noong",
+    "visaType": "Visa {{type}}",
+    "activityNote": "Mula sa audit log: mga pagtingin, pagbabago at desisyon sa mga tala ng estudyanteng ito.",
+    "apptHint": "Mga konsultasyon at mock interview sa estudyanteng ito.",
+    "assignedBy": "Itinalaga ni {{by}}",
+    "blockedBy": "Tapusin muna: {{deps}}",
+    "blockers": "Mga hadlang",
+    "budget": "Taunang budget",
+    "by": {
+      "ENGINE": "ang matching engine",
+      "MANUAL": "isang administrator",
+      "ORDER": "pagbili ng serbisyo",
+      "OPERATIONS_OVERRIDE": "Hangyul operations (override)"
+    },
+    "dob": "Petsa ng kapanganakan",
+    "education": "Edukasyon",
+    "expires": "Mag-e-expire {{date}}",
+    "factor": {
+      "country": "Kaalaman sa bansa",
+      "degree": "Kaalaman sa degree",
+      "language": "Tugma sa wika",
+      "preference": "Kagustuhan ng estudyante",
+      "sla": "Kamakailang SLA record",
+      "university": "Mga target na unibersidad",
+      "workload": "Available na kapasidad"
+    },
+    "fields": "Mga larangan",
+    "identity": "Pagkakakilanlan at tirahan",
+    "itemsInReview_other": "{{count}} item na sinusuri",
+    "itemsRemain_one": "{{count}} item ang natitira",
+    "languages": "Mga language test",
+    "level": {
+      "BACHELOR": "Bachelor's",
+      "MASTER": "Master's",
+      "ASSOCIATE": "Associate",
+      "DOCTORATE": "Doctorate",
+      "HIGH_SCHOOL": "High school"
+    },
+    "maskedHint": "Naka-mask para sa privacy. Nasa document vault lang ng estudyante ang buong numero.",
+    "noActivity": "Wala pang naitalang aktibidad",
+    "noApps": "Wala pang aplikasyon",
+    "noAppsText": "Lalabas dito ang mga aplikasyon kapag nagsimula na ng isa ang estudyante.",
+    "noBreakdown": "Walang naitalang score breakdown para sa assignment na ito.",
+    "noConversations": "Wala pang usapan sa estudyanteng ito",
+    "noDocs": "Wala pang dokumento sa vault",
+    "noEducation": "Wala pang idinagdag na edukasyon.",
+    "noEssays": "Wala pang essay",
+    "noLanguages": "Wala pang score sa language test.",
+    "noVisa": "Wala pang visa case",
+    "noVisaText": "Awtomatikong magbubukas ang visa case kapag inisyu na ng unibersidad ang standard admission letter.",
+    "notAssigned": "Hindi nakatalaga sa ahensya",
+    "passport": "Pasaporte",
+    "passportExpiry": "Expiry ng pasaporte",
+    "planned": "plano",
+    "preferences": "Mga kagustuhan",
+    "regions": "Mga rehiyon",
+    "residence": "Bansang tinitirhan",
+    "scholarship": "Kailangan ng scholarship",
+    "selfReported": "sariling ulat",
+    "sinceDate": "Nakatalaga mula {{date}}",
+    "sponsor": "Pinansyal na sponsor",
+    "sponsorKind": {
+      "PARENTS": "Mga magulang",
+      "RELATIVE": "Kamag-anak",
+      "SELF": "Sarili",
+      "EMPLOYER": "Employer",
+      "SCHOLARSHIP": "Scholarship"
+    },
+    "stage": "Yugto sa pipeline",
+    "tasksHint": "Mga task ng team at mga task na nakikita ng estudyante para sa estudyanteng ito.",
+    "visaHistory": "Kasaysayan ng visa sa Korea",
+    "weightsNote": "Mga puntos na nakuha bawat factor mula sa bigat nito (kabuuang bigat {{total}}). Ipinapaliwanag ng mga score ang pagpili; hindi ito rating ng kalidad.",
+    "whyAssigned": "Bakit ang assignment na ito?",
+    "gpa": "GPA",
+    "gpaNorm": "{{pct}}% normalized",
+    "profileTitle": "Profile",
+    "score": "Match score {{score}} / 100"
+  },
+  "v25": {
+    "today": {
+      "title": "Ngayon",
+      "urgent": "urgent",
+      "deadline7": "takdang petsa sa loob ng 7 araw",
+      "waiting_counselor": "naghihintay ng sagot namin",
+      "student_silent": "estudyanteng hindi sumasagot",
+      "requested": "kahilingan ng unibersidad"
+    }
+  },
+  "v26": {
+    "ws": {
+      "replyOwed": "Naghihintay ng sagot mo ang estudyante",
+      "reply": "Sumagot",
+      "requests": "Mga kahilingan ng unibersidad",
+      "requestFrom": "Hinihingi ng {{university}}: {{label}}",
+      "requestedOn": "Hiniling noong {{date}}"
+    }
+  },
+  "consult": {
+    "channel": {
+      "IN_PERSON": "Harapan",
+      "PHONE": "Telepono",
+      "VIDEO": "Video call"
+    },
+    "channelLabel": "Paraan",
+    "duration": "Tagal",
+    "kind": {
+      "CONSULTATION": "Konsultasyon",
+      "INTERVIEW": "Interview",
+      "INTERVIEW_PREP": "Praktis sa interview"
+    },
+    "kindLabel": "Uri",
+    "minutes_other": "{{count}} minuto",
+    "new": "Mag-iskedyul ng konsultasyon",
+    "notes": "Agenda / mga tala",
+    "notesHint": "Makikita ito ng estudyante sa detalye ng appointment niya.",
+    "notifyNote": "Makakatanggap ang estudyante ng notification na may petsa at oras sa sarili niyang time zone.",
+    "schedule": "I-iskedyul",
+    "when": "Petsa at oras"
+  },
+  "tasksPage": {
+    "create": "Gumawa ng task",
+    "description": "Mga detalye",
+    "due": "Deadline",
+    "forStudent": "I-assign sa estudyante (makikita niya ito sa app niya)",
+    "me": "ako",
+    "new": "Bagong task",
+    "owner": "May hawak",
+    "priority": "Priyoridad",
+    "title": "Mga task",
+    "type": "Uri"
+  },
+  "v15": {
+    "plan": {
+      "PREMIUM": "Premium",
+      "title": "Binili na plan: {{plan}}"
+    },
+    "readiness": {
+      "READY": "Handa nang isumite",
+      "SUBMITTED": "Naisumite na"
+    },
+    "scope": {
+      "strip": "Plan"
+    }
+  },
+  "v27": {
+    "guide": {
+      "missingTitle": "Hindi pa na-verify ang admission guide",
+      "current": "Listahan ng dokumento mula sa",
+      "missingBody": "Hindi pa na-verify ang kasalukuyang opisyal na guide para sa unibersidad at level na ito, kaya walang ipinapakitang listahan ng dokumento. Lalabas ito kapag na-verify na ng Hangyul operations ang guide.",
+      "previous": "Batay sa guide ng nakaraang round; sinusuri pa ang bagong guide",
+      "source": "Opisyal na guide",
+      "verified": "sinuri {{date}}"
+    },
+    "stage": {
+      "ADMIT": "Offer at enrollment",
+      "APPLY": "Naipadala ang aplikasyon",
+      "ARRIVAL": "Pagdating",
+      "CONSULT": "Konsultasyon",
+      "DOCUMENTS": "Mga dokumento",
+      "REVIEW": "Pagsusuri ng unibersidad",
+      "VISA": "Visa",
+      "label": "Yugto ng kaso",
+      "nextSr": "susunod na yugto",
+      "recent": "Huling pagbabago {{count}} araw na ang nakalipas",
+      "overdue": "Lumampas na ang deadline",
+      "stalled": "Nakatigil nang {{count}} araw"
+    },
+    "evidence": {
+      "age": "Inisyu sa loob ng",
+      "ageDays": "{{count}} araw",
+      "byNationality": "ayon sa nasyonalidad; hindi pa alam ang bansang nag-isyu",
+      "extra": "Dagdag pa",
+      "form": "Isumite bilang",
+      "none": "Hindi pa na-upload",
+      "open": "Ipakita ang ebidensya",
+      "proof": "Upload ng estudyante",
+      "quote": "Pananalita sa guide",
+      "when": "Nalalapat kapag",
+      "legal": "Legalization"
+    },
+    "form": {
+      "COPY": "Kopya",
+      "EITHER": "Orihinal o kopya",
+      "ORIGINAL": "Orihinal"
+    },
+    "hq": {
+      "guidesNone": "Walang admission guide na ive-verify.",
+      "guidesSub": "Kung walang na-verify na kasalukuyang guide, walang nakikitang listahan ng dokumento ang mga estudyante. Nakaayos ayon sa bilang ng naghihintay na estudyante.",
+      "guidesTitle": "Mga admission guide na ive-verify",
+      "kind": {
+        "CONFLICT": "Hindi magkatugma ang mga opisyal na source",
+        "MISSING_GUIDE": "Walang na-verify na guide",
+        "REVIEW_REQUIRED": "Kailangang suriin",
+        "SPOT_CHECK": "Spot-check laban sa orihinal",
+        "STALE": "Mula sa naunang round ang guide"
+      },
+      "waiting": "{{count}} aplikasyong inihahanda"
+    },
+    "ifApplies": "Kung naaangkop",
+    "issue": {
+      "APOSTILLE": "Kailangan ng apostille",
+      "CHINA_CHSI": "Kailangan ng CHSI verification",
+      "CONSULAR": "Kailangan ng consular legalization",
+      "DONE": "Tapos na",
+      "FIX": "Kailangang ayusin",
+      "IN_REVIEW": "Sinusuri",
+      "LEGALIZATION_REVIEW": "Susuriin ang ruta ng legalization",
+      "NOTARIZATION": "Kailangan ng notarization",
+      "ORIGINAL_CHECKED": "Nasuri ang orihinal",
+      "TRANSLATION": "Kailangan ng salin",
+      "UPLOAD": "Kailangang i-upload"
+    },
+    "legal": {
+      "CHINA_CHSI": "China CHSI verification o apostille",
+      "NONE": "Hindi kailangan",
+      "STAFF_REVIEW": "Suriin batay sa bansang nag-isyu",
+      "UNSPECIFIED": "Hindi nakasaad sa guide",
+      "APOSTILLE": "Apostille",
+      "CONSULAR": "Consular legalization"
+    },
+    "party": {
+      "agency": "Aksyon natin",
+      "student": "Aksyon ng estudyante"
+    },
+    "submit": {
+      "IN_PERSON": "Personal",
+      "MAIL": "Sa koreo",
+      "UPLOAD_MAIL": "I-upload, saka ipadala sa koreo ang orihinal",
+      "ONLINE": "Online form",
+      "UPLOAD": "Online upload"
+    }
+  },
+  "v28": {
+    "stage": {
+      "next": "Susunod: {{stage}}",
+      "of": "Yugto {{n}} sa {{total}}"
+    }
+  },
+  "actions": {
+    "moreFilters": "Iba pang filter"
+  },
+  "dash": {
+    "days_other": "{{count}} araw",
+    "period": "Panahon ng ulat",
+    "subHq": "Cross-agency na view ng bawat aktibong estudyante, queue at SLA.",
+    "workload": {
+      "member": "Miyembro ng team",
+      "open": "Bukas na task",
+      "students": "Aktibong estudyante",
+      "overdue": "Overdue"
+    }
+  },
+  "login": {
+    "asideFoot": "Hiwalay na iniingatan ang data ng bawat organisasyon at itinatala ang bawat pag-access. Hindi kailanman nakikita ng mga estudyante ang mga internal na tala.",
+    "asideLead": "Mga estudyante, gawain sa aplikasyon at dokumento, at mga mensahe sa iisang workspace.",
+    "asideTitle": "Sino ang nangangailangan sa iyo, bakit, at hanggang kailan, simula ngayong araw.",
+    "p1Text": "Binubuksan ng bawat bilang sa yugto ang eksaktong mga estudyanteng iyon.",
+    "p1Title": "Mga estudyante ayon sa yugto",
+    "p2Text": "Mga pagwawasto ng dokumento, application deadline at mga sagot na dapat ibigay, nakaayos ayon sa takdang petsa.",
+    "p2Title": "Gawaing may takdang petsa",
+    "p3Text": "Secure na preview at checklist; mga pagwawastong hinihiling nang may malinaw na dahilan.",
+    "p3Title": "Pagsusuri ng dokumento",
+    "p4Text": "Mula sa team ng Hangyul Univ ang naririnig ng mga estudyante; nasa audit log kung sino ang gumawa ng trabaho.",
+    "p4Title": "Team ng Hangyul Univ ang nakikita ng mga estudyante",
+    "subtitle": "Para sa operations staff ng Hangyul at mga partner na study-abroad agency.",
+    "title": "Mag-sign in sa Agency Console"
+  },
+  "notifs": {
+    "sub": "Lahat ng nangyari habang wala ka.",
+    "filter": "Filter"
+  },
+  "v29": {
+    "guide": {
+      "field": {
+        "checklist": "checklist ng dokumento",
+        "current_intake": "guide ng round na ito",
+        "source_url": "opisyal na source",
+        "submission_method": "paraan ng pagsumite",
+        "verified_date": "petsa ng beripikasyon",
+        "deadline": "deadline"
+      },
+      "verifyRequired": "I-verify bago ang managed application: {{fields}}"
+    },
+    "plan": {
+      "addOnStatus": {
+        "ACTIVE": "Isinasagawa",
+        "APPROVED": "Aktibo (legacy)",
+        "AWAITING_PAYMENT": "Naghihintay ng bayad",
+        "COMPLETED": "Tapos na",
+        "OFFERED": "Iminungkahi"
+      },
+      "duty": {
+        "dedicated": "Nakatalagang team · priority na sagot",
+        "docs": {
+          "CHECKLIST": "Mga dokumento: checklist",
+          "INTENSIVE": "Mga dokumento: masusing pagsusuri",
+          "REVIEW_GUIDANCE": "Mga dokumento: pagsusuri at mga tala kung ano ang aayusin"
+        },
+        "dorm": {
+          "APPLICATION": "Dormitoryo: tulong sa aplikasyon at iba pang opsyon sa tirahan",
+          "INFORMATION": "Dormitoryo: impormasyon",
+          "SCHEDULE": "Dormitoryo: binabantayan ang iskedyul ng aplikasyon"
+        },
+        "settle": {
+          "FULL": "Pag-settle in: D-30 hanggang D+30",
+          "INFORMATION": "Pag-settle in: pangunahing impormasyon",
+          "NONE": "Pag-settle in: hindi kasama"
+        },
+        "visa": {
+          "DOCUMENT_PREP": "Visa: tulong sa paghahanda ng mga dokumento",
+          "GUIDANCE": "Visa: gabay sa proseso",
+          "INTENSIVE": "Visa: mina-manage ang mga dokumento at mahahalagang petsa"
+        }
+      },
+      "legacy": "Binili sa ilalim ng {{version}}",
+      "offer": {
+        "howItWorks": "Magkakabisa lang pagkatapos makita ng estudyante ang presyo at saklaw, pumayag at magbayad.",
+        "open": "Magmungkahi ng karagdagang serbisyo",
+        "quantity": "Dami ({{unit}})",
+        "quote": "Custom na quote: ilagay ang presyo at saklaw",
+        "range": "Inirerekomendang range {{min}}–{{max}}",
+        "scope": "Tala sa saklaw (ipinapakita sa estudyante)",
+        "scopeRequired": "Saklaw (kailangan, ipinapakita sa estudyante)",
+        "send": "Imungkahi sa estudyante",
+        "service": "Serbisyo",
+        "total": "Magbabayad ang estudyante ng {{amount}}",
+        "unitPrice": "Presyo bawat unit (USD)"
+      },
+      "term": {
+        "arrival": "Pagdating",
+        "arrivalLabel": "Planong petsa ng pagdating",
+        "arrivalUnknown": "Hindi pa kumpirmado ang petsa ng pagdating",
+        "arrivalWindow": "Paghahanda mula {{from}} · darating {{arrive}} · matatapos {{until}}",
+        "ended": "Tapos na ang service period",
+        "endsLabel": "Pagtatapos ng kontrata",
+        "notStarted": "Bago ang unang konsultasyon",
+        "saved": "Na-save ang mga petsa ng serbisyo.",
+        "set": "I-save ang mga petsa",
+        "since": "Nagsimula {{date}}",
+        "support": "Konsultasyon hanggang {{date}}",
+        "supportDays": "{{count}} araw mula sa unang konsultasyon",
+        "toAgree": "Hindi pa nakatakda ang service period",
+        "until": "Hanggang {{date}}",
+        "title": "Service period"
+      },
+      "unrationed": {
+        "CONTRACTED_DOCUMENTS": "Walang limit sa loob ng mga dokumento at iskedyul na nasa kontrata",
+        "PRIORITY": "Priority na sagot",
+        "ROUNDS": "Kasama",
+        "TEAM": "Follow-up ng team"
+      },
+      "usedSoFar": "{{count}} tapos na"
+    }
+  },
+  "v30": {
+    "def": {
+      "ops": {
+        "ageing": "Mga araw mula nang huling gumalaw ang kaso: ang pinakahuli sa pagbabago ng yugto sa pipeline, pagbabago ng status ng aplikasyon o pagtatalaga sa ahensyang ito.",
+        "backlog": "Bukas na gawain sa katapusan ng bawat linggo: mga task ng team (hindi ang sariling to-do ng estudyante) na hindi pa tapos, mga bersyon ng dokumento na hindi pa nasusuri, at mga essay na isinumite para sa pagsusuri at hindi pa nasusuri (kasalukuyang round ng pagsusuri).",
+        "blocked": "Naka-block ang kaso kapag naghihintay ito sa isang partido at hindi gumalaw nang mahigit 14 na araw. Pinakaluma muna.",
+        "deadlines": "Mga aplikasyong hindi pa naisusumite na may application deadline sa loob ng 14 na araw at kulang pa ng mga kinakailangang item.",
+        "load": "Weighted na load bawat tao: bawat uri ng bukas na gawaing hawak nila × ang bigat nito (weight table ng ahensya), laban sa kanilang personal na kapasidad sa parehong puntos. Overloaded = load na lampas sa kapasidad. Hindi binibigyan ng bagong gawain ang mga naka-leave.",
+        "sla": "Unang sagot na hindi naibigay sa takdang oras; mga dokumentong naghihintay ng pagsusuri nang mahigit 48 oras; mga essay review na lampas sa ipinangakong oras ng pagsusuri.",
+        "stages": "Median na bilang ng araw na nanatili ang aplikasyon sa isang status bago lumipat (mga pananatiling natapos sa huling 365 araw). Hindi ipinapakita kapag mas kaunti sa {{n}} ang pananatili.",
+        "unassigned_paid": "Nagbayad para sa serbisyo ng Hangyul, at walang counselor na may hawak ng kaso (o, para sa Hangyul, wala pang nakatalagang ahensya)."
+      },
+      "svc": {
+        "arrival": "Mga natapos na airport pickup ÷ mga pickup na lumipas na ang oras ng pagdating (hindi kasama ang kinansela)",
+        "completion": "Natapos ÷ mga kasong nagawa sa panahon (hindi kasama ang kinansela)",
+        "resolution": "Median na oras mula kahilingan hanggang pagkumpleto, mga natapos na kaso lang",
+        "sla": "Mga kasong kumilos ang team pagkalipas ng SLA (o hindi pa kumikilos at lumipas na ang SLA) ÷ mga kasong dumating na ang SLA"
+      }
+    }
+  },
+  "v31": {
+    "stage": {
+      "closed": "Sarado"
+    }
   }
- },
- "consult": {
-  "channel": {
-   "IN_PERSON": "Harapan",
-   "PHONE": "Telepono",
-   "VIDEO": "Video call"
-  },
-  "channelLabel": "Paraan",
-  "duration": "Tagal",
-  "kind": {
-   "CONSULTATION": "Konsultasyon",
-   "INTERVIEW": "Interview",
-   "INTERVIEW_PREP": "Praktis sa interview"
-  },
-  "kindLabel": "Uri",
-  "minutes_other": "{{count}} minuto",
-  "new": "Mag-iskedyul ng konsultasyon",
-  "notes": "Agenda / mga tala",
-  "notesHint": "Makikita ito ng estudyante sa detalye ng appointment niya.",
-  "notifyNote": "Makakatanggap ang estudyante ng notification na may petsa at oras sa sarili niyang time zone.",
-  "schedule": "I-iskedyul",
-  "when": "Petsa at oras"
- },
- "tasksPage": {
-  "create": "Gumawa ng task",
-  "description": "Mga detalye",
-  "due": "Deadline",
-  "forStudent": "I-assign sa estudyante (makikita niya ito sa app niya)",
-  "me": "ako",
-  "new": "Bagong task",
-  "owner": "May hawak",
-  "priority": "Priyoridad",
-  "title": "Mga task",
-  "type": "Uri"
- },
- "v15": {
-  "plan": {
-   "PREMIUM": "Premium",
-   "title": "Binili na plan: {{plan}}"
-  },
-  "readiness": {
-   "READY": "Handa nang isumite",
-   "SUBMITTED": "Naisumite na"
-  },
-  "scope": {
-   "strip": "Plan"
-  }
- },
- "v27": {
-  "guide": {
-   "missingTitle": "Hindi pa verified ang admission guide"
-  },
-  "stage": {
-   "ADMIT": "Offer at enrolment",
-   "APPLY": "Naipadala ang aplikasyon",
-   "ARRIVAL": "Pagdating",
-   "CONSULT": "Konsultasyon",
-   "DOCUMENTS": "Mga dokumento",
-   "REVIEW": "Review ng unibersidad",
-   "VISA": "Visa",
-   "label": "Yugto ng kaso",
-   "nextSr": "susunod na yugto",
-   "recent": "Huling pagbabago {{count}} araw na ang nakalipas"
-  }
- },
- "v28": {
-  "stage": {
-   "next": "Susunod: {{stage}}",
-   "of": "Yugto {{n}} sa {{total}}"
-  }
- }
 }

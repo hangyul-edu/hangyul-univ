@@ -1,0 +1,2176 @@
+{
+ "_notes": [
+  "Document review verb: the agency console said 批准 (approve) for 'Verify' while the resulting status everywhere is 已核实 (verified). Unified on the 核实 family (核实通过 for the button) so staff see one concept.",
+  "'Case' (visa case, service case) was 案例, which in Chinese means 'example/case study'. Rendered as 签证办理 / 服务请求 / 个案 depending on the sentence; agency:v27.stage.label (KO 진행 단계) is 办理阶段.",
+  "표준입학허가서 = 标准入学许可书 where the document is meant (agency:ws.noVisaText, university:decision.certificateInfo); status chips keep the short 入学许可书 as the English keeps 'Admission letter'. 录取通知书 was wrong.",
+  "Arrival: consoles use 入境 consistently (agency:v27.stage.ARRIVAL was 抵达, everything else 入境).",
+  "Insights: both consoles' nav say 统计; university:v28.pipe.label now points to “统计” instead of 数据分析, which was not a page name.",
+  "university:v25.head.label used 您 while every other university string uses 你/贵校; made it a neutral label (待处理事项, KO 지금 확인할 것) rather than switching the whole console to 您. Owner may prefer a console-wide 您 for the formal university product.",
+  "KEYS MISSING FROM THE zh-Hans BUNDLE (cur = null, 492 keys: the whole agency login/today/settings/team/HQ/v29-plan/v30-definition areas and most of university decision/detail/settings/SSO/stage): these render in English today, so they were translated here; apply-patch.mjs creates a missing translation when the English has the key (dry run: 541 applied, 0 refused). agency:apps.actor.HANGYUL is 'Hangyul 团队' because a bare 'Hangyul' is refused as identical to English.",
+  "Verified: every patched value keeps exactly the English {{placeholder}} set."
+ ],
+ "agency:apps.empty": {
+  "text": "没有符合筛选条件的申请。请更改或清除筛选条件。",
+  "why": "second sentence was dropped"
+ },
+ "agency:docs.bulkVerify": {
+  "text": "核实通过所选文件",
+  "why": "one verb for Verify"
+ },
+ "agency:docs.bulkVerifyText": {
+  "text": "请只核实通过你已打开并核对过的文件。每位学生都会收到通知，每项决定都会以你的名义记入审计日志。",
+  "why": "one verb for Verify"
+ },
+ "agency:docs.bulkVerifyTitle_other": {
+  "text": "核实通过 {{count}} 份文件？",
+  "why": "one verb for Verify"
+ },
+ "agency:docs.sc.verify": {
+  "text": "核实通过",
+  "why": "one verb for Verify"
+ },
+ "agency:inbox.attach": {
+  "text": "添加附件",
+  "why": "it is a button, not a noun"
+ },
+ "agency:inbox.internalBanner": {
+  "text": "内部消息，学生不可见",
+  "why": "em dash reads oddly"
+ },
+ "agency:inbox.needsReplyShort": {
+  "text": "待回复",
+  "why": "chip; short"
+ },
+ "agency:v22.stage.strip": {
+  "text": "阶段",
+  "why": "进行阶段 is redundant"
+ },
+ "agency:v22.work.closedHint": {
+  "text": "未录取或已撤回的学生",
+  "why": "middle dot in prose"
+ },
+ "agency:v22.work.emptyFiltered": {
+  "text": "没有符合筛选条件的学生。试试更改筛选条件。",
+  "why": "second sentence was dropped"
+ },
+ "agency:v22.ws.noConversation": {
+  "text": "暂无对话。发送第一条消息吧。",
+  "why": "second sentence was dropped"
+ },
+ "agency:v23.work.submissionsNeed_other": {
+  "text": "{{count}} 份申请等待团队提交",
+  "why": "accuracy: applications, team submits"
+ },
+ "agency:v27.evidence.open": {
+  "text": "查看依据",
+  "why": "KO 근거 보기"
+ },
+ "agency:v27.hq.guidesNone": {
+  "text": "没有需要核实的招生简章。",
+  "why": "accuracy"
+ },
+ "agency:v27.hq.guidesTitle": {
+  "text": "待核实的招生简章",
+  "why": "guide concept is 核实 elsewhere"
+ },
+ "agency:v27.hq.kind.REVIEW_REQUIRED": {
+  "text": "需要核实",
+  "why": "guide concept is 核实 elsewhere"
+ },
+ "agency:v27.hq.kind.SPOT_CHECK": {
+  "text": "需对照原文抽查",
+  "why": "PDF not in source"
+ },
+ "agency:v27.stage.ARRIVAL": {
+  "text": "入境",
+  "why": "consoles use 入境"
+ },
+ "agency:v27.stage.label": {
+  "text": "办理阶段",
+  "why": "案例 means example"
+ },
+ "agency:ws.act.call": {
+  "text": "预约咨询",
+  "why": "KO 상담 예약; glossary consultation"
+ },
+ "agency:ws.apptHint": {
+  "text": "与该学生的咨询和模拟面试。",
+  "why": "glossary mock interview"
+ },
+ "agency:ws.factor.workload": {
+  "text": "剩余承接量",
+  "why": "KO 수용 여력"
+ },
+ "agency:ws.noLanguages": {
+  "text": "暂无语言考试成绩。",
+  "why": "accuracy"
+ },
+ "agency:ws.noVisa": {
+  "text": "暂无签证办理记录",
+  "why": "案例 means example"
+ },
+ "agency:ws.noVisaText": {
+  "text": "大学签发标准入学许可书后，签证办理会自动开启。",
+  "why": "official document name"
+ },
+ "agency:ws.targetEntry": {
+  "text": "计划入境日期",
+  "why": "same concept as plan.term.arrivalLabel"
+ },
+ "agency:ws.visaNotes": {
+  "text": "办理备注（工作人员）",
+  "why": "案例 means example"
+ },
+ "university:af.stepName.ENROLLED": {
+  "text": "已入学",
+  "why": "one term; stage.enrolled is 已入学"
+ },
+ "university:applicants.requested_one": {
+  "text": "已请求 {{count}} 份材料",
+  "why": "accuracy"
+ },
+ "university:documents.legalization": {
+  "text": "公证与认证",
+  "why": "EN: notarization & legalization"
+ },
+ "university:documents.sharingRule": {
+  "text": "学生提交申请时会与贵校共享材料。未共享的材料不会出现在这里。每次查看都会被记录。",
+  "why": "formal 贵校 as elsewhere"
+ },
+ "university:kpi.insufficientDetail": {
+  "text": "记录达到 {{min}} 条后显示（目前 {{n}} 条）。",
+  "why": "accuracy"
+ },
+ "university:settings.noTeam": {
+  "text": "暂无团队成员。如需添加，请联系 Hangyul。",
+  "why": "second sentence was dropped"
+ },
+ "university:v22.empty.received": {
+  "text": "没有等待开始审核的已接收申请。",
+  "why": "accuracy"
+ },
+ "university:v22.in.dropText": {
+  "text": "{{of}} 人中有 {{lost}} 人（{{pct}}）未进入下一步。",
+  "why": "natural order; no em dash"
+ },
+ "university:v22.in.q.dropoff": {
+  "text": "申请人在哪个环节流失？",
+  "why": "subject was missing"
+ },
+ "university:v22.in.q.settle": {
+  "text": "学生入学后是否稳定在读？",
+  "why": "retention metric, not 适应"
+ },
+ "university:v22.manage.agenciesHint": {
+  "text": "向贵校推荐申请人的留学机构",
+  "why": "输送 is unidiomatic"
+ },
+ "university:v22.stageHint.documents_check": {
+  "text": "已提交，材料核对尚未完成",
+  "why": "办公室 not in source"
+ },
+ "university:v22.stageHint.enrolment": {
+  "text": "学费、入学许可书与签证进行中",
+  "why": "document name"
+ },
+ "university:v22.stageHint.received": {
+  "text": "材料核对已完成，可开始审核",
+  "why": "accuracy; no em dash"
+ },
+ "university:v25.head.label": {
+  "text": "待处理事项",
+  "why": "KO 지금 확인할 것; avoids 您/你 mix"
+ },
+ "university:v25.in.q.trend": {
+  "text": "申请集中在什么时候提交？",
+  "why": "到达 is unidiomatic"
+ },
+ "university:v28.pipe.label": {
+  "text": "截至目前的结果；详情见“统计”",
+  "why": "nav is 统计, not 数据分析"
+ },
+ "university:v28.pipe.title": {
+  "text": "截至目前的结果",
+  "why": "KO 지금까지의 누적 결과"
+ },
+ "university:v28.pipe.step.ACCEPTED": {
+  "text": "已接受录取",
+  "why": "same term as funnel"
+ },
+ "university:v28.pipe.step.OFFERED": {
+  "text": "已发录取",
+  "why": "same term as funnel"
+ },
+ "university:v28.pipe.step.VISA_ISSUED": {
+  "text": "签证已签发",
+  "why": "same term as funnel"
+ },
+ "agency:actions.moreFilters": {
+  "text": "更多筛选",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.actor.AGENCY": {
+  "text": "机构",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.actor.HANGYUL": {
+  "text": "Hangyul 团队",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.actor.STUDENT": {
+  "text": "学生",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.actor.SYSTEM": {
+  "text": "系统",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.actor.UNIVERSITY": {
+  "text": "大学",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.checklist": {
+  "text": "材料清单",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.checklistCount": {
+  "text": "{{ready}}/{{total}} 项已就绪",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.confirmMove": {
+  "text": "移至“{{status}}”",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.externalRef": {
+  "text": "大学编号",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.externalRefHint": {
+  "text": "大学门户上的申请编号（如有）。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.flag": {
+  "text": "标记",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.flagReason": {
+  "text": "标记原因",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.flagTitle": {
+  "text": "标记以便跟进",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.history": {
+  "text": "状态历史",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.legalization": {
+  "text": "公证与认证",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.moveTo": {
+  "text": "更改申请状态",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.moved": {
+  "text": "申请已移至{{status}}。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.noTransitions": {
+  "text": "当前阶段没有你的组织可执行的状态变更。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.note": {
+  "text": "备注",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.noteHint": {
+  "text": "保存在状态历史中。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.readiness": {
+  "text": "就绪度",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.reused": {
+  "text": "复用自材料库",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.scholarship": {
+  "text": "奖学金备注",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.semester": {
+  "text": "开学日期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.sortBy.readiness": {
+  "text": "就绪度",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.submitBlocked": {
+  "text": "缺少必需文件，无法提交：",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.submitted": {
+  "text": "已提交",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.translation": {
+  "text": "翻译",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:apps.withdrawWarn": {
+  "text": "撤回后，此申请无法恢复。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:dash.days_other": {
+  "text": "{{count}} 天",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:dash.period": {
+  "text": "统计周期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:dash.subHq": {
+  "text": "跨机构查看所有在办学生、队列和 SLA。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:dash.workload.member": {
+  "text": "团队成员",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:dash.workload.open": {
+  "text": "未完成任务",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:dash.workload.overdue": {
+  "text": "已逾期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:dash.workload.students": {
+  "text": "在办学生",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:docs.bulkAssign": {
+  "text": "分配审核人",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:docs.bulkAssigned_one": {
+  "text": "已分配 {{count}} 份文件",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:docs.bulkAssigned_other": {
+  "text": "已分配 {{count}} 份文件",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:docs.bulkFailed_one": {
+  "text": "{{count}} 份文件无法更改（已审核或不在你负责的范围内）",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:docs.bulkFailed_other": {
+  "text": "{{count}} 份文件无法更改（已审核或不在你负责的范围内）",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:docs.bulkLabel": {
+  "text": "对所选文件的操作",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:docs.bulkVerified_one": {
+  "text": "{{count}} 份文件已核实",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:docs.bulkVerified_other": {
+  "text": "{{count}} 份文件已核实",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:docs.bulkVerifyTitle_one": {
+  "text": "核实通过 {{count}} 份文件？",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:docs.empty": {
+  "text": "队列为空",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:docs.emptyBy.any": {
+  "text": "没有等待审核的文件。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:docs.emptyBy.me": {
+  "text": "目前没有分配给你的文件。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:docs.emptyBy.unassigned": {
+  "text": "所有等待中的文件都已有审核人。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:docs.notInQueue": {
+  "text": "不在审核队列中",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:docs.subSla": {
+  "text": "{{count}} 份等待审核 · {{late}} 份超过 {{hours}} 小时目标",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:docs.sub_other": {
+  "text": "{{count}} 份文件等待审核，最早的在前。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:docs.uploadedFor": {
+  "text": "已加入{{name}}的材料库",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:docs.you": {
+  "text": "你",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:inbox.audienceTeam": {
+  "text": "仅你的团队可见",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:inbox.manageTemplates": {
+  "text": "管理模板…",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:inbox.noMessages": {
+  "text": "暂无消息。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:inbox.notePh": {
+  "text": "为团队写一条内部备注…（Ctrl+Enter 保存）",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:inbox.noteSaved": {
+  "text": "内部备注已保存。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:inbox.openFile": {
+  "text": "打开文件",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:inbox.participants": {
+  "text": "参与者",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:inbox.removeFile": {
+  "text": "移除 {{name}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:inbox.saveNote": {
+  "text": "保存备注",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:inbox.sent": {
+  "text": "消息已发送。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:inbox.subReply_one": {
+  "text": "{{count}} 个对话等待你回复",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:inbox.subUnread_one": {
+  "text": "{{count}} 个未读对话",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:inbox.system": {
+  "text": "系统",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:inbox.taskCreated": {
+  "text": "已从此消息创建任务",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:inbox.taskDue": {
+  "text": "任务截止",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:inbox.taskHint": {
+  "text": "任务分配给第一个被提及的同事，否则分配给你。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:inbox.unreadN_other": {
+  "text": "{{count}} 条未读消息",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:inbox.willNotify_other": {
+  "text": "将通知 {{count}} 位同事",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:login.asideFoot": {
+  "text": "各组织的数据相互隔离，每次访问都有记录。学生永远看不到内部备注。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:login.asideLead": {
+  "text": "学生、申请与文件工作、消息，尽在一个工作区。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:login.asideTitle": {
+  "text": "谁需要你、为什么、截止到何时，从今天开始。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:login.p1Text": {
+  "text": "点击任一阶段的人数，直接打开对应的学生。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:login.p1Title": {
+  "text": "按阶段查看学生",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:login.p2Text": {
+  "text": "文件补正、申请截止日期和待回复的消息，按截止日期排序。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:login.p2Title": {
+  "text": "有截止日期的工作",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:login.p3Text": {
+  "text": "安全预览与清单；补正请求附带明确原因。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:login.p3Title": {
+  "text": "文件审核",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:login.p4Text": {
+  "text": "学生看到的是 Hangyul Univ 团队；具体由谁经手，记录在审计日志中。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:login.p4Title": {
+  "text": "学生看到的是 Hangyul Univ 团队",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:login.subtitle": {
+  "text": "供 Hangyul 运营人员和合作留学机构使用。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:login.title": {
+  "text": "登录机构控制台",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:misc.change": {
+  "text": "更改",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:misc.days_other": {
+  "text": "{{count}} 天",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:misc.hours_other": {
+  "text": "{{count}} 小时",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:misc.internalTag": {
+  "text": "内部",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:misc.no": {
+  "text": "否",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:misc.notFoundText": {
+  "text": "页面可能已移动，或者你没有访问权限。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:misc.searchStudents": {
+  "text": "搜索你的学生…",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:misc.unassigned": {
+  "text": "未分配",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:misc.yes": {
+  "text": "是",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:notifs.filter": {
+  "text": "筛选",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:notifs.sub": {
+  "text": "你不在时发生的所有事情。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:savedViews.delete": {
+  "text": "删除 {{name}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:savedViews.saveHint_one": {
+  "text": "保存当前的筛选和排序，之后一键打开此列表。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:savedViews.saveHint_other": {
+  "text": "保存当前的 {{count}} 个筛选条件和排序，之后一键打开此列表。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:savedViews.saved": {
+  "text": "已保存“{{name}}”",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:settings.account": {
+  "text": "账号",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:settings.language": {
+  "text": "语言",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:settings.languageHint": {
+  "text": "界面语言。学生数据保持原语言。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:settings.localOnly": {
+  "text": "仅保存在此浏览器中。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:settings.org": {
+  "text": "组织",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:settings.poll": {
+  "text": "实时更新",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:settings.pollHint": {
+  "text": "每分钟刷新队列和计数。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:settings.scSearch": {
+  "text": "在全局搜索结果中移动",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:settings.scSend": {
+  "text": "发送消息或保存备注",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:settings.shortcuts": {
+  "text": "键盘快捷键",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:settings.sub": {
+  "text": "此控制台的个人偏好设置。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:settings.timezone": {
+  "text": "时区",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:settings.updates": {
+  "text": "实时更新",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:shell.hqProduct": {
+  "text": "Hangyul 运营",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:shell.hqView": {
+  "text": "Hangyul 总部 · 全部机构",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:shell.searchAll": {
+  "text": "查看“{{q}}”的全部结果",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:sidebar.agencies": {
+  "text": "机构",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:sidebar.catalog": {
+  "text": "大学与专业",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:sidebar.hangyul": {
+  "text": "Hangyul 总部",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:sidebar.operations": {
+  "text": "运营",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:sidebar.override": {
+  "text": "分配调整",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.bulk.confirmRegen_other": {
+  "text": "重新计算 {{count}} 名学生的自动任务列表？手动任务会保留。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.bulk.confirmStage_other": {
+  "text": "将 {{count}} 名学生移至“{{stage}}”？此操作会记入审计日志。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.bulk.confirmTitle": {
+  "text": "执行批量操作？",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.bulk.done_other": {
+  "text": "已更新 {{count}} 名学生。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.bulk.regen": {
+  "text": "重新生成任务",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.bulk.stage": {
+  "text": "移至阶段…",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.col.degree": {
+  "text": "学位",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.col.nationality": {
+  "text": "国籍",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.dShort_one": {
+  "text": "{{count}} 天",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.f.allDegrees": {
+  "text": "全部学位",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.f.allNationalities": {
+  "text": "全部国籍",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.noReply": {
+  "text": "未在首次回复时限内回复。该学生正在等待回复",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.noReplyShort": {
+  "text": "待回复",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.view.all": {
+  "text": "全部",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.view.arrived": {
+  "text": "已入境",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.view.deadline": {
+  "text": "即将截止",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.view.docs": {
+  "text": "待补正文件",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.view.incomplete": {
+  "text": "文件不齐",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.view.mine": {
+  "text": "我的学生",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.view.requested": {
+  "text": "大学要求补交文件",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.view.university": {
+  "text": "等待大学",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.view.visa": {
+  "text": "签证",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.view.waiting_external": {
+  "text": "等待使馆或其他方",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:students.view.waiting_us": {
+  "text": "等待我方",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.afternoon": {
+  "text": "下午好，{{name}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.allClear": {
+  "text": "目前没有需要处理的事项。新工作到达后会显示在这里。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.attention": {
+  "text": "需要关注",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.attentionSub": {
+  "text": "最紧急的事项排在最前。打开一行，逐项处理。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.attentionV4": {
+  "text": "今天谁需要你",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.clearList": {
+  "text": "已处理完毕：{{list}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.closing": {
+  "text": "7 天内截止的申请",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.closingDetail": {
+  "text": "下一个：{{university}} · {{student}}，{{date}} 截止",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.closingV4": {
+  "text": "申请将在 7 天内截止的学生",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.cta.deadlines": {
+  "text": "查看截止日期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.cta.messages": {
+  "text": "打开收件箱",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.cta.reply": {
+  "text": "回复",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.cta.review": {
+  "text": "开始审核",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.cta.students": {
+  "text": "打开学生列表",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.cta.tasks": {
+  "text": "打开任务",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.deadlines": {
+  "text": "未来 7 天的截止日期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.deadlinesDetail": {
+  "text": "下一个：{{title}} · {{student}}，{{when}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.docs": {
+  "text": "等待审核的文件",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.docsDetail": {
+  "text": "最早：{{student}} · {{doc}}，已等待 {{wait}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.docsOldest": {
+  "text": "最早：{{student}} · {{doc}}，{{when}}上传",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.docsSla_one": {
+  "text": "{{count}} 份文件超过 {{hours}} 小时审核目标",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.docsSla_other": {
+  "text": "{{count}} 份文件超过 {{hours}} 小时审核目标",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.essays": {
+  "text": "等待审阅的文书",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.essaysDetail": {
+  "text": "下一个：{{title}} · {{student}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.keyMove": {
+  "text": "移动",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.keyOpen": {
+  "text": "打开",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.messages": {
+  "text": "有未读消息的对话",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.messagesDetail": {
+  "text": "等待最久：{{who}}，{{when}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.openPipeline": {
+  "text": "打开流程视图",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.overdueDef": {
+  "text": "截止日期已过的未完成任务。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.overdueDetail": {
+  "text": "最早：{{title}} · {{student}}，{{when}}到期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.overdueMine": {
+  "text": "你的逾期任务",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.overdueTeam": {
+  "text": "全团队的逾期任务",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.phase.studying": {
+  "text": "在读",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.pipeline": {
+  "text": "按阶段查看负责的学生",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.pipelineSub": {
+  "text": "{{count}} 名学生。选择一个阶段查看其中的学生。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.pipelineSubV4_one": {
+  "text": "{{count}} 名学生",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.pipelineSubV4_other": {
+  "text": "{{count}} 名学生",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.replies": {
+  "text": "等待回复的学生",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.repliesDetail": {
+  "text": "他们的最后一条消息尚未得到回复。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.repliesOldest": {
+  "text": "等待最久：{{student}}，{{when}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.repliesV4": {
+  "text": "待回复",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.requests": {
+  "text": "大学的材料请求",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.requestsDetail": {
+  "text": "需由学生上传。请确认文件已送达。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.sla": {
+  "text": "需在 24 小时内给出首次回复的学生",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.slaDetail": {
+  "text": "{{student}} · 回复截止 {{when}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.unread": {
+  "text": "未读对话",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.unreadDetail": {
+  "text": "最新：{{who}}，{{when}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.upcoming": {
+  "text": "即将到来的截止日期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.upcomingEmpty": {
+  "text": "未来 14 天没有截止日期。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.upcomingSub": {
+  "text": "未来 14 天",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.upcomingV4": {
+  "text": "未来 14 天",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.v5.andMore_one": {
+  "text": "还有 {{count}} 项",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.v5.andMore_other": {
+  "text": "还有 {{count}} 项",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.v5.checks": {
+  "text": "需要审核人的文件核查",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.v5.checksDetail": {
+  "text": "{{student}} · {{doc}}：{{what}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.v5.services.needs_assignment": {
+  "text": "待分配的新服务请求",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.v5.services.overdue": {
+  "text": "超过响应时限的服务请求",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.v5.services.today": {
+  "text": "今天到期的服务请求",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.v5.servicesCta": {
+  "text": "打开服务",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.v5.servicesDetail": {
+  "text": "{{type}} · {{student}} · {{reason}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.v5.visa": {
+  "text": "需要你确认的签证事项",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.v5.visaCta": {
+  "text": "打开",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.v5.writingDetail": {
+  "text": "{{essay}} · {{student}}，{{university}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.v5.writingDue": {
+  "text": "48 小时内到期的文书审阅",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.v5.writingDue48": {
+  "text": "{{when}}到期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.v5.writingOverdue": {
+  "text": "超过承诺时限的文书审阅",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.v5.writingRevised_one": {
+  "text": "{{count}} 份学生修改稿",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.v5.writingRevised_other": {
+  "text": "{{count}} 份学生修改稿",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.waitingOn": {
+  "text": "按等待对象查看",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.workload": {
+  "text": "团队工作量",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:today.workloadSub": {
+  "text": "每人的在办学生和未完成工作",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.hq.accounts.adminUser": {
+  "text": "管理员用户",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.hq.accounts.assigned": {
+  "text": "所属大学",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.hq.accounts.empty": {
+  "text": "暂无大学账号。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.hq.accounts.invite": {
+  "text": "邀请大学管理员",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.hq.accounts.noUniversity": {
+  "text": "未关联大学",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.hq.accounts.pickUniversity": {
+  "text": "大学",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.hq.accounts.pickUniversityPh": {
+  "text": "选择合作大学",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.hq.accounts.reassign": {
+  "text": "更改大学",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.hq.accounts.reassignText": {
+  "text": "其成员身份将转移到所选大学的组织，原组织的身份将被停用。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.hq.accounts.reassignTitle": {
+  "text": "将 {{name}} 转移到另一所大学",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.hq.accounts.search": {
+  "text": "按姓名、邮箱或大学搜索…",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.hq.accounts.sub": {
+  "text": "合作大学的管理员用户。每位大学管理员拥有相同的权限。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.hq.accounts.title": {
+  "text": "大学账号",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.hq.accounts.university": {
+  "text": "大学",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.nav.hqAccounts": {
+  "text": "大学账号",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.stage.closed": {
+  "text": "已结束",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.stage.stripHint": {
+  "text": "选择一个阶段，只显示该阶段的学生。人数与下方行数一致。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.active": {
+  "text": "已启用",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.count_other": {
+  "text": "{{count}} 个账号",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.devNote": {
+  "text": "开发环境：验证码已打印到 API 控制台，未发送邮件。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.disable": {
+  "text": "停用",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.disableReason": {
+  "text": "原因",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.disableReasonPh": {
+  "text": "已离开机构",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.disableText": {
+  "text": "对方将无法再登录。其在办学生、审核和任务会自动转给同事。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.disableTitle": {
+  "text": "停用 {{name}}？",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.disabled": {
+  "text": "已停用",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.email": {
+  "text": "邮箱",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.empty": {
+  "text": "暂无账号。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.enable": {
+  "text": "启用",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.invite": {
+  "text": "邀请管理员",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.inviteSub": {
+  "text": "对方会收到一封含一次性验证码的邮件，用于设置密码。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.lastLogin": {
+  "text": "最近登录",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.mailFailed": {
+  "text": "邀请邮件发送失败。请让对方用此邮箱使用“忘记密码”。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.name": {
+  "text": "姓名",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.never": {
+  "text": "从未",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.sendInvite": {
+  "text": "发送邀请",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.sent": {
+  "text": "邀请已发送",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.sentTo": {
+  "text": "已向 {{email}} 发送邀请邮件。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.status": {
+  "text": "状态",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.sub": {
+  "text": "每位管理员拥有相同的权限。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.unverified": {
+  "text": "已邀请 · 尚未验证",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.team.you": {
+  "text": "你",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.work.bulkOwner": {
+  "text": "设置负责人…",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.work.confirmOwner_other": {
+  "text": "将 {{name}} 设为 {{count}} 名学生的负责人？",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.work.deleteView": {
+  "text": "删除此视图",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.work.empty": {
+  "text": "此阶段没有学生",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.work.myViews": {
+  "text": "我的视图",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.work.showTop": {
+  "text": "显示前 10 个",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.work.total_other": {
+  "text": "{{count}} 名学生",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.ws.docFix_other": {
+  "text": "{{count}} 份文件待补正",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.ws.docReview_other": {
+  "text": "{{count}} 份文件待审核",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.ws.needsActionEmpty": {
+  "text": "这名学生目前没有等待你处理的事项。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v22.ws.openThread": {
+  "text": "打开对话",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v23.work.memberFilter": {
+  "text": "正在显示一位团队成员的学生",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v23.work.openAll": {
+  "text": "在“学生”中打开全部 {{count}} 名",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v23.work.submissionsNeed_one": {
+  "text": "{{count}} 份申请等待团队提交",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.guide.field.checklist": {
+  "text": "材料清单",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.guide.field.current_intake": {
+  "text": "本轮简章",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.guide.field.deadline": {
+  "text": "截止日期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.guide.field.source_url": {
+  "text": "官方来源",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.guide.field.submission_method": {
+  "text": "提交方式",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.guide.field.verified_date": {
+  "text": "核实日期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.guide.verifyRequired": {
+  "text": "代办申请前需先核实：{{fields}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.addOnStatus.ACTIVE": {
+  "text": "进行中",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.addOnStatus.APPROVED": {
+  "text": "生效中（旧版）",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.addOnStatus.AWAITING_PAYMENT": {
+  "text": "待付款",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.addOnStatus.COMPLETED": {
+  "text": "已完成",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.addOnStatus.OFFERED": {
+  "text": "已提议",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.duty.dedicated": {
+  "text": "专属团队 · 优先回复",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.duty.docs.CHECKLIST": {
+  "text": "材料：清单",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.duty.docs.INTENSIVE": {
+  "text": "材料：深入审核",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.duty.docs.REVIEW_GUIDANCE": {
+  "text": "材料：审核并注明修改点",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.duty.dorm.APPLICATION": {
+  "text": "宿舍：申请协助及其他住宿选择",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.duty.dorm.INFORMATION": {
+  "text": "宿舍：信息",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.duty.dorm.SCHEDULE": {
+  "text": "宿舍：跟进申请日程",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.duty.settle.FULL": {
+  "text": "安顿：入境前 30 天至入境后 30 天",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.duty.settle.INFORMATION": {
+  "text": "安顿：基础信息",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.duty.settle.NONE": {
+  "text": "安顿：不包含",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.duty.visa.DOCUMENT_PREP": {
+  "text": "签证：协助准备材料",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.duty.visa.GUIDANCE": {
+  "text": "签证：流程指导",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.duty.visa.INTENSIVE": {
+  "text": "签证：材料与关键日期管理",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.legacy": {
+  "text": "按 {{version}} 购买",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.offer.howItWorks": {
+  "text": "学生看到价格和范围、同意并付款后才生效。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.offer.open": {
+  "text": "提议附加服务",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.offer.quantity": {
+  "text": "数量（{{unit}}）",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.offer.quote": {
+  "text": "自定义报价：填写价格和范围",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.offer.range": {
+  "text": "建议范围 {{min}}–{{max}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.offer.scope": {
+  "text": "范围说明（学生可见）",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.offer.scopeRequired": {
+  "text": "范围（必填，学生可见）",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.offer.send": {
+  "text": "向学生提议",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.offer.service": {
+  "text": "服务",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.offer.total": {
+  "text": "学生支付 {{amount}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.offer.unitPrice": {
+  "text": "单价（美元）",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.term.arrival": {
+  "text": "入境",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.term.arrivalLabel": {
+  "text": "计划入境日期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.term.arrivalUnknown": {
+  "text": "入境日期未确认",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.term.arrivalWindow": {
+  "text": "{{from}} 开始准备 · {{arrive}} 入境 · {{until}} 结束",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.term.ended": {
+  "text": "服务期已结束",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.term.endsLabel": {
+  "text": "合同结束",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.term.notStarted": {
+  "text": "首次咨询前",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.term.saved": {
+  "text": "服务日期已保存。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.term.set": {
+  "text": "保存日期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.term.since": {
+  "text": "{{date}} 开始",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.term.support": {
+  "text": "咨询至 {{date}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.term.supportDays": {
+  "text": "首次咨询起 {{count}} 天",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.term.title": {
+  "text": "服务期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.term.toAgree": {
+  "text": "服务期未设置",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.term.until": {
+  "text": "至 {{date}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.unrationed.CONTRACTED_DOCUMENTS": {
+  "text": "合同约定的材料和日程范围内不限次数",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.unrationed.PRIORITY": {
+  "text": "优先回复",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.unrationed.ROUNDS": {
+  "text": "包含",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.unrationed.TEAM": {
+  "text": "团队跟进",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v29.plan.usedSoFar": {
+  "text": "已完成 {{count}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v30.def.ops.ageing": {
+  "text": "个案最后一次变动至今的天数：取流程阶段变更、申请状态变更或分配到本机构三者中最近的一次。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v30.def.ops.backlog": {
+  "text": "每周末的未完成工作：尚未完成的团队任务（不含学生自己的待办）、尚未审核的文件版本，以及已提交审阅但尚未审阅的文书（当前审阅轮次）。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v30.def.ops.blocked": {
+  "text": "个案等待某一方且超过 14 天没有变动时视为受阻。最早的在前。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v30.def.ops.deadlines": {
+  "text": "尚未提交、申请截止日期在 14 天内且仍缺少必需项目的申请。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v30.def.ops.load": {
+  "text": "每人的加权负荷：其持有的每类未完成工作 × 相应权重（机构的权重表），与其以同样点数计算的个人容量相比。超负荷 = 负荷高于容量。休假中的人员不会被分配新工作。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v30.def.ops.sla": {
+  "text": "未在时限内给出首次回复；文件等待审核超过 48 小时；文书审阅超过承诺时限。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v30.def.ops.stages": {
+  "text": "申请在某一状态停留的中位天数（统计最近 365 天内结束的停留）。少于 {{n}} 次停留时不显示。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v30.def.ops.unassigned_paid": {
+  "text": "已购买 Hangyul 服务，但没有顾问负责该个案（对 Hangyul 而言，是尚未分配机构）。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v30.def.svc.arrival": {
+  "text": "已完成的接机 ÷ 抵达时间已过的接机（不含已取消）",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v30.def.svc.completion": {
+  "text": "已完成 ÷ 周期内创建的请求（不含已取消）",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v30.def.svc.resolution": {
+  "text": "从请求到完成的中位小时数，仅计已完成的请求",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v30.def.svc.sla": {
+  "text": "团队在 SLA 之后才处理（或 SLA 已过仍未处理）的请求 ÷ SLA 已到期的请求",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:v31.stage.closed": {
+  "text": "已结束",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:waiting.app.ADDITIONAL_DOCUMENTS": {
+  "text": "大学要求补交文件",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:waiting.app.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "开始办签证",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:waiting.app.ADMISSION_CERTIFICATE_PENDING": {
+  "text": "入学许可书",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:waiting.app.PROFILE_REVIEW": {
+  "text": "资料核查",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:waiting.app.READY": {
+  "text": "可提交",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:waiting.app.TUITION_PAID": {
+  "text": "入学许可书",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:waiting.app.TUITION_PENDING": {
+  "text": "缴学费",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:waiting.app.VISA_SUBMITTED": {
+  "text": "签证结果（使馆）",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:waiting.reason.first_contact": {
+  "text": "首次联系到期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:waiting.reason.fix_one": {
+  "text": "{{count}} 份文件待补正",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:waiting.reason.fix_other": {
+  "text": "{{count}} 份文件待补正",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:waiting.reason.overdue_task_one": {
+  "text": "{{count}} 项逾期任务",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:waiting.reason.overdue_task_other": {
+  "text": "{{count}} 项逾期任务",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:waiting.reason.reply": {
+  "text": "学生已回复",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:waiting.reason.review_one": {
+  "text": "{{count}} 份文件待审核",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "agency:waiting.reason.review_other": {
+  "text": "{{count}} 份文件待审核",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:af.applications": {
+  "text": "申请",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:af.fromPrevious": {
+  "text": "相对上一步",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:af.lowN": {
+  "text": "样本太少，无法计算",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:af.step": {
+  "text": "步骤",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:af.stepDef.ARRIVED": {
+  "text": "学生已报告抵达韩国（或已入学）。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:af.stepDef.REVIEWED": {
+  "text": "贵校团队已开始审核、要求补交材料、面试或作出决定。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:af.stepDef.SUBMITTED": {
+  "text": "提交至贵校的申请。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:af.stepDef.TUITION_PAID": {
+  "text": "贵校已确认学费缴纳。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:af.stepDef.VISA_ISSUED": {
+  "text": "学生的 D-2/D-4 签证已签发。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:af.title": {
+  "text": "招生漏斗",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:analytics.dim.agency": {
+  "text": "留学机构",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:analytics.dim.nationality": {
+  "text": "国籍",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:analytics.dim.program": {
+  "text": "专业",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:applicants.customStatus_other": {
+  "text": "已选 {{count}} 个状态",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:applicants.flagged": {
+  "text": "已标记",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:applicants.requested_other": {
+  "text": "已请求 {{count}} 份材料",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:applicants.status": {
+  "text": "状态",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:common.yes": {
+  "text": "是",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:dash.noApplicants": {
+  "text": "此筛选条件下暂无已提交的申请。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.action.ADDITIONAL_DOCUMENTS": {
+  "text": "要求补交材料",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.action.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "签发入学许可书",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.action.ADMISSION_CERTIFICATE_PENDING": {
+  "text": "标记为入学许可书待签发",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.action.ENROLLED": {
+  "text": "确认入学",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.action.INTERVIEW": {
+  "text": "安排面试",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.action.OFFERED": {
+  "text": "发出录取",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.action.REJECTED": {
+  "text": "不予录取",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.action.TUITION_PAID": {
+  "text": "确认学费已缴",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.action.TUITION_PENDING": {
+  "text": "开具学费通知单",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.action.UNIVERSITY_REVIEW": {
+  "text": "开始审核",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.action.WAITLISTED": {
+  "text": "列入候补",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.certificateInfo": {
+  "text": "签发标准入学许可书后，学生的签证办理会自动开启。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.confirm": {
+  "text": "将 {{student}} 从“{{from}}”移至“{{to}}”。学生及其留学机构会收到通知。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.done": {
+  "text": "申请已移至“{{status}}”。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.interviewAt": {
+  "text": "面试日期和时间",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.none": {
+  "text": "当前阶段没有需要大学执行的操作。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.note": {
+  "text": "备注",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.noteHint": {
+  "text": "保存在状态历史中，并与学生和留学机构共享。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.readOnly": {
+  "text": "你的角色为只读。请由招生负责人或管理员作出决定。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.reason": {
+  "text": "原因",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.reasonHint": {
+  "text": "保存在申请历史中。申请人看到的是措辞得体的摘要，其顾问可看到你填写的原因。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.rejectWarning": {
+  "text": "在 Hangyul 中，不予录取的决定不可撤销。如果之后可能有名额，请考虑列入候补。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.scholarshipNote": {
+  "text": "奖学金备注",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.scholarshipNoteHint": {
+  "text": "例如“第一学期减免 30% 学费”。会随录取一起显示给学生。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.title": {
+  "text": "决定",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.tuitionAmount": {
+  "text": "学费金额（韩元）",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:decision.tuitionDue": {
+  "text": "缴费截止日期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.applicant": {
+  "text": "申请人",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.decided": {
+  "text": "决定日期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.externalRef": {
+  "text": "贵校编号",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.externalRefHint": {
+  "text": "贵校自己的申请人或录取编号（Hangyul 和留学机构可见）。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.gpaNormalized": {
+  "text": "GPA {{value}}%（换算后）",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.gpaUnknown": {
+  "text": "未提供 GPA",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.history": {
+  "text": "状态历史",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.interview": {
+  "text": "面试",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.legalization": {
+  "text": "海牙认证或领事认证",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.noEducation": {
+  "text": "未共享学历记录。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.notShared": {
+  "text": "未共享",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.notSharedHint": {
+  "text": "学生未与贵校共享此材料。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.optionalDoc": {
+  "text": "可选",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.refSaved": {
+  "text": "编号已保存",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.residence": {
+  "text": "居住国家",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.scholarshipNote": {
+  "text": "奖学金备注",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.selfReported": {
+  "text": "本人填写",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.sharingNote": {
+  "text": "你可以查看学生提交申请时与贵校共享的材料。每次查看都会被记录。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.side": {
+  "text": "申请详情",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.translation": {
+  "text": "翻译",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.tuition": {
+  "text": "学费",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:detail.verified": {
+  "text": "已核实",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:documents.analystNote": {
+  "text": "分析人员可预览材料，但不能下载。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:documents.expires": {
+  "text": "到期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:documents.file": {
+  "text": "文件",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:documents.hangyulBody": {
+  "text": "作为 Hangyul 工作人员，你在此页面不限于单一大学。打开一份申请，即可查看学生与该大学共享的具体材料。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:documents.hangyulTitle": {
+  "text": "从申请中打开材料",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:documents.issued": {
+  "text": "签发日期",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:documents.openApplication": {
+  "text": "打开申请",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:documents.openTab": {
+  "text": "在新标签页中打开",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:documents.usedIn": {
+  "text": "用于的申请",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:header.certificationHint": {
+  "text": "IEQAS 认证状态（教育部对招收和支持留学生的院校认证）",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:header.hangyulView": {
+  "text": "Hangyul 工作人员视图",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:header.partner": {
+  "text": "Hangyul 合作院校",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:kpi.definitionOf": {
+  "text": "{{label}}的定义",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:kpi.sample": {
+  "text": "n = {{n}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:kpi.viewList": {
+  "text": "查看列表",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:kpi.yield": {
+  "text": "入学注册率",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:login.ssoContinue": {
+  "text": "使用大学账号继续",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:login.ssoEnforced": {
+  "text": "{{org}} 要求使用单点登录。请使用上方按钮。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:login.ssoHint": {
+  "text": "{{org}} 使用单点登录。你也可以用密码登录。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:login.ssoUnavailable": {
+  "text": "{{org}} 配置的是 SAML 登录，目前尚不可用。请联系 Hangyul 支持。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:login.subtitle": {
+  "text": "供 Hangyul 合作大学的国际处和招生团队使用。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:login.title": {
+  "text": "登录大学控制台",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:metric.period": {
+  "text": "提交时间 {{from}} – {{to}}",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:metric.population": {
+  "text": "统计范围：已提交的申请 · {{intake}} · {{n}} 份申请",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:nav.settingsTeam": {
+  "text": "设置与团队",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:notFound.body": {
+  "text": "你要找的页面不存在或已移动。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:notFound.cta": {
+  "text": "返回概览",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:notifications.subtitle": {
+  "text": "关于申请、材料和消息的更新。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:notifications.unread": {
+  "text": "未读",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:picker.body": {
+  "text": "你以 Hangyul 工作人员身份登录。请选择要查看的合作大学，之后每个页面都仅限于该大学。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:picker.label": {
+  "text": "大学",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:picker.placeholder": {
+  "text": "选择合作大学…",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:picker.title": {
+  "text": "选择大学",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.hangyulTeam": {
+  "text": "你正以 Hangyul 工作人员身份查看这所大学。其团队由该大学的管理员管理。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.sso": {
+  "text": "单点登录",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.ssoAdminOnly": {
+  "text": "单点登录由贵校管理员管理。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.ssoDomains": {
+  "text": "邮箱域名",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.ssoEnforce": {
+  "text": "已禁止密码登录",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.ssoNone": {
+  "text": "尚未设置。Hangyul 可接入贵校的身份提供方（OpenID Connect），请联系你的 Hangyul 对接人。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.ssoNote": {
+  "text": "密钥不会存储在 Hangyul Univ 的数据库中。SAML 目前尚不可用。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.ssoOff": {
+  "text": "已配置，未启用",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.ssoOn": {
+  "text": "已启用",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.ssoProtocol": {
+  "text": "协议",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.ssoSecret": {
+  "text": "客户端密钥",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.ssoSecretMissing": {
+  "text": "部署环境中缺失",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.ssoSecretOk": {
+  "text": "由部署环境提供",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.ssoStatus": {
+  "text": "状态",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.ssoSub": {
+  "text": "允许工作人员使用大学账号登录。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.subtitle": {
+  "text": "你的访问权限，以及 {{university}} 在 Hangyul 上的团队。",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.teamSub": {
+  "text": "贵校拥有控制台访问权限的人员",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.you": {
+  "text": "你的访问权限",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:settings.youShort": {
+  "text": "你",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:stage.ADMITTED": {
+  "text": "已录取",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:stage.APPLIED": {
+  "text": "已申请",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:stage.ARRIVED": {
+  "text": "已入境",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:stage.ENROLLED": {
+  "text": "已入学",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:stage.GRADUATED": {
+  "text": "已毕业",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:stage.INTERESTED": {
+  "text": "有意向",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:stage.PREPARING": {
+  "text": "准备中",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:stage.RETAINED": {
+  "text": "持续在读",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:stage.TUITION_PAID": {
+  "text": "已缴学费",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:stage.VISA_ISSUED": {
+  "text": "签证已签发",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:v23.co.openCohort": {
+  "text": "显示该届次的学生",
+  "why": "missing in zh-Hans; rendered in English"
+ },
+ "university:v30.def.visaOutcome": {
+  "text": "拒签数 ÷ 签证结果数（签发 + 拒签），统计所选入学批次中该留学机构向贵校提交的申请。仅当拒签已记录在学生的签证办理记录中时才计入；未记录的结果单独列出，不作推定。",
+  "why": "missing in zh-Hans; rendered in English"
+ }
+}

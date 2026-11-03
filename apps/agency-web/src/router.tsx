@@ -33,7 +33,6 @@ export const routes: RouteObject[] = [
   { path: '/login', ...page(() => import('./pages/Login')) },
   // Development tooling, outside the authenticated shell because its job is to get you into it.
   // The whole branch is compiled out of a production build (brief Part 1).
-  ...(import.meta.env.DEV ? [{ path: '/__dev', ...page(() => import('./pages/DevTools')) }] : []),
   {
     path: '/',
     element: <RequireAuth><AppLayout /></RequireAuth>,

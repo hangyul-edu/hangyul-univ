@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -25,6 +26,18 @@ export function qaTestCard(): string | null {
 }
 export const API_ORIGIN = E.HG_E2E_API ?? 'http://localhost:8001';
 export const API = `${API_ORIGIN}/api/v1`;
+
+/**
+ * V32: the product has no "activate without paying" action any more. A spec that needs a paid state on the ISOLATED
+ * e2e database asks the fixture helper, which performs the same transition a payment performs (refused outside a
+ * test/e2e database).
+ */
+export function fixturePay(args: { email: string; product: 'BASIC' | 'ALL_IN_ONE' | 'PREMIUM' } | { order: string }): void {
+  const db = E.HG_E2E_DB_URL;
+  if (!db) throw new Error('HG_E2E_DB_URL is not set: run the suite through scripts/qa/e2e-run.mjs');
+  const argv = 'order' in args ? ['--order', args.order] : ['--email', args.email, '--product', args.product];
+  execFileSync('.venv/bin/python', ['-m', 'scripts.fixture_pay', ...argv], { cwd: 'server', env: { ...process.env, HG_DATABASE_URL: db }, stdio: 'pipe' });
+}
 export const URLS = {
   marketing: E.HG_E2E_MARKETING ?? 'http://localhost:3100',
   student: E.HG_E2E_STUDENT ?? 'http://localhost:3101',
@@ -102,7 +115,8 @@ export async function registerViaUi(
   await page.locator('.hg-phone__opt').first().click();
   await page.fill('#phone_local', local);
   if (opts.nationality) {
-    const picker = page.locator('button.hg-select').first();
+    // V32: the nationality field is the canonical Hangyul select (.hg-sel), not a native control
+    const picker = page.locator('button.hg-sel[aria-haspopup=listbox]:not(.hg-phone__country)').first();
     if (await picker.count()) {
       await picker.click();
       await page.locator('[role=listbox]').locator('xpath=..').locator('input').fill(opts.nationality);

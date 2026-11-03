@@ -1,0 +1,4090 @@
+{
+  "_notes": [
+    "plan: kept 'paket' (established across sv common/student/marketing); 'stödpaket', 'plan' and 'byta plan' unified to it (mobile:v3.home.noCounselor, student:v29.services.legacyContract, mobile:v29.plan.upgradePending). Owner: 'paket' is the natural Swedish term although the glossary's Avoid column lists 'package' for English.",
+    "consultation: 'konsultation' everywhere; 'rådgivningssamtal'/'rådgivning' (= advising, glossary Avoid) replaced in dashboard.counselor.nextCall, messages.call, v15 scope/allowance, v17 upgrade, v22 checkout, v29.plan.supportUntil. Diagnostic consultation = 'Kartläggningskonsultation'.",
+    "team: student copy says 'Hangyul-teamet'; the label 'Hangyul Univ team' is 'Hangyul Univ-teamet' (not 'Teamet Hangyul Univ' / 'Ditt Hangyul-team'). Four mobile strings said 'din rådgivare' where English says the Hangyul team; changed.",
+    "verification: student-facing checks are 'kontrollera'/'granska'; 'verifiera' kept only for account codes, MFA and the agency's explicit Verify action (mobile:agency.reviews.verify, v3.reviews.*).",
+    "admission offer = 'antagningsbesked'; standard admission letter = 'standardantagningsbrev' (mobile:v3.visa.beforeBody, student:v22.home.appTeam.letter, appStatus, offer steps). Owner: sv common/student elsewhere use 'antagningsbevis' for the letter; align those files.",
+    "managed application = 'Ansökningar vi sköter tillsammans med dig' in all allowance/feature keys; essay = 'uppsats' (majority usage), personal statement = 'personligt brev', mock interview = 'provintervju', visa document preparation = 'förberedelse av visumdokument'.",
+    "deadline: application deadline = 'sista ansökningsdag'; generic/task deadlines = 'deadline' (natural Swedish loan) instead of the stilted 'sista dagar'.",
+    "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary added disclosure claims not in English; aligned to the web wording. PRIVACY.summary 'en hash av lösenordet' aligned to English 'password (stored encrypted)' in both apps - owner/legal to confirm.",
+    "mobile:app.* keep product names unchanged (Hangyul Agency / Hangyul Univ / Hangyul University); requires --allow-same.",
+    "University staff strings address the institution as 'ert universitet' / 'ni' (institutional plural) while the user remains 'du'."
+  ],
+  "student:applications.closed": {
+    "text": "Avslutade ansökningar",
+    "why": "missing"
+  },
+  "student:applications.updated": {
+    "text": "Uppdaterad {{date}}",
+    "why": "missing"
+  },
+  "student:dashboard.arrival.cta": {
+    "text": "Öppna ankomstchecklistan",
+    "why": "missing"
+  },
+  "student:dashboard.arrival.landing": {
+    "text": "Landar {{date}}",
+    "why": "missing"
+  },
+  "student:dashboard.arrival.noFlight": {
+    "text": "Lägg till ditt flyg så att vi kan planera hämtningen och dina första dagar.",
+    "why": "missing"
+  },
+  "student:dashboard.counselor.nextCall": {
+    "text": "Nästa konsultation: {{when}}",
+    "why": "glossary: consultation, not advising"
+  },
+  "student:dashboard.counselor.noneCta": {
+    "text": "Se paketen",
+    "why": "missing"
+  },
+  "student:dashboard.counselor.noneText": {
+    "text": "Med ett paket granskar Hangyul-teamet dina dokument, uppsatser och din strategi på ditt språk.",
+    "why": "essay term unified: uppsats"
+  },
+  "student:dashboard.deadlines.empty": {
+    "text": "Inga deadlines de kommande veckorna.",
+    "why": "missing"
+  },
+  "student:dashboard.nextAction.TASK.ctaDefault": {
+    "text": "Börja nu",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.APPLY": {
+    "text": "Du förbereder dina ansökningar. Ett steg i taget.",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.ARRIVAL": {
+    "text": "Ditt visum är klart. Dags att planera din ankomst!",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.DECISION": {
+    "text": "Dina ansökningar ligger nu hos universiteten.",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.ENROLL": {
+    "text": "Grattis till ditt antagningsbesked! Nu säkrar vi din plats.",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.EXPLORE": {
+    "text": "Vi börjar med att lära känna dig.",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.STUDENT_LIFE": {
+    "text": "Välkommen till Korea. Vi finns kvar om du behöver oss.",
+    "why": "missing"
+  },
+  "student:documents.drawer.country": {
+    "text": "Utfärdat i",
+    "why": "missing"
+  },
+  "student:documents.drawer.expired": {
+    "text": "Dokumentet har gått ut",
+    "why": "missing"
+  },
+  "student:documents.drawer.expiredText": {
+    "text": "Ladda upp en aktuell kopia så att dina ansökningar fortsätter att gälla.",
+    "why": "missing"
+  },
+  "student:documents.drawer.expires": {
+    "text": "Går ut",
+    "why": "missing"
+  },
+  "student:documents.drawer.file": {
+    "text": "Senaste fil",
+    "why": "missing"
+  },
+  "student:documents.drawer.fixDefault": {
+    "text": "Dokumentet behöver ändras. Rätta det och ladda upp en ny version.",
+    "why": "missing"
+  },
+  "student:documents.drawer.fixTitle": {
+    "text": "Det här behöver rättas",
+    "why": "missing"
+  },
+  "student:documents.drawer.inReview": {
+    "text": "Vi granskar dokumentet. Du behöver inte göra något just nu.",
+    "why": "missing"
+  },
+  "student:documents.drawer.issued": {
+    "text": "Utfärdandedatum",
+    "why": "missing"
+  },
+  "student:documents.drawer.newVersion": {
+    "text": "Ny version",
+    "why": "missing"
+  },
+  "student:documents.drawer.reviewMeta": {
+    "text": "Version {{version}} · {{when}}",
+    "why": "missing"
+  },
+  "student:documents.drawer.reviews": {
+    "text": "Granskningshistorik",
+    "why": "missing"
+  },
+  "student:documents.drawer.title": {
+    "text": "Dokument",
+    "why": "match short English label"
+  },
+  "student:documents.drawer.translation": {
+    "text": "Översättning",
+    "why": "missing"
+  },
+  "student:documents.drawer.translationNo": {
+    "text": "Behövs inte",
+    "why": "missing"
+  },
+  "student:documents.drawer.translationYes": {
+    "text": "Auktoriserad översättning krävs",
+    "why": "missing"
+  },
+  "student:documents.drawer.uploadFixed": {
+    "text": "Ladda upp rättad version",
+    "why": "missing"
+  },
+  "student:documents.drawer.versions": {
+    "text": "Versioner",
+    "why": "missing"
+  },
+  "student:documents.drawer.viewVersion": {
+    "text": "Visa version {{version}}",
+    "why": "missing"
+  },
+  "student:documents.legal.intro": {
+    "text": "Markera varje steg som klart när du är färdig med det. Vi kontrollerar det slutliga dokumentet.",
+    "why": "verification reserved for official checks"
+  },
+  "student:documents.privacy.short": {
+    "text": "Lagras krypterat. Tills du skickar in en ansökan kan bara du och Hangyul-teamet öppna det.",
+    "why": "team name per English"
+  },
+  "student:documents.reusable": {
+    "text": "Återanvändbart",
+    "why": "missing"
+  },
+  "student:documents.upload.category": {
+    "text": "Dokumenttyp",
+    "why": "missing"
+  },
+  "student:documents.upload.choose": {
+    "text": "Välj en fil",
+    "why": "missing"
+  },
+  "student:documents.upload.country": {
+    "text": "Utfärdande land",
+    "why": "missing"
+  },
+  "student:documents.upload.countryHint": {
+    "text": "Avgör om det behövs en apostille.",
+    "why": "missing"
+  },
+  "student:documents.upload.expires": {
+    "text": "Sista giltighetsdag",
+    "why": "missing"
+  },
+  "student:documents.upload.file": {
+    "text": "Fil",
+    "why": "missing"
+  },
+  "student:documents.upload.fileHint": {
+    "text": "PDF, JPG, PNG eller WEBP, högst {{mb}} MB.",
+    "why": "missing"
+  },
+  "student:documents.upload.issued": {
+    "text": "Utfärdandedatum",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.en": {
+    "text": "Engelska",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.id": {
+    "text": "Indonesiska",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.ja": {
+    "text": "Japanska",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.ko": {
+    "text": "Koreanska",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.mn": {
+    "text": "Mongoliska",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.ne": {
+    "text": "Nepali",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.other": {
+    "text": "Annat",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.ru": {
+    "text": "Ryska",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.th": {
+    "text": "Thailändska",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.uz": {
+    "text": "Uzbekiska",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.vi": {
+    "text": "Vietnamesiska",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.zh": {
+    "text": "Kinesiska",
+    "why": "missing"
+  },
+  "student:documents.upload.language": {
+    "text": "Dokumentets språk",
+    "why": "missing"
+  },
+  "student:documents.upload.subtitle": {
+    "text": "En tydlig skanning eller ett mobilfoto räcker. Vi kontrollerar det och säger till om något behöver rättas.",
+    "why": "missing"
+  },
+  "student:documents.upload.title": {
+    "text": "Ladda upp ett dokument",
+    "why": "missing"
+  },
+  "student:documents.upload.titleLabel": {
+    "text": "Namn",
+    "why": "missing"
+  },
+  "student:documents.upload.types": {
+    "text": "PDF, JPG, PNG eller WEBP",
+    "why": "missing"
+  },
+  "student:documents.upload.versionTitle": {
+    "text": "Ladda upp en ny version",
+    "why": "missing"
+  },
+  "student:essays.comments_one": {
+    "text": "{{count}} kommentar",
+    "why": "missing"
+  },
+  "student:essays.edited": {
+    "text": "Redigerad {{when}}",
+    "why": "missing"
+  },
+  "student:essays.new.cta": {
+    "text": "Skapa uppsats",
+    "why": "missing"
+  },
+  "student:essays.new.limit": {
+    "text": "Ordgräns",
+    "why": "missing"
+  },
+  "student:essays.new.name": {
+    "text": "Titel",
+    "why": "missing"
+  },
+  "student:essays.new.subtitle": {
+    "text": "För övning eller för ett universitet som inte finns i listan än.",
+    "why": "missing"
+  },
+  "student:essays.new.title": {
+    "text": "Påbörja en ny uppsats",
+    "why": "missing"
+  },
+  "student:essays.new.type": {
+    "text": "Typ av uppsats",
+    "why": "missing"
+  },
+  "student:home.allMatches": {
+    "text": "Alla matchningar",
+    "why": "missing"
+  },
+  "student:home.arrivalProgress": {
+    "text": "{{done}} av 11 ankomststeg klara",
+    "why": "missing"
+  },
+  "student:home.closest": {
+    "text": "Närmast din profil",
+    "why": "missing"
+  },
+  "student:home.docAction.IN_REVIEW": {
+    "text": "Granskas",
+    "why": "missing"
+  },
+  "student:home.docAction.LEGALIZE": {
+    "text": "Behöver apostille",
+    "why": "missing"
+  },
+  "student:home.docAction.OPEN": {
+    "text": "Öppna",
+    "why": "missing"
+  },
+  "student:home.docAction.TOO_OLD": {
+    "text": "För gammalt. Skaffa en ny kopia",
+    "why": "grammar: article, copy"
+  },
+  "student:home.greet.afternoon": {
+    "text": "God eftermiddag, {{name}}",
+    "why": "missing"
+  },
+  "student:home.otherTasks_one": {
+    "text": "{{count}} annan uppgift",
+    "why": "missing"
+  },
+  "student:home.recommended": {
+    "text": "Rekommenderat för dig",
+    "why": "missing"
+  },
+  "student:home.recommendedSub": {
+    "text": "Program där du uppfyller de publicerade kraven.",
+    "why": "missing"
+  },
+  "student:home.team": {
+    "text": "Hangyul Univ-teamet",
+    "why": "one team name, matches English"
+  },
+  "student:housing.noDorms": {
+    "text": "Universitetet har inte publicerat information om studentboende än.",
+    "why": "missing"
+  },
+  "student:housing.noUni": {
+    "text": "Boende blir tillgängligt med din första ansökan",
+    "why": "missing"
+  },
+  "student:housing.noUniCta": {
+    "text": "Till ansökningarna",
+    "why": "missing"
+  },
+  "student:housing.noUniText": {
+    "text": "När du har sökt visar vi studentboenden och kostnader för det universitetet.",
+    "why": "missing"
+  },
+  "student:housing.subtitle": {
+    "text": "Jämför studentboenden och håll koll på dina steg för boendet.",
+    "why": "missing"
+  },
+  "student:housing.title": {
+    "text": "Boende",
+    "why": "missing"
+  },
+  "student:login.aside.eyebrow": {
+    "text": "Studera i Korea, steg för steg",
+    "why": "missing"
+  },
+  "student:login.aside.note": {
+    "text": "Tusentals små steg, ett tydligt nästa steg i taget.",
+    "why": "missing"
+  },
+  "student:login.aside.point2": {
+    "text": "Spara alla dokument i ett säkert valv och återanvänd dem i flera ansökningar.",
+    "why": "missing"
+  },
+  "student:login.aside.point3": {
+    "text": "Förbered dig med riktiga människor i Hangyul-teamet som talar ditt språk.",
+    "why": "missing"
+  },
+  "student:login.subtitle": {
+    "text": "Fortsätt där du slutade. Din checklista, dina meddelanden och deadlines väntar.",
+    "why": "natural Swedish for deadlines"
+  },
+  "student:messages.call": {
+    "text": "Videokonsultation {{when}}",
+    "why": "glossary: consultation"
+  },
+  "student:messages.emptyText": {
+    "text": "Fråga vad du vill: dokument, deadlines, livet i Korea.",
+    "why": "natural Swedish for deadlines"
+  },
+  "student:messages.new.body": {
+    "text": "Meddelande",
+    "why": "missing"
+  },
+  "student:messages.new.subject": {
+    "text": "Ämne",
+    "why": "missing"
+  },
+  "student:messages.new.subtitle": {
+    "text": "Hangyul-teamet svarar här.",
+    "why": "team name per English"
+  },
+  "student:messages.new.title": {
+    "text": "Ny konversation",
+    "why": "missing"
+  },
+  "student:messages.pick": {
+    "text": "Välj en konversation",
+    "why": "conversation, not phone call"
+  },
+  "student:messages.empty": {
+    "text": "Inga konversationer ännu",
+    "why": "conversation, not phone call"
+  },
+  "student:messages.team": {
+    "text": "Hangyul Univ-teamet",
+    "why": "natural Swedish name order"
+  },
+  "student:messages.unread_one": {
+    "text": "{{count}} oläst meddelande",
+    "why": "missing"
+  },
+  "student:onboarding.basics.dobHint": {
+    "text": "Vissa stipendier har åldersgränser.",
+    "why": "missing"
+  },
+  "student:onboarding.basics.legalText": {
+    "text": "Officiella dokument från {{country}} behöver oftast det här steget innan koreanska universitet godtar dem: {{path}}. Vi guidar dig genom det när det är dags.",
+    "why": "missing"
+  },
+  "student:onboarding.basics.legalTitle": {
+    "text": "Bra att veta till senare",
+    "why": "missing"
+  },
+  "student:onboarding.basics.residenceHint": {
+    "text": "Vissa ambassader tar bara emot visumansökningar från personer som bor i ambassadens land.",
+    "why": "missing"
+  },
+  "student:onboarding.education.country": {
+    "text": "Studieland",
+    "why": "missing"
+  },
+  "student:onboarding.education.gpaHint": {
+    "text": "Ange ditt snitt enligt din skolas egen skala.",
+    "why": "missing"
+  },
+  "student:onboarding.education.gpaScale": {
+    "text": "Av",
+    "why": "missing"
+  },
+  "student:onboarding.education.gpaValue": {
+    "text": "Ditt GPA",
+    "why": "missing"
+  },
+  "student:onboarding.education.gradYear": {
+    "text": "Examensår",
+    "why": "missing"
+  },
+  "student:onboarding.education.institutionPh": {
+    "text": "t.ex. Hanoi National University",
+    "why": "missing"
+  },
+  "student:onboarding.education.levels.ASSOCIATE": {
+    "text": "Associate degree / yrkesexamen från college",
+    "why": "missing"
+  },
+  "student:onboarding.education.levels.BACHELOR": {
+    "text": "Kandidatexamen",
+    "why": "missing"
+  },
+  "student:onboarding.education.levels.DOCTORATE": {
+    "text": "Doktorsexamen",
+    "why": "missing"
+  },
+  "student:onboarding.education.levels.MASTER": {
+    "text": "Masterexamen",
+    "why": "missing"
+  },
+  "student:onboarding.education.major": {
+    "text": "Huvudämne eller inriktning",
+    "why": "missing"
+  },
+  "student:onboarding.education.normalized": {
+    "text": "Omräknat resultat",
+    "why": "missing"
+  },
+  "student:onboarding.education.previewEmpty": {
+    "text": "Ange ett GPA och dess skala för att se det omräknade resultatet.",
+    "why": "missing"
+  },
+  "student:onboarding.education.status": {
+    "text": "Examensstatus",
+    "why": "missing"
+  },
+  "student:onboarding.education.statuses.EXPECTED": {
+    "text": "Tar examen snart",
+    "why": "missing"
+  },
+  "student:onboarding.education.statuses.GRADUATED": {
+    "text": "Har tagit examen",
+    "why": "missing"
+  },
+  "student:onboarding.education.statuses.IN_PROGRESS": {
+    "text": "Studerar fortfarande",
+    "why": "missing"
+  },
+  "student:onboarding.goals.degreeSub.ASSOCIATE": {
+    "text": "Praktisk utbildning på 2–3 år",
+    "why": "missing"
+  },
+  "student:onboarding.goals.degreeSub.BACHELOR": {
+    "text": "Grundutbildning på 4 år",
+    "why": "missing"
+  },
+  "student:onboarding.goals.degreeSub.DOCTORATE": {
+    "text": "Forskarutbildning (PhD)",
+    "why": "missing"
+  },
+  "student:onboarding.goals.degreeSub.LANGUAGE": {
+    "text": "Börja med koreanska, i din egen takt",
+    "why": "meaning drift; matches English"
+  },
+  "student:onboarding.goals.degreeSub.MASTER": {
+    "text": "Avancerad nivå efter en kandidatexamen",
+    "why": "missing"
+  },
+  "student:onboarding.goals.degreeSub.TRANSFER": {
+    "text": "Fortsätt en utbildning du redan har påbörjat",
+    "why": "missing"
+  },
+  "student:onboarding.goals.fieldsHint": {
+    "text": "Välj så många du vill.",
+    "why": "missing"
+  },
+  "student:onboarding.goals.intakeHint": {
+    "text": "Koreanska universitet börjar på våren (mars) och hösten (september).",
+    "why": "missing"
+  },
+  "student:onboarding.goals.term": {
+    "text": "Starttermin",
+    "why": "missing"
+  },
+  "student:onboarding.goals.termLabel.FALL": {
+    "text": "Höst (september)",
+    "why": "missing"
+  },
+  "student:onboarding.goals.termLabel.SPRING": {
+    "text": "Vår (mars)",
+    "why": "missing"
+  },
+  "student:onboarding.goals.year": {
+    "text": "Startår",
+    "why": "missing"
+  },
+  "student:onboarding.language.have": {
+    "text": "Jag har ett resultat",
+    "why": "missing"
+  },
+  "student:onboarding.language.level.BEGINNER": {
+    "text": "Nybörjare",
+    "why": "missing"
+  },
+  "student:onboarding.language.level.INTERMEDIATE": {
+    "text": "Mellannivå",
+    "why": "more natural level label"
+  },
+  "student:onboarding.language.level.NATIVE": {
+    "text": "Modersmål",
+    "why": "missing"
+  },
+  "student:onboarding.language.level.NONE": {
+    "text": "Inga kunskaper än",
+    "why": "missing"
+  },
+  "student:onboarding.language.planning": {
+    "text": "Planerar att göra det",
+    "why": "missing"
+  },
+  "student:onboarding.language.score": {
+    "text": "Resultat ({{range}})",
+    "why": "missing"
+  },
+  "student:onboarding.language.test.TOEFL_IBT": {
+    "text": "TOEFL iBT",
+    "why": "missing; official test name"
+  },
+  "student:onboarding.language.testSub.IELTS": {
+    "text": "Engelskatest, band 0–9",
+    "why": "missing"
+  },
+  "student:onboarding.language.testSub.TOEFL_IBT": {
+    "text": "Engelskatest, 0–120",
+    "why": "missing"
+  },
+  "student:onboarding.language.testSub.TOPIK": {
+    "text": "Test i koreanska, nivå 1–6",
+    "why": "missing"
+  },
+  "student:onboarding.language.testsHint": {
+    "text": "Hoppa över det här om du inte har börjat än.",
+    "why": "missing"
+  },
+  "student:onboarding.passport.currentVisa": {
+    "text": "Ditt nuvarande visum",
+    "why": "missing"
+  },
+  "student:onboarding.passport.expiry": {
+    "text": "Passets sista giltighetsdag",
+    "why": "missing"
+  },
+  "student:onboarding.passport.expiryHint": {
+    "text": "Det bör om möjligt gälla under hela studietiden.",
+    "why": "missing"
+  },
+  "student:onboarding.passport.inKoreaNo": {
+    "text": "Nej, jag är utomlands",
+    "why": "missing"
+  },
+  "student:onboarding.passport.inKoreaYes": {
+    "text": "Ja, jag är i Korea",
+    "why": "missing"
+  },
+  "student:onboarding.passport.no": {
+    "text": "Inte än",
+    "why": "missing"
+  },
+  "student:onboarding.passport.number": {
+    "text": "Passnummer",
+    "why": "missing"
+  },
+  "student:onboarding.passport.numberHint": {
+    "text": "Frivilligt. Vi sparar bara de sista siffrorna; hela numret finns kvar i ditt pass.",
+    "why": "missing"
+  },
+  "student:onboarding.passport.previousHint": {
+    "text": "Det kan påverka vilka visumsteg som gäller för dig.",
+    "why": "missing"
+  },
+  "student:onboarding.passport.visa.C-3": {
+    "text": "C-3 (kortare besök)",
+    "why": "missing"
+  },
+  "student:onboarding.passport.visa.D-2": {
+    "text": "D-2 (studier)",
+    "why": "missing"
+  },
+  "student:onboarding.passport.visa.D-4": {
+    "text": "D-4 (språkkurs)",
+    "why": "missing"
+  },
+  "student:onboarding.passport.visa.E-7": {
+    "text": "E-7 (arbete)",
+    "why": "missing"
+  },
+  "student:onboarding.passport.visa.NONE": {
+    "text": "Aldrig",
+    "why": "missing"
+  },
+  "student:onboarding.passport.visa.OTHER": {
+    "text": "Annat",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.budgetOver": {
+    "text": "Mer än {{amount}}",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.budgetUpTo": {
+    "text": "Upp till {{amount}}",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.housingOpt.NO_PREFERENCE": {
+    "text": "Spelar ingen roll",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.housingOpt.OFF_CAMPUS": {
+    "text": "Rum utanför campus",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.housingSub.DORM": {
+    "text": "De flesta internationella förstaårsstudenter väljer det här",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.perMonth": {
+    "text": "cirka {{amount}} i månaden",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.regionsHint": {
+    "text": "Lämna tomt om var som helst i Korea går bra.",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.scholarshipNo": {
+    "text": "Bra att ha, men inte nödvändigt",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.scholarshipYesSub": {
+    "text": "Vi lyfter fram program med stipendier som du kanske kan få",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.goalHint": {
+    "text": "En eller två meningar räcker gott. Det hjälper dig med studieplanen senare.",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.goalPh": {
+    "text": "t.ex. Arbeta med marknadsföring mellan koreanska och vietnamesiska företag.",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.option.EMPLOYER": {
+    "text": "Min arbetsgivare",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.option.OTHER": {
+    "text": "Någon annan",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.option.RELATIVE": {
+    "text": "En annan släkting",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.option.SCHOLARSHIP": {
+    "text": "Ett stipendium",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.option.SELF": {
+    "text": "Jag själv",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.whoHint": {
+    "text": "Visumansökan kräver bevis på ekonomiska medel från den här personen eller organisationen.",
+    "why": "missing"
+  },
+  "student:onboarding.steps.basics.eyebrow": {
+    "text": "Om dig",
+    "why": "missing"
+  },
+  "student:onboarding.steps.basics.subtitle": {
+    "text": "Det visar oss vilka dokument och visumregler som gäller för dig.",
+    "why": "missing"
+  },
+  "student:onboarding.steps.basics.title": {
+    "text": "Var kommer du ifrån?",
+    "why": "missing"
+  },
+  "student:onboarding.steps.education.eyebrow": {
+    "text": "Dina studier",
+    "why": "missing"
+  },
+  "student:onboarding.steps.education.subtitle": {
+    "text": "Vi använder det för att kontrollera behörighetskraven. En uppskattning räcker för nu.",
+    "why": "missing"
+  },
+  "student:onboarding.steps.education.title": {
+    "text": "Berätta om din nuvarande utbildning",
+    "why": "missing"
+  },
+  "student:onboarding.steps.goals.eyebrow": {
+    "text": "Ditt mål",
+    "why": "missing"
+  },
+  "student:onboarding.steps.goals.title": {
+    "text": "Vad vill du studera?",
+    "why": "missing"
+  },
+  "student:onboarding.steps.language.eyebrow": {
+    "text": "Språk",
+    "why": "missing"
+  },
+  "student:onboarding.steps.language.title": {
+    "text": "Hur är din koreanska och engelska?",
+    "why": "missing"
+  },
+  "student:onboarding.steps.passport.eyebrow": {
+    "text": "Resa",
+    "why": "missing"
+  },
+  "student:onboarding.steps.passport.title": {
+    "text": "Pass och visumhistorik",
+    "why": "missing"
+  },
+  "student:onboarding.steps.preferences.eyebrow": {
+    "text": "Budget och vardag",
+    "why": "missing"
+  },
+  "student:onboarding.steps.preferences.subtitle": {
+    "text": "Budget, stipendier och boende hjälper oss att rangordna program åt dig.",
+    "why": "missing"
+  },
+  "student:onboarding.steps.preferences.title": {
+    "text": "Vad är viktigt för dig i vardagen?",
+    "why": "missing"
+  },
+  "student:onboarding.steps.sponsor.eyebrow": {
+    "text": "Sista steget",
+    "why": "missing"
+  },
+  "student:onboarding.steps.sponsor.title": {
+    "text": "Vem stöttar dina studier?",
+    "why": "missing"
+  },
+  "student:profile.anywhere": {
+    "text": "Var som helst i Korea",
+    "why": "missing"
+  },
+  "student:profile.institutionMissing": {
+    "text": "Ingen skola tillagd än",
+    "why": "missing"
+  },
+  "student:profile.planned": {
+    "text": "{{test}} (planerat)",
+    "why": "missing"
+  },
+  "student:profile.title": {
+    "text": "Din profil",
+    "why": "missing"
+  },
+  "student:register.consent.PRIVACY.summary": {
+    "text": "E-post, mobilnummer, namn, medborgarskap och lösenord (lagras krypterat), för att skapa och skydda ditt konto.",
+    "why": "match English disclosure wording"
+  },
+  "student:services.success.assigned": {
+    "text": "{{agency}} hjälper dig framåt",
+    "why": "missing"
+  },
+  "student:settings.account.saved": {
+    "text": "Kontot har uppdaterats",
+    "why": "missing"
+  },
+  "student:settings.account.title": {
+    "text": "Konto",
+    "why": "short label, matches register step"
+  },
+  "student:settings.data.kind.DELETE": {
+    "text": "Radering av konto",
+    "why": "missing"
+  },
+  "student:settings.data.status.COMPLETED": {
+    "text": "Klar",
+    "why": "missing"
+  },
+  "student:settings.data.status.IN_REVIEW": {
+    "text": "Pågår",
+    "why": "missing"
+  },
+  "student:settings.data.status.REJECTED": {
+    "text": "Avslagen",
+    "why": "missing"
+  },
+  "student:settings.privacy.saved": {
+    "text": "Ditt integritetsval har sparats",
+    "why": "missing"
+  },
+  "student:tasks.emptyText": {
+    "text": "Nya uppgifter visas här när det finns något för dig att göra.",
+    "why": "missing"
+  },
+  "student:tasks.markDone": {
+    "text": "Markera ”{{title}}” som klar",
+    "why": "missing"
+  },
+  "student:tasks.title": {
+    "text": "Uppgifter",
+    "why": "missing"
+  },
+  "student:v15.services.allowance.key.consultation_sessions": {
+    "text": "Kartläggningskonsultation",
+    "why": "diagnostic, not generic study consultation"
+  },
+  "student:v15.services.allowance.key.follow_up_consultations": {
+    "text": "Uppföljande konsultationer",
+    "why": "glossary: consultation"
+  },
+  "student:v15.services.allowance.key.mock_interviews": {
+    "text": "Provintervjuer",
+    "why": "missing"
+  },
+  "student:v15.services.choose": {
+    "text": "Välj {{name}}",
+    "why": "missing"
+  },
+  "student:v15.services.chosen": {
+    "text": "Paketet du valde på webbplatsen.",
+    "why": "missing"
+  },
+  "student:v15.services.external": {
+    "text": "Ingår inte i serviceavgiften: universitetens ansökningsavgifter, studieavgift, översättning, notariell bestyrkning och apostille, visumavgifter och boende.",
+    "why": "more natural notarization term"
+  },
+  "student:v15.services.scope.consultation": {
+    "text": "Konsultation",
+    "why": "glossary: consultation"
+  },
+  "student:v15.services.scope.consultation_minutes": {
+    "text": "Konsultation på {{count}} minuter",
+    "why": "missing"
+  },
+  "student:v15.services.scope.interview_preparation": {
+    "text": "Förberedelse inför intervjun",
+    "why": "missing"
+  },
+  "student:v15.services.scope.personal_roadmap": {
+    "text": "En personlig plan för dina utlandsstudier",
+    "why": "missing"
+  },
+  "student:v15.services.scope.pre_arrival_orientation": {
+    "text": "Onlineintroduktion innan du reser",
+    "why": "missing"
+  },
+  "student:v15.services.scope.priority_response": {
+    "text": "Prioriterat svar från Hangyul-teamet",
+    "why": "team name per English"
+  },
+  "student:v15.services.scope.settlement_support": {
+    "text": "Hjälp efter ankomsten",
+    "why": "say what we do"
+  },
+  "student:v15.services.scope.visa_support": {
+    "text": "Förberedelse av visumdokument",
+    "why": "glossary: visa document preparation"
+  },
+  "student:v16.pay.amount": {
+    "text": "Belopp",
+    "why": "missing"
+  },
+  "student:v16.pay.cancelled": {
+    "text": "Du avbröt betalningen. Inget har debiterats.",
+    "why": "missing"
+  },
+  "student:v16.pay.couldNotStart": {
+    "text": "Vi kunde inte öppna betalningsfönstret.",
+    "why": "missing"
+  },
+  "student:v16.pay.cta": {
+    "text": "Betala och kom igång",
+    "why": "missing"
+  },
+  "student:v16.pay.fail.title": {
+    "text": "Betalningen gick inte igenom",
+    "why": "missing"
+  },
+  "student:v16.pay.method": {
+    "text": "Betalsätt",
+    "why": "missing"
+  },
+  "student:v16.pay.methodCard": {
+    "text": "Kort",
+    "why": "missing"
+  },
+  "student:v16.pay.notCharged": {
+    "text": "Inget har debiterats.",
+    "why": "missing"
+  },
+  "student:v16.pay.orderNo": {
+    "text": "Order",
+    "why": "missing"
+  },
+  "student:v16.pay.orderTitle": {
+    "text": "Din order",
+    "why": "missing"
+  },
+  "student:v16.pay.receipt": {
+    "text": "Visa kvitto",
+    "why": "missing"
+  },
+  "student:v16.pay.retry": {
+    "text": "Försök betala igen",
+    "why": "missing"
+  },
+  "student:v16.pay.sdkDown": {
+    "text": "Betalningsfönstret kunde inte laddas. Kontrollera din anslutning och försök igen.",
+    "why": "missing"
+  },
+  "student:v16.pay.selected": {
+    "text": "Valt",
+    "why": "missing"
+  },
+  "student:v16.pay.status.CANCELLED": {
+    "text": "Avbruten",
+    "why": "missing"
+  },
+  "student:v16.pay.status.FAILED": {
+    "text": "Misslyckad",
+    "why": "missing"
+  },
+  "student:v16.pay.status.PENDING": {
+    "text": "Väntar",
+    "why": "missing"
+  },
+  "student:v16.pay.success.cta": {
+    "text": "Börja mina förberedelser",
+    "why": "missing"
+  },
+  "student:v16.pay.success.text": {
+    "text": "Du börjar nu förbereda dina studier i Korea med {{name}}.",
+    "why": "missing"
+  },
+  "student:v16.pay.success.title": {
+    "text": "Betalningen är klar",
+    "why": "missing"
+  },
+  "student:v17.gate.named": {
+    "text": "I ett paket ingår {{what}}. Välj ett för att komma igång.",
+    "why": "matches English; no 'Hangyul handles' claim"
+  },
+  "student:v17.gate.what.arrival": {
+    "text": "hjälp med ankomsten och att komma till rätta",
+    "why": "glossary: arrival and settling-in help"
+  },
+  "student:v17.gate.what.documents": {
+    "text": "dokumentgranskning",
+    "why": "glossary: document review"
+  },
+  "student:v17.gate.what.essays": {
+    "text": "redigering av personligt brev och studieplan",
+    "why": "glossary: editing, personal statement"
+  },
+  "student:v17.gate.what.help": {
+    "text": "hjälp från Hangyul-teamet",
+    "why": "meaning: who helps"
+  },
+  "student:v17.gate.what.housing": {
+    "text": "hjälp med studentboende",
+    "why": "say what we do"
+  },
+  "student:v17.gate.what.messages": {
+    "text": "meddelanden med Hangyul-teamet",
+    "why": "meaning dropped 'messages'"
+  },
+  "student:v17.gate.what.scholarships": {
+    "text": "matchning mot stipendier",
+    "why": "matching, not searching"
+  },
+  "student:v17.gate.what.tasks": {
+    "text": "din uppgiftslista",
+    "why": "list, not plan"
+  },
+  "student:v17.gate.what.visa": {
+    "text": "förberedelse av visumdokument",
+    "why": "glossary: visa document preparation"
+  },
+  "student:v17.upgrade.amount": {
+    "text": "Pris för uppgradering",
+    "why": "meaning: upgrade price"
+  },
+  "student:v17.upgrade.cta": {
+    "text": "Uppgradera till {{plan}}",
+    "why": "upgrade, not switch"
+  },
+  "student:v17.upgrade.feature.consultation": {
+    "text": "Extra konsultation",
+    "why": "glossary: consultation"
+  },
+  "student:v17.upgrade.feature.document_review": {
+    "text": "Intensiv dokumentgranskning",
+    "why": "intensive, not complete"
+  },
+  "student:v17.upgrade.feature.essay_review": {
+    "text": "Redigering av personligt brev",
+    "why": "glossary: personal statement editing"
+  },
+  "student:v17.upgrade.feature.managed_application": {
+    "text": "Ansökningar vi sköter tillsammans med dig",
+    "why": "one term for managed applications"
+  },
+  "student:v17.upgrade.feature.mock_interview": {
+    "text": "Provintervju",
+    "why": "glossary: mock interview"
+  },
+  "student:v17.upgrade.feature.recommendations": {
+    "text": "Universitetsrekommendationer",
+    "why": "glossary: university recommendation"
+  },
+  "student:v17.upgrade.feature.settlement": {
+    "text": "Hjälp efter ankomsten",
+    "why": "match English"
+  },
+  "student:v21.pay.cardFailed": {
+    "text": "Betalningen gick inte igenom",
+    "why": "missing"
+  },
+  "student:v21.pay.cardSecure": {
+    "text": "Dina kortuppgifter går bara till Hangyul via en krypterad anslutning och vidare till vår betalningsleverantör. Vi sparar aldrig ditt kortnummer.",
+    "why": "missing"
+  },
+  "student:v21.pay.cardTitle": {
+    "text": "Betala med kort",
+    "why": "missing"
+  },
+  "student:v21.pay.declined": {
+    "text": "Kortet godkändes inte: {{reason}} Prova ett annat kort eller kontakta din bank.",
+    "why": "missing"
+  },
+  "student:v21.pay.expiry": {
+    "text": "Giltigt till",
+    "why": "missing"
+  },
+  "student:v21.pay.holder": {
+    "text": "Namn på kortet",
+    "why": "missing"
+  },
+  "student:v21.pay.notConfigured": {
+    "text": "Kortbetalning är inte tillgänglig här än. Försök igen senare eller kontakta oss.",
+    "why": "missing"
+  },
+  "student:v21.pay.number": {
+    "text": "Kortnummer",
+    "why": "missing"
+  },
+  "student:v21.pay.numberInvalid": {
+    "text": "Kontrollera kortnumret.",
+    "why": "missing"
+  },
+  "student:v21.pay.optional": {
+    "text": "valfritt",
+    "why": "missing"
+  },
+  "student:v21.pay.payCta": {
+    "text": "Betala med det här kortet",
+    "why": "missing"
+  },
+  "student:v21.pay.processing": {
+    "text": "Betalningen behandlas…",
+    "why": "missing"
+  },
+  "student:v21.pay.savedDelete": {
+    "text": "Ta bort",
+    "why": "missing"
+  },
+  "student:v21.pay.savedDeleteBody": {
+    "text": "Vi tar bort {{card}} från ditt konto. Det påverkar inte en betalning du redan har gjort.",
+    "why": "missing"
+  },
+  "student:v21.pay.savedDeleteFailed": {
+    "text": "Kortet kunde inte tas bort. Försök igen.",
+    "why": "missing"
+  },
+  "student:v21.pay.savedDeleteTitle": {
+    "text": "Ta bort kortet?",
+    "why": "missing"
+  },
+  "student:v21.pay.savedNotReusable": {
+    "text": "Du anger kortet på nytt vid ett framtida köp.",
+    "why": "missing"
+  },
+  "student:v21.pay.savedTitle": {
+    "text": "Ditt kort",
+    "why": "missing"
+  },
+  "student:v21.pay.tooMany": {
+    "text": "För många kortförsök. Vänta några minuter innan du försöker igen.",
+    "why": "missing"
+  },
+  "student:v22.checkout.startCondition": {
+    "text": "Tjänsten startar när din första konsultation äger rum. Före starten kan du ångra dig helt inom 7 dagar; efter starten kan du ångra dig för den del som ännu inte har levererats.",
+    "why": "glossary: consultation"
+  },
+  "student:v22.home.appTeam.follow": {
+    "text": "Följer upp med antagningskontoret på {{university}}",
+    "why": "restore admissions office"
+  },
+  "student:v22.home.appTeam.letter": {
+    "text": "Följer upp ditt standardantagningsbrev från {{university}}",
+    "why": "official document name"
+  },
+  "student:v26.now.scopeToggle": {
+    "text": "Se allt som ingår i det här paketet",
+    "why": "restore verb"
+  },
+  "student:v29.services.catalogue.premiumEditing": {
+    "text": "I Premium ingår redan redigering av dokumenten i ditt avtal.",
+    "why": "editing, natural wording"
+  },
+  "student:v29.services.legacyContract": {
+    "text": "Paketet gäller enligt det serviceavtal som gällde när du köpte det ({{version}}).",
+    "why": "plan term: paket"
+  },
+  "student:v29.services.unrationed.CONTRACTED_DOCUMENTS": {
+    "text": "Inget tak för antalet omgångar för dokumenten i ditt avtal",
+    "why": "natural phrasing"
+  },
+  "student:v29.services.unrationed.TEAM": {
+    "text": "Uppföljning från ditt team",
+    "why": "from, not of"
+  },
+  "student:v29.services.upgrade.sheetLede": {
+    "text": "Allt du gjort hittills finns kvar. Hangyul Univ-teamet meddelar dig uppgraderingspriset direkt.",
+    "why": "upgrade, not switch"
+  },
+  "student:writing.needYou": {
+    "text": "Din tur att skriva eller revidera",
+    "why": "meaning was too vague"
+  },
+  "student:writing.others": {
+    "text": "Granskas av Hangyul-teamet eller klara",
+    "why": "restore 'being reviewed'"
+  },
+  "student:writing.status.AI_PRECHECK": {
+    "text": "Inskickad",
+    "why": "missing"
+  },
+  "student:writing.status.APPROVED": {
+    "text": "Klar",
+    "why": "missing"
+  },
+  "student:writing.status.CHANGES_REQUESTED": {
+    "text": "Ändringar begärda",
+    "why": "missing"
+  },
+  "student:writing.status.FINAL_REVIEW": {
+    "text": "Hangyul-teamet granskar",
+    "why": "same as AGENCY_REVIEW"
+  },
+  "student:writing.status.STUDENT_REVISION": {
+    "text": "Ändringar begärda",
+    "why": "missing"
+  },
+  "student:writing.status.SUBMITTED": {
+    "text": "Inskickad",
+    "why": "missing"
+  },
+  "mobile:agency.deadlines.empty": {
+    "text": "Inga deadlines de närmaste 30 dagarna",
+    "why": "missing"
+  },
+  "mobile:agency.deadlines.subtitle": {
+    "text": "Deadlines för dina studenter de närmaste 30 dagarna.",
+    "why": "missing"
+  },
+  "mobile:agency.deadlines.title": {
+    "text": "Påminnelser",
+    "why": "missing"
+  },
+  "mobile:agency.messages.subtitle": {
+    "text": "Studentkonversationer och interna anteckningar.",
+    "why": "missing"
+  },
+  "mobile:agency.messages.title": {
+    "text": "Meddelanden",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.detailTitle": {
+    "text": "Granskning",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.empty": {
+    "text": "Granskningskön är tom",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.emptyBody": {
+    "text": "Nya uppladdningar från dina studenter visas här.",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.history": {
+    "text": "Granskningshistorik",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.lastReason": {
+    "text": "Föregående begäran om rättelse",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.noFile": {
+    "text": "Ingen fil har laddats upp för det här dokumentet än.",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.sendToStudent": {
+    "text": "Skicka till studenten",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.tabA11y_one": {
+    "text": "Granskningar, {{count}} väntar",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.tabA11y_other": {
+    "text": "Granskningar, {{count}} väntar",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.title": {
+    "text": "Dokumentgranskningar",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.verify": {
+    "text": "Verifiera dokument",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.waitingDays_one": {
+    "text": "Väntat {{count}} dag",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.waitingDays_other": {
+    "text": "Väntat {{count}} dagar",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.waitingHours_one": {
+    "text": "Väntat {{count}} timme",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.waitingHours_other": {
+    "text": "Väntat {{count}} timmar",
+    "why": "missing"
+  },
+  "mobile:agency.students.detailTitle": {
+    "text": "Student",
+    "why": "missing"
+  },
+  "mobile:agency.tasks.unassigned": {
+    "text": "Ej tilldelad",
+    "why": "missing"
+  },
+  "mobile:app.agency": {
+    "text": "Hangyul Agency",
+    "why": "missing; product name kept"
+  },
+  "mobile:app.student": {
+    "text": "Hangyul Univ",
+    "why": "missing; product name kept"
+  },
+  "mobile:app.university": {
+    "text": "Hangyul University",
+    "why": "missing; product name kept"
+  },
+  "mobile:login.networkError": {
+    "text": "Hangyul går inte att nå just nu på {{url}}. Kontrollera din anslutning och försök igen om en stund.",
+    "why": "missing"
+  },
+  "mobile:messages.empty": {
+    "text": "Inga konversationer ännu",
+    "why": "missing"
+  },
+  "mobile:messages.emptyBody": {
+    "text": "Meddelanden med ditt team visas här.",
+    "why": "missing"
+  },
+  "mobile:messages.internalLabel": {
+    "text": "Intern anteckning",
+    "why": "missing"
+  },
+  "mobile:messages.internalOn": {
+    "text": "Intern anteckning: bara ditt team ser den",
+    "why": "missing"
+  },
+  "mobile:messages.internalPlaceholder": {
+    "text": "Skriv en intern anteckning (bara teamet)…",
+    "why": "missing"
+  },
+  "mobile:messages.noMessages": {
+    "text": "Inga meddelanden ännu",
+    "why": "missing"
+  },
+  "mobile:messages.placeholder": {
+    "text": "Skriv ett meddelande…",
+    "why": "missing"
+  },
+  "mobile:messages.sendInternal": {
+    "text": "Spara intern anteckning",
+    "why": "missing"
+  },
+  "mobile:messages.unreadCount_one": {
+    "text": "{{count}} oläst meddelande",
+    "why": "missing"
+  },
+  "mobile:messages.unreadCount_other": {
+    "text": "{{count}} olästa meddelanden",
+    "why": "missing"
+  },
+  "mobile:more.active": {
+    "text": "Aktivt",
+    "why": "missing"
+  },
+  "mobile:more.allowanceSpent": {
+    "text": "Du har använt allt som ingår i ditt paket. På paketsidan ser du vilket paket som omfattar mer.",
+    "why": "missing"
+  },
+  "mobile:more.choose": {
+    "text": "Välj",
+    "why": "missing"
+  },
+  "mobile:more.noPlan": {
+    "text": "Inget paket än",
+    "why": "missing"
+  },
+  "mobile:more.noPlanHint": {
+    "text": "Välj ett paket så börjar Hangyul arbeta med dig",
+    "why": "missing"
+  },
+  "mobile:more.plan": {
+    "text": "Paket",
+    "why": "missing"
+  },
+  "mobile:more.support": {
+    "text": "Få hjälp",
+    "why": "missing"
+  },
+  "mobile:more.supportHint": {
+    "text": "Skriv till Hangyul-teamet",
+    "why": "missing"
+  },
+  "mobile:more.webNote": {
+    "text": "Du redigerar din profil och betalar på webben.",
+    "why": "missing"
+  },
+  "mobile:notifications.unread": {
+    "text": "Olästa",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.consultation_sessions": {
+    "text": "Kartläggningskonsultation",
+    "why": "diagnostic, not generic study consultation"
+  },
+  "mobile:plan.allowance.essay_review_rounds": {
+    "text": "Redigering av personligt brev och studieplan",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.follow_up_consultations": {
+    "text": "Uppföljande konsultationer",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.max_managed_applications": {
+    "text": "Ansökningar vi sköter tillsammans med dig",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.max_recommended_institutions": {
+    "text": "Universitetsrekommendationer",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.mock_interviews": {
+    "text": "Provintervjuer",
+    "why": "missing"
+  },
+  "mobile:plan.browserFailed": {
+    "text": "Webbläsaren kunde inte öppnas. Betala på webben i stället.",
+    "why": "missing"
+  },
+  "mobile:plan.card": {
+    "text": "Du kan betala med ett utländskt kort (Visa, Mastercard, JCB).",
+    "why": "missing"
+  },
+  "mobile:plan.chooseLede": {
+    "text": "En betalning, ingen prenumeration. Ditt paket följer dig medan du förbereder dig.",
+    "why": "missing"
+  },
+  "mobile:plan.chooseTitle": {
+    "text": "Välj ett paket",
+    "why": "missing"
+  },
+  "mobile:plan.handoff": {
+    "text": "Betalningen sker i webbläsaren och du kommer tillbaka till appen när den är klar.",
+    "why": "missing"
+  },
+  "mobile:plan.highestAlready": {
+    "text": "Du har redan det högsta paketet.",
+    "why": "missing"
+  },
+  "mobile:plan.included": {
+    "text": "Ingår i ditt paket",
+    "why": "missing"
+  },
+  "mobile:plan.oneTime": {
+    "text": "En betalning",
+    "why": "missing"
+  },
+  "mobile:plan.ongoing": {
+    "text": "Under hela tjänsteperioden",
+    "why": "missing"
+  },
+  "mobile:plan.paid": {
+    "text": "Betalt belopp",
+    "why": "missing"
+  },
+  "mobile:plan.pay": {
+    "text": "Betala",
+    "why": "missing"
+  },
+  "mobile:plan.plansTitle": {
+    "text": "Paket",
+    "why": "missing"
+  },
+  "mobile:plan.selected": {
+    "text": "Valt",
+    "why": "missing"
+  },
+  "mobile:plan.upgradeTitle": {
+    "text": "Uppgradera",
+    "why": "missing"
+  },
+  "mobile:plan.webNote": {
+    "text": "Pakethistorik och kvitton finns på webben.",
+    "why": "missing"
+  },
+  "mobile:settings.elsewhere": {
+    "text": "Övrigt",
+    "why": "missing"
+  },
+  "mobile:settings.language": {
+    "text": "Språk",
+    "why": "missing"
+  },
+  "mobile:settings.languageHint": {
+    "text": "Välj språk för appen. Vissa språk är maskinutkast som fortfarande granskas.",
+    "why": "missing"
+  },
+  "mobile:settings.machineDraft": {
+    "text": "maskinutkast",
+    "why": "missing"
+  },
+  "mobile:settings.notificationsHint": {
+    "text": "Se aviseringarna du har fått",
+    "why": "missing"
+  },
+  "mobile:settings.rtlNote": {
+    "text": "Text från höger till vänster används nu; hela layouten speglas nästa gång du öppnar appen.",
+    "why": "missing"
+  },
+  "mobile:settings.selected": {
+    "text": "valt",
+    "why": "missing"
+  },
+  "mobile:settings.server": {
+    "text": "Server: {{url}}",
+    "why": "missing"
+  },
+  "mobile:settings.signOutBody": {
+    "text": "Du behöver din e-postadress och ditt lösenord för att logga in igen.",
+    "why": "missing"
+  },
+  "mobile:settings.signOutTitle": {
+    "text": "Logga ut?",
+    "why": "missing"
+  },
+  "mobile:settings.title": {
+    "text": "Inställningar",
+    "why": "missing"
+  },
+  "mobile:settings.version": {
+    "text": "Version {{version}}",
+    "why": "missing"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Twilio Inc. (USA) skickar verifierings-sms och e-post; Cloudflare, Inc. (USA) kontrollerar att registreringen inte är automatiserad. Detaljer, bland annat hur du kan neka, finns i integritetspolicyn. Om du nekar kan inget konto skapas.",
+    "why": "added claims not in English; match web"
+  },
+  "mobile:signup.consent.PRIVACY.summary": {
+    "text": "E-post, mobilnummer, namn, medborgarskap och lösenord (lagras krypterat), för att skapa och skydda ditt konto.",
+    "why": "match web consent wording"
+  },
+  "mobile:signup.degree.LANGUAGE": {
+    "text": "Koreanska",
+    "why": "concise label"
+  },
+  "mobile:signup.quickGo": {
+    "text": "Visa mina matchningar",
+    "why": "matches, not recommendations"
+  },
+  "mobile:signup.view": {
+    "text": "Läs",
+    "why": "Read, not View"
+  },
+  "mobile:student.applications.active": {
+    "text": "Pågående",
+    "why": "missing"
+  },
+  "mobile:student.applications.closed": {
+    "text": "Avslutade",
+    "why": "missing"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.body": {
+    "text": "Du tackar ja till antagningsbeskedet från {{university}}. Hangyul Univ-teamet guidar dig genom betalningen av studieavgiften och hur du får ditt standardantagningsbrev.",
+    "why": "missing"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.cta": {
+    "text": "Tacka ja",
+    "why": "missing"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.title": {
+    "text": "Tacka ja till antagningsbeskedet?",
+    "why": "missing"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.body": {
+    "text": "Din ansökan till {{university}} avslutas. Det går inte att ångra i appen.",
+    "why": "missing"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.cta": {
+    "text": "Dra tillbaka ansökan",
+    "why": "missing"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.title": {
+    "text": "Dra tillbaka ansökan?",
+    "why": "missing"
+  },
+  "mobile:student.applications.detailTitle": {
+    "text": "Ansökan",
+    "why": "missing"
+  },
+  "mobile:student.applications.empty": {
+    "text": "Inga pågående ansökningar",
+    "why": "missing"
+  },
+  "mobile:student.applications.emptyClosed": {
+    "text": "Inga avslutade ansökningar",
+    "why": "missing"
+  },
+  "mobile:student.applications.submittedOn": {
+    "text": "Inskickad {{date}}",
+    "why": "missing"
+  },
+  "mobile:student.applications.subtitle": {
+    "text": "Följ alla dina ansökningar på ett ställe.",
+    "why": "missing"
+  },
+  "mobile:student.documents.detailTitle": {
+    "text": "Dokument",
+    "why": "missing"
+  },
+  "mobile:student.documents.empty": {
+    "text": "Ditt valv är tomt",
+    "why": "missing"
+  },
+  "mobile:student.documents.emptyBody": {
+    "text": "Ladda upp pass, betygsutdrag och testresultat i webbappen.",
+    "why": "missing"
+  },
+  "mobile:student.documents.file": {
+    "text": "{{name}} · version {{version}}",
+    "why": "missing"
+  },
+  "mobile:student.documents.fixFallback": {
+    "text": "Hangyul-teamet har bett om en ändring i dokumentet.",
+    "why": "missing"
+  },
+  "mobile:student.documents.fixTitle": {
+    "text": "Det här behöver rättas",
+    "why": "missing"
+  },
+  "mobile:student.documents.openFile": {
+    "text": "Öppna säker förhandsvisning",
+    "why": "missing"
+  },
+  "mobile:student.documents.reviews": {
+    "text": "Granskningshistorik",
+    "why": "missing"
+  },
+  "mobile:student.documents.translationBody": {
+    "text": "Dokumentet kräver en auktoriserad översättning till koreanska eller engelska.",
+    "why": "missing"
+  },
+  "mobile:student.explore.clear": {
+    "text": "Rensa sökningen",
+    "why": "missing"
+  },
+  "mobile:student.explore.save": {
+    "text": "Spara {{name}}",
+    "why": "missing"
+  },
+  "mobile:student.explore.searchPlaceholder": {
+    "text": "Sök program eller universitet",
+    "why": "missing"
+  },
+  "mobile:student.explore.unsave": {
+    "text": "Ta bort {{name}} från sparade",
+    "why": "missing"
+  },
+  "mobile:student.matches.deadline": {
+    "text": "Sista ansökningsdag {{date}} · {{due}}",
+    "why": "missing"
+  },
+  "mobile:student.messages.subtitle": {
+    "text": "Prata med Hangyul Univ-teamet.",
+    "why": "missing"
+  },
+  "mobile:student.messages.unreadA11y_one": {
+    "text": "Meddelanden, {{count}} oläst",
+    "why": "missing"
+  },
+  "mobile:student.messages.unreadA11y_other": {
+    "text": "Meddelanden, {{count}} olästa",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.ARRIVAL_CHECKLIST": {
+    "text": "Förbered din ankomst till Korea",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.COMPARE_OFFERS": {
+    "text": "Jämför dina {{count}} antagningsbesked",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.COMPLETE_PROFILE": {
+    "text": "Gör klart din profil för att se vilka universitet som passar dig",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.budget": {
+    "text": "Lägg till din budget för att rangordna {{count}} program efter kostnad",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.education": {
+    "text": "Lägg till din utbildning för att kontrollera {{count}} program",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.gpa": {
+    "text": "Lägg till dina betyg för att kontrollera {{count}} program",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.language": {
+    "text": "Lägg till ditt språkresultat för att kontrollera {{count}} program",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.other": {
+    "text": "Gör klart din profil för att kontrollera {{count}} program",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.RESPOND_OFFER": {
+    "text": "Svara på ditt antagningsbesked",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.REVIEW_MATCHES": {
+    "text": "Titta igenom dina universitetsmatchningar",
+    "why": "missing"
+  },
+  "mobile:student.profile.completion": {
+    "text": "Profilens status",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.basics": {
+    "text": "Grunduppgifter",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.education": {
+    "text": "Utbildning",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.goals": {
+    "text": "Studiemål",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.language": {
+    "text": "Språkresultat",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.passport": {
+    "text": "Pass",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.preferences": {
+    "text": "Önskemål",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.sponsor": {
+    "text": "Finansiär",
+    "why": "missing"
+  },
+  "mobile:student.saved.empty": {
+    "text": "Inget sparat än",
+    "why": "missing"
+  },
+  "mobile:student.saved.emptyBody": {
+    "text": "Tryck på hjärtat vid ett program för att spara universitetet här.",
+    "why": "missing"
+  },
+  "mobile:student.tasks.confirmTitle": {
+    "text": "Markera uppgiften som klar?",
+    "why": "missing"
+  },
+  "mobile:student.tasks.empty": {
+    "text": "Inget att göra just nu",
+    "why": "missing"
+  },
+  "mobile:student.tasks.emptyBody": {
+    "text": "Vi lägger till uppgifter här när något behöver din uppmärksamhet.",
+    "why": "missing"
+  },
+  "mobile:student.tasks.overdue": {
+    "text": "Försenade ({{count}})",
+    "why": "missing"
+  },
+  "mobile:student.tasks.subtitle": {
+    "text": "Uppgifter från Hangyul-teamet och checklistorna för dina ansökningar.",
+    "why": "missing"
+  },
+  "mobile:student.tasks.title": {
+    "text": "Checklista",
+    "why": "missing"
+  },
+  "mobile:student.tasks.upcoming": {
+    "text": "Att göra",
+    "why": "missing"
+  },
+  "mobile:university.applicants.anonymous": {
+    "text": "Sökande",
+    "why": "missing"
+  },
+  "mobile:university.applicants.confirmBody": {
+    "text": "{{name}} och den sökandes handläggare meddelas. Lägg till en anteckning för dokumentationen (valfritt).",
+    "why": "missing"
+  },
+  "mobile:university.applicants.confirmTitle": {
+    "text": "Ändra status till ”{{status}}”?",
+    "why": "missing"
+  },
+  "mobile:university.applicants.detailTitle": {
+    "text": "Sökande",
+    "why": "missing"
+  },
+  "mobile:university.applicants.history": {
+    "text": "Statushistorik",
+    "why": "missing"
+  },
+  "mobile:university.applicants.interview": {
+    "text": "Intervju",
+    "why": "missing"
+  },
+  "mobile:university.applicants.moveTo": {
+    "text": "Flytta till: {{status}}",
+    "why": "missing"
+  },
+  "mobile:university.applicants.notShared": {
+    "text": "Inte delad med ert universitet än",
+    "why": "missing"
+  },
+  "mobile:university.applicants.note": {
+    "text": "Anteckning",
+    "why": "missing"
+  },
+  "mobile:university.applicants.previewHint": {
+    "text": "Öppnar en säker förhandsvisning med tidsgräns",
+    "why": "missing"
+  },
+  "mobile:university.applicants.reference": {
+    "text": "Ert referensnummer",
+    "why": "missing"
+  },
+  "mobile:university.applicants.submitted": {
+    "text": "Inskickad {{date}}",
+    "why": "missing"
+  },
+  "mobile:university.applicants.submittedLabel": {
+    "text": "Inskickad",
+    "why": "missing"
+  },
+  "mobile:university.applicants.viaAgency": {
+    "text": "Via {{agency}}",
+    "why": "missing"
+  },
+  "mobile:university.flagged.add": {
+    "text": "Flagga för uppföljning",
+    "why": "missing"
+  },
+  "mobile:university.flagged.addBody": {
+    "text": "Bara ert universitetsteam ser flaggan och orsaken.",
+    "why": "missing"
+  },
+  "mobile:university.flagged.flagged": {
+    "text": "Flaggad",
+    "why": "missing"
+  },
+  "mobile:university.flagged.reason": {
+    "text": "Orsak",
+    "why": "missing"
+  },
+  "mobile:university.flagged.remove": {
+    "text": "Ta bort flagga",
+    "why": "missing"
+  },
+  "mobile:university.flagged.removeTitle": {
+    "text": "Ta bort flaggan från ansökan?",
+    "why": "missing"
+  },
+  "mobile:university.inbox.title": {
+    "text": "Meddelanden",
+    "why": "missing"
+  },
+  "mobile:university.login.tagline": {
+    "text": "Sökande, beslut och kullar för ert internationella kansli.",
+    "why": "missing"
+  },
+  "mobile:v23.team.name": {
+    "text": "Hangyul Univ-teamet",
+    "why": "natural Swedish name order"
+  },
+  "mobile:v29.mfa.codeHint": {
+    "text": "Ange den 6-siffriga koden från din autentiseringsapp eller en återställningskod.",
+    "why": "missing"
+  },
+  "mobile:v29.mfa.codeLabel": {
+    "text": "Verifieringskod",
+    "why": "missing"
+  },
+  "mobile:v29.mfa.enrollOnWeb": {
+    "text": "Kontot kräver tvåstegsverifiering. Konfigurera den först i webbkonsolen och logga sedan in här.",
+    "why": "missing"
+  },
+  "mobile:v29.mfa.verify": {
+    "text": "Verifiera och logga in",
+    "why": "missing"
+  },
+  "mobile:v29.mfa.wrongCode": {
+    "text": "Koden är fel eller har gått ut. Ange en ny.",
+    "why": "missing"
+  },
+  "mobile:v29.plan.supportDays": {
+    "text": "{{count}} dagars konsultationsstöd från din första konsultation",
+    "why": "meaning: support length, not elapsed days"
+  },
+  "mobile:v29.plan.supportUntil": {
+    "text": "Konsultationsstöd till {{date}}",
+    "why": "glossary: consultation"
+  },
+  "mobile:v29.plan.unrationed.CONTRACTED_DOCUMENTS": {
+    "text": "Ingen gräns för dokumenten i avtalet",
+    "why": "align with web wording"
+  },
+  "mobile:v29.plan.unrationed.TEAM": {
+    "text": "Uppföljning från ditt team",
+    "why": "from, not of"
+  },
+  "mobile:v29.plan.upgradePending": {
+    "text": "Priset för uppgraderingen är inte fastställt än. Hangyul Univ-teamet kommer överens om det direkt med dig.",
+    "why": "plan term: paket/upgrade"
+  },
+  "mobile:v3.agency.allClear": {
+    "text": "Inget kvar: {{list}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.applications_one": {
+    "text": "{{count}} ansökan",
+    "why": "missing"
+  },
+  "mobile:v3.agency.applications_other": {
+    "text": "{{count}} ansökningar",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.breached_one": {
+    "text": "{{count}} redan över utlovad tid",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.breached_other": {
+    "text": "{{count}} redan över utlovad tid",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.closing_one": {
+    "text": "Ansökan stänger inom 7 dagar",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.closing_other": {
+    "text": "Ansökningar stänger inom 7 dagar",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.docs_one": {
+    "text": "Dokument väntar på granskning",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.docs_other": {
+    "text": "Dokument väntar på granskning",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.next": {
+    "text": "Nästa: {{uni}} för {{who}}, {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.overSla": {
+    "text": "{{count}} har väntat längre än {{hours}} h",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.overdue_one": {
+    "text": "Försenad uppgift",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.overdue_other": {
+    "text": "Försenade uppgifter",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.replies_one": {
+    "text": "Student väntar på ditt svar",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.replies_other": {
+    "text": "Studenter väntar på ditt svar",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.since": {
+    "text": "Äldst från {{who}}, {{when}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.sla_one": {
+    "text": "Student riskerar sent första svar",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.sla_other": {
+    "text": "Studenter riskerar sent första svar",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.deadline": {
+    "text": "Ansökan till {{uni}} stänger snart",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.fix": {
+    "text": "{{doc}} behöver rättas av studenten",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.requested": {
+    "text": "{{uni}} har begärt fler dokument",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.review": {
+    "text": "{{doc}} väntar på din granskning",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.sla": {
+    "text": "Första svar förfaller",
+    "why": "missing"
+  },
+  "mobile:v3.agency.blockers_one": {
+    "text": "{{count}} sak håller tillbaka studenten",
+    "why": "missing"
+  },
+  "mobile:v3.agency.blockers_other": {
+    "text": "{{count}} saker håller tillbaka studenten",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.closing": {
+    "text": "deadlines den här veckan",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.docs": {
+    "text": "dokumentgranskningar",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.overdue": {
+    "text": "försenade uppgifter",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.replies": {
+    "text": "studentsvar",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.sla": {
+    "text": "första svar",
+    "why": "missing"
+  },
+  "mobile:v3.agency.conversationSubject": {
+    "text": "Ditt team för studier i Korea",
+    "why": "missing"
+  },
+  "mobile:v3.agency.deadline": {
+    "text": "{{uni}} {{when}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.documents": {
+    "text": "Dokument · {{verified}} av {{total}} verifierade",
+    "why": "missing"
+  },
+  "mobile:v3.agency.dueToday_one": {
+    "text": "Förfaller i dag · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.dueToday_other": {
+    "text": "Förfaller i dag · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.findStudent": {
+    "text": "Hitta en student",
+    "why": "missing"
+  },
+  "mobile:v3.agency.firstMessage": {
+    "text": "Skriv till {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.greeting.afternoon": {
+    "text": "God eftermiddag, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.greeting.evening": {
+    "text": "God kväll, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.greeting.morning": {
+    "text": "God morgon, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.message": {
+    "text": "Meddelande",
+    "why": "missing"
+  },
+  "mobile:v3.agency.messageLabel": {
+    "text": "Meddelande",
+    "why": "missing"
+  },
+  "mobile:v3.agency.needsAttention": {
+    "text": "Kräver åtgärd",
+    "why": "missing"
+  },
+  "mobile:v3.agency.nextAction": {
+    "text": "Nästa: {{what}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.noBlockers": {
+    "text": "Inget blockerar studenten",
+    "why": "missing"
+  },
+  "mobile:v3.agency.noBlockersBody": {
+    "text": "Dokument, deadlines och svar ligger i fas.",
+    "why": "missing"
+  },
+  "mobile:v3.agency.noStudents": {
+    "text": "Inga studenter i den här vyn",
+    "why": "missing"
+  },
+  "mobile:v3.agency.noStudentsBody": {
+    "text": "Prova en annan vy eller rensa sökningen.",
+    "why": "missing"
+  },
+  "mobile:v3.agency.searchPlaceholder": {
+    "text": "Namn eller e-post",
+    "why": "missing"
+  },
+  "mobile:v3.agency.stage": {
+    "text": "Steg",
+    "why": "missing"
+  },
+  "mobile:v3.agency.stageNote": {
+    "text": "Anteckning till teamet (valfritt)",
+    "why": "missing"
+  },
+  "mobile:v3.agency.stageTo": {
+    "text": "Flytta till {{stage}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.teamView": {
+    "text": "Team · {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.toFix_one": {
+    "text": "{{count}} dokument att rätta",
+    "why": "missing"
+  },
+  "mobile:v3.agency.toFix_other": {
+    "text": "{{count}} dokument att rätta",
+    "why": "missing"
+  },
+  "mobile:v3.agency.today": {
+    "text": "I dag",
+    "why": "missing"
+  },
+  "mobile:v3.agency.upload": {
+    "text": "Ladda upp",
+    "why": "missing"
+  },
+  "mobile:v3.agency.uploadFor": {
+    "text": "{{doc}} för {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.uploadWhat": {
+    "text": "Vilket dokument laddar du upp?",
+    "why": "missing"
+  },
+  "mobile:v3.agency.uploaded": {
+    "text": "Uppladdat i studentens valv. Klart för granskning.",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.all": {
+    "text": "Alla",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.attention": {
+    "text": "Kräver åtgärd",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.deadline": {
+    "text": "Deadline snart",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.docs": {
+    "text": "Dokument att rätta",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.mine": {
+    "text": "Mina studenter",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.sla": {
+    "text": "Studenter över eller nära utlovad tid för första svar",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.university": {
+    "text": "Väntar på universitetet",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.visa": {
+    "text": "Visum",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.waiting_student": {
+    "text": "Väntar på studenten",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.waiting_us": {
+    "text": "Väntar på oss",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.agency": {
+    "text": "Väntar på byråteamet",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.counselor": {
+    "text": "Väntar på handläggaren",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.external": {
+    "text": "Väntar på en extern myndighet",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.hangyul": {
+    "text": "Väntar på Hangyul",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.none": {
+    "text": "Inget väntar",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.student": {
+    "text": "Väntar på studenten",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.university": {
+    "text": "Väntar på universitetet",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.us": {
+    "text": "Väntar på oss",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.ADDITIONAL_DOCUMENTS": {
+    "text": "Universitetet har bett om ytterligare ett dokument.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Ditt standardantagningsbrev är klart. Börja med dina visumdokument.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_PENDING": {
+    "text": "Väntar på ditt standardantagningsbrev.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.DOCUMENT_PREPARATION": {
+    "text": "Du förbereder dina dokument.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.DRAFT": {
+    "text": "Du har påbörjat den här ansökan.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.ENROLLED": {
+    "text": "Du är inskriven. Välkommen till Korea.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.INTERVIEW": {
+    "text": "Universitetet vill intervjua dig.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.OFFERED": {
+    "text": "Du har fått ett antagningsbesked.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.OFFER_ACCEPTED": {
+    "text": "Du har tackat ja. Nästa steg: studieavgiften.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.PROFILE_REVIEW": {
+    "text": "Hangyul Univ-teamet går igenom din profil.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.REJECTED": {
+    "text": "Universitetet erbjöd ingen plats den här gången.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.SUBMITTED": {
+    "text": "Inskickad till {{university}}.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.TUITION_PAID": {
+    "text": "Studieavgiften är mottagen. Universitetet förbereder ditt standardantagningsbrev.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.TUITION_PENDING": {
+    "text": "Betala studieavgiften direkt till universitetet före sista betalningsdag.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.UNIVERSITY_REVIEW": {
+    "text": "{{university}} går igenom din ansökan.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.VISA_PREPARATION": {
+    "text": "Du förbereder din visumansökan.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.VISA_SUBMITTED": {
+    "text": "Visumansökan är inskickad.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.WAITLISTED": {
+    "text": "Du står på reservlistan.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.WITHDRAWN": {
+    "text": "Ansökan har dragits tillbaka.",
+    "why": "missing"
+  },
+  "mobile:v3.application.closes": {
+    "text": "Stänger {{date}} · {{left}}",
+    "why": "missing"
+  },
+  "mobile:v3.application.due": {
+    "text": "Senast {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.application.ready": {
+    "text": "Redo att skicka in",
+    "why": "missing"
+  },
+  "mobile:v3.application.readyBody": {
+    "text": "Allt som krävs finns på plats.",
+    "why": "missing"
+  },
+  "mobile:v3.application.reviewBody": {
+    "text": "Inskickad {{date}}. Universitetet kan be om ytterligare ett dokument eller en intervju. Hangyul-teamet följer ärendet.",
+    "why": "missing"
+  },
+  "mobile:v3.application.reviewTitle": {
+    "text": "{{university}} går igenom din ansökan",
+    "why": "missing"
+  },
+  "mobile:v3.application.reviewing": {
+    "text": "Granskar {{item}}",
+    "why": "missing"
+  },
+  "mobile:v3.application.submit": {
+    "text": "Skicka in ansökan",
+    "why": "missing"
+  },
+  "mobile:v3.application.teamMonitoring": {
+    "text": "I kontakt med universitetet",
+    "why": "missing"
+  },
+  "mobile:v3.application.teamWaiting": {
+    "text": "Väntar på dina dokument",
+    "why": "missing"
+  },
+  "mobile:v3.application.timeline": {
+    "text": "Tidslinje",
+    "why": "missing"
+  },
+  "mobile:v3.application.uni.decided": {
+    "text": "Beslut fattat",
+    "why": "missing"
+  },
+  "mobile:v3.application.uni.reviewing": {
+    "text": "Går igenom din ansökan",
+    "why": "missing"
+  },
+  "mobile:v3.application.uni.waiting": {
+    "text": "Väntar på att du skickar in",
+    "why": "missing"
+  },
+  "mobile:v3.application.university": {
+    "text": "Universitet",
+    "why": "missing"
+  },
+  "mobile:v3.application.uploadRequested": {
+    "text": "Ladda upp det här dokumentet",
+    "why": "missing"
+  },
+  "mobile:v3.application.who": {
+    "text": "Vem gör vad",
+    "why": "missing"
+  },
+  "mobile:v3.application.withdraw": {
+    "text": "Dra tillbaka ansökan",
+    "why": "missing"
+  },
+  "mobile:v3.application.you": {
+    "text": "Du",
+    "why": "missing"
+  },
+  "mobile:v3.common.all": {
+    "text": "Visa alla",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.bucket.later_other": {
+    "text": "Senare i månaden · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.bucket.overdue_other": {
+    "text": "Försenade · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.bucket.week_other": {
+    "text": "Kommande 7 dagar · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.emptyView": {
+    "text": "Inget förfaller i den här vyn",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.student": {
+    "text": "Student",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.who.all": {
+    "text": "Alla",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.who.mine": {
+    "text": "Mina",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.who.unassigned": {
+    "text": "Ej tilldelade",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.you": {
+    "text": "Du",
+    "why": "missing"
+  },
+  "mobile:v3.discover.all": {
+    "text": "Alla",
+    "why": "missing"
+  },
+  "mobile:v3.discover.any": {
+    "text": "Alla",
+    "why": "missing"
+  },
+  "mobile:v3.discover.closes": {
+    "text": "stänger {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.discover.degree": {
+    "text": "Vad vill du studera?",
+    "why": "missing"
+  },
+  "mobile:v3.discover.emptyVerdict": {
+    "text": "Inget här just nu",
+    "why": "missing"
+  },
+  "mobile:v3.discover.explain.notyet": {
+    "text": "Ett publicerat krav är inte uppfyllt än. Varje rad visar exakt vilket.",
+    "why": "missing"
+  },
+  "mobile:v3.discover.explain.possible": {
+    "text": "Du uppfyller de publicerade minimikraven, men en sak behöver din uppmärksamhet, oftast budgeten eller sista ansökningsdagen.",
+    "why": "glossary: application deadline"
+  },
+  "mobile:v3.discover.explain.strong": {
+    "text": "Du uppfyller alla publicerade grundkrav, och programmet passar din budget och dina planer.",
+    "why": "missing"
+  },
+  "mobile:v3.discover.filters": {
+    "text": "Filter",
+    "why": "missing"
+  },
+  "mobile:v3.discover.filtersN": {
+    "text": "Filter · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.discover.forYou": {
+    "text": "För dig",
+    "why": "missing"
+  },
+  "mobile:v3.discover.language": {
+    "text": "Undervisningsspråk",
+    "why": "missing"
+  },
+  "mobile:v3.discover.noLanguageMin": {
+    "text": "Inget språkkrav",
+    "why": "missing"
+  },
+  "mobile:v3.discover.openOnly": {
+    "text": "Öppna för ansökan",
+    "why": "missing"
+  },
+  "mobile:v3.discover.perYear": {
+    "text": "≈ {{amount}} / år",
+    "why": "missing"
+  },
+  "mobile:v3.discover.saved": {
+    "text": "Sparade · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.discover.savedEmpty": {
+    "text": "Inga sparade universitet än",
+    "why": "missing"
+  },
+  "mobile:v3.discover.savedEmptyBody": {
+    "text": "Tryck på hjärtat vid ett program för att spara det här till senare.",
+    "why": "missing"
+  },
+  "mobile:v3.discover.showResults_one": {
+    "text": "Visa {{count}} program",
+    "why": "missing"
+  },
+  "mobile:v3.discover.showResults_other": {
+    "text": "Visa {{count}} program",
+    "why": "missing"
+  },
+  "mobile:v3.discover.summary_one": {
+    "text": "Du uppfyller de publicerade kraven för {{count}} program.",
+    "why": "missing"
+  },
+  "mobile:v3.discover.summary_other": {
+    "text": "Du uppfyller de publicerade kraven för {{count}} program.",
+    "why": "missing"
+  },
+  "mobile:v3.discover.tuition": {
+    "text": "Studieavgift per termin",
+    "why": "missing"
+  },
+  "mobile:v3.discover.upTo": {
+    "text": "Upp till {{amount}} milj. ₩",
+    "why": "missing"
+  },
+  "mobile:v3.docAction.FIX": {
+    "text": "Behöver rättas",
+    "why": "missing"
+  },
+  "mobile:v3.docAction.IN_REVIEW": {
+    "text": "Kontrolleras av Hangyul-teamet",
+    "why": "missing"
+  },
+  "mobile:v3.docAction.LEGALIZE": {
+    "text": "Behöver apostille eller konsulär legalisering",
+    "why": "missing"
+  },
+  "mobile:v3.docAction.TOO_OLD": {
+    "text": "Utfärdat för länge sedan. Skaffa en ny kopia",
+    "why": "grammar: article, copy"
+  },
+  "mobile:v3.docAction.UPLOAD": {
+    "text": "Inte uppladdat än",
+    "why": "missing"
+  },
+  "mobile:v3.documents.allSet": {
+    "text": "Inget behöver dig just nu.",
+    "why": "missing"
+  },
+  "mobile:v3.documents.checking": {
+    "text": "Kontrolleras",
+    "why": "missing"
+  },
+  "mobile:v3.documents.howTo": {
+    "text": "Så får du {{path}}",
+    "why": "missing"
+  },
+  "mobile:v3.documents.issuedIn": {
+    "text": "Utfärdat i",
+    "why": "missing"
+  },
+  "mobile:v3.documents.issuedOn": {
+    "text": "Utfärdat den",
+    "why": "missing"
+  },
+  "mobile:v3.documents.legalize": {
+    "text": "Kontrollerat, men behöver fortfarande {{path}} innan ett koreanskt universitet godtar det",
+    "why": "verification reserved for official checks"
+  },
+  "mobile:v3.documents.needYou_one": {
+    "text": "{{count}} behöver dig",
+    "why": "missing"
+  },
+  "mobile:v3.documents.needYou_other": {
+    "text": "{{count}} behöver dig",
+    "why": "missing"
+  },
+  "mobile:v3.documents.neededFor": {
+    "text": "Behövs för {{university}}",
+    "why": "missing"
+  },
+  "mobile:v3.documents.needsYou": {
+    "text": "Behöver dig",
+    "why": "missing"
+  },
+  "mobile:v3.documents.newVersion": {
+    "text": "Ladda upp en ny version",
+    "why": "missing"
+  },
+  "mobile:v3.documents.ready": {
+    "text": "Klart",
+    "why": "missing"
+  },
+  "mobile:v3.documents.readyOf": {
+    "text": "{{ready}} av {{total}} dokument klara",
+    "why": "missing"
+  },
+  "mobile:v3.documents.readyTitle": {
+    "text": "Klara",
+    "why": "missing"
+  },
+  "mobile:v3.documents.sourceVerified": {
+    "text": "Officiell källa · kontrollerad {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.documents.state.fix": {
+    "text": "Behöver rättas",
+    "why": "missing"
+  },
+  "mobile:v3.documents.state.legalize": {
+    "text": "Behöver apostille",
+    "why": "missing"
+  },
+  "mobile:v3.documents.state.ready": {
+    "text": "Klart",
+    "why": "missing"
+  },
+  "mobile:v3.documents.state.review": {
+    "text": "Kontrolleras",
+    "why": "missing"
+  },
+  "mobile:v3.documents.submitted": {
+    "text": "Inskickat {{when}}",
+    "why": "missing"
+  },
+  "mobile:v3.documents.upload": {
+    "text": "Ladda upp",
+    "why": "missing"
+  },
+  "mobile:v3.documents.validUntil": {
+    "text": "Giltigt till {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.documents.validUntilLabel": {
+    "text": "Giltigt till",
+    "why": "missing"
+  },
+  "mobile:v3.home.applications": {
+    "text": "Dina ansökningar",
+    "why": "missing"
+  },
+  "mobile:v3.home.closes": {
+    "text": "Stänger {{date}} · {{left}}",
+    "why": "missing"
+  },
+  "mobile:v3.home.documentsHint": {
+    "text": "Ladda upp, rätta eller skaffa apostille",
+    "why": "missing"
+  },
+  "mobile:v3.home.documents_one": {
+    "text": "{{count}} dokument behöver dig",
+    "why": "missing"
+  },
+  "mobile:v3.home.documents_other": {
+    "text": "{{count}} dokument behöver dig",
+    "why": "missing"
+  },
+  "mobile:v3.home.due": {
+    "text": "Senast {{date}} · {{left}}",
+    "why": "missing"
+  },
+  "mobile:v3.home.findUniversities": {
+    "text": "Hitta universitet",
+    "why": "missing"
+  },
+  "mobile:v3.home.greeting.afternoon": {
+    "text": "God eftermiddag, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.home.greeting.evening": {
+    "text": "God kväll, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.home.greeting.morning": {
+    "text": "God morgon, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.home.message": {
+    "text": "Skriv",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.APPLICATION_DEADLINE": {
+    "text": "Gör klart checklistan så att din ansökan kan skickas in i tid.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.DOCUMENT_UPLOAD": {
+    "text": "Ladda upp en tydlig skanning eller ett foto. Hangyul-teamet kontrollerar det och säger till om något behöver rättas.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.ESSAY_WRITE": {
+    "text": "Börja med ett grovt utkast. Hangyul-teamet går igenom det med dig.",
+    "why": "the team, not an advisor"
+  },
+  "mobile:v3.home.nextBody.REVIEW_MATCHES": {
+    "text": "Vi har jämfört din profil med de publicerade kraven. Spara några och påbörja sedan en ansökan.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.TUITION_PAYMENT": {
+    "text": "Studieavgiften betalas direkt till universitetet, i ditt eget namn.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.UNIVERSITY_REQUEST": {
+    "text": "Universitetet har bett om ytterligare ett dokument innan det kan fatta beslut.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.VISA_STEP": {
+    "text": "Gör nästa punkt på din visumchecklista.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.WAIT": {
+    "text": "Inget behöver dig just nu. Vi säger till så fort något ändras.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.APPLICATION_DEADLINE": {
+    "text": "Öppna ansökan",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.APPLICATION_SUBMIT": {
+    "text": "Granska och skicka in",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.ARRIVAL_CHECKLIST": {
+    "text": "Öppna ankomstchecklistan",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.COMPARE_OFFERS": {
+    "text": "Jämför antagningsbesked",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.COMPLETE_PROFILE": {
+    "text": "Fortsätt med profilen",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.DOCUMENT_UPLOAD": {
+    "text": "Ladda upp dokument",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.ESSAY_WRITE": {
+    "text": "Öppna ditt utkast",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.INTERVIEW": {
+    "text": "Förbered dig inför intervjun",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.RESPOND_OFFER": {
+    "text": "Se ditt antagningsbesked",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.REVIEW_MATCHES": {
+    "text": "Se mina universitet",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.TUITION_PAYMENT": {
+    "text": "Se betalningsuppgifter",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.UNIVERSITY_REQUEST": {
+    "text": "Se vad universitetet har bett om",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.VISA_STEP": {
+    "text": "Öppna visumstegen",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCtaDefault": {
+    "text": "Börja nu",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextEyebrow": {
+    "text": "Det här gör du nu",
+    "why": "missing"
+  },
+  "mobile:v3.home.noApplications": {
+    "text": "Inga ansökningar än. Börja med universitet som passar dig.",
+    "why": "missing"
+  },
+  "mobile:v3.home.noCounselor": {
+    "text": "Välj ett paket så arbetar Hangyul Univ-teamet med dig på ditt språk.",
+    "why": "plan term: paket"
+  },
+  "mobile:v3.home.otherTasks_one": {
+    "text": "{{count}} annan uppgift",
+    "why": "missing"
+  },
+  "mobile:v3.home.otherTasks_other": {
+    "text": "{{count}} andra uppgifter",
+    "why": "missing"
+  },
+  "mobile:v3.home.stageLine.apply": {
+    "text": "Universiteten går igenom dina ansökningar",
+    "why": "missing"
+  },
+  "mobile:v3.home.stageLine.arrival": {
+    "text": "Gör dig redo för ankomsten till Korea",
+    "why": "missing"
+  },
+  "mobile:v3.home.stageLine.discover": {
+    "text": "Hittar rätt universitet",
+    "why": "missing"
+  },
+  "mobile:v3.home.stageLine.prepare": {
+    "text": "Förbereder dina ansökningar",
+    "why": "missing"
+  },
+  "mobile:v3.home.stageLine.visa": {
+    "text": "Förbereder ditt studentvisum",
+    "why": "missing"
+  },
+  "mobile:v3.home.team": {
+    "text": "Hangyul Univ-teamet",
+    "why": "missing"
+  },
+  "mobile:v3.home.unread_one": {
+    "text": "{{count}} oläst meddelande",
+    "why": "missing"
+  },
+  "mobile:v3.home.unread_other": {
+    "text": "{{count}} olästa meddelanden",
+    "why": "missing"
+  },
+  "mobile:v3.home.upcoming": {
+    "text": "På gång",
+    "why": "missing"
+  },
+  "mobile:v3.journey.admission": {
+    "text": "Antagning",
+    "why": "missing"
+  },
+  "mobile:v3.journey.apply": {
+    "text": "Ansök",
+    "why": "missing"
+  },
+  "mobile:v3.journey.arrival": {
+    "text": "Ankomst",
+    "why": "missing"
+  },
+  "mobile:v3.journey.discover": {
+    "text": "Utforska",
+    "why": "missing"
+  },
+  "mobile:v3.journey.next": {
+    "text": "Nästa: {{stage}}",
+    "why": "missing"
+  },
+  "mobile:v3.journey.of": {
+    "text": "· {{n}} av {{total}}",
+    "why": "missing"
+  },
+  "mobile:v3.journey.prepare": {
+    "text": "Förbered",
+    "why": "missing"
+  },
+  "mobile:v3.journey.step": {
+    "text": "Steg {{n}} av {{total}}: {{stage}}",
+    "why": "missing"
+  },
+  "mobile:v3.journey.visa": {
+    "text": "Visum",
+    "why": "missing"
+  },
+  "mobile:v3.match.close": {
+    "text": "Inte behörig än – ett steg kvar",
+    "why": "missing"
+  },
+  "mobile:v3.match.notYet": {
+    "text": "Inte behörig än",
+    "why": "missing"
+  },
+  "mobile:v3.match.possible": {
+    "text": "Möjlig matchning",
+    "why": "missing"
+  },
+  "mobile:v3.match.strong": {
+    "text": "Stark matchning",
+    "why": "missing"
+  },
+  "mobile:v3.messages.attach": {
+    "text": "Bifoga en fil",
+    "why": "missing"
+  },
+  "mobile:v3.messages.attachUnavailable": {
+    "text": "Bilagor är inte tillgängliga än.",
+    "why": "missing"
+  },
+  "mobile:v3.messages.attachmentOnly_one": {
+    "text": "Skickade {{count}} bilaga",
+    "why": "missing"
+  },
+  "mobile:v3.messages.attachmentOnly_other": {
+    "text": "Skickade {{count}} bilagor",
+    "why": "missing"
+  },
+  "mobile:v3.messages.conversations": {
+    "text": "Konversationer",
+    "why": "missing"
+  },
+  "mobile:v3.messages.openAttachment": {
+    "text": "Öppna {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.messages.removeAttachment": {
+    "text": "Ta bort {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.offer.accept": {
+    "text": "Tacka ja",
+    "why": "missing"
+  },
+  "mobile:v3.offer.body": {
+    "text": "{{university}} har erbjudit dig en plats på {{program}}.",
+    "why": "missing"
+  },
+  "mobile:v3.offer.deadline": {
+    "text": "Tacka ja och betala studieavgiften senast {{date}} · {{left}}",
+    "why": "missing"
+  },
+  "mobile:v3.offer.next": {
+    "text": "Det här händer sedan",
+    "why": "missing"
+  },
+  "mobile:v3.offer.scholarship": {
+    "text": "Stipendium",
+    "why": "missing"
+  },
+  "mobile:v3.offer.step.accept": {
+    "text": "Tacka ja till antagningsbeskedet",
+    "why": "missing"
+  },
+  "mobile:v3.offer.step.letter": {
+    "text": "Få ditt standardantagningsbrev",
+    "why": "missing"
+  },
+  "mobile:v3.offer.step.review": {
+    "text": "Läs igenom antagningsbeskedet och eventuella villkor",
+    "why": "missing"
+  },
+  "mobile:v3.offer.step.tuition": {
+    "text": "Betala studieavgiften direkt till universitetet",
+    "why": "missing"
+  },
+  "mobile:v3.offer.step.visa": {
+    "text": "Förbered ditt studentvisum",
+    "why": "missing"
+  },
+  "mobile:v3.offer.tuition": {
+    "text": "Studieavgift",
+    "why": "missing"
+  },
+  "mobile:v3.offer.tuitionDirect": {
+    "text": "Hangyul tar aldrig emot studieavgifter. Betala till universitetet i ditt eget namn enligt dess instruktioner.",
+    "why": "missing"
+  },
+  "mobile:v3.profile.completeTitle": {
+    "text": "Din profil är komplett",
+    "why": "missing"
+  },
+  "mobile:v3.profile.done": {
+    "text": "Klart",
+    "why": "missing"
+  },
+  "mobile:v3.profile.editOnWeb": {
+    "text": "Du kan när som helst ändra svaren på webben.",
+    "why": "missing"
+  },
+  "mobile:v3.profile.places": {
+    "text": "Dina uppgifter",
+    "why": "missing"
+  },
+  "mobile:v3.profile.todo": {
+    "text": "Att lägga till",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.basics": {
+    "text": "Visar oss vilka dokument- och visumregler som gäller för dig",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.default": {
+    "text": "Gör dina matchningar mer träffsäkra",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.education": {
+    "text": "Tar bort program vars akademiska krav du inte uppfyller",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.goals": {
+    "text": "Visar program på den nivå och med den start du vill ha",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.passport": {
+    "text": "Behövs innan någon ansökan kan skickas in",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.preferences": {
+    "text": "Rangordnar universitet efter din budget och stad",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.sponsor": {
+    "text": "Låter dig förbereda de ekonomiska dokumenten för visumet i god tid",
+    "why": "missing"
+  },
+  "mobile:v3.push.denied": {
+    "text": "Aviseringar är avstängda. Slå på dem för Hangyul i telefonens inställningar.",
+    "why": "missing"
+  },
+  "mobile:v3.push.enable": {
+    "text": "Slå på aviseringar",
+    "why": "missing"
+  },
+  "mobile:v3.push.error": {
+    "text": "Vi kunde inte slå på aviseringar. Försök igen.",
+    "why": "missing"
+  },
+  "mobile:v3.push.idle": {
+    "text": "Få en pushavisering när ett dokument har granskats, en deadline närmar sig eller Hangyul-teamet svarar.",
+    "why": "missing"
+  },
+  "mobile:v3.push.on": {
+    "text": "Aviseringar är på. Du kan ändra det i telefonens inställningar.",
+    "why": "missing"
+  },
+  "mobile:v3.push.pending-server": {
+    "text": "Aviseringar är tillåtna på den här telefonen. Pushaviseringar är inte i gång än; allt visas fortfarande i den här listan.",
+    "why": "missing"
+  },
+  "mobile:v3.push.title": {
+    "text": "Aviseringar på den här telefonen",
+    "why": "missing"
+  },
+  "mobile:v3.quick.again": {
+    "text": "Ändra mina svar",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.beforeVerify": {
+    "text": "Innan du verifierar",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.bulkBody": {
+    "text": "Gör bara detta för dokument du har öppnat och kontrollerat. Varje student meddelas.",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.bulkDone": {
+    "text": "{{ok}} verifierade, {{failed}} överhoppade",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.bulkTitle_one": {
+    "text": "Verifiera {{count}} dokument?",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.bulkTitle_other": {
+    "text": "Verifiera {{count}} dokument?",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.date": {
+    "text": "Utfärdandedatumet är tillräckligt nytt och inte utgånget",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.issuer": {
+    "text": "Utfärdare, stämpel eller underskrift syns",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.legal": {
+    "text": "{{path}} är bifogad och stämmer med dokumentet",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.legible": {
+    "text": "Alla sidor är kompletta och läsbara",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.name": {
+    "text": "Namn och födelsedatum stämmer med passet",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.correctionTitle": {
+    "text": "Vad ska studenten rätta?",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.expires": {
+    "text": "Giltigt till",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.issuedIn": {
+    "text": "Utfärdat i",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.issuedOn": {
+    "text": "Utfärdat den",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.legalization": {
+    "text": "Legalisering",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.notNeeded": {
+    "text": "Behövs inte",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.open": {
+    "text": "Öppna {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.overSla": {
+    "text": "{{waiting}} · över utlovad granskningstid",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.reason": {
+    "text": "Meddelande till studenten",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.requestCorrection": {
+    "text": "Begär rättelse",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.required": {
+    "text": "Krävs",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.select": {
+    "text": "Välj",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.studentSees": {
+    "text": "{{name}} ser exakt den här texten bredvid dokumentet.",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.studentSeesGeneric": {
+    "text": "Studenten ser exakt den här texten bredvid dokumentet.",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.summary": {
+    "text": "{{count}} väntar · {{over}} över utlovad granskningstid på {{hours}} h",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.templates": {
+    "text": "Teamets mallar",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.translation": {
+    "text": "Översättning",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.uploaded": {
+    "text": "uppladdat {{when}}",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.verifyN_one": {
+    "text": "Verifiera {{count}} dokument",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.verifyN_other": {
+    "text": "Verifiera {{count}} dokument",
+    "why": "missing"
+  },
+  "mobile:v3.settings.consoleHint": {
+    "text": "Teammedlemmar, fakturering och exporter hanteras i byråns webbkonsol.",
+    "why": "missing"
+  },
+  "mobile:v3.settings.work": {
+    "text": "Ditt arbete",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.empty.team": {
+    "text": "Teamet har inga öppna uppgifter",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.empty.today": {
+    "text": "Inget förfaller i dag",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.empty.waiting": {
+    "text": "Inga uppgifter väntar på något annat",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.empty.week": {
+    "text": "Inget förfaller den här veckan",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.open": {
+    "text": "Öppna",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.overdue": {
+    "text": "Försenad · {{when}}",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.overdue": {
+    "text": "Försenade",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.team": {
+    "text": "Team",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.today": {
+    "text": "I dag",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.waiting": {
+    "text": "Väntar",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.week": {
+    "text": "Den här veckan",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.waitingOn": {
+    "text": "Väntar på: {{what}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.allClear": {
+    "text": "Inget behöver beslut just nu.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.allCohorts": {
+    "text": "Alla Hangyul-studenter",
+    "why": "missing"
+  },
+  "mobile:v3.uni.allIntakes": {
+    "text": "Alla antagningsomgångar",
+    "why": "missing"
+  },
+  "mobile:v3.uni.applicant": {
+    "text": "Sökande",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.gpa": {
+    "text": "GPA",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.interview": {
+    "text": "Intervju",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.interviewRequired": {
+    "text": "Krävs för programmet",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.level": {
+    "text": "Nivå {{level}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.minimum": {
+    "text": "Minimum {{need}} · Sökande {{have}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.notProvided": {
+    "text": "ej angivet",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.below": {
+    "text": "Under minimum",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.meets": {
+    "text": "Uppfyller",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.missing": {
+    "text": "Ej angivet",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.planned": {
+    "text": "Test planerat",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.unscheduled": {
+    "text": "Ej inbokat",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.topik": {
+    "text": "TOPIK",
+    "why": "missing; official test name"
+  },
+  "mobile:v3.uni.checksNote": {
+    "text": "Jämför självrapporterade resultat med programmets publicerade minimikrav. Stöd för er bedömning, inte ett beslut.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.checksTitle": {
+    "text": "Kravkontroll",
+    "why": "missing"
+  },
+  "mobile:v3.uni.closed": {
+    "text": "Avslutade: {{rejected}} ej antagna, {{withdrawn}} tillbakadragna. Andelar kräver minst {{min}} personer.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohortIntro_one": {
+    "text": "{{count}} student kom till er via Hangyul. Så här går det för dem.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohortIntro_other": {
+    "text": "{{count}} studenter kom till er via Hangyul. Så här går det för dem.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohortNote": {
+    "text": "Andelar visas när minst {{min}} studenter ingår. Per {{date}}.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohort_one": {
+    "text": "{{label}} · {{count}} student",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohort_other": {
+    "text": "{{label}} · {{count}} studenter",
+    "why": "missing"
+  },
+  "mobile:v3.uni.conv": {
+    "text": "{{pct}} av föregående steg · {{n}} av {{d}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.convFew": {
+    "text": "{{n}} av {{d}} från föregående steg · för få för en andel",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.admitted_one": {
+    "text": "antagen student som inte betalat studieavgiften än",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.admitted_other": {
+    "text": "antagna studenter som inte betalat studieavgiften än",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.documents_one": {
+    "text": "väntar på studentens dokument",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.documents_other": {
+    "text": "väntar på studenternas dokument",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.flagged_one": {
+    "text": "flaggad ansökan",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.flagged_other": {
+    "text": "flaggade ansökningar",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.interview_one": {
+    "text": "intervju att hålla eller bedöma",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.interview_other": {
+    "text": "intervjuer att hålla eller bedöma",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.offer_one": {
+    "text": "antagningsbesked som väntar på studentens svar",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.offer_other": {
+    "text": "antagningsbesked som väntar på studentens svar",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.returned_one": {
+    "text": "dokument som studenten skickat tillbaka",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.returned_other": {
+    "text": "dokument som studenter skickat tillbaka",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.review_one": {
+    "text": "ansökan att granska",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.review_other": {
+    "text": "ansökningar att granska",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionContext_one": {
+    "text": "{{ready}} av {{total}} obligatoriska dokument klara · {{count}} öppen begäran.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionContext_other": {
+    "text": "{{ready}} av {{total}} obligatoriska dokument klara · {{count}} öppna begäranden.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionDocs": {
+    "text": "{{ready}} av {{total}} obligatoriska dokument klara.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.admitted": {
+    "text": "Bekräfta betalningen när den kommer in",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.documents": {
+    "text": "Ingen åtgärd förrän de laddar upp",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.flagged": {
+    "text": "Markerad för närmare granskning",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.interview": {
+    "text": "Registrera utfallet efter intervjun",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.offer": {
+    "text": "Hangyul följer upp med studenten",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.returned": {
+    "text": "Kontrollera det ni bad om",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.review": {
+    "text": "Inskickad och tillräckligt komplett för beslut",
+    "why": "missing"
+  },
+  "mobile:v3.uni.docsTitle": {
+    "text": "Dokument · {{ready}} av {{total}} klara",
+    "why": "missing"
+  },
+  "mobile:v3.uni.dueOn": {
+    "text": "senast {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.empty.all": {
+    "text": "Inga sökande här",
+    "why": "missing"
+  },
+  "mobile:v3.uni.empty.flagged": {
+    "text": "Inga flaggade ansökningar",
+    "why": "missing"
+  },
+  "mobile:v3.uni.empty.review": {
+    "text": "Inga ansökningar väntar på granskning",
+    "why": "missing"
+  },
+  "mobile:v3.uni.graduation": {
+    "text": "Examen",
+    "why": "missing"
+  },
+  "mobile:v3.uni.latest": {
+    "text": "Senaste att granska",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.ADDITIONAL_DOCUMENTS": {
+    "text": "Begär fler dokument",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Utfärda standardantagningsbrev",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.INTERVIEW": {
+    "text": "Kalla till intervju",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.OFFERED": {
+    "text": "Ge antagningsbesked",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.REJECTED": {
+    "text": "Anta inte",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.TUITION_PAID": {
+    "text": "Bekräfta att studieavgiften är betald",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.TUITION_PENDING": {
+    "text": "Skicka faktura för studieavgift",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.UNIVERSITY_REVIEW": {
+    "text": "Påbörja granskning",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.WAITLISTED": {
+    "text": "Sätt på reservlista",
+    "why": "missing"
+  },
+  "mobile:v3.uni.nOfD": {
+    "text": "{{n}} av {{d}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.needsTitle": {
+    "text": "Behöver ditt beslut",
+    "why": "missing"
+  },
+  "mobile:v3.uni.noMinimums": {
+    "text": "Programmet har inga publicerade minimikrav än.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.nothingToReview": {
+    "text": "Inget väntar på granskning",
+    "why": "missing"
+  },
+  "mobile:v3.uni.openRequests_one": {
+    "text": "{{count}} dokument begärt",
+    "why": "missing"
+  },
+  "mobile:v3.uni.openRequests_other": {
+    "text": "{{count}} dokument begärda",
+    "why": "missing"
+  },
+  "mobile:v3.uni.otherDecisions": {
+    "text": "Övriga beslut",
+    "why": "missing"
+  },
+  "mobile:v3.uni.populationAll_one": {
+    "text": "Baserat på {{count}} inskickad ansökan, alla antagningsomgångar.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.populationAll_other": {
+    "text": "Baserat på {{count}} inskickade ansökningar, alla antagningsomgångar.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.populationIntake_one": {
+    "text": "Baserat på {{count}} inskickad ansökan för {{intake}}.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.populationIntake_other": {
+    "text": "Baserat på {{count}} inskickade ansökningar för {{intake}}.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.reason": {
+    "text": "Orsak (delas med Hangyul)",
+    "why": "missing"
+  },
+  "mobile:v3.uni.request": {
+    "text": "Begär",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestLabel": {
+    "text": "Vad behöver ni?",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestLabelHint": {
+    "text": "t.ex. Gymnasieexamensbevis med apostille",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestNote": {
+    "text": "Instruktioner till studenten",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestNoteHint": {
+    "text": "Exakt vad som saknas och hur det åtgärdas",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestSend": {
+    "text": "Skicka begäran",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestTitle": {
+    "text": "Begär ett dokument från {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestWho": {
+    "text": "Studenten och studentens handläggare hos Hangyul meddelas och ser exakt den här formuleringen.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestedOn": {
+    "text": "Begärt {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.retention": {
+    "text": "Studerar fortfarande",
+    "why": "missing"
+  },
+  "mobile:v3.uni.search": {
+    "text": "Sök namn, program eller referens",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.ACCEPTED": {
+    "text": "Tackat ja",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.ARRIVED": {
+    "text": "Anlänt till Korea",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.ENROLLED": {
+    "text": "Inskrivna",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.OFFERED": {
+    "text": "Antagningsbesked",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.REVIEWED": {
+    "text": "Granskade",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.SUBMITTED": {
+    "text": "Inskickade",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.TUITION_PAID": {
+    "text": "Betalt studieavgift",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.VISA_ISSUED": {
+    "text": "Visum utfärdat",
+    "why": "missing"
+  },
+  "mobile:v3.uni.tab.applicants": {
+    "text": "Sökande",
+    "why": "missing"
+  },
+  "mobile:v3.uni.tab.pipeline": {
+    "text": "Översikt",
+    "why": "missing"
+  },
+  "mobile:v3.uni.tab.students": {
+    "text": "Studenter",
+    "why": "missing"
+  },
+  "mobile:v3.uni.tooFew": {
+    "text": "För få för en andel",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.admitted": {
+    "text": "Antagna",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.all": {
+    "text": "Alla",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.documents": {
+    "text": "Saknade dokument",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.enrolment": {
+    "text": "Visum och inskrivning",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.flagged": {
+    "text": "Flaggade",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.interview": {
+    "text": "Intervju",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.offer": {
+    "text": "Antagningsbesked",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.review": {
+    "text": "Behöver granskas",
+    "why": "missing"
+  },
+  "mobile:v3.uni.waitingStudent": {
+    "text": "Väntar på studenten",
+    "why": "missing"
+  },
+  "mobile:v3.university.admissionsSite": {
+    "text": "Webbplats för internationell antagning",
+    "why": "missing"
+  },
+  "mobile:v3.university.deadline": {
+    "text": "Sista ansökningsdag",
+    "why": "missing"
+  },
+  "mobile:v3.university.documents": {
+    "text": "Dokument",
+    "why": "missing"
+  },
+  "mobile:v3.university.documentsCount": {
+    "text": "{{count}} dokument · {{legal}} behöver apostille eller konsulär legalisering",
+    "why": "missing"
+  },
+  "mobile:v3.university.dorm": {
+    "text": "Studentboende per termin",
+    "why": "missing"
+  },
+  "mobile:v3.university.dormRange": {
+    "text": "{{min}}–{{max}}",
+    "why": "missing"
+  },
+  "mobile:v3.university.estimate": {
+    "text": "Uppskattad totalkostnad",
+    "why": "missing"
+  },
+  "mobile:v3.university.estimateNote": {
+    "text": "Uppskattning baserad på publicerad studieavgift och typiska levnadskostnader per månad i staden.",
+    "why": "missing"
+  },
+  "mobile:v3.university.fee": {
+    "text": "Ansökningsavgift",
+    "why": "missing"
+  },
+  "mobile:v3.university.gpa": {
+    "text": "Betyg",
+    "why": "missing"
+  },
+  "mobile:v3.university.gpaMin": {
+    "text": "Minst {{pct}} % av högsta GPA",
+    "why": "missing"
+  },
+  "mobile:v3.university.intake": {
+    "text": "Antagningsomgång",
+    "why": "missing"
+  },
+  "mobile:v3.university.interview": {
+    "text": "Intervju",
+    "why": "missing"
+  },
+  "mobile:v3.university.interviewYes": {
+    "text": "Universitetet kan kalla dig till intervju",
+    "why": "missing"
+  },
+  "mobile:v3.university.language": {
+    "text": "Språk",
+    "why": "missing"
+  },
+  "mobile:v3.university.links": {
+    "text": "Officiell information",
+    "why": "missing"
+  },
+  "mobile:v3.university.living": {
+    "text": "Levnadskostnader (12 månader)",
+    "why": "missing"
+  },
+  "mobile:v3.university.noIntake": {
+    "text": "Ingen öppen antagningsomgång",
+    "why": "missing"
+  },
+  "mobile:v3.university.noVerdict": {
+    "text": "Gör klart din profil för att se om du uppfyller programmets krav.",
+    "why": "missing"
+  },
+  "mobile:v3.university.notPublished": {
+    "text": "Inte publicerat",
+    "why": "missing"
+  },
+  "mobile:v3.university.program": {
+    "text": "Program",
+    "why": "missing"
+  },
+  "mobile:v3.university.requirements": {
+    "text": "Krav",
+    "why": "missing"
+  },
+  "mobile:v3.university.start": {
+    "text": "Påbörja ansökan",
+    "why": "missing"
+  },
+  "mobile:v3.university.verdict.COMPETITIVE": {
+    "text": "Du uppfyller de publicerade minimikraven. En sak behöver din uppmärksamhet.",
+    "why": "missing"
+  },
+  "mobile:v3.university.verdict.NOT_ELIGIBLE": {
+    "text": "Ett publicerat krav är inte uppfyllt än.",
+    "why": "missing"
+  },
+  "mobile:v3.university.verdict.RECOMMENDED": {
+    "text": "Rekommenderas för dig.",
+    "why": "missing"
+  },
+  "mobile:v3.university.verdict.STRONG": {
+    "text": "Du uppfyller alla publicerade grundkrav, och programmet passar din budget.",
+    "why": "missing"
+  },
+  "mobile:v3.university.website": {
+    "text": "Universitetets webbplats",
+    "why": "missing"
+  },
+  "mobile:v3.university.yearCost": {
+    "text": "Kostnad första året (uppskattning)",
+    "why": "missing"
+  },
+  "mobile:v3.upload.camera": {
+    "text": "Ta ett foto",
+    "why": "missing"
+  },
+  "mobile:v3.upload.cameraHint": {
+    "text": "Lägg dokumentet plant i bra ljus",
+    "why": "missing"
+  },
+  "mobile:v3.upload.failed": {
+    "text": "Vi kunde inte öppna filen. Försök igen.",
+    "why": "missing"
+  },
+  "mobile:v3.upload.files": {
+    "text": "Välj en fil",
+    "why": "missing"
+  },
+  "mobile:v3.upload.filesHint": {
+    "text": "PDF, JPG eller PNG, högst 15 MB",
+    "why": "missing"
+  },
+  "mobile:v3.upload.library": {
+    "text": "Välj bland foton",
+    "why": "missing"
+  },
+  "mobile:v3.upload.privacy": {
+    "text": "Bara du och Hangyul-teamet kan öppna dina dokument. Ett universitet ser dem först när du skickar in en ansökan dit.",
+    "why": "missing"
+  },
+  "mobile:v3.upload.tooLarge": {
+    "text": "Filen är större än 15 MB. Prova en PDF-skanning eller ett mindre foto.",
+    "why": "missing"
+  },
+  "mobile:v3.visa.after": {
+    "text": "Kommer efter: {{list}}",
+    "why": "meaning: comes after"
+  },
+  "mobile:v3.visa.beforeBody": {
+    "text": "När du har tackat ja till ett antagningsbesked och betalat studieavgiften utfärdar universitetet ditt standardantagningsbrev. Du kan redan nu se vad du behöver och börja samla ihop det.",
+    "why": "official document name"
+  },
+  "mobile:v3.visa.beforeTitle": {
+    "text": "Visumförberedelserna börjar efter ditt antagningsbesked",
+    "why": "missing"
+  },
+  "mobile:v3.visa.blockers": {
+    "text": "Behövs först",
+    "why": "missing"
+  },
+  "mobile:v3.visa.checklist": {
+    "text": "Din checklista · {{done}} av {{total}} klara",
+    "why": "missing"
+  },
+  "mobile:v3.visa.forNationality": {
+    "text": "Gäller ditt medborgarskap",
+    "why": "missing"
+  },
+  "mobile:v3.visa.now": {
+    "text": "Det som behöver dig nu",
+    "why": "missing"
+  },
+  "mobile:v3.visa.phase.admission": {
+    "text": "Antagning",
+    "why": "missing"
+  },
+  "mobile:v3.visa.phase.apply": {
+    "text": "Visumansökan",
+    "why": "missing"
+  },
+  "mobile:v3.visa.phase.decision": {
+    "text": "Ambassadens beslut",
+    "why": "missing"
+  },
+  "mobile:v3.visa.phase.documents": {
+    "text": "Visumdokument",
+    "why": "missing"
+  },
+  "mobile:v3.visa.phase.letter": {
+    "text": "Standardantagningsbrev",
+    "why": "missing"
+  },
+  "mobile:v3.visa.preview": {
+    "text": "Det här kommer du att behöva",
+    "why": "missing"
+  },
+  "mobile:v3.visa.seeRequirement": {
+    "text": "Se det officiella kravet",
+    "why": "missing"
+  },
+  "mobile:v3.visa.sourceChecked": {
+    "text": "Officiell källa · kontrollerad {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.visa.title": {
+    "text": "Förberedelser för ditt {{type}}-visum",
+    "why": "meaning drift: 'your plan for'"
+  },
+  "mobile:v3.visa.titleGeneric": {
+    "text": "Ditt studentvisum",
+    "why": "missing"
+  },
+  "mobile:v4.application.blocks": {
+    "text": "Din ansökan kan inte skickas in förrän det här är klart.",
+    "why": "missing"
+  },
+  "mobile:v4.application.blocksUni": {
+    "text": "{{university}} väntar på det här innan ansökan går vidare.",
+    "why": "missing"
+  },
+  "mobile:v4.application.doneSummary_one": {
+    "text": "{{count}} klar: {{items}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.doneSummary_other": {
+    "text": "{{count}} klara: {{items}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.next": {
+    "text": "Ditt nästa steg",
+    "why": "missing"
+  },
+  "mobile:v4.application.nextFix": {
+    "text": "Rätta {{item}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.nextLegalize": {
+    "text": "Skaffa apostille eller konsulär legalisering för {{item}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.nextRequest": {
+    "text": "{{university}} har bett om: {{item}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.nextUpload": {
+    "text": "Ladda upp {{item}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.nextWrite": {
+    "text": "Skriv {{item}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.nothingForYou": {
+    "text": "Inget för dig att göra just nu",
+    "why": "missing"
+  },
+  "mobile:v4.application.openDocument": {
+    "text": "Öppna dokumentet",
+    "why": "missing"
+  },
+  "mobile:v4.application.reviewLate": {
+    "text": "Det tar längre tid än vanligt. Hangyul-teamet vet att det är försenat. Du behöver inte ladda upp det igen.",
+    "why": "the team, not an advisor"
+  },
+  "mobile:v4.application.waitBody": {
+    "text": "Hangyul-teamet kontrollerar det du skickat. Vi säger till om något behöver ändras.",
+    "why": "missing"
+  },
+  "mobile:v4.application.waitTitle": {
+    "text": "Inget för dig att göra just nu",
+    "why": "missing"
+  },
+  "mobile:v4.application.writeOnWeb": {
+    "text": "Skriv det på webben. Där syns också Hangyul-teamets kommentarer.",
+    "why": "the team, not an advisor"
+  },
+  "mobile:v4.discover.firstYear": {
+    "text": "{{range}} första året",
+    "why": "missing"
+  },
+  "mobile:v4.documents.late": {
+    "text": "Tar längre tid",
+    "why": "missing"
+  },
+  "mobile:v4.documents.lateLine": {
+    "text": "flaggat som försenat för Hangyul-teamet",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.FIX.cta": {
+    "text": "Se hur du rättar det",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.FIX.text": {
+    "text": "Din ansökan kan inte skickas in förrän det här är rättat.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.FIX.title": {
+    "text": "Rätta {{label}} för {{university}}",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.LEGALIZE.cta": {
+    "text": "Se stegen",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.LEGALIZE.text": {
+    "text": "Koreanska universitet godtar bara dokumentet när det är bestyrkt. Vi visar dig stegen för ditt land.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.LEGALIZE.title": {
+    "text": "Skaffa apostille för {{label}} till {{university}}",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.RENEW.cta": {
+    "text": "Se vad du ska göra",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.RENEW.text": {
+    "text": "Det du laddade upp har gått ut.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.RENEW.title": {
+    "text": "Skaffa ett nytt exemplar av {{label}} för {{university}}",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.REQUEST.cta": {
+    "text": "Ladda upp och skicka",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.REQUEST.text": {
+    "text": "Universitetet har bett om dokumentet. Din ansökan kan inte gå vidare förrän det har kommit in.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.REQUEST.title": {
+    "text": "Skicka {{label}} till {{university}}",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.cta": {
+    "text": "Öppna ditt utkast",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.text": {
+    "text": "Hangyul-teamet har lämnat kommentarer. Din ansökan kan inte skickas in förrän texten är godkänd.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.title": {
+    "text": "Revidera {{label}} för {{university}}",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.TOO_OLD.cta": {
+    "text": "Se vad du ska göra",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.TOO_OLD.text": {
+    "text": "Universitetet behöver ett nyligen utfärdat exemplar.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.TOO_OLD.title": {
+    "text": "Skaffa ett nyare exemplar av {{label}} för {{university}}",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.UPLOAD.cta": {
+    "text": "Ladda upp",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.UPLOAD.text": {
+    "text": "Din ansökan kan inte skickas in utan det.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.UPLOAD.title": {
+    "text": "Ladda upp {{label}} för {{university}}",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.cta": {
+    "text": "Börja skriva",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.text": {
+    "text": "Hangyul-teamet går igenom det med dig. Börja med ett grovt utkast. Det behöver inte vara perfekt.",
+    "why": "the team, not an advisor"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.title": {
+    "text": "Skriv {{label}} för {{university}}",
+    "why": "missing"
+  },
+  "mobile:v4.uni.actor.AGENCY": {
+    "text": "Partnerbyrå",
+    "why": "missing"
+  },
+  "mobile:v4.uni.actor.HANGYUL": {
+    "text": "Hangyul",
+    "why": "missing; brand name"
+  },
+  "mobile:v4.uni.actor.STUDENT": {
+    "text": "Sökande",
+    "why": "missing"
+  },
+  "mobile:v4.uni.actor.SYSTEM": {
+    "text": "Automatiskt",
+    "why": "missing"
+  },
+  "mobile:v4.uni.actor.UNIVERSITY": {
+    "text": "Ert universitet",
+    "why": "missing"
+  },
+  "mobile:v4.uni.toReview_one": {
+    "text": "Att granska · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v4.uni.toReview_other": {
+    "text": "Att granska · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v4.university.continue": {
+    "text": "Fortsätt din ansökan",
+    "why": "missing"
+  },
+  "mobile:v4.university.firstYear": {
+    "text": "Första året, uppskattat",
+    "why": "missing"
+  },
+  "mobile:v4.university.tuitionYear": {
+    "text": "Studieavgift per år",
+    "why": "missing"
+  },
+  "mobile:v4.visa.hideDone": {
+    "text": "Dölj klara steg",
+    "why": "missing"
+  },
+  "mobile:v4.visa.showDone_one": {
+    "text": "Visa {{count}} klart steg",
+    "why": "missing"
+  },
+  "mobile:v4.visa.showDone_other": {
+    "text": "Visa {{count}} klara steg",
+    "why": "missing"
+  }
+}

@@ -201,31 +201,6 @@ def login(body: LoginIn, request: Request, response: Response, db: Session = Dep
     return {**tokens, **session_payload(db, user, body.client, org_id)}
 
 
-class DemoLoginIn(BaseModel):
-    email: EmailStr
-    client: Client = "student"
-
-
-@router.post("/demo-login")
-def demo_login(body: DemoLoginIn, request: Request, response: Response, db: Session = Depends(get_db)):
-    """Development-only persona sign-in (Demo access). Seeded demo accounts only; refused in production."""
-    if not settings.demo_logins_enabled:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Not found")
-    user = db.scalar(select(User).where(User.email == body.email.lower()))
-    if user is None or not user.is_demo or not user.is_active:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Unknown demo persona")
-    org_id = default_org_for_client(db, user, body.client, None)
-    mfa.login_gate(db, user, client=body.client, org_id=org_id, ip=_ip(request))  # V29: no MFA bypass via demo access
-    db.add(LoginEvent(user_id=user.id, email=user.email, success=True, reason="demo_access", client=body.client,
-                      ip=request.client.host if request.client else None,
-                      user_agent=(request.headers.get("user-agent") or "")[:300], created_at=utcnow()))
-    user.last_login_at = utcnow()
-    tokens = issue_tokens(db, response, request, user, body.client, org_id)
-    tokens.pop("_rt")
-    db.commit()
-    return {**tokens, **session_payload(db, user, body.client, org_id)}
-
-
 @router.post("/refresh")
 def refresh(body: RefreshIn, request: Request, response: Response, db: Session = Depends(get_db)):
     raw = body.refresh_token or request.cookies.get(cookie_name(body.client))

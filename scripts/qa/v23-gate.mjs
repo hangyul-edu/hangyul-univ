@@ -92,25 +92,16 @@ async function staticPart() {
   ok('DISCOVERY', 'no "campus photography" tier tag on tiles', !/v20\.dir\.tierPhoto/.test(read('apps/marketing-web/src/pages/Universities.tsx')));
   ok('DISCOVERY', 'campus role is translated, not printed raw', /CAMPUS_ROLE/.test(read('apps/marketing-web/src/pages/UniversityDetail.tsx')));
 
-  // TEST ACCESS — static
+  // TEST ACCESS / PAID STATE — V32: the feature no longer exists; the invariant is absence (see qa:v32-leak)
   for (const [app, file] of [['student', 'apps/student-web/src/pages/Login.tsx'], ['agency', 'apps/agency-web/src/pages/Login.tsx'], ['university', 'apps/university-web/src/pages/Login.tsx']]) {
-    const s = read(file);
-    ok('TEST ACCESS', `${app} login lazy-loads the test sign-in behind DEV || VITE_DEMO_LOGINS`, /import\.meta\.env\.DEV \|\| import\.meta\.env\.VITE_DEMO_LOGINS === 'true'/.test(s) && /lazy\(\(\) => import\('@hangyul\/ui\/test-access'\)\)/.test(s));
+    ok('TEST ACCESS', `${app} login has no test sign-in`, !/TestAccountSignIn|VITE_DEMO_LOGINS|demo-login/.test(read(file)));
   }
-  const ta = read('packages/ui/src/test-access.tsx');
-  ok('TEST ACCESS', 'no password, no "sample data" hint, no role wording in the web test sign-in', !/Hangyul!2026'|samples?\s*data|샘플 데이터|다른 역할/i.test(ta.replace(/\/\*[\s\S]*?\*\//g, '')));
-  const personas = read('packages/auth/src/demo-personas.ts');
-  const counts = Object.fromEntries(['student', 'agency', 'university'].map((p) => [p, (personas.split(`  ${p}: [`)[1] ?? '').split('],')[0].match(/email:/g)?.length ?? 0]));
-  ok('TEST ACCESS', 'one primary + at most four other test accounts per product', Object.values(counts).every((n) => n >= 1 && n <= 5), JSON.stringify(counts));
+  ok('TEST ACCESS', 'no persona module, no test-access component', !exists('packages/auth/src/demo-personas.ts') && !exists('packages/ui/src/test-access.tsx'));
   const cfg = read('server/app/core/config.py');
   ok('TEST ACCESS', 'server environment fails closed (default production, normalised)', /env: str = "production"/.test(cfg) && /_normalise_env/.test(cfg));
-
-  // PAID STATE — static
   const st = read('server/app/api/v1/student.py');
-  ok('TEST PAID STATE', 'dev-complete endpoint exists and is guarded by test_payment_bypass_enabled', /\/orders\/dev-complete/.test(st) && /test_payment_bypass_enabled/.test(st));
-  ok('TEST PAID STATE', 'bypass uses the real activate_paid_order and never calls the provider', /activate_paid_order\(/.test(st) && /"payment_provider_called": False/.test(st));
+  ok('TEST PAID STATE', 'no dev-complete endpoint and no bypass setting', !/dev-complete|test_payment_bypass/.test(st + cfg));
   ok('TEST PAID STATE', 'real Toss key-in path intact', /\/v1\/payments\/key-in/.test(read('server/app/services/foreign_card.py')));
-  ok('TEST PAID STATE', 'production refuses the bypass (is_production short-circuit)', /if self\.is_production:\n\s+return False/.test(cfg));
 
   // AGENCY / UNIVERSITY — static
   const roleHits = [];
@@ -130,13 +121,12 @@ async function staticPart() {
   ok('STUDENT', 'no counselor/agency naming in student mobile copy', !('v3.home.counselorAt' in bundle('ko', 'mobile')) && !('v3.application.counselor' in bundle('en', 'mobile')));
   ok('STUDENT', 'payment errors never render the raw transport message', !/: err\.message,\n/.test(read('apps/student-web/src/pages/Services.tsx')));
 
-  // NATIVE — static
+  // NATIVE — static (V32: no test sign-in at all)
   const login = read('packages/mobile-ui/src/bootstrap/LoginScreen.tsx');
-  ok('NATIVE', 'test sign-in reached only through a Metro-foldable require', /const TEST_LOGIN = __DEV__ \|\| process\.env\.EXPO_PUBLIC_TEST_LOGIN === 'true';/.test(login) && /TEST_LOGIN \? require\('\.\.\/components\/TestAccountSignIn'\)/.test(login));
-  ok('NATIVE', 'no static persona import anywhere in mobile-ui or the apps', !exists('packages/mobile-ui/src/components/DevAccess.tsx') && !walk(path.join(ROOT, 'packages/mobile-ui/src'), (p) => /\.tsx?$/.test(p)).filter((f) => !f.endsWith('TestAccountSignIn.tsx')).some((f) => /demo-personas/.test(fs.readFileSync(f, 'utf8'))));
+  ok('NATIVE', 'no test sign-in in the native login screen', !/TEST_LOGIN|TestAccountSignIn/.test(login) && !exists('packages/mobile-ui/src/components/TestAccountSignIn.tsx'));
   for (const app of ['student-mobile', 'agency-mobile', 'university-mobile']) {
     const eas = JSON.parse(read(`apps/${app}/eas.json`));
-    ok('NATIVE', `${app}: production profile compiles test sign-in out; preview keeps it`, eas.build.production.env.EXPO_PUBLIC_TEST_LOGIN === 'false' && eas.build.preview.env.EXPO_PUBLIC_TEST_LOGIN === 'true' && !eas.build.production.env.HG_QA_CLEARTEXT);
+    ok('NATIVE', `${app}: no EXPO_PUBLIC_TEST_LOGIN in any build profile`, !JSON.stringify(eas).includes('EXPO_PUBLIC_TEST_LOGIN'));
     const aj = JSON.parse(read(`apps/${app}/app.json`)).expo;
     ok('NATIVE', `${app}: release signing plugin + versionCode`, aj.plugins.includes('./plugins/withReleaseSigning') && aj.android.versionCode >= 1);
   }
@@ -205,15 +195,6 @@ async function apiPart() {
   ok('DISCOVERY', 'every one of the 425 detail routes answers 200', bad === 0, `${items.length - bad}/${items.length}${badSlugs.length ? ` (${badSlugs.slice(0, 3).join(',')})` : ''}`);
   const det = await fetch(`${API}/directory/institutions/gachon-university`).then((r) => r.json());
   ok('DISCOVERY', 'public detail exposes no internal verification enum or source-status field in rendered sections', !/SOURCED_UNREVIEWED|OFFICIAL_DATA_LIMITED|FULLY_ENRICHED/.test(read('apps/marketing-web/src/pages/UniversityDetail.tsx')), `api has last_verified=${det.last_verified}`);
-  // TEST ACCESS / PAID — dev answers, production refusal proven by pytest
-  const demo = await fetch(`${API}/auth/demo-login`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email: 'student@demo.hangyul.kr', client: 'student' }) });
-  ok('TEST ACCESS', 'demo-login answers in development', demo.status === 200);
-  const tok = (await demo.json()).access_token;
-  const pc = await fetch(`${API}/me/payments/config`, { headers: { authorization: `Bearer ${tok}` } }).then((r) => r.json());
-  ok('TEST PAID STATE', 'payments config advertises the bypass in development; Toss env is test', pc.test_payment_bypass === true && pc.env === 'test', `env=${pc.env}`);
-  const py = spawnSync(path.join(ROOT, 'server/.venv/bin/python'), ['-m', 'pytest', '-q', '-p', 'no:warnings', 'tests/test_v23_environment.py', 'tests/test_v21b_test_paid_state.py', 'tests/test_v23_university.py'], { cwd: path.join(ROOT, 'server'), encoding: 'utf8', env: { ...process.env, HG_ENV: 'development' } });
-  const pyLine = py.stdout.trim().split('\n').pop();
-  ok('TEST ACCESS', 'production refuses demo-login and the paid-state bypass; export = list; tenant export isolated (pytest)', py.status === 0, pyLine);
 }
 
 /* ============================================================================================ rendered */

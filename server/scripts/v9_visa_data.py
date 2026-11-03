@@ -20,7 +20,7 @@ sys.path.insert(0, ".")
 
 from app.core.db import SessionLocal  # noqa: E402
 from app.models.v5_visa_routes import VisaRoute  # noqa: E402
-from app.seed.extra_95_visa_data import load  # noqa: E402
+from app.seed.visa_playbooks import load  # noqa: E402
 from app.services import concierge  # noqa: E402
 from app.services import visa_routes as vr  # noqa: E402
 

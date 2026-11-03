@@ -24,6 +24,7 @@
     "db:migrate": "node scripts/api.mjs migrate",
     "db:seed": "node scripts/api.mjs seed",
     "db:reset": "node scripts/api.mjs reset",
+    "db:fixtures": "node scripts/api.mjs fixtures",
     "typecheck": "node scripts/run-seq.mjs typecheck",
     "build": "node scripts/run-seq.mjs build",
     "test": "npm run test:api && npm run test:web",
@@ -66,8 +67,6 @@
     "qa:v15": "npm run qa:pricing && npm run qa:entitlements && npm run qa:handoff",
     "qa:v16": "node scripts/qa/v16-gate.mjs",
     "qa:v16-shots": "node scripts/qa/v16-capture.mjs",
-    "review:fixtures": "node scripts/review/export-fixtures.mjs",
-    "review:build": "node scripts/review/build.mjs",
     "qa:v17": "node scripts/qa/v17-gate.mjs",
     "qa:v18-locales": "node scripts/qa/v18-locale-coverage.mjs",
     "qa:v18": "node scripts/qa/v18-gate.mjs",
@@ -92,7 +91,6 @@
     "uni:youtube": "node scripts/universities/verify-youtube.mjs",
     "uni:curate": "node scripts/universities/apply-curated.mjs",
     "native:debug-apk": "cd apps/student-mobile && npx expo prebuild --platform android --clean --no-install && cd android && ./gradlew --no-daemon --max-workers=1 :app:assembleDebug",
-    "review:serve": "npx --yes serve@14 -s dist-review -l 4173",
     "test:release": "node scripts/release/test-release.mjs",
     "qa:v21": "node scripts/qa/v21-gate.mjs && node scripts/qa/v21/security-scan.mjs",
     "qa:v21-static": "node scripts/qa/v21-gate.mjs --static",
@@ -137,13 +135,20 @@
     "qa:v31": "bash scripts/qa/v31/chain.sh",
     "public-data:export": "server/.venv/bin/python scripts/public-data/export.py",
     "public-data:check": "server/.venv/bin/python scripts/public-data/export.py --check",
-    "qa:marketing-serverless": "npm run build -w @hangyul/marketing-web && node scripts/qa/marketing-serverless.mjs"
+    "qa:marketing-serverless": "npm run build -w @hangyul/marketing-web && node scripts/qa/marketing-serverless.mjs",
+    "qa:v32-selects": "node scripts/qa/e2e-run.mjs e2e/v32-selects.spec.ts",
+    "qa:v32-data-clean": "server/.venv/bin/python scripts/qa/v32/data-clean.py",
+    "qa:v32-leak": "node scripts/qa/v32/leak.mjs",
+    "qa:v32-crawl": "node scripts/qa/e2e-run.mjs e2e/v32-crawl.spec.ts",
+    "qa:v32-a11y": "node scripts/qa/e2e-run.mjs e2e/v32-a11y.spec.ts",
+    "qa:v32": "bash scripts/qa/v32/chain.sh"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",
+    "@types/node": "^22.10.0",
+    "axe-core": "^4.10.3",
     "concurrently": "^9.2.4",
-    "typescript": "~5.9.3",
-    "@types/node": "^22.10.0"
+    "typescript": "~5.9.3"
   },
   "overrides": {
     "react": "19.2.3",

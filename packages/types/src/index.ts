@@ -463,20 +463,6 @@ export interface OrderResult {
   checkout?: TossCheckout | null;
   customer?: { name: string; email: string } | null;
 }
-/**
- * `POST /me/orders/dev-complete` — the development/test paid-state activation (REPORT §243.2).
- *
- * The same shape a real payment answers with, plus whether the plan was already active (so the caller
- * cannot create a second one by clicking twice) and the plan as it now stands.
- */
-export interface TestPaidStateResult extends PaymentResult {
-  already_paid: boolean;
-  /** Always the local marker, never a payment provider's name. */
-  provider: string;
-  plan: StudentPlan | null;
-}
-
-/** The server's answer about one order, after it has asked the provider. */
 export interface PaymentResult {
   order_id: UUID; status: string; product_code: string; product_name: string;
   amount_minor: number; currency: string; paid_at: string | null;
@@ -1677,7 +1663,6 @@ export interface PaymentsConfig {
    * always. The student app renders its local paid-state button only when this is true *and* the bundle
    * was built with the flag.
    */
-  test_payment_bypass: boolean;
   foreign_card: {
     mid: string | null;
     product: string;

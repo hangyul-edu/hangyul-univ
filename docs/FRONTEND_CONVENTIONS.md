@@ -79,3 +79,17 @@ their route component and load with its chunk); student `app.css`; agency and un
   `--fp-d` / `--fp-m` CSS variables, lazy unless it is the hero). Catalogue universities carry `photo` from their directory
   institution; show it (`UniMark photo=…`) instead of a letter tile.
 - **Gate.** `npm run qa:v25` (static · api · rendered). V25 stylesheets set no literal font size.
+
+## V32 — one selection control, no browser menus (REPORT §436)
+
+- `Select` (form field) and `FilterSelect` (toolbar) in `packages/ui/src/select.tsx` are the only selection controls.
+  Both are a `button[role="combobox"]` with our own portalled listbox: a popover on desktop (placed by the same
+  flip-and-clamp as `Popover`), a bottom sheet on phones. Never render a bare `<select>`, a Bootstrap `form-select`
+  or a styled face over a native select — `npm run qa:v32-selects` fails on any visible native `<select>`.
+- Same props as before: `value`, `onChange` (reads `e.target.value`), `<option>` / `<optgroup>` children, `id` for a
+  `<label htmlFor>`, `name` for a plain form post. Keyboard: arrows, Home/End, PageUp/Down, Enter/Space, Escape, Tab,
+  type-ahead; `aria-activedescendant` keeps focus on the control while the list is open.
+- `CountrySelect` keeps its searchable popover but its closed face is the same `.hg-sel` as every other select.
+- The service-unavailable state (`ServiceUnavailable` in `packages/ui/src/app.tsx`, `AuthStatus 'unavailable'`) is the
+  only thing an authenticated app shows when the API cannot be reached: never a raw transport message, never stale or
+  synthetic data. `ApiError.unreachable` marks the failure; `ErrorState` prefers that wording too.

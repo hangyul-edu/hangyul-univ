@@ -6,7 +6,8 @@
     }
   },
   "login": {
-    "webSignup": "Ny här? Skapa ditt konto direkt i appen."
+    "webSignup": "Ny här? Skapa ditt konto direkt i appen.",
+    "networkError": "Hangyul går inte att nå just nu på {{url}}. Kontrollera din anslutning och försök igen om en stund."
   },
   "signup": {
     "title": "Skapa ditt konto",
@@ -69,18 +70,18 @@
     "consentAll": "Godkänn alla",
     "required": "Obligatoriskt",
     "optional": "Frivilligt",
-    "view": "Visa",
+    "view": "Läs",
     "consent": {
       "TERMS": {
         "label": "Jag godkänner användarvillkoren"
       },
       "PRIVACY": {
         "label": "Jag samtycker till insamling och användning av mina personuppgifter",
-        "summary": "E-post, mobilnummer, namn, nationalitet och lösenord (krypterat), för att skapa och skydda ditt konto."
+        "summary": "E-post, mobilnummer, namn, medborgarskap och lösenord (lagras krypterat), för att skapa och skydda ditt konto."
       },
       "CROSS_BORDER_VERIFICATION": {
         "label": "Jag har tagit del av informationen om att min e-post och mitt mobilnummer behandlas utomlands för verifiering",
-        "summary": "Twilio Inc. (USA) skickar verifierings-sms och -e-post; Cloudflare, Inc. (USA) stoppar automatiserade registreringar. Vilka uppgifter som överförs, när, hur länge de sparas och hur du kan neka finns i integritetspolicyn. Om du nekar kan inget konto skapas."
+        "summary": "Twilio Inc. (USA) skickar verifierings-sms och e-post; Cloudflare, Inc. (USA) kontrollerar att registreringen inte är automatiserad. Detaljer, bland annat hur du kan neka, finns i integritetspolicyn. Om du nekar kan inget konto skapas."
       },
       "MARKETING": {
         "label": "Jag vill få nyheter om studier i Korea och information om evenemang",
@@ -97,9 +98,9 @@
     "quickLanguage": "Din nivå i koreanska eller engelska",
     "quickLevel": "Nivå",
     "quickSkip": "Hoppa över tills vidare",
-    "quickGo": "Visa mina rekommendationer",
+    "quickGo": "Visa mina matchningar",
     "degree": {
-      "LANGUAGE": "Koreanska språket",
+      "LANGUAGE": "Koreanska",
       "BACHELOR": "Kandidat",
       "TRANSFER": "Överflyttning",
       "MASTER": "Master",
@@ -164,73 +165,618 @@
     "quick": {
       "createAccount": "Registrera dig för att fortsätta",
       "open": "Kolla dina möjligheter. Inget konto behövs",
-      "dataUnverified": "Vissa programuppgifter här är inte verifierade än. Kontrollera dem på universitetets officiella webbplats."
+      "dataUnverified": "Vissa programuppgifter här är inte verifierade än. Kontrollera dem på universitetets officiella webbplats.",
+      "again": "Ändra mina svar"
     },
     "home": {
-      "noCounselor": "Välj ett stödpaket så arbetar Hangyul Univ-teamet med dig på ditt språk.",
+      "noCounselor": "Välj ett paket så arbetar Hangyul Univ-teamet med dig på ditt språk.",
       "stageLine": {
-        "admission": "Antagen. Nu säkrar du din plats"
+        "admission": "Antagen. Nu säkrar du din plats",
+        "apply": "Universiteten går igenom dina ansökningar",
+        "arrival": "Gör dig redo för ankomsten till Korea",
+        "discover": "Hittar rätt universitet",
+        "prepare": "Förbereder dina ansökningar",
+        "visa": "Förbereder ditt studentvisum"
       },
       "nextBody": {
-        "ESSAY_WRITE": "Börja med ett grovt utkast. Din rådgivare går igenom det med dig."
-      }
+        "ESSAY_WRITE": "Börja med ett grovt utkast. Hangyul-teamet går igenom det med dig.",
+        "APPLICATION_DEADLINE": "Gör klart checklistan så att din ansökan kan skickas in i tid.",
+        "DOCUMENT_UPLOAD": "Ladda upp en tydlig skanning eller ett foto. Hangyul-teamet kontrollerar det och säger till om något behöver rättas.",
+        "REVIEW_MATCHES": "Vi har jämfört din profil med de publicerade kraven. Spara några och påbörja sedan en ansökan.",
+        "TUITION_PAYMENT": "Studieavgiften betalas direkt till universitetet, i ditt eget namn.",
+        "UNIVERSITY_REQUEST": "Universitetet har bett om ytterligare ett dokument innan det kan fatta beslut.",
+        "VISA_STEP": "Gör nästa punkt på din visumchecklista.",
+        "WAIT": "Inget behöver dig just nu. Vi säger till så fort något ändras."
+      },
+      "applications": "Dina ansökningar",
+      "closes": "Stänger {{date}} · {{left}}",
+      "documentsHint": "Ladda upp, rätta eller skaffa apostille",
+      "documents_one": "{{count}} dokument behöver dig",
+      "documents_other": "{{count}} dokument behöver dig",
+      "due": "Senast {{date}} · {{left}}",
+      "findUniversities": "Hitta universitet",
+      "greeting": {
+        "afternoon": "God eftermiddag, {{name}}",
+        "evening": "God kväll, {{name}}",
+        "morning": "God morgon, {{name}}"
+      },
+      "message": "Skriv",
+      "nextCta": {
+        "APPLICATION_DEADLINE": "Öppna ansökan",
+        "APPLICATION_SUBMIT": "Granska och skicka in",
+        "ARRIVAL_CHECKLIST": "Öppna ankomstchecklistan",
+        "COMPARE_OFFERS": "Jämför antagningsbesked",
+        "COMPLETE_PROFILE": "Fortsätt med profilen",
+        "DOCUMENT_UPLOAD": "Ladda upp dokument",
+        "ESSAY_WRITE": "Öppna ditt utkast",
+        "INTERVIEW": "Förbered dig inför intervjun",
+        "RESPOND_OFFER": "Se ditt antagningsbesked",
+        "REVIEW_MATCHES": "Se mina universitet",
+        "TUITION_PAYMENT": "Se betalningsuppgifter",
+        "UNIVERSITY_REQUEST": "Se vad universitetet har bett om",
+        "VISA_STEP": "Öppna visumstegen"
+      },
+      "nextCtaDefault": "Börja nu",
+      "nextEyebrow": "Det här gör du nu",
+      "noApplications": "Inga ansökningar än. Börja med universitet som passar dig.",
+      "otherTasks_one": "{{count}} annan uppgift",
+      "otherTasks_other": "{{count}} andra uppgifter",
+      "team": "Hangyul Univ-teamet",
+      "unread_one": "{{count}} oläst meddelande",
+      "unread_other": "{{count}} olästa meddelanden",
+      "upcoming": "På gång"
     },
     "agency": {
       "assigned": "Ansvarig: {{counselor}} · sedan {{since}}",
       "att": {
         "oldest": "Äldst: {{what}} ({{who}})",
-        "oldestSelf": "Äldst: {{what}}"
+        "oldestSelf": "Äldst: {{what}}",
+        "breached_one": "{{count}} redan över utlovad tid",
+        "breached_other": "{{count}} redan över utlovad tid",
+        "closing_one": "Ansökan stänger inom 7 dagar",
+        "closing_other": "Ansökningar stänger inom 7 dagar",
+        "docs_one": "Dokument väntar på granskning",
+        "docs_other": "Dokument väntar på granskning",
+        "next": "Nästa: {{uni}} för {{who}}, {{date}}",
+        "overSla": "{{count}} har väntat längre än {{hours}} h",
+        "overdue_one": "Försenad uppgift",
+        "overdue_other": "Försenade uppgifter",
+        "replies_one": "Student väntar på ditt svar",
+        "replies_other": "Studenter väntar på ditt svar",
+        "since": "Äldst från {{who}}, {{when}}",
+        "sla_one": "Student riskerar sent första svar",
+        "sla_other": "Studenter riskerar sent första svar"
+      },
+      "allClear": "Inget kvar: {{list}}",
+      "applications_one": "{{count}} ansökan",
+      "applications_other": "{{count}} ansökningar",
+      "block": {
+        "deadline": "Ansökan till {{uni}} stänger snart",
+        "fix": "{{doc}} behöver rättas av studenten",
+        "requested": "{{uni}} har begärt fler dokument",
+        "review": "{{doc}} väntar på din granskning",
+        "sla": "Första svar förfaller"
+      },
+      "blockers_one": "{{count}} sak håller tillbaka studenten",
+      "blockers_other": "{{count}} saker håller tillbaka studenten",
+      "clear": {
+        "closing": "deadlines den här veckan",
+        "docs": "dokumentgranskningar",
+        "overdue": "försenade uppgifter",
+        "replies": "studentsvar",
+        "sla": "första svar"
+      },
+      "conversationSubject": "Ditt team för studier i Korea",
+      "deadline": "{{uni}} {{when}}",
+      "documents": "Dokument · {{verified}} av {{total}} verifierade",
+      "dueToday_one": "Förfaller i dag · {{count}}",
+      "dueToday_other": "Förfaller i dag · {{count}}",
+      "findStudent": "Hitta en student",
+      "firstMessage": "Skriv till {{name}}",
+      "greeting": {
+        "afternoon": "God eftermiddag, {{name}}",
+        "evening": "God kväll, {{name}}",
+        "morning": "God morgon, {{name}}"
+      },
+      "message": "Meddelande",
+      "messageLabel": "Meddelande",
+      "needsAttention": "Kräver åtgärd",
+      "nextAction": "Nästa: {{what}}",
+      "noBlockers": "Inget blockerar studenten",
+      "noBlockersBody": "Dokument, deadlines och svar ligger i fas.",
+      "noStudents": "Inga studenter i den här vyn",
+      "noStudentsBody": "Prova en annan vy eller rensa sökningen.",
+      "searchPlaceholder": "Namn eller e-post",
+      "stage": "Steg",
+      "stageNote": "Anteckning till teamet (valfritt)",
+      "stageTo": "Flytta till {{stage}}",
+      "teamView": "Team · {{name}}",
+      "toFix_one": "{{count}} dokument att rätta",
+      "toFix_other": "{{count}} dokument att rätta",
+      "today": "I dag",
+      "upload": "Ladda upp",
+      "uploadFor": "{{doc}} för {{name}}",
+      "uploadWhat": "Vilket dokument laddar du upp?",
+      "uploaded": "Uppladdat i studentens valv. Klart för granskning.",
+      "view": {
+        "all": "Alla",
+        "attention": "Kräver åtgärd",
+        "deadline": "Deadline snart",
+        "docs": "Dokument att rätta",
+        "mine": "Mina studenter",
+        "sla": "Studenter över eller nära utlovad tid för första svar",
+        "university": "Väntar på universitetet",
+        "visa": "Visum",
+        "waiting_student": "Väntar på studenten",
+        "waiting_us": "Väntar på oss"
+      },
+      "waitingOn": {
+        "agency": "Väntar på byråteamet",
+        "counselor": "Väntar på handläggaren",
+        "external": "Väntar på en extern myndighet",
+        "hangyul": "Väntar på Hangyul",
+        "none": "Inget väntar",
+        "student": "Väntar på studenten",
+        "university": "Väntar på universitetet",
+        "us": "Väntar på oss"
       }
     },
     "discover": {
       "explain": {
-        "possible": "Du uppfyller de publicerade minimikraven, men en sak behöver uppmärksamhet, oftast budgeten eller en sista dag."
-      }
+        "possible": "Du uppfyller de publicerade minimikraven, men en sak behöver din uppmärksamhet, oftast budgeten eller sista ansökningsdagen.",
+        "notyet": "Ett publicerat krav är inte uppfyllt än. Varje rad visar exakt vilket.",
+        "strong": "Du uppfyller alla publicerade grundkrav, och programmet passar din budget och dina planer."
+      },
+      "all": "Alla",
+      "any": "Alla",
+      "closes": "stänger {{date}}",
+      "degree": "Vad vill du studera?",
+      "emptyVerdict": "Inget här just nu",
+      "filters": "Filter",
+      "filtersN": "Filter · {{count}}",
+      "forYou": "För dig",
+      "language": "Undervisningsspråk",
+      "noLanguageMin": "Inget språkkrav",
+      "openOnly": "Öppna för ansökan",
+      "perYear": "≈ {{amount}} / år",
+      "saved": "Sparade · {{count}}",
+      "savedEmpty": "Inga sparade universitet än",
+      "savedEmptyBody": "Tryck på hjärtat vid ett program för att spara det här till senare.",
+      "showResults_one": "Visa {{count}} program",
+      "showResults_other": "Visa {{count}} program",
+      "summary_one": "Du uppfyller de publicerade kraven för {{count}} program.",
+      "summary_other": "Du uppfyller de publicerade kraven för {{count}} program.",
+      "tuition": "Studieavgift per termin",
+      "upTo": "Upp till {{amount}} milj. ₩"
     },
     "university": {
       "verdict": {
-        "REACH": "Du är nära. Du ligger strax under på ett krav."
-      }
+        "REACH": "Du är nära. Du ligger strax under på ett krav.",
+        "COMPETITIVE": "Du uppfyller de publicerade minimikraven. En sak behöver din uppmärksamhet.",
+        "NOT_ELIGIBLE": "Ett publicerat krav är inte uppfyllt än.",
+        "RECOMMENDED": "Rekommenderas för dig.",
+        "STRONG": "Du uppfyller alla publicerade grundkrav, och programmet passar din budget."
+      },
+      "admissionsSite": "Webbplats för internationell antagning",
+      "deadline": "Sista ansökningsdag",
+      "documents": "Dokument",
+      "documentsCount": "{{count}} dokument · {{legal}} behöver apostille eller konsulär legalisering",
+      "dorm": "Studentboende per termin",
+      "dormRange": "{{min}}–{{max}}",
+      "estimate": "Uppskattad totalkostnad",
+      "estimateNote": "Uppskattning baserad på publicerad studieavgift och typiska levnadskostnader per månad i staden.",
+      "fee": "Ansökningsavgift",
+      "gpa": "Betyg",
+      "gpaMin": "Minst {{pct}} % av högsta GPA",
+      "intake": "Antagningsomgång",
+      "interview": "Intervju",
+      "interviewYes": "Universitetet kan kalla dig till intervju",
+      "language": "Språk",
+      "links": "Officiell information",
+      "living": "Levnadskostnader (12 månader)",
+      "noIntake": "Ingen öppen antagningsomgång",
+      "noVerdict": "Gör klart din profil för att se om du uppfyller programmets krav.",
+      "notPublished": "Inte publicerat",
+      "program": "Program",
+      "requirements": "Krav",
+      "start": "Påbörja ansökan",
+      "website": "Universitetets webbplats",
+      "yearCost": "Kostnad första året (uppskattning)"
     },
     "application": {
       "writingWeb": "Skriv och redigera dina essäer på webben. Där syns din rådgivares kommentarer.",
-      "uploadFor": "Ladda upp {{item}}"
+      "uploadFor": "Ladda upp {{item}}",
+      "closes": "Stänger {{date}} · {{left}}",
+      "due": "Senast {{date}}",
+      "ready": "Redo att skicka in",
+      "readyBody": "Allt som krävs finns på plats.",
+      "reviewBody": "Inskickad {{date}}. Universitetet kan be om ytterligare ett dokument eller en intervju. Hangyul-teamet följer ärendet.",
+      "reviewTitle": "{{university}} går igenom din ansökan",
+      "reviewing": "Granskar {{item}}",
+      "submit": "Skicka in ansökan",
+      "teamMonitoring": "I kontakt med universitetet",
+      "teamWaiting": "Väntar på dina dokument",
+      "timeline": "Tidslinje",
+      "uni": {
+        "decided": "Beslut fattat",
+        "reviewing": "Går igenom din ansökan",
+        "waiting": "Väntar på att du skickar in"
+      },
+      "university": "Universitet",
+      "uploadRequested": "Ladda upp det här dokumentet",
+      "who": "Vem gör vad",
+      "withdraw": "Dra tillbaka ansökan",
+      "you": "Du"
     },
     "appStatus": {
       "READY": "Allt är kontrollerat. Redo att skicka in.",
-      "VISA_ISSUED": "Ditt visum är utfärdat. Nu kan du planera din ankomst."
+      "VISA_ISSUED": "Ditt visum är utfärdat. Nu kan du planera din ankomst.",
+      "ADDITIONAL_DOCUMENTS": "Universitetet har bett om ytterligare ett dokument.",
+      "ADMISSION_CERTIFICATE_ISSUED": "Ditt standardantagningsbrev är klart. Börja med dina visumdokument.",
+      "ADMISSION_CERTIFICATE_PENDING": "Väntar på ditt standardantagningsbrev.",
+      "DOCUMENT_PREPARATION": "Du förbereder dina dokument.",
+      "DRAFT": "Du har påbörjat den här ansökan.",
+      "ENROLLED": "Du är inskriven. Välkommen till Korea.",
+      "INTERVIEW": "Universitetet vill intervjua dig.",
+      "OFFERED": "Du har fått ett antagningsbesked.",
+      "OFFER_ACCEPTED": "Du har tackat ja. Nästa steg: studieavgiften.",
+      "PROFILE_REVIEW": "Hangyul Univ-teamet går igenom din profil.",
+      "REJECTED": "Universitetet erbjöd ingen plats den här gången.",
+      "SUBMITTED": "Inskickad till {{university}}.",
+      "TUITION_PAID": "Studieavgiften är mottagen. Universitetet förbereder ditt standardantagningsbrev.",
+      "TUITION_PENDING": "Betala studieavgiften direkt till universitetet före sista betalningsdag.",
+      "UNIVERSITY_REVIEW": "{{university}} går igenom din ansökan.",
+      "VISA_PREPARATION": "Du förbereder din visumansökan.",
+      "VISA_SUBMITTED": "Visumansökan är inskickad.",
+      "WAITLISTED": "Du står på reservlistan.",
+      "WITHDRAWN": "Ansökan har dragits tillbaka."
     },
     "docAction": {
       "RENEW": "Utgånget. Ladda upp ett nytt",
-      "TOO_OLD": "Utfärdat för länge sedan. Skaffa nytt exemplar"
+      "TOO_OLD": "Utfärdat för länge sedan. Skaffa en ny kopia",
+      "FIX": "Behöver rättas",
+      "IN_REVIEW": "Kontrolleras av Hangyul-teamet",
+      "LEGALIZE": "Behöver apostille eller konsulär legalisering",
+      "UPLOAD": "Inte uppladdat än"
     },
     "documents": {
-      "legalize": "Verifierat, men behöver fortfarande {{path}} innan ett koreanskt universitet godtar det",
-      "howToBody": "Bara stegen för landet där ditt dokument utfärdades visas. Markera varje steg som klart när du är färdig."
+      "legalize": "Kontrollerat, men behöver fortfarande {{path}} innan ett koreanskt universitet godtar det",
+      "howToBody": "Bara stegen för landet där ditt dokument utfärdades visas. Markera varje steg som klart när du är färdig.",
+      "allSet": "Inget behöver dig just nu.",
+      "checking": "Kontrolleras",
+      "howTo": "Så får du {{path}}",
+      "issuedIn": "Utfärdat i",
+      "issuedOn": "Utfärdat den",
+      "needYou_one": "{{count}} behöver dig",
+      "needYou_other": "{{count}} behöver dig",
+      "neededFor": "Behövs för {{university}}",
+      "needsYou": "Behöver dig",
+      "newVersion": "Ladda upp en ny version",
+      "ready": "Klart",
+      "readyOf": "{{ready}} av {{total}} dokument klara",
+      "readyTitle": "Klara",
+      "sourceVerified": "Officiell källa · kontrollerad {{date}}",
+      "state": {
+        "fix": "Behöver rättas",
+        "legalize": "Behöver apostille",
+        "ready": "Klart",
+        "review": "Kontrolleras"
+      },
+      "submitted": "Inskickat {{when}}",
+      "upload": "Ladda upp",
+      "validUntil": "Giltigt till {{date}}",
+      "validUntilLabel": "Giltigt till"
     },
     "visa": {
-      "title": "Din plan för {{type}}-visum",
-      "beforeBody": "När du har accepterat ett erbjudande och betalat studieavgiften utfärdar universitetet ditt antagningsbesked. Du kan redan nu se vad du behöver och börja samla ihop det.",
-      "after": "Tillgängligt efter: {{list}}"
+      "title": "Förberedelser för ditt {{type}}-visum",
+      "beforeBody": "När du har tackat ja till ett antagningsbesked och betalat studieavgiften utfärdar universitetet ditt standardantagningsbrev. Du kan redan nu se vad du behöver och börja samla ihop det.",
+      "after": "Kommer efter: {{list}}",
+      "beforeTitle": "Visumförberedelserna börjar efter ditt antagningsbesked",
+      "blockers": "Behövs först",
+      "checklist": "Din checklista · {{done}} av {{total}} klara",
+      "forNationality": "Gäller ditt medborgarskap",
+      "now": "Det som behöver dig nu",
+      "phase": {
+        "admission": "Antagning",
+        "apply": "Visumansökan",
+        "decision": "Ambassadens beslut",
+        "documents": "Visumdokument",
+        "letter": "Standardantagningsbrev"
+      },
+      "preview": "Det här kommer du att behöva",
+      "seeRequirement": "Se det officiella kravet",
+      "sourceChecked": "Officiell källa · kontrollerad {{date}}",
+      "titleGeneric": "Ditt studentvisum"
     },
     "profile": {
       "unlockTitle": "Det här ger en komplett profil dig",
       "unlock": {
-        "language": "Gör att vi kan matcha dig med program som kräver TOPIK, IELTS eller TOEFL"
-      }
+        "language": "Gör att vi kan matcha dig med program som kräver TOPIK, IELTS eller TOEFL",
+        "basics": "Visar oss vilka dokument- och visumregler som gäller för dig",
+        "default": "Gör dina matchningar mer träffsäkra",
+        "education": "Tar bort program vars akademiska krav du inte uppfyller",
+        "goals": "Visar program på den nivå och med den start du vill ha",
+        "passport": "Behövs innan någon ansökan kan skickas in",
+        "preferences": "Rangordnar universitet efter din budget och stad",
+        "sponsor": "Låter dig förbereda de ekonomiska dokumenten för visumet i god tid"
+      },
+      "completeTitle": "Din profil är komplett",
+      "done": "Klart",
+      "editOnWeb": "Du kan när som helst ändra svaren på webben.",
+      "places": "Dina uppgifter",
+      "todo": "Att lägga till"
     },
     "tasks": {
       "empty": {
-        "overdue": "Inget försenat. Snyggt jobbat"
-      }
+        "overdue": "Inget försenat. Snyggt jobbat",
+        "team": "Teamet har inga öppna uppgifter",
+        "today": "Inget förfaller i dag",
+        "waiting": "Inga uppgifter väntar på något annat",
+        "week": "Inget förfaller den här veckan"
+      },
+      "open": "Öppna",
+      "overdue": "Försenad · {{when}}",
+      "view": {
+        "overdue": "Försenade",
+        "team": "Team",
+        "today": "I dag",
+        "waiting": "Väntar",
+        "week": "Den här veckan"
+      },
+      "waitingOn": "Väntar på: {{what}}"
     },
     "uni": {
-      "decisionNow": "Beslut"
+      "decisionNow": "Beslut",
+      "allClear": "Inget behöver beslut just nu.",
+      "allCohorts": "Alla Hangyul-studenter",
+      "allIntakes": "Alla antagningsomgångar",
+      "applicant": "Sökande",
+      "check": {
+        "gpa": "GPA",
+        "interview": "Intervju",
+        "interviewRequired": "Krävs för programmet",
+        "level": "Nivå {{level}}",
+        "minimum": "Minimum {{need}} · Sökande {{have}}",
+        "notProvided": "ej angivet",
+        "state": {
+          "below": "Under minimum",
+          "meets": "Uppfyller",
+          "missing": "Ej angivet",
+          "planned": "Test planerat",
+          "unscheduled": "Ej inbokat"
+        },
+        "topik": "TOPIK"
+      },
+      "checksNote": "Jämför självrapporterade resultat med programmets publicerade minimikrav. Stöd för er bedömning, inte ett beslut.",
+      "checksTitle": "Kravkontroll",
+      "closed": "Avslutade: {{rejected}} ej antagna, {{withdrawn}} tillbakadragna. Andelar kräver minst {{min}} personer.",
+      "cohortIntro_one": "{{count}} student kom till er via Hangyul. Så här går det för dem.",
+      "cohortIntro_other": "{{count}} studenter kom till er via Hangyul. Så här går det för dem.",
+      "cohortNote": "Andelar visas när minst {{min}} studenter ingår. Per {{date}}.",
+      "cohort_one": "{{label}} · {{count}} student",
+      "cohort_other": "{{label}} · {{count}} studenter",
+      "conv": "{{pct}} av föregående steg · {{n}} av {{d}}",
+      "convFew": "{{n}} av {{d}} från föregående steg · för få för en andel",
+      "decision": {
+        "admitted_one": "antagen student som inte betalat studieavgiften än",
+        "admitted_other": "antagna studenter som inte betalat studieavgiften än",
+        "documents_one": "väntar på studentens dokument",
+        "documents_other": "väntar på studenternas dokument",
+        "flagged_one": "flaggad ansökan",
+        "flagged_other": "flaggade ansökningar",
+        "interview_one": "intervju att hålla eller bedöma",
+        "interview_other": "intervjuer att hålla eller bedöma",
+        "offer_one": "antagningsbesked som väntar på studentens svar",
+        "offer_other": "antagningsbesked som väntar på studentens svar",
+        "returned_one": "dokument som studenten skickat tillbaka",
+        "returned_other": "dokument som studenter skickat tillbaka",
+        "review_one": "ansökan att granska",
+        "review_other": "ansökningar att granska"
+      },
+      "decisionContext_one": "{{ready}} av {{total}} obligatoriska dokument klara · {{count}} öppen begäran.",
+      "decisionContext_other": "{{ready}} av {{total}} obligatoriska dokument klara · {{count}} öppna begäranden.",
+      "decisionDocs": "{{ready}} av {{total}} obligatoriska dokument klara.",
+      "decisionHint": {
+        "admitted": "Bekräfta betalningen när den kommer in",
+        "documents": "Ingen åtgärd förrän de laddar upp",
+        "flagged": "Markerad för närmare granskning",
+        "interview": "Registrera utfallet efter intervjun",
+        "offer": "Hangyul följer upp med studenten",
+        "returned": "Kontrollera det ni bad om",
+        "review": "Inskickad och tillräckligt komplett för beslut"
+      },
+      "docsTitle": "Dokument · {{ready}} av {{total}} klara",
+      "dueOn": "senast {{date}}",
+      "empty": {
+        "all": "Inga sökande här",
+        "flagged": "Inga flaggade ansökningar",
+        "review": "Inga ansökningar väntar på granskning"
+      },
+      "graduation": "Examen",
+      "latest": "Senaste att granska",
+      "move": {
+        "ADDITIONAL_DOCUMENTS": "Begär fler dokument",
+        "ADMISSION_CERTIFICATE_ISSUED": "Utfärda standardantagningsbrev",
+        "INTERVIEW": "Kalla till intervju",
+        "OFFERED": "Ge antagningsbesked",
+        "REJECTED": "Anta inte",
+        "TUITION_PAID": "Bekräfta att studieavgiften är betald",
+        "TUITION_PENDING": "Skicka faktura för studieavgift",
+        "UNIVERSITY_REVIEW": "Påbörja granskning",
+        "WAITLISTED": "Sätt på reservlista"
+      },
+      "nOfD": "{{n}} av {{d}}",
+      "needsTitle": "Behöver ditt beslut",
+      "noMinimums": "Programmet har inga publicerade minimikrav än.",
+      "nothingToReview": "Inget väntar på granskning",
+      "openRequests_one": "{{count}} dokument begärt",
+      "openRequests_other": "{{count}} dokument begärda",
+      "otherDecisions": "Övriga beslut",
+      "populationAll_one": "Baserat på {{count}} inskickad ansökan, alla antagningsomgångar.",
+      "populationAll_other": "Baserat på {{count}} inskickade ansökningar, alla antagningsomgångar.",
+      "populationIntake_one": "Baserat på {{count}} inskickad ansökan för {{intake}}.",
+      "populationIntake_other": "Baserat på {{count}} inskickade ansökningar för {{intake}}.",
+      "reason": "Orsak (delas med Hangyul)",
+      "request": "Begär",
+      "requestLabel": "Vad behöver ni?",
+      "requestLabelHint": "t.ex. Gymnasieexamensbevis med apostille",
+      "requestNote": "Instruktioner till studenten",
+      "requestNoteHint": "Exakt vad som saknas och hur det åtgärdas",
+      "requestSend": "Skicka begäran",
+      "requestTitle": "Begär ett dokument från {{name}}",
+      "requestWho": "Studenten och studentens handläggare hos Hangyul meddelas och ser exakt den här formuleringen.",
+      "requestedOn": "Begärt {{date}}",
+      "retention": "Studerar fortfarande",
+      "search": "Sök namn, program eller referens",
+      "step": {
+        "ACCEPTED": "Tackat ja",
+        "ARRIVED": "Anlänt till Korea",
+        "ENROLLED": "Inskrivna",
+        "OFFERED": "Antagningsbesked",
+        "REVIEWED": "Granskade",
+        "SUBMITTED": "Inskickade",
+        "TUITION_PAID": "Betalt studieavgift",
+        "VISA_ISSUED": "Visum utfärdat"
+      },
+      "tab": {
+        "applicants": "Sökande",
+        "pipeline": "Översikt",
+        "students": "Studenter"
+      },
+      "tooFew": "För få för en andel",
+      "view": {
+        "admitted": "Antagna",
+        "all": "Alla",
+        "documents": "Saknade dokument",
+        "enrolment": "Visum och inskrivning",
+        "flagged": "Flaggade",
+        "interview": "Intervju",
+        "offer": "Antagningsbesked",
+        "review": "Behöver granskas"
+      },
+      "waitingStudent": "Väntar på studenten"
+    },
+    "common": {
+      "all": "Visa alla"
+    },
+    "deadlines": {
+      "bucket": {
+        "later_other": "Senare i månaden · {{count}}",
+        "overdue_other": "Försenade · {{count}}",
+        "week_other": "Kommande 7 dagar · {{count}}"
+      },
+      "emptyView": "Inget förfaller i den här vyn",
+      "student": "Student",
+      "who": {
+        "all": "Alla",
+        "mine": "Mina",
+        "unassigned": "Ej tilldelade"
+      },
+      "you": "Du"
+    },
+    "journey": {
+      "admission": "Antagning",
+      "apply": "Ansök",
+      "arrival": "Ankomst",
+      "discover": "Utforska",
+      "next": "Nästa: {{stage}}",
+      "of": "· {{n}} av {{total}}",
+      "prepare": "Förbered",
+      "step": "Steg {{n}} av {{total}}: {{stage}}",
+      "visa": "Visum"
+    },
+    "match": {
+      "close": "Inte behörig än – ett steg kvar",
+      "notYet": "Inte behörig än",
+      "possible": "Möjlig matchning",
+      "strong": "Stark matchning"
+    },
+    "messages": {
+      "attach": "Bifoga en fil",
+      "attachUnavailable": "Bilagor är inte tillgängliga än.",
+      "attachmentOnly_one": "Skickade {{count}} bilaga",
+      "attachmentOnly_other": "Skickade {{count}} bilagor",
+      "conversations": "Konversationer",
+      "openAttachment": "Öppna {{name}}",
+      "removeAttachment": "Ta bort {{name}}"
+    },
+    "offer": {
+      "accept": "Tacka ja",
+      "body": "{{university}} har erbjudit dig en plats på {{program}}.",
+      "deadline": "Tacka ja och betala studieavgiften senast {{date}} · {{left}}",
+      "next": "Det här händer sedan",
+      "scholarship": "Stipendium",
+      "step": {
+        "accept": "Tacka ja till antagningsbeskedet",
+        "letter": "Få ditt standardantagningsbrev",
+        "review": "Läs igenom antagningsbeskedet och eventuella villkor",
+        "tuition": "Betala studieavgiften direkt till universitetet",
+        "visa": "Förbered ditt studentvisum"
+      },
+      "tuition": "Studieavgift",
+      "tuitionDirect": "Hangyul tar aldrig emot studieavgifter. Betala till universitetet i ditt eget namn enligt dess instruktioner."
+    },
+    "push": {
+      "denied": "Aviseringar är avstängda. Slå på dem för Hangyul i telefonens inställningar.",
+      "enable": "Slå på aviseringar",
+      "error": "Vi kunde inte slå på aviseringar. Försök igen.",
+      "idle": "Få en pushavisering när ett dokument har granskats, en deadline närmar sig eller Hangyul-teamet svarar.",
+      "on": "Aviseringar är på. Du kan ändra det i telefonens inställningar.",
+      "pending-server": "Aviseringar är tillåtna på den här telefonen. Pushaviseringar är inte i gång än; allt visas fortfarande i den här listan.",
+      "title": "Aviseringar på den här telefonen"
+    },
+    "reviews": {
+      "beforeVerify": "Innan du verifierar",
+      "bulkBody": "Gör bara detta för dokument du har öppnat och kontrollerat. Varje student meddelas.",
+      "bulkDone": "{{ok}} verifierade, {{failed}} överhoppade",
+      "bulkTitle_one": "Verifiera {{count}} dokument?",
+      "bulkTitle_other": "Verifiera {{count}} dokument?",
+      "check": {
+        "date": "Utfärdandedatumet är tillräckligt nytt och inte utgånget",
+        "issuer": "Utfärdare, stämpel eller underskrift syns",
+        "legal": "{{path}} är bifogad och stämmer med dokumentet",
+        "legible": "Alla sidor är kompletta och läsbara",
+        "name": "Namn och födelsedatum stämmer med passet"
+      },
+      "correctionTitle": "Vad ska studenten rätta?",
+      "expires": "Giltigt till",
+      "issuedIn": "Utfärdat i",
+      "issuedOn": "Utfärdat den",
+      "legalization": "Legalisering",
+      "notNeeded": "Behövs inte",
+      "open": "Öppna {{name}}",
+      "overSla": "{{waiting}} · över utlovad granskningstid",
+      "reason": "Meddelande till studenten",
+      "requestCorrection": "Begär rättelse",
+      "required": "Krävs",
+      "select": "Välj",
+      "studentSees": "{{name}} ser exakt den här texten bredvid dokumentet.",
+      "studentSeesGeneric": "Studenten ser exakt den här texten bredvid dokumentet.",
+      "summary": "{{count}} väntar · {{over}} över utlovad granskningstid på {{hours}} h",
+      "templates": "Teamets mallar",
+      "translation": "Översättning",
+      "uploaded": "uppladdat {{when}}",
+      "verifyN_one": "Verifiera {{count}} dokument",
+      "verifyN_other": "Verifiera {{count}} dokument"
+    },
+    "settings": {
+      "consoleHint": "Teammedlemmar, fakturering och exporter hanteras i byråns webbkonsol.",
+      "work": "Ditt arbete"
+    },
+    "upload": {
+      "camera": "Ta ett foto",
+      "cameraHint": "Lägg dokumentet plant i bra ljus",
+      "failed": "Vi kunde inte öppna filen. Försök igen.",
+      "files": "Välj en fil",
+      "filesHint": "PDF, JPG eller PNG, högst 15 MB",
+      "library": "Välj bland foton",
+      "privacy": "Bara du och Hangyul-teamet kan öppna dina dokument. Ett universitet ser dem först när du skickar in en ansökan dit.",
+      "tooLarge": "Filen är större än 15 MB. Prova en PDF-skanning eller ett mindre foto."
     }
   },
   "v23": {
     "team": {
-      "name": "Teamet Hangyul Univ",
+      "name": "Hangyul Univ-teamet",
       "withAgency": "tillsammans med {{org}}"
     },
     "more": {
@@ -242,13 +788,43 @@
       "tab": "Arbete",
       "notReviewable": "Det här dokumentet väntar inte på granskning.",
       "reasonPlaceholder": "Till exempel: Sidan med apostillen saknas. Ladda upp alla sidor.",
-      "changesDone": "Rättelse begärd. Studenten har meddelats"
+      "changesDone": "Rättelse begärd. Studenten har meddelats",
+      "detailTitle": "Granskning",
+      "empty": "Granskningskön är tom",
+      "emptyBody": "Nya uppladdningar från dina studenter visas här.",
+      "history": "Granskningshistorik",
+      "lastReason": "Föregående begäran om rättelse",
+      "noFile": "Ingen fil har laddats upp för det här dokumentet än.",
+      "sendToStudent": "Skicka till studenten",
+      "tabA11y_one": "Granskningar, {{count}} väntar",
+      "tabA11y_other": "Granskningar, {{count}} väntar",
+      "title": "Dokumentgranskningar",
+      "verify": "Verifiera dokument",
+      "waitingDays_one": "Väntat {{count}} dag",
+      "waitingDays_other": "Väntat {{count}} dagar",
+      "waitingHours_one": "Väntat {{count}} timme",
+      "waitingHours_other": "Väntat {{count}} timmar"
     },
     "login": {
       "tagline": "Dina ärenden, granskningar och meddelanden i mobilen."
     },
     "dashboard": {
       "noOverdue": "Inga försenade uppgifter. Bra jobbat."
+    },
+    "deadlines": {
+      "empty": "Inga deadlines de närmaste 30 dagarna",
+      "subtitle": "Deadlines för dina studenter de närmaste 30 dagarna.",
+      "title": "Påminnelser"
+    },
+    "messages": {
+      "subtitle": "Studentkonversationer och interna anteckningar.",
+      "title": "Meddelanden"
+    },
+    "students": {
+      "detailTitle": "Student"
+    },
+    "tasks": {
+      "unassigned": "Ej tilldelad"
     }
   },
   "v26": {
@@ -263,7 +839,17 @@
     }
   },
   "messages": {
-    "internalToggle": "Intern anteckning, dold för studenten"
+    "internalToggle": "Intern anteckning, dold för studenten",
+    "empty": "Inga konversationer ännu",
+    "emptyBody": "Meddelanden med ditt team visas här.",
+    "internalLabel": "Intern anteckning",
+    "internalOn": "Intern anteckning: bara ditt team ser den",
+    "internalPlaceholder": "Skriv en intern anteckning (bara teamet)…",
+    "noMessages": "Inga meddelanden ännu",
+    "placeholder": "Skriv ett meddelande…",
+    "sendInternal": "Spara intern anteckning",
+    "unreadCount_one": "{{count}} oläst meddelande",
+    "unreadCount_other": "{{count}} olästa meddelanden"
   },
   "student": {
     "login": {
@@ -275,23 +861,98 @@
     },
     "nextAction": {
       "WAIT": "Inget att göra just nu. Vi meddelar dig när något behöver din uppmärksamhet",
-      "FINISH_APPLICATION": "Gör klart din ansökan till {{university}}. Återstår: {{remaining}}"
+      "FINISH_APPLICATION": "Gör klart din ansökan till {{university}}. Återstår: {{remaining}}",
+      "ARRIVAL_CHECKLIST": "Förbered din ankomst till Korea",
+      "COMPARE_OFFERS": "Jämför dina {{count}} antagningsbesked",
+      "COMPLETE_PROFILE": "Gör klart din profil för att se vilka universitet som passar dig",
+      "PROFILE_UNLOCK": {
+        "budget": "Lägg till din budget för att rangordna {{count}} program efter kostnad",
+        "education": "Lägg till din utbildning för att kontrollera {{count}} program",
+        "gpa": "Lägg till dina betyg för att kontrollera {{count}} program",
+        "language": "Lägg till ditt språkresultat för att kontrollera {{count}} program",
+        "other": "Gör klart din profil för att kontrollera {{count}} program"
+      },
+      "RESPOND_OFFER": "Svara på ditt antagningsbesked",
+      "REVIEW_MATCHES": "Titta igenom dina universitetsmatchningar"
     },
     "applications": {
-      "emptyBody": "Börja från dina matchningar: program där du uppfyller kraven."
+      "emptyBody": "Börja från dina matchningar: program där du uppfyller kraven.",
+      "active": "Pågående",
+      "closed": "Avslutade",
+      "confirm": {
+        "OFFER_ACCEPTED": {
+          "body": "Du tackar ja till antagningsbeskedet från {{university}}. Hangyul Univ-teamet guidar dig genom betalningen av studieavgiften och hur du får ditt standardantagningsbrev.",
+          "cta": "Tacka ja",
+          "title": "Tacka ja till antagningsbeskedet?"
+        },
+        "WITHDRAWN": {
+          "body": "Din ansökan till {{university}} avslutas. Det går inte att ångra i appen.",
+          "cta": "Dra tillbaka ansökan",
+          "title": "Dra tillbaka ansökan?"
+        }
+      },
+      "detailTitle": "Ansökan",
+      "empty": "Inga pågående ansökningar",
+      "emptyClosed": "Inga avslutade ansökningar",
+      "submittedOn": "Inskickad {{date}}",
+      "subtitle": "Följ alla dina ansökningar på ett ställe."
     },
     "documents": {
       "subtitle": "Dina sparade dokument, återanvända i alla ansökningar.",
       "verifiedBody": "Verifierat. Du kan återanvända dokumentet i andra ansökningar.",
-      "legalizationHint": "Markera varje steg som klart när du är färdig med det. Vårt team gör den slutliga verifieringen efter uppladdningen."
+      "legalizationHint": "Markera varje steg som klart när du är färdig med det. Vårt team gör den slutliga verifieringen efter uppladdningen.",
+      "detailTitle": "Dokument",
+      "empty": "Ditt valv är tomt",
+      "emptyBody": "Ladda upp pass, betygsutdrag och testresultat i webbappen.",
+      "file": "{{name}} · version {{version}}",
+      "fixFallback": "Hangyul-teamet har bett om en ändring i dokumentet.",
+      "fixTitle": "Det här behöver rättas",
+      "openFile": "Öppna säker förhandsvisning",
+      "reviews": "Granskningshistorik",
+      "translationBody": "Dokumentet kräver en auktoriserad översättning till koreanska eller engelska."
     },
     "matches": {
       "tierHint": {
         "NOT_ELIGIBLE": "Ett publicerat krav är inte uppfyllt än. Se skälen nedan."
-      }
+      },
+      "deadline": "Sista ansökningsdag {{date}} · {{due}}"
     },
     "profile": {
-      "editOnWeb": "Redigera din profil i webbappen. Ändringar syns här automatiskt."
+      "editOnWeb": "Redigera din profil i webbappen. Ändringar syns här automatiskt.",
+      "completion": "Profilens status",
+      "step": {
+        "basics": "Grunduppgifter",
+        "education": "Utbildning",
+        "goals": "Studiemål",
+        "language": "Språkresultat",
+        "passport": "Pass",
+        "preferences": "Önskemål",
+        "sponsor": "Finansiär"
+      }
+    },
+    "explore": {
+      "clear": "Rensa sökningen",
+      "save": "Spara {{name}}",
+      "searchPlaceholder": "Sök program eller universitet",
+      "unsave": "Ta bort {{name}} från sparade"
+    },
+    "messages": {
+      "subtitle": "Prata med Hangyul Univ-teamet.",
+      "unreadA11y_one": "Meddelanden, {{count}} oläst",
+      "unreadA11y_other": "Meddelanden, {{count}} olästa"
+    },
+    "saved": {
+      "empty": "Inget sparat än",
+      "emptyBody": "Tryck på hjärtat vid ett program för att spara universitetet här."
+    },
+    "tasks": {
+      "confirmTitle": "Markera uppgiften som klar?",
+      "empty": "Inget att göra just nu",
+      "emptyBody": "Vi lägger till uppgifter här när något behöver din uppmärksamhet.",
+      "overdue": "Försenade ({{count}})",
+      "subtitle": "Uppgifter från Hangyul-teamet och checklistorna för dina ansökningar.",
+      "title": "Checklista",
+      "upcoming": "Att göra"
     }
   },
   "university": {
@@ -300,16 +961,58 @@
     },
     "flagged": {
       "hint": "Flaggor är interna för ditt universitet. Studenter och byråer ser dem inte.",
-      "emptyBody": "Flagga en ansökan från dess detaljsida för att granska den senare."
+      "emptyBody": "Flagga en ansökan från dess detaljsida för att granska den senare.",
+      "add": "Flagga för uppföljning",
+      "addBody": "Bara ert universitetsteam ser flaggan och orsaken.",
+      "flagged": "Flaggad",
+      "reason": "Orsak",
+      "remove": "Ta bort flagga",
+      "removeTitle": "Ta bort flaggan från ansökan?"
     },
     "cohorts": {
       "riskHint": "Tidiga varningsflaggor kommer bara från data som era system delar (närvaro, studiestatus, registrering, visumdatum). De är en uppmaning att kontakta studenten, inte förutsägelser."
+    },
+    "applicants": {
+      "anonymous": "Sökande",
+      "confirmBody": "{{name}} och den sökandes handläggare meddelas. Lägg till en anteckning för dokumentationen (valfritt).",
+      "confirmTitle": "Ändra status till ”{{status}}”?",
+      "detailTitle": "Sökande",
+      "history": "Statushistorik",
+      "interview": "Intervju",
+      "moveTo": "Flytta till: {{status}}",
+      "notShared": "Inte delad med ert universitet än",
+      "note": "Anteckning",
+      "previewHint": "Öppnar en säker förhandsvisning med tidsgräns",
+      "reference": "Ert referensnummer",
+      "submitted": "Inskickad {{date}}",
+      "submittedLabel": "Inskickad",
+      "viaAgency": "Via {{agency}}"
+    },
+    "inbox": {
+      "title": "Meddelanden"
+    },
+    "login": {
+      "tagline": "Sökande, beslut och kullar för ert internationella kansli."
     }
   },
   "v4": {
     "application": {
-      "writeOnWeb": "Skriv det på webben. Där syns din rådgivares kommentarer.",
-      "reviewLate": "Tar längre tid än vanligt. Din rådgivare vet att det är försenat. Du behöver inte ladda upp det igen."
+      "writeOnWeb": "Skriv det på webben. Där syns också Hangyul-teamets kommentarer.",
+      "reviewLate": "Det tar längre tid än vanligt. Hangyul-teamet vet att det är försenat. Du behöver inte ladda upp det igen.",
+      "blocks": "Din ansökan kan inte skickas in förrän det här är klart.",
+      "blocksUni": "{{university}} väntar på det här innan ansökan går vidare.",
+      "doneSummary_one": "{{count}} klar: {{items}}",
+      "doneSummary_other": "{{count}} klara: {{items}}",
+      "next": "Ditt nästa steg",
+      "nextFix": "Rätta {{item}}",
+      "nextLegalize": "Skaffa apostille eller konsulär legalisering för {{item}}",
+      "nextRequest": "{{university}} har bett om: {{item}}",
+      "nextUpload": "Ladda upp {{item}}",
+      "nextWrite": "Skriv {{item}}",
+      "nothingForYou": "Inget för dig att göra just nu",
+      "openDocument": "Öppna dokumentet",
+      "waitBody": "Hangyul-teamet kontrollerar det du skickat. Vi säger till om något behöver ändras.",
+      "waitTitle": "Inget för dig att göra just nu"
     },
     "reviews": {
       "tickAll": "{{done}} av {{total}} kontrollerade. Slutför alla kontroller för att verifiera."
@@ -317,9 +1020,74 @@
     "home": {
       "item": {
         "WRITE_ESSAY": {
-          "text": "Din rådgivare går igenom det med dig. Börja med ett grovt utkast. Det behöver inte vara perfekt."
+          "text": "Hangyul-teamet går igenom det med dig. Börja med ett grovt utkast. Det behöver inte vara perfekt.",
+          "cta": "Börja skriva",
+          "title": "Skriv {{label}} för {{university}}"
+        },
+        "FIX": {
+          "cta": "Se hur du rättar det",
+          "text": "Din ansökan kan inte skickas in förrän det här är rättat.",
+          "title": "Rätta {{label}} för {{university}}"
+        },
+        "LEGALIZE": {
+          "cta": "Se stegen",
+          "text": "Koreanska universitet godtar bara dokumentet när det är bestyrkt. Vi visar dig stegen för ditt land.",
+          "title": "Skaffa apostille för {{label}} till {{university}}"
+        },
+        "RENEW": {
+          "cta": "Se vad du ska göra",
+          "text": "Det du laddade upp har gått ut.",
+          "title": "Skaffa ett nytt exemplar av {{label}} för {{university}}"
+        },
+        "REQUEST": {
+          "cta": "Ladda upp och skicka",
+          "text": "Universitetet har bett om dokumentet. Din ansökan kan inte gå vidare förrän det har kommit in.",
+          "title": "Skicka {{label}} till {{university}}"
+        },
+        "REVISE_ESSAY": {
+          "cta": "Öppna ditt utkast",
+          "text": "Hangyul-teamet har lämnat kommentarer. Din ansökan kan inte skickas in förrän texten är godkänd.",
+          "title": "Revidera {{label}} för {{university}}"
+        },
+        "TOO_OLD": {
+          "cta": "Se vad du ska göra",
+          "text": "Universitetet behöver ett nyligen utfärdat exemplar.",
+          "title": "Skaffa ett nyare exemplar av {{label}} för {{university}}"
+        },
+        "UPLOAD": {
+          "cta": "Ladda upp",
+          "text": "Din ansökan kan inte skickas in utan det.",
+          "title": "Ladda upp {{label}} för {{university}}"
         }
       }
+    },
+    "discover": {
+      "firstYear": "{{range}} första året"
+    },
+    "documents": {
+      "late": "Tar längre tid",
+      "lateLine": "flaggat som försenat för Hangyul-teamet"
+    },
+    "uni": {
+      "actor": {
+        "AGENCY": "Partnerbyrå",
+        "HANGYUL": "Hangyul",
+        "STUDENT": "Sökande",
+        "SYSTEM": "Automatiskt",
+        "UNIVERSITY": "Ert universitet"
+      },
+      "toReview_one": "Att granska · {{count}}",
+      "toReview_other": "Att granska · {{count}}"
+    },
+    "university": {
+      "continue": "Fortsätt din ansökan",
+      "firstYear": "Första året, uppskattat",
+      "tuitionYear": "Studieavgift per år"
+    },
+    "visa": {
+      "hideDone": "Dölj klara steg",
+      "showDone_one": "Visa {{count}} klart steg",
+      "showDone_other": "Visa {{count}} klara steg"
     }
   },
   "v29": {
@@ -327,23 +1095,83 @@
       "term": "Tjänsteperiod",
       "termUntil": "Till {{date}}",
       "termToAgree": "Bestäms när tjänsten startar",
-      "supportUntil": "Rådgivning till {{date}}",
-      "supportDays": "Dagar från första konsultationen: {{count}}",
+      "supportUntil": "Konsultationsstöd till {{date}}",
+      "supportDays": "{{count}} dagars konsultationsstöd från din första konsultation",
       "arrival": "Ankomst och etablering",
       "arrivalWindow": "{{from}} – {{until}}",
       "unrationed": {
-        "CONTRACTED_DOCUMENTS": "Ingen gräns inom avtalade handlingar",
-        "TEAM": "Uppföljning av teamet",
+        "CONTRACTED_DOCUMENTS": "Ingen gräns för dokumenten i avtalet",
+        "TEAM": "Uppföljning från ditt team",
         "PRIORITY": "Svar med förtur",
         "ROUNDS": "Ingår"
       },
-      "upgradePending": "Priset för att byta plan är inte fastställt än. Hangyul Univ-teamet kommer överens om det direkt med dig.",
+      "upgradePending": "Priset för uppgraderingen är inte fastställt än. Hangyul Univ-teamet kommer överens om det direkt med dig.",
       "askTeam": "Fråga teamet"
+    },
+    "mfa": {
+      "codeHint": "Ange den 6-siffriga koden från din autentiseringsapp eller en återställningskod.",
+      "codeLabel": "Verifieringskod",
+      "enrollOnWeb": "Kontot kräver tvåstegsverifiering. Konfigurera den först i webbkonsolen och logga sedan in här.",
+      "verify": "Verifiera och logga in",
+      "wrongCode": "Koden är fel eller har gått ut. Ange en ny."
     }
   },
   "plan": {
     "allowance": {
-      "consultation_sessions": "Studiekonsultation"
-    }
+      "consultation_sessions": "Kartläggningskonsultation",
+      "essay_review_rounds": "Redigering av personligt brev och studieplan",
+      "follow_up_consultations": "Uppföljande konsultationer",
+      "max_managed_applications": "Ansökningar vi sköter tillsammans med dig",
+      "max_recommended_institutions": "Universitetsrekommendationer",
+      "mock_interviews": "Provintervjuer"
+    },
+    "browserFailed": "Webbläsaren kunde inte öppnas. Betala på webben i stället.",
+    "card": "Du kan betala med ett utländskt kort (Visa, Mastercard, JCB).",
+    "chooseLede": "En betalning, ingen prenumeration. Ditt paket följer dig medan du förbereder dig.",
+    "chooseTitle": "Välj ett paket",
+    "handoff": "Betalningen sker i webbläsaren och du kommer tillbaka till appen när den är klar.",
+    "highestAlready": "Du har redan det högsta paketet.",
+    "included": "Ingår i ditt paket",
+    "oneTime": "En betalning",
+    "ongoing": "Under hela tjänsteperioden",
+    "paid": "Betalt belopp",
+    "pay": "Betala",
+    "plansTitle": "Paket",
+    "selected": "Valt",
+    "upgradeTitle": "Uppgradera",
+    "webNote": "Pakethistorik och kvitton finns på webben."
+  },
+  "app": {
+    "agency": "Hangyul Agency",
+    "student": "Hangyul Univ",
+    "university": "Hangyul University"
+  },
+  "more": {
+    "active": "Aktivt",
+    "allowanceSpent": "Du har använt allt som ingår i ditt paket. På paketsidan ser du vilket paket som omfattar mer.",
+    "choose": "Välj",
+    "noPlan": "Inget paket än",
+    "noPlanHint": "Välj ett paket så börjar Hangyul arbeta med dig",
+    "plan": "Paket",
+    "support": "Få hjälp",
+    "supportHint": "Skriv till Hangyul-teamet",
+    "webNote": "Du redigerar din profil och betalar på webben."
+  },
+  "notifications": {
+    "unread": "Olästa"
+  },
+  "settings": {
+    "elsewhere": "Övrigt",
+    "language": "Språk",
+    "languageHint": "Välj språk för appen. Vissa språk är maskinutkast som fortfarande granskas.",
+    "machineDraft": "maskinutkast",
+    "notificationsHint": "Se aviseringarna du har fått",
+    "rtlNote": "Text från höger till vänster används nu; hela layouten speglas nästa gång du öppnar appen.",
+    "selected": "valt",
+    "server": "Server: {{url}}",
+    "signOutBody": "Du behöver din e-postadress och ditt lösenord för att logga in igen.",
+    "signOutTitle": "Logga ut?",
+    "title": "Inställningar",
+    "version": "Version {{version}}"
   }
 }

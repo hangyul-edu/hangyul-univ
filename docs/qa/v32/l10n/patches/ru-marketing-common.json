@@ -1,0 +1,737 @@
+{
+ "_notes": [
+  "Keys with cur=null (no Russian line; the UI fell back to English) were translated too and are marked why='missing'; apply-patch.mjs creates them from the English key (dry run: 0 refused).",
+  "Plural families: Russian needs _one/_few/_many; where a family was missing or inconsistent, _few/_many entries were added (keys not in the job, same placeholders).",
+  "표준입학허가서 / standard admission letter: rendered as «(стандартное) приглашение на обучение» everywhere (statuses, document category, notifications, privacy list); «письмо о зачислении» dropped so it is not confused with the offer (предложение о зачислении).",
+  "Province names normalised to the standard Russian forms (Кёнсан-Намдо, Чхунчхон-Пукто, Чолла-Намдо …) in common:region.* and city bodies; cities transliterated by the Kontsevich system (Чхонджу, Пхохан, Мокпхо, Йонъин).",
+  "institution/establishment: NATIONAL (국립) = Государственный, PUBLIC (공립, local-government) = Муниципальный — both were «Государственный» before.",
+  "Mock interview is «пробное собеседование» everywhere (was пробное интервью / собеседование).",
+  "Marketing lines pinned from the old template (hero, services, FAQ) rewritten from the English meaning: no «воплотим мечты», no «ждут вашего поступления», no «все университеты дают стипендии».",
+  "Ulsan body: brand name removed as in the reviewed English.",
+  "common:auth.strength.0 is intentionally empty in English and was left empty."
+ ],
+ "marketing:seo.home.description": {
+  "text": "Подберите подходящий корейский университет, подготовьте документы и будьте готовы к визе и переезду — проверенная информация и команда Hangyul в одном месте.",
+  "why": "closer to English, no «оформите визу»"
+ },
+ "marketing:v10.account.continue": {
+  "text": "Продолжить с того же места",
+  "why": "matches English meaning"
+ },
+ "marketing:v11.faq.q1.a": {
+  "text": "Это документы, которые нужны для поступления. Некоторые университеты и факультеты запрашивают больше; можно также приложить рекомендательные письма от преподавателей или работодателей и сертификат участника олимпиады.<br><br>1. Аттестат о среднем образовании или диплом колледжа, переведённый на английский язык, нотариально заверенный и апостилированный<br>2. Выписка с оценками (транскрипт), переведённая на английский, нотариально заверенная и апостилированная<br>3. Копия загранпаспорта<br>4. Копии загранпаспортов обоих родителей. Если у родителя нет загранпаспорта — копия внутреннего паспорта с нотариально заверенным переводом на английский<br>5. Свидетельство о рождении или справка о составе семьи с нотариально заверенным переводом<br>6. Подтверждение знания корейского или английского языка (TOPIK, TOEFL, IELTS или равноценный документ)<br>7. Справка из банка об остатке на счёте от 15 000 долларов США, действительная 30 дней (сумма зависит от расположения университета)",
+  "why": "old template; order, wording, typography fixed"
+ },
+ "marketing:v11.faq.q10.a": {
+  "text": "Зависит от специальности. Выпускникам инженерных и бизнес-направлений обычно найти работу проще, чем гуманитариям.",
+  "why": "old template dropped the English meaning"
+ },
+ "marketing:v11.faq.q10.q": {
+  "text": "Легко ли найти работу в Корее после выпуска?",
+  "why": "matches English question"
+ },
+ "marketing:v11.faq.q2.a": {
+  "text": "Большинство корейских университетов требуют результат экзамена по корейскому или английскому языку (TOPIK, TOEFL или IELTS). Некоторые вместо этого принимают собственный экзамен по корейскому языку.",
+  "why": "typos, capital Вы, clearer"
+ },
+ "marketing:v11.faq.q3.a": {
+  "text": "Университеты принимают TOPIK, TOEFL и IELTS. Некоторые также засчитывают сертификат языковых курсов при корейском университете, сданный внутренний экзамен университета по корейскому или сертификат Института короля Седжона уровня «средний 1» и выше.",
+  "why": "precise, matches English"
+ },
+ "marketing:v11.faq.q4.a": {
+  "text": "Да. На англоязычной программе можно учиться полностью на английском.",
+  "why": "matches English, no capital Вы"
+ },
+ "marketing:v11.faq.q5.a": {
+  "text": "Зависят от университета и программы. Рекомендуем начинать минимум за полгода до начала обучения, чтобы успеть подготовить документы. Для языковых курсов срок обычно меньше.",
+  "why": "concise, matches English"
+ },
+ "marketing:v11.faq.q5.q": {
+  "text": "Какие сроки подачи заявок?",
+  "why": "shorter"
+ },
+ "marketing:v11.faq.q6.a": {
+  "text": "Большинство, но размер и условия у каждого университета свои.",
+  "why": "«все» overpromised; English says most"
+ },
+ "marketing:v11.faq.q7.a": {
+  "text": "Минимального балла для подачи в корейские университеты нет, но чем выше оценки, тем больше шансов в желаемом университете.",
+  "why": "no capital Вы, tighter"
+ },
+ "marketing:v11.faq.q8.a": {
+  "text": "В большинстве корейских университетов возрастных ограничений нет, но в некоторых они есть. Если это ваш случай, мы подскажем университеты, где возраст не помеха. В любом случае нужен аттестат о среднем образовании или диплом колледжа.",
+  "why": "old template, verbose and salesy"
+ },
+ "marketing:v11.faq.q9.a": {
+  "text": "Да. Подать заявку в корейский университет можно сразу после окончания школы или колледжа.",
+  "why": "«11 класса или спо» informal"
+ },
+ "marketing:v11.hero.lede": {
+  "text": "Подберите подходящий корейский университет и пройдите каждый шаг вместе с командой.<br>Начните с того, что хотите изучать.",
+  "why": "old template promised dreams; now says what we do"
+ },
+ "marketing:v11.hero.title": {
+  "text": "Учиться в Корее проще, чем кажется",
+  "why": "matches English headline, typography"
+ },
+ "marketing:v11.nav.faq": {
+  "text": "Вопросы и ответы",
+  "why": "natural Russian label"
+ },
+ "marketing:v11.services.lede": {
+  "text": "Одна команда помогает вам от планирования заявки<br>до обустройства на месте.",
+  "why": "old template, «достижения целей» vague"
+ },
+ "marketing:v11.services.s1.text": {
+  "text": "Мы рекомендуем университеты и языковые курсы, которые подходят вашим оценкам и целям. На индивидуальной консультации разбираем стипендии, на которые вы можете претендовать, затем вместе готовим документы для поступления и общаемся с университетом по ходу рассмотрения заявки.",
+  "why": "superlatives removed; says what we do"
+ },
+ "marketing:v11.services.s1.title": {
+  "text": "Университеты и языковые курсы, подобранные для вас",
+  "why": "matches English, no trailing period"
+ },
+ "marketing:v11.services.s2.text": {
+  "text": "Помогаем с заявлением на визу, регистрационной картой иностранца и записью на занятия — шагами после зачисления, — чтобы вы начали учёбу уверенно.",
+  "why": "«выдачу виз» implied we issue visas"
+ },
+ "marketing:v11.services.s2.title": {
+  "text": "После зачисления: помощь, пока вы не обустроитесь",
+  "why": "old template, salesy"
+ },
+ "marketing:v11.services.s3.text": {
+  "text": "Общайтесь с другими зачисленными студентами: обменивайтесь советами о жилье и быте и заводите знакомства ещё до приезда.",
+  "why": "old template over-promised full support"
+ },
+ "marketing:v11.services.s3.title": {
+  "text": "Сообщество студентов, которые уже прошли этот путь",
+  "why": "matches English"
+ },
+ "marketing:v11.services.title": {
+  "text": "От первого вопроса<br>до <span class=\"text-blue\">первых недель в Корее</span>",
+  "why": "old template slogan replaced"
+ },
+ "marketing:v11.unis.title": {
+  "text": "<h2 class=\"mb-4\"><span class=\"text-blue\">Более {{count}} корейских университетов</span><br>на выбор</h2>",
+  "why": "«ждут вашего поступления» promised; capital fixed"
+ },
+ "marketing:v11.why.title": {
+  "text": "С Hangyul<br><span class=\"text-gradation\">учёба за рубежом становится проще</span>",
+  "why": "old template, «будет простым» promised"
+ },
+ "marketing:v12.directory.countShort_one": {
+  "text": "{{count}} вуз",
+  "why": "missing"
+ },
+ "marketing:v12.directory.countShort_few": {
+  "text": "{{count}} вуза",
+  "why": "missing plural form"
+ },
+ "marketing:v12.directory.countShort_many": {
+  "text": "{{count}} вузов",
+  "why": "missing plural form"
+ },
+ "marketing:v12.directory.countShort_other": {
+  "text": "{{count}} вуза",
+  "why": "missing"
+ },
+ "marketing:v12.directory.count_one": {
+  "text": "{{count}} учебное заведение",
+  "why": "missing singular"
+ },
+ "marketing:v12.directory.emptyText": {
+  "text": "Выберите другой регион или посмотрите всю Корею.",
+  "why": "missing"
+ },
+ "marketing:v12.directory.emptyTitle": {
+  "text": "В этом регионе нет учебных заведений",
+  "why": "missing"
+ },
+ "marketing:v12.directory.inRegion": {
+  "text": "Университеты: {{region}}",
+  "why": "missing"
+ },
+ "marketing:v12.directory.matching": {
+  "text": "По запросу «{{q}}»",
+  "why": "missing"
+ },
+ "marketing:v12.establishment.NATIONAL": {
+  "text": "Государственный",
+  "why": "missing"
+ },
+ "marketing:v12.establishment.PUBLIC": {
+  "text": "Муниципальный",
+  "why": "missing; 공립 = local-government"
+ },
+ "marketing:v12.ieqas.excellent": {
+  "text": "Сертификат IEQAS — отличный уровень",
+  "why": "missing"
+ },
+ "marketing:v12.legal.effective": {
+  "text": "Действует с {{date}}",
+  "why": "missing"
+ },
+ "marketing:v12.map.hide": {
+  "text": "Скрыть карту",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.collect.documents.items": {
+  "text": "Паспорт, удостоверение личности, фотография, выписки с оценками, дипломы и справки о предстоящем выпуске, документы о родстве и свидетельства о рождении, банковские выписки, документы спонсора, подтверждение занятости и дохода, результаты TOPIK, IELTS и TOEFL, рекомендательные письма, мотивационные письма, планы обучения, резюме, апостили, нотариальные заверения и заверенные переводы, регистрационная карта иностранца, виза, стандартное приглашение на обучение",
+  "why": "official document names"
+ },
+ "marketing:v12.privacy.contact.colField": {
+  "text": "Поле",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.colValue": {
+  "text": "Сведения",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.department": {
+  "text": "Отдел",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.email": {
+  "text": "Эл. почта",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.h": {
+  "text": "Ответственный за персональные данные и контакты",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.officer": {
+  "text": "Ответственный за персональные данные",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.phone": {
+  "text": "Телефон",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.processors.colContact": {
+  "text": "Контакт",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.processors.colRetention": {
+  "text": "Срок хранения у обработчика",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.processors.none": {
+  "text": "Сейчас ни один обработчик не обрабатывает персональные данные от имени Hangyul в рабочей среде. Если это изменится, обработчик и порученная ему работа будут опубликованы здесь и объявлены до начала работы.",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.retention.months_one": {
+  "text": "{{count}} месяц",
+  "why": "missing singular"
+ },
+ "marketing:v12.privacy.retention.years_one": {
+  "text": "{{count}} год",
+  "why": "missing singular"
+ },
+ "marketing:v12.privacy.rights.close": {
+  "text": "Закрыть аккаунт",
+  "why": "matches English and terms wording"
+ },
+ "marketing:v12.privacy.sharing.university.purpose": {
+  "text": "Рассмотрение заявки на поступление",
+  "why": "clearer"
+ },
+ "marketing:v12.privacy.transfer.none": {
+  "text": "Сейчас не используется ни один обработчик, передающий персональные данные за пределы Кореи. Если такая передача понадобится, получатель, страна, цель, сведения, время, способ и срок хранения будут опубликованы здесь и объявлены до её начала.",
+  "why": "missing"
+ },
+ "marketing:v12.terms.effective.h": {
+  "text": "Дата вступления в силу",
+  "why": "missing"
+ },
+ "marketing:v12.terms.effective.p": {
+  "text": "Эти условия действуют с {{date}}.",
+  "why": "missing"
+ },
+ "marketing:v12.terms.law.h": {
+  "text": "Применимое право и подсудность",
+  "why": "missing"
+ },
+ "marketing:v12.terms.refunds.stage.APPLICATION_WORK_STARTED": {
+  "text": "Работа над заявками начата",
+  "why": "«поддержка с» unidiomatic"
+ },
+ "marketing:v12.terms.refunds.stage.SETTLEMENT_STARTED": {
+  "text": "Поддержка по визе, приезду и обустройству начата",
+  "why": "«поддержка с» unidiomatic"
+ },
+ "marketing:v12.type.GRADUATE_UNIVERSITY": {
+  "text": "Университет магистратуры и докторантуры",
+  "why": "clearer than «последипломного»"
+ },
+ "marketing:v12.uni.back": {
+  "text": "К университетам Кореи",
+  "why": "missing"
+ },
+ "marketing:v14.media.alt.seoulRiver": {
+  "text": "Панорама {{region}} за рекой на закате.",
+  "why": "missing"
+ },
+ "marketing:v15.pricing.compare.item": {
+  "text": "Услуга",
+  "why": "was empty"
+ },
+ "marketing:v17.quick.ctaWhy": {
+  "text": "Hangyul вместе с вами проходит заявки, документы и подготовку к визе.",
+  "why": "«визу делает» implied issuing a visa"
+ },
+ "marketing:v20.city.Chungbuk.body": {
+  "text": "Чхунчхон-Пукто — единственная провинция Кореи без выхода к морю. Её центр и главный университетский город — Чхонджу, достаточно близкий и к Седжону, и к Тэджону, чтобы делить с ними рынок труда.\nПровинция известна известняковыми пейзажами Танъяна и более тихой и дешёвой студенческой жизнью, чем в мегаполисах.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungbuk.line": {
+  "text": "Внутренняя, центральная, построенная вокруг Чхонджу.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungbuk.청주": {
+  "text": "Чхонджу",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungnam.body": {
+  "text": "Чхунчхон-Намдо тянется от западного побережья вглубь страны, а её университетские города Чхонан и Асан стоят на 1-й линии сеульского метро и на линии KTX. Доступ к столичному региону при провинциальных ценах на жильё — вот почему несколько крупных университетов построили здесь кампусы.\nВ той же провинции — Конджу и Пуё, древние столицы Пэкче; туда стоит съездить на полдня.",
+  "why": "standard province name"
+ },
+ "marketing:v20.city.Chungnam.아산": {
+  "text": "Асан",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungnam.천안": {
+  "text": "Чхонан",
+  "why": "missing"
+ },
+ "marketing:v20.city.Daegu.body": {
+  "text": "Тэгу лежит в котловине на юго-востоке: в августе это самый жаркий город Кореи, в январе — один из самых холодных. У него плотный пешеходный центр, долгая текстильная история, выросшая в индустрию моды и медицинской техники, и стоимость жизни заметно ниже, чем в Сеуле или Пусане.\nНа KTX до Сеула час сорок пять, до Пусана — пятьдесят минут.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Daegu.line": {
+  "text": "Внутренний город в кольце гор, известный текстилем, медициной и жарой.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Daejeon.body": {
+  "text": "Тэджон вырос вокруг Тэдок-Иннополиса — кластера государственных НИИ и корпоративных центров разработки, и университеты здесь сформированы им. Если вы едете за инженерным или естественно-научным образованием, лаборатории — здесь.\nГород почти точно в центре страны: час до Сеула на KTX и час до Пусана.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.body": {
+  "text": "В Канвондо — хребет Тхэбэк, объекты зимней Олимпиады 2018 года и пляжи восточного побережья. Университетские города — Чхунчхон, Каннын и Вонджу: ни один не велик, и все они дешевле и тише любого места в столичном регионе.\nЗима здесь настоящая. KTX доходит до Каннына из Сеула примерно за два часа.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.강릉": {
+  "text": "Каннын",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.원주": {
+  "text": "Вонджу",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.춘천": {
+  "text": "Чхунчхон",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gwangju.body": {
+  "text": "Кванджу — крупнейший город провинций Чолла, известный, как и они, кухней и демократическим восстанием 1980 года, с которым город до сих пор прежде всего ассоциируется в Корее.\nЭто один из самых недорогих для жизни мегаполисов, с уважаемой художественной сценой, примерно в двух часах от Сеула на KTX.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gwangju.line": {
+  "text": "Культурный и политический центр юго-запада и недорогое место для учёбы.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.body": {
+  "text": "В Кёнсан-Пукто — Кёнджу, тысячу лет бывший столицей Силла и по сути музей под открытым небом, и Пхохан, сталелитейный город, где также работает один из сильнейших научно-инженерных университетов Кореи. Андон, дальше от моря, — центр корейской конфуцианской традиции.\nЭто большая и разнообразная провинция, и вся она дешевле столичного региона.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.line": {
+  "text": "Тысяча лет истории Кёнджу и сталь Пхохана — в одной провинции.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.경주": {
+  "text": "Кёнджу",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.구미": {
+  "text": "Куми",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.포항": {
+  "text": "Пхохан",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.고양": {
+  "text": "Коян",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.부천": {
+  "text": "Пучхон",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.성남": {
+  "text": "Соннам",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.수원": {
+  "text": "Сувон",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.안양": {
+  "text": "Анян",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.용인": {
+  "text": "Йонъин",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongnam.김해": {
+  "text": "Кимхэ",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongnam.진주": {
+  "text": "Чинджу",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongnam.창원": {
+  "text": "Чханвон",
+  "why": "missing"
+ },
+ "marketing:v20.city.Incheon.line": {
+  "text": "Город-ворота Кореи: здесь аэропорт и здесь же Сондо.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeju.body": {
+  "text": "Чеджу лежит в 85 километрах от материка, вокруг вулкана Халласан, и здесь настолько тепло, что растительность выглядит субтропической. Для остальной страны это курорт, и это определяет и экономику острова, и цены на аренду.\nУниверситетов здесь мало, и они небольшие. Самолёты в Сеул летают каждые несколько минут, в пути — час.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeju.line": {
+  "text": "Вулканический остров у южного побережья с климатом, непохожим на остальную Корею.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.body": {
+  "text": "Чолла-Пукто — аграрная провинция, равнинная на западе и гористая на востоке, а её центр — Чонджу: город примерно на 650 000 жителей с крупнейшим сохранившимся кварталом ханок в стране и кулинарной славой, которую не оспаривает ни один корейский город.\nСтоимость жизни — одна из самых низких среди университетских городов, до Сеула чуть меньше двух часов на KTX.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.line": {
+  "text": "Чонджу и регион, который называют родиной корейской кухни.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.익산": {
+  "text": "Иксан",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.전주": {
+  "text": "Чонджу",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.body": {
+  "text": "В Чолла-Намдо островов больше, чем во всей остальной Корее, здесь водно-болотные угодья залива Сунчхон и гавань Йосу. Это наименее урбанизированная из материковых провинций, и университеты здесь соответственно небольшие и сплочённые.\nЕсли вам нужно тихое место у моря с очень низкой стоимостью жизни — это оно.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.line": {
+  "text": "Юго-западное побережье, его острова и самый неспешный ритм в стране.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.목포": {
+  "text": "Мокпхо",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.순천": {
+  "text": "Сунчхон",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.여수": {
+  "text": "Йосу",
+  "why": "missing"
+ },
+ "marketing:v20.city.Sejong.body": {
+  "text": "Седжон — самый новый и самый продуманный город Кореи: сюда из Сеула переехало большинство центральных министерств, а планировка улиц, парки и общественные здания появились за последние пятнадцать лет.\nОн маленький, тихий и совсем новый — двадцать минут до Тэджона и полтора часа до Сеула.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Sejong.line": {
+  "text": "Город, построенный с нуля с 2012 года для правительственных министерств.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Ulsan.body": {
+  "text": "В Ульсане самый высокий средний доход среди городов Кореи, и причина на виду: крупнейшая в мире верфь, автозавод размером с целый район и нефтехимический комплекс вдоль побережья. Здесь нанимают выпускников инженерных специальностей.\nПо корейским меркам это небольшой город в получасе от Пусана — с наблюдением за китами, длинным пляжем и рекой Тхэхва в центре.",
+  "why": "brand name removed as in English"
+ },
+ "marketing:v20.city.Ulsan.line": {
+  "text": "Промышленная столица Кореи: судостроение, автомобили и нефтехимия.",
+  "why": "missing"
+ },
+ "marketing:v20.dir.tierVideo": {
+  "text": "Официальное видео",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.busanGwangan": {
+  "text": "Мост Кванан, подсвеченный ночью над заливом, {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.daejeonExpo": {
+  "text": "Мост Экспо, подсвеченный над рекой, {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.gyeongjuBulguksa": {
+  "text": "Храм Пульгукса в Кёнджу, {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.jeonjuHanok": {
+  "text": "Черепичные крыши деревни ханок в Чонджу, {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.seoulCheonggyecheon": {
+  "text": "Набережная ручья Чхонгечхон в центре, {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.seoulYeouido": {
+  "text": "Река Хан у Йоыйдо в сумерках, {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.sokchoSeorak": {
+  "text": "Сокчхо под хребтом Сораксан, {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.ulsanBridge": {
+  "text": "Ульсанский мост над гаванью, {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.uni.intl.dormLine": {
+  "text": "Университет публикует собственную информацию об общежитии.",
+  "why": "dormitory, not housing"
+ },
+ "marketing:v20.uni.link.dormitory": {
+  "text": "Общежитие",
+  "why": "glossary: dormitory"
+ },
+ "marketing:v20.uni.match.NOT_YET": {
+  "text": "Откроется для вас, когда будет языковой сертификат.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.POSSIBLE": {
+  "text": "По вашим ответам сюда стоит подать заявку.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.STRONG": {
+  "text": "Программы здесь подходят под ваши ответы.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.ieqas": {
+  "text": "В списке сертифицированных IEQAS, что смягчает визовые критерии.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.language": {
+  "text": "Курс корейского здесь в сертифицированном списке — можно начать с языка.",
+  "why": "missing"
+ },
+ "marketing:v21.uni.placeWhere": {
+  "text": "{{city}}, {{region}}.",
+  "why": "missing"
+ },
+ "marketing:v28.uni.why.gks": {
+  "text": "Участвует в Global Korea Scholarship (GKS)",
+  "why": "official name in full"
+ },
+ "common:appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "Приглашение на обучение выдано",
+  "why": "official document name"
+ },
+ "common:appStatus.ADMISSION_CERTIFICATE_PENDING": {
+  "text": "Приглашение на обучение готовится",
+  "why": "official document name"
+ },
+ "common:appStatus.OFFERED": {
+  "text": "Получено предложение о зачислении",
+  "why": "offer, not decision; matches notification"
+ },
+ "common:appStatus.OFFER_ACCEPTED": {
+  "text": "Предложение принято",
+  "why": "offer accepted ≠ enrollment confirmed"
+ },
+ "common:appStatus.VISA_PREPARATION": {
+  "text": "Подготовка документов на визу",
+  "why": "glossary: visa document preparation"
+ },
+ "common:appStatus.VISA_SUBMITTED": {
+  "text": "Документы на визу поданы",
+  "why": "a visa is not «подана»"
+ },
+ "common:docCategory.ADMISSION_LETTER": {
+  "text": "Приглашение на обучение",
+  "why": "official document name"
+ },
+ "common:docCategory.RESIDENCE_CARD": {
+  "text": "Регистрационная карта иностранца (ARC)",
+  "why": "official Russian term"
+ },
+ "common:fit.common": {
+  "text": "Самые распространённые",
+  "why": "matches English"
+ },
+ "common:fit.levelValue.KIIP": {
+  "text": "Ступень {{level}}",
+  "why": "KIIP stages, not «этап»"
+ },
+ "common:fit.levelValue.KING_SEJONG": {
+  "text": "Sejong Korean, уровень {{level}}",
+  "why": "«учебник» not in English"
+ },
+ "common:institution.PUBLIC": {
+  "text": "Муниципальный",
+  "why": "was identical to NATIONAL"
+ },
+ "common:matchReason.NATIONALITY_RESTRICTED": {
+  "text": "Недоступно для заявителей с вашим гражданством",
+  "why": "natural phrasing"
+ },
+ "common:matchReason.SCHOLARSHIP_CANDIDATE": {
+  "text": "Возможна стипендия",
+  "why": "«may qualify», not «candidate»"
+ },
+ "common:nav.admissionRules": {
+  "text": "Требования к поступлению",
+  "why": "glossary: application requirement"
+ },
+ "common:nav.cohorts": {
+  "text": "Потоки студентов",
+  "why": "cohort = поток, as in Insights"
+ },
+ "common:nav.partnership": {
+  "text": "Партнёрское соглашение",
+  "why": "matches English"
+ },
+ "common:notify.application.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "{{university}}: новый статус заявки — «Приглашение на обучение выдано»",
+  "why": "quotes the renamed status"
+ },
+ "common:notify.application.OFFERED": {
+  "text": "{{university}}: новый статус заявки — «Получено предложение о зачислении»",
+  "why": "quotes the renamed status"
+ },
+ "common:pipeline.GRADUATED": {
+  "text": "Выпустился",
+  "why": "state, not person"
+ },
+ "common:pipeline.OFFERED": {
+  "text": "Предложение получено",
+  "why": "clearer stage name"
+ },
+ "common:region.Chungbuk": {
+  "text": "Чхунчхон-Пукто",
+  "why": "standard Russian province name"
+ },
+ "common:region.Chungnam": {
+  "text": "Чхунчхон-Намдо",
+  "why": "standard Russian province name"
+ },
+ "common:region.Gyeongbuk": {
+  "text": "Кёнсан-Пукто",
+  "why": "standard Russian province name"
+ },
+ "common:region.Gyeongnam": {
+  "text": "Кёнсан-Намдо",
+  "why": "standard Russian province name"
+ },
+ "common:region.Jeonbuk": {
+  "text": "Чолла-Пукто",
+  "why": "standard Russian province name"
+ },
+ "common:region.Jeonnam": {
+  "text": "Чолла-Намдо",
+  "why": "standard Russian province name"
+ },
+ "common:role.UNIVERSITY_REVIEWER": {
+  "text": "Проверяющий",
+  "why": "«рецензент» is for publications"
+ },
+ "common:states.forbiddenDetail": {
+  "text": "Если вам нужен доступ, обратитесь к администратору вашей организации.",
+  "why": "matches English"
+ },
+ "common:states.noResults": {
+  "text": "По этим фильтрам ничего не найдено. Уберите часть фильтров или сбросьте их.",
+  "why": "second sentence was dropped"
+ },
+ "common:states.unavailableText": {
+  "text": "Сейчас Hangyul недоступен. Повторите попытку через минуту.",
+  "why": "was English"
+ },
+ "common:states.unavailableTitle": {
+  "text": "Мы готовим сервис к работе",
+  "why": "was English"
+ },
+ "common:task.firstContact": {
+  "text": "Первый контакт с новым студентом",
+  "why": "shorter"
+ },
+ "common:task.submissionAgency": {
+  "text": "Подать заявку {{student}} в {{university}} (по поручению)",
+  "why": "missing"
+ },
+ "common:task.writingOverdue": {
+  "text": "Проверка эссе просрочена: {{essayType}}, {{student}} — проверьте сейчас",
+  "why": "call to action was dropped"
+ },
+ "common:uni27.cat.GKS": {
+  "text": "Стипендия Global Korea Scholarship (GKS)",
+  "why": "official name"
+ },
+ "common:uni27.house.eyebrow": {
+  "text": "Общежитие",
+  "why": "glossary: dormitory"
+ },
+ "common:uni27.house.priority": {
+  "text": "Иностранным студентам — приоритет при заселении.",
+  "why": "natural phrasing"
+ },
+ "common:uni27.schol.automatic": {
+  "text": "Назначается при отборе, отдельная заявка не нужна",
+  "why": "«when selected», not at enrollment"
+ },
+ "common:uni27.service.COUNSELING": {
+  "text": "Психологическая поддержка",
+  "why": "university counseling service"
+ },
+ "common:uni27.service.INTL_STUDENT_LOUNGE": {
+  "text": "Лаундж для иностранных студентов",
+  "why": "natural term"
+ },
+ "common:uni27.service.ORIENTATION": {
+  "text": "Ориентационная программа",
+  "why": "natural term"
+ },
+ "common:v29.addon.item.mock_interview": {
+  "text": "Пробное собеседование",
+  "why": "one term for mock interview"
+ },
+ "common:v29.addon.premiumMock": {
+  "text": "В Premium первое пробное собеседование уже включено.",
+  "why": "one term for mock interview"
+ },
+ "common:v29.pricing.all_in_one.f5": {
+  "text": "Помощь с документами на визу · следим за сроками подачи в общежитие",
+  "why": "help, not doing it for them"
+ },
+ "common:v29.pricing.compare.row.arrival": {
+  "text": "Обустройство после приезда",
+  "why": "matches English"
+ },
+ "common:v29.pricing.compare.row.interview": {
+  "text": "Пробное собеседование",
+  "why": "one term for mock interview"
+ },
+ "common:v29.pricing.compare.row.recommended": {
+  "text": "Рекомендованные университеты и языковые курсы",
+  "why": "language institutes were dropped"
+ },
+ "common:v29.pricing.compare.row.visa": {
+  "text": "Подготовка документов на визу",
+  "why": "glossary term"
+ },
+ "common:v29.pricing.compare.value.followUp.TEAM": {
+  "text": "Сопровождение вашей команды",
+  "why": "shorter"
+ },
+ "common:v29.pricing.premium.f4": {
+  "text": "Тщательно ведём документы и ключевые сроки по визе · помощь с заявкой в общежитие",
+  "why": "documents were dropped"
+ }
+}

@@ -5,6 +5,7 @@
 // Part 1 (API): median / p95 of 7 cold calls per endpoint that the Today and Students screens make. Part 2 (rendered, one
 // Chromium, 1440 and 390): first-page time, paging, search, a filter, a saved view, selection + bulk bar, the sticky header,
 // the TODAY figure = rows at this size, and the row → exact record link. Nothing here touches the development database.
+import { apiToken } from '../auth.mjs';
 import { chromium } from '@playwright/test';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -20,7 +21,7 @@ const ok = (name, cond, ev = '') => { console.log(`  ${cond ? 'PASS' : 'FAIL'}  
 const q = (a) => { const s = [...a].sort((x, y) => x - y); return { median: s[Math.floor(s.length / 2)], p95: s[Math.min(s.length - 1, Math.ceil(s.length * 0.95) - 1)] }; };
 
 /* ---------------------------------------------------------------------------------------------- 1 · API */
-const tok = (await (await fetch(`${API}/auth/demo-login`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email: USER, client: 'agency' }) })).json()).access_token;
+const tok = await apiToken(API, USER, 'agency');
 const H = { Authorization: `Bearer ${tok}` };
 const total = (await (await fetch(`${API}/agency/students?page_size=1`, { headers: H })).json()).total;
 console.log(`\n[api] ${total} students for ${USER}`);

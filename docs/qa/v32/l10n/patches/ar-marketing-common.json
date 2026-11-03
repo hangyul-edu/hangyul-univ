@@ -1,0 +1,737 @@
+{
+ "_notes": [
+  "Null `cur` = key missing from the ar locale (89, incl. common:states.unavailableTitle/Text which were still English and marketing:v15.pricing.compare.item which was empty); all translated. Marketing: أنت singular, concrete, no superlatives; service-unavailable copy follows the glossary («نجهّز الخدمة الآن» / «تعذّر الوصول إلى Hangyul حاليًا…»), never 'error'.",
+  "Numeric ranges: every range is «من X إلى Y» (common:v29.addon.range, fit.scoreRange, the existing uni27.house.costRange / schol.waiverRange / compare.value.settlement and the Gyeonggi 40–70 min already follow it). No dash between numbers: with Western digits inside RTL text an en dash range can be read in either direction, and hyphen-minus flips the pair visually. Latin tokens (TOPIK, GKS, IELTS, D-2, KTX, {{placeholders}}) intact; Arabic ، ؟ ؛ and «» quotes throughout.",
+  "Plural families: v12.directory.count/countShort, retention.months/years now carry all six CLDR forms with {{count}} in each (applier checks placeholders against the English); _two uses the dual noun (مؤسستان، شهران، سنتان). common:table.* and time.* families already complete and correct; untouched. Count-bearing strings without a family are count-neutral (matchReason.DEADLINE_VERY_SOON).",
+  "Terminology unified: submit = تقديم (appStatus.READY/SUBMITTED, taskType), not admitted = «غير مقبول» (appStatus + pipeline), visa preparation = «تجهيز مستندات التأشيرة» (never «التأشيرة» alone, which implies the visa itself), dormitory = «السكن الجامعي», application deadline = «الموعد النهائي للتقديم», requirements = «متطلبات» (not «قواعد»), verified = «تم التحقق منه» (موثَّق reads as notarized), apostille = «الأبوستيل», consular legalization = «التصديق القنصلي», notarization = «التوثيق لدى كاتب العدل», standard admission letter = «خطاب القبول القياسي», GKS = «منحة الحكومة الكورية (GKS)» (as in common:uni27), Seoul = «سيول» (common:region.Seoul was «سول»), intake = «فصل الالتحاق» (was «موعد القبول» = admission date).",
+  "Personal statement: singular «البيان الشخصي» is kept, but the plural «البيانات الشخصية» means 'personal data' — in the privacy/terms strings (collect.counselling.items, collect.documents.items, terms.services.writing) the plural was replaced by the singular generic. Owner may consider a different term (e.g. «خطاب التعريف الشخصي») if the plural is needed elsewhere.",
+  "Sponsor: «كفيل» means the iqama/residency sponsor in the Gulf; study-funding sponsor rendered «الممول» (docCategory.SPONSOR_DOCUMENT, privacy.sharing.sponsor.who; profile.items already said مموّل). Owner may confirm.",
+  "Promise check (pass E): removed «أشخاص حقيقيين» and «أنجز التأشيرة» from seo.home.description, «لهيونداي» from Ulsan body, «مرشح لمنحة» → «قد تتأهل», «تُمنح عند القبول» → «عند الاختيار لها», eligibility.POSSIBLE «على الأرجح» → «قد تكون مؤهلًا»; all_in_one.f5 restored 'help preparing'. Nothing else added, dropped or softened.",
+  "Plural of حرم (campus) is أحرام; «الحرم الجامعية» fixed in v12.uni.campuses, v24.uni.academicTitle and the Gyeonggi body. Brand stays Latin «Hangyul» (v17.quick.cta/ctaWhy had هانغيول).",
+  "Representative director (대표이사) rendered «الرئيس التنفيذي» (marketing:v14.legal.representative); if the legal footer must mirror the registry wording, owner may prefer «المدير الممثل» — decision needed."
+ ],
+ "marketing:nav.universities": {
+  "text": "الجامعات",
+  "why": "nav label, not a call to action"
+ },
+ "marketing:seo.home.description": {
+  "text": "اعثر على الجامعة الكورية المناسبة لك، وجهّز مستنداتك، واستعد للتأشيرة والوصول، بمعلومات موثّقة وفريق Hangyul في مكان واحد.",
+  "why": "'real people' invented; 'complete the visa' overpromised"
+ },
+ "marketing:v11.faq.q6.q": {
+  "text": "ما الجامعات التي تقدّم منحًا للطلاب الدوليين؟",
+  "why": "one term: الطلاب الدوليون"
+ },
+ "marketing:v11.services.s1.text": {
+  "text": "نقترح عليك جامعات ومعاهد لغة كورية تناسب سجلك الدراسي وأهدافك. وفي استشارة فردية نستعرض معك المنح التي يمكنك التقديم إليها، ثم نجهّز معك مستندات القبول ونتواصل مع الجامعة مع تقدّم طلبك.",
+  "why": "'as your application moves forward' dropped"
+ },
+ "marketing:v11.services.s2.alt": {
+  "text": "سيول من الجو عند الغروب، والشمس منخفضة بين الأبراج.",
+  "why": "one spelling: سيول"
+ },
+ "marketing:v12.directory.countShort_zero": {
+  "text": "‏{{count}} مؤسسة",
+  "why": "Arabic plural family"
+ },
+ "marketing:v12.directory.countShort_one": {
+  "text": "‏{{count}} مؤسسة",
+  "why": "missing"
+ },
+ "marketing:v12.directory.countShort_two": {
+  "text": "‏{{count}} مؤسستان",
+  "why": "Arabic plural family"
+ },
+ "marketing:v12.directory.countShort_few": {
+  "text": "‏{{count}} مؤسسات",
+  "why": "Arabic plural family"
+ },
+ "marketing:v12.directory.countShort_many": {
+  "text": "‏{{count}} مؤسسةً",
+  "why": "Arabic plural family"
+ },
+ "marketing:v12.directory.countShort_other": {
+  "text": "‏{{count}} مؤسسة",
+  "why": "missing"
+ },
+ "marketing:v12.directory.count_one": {
+  "text": "‏{{count}} مؤسسة",
+  "why": "missing"
+ },
+ "marketing:v12.directory.count_two": {
+  "text": "‏{{count}} مؤسستان",
+  "why": "dual noun"
+ },
+ "marketing:v12.directory.emptyText": {
+  "text": "اختر منطقة أخرى، أو تصفّح كل كوريا.",
+  "why": "missing"
+ },
+ "marketing:v12.directory.emptyTitle": {
+  "text": "لا مؤسسات مدرجة في هذه المنطقة",
+  "why": "missing"
+ },
+ "marketing:v12.directory.inRegion": {
+  "text": "الجامعات في {{region}}",
+  "why": "missing"
+ },
+ "marketing:v12.directory.matching": {
+  "text": "نتائج تطابق «{{q}}»",
+  "why": "missing"
+ },
+ "marketing:v12.establishment.NATIONAL": {
+  "text": "وطنية",
+  "why": "missing; same as common:institution"
+ },
+ "marketing:v12.establishment.PUBLIC": {
+  "text": "عامة",
+  "why": "missing; same as common:institution"
+ },
+ "marketing:v12.ieqas.excellent": {
+  "text": "معتمدة من IEQAS — ممتازة",
+  "why": "missing"
+ },
+ "marketing:v12.legal.effective": {
+  "text": "سارية اعتبارًا من {{date}}",
+  "why": "missing"
+ },
+ "marketing:v12.map.hide": {
+  "text": "إخفاء الخريطة",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.collect.counselling.items": {
+  "text": "ملاحظات الاستشارات والرسائل، ومسودات البيان الشخصي وخطة الدراسة وسجل تعديلاتها، وتعليقات التنقيح، وطلبات الجامعات، وسجلات تقدّم الطلبات",
+  "why": "plural البيانات الشخصية reads as 'personal data'"
+ },
+ "marketing:v12.privacy.collect.documents.items": {
+  "text": "جواز السفر، وبطاقة الهوية الوطنية، والصورة الشخصية، وكشوف الدرجات، وشهادات التخرج والتخرج المتوقع، وشهادات القرابة العائلية والميلاد، وكشوف الحساب البنكي، ومستندات الممول، وإثبات العمل والدخل، وتقارير درجات TOPIK وIELTS وTOEFL، ورسائل التوصية، والبيان الشخصي، وخطة الدراسة، والسيرة الذاتية، والتصديقات بالأبوستيل، ومستندات التوثيق لدى كاتب العدل، والترجمات المعتمدة، وبطاقة الإقامة، والتأشيرة، وخطاب القبول القياسي",
+  "why": "official term; sponsor=الممول; personal statement singular"
+ },
+ "marketing:v12.privacy.collect.profile.items": {
+  "text": "الجنسية، بلد الإقامة، تاريخ الميلاد، الجنس، رقم جواز السفر المُقنَّع وتاريخ انتهائه، سجل التأشيرات الكورية، التعليم، المدرسة، حالة التخرج، المعدل التراكمي GPA، درجات اختبارات اللغة، الدرجة والتخصص والمنطقة وفصل الالتحاق المرغوب فيها، الميزانية، الحاجة إلى منحة، تفضيل السكن، مموّل دراستك، الهدف المهني",
+  "why": "intake = فصل الالتحاق"
+ },
+ "marketing:v12.privacy.contact.colField": {
+  "text": "البند",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.colValue": {
+  "text": "التفاصيل",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.department": {
+  "text": "القسم",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.email": {
+  "text": "البريد الإلكتروني",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.h": {
+  "text": "مسؤول حماية الخصوصية وجهة الاتصال",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.officer": {
+  "text": "مسؤول حماية الخصوصية",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.phone": {
+  "text": "الهاتف",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.processors.colContact": {
+  "text": "جهة الاتصال",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.processors.colRetention": {
+  "text": "مدة احتفاظ المعالِج",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.processors.none": {
+  "text": "لا يتولى أي معالِج حاليًا التعامل مع المعلومات الشخصية نيابةً عن Hangyul في بيئة الإنتاج. وإذا تغيّر ذلك، فسيُنشر هنا المعالِج والعمل المُسنَد إليه ويُعلَن قبل البدء.",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.retention.months_one": {
+  "text": "‏{{count}} شهر",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.retention.months_two": {
+  "text": "‏{{count}} شهران",
+  "why": "dual noun"
+ },
+ "marketing:v12.privacy.retention.years_one": {
+  "text": "‏{{count}} سنة",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.retention.years_two": {
+  "text": "‏{{count}} سنتان",
+  "why": "dual noun"
+ },
+ "marketing:v12.privacy.sharing.sponsor.who": {
+  "text": "ممول تحدده أنت",
+  "why": "كفيل = iqama sponsor in Gulf"
+ },
+ "marketing:v12.privacy.transfer.none": {
+  "text": "لا يُستخدم حاليًا أي معالِج ينقل المعلومات الشخصية خارج كوريا. وإذا لزم نقل إلى الخارج، فسيُنشر هنا المستلم والبلد والغرض والمعلومات والتوقيت والطريقة ومدة الاحتفاظ ويُعلَن قبل البدء.",
+  "why": "missing"
+ },
+ "marketing:v12.terms.effective.h": {
+  "text": "تاريخ السريان",
+  "why": "missing"
+ },
+ "marketing:v12.terms.effective.p": {
+  "text": "تسري هذه الشروط اعتبارًا من {{date}}.",
+  "why": "missing"
+ },
+ "marketing:v12.terms.law.h": {
+  "text": "القانون الواجب التطبيق والاختصاص القضائي",
+  "why": "missing"
+ },
+ "marketing:v12.terms.refunds.stage.APPLICATION_WORK_STARTED": {
+  "text": "بدء العمل على الطلبات",
+  "why": "'support' ≠ work started"
+ },
+ "marketing:v12.terms.services.visa": {
+  "text": "إرشادات حول تجهيز مستندات التأشيرة",
+  "why": "glossary: visa document preparation"
+ },
+ "marketing:v12.terms.services.writing": {
+  "text": "تنقيح البيان الشخصي وخطة الدراسة",
+  "why": "plural البيانات الشخصية reads as 'personal data'"
+ },
+ "marketing:v12.terms.universityInfo.p": {
+  "text": "تستند معلومات الجامعات في الخدمة إلى مصادر منشورة: خدمة الإفصاح العام الرسمية عن الجامعات الكورية (Academy Info)، وStudy in Korea، والمواد الرسمية لكل جامعة. وتُعرَض المعلومات التي تتغير بين فصول الالتحاق مع مصدرها وتاريخ التحقق منها. صفحات الجامعات العامة للاطلاع فقط؛ أما ما أنت مؤهل للتقدم إليه وما تحتاج إلى تجهيزه، فيُعرَض في منصة الطالب بعد تسجيل الدخول.",
+  "why": "second person per English; intake term"
+ },
+ "marketing:v12.uni.back": {
+  "text": "العودة إلى الجامعات في كوريا",
+  "why": "missing"
+ },
+ "marketing:v12.uni.campuses": {
+  "text": "أحرام جامعية أخرى",
+  "why": "plural of حرم is أحرام"
+ },
+ "marketing:v14.legal.ecommerce": {
+  "text": "رقم تسجيل نشاط التجارة الإلكترونية",
+  "why": "per English"
+ },
+ "marketing:v14.legal.representative": {
+  "text": "الرئيس التنفيذي",
+  "why": "natural title for representative director"
+ },
+ "marketing:v14.media.alt.seoulRiver": {
+  "text": "أفق {{region}} عبر النهر عند الغروب.",
+  "why": "missing"
+ },
+ "marketing:v15.pricing.compare.item": {
+  "text": "الخدمة",
+  "why": "empty"
+ },
+ "marketing:v17.quick.cta": {
+  "text": "استعد مع Hangyul",
+  "why": "brand stays Latin everywhere"
+ },
+ "marketing:v17.quick.ctaWhy": {
+  "text": "تعمل Hangyul معك على الطلبات والمستندات وتجهيز مستندات التأشيرة.",
+  "why": "brand Latin; 'visa preparation', not the visa"
+ },
+ "marketing:v17.uni.missionTitle": {
+  "text": "ما الذي تمثّله هذه الجامعة",
+  "why": "natural rendering of 'stands for'"
+ },
+ "marketing:v20.city.Busan.body": {
+  "text": "بوسان ثاني أكبر مدينة في كوريا، ولا تبدو كنسخة مصغّرة من سيول. تقع الجامعات بين الشواطئ والجبال، ويصل المترو إلى معظمها، والإيجارات أقل بكثير منها في العاصمة.\nفيها أكبر ميناء في البلاد، ومهرجان سينمائي عريق، وصيف يقصده سكان بقية كوريا. وشتاؤها الأكثر اعتدالًا في البر الرئيسي.",
+  "why": "'second city' was ambiguous"
+ },
+ "marketing:v20.city.Chungbuk.body": {
+  "text": "تشونغتشونغ الشمالية هي المقاطعة الكورية الوحيدة التي لا ساحل لها. تشونغجو مركزها ومدينتها الجامعية الرئيسية، وهي قريبة من سيجونغ ودايجون بما يكفي لتشاركهما سوق العمل.\nتشتهر المقاطعة بمناظر الحجر الجيري في دانيانغ، وبحياة طلابية أهدأ وأرخص مما توفره المدن الكبرى.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungbuk.line": {
+  "text": "داخلية، في وسط البلاد، ومبنية حول تشونغجو.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungbuk.청주": {
+  "text": "تشونغجو",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungnam.아산": {
+  "text": "آسان",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungnam.천안": {
+  "text": "تشونان",
+  "why": "missing"
+ },
+ "marketing:v20.city.Daegu.body": {
+  "text": "تقع دايغو في حوض بين الجبال في الجنوب الشرقي، وهي أشد مدن كوريا حرارة في أغسطس ومن أبردها في يناير. فيها وسط مدينة كثيف يسهل التجول فيه مشيًا، وتاريخ طويل في النسيج تحوّل إلى صناعة للأزياء والأجهزة الطبية، وتكلفة معيشة أقل بوضوح من سيول أو بوسان.\nيضع قطار KTX سيول على بُعد ساعة وثلاثة أرباع الساعة، وبوسان على بُعد خمسين دقيقة.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Daegu.line": {
+  "text": "مدينة داخلية في حوض تحيط به الجبال، تُعرف بالنسيج والطب والحرارة.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Daejeon.body": {
+  "text": "نشأت دايجون حول «دايدوك إينوبوليس»، وهو تجمّع لمعاهد البحث الحكومية ومراكز البحث والتطوير للشركات، والجامعات هنا تشكّلت بتأثيره. إذا كنت قادمًا لدراسة الهندسة أو العلوم الطبيعية، فهنا توجد المختبرات.\nتقع في منتصف البلاد تقريبًا: ساعة من سيول بقطار KTX وساعة من بوسان.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.body": {
+  "text": "تضم غانغوون سلسلة جبال تيبيك، ومواقع دورة الألعاب الأولمبية الشتوية 2018، وشواطئ الساحل الشرقي. تشونتشون وغانغنونغ وونجو هي المدن الجامعية؛ لا تُعدّ أي منها كبيرة، وكلها أرخص وأهدأ من أي مكان في منطقة العاصمة.\nالشتاء هنا شتاء حقيقي. يصل قطار KTX إلى غانغنونغ من سيول في نحو ساعتين.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.line": {
+  "text": "الجبال والساحل الشرقي: المقاطعة الأقل كثافة سكانية والأجمل طبيعةً.",
+  "why": "'الأجمل مناظر' ungrammatical"
+ },
+ "marketing:v20.city.Gangwon.강릉": {
+  "text": "غانغنونغ",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.원주": {
+  "text": "ونجو",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.춘천": {
+  "text": "تشونتشون",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gwangju.body": {
+  "text": "غوانغجو هي أكبر مدن مقاطعتي جولا، وتحمل سمعتهما في الطعام وفي الانتفاضة الديمقراطية عام 1980، التي لا تزال أكثر ما تُعرف به المدينة في كوريا.\nهي من أرخص المدن الكبرى للعيش، وفيها مشهد فني مرموق، وتبعد عن سيول نحو ساعتين بقطار KTX.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gwangju.line": {
+  "text": "المركز الثقافي والسياسي للجنوب الغربي، ومكان دراسة ميسور التكلفة.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.body": {
+  "text": "تضم غيونغسانغ الشمالية غيونغجو، عاصمة مملكة شيلا طوال ألف عام ومتحفًا مفتوحًا بكل معنى الكلمة، وبوهانغ، مدينة الصلب التي تستضيف أيضًا إحدى أقوى جامعات العلوم والهندسة في كوريا. أما أندونغ، في الداخل، فهي مركز التقاليد الكونفوشيوسية الكورية.\nمقاطعة كبيرة ومتنوعة، وكلها أرخص من منطقة العاصمة.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.line": {
+  "text": "ألف عام من تاريخ غيونغجو وصلب بوهانغ، في المقاطعة نفسها.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.경주": {
+  "text": "غيونغجو",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.구미": {
+  "text": "غومي",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.포항": {
+  "text": "بوهانغ",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.body": {
+  "text": "تحيط غيونغي بسيول، وتضم جامعات أكثر من أي منطقة أخرى باستثناء العاصمة نفسها. تبعد سوون ويونغين وسونغنام وبوتشون جميعها من 40 إلى 70 دقيقة عن وسط سيول بالمترو أو بحافلة مباشرة، والإيجار عادةً أقل بنحو الثلث.\nتميل الأحرام الجامعية هنا إلى أن تكون أكبر وأكثر اكتفاءً بذاتها من أحرام سيول، لذا يسكن عدد أكبر من الطلاب في المساكن الجامعية بدلًا من الاستوديوهات خارج الحرم.",
+  "why": "plural of حرم is أحرام"
+ },
+ "marketing:v20.city.Gyeonggi.고양": {
+  "text": "غويانغ",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.부천": {
+  "text": "بوتشون",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.성남": {
+  "text": "سونغنام",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.수원": {
+  "text": "سوون",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.안양": {
+  "text": "آنيانغ",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.용인": {
+  "text": "يونغين",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongnam.김해": {
+  "text": "غيمهيه",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongnam.진주": {
+  "text": "جينجو",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongnam.창원": {
+  "text": "تشانغوون",
+  "why": "missing"
+ },
+ "marketing:v20.city.Incheon.line": {
+  "text": "بوابة كوريا: المطار فيها، وكذلك سونغدو.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeju.body": {
+  "text": "تبعد جيجو 85 كيلومترًا عن البر الرئيسي، وهي مبنية حول بركان هالاسان، ودافئة إلى حد تبدو معه نباتاتها شبه استوائية. إنها وجهة عطلات لبقية البلاد، وهذا ما يشكّل اقتصادها وإيجاراتها.\nالجامعات هنا قليلة وصغيرة. تنطلق الرحلات الجوية إلى سيول كل بضع دقائق وتستغرق ساعة.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeju.line": {
+  "text": "جزيرة بركانية قبالة الساحل الجنوبي، بمناخ مختلف عن بقية كوريا.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.body": {
+  "text": "جولا الشمالية مقاطعة زراعية، منبسطة في الغرب وجبلية في الشرق، وجونجو مركزها: مدينة يسكنها نحو 650,000 نسمة، فيها أكبر حي «هانوك» تقليدي باقٍ في البلاد، وسمعة في الطعام لا تنازعها فيها أي مدينة كورية.\nتكاليف المعيشة من الأدنى بين المدن الجامعية، وسيول على بُعد أقل من ساعتين بقليل بقطار KTX.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.line": {
+  "text": "جونجو، والمنطقة المعروفة بأنها موطن المطبخ الكوري.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.익산": {
+  "text": "إيكسان",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.전주": {
+  "text": "جونجو",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.body": {
+  "text": "في جولا الجنوبية جزر أكثر مما في بقية كوريا مجتمعة، وأراضي خليج سونتشون الرطبة، وميناء يوسو. هي الأقل تحضّرًا بين مقاطعات البر الرئيسي، والجامعات فيها صغيرة ومتقاربة تبعًا لذلك.\nإذا كنت تريد مكانًا هادئًا له ساحل وتكاليف معيشة منخفضة جدًا، فهذا هو.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.line": {
+  "text": "الساحل الجنوبي الغربي وجزره، وأهدأ إيقاع حياة في البلاد.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.목포": {
+  "text": "موكبو",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.순천": {
+  "text": "سونتشون",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.여수": {
+  "text": "يوسو",
+  "why": "missing"
+ },
+ "marketing:v20.city.Sejong.body": {
+  "text": "سيجونغ أحدث مدن كوريا وأكثرها تخطيطًا عن قصد: انتقلت إليها معظم الوزارات المركزية من سيول، وتخطيط الشوارع والحدائق والمباني العامة كلها تعود إلى السنوات الخمس عشرة الأخيرة.\nهي صغيرة وهادئة وجديدة جدًا، على بُعد عشرين دقيقة من دايجون وساعة ونصف من سيول.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Sejong.line": {
+  "text": "مدينة بُنيت من الصفر منذ 2012 لتضم الوزارات الحكومية.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Ulsan.body": {
+  "text": "تتمتع أولسان بأعلى متوسط دخل بين المدن الكورية، والسبب واضح: أكبر حوض لبناء السفن في العالم، ومصنع سيارات يُعد حيًّا قائمًا بذاته، ومجمع للبتروكيماويات على امتداد الساحل. هنا يُوظَّف خريجو الهندسة.\nإنها مدينة صغيرة بالمعايير الكورية، على بُعد نصف ساعة من بوسان، وفيها رحلات لمشاهدة الحيتان، وشاطئ طويل، ونهر تهوا الذي يشق وسطها.",
+  "why": "'Hyundai' not in English"
+ },
+ "marketing:v20.city.Ulsan.line": {
+  "text": "العاصمة الصناعية لكوريا: بناء السفن والسيارات والبتروكيماويات.",
+  "why": "missing"
+ },
+ "marketing:v20.dir.filterType": {
+  "text": "نوع المؤسسة",
+  "why": "'type' was dropped"
+ },
+ "marketing:v20.dir.tierVideo": {
+  "text": "فيديو رسمي",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.busanGwangan": {
+  "text": "جسر غوانغان مضاءً ليلًا فوق الخليج في {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.daejeonExpo": {
+  "text": "جسر إكسبو مضاءً فوق النهر في {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.gyeongjuBulguksa": {
+  "text": "معبد بولغوكسا في غيونغجو في {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.jeonjuHanok": {
+  "text": "أسطح القرميد في قرية جونجو هانوك في {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.seoulCheonggyecheon": {
+  "text": "ممشى جدول تشونغيتشون عبر وسط {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.seoulYeouido": {
+  "text": "نهر هان عند يويدو في {{region}} عند الغسق",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.sokchoSeorak": {
+  "text": "أفق سوكتشو تحت سلسلة جبل سوراك في {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.ulsanBridge": {
+  "text": "جسر أولسان فوق الميناء في {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.uni.link.dormitory": {
+  "text": "السكن الجامعي",
+  "why": "one term for dormitory"
+ },
+ "marketing:v20.uni.match.NOT_YET": {
+  "text": "تصبح متاحة لك هنا بعد حصولك على نتيجة لغة.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.POSSIBLE": {
+  "text": "تستحق التقديم إليها بناءً على إجاباتك.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.STRONG": {
+  "text": "برامج هنا تناسب الإجابات التي قدّمتها.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.ieqas": {
+  "text": "مدرجة في قائمة IEQAS المعتمدة، ما يخفف معايير التأشيرة.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.language": {
+  "text": "دورة اللغة الكورية فيها مدرجة في القائمة المعتمدة، لذا يمكنك البدء باللغة.",
+  "why": "missing"
+ },
+ "marketing:v21.uni.placeWhere": {
+  "text": "في {{city}}، {{region}}.",
+  "why": "missing"
+ },
+ "marketing:v24.uni.academicTitle": {
+  "text": "البرامج والأحرام الجامعية",
+  "why": "plural of حرم is أحرام"
+ },
+ "marketing:v28.uni.why.gks": {
+  "text": "تشارك في منحة الحكومة الكورية (GKS)",
+  "why": "one GKS name as in common:uni27"
+ },
+ "common:appStatus.READY": {
+  "text": "جاهز للتقديم",
+  "why": "one term: submit = تقديم"
+ },
+ "common:appStatus.REJECTED": {
+  "text": "غير مقبول",
+  "why": "same as pipeline; neutral wording"
+ },
+ "common:appStatus.SUBMITTED": {
+  "text": "تم التقديم",
+  "why": "one term: submit = تقديم"
+ },
+ "common:appStatus.VISA_PREPARATION": {
+  "text": "تجهيز مستندات التأشيرة",
+  "why": "glossary: visa document preparation"
+ },
+ "common:appStatus.WITHDRAWN": {
+  "text": "مسحوب",
+  "why": "status label, not an action"
+ },
+ "common:docCategory.APOSTILLE": {
+  "text": "الأبوستيل",
+  "why": "official term, definite as its siblings"
+ },
+ "common:docCategory.SPONSOR_DOCUMENT": {
+  "text": "المستندات المالية للممول",
+  "why": "كفيل = iqama sponsor in Gulf"
+ },
+ "common:docCategory.TOPIK": {
+  "text": "تقرير TOPIK",
+  "why": "consistent with TOEFL/IELTS labels"
+ },
+ "common:docStatus.VERIFIED": {
+  "text": "تم التحقق منه",
+  "why": "موثَّق reads as notarized"
+ },
+ "common:eligibility.ELIGIBLE": {
+  "text": "مؤهل",
+  "why": "consistent with sibling labels"
+ },
+ "common:eligibility.POSSIBLE": {
+  "text": "قد تكون مؤهلًا",
+  "why": "'probably' overstated 'possibly'"
+ },
+ "common:fit.levelValue.KIIP": {
+  "text": "المستوى {{level}}",
+  "why": "same word as TOPIK levels"
+ },
+ "common:fit.levelValue.KING_SEJONG": {
+  "text": "سيجونغ الكورية {{level}}",
+  "why": "natural course-level name"
+ },
+ "common:fit.q.level": {
+  "text": "في أي مرحلة تريد الدراسة؟",
+  "why": "asks level, not subject"
+ },
+ "common:fit.scoreRange": {
+  "text": "أدخل درجة من {{min}} إلى {{max}}.",
+  "why": "range as من…إلى"
+ },
+ "common:fit.tier.CHALLENGE.title": {
+  "text": "تحتاج إلى التحقق معنا",
+  "why": "definite noun reads naturally"
+ },
+ "common:fit.tier.MEETS.title": {
+  "text": "جامعات تستوفي أنت حدودها الدنيا",
+  "why": "subject was ambiguous"
+ },
+ "common:housingStatus.DORM_CONFIRMED": {
+  "text": "تم تأكيد السكن الجامعي",
+  "why": "natural status wording"
+ },
+ "common:legalization.APOSTILLE": {
+  "text": "الأبوستيل",
+  "why": "official term, definite as its siblings"
+ },
+ "common:legalization.ISSUER_VERIFICATION": {
+  "text": "التحقق من جهة الإصدار",
+  "why": "read as an imperative"
+ },
+ "common:matchReason.DEADLINE_VERY_SOON": {
+  "text": "الأيام المتبقية: {{days}} فقط",
+  "why": "count-neutral; يوم wrong for 3–10"
+ },
+ "common:matchReason.SCHOLARSHIP_CANDIDATE": {
+  "text": "قد تتأهل لمنحة دراسية",
+  "why": "'nominated' promised more than 'may'"
+ },
+ "common:nav.admissionRules": {
+  "text": "متطلبات القبول",
+  "why": "requirements, not rules"
+ },
+ "common:nav.partnership": {
+  "text": "اتفاقية الشراكة",
+  "why": "'agreement' was dropped"
+ },
+ "common:pipeline.OFFERED": {
+  "text": "تلقّى عرض قبول",
+  "why": "stage of the student, not a noun"
+ },
+ "common:pipeline.REJECTED": {
+  "text": "غير مقبول",
+  "why": "not admitted ≠ rejected"
+ },
+ "common:pipeline.TUITION_PENDING": {
+  "text": "بانتظار دفع الرسوم الدراسية",
+  "why": "'suspended' was wrong"
+ },
+ "common:pipeline.VISA_PREPARATION": {
+  "text": "تجهيز مستندات التأشيرة",
+  "why": "glossary: visa document preparation"
+ },
+ "common:pipeline.WAITLISTED": {
+  "text": "على قائمة الانتظار",
+  "why": "same as appStatus"
+ },
+ "common:region.Seoul": {
+  "text": "سيول",
+  "why": "one spelling, as in marketing"
+ },
+ "common:role.AGENCY_MANAGER": {
+  "text": "مدير",
+  "why": "indefinite like sibling roles"
+ },
+ "common:role.AGENCY_OWNER": {
+  "text": "مالك",
+  "why": "indefinite like sibling roles"
+ },
+ "common:states.forbiddenDetail": {
+  "text": "إذا كنت تحتاج إلى الوصول، فاطلبه من مسؤول مؤسستك.",
+  "why": "per English; no 'you believe'"
+ },
+ "common:states.noResults": {
+  "text": "لا توجد نتائج تطابق عوامل التصفية. جرّب إزالة بعضها أو امسحها.",
+  "why": "second sentence dropped"
+ },
+ "common:states.unavailableText": {
+  "text": "تعذّر الوصول إلى Hangyul حاليًا. يرجى المحاولة مرة أخرى بعد قليل.",
+  "why": "was English"
+ },
+ "common:states.unavailableTitle": {
+  "text": "نجهّز الخدمة الآن",
+  "why": "was English"
+ },
+ "common:task.reviewEssay": {
+  "text": "مراجعة {{essayType}} لـ {{university}}",
+  "why": "missing space after لـ"
+ },
+ "common:task.submissionAgency": {
+  "text": "تقديم طلب {{student}} إلى {{university}} (بتفويض)",
+  "why": "missing"
+ },
+ "common:task.universityRequestItem": {
+  "text": "طلبت {{university}}: {{item}}",
+  "why": "per English, matches agency key"
+ },
+ "common:task.writingOverdue": {
+  "text": "مراجعة مقال متأخرة: {{essayType}} للطالب {{student}} — راجعها الآن",
+  "why": "call to action dropped"
+ },
+ "common:taskType.APPLICATION_DEADLINE": {
+  "text": "الموعد النهائي للتقديم",
+  "why": "one term for application deadline"
+ },
+ "common:taskType.APPLICATION_SUBMIT": {
+  "text": "تقديم الطلب",
+  "why": "one term: submit = تقديم"
+ },
+ "common:tier.COMPETITIVE": {
+  "text": "تطابق ممكن",
+  "why": "same noun as STRONG"
+ },
+ "common:uni27.schol.automatic": {
+  "text": "تُمنح عند الاختيار لها، دون طلب منفصل",
+  "why": "'on admission' promised more than 'when selected'"
+ },
+ "common:uni27.service.COUNSELING": {
+  "text": "الإرشاد الطلابي",
+  "why": "university counseling service term"
+ },
+ "common:v29.addon.range": {
+  "text": "من {{min}} إلى {{max}}",
+  "why": "range as من…إلى"
+ },
+ "common:v29.pricing.all_in_one.f4": {
+  "text": "مراجعة مستندات القبول مع ملاحظات بما يلزم تصحيحه",
+  "why": "'admission' dropped"
+ },
+ "common:v29.pricing.all_in_one.f5": {
+  "text": "المساعدة في تجهيز مستندات التأشيرة · متابعة مواعيد التقديم على السكن الجامعي",
+  "why": "'help' dropped: we assist, not prepare"
+ },
+ "common:v29.pricing.basic.f4": {
+  "text": "قائمة بمستندات القبول الأساسية",
+  "why": "per English"
+ },
+ "common:v29.pricing.basic.f5": {
+  "text": "خطوات تجهيز التأشيرة حسب جنسيتك",
+  "why": "per English"
+ },
+ "common:v29.pricing.compare.row.arrival": {
+  "text": "الاستقرار بعد الوصول",
+  "why": "'settling in' dropped"
+ },
+ "common:v29.pricing.compare.row.recommended": {
+  "text": "الجامعات ومعاهد اللغة المرشّحة",
+  "why": "'language institutes' dropped"
+ },
+ "common:v29.pricing.compare.row.visa": {
+  "text": "تجهيز مستندات التأشيرة",
+  "why": "glossary: visa document preparation"
+ },
+ "common:v29.pricing.notes.premiumScope": {
+  "text": "في Premium لا يوجد حدّ لعدد جولات التنقيح، ضمن مستندات التقديم والجدول الزمني المتعاقد عليها.",
+  "why": "one term: editing = تنقيح"
+ },
+ "common:v29.pricing.premium.f4": {
+  "text": "متابعة دقيقة لمستندات التأشيرة ومواعيدها الرئيسية · المساعدة في التقديم على السكن الجامعي",
+  "why": "'documents' dropped"
+ },
+ "common:v29.pricing.premium.f5": {
+  "text": "من 30 يومًا قبل الوصول حتى 30 يومًا بعده · فريق مخصّص وردود ذات أولوية",
+  "why": "same wording as compare row"
+ },
+ "common:validation.code": {
+  "text": "أدخل الرمز المكوّن من 6 أرقام.",
+  "why": "imperative like sibling messages"
+ },
+ "common:validation.phone": {
+  "text": "أدخل رقم هاتف محمول صحيحًا.",
+  "why": "imperative like sibling messages"
+ }
+}

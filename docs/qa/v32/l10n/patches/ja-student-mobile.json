@@ -1,0 +1,1580 @@
+{
+  "_notes": [
+    "Student-facing カウンセラー/コンサルタント (counselor) rendered as Hangyul チーム / Hangyul Univ チーム, following the English's team identity; agency- and university-app strings keep カウンセラー because they are staff-facing (mobile:university.applicants.confirmBody, mobile:v3.uni.requestWho, mobile:v3.agency.waitingOn.counselor).",
+    "consultation = 相談 everywhere (glossary); カウンセリング replaced in diagnostic-consultation, consultation_minutes and checkout.startCondition.",
+    "Managed application rendered as 出願代行 in all three allowance/feature keys (was 一緒に管理する出願 / 出願管理 / 出願校サポート); 出願管理 kept only for v17.gate.what.applications where the English is 'your applications'.",
+    "University recommendation rendered as おすすめ大学の提案 (大学の推薦 reads as a recommendation letter from a university).",
+    "Personal statement = 自己紹介書 (was 志望理由書 in three keys); study plan = 学業計画書.",
+    "'Contracted documents' rendered as 契約に含まれる書類 (契約書類 reads as 'contract documents').",
+    "Agency/university app vocabulary aligned with the existing ja consoles: review = 審査, verify = 承認, waiting on X = Xの対応待ち, needs attention = 要確認, applicant (university) = 志願者, internal note = 内部メモ, intake = 入学時期, cohort = 入学期, waitlisted = 補欠.",
+    "Missing _one plural forms filled with the same text as _other; Japanese has one plural category so i18next will only ever read _other, but the key is kept so the family stays complete.",
+    "mobile:login.networkError — dropped the Android-emulator / LAN-IP hint that was still in the Japanese; it is dev-only and the English no longer carries it.",
+    "mobile:plan.chooseLede — Japanese said 出願の全工程をカバー (covers the whole process), which overpromises for Basic; re-rendered from the English.",
+    "mobile:v3.discover.upTo '最大 {{amount}}百万ウォン' left unchanged: the value is in millions and the string cannot reformat the number; owner may prefer a '{{amount}}00万ウォン' format if the amount is always an integer.",
+    "student:register.consent.CROSS_BORDER_VERIFICATION.summary / mobile:signup.*: Japanese lists transferred items, timing and retention period (from the Korean) where the English only says 'Details, including how to refuse'; left as is because it is legal notice text that adds no promise — owner to confirm it should stay."
+  ],
+  "student:dashboard.counselor.noneCta": {
+    "text": "プランを見る",
+    "why": "glossary: plan = プラン, no category word"
+  },
+  "student:dashboard.stageText.ENROLL": {
+    "text": "合格おめでとうございます！入学手続きを進めましょう。",
+    "why": "入学枠を確保 unnatural; one clear next step"
+  },
+  "student:documents.drawer.inReview": {
+    "text": "この書類を確認しています。今は何もしなくて大丈夫です。",
+    "why": "warmer, matches sibling strings"
+  },
+  "student:documents.legal.intro": {
+    "text": "各ステップが終わったら完了にしてください。最終的な書類は Hangyul チームが確認します。",
+    "why": "私たち reads oddly in UI; name the team"
+  },
+  "student:home.allMatches": {
+    "text": "すべてのマッチング結果",
+    "why": "one term: マッチング結果"
+  },
+  "student:home.docAction.RENEW": {
+    "text": "期限切れ。新しく取得してください",
+    "why": "renew a document = get a new one"
+  },
+  "student:home.team": {
+    "text": "Hangyul Univ チーム",
+    "why": "team display identity; matches messages.team"
+  },
+  "student:login.aside.point3": {
+    "text": "あなたの言語を話す Hangyul チームのスタッフと一緒に準備できます。",
+    "why": "counselor → Hangyul team (V22 identity)"
+  },
+  "student:onboarding.goals.degreeSub.LANGUAGE": {
+    "text": "まずは韓国語から。自分のペースで始められます",
+    "why": "定番のルート not in source; keep meaning"
+  },
+  "student:onboarding.passport.numberHint": {
+    "text": "任意。保存するのは末尾の数桁だけです。番号全体はパスポートの書類そのものにのみ残ります。",
+    "why": "clearer sentence split, same meaning"
+  },
+  "student:onboarding.passport.visa.NONE": {
+    "text": "なし",
+    "why": "option label; ない is not a label form"
+  },
+  "student:onboarding.preferences.housingOpt.OFF_CAMPUS": {
+    "text": "学外の住まい",
+    "why": "部屋 too literal; 住まい is the housing term"
+  },
+  "student:register.captcha.unavailable": {
+    "text": "現在、一時的に新規登録ができません。しばらくしてからもう一度お試しください。",
+    "why": "keep “temporarily”"
+  },
+  "student:register.consent.title": {
+    "text": "個人情報の取り扱いについて",
+    "why": "simpler title, matches English"
+  },
+  "student:register.done.cta": {
+    "text": "さっそく探してみる",
+    "why": "natural CTA"
+  },
+  "student:register.fromCheck": {
+    "text": "回答はプロフィールに保存されるので、登録するとすぐにマッチング結果を確認できます。",
+    "why": "one term: マッチング結果"
+  },
+  "student:v15.services.allowance.key.consultation_sessions": {
+    "text": "留学診断相談",
+    "why": "glossary: consultation = 相談, not カウンセリング"
+  },
+  "student:v15.services.allowance.key.max_managed_applications": {
+    "text": "出願代行",
+    "why": "one term for managed application"
+  },
+  "student:v15.services.allowance.key.max_recommended_institutions": {
+    "text": "おすすめ大学",
+    "why": "one term; 推薦 reads as a reference letter"
+  },
+  "student:v15.services.chosen": {
+    "text": "ウェブサイトで選んだプランです。",
+    "why": "ホームページ ambiguous; plain です・ます"
+  },
+  "student:v15.services.scope.consultation_minutes": {
+    "text": "{{count}}分の相談",
+    "why": "consultation = 相談"
+  },
+  "student:v15.services.scope.visa_support": {
+    "text": "ビザ書類の準備",
+    "why": "glossary: visa document preparation"
+  },
+  "student:v17.gate.what.arrival": {
+    "text": "到着と生活立ち上げのサポート",
+    "why": "glossary: arrival and settling-in help"
+  },
+  "student:v17.gate.what.essays": {
+    "text": "自己紹介書・学業計画書の添削",
+    "why": "personal statement = 自己紹介書; both essays"
+  },
+  "student:v17.gate.what.help": {
+    "text": "Hangyul チームのサポート",
+    "why": "コンシェルジュ not in source"
+  },
+  "student:v17.gate.what.housing": {
+    "text": "寮の申込サポート",
+    "why": "help, not the application itself"
+  },
+  "student:v17.gate.what.messages": {
+    "text": "Hangyul チームとのメッセージ",
+    "why": "cur named the team, not messaging"
+  },
+  "student:v17.gate.what.visa": {
+    "text": "ビザ書類の準備",
+    "why": "glossary: visa document preparation"
+  },
+  "student:v17.upgrade.feature.essay_review": {
+    "text": "自己紹介書の添削",
+    "why": "personal statement = 自己紹介書"
+  },
+  "student:v17.upgrade.feature.managed_application": {
+    "text": "出願代行",
+    "why": "one term for managed application"
+  },
+  "student:v17.upgrade.feature.recommendations": {
+    "text": "おすすめ大学の提案",
+    "why": "推薦 reads as a reference letter"
+  },
+  "student:v21.pay.cardFailed": {
+    "text": "決済が完了しませんでした",
+    "why": "was missing; new translation"
+  },
+  "student:v21.pay.cardSecure": {
+    "text": "カード情報は暗号化された接続で Hangyul にのみ送られ、そこから決済代行会社に渡されます。カード番号は保存しません。",
+    "why": "was missing; new translation"
+  },
+  "student:v21.pay.cardTitle": {
+    "text": "カードで支払う",
+    "why": "was missing; new translation"
+  },
+  "student:v21.pay.declined": {
+    "text": "このカードは利用できませんでした：{{reason}} 別のカードをお試しいただくか、カード会社にご確認ください。",
+    "why": "was missing; new translation"
+  },
+  "student:v21.pay.expiry": {
+    "text": "有効期限",
+    "why": "was missing; new translation"
+  },
+  "student:v21.pay.holder": {
+    "text": "カード名義",
+    "why": "was missing; new translation"
+  },
+  "student:v21.pay.notConfigured": {
+    "text": "カード決済はまだご利用いただけません。しばらくしてからもう一度お試しいただくか、お問い合わせください。",
+    "why": "was missing; new translation"
+  },
+  "student:v21.pay.number": {
+    "text": "カード番号",
+    "why": "was missing; new translation"
+  },
+  "student:v21.pay.numberInvalid": {
+    "text": "カード番号をご確認ください。",
+    "why": "was missing; new translation"
+  },
+  "student:v21.pay.optional": {
+    "text": "任意",
+    "why": "was missing; new translation"
+  },
+  "student:v21.pay.payCta": {
+    "text": "このカードで支払う",
+    "why": "was missing; new translation"
+  },
+  "student:v21.pay.processing": {
+    "text": "決済を処理しています…",
+    "why": "was missing; new translation"
+  },
+  "student:v21.pay.savedDelete": {
+    "text": "削除",
+    "why": "was missing; new translation"
+  },
+  "student:v21.pay.savedDeleteBody": {
+    "text": "{{card}} をアカウントから削除します。すでに完了したお支払いには影響しません。",
+    "why": "was missing; new translation"
+  },
+  "student:v21.pay.savedDeleteFailed": {
+    "text": "カードを削除できませんでした。もう一度お試しください。",
+    "why": "was missing; new translation"
+  },
+  "student:v21.pay.savedDeleteTitle": {
+    "text": "このカードを削除しますか？",
+    "why": "was missing; new translation"
+  },
+  "student:v21.pay.savedNotReusable": {
+    "text": "次回のご購入時には、カード情報をもう一度入力していただきます。",
+    "why": "was missing; new translation"
+  },
+  "student:v21.pay.savedTitle": {
+    "text": "お使いのカード",
+    "why": "was missing; new translation"
+  },
+  "student:v21.pay.tooMany": {
+    "text": "カードの試行回数が多すぎます。数分待ってからもう一度お試しください。",
+    "why": "was missing; new translation"
+  },
+  "student:v22.checkout.startCondition": {
+    "text": "初回の相談が行われた時点でサービスが開始されます。開始前は7日以内であれば全額の申込撤回が可能で、開始後はまだ提供されていない部分について撤回できます。",
+    "why": "consultation = 相談"
+  },
+  "student:v22.home.appTeam.follow": {
+    "text": "{{university}} の入試担当部署に進捗を確認中",
+    "why": "admissions office was dropped"
+  },
+  "student:v22.home.appTeam.letter": {
+    "text": "{{university}} の標準入学許可書の発行状況を確認中",
+    "why": "official name 標準入学許可書"
+  },
+  "student:v26.now.scopeToggle": {
+    "text": "このプランに含まれる内容をすべて見る",
+    "why": "toggle needs a verb"
+  },
+  "student:v29.services.catalogue.premiumEditing": {
+    "text": "Premium には、契約に含まれる書類の添削がすでに含まれています。",
+    "why": "契約書類 reads as “contract documents”"
+  },
+  "student:v29.services.unrationed.CONTRACTED_DOCUMENTS": {
+    "text": "契約に含まれる書類の範囲内で回数制限なし",
+    "why": "契約書類 reads as “contract documents”"
+  },
+  "student:writing.needYou": {
+    "text": "あなたが書く・修正する番です",
+    "why": "cur lost “your turn to write or revise”"
+  },
+  "student:writing.status.FINAL_REVIEW": {
+    "text": "Hangyul チームが確認中",
+    "why": "same label as AGENCY_REVIEW"
+  },
+  "mobile:agency.reviews.detailTitle": {
+    "text": "書類確認",
+    "why": "screen title, not a verb"
+  },
+  "mobile:agency.reviews.verify": {
+    "text": "書類を承認",
+    "why": "console term for verify = 承認"
+  },
+  "mobile:login.networkError": {
+    "text": "現在 {{url}} の Hangyul に接続できません。接続を確認して、しばらくしてからもう一度お試しください。",
+    "why": "drop dev-only emulator hint; match English"
+  },
+  "mobile:messages.internalLabel": {
+    "text": "内部メモ",
+    "why": "console term 内部メモ"
+  },
+  "mobile:messages.internalOn": {
+    "text": "内部メモ：チームのメンバーだけが閲覧できます",
+    "why": "console term 内部メモ"
+  },
+  "mobile:messages.internalPlaceholder": {
+    "text": "内部メモを入力（チームのみ閲覧可）…",
+    "why": "console term 内部メモ"
+  },
+  "mobile:messages.sendInternal": {
+    "text": "内部メモを保存",
+    "why": "console term 内部メモ"
+  },
+  "mobile:more.supportHint": {
+    "text": "Hangyul チームにメッセージを送る",
+    "why": "コンサルタント → Hangyul team"
+  },
+  "mobile:plan.allowance.consultation_sessions": {
+    "text": "留学診断相談",
+    "why": "consultation = 相談"
+  },
+  "mobile:plan.allowance.essay_review_rounds": {
+    "text": "自己紹介書・学業計画書の添削",
+    "why": "both essays; 自己紹介書"
+  },
+  "mobile:plan.allowance.follow_up_consultations": {
+    "text": "フォローアップ相談",
+    "why": "match student key"
+  },
+  "mobile:plan.allowance.max_managed_applications": {
+    "text": "出願代行",
+    "why": "one term for managed application"
+  },
+  "mobile:plan.allowance.max_recommended_institutions": {
+    "text": "おすすめ大学の提案",
+    "why": "推薦 reads as a reference letter"
+  },
+  "mobile:plan.chooseLede": {
+    "text": "1回のお支払いのみで、月額課金はありません。準備の間ずっと、プランがあなたに寄り添います。",
+    "why": "全工程をカバー overpromises for Basic"
+  },
+  "mobile:plan.oneTime": {
+    "text": "1回払い",
+    "why": "match student:services.oneTime"
+  },
+  "mobile:plan.ongoing": {
+    "text": "サービス期間中ずっと",
+    "why": "glossary: service period"
+  },
+  "mobile:signup.consent.PRIVACY.summary": {
+    "text": "メールアドレス、携帯電話番号、氏名、国籍、パスワード（暗号化）。アカウントの作成と保護のために使用します。",
+    "why": "full-width punctuation; match student key"
+  },
+  "mobile:signup.consentTitle": {
+    "text": "個人情報の取り扱いについて",
+    "why": "simpler title, matches English"
+  },
+  "mobile:signup.expiresIn": {
+    "text": "有効期限まで {{seconds}} 秒",
+    "why": "natural countdown"
+  },
+  "mobile:signup.lang.PREPARING": {
+    "text": "受験準備中",
+    "why": "準備中 ambiguous among test options"
+  },
+  "mobile:signup.progress": {
+    "text": "ステップ {{n}}/{{total}}：{{step}}",
+    "why": "short; matches journey.step"
+  },
+  "mobile:signup.quickGo": {
+    "text": "マッチング結果を見る",
+    "why": "one term: マッチング結果"
+  },
+  "mobile:signup.quickSkip": {
+    "text": "今はスキップ",
+    "why": "あとで too vague for a button"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.body": {
+    "text": "{{university}} の合格を承諾します。学費の納付と標準入学許可書の受け取りは、Hangyul Univ チームがご案内します。",
+    "why": "team identity; official 標準入学許可書"
+  },
+  "mobile:student.documents.fixFallback": {
+    "text": "Hangyul チームからこの書類の修正依頼がありました。",
+    "why": "team identity"
+  },
+  "mobile:student.messages.subtitle": {
+    "text": "Hangyul Univ チームとやり取りできます。",
+    "why": "team identity"
+  },
+  "mobile:student.nextAction.ARRIVAL_CHECKLIST": {
+    "text": "韓国到着に向けて準備しましょう",
+    "why": "next-step phrasing like siblings"
+  },
+  "mobile:student.nextAction.REVIEW_MATCHES": {
+    "text": "大学のマッチング結果を確認しましょう",
+    "why": "next-step phrasing like siblings"
+  },
+  "mobile:student.tasks.subtitle": {
+    "text": "Hangyul チームからのタスクと、出願チェックリストの項目です。",
+    "why": "team identity; 出願システム not in source"
+  },
+  "mobile:university.applicants.anonymous": {
+    "text": "志願者",
+    "why": "university console term 志願者"
+  },
+  "mobile:university.applicants.detailTitle": {
+    "text": "志願者",
+    "why": "university console term 志願者"
+  },
+  "mobile:university.login.tagline": {
+    "text": "留学生入試担当部署向けに、志願者、合否、入学期を。",
+    "why": "コホート → 入学期; 志願者"
+  },
+  "mobile:v26.uni.head.decide": {
+    "text": "決定が必要",
+    "why": "console term 決定"
+  },
+  "mobile:v26.uni.head.label": {
+    "text": "今対応が必要なもの",
+    "why": "formal for staff"
+  },
+  "mobile:v29.mfa.codeHint": {
+    "text": "認証アプリに表示された6桁のコード、またはリカバリーコードを入力してください。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v29.mfa.codeLabel": {
+    "text": "認証コード",
+    "why": "was missing; new translation"
+  },
+  "mobile:v29.mfa.enrollOnWeb": {
+    "text": "このアカウントには2段階認証が必要です。先にウェブコンソールで設定してから、ここでログインしてください。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v29.mfa.verify": {
+    "text": "認証してログイン",
+    "why": "was missing; new translation"
+  },
+  "mobile:v29.mfa.wrongCode": {
+    "text": "コードが正しくないか、有効期限が切れています。新しいコードを入力してください。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v29.plan.supportDays": {
+    "text": "初回相談から {{count}} 日間の相談サポート",
+    "why": "cur dropped “consultation support”"
+  },
+  "mobile:v29.plan.supportUntil": {
+    "text": "{{date}} まで相談サポート",
+    "why": "natural order, spacing"
+  },
+  "mobile:v29.plan.unrationed.CONTRACTED_DOCUMENTS": {
+    "text": "契約に含まれる書類の範囲内で回数制限なし",
+    "why": "契約書類 reads as “contract documents”"
+  },
+  "mobile:v3.agency.allClear": {
+    "text": "問題なし：{{list}}",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.applications_one": {
+    "text": "出願 {{count}} 件",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.applications_other": {
+    "text": "出願 {{count}} 件",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.att.breached_one": {
+    "text": "{{count}} 件が約束の期限を超過",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.att.breached_other": {
+    "text": "{{count}} 件が約束の期限を超過",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.att.closing_one": {
+    "text": "7日以内に締切の出願",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.att.closing_other": {
+    "text": "7日以内に締切の出願",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.att.docs_one": {
+    "text": "審査待ちの書類",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.att.docs_other": {
+    "text": "審査待ちの書類",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.att.next": {
+    "text": "次：{{who}} の {{uni}}、{{date}}",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.att.overSla": {
+    "text": "{{count}} 件が {{hours}} 時間以上待機",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.att.overdue_one": {
+    "text": "期限超過のタスク",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.att.overdue_other": {
+    "text": "期限超過のタスク",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.att.replies_one": {
+    "text": "返信を待っている学生",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.att.replies_other": {
+    "text": "返信を待っている学生",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.att.since": {
+    "text": "最も古い：{{who}}、{{when}}",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.att.sla_one": {
+    "text": "初回対応が遅れそうな学生",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.att.sla_other": {
+    "text": "初回対応が遅れそうな学生",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.block.deadline": {
+    "text": "{{uni}} の出願締切が間近",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.block.fix": {
+    "text": "{{doc}}：学生の修正が必要",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.block.requested": {
+    "text": "{{uni}} が追加書類を要求",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.block.review": {
+    "text": "{{doc}}：あなたの審査待ち",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.block.sla": {
+    "text": "初回対応の期限",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.blockers_one": {
+    "text": "この学生の進行を妨げている項目：{{count}} 件",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.blockers_other": {
+    "text": "この学生の進行を妨げている項目：{{count}} 件",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.clear.closing": {
+    "text": "今週の締切",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.clear.docs": {
+    "text": "書類審査",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.clear.overdue": {
+    "text": "期限超過のタスク",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.clear.replies": {
+    "text": "学生への返信",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.clear.sla": {
+    "text": "初回対応",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.conversationSubject": {
+    "text": "韓国留学サポートチーム",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.deadline": {
+    "text": "{{uni}} {{when}}",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.documents": {
+    "text": "書類 · {{total}} 件中 {{verified}} 件承認済み",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.dueToday_one": {
+    "text": "今日が期限 · {{count}}",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.dueToday_other": {
+    "text": "今日が期限 · {{count}}",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.findStudent": {
+    "text": "学生を探す",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.firstMessage": {
+    "text": "{{name}} にメッセージ",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.greeting.afternoon": {
+    "text": "こんにちは、{{name}} さん",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.greeting.evening": {
+    "text": "こんばんは、{{name}} さん",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.greeting.morning": {
+    "text": "おはようございます、{{name}} さん",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.message": {
+    "text": "メッセージ",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.messageLabel": {
+    "text": "メッセージ",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.needsAttention": {
+    "text": "要確認",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.nextAction": {
+    "text": "次：{{what}}",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.noBlockers": {
+    "text": "この学生に障害はありません",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.noBlockersBody": {
+    "text": "書類、締切、返信はすべて順調です。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.noStudents": {
+    "text": "このビューに学生はいません",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.noStudentsBody": {
+    "text": "別のビューを試すか、検索をクリアしてください。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.searchPlaceholder": {
+    "text": "氏名またはメールアドレス",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.stage": {
+    "text": "段階",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.stageNote": {
+    "text": "チームへのメモ（任意）",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.stageTo": {
+    "text": "{{stage}} に移動",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.teamView": {
+    "text": "チーム · {{name}}",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.toFix_one": {
+    "text": "修正が必要な書類 {{count}} 件",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.toFix_other": {
+    "text": "修正が必要な書類 {{count}} 件",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.today": {
+    "text": "今日",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.upload": {
+    "text": "アップロード",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.uploadFor": {
+    "text": "{{name}} の{{doc}}",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.uploadWhat": {
+    "text": "どの書類をアップロードしますか？",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.uploaded": {
+    "text": "学生の書類保管庫にアップロードしました。審査できます。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.view.all": {
+    "text": "すべて",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.view.attention": {
+    "text": "要確認",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.view.deadline": {
+    "text": "締切間近",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.view.docs": {
+    "text": "修正が必要な書類",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.view.mine": {
+    "text": "担当学生",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.view.sla": {
+    "text": "初回対応の約束を超過または間近の学生",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.view.university": {
+    "text": "大学の対応待ち",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.view.visa": {
+    "text": "ビザ",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.view.waiting_student": {
+    "text": "学生の対応待ち",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.view.waiting_us": {
+    "text": "当方の対応待ち",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.waitingOn.agency": {
+    "text": "エージェントチームの対応待ち",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.waitingOn.counselor": {
+    "text": "カウンセラーの対応待ち",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.waitingOn.external": {
+    "text": "外部機関の対応待ち",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.waitingOn.hangyul": {
+    "text": "Hangyul の対応待ち",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.waitingOn.none": {
+    "text": "待機中のものなし",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.waitingOn.student": {
+    "text": "学生の対応待ち",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.waitingOn.university": {
+    "text": "大学の対応待ち",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.agency.waitingOn.us": {
+    "text": "当方の対応待ち",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "入学許可書の準備ができました。ビザ書類の準備を始めましょう。",
+    "why": "one next step: visa documents"
+  },
+  "mobile:v3.appStatus.PROFILE_REVIEW": {
+    "text": "Hangyul Univ チームがあなたのプロフィールを確認しています。",
+    "why": "team identity"
+  },
+  "mobile:v3.application.reviewBody": {
+    "text": "{{date}} に提出しました。大学から追加書類や面接を求められることがあります。Hangyul チームが進捗を確認しています。",
+    "why": "見守る vague; say what we do"
+  },
+  "mobile:v3.deadlines.bucket.later_other": {
+    "text": "今月中 · {{count}}",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.deadlines.bucket.overdue_other": {
+    "text": "期限超過 · {{count}}",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.deadlines.bucket.week_other": {
+    "text": "今後7日間 · {{count}}",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.deadlines.emptyView": {
+    "text": "このビューに期限はありません",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.deadlines.student": {
+    "text": "学生",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.deadlines.who.all": {
+    "text": "すべて",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.deadlines.who.mine": {
+    "text": "自分の担当",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.deadlines.who.unassigned": {
+    "text": "未割り当て",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.deadlines.you": {
+    "text": "あなた",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.discover.emptyVerdict": {
+    "text": "今はここに表示するものはありません",
+    "why": "natural empty state"
+  },
+  "mobile:v3.discover.showResults_one": {
+    "text": "{{count}} 件のプログラムを表示",
+    "why": "missing _one form; same as _other"
+  },
+  "mobile:v3.discover.summary_one": {
+    "text": "{{count}} 件のプログラムの公表要件を満たしています。",
+    "why": "missing _one form; same as _other"
+  },
+  "mobile:v3.docAction.IN_REVIEW": {
+    "text": "Hangyul チームが確認中",
+    "why": "team identity"
+  },
+  "mobile:v3.documents.needYou_one": {
+    "text": "対応が必要 {{count}} 件",
+    "why": "missing _one form; same as _other"
+  },
+  "mobile:v3.documents.neededFor": {
+    "text": "{{university}} の出願に必要",
+    "why": "で必要 ambiguous"
+  },
+  "mobile:v3.home.documents_one": {
+    "text": "対応が必要な書類 {{count}} 件",
+    "why": "missing _one form; same as _other"
+  },
+  "mobile:v3.home.nextBody.DOCUMENT_UPLOAD": {
+    "text": "鮮明なスキャンか写真をアップロードしてください。Hangyul チームが確認し、直すべき点があればお伝えします。",
+    "why": "team identity"
+  },
+  "mobile:v3.home.nextBody.ESSAY_WRITE": {
+    "text": "まずは下書きから始めましょう。Hangyul チームが一緒に確認します。",
+    "why": "team identity"
+  },
+  "mobile:v3.home.noCounselor": {
+    "text": "プランを選ぶと、Hangyul Univ チームがあなたの言語でサポートします。",
+    "why": "glossary: plan = プラン"
+  },
+  "mobile:v3.home.otherTasks_one": {
+    "text": "ほかのタスク {{count}} 件",
+    "why": "missing _one form; same as _other"
+  },
+  "mobile:v3.home.stageLine.apply": {
+    "text": "大学が出願を審査中",
+    "why": "cur said “applying”, not “reviewing”"
+  },
+  "mobile:v3.home.stageLine.discover": {
+    "text": "自分に合う大学を検討中",
+    "why": "探し中 colloquial"
+  },
+  "mobile:v3.home.stageLine.visa": {
+    "text": "学生ビザを準備中",
+    "why": "取得中 implies issuance; never promise"
+  },
+  "mobile:v3.home.team": {
+    "text": "Hangyul Univ チーム",
+    "why": "team identity"
+  },
+  "mobile:v3.home.unread_one": {
+    "text": "未読メッセージ {{count}} 件",
+    "why": "missing _one form; same as _other"
+  },
+  "mobile:v3.match.strong": {
+    "text": "有力候補",
+    "why": "高い適合 unnatural label"
+  },
+  "mobile:v3.messages.attachUnavailable": {
+    "text": "添付ファイルはまだ利用できません。",
+    "why": "server mention not in source"
+  },
+  "mobile:v3.messages.attachmentOnly_one": {
+    "text": "添付ファイル {{count}} 件を送信しました",
+    "why": "missing _one form; same as _other"
+  },
+  "mobile:v3.messages.conversations": {
+    "text": "会話",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.offer.deadline": {
+    "text": "{{date}} までに承諾して学費を納付 · {{left}}",
+    "why": "返答 ≠ accept; short label"
+  },
+  "mobile:v3.profile.unlock.default": {
+    "text": "マッチングの精度が上がります",
+    "why": "one term: マッチング"
+  },
+  "mobile:v3.profile.unlock.sponsor": {
+    "text": "ビザ用の資金証明書類を早めに準備できます",
+    "why": "cur dropped “early” and the benefit"
+  },
+  "mobile:v3.push.idle": {
+    "text": "書類の確認が終わったとき、締切が近いとき、Hangyul チームから返信があったときにプッシュ通知を受け取れます。",
+    "why": "team identity"
+  },
+  "mobile:v3.reviews.beforeVerify": {
+    "text": "承認前のチェック",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.bulkBody": {
+    "text": "開いて確認した書類に限り実行してください。各学生に通知されます。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.bulkDone": {
+    "text": "{{ok}} 件承認、{{failed}} 件スキップ",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.bulkTitle_one": {
+    "text": "{{count}} 件の書類を承認しますか？",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.bulkTitle_other": {
+    "text": "{{count}} 件の書類を承認しますか？",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.check.date": {
+    "text": "発行日が十分に新しく、有効期限内である",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.check.issuer": {
+    "text": "発行者、印、または署名が確認できる",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.check.legal": {
+    "text": "{{path}}が添付され、書類と一致している",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.check.legible": {
+    "text": "すべてのページがそろい、判読できる",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.check.name": {
+    "text": "氏名と生年月日がパスポートと一致している",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.correctionTitle": {
+    "text": "学生に何を修正してもらいますか？",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.expires": {
+    "text": "有効期限",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.issuedIn": {
+    "text": "発行国",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.issuedOn": {
+    "text": "発行日",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.legalization": {
+    "text": "認証",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.notNeeded": {
+    "text": "不要",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.open": {
+    "text": "{{name}} を開く",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.overSla": {
+    "text": "{{waiting}} · 審査の約束期限を超過",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.reason": {
+    "text": "学生へのメッセージ",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.requestCorrection": {
+    "text": "修正を依頼",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.required": {
+    "text": "必須",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.select": {
+    "text": "選択",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.studentSees": {
+    "text": "{{name}} には、この文面がそのまま書類の横に表示されます。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.studentSeesGeneric": {
+    "text": "学生には、この文面がそのまま書類の横に表示されます。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.summary": {
+    "text": "待機 {{count}} 件 · うち {{over}} 件が {{hours}} 時間の審査約束を超過",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.templates": {
+    "text": "チームのテンプレート",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.translation": {
+    "text": "翻訳",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.uploaded": {
+    "text": "{{when}} にアップロード",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.verifyN_one": {
+    "text": "{{count}} 件の書類を承認",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.reviews.verifyN_other": {
+    "text": "{{count}} 件の書類を承認",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.settings.consoleHint": {
+    "text": "チームメンバー、請求、エクスポートはエージェント用ウェブコンソールで管理します。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.settings.work": {
+    "text": "担当業務",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.tasks.empty.team": {
+    "text": "チームに未完了のタスクはありません",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.tasks.empty.today": {
+    "text": "今日が期限のタスクはありません",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.tasks.empty.waiting": {
+    "text": "他者の対応待ちのタスクはありません",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.tasks.empty.week": {
+    "text": "今週が期限のタスクはありません",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.tasks.open": {
+    "text": "開く",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.tasks.overdue": {
+    "text": "期限超過 · {{when}}",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.tasks.view.overdue": {
+    "text": "期限超過",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.tasks.view.team": {
+    "text": "チーム",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.tasks.view.today": {
+    "text": "今日",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.tasks.view.waiting": {
+    "text": "待機中",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.tasks.view.week": {
+    "text": "今週",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.tasks.waitingOn": {
+    "text": "対応待ち：{{what}}",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.allClear": {
+    "text": "現在、決定が必要な案件はありません。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.allCohorts": {
+    "text": "Hangyul 経由の全学生",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.allIntakes": {
+    "text": "すべての入学時期",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.applicant": {
+    "text": "志願者",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.check.gpa": {
+    "text": "GPA",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.check.interview": {
+    "text": "面接",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.check.interviewRequired": {
+    "text": "このプログラムでは必須",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.check.level": {
+    "text": "{{level}} 級",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.check.minimum": {
+    "text": "基準 {{need}} · 志願者 {{have}}",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.check.notProvided": {
+    "text": "未提供",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.check.state.below": {
+    "text": "基準未達",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.check.state.meets": {
+    "text": "基準を満たす",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.check.state.missing": {
+    "text": "未提供",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.check.state.planned": {
+    "text": "受験予定",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.check.state.unscheduled": {
+    "text": "受験予定なし",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.check.topik": {
+    "text": "TOPIK",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.checksNote": {
+    "text": "自己申告のスコアをプログラムの公表基準と比較したものです。審査の参考情報であり、合否を決定するものではありません。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.checksTitle": {
+    "text": "要件チェック",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.closed": {
+    "text": "終了：不合格 {{rejected}} 件、辞退 {{withdrawn}} 件。率の算出には {{min}} 名以上が必要です。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.cohortIntro_one": {
+    "text": "Hangyul 経由で貴学に出願した学生は {{count}} 名です。現在の状況は次のとおりです。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.cohortIntro_other": {
+    "text": "Hangyul 経由で貴学に出願した学生は {{count}} 名です。現在の状況は次のとおりです。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.cohortNote": {
+    "text": "率は対象の学生が {{min}} 名以上になると表示されます。{{date}} 時点。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.cohort_one": {
+    "text": "{{label}} · {{count}} 名",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.cohort_other": {
+    "text": "{{label}} · {{count}} 名",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.conv": {
+    "text": "前段階の {{pct}} · {{d}} 名中 {{n}} 名",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.convFew": {
+    "text": "前段階から {{d}} 名中 {{n}} 名 · 少数のため率は非表示",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decision.admitted_one": {
+    "text": "学費未納の合格者",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decision.admitted_other": {
+    "text": "学費未納の合格者",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decision.documents_one": {
+    "text": "志願者の書類待ち",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decision.documents_other": {
+    "text": "志願者の書類待ち",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decision.flagged_one": {
+    "text": "フラグ付きの出願",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decision.flagged_other": {
+    "text": "フラグ付きの出願",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decision.interview_one": {
+    "text": "実施または採点が必要な面接",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decision.interview_other": {
+    "text": "実施または採点が必要な面接",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decision.offer_one": {
+    "text": "志願者の返答待ちの合格通知",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decision.offer_other": {
+    "text": "志願者の返答待ちの合格通知",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decision.returned_one": {
+    "text": "志願者から返送された書類",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decision.returned_other": {
+    "text": "志願者から返送された書類",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decision.review_one": {
+    "text": "審査が必要な出願",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decision.review_other": {
+    "text": "審査が必要な出願",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decisionContext_one": {
+    "text": "必須書類 {{total}} 件中 {{ready}} 件が準備済み · 未回答の依頼 {{count}} 件。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decisionContext_other": {
+    "text": "必須書類 {{total}} 件中 {{ready}} 件が準備済み · 未回答の依頼 {{count}} 件。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decisionDocs": {
+    "text": "必須書類 {{total}} 件中 {{ready}} 件が準備済み。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decisionHint.admitted": {
+    "text": "入金を確認したら納付済みにする",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decisionHint.documents": {
+    "text": "アップロードされるまで対応不要",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decisionHint.flagged": {
+    "text": "要精査としてマーク済み",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decisionHint.interview": {
+    "text": "面接後に結果を記録する",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decisionHint.offer": {
+    "text": "Hangyul が志願者をフォローします",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decisionHint.returned": {
+    "text": "依頼した内容を再確認する",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.decisionHint.review": {
+    "text": "提出済みで、決定に十分な内容がそろっています",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.docsTitle": {
+    "text": "書類 · {{total}} 件中 {{ready}} 件準備済み",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.dueOn": {
+    "text": "期限 {{date}}",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.empty.all": {
+    "text": "該当する志願者はいません",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.empty.flagged": {
+    "text": "フラグ付きの出願はありません",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.empty.review": {
+    "text": "審査待ちの出願はありません",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.graduation": {
+    "text": "卒業",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.latest": {
+    "text": "審査待ちの最新案件",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.move.ADDITIONAL_DOCUMENTS": {
+    "text": "追加書類を依頼",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.move.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "入学許可書を発行",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.move.INTERVIEW": {
+    "text": "面接に招待",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.move.OFFERED": {
+    "text": "合格を通知",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.move.REJECTED": {
+    "text": "不合格にする",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.move.TUITION_PAID": {
+    "text": "学費納付を確認",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.move.TUITION_PENDING": {
+    "text": "学費請求書を送付",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.move.UNIVERSITY_REVIEW": {
+    "text": "審査を開始",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.move.WAITLISTED": {
+    "text": "補欠にする",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.nOfD": {
+    "text": "{{d}} 件中 {{n}} 件",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.needsTitle": {
+    "text": "決定が必要",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.noMinimums": {
+    "text": "このプログラムには公表された最低基準がまだありません。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.nothingToReview": {
+    "text": "審査待ちはありません",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.openRequests_one": {
+    "text": "依頼中の書類 {{count}} 件",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.openRequests_other": {
+    "text": "依頼中の書類 {{count}} 件",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.otherDecisions": {
+    "text": "その他の決定",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.populationAll_one": {
+    "text": "全入学時期の提出済み出願 {{count}} 件に基づく。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.populationAll_other": {
+    "text": "全入学時期の提出済み出願 {{count}} 件に基づく。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.populationIntake_one": {
+    "text": "{{intake}} の提出済み出願 {{count}} 件に基づく。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.populationIntake_other": {
+    "text": "{{intake}} の提出済み出願 {{count}} 件に基づく。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.reason": {
+    "text": "理由（Hangyul と共有）",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.request": {
+    "text": "依頼",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.requestLabel": {
+    "text": "必要な書類",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.requestLabelHint": {
+    "text": "例：アポスティーユ付き高校卒業証明書",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.requestNote": {
+    "text": "志願者への指示",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.requestNoteHint": {
+    "text": "何が不足していて、どう対応すべきか",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.requestSend": {
+    "text": "依頼を送信",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.requestTitle": {
+    "text": "{{name}} に書類を依頼",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.requestWho": {
+    "text": "志願者と担当の Hangyul カウンセラーに通知され、この文面がそのまま表示されます。",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.requestedOn": {
+    "text": "{{date}} に依頼",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.retention": {
+    "text": "在学中",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.search": {
+    "text": "氏名、プログラム、受付番号で検索",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.step.ACCEPTED": {
+    "text": "合格承諾",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.step.ARRIVED": {
+    "text": "韓国到着",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.step.ENROLLED": {
+    "text": "入学",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.step.OFFERED": {
+    "text": "合格通知",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.step.REVIEWED": {
+    "text": "審査済み",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.step.SUBMITTED": {
+    "text": "提出済み",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.step.TUITION_PAID": {
+    "text": "学費納付済み",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.step.VISA_ISSUED": {
+    "text": "ビザ発給",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.tab.applicants": {
+    "text": "志願者",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.tab.pipeline": {
+    "text": "概要",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.tab.students": {
+    "text": "学生",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.tooFew": {
+    "text": "少数のため率は非表示",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.view.admitted": {
+    "text": "合格",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.view.all": {
+    "text": "すべて",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.view.documents": {
+    "text": "書類不足",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.view.enrolment": {
+    "text": "ビザ・入学",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.view.flagged": {
+    "text": "フラグ付き",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.view.interview": {
+    "text": "面接",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.view.offer": {
+    "text": "合格通知",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.view.review": {
+    "text": "要審査",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.uni.waitingStudent": {
+    "text": "志願者の対応待ち",
+    "why": "was missing; new translation"
+  },
+  "mobile:v3.upload.privacy": {
+    "text": "書類を開けるのは、あなたと Hangyul チームだけです。大学が見られるのは、その大学に出願を提出した後だけです。",
+    "why": "team identity"
+  },
+  "mobile:v3.visa.beforeBody": {
+    "text": "合格を承諾して学費を納付すると、大学が入学許可書を発行します。必要なものは今から確認して、準備を始められます。",
+    "why": "one term: 承諾/学費"
+  },
+  "mobile:v3.visa.beforeTitle": {
+    "text": "ビザの準備は合格後に始まります",
+    "why": "preparation, not 手続き"
+  },
+  "mobile:v3.visa.blockers": {
+    "text": "先に必要なもの",
+    "why": "cur “待っているもの” misreads"
+  },
+  "mobile:v3.visa.phase.apply": {
+    "text": "ビザ申請",
+    "why": "bare 申請 unclear in a phase strip"
+  },
+  "mobile:v3.visa.phase.decision": {
+    "text": "大使館の審査結果",
+    "why": "bare 結果 unclear"
+  },
+  "mobile:v3.visa.title": {
+    "text": "{{type}}ビザの準備",
+    "why": "プラン not in source"
+  },
+  "mobile:v4.application.doneSummary_one": {
+    "text": "完了 {{count}} 件：{{items}}",
+    "why": "missing _one form; same as _other"
+  },
+  "mobile:v4.application.reviewLate": {
+    "text": "通常より時間がかかっています。Hangyul チームには遅れていることを伝えてあります。再アップロードの必要はありません。",
+    "why": "team identity"
+  },
+  "mobile:v4.application.waitBody": {
+    "text": "Hangyul チームが送られた内容を確認しています。変更が必要な場合はお知らせします。",
+    "why": "team identity"
+  },
+  "mobile:v4.application.writeOnWeb": {
+    "text": "ウェブ版で作成してください。Hangyul チームのコメントもそちらに表示されます。",
+    "why": "team identity"
+  },
+  "mobile:v4.documents.lateLine": {
+    "text": "Hangyul チームに遅延として通知済み",
+    "why": "team identity"
+  },
+  "mobile:v4.home.item.LEGALIZE.text": {
+    "text": "韓国の大学は、この書類を認証済みの状態でのみ受け付けます。あなたの国での手順をご案内します。",
+    "why": "cur sentence was garbled"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.text": {
+    "text": "Hangyul チームからコメントが届いています。承認されるまで出願は提出できません。",
+    "why": "team identity"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.text": {
+    "text": "Hangyul チームが一緒に確認します。まずは下書きから。完璧でなくて大丈夫です。",
+    "why": "team identity"
+  },
+  "mobile:v4.uni.actor.AGENCY": {
+    "text": "提携エージェント",
+    "why": "was missing; new translation"
+  },
+  "mobile:v4.uni.actor.HANGYUL": {
+    "text": "Hangyul",
+    "why": "was missing; new translation"
+  },
+  "mobile:v4.uni.actor.STUDENT": {
+    "text": "志願者",
+    "why": "was missing; new translation"
+  },
+  "mobile:v4.uni.actor.SYSTEM": {
+    "text": "自動",
+    "why": "was missing; new translation"
+  },
+  "mobile:v4.uni.actor.UNIVERSITY": {
+    "text": "貴学",
+    "why": "was missing; new translation"
+  },
+  "mobile:v4.uni.toReview_one": {
+    "text": "要審査 · {{count}}",
+    "why": "was missing; new translation"
+  },
+  "mobile:v4.uni.toReview_other": {
+    "text": "要審査 · {{count}}",
+    "why": "was missing; new translation"
+  },
+  "mobile:v4.visa.showDone_one": {
+    "text": "完了したステップ {{count}} 件を表示",
+    "why": "missing _one form; same as _other"
+  }
+}

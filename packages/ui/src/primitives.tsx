@@ -1,18 +1,15 @@
-import { AlertCircle, AlertTriangle, ArrowDownRight, ArrowUpRight, CheckCircle2, ChevronDown, Info, Lock, SearchX } from '@hangyul/icons';
+import { AlertCircle, AlertTriangle, ArrowDownRight, ArrowUpRight, CheckCircle2, Info, Lock, SearchX } from '@hangyul/icons';
 import { useLocale } from '@hangyul/i18n';
 import { cx, initials, type Tone } from '@hangyul/utils';
 import {
   forwardRef,
   useId,
-  useLayoutEffect,
   useRef,
-  useState,
   type ButtonHTMLAttributes,
   type CSSProperties,
   type HTMLAttributes,
   type InputHTMLAttributes,
   type ReactNode,
-  type SelectHTMLAttributes,
   type TextareaHTMLAttributes,
 } from 'react';
 
@@ -191,73 +188,6 @@ export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputE
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<HTMLTextAreaElement> & { invalid?: boolean }>(function Textarea({ className, invalid, ...rest }, ref) {
   return <textarea ref={ref} className={cx('hg-textarea', className)} aria-invalid={invalid || undefined} {...rest} />;
 });
-export const Select = forwardRef<HTMLSelectElement, SelectHTMLAttributes<HTMLSelectElement> & { invalid?: boolean; compact?: boolean }>(function Select({ className, invalid, compact, ...rest }, ref) {
-  return <select ref={ref} className={cx('hg-select', compact && 'hg-input--sm', className)} aria-invalid={invalid || undefined} {...rest} />;
-});
-/**
- * A **filter** select for toolbars (V30, REPORT §409). Not a form field — `Select` stays the form control.
- *
- * The toolbar defect it replaces: a native `<select>` sizes itself to its LONGEST option, so a filter whose
- * current value is "전체" rendered as a 109–160 px box with a 24 px word pinned to one edge and the chevron
- * pinned to the other, and nothing in it said what "전체" referred to (the category name was screen-reader
- * only). Here the visible face is `category · value ⌄` as ONE group, sized to the text actually shown, and
- * the native `<select>` is stretched invisibly over the whole face — so the hit area is the whole control,
- * the option list is the platform's own (keyboard, screen readers, mobile wheels), and nothing is
- * re-implemented. `active` marks a filter that is narrowing the results.
- */
-export const FilterSelect = forwardRef<HTMLSelectElement, Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'> & {
-  /** The category, always visible ("학교 유형", "Status"). Also the select's accessible name. */
-  label: string;
-  /** Hide the visible category when the toolbar already names it (the accessible name stays). */
-  hideLabel?: boolean;
-  size?: 'sm' | 'md';
-  /** The filter is narrowing results (a non-default value) — drawn as selected. */
-  active?: boolean;
-  /** For stretching inside a drawer/sheet column. */
-  block?: boolean;
-  /**
-   * The reset option (value `""`) is shown on the face as a short "전체 / All" after the category, so the face
-   * reads "국가 · 전체" rather than "국가 · 모든 국가". The option list keeps its own full wording. Pass `false`
-   * to show the option text instead, or a string to override.
-   */
-  allLabel?: string | false;
-}>(function FilterSelect({ label, hideLabel, size = 'md', active, block, allLabel, className, children, onChange, style, ...rest }, ref) {
-  const { t } = useLocale('common');
-  const inner = useRef<HTMLSelectElement | null>(null);
-  const [text, setText] = useState('');
-  const faceOf = (sel: HTMLSelectElement | null) => {
-    const opt = sel?.selectedOptions[0];
-    if (!opt) return '';
-    if (opt.value === '' && allLabel !== false && !hideLabel) return allLabel ?? t('common:v30.filter.all');
-    return opt.text;
-  };
-  // The face shows the option's own text, whatever its children are; re-read after every render (options or
-  // value may have changed) and before paint, so there is never a frame with an empty face.
-  useLayoutEffect(() => {
-    const next = faceOf(inner.current);
-    if (next !== text) setText(next);
-  });
-  return (
-    <span
-      className={cx('hg-fsel', size === 'sm' && 'hg-fsel--sm', block && 'hg-fsel--block', className)}
-      data-control="select" data-active={(active ?? (rest.value !== undefined && rest.value !== '')) || undefined} style={style}
-    >
-      <span className="hg-fsel__face" aria-hidden>
-        {!hideLabel && <span className="hg-fsel__label">{label}</span>}
-        <span className="hg-fsel__value">{text}</span>
-        <ChevronDown className="hg-fsel__chev" />
-      </span>
-      <select
-        ref={(el) => { inner.current = el; if (typeof ref === 'function') ref(el); else if (ref) ref.current = el; }}
-        className="hg-fsel__native" aria-label={label}
-        onChange={(e) => { setText(faceOf(e.target)); onChange?.(e); }}
-        {...rest}
-      >
-        {children}
-      </select>
-    </span>
-  );
-});
 export function SearchInput({ icon, ...rest }: InputHTMLAttributes<HTMLInputElement> & { icon: ReactNode }) {
   return (
     <div className="hg-input-icon">
@@ -417,7 +347,7 @@ export function ErrorState({ error, onRetry, compact }: { error?: unknown; onRet
       {/* V30 (REPORT §409): only a SERVER's 4xx message is shown (the API localizes it via Accept-Language). A client
           timeout (408, "Request timed out after 20s") or a network TypeError ("Failed to fetch") is engineering text
           in English — the reader gets the localized "couldn't load, check your connection" sentence instead. */}
-      <div className="hg-state__text">{(error as Error)?.message && typeof status === 'number' && status >= 400 && status < 500 && status !== 408 ? (error as Error).message : t('states.errorDetail')}</div>
+      <div className="hg-state__text">{(error as { unreachable?: boolean })?.unreachable ? t('states.unavailableText') : (error as Error)?.message && typeof status === 'number' && status >= 400 && status < 500 && status !== 408 ? (error as Error).message : t('states.errorDetail')}</div>
       {onRetry && <Button size="sm" onClick={onRetry}>{t('actions.retry')}</Button>}
     </div>
   );

@@ -1,648 +1,1273 @@
 {
- "apps": {
-  "allStatuses": "Toate stările",
-  "allUniversities": "Toate universitățile",
-  "closed": "Închis",
-  "col": {
-   "intake": "Sesiune de admitere",
-   "program": "Universitate / program",
-   "status": "Stare",
-   "student": "Studentul"
+  "apps": {
+    "allStatuses": "Toate stările",
+    "allUniversities": "Toate universitățile",
+    "closed": "Închis",
+    "col": {
+      "intake": "Sesiune de admitere",
+      "program": "Universitate / program",
+      "status": "Stare",
+      "student": "Student"
+    },
+    "deadline": "Termen limită",
+    "detail": "Candidatură",
+    "empty": "Nicio candidatură nu corespunde acestor filtre. Modificați-le sau ștergeți-le.",
+    "flagged": "Marcat",
+    "onlyFlagged": "Doar marcate",
+    "searchPh": "Căutați student, program, universitate sau referință…",
+    "sort": "Sortați după",
+    "sortBy": {
+      "deadline": "Termen limită",
+      "submitted": "Depuse recent",
+      "updated": "Actualizate recent",
+      "readiness": "Grad de pregătire"
+    },
+    "uniHint": "Filtrează după numele universității",
+    "university": "Universitate",
+    "actor": {
+      "AGENCY": "Agenție",
+      "HANGYUL": "Hangyul",
+      "STUDENT": "Student",
+      "SYSTEM": "Sistem",
+      "UNIVERSITY": "Universitate"
+    },
+    "checklist": "Lista documentelor",
+    "checklistCount": "{{ready}} din {{total}} elemente gata",
+    "confirmMove": "Mutați la „{{status}}”",
+    "externalRef": "Referința universității",
+    "externalRefHint": "Numărul candidaturii din portalul universității, dacă îl aveți.",
+    "flag": "Marcați",
+    "flagReason": "Motivul marcării",
+    "flagTitle": "Marcați pentru urmărire",
+    "history": "Istoricul stărilor",
+    "legalization": "Legalizare notarială și apostilă/supralegalizare",
+    "moveTo": "Schimbați starea candidaturii",
+    "moved": "Candidatura a fost mutată la {{status}}.",
+    "noTransitions": "În această etapă, organizația dumneavoastră nu poate schimba starea.",
+    "note": "Notă",
+    "noteHint": "Se salvează în istoricul stărilor.",
+    "readiness": "Grad de pregătire",
+    "reused": "Refolosit din seif",
+    "scholarship": "Notă privind bursa",
+    "semester": "Începutul semestrului",
+    "submitBlocked": "Lipsesc documente obligatorii, așa că depunerea este blocată:",
+    "submitted": "Depusă",
+    "translation": "Traducere",
+    "withdrawWarn": "Retragerea este definitivă pentru această candidatură."
   },
-  "deadline": "Termen limită",
-  "detail": "Candidatură",
-  "empty": "Nicio candidatură nu corespunde acestor filtre.",
-  "flagged": "Marcat",
-  "onlyFlagged": "Doar marcate",
-  "searchPh": "Caută student, program, universitate sau referință…",
-  "sort": "Sortează după",
-  "sortBy": {
-   "deadline": "Termen limită",
-   "submitted": "Depuse recent",
-   "updated": "Actualizate recent"
+  "docs": {
+    "allCategories": "Toate categoriile",
+    "assigned": {
+      "any": "Toate",
+      "me": "Alocate mie",
+      "unassigned": "Nealocate"
+    },
+    "backToQueue": "Coadă",
+    "bulkVerify": "Verificați selecția",
+    "bulkVerifyText": "Verificați doar documentele pe care le-ați deschis și controlat. Fiecare student este notificat, iar fiecare decizie este înregistrată în jurnalul de audit pe numele dumneavoastră.",
+    "bulkVerifyTitle_other": "Verificați {{count}} de documente?",
+    "category": "Categorie",
+    "chooseCategory": "Alegeți un tip de document",
+    "durDays": "{{count}} z",
+    "durHours": "{{count}} h",
+    "file": "Fișier",
+    "fileHint": "PDF, PNG, JPEG sau WebP, până la 15 MB.",
+    "pick": "Alegeți un document de verificat",
+    "pickText": "Folosiți J / K pentru a vă deplasa prin coadă.",
+    "position": "{{n}} din {{total}}",
+    "queue": "Coadă de verificare",
+    "reviewer": "Verificarea documentelor",
+    "sc": {
+      "cancel": "Anulați",
+      "changes": "Solicitați corectare",
+      "checks": "Bifați o verificare sau alegeți un motiv",
+      "nav": "Documentul următor / anterior",
+      "send": "Trimiteți cererea de corectare",
+      "verify": "Verificați"
+    },
+    "selectDoc": "Selectați {{doc}} de la {{name}}",
+    "shortcuts": "Comenzi rapide",
+    "upload": "Încărcați",
+    "uploadForHint": "Folosiți această opțiune când un student trimite un document pe altă cale (de exemplu, prin e-mail). Documentul ajunge în seiful lui de documente, este marcat ca încărcat de dumneavoastră și așteaptă verificarea ca orice altă încărcare.",
+    "uploadForStudent": "Încărcați pentru un student",
+    "bulkVerifyTitle_few": "Verificați {{count}} documente?",
+    "uploadForName": "Încărcați pentru {{name}}",
+    "bulkAssign": "Atribuiți un verificator",
+    "bulkAssigned_one": "{{count}} document atribuit",
+    "bulkAssigned_few": "{{count}} documente atribuite",
+    "bulkAssigned_other": "{{count}} de documente atribuite",
+    "bulkFailed_one": "{{count}} document nu a putut fi modificat (deja verificat sau nu este în portofoliul dumneavoastră)",
+    "bulkFailed_few": "{{count}} documente nu au putut fi modificate (deja verificate sau nu sunt în portofoliul dumneavoastră)",
+    "bulkFailed_other": "{{count}} de documente nu au putut fi modificate (deja verificate sau nu sunt în portofoliul dumneavoastră)",
+    "bulkLabel": "Acțiuni pentru documentele selectate",
+    "bulkVerified_one": "{{count}} document verificat",
+    "bulkVerified_few": "{{count}} documente verificate",
+    "bulkVerified_other": "{{count}} de documente verificate",
+    "bulkVerifyTitle_one": "Verificați {{count}} document?",
+    "empty": "Coada este goală",
+    "emptyBy": {
+      "any": "Niciun document nu așteaptă verificarea.",
+      "me": "Nimic nu vă este atribuit în acest moment.",
+      "unassigned": "Fiecare document în așteptare are un verificator."
+    },
+    "notInQueue": "Nu este în coada de verificare",
+    "subSla": "{{count}} în așteptarea verificării · {{late}} peste ținta de {{hours}} ore",
+    "sub_one": "{{count}} document în așteptarea verificării, cel mai vechi primul.",
+    "sub_few": "{{count}} documente în așteptarea verificării, cele mai vechi primele.",
+    "sub_other": "{{count}} de documente în așteptarea verificării, cele mai vechi primele.",
+    "uploadedFor": "Adăugat în seiful de documente al studentului {{name}}",
+    "you": "dumneavoastră"
   },
-  "uniHint": "Filtrează după numele universității",
-  "university": "Universitate"
- },
- "docs": {
-  "allCategories": "Toate categoriile",
-  "assigned": {
-   "any": "Toate",
-   "me": "Alocate mie",
-   "unassigned": "Nealocate"
+  "essaysPage": {
+    "col": {
+      "reviewer": "Verificator"
+    }
   },
-  "backToQueue": "Coadă",
-  "bulkVerify": "Verifică selecția",
-  "bulkVerifyText": "Verifică doar documentele pe care le-ai deschis și controlat. Fiecare student este notificat, iar fiecare decizie este înregistrată în jurnalul de audit pe numele tău.",
-  "bulkVerifyTitle_other": "Verifici {{count}} de documente?",
-  "category": "Categorie",
-  "chooseCategory": "Alege un tip de document",
-  "durDays": "{{count}} z",
-  "durHours": "{{count}} h",
-  "file": "Fișier",
-  "fileHint": "PDF, PNG, JPEG sau WebP, până la 15 MB.",
-  "pick": "Alege un document de verificat",
-  "pickText": "Folosește J / K pentru a te deplasa prin coadă.",
-  "position": "{{n}} din {{total}}",
-  "queue": "Coadă de verificare",
-  "reviewer": "Verificarea documentelor",
-  "sc": {
-   "cancel": "Anulează",
-   "changes": "Solicită modificări",
-   "checks": "Bifează o verificare sau alege un motiv",
-   "nav": "Documentul următor / anterior",
-   "send": "Trimite cererea de corectare",
-   "verify": "Verifică"
+  "inbox": {
+    "all": "Toate",
+    "attach": "Atașați",
+    "audienceStudent": "{{name}} va vedea acest mesaj",
+    "createTask": "Creați o sarcină din acest mesaj",
+    "inbox": "Mesaje primite",
+    "internalBanner": "Intern — nu este vizibil pentru student",
+    "internalNote": "Notă internă",
+    "mention": "Mențiune",
+    "message": "Mesaj",
+    "messagePh": "Scrieți un răspuns… (Ctrl+Enter pentru trimitere)",
+    "messages": "Mesaje",
+    "mode": "Tipul mesajului",
+    "modeMessage": "Mesaj",
+    "needsReply": "Necesită răspuns",
+    "needsReplyShort": "Răspuns de dat",
+    "new": "Mesaj nou",
+    "newHint": "Studentul este notificat prin e-mail și în aplicație.",
+    "pick": "Alegeți o conversație",
+    "pickText": "Sau începeți una nouă cu orice student din portofoliul dumneavoastră.",
+    "searchPh": "Căutați persoane sau subiecte…",
+    "sendTo": "Trimiteți către {{name}}",
+    "subReply_other": "{{count}} de conversații așteaptă răspunsul dumneavoastră",
+    "subUnread_other": "{{count}} de conversații necitite",
+    "subject": "Subiect",
+    "thread": "Conversație",
+    "unread": "Necitite",
+    "unreadN_one": "{{count}} mesaj necitit",
+    "subReply_few": "{{count}} conversații așteaptă răspunsul dumneavoastră",
+    "subUnread_few": "{{count}} conversații necitite",
+    "unreadN_few": "{{count}} mesaje necitite",
+    "audienceTeam": "Doar echipa dumneavoastră vede acest mesaj",
+    "manageTemplates": "Gestionați șabloanele…",
+    "noMessages": "Niciun mesaj încă.",
+    "notePh": "Scrieți o notă internă pentru echipa dumneavoastră… (Ctrl+Enter pentru salvare)",
+    "noteSaved": "Nota internă a fost salvată.",
+    "openFile": "Deschideți fișierul",
+    "participants": "participanți",
+    "removeFile": "Eliminați {{name}}",
+    "saveNote": "Salvați nota",
+    "sent": "Mesajul a fost trimis.",
+    "subReply_one": "{{count}} conversație așteaptă răspunsul dumneavoastră",
+    "subUnread_one": "{{count}} conversație necitită",
+    "system": "Sistem",
+    "taskCreated": "Sarcină creată din acest mesaj",
+    "taskDue": "Termenul sarcinii",
+    "taskHint": "Sarcina merge la primul coleg menționat sau la dumneavoastră.",
+    "unreadN_other": "{{count}} de mesaje necitite",
+    "willNotify_one": "{{count}} coleg va fi notificat",
+    "willNotify_few": "{{count}} colegi vor fi notificați",
+    "willNotify_other": "{{count}} de colegi vor fi notificați"
   },
-  "selectDoc": "Selectează {{doc}} de la {{name}}",
-  "shortcuts": "Comenzi rapide",
-  "upload": "Încarcă",
-  "uploadForHint": "Folosește această opțiune când un student trimite un document pe altă cale (de exemplu, prin e-mail). Documentul ajunge în seiful lui de documente, este marcat ca încărcat de tine și așteaptă verificarea ca orice altă încărcare.",
-  "uploadForStudent": "Încarcă pentru un student",
-  "bulkVerifyTitle_few": "Verifici {{count}} documente?",
-  "uploadForName": "Încarcă pentru {{name}}"
- },
- "essaysPage": {
-  "col": {
-   "reviewer": "Verificator"
-  }
- },
- "inbox": {
-  "all": "Toate",
-  "attach": "Atașează",
-  "audienceStudent": "{{name}} va vedea acest mesaj",
-  "createTask": "Creează o sarcină din acest mesaj",
-  "inbox": "Mesaje primite",
-  "internalBanner": "Intern — nu este vizibil pentru student",
-  "internalNote": "Notă internă",
-  "mention": "Mențiune",
-  "message": "Mesaj",
-  "messagePh": "Scrie un răspuns… (Ctrl+Enter pentru trimitere)",
-  "messages": "Mesaje",
-  "mode": "Tipul mesajului",
-  "modeMessage": "Mesaj",
-  "needsReply": "Necesită răspuns",
-  "needsReplyShort": "Așteaptă răspunsul tău",
-  "new": "Mesaj nou",
-  "newHint": "Studentul este notificat prin e-mail și în aplicație.",
-  "pick": "Alege o conversație",
-  "pickText": "Sau începe una nouă cu orice student pe care îl sprijini.",
-  "searchPh": "Caută persoane sau subiecte…",
-  "sendTo": "Trimite către {{name}}",
-  "subReply_other": "{{count}} de conversații așteaptă răspunsul tău",
-  "subUnread_other": "{{count}} de conversații necitite",
-  "subject": "Subiect",
-  "thread": "Conversație",
-  "unread": "Necitite",
-  "unreadN_one": "{{count}} mesaj necitit",
-  "subReply_few": "{{count}} conversații așteaptă răspunsul tău",
-  "subUnread_few": "{{count}} conversații necitite",
-  "unreadN_few": "{{count}} mesaje necitite"
- },
- "misc": {
-  "student": "Studentul",
-  "breadcrumb": "Navigare"
- },
- "review": {
-  "check": {
-   "dates": "Data emiterii este suficient de recentă și nu a expirat",
-   "issuer": "Instituția emitentă, ștampila sau semnătura sunt vizibile",
-   "legible": "Complet și lizibil — toate paginile, fără margini tăiate",
-   "name": "Numele și data nașterii corespund pașaportului",
-   "translation": "Traducerea autorizată este atașată"
-  },
-  "checked": "{{n}} din {{total}} verificate",
-  "checklist": "Înainte de verificare",
-  "expires": "Expiră",
-  "issued": "Emis",
-  "issuingCountry": "Țara emitentă",
-  "language": "Limbă",
-  "metadata": "Detalii",
-  "noPdfViewer": "Acest browser nu poate afișa PDF-uri în pagină.",
-  "openTab": "Deschide într-o filă nouă",
-  "requestChanges": "Solicită modificări",
-  "scan": "Scanare antivirus",
-  "secureNote": "Linkurile de previzualizare expiră după 5 minute și fiecare accesare este înregistrată.",
-  "translation": "Traducere",
-  "translationNeeded": "Este necesară traducerea autorizată",
-  "uploaded": "Încărcat",
-  "verify": "Verifică",
-  "verifyHint": "Bifează mai întâi verificările sau confirmă pentru a valida fără ele"
- },
- "savedViews": {
-  "name": "Nume",
-  "namePh": "ex. Vietnam · Primăvara 2027 · urgent",
-  "personal": "Doar eu",
-  "save": "Salvează vizualizarea",
-  "saveHintEmpty": "Nu sunt setate filtre, așa că această vizualizare va afișa toți studenții. Adaugă mai întâi filtre pentru a o face mai utilă.",
-  "saveTitle": "Salvează această vizualizare",
-  "shareWith": "Cine o poate folosi",
-  "team": "Toată echipa"
- },
- "settings": {
-  "deadlinesHint": "Toate termenele apropiate pentru studenții tăi",
-  "notificationsHint": "Istoricul complet al notificărilor"
- },
- "shell": {
-  "product": "Consola agenției",
-  "searchLabel": "Caută studenți",
-  "searchPlaceholder": "Caută studenți după nume sau e-mail…"
- },
- "sidebar": {
-  "documents": "Documente",
-  "essays": "Eseuri",
-  "universities": "Universități"
- },
- "students": {
-  "col": {
-   "intakeShort": "Sesiune",
-   "updated": "Actualizat"
-  },
-  "dShort_other": "{{count}} z",
-  "deadlineShort": "Termen {{date}}",
-  "subCount": "{{count}} studenți în portofoliul tău",
-  "view": {
-   "attention": "Necesită atenție",
-   "waiting_student": "Se așteaptă studentul"
-  },
-  "dShort_few": "{{count}} z"
- },
- "today": {
-  "morning": "Bună dimineața, {{name}}",
-  "phase": {
-   "admitted": "Admiși",
-   "applied": "Au candidat",
-   "leads": "Noi și alocați",
-   "preparing": "În pregătire",
-   "visa": "Viză și sosire"
-  },
-  "evening": "Bună seara, {{name}}"
- },
- "v11": {
-  "manage": {
-   "auditHint": "Cine ce a schimbat și când",
-   "catalogHint": "Universități, programe și cerințele lor",
-   "org": "Organizație",
-   "paymentsHint": "Facturi și plăți",
-   "people": "Persoane și furnizori",
-   "servicesHint": "Cazurile de servicii pe care le livrezi studenților",
-   "settingsHint": "Profilul și preferințele agenției tale",
-   "sub": "Setări și materiale de referință pentru agenția ta.",
-   "teamHint": "Conturi de administrator: invită, dezactivează",
-   "templatesHint": "Șabloane de mesaje și liste de verificare",
-   "vendorsHint": "Cazare, preluare și alți furnizori pe care îi rezervi",
-   "work": "Cum lucrezi"
+  "misc": {
+    "student": "Student",
+    "breadcrumb": "Navigare",
+    "change": "Schimbați",
+    "days_one": "{{count}} zi",
+    "days_few": "{{count}} zile",
+    "days_other": "{{count}} de zile",
+    "hours_one": "{{count}} oră",
+    "hours_few": "{{count}} ore",
+    "hours_other": "{{count}} de ore",
+    "internalTag": "Intern",
+    "no": "Nu",
+    "notFoundText": "Este posibil ca pagina să fi fost mutată sau să nu aveți acces la ea.",
+    "searchStudents": "Căutați studenții dumneavoastră…",
+    "unassigned": "Neatribuit",
+    "yes": "Da"
   },
   "review": {
-   "sub": "Documente și texte care te așteaptă.",
-   "title": "Verificare"
-  }
- },
- "v22": {
-  "nav": {
-   "insights": "Statistici",
-   "messages": "Mesaje",
-   "settings": "Setări",
-   "students": "Studenți",
-   "today": "Azi",
-   "work": "Candidaturi și documente"
+    "check": {
+      "dates": "Data emiterii este suficient de recentă și nu a expirat",
+      "issuer": "Instituția emitentă, ștampila sau semnătura sunt vizibile",
+      "legible": "Complet și lizibil — toate paginile, fără margini tăiate",
+      "name": "Numele și data nașterii corespund pașaportului",
+      "translation": "Traducerea autorizată este atașată"
+    },
+    "checked": "{{n}} din {{total}} verificate",
+    "checklist": "Înainte de verificare",
+    "expires": "Expiră",
+    "issued": "Emis",
+    "issuingCountry": "Țara emitentă",
+    "language": "Limbă",
+    "metadata": "Detalii",
+    "noPdfViewer": "Acest browser nu poate afișa PDF-uri în pagină.",
+    "openTab": "Deschide într-o filă nouă",
+    "requestChanges": "Solicită modificări",
+    "scan": "Scanare antivirus",
+    "secureNote": "Linkurile de previzualizare expiră după 5 minute și fiecare accesare este înregistrată.",
+    "translation": "Traducere",
+    "translationNeeded": "Este necesară traducerea autorizată",
+    "uploaded": "Încărcat",
+    "verify": "Verifică",
+    "verifyHint": "Bifează mai întâi verificările sau confirmă pentru a valida fără ele"
   },
-  "stage": {
-   "admitted": "Admis",
-   "all": "Toate",
-   "arrived": "Sosit",
-   "closedN_other": "{{count}} închise",
-   "counselling": "Consiliere",
-   "documents": "Documente",
-   "new": "Nou",
-   "ready": "Gata",
-   "review": "Analiza universității",
-   "strip": "Proces",
-   "submitted": "Depus",
-   "visa": "Viză",
-   "closedN_few": "{{count}} închise"
+  "savedViews": {
+    "name": "Nume",
+    "namePh": "ex. Vietnam · Primăvara 2027 · urgent",
+    "personal": "Doar eu",
+    "save": "Salvați vizualizarea",
+    "saveHintEmpty": "Nu sunt setate filtre, așa că această vizualizare va afișa toți studenții. Adăugați mai întâi filtre pentru a o face mai utilă.",
+    "saveTitle": "Salvați această vizualizare",
+    "shareWith": "Cine o poate folosi",
+    "team": "Toată echipa",
+    "delete": "Ștergeți {{name}}",
+    "saveHint_one": "Salvează filtrul curent și sortarea, ca să deschideți această listă cu un clic.",
+    "saveHint_few": "Salvează cele {{count}} filtre curente și sortarea, ca să deschideți această listă cu un clic.",
+    "saveHint_other": "Salvează cele {{count}} de filtre curente și sortarea, ca să deschideți această listă cu un clic.",
+    "saved": "Salvat „{{name}}”"
   },
-  "team": {
-   "title": "Conturi de administrator"
+  "settings": {
+    "deadlinesHint": "Toate termenele apropiate ale studenților dumneavoastră",
+    "notificationsHint": "Istoricul complet al notificărilor",
+    "account": "Cont",
+    "language": "Limbă",
+    "languageHint": "Limba interfeței. Datele studenților rămân în limba originală.",
+    "localOnly": "Salvat doar în acest browser.",
+    "org": "Organizație",
+    "poll": "Actualizări live",
+    "pollHint": "Reîmprospătează cozile și contoarele în fiecare minut.",
+    "scSearch": "Navigați în rezultatele căutării globale",
+    "scSend": "Trimiteți mesajul sau salvați nota",
+    "shortcuts": "Comenzi rapide de la tastatură",
+    "sub": "Preferințe personale pentru această consolă.",
+    "timezone": "Fus orar",
+    "updates": "Actualizări live"
+  },
+  "shell": {
+    "product": "Consola agenției",
+    "searchLabel": "Căutați studenți",
+    "searchPlaceholder": "Căutați studenți după nume sau e-mail…",
+    "hqProduct": "Hangyul Operațiuni",
+    "hqView": "Hangyul HQ · toate agențiile",
+    "searchAll": "Vedeți toate rezultatele pentru „{{q}}”"
+  },
+  "sidebar": {
+    "documents": "Documente",
+    "essays": "Eseuri",
+    "universities": "Universități",
+    "agencies": "Agenții",
+    "catalog": "Universități și programe",
+    "hangyul": "Hangyul HQ",
+    "operations": "Operațiuni",
+    "override": "Suprascrierea atribuirii"
+  },
+  "students": {
+    "col": {
+      "intakeShort": "Sesiune",
+      "updated": "Actualizat",
+      "degree": "Nivel de studii",
+      "nationality": "Cetățenie"
+    },
+    "dShort_other": "{{count}} z",
+    "deadlineShort": "Termen {{date}}",
+    "subCount": "Studenți în portofoliul dumneavoastră: {{count}}",
+    "view": {
+      "attention": "Necesită atenție",
+      "waiting_student": "Se așteaptă studentul",
+      "all": "Toți",
+      "arrived": "Sosiți",
+      "deadline": "Termen apropiat",
+      "docs": "Documente de corectat",
+      "incomplete": "Documente incomplete",
+      "mine": "Studenții mei",
+      "requested": "Documente solicitate de universitate",
+      "university": "Se așteaptă universitatea",
+      "visa": "Viză",
+      "waiting_external": "Se așteaptă ambasada sau alt terț",
+      "waiting_us": "Se așteaptă echipa noastră"
+    },
+    "dShort_few": "{{count}} z",
+    "bulk": {
+      "confirmRegen_one": "Recalculați listele automate de sarcini pentru {{count}} student? Sarcinile manuale se păstrează.",
+      "confirmRegen_few": "Recalculați listele automate de sarcini pentru {{count}} studenți? Sarcinile manuale se păstrează.",
+      "confirmRegen_other": "Recalculați listele automate de sarcini pentru {{count}} de studenți? Sarcinile manuale se păstrează.",
+      "confirmStage_one": "Mutați {{count}} student la „{{stage}}”? Se înregistrează în jurnalul de audit.",
+      "confirmStage_few": "Mutați {{count}} studenți la „{{stage}}”? Se înregistrează în jurnalul de audit.",
+      "confirmStage_other": "Mutați {{count}} de studenți la „{{stage}}”? Se înregistrează în jurnalul de audit.",
+      "confirmTitle": "Aplicați acțiunea în masă?",
+      "done_one": "{{count}} student actualizat.",
+      "done_few": "{{count}} studenți actualizați.",
+      "done_other": "{{count}} de studenți actualizați.",
+      "regen": "Regenerați sarcinile",
+      "stage": "Mutați la etapa…"
+    },
+    "dShort_one": "{{count}} z",
+    "f": {
+      "allDegrees": "Toate nivelurile",
+      "allNationalities": "Toate cetățeniile"
+    },
+    "noReply": "SLA pentru primul răspuns depășit. Acest student așteaptă un răspuns",
+    "noReplyShort": "Răspuns de dat"
   },
   "today": {
-   "sub": "Toți studenții, pe etape ale procesului. Alege o etapă; tabelul de dedesubt arată acea etapă."
+    "morning": "Bună dimineața, {{name}}",
+    "phase": {
+      "admitted": "Admiși",
+      "applied": "Au candidat",
+      "leads": "Noi și alocați",
+      "preparing": "În pregătire",
+      "visa": "Viză și sosire",
+      "studying": "La studii"
+    },
+    "evening": "Bună seara, {{name}}",
+    "afternoon": "Bună ziua, {{name}}",
+    "allClear": "Nimic nu necesită atenție acum. Lucrările noi vor apărea aici pe măsură ce sosesc.",
+    "attention": "Necesită atenție",
+    "attentionSub": "Cel mai presant element este afișat primul. Deschideți un rând pentru a parcurge lista.",
+    "attentionV4": "Cine are nevoie de dumneavoastră azi",
+    "clearList": "Totul în regulă: {{list}}",
+    "closing": "Candidaturi care se închid în 7 zile",
+    "closingDetail": "Următoarea: {{university}} · {{student}}, se închide la {{date}}",
+    "closingV4": "Studenți cu termen de candidatură în următoarele 7 zile",
+    "cta": {
+      "deadlines": "Vedeți termenele",
+      "messages": "Deschideți mesajele",
+      "reply": "Răspundeți",
+      "review": "Începeți verificarea",
+      "students": "Deschideți studenții",
+      "tasks": "Deschideți sarcinile"
+    },
+    "deadlines": "Termene în următoarele 7 zile",
+    "deadlinesDetail": "Următorul: {{title}} · {{student}}, {{when}}",
+    "docs": "Documente în așteptarea verificării",
+    "docsDetail": "Cel mai vechi: {{student}} · {{doc}}, așteaptă de {{wait}}",
+    "docsOldest": "cel mai vechi: {{student}} · {{doc}}, încărcat {{when}}",
+    "docsSla_one": "{{count}} document peste ținta de verificare de {{hours}} ore",
+    "docsSla_few": "{{count}} documente peste ținta de verificare de {{hours}} ore",
+    "docsSla_other": "{{count}} de documente peste ținta de verificare de {{hours}} ore",
+    "essays": "Eseuri în așteptarea evaluării",
+    "essaysDetail": "Următorul: {{title}} · {{student}}",
+    "keyMove": "deplasare",
+    "keyOpen": "deschidere",
+    "messages": "Conversații cu mesaje necitite",
+    "messagesDetail": "Așteaptă de cel mai mult timp: {{who}}, {{when}}",
+    "openPipeline": "Deschideți lista pe etape",
+    "overdueDef": "Sarcini deschise al căror termen a trecut.",
+    "overdueDetail": "Cea mai veche: {{title}} · {{student}}, termen {{when}}",
+    "overdueMine": "Sarcinile dumneavoastră întârziate",
+    "overdueTeam": "Sarcini întârziate în toată echipa",
+    "pipeline": "Studenți pe etape",
+    "pipelineSub": "Studenți: {{count}}. Selectați o etapă pentru a vedea cine este în ea.",
+    "pipelineSubV4_one": "{{count}} student",
+    "pipelineSubV4_few": "{{count}} studenți",
+    "pipelineSubV4_other": "{{count}} de studenți",
+    "replies": "Studenți care așteaptă un răspuns",
+    "repliesDetail": "Ultimul lor mesaj nu are încă răspuns.",
+    "repliesOldest": "Așteaptă de cel mai mult timp: {{student}}, {{when}}",
+    "repliesV4": "Răspunsuri de dat",
+    "requests": "Solicitări de documente de la universități",
+    "requestsDetail": "Studentul trebuie să îl încarce. Verificați că ajunge.",
+    "sla": "Studenți cărora li se datorează un prim răspuns în 24 de ore",
+    "slaDetail": "{{student}} · răspuns până la {{when}}",
+    "unread": "Conversații necitite",
+    "unreadDetail": "Cea mai recentă: {{who}}, {{when}}",
+    "upcoming": "Termene apropiate",
+    "upcomingEmpty": "Niciun termen în următoarele 14 zile.",
+    "upcomingSub": "Următoarele 14 zile",
+    "upcomingV4": "Următoarele 14 zile",
+    "v5": {
+      "andMore_one": "și încă {{count}}",
+      "andMore_few": "și încă {{count}}",
+      "andMore_other": "și încă {{count}}",
+      "checks": "Verificări de documente care au nevoie de un verificator",
+      "checksDetail": "{{student}} · {{doc}}: {{what}}",
+      "services": {
+        "needs_assignment": "Solicitări de servicii noi, de atribuit",
+        "overdue": "Solicitări de servicii peste timpul de răspuns",
+        "today": "Solicitări de servicii cu termen azi"
+      },
+      "servicesCta": "Deschideți serviciile",
+      "servicesDetail": "{{type}} · {{student}} · {{reason}}",
+      "visa": "Dosare de viză care au nevoie de dumneavoastră",
+      "visaCta": "Deschideți",
+      "writingDetail": "{{essay}} · {{student}}, {{university}}",
+      "writingDue": "Evaluări de eseuri cu termen în 48 de ore",
+      "writingDue48": "termen {{when}}",
+      "writingOverdue": "Evaluări de eseuri peste timpul promis",
+      "writingRevised_one": "{{count}} revizuire a studentului",
+      "writingRevised_few": "{{count}} revizuiri ale studenților",
+      "writingRevised_other": "{{count}} de revizuiri ale studenților"
+    },
+    "waitingOn": "Dosare după partea așteptată",
+    "workload": "Încărcarea echipei",
+    "workloadSub": "Studenți activi și lucrări deschise pe persoană"
   },
-  "work": {
-   "allCountries": "Toate țările",
-   "allIntakes": "Toate sesiunile de admitere",
-   "allViews": "Toți studenții",
-   "anyWaiting": "Oricine este așteptat",
-   "closedHint": "Studenți respinși și retrași",
-   "col": {
-    "activity": "Ultima activitate",
-    "country": "Țară",
-    "due": "Termen",
-    "next": "Următoarea acțiune",
-    "stage": "Etapa curentă",
-    "student": "Studentul",
-    "university": "Universitate",
-    "waiting": "Se așteaptă"
-   },
-   "emptyFiltered": "Niciun student nu corespunde acestor filtre",
-   "noUpcoming": "Niciun termen în următoarele 14 zile",
-   "saveView": "Salvează vizualizarea",
-   "searchPh": "Caută studenți…",
-   "showAll": "Arată toți cei {{count}}",
-   "showing": "Se afișează {{shown}} din {{total}}",
-   "teamViews": "Vizualizări de echipă",
-   "top": "Cele mai urgente primele",
-   "upcoming_other": "{{count}} de termene în 14 zile",
-   "view": "Vezi",
-   "upcoming_few": "{{count}} termene în 14 zile",
-   "owner": "Responsabil"
+  "v11": {
+    "manage": {
+      "auditHint": "Cine ce a schimbat și când",
+      "catalogHint": "Universități, programe și cerințele lor",
+      "org": "Organizație",
+      "paymentsHint": "Facturi și plăți",
+      "people": "Persoane și furnizori",
+      "servicesHint": "Cazurile de servicii pe care le livrezi studenților",
+      "settingsHint": "Profilul și preferințele agenției tale",
+      "sub": "Setări și materiale de referință pentru agenția ta.",
+      "teamHint": "Conturi de administrator: invită, dezactivează",
+      "templatesHint": "Șabloane de mesaje și liste de verificare",
+      "vendorsHint": "Cazare, preluare și alți furnizori pe care îi rezervi",
+      "work": "Cum lucrezi"
+    },
+    "review": {
+      "sub": "Documente și texte care te așteaptă.",
+      "title": "Verificare"
+    }
   },
-  "ws": {
-   "appsTitle": "Candidaturi",
-   "conversation": "Conversația recentă",
-   "details": "Detalii",
-   "detailsHint": "Toate detaliile, când ai nevoie de ele.",
-   "hideDetails": "Ascunde detaliile",
-   "needsAction": "Necesită acțiune",
-   "noConversation": "Nicio conversație încă.",
-   "seeAll": "Vezi tot",
-   "tab": {
-    "application": "Candidatură",
-    "communication": "Comunicare",
-    "more": "Sarcini și servicii",
-    "profile": "Profil și pachet"
-   }
-  }
- },
- "v23": {
-  "work": {
-   "submissionsNeed_other": "{{count}} de depuneri necesită echipa",
-   "submissionsNeed_few": "{{count}} depuneri necesită echipa"
-  }
- },
- "v7": {
-  "today": {
-   "overdueN_one": "{{count}} cu termen depășit",
-   "overdueN_few": "{{count}} restanțe",
-   "overdueN_other": "{{count}} de restanțe"
-  }
- },
- "v8": {
-  "apps": {
-   "remaining": "Elemente rămase"
+  "v22": {
+    "nav": {
+      "insights": "Statistici",
+      "messages": "Mesaje",
+      "settings": "Setări",
+      "students": "Studenți",
+      "today": "Azi",
+      "work": "Candidaturi și documente",
+      "hqAccounts": "Conturi de universitate"
+    },
+    "stage": {
+      "admitted": "Admis",
+      "all": "Toate",
+      "arrived": "Sosit",
+      "closedN_other": "Închise: {{count}}",
+      "counselling": "Consultație",
+      "documents": "Documente",
+      "new": "Nou",
+      "ready": "Gata de depunere",
+      "review": "Evaluare la universitate",
+      "strip": "Etape",
+      "submitted": "Depusă",
+      "visa": "Viză",
+      "closedN_few": "Închise: {{count}}",
+      "closed": "Închise",
+      "closedN_one": "Închise: {{count}}",
+      "stripHint": "Selectați o etapă pentru a afișa doar studenții ei. Numărul este egal cu rândurile de mai jos."
+    },
+    "team": {
+      "title": "Conturi de administrator",
+      "active": "Activ",
+      "count_one": "{{count}} cont",
+      "count_few": "{{count}} conturi",
+      "count_other": "{{count}} de conturi",
+      "devNote": "Mediu de dezvoltare: codul a fost afișat în consola API, nu trimis prin e-mail.",
+      "disable": "Dezactivați",
+      "disableReason": "Motiv",
+      "disableReasonPh": "A plecat din agenție",
+      "disableText": "Nu se mai poate autentifica. Studenții, verificările și sarcinile sale deschise trec automat la colegi.",
+      "disableTitle": "Dezactivați {{name}}?",
+      "disabled": "Dezactivat",
+      "email": "E-mail",
+      "empty": "Niciun cont încă.",
+      "enable": "Activați",
+      "invite": "Invitați un administrator",
+      "inviteSub": "Primește un e-mail cu un cod unic pentru a-și seta parola.",
+      "lastLogin": "Ultima autentificare",
+      "mailFailed": "Invitația nu a putut fi trimisă prin e-mail. Rugați persoana să folosească „Ați uitat parola?” cu această adresă.",
+      "name": "Nume",
+      "never": "Niciodată",
+      "sendInvite": "Trimiteți invitația",
+      "sent": "Invitație trimisă",
+      "sentTo": "Am trimis o invitație la {{email}}.",
+      "status": "Stare",
+      "sub": "Toți administratorii au aceleași permisiuni.",
+      "unverified": "Invitat · neverificat încă",
+      "you": "Dumneavoastră"
+    },
+    "today": {
+      "sub": "Toți studenții, pe etape ale procesului. Alege o etapă; tabelul de dedesubt arată acea etapă."
+    },
+    "work": {
+      "allCountries": "Toate țările",
+      "allIntakes": "Toate sesiunile de admitere",
+      "allViews": "Toți studenții",
+      "anyWaiting": "Oricine",
+      "closedHint": "Studenți respinși și retrași",
+      "col": {
+        "activity": "Ultima activitate",
+        "country": "Țară",
+        "due": "Termen",
+        "next": "Următoarea acțiune",
+        "stage": "Etapa curentă",
+        "student": "Student",
+        "university": "Universitate",
+        "waiting": "Se așteaptă"
+      },
+      "emptyFiltered": "Niciun student nu corespunde acestor filtre. Încercați să le modificați.",
+      "noUpcoming": "Niciun termen în următoarele 14 zile",
+      "saveView": "Salvați vizualizarea",
+      "searchPh": "Căutați studenți…",
+      "showAll": "Afișați toți cei {{count}}",
+      "showing": "Se afișează {{shown}} din {{total}}",
+      "teamViews": "Vizualizări de echipă",
+      "top": "Cele mai urgente primele",
+      "upcoming_other": "{{count}} de termene în următoarele 14 zile",
+      "view": "Vedeți",
+      "upcoming_few": "{{count}} termene în următoarele 14 zile",
+      "owner": "Responsabil",
+      "bulkOwner": "Setați responsabilul…",
+      "confirmOwner_one": "Setați {{name}} ca responsabil pentru {{count}} student?",
+      "confirmOwner_few": "Setați {{name}} ca responsabil pentru {{count}} studenți?",
+      "confirmOwner_other": "Setați {{name}} ca responsabil pentru {{count}} de studenți?",
+      "deleteView": "Ștergeți această vizualizare",
+      "empty": "Niciun student în această etapă",
+      "myViews": "Vizualizările mele",
+      "showTop": "Afișați primii 10",
+      "total_one": "{{count}} student",
+      "total_few": "{{count}} studenți",
+      "total_other": "{{count}} de studenți",
+      "upcoming_one": "{{count}} termen în următoarele 14 zile"
+    },
+    "ws": {
+      "appsTitle": "Candidaturi",
+      "conversation": "Conversația recentă",
+      "details": "Detalii",
+      "detailsHint": "Toate detaliile, când aveți nevoie de ele.",
+      "hideDetails": "Ascundeți detaliile",
+      "needsAction": "Necesită acțiune",
+      "noConversation": "Nicio conversație încă. Trimiteți primul mesaj.",
+      "seeAll": "Vedeți tot",
+      "tab": {
+        "application": "Candidatură",
+        "communication": "Comunicare",
+        "more": "Sarcini și servicii",
+        "profile": "Profil și plan"
+      },
+      "docFix_one": "{{count}} document de corectat",
+      "docFix_few": "{{count}} documente de corectat",
+      "docFix_other": "{{count}} de documente de corectat",
+      "docReview_one": "{{count}} document de verificat",
+      "docReview_few": "{{count}} documente de verificat",
+      "docReview_other": "{{count}} de documente de verificat",
+      "needsActionEmpty": "Nimic nu vă așteaptă pentru acest student.",
+      "openThread": "Deschideți conversația"
+    },
+    "hq": {
+      "accounts": {
+        "adminUser": "Utilizator administrator",
+        "assigned": "Universitatea atribuită",
+        "empty": "Niciun cont de universitate încă.",
+        "invite": "Invitați un administrator de universitate",
+        "noUniversity": "Nicio universitate asociată",
+        "pickUniversity": "Universitate",
+        "pickUniversityPh": "Alegeți o universitate parteneră",
+        "reassign": "Schimbați universitatea",
+        "reassignText": "Apartenența sa trece la organizația universității alese. Cea veche este dezactivată.",
+        "reassignTitle": "Mutați {{name}} la altă universitate",
+        "search": "Căutați după nume, e-mail sau universitate…",
+        "sub": "Utilizatorii administratori ai universităților partenere. Toți administratorii de universitate au aceleași permisiuni.",
+        "title": "Conturi de universitate",
+        "university": "Universitate"
+      }
+    }
   },
-  "channel": {
-   "IN_APP": "În aplicație"
+  "v23": {
+    "work": {
+      "submissionsNeed_other": "{{count}} de candidaturi așteaptă depunerea de către echipă",
+      "submissionsNeed_few": "{{count}} candidaturi așteaptă depunerea de către echipă",
+      "memberFilter": "Se afișează studenții unui singur membru al echipei",
+      "openAll": "Deschideți toți cei {{count}} în Studenți",
+      "submissionsNeed_one": "{{count}} candidatură așteaptă depunerea de către echipă"
+    }
   },
-  "nav": {
-   "operations": "Operațiuni"
+  "v7": {
+    "today": {
+      "overdueN_one": "{{count}} cu termen depășit",
+      "overdueN_few": "{{count}} restanțe",
+      "overdueN_other": "{{count}} de restanțe"
+    }
   },
-  "ops": {
-   "ageing": {
-    "caption": "Cazuri active pe faze și zile de la ultima mișcare a cazului",
-    "cellLabel": "{{count}} studenți în {{phase}}, {{bucket}} de la ultima mișcare — afișează-i",
-    "longest": "Cel mai mult timp fără mișcare",
-    "oldest": "Cel mai vechi caz: {{name}} nu a avansat de {{count}} zile ({{stage}}).",
-    "phase": "Fază",
-    "q": "Ce cazuri s-au oprit și în ce fază? Alege o celulă pentru a lista acei studenți.",
-    "title": "Vechimea cazurilor pe etape"
-   },
-   "backlog": {
-    "documents": "Verificări de documente",
-    "essays": "Verificări de eseuri",
-    "openDocs_other": "{{count}} de verificări de documente deschise acum",
-    "openEssays_other": "{{count}} de verificări de eseuri deschise acum",
-    "openTasks_other": "{{count}} de sarcini de echipă deschise acum",
-    "q": "Munca deschisă crește sau scade? Sarcini de echipă, verificări de documente și de eseuri deschise la sfârșitul fiecăreia dintre ultimele 8 săptămâni.",
-    "tasks": "Sarcini de echipă",
-    "title": "Evoluția restanțelor",
-    "up_other": "+{{count}} în 8 săptămâni",
-    "openDocs_few": "{{count}} verificări de documente deschise acum",
-    "openEssays_few": "{{count}} verificări de eseuri deschise acum",
-    "openTasks_few": "{{count}} sarcini de echipă deschise acum",
-    "up_few": "+{{count}} în 8 săptămâni"
-   },
-   "bucket": {
-    "0_7": "0–7 zile",
-    "15_30": "15–30 de zile",
-    "30_plus": "30+ de zile",
-    "8_14": "8–14 zile"
-   },
-   "days_one": "{{count}} zi",
-   "days_other": "{{count}} de zile",
-   "deadlines": {
-    "inDays_other": "în {{count}} de zile",
-    "q": "Candidaturi cu termen în {{count}} zile cărora le lipsesc încă elemente obligatorii.",
-    "title": "Termene în pericol",
-    "inDays_few": "în {{count}} zile",
-    "inDays_one": "în {{count}} zi"
-   },
-   "generated": "Actualizat {{when}}",
-   "load": {
-    "over_one": "{{count}} persoană peste capacitate",
-    "q": "Cine este supraîncărcat? Cazuri active pe persoană comparate cu o împărțire egală a capacității agenției.",
-    "title": "Încărcarea consilierilor față de capacitate",
-    "over_few": "{{count}} persoane peste capacitate"
-   },
-   "open": "Deschide",
-   "openNow": "Deschise acum",
-   "outcomes": "Rezultate",
-   "since": "din {{when}}",
-   "sla": {
-    "docs": "Verificare de documente de peste 48 h",
-    "essays": "Verificare de eseu peste termenul promis",
-    "first": "Primul răspuns întârziat",
-    "q": "Ce promisiuni sunt deja încălcate?",
-    "title": "Încălcări ale SLA"
-   },
-   "stages": {
-    "median_other": "mediană {{count}} de zile",
-    "now_one": "{{n}} acolo acum",
-    "now_other": "{{n}} acolo acum",
-    "q": "Unde așteaptă cel mai mult candidaturile? Mediana zilelor în fiecare stare (perioade încheiate în ultimul an).",
-    "slowest": "Cea mai lentă: {{stage}} — mediană {{count}} zile din {{n}} perioade.",
-    "title": "Etape lente",
-    "tooFew": "prea puține pentru evaluare ({{n}} din {{min}})",
-    "unrated_other": "{{count}} de stări cu mai puțin de {{min}} perioade încheiate (neevaluate)",
-    "median_few": "mediană {{count}} zile",
-    "now_few": "{{n}} acolo acum",
-    "unrated_few": "{{count}} stări cu mai puțin de {{min}} perioade încheiate (neevaluate)"
-   },
-   "sub": "Unde se blochează operațiunile: restanțe, cazuri blocate, supraîncărcare, promisiuni nerespectate, termene în pericol și etape lente. Fiecare cifră deschide înregistrările sale.",
-   "switch": "Vizualizare",
-   "total": "În total",
-   "days_few": "{{count}} zile",
-   "allN_other": "Vezi toate cele {{count}}",
-   "allN_few": "Vezi toate cele {{count}}"
+  "v8": {
+    "apps": {
+      "remaining": "Elemente rămase"
+    },
+    "channel": {
+      "IN_APP": "În aplicație"
+    },
+    "nav": {
+      "operations": "Operațiuni"
+    },
+    "ops": {
+      "ageing": {
+        "caption": "Cazuri active pe faze și zile de la ultima mișcare a cazului",
+        "cellLabel": "{{count}} studenți în {{phase}}, {{bucket}} de la ultima mișcare — afișează-i",
+        "longest": "Cel mai mult timp fără mișcare",
+        "oldest": "Cel mai vechi caz: {{name}} nu a avansat de {{count}} zile ({{stage}}).",
+        "phase": "Fază",
+        "q": "Ce cazuri s-au oprit și în ce fază? Alege o celulă pentru a lista acei studenți.",
+        "title": "Vechimea cazurilor pe etape"
+      },
+      "backlog": {
+        "documents": "Verificări de documente",
+        "essays": "Verificări de eseuri",
+        "openDocs_other": "{{count}} de verificări de documente deschise acum",
+        "openEssays_other": "{{count}} de verificări de eseuri deschise acum",
+        "openTasks_other": "{{count}} de sarcini de echipă deschise acum",
+        "q": "Munca deschisă crește sau scade? Sarcini de echipă, verificări de documente și de eseuri deschise la sfârșitul fiecăreia dintre ultimele 8 săptămâni.",
+        "tasks": "Sarcini de echipă",
+        "title": "Evoluția restanțelor",
+        "up_other": "+{{count}} în 8 săptămâni",
+        "openDocs_few": "{{count}} verificări de documente deschise acum",
+        "openEssays_few": "{{count}} verificări de eseuri deschise acum",
+        "openTasks_few": "{{count}} sarcini de echipă deschise acum",
+        "up_few": "+{{count}} în 8 săptămâni"
+      },
+      "bucket": {
+        "0_7": "0–7 zile",
+        "15_30": "15–30 de zile",
+        "30_plus": "30+ de zile",
+        "8_14": "8–14 zile"
+      },
+      "days_one": "{{count}} zi",
+      "days_other": "{{count}} de zile",
+      "deadlines": {
+        "inDays_other": "în {{count}} de zile",
+        "q": "Candidaturi cu termen în {{count}} zile cărora le lipsesc încă elemente obligatorii.",
+        "title": "Termene în pericol",
+        "inDays_few": "în {{count}} zile",
+        "inDays_one": "în {{count}} zi"
+      },
+      "generated": "Actualizat {{when}}",
+      "load": {
+        "over_one": "{{count}} persoană peste capacitate",
+        "q": "Cine este supraîncărcat? Cazuri active pe persoană comparate cu o împărțire egală a capacității agenției.",
+        "title": "Încărcarea consilierilor față de capacitate",
+        "over_few": "{{count}} persoane peste capacitate"
+      },
+      "open": "Deschide",
+      "openNow": "Deschise acum",
+      "outcomes": "Rezultate",
+      "since": "din {{when}}",
+      "sla": {
+        "docs": "Verificare de documente de peste 48 h",
+        "essays": "Verificare de eseu peste termenul promis",
+        "first": "Primul răspuns întârziat",
+        "q": "Ce promisiuni sunt deja încălcate?",
+        "title": "Încălcări ale SLA"
+      },
+      "stages": {
+        "median_other": "mediană {{count}} de zile",
+        "now_one": "{{n}} acolo acum",
+        "now_other": "{{n}} acolo acum",
+        "q": "Unde așteaptă cel mai mult candidaturile? Mediana zilelor în fiecare stare (perioade încheiate în ultimul an).",
+        "slowest": "Cea mai lentă: {{stage}} — mediană {{count}} zile din {{n}} perioade.",
+        "title": "Etape lente",
+        "tooFew": "prea puține pentru evaluare ({{n}} din {{min}})",
+        "unrated_other": "{{count}} de stări cu mai puțin de {{min}} perioade încheiate (neevaluate)",
+        "median_few": "mediană {{count}} zile",
+        "now_few": "{{n}} acolo acum",
+        "unrated_few": "{{count}} stări cu mai puțin de {{min}} perioade încheiate (neevaluate)"
+      },
+      "sub": "Unde se blochează operațiunile: restanțe, cazuri blocate, supraîncărcare, promisiuni nerespectate, termene în pericol și etape lente. Fiecare cifră deschide înregistrările sale.",
+      "switch": "Vizualizare",
+      "total": "În total",
+      "days_few": "{{count}} zile",
+      "allN_other": "Vezi toate cele {{count}}",
+      "allN_few": "Vezi toate cele {{count}}"
+    },
+    "view": {
+      "deadline7": "Termen < 7 zile",
+      "docs": "Documente de corectat",
+      "new_paid": "Studenți noi cu plată",
+      "student_silent": "Se așteaptă studentul > 3 zile",
+      "unassigned": "Nealocați",
+      "university": "Se așteaptă universitatea",
+      "urgent": "Cazurile mele urgente",
+      "visa_blocked": "Viză blocată"
+    },
+    "move": {
+      "lastMoved_other": "ultima mișcare acum {{count}} de zile",
+      "why": "De ce nu avansează acest caz?",
+      "lastMoved_few": "ultima mișcare acum {{count}} zile"
+    }
   },
-  "view": {
-   "deadline7": "Termen < 7 zile",
-   "docs": "Documente de corectat",
-   "new_paid": "Studenți noi cu plată",
-   "student_silent": "Se așteaptă studentul > 3 zile",
-   "unassigned": "Nealocați",
-   "university": "Se așteaptă universitatea",
-   "urgent": "Cazurile mele urgente",
-   "visa_blocked": "Viză blocată"
-  },
-  "move": {
-   "lastMoved_other": "ultima mișcare acum {{count}} de zile",
-   "why": "De ce nu avansează acest caz?",
-   "lastMoved_few": "ultima mișcare acum {{count}} zile"
-  }
- },
- "v9": {
-  "msg": {
-   "link": "Leagă de o candidatură",
-   "state": {
-    "READ": "Citit"
-   }
-  },
-  "next": {
-   "app": {
-    "OFFERED": "răspunde la ofertă"
-   },
-   "essay_review": "Verifică eseul",
-   "final_check": "Verificare finală și predare · {{university}}",
-   "reply_owed": "Răspunde studentului",
-   "review_unassigned_one": "Alocă un verificator pentru {{count}} document",
-   "student": {
-    "submit_on_portal": "depune pe portalul oficial și înregistrează referința",
-    "university_request": "încarcă documentul cerut de {{university}}"
-   },
-   "studentSays": "Studentul: {{what}}",
-   "submit": "Depune în numele studentului și înregistrează referința",
-   "universitySays": "Universitate: {{what}}",
-   "review_unassigned_few": "Alocă un verificator pentru {{count}} documente",
-   "taskTitle": "Restantă: {{title}}"
-  },
-  "ops": {
-   "blocked": {
-    "q_other": "Ce cazuri așteaptă pe cineva și nu au avansat de mai mult de {{count}} de zile?",
-    "title": "Cazuri blocate",
-    "q_few": "Ce cazuri așteaptă pe cineva și nu au avansat de mai mult de {{count}} zile?"
-   },
-   "cases_other": "{{count}} de cazuri",
-   "days_other": "{{count}} de zile",
-   "pointsOf": "{{n}} / {{cap}} pct.",
-   "q": {
-    "blocked": "Cel mai vechi caz blocat",
-    "deadlines": "Termene în pericol",
-    "overloaded": "Peste capacitate",
-    "sla": "Încălcări ale SLA",
-    "stage": "Cea mai lentă etapă",
-    "unpaid": "Cazuri cu plată nealocate"
-   },
-   "questions": "Șase întrebări",
-   "slaRisk_one": "{{count}} cu risc SLA",
-   "unpaid": {
-    "none": "Fiecare caz cu plată are un responsabil.",
-    "q": "Ce studenți au plătit un serviciu, dar nu au un responsabil de caz?",
-    "title": "Cazuri cu plată nealocate"
-   },
-   "weightsLink": "Ponderi",
-   "cases_few": "{{count}} cazuri",
-   "days_few": "{{count}} zile",
-   "slaRisk_few": "{{count}} cu risc de depășire SLA",
-   "slaRisk_other": "{{count}} cu risc de depășire SLA"
-  },
-  "owner": {
-   "agency": "Echipa agenției"
-  },
-  "q": {
-   "tab": "Calitatea procesului"
-  },
-  "team": {
-   "onLeave": "În concediu până la {{date}}"
+  "v9": {
+    "msg": {
+      "link": "Leagă de o candidatură",
+      "state": {
+        "READ": "Citit"
+      }
+    },
+    "next": {
+      "app": {
+        "OFFERED": "răspunde la ofertă"
+      },
+      "essay_review": "Verifică eseul",
+      "final_check": "Verificare finală și predare · {{university}}",
+      "reply_owed": "Răspunde studentului",
+      "review_unassigned_one": "Alocă un verificator pentru {{count}} document",
+      "student": {
+        "submit_on_portal": "depune pe portalul oficial și înregistrează referința",
+        "university_request": "încarcă documentul cerut de {{university}}"
+      },
+      "studentSays": "Studentul: {{what}}",
+      "submit": "Depune în numele studentului și înregistrează referința",
+      "universitySays": "Universitate: {{what}}",
+      "review_unassigned_few": "Alocă un verificator pentru {{count}} documente",
+      "taskTitle": "Restantă: {{title}}"
+    },
+    "ops": {
+      "blocked": {
+        "q_other": "Ce cazuri așteaptă pe cineva și nu au avansat de mai mult de {{count}} de zile?",
+        "title": "Cazuri blocate",
+        "q_few": "Ce cazuri așteaptă pe cineva și nu au avansat de mai mult de {{count}} zile?"
+      },
+      "cases_other": "{{count}} de cazuri",
+      "days_other": "{{count}} de zile",
+      "pointsOf": "{{n}} / {{cap}} pct.",
+      "q": {
+        "blocked": "Cel mai vechi caz blocat",
+        "deadlines": "Termene în pericol",
+        "overloaded": "Peste capacitate",
+        "sla": "Încălcări ale SLA",
+        "stage": "Cea mai lentă etapă",
+        "unpaid": "Cazuri cu plată nealocate"
+      },
+      "questions": "Șase întrebări",
+      "slaRisk_one": "{{count}} cu risc SLA",
+      "unpaid": {
+        "none": "Fiecare caz cu plată are un responsabil.",
+        "q": "Ce studenți au plătit un serviciu, dar nu au un responsabil de caz?",
+        "title": "Cazuri cu plată nealocate"
+      },
+      "weightsLink": "Ponderi",
+      "cases_few": "{{count}} cazuri",
+      "days_few": "{{count}} zile",
+      "slaRisk_few": "{{count}} cu risc de depășire SLA",
+      "slaRisk_other": "{{count}} cu risc de depășire SLA"
+    },
+    "owner": {
+      "agency": "Echipa agenției"
+    },
+    "q": {
+      "tab": "Calitatea procesului"
+    },
+    "team": {
+      "onLeave": "În concediu până la {{date}}"
+    },
+    "waiting": {
+      "on": {
+        "agency": "Se așteaptă echipa agenției",
+        "counselor": "Se așteaptă un consilier",
+        "external": "Se așteaptă o parte externă",
+        "hangyul": "Se așteaptă Hangyul",
+        "student": "Se așteaptă studentul",
+        "university": "Se așteaptă universitatea"
+      },
+      "party": {
+        "agency": "Echipa agenției",
+        "counselor": "Consilier",
+        "external": "Parte externă",
+        "student": "Studentul",
+        "university": "Universitate"
+      },
+      "reason": {
+        "essay_review": "eseu în așteptarea verificării",
+        "final_check": "verificare finală înainte de depunere",
+        "rail_confirmation": "lipsește numărul de confirmare",
+        "reply_owed": "studentul așteaptă un răspuns",
+        "review_unassigned_one": "{{count}} document de verificat · fără verificator",
+        "student_task_one": "{{count}} sarcină de făcut",
+        "student_task_other": "{{count}} de sarcini de făcut",
+        "submit": "autorizat să depună",
+        "submit_on_portal": "de depus pe portalul oficial",
+        "university_request": "universitatea a cerut un document",
+        "review_unassigned_few": "{{count}} documente de verificat · fără verificator",
+        "student_task_few": "{{count}} sarcini de făcut",
+        "task_one": "{{count}} sarcină restantă"
+      },
+      "title": "Se așteaptă"
+    },
+    "meet": {
+      "decisions": "Decizii",
+      "notes": "Ce s-a discutat",
+      "oneper": "Câte unul pe rând.",
+      "recordTitle": "Înregistrează o întâlnire",
+      "save": "Salvează procesul-verbal",
+      "scheduleNext": "Programează următoarea întâlnire",
+      "staffTasks": "De urmărit de echipă",
+      "studentHint": "Câte unul pe rând. Studentul le vede.",
+      "studentTasks": "De făcut pentru student"
+    },
+    "strip": {
+      "deadline": "Termen",
+      "next": "Următorul pas",
+      "why": "De ce nu avansează"
+    }
   },
   "waiting": {
-   "on": {
-    "agency": "Se așteaptă echipa agenției",
-    "counselor": "Se așteaptă un consilier",
-    "external": "Se așteaptă o parte externă",
-    "hangyul": "Se așteaptă Hangyul",
-    "student": "Se așteaptă studentul",
-    "university": "Se așteaptă universitatea"
-   },
-   "party": {
-    "agency": "Echipa agenției",
-    "counselor": "Consilier",
-    "external": "Parte externă",
-    "student": "Studentul",
-    "university": "Universitate"
-   },
-   "reason": {
-    "essay_review": "eseu în așteptarea verificării",
-    "final_check": "verificare finală înainte de depunere",
-    "rail_confirmation": "lipsește numărul de confirmare",
-    "reply_owed": "studentul așteaptă un răspuns",
-    "review_unassigned_one": "{{count}} document de verificat · fără verificator",
-    "student_task_one": "{{count}} sarcină de făcut",
-    "student_task_other": "{{count}} de sarcini de făcut",
-    "submit": "autorizat să depună",
-    "submit_on_portal": "de depus pe portalul oficial",
-    "university_request": "universitatea a cerut un document",
-    "review_unassigned_few": "{{count}} documente de verificat · fără verificator",
-    "student_task_few": "{{count}} sarcini de făcut",
-    "task_one": "{{count}} sarcină restantă"
-   },
-   "title": "Se așteaptă"
+    "app": {
+      "DRAFT": "candidatură neîncepută",
+      "INTERVIEW": "interviu",
+      "OFFERED": "răspuns la ofertă",
+      "OFFER_ACCEPTED": "factura pentru taxa de școlarizare",
+      "SUBMITTED": "depusă",
+      "UNIVERSITY_REVIEW": "în evaluare",
+      "VISA_ISSUED": "planuri de sosire",
+      "WAITLISTED": "pe lista de așteptare",
+      "DOCUMENT_PREPARATION": "pregătirea documentelor",
+      "VISA_PREPARATION": "documente de viză",
+      "ADDITIONAL_DOCUMENTS": "universitatea a solicitat un document",
+      "ADMISSION_CERTIFICATE_ISSUED": "începerea vizei",
+      "ADMISSION_CERTIFICATE_PENDING": "scrisoarea de admitere",
+      "PROFILE_REVIEW": "verificarea profilului",
+      "READY": "gata de depunere",
+      "TUITION_PAID": "scrisoarea de admitere",
+      "TUITION_PENDING": "plata taxei de școlarizare",
+      "VISA_SUBMITTED": "decizia de viză (ambasada)"
+    },
+    "reason": {
+      "student_task_one": "{{count}} sarcină de făcut",
+      "student_task_other": "{{count}} de sarcini de făcut",
+      "student_task_few": "{{count}} sarcini de făcut",
+      "first_contact": "primul contact scadent",
+      "fix_one": "{{count}} document de corectat",
+      "fix_few": "{{count}} documente de corectat",
+      "fix_other": "{{count}} de documente de corectat",
+      "overdue_task_one": "{{count}} sarcină întârziată",
+      "overdue_task_few": "{{count}} sarcini întârziate",
+      "overdue_task_other": "{{count}} de sarcini întârziate",
+      "reply": "studentul a răspuns",
+      "review_one": "{{count}} document de verificat",
+      "review_few": "{{count}} documente de verificat",
+      "review_other": "{{count}} de documente de verificat"
+    }
   },
-  "meet": {
-   "decisions": "Decizii",
-   "notes": "Ce s-a discutat",
-   "oneper": "Câte unul pe rând.",
-   "recordTitle": "Înregistrează o întâlnire",
-   "save": "Salvează procesul-verbal",
-   "scheduleNext": "Programează următoarea întâlnire",
-   "staffTasks": "De urmărit de echipă",
-   "studentHint": "Câte unul pe rând. Studentul le vede.",
-   "studentTasks": "De făcut pentru student"
-  },
-  "strip": {
-   "deadline": "Termen",
-   "next": "Următorul pas",
-   "why": "De ce nu avansează"
-  }
- },
- "waiting": {
-  "app": {
-   "DRAFT": "candidatură neîncepută",
-   "INTERVIEW": "interviu",
-   "OFFERED": "răspuns la ofertă",
-   "OFFER_ACCEPTED": "factura pentru taxa de școlarizare",
-   "SUBMITTED": "depusă",
-   "UNIVERSITY_REVIEW": "în analiză",
-   "VISA_ISSUED": "planuri de sosire",
-   "WAITLISTED": "pe lista de așteptare",
-   "DOCUMENT_PREPARATION": "pregătirea documentelor",
-   "VISA_PREPARATION": "documente de viză"
-  },
-  "reason": {
-   "student_task_one": "{{count}} sarcină de făcut",
-   "student_task_other": "{{count}} de sarcini de făcut",
-   "student_task_few": "{{count}} sarcini de făcut"
-  }
- },
- "ws": {
-  "itemsInReview_one": "{{count}} în verificare",
-  "itemsNone": "Toate elementele sunt gata",
-  "itemsRemain_other": "Au rămas {{count}} de elemente",
-  "itemsInReview_few": "{{count}} în verificare",
-  "itemsRemain_few": "Au rămas {{count}} elemente",
-  "act": {
-   "message": "Mesaj",
-   "task": "Sarcină"
-  },
-  "block": {
-   "deadline_one": "Candidatura la {{uni}} se închide în {{count}} zi"
-  },
-  "consulate": "Consulat",
-  "docsHint": "Toate documentele din arhiva studentului. Refolosite la toate candidaturile sale.",
-  "more": "Mai multe acțiuni",
-  "profileComplete": "Profil completat {{pct}}%",
-  "tab": {
-   "applications": "Candidaturi",
-   "documents": "Documente",
-   "essays": "Redactare",
-   "visa": "Viză"
-  },
-  "targetEntry": "Data dorită de intrare",
-  "visaIssued": "Eliberată la",
-  "visaNotes": "Note de caz (echipă)",
-  "visaProgress": "Progresul listei pentru viză",
-  "visaStatus": "Starea vizei",
-  "visaSubmitted": "Depusă la",
-  "visaType": "Viză {{type}}"
- },
- "v25": {
-  "today": {
-   "title": "Astăzi",
-   "urgent": "urgente",
-   "deadline7": "scadente în 7 zile",
-   "waiting_counselor": "așteaptă răspunsul nostru",
-   "student_silent": "studenți care nu răspund",
-   "requested": "solicitări de la universități"
-  }
- },
- "v26": {
   "ws": {
-   "replyOwed": "Studentul așteaptă răspunsul tău",
-   "reply": "Răspunde",
-   "requests": "Solicitări de la universități",
-   "requestFrom": "{{university}} solicită: {{label}}",
-   "requestedOn": "Solicitat pe {{date}}"
+    "itemsInReview_one": "{{count}} în verificare",
+    "itemsNone": "Toate elementele sunt gata",
+    "itemsRemain_other": "Au rămas {{count}} de elemente",
+    "itemsInReview_few": "{{count}} în verificare",
+    "itemsRemain_few": "Au rămas {{count}} elemente",
+    "act": {
+      "message": "Mesaj",
+      "task": "Sarcină",
+      "call": "Programați o consultație"
+    },
+    "block": {
+      "deadline_one": "Candidatura la {{uni}} se închide în {{count}} zi",
+      "deadline_few": "Candidatura la {{uni}} se închide în {{count}} zile",
+      "deadline_other": "Candidatura la {{uni}} se închide în {{count}} de zile",
+      "overdue": "Întârziat: {{title}}",
+      "review_one": "{{count}} document așteaptă verificarea dumneavoastră",
+      "review_few": "{{count}} documente așteaptă verificarea dumneavoastră",
+      "review_other": "{{count}} de documente așteaptă verificarea dumneavoastră",
+      "sla": "Așteaptă primul dumneavoastră răspuns",
+      "slaDetail": "Ținta pentru primul răspuns a trecut {{when}}",
+      "uniRequest": "{{uni}} a solicitat documente suplimentare"
+    },
+    "consulate": "Consulat",
+    "docsHint": "Toate documentele din seiful studentului. Refolosite la toate candidaturile sale.",
+    "more": "Mai multe acțiuni",
+    "profileComplete": "Profil completat {{pct}}%",
+    "tab": {
+      "applications": "Candidaturi",
+      "documents": "Documente",
+      "essays": "Redactare",
+      "visa": "Viză",
+      "history": "Istoric",
+      "messages": "Mesaje",
+      "portfolio": "Portofoliu",
+      "tasks": "Sarcini"
+    },
+    "targetEntry": "Data planificată a sosirii",
+    "visaIssued": "Emisă la",
+    "visaNotes": "Note de dosar (echipă)",
+    "visaProgress": "Progresul listei pentru viză",
+    "visaStatus": "Starea vizei",
+    "visaSubmitted": "Depusă la",
+    "visaType": "Viză {{type}}",
+    "activityNote": "Din jurnalul de audit: vizualizări, modificări și decizii privind datele acestui student.",
+    "apptHint": "Consultații și simulări de interviu cu acest student.",
+    "assignedBy": "Atribuit de {{by}}",
+    "blockedBy": "Finalizați mai întâi: {{deps}}",
+    "blockers": "Blocaje",
+    "budget": "Buget anual",
+    "by": {
+      "ENGINE": "motorul de potrivire",
+      "MANUAL": "un administrator",
+      "OPERATIONS_OVERRIDE": "operațiuni Hangyul (suprascriere)",
+      "ORDER": "o achiziție de serviciu"
+    },
+    "dob": "Data nașterii",
+    "education": "Studii",
+    "expires": "Expiră la {{date}}",
+    "factor": {
+      "country": "Experiență cu țara",
+      "degree": "Experiență cu nivelul de studii",
+      "language": "Potrivire lingvistică",
+      "preference": "Preferința studentului",
+      "sla": "Istoric SLA recent",
+      "university": "Universități vizate",
+      "workload": "Capacitate disponibilă"
+    },
+    "fields": "Domenii",
+    "gpa": "GPA",
+    "gpaNorm": "{{pct}}% normalizat",
+    "identity": "Identitate și reședință",
+    "itemsInReview_other": "{{count}} în verificare",
+    "itemsRemain_one": "A rămas {{count}} element",
+    "languages": "Examene de limbă",
+    "level": {
+      "ASSOCIATE": "Studii de scurtă durată",
+      "BACHELOR": "Licență",
+      "DOCTORATE": "Doctorat",
+      "HIGH_SCHOOL": "Liceu",
+      "MASTER": "Master"
+    },
+    "maskedHint": "Mascat pentru confidențialitate. Numărul complet este doar în seiful studentului.",
+    "noActivity": "Nicio activitate înregistrată încă",
+    "noApps": "Nicio candidatură încă",
+    "noAppsText": "Candidaturile apar aici după ce studentul începe una.",
+    "noBreakdown": "Nu s-a înregistrat nicio defalcare a punctajului pentru această atribuire.",
+    "noConversations": "Nicio conversație cu acest student încă",
+    "noDocs": "Niciun document în seif încă",
+    "noEducation": "Nu s-au adăugat studii încă.",
+    "noEssays": "Niciun eseu încă",
+    "noLanguages": "Niciun rezultat la examene de limbă încă.",
+    "noVisa": "Niciun dosar de viză încă",
+    "noVisaText": "Un dosar de viză se deschide automat după ce universitatea emite scrisoarea standard de admitere.",
+    "notAssigned": "Neatribuit unei agenții",
+    "passport": "Pașaport",
+    "passportExpiry": "Expirarea pașaportului",
+    "planned": "planificat",
+    "preferences": "Preferințe",
+    "profileTitle": "Profil",
+    "regions": "Regiuni",
+    "residence": "Țara de reședință",
+    "scholarship": "Are nevoie de bursă",
+    "score": "Punctaj de potrivire {{score}} / 100",
+    "selfReported": "declarat de student",
+    "sinceDate": "Atribuit din {{date}}",
+    "sponsor": "Sponsor financiar",
+    "sponsorKind": {
+      "EMPLOYER": "Angajator",
+      "PARENTS": "Părinți",
+      "RELATIVE": "Rudă",
+      "SCHOLARSHIP": "Bursă",
+      "SELF": "Fonduri proprii"
+    },
+    "stage": "Etapa în proces",
+    "tasksHint": "Sarcinile echipei și cele vizibile studentului, pentru acest student.",
+    "visaHistory": "Istoricul vizelor coreene",
+    "weightsNote": "Puncte obținute pe factor din ponderea lui (pondere totală {{total}}). Punctajele explică alegerea; nu sunt o evaluare a calității.",
+    "whyAssigned": "De ce această atribuire?"
+  },
+  "v25": {
+    "today": {
+      "title": "Astăzi",
+      "urgent": "urgente",
+      "deadline7": "scadente în 7 zile",
+      "waiting_counselor": "așteaptă răspunsul nostru",
+      "student_silent": "studenți care nu răspund",
+      "requested": "solicitări de la universități"
+    }
+  },
+  "v26": {
+    "ws": {
+      "replyOwed": "Studentul așteaptă răspunsul dumneavoastră",
+      "reply": "Răspundeți",
+      "requests": "Solicitări de la universități",
+      "requestFrom": "{{university}} solicită: {{label}}",
+      "requestedOn": "Solicitat pe {{date}}"
+    }
+  },
+  "consult": {
+    "channel": {
+      "IN_PERSON": "Față în față",
+      "PHONE": "Telefon",
+      "VIDEO": "Apel video"
+    },
+    "channelLabel": "Canal",
+    "duration": "Durată",
+    "kind": {
+      "CONSULTATION": "Consultație",
+      "INTERVIEW": "Interviu",
+      "INTERVIEW_PREP": "Exersare pentru interviu"
+    },
+    "kindLabel": "Tip",
+    "minutes_other": "{{count}} min",
+    "new": "Programează o consultație",
+    "notes": "Agendă / notițe",
+    "notesHint": "Vizibile pentru student în detaliile programării.",
+    "notifyNote": "Studentul primește o notificare cu data și ora în fusul său orar.",
+    "schedule": "Programează",
+    "when": "Data și ora",
+    "minutes_few": "{{count}} min"
+  },
+  "tasksPage": {
+    "create": "Creează sarcina",
+    "description": "Detalii",
+    "due": "Termen",
+    "forStudent": "Atribuie-o studentului (o va vedea în aplicație)",
+    "me": "eu",
+    "new": "Sarcină nouă",
+    "owner": "Responsabil",
+    "priority": "Prioritate",
+    "title": "Sarcini",
+    "type": "Tip"
+  },
+  "v15": {
+    "plan": {
+      "PREMIUM": "Premium",
+      "title": "Pachet cumpărat: {{plan}}"
+    },
+    "readiness": {
+      "READY": "Gata de trimis",
+      "SUBMITTED": "Trimisă"
+    },
+    "scope": {
+      "strip": "Pachet"
+    }
+  },
+  "v27": {
+    "guide": {
+      "missingTitle": "Ghidul de admitere nu este verificat",
+      "current": "Lista documentelor din",
+      "missingBody": "Ghidul oficial curent pentru această universitate și acest nivel nu a fost verificat, așa că nu se afișează nicio listă de documente. Apare după ce echipa de operațiuni Hangyul verifică ghidul.",
+      "previous": "Pe baza ghidului din runda anterioară; noul ghid este în curs de verificare",
+      "source": "Ghid oficial",
+      "verified": "verificat la {{date}}"
+    },
+    "stage": {
+      "ADMIT": "Ofertă și înmatriculare",
+      "APPLY": "Candidatură trimisă",
+      "ARRIVAL": "Sosire",
+      "CONSULT": "Consultație",
+      "DOCUMENTS": "Documente",
+      "REVIEW": "Evaluare la universitate",
+      "VISA": "Viză",
+      "label": "Etapa dosarului",
+      "nextSr": "etapa următoare",
+      "recent": "Zile de la ultima modificare: {{count}}",
+      "overdue": "Termen depășit",
+      "stalled": "Zile fără mișcare: {{count}}"
+    },
+    "evidence": {
+      "age": "Vechime maximă",
+      "ageDays": "{{count}} zile",
+      "byNationality": "după cetățenie; țara emitentă nu este încă cunoscută",
+      "extra": "De asemenea",
+      "form": "Se depune ca",
+      "legal": "Legalizare",
+      "none": "Neîncărcat încă",
+      "open": "Afișați dovada",
+      "proof": "Încărcarea studentului",
+      "quote": "Formularea din ghid",
+      "when": "Se aplică atunci când"
+    },
+    "form": {
+      "COPY": "Copie",
+      "EITHER": "Original sau copie",
+      "ORIGINAL": "Original"
+    },
+    "hq": {
+      "guidesNone": "Niciun ghid de admitere de verificat.",
+      "guidesSub": "Fără un ghid curent verificat, studenții nu văd nicio listă de documente. Ordonate după numărul de studenți care așteaptă.",
+      "guidesTitle": "Ghiduri de admitere de verificat",
+      "kind": {
+        "CONFLICT": "Sursele oficiale nu concordă",
+        "MISSING_GUIDE": "Niciun ghid verificat",
+        "REVIEW_REQUIRED": "Necesită verificare",
+        "SPOT_CHECK": "Verificare prin sondaj față de original",
+        "STALE": "Ghidul este dintr-o rundă anterioară"
+      },
+      "waiting": "Candidaturi în pregătire: {{count}}"
+    },
+    "ifApplies": "Dacă este cazul",
+    "issue": {
+      "APOSTILLE": "Necesită apostilă",
+      "CHINA_CHSI": "Necesită verificare CHSI",
+      "CONSULAR": "Necesită supralegalizare consulară",
+      "DONE": "Gata",
+      "FIX": "Necesită corectare",
+      "IN_REVIEW": "În verificare",
+      "LEGALIZATION_REVIEW": "Procedura de legalizare de verificat",
+      "NOTARIZATION": "Necesită legalizare notarială",
+      "ORIGINAL_CHECKED": "Original verificat",
+      "TRANSLATION": "Necesită traducere",
+      "UPLOAD": "Necesită încărcare"
+    },
+    "legal": {
+      "APOSTILLE": "Apostilă",
+      "CHINA_CHSI": "Verificare CHSI (China) sau apostilă",
+      "CONSULAR": "Supralegalizare consulară",
+      "NONE": "Nu este necesară",
+      "STAFF_REVIEW": "De verificat în funcție de țara emitentă",
+      "UNSPECIFIED": "Neprecizat în ghid"
+    },
+    "party": {
+      "agency": "Acțiunea noastră",
+      "student": "Acțiunea studentului"
+    },
+    "submit": {
+      "IN_PERSON": "Personal",
+      "MAIL": "Prin poștă",
+      "ONLINE": "Formular online",
+      "UPLOAD": "Încărcare online",
+      "UPLOAD_MAIL": "Încărcare, apoi originalul prin poștă"
+    }
+  },
+  "v28": {
+    "stage": {
+      "next": "Următoarea: {{stage}}",
+      "of": "Etapa {{n}} din {{total}}"
+    }
+  },
+  "actions": {
+    "moreFilters": "Mai multe filtre"
+  },
+  "dash": {
+    "days_one": "{{count}} zi",
+    "days_few": "{{count}} zile",
+    "days_other": "{{count}} de zile",
+    "period": "Perioada de raportare",
+    "subHq": "Vedere pe toate agențiile: fiecare student activ, coadă și SLA.",
+    "workload": {
+      "member": "Membru al echipei",
+      "open": "Sarcini deschise",
+      "overdue": "Întârziate",
+      "students": "Studenți activi"
+    }
+  },
+  "login": {
+    "asideFoot": "Datele fiecărei organizații sunt păstrate separat, iar fiecare accesare este înregistrată. Studenții nu văd niciodată notele interne.",
+    "asideLead": "Studenți, candidaturi, documente și mesaje într-un singur spațiu de lucru.",
+    "asideTitle": "Cine are nevoie de dumneavoastră, de ce și până când, începând cu ziua de azi.",
+    "p1Text": "Fiecare contor de etapă deschide exact acei studenți.",
+    "p1Title": "Studenți pe etape",
+    "p2Text": "Corectări de documente, termene de candidatură și răspunsuri de dat, în ordinea termenelor.",
+    "p2Title": "Lucru cu termene",
+    "p3Text": "Previzualizări securizate și liste de verificare; corectări solicitate cu un motiv clar.",
+    "p3Title": "Verificarea documentelor",
+    "p4Text": "Studenții primesc mesaje de la echipa Hangyul Univ; cine a făcut lucrul rămâne în jurnalul de audit.",
+    "p4Title": "Studenții văd echipa Hangyul Univ",
+    "subtitle": "Pentru personalul operațional Hangyul și agențiile partenere de studii în străinătate.",
+    "title": "Autentificați-vă în Consola agenției"
+  },
+  "notifs": {
+    "filter": "Filtrați",
+    "sub": "Tot ce s-a întâmplat cât ați lipsit."
+  },
+  "v29": {
+    "guide": {
+      "field": {
+        "checklist": "lista documentelor",
+        "current_intake": "ghidul acestei runde",
+        "deadline": "termenul",
+        "source_url": "sursa oficială",
+        "submission_method": "metoda de depunere",
+        "verified_date": "data verificării"
+      },
+      "verifyRequired": "Verificați înainte de o candidatură gestionată: {{fields}}"
+    },
+    "plan": {
+      "addOnStatus": {
+        "ACTIVE": "În curs",
+        "APPROVED": "Activ (vechi)",
+        "AWAITING_PAYMENT": "Așteaptă plata",
+        "COMPLETED": "Finalizat",
+        "OFFERED": "Propus"
+      },
+      "duty": {
+        "dedicated": "Echipă dedicată · răspunsuri prioritare",
+        "docs": {
+          "CHECKLIST": "Documente: listă",
+          "INTENSIVE": "Documente: verificare aprofundată",
+          "REVIEW_GUIDANCE": "Documente: verificare și observații despre ce trebuie corectat"
+        },
+        "dorm": {
+          "APPLICATION": "Cămin: ajutor cu cererea și alte opțiuni de locuință",
+          "INFORMATION": "Cămin: informații",
+          "SCHEDULE": "Cămin: calendarul cererii urmărit"
+        },
+        "settle": {
+          "FULL": "Acomodare: Z-30 până la Z+30",
+          "INFORMATION": "Acomodare: informații de bază",
+          "NONE": "Acomodare: neinclusă"
+        },
+        "visa": {
+          "DOCUMENT_PREP": "Viză: ajutor la pregătirea documentelor",
+          "GUIDANCE": "Viză: îndrumare privind procedura",
+          "INTENSIVE": "Viză: documente și date-cheie gestionate"
+        }
+      },
+      "legacy": "Cumpărat sub {{version}}",
+      "offer": {
+        "howItWorks": "Se aplică doar după ce studentul a văzut prețul și aria serviciului, a acceptat și a plătit.",
+        "open": "Propuneți un serviciu suplimentar",
+        "quantity": "Cantitate ({{unit}})",
+        "quote": "Ofertă personalizată: introduceți prețul și aria serviciului",
+        "range": "Interval recomandat {{min}}–{{max}}",
+        "scope": "Notă privind aria serviciului (afișată studentului)",
+        "scopeRequired": "Aria serviciului (obligatorie, afișată studentului)",
+        "send": "Propuneți studentului",
+        "service": "Serviciu",
+        "total": "Studentul plătește {{amount}}",
+        "unitPrice": "Preț unitar (USD)"
+      },
+      "term": {
+        "arrival": "Sosire",
+        "arrivalLabel": "Data planificată a sosirii",
+        "arrivalUnknown": "Data sosirii neconfirmată",
+        "arrivalWindow": "Pregătire din {{from}} · sosește {{arrive}} · se încheie {{until}}",
+        "ended": "Perioada serviciului s-a încheiat",
+        "endsLabel": "Sfârșitul contractului",
+        "notStarted": "Înainte de prima consultație",
+        "saved": "Datele serviciului au fost salvate.",
+        "set": "Salvați datele",
+        "since": "Început la {{date}}",
+        "support": "Consultații până la {{date}}",
+        "supportDays": "Zile de la prima consultație: {{count}}",
+        "title": "Perioada serviciului",
+        "toAgree": "Perioada serviciului nu este setată",
+        "until": "Până la {{date}}"
+      },
+      "unrationed": {
+        "CONTRACTED_DOCUMENTS": "Fără limită în cadrul documentelor și calendarului din contract",
+        "PRIORITY": "Răspunsuri prioritare",
+        "ROUNDS": "Inclus",
+        "TEAM": "Urmărire din partea echipei"
+      },
+      "usedSoFar": "Efectuate: {{count}}"
+    }
+  },
+  "v30": {
+    "def": {
+      "ops": {
+        "ageing": "Zile de când dosarul s-a mișcat ultima dată: cea mai recentă dintre o schimbare de etapă, o schimbare a stării candidaturii sau atribuirea la această agenție.",
+        "backlog": "Lucrări deschise la sfârșitul fiecărei săptămâni: sarcini de echipă (nu sarcinile proprii ale studentului) nefinalizate, versiuni de documente neverificate încă și eseuri trimise spre evaluare și neevaluate încă (runda curentă de evaluare).",
+        "blocked": "Un dosar este blocat când așteaptă o parte și nu s-a mișcat de mai mult de 14 zile. Cele mai vechi primele.",
+        "deadlines": "Candidaturi nedepuse încă, al căror termen de candidatură este în următoarele 14 zile și cărora le lipsesc încă elemente obligatorii.",
+        "load": "Încărcare ponderată pe persoană: fiecare tip de lucrare deschisă pe care o deține × ponderea ei (tabelul de ponderi al agenției), raportată la capacitatea personală în aceleași puncte. Supraîncărcat = încărcare peste capacitate. Persoanelor în concediu nu li se atribuie lucrări noi.",
+        "sla": "Primul răspuns nedat până la termen; documente care așteaptă verificarea de mai mult de 48 de ore; evaluări de eseuri peste timpul de evaluare promis.",
+        "stages": "Mediana zilelor în care o candidatură a stat într-o stare înainte de a trece mai departe (șederi încheiate în ultimele 365 de zile). Nu se afișează sub {{n}} șederi.",
+        "unassigned_paid": "A plătit un serviciu Hangyul și niciun consilier nu răspunde de dosar (sau, pentru Hangyul, nicio agenție nu este încă atribuită)."
+      },
+      "svc": {
+        "arrival": "Preluări de la aeroport finalizate ÷ preluări a căror oră de sosire a trecut (fără cele anulate)",
+        "completion": "Finalizate ÷ solicitări create în perioadă (fără cele anulate)",
+        "resolution": "Mediana orelor de la solicitare la finalizare, doar solicitările finalizate",
+        "sla": "Solicitări în care echipa a acționat după SLA (sau nu a acționat și SLA a trecut) ÷ solicitări al căror SLA a ajuns la scadență"
+      }
+    }
+  },
+  "v31": {
+    "stage": {
+      "closed": "Închise"
+    }
   }
- },
- "consult": {
-  "channel": {
-   "IN_PERSON": "Față în față",
-   "PHONE": "Telefon",
-   "VIDEO": "Apel video"
-  },
-  "channelLabel": "Canal",
-  "duration": "Durată",
-  "kind": {
-   "CONSULTATION": "Consultație",
-   "INTERVIEW": "Interviu",
-   "INTERVIEW_PREP": "Exersare pentru interviu"
-  },
-  "kindLabel": "Tip",
-  "minutes_other": "{{count}} min",
-  "new": "Programează o consultație",
-  "notes": "Agendă / notițe",
-  "notesHint": "Vizibile pentru student în detaliile programării.",
-  "notifyNote": "Studentul primește o notificare cu data și ora în fusul său orar.",
-  "schedule": "Programează",
-  "when": "Data și ora",
-  "minutes_few": "{{count}} min"
- },
- "tasksPage": {
-  "create": "Creează sarcina",
-  "description": "Detalii",
-  "due": "Termen",
-  "forStudent": "Atribuie-o studentului (o va vedea în aplicație)",
-  "me": "eu",
-  "new": "Sarcină nouă",
-  "owner": "Responsabil",
-  "priority": "Prioritate",
-  "title": "Sarcini",
-  "type": "Tip"
- },
- "v15": {
-  "plan": {
-   "PREMIUM": "Premium",
-   "title": "Pachet cumpărat: {{plan}}"
-  },
-  "readiness": {
-   "READY": "Gata de trimis",
-   "SUBMITTED": "Trimisă"
-  },
-  "scope": {
-   "strip": "Pachet"
-  }
- },
- "v27": {
-  "guide": {
-   "missingTitle": "Ghidul de admitere nu este verificat"
-  },
-  "stage": {
-   "ADMIT": "Ofertă și înmatriculare",
-   "APPLY": "Candidatură trimisă",
-   "ARRIVAL": "Sosire",
-   "CONSULT": "Consultație",
-   "DOCUMENTS": "Documente",
-   "REVIEW": "Evaluare la universitate",
-   "VISA": "Viză",
-   "label": "Etapa cazului",
-   "nextSr": "etapa următoare",
-   "recent": "Ultima modificare: acum {{count}} zile"
-  }
- },
- "v28": {
-  "stage": {
-   "next": "Următoarea: {{stage}}",
-   "of": "Etapa {{n}} din {{total}}"
-  }
- }
 }

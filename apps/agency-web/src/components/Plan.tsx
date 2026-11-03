@@ -16,7 +16,7 @@
 import { useAuth } from '@hangyul/auth';
 import type { AddOnCode, CountedEntitlement, EntitlementUse, PlanCode, StudentPlan } from '@hangyul/types';
 import { ADD_ONS, ADD_ON_BY_CODE, addOnFor, addOnPriceAllowed } from '@hangyul/types';
-import { Button, Popover, useToast } from '@hangyul/ui';
+import { Button, Popover, Select, useToast } from '@hangyul/ui';
 import { cx, formatDate, formatMoney, formatNumber } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -96,10 +96,10 @@ export function AddOnOffer({ studentId, initial, onDone }: { studentId: string; 
   return (
     <form className="ag29-offer" onSubmit={(e) => { e.preventDefault(); if (ok) m.mutate(); }}>
       <label className="form-label" htmlFor="ag29-offer-code">{t('v29.plan.offer.service')}</label>
-      <select id="ag29-offer-code" className="form-select form-select-sm" value={code}
+      <Select id="ag29-offer-code" compact value={code}
         onChange={(e) => { setCode(e.target.value as AddOnCode); setPrice(''); }}>
         {ADD_ONS.map((a) => <option key={a.code} value={a.code}>{t(`common:v29.addon.item.${a.slug}`)}</option>)}
-      </select>
+      </Select>
       <div className="ag29-offer__row">
         <div>
           <label className="form-label" htmlFor="ag29-offer-qty">{t('v29.plan.offer.quantity', { unit: t(`common:v29.addon.unit.${def.unit}`) })}</label>

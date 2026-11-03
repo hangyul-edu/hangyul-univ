@@ -1,0 +1,2721 @@
+{
+ "_notes": [
+  "Register: both consoles use magázás. Agency addresses the single staff member as Ön; University addresses the institution/team as Önök and the individual user as Ön (decision.readOnly, settings.you), following the existing Hungarian.",
+  "Caseload (Agency CRM term) rendered as 'ügyfélkör' everywhere (was 'ügyfelei köre' / 'támogatott hallgatói'); 'pipeline' = 'folyamat', 'stage' = 'szakasz', 'status' = 'állapot'.",
+  "Document review in the consoles = 'dokumentumellenőrzés' (verb 'ellenőriz'), the verify action stays 'jóváhagyás' as in the existing strings; essay review = 'esszéértékelés' to match common:nav/taskType.",
+  "Offer/admission: 'ajánlat' (Ajánlat kiküldve / Ajánlat elfogadva) in both consoles and in the shared common chips; 'not admitted' = 'fel nem vett', never 'elutasított' except for the explicit Reject action.",
+  "Standard admission letter (표준입학허가서) spelled out once per screen as 'standard felvételi levél (standard admission letter)'; short status labels keep 'felvételi levél'. 'felvételi igazolás' removed.",
+  "Submitted applications in the University console unified on 'beadott/beadva' (v25 insight strings used 'beküldött'); common:appStatus.SUBMITTED still says 'Beküldve' — owner may want to align that chip later.",
+  "SLA, GPA, KTX, CHSI, SAML, OpenID Connect, D-2/D-4 kept as codes; 'single sign-on' = 'egyszeri bejelentkezés (SSO)' on first use.",
+  "Plural forms: hu has one/other; every _one string carries {{count}} as required by the plural rule.",
+  "agency:v28.stage.of rewritten as '{{n}}. szakasz (összesen {{total}})' and university:v22.in.dropText as '{{of}} közül {{lost}} …' so no Hungarian suffix is glued to a placeholder."
+ ],
+ "agency:actions.moreFilters": {
+  "text": "További szűrők",
+  "why": "missing"
+ },
+ "agency:apps.actor.AGENCY": {
+  "text": "Ügynökség",
+  "why": "missing"
+ },
+ "agency:apps.actor.HANGYUL": {
+  "text": "Hangyul",
+  "why": "missing"
+ },
+ "agency:apps.actor.STUDENT": {
+  "text": "Hallgató",
+  "why": "missing"
+ },
+ "agency:apps.actor.SYSTEM": {
+  "text": "Rendszer",
+  "why": "missing"
+ },
+ "agency:apps.actor.UNIVERSITY": {
+  "text": "Egyetem",
+  "why": "missing"
+ },
+ "agency:apps.checklist": {
+  "text": "Dokumentum-ellenőrzőlista",
+  "why": "missing"
+ },
+ "agency:apps.checklistCount": {
+  "text": "{{ready}} / {{total}} tétel kész",
+  "why": "missing"
+ },
+ "agency:apps.confirmMove": {
+  "text": "Áthelyezés ide: „{{status}}”",
+  "why": "missing"
+ },
+ "agency:apps.empty": {
+  "text": "Nincs a szűrőknek megfelelő jelentkezés. Módosítsa vagy törölje a szűrőket.",
+  "why": "dropped second sentence"
+ },
+ "agency:apps.externalRef": {
+  "text": "Egyetemi hivatkozási szám",
+  "why": "missing"
+ },
+ "agency:apps.externalRefHint": {
+  "text": "A jelentkezés száma az egyetemi portálon, ha ismert.",
+  "why": "missing"
+ },
+ "agency:apps.flag": {
+  "text": "Megjelölés",
+  "why": "missing"
+ },
+ "agency:apps.flagReason": {
+  "text": "A megjelölés oka",
+  "why": "missing"
+ },
+ "agency:apps.flagTitle": {
+  "text": "Megjelölés utánkövetésre",
+  "why": "missing"
+ },
+ "agency:apps.history": {
+  "text": "Állapotelőzmények",
+  "why": "missing"
+ },
+ "agency:apps.legalization": {
+  "text": "Közjegyzői hitelesítés és felülhitelesítés",
+  "why": "missing"
+ },
+ "agency:apps.moveTo": {
+  "text": "Jelentkezés állapotának módosítása",
+  "why": "missing"
+ },
+ "agency:apps.moved": {
+  "text": "A jelentkezés áthelyezve ide: {{status}}.",
+  "why": "missing"
+ },
+ "agency:apps.noTransitions": {
+  "text": "Ebben a szakaszban az Ön szervezete nem módosíthatja az állapotot.",
+  "why": "missing"
+ },
+ "agency:apps.note": {
+  "text": "Megjegyzés",
+  "why": "missing"
+ },
+ "agency:apps.noteHint": {
+  "text": "Az állapotelőzményekbe kerül.",
+  "why": "missing"
+ },
+ "agency:apps.readiness": {
+  "text": "Készültség",
+  "why": "missing"
+ },
+ "agency:apps.reused": {
+  "text": "Újrafelhasználva a dokumentumtárból",
+  "why": "missing"
+ },
+ "agency:apps.scholarship": {
+  "text": "Ösztöndíj-megjegyzés",
+  "why": "missing"
+ },
+ "agency:apps.semester": {
+  "text": "Félév kezdete",
+  "why": "missing"
+ },
+ "agency:apps.sortBy.readiness": {
+  "text": "Készültség",
+  "why": "missing"
+ },
+ "agency:apps.submitBlocked": {
+  "text": "Kötelező dokumentumok hiányoznak, ezért a beadás nem lehetséges:",
+  "why": "missing"
+ },
+ "agency:apps.submitted": {
+  "text": "Beadva",
+  "why": "missing"
+ },
+ "agency:apps.translation": {
+  "text": "Fordítás",
+  "why": "missing"
+ },
+ "agency:apps.withdrawWarn": {
+  "text": "A visszavonás végleges ennél a jelentkezésnél.",
+  "why": "missing"
+ },
+ "agency:dash.days_other": {
+  "text": "{{count}} nap",
+  "why": "missing"
+ },
+ "agency:dash.period": {
+  "text": "Jelentési időszak",
+  "why": "missing"
+ },
+ "agency:dash.subHq": {
+  "text": "Ügynökségeken átívelő nézet minden aktív hallgatóról, várólistáról és SLA-ról.",
+  "why": "missing"
+ },
+ "agency:dash.workload.member": {
+  "text": "Munkatárs",
+  "why": "missing"
+ },
+ "agency:dash.workload.open": {
+  "text": "Nyitott feladatok",
+  "why": "missing"
+ },
+ "agency:dash.workload.overdue": {
+  "text": "Lejárt",
+  "why": "missing"
+ },
+ "agency:dash.workload.students": {
+  "text": "Aktív hallgatók",
+  "why": "missing"
+ },
+ "agency:docs.bulkAssign": {
+  "text": "Ellenőr hozzárendelése",
+  "why": "missing"
+ },
+ "agency:docs.bulkAssigned_one": {
+  "text": "{{count}} dokumentum hozzárendelve",
+  "why": "missing"
+ },
+ "agency:docs.bulkAssigned_other": {
+  "text": "{{count}} dokumentum hozzárendelve",
+  "why": "missing"
+ },
+ "agency:docs.bulkFailed_one": {
+  "text": "{{count}} dokumentum nem módosítható (már ellenőrizve, vagy nem az Ön ügyfélköréhez tartozik)",
+  "why": "missing"
+ },
+ "agency:docs.bulkFailed_other": {
+  "text": "{{count}} dokumentum nem módosítható (már ellenőrizve, vagy nem az Ön ügyfélköréhez tartozik)",
+  "why": "missing"
+ },
+ "agency:docs.bulkLabel": {
+  "text": "Műveletek a kijelölt dokumentumokkal",
+  "why": "missing"
+ },
+ "agency:docs.bulkVerified_one": {
+  "text": "{{count}} dokumentum jóváhagyva",
+  "why": "missing"
+ },
+ "agency:docs.bulkVerified_other": {
+  "text": "{{count}} dokumentum jóváhagyva",
+  "why": "missing"
+ },
+ "agency:docs.bulkVerifyTitle_one": {
+  "text": "{{count}} dokumentum jóváhagyása?",
+  "why": "missing"
+ },
+ "agency:docs.empty": {
+  "text": "A várólista üres",
+  "why": "missing"
+ },
+ "agency:docs.emptyBy.any": {
+  "text": "Egyetlen dokumentum sem vár ellenőrzésre.",
+  "why": "missing"
+ },
+ "agency:docs.emptyBy.me": {
+  "text": "Jelenleg semmi sincs Önhöz rendelve.",
+  "why": "missing"
+ },
+ "agency:docs.emptyBy.unassigned": {
+  "text": "Minden várakozó dokumentumnak van ellenőre.",
+  "why": "missing"
+ },
+ "agency:docs.notInQueue": {
+  "text": "Nincs az ellenőrzési várólistán",
+  "why": "missing"
+ },
+ "agency:docs.subSla": {
+  "text": "{{count}} ellenőrzésre vár · {{late}} túllépte a {{hours}} órás célt",
+  "why": "missing"
+ },
+ "agency:docs.sub_other": {
+  "text": "{{count}} dokumentum vár ellenőrzésre, a legrégebbi elöl.",
+  "why": "missing"
+ },
+ "agency:docs.uploadedFor": {
+  "text": "Hozzáadva {{name}} dokumentumtárához",
+  "why": "missing"
+ },
+ "agency:docs.you": {
+  "text": "Ön",
+  "why": "missing"
+ },
+ "agency:inbox.audienceTeam": {
+  "text": "Csak az Ön csapata látja",
+  "why": "missing"
+ },
+ "agency:inbox.manageTemplates": {
+  "text": "Sablonok kezelése…",
+  "why": "missing"
+ },
+ "agency:inbox.needsReplyShort": {
+  "text": "Válasz esedékes",
+  "why": "short chip"
+ },
+ "agency:inbox.noMessages": {
+  "text": "Még nincs üzenet.",
+  "why": "missing"
+ },
+ "agency:inbox.notePh": {
+  "text": "Belső jegyzet a csapatnak… (Ctrl+Enter: mentés)",
+  "why": "missing"
+ },
+ "agency:inbox.noteSaved": {
+  "text": "Belső jegyzet mentve.",
+  "why": "missing"
+ },
+ "agency:inbox.openFile": {
+  "text": "Fájl megnyitása",
+  "why": "missing"
+ },
+ "agency:inbox.participants": {
+  "text": "résztvevő",
+  "why": "missing"
+ },
+ "agency:inbox.pickText": {
+  "text": "Vagy kezdjen újat az ügyfélkörébe tartozó bármelyik hallgatóval.",
+  "why": "one term for caseload"
+ },
+ "agency:inbox.removeFile": {
+  "text": "{{name}} eltávolítása",
+  "why": "missing"
+ },
+ "agency:inbox.saveNote": {
+  "text": "Jegyzet mentése",
+  "why": "missing"
+ },
+ "agency:inbox.sent": {
+  "text": "Üzenet elküldve.",
+  "why": "missing"
+ },
+ "agency:inbox.subReply_one": {
+  "text": "{{count}} beszélgetés vár az Ön válaszára",
+  "why": "missing"
+ },
+ "agency:inbox.subUnread_one": {
+  "text": "{{count}} olvasatlan beszélgetés",
+  "why": "missing"
+ },
+ "agency:inbox.system": {
+  "text": "Rendszer",
+  "why": "missing"
+ },
+ "agency:inbox.taskCreated": {
+  "text": "Feladat létrehozva ebből az üzenetből",
+  "why": "missing"
+ },
+ "agency:inbox.taskDue": {
+  "text": "Feladat határideje",
+  "why": "missing"
+ },
+ "agency:inbox.taskHint": {
+  "text": "A feladat az első megemlített munkatárshoz kerül, egyébként Önhöz.",
+  "why": "missing"
+ },
+ "agency:inbox.unreadN_other": {
+  "text": "{{count}} olvasatlan üzenet",
+  "why": "missing"
+ },
+ "agency:inbox.willNotify_other": {
+  "text": "{{count}} munkatárs kap értesítést",
+  "why": "missing"
+ },
+ "agency:login.asideFoot": {
+  "text": "Minden szervezet adatai elkülönítve tárolódnak, és minden hozzáférést naplózunk. A hallgatók soha nem látják a belső jegyzeteket.",
+  "why": "missing"
+ },
+ "agency:login.asideLead": {
+  "text": "Hallgatók, jelentkezési és dokumentummunka, üzenetek – egy munkaterületen.",
+  "why": "missing"
+ },
+ "agency:login.asideTitle": {
+  "text": "Kinek van szüksége Önre, miért és meddig – a mai nappal kezdve.",
+  "why": "missing"
+ },
+ "agency:login.p1Text": {
+  "text": "Minden szakasz számlálója pontosan az ott lévő hallgatókat nyitja meg.",
+  "why": "missing"
+ },
+ "agency:login.p1Title": {
+  "text": "Hallgatók szakaszonként",
+  "why": "missing"
+ },
+ "agency:login.p2Text": {
+  "text": "Dokumentumjavítások, jelentkezési határidők és esedékes válaszok, határidő szerinti sorrendben.",
+  "why": "missing"
+ },
+ "agency:login.p2Title": {
+  "text": "Határidős munka",
+  "why": "missing"
+ },
+ "agency:login.p3Text": {
+  "text": "Biztonságos előnézetek és ellenőrzőlisták; javításkérés mindig világos indoklással.",
+  "why": "missing"
+ },
+ "agency:login.p3Title": {
+  "text": "Dokumentumellenőrzés",
+  "why": "missing"
+ },
+ "agency:login.p4Text": {
+  "text": "A hallgatók a Hangyul Univ csapatától kapnak üzenetet; hogy ki végezte a munkát, az auditnaplóban marad.",
+  "why": "missing"
+ },
+ "agency:login.p4Title": {
+  "text": "A hallgatók a Hangyul Univ csapatát látják",
+  "why": "missing"
+ },
+ "agency:login.subtitle": {
+  "text": "A Hangyul üzemeltetési munkatársainak és a partner tanulmányi ügynökségeknek.",
+  "why": "missing"
+ },
+ "agency:login.title": {
+  "text": "Bejelentkezés az Ügynökségi konzolba",
+  "why": "missing"
+ },
+ "agency:misc.change": {
+  "text": "Módosítás",
+  "why": "missing"
+ },
+ "agency:misc.days_other": {
+  "text": "{{count}} nap",
+  "why": "missing"
+ },
+ "agency:misc.hours_other": {
+  "text": "{{count}} óra",
+  "why": "missing"
+ },
+ "agency:misc.internalTag": {
+  "text": "Belső",
+  "why": "missing"
+ },
+ "agency:misc.no": {
+  "text": "Nem",
+  "why": "missing"
+ },
+ "agency:misc.notFoundText": {
+  "text": "Az oldal áthelyezésre kerülhetett, vagy nincs hozzá hozzáférése.",
+  "why": "missing"
+ },
+ "agency:misc.searchStudents": {
+  "text": "Keresés a hallgatói között…",
+  "why": "missing"
+ },
+ "agency:misc.unassigned": {
+  "text": "Nincs hozzárendelve",
+  "why": "missing"
+ },
+ "agency:misc.yes": {
+  "text": "Igen",
+  "why": "missing"
+ },
+ "agency:notifs.filter": {
+  "text": "Szűrés",
+  "why": "missing"
+ },
+ "agency:notifs.sub": {
+  "text": "Minden, ami a távollétében történt.",
+  "why": "missing"
+ },
+ "agency:savedViews.delete": {
+  "text": "{{name}} törlése",
+  "why": "missing"
+ },
+ "agency:savedViews.saveHint_one": {
+  "text": "Menti az aktuális szűrőt és rendezést, hogy ezt a listát egy kattintással megnyithassa.",
+  "why": "missing"
+ },
+ "agency:savedViews.saveHint_other": {
+  "text": "Menti az aktuális {{count}} szűrőt és a rendezést, hogy ezt a listát egy kattintással megnyithassa.",
+  "why": "missing"
+ },
+ "agency:savedViews.saved": {
+  "text": "„{{name}}” mentve",
+  "why": "missing"
+ },
+ "agency:settings.account": {
+  "text": "Fiók",
+  "why": "missing"
+ },
+ "agency:settings.deadlinesHint": {
+  "text": "Minden közelgő határidő az Ön ügyfélkörében",
+  "why": "one term for caseload"
+ },
+ "agency:settings.language": {
+  "text": "Nyelv",
+  "why": "missing"
+ },
+ "agency:settings.languageHint": {
+  "text": "A felület nyelve. A hallgatói adatok az eredeti nyelvükön maradnak.",
+  "why": "missing"
+ },
+ "agency:settings.localOnly": {
+  "text": "Csak ebben a böngészőben mentve.",
+  "why": "missing"
+ },
+ "agency:settings.org": {
+  "text": "Szervezet",
+  "why": "missing"
+ },
+ "agency:settings.poll": {
+  "text": "Élő frissítés",
+  "why": "missing"
+ },
+ "agency:settings.pollHint": {
+  "text": "A várólisták és számlálók percenkénti frissítése.",
+  "why": "missing"
+ },
+ "agency:settings.scSearch": {
+  "text": "Navigálás a globális keresés találatai között",
+  "why": "missing"
+ },
+ "agency:settings.scSend": {
+  "text": "Üzenet küldése vagy jegyzet mentése",
+  "why": "missing"
+ },
+ "agency:settings.shortcuts": {
+  "text": "Billentyűparancsok",
+  "why": "missing"
+ },
+ "agency:settings.sub": {
+  "text": "Személyes beállítások ehhez a konzolhoz.",
+  "why": "missing"
+ },
+ "agency:settings.timezone": {
+  "text": "Időzóna",
+  "why": "missing"
+ },
+ "agency:settings.updates": {
+  "text": "Élő frissítés",
+  "why": "missing"
+ },
+ "agency:shell.hqProduct": {
+  "text": "Hangyul üzemeltetés",
+  "why": "missing"
+ },
+ "agency:shell.hqView": {
+  "text": "Hangyul-központ · minden ügynökség",
+  "why": "missing"
+ },
+ "agency:shell.searchAll": {
+  "text": "Minden találat erre: „{{q}}”",
+  "why": "missing"
+ },
+ "agency:sidebar.agencies": {
+  "text": "Ügynökségek",
+  "why": "missing"
+ },
+ "agency:sidebar.catalog": {
+  "text": "Egyetemek és képzések",
+  "why": "missing"
+ },
+ "agency:sidebar.hangyul": {
+  "text": "Hangyul-központ",
+  "why": "missing"
+ },
+ "agency:sidebar.operations": {
+  "text": "Üzemeltetés",
+  "why": "missing"
+ },
+ "agency:sidebar.override": {
+  "text": "Hozzárendelés felülbírálása",
+  "why": "missing"
+ },
+ "agency:students.bulk.confirmRegen_other": {
+  "text": "Újraszámolja {{count}} hallgató automatikus feladatlistáját? A kézi feladatok megmaradnak.",
+  "why": "missing"
+ },
+ "agency:students.bulk.confirmStage_other": {
+  "text": "Áthelyez {{count}} hallgatót ide: „{{stage}}”? A művelet az auditnaplóba kerül.",
+  "why": "missing"
+ },
+ "agency:students.bulk.confirmTitle": {
+  "text": "Tömeges művelet végrehajtása?",
+  "why": "missing"
+ },
+ "agency:students.bulk.done_other": {
+  "text": "{{count}} hallgató frissítve.",
+  "why": "missing"
+ },
+ "agency:students.bulk.regen": {
+  "text": "Feladatok újragenerálása",
+  "why": "missing"
+ },
+ "agency:students.bulk.stage": {
+  "text": "Áthelyezés szakaszba…",
+  "why": "missing"
+ },
+ "agency:students.col.degree": {
+  "text": "Fokozat",
+  "why": "missing"
+ },
+ "agency:students.col.nationality": {
+  "text": "Állampolgárság",
+  "why": "missing"
+ },
+ "agency:students.dShort_one": {
+  "text": "{{count}} n",
+  "why": "missing"
+ },
+ "agency:students.f.allDegrees": {
+  "text": "Minden fokozat",
+  "why": "missing"
+ },
+ "agency:students.f.allNationalities": {
+  "text": "Minden állampolgárság",
+  "why": "missing"
+ },
+ "agency:students.noReply": {
+  "text": "Az első válasz SLA-ja lejárt. A hallgató válaszra vár",
+  "why": "missing"
+ },
+ "agency:students.noReplyShort": {
+  "text": "Válasz esedékes",
+  "why": "missing"
+ },
+ "agency:students.subCount": {
+  "text": "{{count}} hallgató az Ön ügyfélkörében",
+  "why": "one term for caseload"
+ },
+ "agency:students.view.all": {
+  "text": "Mind",
+  "why": "missing"
+ },
+ "agency:students.view.arrived": {
+  "text": "Megérkezett",
+  "why": "missing"
+ },
+ "agency:students.view.deadline": {
+  "text": "Közeli határidő",
+  "why": "missing"
+ },
+ "agency:students.view.docs": {
+  "text": "Javítandó dokumentumok",
+  "why": "missing"
+ },
+ "agency:students.view.incomplete": {
+  "text": "Hiányos dokumentumok",
+  "why": "missing"
+ },
+ "agency:students.view.mine": {
+  "text": "Saját hallgatóim",
+  "why": "missing"
+ },
+ "agency:students.view.requested": {
+  "text": "Az egyetem dokumentumot kért",
+  "why": "missing"
+ },
+ "agency:students.view.university": {
+  "text": "Az egyetemre vár",
+  "why": "missing"
+ },
+ "agency:students.view.visa": {
+  "text": "Vízum",
+  "why": "missing"
+ },
+ "agency:students.view.waiting_external": {
+  "text": "Nagykövetségre vagy más félre vár",
+  "why": "missing"
+ },
+ "agency:students.view.waiting_us": {
+  "text": "Ránk vár",
+  "why": "missing"
+ },
+ "agency:today.afternoon": {
+  "text": "Jó napot, {{name}}!",
+  "why": "missing"
+ },
+ "agency:today.allClear": {
+  "text": "Jelenleg semmi sem igényel figyelmet. Az új munka érkezéskor itt jelenik meg.",
+  "why": "missing"
+ },
+ "agency:today.attention": {
+  "text": "Figyelmet igényel",
+  "why": "missing"
+ },
+ "agency:today.attentionSub": {
+  "text": "A legsürgetőbb tétel az első. Nyisson meg egy sort, és haladjon végig a listán.",
+  "why": "missing"
+ },
+ "agency:today.attentionV4": {
+  "text": "Kinek van szüksége Önre ma",
+  "why": "missing"
+ },
+ "agency:today.clearList": {
+  "text": "Minden rendben: {{list}}",
+  "why": "missing"
+ },
+ "agency:today.closing": {
+  "text": "7 napon belül záruló jelentkezések",
+  "why": "missing"
+ },
+ "agency:today.closingDetail": {
+  "text": "Következő: {{university}} · {{student}}, zárul: {{date}}",
+  "why": "missing"
+ },
+ "agency:today.closingV4": {
+  "text": "Hallgatók, akiknek 7 napon belül jelentkezési határidejük van",
+  "why": "missing"
+ },
+ "agency:today.cta.deadlines": {
+  "text": "Határidők megtekintése",
+  "why": "missing"
+ },
+ "agency:today.cta.messages": {
+  "text": "Beérkezett üzenetek megnyitása",
+  "why": "missing"
+ },
+ "agency:today.cta.reply": {
+  "text": "Válasz",
+  "why": "missing"
+ },
+ "agency:today.cta.review": {
+  "text": "Ellenőrzés indítása",
+  "why": "missing"
+ },
+ "agency:today.cta.students": {
+  "text": "Hallgatók megnyitása",
+  "why": "missing"
+ },
+ "agency:today.cta.tasks": {
+  "text": "Feladatok megnyitása",
+  "why": "missing"
+ },
+ "agency:today.deadlines": {
+  "text": "Határidők a következő 7 napban",
+  "why": "missing"
+ },
+ "agency:today.deadlinesDetail": {
+  "text": "Következő: {{title}} · {{student}}, {{when}}",
+  "why": "missing"
+ },
+ "agency:today.docs": {
+  "text": "Ellenőrzésre váró dokumentumok",
+  "why": "missing"
+ },
+ "agency:today.docsDetail": {
+  "text": "Legrégebbi: {{student}} · {{doc}}, várakozik: {{wait}}",
+  "why": "missing"
+ },
+ "agency:today.docsOldest": {
+  "text": "legrégebbi: {{student}} · {{doc}}, feltöltve: {{when}}",
+  "why": "missing"
+ },
+ "agency:today.docsSla_one": {
+  "text": "{{count}} dokumentum túllépte a {{hours}} órás ellenőrzési célt",
+  "why": "missing"
+ },
+ "agency:today.docsSla_other": {
+  "text": "{{count}} dokumentum túllépte a {{hours}} órás ellenőrzési célt",
+  "why": "missing"
+ },
+ "agency:today.essays": {
+  "text": "Értékelésre váró esszék",
+  "why": "missing"
+ },
+ "agency:today.essaysDetail": {
+  "text": "Következő: {{title}} · {{student}}",
+  "why": "missing"
+ },
+ "agency:today.keyMove": {
+  "text": "léptetés",
+  "why": "missing"
+ },
+ "agency:today.keyOpen": {
+  "text": "megnyitás",
+  "why": "missing"
+ },
+ "agency:today.messages": {
+  "text": "Beszélgetések olvasatlan üzenettel",
+  "why": "missing"
+ },
+ "agency:today.messagesDetail": {
+  "text": "Legrégebb óta vár: {{who}}, {{when}}",
+  "why": "missing"
+ },
+ "agency:today.openPipeline": {
+  "text": "Folyamat megnyitása",
+  "why": "missing"
+ },
+ "agency:today.overdueDef": {
+  "text": "Nyitott feladatok, amelyek határideje lejárt.",
+  "why": "missing"
+ },
+ "agency:today.overdueDetail": {
+  "text": "Legrégebbi: {{title}} · {{student}}, határidő: {{when}}",
+  "why": "missing"
+ },
+ "agency:today.overdueMine": {
+  "text": "Az Ön lejárt feladatai",
+  "why": "missing"
+ },
+ "agency:today.overdueTeam": {
+  "text": "Lejárt feladatok a csapatban",
+  "why": "missing"
+ },
+ "agency:today.phase.studying": {
+  "text": "Tanul",
+  "why": "missing"
+ },
+ "agency:today.pipeline": {
+  "text": "Ügyfélkör szakaszonként",
+  "why": "missing"
+ },
+ "agency:today.pipelineSub": {
+  "text": "{{count}} hallgató. Válasszon szakaszt, hogy lássa, ki tartozik oda.",
+  "why": "missing"
+ },
+ "agency:today.pipelineSubV4_one": {
+  "text": "{{count}} hallgató",
+  "why": "missing"
+ },
+ "agency:today.pipelineSubV4_other": {
+  "text": "{{count}} hallgató",
+  "why": "missing"
+ },
+ "agency:today.replies": {
+  "text": "Válaszra váró hallgatók",
+  "why": "missing"
+ },
+ "agency:today.repliesDetail": {
+  "text": "Az utolsó üzenetükre még nem érkezett válasz.",
+  "why": "missing"
+ },
+ "agency:today.repliesOldest": {
+  "text": "Legrégebb óta vár: {{student}}, {{when}}",
+  "why": "missing"
+ },
+ "agency:today.repliesV4": {
+  "text": "Esedékes válaszok",
+  "why": "missing"
+ },
+ "agency:today.requests": {
+  "text": "Egyetemi dokumentumkérések",
+  "why": "missing"
+ },
+ "agency:today.requestsDetail": {
+  "text": "A hallgatónak kell feltöltenie. Ellenőrizze, hogy megérkezik-e.",
+  "why": "missing"
+ },
+ "agency:today.sla": {
+  "text": "Hallgatók, akiknek 24 órán belül jár az első válasz",
+  "why": "missing"
+ },
+ "agency:today.slaDetail": {
+  "text": "{{student}} · válasz esedékes: {{when}}",
+  "why": "missing"
+ },
+ "agency:today.unread": {
+  "text": "Olvasatlan beszélgetések",
+  "why": "missing"
+ },
+ "agency:today.unreadDetail": {
+  "text": "Legújabb: {{who}}, {{when}}",
+  "why": "missing"
+ },
+ "agency:today.upcoming": {
+  "text": "Közelgő határidők",
+  "why": "missing"
+ },
+ "agency:today.upcomingEmpty": {
+  "text": "Nincs határidő a következő 14 napban.",
+  "why": "missing"
+ },
+ "agency:today.upcomingSub": {
+  "text": "Következő 14 nap",
+  "why": "missing"
+ },
+ "agency:today.upcomingV4": {
+  "text": "Következő 14 nap",
+  "why": "missing"
+ },
+ "agency:today.v5.andMore_one": {
+  "text": "és még {{count}}",
+  "why": "missing"
+ },
+ "agency:today.v5.andMore_other": {
+  "text": "és még {{count}}",
+  "why": "missing"
+ },
+ "agency:today.v5.checks": {
+  "text": "Ellenőrre váró dokumentumellenőrzések",
+  "why": "missing"
+ },
+ "agency:today.v5.checksDetail": {
+  "text": "{{student}} · {{doc}}: {{what}}",
+  "why": "missing"
+ },
+ "agency:today.v5.services.needs_assignment": {
+  "text": "Kiosztásra váró új szolgáltatáskérések",
+  "why": "missing"
+ },
+ "agency:today.v5.services.overdue": {
+  "text": "Válaszidőn túli szolgáltatási ügyek",
+  "why": "missing"
+ },
+ "agency:today.v5.services.today": {
+  "text": "Ma esedékes szolgáltatási ügyek",
+  "why": "missing"
+ },
+ "agency:today.v5.servicesCta": {
+  "text": "Szolgáltatások megnyitása",
+  "why": "missing"
+ },
+ "agency:today.v5.servicesDetail": {
+  "text": "{{type}} · {{student}} · {{reason}}",
+  "why": "missing"
+ },
+ "agency:today.v5.visa": {
+  "text": "Önre váró vízumügyek",
+  "why": "missing"
+ },
+ "agency:today.v5.visaCta": {
+  "text": "Megnyitás",
+  "why": "missing"
+ },
+ "agency:today.v5.writingDetail": {
+  "text": "{{essay}} · {{student}}, {{university}}",
+  "why": "missing"
+ },
+ "agency:today.v5.writingDue": {
+  "text": "48 órán belül esedékes esszéértékelések",
+  "why": "missing"
+ },
+ "agency:today.v5.writingDue48": {
+  "text": "esedékes: {{when}}",
+  "why": "missing"
+ },
+ "agency:today.v5.writingOverdue": {
+  "text": "A vállalt időn túli esszéértékelések",
+  "why": "missing"
+ },
+ "agency:today.v5.writingRevised_one": {
+  "text": "{{count}} hallgatói átdolgozás",
+  "why": "missing"
+ },
+ "agency:today.v5.writingRevised_other": {
+  "text": "{{count}} hallgatói átdolgozás",
+  "why": "missing"
+ },
+ "agency:today.waitingOn": {
+  "text": "Ügyek aszerint, kire várnak",
+  "why": "missing"
+ },
+ "agency:today.workload": {
+  "text": "Csapatterhelés",
+  "why": "missing"
+ },
+ "agency:today.workloadSub": {
+  "text": "Aktív hallgatók és nyitott munka személyenként",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.adminUser": {
+  "text": "Adminisztrátor felhasználó",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.assigned": {
+  "text": "Hozzárendelt egyetem",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.empty": {
+  "text": "Még nincs egyetemi fiók.",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.invite": {
+  "text": "Egyetemi adminisztrátor meghívása",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.noUniversity": {
+  "text": "Nincs egyetem hozzákapcsolva",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.pickUniversity": {
+  "text": "Egyetem",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.pickUniversityPh": {
+  "text": "Válasszon partneregyetemet",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.reassign": {
+  "text": "Egyetem módosítása",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.reassignText": {
+  "text": "A tagsága a kiválasztott egyetem szervezetébe kerül át. A régi tagság inaktiválódik.",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.reassignTitle": {
+  "text": "{{name}} áthelyezése másik egyetemhez",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.search": {
+  "text": "Keresés név, e-mail vagy egyetem szerint…",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.sub": {
+  "text": "A partneregyetemek adminisztrátor felhasználói. Minden egyetemi adminisztrátornak azonos jogosultságai vannak.",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.title": {
+  "text": "Egyetemi fiókok",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.university": {
+  "text": "Egyetem",
+  "why": "missing"
+ },
+ "agency:v22.nav.hqAccounts": {
+  "text": "Egyetemi fiókok",
+  "why": "missing"
+ },
+ "agency:v22.stage.closed": {
+  "text": "Lezárva",
+  "why": "missing"
+ },
+ "agency:v22.stage.counselling": {
+  "text": "Konzultáció",
+  "why": "glossary: consultation = konzultáció"
+ },
+ "agency:v22.stage.ready": {
+  "text": "Beadásra kész",
+  "why": "'Kész' alone ambiguous"
+ },
+ "agency:v22.stage.stripHint": {
+  "text": "Válasszon szakaszt, hogy csak annak hallgatói jelenjenek meg. A számláló megegyezik az alábbi sorok számával.",
+  "why": "missing"
+ },
+ "agency:v22.team.active": {
+  "text": "Aktív",
+  "why": "missing"
+ },
+ "agency:v22.team.count_other": {
+  "text": "{{count}} fiók",
+  "why": "missing"
+ },
+ "agency:v22.team.devNote": {
+  "text": "Fejlesztői mód: a kód az API-konzolra került, nem e-mailben ment ki.",
+  "why": "missing"
+ },
+ "agency:v22.team.disable": {
+  "text": "Letiltás",
+  "why": "missing"
+ },
+ "agency:v22.team.disableReason": {
+  "text": "Indok",
+  "why": "missing"
+ },
+ "agency:v22.team.disableReasonPh": {
+  "text": "Kilépett az ügynökségtől",
+  "why": "missing"
+ },
+ "agency:v22.team.disableText": {
+  "text": "A továbbiakban nem tud bejelentkezni. Nyitott hallgatói, ellenőrzései és feladatai automatikusan a kollégákhoz kerülnek.",
+  "why": "missing"
+ },
+ "agency:v22.team.disableTitle": {
+  "text": "Letiltja {{name}} fiókját?",
+  "why": "missing"
+ },
+ "agency:v22.team.disabled": {
+  "text": "Letiltva",
+  "why": "missing"
+ },
+ "agency:v22.team.email": {
+  "text": "E-mail",
+  "why": "missing"
+ },
+ "agency:v22.team.empty": {
+  "text": "Még nincs fiók.",
+  "why": "missing"
+ },
+ "agency:v22.team.enable": {
+  "text": "Engedélyezés",
+  "why": "missing"
+ },
+ "agency:v22.team.invite": {
+  "text": "Adminisztrátor meghívása",
+  "why": "missing"
+ },
+ "agency:v22.team.inviteSub": {
+  "text": "E-mailben egyszer használatos kódot kap a jelszó beállításához.",
+  "why": "missing"
+ },
+ "agency:v22.team.lastLogin": {
+  "text": "Utolsó bejelentkezés",
+  "why": "missing"
+ },
+ "agency:v22.team.mailFailed": {
+  "text": "A meghívót nem sikerült e-mailben elküldeni. Kérje meg, hogy használja az „Elfelejtett jelszó” lehetőséget ezzel a címmel.",
+  "why": "missing"
+ },
+ "agency:v22.team.name": {
+  "text": "Név",
+  "why": "missing"
+ },
+ "agency:v22.team.never": {
+  "text": "Soha",
+  "why": "missing"
+ },
+ "agency:v22.team.sendInvite": {
+  "text": "Meghívó küldése",
+  "why": "missing"
+ },
+ "agency:v22.team.sent": {
+  "text": "Meghívó elküldve",
+  "why": "missing"
+ },
+ "agency:v22.team.sentTo": {
+  "text": "Meghívót küldtünk e-mailben ide: {{email}}.",
+  "why": "missing"
+ },
+ "agency:v22.team.status": {
+  "text": "Állapot",
+  "why": "missing"
+ },
+ "agency:v22.team.sub": {
+  "text": "Minden adminisztrátornak azonos jogosultságai vannak.",
+  "why": "missing"
+ },
+ "agency:v22.team.title": {
+  "text": "Adminisztrátori fiókok",
+  "why": "role term is 'adminisztrátor'"
+ },
+ "agency:v22.team.unverified": {
+  "text": "Meghívva · még nem igazolt",
+  "why": "missing"
+ },
+ "agency:v22.team.you": {
+  "text": "Ön",
+  "why": "missing"
+ },
+ "agency:v22.work.bulkOwner": {
+  "text": "Felelős beállítása…",
+  "why": "missing"
+ },
+ "agency:v22.work.closedHint": {
+  "text": "Fel nem vett és visszalépett hallgatók",
+  "why": "'not admitted', not 'rejected'"
+ },
+ "agency:v22.work.confirmOwner_other": {
+  "text": "{{name}} legyen {{count}} hallgató felelőse?",
+  "why": "missing"
+ },
+ "agency:v22.work.deleteView": {
+  "text": "Nézet törlése",
+  "why": "missing"
+ },
+ "agency:v22.work.empty": {
+  "text": "Nincs hallgató ebben a szakaszban",
+  "why": "missing"
+ },
+ "agency:v22.work.emptyFiltered": {
+  "text": "Nincs a szűrőknek megfelelő hallgató. Próbálja módosítani a szűrőket.",
+  "why": "dropped second sentence"
+ },
+ "agency:v22.work.myViews": {
+  "text": "Saját nézeteim",
+  "why": "missing"
+ },
+ "agency:v22.work.showTop": {
+  "text": "Első 10 megjelenítése",
+  "why": "missing"
+ },
+ "agency:v22.work.total_other": {
+  "text": "{{count}} hallgató",
+  "why": "missing"
+ },
+ "agency:v22.ws.docFix_other": {
+  "text": "{{count}} javítandó dokumentum",
+  "why": "missing"
+ },
+ "agency:v22.ws.docReview_other": {
+  "text": "{{count}} ellenőrizendő dokumentum",
+  "why": "missing"
+ },
+ "agency:v22.ws.needsActionEmpty": {
+  "text": "Ennél a hallgatónál semmi sem vár Önre.",
+  "why": "missing"
+ },
+ "agency:v22.ws.noConversation": {
+  "text": "Még nincs beszélgetés. Küldje el az első üzenetet.",
+  "why": "dropped second sentence"
+ },
+ "agency:v22.ws.openThread": {
+  "text": "Beszélgetés megnyitása",
+  "why": "missing"
+ },
+ "agency:v23.work.memberFilter": {
+  "text": "Egy munkatárs hallgatói láthatók",
+  "why": "missing"
+ },
+ "agency:v23.work.openAll": {
+  "text": "Mind a(z) {{count}} megnyitása a Hallgatók között",
+  "why": "missing"
+ },
+ "agency:v23.work.submissionsNeed_one": {
+  "text": "{{count}} jelentkezés vár a csapat általi beadásra",
+  "why": "missing"
+ },
+ "agency:v23.work.submissionsNeed_other": {
+  "text": "{{count}} jelentkezés vár a csapat általi beadásra",
+  "why": "'beadás a csapatra vár' unclear"
+ },
+ "agency:v27.evidence.age": {
+  "text": "Kiállítás ideje legfeljebb",
+  "why": "missing"
+ },
+ "agency:v27.evidence.ageDays": {
+  "text": "{{count}} nap",
+  "why": "missing"
+ },
+ "agency:v27.evidence.byNationality": {
+  "text": "állampolgárság szerint; a kiállító ország még nem ismert",
+  "why": "missing"
+ },
+ "agency:v27.evidence.extra": {
+  "text": "Továbbá",
+  "why": "missing"
+ },
+ "agency:v27.evidence.form": {
+  "text": "Benyújtás formája",
+  "why": "missing"
+ },
+ "agency:v27.evidence.legal": {
+  "text": "Felülhitelesítés",
+  "why": "missing"
+ },
+ "agency:v27.evidence.none": {
+  "text": "Még nincs feltöltve",
+  "why": "missing"
+ },
+ "agency:v27.evidence.open": {
+  "text": "Igazolás megjelenítése",
+  "why": "missing"
+ },
+ "agency:v27.evidence.proof": {
+  "text": "A hallgató feltöltése",
+  "why": "missing"
+ },
+ "agency:v27.evidence.quote": {
+  "text": "A tájékoztató szövege",
+  "why": "missing"
+ },
+ "agency:v27.evidence.when": {
+  "text": "Mikor vonatkozik",
+  "why": "missing"
+ },
+ "agency:v27.form.COPY": {
+  "text": "Másolat",
+  "why": "missing"
+ },
+ "agency:v27.form.EITHER": {
+  "text": "Eredeti vagy másolat",
+  "why": "missing"
+ },
+ "agency:v27.form.ORIGINAL": {
+  "text": "Eredeti",
+  "why": "missing"
+ },
+ "agency:v27.guide.current": {
+  "text": "Dokumentumlista forrása",
+  "why": "missing"
+ },
+ "agency:v27.guide.missingBody": {
+  "text": "Ennek az egyetemnek és szintnek az aktuális hivatalos felvételi tájékoztatója még nincs ellenőrizve, ezért nem jelenik meg dokumentumlista. Akkor jelenik meg, ha a Hangyul üzemeltetés ellenőrizte a tájékoztatót.",
+  "why": "missing"
+ },
+ "agency:v27.guide.previous": {
+  "text": "Az előző felvételi kör tájékoztatója alapján; az új tájékoztató ellenőrzése folyamatban",
+  "why": "missing"
+ },
+ "agency:v27.guide.source": {
+  "text": "Hivatalos tájékoztató",
+  "why": "missing"
+ },
+ "agency:v27.guide.verified": {
+  "text": "ellenőrizve: {{date}}",
+  "why": "missing"
+ },
+ "agency:v27.hq.guidesNone": {
+  "text": "Nincs ellenőrizendő felvételi tájékoztató.",
+  "why": "missing"
+ },
+ "agency:v27.hq.guidesSub": {
+  "text": "Ellenőrzött aktuális tájékoztató nélkül a hallgatók nem látnak dokumentumlistát. Sorrend: várakozó hallgatók száma szerint.",
+  "why": "missing"
+ },
+ "agency:v27.hq.guidesTitle": {
+  "text": "Ellenőrizendő felvételi tájékoztatók",
+  "why": "missing"
+ },
+ "agency:v27.hq.kind.CONFLICT": {
+  "text": "A hivatalos források eltérnek",
+  "why": "missing"
+ },
+ "agency:v27.hq.kind.MISSING_GUIDE": {
+  "text": "Nincs ellenőrzött tájékoztató",
+  "why": "missing"
+ },
+ "agency:v27.hq.kind.REVIEW_REQUIRED": {
+  "text": "Felülvizsgálat szükséges",
+  "why": "missing"
+ },
+ "agency:v27.hq.kind.SPOT_CHECK": {
+  "text": "Szúrópróba az eredeti alapján",
+  "why": "missing"
+ },
+ "agency:v27.hq.kind.STALE": {
+  "text": "A tájékoztató korábbi felvételi körből való",
+  "why": "missing"
+ },
+ "agency:v27.hq.waiting": {
+  "text": "{{count}} jelentkezés előkészítés alatt",
+  "why": "missing"
+ },
+ "agency:v27.ifApplies": {
+  "text": "Ha vonatkozik",
+  "why": "missing"
+ },
+ "agency:v27.issue.APOSTILLE": {
+  "text": "Apostille szükséges",
+  "why": "missing"
+ },
+ "agency:v27.issue.CHINA_CHSI": {
+  "text": "CHSI-ellenőrzés szükséges",
+  "why": "missing"
+ },
+ "agency:v27.issue.CONSULAR": {
+  "text": "Konzuli felülhitelesítés szükséges",
+  "why": "missing"
+ },
+ "agency:v27.issue.DONE": {
+  "text": "Kész",
+  "why": "missing"
+ },
+ "agency:v27.issue.FIX": {
+  "text": "Javítás szükséges",
+  "why": "missing"
+ },
+ "agency:v27.issue.IN_REVIEW": {
+  "text": "Ellenőrzés alatt",
+  "why": "missing"
+ },
+ "agency:v27.issue.LEGALIZATION_REVIEW": {
+  "text": "Felülhitelesítési eljárás tisztázandó",
+  "why": "missing"
+ },
+ "agency:v27.issue.NOTARIZATION": {
+  "text": "Közjegyzői hitelesítés szükséges",
+  "why": "missing"
+ },
+ "agency:v27.issue.ORIGINAL_CHECKED": {
+  "text": "Eredeti ellenőrizve",
+  "why": "missing"
+ },
+ "agency:v27.issue.TRANSLATION": {
+  "text": "Fordítás szükséges",
+  "why": "missing"
+ },
+ "agency:v27.issue.UPLOAD": {
+  "text": "Feltöltés szükséges",
+  "why": "missing"
+ },
+ "agency:v27.legal.APOSTILLE": {
+  "text": "Apostille",
+  "why": "missing"
+ },
+ "agency:v27.legal.CHINA_CHSI": {
+  "text": "Kínai CHSI-ellenőrzés vagy apostille",
+  "why": "missing"
+ },
+ "agency:v27.legal.CONSULAR": {
+  "text": "Konzuli felülhitelesítés",
+  "why": "missing"
+ },
+ "agency:v27.legal.NONE": {
+  "text": "Nem szükséges",
+  "why": "missing"
+ },
+ "agency:v27.legal.STAFF_REVIEW": {
+  "text": "Ellenőrzés a kiállító ország szerint",
+  "why": "missing"
+ },
+ "agency:v27.legal.UNSPECIFIED": {
+  "text": "A tájékoztató nem rendelkezik róla",
+  "why": "missing"
+ },
+ "agency:v27.party.agency": {
+  "text": "A mi teendőnk",
+  "why": "missing"
+ },
+ "agency:v27.party.student": {
+  "text": "A hallgató teendője",
+  "why": "missing"
+ },
+ "agency:v27.stage.overdue": {
+  "text": "Lejárt határidő",
+  "why": "missing"
+ },
+ "agency:v27.stage.stalled": {
+  "text": "{{count}} napja elakadt",
+  "why": "missing"
+ },
+ "agency:v27.submit.IN_PERSON": {
+  "text": "Személyesen",
+  "why": "missing"
+ },
+ "agency:v27.submit.MAIL": {
+  "text": "Postán",
+  "why": "missing"
+ },
+ "agency:v27.submit.ONLINE": {
+  "text": "Online űrlap",
+  "why": "missing"
+ },
+ "agency:v27.submit.UPLOAD": {
+  "text": "Online feltöltés",
+  "why": "missing"
+ },
+ "agency:v27.submit.UPLOAD_MAIL": {
+  "text": "Feltöltés, majd az eredeti postázása",
+  "why": "missing"
+ },
+ "agency:v28.stage.of": {
+  "text": "{{n}}. szakasz (összesen {{total}})",
+  "why": "no suffix on placeholder"
+ },
+ "agency:v29.guide.field.checklist": {
+  "text": "dokumentum-ellenőrzőlista",
+  "why": "missing"
+ },
+ "agency:v29.guide.field.current_intake": {
+  "text": "az aktuális kör tájékoztatója",
+  "why": "missing"
+ },
+ "agency:v29.guide.field.deadline": {
+  "text": "határidő",
+  "why": "missing"
+ },
+ "agency:v29.guide.field.source_url": {
+  "text": "hivatalos forrás",
+  "why": "missing"
+ },
+ "agency:v29.guide.field.submission_method": {
+  "text": "benyújtás módja",
+  "why": "missing"
+ },
+ "agency:v29.guide.field.verified_date": {
+  "text": "ellenőrzés dátuma",
+  "why": "missing"
+ },
+ "agency:v29.guide.verifyRequired": {
+  "text": "Kezelt jelentkezés előtt ellenőrizendő: {{fields}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.addOnStatus.ACTIVE": {
+  "text": "Folyamatban",
+  "why": "missing"
+ },
+ "agency:v29.plan.addOnStatus.APPROVED": {
+  "text": "Aktív (régi)",
+  "why": "missing"
+ },
+ "agency:v29.plan.addOnStatus.AWAITING_PAYMENT": {
+  "text": "Fizetésre vár",
+  "why": "missing"
+ },
+ "agency:v29.plan.addOnStatus.COMPLETED": {
+  "text": "Kész",
+  "why": "missing"
+ },
+ "agency:v29.plan.addOnStatus.OFFERED": {
+  "text": "Javasolva",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.dedicated": {
+  "text": "Saját csapat · elsőbbségi válaszok",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.docs.CHECKLIST": {
+  "text": "Dokumentumok: ellenőrzőlista",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.docs.INTENSIVE": {
+  "text": "Dokumentumok: alapos ellenőrzés",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.docs.REVIEW_GUIDANCE": {
+  "text": "Dokumentumok: ellenőrzés és javítási javaslatok",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.dorm.APPLICATION": {
+  "text": "Kollégium: segítség a jelentkezésben és egyéb szálláslehetőségek",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.dorm.INFORMATION": {
+  "text": "Kollégium: tájékoztatás",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.dorm.SCHEDULE": {
+  "text": "Kollégium: a jelentkezési határidők követése",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.settle.FULL": {
+  "text": "Beilleszkedés: D-30-tól D+30-ig",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.settle.INFORMATION": {
+  "text": "Beilleszkedés: alapvető tájékoztatás",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.settle.NONE": {
+  "text": "Beilleszkedés: nem tartalmazza",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.visa.DOCUMENT_PREP": {
+  "text": "Vízum: segítség a dokumentumok előkészítésében",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.visa.GUIDANCE": {
+  "text": "Vízum: útmutatás az eljáráshoz",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.visa.INTENSIVE": {
+  "text": "Vízum: dokumentumok és fő dátumok követése",
+  "why": "missing"
+ },
+ "agency:v29.plan.legacy": {
+  "text": "Vásárolva: {{version}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.howItWorks": {
+  "text": "Csak azután lép életbe, hogy a hallgató látta az árat és a terjedelmet, elfogadta és kifizette.",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.open": {
+  "text": "Kiegészítő szolgáltatás javaslása",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.quantity": {
+  "text": "Mennyiség ({{unit}})",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.quote": {
+  "text": "Egyedi árajánlat: adja meg az árat és a terjedelmet",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.range": {
+  "text": "Ajánlott tartomány: {{min}}–{{max}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.scope": {
+  "text": "Terjedelem (a hallgató látja)",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.scopeRequired": {
+  "text": "Terjedelem (kötelező, a hallgató látja)",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.send": {
+  "text": "Javaslat küldése a hallgatónak",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.service": {
+  "text": "Szolgáltatás",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.total": {
+  "text": "A hallgató fizet: {{amount}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.unitPrice": {
+  "text": "Egységár (USD)",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.arrival": {
+  "text": "Érkezés",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.arrivalLabel": {
+  "text": "Tervezett érkezési dátum",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.arrivalUnknown": {
+  "text": "Az érkezés dátuma nincs megerősítve",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.arrivalWindow": {
+  "text": "Felkészülés: {{from}} · érkezés: {{arrive}} · vége: {{until}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.ended": {
+  "text": "A szolgáltatási időszak lejárt",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.endsLabel": {
+  "text": "Szerződés vége",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.notStarted": {
+  "text": "Az első konzultáció előtt",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.saved": {
+  "text": "Szolgáltatási dátumok mentve.",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.set": {
+  "text": "Dátumok mentése",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.since": {
+  "text": "Kezdete: {{date}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.support": {
+  "text": "Konzultációk eddig: {{date}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.supportDays": {
+  "text": "{{count}} nap az első konzultációtól",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.title": {
+  "text": "Szolgáltatási időszak",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.toAgree": {
+  "text": "A szolgáltatási időszak nincs beállítva",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.until": {
+  "text": "Eddig: {{date}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.unrationed.CONTRACTED_DOCUMENTS": {
+  "text": "Korlát nélkül a szerződésben rögzített dokumentumokon és ütemterven belül",
+  "why": "missing"
+ },
+ "agency:v29.plan.unrationed.PRIORITY": {
+  "text": "Elsőbbségi válaszok",
+  "why": "missing"
+ },
+ "agency:v29.plan.unrationed.ROUNDS": {
+  "text": "Tartalmazza",
+  "why": "missing"
+ },
+ "agency:v29.plan.unrationed.TEAM": {
+  "text": "Csapatszintű utánkövetés",
+  "why": "missing"
+ },
+ "agency:v29.plan.usedSoFar": {
+  "text": "{{count}} teljesítve",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.ageing": {
+  "text": "Az ügy utolsó mozgása óta eltelt napok: a folyamatszakasz-váltás, a jelentkezés állapotváltozása vagy az ügynökséghez rendelés közül a legutóbbi.",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.backlog": {
+  "text": "Nyitott munka az egyes hetek végén: még el nem végzett csapatfeladatok (a hallgató saját teendői nélkül), még nem ellenőrzött dokumentumverziók, valamint értékelésre beküldött, de még nem értékelt esszék (az aktuális értékelési körben).",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.blocked": {
+  "text": "Egy ügy akkor elakadt, ha valamelyik félre vár, és több mint 14 napja nem mozdult. A legrégebbi elöl.",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.deadlines": {
+  "text": "Még be nem adott jelentkezések, amelyek jelentkezési határideje 14 napon belül van, és még hiányzik belőlük kötelező tétel.",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.load": {
+  "text": "Súlyozott terhelés személyenként: a náluk lévő nyitott munka minden fajtája × annak súlya (az ügynökség súlytáblázata), ugyanebben a pontrendszerben mért személyes kapacitásukhoz viszonyítva. Túlterhelt = a terhelés meghaladja a kapacitást. A szabadságon lévők nem kapnak új munkát.",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.sla": {
+  "text": "Határidőre meg nem adott első válasz; 48 óránál régebb óta ellenőrzésre váró dokumentumok; a vállalt értékelési időt túllépő esszéértékelések.",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.stages": {
+  "text": "A jelentkezések által egy állapotban eltöltött napok mediánja a továbblépés előtt (az elmúlt 365 napban lezárult tartózkodások). {{n}} tartózkodás alatt nem jelenik meg.",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.unassigned_paid": {
+  "text": "Fizetett Hangyul-szolgáltatás, amelynek ügyéhez nincs felelős tanácsadó (a Hangyul esetében: még nincs ügynökség hozzárendelve).",
+  "why": "missing"
+ },
+ "agency:v30.def.svc.arrival": {
+  "text": "Teljesített reptéri fogadások ÷ azok a fogadások, amelyek érkezési ideje már elmúlt (a lemondottak nélkül)",
+  "why": "missing"
+ },
+ "agency:v30.def.svc.completion": {
+  "text": "Teljesített ÷ az időszakban létrehozott ügyek (a lemondottak nélkül)",
+  "why": "missing"
+ },
+ "agency:v30.def.svc.resolution": {
+  "text": "A kéréstől a teljesítésig eltelt órák mediánja, csak a teljesített ügyeknél",
+  "why": "missing"
+ },
+ "agency:v30.def.svc.sla": {
+  "text": "Azok az ügyek, ahol a csapat az SLA lejárta után intézkedett (vagy nem intézkedett, és az SLA lejárt) ÷ azok az ügyek, amelyek SLA-ja esedékessé vált",
+  "why": "missing"
+ },
+ "agency:v31.stage.closed": {
+  "text": "Lezárva",
+  "why": "missing"
+ },
+ "agency:waiting.app.ADDITIONAL_DOCUMENTS": {
+  "text": "az egyetem dokumentumot kért",
+  "why": "missing"
+ },
+ "agency:waiting.app.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "vízumügy indítása",
+  "why": "missing"
+ },
+ "agency:waiting.app.ADMISSION_CERTIFICATE_PENDING": {
+  "text": "felvételi levél",
+  "why": "missing"
+ },
+ "agency:waiting.app.PROFILE_REVIEW": {
+  "text": "profil ellenőrzése",
+  "why": "missing"
+ },
+ "agency:waiting.app.READY": {
+  "text": "beadásra kész",
+  "why": "missing"
+ },
+ "agency:waiting.app.TUITION_PAID": {
+  "text": "felvételi levél",
+  "why": "missing"
+ },
+ "agency:waiting.app.TUITION_PENDING": {
+  "text": "tandíjfizetés",
+  "why": "missing"
+ },
+ "agency:waiting.app.VISA_SUBMITTED": {
+  "text": "vízumdöntés (nagykövetség)",
+  "why": "missing"
+ },
+ "agency:waiting.reason.first_contact": {
+  "text": "első kapcsolatfelvétel esedékes",
+  "why": "missing"
+ },
+ "agency:waiting.reason.fix_one": {
+  "text": "{{count}} javítandó dokumentum",
+  "why": "missing"
+ },
+ "agency:waiting.reason.fix_other": {
+  "text": "{{count}} javítandó dokumentum",
+  "why": "missing"
+ },
+ "agency:waiting.reason.overdue_task_one": {
+  "text": "{{count}} lejárt feladat",
+  "why": "missing"
+ },
+ "agency:waiting.reason.overdue_task_other": {
+  "text": "{{count}} lejárt feladat",
+  "why": "missing"
+ },
+ "agency:waiting.reason.reply": {
+  "text": "a hallgató válaszolt",
+  "why": "missing"
+ },
+ "agency:waiting.reason.review_one": {
+  "text": "{{count}} ellenőrizendő dokumentum",
+  "why": "missing"
+ },
+ "agency:waiting.reason.review_other": {
+  "text": "{{count}} ellenőrizendő dokumentum",
+  "why": "missing"
+ },
+ "agency:ws.act.call": {
+  "text": "Konzultáció foglalása",
+  "why": "missing"
+ },
+ "agency:ws.activityNote": {
+  "text": "Az auditnaplóból: megtekintések, módosítások és döntések a hallgató adataiban.",
+  "why": "missing"
+ },
+ "agency:ws.apptHint": {
+  "text": "Konzultációk és próbainterjúk ezzel a hallgatóval.",
+  "why": "missing"
+ },
+ "agency:ws.assignedBy": {
+  "text": "Hozzárendelte: {{by}}",
+  "why": "missing"
+ },
+ "agency:ws.block.deadline_other": {
+  "text": "{{uni}}: a jelentkezés {{count}} nap múlva zárul",
+  "why": "missing"
+ },
+ "agency:ws.block.overdue": {
+  "text": "Lejárt: {{title}}",
+  "why": "missing"
+ },
+ "agency:ws.block.review_one": {
+  "text": "{{count}} dokumentum vár az Ön ellenőrzésére",
+  "why": "missing"
+ },
+ "agency:ws.block.review_other": {
+  "text": "{{count}} dokumentum vár az Ön ellenőrzésére",
+  "why": "missing"
+ },
+ "agency:ws.block.sla": {
+  "text": "Az Ön első válaszára vár",
+  "why": "missing"
+ },
+ "agency:ws.block.slaDetail": {
+  "text": "Az első válasz határideje lejárt: {{when}}",
+  "why": "missing"
+ },
+ "agency:ws.block.uniRequest": {
+  "text": "{{uni}} további dokumentumokat kért",
+  "why": "missing"
+ },
+ "agency:ws.blockedBy": {
+  "text": "Előbb ez kell: {{deps}}",
+  "why": "missing"
+ },
+ "agency:ws.blockers": {
+  "text": "Akadályok",
+  "why": "missing"
+ },
+ "agency:ws.budget": {
+  "text": "Éves költségkeret",
+  "why": "missing"
+ },
+ "agency:ws.by.ENGINE": {
+  "text": "az illesztőmotor",
+  "why": "missing"
+ },
+ "agency:ws.by.MANUAL": {
+  "text": "egy adminisztrátor",
+  "why": "missing"
+ },
+ "agency:ws.by.OPERATIONS_OVERRIDE": {
+  "text": "a Hangyul üzemeltetés (felülbírálás)",
+  "why": "missing"
+ },
+ "agency:ws.by.ORDER": {
+  "text": "egy szolgáltatásvásárlás",
+  "why": "missing"
+ },
+ "agency:ws.dob": {
+  "text": "Születési dátum",
+  "why": "missing"
+ },
+ "agency:ws.education": {
+  "text": "Tanulmányok",
+  "why": "missing"
+ },
+ "agency:ws.expires": {
+  "text": "Lejár: {{date}}",
+  "why": "missing"
+ },
+ "agency:ws.factor.country": {
+  "text": "Országismeret",
+  "why": "missing"
+ },
+ "agency:ws.factor.degree": {
+  "text": "Fokozat szerinti szakértelem",
+  "why": "missing"
+ },
+ "agency:ws.factor.language": {
+  "text": "Nyelvi egyezés",
+  "why": "missing"
+ },
+ "agency:ws.factor.preference": {
+  "text": "A hallgató preferenciája",
+  "why": "missing"
+ },
+ "agency:ws.factor.sla": {
+  "text": "Közelmúltbeli SLA-teljesítés",
+  "why": "missing"
+ },
+ "agency:ws.factor.university": {
+  "text": "Célegyetemek",
+  "why": "missing"
+ },
+ "agency:ws.factor.workload": {
+  "text": "Szabad kapacitás",
+  "why": "missing"
+ },
+ "agency:ws.fields": {
+  "text": "Szakterületek",
+  "why": "missing"
+ },
+ "agency:ws.gpa": {
+  "text": "GPA",
+  "why": "missing"
+ },
+ "agency:ws.gpaNorm": {
+  "text": "{{pct}}% (átszámítva)",
+  "why": "missing"
+ },
+ "agency:ws.identity": {
+  "text": "Személyazonosság és lakóhely",
+  "why": "missing"
+ },
+ "agency:ws.itemsInReview_other": {
+  "text": "{{count}} tétel ellenőrzés alatt",
+  "why": "missing"
+ },
+ "agency:ws.itemsInReview_one": {
+  "text": "{{count}} tétel ellenőrzés alatt",
+  "why": "noun was missing"
+ },
+ "agency:ws.itemsRemain_one": {
+  "text": "{{count}} tétel van hátra",
+  "why": "missing"
+ },
+ "agency:ws.languages": {
+  "text": "Nyelvvizsgák",
+  "why": "missing"
+ },
+ "agency:ws.level.ASSOCIATE": {
+  "text": "Felsőfokú szakképzés",
+  "why": "missing"
+ },
+ "agency:ws.level.BACHELOR": {
+  "text": "Alapképzés",
+  "why": "missing"
+ },
+ "agency:ws.level.DOCTORATE": {
+  "text": "Doktori képzés",
+  "why": "missing"
+ },
+ "agency:ws.level.HIGH_SCHOOL": {
+  "text": "Középiskola",
+  "why": "missing"
+ },
+ "agency:ws.level.MASTER": {
+  "text": "Mesterképzés",
+  "why": "missing"
+ },
+ "agency:ws.maskedHint": {
+  "text": "Adatvédelmi okból maszkolva. A teljes szám csak a hallgató dokumentumtárában található.",
+  "why": "missing"
+ },
+ "agency:ws.noActivity": {
+  "text": "Még nincs rögzített aktivitás",
+  "why": "missing"
+ },
+ "agency:ws.noApps": {
+  "text": "Még nincs jelentkezés",
+  "why": "missing"
+ },
+ "agency:ws.noAppsText": {
+  "text": "A jelentkezések akkor jelennek meg itt, amikor a hallgató elindít egyet.",
+  "why": "missing"
+ },
+ "agency:ws.noBreakdown": {
+  "text": "Ehhez a hozzárendeléshez nem lett rögzítve pontszámbontás.",
+  "why": "missing"
+ },
+ "agency:ws.noConversations": {
+  "text": "Még nincs beszélgetés ezzel a hallgatóval",
+  "why": "missing"
+ },
+ "agency:ws.noDocs": {
+  "text": "Még nincs dokumentum a dokumentumtárban",
+  "why": "missing"
+ },
+ "agency:ws.noEducation": {
+  "text": "Még nincs tanulmány rögzítve.",
+  "why": "missing"
+ },
+ "agency:ws.noEssays": {
+  "text": "Még nincs esszé",
+  "why": "missing"
+ },
+ "agency:ws.noLanguages": {
+  "text": "Még nincs nyelvvizsga-eredmény.",
+  "why": "missing"
+ },
+ "agency:ws.noVisa": {
+  "text": "Még nincs vízumügy",
+  "why": "missing"
+ },
+ "agency:ws.noVisaText": {
+  "text": "A vízumügy automatikusan megnyílik, amint az egyetem kiállítja a standard felvételi levelet (standard admission letter).",
+  "why": "missing"
+ },
+ "agency:ws.notAssigned": {
+  "text": "Nincs ügynökséghez rendelve",
+  "why": "missing"
+ },
+ "agency:ws.passport": {
+  "text": "Útlevél",
+  "why": "missing"
+ },
+ "agency:ws.passportExpiry": {
+  "text": "Útlevél lejárata",
+  "why": "missing"
+ },
+ "agency:ws.planned": {
+  "text": "tervezett",
+  "why": "missing"
+ },
+ "agency:ws.preferences": {
+  "text": "Preferenciák",
+  "why": "missing"
+ },
+ "agency:ws.profileTitle": {
+  "text": "Profil",
+  "why": "missing"
+ },
+ "agency:ws.regions": {
+  "text": "Régiók",
+  "why": "missing"
+ },
+ "agency:ws.residence": {
+  "text": "Lakóhely szerinti ország",
+  "why": "missing"
+ },
+ "agency:ws.scholarship": {
+  "text": "Ösztöndíjra van szüksége",
+  "why": "missing"
+ },
+ "agency:ws.score": {
+  "text": "Illeszkedési pontszám: {{score}} / 100",
+  "why": "missing"
+ },
+ "agency:ws.selfReported": {
+  "text": "saját bevallás",
+  "why": "missing"
+ },
+ "agency:ws.sinceDate": {
+  "text": "Hozzárendelve: {{date}} óta",
+  "why": "missing"
+ },
+ "agency:ws.sponsor": {
+  "text": "Anyagi támogató",
+  "why": "missing"
+ },
+ "agency:ws.sponsorKind.EMPLOYER": {
+  "text": "Munkáltató",
+  "why": "missing"
+ },
+ "agency:ws.sponsorKind.PARENTS": {
+  "text": "Szülők",
+  "why": "missing"
+ },
+ "agency:ws.sponsorKind.RELATIVE": {
+  "text": "Rokon",
+  "why": "missing"
+ },
+ "agency:ws.sponsorKind.SCHOLARSHIP": {
+  "text": "Ösztöndíj",
+  "why": "missing"
+ },
+ "agency:ws.sponsorKind.SELF": {
+  "text": "Saját maga",
+  "why": "missing"
+ },
+ "agency:ws.stage": {
+  "text": "Folyamatszakasz",
+  "why": "missing"
+ },
+ "agency:ws.tab.history": {
+  "text": "Előzmények",
+  "why": "missing"
+ },
+ "agency:ws.tab.messages": {
+  "text": "Üzenetek",
+  "why": "missing"
+ },
+ "agency:ws.tab.portfolio": {
+  "text": "Portfólió",
+  "why": "missing"
+ },
+ "agency:ws.tab.tasks": {
+  "text": "Feladatok",
+  "why": "missing"
+ },
+ "agency:ws.tasksHint": {
+  "text": "A csapat és a hallgató számára látható feladatok ehhez a hallgatóhoz.",
+  "why": "missing"
+ },
+ "agency:ws.visaHistory": {
+  "text": "Koreai vízumelőzmények",
+  "why": "missing"
+ },
+ "agency:ws.weightsNote": {
+  "text": "Tényezőnként szerzett pontok a tényező súlyához képest (teljes súly: {{total}}). A pontszámok a választást magyarázzák; nem minőségi értékelések.",
+  "why": "missing"
+ },
+ "agency:ws.whyAssigned": {
+  "text": "Miért ez a hozzárendelés?",
+  "why": "missing"
+ },
+ "university:af.applications": {
+  "text": "Jelentkezések",
+  "why": "missing"
+ },
+ "university:af.fromPrevious": {
+  "text": "Az előző lépéshez képest",
+  "why": "missing"
+ },
+ "university:af.lowN": {
+  "text": "Túl kevés az arányszámításhoz",
+  "why": "missing"
+ },
+ "university:af.step": {
+  "text": "Lépés",
+  "why": "missing"
+ },
+ "university:af.stepDef.ACCEPTED": {
+  "text": "A jelentkező elfogadta az Önök ajánlatát.",
+  "why": "'ajánlatukat' = a third party's"
+ },
+ "university:af.stepDef.ARRIVED": {
+  "text": "A hallgató jelezte, hogy megérkezett Koreába (vagy beiratkozott).",
+  "why": "missing"
+ },
+ "university:af.stepDef.REVIEWED": {
+  "text": "Az Önök csapata megkezdte az elbírálást, dokumentumot kért, interjúztatott vagy döntött.",
+  "why": "missing"
+ },
+ "university:af.stepDef.SUBMITTED": {
+  "text": "Az Önök egyetemére beadott jelentkezések.",
+  "why": "missing"
+ },
+ "university:af.stepDef.TUITION_PAID": {
+  "text": "Önök megerősítették a tandíj befizetését.",
+  "why": "missing"
+ },
+ "university:af.stepDef.VISA_ISSUED": {
+  "text": "A hallgató D-2/D-4 vízumát kiadták.",
+  "why": "missing"
+ },
+ "university:af.title": {
+  "text": "Felvételi tölcsér",
+  "why": "missing"
+ },
+ "university:analytics.dim.agency": {
+  "text": "Ügynökség",
+  "why": "missing"
+ },
+ "university:analytics.dim.nationality": {
+  "text": "Állampolgárság",
+  "why": "missing"
+ },
+ "university:analytics.dim.program": {
+  "text": "Képzés",
+  "why": "missing"
+ },
+ "university:applicants.customStatus_other": {
+  "text": "{{count}} állapot kiválasztva",
+  "why": "missing"
+ },
+ "university:applicants.flagged": {
+  "text": "Megjelölve",
+  "why": "missing"
+ },
+ "university:applicants.requested_one": {
+  "text": "{{count}} dokumentum kérve",
+  "why": "noun was missing"
+ },
+ "university:applicants.requested_other": {
+  "text": "{{count}} dokumentum kérve",
+  "why": "missing"
+ },
+ "university:applicants.status": {
+  "text": "Állapot",
+  "why": "missing"
+ },
+ "university:common.yes": {
+  "text": "Igen",
+  "why": "missing"
+ },
+ "university:dash.noApplicants": {
+  "text": "Ezekkel a szűrőkkel még nincs beadott jelentkezés.",
+  "why": "missing"
+ },
+ "university:decision.action.ADDITIONAL_DOCUMENTS": {
+  "text": "Dokumentumok kérése",
+  "why": "missing"
+ },
+ "university:decision.action.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "Felvételi levél kiállítása",
+  "why": "missing"
+ },
+ "university:decision.action.ADMISSION_CERTIFICATE_PENDING": {
+  "text": "Felvételi levél függőben",
+  "why": "missing"
+ },
+ "university:decision.action.ENROLLED": {
+  "text": "Beiratkozás megerősítése",
+  "why": "missing"
+ },
+ "university:decision.action.INTERVIEW": {
+  "text": "Interjú kitűzése",
+  "why": "missing"
+ },
+ "university:decision.action.OFFERED": {
+  "text": "Ajánlat küldése",
+  "why": "missing"
+ },
+ "university:decision.action.REJECTED": {
+  "text": "Elutasítás",
+  "why": "missing"
+ },
+ "university:decision.action.TUITION_PAID": {
+  "text": "Tandíjfizetés megerősítése",
+  "why": "missing"
+ },
+ "university:decision.action.TUITION_PENDING": {
+  "text": "Tandíjszámla kiállítása",
+  "why": "missing"
+ },
+ "university:decision.action.UNIVERSITY_REVIEW": {
+  "text": "Elbírálás megkezdése",
+  "why": "missing"
+ },
+ "university:decision.action.WAITLISTED": {
+  "text": "Várólistára helyezés",
+  "why": "missing"
+ },
+ "university:decision.certificateInfo": {
+  "text": "A standard felvételi levél (standard admission letter) kiállítása automatikusan megnyitja a hallgató vízumügyét.",
+  "why": "missing"
+ },
+ "university:decision.confirm": {
+  "text": "{{student}} áthelyezése innen: „{{from}}” ide: „{{to}}”. A hallgató és az ügynöksége értesítést kap.",
+  "why": "missing"
+ },
+ "university:decision.done": {
+  "text": "A jelentkezés áthelyezve ide: „{{status}}”.",
+  "why": "missing"
+ },
+ "university:decision.interviewAt": {
+  "text": "Az interjú dátuma és időpontja",
+  "why": "missing"
+ },
+ "university:decision.none": {
+  "text": "Ebben a szakaszban nincs esedékes egyetemi intézkedés.",
+  "why": "missing"
+ },
+ "university:decision.note": {
+  "text": "Megjegyzés",
+  "why": "missing"
+ },
+ "university:decision.noteHint": {
+  "text": "Az állapotelőzményekbe kerül, és a hallgató és az ügynökség is látja.",
+  "why": "missing"
+ },
+ "university:decision.readOnly": {
+  "text": "Az Ön szerepköre csak olvasásra jogosít. Döntéshez kérjen meg egy felvételi ügyintézőt vagy adminisztrátort.",
+  "why": "missing"
+ },
+ "university:decision.reason": {
+  "text": "Indok",
+  "why": "missing"
+ },
+ "university:decision.reasonHint": {
+  "text": "A jelentkezés előzményeiben marad. A jelentkező tapintatos összefoglalót lát, a tanácsadója pedig az Önök indokát.",
+  "why": "missing"
+ },
+ "university:decision.rejectWarning": {
+  "text": "Az elutasítás a Hangyulban végleges. Ha megüresedhet hely, fontolja meg a várólistára helyezést.",
+  "why": "missing"
+ },
+ "university:decision.scholarshipNote": {
+  "text": "Ösztöndíj-megjegyzés",
+  "why": "missing"
+ },
+ "university:decision.scholarshipNoteHint": {
+  "text": "Pl. „30% tandíjkedvezmény az első félévben”. A hallgató az ajánlattal együtt látja.",
+  "why": "missing"
+ },
+ "university:decision.title": {
+  "text": "Döntés",
+  "why": "missing"
+ },
+ "university:decision.tuitionAmount": {
+  "text": "Tandíj összege (KRW)",
+  "why": "missing"
+ },
+ "university:decision.tuitionDue": {
+  "text": "Fizetési határidő",
+  "why": "missing"
+ },
+ "university:detail.applicant": {
+  "text": "Jelentkező",
+  "why": "missing"
+ },
+ "university:detail.decided": {
+  "text": "Döntés dátuma",
+  "why": "missing"
+ },
+ "university:detail.externalRef": {
+  "text": "Saját hivatkozási szám",
+  "why": "missing"
+ },
+ "university:detail.externalRefHint": {
+  "text": "Az Önök saját jelentkezői vagy felvételi azonosítója (a Hangyul és az ügynökség látja).",
+  "why": "missing"
+ },
+ "university:detail.gpaNormalized": {
+  "text": "GPA: {{value}}% (átszámítva)",
+  "why": "missing"
+ },
+ "university:detail.gpaUnknown": {
+  "text": "GPA nincs megadva",
+  "why": "missing"
+ },
+ "university:detail.history": {
+  "text": "Állapotelőzmények",
+  "why": "missing"
+ },
+ "university:detail.interview": {
+  "text": "Interjú",
+  "why": "missing"
+ },
+ "university:detail.legalization": {
+  "text": "Apostille vagy konzuli felülhitelesítés",
+  "why": "missing"
+ },
+ "university:detail.noEducation": {
+  "text": "Nincs megosztott tanulmányi adat.",
+  "why": "missing"
+ },
+ "university:detail.notShared": {
+  "text": "Nincs megosztva",
+  "why": "missing"
+ },
+ "university:detail.notSharedHint": {
+  "text": "A hallgató nem osztotta meg ezt a dokumentumot az Önök egyetemével.",
+  "why": "missing"
+ },
+ "university:detail.optionalDoc": {
+  "text": "Nem kötelező",
+  "why": "missing"
+ },
+ "university:detail.refSaved": {
+  "text": "Hivatkozási szám mentve",
+  "why": "missing"
+ },
+ "university:detail.residence": {
+  "text": "Lakóhely szerinti ország",
+  "why": "missing"
+ },
+ "university:detail.scholarshipNote": {
+  "text": "Ösztöndíj-megjegyzés",
+  "why": "missing"
+ },
+ "university:detail.selfReported": {
+  "text": "Saját bevallás",
+  "why": "missing"
+ },
+ "university:detail.sharingNote": {
+  "text": "Megtekinthetik azokat a dokumentumokat, amelyeket a hallgató a beadáskor megosztott az Önök egyetemével. Minden megtekintést naplózunk.",
+  "why": "missing"
+ },
+ "university:detail.side": {
+  "text": "A jelentkezés részletei",
+  "why": "missing"
+ },
+ "university:detail.translation": {
+  "text": "Fordítás",
+  "why": "missing"
+ },
+ "university:detail.tuition": {
+  "text": "Tandíj",
+  "why": "missing"
+ },
+ "university:detail.verified": {
+  "text": "Ellenőrizve",
+  "why": "missing"
+ },
+ "university:documents.analystNote": {
+  "text": "Az elemzők megtekinthetik a dokumentumokat, de nem tölthetik le őket.",
+  "why": "missing"
+ },
+ "university:documents.expires": {
+  "text": "Lejárat",
+  "why": "missing"
+ },
+ "university:documents.file": {
+  "text": "Fájl",
+  "why": "missing"
+ },
+ "university:documents.hangyulBody": {
+  "text": "Hangyul-munkatársként ezen az oldalon nem egyetlen egyetemre korlátozódik. Nyisson meg egy jelentkezést, hogy pontosan lássa, mely dokumentumokat osztotta meg a hallgató az adott egyetemmel.",
+  "why": "missing"
+ },
+ "university:documents.hangyulTitle": {
+  "text": "Dokumentumok megnyitása egy jelentkezésből",
+  "why": "missing"
+ },
+ "university:documents.issued": {
+  "text": "Kiállítva",
+  "why": "missing"
+ },
+ "university:documents.legalization": {
+  "text": "Közjegyzői hitelesítés és felülhitelesítés",
+  "why": "'Hitelesítés' alone ambiguous"
+ },
+ "university:documents.openApplication": {
+  "text": "Jelentkezés megnyitása",
+  "why": "missing"
+ },
+ "university:documents.openTab": {
+  "text": "Megnyitás új lapon",
+  "why": "missing"
+ },
+ "university:documents.usedIn": {
+  "text": "Felhasználva ezekben a jelentkezésekben",
+  "why": "missing"
+ },
+ "university:header.certificationHint": {
+  "text": "IEQAS-tanúsítási állapot (az Oktatási Minisztérium akkreditációja nemzetközi hallgatók toborzására és támogatására)",
+  "why": "missing"
+ },
+ "university:header.hangyulView": {
+  "text": "Hangyul-munkatársi nézet",
+  "why": "missing"
+ },
+ "university:header.partner": {
+  "text": "Hangyul-partner",
+  "why": "missing"
+ },
+ "university:kpi.definitionOf": {
+  "text": "{{label}} meghatározása",
+  "why": "missing"
+ },
+ "university:kpi.insufficientDetail": {
+  "text": "Legalább {{min}} rekordtól jelenik meg (jelenleg {{n}}).",
+  "why": "matches EN order and meaning"
+ },
+ "university:kpi.retention": {
+  "text": "Megtartási arány",
+  "why": "EN: rate"
+ },
+ "university:kpi.sample": {
+  "text": "n = {{n}}",
+  "why": "missing"
+ },
+ "university:kpi.viewList": {
+  "text": "Lista megtekintése",
+  "why": "missing"
+ },
+ "university:kpi.yield": {
+  "text": "Beiratkozási arány",
+  "why": "missing"
+ },
+ "university:login.ssoContinue": {
+  "text": "Folytatás az egyetemi fiókkal",
+  "why": "missing"
+ },
+ "university:login.ssoEnforced": {
+  "text": "{{org}} egyszeri bejelentkezést (SSO) ír elő. Használja a fenti gombot.",
+  "why": "missing"
+ },
+ "university:login.ssoHint": {
+  "text": "{{org}} egyszeri bejelentkezést (SSO) használ. Jelszóval is bejelentkezhet.",
+  "why": "missing"
+ },
+ "university:login.ssoUnavailable": {
+  "text": "{{org}} SAML-bejelentkezésre van beállítva, amely még nem elérhető. Forduljon a Hangyul ügyfélszolgálatához.",
+  "why": "missing"
+ },
+ "university:login.subtitle": {
+  "text": "A Hangyul partneregyetemeinek nemzetközi irodái és felvételi csapatai számára.",
+  "why": "missing"
+ },
+ "university:login.title": {
+  "text": "Bejelentkezés az Egyetemi konzolba",
+  "why": "missing"
+ },
+ "university:metric.period": {
+  "text": "beadva: {{from}} – {{to}}",
+  "why": "missing"
+ },
+ "university:metric.population": {
+  "text": "Sokaság: beadott jelentkezések · {{intake}} · {{n}} jelentkezés",
+  "why": "missing"
+ },
+ "university:nav.programsRules": {
+  "text": "Képzések és követelmények",
+  "why": "EN: requirements"
+ },
+ "university:nav.settingsTeam": {
+  "text": "Beállítások és csapat",
+  "why": "missing"
+ },
+ "university:nav.students": {
+  "text": "Beiratkozott hallgatók",
+  "why": "EN: enrolled"
+ },
+ "university:notFound.body": {
+  "text": "A keresett oldal nem létezik, vagy áthelyezték.",
+  "why": "missing"
+ },
+ "university:notFound.cta": {
+  "text": "Vissza az irányítópultra",
+  "why": "missing"
+ },
+ "university:notifications.subtitle": {
+  "text": "Frissítések a jelentkezésekről, dokumentumokról és üzenetekről.",
+  "why": "missing"
+ },
+ "university:notifications.unread": {
+  "text": "Olvasatlan",
+  "why": "missing"
+ },
+ "university:picker.body": {
+  "text": "Hangyul-munkatársként van bejelentkezve. Válassza ki a megtekintendő partneregyetemet. Ezután minden oldal arra az egyetemre szűkül.",
+  "why": "missing"
+ },
+ "university:picker.label": {
+  "text": "Egyetem",
+  "why": "missing"
+ },
+ "university:picker.placeholder": {
+  "text": "Válasszon partneregyetemet…",
+  "why": "missing"
+ },
+ "university:picker.title": {
+  "text": "Egyetem kiválasztása",
+  "why": "missing"
+ },
+ "university:settings.hangyulTeam": {
+  "text": "Ezt az egyetemet Hangyul-munkatársként tekinti meg. A csapatát az egyetem adminisztrátora kezeli.",
+  "why": "missing"
+ },
+ "university:settings.noTeam": {
+  "text": "Nincs csapattag. Tagok hozzáadását a Hangyultól kérheti.",
+  "why": "dropped second sentence"
+ },
+ "university:settings.sso": {
+  "text": "Egyszeri bejelentkezés (SSO)",
+  "why": "missing"
+ },
+ "university:settings.ssoAdminOnly": {
+  "text": "Az egyszeri bejelentkezést az egyetem adminisztrátora kezeli.",
+  "why": "missing"
+ },
+ "university:settings.ssoDomains": {
+  "text": "E-mail-domainek",
+  "why": "missing"
+ },
+ "university:settings.ssoEnforce": {
+  "text": "Jelszavas bejelentkezés letiltva",
+  "why": "missing"
+ },
+ "university:settings.ssoNone": {
+  "text": "Nincs beállítva. A Hangyul összekapcsolhatja az Önök identitásszolgáltatóját (OpenID Connect). Forduljon a Hangyul-kapcsolattartójához.",
+  "why": "missing"
+ },
+ "university:settings.ssoNote": {
+  "text": "A titkos kulcsokat soha nem tároljuk a Hangyul Univ adatbázisában. A SAML még nem elérhető.",
+  "why": "missing"
+ },
+ "university:settings.ssoOff": {
+  "text": "Beállítva, nincs engedélyezve",
+  "why": "missing"
+ },
+ "university:settings.ssoOn": {
+  "text": "Engedélyezve",
+  "why": "missing"
+ },
+ "university:settings.ssoProtocol": {
+  "text": "Protokoll",
+  "why": "missing"
+ },
+ "university:settings.ssoSecret": {
+  "text": "Klienstitok",
+  "why": "missing"
+ },
+ "university:settings.ssoSecretMissing": {
+  "text": "Hiányzik a telepítésből",
+  "why": "missing"
+ },
+ "university:settings.ssoSecretOk": {
+  "text": "A telepítés biztosítja",
+  "why": "missing"
+ },
+ "university:settings.ssoStatus": {
+  "text": "Állapot",
+  "why": "missing"
+ },
+ "university:settings.ssoSub": {
+  "text": "Munkatársak bejelentkezése az egyetemi fiókjukkal.",
+  "why": "missing"
+ },
+ "university:settings.subtitle": {
+  "text": "Az Ön hozzáférése és a(z) {{university}} csapata a Hangyulon.",
+  "why": "missing"
+ },
+ "university:settings.teamSub": {
+  "text": "Az egyetem konzolhozzáféréssel rendelkező munkatársai",
+  "why": "missing"
+ },
+ "university:settings.you": {
+  "text": "Az Ön hozzáférése",
+  "why": "missing"
+ },
+ "university:settings.youShort": {
+  "text": "Ön",
+  "why": "missing"
+ },
+ "university:stage.ADMITTED": {
+  "text": "Felvett",
+  "why": "missing"
+ },
+ "university:stage.APPLIED": {
+  "text": "Jelentkezett",
+  "why": "missing"
+ },
+ "university:stage.ARRIVED": {
+  "text": "Megérkezett",
+  "why": "missing"
+ },
+ "university:stage.ENROLLED": {
+  "text": "Beiratkozott",
+  "why": "missing"
+ },
+ "university:stage.GRADUATED": {
+  "text": "Végzett",
+  "why": "missing"
+ },
+ "university:stage.INTERESTED": {
+  "text": "Érdeklődő",
+  "why": "missing"
+ },
+ "university:stage.PREPARING": {
+  "text": "Előkészítés",
+  "why": "missing"
+ },
+ "university:stage.RETAINED": {
+  "text": "Megtartott",
+  "why": "missing"
+ },
+ "university:stage.TUITION_PAID": {
+  "text": "Tandíj befizetve",
+  "why": "missing"
+ },
+ "university:stage.VISA_ISSUED": {
+  "text": "Vízum kiadva",
+  "why": "missing"
+ },
+ "university:v22.closed": {
+  "text": "{{n}} lezárva (fel nem vett vagy visszavont)",
+  "why": "missing"
+ },
+ "university:v22.empty.admitted": {
+  "text": "Nincs függőben lévő ajánlat.",
+  "why": "missing"
+ },
+ "university:v22.empty.decision": {
+  "text": "Senki sincs várólistán.",
+  "why": "missing"
+ },
+ "university:v22.empty.documents": {
+  "text": "Egyetlen jelentkezés sem vár dokumentumra.",
+  "why": "missing"
+ },
+ "university:v22.empty.documents_check": {
+  "text": "Egyetlen beadott jelentkezés sem vár dokumentumellenőrzésre.",
+  "why": "missing"
+ },
+ "university:v22.empty.enrolled": {
+  "text": "Nincs a szűrőknek megfelelő beiratkozott hallgató.",
+  "why": "missing"
+ },
+ "university:v22.empty.enrolment": {
+  "text": "Nincs jelentkező az ajánlat és a beiratkozás között.",
+  "why": "missing"
+ },
+ "university:v22.empty.in_review": {
+  "text": "Jelenleg egyetlen jelentkezés sincs elbírálás alatt.",
+  "why": "missing"
+ },
+ "university:v22.empty.received": {
+  "text": "Egyetlen beérkezett jelentkezés sem vár az elbírálás megkezdésére.",
+  "why": "missing"
+ },
+ "university:v22.in.closedN": {
+  "text": "{{n}} lezárva (fel nem vett vagy visszavont)",
+  "why": "missing"
+ },
+ "university:v22.in.dropText": {
+  "text": "{{of}} közül {{lost}} ({{pct}}) nem jutott el a következő lépésig.",
+  "why": "suffix was glued to placeholder"
+ },
+ "university:v22.in.noDrop": {
+  "text": "Még egyetlen, legalább {{min}} jelentkezős lépésnél sem mutatkozik lemorzsolódás.",
+  "why": "missing"
+ },
+ "university:v22.in.q.dropoff": {
+  "text": "Hol morzsolódnak le a jelentkezők?",
+  "why": "analytical, not 'we lose them'"
+ },
+ "university:v22.manage.inactive": {
+  "text": "Inaktív",
+  "why": "missing"
+ },
+ "university:v22.manage.teamNote": {
+  "text": "Az egyetem minden tagja adminisztrátor – nincsenek kiosztandó szerepkörök. Személyek hozzáadását vagy eltávolítását a Hangyultól kérheti.",
+  "why": "role term is 'adminisztrátor'"
+ },
+ "university:v22.manage.teamSub": {
+  "text": "Az egyetem minden konzolhozzáféréssel rendelkező munkatársa. Minden tag minden műveletet elvégezhet.",
+  "why": "formal register"
+ },
+ "university:v22.stageHint.documents_check": {
+  "text": "Beadva; a dokumentumellenőrzés még nem zárult le",
+  "why": "matches EN"
+ },
+ "university:v22.stageHint.enrolment": {
+  "text": "Tandíj, felvételi levél és vízum folyamatban",
+  "why": "one term: felvételi levél"
+ },
+ "university:v22.stageHint.received": {
+  "text": "A dokumentumellenőrzés lezárult. Kezdje meg az elbírálást",
+  "why": "matches EN"
+ },
+ "university:v23.co.openCohort": {
+  "text": "A kohorsz hallgatóinak megjelenítése",
+  "why": "missing"
+ },
+ "university:v25.head.label": {
+  "text": "Figyelmet igényel",
+  "why": "EN: needs your attention"
+ },
+ "university:v25.in.offerRate": {
+  "text": "Ajánlati arány",
+  "why": "same term as byProgram"
+ },
+ "university:v25.in.submitted": {
+  "text": "Beadott jelentkezések",
+  "why": "one term: beadott"
+ },
+ "university:v25.in.trendAria": {
+  "text": "Vonaldiagram a havonta beadott jelentkezésekről az elmúlt 12 hónapban, összesen {{n}}.",
+  "why": "one term: beadott"
+ },
+ "university:v25.in.trendLead": {
+  "text": "Beadott jelentkezések havonta, az elmúlt 12 hónap (összesen {{n}}).",
+  "why": "one term: beadott"
+ },
+ "university:v25.in.trendLink": {
+  "text": "Az elmúlt 30 nap beadásainak megnyitása",
+  "why": "one term: beadott"
+ },
+ "university:v28.pipe.label": {
+  "text": "Eddigi eredmények; részletek az Elemzésekben",
+  "why": "matches EN"
+ },
+ "university:v28.pipe.step.ACCEPTED": {
+  "text": "Ajánlat elfogadva",
+  "why": "same as af.stepName"
+ },
+ "university:v28.pipe.step.OFFERED": {
+  "text": "Ajánlat kiküldve",
+  "why": "same as af.stepName"
+ },
+ "university:v28.pipe.title": {
+  "text": "Eddigi eredmények",
+  "why": "matches EN"
+ },
+ "university:v30.def.visaOutcome": {
+  "text": "Elutasított vízumok ÷ vízumdöntések (kiadott + elutasított) az ettől az ügynökségtől az Önök egyetemére érkezett jelentkezéseknél, a kiválasztott felvételi időszakban. Az elutasítás csak akkor számít, ha a hallgató vízumügyében rögzítették; a nem rögzített kimeneteket külön soroljuk fel, soha nem feltételezzük.",
+  "why": "missing"
+ }
+}

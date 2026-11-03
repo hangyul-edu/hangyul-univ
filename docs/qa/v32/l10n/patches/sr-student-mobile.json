@@ -1,0 +1,4308 @@
+{
+  "_notes": [
+    "Script and register: the bundle is Serbian Cyrillic, so every patch is Cyrillic. Student-facing copy uses the polite 'ви' form (lowercase, as Serbian orthography prescribes) in full sentences; short button/tab labels use the conventional Serbian UI imperative singular (Пошаљи, Отпреми, Изабери) that the bundle already uses. Two 'ти'-register strings (mobile:v3.home.noCounselor, mobile:v3.quick.createAccount) were moved to 'ви'. Staff-facing mobile:agency.*, mobile:university.*, mobile:v3.agency.*, mobile:v3.uni.*, mobile:v3.reviews.* are concise and formal.",
+    "'matches' (the algorithmic fit shown in the Student app) was 'подударања', which reads as a literal calque in Serbian; unified to 'одговарајући програми' / 'програми који вам одговарају' / 'универзитети који вам одговарају'. 'University recommendation' (the team's proposals) stays a separate term: 'препоруке универзитета'.",
+    "plan = план everywhere (пакет dropped in v15/v16/v26/settings); additional service = додатна услуга; service period = период услуге; consultation = консултација; mock interview = пробни интервју (пробни разговор dropped), interview = интервју; managed application = пријаве које водимо са вама; document review = провера докумената ('прегледи' dropped for documents; 'прегледа' kept only for essays/profiles, a different act); the agency 'verify' action that sets the verified state = потврди / потврђено, distinct from contact 'verify' = провери / проверено in sign-up; visa document preparation = припрема докумената за визу (never 'припрема визе' alone, so no visa is implied); arrival/settling-in = помоћ при доласку и сналажењу, 'Help after you arrive' = помоћ након доласка.",
+    "Official names: standard admission letter = стандардно писмо о пријему (written in full wherever the English says 'standard'); admission letter alone = писмо о пријему; apostille = апостил; consular legalization = конзуларна легализација; notarization = овера код јавног бележника; D-2 / D-4 / C-3 / E-7 / F codes kept; TOPIK/IELTS/TOEFL iBT kept; GKS not present in this job.",
+    "personal statement = мотивационо писмо (the term Serbian applicants use for 자기소개서; 'лична изјава' is not idiomatic); study plan = план студија (план студирања dropped). 'editing' of essays = исправке.",
+    "offer = понуда за упис; 'Admitted' = Примљени сте; enrollment = упис; intake = уписни рок; applicant (university console) = кандидат; dormitory = студентски дом; housing (topic) = смештај; transcript = препис оцена; checklist = листа задатака (or листа in tight labels); vault = 'на једном сигурном месту' / 'документа' (no literal 'трезор').",
+    "Counselor: student-facing strings that said 'ваш саветник' (mobile:v3.home.nextBody.ESSAY_WRITE, mobile:v4.application.reviewLate, mobile:v4.application.writeOnWeb, mobile:v4.home.item.WRITE_ESSAY.text) now follow the English and say тим Hangyul; staff-facing strings keep саветник. 'Hangyul team' = тим Hangyul, 'Hangyul Univ team' = тим Hangyul Univ, following the English per key.",
+    "Serbian needs three plural forms. Every count-bearing _one/_other pair whose noun inflects got a _few form (2–4, 22–24 …): e.g. 1 непрочитана порука / 2 непрочитане поруке / 5 непрочитаних порука. Keys whose number is detached from the noun (Рок данас · {{count}}, Провере, чека: {{count}}) were kept without _few. Keys that have only _one/_other and carry a count next to a noun with no plural variant available (mobile:student.nextAction.PROFILE_UNLOCK.*) were rephrased so the number sits in brackets after the noun ('програме ({{count}})') and reads correctly for any number.",
+    "Email/SMS: имејл and СМС (Cyrillic) are used everywhere; the few 'е-порука' / Latin 'SMS' strings in student:register.verify.delivery.* were aligned.",
+    "Legal consent summaries (CROSS_BORDER_VERIFICATION, PRIVACY) were aligned to the reviewed English in both student:register and mobile:signup, and the two apps now use identical consent wording; the earlier Serbian carried extra detail (retention period, 'хеш лозинке') not in the English.",
+    "Localized examples: 'e.g. Hanoi National University' → 'нпр. Универзитет у Београду'; the career example mentions корејских и српских компанија. Owner may prefer the English examples kept literally.",
+    "Product names mobile:app.agency / mobile:app.student / mobile:app.university ('Hangyul Agency', 'Hangyul Univ', 'Hangyul University') are kept in Latin as brand names; mobile:v29.plan.arrivalWindow is a pure placeholder string and was left as is."
+  ],
+  "student:applications.add": {
+    "text": "Додај пријаву",
+    "why": "button label, singular imperative"
+  },
+  "student:applications.closed": {
+    "text": "Затворене пријаве",
+    "why": "missing translation"
+  },
+  "student:applications.emptyCta": {
+    "text": "Погледај одговарајуће програме",
+    "why": "matches term unified"
+  },
+  "student:applications.emptyText": {
+    "text": "Изаберите програм међу онима који вам одговарају и почните. Припремајте се својим темпом.",
+    "why": "matches term unified"
+  },
+  "student:applications.subtitle": {
+    "text": "Свака пријава има своју листу задатака. Већ проверена документа аутоматски се користе поново.",
+    "why": "checklist term unified"
+  },
+  "student:applications.updated": {
+    "text": "Ажурирано {{date}}",
+    "why": "missing translation"
+  },
+  "student:dashboard.arrival.cta": {
+    "text": "Отвори листу за долазак",
+    "why": "missing translation"
+  },
+  "student:dashboard.arrival.landing": {
+    "text": "Слетање {{date}}",
+    "why": "missing translation"
+  },
+  "student:dashboard.arrival.noFlight": {
+    "text": "Додајте свој лет да бисмо планирали дочек и ваше прве дане.",
+    "why": "missing translation"
+  },
+  "student:dashboard.counselor.noneCta": {
+    "text": "Погледај планове",
+    "why": "missing translation"
+  },
+  "student:dashboard.counselor.unread_few": {
+    "text": "{{count}} непрочитане поруке",
+    "why": "Serbian paucal plural"
+  },
+  "student:dashboard.deadlines.empty": {
+    "text": "Нема рокова у наредним недељама.",
+    "why": "missing translation"
+  },
+  "student:dashboard.nextAction.TASK.ctaDefault": {
+    "text": "Почни одмах",
+    "why": "missing translation"
+  },
+  "student:dashboard.stageText.APPLY": {
+    "text": "Припремате пријаве. Корак по корак.",
+    "why": "missing translation"
+  },
+  "student:dashboard.stageText.ARRIVAL": {
+    "text": "Виза је спремна. Време је да планирате долазак!",
+    "why": "missing translation"
+  },
+  "student:dashboard.stageText.DECISION": {
+    "text": "Ваше пријаве су код универзитета.",
+    "why": "missing translation"
+  },
+  "student:dashboard.stageText.ENROLL": {
+    "text": "Честитамо на понуди за упис! Хајде да обезбедимо ваше место.",
+    "why": "missing translation"
+  },
+  "student:dashboard.stageText.EXPLORE": {
+    "text": "Хајде да почнемо тако што ћемо вас упознати.",
+    "why": "missing translation"
+  },
+  "student:dashboard.stageText.MATCH": {
+    "text": "Програми који вам одговарају су спремни. Изаберите где ћете се пријавити.",
+    "why": "matches term unified"
+  },
+  "student:dashboard.stageText.PROFILE": {
+    "text": "Довршите профил да бисте видели програме који вам одговарају.",
+    "why": "matches term unified"
+  },
+  "student:dashboard.stageText.STUDENT_LIFE": {
+    "text": "Добро дошли у Кореју. И даље смо ту ако вам затребамо.",
+    "why": "missing translation"
+  },
+  "student:documents.drawer.country": {
+    "text": "Издато у",
+    "why": "missing translation"
+  },
+  "student:documents.drawer.expired": {
+    "text": "Овај документ је истекао",
+    "why": "missing translation"
+  },
+  "student:documents.drawer.expiredText": {
+    "text": "Отпремите важећи примерак да би ваше пријаве остале валидне.",
+    "why": "missing translation"
+  },
+  "student:documents.drawer.expires": {
+    "text": "Истиче",
+    "why": "missing translation"
+  },
+  "student:documents.drawer.file": {
+    "text": "Најновија датотека",
+    "why": "missing translation"
+  },
+  "student:documents.drawer.fixDefault": {
+    "text": "Овај документ треба изменити. Исправите га и отпремите нову верзију.",
+    "why": "missing translation"
+  },
+  "student:documents.drawer.fixTitle": {
+    "text": "Шта треба исправити",
+    "why": "missing translation"
+  },
+  "student:documents.drawer.inReview": {
+    "text": "Проверавамо овај документ. Тренутно не морате ништа да радите.",
+    "why": "missing translation"
+  },
+  "student:documents.drawer.issued": {
+    "text": "Датум издавања",
+    "why": "missing translation"
+  },
+  "student:documents.drawer.newVersion": {
+    "text": "Нова верзија",
+    "why": "missing translation"
+  },
+  "student:documents.drawer.reviewMeta": {
+    "text": "Верзија {{version}} · {{when}}",
+    "why": "missing translation"
+  },
+  "student:documents.drawer.reviews": {
+    "text": "Историја провера",
+    "why": "missing translation"
+  },
+  "student:documents.drawer.translation": {
+    "text": "Превод",
+    "why": "missing translation"
+  },
+  "student:documents.drawer.translationNo": {
+    "text": "Није потребан",
+    "why": "missing translation"
+  },
+  "student:documents.drawer.translationYes": {
+    "text": "Потребан је оверени превод",
+    "why": "missing translation"
+  },
+  "student:documents.drawer.uploadFixed": {
+    "text": "Отпреми исправљену верзију",
+    "why": "missing translation"
+  },
+  "student:documents.drawer.versions": {
+    "text": "Верзије",
+    "why": "missing translation"
+  },
+  "student:documents.drawer.viewVersion": {
+    "text": "Погледај верзију {{version}}",
+    "why": "missing translation"
+  },
+  "student:documents.privacy.short": {
+    "text": "Чува се шифровано. До подношења пријаве могу да га отворе само ви и тим Hangyul.",
+    "why": "team name as in English"
+  },
+  "student:documents.reusable": {
+    "text": "Може се поново користити",
+    "why": "missing translation"
+  },
+  "student:documents.upload.category": {
+    "text": "Врста документа",
+    "why": "missing translation"
+  },
+  "student:documents.upload.choose": {
+    "text": "Изабери датотеку",
+    "why": "missing translation"
+  },
+  "student:documents.upload.country": {
+    "text": "Земља издавања",
+    "why": "missing translation"
+  },
+  "student:documents.upload.countryHint": {
+    "text": "Од овога зависи да ли је потребан апостил.",
+    "why": "missing translation"
+  },
+  "student:documents.upload.done": {
+    "text": "Отпремљено. Ускоро ћемо га проверити",
+    "why": "document review = провера"
+  },
+  "student:documents.upload.expires": {
+    "text": "Датум истека",
+    "why": "missing translation"
+  },
+  "student:documents.upload.file": {
+    "text": "Датотека",
+    "why": "missing translation"
+  },
+  "student:documents.upload.fileHint": {
+    "text": "PDF, JPG, PNG или WEBP, до {{mb}} MB.",
+    "why": "missing translation"
+  },
+  "student:documents.upload.issued": {
+    "text": "Датум издавања",
+    "why": "missing translation"
+  },
+  "student:documents.upload.langs.en": {
+    "text": "Енглески",
+    "why": "missing translation"
+  },
+  "student:documents.upload.langs.id": {
+    "text": "Индонежански",
+    "why": "missing translation"
+  },
+  "student:documents.upload.langs.ja": {
+    "text": "Јапански",
+    "why": "missing translation"
+  },
+  "student:documents.upload.langs.ko": {
+    "text": "Корејски",
+    "why": "missing translation"
+  },
+  "student:documents.upload.langs.mn": {
+    "text": "Монголски",
+    "why": "missing translation"
+  },
+  "student:documents.upload.langs.ne": {
+    "text": "Непалски",
+    "why": "missing translation"
+  },
+  "student:documents.upload.langs.other": {
+    "text": "Други",
+    "why": "missing translation"
+  },
+  "student:documents.upload.langs.ru": {
+    "text": "Руски",
+    "why": "missing translation"
+  },
+  "student:documents.upload.langs.th": {
+    "text": "Тајски",
+    "why": "missing translation"
+  },
+  "student:documents.upload.langs.uz": {
+    "text": "Узбечки",
+    "why": "missing translation"
+  },
+  "student:documents.upload.langs.vi": {
+    "text": "Вијетнамски",
+    "why": "missing translation"
+  },
+  "student:documents.upload.langs.zh": {
+    "text": "Кинески",
+    "why": "missing translation"
+  },
+  "student:documents.upload.language": {
+    "text": "Језик документа",
+    "why": "missing translation"
+  },
+  "student:documents.upload.subtitle": {
+    "text": "Јасан скен или фотографија телефоном сасвим је довољна. Проверићемо документ и јавити вам ако нешто треба исправити.",
+    "why": "missing translation"
+  },
+  "student:documents.upload.title": {
+    "text": "Отпремите документ",
+    "why": "missing translation"
+  },
+  "student:documents.upload.titleLabel": {
+    "text": "Назив",
+    "why": "missing translation"
+  },
+  "student:documents.upload.types": {
+    "text": "PDF, JPG, PNG или WEBP",
+    "why": "missing translation"
+  },
+  "student:documents.upload.versionTitle": {
+    "text": "Отпремите нову верзију",
+    "why": "missing translation"
+  },
+  "student:essays.comments_one": {
+    "text": "{{count}} коментар",
+    "why": "missing translation"
+  },
+  "student:essays.comments_few": {
+    "text": "{{count}} коментара",
+    "why": "Serbian paucal plural"
+  },
+  "student:essays.edited": {
+    "text": "Измењено {{when}}",
+    "why": "missing translation"
+  },
+  "student:essays.new.cta": {
+    "text": "Направи есеј",
+    "why": "missing translation"
+  },
+  "student:essays.new.limit": {
+    "text": "Ограничење броја речи",
+    "why": "missing translation"
+  },
+  "student:essays.new.name": {
+    "text": "Наслов",
+    "why": "missing translation"
+  },
+  "student:essays.new.subtitle": {
+    "text": "За вежбу или за универзитет који још није на листи.",
+    "why": "missing translation"
+  },
+  "student:essays.new.title": {
+    "text": "Започните нови есеј",
+    "why": "missing translation"
+  },
+  "student:essays.new.type": {
+    "text": "Врста есеја",
+    "why": "missing translation"
+  },
+  "student:home.allMatches": {
+    "text": "Сви одговарајући програми",
+    "why": "missing translation"
+  },
+  "student:home.arrivalProgress": {
+    "text": "Завршено {{done}} од 11 корака за долазак",
+    "why": "missing translation"
+  },
+  "student:home.closest": {
+    "text": "Најближе вашем профилу",
+    "why": "missing translation"
+  },
+  "student:home.docAction.IN_REVIEW": {
+    "text": "У провери",
+    "why": "missing translation"
+  },
+  "student:home.docAction.LEGALIZE": {
+    "text": "Потребан апостил",
+    "why": "missing translation"
+  },
+  "student:home.docAction.OPEN": {
+    "text": "Отвори",
+    "why": "missing translation"
+  },
+  "student:home.docAction.TOO_OLD": {
+    "text": "Превише стар. Набавите нови примерак",
+    "why": "natural wording"
+  },
+  "student:home.documentsSub_few": {
+    "text": "{{count}} документа захтевају вашу пажњу",
+    "why": "Serbian paucal plural"
+  },
+  "student:home.greet.afternoon": {
+    "text": "Добар дан, {{name}}",
+    "why": "missing translation"
+  },
+  "student:home.otherTasks_one": {
+    "text": "Још {{count}} задатак",
+    "why": "missing translation"
+  },
+  "student:home.otherTasks_few": {
+    "text": "Још {{count}} задатка",
+    "why": "Serbian paucal plural"
+  },
+  "student:home.recommended": {
+    "text": "Препоручено за вас",
+    "why": "missing translation"
+  },
+  "student:home.recommendedSub": {
+    "text": "Програми за које испуњавате објављене услове.",
+    "why": "missing translation"
+  },
+  "student:home.team": {
+    "text": "Тим Hangyul Univ",
+    "why": "team name as in English"
+  },
+  "student:housing.noDorms": {
+    "text": "Овај универзитет још није објавио информације о студентском дому.",
+    "why": "missing translation"
+  },
+  "student:housing.noUni": {
+    "text": "Смештај се отвара са вашом првом пријавом",
+    "why": "missing translation"
+  },
+  "student:housing.noUniCta": {
+    "text": "Иди на пријаве",
+    "why": "missing translation"
+  },
+  "student:housing.noUniText": {
+    "text": "Када се пријавите, приказаћемо опције студентског дома и трошкове за тај универзитет.",
+    "why": "missing translation"
+  },
+  "student:housing.subtitle": {
+    "text": "Упоредите опције студентског дома и пратите своје кораке за смештај.",
+    "why": "missing translation"
+  },
+  "student:housing.title": {
+    "text": "Смештај",
+    "why": "missing translation"
+  },
+  "student:login.aside.eyebrow": {
+    "text": "Студије у Кореји, корак по корак",
+    "why": "missing translation"
+  },
+  "student:login.aside.note": {
+    "text": "Хиљаде малих корака, а у сваком тренутку један јасан следећи.",
+    "why": "missing translation"
+  },
+  "student:login.aside.point2": {
+    "text": "Чувајте сва документа на једном сигурном месту и користите их у више пријава.",
+    "why": "missing translation"
+  },
+  "student:login.aside.point3": {
+    "text": "Припремајте се са правим људима из тима Hangyul који говоре ваш језик.",
+    "why": "missing translation"
+  },
+  "student:messages.new.body": {
+    "text": "Порука",
+    "why": "missing translation"
+  },
+  "student:messages.new.subject": {
+    "text": "Тема",
+    "why": "missing translation"
+  },
+  "student:messages.new.subtitle": {
+    "text": "Тим Hangyul ће одговорити овде.",
+    "why": "team name as in English"
+  },
+  "student:messages.new.title": {
+    "text": "Нови разговор",
+    "why": "missing translation"
+  },
+  "student:messages.unread_one": {
+    "text": "{{count}} непрочитана порука",
+    "why": "missing translation"
+  },
+  "student:messages.unread_few": {
+    "text": "{{count}} непрочитане поруке",
+    "why": "Serbian paucal plural"
+  },
+  "student:onboarding.basics.dobHint": {
+    "text": "Неке стипендије имају старосна ограничења.",
+    "why": "missing translation"
+  },
+  "student:onboarding.basics.legalText": {
+    "text": "Званична документа из земље {{country}} обично морају проћи овај корак да би их корејски универзитети прихватили: {{path}}. Водићемо вас кроз то када дође време.",
+    "why": "missing translation"
+  },
+  "student:onboarding.basics.legalTitle": {
+    "text": "Добро је знати за касније",
+    "why": "missing translation"
+  },
+  "student:onboarding.basics.residenceHint": {
+    "text": "Неке амбасаде примају захтеве за визу само од особа које живе у њиховој земљи.",
+    "why": "missing translation"
+  },
+  "student:onboarding.education.country": {
+    "text": "Земља школовања",
+    "why": "missing translation"
+  },
+  "student:onboarding.education.gpaHint": {
+    "text": "Унесите свој просек на скали коју користи ваша школа.",
+    "why": "missing translation"
+  },
+  "student:onboarding.education.gpaScale": {
+    "text": "Од максималних",
+    "why": "missing translation"
+  },
+  "student:onboarding.education.gpaValue": {
+    "text": "Ваш просек (GPA)",
+    "why": "missing translation"
+  },
+  "student:onboarding.education.gradYear": {
+    "text": "Година завршетка",
+    "why": "missing translation"
+  },
+  "student:onboarding.education.institutionPh": {
+    "text": "нпр. Универзитет у Београду",
+    "why": "localized example"
+  },
+  "student:onboarding.education.levels.ASSOCIATE": {
+    "text": "Виша школа / струковне студије",
+    "why": "missing translation"
+  },
+  "student:onboarding.education.levels.BACHELOR": {
+    "text": "Основне студије",
+    "why": "missing translation"
+  },
+  "student:onboarding.education.levels.DOCTORATE": {
+    "text": "Докторске студије",
+    "why": "missing translation"
+  },
+  "student:onboarding.education.levels.MASTER": {
+    "text": "Мастер студије",
+    "why": "missing translation"
+  },
+  "student:onboarding.education.major": {
+    "text": "Смер или област",
+    "why": "missing translation"
+  },
+  "student:onboarding.education.normalized": {
+    "text": "Нормализован резултат",
+    "why": "missing translation"
+  },
+  "student:onboarding.education.previewEmpty": {
+    "text": "Унесите просек и скалу да бисте видели нормализован резултат.",
+    "why": "missing translation"
+  },
+  "student:onboarding.education.status": {
+    "text": "Статус школовања",
+    "why": "missing translation"
+  },
+  "student:onboarding.education.statuses.EXPECTED": {
+    "text": "Ускоро завршавам",
+    "why": "missing translation"
+  },
+  "student:onboarding.education.statuses.GRADUATED": {
+    "text": "Завршио/ла сам",
+    "why": "missing translation"
+  },
+  "student:onboarding.education.statuses.IN_PROGRESS": {
+    "text": "Још се школујем",
+    "why": "missing translation"
+  },
+  "student:onboarding.goals.degreeSub.ASSOCIATE": {
+    "text": "Практичне студије од 2–3 године",
+    "why": "missing translation"
+  },
+  "student:onboarding.goals.degreeSub.BACHELOR": {
+    "text": "Четворогодишње основне студије",
+    "why": "missing translation"
+  },
+  "student:onboarding.goals.degreeSub.DOCTORATE": {
+    "text": "Истраживачке студије (докторат)",
+    "why": "missing translation"
+  },
+  "student:onboarding.goals.degreeSub.LANGUAGE": {
+    "text": "Почните са корејским језиком, својим темпом",
+    "why": "matches English meaning"
+  },
+  "student:onboarding.goals.degreeSub.MASTER": {
+    "text": "Мастер студије после основних",
+    "why": "missing translation"
+  },
+  "student:onboarding.goals.degreeSub.TRANSFER": {
+    "text": "Наставите студије које сте већ започели",
+    "why": "missing translation"
+  },
+  "student:onboarding.goals.fieldsHint": {
+    "text": "Изаберите колико год желите.",
+    "why": "missing translation"
+  },
+  "student:onboarding.goals.intakeHint": {
+    "text": "Корејски универзитети почињу у пролеће (март) и на јесен (септембар).",
+    "why": "missing translation"
+  },
+  "student:onboarding.goals.term": {
+    "text": "Почетни семестар",
+    "why": "missing translation"
+  },
+  "student:onboarding.goals.termLabel.FALL": {
+    "text": "Јесен (септембар)",
+    "why": "missing translation"
+  },
+  "student:onboarding.goals.termLabel.SPRING": {
+    "text": "Пролеће (март)",
+    "why": "missing translation"
+  },
+  "student:onboarding.goals.year": {
+    "text": "Година почетка",
+    "why": "missing translation"
+  },
+  "student:onboarding.language.have": {
+    "text": "Имам резултат",
+    "why": "missing translation"
+  },
+  "student:onboarding.language.level.BEGINNER": {
+    "text": "Почетни",
+    "why": "missing translation"
+  },
+  "student:onboarding.language.level.NATIVE": {
+    "text": "Матерњи",
+    "why": "missing translation"
+  },
+  "student:onboarding.language.level.NONE": {
+    "text": "Још ништа",
+    "why": "missing translation"
+  },
+  "student:onboarding.language.planning": {
+    "text": "Планирам да полажем",
+    "why": "missing translation"
+  },
+  "student:onboarding.language.score": {
+    "text": "Резултат ({{range}})",
+    "why": "missing translation"
+  },
+  "student:onboarding.language.test.TOEFL_IBT": {
+    "text": "TOEFL iBT",
+    "why": "missing translation"
+  },
+  "student:onboarding.language.testSub.IELTS": {
+    "text": "Тест енглеског, оцене 0–9",
+    "why": "missing translation"
+  },
+  "student:onboarding.language.testSub.TOEFL_IBT": {
+    "text": "Тест енглеског, 0–120",
+    "why": "missing translation"
+  },
+  "student:onboarding.language.testSub.TOPIK": {
+    "text": "Тест знања корејског језика, нивои 1–6",
+    "why": "missing translation"
+  },
+  "student:onboarding.language.testsHint": {
+    "text": "Прескочите ако још нисте почели.",
+    "why": "missing translation"
+  },
+  "student:onboarding.passport.currentVisa": {
+    "text": "Ваша тренутна виза",
+    "why": "missing translation"
+  },
+  "student:onboarding.passport.expiry": {
+    "text": "Датум истека пасоша",
+    "why": "missing translation"
+  },
+  "student:onboarding.passport.expiryHint": {
+    "text": "Ако је могуће, требало би да важи током целог периода студија.",
+    "why": "missing translation"
+  },
+  "student:onboarding.passport.inKoreaNo": {
+    "text": "Не, у иностранству сам",
+    "why": "missing translation"
+  },
+  "student:onboarding.passport.inKoreaYes": {
+    "text": "Да, у Кореји сам",
+    "why": "missing translation"
+  },
+  "student:onboarding.passport.no": {
+    "text": "Још не",
+    "why": "missing translation"
+  },
+  "student:onboarding.passport.number": {
+    "text": "Број пасоша",
+    "why": "missing translation"
+  },
+  "student:onboarding.passport.numberHint": {
+    "text": "Необавезно. Чувамо само последње цифре; пун број остаје на документу вашег пасоша.",
+    "why": "missing translation"
+  },
+  "student:onboarding.passport.previousHint": {
+    "text": "Од овога може зависити који кораци за визу важе за вас.",
+    "why": "missing translation"
+  },
+  "student:onboarding.passport.visa.C-3": {
+    "text": "C-3 (кратки боравак)",
+    "why": "missing translation"
+  },
+  "student:onboarding.passport.visa.D-2": {
+    "text": "D-2 (студентска)",
+    "why": "missing translation"
+  },
+  "student:onboarding.passport.visa.D-4": {
+    "text": "D-4 (језички курс)",
+    "why": "missing translation"
+  },
+  "student:onboarding.passport.visa.E-7": {
+    "text": "E-7 (радна)",
+    "why": "missing translation"
+  },
+  "student:onboarding.passport.visa.NONE": {
+    "text": "Никада",
+    "why": "missing translation"
+  },
+  "student:onboarding.passport.visa.OTHER": {
+    "text": "Друга",
+    "why": "missing translation"
+  },
+  "student:onboarding.preferences.budgetOver": {
+    "text": "Више од {{amount}}",
+    "why": "missing translation"
+  },
+  "student:onboarding.preferences.budgetUpTo": {
+    "text": "До {{amount}}",
+    "why": "missing translation"
+  },
+  "student:onboarding.preferences.housingOpt.NO_PREFERENCE": {
+    "text": "Свеједно ми је",
+    "why": "missing translation"
+  },
+  "student:onboarding.preferences.housingOpt.OFF_CAMPUS": {
+    "text": "Соба ван кампуса",
+    "why": "missing translation"
+  },
+  "student:onboarding.preferences.housingSub.DORM": {
+    "text": "Већина међународних студената на првој години бира ово",
+    "why": "missing translation"
+  },
+  "student:onboarding.preferences.perMonth": {
+    "text": "око {{amount}} месечно",
+    "why": "missing translation"
+  },
+  "student:onboarding.preferences.regionsHint": {
+    "text": "Оставите празно ако вам одговара било где у Кореји.",
+    "why": "missing translation"
+  },
+  "student:onboarding.preferences.scholarshipNo": {
+    "text": "Добродошла, али није неопходна",
+    "why": "missing translation"
+  },
+  "student:onboarding.preferences.scholarshipYesSub": {
+    "text": "Истаћи ћемо програме са стипендијама за које бисте могли да се квалификујете",
+    "why": "missing translation"
+  },
+  "student:onboarding.sponsor.goalHint": {
+    "text": "Довољна је једна или две реченице. Касније помаже код плана студија.",
+    "why": "missing translation"
+  },
+  "student:onboarding.sponsor.goalPh": {
+    "text": "нпр. Рад у маркетингу између корејских и српских компанија.",
+    "why": "localized example"
+  },
+  "student:onboarding.sponsor.option.EMPLOYER": {
+    "text": "Мој послодавац",
+    "why": "missing translation"
+  },
+  "student:onboarding.sponsor.option.OTHER": {
+    "text": "Неко други",
+    "why": "missing translation"
+  },
+  "student:onboarding.sponsor.option.RELATIVE": {
+    "text": "Други рођак",
+    "why": "missing translation"
+  },
+  "student:onboarding.sponsor.option.SCHOLARSHIP": {
+    "text": "Стипендија",
+    "why": "missing translation"
+  },
+  "student:onboarding.sponsor.option.SELF": {
+    "text": "Ја лично",
+    "why": "missing translation"
+  },
+  "student:onboarding.sponsor.whoHint": {
+    "text": "За захтев за визу потребан је доказ о средствима од ове особе или организације.",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.basics.eyebrow": {
+    "text": "О вама",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.basics.subtitle": {
+    "text": "Из овога знамо која документа и која правила за визу важе за вас.",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.basics.title": {
+    "text": "Одакле сте?",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.education.eyebrow": {
+    "text": "Ваше школовање",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.education.subtitle": {
+    "text": "Ово користимо да проверимо услове за упис. За сада је процена довољна.",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.education.title": {
+    "text": "Реците нам о свом досадашњем школовању",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.goals.eyebrow": {
+    "text": "Ваш циљ",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.goals.title": {
+    "text": "Шта бисте желели да студирате?",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.language.eyebrow": {
+    "text": "Језици",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.language.title": {
+    "text": "Како стојите са корејским и енглеским?",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.passport.eyebrow": {
+    "text": "Путовање",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.passport.title": {
+    "text": "Пасош и историја виза",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.preferences.eyebrow": {
+    "text": "Буџет и живот",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.preferences.subtitle": {
+    "text": "Буџет, стипендије и смештај помажу нам да рангирамо програме за вас.",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.preferences.title": {
+    "text": "Шта вам је важно у свакодневном животу?",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.sponsor.eyebrow": {
+    "text": "Последњи корак",
+    "why": "missing translation"
+  },
+  "student:onboarding.steps.sponsor.subtitle": {
+    "text": "Универзитети и службеници за визе питају о финансијској подршци. Ако знамо ваш циљ, тим Hangyul може боље да вас води.",
+    "why": "team name as in English"
+  },
+  "student:onboarding.steps.sponsor.title": {
+    "text": "Ко финансира ваше студије?",
+    "why": "missing translation"
+  },
+  "student:profile.anywhere": {
+    "text": "Било где у Кореји",
+    "why": "missing translation"
+  },
+  "student:profile.institutionMissing": {
+    "text": "Школа још није додата",
+    "why": "missing translation"
+  },
+  "student:profile.planned": {
+    "text": "{{test}} (планирано)",
+    "why": "missing translation"
+  },
+  "student:profile.saved": {
+    "text": "Профил је ажуриран. Одговарајући програми су освежени",
+    "why": "matches term unified"
+  },
+  "student:profile.title": {
+    "text": "Ваш профил",
+    "why": "missing translation"
+  },
+  "student:register.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Twilio Inc. (САД) испоручује СМС поруку и имејл за проверу; Cloudflare, Inc. (САД) проверава да регистрација није аутоматизована. Детаљи, укључујући како да одбијете, налазе се у Политици приватности. Ако одбијете, налог не може бити отворен.",
+    "why": "aligned to reviewed English"
+  },
+  "student:register.consent.PRIVACY.summary": {
+    "text": "Имејл, број мобилног телефона, име, држављанство и лозинка (чува се шифровано), ради отварања и заштите налога.",
+    "why": "aligned to reviewed English"
+  },
+  "student:register.verify.delivery.RECIPIENT_INVALID.email": {
+    "text": "Не можемо да пошаљемо имејл на ову адресу. Проверите је.",
+    "why": "имејл/СМС terms unified"
+  },
+  "student:register.verify.delivery.RECIPIENT_INVALID.sms": {
+    "text": "Не можемо да пошаљемо СМС на овај број. Проверите позивни број земље и број мобилног телефона.",
+    "why": "имејл/СМС terms unified"
+  },
+  "student:register.verify.delivery.RECIPIENT_REJECTED.email": {
+    "text": "Сервер примаоца је одбио наш имејл. Користите другу адресу.",
+    "why": "имејл/СМС terms unified"
+  },
+  "student:register.verify.delivery.RECIPIENT_UNREACHABLE.email": {
+    "text": "Имејл није стигао. Покушајте поново мало касније.",
+    "why": "имејл/СМС terms unified"
+  },
+  "student:register.verify.delivery.REGION_UNSUPPORTED.email": {
+    "text": "Не можемо да пошаљемо имејл на ову адресу. Користите другу имејл адресу.",
+    "why": "имејл/СМС terms unified"
+  },
+  "student:register.verify.delivery.REGION_UNSUPPORTED.sms": {
+    "text": "Још не можемо да шаљемо СМС на бројеве из ове земље. Користите други број мобилног телефона или пишите на support@talkhangyul.com.",
+    "why": "имејл/СМС terms unified"
+  },
+  "student:register.verify.delivery.SERVICE_CONFIG.sms": {
+    "text": "Нешто није у реду са нашим СМС порукама. Све што сте унели је сачувано. Покушајте поново за {{seconds}} с.",
+    "why": "имејл/СМС terms unified"
+  },
+  "student:register.verify.delivery.UNREACHABLE.email": {
+    "text": "Тренутно не можемо да се повежемо са нашим сервисом за имејл. Све што сте унели је сачувано. Покушајте поново за {{seconds}} с.",
+    "why": "имејл/СМС terms unified"
+  },
+  "student:register.verify.delivery.UNREACHABLE.sms": {
+    "text": "Тренутно не можемо да се повежемо са нашим СМС сервисом. Све што сте унели је сачувано. Покушајте поново за {{seconds}} с.",
+    "why": "имејл/СМС terms unified"
+  },
+  "student:services.success.assigned": {
+    "text": "{{agency}} ће вам пружати подршку",
+    "why": "missing translation"
+  },
+  "student:settings.account.saved": {
+    "text": "Налог је ажуриран",
+    "why": "missing translation"
+  },
+  "student:settings.data.kind.DELETE": {
+    "text": "Брисање налога",
+    "why": "missing translation"
+  },
+  "student:settings.data.status.COMPLETED": {
+    "text": "Завршено",
+    "why": "missing translation"
+  },
+  "student:settings.data.status.IN_REVIEW": {
+    "text": "У току",
+    "why": "missing translation"
+  },
+  "student:settings.data.status.REJECTED": {
+    "text": "Одбијено",
+    "why": "missing translation"
+  },
+  "student:settings.privacy.saved": {
+    "text": "Избор приватности је сачуван",
+    "why": "missing translation"
+  },
+  "student:settings.privacy.who.agency": {
+    "text": "Партнерска агенција тима Hangyul: ваш профил, документа и есеји, тек када имате план.",
+    "why": "plan term; no purchase wording"
+  },
+  "student:tasks.emptyText": {
+    "text": "Нови задаци се појављују овде када има нешто што треба да урадите.",
+    "why": "missing translation"
+  },
+  "student:tasks.markDone": {
+    "text": "Означи „{{title}}“ као завршено",
+    "why": "missing translation"
+  },
+  "student:tasks.title": {
+    "text": "Задаци",
+    "why": "missing translation"
+  },
+  "student:v15.services.allowance.key.essay_review_rounds": {
+    "text": "Исправке мотивационог писма и плана студија",
+    "why": "study plan term unified"
+  },
+  "student:v15.services.allowance.key.mock_interviews": {
+    "text": "Пробни интервјуи",
+    "why": "missing translation"
+  },
+  "student:v15.services.choose": {
+    "text": "Изабери {{name}}",
+    "why": "missing translation"
+  },
+  "student:v15.services.chosen": {
+    "text": "План који сте изабрали на сајту.",
+    "why": "missing translation"
+  },
+  "student:v15.services.current": {
+    "text": "Ваш план",
+    "why": "plan term unified"
+  },
+  "student:v15.services.scope.consultation_minutes": {
+    "text": "Консултација од {{count}} минута",
+    "why": "missing translation"
+  },
+  "student:v15.services.scope.interview_preparation": {
+    "text": "Припрема за интервју",
+    "why": "missing translation"
+  },
+  "student:v15.services.scope.personal_roadmap": {
+    "text": "Лична мапа пута за студије у иностранству",
+    "why": "missing translation"
+  },
+  "student:v15.services.scope.pre_arrival_orientation": {
+    "text": "Онлајн оријентација пре путовања",
+    "why": "missing translation"
+  },
+  "student:v15.services.scope.priority_response": {
+    "text": "Приоритетан одговор тима Hangyul",
+    "why": "team name as in English"
+  },
+  "student:v15.services.scope.settlement_support": {
+    "text": "Помоћ након доласка",
+    "why": "says what we do"
+  },
+  "student:v15.services.scope.title": {
+    "text": "Укључено у ваш план",
+    "why": "plan term unified"
+  },
+  "student:v15.services.scope.visa_support": {
+    "text": "Припрема докумената за визу",
+    "why": "never implies issuing a visa"
+  },
+  "student:v15.services.subtitle": {
+    "text": "Погледајте шта ваш план обухвата и шта је преостало, и изаберите план ако то још нисте учинили.",
+    "why": "plan term unified"
+  },
+  "student:v15.services.title": {
+    "text": "Планови услуга",
+    "why": "plan term unified"
+  },
+  "student:v15.services.upgrade": {
+    "text": "Пређи на {{name}}",
+    "why": "button label, singular imperative"
+  },
+  "student:v16.pay.amount": {
+    "text": "Износ",
+    "why": "missing translation"
+  },
+  "student:v16.pay.cancelled": {
+    "text": "Отказали сте плаћање. Ништа није наплаћено.",
+    "why": "missing translation"
+  },
+  "student:v16.pay.chooseSubtitle": {
+    "text": "Изаберите план према томе колико помоћи желите од тима Hangyul. Једно плаћање, без претплате.",
+    "why": "plan term unified"
+  },
+  "student:v16.pay.couldNotStart": {
+    "text": "Нисмо успели да отворимо прозор за плаћање.",
+    "why": "missing translation"
+  },
+  "student:v16.pay.cta": {
+    "text": "Плати и почни",
+    "why": "missing translation"
+  },
+  "student:v16.pay.fail.default": {
+    "text": "Плаћање није завршено. Ништа није наплаћено. Покушајте поново.",
+    "why": "natural wording"
+  },
+  "student:v16.pay.fail.title": {
+    "text": "Плаћање није прошло",
+    "why": "missing translation"
+  },
+  "student:v16.pay.method": {
+    "text": "Начин плаћања",
+    "why": "missing translation"
+  },
+  "student:v16.pay.methodCard": {
+    "text": "Картица",
+    "why": "missing translation"
+  },
+  "student:v16.pay.notCharged": {
+    "text": "Ништа није наплаћено.",
+    "why": "missing translation"
+  },
+  "student:v16.pay.orderNo": {
+    "text": "Поруџбина",
+    "why": "missing translation"
+  },
+  "student:v16.pay.orderTitle": {
+    "text": "Ваша поруџбина",
+    "why": "missing translation"
+  },
+  "student:v16.pay.receipt": {
+    "text": "Погледај рачун",
+    "why": "missing translation"
+  },
+  "student:v16.pay.retry": {
+    "text": "Покушај плаћање поново",
+    "why": "missing translation"
+  },
+  "student:v16.pay.sdkDown": {
+    "text": "Прозор за плаћање није могао да се учита. Проверите везу и покушајте поново.",
+    "why": "missing translation"
+  },
+  "student:v16.pay.selected": {
+    "text": "Изабрано",
+    "why": "missing translation"
+  },
+  "student:v16.pay.status.CANCELLED": {
+    "text": "Отказано",
+    "why": "missing translation"
+  },
+  "student:v16.pay.status.FAILED": {
+    "text": "Неуспешно",
+    "why": "missing translation"
+  },
+  "student:v16.pay.status.PENDING": {
+    "text": "На чекању",
+    "why": "missing translation"
+  },
+  "student:v16.pay.success.cta": {
+    "text": "Почни припрему",
+    "why": "missing translation"
+  },
+  "student:v16.pay.success.text": {
+    "text": "Почињете припрему за студије у Кореји уз {{name}}.",
+    "why": "missing translation"
+  },
+  "student:v16.pay.success.title": {
+    "text": "Плаћање је завршено",
+    "why": "missing translation"
+  },
+  "student:v17.gate.named": {
+    "text": "План укључује {{what}}. Изаберите план да бисте почели.",
+    "why": "matches English structure"
+  },
+  "student:v17.gate.what.applications": {
+    "text": "ваше пријаве",
+    "why": "lowercase accusative for sentence slot"
+  },
+  "student:v17.gate.what.arrival": {
+    "text": "помоћ при доласку и сналажењу",
+    "why": "glossary term"
+  },
+  "student:v17.gate.what.budget": {
+    "text": "ваш план трошкова",
+    "why": "lowercase accusative for sentence slot"
+  },
+  "student:v17.gate.what.compare": {
+    "text": "упоредни приказ",
+    "why": "natural wording"
+  },
+  "student:v17.gate.what.documents": {
+    "text": "проверу докумената",
+    "why": "lowercase accusative for sentence slot"
+  },
+  "student:v17.gate.what.essays": {
+    "text": "исправке мотивационог писма и плана студија",
+    "why": "glossary term"
+  },
+  "student:v17.gate.what.family": {
+    "text": "приказ за породицу",
+    "why": "lowercase accusative for sentence slot"
+  },
+  "student:v17.gate.what.help": {
+    "text": "помоћ тима Hangyul",
+    "why": "matches English meaning"
+  },
+  "student:v17.gate.what.home": {
+    "text": "ваш радни простор за припрему",
+    "why": "lowercase accusative for sentence slot"
+  },
+  "student:v17.gate.what.housing": {
+    "text": "помоћ око студентског дома",
+    "why": "matches English meaning"
+  },
+  "student:v17.gate.what.messages": {
+    "text": "поруке са тимом Hangyul",
+    "why": "matches English meaning"
+  },
+  "student:v17.gate.what.saved": {
+    "text": "вашу ужу листу",
+    "why": "matches English meaning"
+  },
+  "student:v17.gate.what.scholarships": {
+    "text": "проналажење стипендија",
+    "why": "matches English meaning"
+  },
+  "student:v17.gate.what.tasks": {
+    "text": "вашу листу задатака",
+    "why": "matches English meaning"
+  },
+  "student:v17.gate.what.visa": {
+    "text": "припрему докумената за визу",
+    "why": "glossary term"
+  },
+  "student:v17.upgrade.amount": {
+    "text": "Цена преласка",
+    "why": "matches English meaning"
+  },
+  "student:v17.upgrade.cta": {
+    "text": "Пређи на {{plan}}",
+    "why": "button label, singular imperative"
+  },
+  "student:v17.upgrade.feature.consultation": {
+    "text": "Додатна консултација",
+    "why": "matches English meaning"
+  },
+  "student:v17.upgrade.feature.document_review": {
+    "text": "Детаљна провера докумената",
+    "why": "matches English meaning"
+  },
+  "student:v17.upgrade.feature.essay_review": {
+    "text": "Исправке мотивационог писма",
+    "why": "editing term unified"
+  },
+  "student:v17.upgrade.feature.managed_application": {
+    "text": "Пријаве које водимо са вама",
+    "why": "managed application term unified"
+  },
+  "student:v17.upgrade.feature.mock_interview": {
+    "text": "Пробни интервју",
+    "why": "mock interview term unified"
+  },
+  "student:v17.upgrade.feature.settlement": {
+    "text": "Помоћ након доласка",
+    "why": "settlement term unified"
+  },
+  "student:v21.pay.cardFailed": {
+    "text": "Плаћање није прошло",
+    "why": "missing translation"
+  },
+  "student:v21.pay.cardSecure": {
+    "text": "Подаци о картици иду само до Hangyul-а преко шифроване везе, а затим до нашег пружаоца платних услуга. Никада не чувамо број ваше картице.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.cardTitle": {
+    "text": "Плаћање картицом",
+    "why": "missing translation"
+  },
+  "student:v21.pay.declined": {
+    "text": "Картица није прихваћена: {{reason}} Пробајте другу картицу или проверите са својом банком.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.expiry": {
+    "text": "Важи до",
+    "why": "missing translation"
+  },
+  "student:v21.pay.holder": {
+    "text": "Име на картици",
+    "why": "missing translation"
+  },
+  "student:v21.pay.notConfigured": {
+    "text": "Плаћање картицом овде још није доступно. Покушајте касније или нас контактирајте.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.number": {
+    "text": "Број картице",
+    "why": "missing translation"
+  },
+  "student:v21.pay.numberInvalid": {
+    "text": "Проверите број картице.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.optional": {
+    "text": "необавезно",
+    "why": "missing translation"
+  },
+  "student:v21.pay.payCta": {
+    "text": "Плати овом картицом",
+    "why": "missing translation"
+  },
+  "student:v21.pay.processing": {
+    "text": "Обрађујемо ваше плаћање…",
+    "why": "missing translation"
+  },
+  "student:v21.pay.savedDelete": {
+    "text": "Уклони",
+    "why": "missing translation"
+  },
+  "student:v21.pay.savedDeleteBody": {
+    "text": "Обрисаћемо {{card}} из вашег налога. То не утиче на плаћање које сте већ обавили.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.savedDeleteFailed": {
+    "text": "Картица није могла да се уклони. Покушајте поново.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.savedDeleteTitle": {
+    "text": "Уклонити ову картицу?",
+    "why": "missing translation"
+  },
+  "student:v21.pay.savedNotReusable": {
+    "text": "За следећу куповину поново ћете унети картицу.",
+    "why": "missing translation"
+  },
+  "student:v21.pay.savedReusable": {
+    "text": "Сачувано. Можете је поново користити",
+    "why": "card is feminine (је, not га)"
+  },
+  "student:v21.pay.savedTitle": {
+    "text": "Ваша картица",
+    "why": "missing translation"
+  },
+  "student:v21.pay.tooMany": {
+    "text": "Превише покушаја са картицом. Сачекајте неколико минута пре него што покушате поново.",
+    "why": "missing translation"
+  },
+  "student:v22.home.appTeam.follow": {
+    "text": "Проверавамо напредак са службом за упис универзитета {{university}}",
+    "why": "matches English meaning"
+  },
+  "student:v22.home.appTeam.letter": {
+    "text": "Пратимо ваше стандардно писмо о пријему од {{university}}",
+    "why": "official document name"
+  },
+  "student:v22.home.appsQuiet_few": {
+    "text": "Све {{count}} пријаве су код универзитета. Тренутно не морате ништа да радите.",
+    "why": "Serbian paucal plural"
+  },
+  "student:v22.home.docsChecking_few": {
+    "text": "Проверавају се {{count}} документа",
+    "why": "Serbian paucal plural"
+  },
+  "student:v26.now.otherPlans": {
+    "text": "Погледајте остале планове",
+    "why": "plan term unified"
+  },
+  "student:v26.now.scopeToggle": {
+    "text": "Све што овај план обухвата",
+    "why": "plan term unified"
+  },
+  "student:v29.services.unrationed.TEAM": {
+    "text": "Подршка вашег тима",
+    "why": "natural wording"
+  },
+  "student:writing.needYou": {
+    "text": "На вама је да пишете или дорадите",
+    "why": "matches English meaning"
+  },
+  "student:writing.others": {
+    "text": "Прегледа тим Hangyul или завршено",
+    "why": "matches English meaning"
+  },
+  "student:writing.status.AI_PRECHECK": {
+    "text": "Поднето",
+    "why": "missing translation"
+  },
+  "student:writing.status.APPROVED": {
+    "text": "Спремно",
+    "why": "missing translation"
+  },
+  "student:writing.status.CHANGES_REQUESTED": {
+    "text": "Затражене измене",
+    "why": "missing translation"
+  },
+  "student:writing.status.FINAL_REVIEW": {
+    "text": "Тим Hangyul прегледа",
+    "why": "team name as in English"
+  },
+  "student:writing.status.STUDENT_REVISION": {
+    "text": "Затражене измене",
+    "why": "missing translation"
+  },
+  "student:writing.status.SUBMITTED": {
+    "text": "Поднето",
+    "why": "missing translation"
+  },
+  "student:writing.subtitle": {
+    "text": "Ваша мотивациона писма и планови студија. Тим Hangyul коментарише структуру и јасноћу. Идеје и речи остају ваше.",
+    "why": "study plan term unified"
+  },
+  "mobile:agency.deadlines.empty": {
+    "text": "Нема рокова у наредних 30 дана",
+    "why": "missing translation"
+  },
+  "mobile:agency.deadlines.subtitle": {
+    "text": "Рокови ваших студената у наредних 30 дана.",
+    "why": "missing translation"
+  },
+  "mobile:agency.deadlines.title": {
+    "text": "Подсетници",
+    "why": "missing translation"
+  },
+  "mobile:agency.login.tagline": {
+    "text": "Ваши студенти, провере и поруке на мобилном.",
+    "why": "document review = провера"
+  },
+  "mobile:agency.messages.subtitle": {
+    "text": "Разговори са студентима и интерне белешке.",
+    "why": "missing translation"
+  },
+  "mobile:agency.messages.title": {
+    "text": "Поруке",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.detailTitle": {
+    "text": "Провера",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.empty": {
+    "text": "Ред за проверу је празан",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.emptyBody": {
+    "text": "Нова отпремања ваших студената појавиће се овде.",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.history": {
+    "text": "Историја провера",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.lastReason": {
+    "text": "Претходни захтев за исправку",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.noFile": {
+    "text": "За овај документ још није отпремљена ниједна датотека.",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.sendToStudent": {
+    "text": "Пошаљи студенту",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.tabA11y_one": {
+    "text": "Провере, чека: {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.tabA11y_other": {
+    "text": "Провере, чека: {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.title": {
+    "text": "Провере докумената",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.verify": {
+    "text": "Потврди документ",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.waitingDays_one": {
+    "text": "Чека {{count}} дан",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.waitingDays_few": {
+    "text": "Чека {{count}} дана",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:agency.reviews.waitingDays_other": {
+    "text": "Чека {{count}} дана",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.waitingHours_one": {
+    "text": "Чека {{count}} сат",
+    "why": "missing translation"
+  },
+  "mobile:agency.reviews.waitingHours_few": {
+    "text": "Чека {{count}} сата",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:agency.reviews.waitingHours_other": {
+    "text": "Чека {{count}} сати",
+    "why": "missing translation"
+  },
+  "mobile:agency.students.detailTitle": {
+    "text": "Студент",
+    "why": "missing translation"
+  },
+  "mobile:agency.tasks.unassigned": {
+    "text": "Недодељено",
+    "why": "missing translation"
+  },
+  "mobile:app.agency": {
+    "text": "Hangyul Agency",
+    "why": "product name kept"
+  },
+  "mobile:app.student": {
+    "text": "Hangyul Univ",
+    "why": "product name kept"
+  },
+  "mobile:app.university": {
+    "text": "Hangyul University",
+    "why": "product name kept"
+  },
+  "mobile:login.networkError": {
+    "text": "Hangyul тренутно није доступан на адреси {{url}}. Проверите везу и покушајте поново за тренутак.",
+    "why": "missing translation"
+  },
+  "mobile:messages.empty": {
+    "text": "Још нема разговора",
+    "why": "missing translation"
+  },
+  "mobile:messages.emptyBody": {
+    "text": "Поруке са вашим тимом појавиће се овде.",
+    "why": "missing translation"
+  },
+  "mobile:messages.internalLabel": {
+    "text": "Интерна белешка",
+    "why": "missing translation"
+  },
+  "mobile:messages.internalOn": {
+    "text": "Интерна белешка: види је само ваш тим",
+    "why": "missing translation"
+  },
+  "mobile:messages.internalPlaceholder": {
+    "text": "Напишите интерну белешку (само за тим)…",
+    "why": "missing translation"
+  },
+  "mobile:messages.noMessages": {
+    "text": "Још нема порука",
+    "why": "missing translation"
+  },
+  "mobile:messages.placeholder": {
+    "text": "Напишите поруку…",
+    "why": "missing translation"
+  },
+  "mobile:messages.sendInternal": {
+    "text": "Сачувај интерну белешку",
+    "why": "missing translation"
+  },
+  "mobile:messages.unreadCount_one": {
+    "text": "{{count}} непрочитана порука",
+    "why": "missing translation"
+  },
+  "mobile:messages.unreadCount_few": {
+    "text": "{{count}} непрочитане поруке",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:messages.unreadCount_other": {
+    "text": "{{count}} непрочитаних порука",
+    "why": "missing translation"
+  },
+  "mobile:more.active": {
+    "text": "Активно",
+    "why": "missing translation"
+  },
+  "mobile:more.allowanceSpent": {
+    "text": "Искористили сте све што овај план укључује. На екрану плана видите који план обухвата више.",
+    "why": "missing translation"
+  },
+  "mobile:more.choose": {
+    "text": "Изабери",
+    "why": "missing translation"
+  },
+  "mobile:more.noPlan": {
+    "text": "Још немате план",
+    "why": "missing translation"
+  },
+  "mobile:more.noPlanHint": {
+    "text": "Изаберите план и Hangyul почиње да ради са вама",
+    "why": "missing translation"
+  },
+  "mobile:more.plan": {
+    "text": "План",
+    "why": "missing translation"
+  },
+  "mobile:more.support": {
+    "text": "Помоћ",
+    "why": "missing translation"
+  },
+  "mobile:more.supportHint": {
+    "text": "Пишите тиму Hangyul",
+    "why": "missing translation"
+  },
+  "mobile:more.webNote": {
+    "text": "Измена профила и плаћање обављају се на вебу.",
+    "why": "missing translation"
+  },
+  "mobile:notifications.unread": {
+    "text": "Непрочитано",
+    "why": "missing translation"
+  },
+  "mobile:plan.allowance.essay_review_rounds": {
+    "text": "Исправке мотивационог писма и плана студија",
+    "why": "missing translation"
+  },
+  "mobile:plan.allowance.follow_up_consultations": {
+    "text": "Накнадне консултације",
+    "why": "missing translation"
+  },
+  "mobile:plan.allowance.max_managed_applications": {
+    "text": "Пријаве које водимо са вама",
+    "why": "missing translation"
+  },
+  "mobile:plan.allowance.max_recommended_institutions": {
+    "text": "Препоруке универзитета",
+    "why": "missing translation"
+  },
+  "mobile:plan.allowance.mock_interviews": {
+    "text": "Пробни интервјуи",
+    "why": "missing translation"
+  },
+  "mobile:plan.browserFailed": {
+    "text": "Прегледач није могао да се отвори. Платите на вебу.",
+    "why": "missing translation"
+  },
+  "mobile:plan.card": {
+    "text": "Можете платити страном картицом (Visa, Mastercard, JCB).",
+    "why": "missing translation"
+  },
+  "mobile:plan.chooseLede": {
+    "text": "Једно плаћање, без претплате. Ваш план остаје са вама док се припремате.",
+    "why": "missing translation"
+  },
+  "mobile:plan.chooseTitle": {
+    "text": "Изаберите план",
+    "why": "missing translation"
+  },
+  "mobile:plan.handoff": {
+    "text": "Плаћање се обавља у прегледачу и враћа вас у апликацију када се заврши.",
+    "why": "missing translation"
+  },
+  "mobile:plan.highestAlready": {
+    "text": "Већ сте на највишем плану.",
+    "why": "missing translation"
+  },
+  "mobile:plan.included": {
+    "text": "Укључено у ваш план",
+    "why": "missing translation"
+  },
+  "mobile:plan.oneTime": {
+    "text": "Једно плаћање",
+    "why": "missing translation"
+  },
+  "mobile:plan.ongoing": {
+    "text": "Током целог периода услуге",
+    "why": "missing translation"
+  },
+  "mobile:plan.paid": {
+    "text": "Плаћени износ",
+    "why": "missing translation"
+  },
+  "mobile:plan.pay": {
+    "text": "Плати",
+    "why": "missing translation"
+  },
+  "mobile:plan.plansTitle": {
+    "text": "Планови",
+    "why": "missing translation"
+  },
+  "mobile:plan.selected": {
+    "text": "Изабрано",
+    "why": "missing translation"
+  },
+  "mobile:plan.upgradeTitle": {
+    "text": "Прелазак на виши план",
+    "why": "missing translation"
+  },
+  "mobile:plan.webNote": {
+    "text": "Историја планова и рачуни налазе се на вебу.",
+    "why": "missing translation"
+  },
+  "mobile:settings.elsewhere": {
+    "text": "На другим местима",
+    "why": "missing translation"
+  },
+  "mobile:settings.language": {
+    "text": "Језик",
+    "why": "missing translation"
+  },
+  "mobile:settings.languageHint": {
+    "text": "Изаберите језик апликације. Неки језици су машински нацрти који се још проверавају.",
+    "why": "missing translation"
+  },
+  "mobile:settings.machineDraft": {
+    "text": "машински нацрт",
+    "why": "missing translation"
+  },
+  "mobile:settings.notificationsHint": {
+    "text": "Погледајте обавештења која сте примили",
+    "why": "missing translation"
+  },
+  "mobile:settings.rtlNote": {
+    "text": "Текст здесна налево примењује се одмах; цео распоред се пресликава при следећем отварању апликације.",
+    "why": "missing translation"
+  },
+  "mobile:settings.selected": {
+    "text": "изабрано",
+    "why": "missing translation"
+  },
+  "mobile:settings.server": {
+    "text": "Сервер: {{url}}",
+    "why": "missing translation"
+  },
+  "mobile:settings.signOutBody": {
+    "text": "За поновну пријаву биће вам потребни имејл и лозинка.",
+    "why": "missing translation"
+  },
+  "mobile:settings.signOutTitle": {
+    "text": "Одјавити се?",
+    "why": "missing translation"
+  },
+  "mobile:settings.title": {
+    "text": "Подешавања",
+    "why": "missing translation"
+  },
+  "mobile:settings.version": {
+    "text": "Верзија {{version}}",
+    "why": "missing translation"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.label": {
+    "text": "Примам к знању да се мој имејл и број мобилног телефона ради провере обрађују у иностранству",
+    "why": "same wording as Student app"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Twilio Inc. (САД) испоручује СМС поруку и имејл за проверу; Cloudflare, Inc. (САД) проверава да регистрација није аутоматизована. Детаљи, укључујући како да одбијете, налазе се у Политици приватности. Ако одбијете, налог не може бити отворен.",
+    "why": "aligned to reviewed English"
+  },
+  "mobile:signup.consent.PRIVACY.label": {
+    "text": "Дајем сагласност за прикупљање и коришћење мојих личних података",
+    "why": "same wording as Student app"
+  },
+  "mobile:signup.consent.PRIVACY.summary": {
+    "text": "Имејл, број мобилног телефона, име, држављанство и лозинка (чува се шифровано), ради отварања и заштите налога.",
+    "why": "same wording as Student app"
+  },
+  "mobile:signup.lang.NONE": {
+    "text": "Још немам тест",
+    "why": "test term, clearer"
+  },
+  "mobile:signup.quickGo": {
+    "text": "Прикажи одговарајуће програме",
+    "why": "matches term unified"
+  },
+  "mobile:signup.view": {
+    "text": "Прочитај",
+    "why": "matches English meaning"
+  },
+  "mobile:student.applications.active": {
+    "text": "Активне",
+    "why": "missing translation"
+  },
+  "mobile:student.applications.closed": {
+    "text": "Затворене",
+    "why": "missing translation"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.body": {
+    "text": "Прихватате понуду за упис од {{university}}. Тим Hangyul Univ водиће вас кроз плаћање школарине и добијање стандардног писма о пријему.",
+    "why": "missing translation"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.cta": {
+    "text": "Прихвати понуду",
+    "why": "missing translation"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.title": {
+    "text": "Прихватити ову понуду?",
+    "why": "missing translation"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.body": {
+    "text": "Ваша пријава за {{university}} биће затворена. Ово се не може поништити из апликације.",
+    "why": "missing translation"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.cta": {
+    "text": "Повуци пријаву",
+    "why": "missing translation"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.title": {
+    "text": "Повући ову пријаву?",
+    "why": "missing translation"
+  },
+  "mobile:student.applications.detailTitle": {
+    "text": "Пријава",
+    "why": "missing translation"
+  },
+  "mobile:student.applications.empty": {
+    "text": "Нема активних пријава",
+    "why": "missing translation"
+  },
+  "mobile:student.applications.emptyBody": {
+    "text": "Почните од програма који вам одговарају: оних чије услове испуњавате.",
+    "why": "matches term unified"
+  },
+  "mobile:student.applications.emptyClosed": {
+    "text": "Нема затворених пријава",
+    "why": "missing translation"
+  },
+  "mobile:student.applications.submittedOn": {
+    "text": "Поднето {{date}}",
+    "why": "missing translation"
+  },
+  "mobile:student.applications.subtitle": {
+    "text": "Пратите сваку пријаву на једном месту.",
+    "why": "missing translation"
+  },
+  "mobile:student.documents.detailTitle": {
+    "text": "Документ",
+    "why": "missing translation"
+  },
+  "mobile:student.documents.empty": {
+    "text": "Још немате докумената",
+    "why": "missing translation"
+  },
+  "mobile:student.documents.emptyBody": {
+    "text": "Отпремите пасош, препис оцена и резултате тестова из веб апликације.",
+    "why": "missing translation"
+  },
+  "mobile:student.documents.file": {
+    "text": "{{name}} · верзија {{version}}",
+    "why": "missing translation"
+  },
+  "mobile:student.documents.fixFallback": {
+    "text": "Тим Hangyul је затражио измену овог документа.",
+    "why": "missing translation"
+  },
+  "mobile:student.documents.fixTitle": {
+    "text": "Шта треба исправити",
+    "why": "missing translation"
+  },
+  "mobile:student.documents.openFile": {
+    "text": "Отвори сигуран преглед",
+    "why": "missing translation"
+  },
+  "mobile:student.documents.reviews": {
+    "text": "Историја провера",
+    "why": "missing translation"
+  },
+  "mobile:student.documents.translationBody": {
+    "text": "За овај документ потребан је оверени превод на корејски или енглески.",
+    "why": "missing translation"
+  },
+  "mobile:student.explore.clear": {
+    "text": "Обриши претрагу",
+    "why": "missing translation"
+  },
+  "mobile:student.explore.save": {
+    "text": "Сачувај {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:student.explore.searchPlaceholder": {
+    "text": "Претражите програме или универзитете",
+    "why": "missing translation"
+  },
+  "mobile:student.explore.unsave": {
+    "text": "Уклони {{name}} из сачуваних",
+    "why": "missing translation"
+  },
+  "mobile:student.matches.deadline": {
+    "text": "Рок {{date}} · {{due}}",
+    "why": "missing translation"
+  },
+  "mobile:student.messages.subtitle": {
+    "text": "Разговарајте са тимом Hangyul Univ.",
+    "why": "missing translation"
+  },
+  "mobile:student.messages.unreadA11y_one": {
+    "text": "Поруке, непрочитано: {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:student.messages.unreadA11y_other": {
+    "text": "Поруке, непрочитано: {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:student.nextAction.ARRIVAL_CHECKLIST": {
+    "text": "Припремите се за долазак у Кореју",
+    "why": "missing translation"
+  },
+  "mobile:student.nextAction.COMPARE_OFFERS": {
+    "text": "Упоредите своје понуде за упис ({{count}})",
+    "why": "missing translation"
+  },
+  "mobile:student.nextAction.COMPLETE_PROFILE": {
+    "text": "Довршите профил да бисте видели који вам универзитети одговарају",
+    "why": "missing translation"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.budget": {
+    "text": "Додајте буџет да бисмо програме ({{count}}) рангирали по цени",
+    "why": "missing translation"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.education": {
+    "text": "Додајте школовање да бисмо проверили програме ({{count}})",
+    "why": "missing translation"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.gpa": {
+    "text": "Додајте оцене да бисмо проверили програме ({{count}})",
+    "why": "missing translation"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.language": {
+    "text": "Додајте резултат језичког теста да бисмо проверили програме ({{count}})",
+    "why": "missing translation"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.other": {
+    "text": "Довршите профил да бисмо проверили програме ({{count}})",
+    "why": "missing translation"
+  },
+  "mobile:student.nextAction.RESPOND_OFFER": {
+    "text": "Одговорите на понуду за упис",
+    "why": "missing translation"
+  },
+  "mobile:student.nextAction.REVIEW_MATCHES": {
+    "text": "Погледајте универзитете који вам одговарају",
+    "why": "missing translation"
+  },
+  "mobile:student.profile.completion": {
+    "text": "Попуњеност профила",
+    "why": "missing translation"
+  },
+  "mobile:student.profile.step.basics": {
+    "text": "Основни подаци",
+    "why": "missing translation"
+  },
+  "mobile:student.profile.step.education": {
+    "text": "Образовање",
+    "why": "missing translation"
+  },
+  "mobile:student.profile.step.goals": {
+    "text": "Циљеви студирања",
+    "why": "missing translation"
+  },
+  "mobile:student.profile.step.language": {
+    "text": "Језички резултати",
+    "why": "missing translation"
+  },
+  "mobile:student.profile.step.passport": {
+    "text": "Пасош",
+    "why": "missing translation"
+  },
+  "mobile:student.profile.step.preferences": {
+    "text": "Жеље",
+    "why": "missing translation"
+  },
+  "mobile:student.profile.step.sponsor": {
+    "text": "Финансијер",
+    "why": "missing translation"
+  },
+  "mobile:student.saved.empty": {
+    "text": "Још ништа није сачувано",
+    "why": "missing translation"
+  },
+  "mobile:student.saved.emptyBody": {
+    "text": "Додирните срце на програму да бисте сачували његов универзитет овде.",
+    "why": "missing translation"
+  },
+  "mobile:student.tasks.confirmTitle": {
+    "text": "Означити овај задатак као завршен?",
+    "why": "missing translation"
+  },
+  "mobile:student.tasks.empty": {
+    "text": "Тренутно немате шта да радите",
+    "why": "missing translation"
+  },
+  "mobile:student.tasks.emptyBody": {
+    "text": "Додаћемо задатке овде када нешто буде захтевало вашу пажњу.",
+    "why": "missing translation"
+  },
+  "mobile:student.tasks.overdue": {
+    "text": "Закаснело ({{count}})",
+    "why": "missing translation"
+  },
+  "mobile:student.tasks.subtitle": {
+    "text": "Задаци од тима Hangyul и из листа ваших пријава.",
+    "why": "missing translation"
+  },
+  "mobile:student.tasks.title": {
+    "text": "Листа задатака",
+    "why": "missing translation"
+  },
+  "mobile:student.tasks.upcoming": {
+    "text": "Предстоји",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.anonymous": {
+    "text": "Кандидат",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.confirmBody": {
+    "text": "{{name}} и њихов саветник биће обавештени. Додајте белешку за евиденцију (необавезно).",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.confirmTitle": {
+    "text": "Променити статус у „{{status}}“?",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.detailTitle": {
+    "text": "Кандидат",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.history": {
+    "text": "Историја статуса",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.interview": {
+    "text": "Интервју",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.moveTo": {
+    "text": "Премести у: {{status}}",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.notShared": {
+    "text": "Још није подељено са вашим универзитетом",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.note": {
+    "text": "Белешка",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.previewHint": {
+    "text": "Отвара сигуран преглед са ограниченим трајањем",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.reference": {
+    "text": "Ваш референтни број",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.submitted": {
+    "text": "Поднето {{date}}",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.submittedLabel": {
+    "text": "Поднето",
+    "why": "missing translation"
+  },
+  "mobile:university.applicants.viaAgency": {
+    "text": "Преко {{agency}}",
+    "why": "missing translation"
+  },
+  "mobile:university.flagged.add": {
+    "text": "Означи за праћење",
+    "why": "missing translation"
+  },
+  "mobile:university.flagged.addBody": {
+    "text": "Ову ознаку и разлог види само тим вашег универзитета.",
+    "why": "missing translation"
+  },
+  "mobile:university.flagged.flagged": {
+    "text": "Означено",
+    "why": "missing translation"
+  },
+  "mobile:university.flagged.reason": {
+    "text": "Разлог",
+    "why": "missing translation"
+  },
+  "mobile:university.flagged.remove": {
+    "text": "Уклони ознаку",
+    "why": "missing translation"
+  },
+  "mobile:university.flagged.removeTitle": {
+    "text": "Уклонити ознаку са ове пријаве?",
+    "why": "missing translation"
+  },
+  "mobile:university.inbox.title": {
+    "text": "Поруке",
+    "why": "missing translation"
+  },
+  "mobile:university.login.tagline": {
+    "text": "Кандидати, одлуке и генерације за вашу међународну канцеларију.",
+    "why": "missing translation"
+  },
+  "mobile:v29.mfa.codeHint": {
+    "text": "Унесите шестоцифрени код из апликације за аутентификацију или код за опоравак.",
+    "why": "missing translation"
+  },
+  "mobile:v29.mfa.codeLabel": {
+    "text": "Код за проверу",
+    "why": "missing translation"
+  },
+  "mobile:v29.mfa.enrollOnWeb": {
+    "text": "Овај налог захтева проверу у два корака. Прво је подесите у веб конзоли, а затим се пријавите овде.",
+    "why": "missing translation"
+  },
+  "mobile:v29.mfa.verify": {
+    "text": "Провери и пријави се",
+    "why": "missing translation"
+  },
+  "mobile:v29.mfa.wrongCode": {
+    "text": "Код је погрешан или је истекао. Унесите нови.",
+    "why": "missing translation"
+  },
+  "mobile:v29.plan.supportDays": {
+    "text": "Подршка кроз консултације {{count}} дана од прве консултације",
+    "why": "matches English meaning"
+  },
+  "mobile:v29.plan.supportUntil": {
+    "text": "Подршка кроз консултације до {{date}}",
+    "why": "matches English meaning"
+  },
+  "mobile:v29.plan.termToAgree": {
+    "text": "Договара се на почетку услуге",
+    "why": "clearer"
+  },
+  "mobile:v29.plan.unrationed.TEAM": {
+    "text": "Подршка вашег тима",
+    "why": "same wording as Student app"
+  },
+  "mobile:v3.agency.allClear": {
+    "text": "Све у реду: {{list}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.applications_one": {
+    "text": "{{count}} пријава",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.applications_few": {
+    "text": "{{count}} пријаве",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.agency.applications_other": {
+    "text": "{{count}} пријава",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.breached_one": {
+    "text": "{{count}} већ преко обећаног рока",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.breached_other": {
+    "text": "{{count}} већ преко обећаног рока",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.closing_one": {
+    "text": "Пријава се затвара у року од 7 дана",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.closing_few": {
+    "text": "Пријаве се затварају у року од 7 дана",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.agency.att.closing_other": {
+    "text": "Пријаве се затварају у року од 7 дана",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.docs_one": {
+    "text": "Документ чека проверу",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.docs_few": {
+    "text": "Документа чекају проверу",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.agency.att.docs_other": {
+    "text": "Документа чекају проверу",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.next": {
+    "text": "Следеће: {{uni}} за {{who}}, {{date}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.overSla": {
+    "text": "{{count}} чека дуже од {{hours}} h",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.overdue_one": {
+    "text": "Закаснели задатак",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.overdue_few": {
+    "text": "Закаснели задаци",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.agency.att.overdue_other": {
+    "text": "Закаснели задаци",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.replies_one": {
+    "text": "Студент чека ваш одговор",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.replies_few": {
+    "text": "Студенти чекају ваш одговор",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.agency.att.replies_other": {
+    "text": "Студенти чекају ваш одговор",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.since": {
+    "text": "Најстарије од {{who}}, {{when}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.sla_one": {
+    "text": "Студент у ризику од закаснелог првог одговора",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.att.sla_few": {
+    "text": "Студенти у ризику од закаснелог првог одговора",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.agency.att.sla_other": {
+    "text": "Студенти у ризику од закаснелог првог одговора",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.block.deadline": {
+    "text": "Пријава за {{uni}} се ускоро затвара",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.block.fix": {
+    "text": "{{doc}}: студент треба да исправи",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.block.requested": {
+    "text": "{{uni}} је затражио додатна документа",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.block.review": {
+    "text": "{{doc}} чека вашу проверу",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.block.sla": {
+    "text": "Рок за први одговор",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.blockers_one": {
+    "text": "{{count}} ствар кочи овог студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.blockers_few": {
+    "text": "{{count}} ствари коче овог студента",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.agency.blockers_other": {
+    "text": "{{count}} ствари кочи овог студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.clear.closing": {
+    "text": "рокови ове недеље",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.clear.docs": {
+    "text": "провере докумената",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.clear.overdue": {
+    "text": "закаснели задаци",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.clear.replies": {
+    "text": "одговори студентима",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.clear.sla": {
+    "text": "први одговори",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.conversationSubject": {
+    "text": "Ваш тим за студије у Кореји",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.deadline": {
+    "text": "{{uni}} {{when}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.documents": {
+    "text": "Документа · потврђено {{verified}} од {{total}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.dueToday_one": {
+    "text": "Рок данас · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.dueToday_other": {
+    "text": "Рок данас · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.findStudent": {
+    "text": "Пронађи студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.firstMessage": {
+    "text": "Пошаљи поруку: {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.greeting.afternoon": {
+    "text": "Добар дан, {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.greeting.evening": {
+    "text": "Добро вече, {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.greeting.morning": {
+    "text": "Добро јутро, {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.message": {
+    "text": "Порука",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.messageLabel": {
+    "text": "Порука",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.needsAttention": {
+    "text": "Захтева пажњу",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.nextAction": {
+    "text": "Следеће: {{what}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.noBlockers": {
+    "text": "Ништа не кочи овог студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.noBlockersBody": {
+    "text": "Документа, рокови и одговори су по плану.",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.noStudents": {
+    "text": "Нема студената у овом приказу",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.noStudentsBody": {
+    "text": "Пробајте други приказ или обришите претрагу.",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.searchPlaceholder": {
+    "text": "Име или имејл",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.stage": {
+    "text": "Фаза",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.stageNote": {
+    "text": "Белешка за тим (необавезно)",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.stageTo": {
+    "text": "Премести у {{stage}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.teamView": {
+    "text": "Тим · {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.toFix_one": {
+    "text": "{{count}} документ за исправку",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.toFix_few": {
+    "text": "{{count}} документа за исправку",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.agency.toFix_other": {
+    "text": "{{count}} докумената за исправку",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.today": {
+    "text": "Данас",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.upload": {
+    "text": "Отпреми",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.uploadFor": {
+    "text": "{{doc}} за {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.uploadWhat": {
+    "text": "Који документ отпремате?",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.uploaded": {
+    "text": "Отпремљено у документа студента. Спремно за проверу.",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.all": {
+    "text": "Све",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.attention": {
+    "text": "Захтева пажњу",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.deadline": {
+    "text": "Рок ускоро",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.docs": {
+    "text": "Документа за исправку",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.mine": {
+    "text": "Моји студенти",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.sla": {
+    "text": "Студенти преко или близу обећаног рока за први одговор",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.university": {
+    "text": "Чека универзитет",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.visa": {
+    "text": "Виза",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.waiting_student": {
+    "text": "Чека студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.view.waiting_us": {
+    "text": "Чека нас",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.agency": {
+    "text": "Чека тим агенције",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.counselor": {
+    "text": "Чека саветника",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.external": {
+    "text": "Чека спољну институцију",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.hangyul": {
+    "text": "Чека Hangyul",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.none": {
+    "text": "Ништа не чека",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.student": {
+    "text": "Чека студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.university": {
+    "text": "Чека универзитет",
+    "why": "missing translation"
+  },
+  "mobile:v3.agency.waitingOn.us": {
+    "text": "Чека нас",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.ADDITIONAL_DOCUMENTS": {
+    "text": "Универзитет је затражио још један документ.",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Ваше писмо о пријему је спремно. Почните са документима за визу.",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_PENDING": {
+    "text": "Чека се ваше стандардно писмо о пријему.",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.DOCUMENT_PREPARATION": {
+    "text": "Припремате документа.",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.DRAFT": {
+    "text": "Започели сте ову пријаву.",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.ENROLLED": {
+    "text": "Уписани сте. Добро дошли у Кореју.",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.INTERVIEW": {
+    "text": "Универзитет вас позива на интервју.",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.OFFERED": {
+    "text": "Добили сте понуду за упис.",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.OFFER_ACCEPTED": {
+    "text": "Прихватили сте понуду. Следеће: школарина.",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.PROFILE_REVIEW": {
+    "text": "Тим Hangyul Univ проверава ваш профил.",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.REJECTED": {
+    "text": "Универзитет овог пута није понудио место.",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.SUBMITTED": {
+    "text": "Поднето: {{university}}.",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.TUITION_PAID": {
+    "text": "Школарина је примљена. Универзитет припрема ваше писмо о пријему.",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.TUITION_PENDING": {
+    "text": "Платите школарину директно универзитету до рока.",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.UNIVERSITY_REVIEW": {
+    "text": "{{university}} разматра вашу пријаву.",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.VISA_PREPARATION": {
+    "text": "Припремате захтев за визу.",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.VISA_SUBMITTED": {
+    "text": "Захтев за визу је поднет.",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.WAITLISTED": {
+    "text": "На листи сте чекања.",
+    "why": "missing translation"
+  },
+  "mobile:v3.appStatus.WITHDRAWN": {
+    "text": "Ова пријава је повучена.",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.closes": {
+    "text": "Затвара се {{date}} · {{left}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.due": {
+    "text": "Рок {{date}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.ready": {
+    "text": "Спремно за слање",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.readyBody": {
+    "text": "Све што је потребно је ту.",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.reviewBody": {
+    "text": "Поднето {{date}}. Универзитет може затражити још један документ или интервју. Тим Hangyul прати напредак.",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.reviewTitle": {
+    "text": "{{university}} разматра вашу пријаву",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.reviewing": {
+    "text": "Проверава се: {{item}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.submit": {
+    "text": "Поднеси пријаву",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.teamMonitoring": {
+    "text": "У контакту са универзитетом",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.teamWaiting": {
+    "text": "Чекамо ваша документа",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.timeline": {
+    "text": "Временски ток",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.uni.decided": {
+    "text": "Одлука је донета",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.uni.reviewing": {
+    "text": "Разматра вашу пријаву",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.uni.waiting": {
+    "text": "Чека вашу пријаву",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.university": {
+    "text": "Универзитет",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.uploadRequested": {
+    "text": "Отпремите овај документ",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.who": {
+    "text": "Ко шта ради",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.withdraw": {
+    "text": "Повуци ову пријаву",
+    "why": "missing translation"
+  },
+  "mobile:v3.application.you": {
+    "text": "Ви",
+    "why": "missing translation"
+  },
+  "mobile:v3.common.all": {
+    "text": "Погледај све",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.bucket.later_other": {
+    "text": "Касније овог месеца · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.bucket.overdue_other": {
+    "text": "Закаснело · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.bucket.week_other": {
+    "text": "Наредних 7 дана · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.emptyView": {
+    "text": "Ништа не доспева у овом приказу",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.student": {
+    "text": "Студент",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.who.all": {
+    "text": "Све",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.who.mine": {
+    "text": "Моји",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.who.unassigned": {
+    "text": "Недодељено",
+    "why": "missing translation"
+  },
+  "mobile:v3.deadlines.you": {
+    "text": "Ви",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.all": {
+    "text": "Све",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.any": {
+    "text": "Било који",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.closes": {
+    "text": "затвара се {{date}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.degree": {
+    "text": "Шта желите да студирате?",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.emptyVerdict": {
+    "text": "Тренутно нема ничега",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.explain.notyet": {
+    "text": "Један објављени услов још није испуњен. Сваки ред каже тачно који.",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.explain.strong": {
+    "text": "Испуњавате све објављене основне услове, а програм се уклапа у ваш буџет и планове.",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.filters": {
+    "text": "Филтери",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.filtersN": {
+    "text": "Филтери · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.forYou": {
+    "text": "За вас",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.language": {
+    "text": "Језик наставе",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.noLanguageMin": {
+    "text": "Без језичког минимума",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.openOnly": {
+    "text": "Отворено за пријаве",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.perYear": {
+    "text": "≈ {{amount}} годишње",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.saved": {
+    "text": "Сачувано · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.savedEmpty": {
+    "text": "Још нема сачуваних универзитета",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.savedEmptyBody": {
+    "text": "Додирните срце на било ком програму да бисте га сачували за касније.",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.showResults_one": {
+    "text": "Прикажи {{count}} програм",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.showResults_few": {
+    "text": "Прикажи {{count}} програма",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.discover.showResults_other": {
+    "text": "Прикажи {{count}} програма",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.summary_one": {
+    "text": "Испуњавате објављене услове за {{count}} програм.",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.summary_few": {
+    "text": "Испуњавате објављене услове за {{count}} програма.",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.discover.summary_other": {
+    "text": "Испуњавате објављене услове за {{count}} програма.",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.tuition": {
+    "text": "Школарина по семестру",
+    "why": "missing translation"
+  },
+  "mobile:v3.discover.upTo": {
+    "text": "До ₩{{amount}} мил.",
+    "why": "missing translation"
+  },
+  "mobile:v3.docAction.FIX": {
+    "text": "Треба исправити",
+    "why": "missing translation"
+  },
+  "mobile:v3.docAction.IN_REVIEW": {
+    "text": "Проверава тим Hangyul",
+    "why": "missing translation"
+  },
+  "mobile:v3.docAction.LEGALIZE": {
+    "text": "Потребан апостил или конзуларна легализација",
+    "why": "missing translation"
+  },
+  "mobile:v3.docAction.TOO_OLD": {
+    "text": "Издат превише давно. Набавите нови примерак",
+    "why": "natural wording"
+  },
+  "mobile:v3.docAction.UPLOAD": {
+    "text": "Још није отпремљено",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.allSet": {
+    "text": "Тренутно ништа не чека вас.",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.checking": {
+    "text": "У провери",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.howTo": {
+    "text": "Како да добијете: {{path}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.issuedIn": {
+    "text": "Издато у",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.issuedOn": {
+    "text": "Издато",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.needYou_one": {
+    "text": "{{count}} чека вас",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.needYou_other": {
+    "text": "{{count}} чека вас",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.neededFor": {
+    "text": "Потребно за {{university}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.needsYou": {
+    "text": "Чека вас",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.newVersion": {
+    "text": "Отпремите нову верзију",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.ready": {
+    "text": "Спремно",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.readyOf": {
+    "text": "Спремно {{ready}} од {{total}} докумената",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.readyTitle": {
+    "text": "Спремно",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.sourceVerified": {
+    "text": "Званични извор · проверено {{date}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.state.fix": {
+    "text": "Треба исправити",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.state.legalize": {
+    "text": "Потребан апостил",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.state.ready": {
+    "text": "Спремно",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.state.review": {
+    "text": "У провери",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.submitted": {
+    "text": "Поднето {{when}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.upload": {
+    "text": "Отпреми",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.validUntil": {
+    "text": "Важи до {{date}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.documents.validUntilLabel": {
+    "text": "Важи до",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.applications": {
+    "text": "Ваше пријаве",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.closes": {
+    "text": "Затвара се {{date}} · {{left}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.documentsHint": {
+    "text": "Отпремите, исправите или прибавите апостил",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.documents_one": {
+    "text": "{{count}} документ чека вас",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.documents_few": {
+    "text": "{{count}} документа чекају вас",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.home.documents_other": {
+    "text": "{{count}} докумената чека вас",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.due": {
+    "text": "Рок {{date}} · {{left}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.findUniversities": {
+    "text": "Пронађи универзитете",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.greeting.afternoon": {
+    "text": "Добар дан, {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.greeting.evening": {
+    "text": "Добро вече, {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.greeting.morning": {
+    "text": "Добро јутро, {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.message": {
+    "text": "Порука",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextBody.APPLICATION_DEADLINE": {
+    "text": "Завршите листу задатака да би пријава могла да буде поднета на време.",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextBody.DOCUMENT_UPLOAD": {
+    "text": "Отпремите јасан скен или фотографију. Тим Hangyul проверава документ и јавља вам ако нешто треба исправити.",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextBody.ESSAY_WRITE": {
+    "text": "Почните од грубе верзије. Тим Hangyul ће је прегледати са вама.",
+    "why": "counselor replaced by Hangyul team"
+  },
+  "mobile:v3.home.nextBody.REVIEW_MATCHES": {
+    "text": "Упоредили смо ваш профил са објављеним условима. Сачувајте неколико програма, па започните пријаву.",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextBody.TUITION_PAYMENT": {
+    "text": "Школарина се плаћа директно универзитету, на ваше име.",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextBody.UNIVERSITY_REQUEST": {
+    "text": "Универзитет је затражио још један документ пре него што може да одлучи.",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextBody.VISA_STEP": {
+    "text": "Завршите следећу ставку на својој листи за визу.",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextBody.WAIT": {
+    "text": "Тренутно ништа не чека вас. Јавићемо вам чим се нешто промени.",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextCta.APPLICATION_DEADLINE": {
+    "text": "Отвори пријаву",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextCta.APPLICATION_SUBMIT": {
+    "text": "Прегледај и поднеси",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextCta.ARRIVAL_CHECKLIST": {
+    "text": "Отвори листу за долазак",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextCta.COMPARE_OFFERS": {
+    "text": "Упореди понуде",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextCta.COMPLETE_PROFILE": {
+    "text": "Настави профил",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextCta.DOCUMENT_UPLOAD": {
+    "text": "Отпреми документ",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextCta.ESSAY_WRITE": {
+    "text": "Отвори нацрт",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextCta.INTERVIEW": {
+    "text": "Припреми се за интервју",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextCta.RESPOND_OFFER": {
+    "text": "Погледај понуду",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextCta.REVIEW_MATCHES": {
+    "text": "Погледај моје универзитете",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextCta.TUITION_PAYMENT": {
+    "text": "Погледај детаље плаћања",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextCta.UNIVERSITY_REQUEST": {
+    "text": "Погледај шта је универзитет тражио",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextCta.VISA_STEP": {
+    "text": "Отвори кораке за визу",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextCtaDefault": {
+    "text": "Почни одмах",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.nextEyebrow": {
+    "text": "Шта сада да урадите",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.noApplications": {
+    "text": "Још нема пријава. Почните од универзитета који вам одговарају.",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.noCounselor": {
+    "text": "Изаберите план и тим Hangyul Univ ради са вама на вашем језику.",
+    "why": "ви register; plan term"
+  },
+  "mobile:v3.home.otherTasks_one": {
+    "text": "Још {{count}} задатак",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.otherTasks_few": {
+    "text": "Још {{count}} задатка",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.home.otherTasks_other": {
+    "text": "Још {{count}} задатака",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.stageLine.apply": {
+    "text": "Универзитети разматрају ваше пријаве",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.stageLine.arrival": {
+    "text": "Припрема за долазак у Кореју",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.stageLine.discover": {
+    "text": "Тражимо праве универзитете",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.stageLine.prepare": {
+    "text": "Припремате пријаве",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.stageLine.visa": {
+    "text": "Припремате студентску визу",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.team": {
+    "text": "Тим Hangyul Univ",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.unread_one": {
+    "text": "{{count}} непрочитана порука",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.unread_few": {
+    "text": "{{count}} непрочитане поруке",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.home.unread_other": {
+    "text": "{{count}} непрочитаних порука",
+    "why": "missing translation"
+  },
+  "mobile:v3.home.upcoming": {
+    "text": "Предстоји",
+    "why": "missing translation"
+  },
+  "mobile:v3.journey.admission": {
+    "text": "Пријем",
+    "why": "missing translation"
+  },
+  "mobile:v3.journey.apply": {
+    "text": "Пријава",
+    "why": "missing translation"
+  },
+  "mobile:v3.journey.arrival": {
+    "text": "Долазак",
+    "why": "missing translation"
+  },
+  "mobile:v3.journey.discover": {
+    "text": "Истраживање",
+    "why": "missing translation"
+  },
+  "mobile:v3.journey.next": {
+    "text": "Следеће: {{stage}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.journey.of": {
+    "text": "· {{n}} од {{total}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.journey.prepare": {
+    "text": "Припрема",
+    "why": "missing translation"
+  },
+  "mobile:v3.journey.step": {
+    "text": "Корак {{n}} од {{total}}: {{stage}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.journey.visa": {
+    "text": "Виза",
+    "why": "missing translation"
+  },
+  "mobile:v3.match.close": {
+    "text": "Још не испуњавате услове — један корак до циља",
+    "why": "missing translation"
+  },
+  "mobile:v3.match.notYet": {
+    "text": "Још не испуњавате услове",
+    "why": "missing translation"
+  },
+  "mobile:v3.match.possible": {
+    "text": "Можда вам одговара",
+    "why": "missing translation"
+  },
+  "mobile:v3.match.strong": {
+    "text": "Одлично вам одговара",
+    "why": "missing translation"
+  },
+  "mobile:v3.messages.attach": {
+    "text": "Приложи датотеку",
+    "why": "missing translation"
+  },
+  "mobile:v3.messages.attachUnavailable": {
+    "text": "Прилози још нису доступни.",
+    "why": "missing translation"
+  },
+  "mobile:v3.messages.attachmentOnly_one": {
+    "text": "Послат {{count}} прилог",
+    "why": "missing translation"
+  },
+  "mobile:v3.messages.attachmentOnly_few": {
+    "text": "Послата {{count}} прилога",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.messages.attachmentOnly_other": {
+    "text": "Послато {{count}} прилога",
+    "why": "missing translation"
+  },
+  "mobile:v3.messages.conversations": {
+    "text": "Разговори",
+    "why": "missing translation"
+  },
+  "mobile:v3.messages.openAttachment": {
+    "text": "Отвори {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.messages.removeAttachment": {
+    "text": "Уклони {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.offer.accept": {
+    "text": "Прихвати понуду",
+    "why": "missing translation"
+  },
+  "mobile:v3.offer.body": {
+    "text": "{{university}} вам нуди место на програму {{program}}.",
+    "why": "missing translation"
+  },
+  "mobile:v3.offer.deadline": {
+    "text": "Прихватите и платите школарину до {{date}} · {{left}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.offer.next": {
+    "text": "Шта следи",
+    "why": "missing translation"
+  },
+  "mobile:v3.offer.scholarship": {
+    "text": "Стипендија",
+    "why": "missing translation"
+  },
+  "mobile:v3.offer.step.accept": {
+    "text": "Прихватите понуду",
+    "why": "missing translation"
+  },
+  "mobile:v3.offer.step.letter": {
+    "text": "Примите стандардно писмо о пријему",
+    "why": "missing translation"
+  },
+  "mobile:v3.offer.step.review": {
+    "text": "Прегледајте понуду и евентуалне услове",
+    "why": "missing translation"
+  },
+  "mobile:v3.offer.step.tuition": {
+    "text": "Платите школарину директно универзитету",
+    "why": "missing translation"
+  },
+  "mobile:v3.offer.step.visa": {
+    "text": "Припремите студентску визу",
+    "why": "missing translation"
+  },
+  "mobile:v3.offer.tuition": {
+    "text": "Школарина",
+    "why": "missing translation"
+  },
+  "mobile:v3.offer.tuitionDirect": {
+    "text": "Hangyul никада не наплаћује школарину. Платите универзитету на своје име према његовим упутствима.",
+    "why": "missing translation"
+  },
+  "mobile:v3.profile.completeTitle": {
+    "text": "Ваш профил је потпун",
+    "why": "missing translation"
+  },
+  "mobile:v3.profile.done": {
+    "text": "Завршено",
+    "why": "missing translation"
+  },
+  "mobile:v3.profile.editOnWeb": {
+    "text": "Ове одговоре можете изменити на вебу у било ком тренутку.",
+    "why": "missing translation"
+  },
+  "mobile:v3.profile.places": {
+    "text": "Ваши подаци",
+    "why": "missing translation"
+  },
+  "mobile:v3.profile.todo": {
+    "text": "За додавање",
+    "why": "missing translation"
+  },
+  "mobile:v3.profile.unlock.basics": {
+    "text": "Говори нам која правила за документа и визу важе за вас",
+    "why": "missing translation"
+  },
+  "mobile:v3.profile.unlock.default": {
+    "text": "Чини одговарајуће програме тачнијим",
+    "why": "missing translation"
+  },
+  "mobile:v3.profile.unlock.education": {
+    "text": "Уклања програме чије академске услове не испуњавате",
+    "why": "missing translation"
+  },
+  "mobile:v3.profile.unlock.goals": {
+    "text": "Приказује програме на нивоу и у термину који желите",
+    "why": "missing translation"
+  },
+  "mobile:v3.profile.unlock.language": {
+    "text": "Омогућава да вас повежемо са програмима за које треба TOPIK, IELTS или TOEFL",
+    "why": "matches term unified"
+  },
+  "mobile:v3.profile.unlock.passport": {
+    "text": "Потребно пре подношења било које пријаве",
+    "why": "missing translation"
+  },
+  "mobile:v3.profile.unlock.preferences": {
+    "text": "Рангира универзитете по вашем буџету и граду",
+    "why": "missing translation"
+  },
+  "mobile:v3.profile.unlock.sponsor": {
+    "text": "Омогућава да рано припремите финансијска документа за визу",
+    "why": "missing translation"
+  },
+  "mobile:v3.push.denied": {
+    "text": "Обавештења су искључена. Укључите их у подешавањима телефона за Hangyul.",
+    "why": "missing translation"
+  },
+  "mobile:v3.push.enable": {
+    "text": "Укључи обавештења",
+    "why": "missing translation"
+  },
+  "mobile:v3.push.error": {
+    "text": "Нисмо успели да укључимо обавештења. Покушајте поново.",
+    "why": "missing translation"
+  },
+  "mobile:v3.push.idle": {
+    "text": "Примите обавештење када документ буде проверен, када се рок приближи или када тим Hangyul одговори.",
+    "why": "missing translation"
+  },
+  "mobile:v3.push.on": {
+    "text": "Обавештења су укључена. Ово можете променити у подешавањима телефона.",
+    "why": "missing translation"
+  },
+  "mobile:v3.push.pending-server": {
+    "text": "Обавештења су дозвољена на овом телефону. Слање још није активно; све се и даље појављује на овој листи.",
+    "why": "missing translation"
+  },
+  "mobile:v3.push.title": {
+    "text": "Обавештења на овом телефону",
+    "why": "missing translation"
+  },
+  "mobile:v3.quick.again": {
+    "text": "Промени моје одговоре",
+    "why": "missing translation"
+  },
+  "mobile:v3.quick.createAccount": {
+    "text": "Региструјте се да наставите",
+    "why": "ви register"
+  },
+  "mobile:v3.reviews.beforeVerify": {
+    "text": "Пре него што потврдите",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.bulkBody": {
+    "text": "Урадите ово само за документа која сте отворили и проверили. Сваки студент добија обавештење.",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.bulkDone": {
+    "text": "Потврђено: {{ok}}, прескочено: {{failed}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.bulkTitle_one": {
+    "text": "Потврдити {{count}} документ?",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.bulkTitle_few": {
+    "text": "Потврдити {{count}} документа?",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.reviews.bulkTitle_other": {
+    "text": "Потврдити {{count}} докумената?",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.check.date": {
+    "text": "Датум издавања је довољно скорашњи и документ није истекао",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.check.issuer": {
+    "text": "Издавалац, печат или потпис су видљиви",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.check.legal": {
+    "text": "{{path}}: приложено и одговара документу",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.check.legible": {
+    "text": "Свака страница је потпуна и читљива",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.check.name": {
+    "text": "Име и датум рођења се поклапају са пасошем",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.correctionTitle": {
+    "text": "Шта студент треба да исправи?",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.expires": {
+    "text": "Важи до",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.issuedIn": {
+    "text": "Издато у",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.issuedOn": {
+    "text": "Издато",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.legalization": {
+    "text": "Легализација",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.notNeeded": {
+    "text": "Није потребно",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.open": {
+    "text": "Отвори {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.overSla": {
+    "text": "{{waiting}} · преко обећаног рока за проверу",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.reason": {
+    "text": "Порука студенту",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.requestCorrection": {
+    "text": "Затражи исправку",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.required": {
+    "text": "Обавезно",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.select": {
+    "text": "Изабери",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.studentSees": {
+    "text": "{{name}} види тачно овај текст поред документа.",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.studentSeesGeneric": {
+    "text": "Студент види тачно овај текст поред документа.",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.summary": {
+    "text": "Чека: {{count}} · {{over}} преко обећаног рока за проверу од {{hours}} h",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.templates": {
+    "text": "Шаблони тима",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.translation": {
+    "text": "Превод",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.uploaded": {
+    "text": "отпремљено {{when}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.verifyN_one": {
+    "text": "Потврди {{count}} документ",
+    "why": "missing translation"
+  },
+  "mobile:v3.reviews.verifyN_few": {
+    "text": "Потврди {{count}} документа",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.reviews.verifyN_other": {
+    "text": "Потврди {{count}} докумената",
+    "why": "missing translation"
+  },
+  "mobile:v3.settings.consoleHint": {
+    "text": "Чланови тима, наплата и извози управљају се у веб конзоли агенције.",
+    "why": "missing translation"
+  },
+  "mobile:v3.settings.work": {
+    "text": "Ваш посао",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.empty.team": {
+    "text": "Тим нема отворених задатака",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.empty.today": {
+    "text": "Ништа не доспева данас",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.empty.waiting": {
+    "text": "Ниједан задатак не чека на нешто друго",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.empty.week": {
+    "text": "Ништа не доспева ове недеље",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.open": {
+    "text": "Отворено",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.overdue": {
+    "text": "Закаснело · {{when}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.view.overdue": {
+    "text": "Закаснело",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.view.team": {
+    "text": "Тим",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.view.today": {
+    "text": "Данас",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.view.waiting": {
+    "text": "Чека",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.view.week": {
+    "text": "Ове недеље",
+    "why": "missing translation"
+  },
+  "mobile:v3.tasks.waitingOn": {
+    "text": "Чека на: {{what}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.allClear": {
+    "text": "Тренутно ништа не чека одлуку.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.allCohorts": {
+    "text": "Сви студенти Hangyul-а",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.allIntakes": {
+    "text": "Сви уписни рокови",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.applicant": {
+    "text": "Кандидат",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.gpa": {
+    "text": "Просек (GPA)",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.interview": {
+    "text": "Интервју",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.interviewRequired": {
+    "text": "Обавезан за овај програм",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.level": {
+    "text": "Ниво {{level}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.minimum": {
+    "text": "Минимум {{need}} · Кандидат {{have}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.notProvided": {
+    "text": "није наведено",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.state.below": {
+    "text": "Испод минимума",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.state.meets": {
+    "text": "Испуњава",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.state.missing": {
+    "text": "Није наведено",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.state.planned": {
+    "text": "Тест планиран",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.state.unscheduled": {
+    "text": "Није заказано",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.check.topik": {
+    "text": "TOPIK",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.checksNote": {
+    "text": "Пореди самопријављене резултате са објављеним минимумима програма. Помаже при разматрању; не доноси одлуку.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.checksTitle": {
+    "text": "Провера услова",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.closed": {
+    "text": "Затворено: {{rejected}} није примљено, {{withdrawn}} повучено. За стопе је потребно најмање {{min}} особа.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohortIntro_one": {
+    "text": "{{count}} студент дошао је код вас преко Hangyul-а. Ево како напредује.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohortIntro_few": {
+    "text": "{{count}} студента дошла су код вас преко Hangyul-а. Ево како напредују.",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.uni.cohortIntro_other": {
+    "text": "{{count}} студената дошло је код вас преко Hangyul-а. Ево како напредују.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohortNote": {
+    "text": "Стопе се приказују када се квалификује најмање {{min}} студената. Стање на дан {{date}}.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohort_one": {
+    "text": "{{label}} · {{count}} студент",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.cohort_few": {
+    "text": "{{label}} · {{count}} студента",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.uni.cohort_other": {
+    "text": "{{label}} · {{count}} студената",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.conv": {
+    "text": "{{pct}} од претходног корака · {{n}} од {{d}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.convFew": {
+    "text": "{{n}} од {{d}} из претходног корака · премало за стопу",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.admitted_one": {
+    "text": "примљени студент који још није платио школарину",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.admitted_few": {
+    "text": "примљена студента која још нису платила школарину",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.uni.decision.admitted_other": {
+    "text": "примљених студената који још нису платили школарину",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.documents_one": {
+    "text": "чека се на документа студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.documents_other": {
+    "text": "чека се на документа студената",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.flagged_one": {
+    "text": "означена пријава",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.flagged_few": {
+    "text": "означене пријаве",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.uni.decision.flagged_other": {
+    "text": "означених пријава",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.interview_one": {
+    "text": "интервју за одржавање или оцењивање",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.interview_few": {
+    "text": "интервјуа за одржавање или оцењивање",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.uni.decision.interview_other": {
+    "text": "интервјуа за одржавање или оцењивање",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.offer_one": {
+    "text": "понуда која чека одговор студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.offer_few": {
+    "text": "понуде које чекају одговор студента",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.uni.decision.offer_other": {
+    "text": "понуда које чекају одговор студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.returned_one": {
+    "text": "документ који је студент вратио",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.returned_few": {
+    "text": "документа која су студенти вратили",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.uni.decision.returned_other": {
+    "text": "докумената која су студенти вратили",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.review_one": {
+    "text": "пријава за разматрање",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decision.review_few": {
+    "text": "пријаве за разматрање",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.uni.decision.review_other": {
+    "text": "пријава за разматрање",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionContext_one": {
+    "text": "Спремно {{ready}} од {{total}} обавезних докумената · {{count}} отворен захтев.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionContext_few": {
+    "text": "Спремно {{ready}} од {{total}} обавезних докумената · {{count}} отворена захтева.",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.uni.decisionContext_other": {
+    "text": "Спремно {{ready}} од {{total}} обавезних докумената · {{count}} отворених захтева.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionDocs": {
+    "text": "Спремно {{ready}} од {{total}} обавезних докумената.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.admitted": {
+    "text": "Потврдите уплату када стигне",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.documents": {
+    "text": "Нема радње док не отпреме",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.flagged": {
+    "text": "Означено за детаљнији преглед",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.interview": {
+    "text": "Забележите исход након интервјуа",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.offer": {
+    "text": "Hangyul прати са студентом",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.returned": {
+    "text": "Поново проверите шта сте тражили",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.decisionHint.review": {
+    "text": "Поднето и довољно потпуно за одлуку",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.docsTitle": {
+    "text": "Документа · спремно {{ready}} од {{total}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.dueOn": {
+    "text": "рок {{date}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.empty.all": {
+    "text": "Овде нема кандидата",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.empty.flagged": {
+    "text": "Нема означених пријава",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.empty.review": {
+    "text": "Нема пријава које чекају разматрање",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.graduation": {
+    "text": "Дипломирали",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.latest": {
+    "text": "Најновије за разматрање",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.ADDITIONAL_DOCUMENTS": {
+    "text": "Затражи додатна документа",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Издај писмо о пријему",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.INTERVIEW": {
+    "text": "Позови на интервју",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.OFFERED": {
+    "text": "Понуди место",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.REJECTED": {
+    "text": "Не прими",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.TUITION_PAID": {
+    "text": "Потврди уплату школарине",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.TUITION_PENDING": {
+    "text": "Пошаљи рачун за школарину",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.UNIVERSITY_REVIEW": {
+    "text": "Започни разматрање",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.move.WAITLISTED": {
+    "text": "Листа чекања",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.nOfD": {
+    "text": "{{n}} од {{d}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.needsTitle": {
+    "text": "Чека вашу одлуку",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.noMinimums": {
+    "text": "Овај програм још нема објављене минимуме.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.nothingToReview": {
+    "text": "Ништа не чека разматрање",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.openRequests_one": {
+    "text": "{{count}} документ затражен",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.openRequests_few": {
+    "text": "{{count}} документа затражена",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.uni.openRequests_other": {
+    "text": "{{count}} докумената затражено",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.otherDecisions": {
+    "text": "Остале одлуке",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.populationAll_one": {
+    "text": "На основу {{count}} поднете пријаве, сви уписни рокови.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.populationAll_few": {
+    "text": "На основу {{count}} поднете пријаве, сви уписни рокови.",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.uni.populationAll_other": {
+    "text": "На основу {{count}} поднетих пријава, сви уписни рокови.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.populationIntake_one": {
+    "text": "На основу {{count}} поднете пријаве за {{intake}}.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.populationIntake_few": {
+    "text": "На основу {{count}} поднете пријаве за {{intake}}.",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v3.uni.populationIntake_other": {
+    "text": "На основу {{count}} поднетих пријава за {{intake}}.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.reason": {
+    "text": "Разлог (дели се са Hangyul-ом)",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.request": {
+    "text": "Захтев",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestLabel": {
+    "text": "Шта вам је потребно?",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestLabelHint": {
+    "text": "нпр. Диплома средње школе са апостилом",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestNote": {
+    "text": "Упутства за студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestNoteHint": {
+    "text": "Шта тачно недостаје и како то исправити",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestSend": {
+    "text": "Пошаљи захтев",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestTitle": {
+    "text": "Затражи документ од: {{name}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestWho": {
+    "text": "Студент и његов саветник из Hangyul-а добијају обавештење и виде тачно ову формулацију.",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.requestedOn": {
+    "text": "Затражено {{date}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.retention": {
+    "text": "Још студирају",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.search": {
+    "text": "Претражите име, програм или референцу",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.ACCEPTED": {
+    "text": "Прихватили понуду",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.ARRIVED": {
+    "text": "Стигли у Кореју",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.ENROLLED": {
+    "text": "Уписани",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.OFFERED": {
+    "text": "Понуђено",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.REVIEWED": {
+    "text": "Разматрано",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.SUBMITTED": {
+    "text": "Поднето",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.TUITION_PAID": {
+    "text": "Платили школарину",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.step.VISA_ISSUED": {
+    "text": "Виза издата",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.tab.applicants": {
+    "text": "Кандидати",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.tab.pipeline": {
+    "text": "Преглед",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.tab.students": {
+    "text": "Студенти",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.tooFew": {
+    "text": "Премало за стопу",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.admitted": {
+    "text": "Примљени",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.all": {
+    "text": "Све",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.documents": {
+    "text": "Недостају документа",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.enrolment": {
+    "text": "Виза и упис",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.flagged": {
+    "text": "Означено",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.interview": {
+    "text": "Интервју",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.offer": {
+    "text": "Понуда",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.view.review": {
+    "text": "За разматрање",
+    "why": "missing translation"
+  },
+  "mobile:v3.uni.waitingStudent": {
+    "text": "Чека студента",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.admissionsSite": {
+    "text": "Сајт за упис међународних студената",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.deadline": {
+    "text": "Пријава до",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.documents": {
+    "text": "Документа",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.documentsCount": {
+    "text": "Докумената: {{count}} · {{legal}} захтева апостил или конзуларну легализацију",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.dorm": {
+    "text": "Студентски дом по семестру",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.dormRange": {
+    "text": "{{min}}–{{max}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.estimate": {
+    "text": "Процењени укупан износ",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.estimateNote": {
+    "text": "Процена на основу објављене школарине и уобичајених месечних трошкова живота у том граду.",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.fee": {
+    "text": "Накнада за пријаву",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.gpa": {
+    "text": "Оцене",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.gpaMin": {
+    "text": "Најмање {{pct}}% максималног просека",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.intake": {
+    "text": "Уписни рок",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.interview": {
+    "text": "Интервју",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.interviewYes": {
+    "text": "Универзитет може да вас позове на интервју",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.language": {
+    "text": "Језик",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.links": {
+    "text": "Званичне информације",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.living": {
+    "text": "Трошкови живота (12 месеци)",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.noIntake": {
+    "text": "Нема отвореног уписног рока",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.noVerdict": {
+    "text": "Довршите профил да бисте видели да ли испуњавате услове овог програма.",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.notPublished": {
+    "text": "Није објављено",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.program": {
+    "text": "Програм",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.requirements": {
+    "text": "Услови",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.start": {
+    "text": "Започни пријаву",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.verdict.COMPETITIVE": {
+    "text": "Испуњавате објављене минимуме. Једна ствар захтева пажњу.",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.verdict.NOT_ELIGIBLE": {
+    "text": "Један објављени услов још није испуњен.",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.verdict.RECOMMENDED": {
+    "text": "Препоручено за вас.",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.verdict.STRONG": {
+    "text": "Испуњавате све објављене основне услове, а програм се уклапа у ваш буџет.",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.website": {
+    "text": "Сајт универзитета",
+    "why": "missing translation"
+  },
+  "mobile:v3.university.yearCost": {
+    "text": "Трошак прве године (процена)",
+    "why": "missing translation"
+  },
+  "mobile:v3.upload.camera": {
+    "text": "Сликај",
+    "why": "missing translation"
+  },
+  "mobile:v3.upload.cameraHint": {
+    "text": "Положите документ равно, при добром светлу",
+    "why": "missing translation"
+  },
+  "mobile:v3.upload.failed": {
+    "text": "Нисмо успели да отворимо ту датотеку. Покушајте поново.",
+    "why": "missing translation"
+  },
+  "mobile:v3.upload.files": {
+    "text": "Изабери датотеку",
+    "why": "missing translation"
+  },
+  "mobile:v3.upload.filesHint": {
+    "text": "PDF, JPG или PNG до 15 MB",
+    "why": "missing translation"
+  },
+  "mobile:v3.upload.library": {
+    "text": "Изабери из галерије",
+    "why": "missing translation"
+  },
+  "mobile:v3.upload.privacy": {
+    "text": "Ваша документа могу да отворе само ви и тим Hangyul. Универзитет их види тек када му поднесете пријаву.",
+    "why": "missing translation"
+  },
+  "mobile:v3.upload.tooLarge": {
+    "text": "Ова датотека је већа од 15 MB. Пробајте PDF скен или мању фотографију.",
+    "why": "missing translation"
+  },
+  "mobile:v3.visa.after": {
+    "text": "Следи након: {{list}}",
+    "why": "matches English meaning"
+  },
+  "mobile:v3.visa.beforeTitle": {
+    "text": "Припрема визе почиње након понуде за упис",
+    "why": "missing translation"
+  },
+  "mobile:v3.visa.blockers": {
+    "text": "Прво је потребно",
+    "why": "missing translation"
+  },
+  "mobile:v3.visa.checklist": {
+    "text": "Ваша листа · завршено {{done}} од {{total}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.visa.forNationality": {
+    "text": "Посебно за ваше држављанство",
+    "why": "missing translation"
+  },
+  "mobile:v3.visa.now": {
+    "text": "Шта сада чека вас",
+    "why": "missing translation"
+  },
+  "mobile:v3.visa.phase.admission": {
+    "text": "Пријем",
+    "why": "missing translation"
+  },
+  "mobile:v3.visa.phase.apply": {
+    "text": "Захтев за визу",
+    "why": "missing translation"
+  },
+  "mobile:v3.visa.phase.decision": {
+    "text": "Одлука амбасаде",
+    "why": "missing translation"
+  },
+  "mobile:v3.visa.phase.documents": {
+    "text": "Документа за визу",
+    "why": "missing translation"
+  },
+  "mobile:v3.visa.phase.letter": {
+    "text": "Писмо о пријему",
+    "why": "missing translation"
+  },
+  "mobile:v3.visa.preview": {
+    "text": "Шта ће вам требати",
+    "why": "missing translation"
+  },
+  "mobile:v3.visa.seeRequirement": {
+    "text": "Погледајте званични услов",
+    "why": "missing translation"
+  },
+  "mobile:v3.visa.sourceChecked": {
+    "text": "Званични извор · проверено {{date}}",
+    "why": "missing translation"
+  },
+  "mobile:v3.visa.title": {
+    "text": "Припрема визе {{type}}",
+    "why": "matches English meaning"
+  },
+  "mobile:v3.visa.titleGeneric": {
+    "text": "Ваша студентска виза",
+    "why": "missing translation"
+  },
+  "mobile:v4.application.blocks": {
+    "text": "Ваша пријава не може бити поднета док ово не буде завршено.",
+    "why": "missing translation"
+  },
+  "mobile:v4.application.blocksUni": {
+    "text": "{{university}} чека ово пре него што настави.",
+    "why": "missing translation"
+  },
+  "mobile:v4.application.doneSummary_one": {
+    "text": "Завршено {{count}}: {{items}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.application.doneSummary_other": {
+    "text": "Завршено {{count}}: {{items}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.application.next": {
+    "text": "Ваш следећи корак",
+    "why": "missing translation"
+  },
+  "mobile:v4.application.nextFix": {
+    "text": "Исправите: {{item}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.application.nextLegalize": {
+    "text": "Прибавите апостил или конзуларну легализацију за: {{item}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.application.nextRequest": {
+    "text": "{{university}} је затражио: {{item}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.application.nextUpload": {
+    "text": "Отпремите: {{item}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.application.nextWrite": {
+    "text": "Напишите: {{item}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.application.nothingForYou": {
+    "text": "Тренутно немате шта да радите",
+    "why": "missing translation"
+  },
+  "mobile:v4.application.openDocument": {
+    "text": "Отвори документ",
+    "why": "missing translation"
+  },
+  "mobile:v4.application.reviewLate": {
+    "text": "Траје дуже него обично. Тиму Hangyul је јављено да касни. Не морате поново да отпремате.",
+    "why": "counselor replaced by Hangyul team"
+  },
+  "mobile:v4.application.waitBody": {
+    "text": "Тим Hangyul проверава оно што сте послали. Јавићемо вам ако нешто треба променити.",
+    "why": "missing translation"
+  },
+  "mobile:v4.application.waitTitle": {
+    "text": "Тренутно немате шта да радите",
+    "why": "missing translation"
+  },
+  "mobile:v4.application.writeOnWeb": {
+    "text": "Напишите га на вебу. Тамо се појављују и коментари тима Hangyul.",
+    "why": "counselor replaced by Hangyul team"
+  },
+  "mobile:v4.discover.firstYear": {
+    "text": "{{range}} прва година",
+    "why": "missing translation"
+  },
+  "mobile:v4.documents.late": {
+    "text": "Траје дуже",
+    "why": "missing translation"
+  },
+  "mobile:v4.documents.lateLine": {
+    "text": "означено као закаснело за тим Hangyul",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.FIX.cta": {
+    "text": "Погледај упутство",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.FIX.text": {
+    "text": "Ваша пријава не може бити поднета док ово не буде исправљено.",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.FIX.title": {
+    "text": "Исправите {{label}} за {{university}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.LEGALIZE.cta": {
+    "text": "Погледај кораке",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.LEGALIZE.text": {
+    "text": "Корејски универзитети прихватају овај документ тек када буде оверен. Показаћемо вам кораке за вашу земљу.",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.LEGALIZE.title": {
+    "text": "Прибавите апостил за {{label}} за {{university}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.RENEW.cta": {
+    "text": "Погледај шта следи",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.RENEW.text": {
+    "text": "Документ који сте отпремили је истекао.",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.RENEW.title": {
+    "text": "Прибавите нови примерак: {{label}} за {{university}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.REQUEST.cta": {
+    "text": "Отпреми и пошаљи",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.REQUEST.text": {
+    "text": "Универзитет је затражио овај документ. Ваша пријава не може даље док не стигне.",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.REQUEST.title": {
+    "text": "Пошаљите {{label}} универзитету {{university}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.cta": {
+    "text": "Отвори нацрт",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.text": {
+    "text": "Тим Hangyul је оставио коментаре. Ваша пријава не може бити поднета док текст не буде одобрен.",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.title": {
+    "text": "Дорадите {{label}} за {{university}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.TOO_OLD.cta": {
+    "text": "Погледај шта следи",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.TOO_OLD.text": {
+    "text": "Универзитету је потребан недавно издат примерак.",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.TOO_OLD.title": {
+    "text": "Прибавите новији примерак: {{label}} за {{university}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.UPLOAD.cta": {
+    "text": "Отпреми",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.UPLOAD.text": {
+    "text": "Ваша пријава не може бити поднета без овога.",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.UPLOAD.title": {
+    "text": "Отпремите {{label}} за {{university}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.cta": {
+    "text": "Почни писање",
+    "why": "missing translation"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.text": {
+    "text": "Тим Hangyul ће га прегледати са вама. Почните од грубе верзије. Не мора да буде савршена.",
+    "why": "counselor replaced by Hangyul team"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.title": {
+    "text": "Напишите {{label}} за {{university}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.actor.AGENCY": {
+    "text": "Партнерска агенција",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.actor.HANGYUL": {
+    "text": "Hangyul",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.actor.STUDENT": {
+    "text": "Кандидат",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.actor.SYSTEM": {
+    "text": "Аутоматски",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.actor.UNIVERSITY": {
+    "text": "Ваш универзитет",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.toReview_one": {
+    "text": "За разматрање · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.uni.toReview_other": {
+    "text": "За разматрање · {{count}}",
+    "why": "missing translation"
+  },
+  "mobile:v4.university.continue": {
+    "text": "Наставите пријаву",
+    "why": "missing translation"
+  },
+  "mobile:v4.university.firstYear": {
+    "text": "Прва година, процена",
+    "why": "missing translation"
+  },
+  "mobile:v4.university.tuitionYear": {
+    "text": "Школарина по години",
+    "why": "missing translation"
+  },
+  "mobile:v4.visa.hideDone": {
+    "text": "Сакриј завршене кораке",
+    "why": "missing translation"
+  },
+  "mobile:v4.visa.showDone_one": {
+    "text": "Прикажи {{count}} завршен корак",
+    "why": "missing translation"
+  },
+  "mobile:v4.visa.showDone_few": {
+    "text": "Прикажи {{count}} завршена корака",
+    "why": "Serbian paucal plural"
+  },
+  "mobile:v4.visa.showDone_other": {
+    "text": "Прикажи {{count}} завршених корака",
+    "why": "missing translation"
+  }
+}

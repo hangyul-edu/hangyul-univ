@@ -6,7 +6,8 @@
     }
   },
   "login": {
-    "webSignup": "Prima dată aici? Îți poți crea contul direct în aplicație."
+    "webSignup": "Ești nou aici? Creează-ți contul în aplicație.",
+    "networkError": "Hangyul nu poate fi accesat momentan la {{url}}. Verifică-ți conexiunea și încearcă din nou peste câteva momente."
   },
   "signup": {
     "title": "Creează-ți contul",
@@ -14,11 +15,11 @@
     "steps": {
       "account": "Cont",
       "verify": "Verificare",
-      "consent": "Consimțământ",
+      "consent": "Acord",
       "done": "Gata"
     },
     "progress": "Pasul {{n}} din {{total}}: {{step}}",
-    "login": "Autentificare",
+    "login": "Conectare",
     "signup": "Creează contul",
     "haveAccount": "Ai deja un cont?",
     "newHere": "Nou pe Hangyul Univ?",
@@ -76,11 +77,11 @@
       },
       "PRIVACY": {
         "label": "Sunt de acord cu colectarea și utilizarea datelor mele personale",
-        "summary": "E-mail, număr de mobil, nume, cetățenie și parolă (criptată) — pentru crearea și protejarea contului."
+        "summary": "E-mail, număr de mobil, nume, cetățenie și parolă (stocată criptat), pentru crearea și protejarea contului tău."
       },
       "CROSS_BORDER_VERIFICATION": {
         "label": "Am luat la cunoștință că e-mailul și numărul meu de mobil sunt prelucrate în străinătate pentru verificare",
-        "summary": "Twilio Inc. (Statele Unite) trimite SMS-ul și e-mailul de verificare, iar Cloudflare, Inc. (Statele Unite) blochează înregistrările automate. Datele transferate, momentul, perioada de păstrare și modul de refuz sunt descrise în Politica de confidențialitate. În caz de refuz, contul nu poate fi creat."
+        "summary": "Twilio Inc. (Statele Unite) trimite SMS-ul și e-mailul de verificare, iar Cloudflare, Inc. (Statele Unite) verifică faptul că înregistrarea nu este automată. Detaliile, inclusiv modul de refuz, se află în Politica de confidențialitate. În caz de refuz, contul nu poate fi creat."
       },
       "MARKETING": {
         "label": "Vreau să primesc noutăți despre studiile în Coreea și informații despre evenimente",
@@ -97,7 +98,7 @@
     "quickLanguage": "Nivelul tău de coreeană sau engleză",
     "quickLevel": "Nivel",
     "quickSkip": "Omite deocamdată",
-    "quickGo": "Arată-mi recomandările",
+    "quickGo": "Arată-mi programele potrivite",
     "degree": {
       "LANGUAGE": "Limba coreeană",
       "BACHELOR": "Licență",
@@ -108,7 +109,7 @@
     "lang": {
       "TOPIK": "TOPIK",
       "IELTS": "IELTS",
-      "NONE": "Încă fără examen",
+      "NONE": "Niciun examen încă",
       "PREPARING": "Mă pregătesc"
     },
     "draftRestored": "Am păstrat ce ai introdus. Este posibil să fie nevoie să retrimitem codurile.",
@@ -163,69 +164,628 @@
   "v3": {
     "quick": {
       "createAccount": "Înregistrează-te ca să continui",
-      "open": "Vezi-ți opțiunile. Fără cont",
-      "dataUnverified": "Unele detalii despre programe nu sunt încă verificate. Confirmă-le pe site-ul oficial al universității."
+      "open": "Vezi ce opțiuni ai. Nu ai nevoie de cont",
+      "dataUnverified": "Unele detalii despre programe nu sunt încă verificate. Confirmă-le pe site-ul oficial al universității.",
+      "again": "Schimbă-mi răspunsurile"
     },
     "home": {
-      "noCounselor": "Alege un plan de sprijin, iar echipa Hangyul Univ lucrează cu tine în limba ta.",
+      "noCounselor": "Alege un plan, iar echipa Hangyul Univ lucrează cu tine în limba ta.",
       "stageLine": {
-        "admission": "Admis. Acum îți asiguri locul"
+        "admission": "Admitere primită. Acum îți asiguri locul",
+        "apply": "Universitățile îți analizează candidaturile",
+        "arrival": "Te pregătești să ajungi în Coreea",
+        "discover": "Cauți universitățile potrivite",
+        "prepare": "Îți pregătești candidaturile",
+        "visa": "Îți pregătești viza de student"
       },
       "nextBody": {
-        "ESSAY_WRITE": "Începe cu o ciornă. Consilierul tău o va revizui împreună cu tine."
-      }
+        "ESSAY_WRITE": "Începe cu o ciornă. Echipa Hangyul o va revizui împreună cu tine.",
+        "APPLICATION_DEADLINE": "Termină lista de pași, ca să poată fi depusă candidatura la timp.",
+        "DOCUMENT_UPLOAD": "Încarcă o scanare clară sau o poză. Echipa Hangyul o verifică și îți spune dacă trebuie corectat ceva.",
+        "REVIEW_MATCHES": "Am comparat profilul tău cu cerințele publicate. Salvează câteva, apoi începe o candidatură.",
+        "TUITION_PAYMENT": "Taxa de școlarizare se plătește direct universității, în numele tău.",
+        "UNIVERSITY_REQUEST": "Universitatea a cerut încă un document înainte să poată decide.",
+        "VISA_STEP": "Completează următorul punct din lista ta pentru viză.",
+        "WAIT": "Nimic de făcut acum. Îți spunem imediat ce se schimbă ceva."
+      },
+      "applications": "Candidaturile tale",
+      "closes": "Se închide pe {{date}} · {{left}}",
+      "documentsHint": "Încarcă, corectează sau obține o apostilă",
+      "documents_one": "{{count}} document are nevoie de tine",
+      "documents_few": "{{count}} documente au nevoie de tine",
+      "documents_other": "{{count}} de documente au nevoie de tine",
+      "due": "Scadent pe {{date}} · {{left}}",
+      "findUniversities": "Găsește universități",
+      "greeting": {
+        "afternoon": "Bună ziua, {{name}}",
+        "evening": "Bună seara, {{name}}",
+        "morning": "Bună dimineața, {{name}}"
+      },
+      "message": "Mesaj",
+      "nextCta": {
+        "APPLICATION_DEADLINE": "Deschide candidatura",
+        "APPLICATION_SUBMIT": "Verifică și depune",
+        "ARRIVAL_CHECKLIST": "Deschide lista pentru sosire",
+        "COMPARE_OFFERS": "Compară ofertele",
+        "COMPLETE_PROFILE": "Continuă profilul",
+        "DOCUMENT_UPLOAD": "Încarcă documentul",
+        "ESSAY_WRITE": "Deschide ciorna",
+        "INTERVIEW": "Pregătește-te pentru interviu",
+        "RESPOND_OFFER": "Vezi oferta",
+        "REVIEW_MATCHES": "Vezi universitățile mele",
+        "TUITION_PAYMENT": "Vezi detaliile de plată",
+        "UNIVERSITY_REQUEST": "Vezi ce a cerut universitatea",
+        "VISA_STEP": "Deschide pașii pentru viză"
+      },
+      "nextCtaDefault": "Începe acum",
+      "nextEyebrow": "Ce ai de făcut acum",
+      "noApplications": "Nicio candidatură încă. Începe cu universitățile care ți se potrivesc.",
+      "otherTasks_one": "Încă {{count}} sarcină",
+      "otherTasks_few": "Încă {{count}} sarcini",
+      "otherTasks_other": "Încă {{count}} de sarcini",
+      "team": "Echipa Hangyul Univ",
+      "unread_one": "{{count}} mesaj necitit",
+      "unread_few": "{{count}} mesaje necitite",
+      "unread_other": "{{count}} de mesaje necitite",
+      "upcoming": "Urmează"
     },
     "agency": {
       "assigned": "Responsabil: {{counselor}} · din {{since}}",
       "att": {
         "oldest": "Cel mai vechi: {{what}} ({{who}})",
-        "oldestSelf": "Cel mai vechi: {{what}}"
+        "oldestSelf": "Cel mai vechi: {{what}}",
+        "breached_one": "{{count}} deja peste termenul promis",
+        "breached_other": "{{count}} deja peste termenul promis",
+        "closing_one": "Candidatură care se închide în 7 zile",
+        "closing_other": "Candidaturi care se închid în 7 zile",
+        "docs_one": "Document în așteptarea verificării",
+        "docs_other": "Documente în așteptarea verificării",
+        "next": "Urmează: {{uni}} pentru {{who}}, {{date}}",
+        "overSla": "{{count}} așteaptă de peste {{hours}} h",
+        "overdue_one": "Sarcină întârziată",
+        "overdue_other": "Sarcini întârziate",
+        "replies_one": "Student în așteptarea răspunsului dumneavoastră",
+        "replies_other": "Studenți în așteptarea răspunsului dumneavoastră",
+        "since": "Cel mai vechi de la {{who}}, {{when}}",
+        "sla_one": "Student cu risc de prim răspuns întârziat",
+        "sla_other": "Studenți cu risc de prim răspuns întârziat"
+      },
+      "allClear": "Totul în regulă: {{list}}",
+      "applications_one": "{{count}} candidatură",
+      "applications_few": "{{count}} candidaturi",
+      "applications_other": "{{count}} de candidaturi",
+      "block": {
+        "deadline": "Candidatura la {{uni}} se închide în curând",
+        "fix": "{{doc}} necesită o corectare din partea studentului",
+        "requested": "{{uni}} a cerut documente suplimentare",
+        "review": "{{doc}} așteaptă verificarea dumneavoastră",
+        "sla": "Primul răspuns este scadent"
+      },
+      "blockers_one": "{{count}} lucru blochează acest student",
+      "blockers_few": "{{count}} lucruri blochează acest student",
+      "blockers_other": "{{count}} de lucruri blochează acest student",
+      "clear": {
+        "closing": "termene săptămâna aceasta",
+        "docs": "verificări de documente",
+        "overdue": "sarcini întârziate",
+        "replies": "răspunsuri către studenți",
+        "sla": "prime răspunsuri"
+      },
+      "conversationSubject": "Echipa ta pentru studii în Coreea",
+      "deadline": "{{uni}} {{when}}",
+      "documents": "Documente · {{verified}} din {{total}} validate",
+      "dueToday_one": "Scadente azi · {{count}}",
+      "dueToday_other": "Scadente azi · {{count}}",
+      "findStudent": "Căutați un student",
+      "firstMessage": "Mesaj către {{name}}",
+      "greeting": {
+        "afternoon": "Bună ziua, {{name}}",
+        "evening": "Bună seara, {{name}}",
+        "morning": "Bună dimineața, {{name}}"
+      },
+      "message": "Mesaj",
+      "messageLabel": "Mesaj",
+      "needsAttention": "Necesită atenție",
+      "nextAction": "Urmează: {{what}}",
+      "noBlockers": "Nimic nu blochează acest student",
+      "noBlockersBody": "Documentele, termenele și răspunsurile sunt în grafic.",
+      "noStudents": "Niciun student în această vizualizare",
+      "noStudentsBody": "Încercați altă vizualizare sau ștergeți căutarea.",
+      "searchPlaceholder": "Nume sau e-mail",
+      "stage": "Etapă",
+      "stageNote": "Notă pentru echipă (opțional)",
+      "stageTo": "Mutare în {{stage}}",
+      "teamView": "Echipă · {{name}}",
+      "toFix_one": "{{count}} doc. de corectat",
+      "toFix_few": "{{count}} doc. de corectat",
+      "toFix_other": "{{count}} de doc. de corectat",
+      "today": "Azi",
+      "upload": "Încărcare",
+      "uploadFor": "{{doc}} pentru {{name}}",
+      "uploadWhat": "Ce document încărcați?",
+      "uploaded": "Încărcat în seiful studentului. Este gata de verificare.",
+      "view": {
+        "all": "Toți",
+        "attention": "Necesită atenție",
+        "deadline": "Termen apropiat",
+        "docs": "Documente de corectat",
+        "mine": "Studenții mei",
+        "sla": "Studenți peste sau aproape de termenul promis pentru primul răspuns",
+        "university": "În așteptarea universității",
+        "visa": "Viză",
+        "waiting_student": "În așteptarea studentului",
+        "waiting_us": "În așteptarea noastră"
+      },
+      "waitingOn": {
+        "agency": "În așteptarea echipei agenției",
+        "counselor": "În așteptarea consilierului",
+        "external": "În așteptarea unei instituții externe",
+        "hangyul": "În așteptarea Hangyul",
+        "none": "Nimic în așteptare",
+        "student": "În așteptarea studentului",
+        "university": "În așteptarea universității",
+        "us": "În așteptarea noastră"
       }
     },
     "discover": {
       "explain": {
-        "possible": "Îndeplinești minimele publicate, dar un lucru necesită atenție, de obicei bugetul sau un termen."
-      }
+        "possible": "Îndeplinești minimele publicate, dar un lucru necesită atenție, de obicei bugetul sau un termen.",
+        "notyet": "O cerință publicată nu este îndeplinită încă. Fiecare rând spune exact care.",
+        "strong": "Îndeplinești toate cerințele de bază publicate și se potrivește cu bugetul și planurile tale."
+      },
+      "all": "Toate",
+      "any": "Oricare",
+      "closes": "se închide pe {{date}}",
+      "degree": "Ce vrei să studiezi?",
+      "emptyVerdict": "Nimic aici deocamdată",
+      "filters": "Filtre",
+      "filtersN": "Filtre · {{count}}",
+      "forYou": "Pentru tine",
+      "language": "Limba de predare",
+      "noLanguageMin": "Fără cerință minimă de limbă",
+      "openOnly": "Deschise pentru candidaturi",
+      "perYear": "≈ {{amount}} / an",
+      "saved": "Salvate · {{count}}",
+      "savedEmpty": "Nicio universitate salvată încă",
+      "savedEmptyBody": "Apasă inima de pe orice program ca să-l păstrezi aici pentru mai târziu.",
+      "showResults_one": "Arată {{count}} program",
+      "showResults_few": "Arată {{count}} programe",
+      "showResults_other": "Arată {{count}} de programe",
+      "summary_one": "Îndeplinești cerințele publicate pentru {{count}} program.",
+      "summary_few": "Îndeplinești cerințele publicate pentru {{count}} programe.",
+      "summary_other": "Îndeplinești cerințele publicate pentru {{count}} de programe.",
+      "tuition": "Taxa de școlarizare pe semestru",
+      "upTo": "Până la {{amount}} mil. ₩"
     },
     "university": {
       "verdict": {
-        "REACH": "Ești aproape. La o cerință ești puțin sub."
-      }
+        "REACH": "Ești aproape. La o singură cerință ești puțin sub nivel.",
+        "COMPETITIVE": "Îndeplinești minimele publicate. Un lucru necesită atenție.",
+        "NOT_ELIGIBLE": "O cerință publicată nu este îndeplinită încă.",
+        "RECOMMENDED": "Recomandat pentru tine.",
+        "STRONG": "Îndeplinești toate cerințele de bază publicate și se potrivește cu bugetul tău."
+      },
+      "admissionsSite": "Site-ul de admitere pentru studenți internaționali",
+      "deadline": "Candidează până pe",
+      "documents": "Documente",
+      "documentsCount": "Documente: {{count}} · {{legal}} necesită apostilă sau supralegalizare consulară",
+      "dorm": "Cămin pe semestru",
+      "dormRange": "{{min}}–{{max}}",
+      "estimate": "Total estimat",
+      "estimateNote": "Estimare pe baza taxei de școlarizare publicate și a unui cost lunar de trai tipic pentru oraș.",
+      "fee": "Taxă de candidatură",
+      "gpa": "Note",
+      "gpaMin": "Cel puțin {{pct}}% din media maximă",
+      "intake": "Sesiune de admitere",
+      "interview": "Interviu",
+      "interviewYes": "Universitatea te poate chema la interviu",
+      "language": "Limbă",
+      "links": "Informații oficiale",
+      "living": "Costuri de trai (12 luni)",
+      "noIntake": "Nicio sesiune de admitere deschisă",
+      "noVerdict": "Completează-ți profilul ca să vezi dacă îndeplinești cerințele acestui program.",
+      "notPublished": "Nepublicat",
+      "requirements": "Cerințe",
+      "start": "Începe candidatura",
+      "website": "Site-ul universității",
+      "yearCost": "Costul primului an (estimare)"
     },
     "application": {
       "writingWeb": "Scrie și editează eseurile pe web. Comentariile consilierului apar acolo.",
-      "uploadFor": "Încarcă {{item}}"
+      "uploadFor": "Încarcă {{item}}",
+      "closes": "Se închide pe {{date}} · {{left}}",
+      "due": "Scadent pe {{date}}",
+      "ready": "Gata de depus",
+      "readyBody": "Tot ce este necesar este la locul lui.",
+      "reviewBody": "Depusă pe {{date}}. Universitatea poate cere încă un document sau un interviu. Echipa Hangyul îi urmărește evoluția.",
+      "reviewTitle": "{{university}} îți analizează candidatura",
+      "reviewing": "Verificăm {{item}}",
+      "submit": "Depune candidatura",
+      "teamMonitoring": "În legătură cu universitatea",
+      "teamWaiting": "Așteptăm documentele tale",
+      "timeline": "Cronologie",
+      "uni": {
+        "decided": "Decizie luată",
+        "reviewing": "Îți analizează candidatura",
+        "waiting": "Așteaptă depunerea candidaturii tale"
+      },
+      "university": "Universitate",
+      "uploadRequested": "Încarcă acest document",
+      "who": "Cine face ce",
+      "withdraw": "Retrage această candidatură",
+      "you": "Tu"
     },
     "appStatus": {
       "READY": "Totul e verificat. Gata de trimis.",
-      "VISA_ISSUED": "Viza ta a fost emisă. Acum îți poți planifica sosirea."
+      "VISA_ISSUED": "Viza ta a fost emisă. Acum îți poți planifica sosirea.",
+      "ADDITIONAL_DOCUMENTS": "Universitatea a cerut încă un document.",
+      "ADMISSION_CERTIFICATE_ISSUED": "Scrisoarea ta de admitere este gata. Începe documentele de viză.",
+      "ADMISSION_CERTIFICATE_PENDING": "Așteptăm scrisoarea ta standard de admitere.",
+      "DOCUMENT_PREPARATION": "Îți pregătești documentele.",
+      "DRAFT": "Ai început această candidatură.",
+      "ENROLLED": "Înmatricularea este gata. Bun venit în Coreea.",
+      "INTERVIEW": "Universitatea vrea să te intervieveze.",
+      "OFFERED": "Ai primit o ofertă.",
+      "OFFER_ACCEPTED": "Ai acceptat oferta. Urmează: taxa de școlarizare.",
+      "PROFILE_REVIEW": "Echipa Hangyul Univ îți verifică profilul.",
+      "REJECTED": "Universitatea nu a oferit un loc de data aceasta.",
+      "SUBMITTED": "Depusă la {{university}}.",
+      "TUITION_PAID": "Taxa de școlarizare a fost primită. Universitatea îți pregătește scrisoarea de admitere.",
+      "TUITION_PENDING": "Plătește taxa de școlarizare direct universității, până la termen.",
+      "UNIVERSITY_REVIEW": "{{university}} îți analizează candidatura.",
+      "VISA_PREPARATION": "Îți pregătești cererea de viză.",
+      "VISA_SUBMITTED": "Cererea de viză a fost depusă.",
+      "WAITLISTED": "Ești pe lista de așteptare.",
+      "WITHDRAWN": "Această candidatură a fost retrasă."
     },
     "docAction": {
       "RENEW": "Expirat. Încarcă unul nou",
-      "TOO_OLD": "Emis de prea mult timp. Obține o copie nouă"
+      "TOO_OLD": "Emis de prea mult timp. Obține o copie nouă",
+      "FIX": "Trebuie corectat",
+      "IN_REVIEW": "În verificare la echipa Hangyul",
+      "LEGALIZE": "Necesită apostilă sau supralegalizare consulară",
+      "UPLOAD": "Neîncărcat încă"
     },
     "documents": {
       "legalize": "Verificat, dar mai are nevoie de {{path}} înainte ca o universitate coreeană să-l accepte",
-      "howToBody": "Apar doar pașii pentru țara documentului tău. Marchează fiecare pas ca finalizat când îl termini."
+      "howToBody": "Apar doar pașii pentru țara documentului tău. Marchează fiecare pas ca finalizat când îl termini.",
+      "allSet": "Nimic de făcut acum.",
+      "checking": "În verificare",
+      "howTo": "Cum obții {{path}}",
+      "issuedIn": "Emis în",
+      "issuedOn": "Emis pe",
+      "needYou_one": "{{count}} are nevoie de tine",
+      "needYou_other": "{{count}} au nevoie de tine",
+      "neededFor": "Necesar pentru {{university}}",
+      "needsYou": "Ai ceva de făcut",
+      "newVersion": "Încarcă o versiune nouă",
+      "ready": "Gata",
+      "readyOf": "{{ready}} din {{total}} documente gata",
+      "readyTitle": "Gata",
+      "sourceVerified": "Sursă oficială · verificată pe {{date}}",
+      "state": {
+        "fix": "Trebuie corectat",
+        "legalize": "Necesită apostilă",
+        "ready": "Gata",
+        "review": "În verificare"
+      },
+      "submitted": "Depus {{when}}",
+      "upload": "Încarcă",
+      "validUntil": "Valabil până pe {{date}}",
+      "validUntilLabel": "Valabil până la"
     },
     "visa": {
-      "title": "Planul tău pentru viza {{type}}",
-      "beforeBody": "După ce accepți o ofertă și plătești taxa de școlarizare, universitatea îți emite scrisoarea de admitere. Poți vedea deja de ce vei avea nevoie și poți începe să aduni actele.",
-      "after": "Disponibil după: {{list}}"
+      "title": "Îți pregătești viza {{type}}",
+      "beforeBody": "După ce accepți o ofertă și plătești taxa de școlarizare, universitatea îți emite scrisoarea standard de admitere. Poți vedea deja de ce vei avea nevoie și poți începe să aduni actele.",
+      "after": "Vine după: {{list}}",
+      "beforeTitle": "Pregătirea vizei începe după oferta de admitere",
+      "blockers": "Necesare mai întâi",
+      "checklist": "Lista ta · {{done}} din {{total}} finalizate",
+      "forNationality": "Specific cetățeniei tale",
+      "now": "Ce ai de făcut acum",
+      "phase": {
+        "admission": "Admitere",
+        "apply": "Cererea de viză",
+        "decision": "Decizia ambasadei",
+        "documents": "Documente de viză",
+        "letter": "Scrisoare de admitere"
+      },
+      "preview": "De ce vei avea nevoie",
+      "seeRequirement": "Vezi cerința oficială",
+      "sourceChecked": "Sursă oficială · verificată pe {{date}}",
+      "titleGeneric": "Viza ta de student"
     },
     "profile": {
       "unlockTitle": "Ce îți oferă un profil complet",
       "unlock": {
-        "language": "Ne permite să te potrivim cu programe care cer TOPIK, IELTS sau TOEFL"
-      }
+        "language": "Ne permite să te potrivim cu programe care cer TOPIK, IELTS sau TOEFL",
+        "basics": "Ne spune ce reguli de documente și viză ți se aplică",
+        "default": "Face mai precisă lista programelor potrivite",
+        "education": "Elimină programele ale căror cerințe academice nu le îndeplinești",
+        "goals": "Arată programe la nivelul și perioada de început pe care le vrei",
+        "passport": "Necesar înainte de depunerea oricărei candidaturi",
+        "preferences": "Ordonează universitățile după bugetul și orașul tău",
+        "sponsor": "Îți permite să pregătești din timp documentele financiare pentru viză"
+      },
+      "completeTitle": "Profilul tău este complet",
+      "done": "Gata",
+      "editOnWeb": "Poți modifica aceste răspunsuri oricând, pe web.",
+      "places": "Datele tale",
+      "todo": "De adăugat"
     },
     "tasks": {
       "empty": {
-        "overdue": "Nimic întârziat. Bravo"
-      }
+        "overdue": "Nimic întârziat. Bravo",
+        "team": "Echipa nu are sarcini deschise",
+        "today": "Nimic scadent azi",
+        "waiting": "Nicio sarcină nu așteaptă altceva",
+        "week": "Nimic scadent săptămâna aceasta"
+      },
+      "open": "Deschise",
+      "overdue": "Întârziată · {{when}}",
+      "view": {
+        "overdue": "Întârziate",
+        "team": "Echipă",
+        "today": "Azi",
+        "waiting": "În așteptare",
+        "week": "Săptămâna aceasta"
+      },
+      "waitingOn": "În așteptarea: {{what}}"
     },
     "uni": {
-      "decisionNow": "Decizie"
+      "decisionNow": "Decizie",
+      "allClear": "Nimic nu necesită o decizie acum.",
+      "allCohorts": "Toți studenții Hangyul",
+      "allIntakes": "Toate sesiunile de admitere",
+      "applicant": "Candidat",
+      "check": {
+        "gpa": "Medie (GPA)",
+        "interview": "Interviu",
+        "interviewRequired": "Obligatoriu pentru acest program",
+        "level": "Nivel {{level}}",
+        "minimum": "Minim {{need}} · Candidat {{have}}",
+        "notProvided": "nefurnizat",
+        "state": {
+          "below": "Sub minim",
+          "meets": "Îndeplinește",
+          "missing": "Nefurnizat",
+          "planned": "Test planificat",
+          "unscheduled": "Neprogramat"
+        },
+        "topik": "TOPIK"
+      },
+      "checksNote": "Compară rezultatele declarate de candidat cu minimele publicate ale programului. Sprijină evaluarea dumneavoastră; nu decide.",
+      "checksTitle": "Verificarea cerințelor",
+      "closed": "Închise: {{rejected}} neadmiși, {{withdrawn}} retrași. Ratele necesită cel puțin {{min}} persoane.",
+      "cohortIntro_one": "{{count}} student a venit la dumneavoastră prin Hangyul. Iată cum evoluează.",
+      "cohortIntro_few": "{{count}} studenți au venit la dumneavoastră prin Hangyul. Iată cum evoluează.",
+      "cohortIntro_other": "{{count}} de studenți au venit la dumneavoastră prin Hangyul. Iată cum evoluează.",
+      "cohortNote": "Ratele apar când cel puțin {{min}} studenți se califică. La data de {{date}}.",
+      "cohort_few": "{{label}} · {{count}} studenți",
+      "cohort_other": "{{label}} · {{count}} de studenți",
+      "conv": "{{pct}} din pasul anterior · {{n}} din {{d}}",
+      "convFew": "{{n}} din {{d}} din pasul anterior · prea puțini pentru o rată",
+      "decision": {
+        "admitted_one": "student admis care nu a plătit încă taxa de școlarizare",
+        "admitted_other": "studenți admiși care nu au plătit încă taxa de școlarizare",
+        "documents_one": "în așteptarea documentelor studentului",
+        "documents_other": "în așteptarea documentelor studenților",
+        "flagged_one": "candidatură marcată",
+        "flagged_other": "candidaturi marcate",
+        "interview_one": "interviu de susținut sau de notat",
+        "interview_other": "interviuri de susținut sau de notat",
+        "offer_one": "ofertă în așteptarea răspunsului studentului",
+        "offer_other": "oferte în așteptarea răspunsului studenților",
+        "returned_one": "document returnat de student",
+        "returned_other": "documente returnate de studenți",
+        "review_one": "candidatură de evaluat",
+        "review_other": "candidaturi de evaluat"
+      },
+      "decisionContext_one": "{{ready}} din {{total}} documente obligatorii gata · {{count}} solicitare deschisă.",
+      "decisionContext_few": "{{ready}} din {{total}} documente obligatorii gata · {{count}} solicitări deschise.",
+      "decisionContext_other": "{{ready}} din {{total}} documente obligatorii gata · {{count}} de solicitări deschise.",
+      "decisionDocs": "{{ready}} din {{total}} documente obligatorii gata.",
+      "decisionHint": {
+        "admitted": "Confirmați plata când sosește",
+        "documents": "Nicio acțiune până la încărcare",
+        "flagged": "Marcată pentru o analiză atentă",
+        "interview": "Înregistrați rezultatul după interviu",
+        "offer": "Hangyul urmărește răspunsul studentului",
+        "returned": "Reverificați ce ați solicitat",
+        "review": "Depusă și suficient de completă pentru o decizie"
+      },
+      "docsTitle": "Documente · {{ready}} din {{total}} gata",
+      "dueOn": "scadent pe {{date}}",
+      "empty": {
+        "all": "Niciun candidat aici",
+        "flagged": "Nicio candidatură marcată",
+        "review": "Nicio candidatură în așteptarea evaluării"
+      },
+      "graduation": "Absolvit",
+      "latest": "Cele mai recente de evaluat",
+      "move": {
+        "ADDITIONAL_DOCUMENTS": "Solicitați documente suplimentare",
+        "ADMISSION_CERTIFICATE_ISSUED": "Emiteți scrisoarea de admitere",
+        "INTERVIEW": "Invitați la interviu",
+        "OFFERED": "Faceți o ofertă",
+        "REJECTED": "Nu admiteți",
+        "TUITION_PAID": "Confirmați plata taxei",
+        "TUITION_PENDING": "Trimiteți factura pentru taxă",
+        "UNIVERSITY_REVIEW": "Începeți evaluarea",
+        "WAITLISTED": "Listă de așteptare"
+      },
+      "nOfD": "{{n}} din {{d}}",
+      "needsTitle": "Necesită decizia dumneavoastră",
+      "noMinimums": "Acest program nu are încă minime publicate.",
+      "nothingToReview": "Nimic în așteptarea evaluării",
+      "openRequests_one": "{{count}} document solicitat",
+      "openRequests_few": "{{count}} documente solicitate",
+      "openRequests_other": "{{count}} de documente solicitate",
+      "otherDecisions": "Alte decizii",
+      "populationAll_one": "Pe baza a {{count}} candidatură depusă, toate sesiunile.",
+      "populationAll_few": "Pe baza a {{count}} candidaturi depuse, toate sesiunile.",
+      "populationAll_other": "Pe baza a {{count}} de candidaturi depuse, toate sesiunile.",
+      "populationIntake_one": "Pe baza a {{count}} candidatură depusă pentru {{intake}}.",
+      "populationIntake_few": "Pe baza a {{count}} candidaturi depuse pentru {{intake}}.",
+      "populationIntake_other": "Pe baza a {{count}} de candidaturi depuse pentru {{intake}}.",
+      "reason": "Motiv (partajat cu Hangyul)",
+      "request": "Solicitare",
+      "requestLabel": "De ce aveți nevoie?",
+      "requestLabelHint": "ex. Diplomă de bacalaureat apostilată",
+      "requestNote": "Instrucțiuni pentru student",
+      "requestNoteHint": "Ce anume lipsește și cum se corectează",
+      "requestSend": "Trimiteți solicitarea",
+      "requestTitle": "Solicitați un document de la {{name}}",
+      "requestWho": "Studentul și consilierul său Hangyul sunt notificați și văd exact această formulare.",
+      "requestedOn": "Solicitat pe {{date}}",
+      "retention": "Încă studiază",
+      "search": "Căutați după nume, program sau referință",
+      "step": {
+        "ACCEPTED": "Ofertă acceptată",
+        "ARRIVED": "Sosit în Coreea",
+        "ENROLLED": "Înmatriculat",
+        "OFFERED": "Ofertă făcută",
+        "REVIEWED": "Evaluată",
+        "SUBMITTED": "Depusă",
+        "TUITION_PAID": "Taxă plătită",
+        "VISA_ISSUED": "Viză emisă"
+      },
+      "tab": {
+        "applicants": "Candidați",
+        "pipeline": "Prezentare generală",
+        "students": "Studenți"
+      },
+      "tooFew": "Prea puțini pentru o rată",
+      "view": {
+        "admitted": "Admiși",
+        "all": "Toate",
+        "documents": "Documente lipsă",
+        "enrolment": "Viză și înmatriculare",
+        "flagged": "Marcate",
+        "interview": "Interviu",
+        "offer": "Ofertă",
+        "review": "Necesită evaluare"
+      },
+      "waitingStudent": "În așteptarea studentului"
+    },
+    "common": {
+      "all": "Vezi tot"
+    },
+    "deadlines": {
+      "bucket": {
+        "later_other": "Mai târziu luna aceasta · {{count}}",
+        "overdue_other": "Întârziate · {{count}}",
+        "week_other": "Următoarele 7 zile · {{count}}"
+      },
+      "emptyView": "Nimic scadent în această vizualizare",
+      "who": {
+        "all": "Toate",
+        "mine": "Ale mele",
+        "unassigned": "Nealocate"
+      },
+      "you": "Dumneavoastră"
+    },
+    "journey": {
+      "admission": "Admitere",
+      "apply": "Candidatură",
+      "arrival": "Sosire",
+      "discover": "Explorare",
+      "next": "Urmează: {{stage}}",
+      "of": "· {{n}} din {{total}}",
+      "prepare": "Pregătire",
+      "step": "Pasul {{n}} din {{total}}: {{stage}}",
+      "visa": "Viză"
+    },
+    "match": {
+      "close": "Încă nu îndeplinești cerințele — la un pas distanță",
+      "notYet": "Încă nu îndeplinești cerințele",
+      "possible": "Potrivire posibilă",
+      "strong": "Potrivire puternică"
+    },
+    "messages": {
+      "attach": "Atașează un fișier",
+      "attachUnavailable": "Atașamentele nu sunt disponibile încă.",
+      "attachmentOnly_one": "{{count}} atașament trimis",
+      "attachmentOnly_few": "{{count}} atașamente trimise",
+      "attachmentOnly_other": "{{count}} de atașamente trimise",
+      "conversations": "Conversații",
+      "openAttachment": "Deschide {{name}}",
+      "removeAttachment": "Elimină {{name}}"
+    },
+    "offer": {
+      "accept": "Acceptă oferta",
+      "body": "{{university}} ți-a oferit un loc la {{program}}.",
+      "deadline": "Acceptă și plătește taxa de școlarizare până pe {{date}} · {{left}}",
+      "next": "Ce urmează",
+      "scholarship": "Bursă",
+      "step": {
+        "accept": "Acceptă oferta",
+        "letter": "Primești scrisoarea standard de admitere",
+        "review": "Verifică oferta și eventualele condiții",
+        "tuition": "Plătește taxa de școlarizare direct universității",
+        "visa": "Pregătește-ți viza de student"
+      },
+      "tuition": "Taxă de școlarizare",
+      "tuitionDirect": "Hangyul nu încasează niciodată taxa de școlarizare. Plătește universității, în numele tău, conform instrucțiunilor ei."
+    },
+    "push": {
+      "denied": "Alertele sunt oprite. Pornește-le pentru Hangyul din setările telefonului.",
+      "enable": "Pornește alertele",
+      "error": "Nu am putut porni alertele. Încearcă din nou.",
+      "idle": "Primește o alertă push când un document este verificat, un termen se apropie sau echipa Hangyul răspunde.",
+      "on": "Alertele sunt pornite. Poți schimba asta din setările telefonului.",
+      "pending-server": "Alertele sunt permise pe acest telefon. Trimiterea push nu este încă activă; totul apare în continuare în această listă.",
+      "title": "Alerte pe acest telefon"
+    },
+    "reviews": {
+      "beforeVerify": "Înainte de validare",
+      "bulkBody": "Doar pentru documentele pe care le-ați deschis și verificat. Fiecare student este notificat.",
+      "bulkDone": "{{ok}} validate, {{failed}} omise",
+      "bulkTitle_one": "Validați {{count}} document?",
+      "bulkTitle_few": "Validați {{count}} documente?",
+      "bulkTitle_other": "Validați {{count}} de documente?",
+      "check": {
+        "date": "Data emiterii este suficient de recentă și documentul nu a expirat",
+        "issuer": "Emitentul, ștampila sau semnătura sunt vizibile",
+        "legal": "{{path}} este atașată și corespunde documentului",
+        "legible": "Fiecare pagină este completă și lizibilă",
+        "name": "Numele și data nașterii corespund cu pașaportul"
+      },
+      "correctionTitle": "Ce trebuie să corecteze studentul?",
+      "expires": "Valabil până la",
+      "issuedIn": "Emis în",
+      "issuedOn": "Emis pe",
+      "legalization": "Legalizare",
+      "notNeeded": "Nu este necesară",
+      "open": "Deschideți {{name}}",
+      "overSla": "{{waiting}} · peste termenul promis de verificare",
+      "reason": "Mesaj către student",
+      "requestCorrection": "Solicitați o corectare",
+      "required": "Obligatoriu",
+      "select": "Selectați",
+      "studentSees": "{{name}} vede exact acest text lângă document.",
+      "studentSeesGeneric": "Studentul vede exact acest text lângă document.",
+      "summary": "{{count}} în așteptare · {{over}} peste termenul promis de verificare de {{hours}} ore",
+      "templates": "Șabloanele echipei",
+      "translation": "Traducere",
+      "uploaded": "încărcat {{when}}",
+      "verifyN_one": "Validați {{count}} document",
+      "verifyN_few": "Validați {{count}} documente",
+      "verifyN_other": "Validați {{count}} de documente"
+    },
+    "settings": {
+      "consoleHint": "Membrii echipei, facturarea și exporturile se gestionează în consola web a agenției.",
+      "work": "Activitatea dumneavoastră"
+    },
+    "upload": {
+      "camera": "Fă o poză",
+      "cameraHint": "Așază documentul pe o suprafață plană, în lumină bună",
+      "failed": "Nu am putut deschide fișierul. Te rugăm să încerci din nou.",
+      "files": "Alege un fișier",
+      "filesHint": "PDF, JPG sau PNG, de până la 15 MB",
+      "library": "Alege din poze",
+      "privacy": "Doar tu și echipa Hangyul puteți deschide documentele tale. O universitate le vede doar după ce depui o candidatură la ea.",
+      "tooLarge": "Fișierul depășește 15 MB. Încearcă o scanare PDF sau o poză mai mică."
     }
   },
   "v23": {
@@ -242,28 +802,68 @@
       "tab": "Lucru",
       "notReviewable": "Acest document nu așteaptă verificarea.",
       "reasonPlaceholder": "De exemplu: Lipsește pagina cu apostila. Încarcă toate paginile.",
-      "changesDone": "Corectură cerută. Studentul a fost anunțat"
+      "changesDone": "Corectură cerută. Studentul a fost anunțat",
+      "detailTitle": "Verificare",
+      "empty": "Coada de verificare este goală",
+      "emptyBody": "Documentele noi încărcate de studenții dumneavoastră apar aici.",
+      "history": "Istoricul verificărilor",
+      "lastReason": "Solicitarea anterioară de corectare",
+      "noFile": "Niciun fișier încărcat încă pentru acest document.",
+      "sendToStudent": "Trimiteți studentului",
+      "tabA11y_one": "Verificări, {{count}} în așteptare",
+      "tabA11y_other": "Verificări, {{count}} în așteptare",
+      "title": "Verificarea documentelor",
+      "verify": "Validați documentul",
+      "waitingDays_one": "Așteaptă de {{count}} zi",
+      "waitingDays_few": "Așteaptă de {{count}} zile",
+      "waitingDays_other": "Așteaptă de {{count}} de zile",
+      "waitingHours_one": "Așteaptă de {{count}} oră",
+      "waitingHours_few": "Așteaptă de {{count}} ore",
+      "waitingHours_other": "Așteaptă de {{count}} de ore"
     },
     "login": {
-      "tagline": "Dosarele, verificările și mesajele tale, pe mobil."
+      "tagline": "Studenții, verificările și mesajele dumneavoastră, pe mobil."
     },
     "dashboard": {
       "noOverdue": "Nicio sarcină întârziată. Bravo."
+    },
+    "deadlines": {
+      "empty": "Niciun termen în următoarele 30 de zile",
+      "subtitle": "Termenele studenților dumneavoastră în următoarele 30 de zile.",
+      "title": "Mementouri"
+    },
+    "messages": {
+      "subtitle": "Conversații cu studenții și note interne.",
+      "title": "Mesaje"
+    },
+    "tasks": {
+      "unassigned": "Nealocată"
     }
   },
   "v26": {
     "uni": {
       "head": {
-        "label": "Ce necesită atenția dvs. acum",
+        "label": "Ce necesită atenția dumneavoastră acum",
         "decide": "Necesită o decizie",
         "requests": "Solicitări de documente care așteaptă răspuns",
         "fresh": "Noi săptămâna aceasta",
-        "moved": "Etapă schimbată săptămâna aceasta"
+        "moved": "Mutate săptămâna aceasta"
       }
     }
   },
   "messages": {
-    "internalToggle": "Notă internă, ascunsă de student"
+    "internalToggle": "Notă internă, ascunsă de student",
+    "empty": "Nicio conversație încă",
+    "emptyBody": "Mesajele cu echipa ta apar aici.",
+    "internalLabel": "Notă internă",
+    "internalOn": "Notă internă: o vede doar echipa dumneavoastră",
+    "internalPlaceholder": "Scrieți o notă internă (doar pentru echipă)…",
+    "noMessages": "Niciun mesaj încă",
+    "placeholder": "Scrie un mesaj…",
+    "sendInternal": "Salvați nota internă",
+    "unreadCount_one": "{{count}} mesaj necitit",
+    "unreadCount_few": "{{count}} mesaje necitite",
+    "unreadCount_other": "{{count}} de mesaje necitite"
   },
   "student": {
     "login": {
@@ -275,23 +875,96 @@
     },
     "nextAction": {
       "WAIT": "Nimic de făcut acum. Te anunțăm când ceva are nevoie de atenția ta",
-      "FINISH_APPLICATION": "Finalizează candidatura la {{university}}. Elemente rămase: {{remaining}}"
+      "FINISH_APPLICATION": "Finalizează candidatura la {{university}}. Mai ai de făcut: {{remaining}}",
+      "ARRIVAL_CHECKLIST": "Pregătește-te pentru sosirea în Coreea",
+      "COMPARE_OFFERS": "Compară ofertele tale de admitere ({{count}})",
+      "COMPLETE_PROFILE": "Completează-ți profilul ca să vezi ce universități ți se potrivesc",
+      "PROFILE_UNLOCK": {
+        "budget": "Adaugă-ți bugetul ca să ordonăm programele după cost ({{count}})",
+        "education": "Adaugă-ți studiile ca să verificăm programele ({{count}})",
+        "gpa": "Adaugă-ți notele ca să verificăm programele ({{count}})",
+        "language": "Adaugă-ți rezultatul la limbă ca să verificăm programele ({{count}})",
+        "other": "Completează-ți profilul ca să verificăm programele ({{count}})"
+      },
+      "RESPOND_OFFER": "Răspunde la oferta ta de admitere",
+      "REVIEW_MATCHES": "Vezi universitățile potrivite pentru tine"
     },
     "applications": {
-      "emptyBody": "Pornește de la potrivirile tale: programe ale căror cerințe le îndeplinești."
+      "emptyBody": "Pornește de la programele potrivite pentru tine: cele ale căror cerințe le îndeplinești.",
+      "closed": "Închise",
+      "confirm": {
+        "OFFER_ACCEPTED": {
+          "body": "Accepți oferta de la {{university}}. Echipa Hangyul Univ te îndrumă la plata taxei de școlarizare și la obținerea scrisorii standard de admitere.",
+          "cta": "Acceptă oferta",
+          "title": "Accepți această ofertă?"
+        },
+        "WITHDRAWN": {
+          "body": "Candidatura ta la {{university}} va fi închisă. Acest lucru nu poate fi anulat din aplicație.",
+          "cta": "Retrage candidatura",
+          "title": "Retragi această candidatură?"
+        }
+      },
+      "detailTitle": "Candidatură",
+      "empty": "Nicio candidatură activă",
+      "emptyClosed": "Nicio candidatură închisă",
+      "submittedOn": "Depusă la {{date}}",
+      "subtitle": "Urmărește toate candidaturile într-un singur loc."
     },
     "documents": {
       "subtitle": "Documentele tale salvate, refolosite în mai multe candidaturi.",
       "verifiedBody": "Verificat. Poți refolosi acest document pentru alte candidaturi.",
-      "legalizationHint": "Marchează fiecare pas ca finalizat când îl termini. După încărcare, echipa noastră face verificarea finală."
+      "legalizationHint": "Marchează fiecare pas ca finalizat când îl termini. După încărcare, echipa noastră face verificarea finală.",
+      "empty": "Seiful tău de documente este gol",
+      "emptyBody": "Încarcă pașaportul, foile matricole și rezultatele testelor din aplicația web.",
+      "file": "{{name}} · versiunea {{version}}",
+      "fixFallback": "Echipa Hangyul a cerut o modificare la acest document.",
+      "fixTitle": "Ce trebuie corectat",
+      "openFile": "Deschide previzualizarea securizată",
+      "reviews": "Istoricul verificărilor",
+      "translationBody": "Pentru acest document este necesară o traducere autorizată în coreeană sau engleză."
     },
     "matches": {
       "tierHint": {
         "NOT_ELIGIBLE": "O cerință publicată nu este încă îndeplinită. Vezi motivele mai jos."
-      }
+      },
+      "deadline": "Termen {{date}} · {{due}}"
     },
     "profile": {
-      "editOnWeb": "Ca să-ți editezi profilul, folosește aplicația web. Modificările apar aici automat."
+      "editOnWeb": "Ca să-ți editezi profilul, folosește aplicația web. Modificările apar aici automat.",
+      "completion": "Profil completat",
+      "step": {
+        "basics": "Informații de bază",
+        "education": "Studii",
+        "goals": "Obiective de studiu",
+        "language": "Rezultate la limbă",
+        "passport": "Pașaport",
+        "preferences": "Preferințe",
+        "sponsor": "Susținător financiar"
+      }
+    },
+    "explore": {
+      "clear": "Șterge căutarea",
+      "save": "Salvează {{name}}",
+      "searchPlaceholder": "Caută programe sau universități",
+      "unsave": "Elimină {{name}} din salvate"
+    },
+    "messages": {
+      "subtitle": "Vorbește cu echipa Hangyul Univ.",
+      "unreadA11y_one": "Mesaje, {{count}} necitit",
+      "unreadA11y_other": "Mesaje, {{count}} necitite"
+    },
+    "saved": {
+      "empty": "Nimic salvat încă",
+      "emptyBody": "Apasă inima de pe un program ca să-i salvezi universitatea aici."
+    },
+    "tasks": {
+      "confirmTitle": "Marchezi această sarcină ca finalizată?",
+      "empty": "Nimic de făcut acum",
+      "emptyBody": "Adăugăm sarcini aici când ceva are nevoie de atenția ta.",
+      "overdue": "Întârziate ({{count}})",
+      "subtitle": "Sarcini de la echipa Hangyul și listele tale de pași pentru candidaturi.",
+      "title": "Lista de pași",
+      "upcoming": "De făcut"
     }
   },
   "university": {
@@ -300,50 +973,210 @@
     },
     "flagged": {
       "hint": "Marcajele sunt interne pentru universitatea ta. Studenții și agențiile nu le văd.",
-      "emptyBody": "Marchează o candidatură din pagina ei de detalii ca s-o revezi mai târziu."
+      "emptyBody": "Marchează o candidatură din pagina ei de detalii ca s-o revezi mai târziu.",
+      "add": "Marcați pentru urmărire",
+      "addBody": "Doar echipa universității dumneavoastră va vedea acest marcaj și motivul.",
+      "flagged": "Marcată",
+      "reason": "Motiv",
+      "remove": "Eliminați marcajul",
+      "removeTitle": "Eliminați marcajul de pe această candidatură?"
     },
     "cohorts": {
       "riskHint": "Avertizările timpurii vin doar din datele pe care le partajează sistemele universității (prezență, situație școlară, înscriere, date ale vizei). Sunt semnale ca să iei legătura cu studentul, nu predicții."
+    },
+    "applicants": {
+      "anonymous": "Candidat",
+      "confirmBody": "{{name}} și consilierul său vor fi notificați. Adăugați o notă pentru evidență (opțional).",
+      "confirmTitle": "Schimbați statusul în „{{status}}”?",
+      "detailTitle": "Candidat",
+      "history": "Istoricul statusurilor",
+      "interview": "Interviu",
+      "moveTo": "Mutare în: {{status}}",
+      "notShared": "Nepartajat încă cu universitatea dumneavoastră",
+      "note": "Notă",
+      "previewHint": "Deschide o previzualizare securizată, cu expirare",
+      "reference": "Numărul dumneavoastră de referință",
+      "submitted": "Depusă la {{date}}",
+      "submittedLabel": "Depusă",
+      "viaAgency": "Prin {{agency}}"
+    },
+    "inbox": {
+      "title": "Mesaje"
+    },
+    "login": {
+      "tagline": "Candidați, decizii și cohorte pentru biroul dumneavoastră de relații internaționale."
     }
   },
   "v4": {
     "application": {
-      "writeOnWeb": "Scrie-l pe web. Comentariile consilierului apar acolo.",
-      "reviewLate": "Durează mai mult decât de obicei. Consilierul tău a fost anunțat de întârziere. Nu trebuie să-l încarci din nou."
+      "writeOnWeb": "Scrie-l pe web. Comentariile echipei Hangyul apar tot acolo.",
+      "reviewLate": "Durează mai mult decât de obicei. Echipa Hangyul a fost anunțată de întârziere. Nu trebuie să-l încarci din nou.",
+      "blocks": "Candidatura ta nu poate fi depusă până nu se rezolvă asta.",
+      "blocksUni": "{{university}} așteaptă acest lucru înainte să continue.",
+      "doneSummary_one": "{{count}} finalizat: {{items}}",
+      "doneSummary_other": "{{count}} finalizate: {{items}}",
+      "next": "Următorul tău pas",
+      "nextFix": "Corectează: {{item}}",
+      "nextLegalize": "Obține apostila sau supralegalizarea consulară pentru: {{item}}",
+      "nextRequest": "{{university}} a cerut: {{item}}",
+      "nextUpload": "Încarcă: {{item}}",
+      "nextWrite": "Scrie: {{item}}",
+      "nothingForYou": "Nu ai nimic de făcut acum",
+      "openDocument": "Deschide documentul",
+      "waitBody": "Echipa Hangyul verifică ce ai trimis. Îți spunem dacă trebuie schimbat ceva.",
+      "waitTitle": "Nu ai nimic de făcut acum"
     },
     "reviews": {
-      "tickAll": "{{done}} din {{total}} verificate. Bifează toate verificările ca să validezi."
+      "tickAll": "{{done}} din {{total}} bifate. Bifați toate punctele pentru a valida."
     },
     "home": {
       "item": {
         "WRITE_ESSAY": {
-          "text": "Consilierul tău îl va revizui împreună cu tine. Începe cu o ciornă. Nu trebuie să fie perfectă."
+          "text": "Echipa Hangyul îl va revizui împreună cu tine. Începe cu o ciornă. Nu trebuie să fie perfectă.",
+          "cta": "Începe să scrii",
+          "title": "Scrie: {{label}} pentru {{university}}"
+        },
+        "FIX": {
+          "cta": "Vezi cum îl corectezi",
+          "text": "Candidatura ta nu poate fi depusă până nu este corectat.",
+          "title": "Corectează: {{label}} pentru {{university}}"
+        },
+        "LEGALIZE": {
+          "cta": "Vezi pașii",
+          "text": "Universitățile coreene acceptă acest document doar după ce este autentificat. Îți arătăm pașii pentru țara ta.",
+          "title": "Obține apostila pentru: {{label}} ({{university}})"
+        },
+        "RENEW": {
+          "cta": "Vezi ce ai de făcut",
+          "text": "Cel încărcat a expirat.",
+          "title": "Obține din nou: {{label}} ({{university}})"
+        },
+        "REQUEST": {
+          "cta": "Încarcă și trimite",
+          "text": "Universitatea a cerut acest document. Candidatura ta nu poate avansa până nu ajunge.",
+          "title": "Trimite: {{label}} către {{university}}"
+        },
+        "REVISE_ESSAY": {
+          "cta": "Deschide ciorna",
+          "text": "Echipa Hangyul a lăsat comentarii. Candidatura ta nu poate fi depusă până nu este aprobat.",
+          "title": "Revizuiește: {{label}} pentru {{university}}"
+        },
+        "TOO_OLD": {
+          "cta": "Vezi ce ai de făcut",
+          "text": "Universitatea are nevoie de o copie emisă recent.",
+          "title": "Obține o copie mai recentă: {{label}} ({{university}})"
+        },
+        "UPLOAD": {
+          "cta": "Încarcă-l",
+          "text": "Candidatura ta nu poate fi depusă fără el.",
+          "title": "Încarcă: {{label}} pentru {{university}}"
         }
       }
+    },
+    "discover": {
+      "firstYear": "{{range}} primul an"
+    },
+    "documents": {
+      "late": "Durează mai mult",
+      "lateLine": "semnalat ca întârziat echipei Hangyul"
+    },
+    "uni": {
+      "actor": {
+        "AGENCY": "Agenție parteneră",
+        "STUDENT": "Candidat",
+        "SYSTEM": "Automat",
+        "UNIVERSITY": "Universitatea dumneavoastră"
+      },
+      "toReview_one": "De evaluat · {{count}}",
+      "toReview_other": "De evaluat · {{count}}"
+    },
+    "university": {
+      "continue": "Continuă candidatura",
+      "firstYear": "Primul an, estimat",
+      "tuitionYear": "Taxă de școlarizare pe an"
+    },
+    "visa": {
+      "hideDone": "Ascunde pașii finalizați",
+      "showDone_one": "Arată {{count}} pas finalizat",
+      "showDone_few": "Arată {{count}} pași finalizați",
+      "showDone_other": "Arată {{count}} de pași finalizați"
     }
   },
   "v29": {
     "plan": {
       "term": "Perioada serviciului",
       "termUntil": "Până la {{date}}",
-      "termToAgree": "Se stabilește la început",
-      "supportUntil": "Consultanță până la {{date}}",
-      "supportDays": "Zile de la prima consultație: {{count}}",
+      "termToAgree": "Se stabilește la începerea serviciului",
+      "supportUntil": "Consultații până la {{date}}",
+      "supportDays": "Consultații: {{count}} zile de la prima consultație",
       "arrival": "Sosire și instalare",
       "arrivalWindow": "{{from}} – {{until}}",
       "unrationed": {
         "CONTRACTED_DOCUMENTS": "Fără limită pentru documentele din contract",
-        "TEAM": "Sprijin din partea echipei",
+        "TEAM": "Urmărire din partea echipei tale",
         "PRIORITY": "Răspuns prioritar",
         "ROUNDS": "Inclus"
       },
       "upgradePending": "Prețul pentru schimbarea planului nu este încă stabilit. Echipa Hangyul Univ îl va stabili direct cu tine.",
       "askTeam": "Întreabă echipa"
+    },
+    "mfa": {
+      "codeHint": "Introduceți codul de 6 cifre din aplicația de autentificare sau un cod de recuperare.",
+      "codeLabel": "Cod de verificare",
+      "enrollOnWeb": "Acest cont necesită verificare în doi pași. Configurați-o mai întâi în consola web, apoi conectați-vă aici.",
+      "verify": "Verificați și conectați-vă",
+      "wrongCode": "Codul este greșit sau a expirat. Introduceți unul nou."
     }
   },
   "plan": {
     "allowance": {
-      "consultation_sessions": "Consultație de diagnostic"
-    }
+      "consultation_sessions": "Consultație de diagnostic",
+      "essay_review_rounds": "Editarea scrisorii de intenție și a planului de studiu",
+      "follow_up_consultations": "Consultații ulterioare",
+      "max_managed_applications": "Candidaturi gestionate",
+      "max_recommended_institutions": "Recomandări de universități",
+      "mock_interviews": "Interviuri de probă"
+    },
+    "browserFailed": "Browserul nu a putut fi deschis. Te rugăm să plătești pe web.",
+    "card": "Poți plăti cu un card străin (Visa, Mastercard, JCB).",
+    "chooseLede": "O singură plată, fără abonament. Planul tău rămâne activ cât timp te pregătești.",
+    "chooseTitle": "Alege un plan",
+    "handoff": "Plata se face în browser și revii în aplicație când este gata.",
+    "highestAlready": "Ai deja planul cel mai cuprinzător.",
+    "included": "Inclus în planul tău",
+    "oneTime": "O singură plată",
+    "ongoing": "Pe toată perioada serviciului",
+    "paid": "Sumă plătită",
+    "pay": "Plătește",
+    "plansTitle": "Planuri",
+    "selected": "Selectat",
+    "upgradeTitle": "Schimbare de plan",
+    "webNote": "Istoricul planurilor și chitanțele sunt pe web."
+  },
+  "more": {
+    "active": "Activ",
+    "allowanceSpent": "Ai folosit tot ce include acest plan. Pe ecranul planului vezi ce plan acoperă mai mult.",
+    "choose": "Alege",
+    "noPlan": "Niciun plan încă",
+    "noPlanHint": "Alege un plan și Hangyul începe să lucreze cu tine",
+    "support": "Cere ajutor",
+    "supportHint": "Scrie echipei Hangyul",
+    "webNote": "Editarea profilului și plata se fac pe web."
+  },
+  "notifications": {
+    "unread": "Necitite"
+  },
+  "settings": {
+    "elsewhere": "În altă parte",
+    "language": "Limbă",
+    "languageHint": "Alege limba aplicației. Unele limbi sunt traduceri automate, încă în curs de verificare.",
+    "machineDraft": "traducere automată",
+    "notificationsHint": "Vezi notificările primite",
+    "rtlNote": "Textul de la dreapta la stânga se aplică acum; întreaga interfață se oglindește data viitoare când deschizi aplicația.",
+    "selected": "selectat",
+    "signOutBody": "Vei avea nevoie de e-mail și parolă ca să te conectezi din nou.",
+    "signOutTitle": "Te deconectezi?",
+    "title": "Setări",
+    "version": "Versiunea {{version}}"
   }
 }

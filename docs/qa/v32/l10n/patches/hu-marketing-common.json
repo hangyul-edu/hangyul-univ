@@ -1,0 +1,766 @@
+{
+ "_notes": [
+  "Register: marketing + common keep tegezés (student-facing); common keys that only staff see (validation.reasonRequired, task.writingEscalation/Overdue, task.concierge.reconfirm, task.sendStudyPlanFeedback) moved to magázás to match the consoles.",
+  "Offer (합격 통보): unified on 'felvételi ajánlat' / 'ajánlat' across common, agency and university (appStatus, pipeline, notify) so one chip wording appears everywhere; '-tél/-tem' tegező status chips removed because common is shared with the consoles.",
+  "Dormitory (기숙사) is 'kollégium' everywhere (was mixed kollégium / szállás / hallgatói szállás); 'szállás' kept only for the broader housing topic.",
+  "Standard admission letter (표준입학허가서): official term written as 'standard felvételi levél (standard admission letter)' in long copy; status chips keep the short 'felvételi levél'.",
+  "King Sejong Institute: official English name kept, Hungarian gloss once ('King Sejong Institute (Szedzsong Király Intézet)'); 'Király Sejong Intézet' was an unnatural word order.",
+  "Korean 국립/공립/사립: Állami / Önkormányzati / Magán (공립 universities are run by local governments; 'Közösségi fenntartású' was vague).",
+  "Visa wording back-checked: every 'intézi a vízumot' / 'vízum előkészítése' now says visa documents / visa application preparation, never that Hangyul arranges the visa.",
+  "GPA placeholder 'pl. 3.6' left with a decimal point on purpose (numeric input most likely parses '.' only) — owner to confirm whether the field accepts a comma.",
+  "Legal texts (privacy/terms) reference Korean statutes with 'cikk' (article) as before; Korea Consumer Agency rendered with a Hungarian gloss and the official name.",
+  "City/region names stay in Revised Romanization (Busan, Daegu…) as the rest of the site does; Szöul is the only Hungarian exonym used, matching the existing copy."
+ ],
+ "marketing:nav.universities": {
+  "text": "Egyetemek",
+  "why": "EN says Universities, not search"
+ },
+ "marketing:seo.home.description": {
+  "text": "Találd meg a megfelelő koreai egyetemet, készítsd elő a dokumentumaidat, és készülj fel a vízumra és az érkezésre – ellenőrzött információkkal és a Hangyul csapatával, egy helyen.",
+  "why": "no 'sort out the visa'; drops invented 'valódi segítők'"
+ },
+ "marketing:v11.faq.q3.a": {
+  "text": "Az egyetemek elfogadják a TOPIK, a TOEFL és az IELTS eredményét. Egyesek elfogadják egy koreai egyetem koreai nyelvi intézetének igazolását, az egyetem saját koreai vizsgájának sikeres letételét vagy a King Sejong Institute (Szedzsong Király Intézet) legalább középhaladó 1. szintű igazolását is.",
+  "why": "official institute name"
+ },
+ "marketing:v12.directory.countShort_one": {
+  "text": "{{count}} intézmény",
+  "why": "missing"
+ },
+ "marketing:v12.directory.countShort_other": {
+  "text": "{{count}} intézmény",
+  "why": "missing"
+ },
+ "marketing:v12.directory.count_one": {
+  "text": "{{count}} intézmény",
+  "why": "missing"
+ },
+ "marketing:v12.directory.emptyText": {
+  "text": "Válassz másik régiót, vagy böngészd egész Koreát.",
+  "why": "missing"
+ },
+ "marketing:v12.directory.emptyTitle": {
+  "text": "Ebben a régióban nincs listázott intézmény",
+  "why": "missing"
+ },
+ "marketing:v12.directory.inRegion": {
+  "text": "Egyetemek itt: {{region}}",
+  "why": "missing; no suffix on placeholder"
+ },
+ "marketing:v12.directory.matching": {
+  "text": "Találatok erre: „{{q}}”",
+  "why": "missing"
+ },
+ "marketing:v12.establishment.NATIONAL": {
+  "text": "Állami",
+  "why": "missing"
+ },
+ "marketing:v12.establishment.PUBLIC": {
+  "text": "Önkormányzati",
+  "why": "missing; 공립 = local-government run"
+ },
+ "marketing:v12.ieqas.certified": {
+  "text": "IEQAS-tanúsított",
+  "why": "adjective, matches 'excellent' chip"
+ },
+ "marketing:v12.ieqas.excellent": {
+  "text": "IEQAS-tanúsított – kiváló",
+  "why": "missing"
+ },
+ "marketing:v12.legal.effective": {
+  "text": "Hatályos: {{date}}",
+  "why": "missing"
+ },
+ "marketing:v12.map.hide": {
+  "text": "Térkép elrejtése",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.collect.documents.items": {
+  "text": "Útlevél, személyi igazolvány, fénykép, tanulmányi kivonatok, végzettséget és várható végzést igazoló bizonyítványok, családi kapcsolatot igazoló iratok és születési anyakönyvi kivonatok, bankszámlakivonatok, a támogató dokumentumai, munkaviszony- és jövedelemigazolások, TOPIK-, IELTS- és TOEFL-eredmények, ajánlólevelek, motivációs levelek, tanulmányi tervek, önéletrajz, apostille, közjegyzői hitelesítések és hiteles fordítások, tartózkodási kártya, vízum, standard felvételi levél (standard admission letter)",
+  "why": "official document name"
+ },
+ "marketing:v12.privacy.collect.security.purpose": {
+  "text": "Nyers erővel (brute force) végzett és automatizált támadások észlelése és megállítása",
+  "why": "grammar: 'brute force' needs a Hungarian frame"
+ },
+ "marketing:v12.privacy.contact.colField": {
+  "text": "Mező",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.colValue": {
+  "text": "Adat",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.department": {
+  "text": "Szervezeti egység",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.email": {
+  "text": "E-mail",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.h": {
+  "text": "Adatvédelmi tisztviselő és elérhetőség",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.officer": {
+  "text": "Adatvédelmi tisztviselő",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.contact.phone": {
+  "text": "Telefon",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.processors.colContact": {
+  "text": "Elérhetőség",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.processors.colRetention": {
+  "text": "Megőrzés az adatfeldolgozónál",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.processors.intro": {
+  "text": "A Hangyul az alábbi feladatokat külső adatfeldolgozókra bízza, akik a személyes adatokat kizárólag a Hangyul utasításai szerint kezelik. A velük kötött szerződések tartalmazzák a személyes adatok védelméről szóló törvény 26. cikke által előírt biztosítékokat, a további adatfeldolgozók igénybevételének korlátait és a felelősségi szabályokat.",
+  "why": "sub-processing limits, liability rules"
+ },
+ "marketing:v12.privacy.processors.none": {
+  "text": "Jelenleg egyetlen adatfeldolgozó sem kezel személyes adatot a Hangyul nevében az éles rendszerben. Ha ez változik, az adatfeldolgozót és a rábízott feladatot itt tesszük közzé, és a megkezdése előtt bejelentjük.",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.retention.months_one": {
+  "text": "{{count}} hónap",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.retention.years_one": {
+  "text": "{{count}} év",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.security.uploads": {
+  "text": "A feltöltött fájlok típusát és méretét ellenőrizzük, és kártevőkeresésen esnek át, mielőtt átnézhetők lennének.",
+  "why": "'kerülnének' bureaucratic; review term"
+ },
+ "marketing:v12.privacy.sharing.sponsor.items": {
+  "text": "Csak az általad kiválasztott adatkörök (soha nem dokumentumfájlok, üzenetek vagy konzultációs jegyzetek)",
+  "why": "'kör' alone unclear"
+ },
+ "marketing:v12.privacy.transfer.none": {
+  "text": "Jelenleg nem használunk olyan adatfeldolgozót, amely személyes adatot Koreán kívülre továbbít. Ha külföldre továbbítás válik szükségessé, a címzettet, az országot, a célt, az adatokat, az időpontot, a módot és a megőrzési időt itt tesszük közzé, és a megkezdése előtt bejelentjük.",
+  "why": "missing"
+ },
+ "marketing:v12.privacy.transfer.when": {
+  "text": "Minden alkalommal, amikor regisztrációkor vagy az elérhetőségeid módosításakor ellenőrző kódot kérsz; titkosított (TLS) átvitel az interneten keresztül",
+  "why": "'kérnek' read as third party"
+ },
+ "marketing:v12.terms.effective.h": {
+  "text": "Hatálybalépés",
+  "why": "missing"
+ },
+ "marketing:v12.terms.effective.p": {
+  "text": "Ezek a feltételek {{date}} napján lépnek hatályba.",
+  "why": "missing; no suffix on placeholder"
+ },
+ "marketing:v12.terms.intro": {
+  "text": "A Hangyul Univ segít a koreai tanulmányokra készülőknek egyetemi információkat keresni, előkészíteni a dokumentumaikat és a jelentkezési lépéseket, valamint igénybe venni olyan szolgáltatásokat, mint a konzultáció, az esszék lektorálása és a jelentkezések kezelése.",
+  "why": "'szövegek' vague; essays"
+ },
+ "marketing:v12.terms.law.h": {
+  "text": "Irányadó jog és joghatóság",
+  "why": "missing"
+ },
+ "marketing:v12.terms.liability.p": {
+  "text": "A Hangyul a vonatkozó jogszabályok szerint felel a szolgáltatás nyújtása során szándékosan vagy gondatlanul a tagnak okozott kárért. A fogyasztóvédelmi jogszabályok által a tagoknak biztosított jogokat ezek a feltételek nem korlátozzák. Jogvita esetén a Hangyul és a tag először egyeztetéssel próbálja rendezni azt, a tag pedig közvetítést kérhet egy vitarendező szervtől, például a koreai fogyasztóvédelmi hivataltól (Korea Consumer Agency).",
+  "why": "no suffix glued to English name"
+ },
+ "marketing:v12.terms.refunds.stage.RECOMMENDATION_DONE": {
+  "text": "Egyetemajánlás teljesítve",
+  "why": "'egyetemi ajánlás' reads as the university's recommendation"
+ },
+ "marketing:v12.terms.refunds.stage.RECOMMENDATION_STARTED": {
+  "text": "Az egyetemajánlás összeállítása megkezdődött",
+  "why": "same; 'munkája' unnatural"
+ },
+ "marketing:v12.terms.services.visa": {
+  "text": "Útmutatás a vízumdokumentumok előkészítéséhez",
+  "why": "back-check: visa documents, not the visa"
+ },
+ "marketing:v12.uni.back": {
+  "text": "Vissza a koreai egyetemekhez",
+  "why": "missing"
+ },
+ "marketing:v14.media.alt.seoulRiver": {
+  "text": "{{region}} látképe a folyó túlpartjáról naplementekor.",
+  "why": "missing"
+ },
+ "marketing:v15.pricing.compare.item": {
+  "text": "Szolgáltatás",
+  "why": "was empty"
+ },
+ "marketing:v17.quick.ctaWhy": {
+  "text": "A Hangyul veled együtt dolgozza végig a jelentkezéseket, a dokumentumokat és a vízumdokumentumok előkészítését.",
+  "why": "'intézi a vízumot' promised the visa"
+ },
+ "marketing:v17.uni.fromRecommendation": {
+  "text": "Ez az egyetem illik a válaszaidhoz",
+  "why": "natural phrasing"
+ },
+ "marketing:v17.uni.missionTitle": {
+  "text": "Mit képvisel ez az egyetem",
+  "why": "'stands for' ≠ 'célja'"
+ },
+ "marketing:v20.city.Chungbuk.body": {
+  "text": "Észak-Chungcheong az egyetlen koreai tartomány, amelynek nincs tengerpartja. Központja és fő egyetemi városa Cheongju, amely elég közel van Sejonghoz és Daejeonhoz is ahhoz, hogy osztozzon a munkaerőpiacukon.\nA tartomány Danyang mészkővidékéről ismert, és csendesebb, olcsóbb diákéletet kínál, mint a nagyvárosok.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungbuk.line": {
+  "text": "Tenger nélkül, az ország közepén, Cheongju köré épülve.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungbuk.청주": {
+  "text": "Cheongju",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungnam.아산": {
+  "text": "Asan",
+  "why": "missing"
+ },
+ "marketing:v20.city.Chungnam.천안": {
+  "text": "Cheonan",
+  "why": "missing"
+ },
+ "marketing:v20.city.Daegu.body": {
+  "text": "Daegu egy délkeleti medencében fekszik: augusztusban Korea legforróbb, januárban az egyik leghidegebb városa. Sűrű, gyalogosan bejárható belvárosa van, hosszú textilipari múltja divat- és orvostechnikai iparrá alakult, a megélhetés pedig érezhetően olcsóbb, mint Szöulban vagy Busanban.\nA KTX-szel Szöul egy és háromnegyed, Busan ötven perc alatt elérhető.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Daegu.line": {
+  "text": "Hegyekkel körülvett medencében fekvő belföldi város, amely textiliparáról, orvostudományáról és hőségéről ismert.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Daejeon.body": {
+  "text": "Daejeon a Daedeok Innopolis, az állami kutatóintézetek és vállalati K+F-központok tömörülése köré épült, és az itteni egyetemeket is ez formálja. Ha mérnöki vagy természettudományi képzésre jössz, itt vannak a laboratóriumok.\nSzinte pontosan az ország közepén fekszik: KTX-szel egy óra Szöultól és egy óra Busantól.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.body": {
+  "text": "Gangwonban van a Taebaek-hegység, a 2018-as téli olimpia helyszínei és a keleti part strandjai. Egyetemi városai Chuncheon, Gangneung és Wonju; egyik sem nagy, és mind olcsóbb és csendesebb, mint bármelyik hely a fővárosi régióban.\nItt a tél igazi tél. A KTX Szöulból körülbelül két óra alatt ér Gangneungba.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.강릉": {
+  "text": "Gangneung",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.원주": {
+  "text": "Wonju",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gangwon.춘천": {
+  "text": "Chuncheon",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gwangju.body": {
+  "text": "Gwangju a Jeolla tartományok legnagyobb városa, és örökölte a vidék hírnevét: a konyháját és az 1980-as demokratikus felkelést, amelyről a várost Koreában ma is a leginkább ismerik.\nAz olcsóbb nagyvárosok egyike, elismert művészeti élettel, és KTX-szel körülbelül két órára van Szöultól.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gwangju.line": {
+  "text": "A délnyugat kulturális és politikai központja, és megfizethető hely a tanuláshoz.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.body": {
+  "text": "Észak-Gyeongsangban van Gyeongju, amely ezer évig a Silla királyság fővárosa volt, és ma gyakorlatilag szabadtéri múzeum, valamint Pohang, az acélváros, amely Korea egyik legerősebb természettudományi és mérnöki egyetemének is otthont ad. A beljebb fekvő Andong a koreai konfuciánus hagyomány központja.\nNagy és változatos tartomány, és minden része olcsóbb a fővárosi régiónál.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.line": {
+  "text": "Gyeongju ezer éve és Pohang acélja, ugyanabban a tartományban.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.경주": {
+  "text": "Gyeongju",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.구미": {
+  "text": "Gumi",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongbuk.포항": {
+  "text": "Pohang",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.고양": {
+  "text": "Goyang",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.부천": {
+  "text": "Bucheon",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.성남": {
+  "text": "Seongnam",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.수원": {
+  "text": "Suwon",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.안양": {
+  "text": "Anyang",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeonggi.용인": {
+  "text": "Yongin",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongnam.김해": {
+  "text": "Gimhae",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongnam.진주": {
+  "text": "Jinju",
+  "why": "missing"
+ },
+ "marketing:v20.city.Gyeongnam.창원": {
+  "text": "Changwon",
+  "why": "missing"
+ },
+ "marketing:v20.city.Incheon.line": {
+  "text": "Korea kapuja: itt van a repülőtér, és itt van Songdo is.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeju.body": {
+  "text": "Jeju 85 kilométerre fekszik a szárazföldtől, a Hallasan vulkán köré épült, és olyan meleg, hogy a növényzet szubtrópusinak hat. Az ország többi része nyaralni jár ide, ami a gazdaságát és a lakbéreket is alakítja.\nKevés egyetem van itt, és azok is kicsik. Szöulba néhány percenként indul repülő, az út egy óra.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeju.line": {
+  "text": "Vulkáni sziget a déli part előtt, Korea többi részétől eltérő éghajlattal.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.body": {
+  "text": "Észak-Jeolla mezőgazdasági vidék, nyugaton sík, keleten hegyes, központja Jeonju: nagyjából 650 000 lakosú város az ország legnagyobb fennmaradt hanok-negyedével és olyan gasztronómiai hírnévvel, amelyet egyetlen más koreai város sem vitat.\nA megélhetési költségek az egyetemi városok közül a legalacsonyabbak közé tartoznak, Szöul pedig KTX-szel valamivel kevesebb mint két óra.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.line": {
+  "text": "Jeonju és a vidék, amelyet a koreai konyha otthonaként ismernek.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.익산": {
+  "text": "Iksan",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonbuk.전주": {
+  "text": "Jeonju",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.body": {
+  "text": "Dél-Jeollának több szigete van, mint Korea többi részének együttvéve, itt vannak a Suncheon-öböl vizes élőhelyei és Yeosu kikötője. A szárazföldi tartományok közül a legkevésbé városias, és az itteni egyetemek ennek megfelelően kicsik és összetartóak.\nHa csendes, tengerparti helyet keresel nagyon alacsony megélhetési költségekkel, ez az.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.line": {
+  "text": "A délnyugati part, a szigetei és az ország leglassabb tempója.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.목포": {
+  "text": "Mokpo",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.순천": {
+  "text": "Suncheon",
+  "why": "missing"
+ },
+ "marketing:v20.city.Jeonnam.여수": {
+  "text": "Yeosu",
+  "why": "missing"
+ },
+ "marketing:v20.city.Sejong.body": {
+  "text": "Sejong Korea legújabb és legtudatosabban megtervezett városa: a központi minisztériumok többsége ide költözött Szöulból, az utcahálózat, a parkok és a középületek mind az elmúlt tizenöt évből származnak.\nKicsi, csendes és vadonatúj, húsz percre Daejeontól és másfél órára Szöultól.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Sejong.line": {
+  "text": "2012 óta a semmiből épült város a kormányzati minisztériumok számára.",
+  "why": "missing"
+ },
+ "marketing:v20.city.Ulsan.body": {
+  "text": "Ulsanban a legmagasabb az átlagjövedelem a koreai városok közül, és ennek oka jól látható: a világ legnagyobb hajógyára, egy akkora autógyár, hogy önálló városrésznek számít, és egy petrolkémiai komplexum a part mentén. A mérnöki végzettségűeket itt veszik fel.\nKoreai mércével kis város, fél órára Busantól, bálnalesekkel, hosszú stranddal és a központon átfolyó Taehwa folyóval.",
+  "why": "EN names no car brand"
+ },
+ "marketing:v20.city.Ulsan.line": {
+  "text": "Korea ipari fővárosa: hajóépítés, autók és petrolkémia.",
+  "why": "missing"
+ },
+ "marketing:v20.dir.tierVideo": {
+  "text": "Hivatalos videó",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.busanGwangan": {
+  "text": "Az éjjel kivilágított Gwangan híd az öböl felett, {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.daejeonExpo": {
+  "text": "A kivilágított Expo híd a folyó felett, {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.gyeongjuBulguksa": {
+  "text": "A Bulguksa templom Gyeongjuban, {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.jeonjuHanok": {
+  "text": "A jeonjui hanok-negyed cseréptetői, {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.seoulCheonggyecheon": {
+  "text": "A Cheonggyecheon patak sétánya {{region}} belvárosában",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.seoulYeouido": {
+  "text": "A Han folyó Yeouidónál alkonyatkor, {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.sokchoSeorak": {
+  "text": "Sokcho látképe a Seoraksan gerince alatt, {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.media.alt.ulsanBridge": {
+  "text": "Az Ulsan híd a kikötő felett, {{region}}",
+  "why": "missing"
+ },
+ "marketing:v20.uni.intl.dormLine": {
+  "text": "Az egyetem saját kollégiumi tájékoztatót tesz közzé.",
+  "why": "dormitory = kollégium"
+ },
+ "marketing:v20.uni.link.dormitory": {
+  "text": "Kollégium",
+  "why": "dormitory = kollégium"
+ },
+ "marketing:v20.uni.match.NOT_YET": {
+  "text": "Nyelvvizsga-eredménnyel ide is jelentkezhetsz.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.POSSIBLE": {
+  "text": "A válaszaid alapján érdemes ide jelentkezni.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.STRONG": {
+  "text": "Az itteni képzések illenek a válaszaidhoz.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.ieqas": {
+  "text": "Szerepel az IEQAS-tanúsított egyetemek listáján, ami enyhébb vízumfeltételeket jelent.",
+  "why": "missing"
+ },
+ "marketing:v20.uni.match.language": {
+  "text": "Koreai nyelvi képzése szerepel a tanúsított listán, így a nyelvvel is kezdhetsz.",
+  "why": "missing"
+ },
+ "marketing:v21.uni.placeWhere": {
+  "text": "{{city}}, {{region}}.",
+  "why": "missing; no suffix on placeholders"
+ },
+ "marketing:v28.uni.why.gks": {
+  "text": "Részt vesz a Global Korea Scholarship (GKS) programban",
+  "why": "official scholarship name"
+ },
+ "common:actions.reassign": {
+  "text": "Átadás másnak",
+  "why": "'Átirányítás' is call-forwarding"
+ },
+ "common:appStatus.OFFERED": {
+  "text": "Felvételi ajánlat érkezett",
+  "why": "shared chip; no tegező verb; unified 'ajánlat'"
+ },
+ "common:appStatus.OFFER_ACCEPTED": {
+  "text": "Ajánlat elfogadva",
+  "why": "unified 'ajánlat' with consoles"
+ },
+ "common:appStatus.VISA_PREPARATION": {
+  "text": "Vízum-előkészítés",
+  "why": "matches pipeline chip; 'felkészülés' odd"
+ },
+ "common:certification.UNKNOWN": {
+  "text": "Tanúsítási állapot ismeretlen",
+  "why": "cur added 'we did not check'"
+ },
+ "common:docCategory.BANK_STATEMENT": {
+  "text": "Bankszámlaegyenleg-igazolás",
+  "why": "compound spelling"
+ },
+ "common:docCategory.TOPIK": {
+  "text": "TOPIK-eredmény",
+  "why": "same pattern as IELTS/TOEFL"
+ },
+ "common:eligibility.ELIGIBLE": {
+  "text": "Jogosult",
+  "why": "shared chip; no tegező"
+ },
+ "common:eligibility.POSSIBLE": {
+  "text": "Jogosult lehet",
+  "why": "'valószínűleg' overstates"
+ },
+ "common:essayType.RECOMMENDATION": {
+  "text": "Ajánlólevél",
+  "why": "same term as docCategory"
+ },
+ "common:fit.levelValue.KIIP": {
+  "text": "{{level}}. szint",
+  "why": "'szint' like TOPIK"
+ },
+ "common:fit.q.level": {
+  "text": "Milyen szinten szeretnél tanulni?",
+  "why": "EN asks level, not subject"
+ },
+ "common:fit.test.KING_SEJONG": {
+  "text": "King Sejong Institute",
+  "why": "official name"
+ },
+ "common:housingStatus.OFF_CAMPUS_SEARCH": {
+  "text": "Keresés a kampuszon kívül",
+  "why": "spelling 'kampusz'"
+ },
+ "common:i18n.v9.websiteOnly": {
+  "text": "Csak a nyilvános weboldalon",
+  "why": "missing"
+ },
+ "common:institution.NATIONAL": {
+  "text": "Állami",
+  "why": "'(nemzeti)' redundant"
+ },
+ "common:institution.PUBLIC": {
+  "text": "Önkormányzati",
+  "why": "공립 = local-government run"
+ },
+ "common:matchReason.LANGUAGE_GAP_SMALL": {
+  "text": "A nyelvi eredmény épp a minimum alatt van. Egy újabb vizsgával teljesíthető",
+  "why": "'összejöhet' colloquial"
+ },
+ "common:matchReason.NATIONALITY_RESTRICTED": {
+  "text": "Nem fogad jelentkezőket a te állampolgárságoddal",
+  "why": "'állampolgárságodú' ungrammatical"
+ },
+ "common:matchReason.SCHOLARSHIP_CANDIDATE": {
+  "text": "Ösztöndíjra jogosult lehet",
+  "why": "'jelölt' ≠ may qualify"
+ },
+ "common:nav.admissionRules": {
+  "text": "Felvételi követelmények",
+  "why": "requirements, consistent term"
+ },
+ "common:nav.audit": {
+  "text": "Auditnapló",
+  "why": "noun, matches consoles"
+ },
+ "common:nav.partnership": {
+  "text": "Partnerségi megállapodás",
+  "why": "EN says agreement"
+ },
+ "common:notify.application.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "{{university}}: a jelentkezés állapota mostantól „Felvételi levél kiállítva”",
+  "why": "missing"
+ },
+ "common:notify.application.OFFERED": {
+  "text": "{{university}}: a jelentkezés állapota mostantól „Felvételi ajánlat érkezett”",
+  "why": "missing"
+ },
+ "common:notify.documentRequest.agency": {
+  "text": "{{university}} még egy dokumentumot kért a hallgatójától: {{document}}",
+  "why": "missing"
+ },
+ "common:notify.documentRequest.fulfilled": {
+  "text": "A jelentkező elküldte a kért dokumentumot: {{document}}",
+  "why": "missing"
+ },
+ "common:notify.documentRequest.student": {
+  "text": "{{university}} még egy dokumentumot kér tőled: {{document}}",
+  "why": "missing"
+ },
+ "common:notify.documentUploadedForYou": {
+  "text": "{{author}} hozzáadta a dokumentumaidhoz: {{document}}",
+  "why": "missing"
+ },
+ "common:notify.serviceCase": {
+  "text": "$t(concierge:type.{{type}}): $t(concierge:status.{{type}}.{{status}})",
+  "why": "missing; nested lookup kept verbatim"
+ },
+ "common:notify.writingEscalation": {
+  "text": "Késésben lévő esszéértékelés eszkalálva: {{title}} ({{student}})",
+  "why": "missing"
+ },
+ "common:notify.writingOverdue": {
+  "text": "Késik az esszéértékelésed: {{title}}",
+  "why": "missing"
+ },
+ "common:pipeline.OFFERED": {
+  "text": "Felvételi ajánlat érkezett",
+  "why": "unified with appStatus"
+ },
+ "common:pipeline.REJECTED": {
+  "text": "Nem nyert felvételt",
+  "why": "EN 'not admitted', same as appStatus"
+ },
+ "common:states.forbiddenDetail": {
+  "text": "Ha hozzáférésre van szükséged, fordulj a szervezeted adminisztrátorához.",
+  "why": "'ha úgy gondolod' not in EN"
+ },
+ "common:states.noResults": {
+  "text": "Nincs a szűrőknek megfelelő találat. Vegyél ki néhány szűrőt, vagy töröld mindet.",
+  "why": "dropped second sentence"
+ },
+ "common:states.unavailableText": {
+  "text": "A Hangyul jelenleg nem érhető el. Kérjük, próbáld újra egy kicsit később.",
+  "why": "was English"
+ },
+ "common:states.unavailableTitle": {
+  "text": "Előkészítjük a szolgáltatást",
+  "why": "was English"
+ },
+ "common:table.clearSelection": {
+  "text": "Kiválasztás törlése",
+  "why": "missing"
+ },
+ "common:table.hideDetails": {
+  "text": "Részletek elrejtése",
+  "why": "missing"
+ },
+ "common:task.concierge.handle": {
+  "text": "{{type}}: {{student}}",
+  "why": "missing"
+ },
+ "common:task.concierge.reconfirm": {
+  "text": "Változott a járat. Erősítse meg újra a fogadást: {{student}}",
+  "why": "staff task → magázás"
+ },
+ "common:task.firstContact": {
+  "text": "Első kapcsolatfelvétel az újonnan hozzárendelt hallgatóval",
+  "why": "missing"
+ },
+ "common:task.payTuition": {
+  "text": "Tandíj befizetése: {{university}}",
+  "why": "missing; no suffix on placeholder"
+ },
+ "common:task.reviewDocument": {
+  "text": "Ellenőrzés: {{category}}",
+  "why": "missing"
+ },
+ "common:task.sendStudyPlanFeedback": {
+  "text": "Küldje el a tanulmányi tervre adott visszajelzések összefoglalóját",
+  "why": "staff task → magázás"
+ },
+ "common:task.submissionAgency": {
+  "text": "{{student}} jelentkezésének beadása ide: {{university}} (meghatalmazással)",
+  "why": "missing"
+ },
+ "common:task.submissionConfirm": {
+  "text": "Add meg a visszaigazolási számot vagy a nyugtát: {{university}}",
+  "why": "missing"
+ },
+ "common:task.universityRequest": {
+  "text": "{{university}} további dokumentumokat kért",
+  "why": "missing"
+ },
+ "common:task.visaroute.embassyRequest": {
+  "text": "Küldd el a nagykövetségnek, amit kért",
+  "why": "missing"
+ },
+ "common:task.writingEscalation": {
+  "text": "Késésben lévő esszéértékelés. Adja át másnak, vagy hárítsa el a késést: {{essayType}} ({{student}})",
+  "why": "one review term; staff → magázás"
+ },
+ "common:task.writingOverdue": {
+  "text": "Késik az esszéértékelés: {{essayType}} ({{student}}) – értékelje most",
+  "why": "dropped 'review it now'; magázás"
+ },
+ "common:taskType.DOCUMENT_REVIEW": {
+  "text": "Dokumentumellenőrzés",
+  "why": "two-member compound, no hyphen"
+ },
+ "common:tier.COMPETITIVE": {
+  "text": "Lehetséges egyezés",
+  "why": "EN 'possible match'"
+ },
+ "common:tier.REACH": {
+  "text": "Még nem jogosult",
+  "why": "EN 'not eligible yet'"
+ },
+ "common:uni27.cat.HOUSING": {
+  "text": "Kollégiumi és megélhetési támogatás",
+  "why": "dormitory = kollégium"
+ },
+ "common:uni27.house.eyebrow": {
+  "text": "Kollégium",
+  "why": "dormitory = kollégium"
+ },
+ "common:uni27.schol.automatic": {
+  "text": "Kiválasztás esetén automatikusan jár, külön jelentkezés nélkül",
+  "why": "'felvételkor jár' promised the award"
+ },
+ "common:uni27.schol.dorm": {
+  "text": "kollégiumi támogatás",
+  "why": "dormitory = kollégium"
+ },
+ "common:v29.pricing.all_in_one.f4": {
+  "text": "A felvételi dokumentumaid átnézése, javítási javaslatokkal",
+  "why": "EN: admission documents"
+ },
+ "common:v29.pricing.all_in_one.f5": {
+  "text": "Segítség a vízumdokumentumok előkészítésében · figyeljük a kollégiumi jelentkezési határidőket",
+  "why": "'help preparing', not 'we prepare'"
+ },
+ "common:v29.pricing.basic.f3": {
+  "text": "Felvételi követelmények, tandíj és fontos dátumok összehasonlítva",
+  "why": "'compared' was lost"
+ },
+ "common:v29.pricing.basic.f5": {
+  "text": "A vízum-előkészítés lépései az állampolgárságod szerint",
+  "why": "visa preparation steps, not 'the visa'"
+ },
+ "common:v29.pricing.compare.row.arrival": {
+  "text": "Beilleszkedés az érkezés után",
+  "why": "'Érkezés után' alone unclear"
+ },
+ "common:v29.pricing.compare.row.followUp": {
+  "text": "Utánkövetés",
+  "why": "'Követés' ambiguous"
+ },
+ "common:v29.pricing.compare.row.recommended": {
+  "text": "Ajánlott egyetemek és nyelvi intézetek",
+  "why": "language institutes dropped"
+ },
+ "common:v29.pricing.compare.row.support": {
+  "text": "Meddig kérdezhetsz a konzultáció után",
+  "why": "natural phrasing"
+ },
+ "common:v29.pricing.compare.row.visa": {
+  "text": "Vízumdokumentumok előkészítése",
+  "why": "glossary: visa document preparation"
+ },
+ "common:v29.pricing.compare.value.dormitory.APPLICATION": {
+  "text": "Segítség a jelentkezésben, valamint egyéb szálláslehetőségek",
+  "why": "grammar"
+ },
+ "common:v29.pricing.compare.value.followUp.TEAM": {
+  "text": "Utánkövetés a csapatodtól",
+  "why": "one term for follow-up"
+ },
+ "common:v29.pricing.compare.value.mockIncluded": {
+  "text": "{{count}} a csomagban",
+  "why": "'benne van' colloquial"
+ },
+ "common:v29.pricing.premium.f4": {
+  "text": "A vízumdokumentumok és a fő dátumok szoros követése · segítség a kollégiumi jelentkezésben",
+  "why": "EN: documents and key dates"
+ },
+ "common:v9.l10n.exactWording": {
+  "text": "Pontos szöveg (angolul)",
+  "why": "missing"
+ },
+ "common:v9.l10n.rule.degree_level": {
+  "text": "Ezen a képzési szinten nem elérhető",
+  "why": "missing"
+ },
+ "common:v9.l10n.rule.ielts_gte": {
+  "text": "IELTS {{value}} vagy magasabb",
+  "why": "missing"
+ },
+ "common:v9.l10n.rule.topik_level_gte": {
+  "text": "TOPIK {{value}}. szint vagy magasabb",
+  "why": "same pattern as IELTS rule"
+ },
+ "common:validation.reasonRequired": {
+  "text": "Írja meg a hallgatónak, mit kell javítania.",
+  "why": "staff-only → magázás"
+ }
+}

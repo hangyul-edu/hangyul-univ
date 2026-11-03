@@ -1,0 +1,647 @@
+{
+  "_notes": [
+    "Scope: 386 keys reviewed against the current English; every cur was non-null. Patched only where meaning, terminology, plural grammar or punctuation differed; the rest kept.",
+    "English moved from em-dash fragments to full sentences; Arabic strings that still used « — » as a sentence joiner were rewritten as two sentences or a comma clause (success, writing, concierge).",
+    "Terminology aligned with ar-student-mobile / ar-marketing-common: Hangyul team = «فريق Hangyul» (dropped stray «Univ»); submit = تقديم (success:submission.* said أرسل/الإرسال); document review state = «قيد المراجعة»; plan = «باقة»; sponsor = «المموّل» (كفيل is the iqama sponsor); diploma = «شهادة التخرج»; admission letter in the visa flow = «خطاب القبول القياسي»; application deadline = «الموعد النهائي للتقديم».",
+    "Plurals: announced.title, discovery.scholarship, funds.longer, dossier group.readyCount, summary.S_IN_REVIEW / S_MISSING and pendingNote now use the dual (_two), 3–10 plural (_few), 11–99 accusative singular (_many) and 100+ form (_other) instead of count-neutral «label: {{count}}» copies. RLM (U+200F) kept before placeholder-led strings.",
+    "Content fixes: writing:auto.studentNote was truncated (began mid-sentence); v9.sponsor.foot carried an extra sentence not in English; step.residence_setup.text and obs.ALL_OVER_BUDGET had additions; v4.ws.team.final added «بنفسك».",
+    "Owner decision: the current English still says «Your counselor» across success/visaroute/concierge/writing while the V22 team identity and student-mobile use «فريق Hangyul». Arabic follows the English («مستشارك»); if the English is unified later, these ~35 keys must change with it.",
+    "Owner decision: count-bearing strings without a plural family (submission.selfRequired {{minutes}} دقيقة, reason.NEAR_TOO_OLD {{days}} يومًا, finding.LONG_SENTENCE / OVER_LIMIT words, obs.COMPARE_OFFERS, MANY_APPLICATIONS, group.extraCount, package.counselor) can be wrong for 3–10 in Arabic; adding _few families in code would fix them."
+  ],
+  "student:dashboard.nextAction.APPLICATION_ITEM.REVISE_ESSAY.text": {
+    "text": "ترك فريق Hangyul تعليقات. لا يمكن تقديم طلبك حتى تتم الموافقة على النص.",
+    "why": "Brand is \"Hangyul team\"; \"essay\" not in English"
+  },
+  "student:legalFlow.note.JOINED": {
+    "text": "انضمت {{country}} إلى اتفاقية الأبوستيل في {{date}}. والمستندات التي صدّقتها القنصلية قبل هذا التاريخ تُقبل عمومًا. تأكّد من ذلك مع جامعتك.",
+    "why": "\"تأكد من جامعتك\" misread; confirm with university"
+  },
+  "student:v4.ws.empty.team": {
+    "text": "لا شيء بانتظار إجراء من فريق Hangyul.",
+    "why": "Clarify: nothing pending on the team"
+  },
+  "student:v4.ws.helpTextNoName": {
+    "text": "فريق Hangyul هنا لمساعدتك في هذا الطلب.",
+    "why": "Brand: Hangyul team, not \"Hangyul Univ\""
+  },
+  "student:v4.ws.team.final": {
+    "text": "تحقق نهائي قبل أن تقدّم طلبك إلى {{university}}",
+    "why": "Dropped \"yourself\", not in English"
+  },
+  "student:v4.ws.who.team": {
+    "text": "فريق Hangyul",
+    "why": "Brand: Hangyul team"
+  },
+  "student:v4.ws.yourCounselor": {
+    "text": "فريق Hangyul",
+    "why": "Brand: Hangyul team"
+  },
+  "student:v9.announced.title_zero": {
+    "text": "لا توجد تغييرات معلنة لم تدخل حيز التنفيذ بعد",
+    "why": "Natural zero form"
+  },
+  "student:v9.announced.title_one": {
+    "text": "تغيير واحد معلن، لم يدخل حيز التنفيذ بعد",
+    "why": "Singular form"
+  },
+  "student:v9.announced.title_two": {
+    "text": "تغييران معلنان، لم يدخلا حيز التنفيذ بعد",
+    "why": "Dual form"
+  },
+  "student:v9.announced.title_few": {
+    "text": "‏{{count}} تغييرات معلنة، لم تدخل حيز التنفيذ بعد",
+    "why": "3–10 plural form"
+  },
+  "student:v9.announced.title_many": {
+    "text": "‏{{count}} تغييرًا معلنًا، لم تدخل حيز التنفيذ بعد",
+    "why": "11–99 accusative singular form"
+  },
+  "student:v9.announced.title_other": {
+    "text": "‏{{count}} تغيير معلن، لم يدخل حيز التنفيذ بعد",
+    "why": "100+ genitive singular form"
+  },
+  "student:v9.discovery.scholarship_zero": {
+    "text": "لا توجد منح قد تتأهل لها",
+    "why": "Natural zero form"
+  },
+  "student:v9.discovery.scholarship_two": {
+    "text": "منحتان قد تتأهل لهما",
+    "why": "Dual form"
+  },
+  "student:v9.discovery.scholarship_few": {
+    "text": "‏{{count}} منح قد تتأهل لها",
+    "why": "3–10 plural form"
+  },
+  "student:v9.discovery.scholarship_many": {
+    "text": "‏{{count}} منحةً قد تتأهل لها",
+    "why": "11–99 accusative singular form"
+  },
+  "student:v9.discovery.scholarship_other": {
+    "text": "‏{{count}} منحة قد تتأهل لها",
+    "why": "100+ genitive singular form"
+  },
+  "student:v9.family.scope.family_documents": {
+    "text": "المستندات التي توفرها عائلتك",
+    "why": "Documents term; \"your family\""
+  },
+  "student:v9.funds.longer_zero": {
+    "text": "‏{{count}} شهر إذا كانت جامعتك في الفئة الأدنى (المصنّفة «جامعة استشارية» من الحكومة)",
+    "why": "Proper count phrase, no label colon"
+  },
+  "student:v9.funds.longer_one": {
+    "text": "شهر واحد إذا كانت جامعتك في الفئة الأدنى (المصنّفة «جامعة استشارية» من الحكومة)",
+    "why": "Singular form"
+  },
+  "student:v9.funds.longer_two": {
+    "text": "شهران إذا كانت جامعتك في الفئة الأدنى (المصنّفة «جامعة استشارية» من الحكومة)",
+    "why": "Dual form"
+  },
+  "student:v9.funds.longer_few": {
+    "text": "‏{{count}} أشهر إذا كانت جامعتك في الفئة الأدنى (المصنّفة «جامعة استشارية» من الحكومة)",
+    "why": "3–10 plural form"
+  },
+  "student:v9.funds.longer_many": {
+    "text": "‏{{count}} شهرًا إذا كانت جامعتك في الفئة الأدنى (المصنّفة «جامعة استشارية» من الحكومة)",
+    "why": "11–99 accusative singular form"
+  },
+  "student:v9.funds.longer_other": {
+    "text": "‏{{count}} شهر إذا كانت جامعتك في الفئة الأدنى (المصنّفة «جامعة استشارية» من الحكومة)",
+    "why": "100+ genitive singular form"
+  },
+  "student:v9.funds.whose.UNKNOWN": {
+    "text": "باسم من: يؤكد فريق Hangyul ذلك مع السفارة",
+    "why": "Brand: Hangyul team"
+  },
+  "student:v9.refund.ruleUnknown": {
+    "text": "سيؤكد فريق Hangyul معك قاعدة الاسترداد لدى الجامعة والمبلغ.",
+    "why": "Brand: Hangyul team"
+  },
+  "student:v9.sponsor.foot": {
+    "text": "شاركها {{name}} عبر Hangyul · المعلومات محدّثة حتى {{date}}",
+    "why": "Removed sentence not in English"
+  },
+  "dossier:group.readyCount_one": {
+    "text": "عرض مستند واحد جاهز لكل الطلبات",
+    "why": "Singular form"
+  },
+  "dossier:group.readyCount_two": {
+    "text": "عرض مستندَين جاهزَين لكل الطلبات",
+    "why": "Dual form"
+  },
+  "dossier:group.readyCount_few": {
+    "text": "عرض {{count}} مستندات جاهزة لكل الطلبات",
+    "why": "3–10 plural form"
+  },
+  "dossier:group.readyCount_many": {
+    "text": "عرض {{count}} مستندًا جاهزًا لكل الطلبات",
+    "why": "11–99 accusative singular form"
+  },
+  "dossier:group.readyCount_other": {
+    "text": "عرض {{count}} مستند جاهز لكل الطلبات",
+    "why": "100+ genitive singular form"
+  },
+  "dossier:reason.IN_REVIEW": {
+    "text": "يراجعه فريق Hangyul.",
+    "why": "Document review term = مراجعة"
+  },
+  "dossier:reason.NEAR_EXPIRY_DATE": {
+    "text": "تنتهي صلاحيته في {{date}}، قبل الموعد النهائي للتقديم في {{university}}. احصل على نسخة مجدَّدة قريبًا.",
+    "why": "Glossary: application deadline"
+  },
+  "dossier:summary.S_IN_REVIEW": {
+    "text": "قيد المراجعة، ثم يصبح جاهزًا لعدد {{count}} من الطلبات",
+    "why": "Review state = قيد المراجعة"
+  },
+  "dossier:summary.S_IN_REVIEW_zero": {
+    "text": "قيد المراجعة، ثم يصبح جاهزًا لطلباتك",
+    "why": "Review term; zero form"
+  },
+  "dossier:summary.S_IN_REVIEW_one": {
+    "text": "قيد المراجعة، ثم يصبح جاهزًا لطلبك",
+    "why": "Review state = قيد المراجعة"
+  },
+  "dossier:summary.S_IN_REVIEW_two": {
+    "text": "قيد المراجعة، ثم يصبح جاهزًا لطلبَيك",
+    "why": "Dual form"
+  },
+  "dossier:summary.S_IN_REVIEW_few": {
+    "text": "قيد المراجعة، ثم يصبح جاهزًا لـ{{count}} طلبات",
+    "why": "3–10 plural form"
+  },
+  "dossier:summary.S_IN_REVIEW_many": {
+    "text": "قيد المراجعة، ثم يصبح جاهزًا لـ{{count}} طلبًا",
+    "why": "11–99 accusative singular form"
+  },
+  "dossier:summary.S_IN_REVIEW_other": {
+    "text": "قيد المراجعة، ثم يصبح جاهزًا لـ{{count}} طلب",
+    "why": "100+ genitive singular form"
+  },
+  "dossier:summary.S_MISSING_two": {
+    "text": "لم يُرفع بعد. مطلوب لطلبَيك",
+    "why": "Dual form"
+  },
+  "dossier:summary.S_MISSING_few": {
+    "text": "لم يُرفع بعد. مطلوب لـ{{count}} طلبات",
+    "why": "3–10 plural form"
+  },
+  "dossier:summary.S_MISSING_many": {
+    "text": "لم يُرفع بعد. مطلوب لـ{{count}} طلبًا",
+    "why": "11–99 accusative singular form"
+  },
+  "dossier:summary.S_MISSING_other": {
+    "text": "لم يُرفع بعد. مطلوب لـ{{count}} طلب",
+    "why": "100+ genitive singular form"
+  },
+  "dossier:v9.who.reviewersWhy": {
+    "text": "يراجعون المستندات قبل إرسالها",
+    "why": "Document review term"
+  },
+  "success:block.ready": {
+    "text": "جاهز. لا شيء آخر يؤثر في هذا الطلب",
+    "why": "Sentence break as in English"
+  },
+  "success:group.sent": {
+    "text": "تم التقديم، ولم يصدر القرار بعد",
+    "why": "Submit = تقديم; avoid \"pending\""
+  },
+  "success:item.DEADLINE_TIGHT.why": {
+    "text": "بعض الخطوات مثل التصديق تستغرق أسابيع. ابدأ اليوم بأبطئها.",
+    "why": "\"Steps\", sentence break"
+  },
+  "success:item.DOC_IN_REVIEW.why": {
+    "text": "عادةً خلال يومَي عمل. لا شيء عليك فعله.",
+    "why": "Sentence break as in English"
+  },
+  "success:item.DOC_REVIEW_LATE.why": {
+    "text": "يستغرق وقتًا أطول من المعتاد. أبلغنا مستشارك.",
+    "why": "\"We've told\", sentence break"
+  },
+  "success:item.ESSAY_REVIEW.why": {
+    "text": "لا شيء عليك فعله. مستشارك يقرؤه.",
+    "why": "Sentence break as in English"
+  },
+  "success:item.FIELD_DIFFERENT.why": {
+    "text": "لا بأس إن كان اختيارًا مقصودًا. يجب أن توضّح خطة الدراسة السبب.",
+    "why": "Glossary: خطة الدراسة"
+  },
+  "success:item.FINAL_CHECK.title": {
+    "text": "كل شيء مكتمل. التحقق النهائي هو الخطوة التالية",
+    "why": "Natural phrasing, sentence break"
+  },
+  "success:item.LANGUAGE_RECOMMENDED.why": {
+    "text": "الدروس بالكورية صعبة، والمستوى الأعلى يساعدك على المتابعة. لكنه ليس شرطًا للتقديم.",
+    "why": "Remove dash, natural flow"
+  },
+  "success:item.SCHOLARSHIP_APPLY.why": {
+    "text": "تحتاج إلى طلب مستقل. ويبدو أنك تستوفي معاييرها المنشورة.",
+    "why": "Sentence break as in English"
+  },
+  "success:item.SCHOLARSHIP_NONE.why": {
+    "text": "قلت إنك تحتاج إلى منحة. اسأل مستشارك عن خيارات أخرى.",
+    "why": "Sentence break as in English"
+  },
+  "success:item.SUBMISSION_CONFIRM.why": {
+    "text": "أخبرتنا أنك قدّمت الطلب. أضف رقم التأكيد أو الإيصال لإكمال هذه الخطوة.",
+    "why": "Submit = تقديم; \"add ... to finish\""
+  },
+  "success:obs.ADMITTED": {
+    "text": "قبلتَ مقعدًا في {{university}}. خطة تقديمك مكتملة.",
+    "why": "\"Your plan is set\", not \"stable\""
+  },
+  "success:obs.ALL_NOT_YET": {
+    "text": "لا يستوفي أي من طلباتك كل الحدود الدنيا المنشورة بعد. أضف خيارًا أنت مؤهل له بالفعل.",
+    "why": "Sentence break as in English"
+  },
+  "success:obs.ALL_OVER_BUDGET": {
+    "text": "كل طلباتك تتجاوز ميزانيتك. خطّط لتمويلك أو أضف خيارًا أقل تكلفة.",
+    "why": "Removed \"starts at\", matches English"
+  },
+  "success:obs.ALL_POSSIBLE": {
+    "text": "كل طلباتك في فئة «مطابقة ممكنة». فكّر في إضافة خيار واحد في فئة «مطابقة قوية».",
+    "why": "Sentence break as in English"
+  },
+  "success:obs.COMPARE_OFFERS": {
+    "text": "لديك {{count}} من عروض القبول. قارن بينها جنبًا إلى جنب قبل أن تقرر.",
+    "why": "Sentence break as in English"
+  },
+  "success:obs.FEW_OPTIONS": {
+    "text": "أنت تتقدم إلى برنامج واحد. وجود خيار واقعي ثانٍ يحميك إذا لم تُقبل.",
+    "why": "\"If you are not admitted\""
+  },
+  "success:obs.MANY_APPLICATIONS": {
+    "text": "‏{{count}} من الطلبات قيد التنفيذ. لكل طلب نصوصه ومراجعاته الخاصة.",
+    "why": "Avoid «مقالات»; sentence break"
+  },
+  "success:obs.NO_APPLICATIONS": {
+    "text": "لم تبدأ أي طلب بعد. البرامج المصنّفة «مطابقة قوية» نقطة بداية جيدة.",
+    "why": "Sentence break, natural phrasing"
+  },
+  "success:obs.SOME_NOT_YET": {
+    "text": "لم تستوفِ بعد حدًا أدنى منشورًا في {{universities}}. تأكّد من أن الأمر يستحق الجهد.",
+    "why": "Follows English structure"
+  },
+  "success:submission.authorize.activeTitle": {
+    "text": "تم التفويض. ستقدّمه {{agency}} في الخطوة التالية",
+    "why": "Submit = تقديم"
+  },
+  "success:submission.authorize.changed": {
+    "text": "تغيّر مستند بعد أن منحت التفويض. ستراجعه {{agency}} معك قبل التقديم.",
+    "why": "Submit = تقديم"
+  },
+  "success:submission.authorize.done": {
+    "text": "تم التفويض. ستقدّمه {{agency}}.",
+    "why": "Submit = تقديم"
+  },
+  "success:submission.authorize.feeValue": {
+    "text": "‏{{amount}}، يدفعها {{payer}} إلى {{payee}}",
+    "why": "Comma as in English"
+  },
+  "success:submission.authorize.feeValueNoPayee": {
+    "text": "‏{{amount}}، يدفعها {{payer}}",
+    "why": "Comma as in English"
+  },
+  "success:submission.authorize.form": {
+    "text": "نموذج الطلب، من ملفك الشخصي",
+    "why": "Comma as in English"
+  },
+  "success:submission.authorize.withdrawn": {
+    "text": "تم سحب التفويض. لم يُقدَّم أي شيء.",
+    "why": "Submit = تقديم"
+  },
+  "success:submission.fee.CONFIRMED": {
+    "text": "رسوم التقديم {{amount}}، وتم تأكيد الدفع",
+    "why": "Comma as in English"
+  },
+  "success:submission.fee.PAID": {
+    "text": "رسوم التقديم {{amount}}. أخبرتنا أنها مدفوعة",
+    "why": "Sentence break as in English"
+  },
+  "success:submission.fee.UNPAID": {
+    "text": "رسوم التقديم {{amount}}، تُدفع إلى {{payee}} عبر البوابة",
+    "why": "Removed duplicated \"you pay\""
+  },
+  "success:submission.fee.UNPAID_NP": {
+    "text": "رسوم التقديم {{amount}}. تدفعها عبر البوابة",
+    "why": "Sentence break as in English"
+  },
+  "success:submission.fee.separate": {
+    "text": "هذه رسوم التقديم الخاصة بالجامعة، وليست رسوم خدمة Hangyul ولا الرسوم الدراسية.",
+    "why": "Remove dash"
+  },
+  "success:submission.guided.enterHint": {
+    "text": "من ملفك الشخصي في Hangyul. اكتب رقم جواز سفرك من الجواز نفسه، لأن Hangyul لا تحتفظ به إلا مخفيًا جزئيًا.",
+    "why": "\"Because\", brand feminine as elsewhere"
+  },
+  "success:submission.guided.originals": {
+    "text": "احتفظ بالأصول. تطلبها {{university}} بالبريد.",
+    "why": "Sentence break as in English"
+  },
+  "success:submission.partial": {
+    "text": "تم التحقق جزئيًا. سيؤكد مستشارك التفاصيل.",
+    "why": "Sentence break as in English"
+  },
+  "success:submission.placeholder": {
+    "text": "لم نتحقق بعد من طريقة التقديم. سيؤكدها مستشارك.",
+    "why": "Submit = تقديم"
+  },
+  "success:submission.receiptTitle": {
+    "text": "إيصال طلب التقديم إلى {{university}}",
+    "why": "\"Receipt for\", not label dash"
+  },
+  "success:submission.safety": {
+    "text": "لا تشارك كلمة مرور البوابة أبدًا. لن تطلبها Hangyul منك أبدًا.",
+    "why": "Sentence break; brand feminine"
+  },
+  "success:submission.savedConfirmed": {
+    "text": "تم التأكيد. طلبك مسجَّل الآن على أنه مُقدَّم.",
+    "why": "Submit = تقديم"
+  },
+  "success:submission.selfRequired": {
+    "text": "تشترط {{university}} أن تقدّم الطلب بنفسك عبر {{portal}}. كل شيء جاهز، ويستغرق ذلك نحو {{minutes}} دقيقة.",
+    "why": "Submit = تقديم"
+  },
+  "success:submission.sessionExpired": {
+    "text": "انتهت جلستك. سجّل الدخول مرة أخرى. لم يُحفظ شيء.",
+    "why": "Sentence break as in English"
+  },
+  "success:submission.unconfirmedTitle": {
+    "text": "أخبرتنا أنك قدّمت الطلب. أضف التأكيد لإكمال الخطوة",
+    "why": "Submit = تقديم"
+  },
+  "writing:auto.studentNote": {
+    "text": "فحص تلقائي يتبع قواعد محددة، وليس شخصًا. يشير إلى جمل لتراجعها، ولا يغيّر نصك أو يكتبه أبدًا.",
+    "why": "Was truncated; restored first clause"
+  },
+  "writing:finding.GENERIC_PHRASE": {
+    "text": "يستخدم كثير من المتقدمين هذه العبارة. تفصيل محدد من تجربتك أنت يقول أكثر.",
+    "why": "Sentence break as in English"
+  },
+  "writing:finding.LONG_SENTENCE": {
+    "text": "جملة من {{words}} كلمة. فكّر في تقسيمها لتسهل متابعتها.",
+    "why": "Sentence break as in English"
+  },
+  "writing:finding.NAME_MISSPELLED": {
+    "text": "هل تقصد «{{expected}}» بدلًا من «{{found}}»؟ يجب أن تكون الأسماء صحيحة تمامًا.",
+    "why": "Follows English question"
+  },
+  "writing:finding.NOT_SPECIFIC": {
+    "text": "لا يذكر النص {{university}} ولا البرنامج أبدًا. وبصيغته الحالية يمكن إرساله إلى أي جامعة.",
+    "why": "Sentence break as in English"
+  },
+  "writing:finding.OTHER_PROGRAM": {
+    "text": "يذكر برنامج {{found}}، بينما هذا الطلب لبرنامج {{expected}}. تأكّد من أن الفقرة لم تُنقل من نص آخر.",
+    "why": "Natural \"wasn't reused\"; no dash"
+  },
+  "writing:finding.OTHER_UNIVERSITY": {
+    "text": "يذكر {{name}}، بينما هذا النص موجّه إلى {{target}}. تأكّد من أنه لم يُنسخ من طلب آخر.",
+    "why": "Remove dash"
+  },
+  "writing:finding.OVERCLAIM": {
+    "text": "ادعاء مطلق. يثق القرّاء بالأدلة أكثر من صيغ المبالغة.",
+    "why": "Sentence break as in English"
+  },
+  "writing:finding.OVER_CHAR_LIMIT": {
+    "text": "‏{{count}} حرفًا، أي أكثر من الحد ({{limit}} حرفًا) بمقدار {{over}}.",
+    "why": "Remove dash"
+  },
+  "writing:finding.OVER_LIMIT": {
+    "text": "‏{{count}} كلمة، أي أكثر من الحد ({{limit}} كلمة) بمقدار {{over}}.",
+    "why": "Remove dash"
+  },
+  "writing:finding.PROMPT_PART_MISSING_zero": {
+    "text": "فحص تلقائي: لا يبدو أن أي جزء من السؤال بلا إجابة. قيّم «يجيب عن السؤال» للتأكيد",
+    "why": "Hedged like English; no dash"
+  },
+  "writing:finding.PROMPT_PART_MISSING_one": {
+    "text": "فحص تلقائي: قد يكون جزء واحد من السؤال بلا إجابة. قيّم «يجيب عن السؤال» للتأكيد",
+    "why": "Sentence break as in English"
+  },
+  "writing:finding.PROMPT_PART_MISSING_two": {
+    "text": "فحص تلقائي: قد يكون جزءان من السؤال بلا إجابة. قيّم «يجيب عن السؤال» للتأكيد",
+    "why": "Sentence break as in English"
+  },
+  "writing:finding.PROMPT_PART_MISSING_few": {
+    "text": "فحص تلقائي: قد تكون {{count}} أجزاء من السؤال بلا إجابة. قيّم «يجيب عن السؤال» للتأكيد",
+    "why": "Sentence break as in English"
+  },
+  "writing:finding.PROMPT_PART_MISSING_many": {
+    "text": "فحص تلقائي: قد يكون {{count}} جزءًا من السؤال بلا إجابة. قيّم «يجيب عن السؤال» للتأكيد",
+    "why": "Sentence break as in English"
+  },
+  "writing:finding.PROMPT_PART_MISSING_other": {
+    "text": "فحص تلقائي: قد يكون {{count}} جزء من السؤال بلا إجابة. قيّم «يجيب عن السؤال» للتأكيد",
+    "why": "Sentence break as in English"
+  },
+  "writing:finding.REPEATED_OPENER": {
+    "text": "‏{{count}} من الجمل تبدأ بالطريقة نفسها. جرّب تنويع بدايات الجمل.",
+    "why": "\"Try varying\", sentence break"
+  },
+  "writing:finding.SIMILAR_TEXT": {
+    "text": "مقاطع ({{passages}}) مطابقة لمستند آخر في Hangyul. تحدّث مع الطالب قبل الموافقة، ولا تشارك النص الآخر أبدًا.",
+    "why": "Remove dash"
+  },
+  "writing:finding.UNDER_CHAR_LENGTH": {
+    "text": "‏{{count}} من {{limit}} حرفًا. هناك مجال لمزيد من التفاصيل.",
+    "why": "Sentence break as in English"
+  },
+  "writing:finding.UNDER_LENGTH": {
+    "text": "‏{{count}} من {{limit}} كلمة. هناك مجال لمزيد من التفاصيل.",
+    "why": "Sentence break as in English"
+  },
+  "writing:prompt.unknownStudent": {
+    "text": "ليس لدينا بعد السؤال الدقيق لهذه الجامعة. سيؤكده مستشارك. يمكنك البدء بالكتابة عن دوافعك وخلفيتك وخططك.",
+    "why": "Sentence break as in English"
+  },
+  "writing:sl.LATE": {
+    "text": "يستغرق وقتًا أطول من المتوقع. يعمل {{name}} عليه.",
+    "why": "\"{{name}} is working on it\""
+  },
+  "writing:sl.LATE_FLAGGED": {
+    "text": "يستغرق وقتًا أطول من المتوقع. أبلغنا مدير {{org}}. لا تحتاج إلى فعل أي شيء.",
+    "why": "\"We've told\", sentence break"
+  },
+  "writing:sl.LATE_FLAGGED_HANGYUL": {
+    "text": "يستغرق وقتًا أطول من المتوقع. أبلغنا فريق Hangyul. لا تحتاج إلى فعل أي شيء.",
+    "why": "\"We've told\", sentence break"
+  },
+  "writing:sl.READY": {
+    "text": "جاهز. يستخدم طلبك النسخة {{version}}.",
+    "why": "Sentence break as in English"
+  },
+  "writing:sl.WAITING_REVIEWER": {
+    "text": "أُرسل في {{submitted}}. نعمل الآن على تعيين مراجِع.",
+    "why": "\"We're assigning\", sentence break"
+  },
+  "writing:student.checked": {
+    "text": "تم الفحص. لم يتغير شيء في نصك",
+    "why": "Sentence break as in English"
+  },
+  "writing:student.factsSub": {
+    "text": "تقول شيئًا مختلفًا عن ملفك الشخصي. أنت وحدك من يقرر الصحيح. صحّح الجملة أو حدّث ملفك الشخصي.",
+    "why": "Sentence break as in English"
+  },
+  "writing:student6.accepted": {
+    "text": "قبلت هذا. حُفظ بوصفه النسخة {{version}}",
+    "why": "Sentence break, natural phrasing"
+  },
+  "writing:student6.acceptedToast": {
+    "text": "تم قبول الاقتراح. تم تحديث نصك",
+    "why": "Sentence break as in English"
+  },
+  "writing:student6.approvedVersion": {
+    "text": "معتمد ويستخدمه طلبك",
+    "why": "Remove dash"
+  },
+  "writing:student6.noComments": {
+    "text": "لا توجد تعليقات بعد. ستظهر ملاحظات المراجِع هنا، بجانب نصك.",
+    "why": "Sentence break as in English"
+  },
+  "writing:student6.pendingNote_one": {
+    "text": "ما زال اقتراح واحد مفتوحًا. لا بأس، يمكنك ألّا تقبله.",
+    "why": "\"You can choose not to accept\""
+  },
+  "writing:student6.pendingNote_two": {
+    "text": "ما زال اقتراحان مفتوحَين. لا بأس، يمكنك ألّا تقبلهما.",
+    "why": "Dual form, natural phrasing"
+  },
+  "writing:student6.pendingNote_few": {
+    "text": "ما زالت {{count}} اقتراحات مفتوحة. لا بأس، يمكنك ألّا تقبلها.",
+    "why": "Natural phrasing"
+  },
+  "writing:student6.pendingNote_many": {
+    "text": "ما زال {{count}} اقتراحًا مفتوحًا. لا بأس، يمكنك ألّا تقبلها.",
+    "why": "Natural phrasing"
+  },
+  "writing:student6.pendingNote_other": {
+    "text": "عدد الاقتراحات المفتوحة: {{count}}. لا بأس، يمكنك ألّا تقبلها.",
+    "why": "Fix 100+ agreement error"
+  },
+  "writing:student6.usedBy": {
+    "text": "النسخة {{version}} معتمدة، ويستخدمها طلبك إلى {{university}}.",
+    "why": "Remove dash"
+  },
+  "visaroute:caveat.DIPLOMA_APOSTILLE_POSTS": {
+    "text": "يختلف المكتبان: أستانا تشترط الأبوستيل على شهادة التخرج، وألماتي تقول إنه غير إلزامي. سيؤكد مستشارك ما يحتاجه مكتبك.",
+    "why": "Diploma = شهادة التخرج"
+  },
+  "visaroute:doc.sponsor_documents.name": {
+    "text": "المستندات المالية للمموّل",
+    "why": "كفيل means iqama sponsor in Saudi"
+  },
+  "visaroute:docs.previewSub": {
+    "text": "من قائمة السفارة الخاصة بجنسيتك. تُتاح الخطة الكاملة بعد أن تُصدر جامعتك خطاب القبول القياسي.",
+    "why": "Glossary: standard admission letter"
+  },
+  "visaroute:step.university_papers.why": {
+    "text": "يصلك خطاب القبول القياسي وشهادة تسجيل الأعمال من الجامعة.",
+    "why": "Glossary: standard admission letter"
+  },
+  "visaroute:why.EVISA_TIER": {
+    "text": "‏{{university}} معتمدة للتأشيرة الإلكترونية، لذا تتقدم الجامعة بطلبها نيابةً عنك. لا تحتاج إلى زيارة السفارة.",
+    "why": "Avoid \"جامعة University X\" duplication"
+  },
+  "concierge:arrived.confirmText": {
+    "text": "سنسجّل تاريخ اليوم بوصفه تاريخ وصولك. عليك التقدّم بطلب بطاقة الإقامة خلال 90 يومًا.",
+    "why": "Clearer: today becomes arrival date"
+  },
+  "concierge:arrived.text": {
+    "text": "أخبرنا بوصولك. سنبدأ العدّ التنازلي لبطاقة الإقامة ونعرض لك خطوات أسابيعك الأولى.",
+    "why": "\"Show your steps\", sentence break"
+  },
+  "concierge:cost.included": {
+    "text": "مشمولة في باقتك مع Hangyul بلا تكلفة إضافية",
+    "why": "plan = باقة (ar convention)"
+  },
+  "concierge:feedback.gaveNo": {
+    "text": "أخبرتنا أن الأمر لم يسر على ما يرام. سيتواصل معك فريقك.",
+    "why": "\"Will contact you\", sentence break"
+  },
+  "concierge:feedback.thanks": {
+    "text": "شكرًا لك. هذا يساعدنا على التحسّن.",
+    "why": "Sentence break as in English"
+  },
+  "concierge:flight.notLive": {
+    "text": "تُدخل أنت أو مستشارك أوقات الرحلة، وهي ليست بيانات مباشرة من شركة الطيران.",
+    "why": "Present tense as in English"
+  },
+  "concierge:help.sentOps": {
+    "text": "تم الإرسال. الطلب الآن لدى فريق العمليات في Hangyul.",
+    "why": "Sentence break as in English"
+  },
+  "concierge:help.sentTeam": {
+    "text": "تم الإرسال. الطلب الآن لدى مستشارك.",
+    "why": "Sentence break as in English"
+  },
+  "concierge:housing.askedToast": {
+    "text": "تم الإرسال. سيرتّب فريقك موعدًا لمعاينة السكن.",
+    "why": "Sentence break as in English"
+  },
+  "concierge:housing.compare.OFF_CAMPUS": {
+    "text": "خيارات أكثر وخصوصية أكبر. يتطلب مبلغ تأمين (كبيرًا غالبًا) وعقدًا. يمكن لمستشارك مراجعة العقد معك قبل التوقيع.",
+    "why": "Sentence break as in English"
+  },
+  "concierge:housing.dormExplain.NOT_ASSIGNED": {
+    "text": "لا توجد غرفة متاحة لك هذه المرة. سيساعدك مستشارك في خيارات أخرى.",
+    "why": "Sentence break as in English"
+  },
+  "concierge:housing.foundOwnSub": {
+    "text": "شارك العقد قبل التوقيع. سيراجعه مستشارك معك.",
+    "why": "Sentence break as in English"
+  },
+  "concierge:housing.tempRequested": {
+    "text": "تم الإرسال. سيقترح فريقك خيارات.",
+    "why": "Sentence break as in English"
+  },
+  "concierge:lease.intro": {
+    "text": "ارفع العقد المقترح واملأ ما تستطيع قراءته. سيراجعه مستشارك معك. نتحقق من البنود الناقصة أو غير الواضحة. هذه ليست استشارة قانونية.",
+    "why": "Sentence break as in English"
+  },
+  "concierge:lease.sent": {
+    "text": "تم الإرسال. سيراجعه مستشارك معك.",
+    "why": "Sentence break as in English"
+  },
+  "concierge:official.needsReview": {
+    "text": "ما زلنا نتأكد من هذا مع المصدر الرسمي. راجع مستشارك قبل الاعتماد عليه.",
+    "why": "Sentence break as in English"
+  },
+  "concierge:pickup.explain.FLIGHT_DELAYED": {
+    "text": "رحلتك متأخرة، لذا تم تغيير موعد الاستقبال. لا تحتاج إلى فعل أي شيء.",
+    "why": "\"So\" causal link as in English"
+  },
+  "concierge:pickup.explain.NO_SHOW": {
+    "text": "لم يتمكن السائق من العثور عليك. سيتواصل معك فريقك، أو يمكنك فتح «هل تحتاج إلى مساعدة في كوريا؟».",
+    "why": "Remove dash"
+  },
+  "concierge:pickup.needFlight": {
+    "text": "أضف رحلتك أولًا. نخطّط للاستقبال حسب وقت وصولك.",
+    "why": "\"We plan\", sentence break"
+  },
+  "concierge:pickup.requested": {
+    "text": "تم طلب الاستقبال. سيؤكده فريقك.",
+    "why": "Sentence break as in English"
+  },
+  "concierge:residence.groupNo": {
+    "text": "لا تقدّم جامعتك الطلبات بشكل جماعي. احجز زيارتك بنفسك على HiKorea.",
+    "why": "Sentence break as in English"
+  },
+  "concierge:residence.groupYes": {
+    "text": "تقدّم جامعتك طلبات بطاقات الإقامة بشكل جماعي. يمكنك اختيار ذلك بدلًا من حجز زيارتك بنفسك.",
+    "why": "Sentence break as in English"
+  },
+  "concierge:residence.lateText": {
+    "text": "تواصل مع مستشارك اليوم. سيساعدك في التعامل مع مكتب الهجرة.",
+    "why": "Sentence break as in English"
+  },
+  "concierge:residence.waiting": {
+    "text": "تم التقديم. تستغرق البطاقة عادةً من أسبوع إلى عدة أسابيع حسب المكتب. لا تغادر كوريا أثناء انتظارها ما لم تسمح لك الهجرة بذلك.",
+    "why": "Sentence break as in English"
+  },
+  "concierge:step.documents_to_carry.text": {
+    "text": "احتفظ بالأصول في حقيبة اليد. ستحتاج إليها لبطاقة الإقامة في أسابيعك الأولى:",
+    "why": "Sentence break as in English"
+  },
+  "concierge:step.residence_setup.text": {
+    "text": "بعد وصولك، سجّل للحصول على بطاقة الإقامة خلال 90 يومًا، وانضم إلى التأمين الصحي الوطني.",
+    "why": "Removed added \"what happens\" label"
+  }
+}

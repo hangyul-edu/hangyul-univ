@@ -11,7 +11,7 @@ Last updated: 2026-10-27 (V26). First written for the student app in V18; V25 bu
 
 | | Android | iOS |
 |---|---|---|
-| State | **Six V25 artifacts exist** — a preview APK (test sign-in on, cleartext allowed for the emulator) and a store-shaped production AAB (no test sign-in, cleartext refused) for each of the three apps. **V26 rebuilds are planned.** | **Not built.** EAS is not logged in on this host and there is no macOS/Xcode; nothing iOS has been produced |
+| State | **Six V25 artifacts exist** — a preview APK (cleartext allowed for the emulator) and a store-shaped production AAB (cleartext refused); V32 removed the test sign-in from every build profile, so preview and production differ only in signing and network policy for each of the three apps. **V26 rebuilds are planned.** | **Not built.** EAS is not logged in on this host and there is no macOS/Xcode; nothing iOS has been produced |
 | Latest artifacts | see `result/<app>-mobile/android/BUILD_INFO.json` (file names, sizes, SHA-256, signer, `builtAt`) | — |
 | Build method | local Gradle (`expo prebuild` → `./gradlew`, no daemon, 1 worker), Expo SDK 57, RN 0.86, ABIs arm64-v8a + x86_64 | — |
 | Signing | **QA keystore (CN=Hangyul Univ QA) — not for store.** The Hangyul Univ upload keystore is not on this host; re-sign or rebuild with it before any upload | — |

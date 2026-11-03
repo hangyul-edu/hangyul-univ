@@ -51,25 +51,17 @@ This starts the API (with auto-reload) and the four web apps in one terminal, wi
 
 Individual processes: `npm run dev:api`, `npm run dev:marketing`, `npm run dev:student`, `npm run dev:agency`, `npm run dev:university`.
 
-## Test accounts (development only)
+## Accounts and data
 
-Password for **every** seeded account: `Hangyul!2026`. The sign-in pages offer **테스트 계정으로 로그인** (test-account sign-in, `POST /auth/demo-login`) only while `HG_ENV=development`; it answers 404 in production, and `HG_ENV` defaults to production, so run the stack through `npm run dev` (which sets development) or set it yourself.
+There are **no test accounts**. `npm run setup` / `npm run db:seed` load reference data only — the 425-institution
+directory, verified scholarships and admission rules, legalization and visa rules, the approved plans — and **zero
+members**. Sign in is the real registration flow in every environment; there is no demo sign-in, no persona picker and
+no "activate without paying" action (all removed in V32, REPORT §436).
 
-Since V22 a tenant has **one role**: every member of a partner agency is an `AGENCY_ADMIN` and every member of a university is a `UNIVERSITY_ADMIN` (REPORT §0.3a). The seeded e-mail prefixes below (`counselor@`, `manager@`, `reviewer@`, `analyst@` …) are historical names only — all of them hold the same permission inside their tenant.
-
-| Role | Email | App |
-|---|---|---|
-| Student — Nguyễn Thị Lan (Vietnam) | `student@demo.hangyul.kr` | Student 3101 |
-| Other students | `student01@demo.hangyul.kr` … `student63@demo.hangyul.kr` | Student 3101 |
-| Hangyul super admin | `admin@demo.hangyul.kr` | Agency 3102 (and University 3103 with a university picker) |
-| Hangyul operations | `ops@demo.hangyul.kr` | Agency 3102 |
-| Hangyul finance | `finance@demo.hangyul.kr` | University 3103 |
-| Agency administrators (Lotus Bridge) — all `AGENCY_ADMIN` | `owner@`, `manager@`, `counselor@`, `reviewer@lotus.demo.hangyul.kr` | Agency 3102 |
-| Other agencies (`AGENCY_ADMIN`) | `manager@silk…`, `manager@himalaya…`, `manager@seoul.demo.hangyul.kr` | Agency 3102 |
-| University administrators (Pusan National) — all `UNIVERSITY_ADMIN` | `admin@`, `admissions@`, `reviewer@`, `analyst@pusan.univ.demo.hangyul.kr` | University 3103 |
-| Other university tenants (`UNIVERSITY_ADMIN`) | `admin@sungkyunkwan.univ.demo.hangyul.kr`, `admin@kyung.univ.demo.hangyul.kr` | University 3103 |
-
-All people, agencies, partnerships and numbers in the demo dataset are fictional sample data. Since V12 a public surface never renders a value it cannot verify (no cost, deadline, requirement or match reaches the marketing site, labelled or not); seeded figures exist only on the authenticated surfaces that need them, and `/__dev` (development builds) says which data is which. The public institution directory (425 institutions) is real, per-field sourced data. University names, cities, institution types and official URLs are real public facts; catalogue program lists, tuition, fees, dates and dorm costs are samples.
+Automated tests get their synthetic people and cases from `server/app/seed/fixtures.py`, which **refuses any database
+whose name lacks `test`/`e2e`**: `npm run test:api` builds `hangyul_univ_test`, `scripts/qa/e2e-db.mjs` builds the e2e
+template, and `npm run db:fixtures` is for a throw-away test database only. The fixture password is defined once in that
+module and documented nowhere else.
 
 ## Environment variables (`server/.env`)
 
@@ -93,8 +85,9 @@ Web apps: `HG_API_URL` (Vite proxy target, default `http://127.0.0.1:8001`), `VI
 
 ```bash
 npm run db:migrate     # alembic upgrade head
-npm run db:seed        # load demo data (no-op if data exists)
-npm run db:reset       # drop schema, migrate, reseed
+npm run db:seed        # load reference data (no-op if present); zero members
+npm run db:reset       # drop schema, migrate, reload reference data
+npm run db:fixtures    # synthetic test data — refused unless the database name contains test/e2e
 npm run test:api       # pytest (uses hangyul_univ_test)
 npm run lint:api       # ruff
 node scripts/api.mjs daily   # freshness scan + task engine + analytics rollup (schedule daily in production)
@@ -129,7 +122,7 @@ npm run i18n:check   # translation coverage report
 
 - **`Port 310x is already in use`** — another process holds the port (`ss -ltnp | grep 310`); stop it. Ports are strict by design.
 - **API fails to start: database connection refused** — start PostgreSQL (`sudo service postgresql start`; or `docker compose up -d postgres` if you chose the optional Docker setup) and check `HG_DATABASE_URL`.
-- **`relation … does not exist`** — run `npm run db:migrate` (or `npm run db:reset` for a fresh demo).
+- **`relation … does not exist`** — run `npm run db:migrate` (or `npm run db:reset` for a fresh database).
 - **Signed in but immediately signed out** — the refresh cookie is scoped to `/api/v1/auth` on the app's own origin; always open apps via `localhost` (not mixing `127.0.0.1` and `localhost`).
 - **Mobile app can't reach the API** — see the `EXPO_PUBLIC_API_URL` notes above.
 - **Low-memory machines** — root `typecheck`, `build` and `test:web` run workspaces one at a time; Playwright uses one worker.

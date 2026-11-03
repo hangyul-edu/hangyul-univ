@@ -5,7 +5,7 @@
     "university": "Hangyul University"
   },
   "login": {
-    "networkError": "无法连接到服务器 {{url}}。请检查网络连接。在 Android 模拟器上请使用 http://10.0.2.2:8001；在手机上请使用电脑的局域网 IP。",
+    "networkError": "目前无法连接到 Hangyul（{{url}}）。请检查网络连接，稍后再试。",
     "webSignup": "第一次使用？可以直接在应用内创建账号。"
   },
   "messages": {
@@ -73,16 +73,16 @@
       "REVIEW_MATCHES": "查看你的大学匹配结果",
       "ARRIVAL_CHECKLIST": "为抵达韩国做好准备",
       "WAIT": "现在没有需要做的事。需要你处理时我们会通知你",
-      "FINISH_APPLICATION": "完成{{university}}的申请，还剩 {{remaining}} 项",
+      "FINISH_APPLICATION": "完成 {{university}} 的申请，还剩 {{remaining}} 项",
       "RESPOND_OFFER": "回复大学的录取通知",
       "PROFILE_UNLOCK": {
-        "education": "添加学历，查看 {{count}} 个项目",
-        "gpa": "添加成绩，查看 {{count}} 个项目",
-        "language": "添加语言成绩，查看 {{count}} 个项目",
-        "budget": "添加预算，按费用排序 {{count}} 个项目",
-        "other": "完善资料，查看 {{count}} 个项目"
+        "education": "添加学历，核对 {{count}} 个专业",
+        "gpa": "添加成绩，核对 {{count}} 个专业",
+        "language": "添加语言成绩，核对 {{count}} 个专业",
+        "budget": "添加预算，按费用排序 {{count}} 个专业",
+        "other": "完善资料，核对 {{count}} 个专业"
       },
-      "COMPARE_OFFERS": "比较{{count}}份录取通知"
+      "COMPARE_OFFERS": "比较 {{count}} 份录取通知"
     },
     "journey": {
       "EXPLORE": "探索",
@@ -139,7 +139,7 @@
       "confirm": {
         "OFFER_ACCEPTED": {
           "title": "要接受此录取吗？",
-          "body": "你即将接受 {{university}} 的录取。你的顾问会指导你完成缴纳学费和领取入学许可书等步骤。",
+          "body": "你即将接受 {{university}} 的录取。Hangyul Univ 团队会指导你缴纳学费并领取标准入学许可书。",
           "cta": "接受录取"
         },
         "WITHDRAWN": {
@@ -169,7 +169,7 @@
       "file": "{{name}} · 版本 {{version}}",
       "openFile": "打开安全预览",
       "fixTitle": "需要修改的内容",
-      "fixFallback": "审核人员要求你修改。",
+      "fixFallback": "Hangyul 团队要求修改此文件。",
       "fixHowTo": "请在网页端上传修改后的文件，我们会再次审核。",
       "verifiedBody": "已核验。这份材料可以用于其他申请。",
       "translationBody": "此文件需要提供韩语或英语的认证翻译件。",
@@ -180,7 +180,7 @@
       "reviews": "审核记录"
     },
     "messages": {
-      "subtitle": "与你的顾问和支持团队聊天。",
+      "subtitle": "与 Hangyul Univ 团队沟通。",
       "unreadA11y_one": "消息，{{count}} 条未读",
       "unreadA11y_other": "消息，{{count}} 条未读"
     },
@@ -227,7 +227,7 @@
     },
     "tasks": {
       "title": "清单",
-      "subtitle": "来自你的顾问和申请系统的任务。",
+      "subtitle": "来自 Hangyul 团队和你的申请清单的任务。",
       "empty": "目前没有待办事项",
       "emptyBody": "有需要你处理的事项时，我们会添加到这里。",
       "overdue": "已逾期（{{count}}）",
@@ -356,7 +356,7 @@
       "file": "{{name}} · v{{version}} · 扫描 {{scan}}",
       "openPreview": "打开安全预览",
       "previewHint": "打开一个 5 分钟后失效的签名链接。文件不会保存在此设备上。",
-      "noFile": "此文件尚未上传。",
+      "noFile": "此材料尚未上传任何文件。",
       "lastReason": "上次的修改要求",
       "verify": "核实文件",
       "verifyTitle": "要核实此文件吗？",
@@ -369,11 +369,11 @@
       "verifiedDone": "文件已核实",
       "changesDone": "已要求修改，已通知学生",
       "history": "审核记录",
-      "tab": "申请·材料",
+      "tab": "工作",
       "notReviewable": "此材料不在待审核状态。"
     },
     "messages": {
-      "title": "收件箱",
+      "title": "消息",
       "subtitle": "学生对话和内部备注。"
     },
     "deadlines": {
@@ -451,7 +451,7 @@
       "submittedLabel": "已提交",
       "deadline": "招生截止日期",
       "interview": "面试",
-      "reference": "你方编号",
+      "reference": "贵校编号",
       "viaAgency": "通过 {{agency}}",
       "decision": "录取决定",
       "moveTo": "移至：{{status}}",
@@ -536,7 +536,7 @@
     },
     "inbox": {
       "tab": "收件箱",
-      "title": "收件箱"
+      "title": "消息"
     }
   },
   "v3": {
@@ -557,7 +557,7 @@
     "match": {
       "strong": "高度匹配",
       "possible": "可能匹配",
-      "close": "暂不符合条件 — 但很接近",
+      "close": "暂不符合条件——只差一步",
       "notYet": "暂不符合条件"
     },
     "home": {
@@ -569,9 +569,9 @@
       "stageLine": {
         "discover": "正在寻找合适的大学",
         "prepare": "正在准备你的申请",
-        "apply": "申请已交给大学",
+        "apply": "大学正在审核你的申请",
         "admission": "已录取，正在确认入学",
-        "visa": "正在办理留学签证",
+        "visa": "正在准备留学签证",
         "arrival": "正在准备抵达韩国"
       },
       "nextEyebrow": "现在要做的事",
@@ -593,8 +593,8 @@
         "COMPARE_OFFERS": "比较录取通知"
       },
       "nextBody": {
-        "DOCUMENT_UPLOAD": "上传清晰的扫描件或照片。你的顾问会核查，如有需要修改的地方会告诉你。",
-        "ESSAY_WRITE": "先写个初稿，你的顾问会和你一起审阅。",
+        "DOCUMENT_UPLOAD": "上传清晰的扫描件或照片。Hangyul 团队会核查，如有需要修改的地方会告诉你。",
+        "ESSAY_WRITE": "先写个初稿，Hangyul 团队会和你一起审阅。",
         "APPLICATION_DEADLINE": "完成清单，确保你的申请能按时提交。",
         "TUITION_PAYMENT": "学费以你本人的名义直接支付给大学。",
         "VISA_STEP": "完成签证清单中的下一项。",
@@ -612,11 +612,11 @@
       "documents_one": "有 {{count}} 份文件需要你处理",
       "documents_other": "有 {{count}} 份文件需要你处理",
       "documentsHint": "上传、修改或办理海牙认证",
-      "team": "你的顾问",
+      "team": "Hangyul Univ 团队",
       "unread_one": "{{count}} 条未读消息",
       "unread_other": "{{count}} 条未读消息",
       "message": "发消息",
-      "noCounselor": "选择支持方案后，Hangyul Univ 团队会用你的语言与你一起准备。"
+      "noCounselor": "选择方案后，Hangyul Univ 团队会用你的语言与你一起准备。"
     },
     "discover": {
       "forYou": "为你推荐",
@@ -639,7 +639,7 @@
       "language": "授课语言",
       "tuition": "每学期学费",
       "any": "不限",
-      "upTo": "最高 ₩{{amount}}百万",
+      "upTo": "最高 {{amount}} 百万韩元",
       "openOnly": "正在接受申请",
       "savedEmpty": "还没有收藏的大学",
       "savedEmptyBody": "点击任意专业上的爱心，即可把它保存在这里。",
@@ -694,7 +694,7 @@
       "remainingBody": "下面列出了每一项以及需要由谁处理。",
       "submit": "提交申请",
       "reviewTitle": "{{university}} 正在审核你的申请",
-      "reviewBody": "提交于 {{date}}。大学可能会要求补交文件或参加面试。Hangyul 正在跟进你的申请。",
+      "reviewBody": "提交于 {{date}}。大学可能会要求补交文件或参加面试。Hangyul 团队正在跟进进展。",
       "requests": "大学要求提交",
       "requestedOn": "要求日期：{{date}}",
       "uploadRequested": "上传此文件",
@@ -704,7 +704,7 @@
       "university": "大学",
       "reviewing": "正在审核{{item}}",
       "teamWaiting": "等待你的文件",
-      "teamMonitoring": "正在与大学跟进",
+      "teamMonitoring": "正在与大学联系",
       "uni": {
         "waiting": "等待你提交",
         "reviewing": "正在审核你的申请",
@@ -720,7 +720,7 @@
     },
     "appStatus": {
       "DRAFT": "你已开始此申请。",
-      "PROFILE_REVIEW": "你的顾问正在查看你的个人资料。",
+      "PROFILE_REVIEW": "Hangyul Univ 团队正在检查你的个人资料。",
       "DOCUMENT_PREPARATION": "你正在准备文件。",
       "READY": "全部检查完毕，可以提交了。",
       "SUBMITTED": "已提交给 {{university}}。",
@@ -729,12 +729,12 @@
       "INTERVIEW": "大学希望对你进行面试。",
       "OFFERED": "你已收到录取。",
       "WAITLISTED": "你已进入候补名单。",
-      "REJECTED": "这次大学没有给出录取名额。",
+      "REJECTED": "这次大学没有录取你。",
       "OFFER_ACCEPTED": "你已接受录取。下一步：缴纳学费。",
       "TUITION_PENDING": "请在截止日期前直接向大学缴纳学费。",
       "TUITION_PAID": "学费已收到。大学正在准备你的入学许可书。",
       "ADMISSION_CERTIFICATE_PENDING": "等待你的标准入学许可书。",
-      "ADMISSION_CERTIFICATE_ISSUED": "你的入学许可书已准备好。签证步骤已开启。",
+      "ADMISSION_CERTIFICATE_ISSUED": "你的入学许可书已准备好。开始准备签证材料吧。",
       "VISA_PREPARATION": "你正在准备签证申请。",
       "VISA_SUBMITTED": "签证申请已提交。",
       "VISA_ISSUED": "你的签证已签发，可以开始准备入境了。",
@@ -747,12 +747,12 @@
       "LEGALIZE": "需要海牙认证或领事认证",
       "RENEW": "已过期，请上传新文件",
       "TOO_OLD": "开具时间太早，请重新开具",
-      "IN_REVIEW": "你的顾问正在核查"
+      "IN_REVIEW": "Hangyul 团队正在核查"
     },
     "offer": {
       "title": "恭喜你！",
       "body": "{{university}} 已录取你就读 {{program}}。",
-      "deadline": "请在 {{date}} 前答复并缴纳学费 · {{left}}",
+      "deadline": "请在 {{date}} 前接受录取并缴纳学费 · {{left}}",
       "scholarship": "奖学金",
       "tuition": "学费",
       "next": "接下来会怎样",
@@ -800,13 +800,13 @@
       "library": "从相册选择",
       "files": "选择文件",
       "filesHint": "PDF、JPG 或 PNG，最大 15 MB",
-      "privacy": "只有你和你的顾问可以打开你的文件。只有在你向某所大学提交申请后，该大学才能看到。",
+      "privacy": "只有你和 Hangyul 团队可以打开你的文件。只有在你向某所大学提交申请后，该大学才能看到。",
       "tooLarge": "此文件超过 15 MB。请尝试 PDF 扫描件或更小的照片。",
       "failed": "无法打开该文件，请再试一次。"
     },
     "messages": {
       "attach": "添加附件",
-      "attachUnavailable": "此服务器暂不支持附件。",
+      "attachUnavailable": "暂不支持附件。",
       "attachmentOnly_one": "已发送 {{count}} 个附件",
       "attachmentOnly_other": "已发送 {{count}} 个附件",
       "openAttachment": "打开 {{name}}",
@@ -814,19 +814,19 @@
       "conversations": "对话"
     },
     "visa": {
-      "title": "你的 {{type}} 签证计划",
+      "title": "准备你的 {{type}} 签证",
       "titleGeneric": "你的留学签证",
       "phase": {
         "admission": "录取",
         "letter": "入学许可书",
         "documents": "签证文件",
-        "apply": "申请",
-        "decision": "审批结果"
+        "apply": "签证申请",
+        "decision": "使馆审批结果"
       },
-      "blockers": "等待中",
+      "blockers": "需要先完成",
       "now": "现在需要你处理的事项",
       "seeRequirement": "查看官方要求",
-      "beforeTitle": "录取之后才开始办理签证",
+      "beforeTitle": "收到录取后才开始准备签证",
       "beforeBody": "你接受录取并缴纳学费后，大学会签发入学许可书。你现在就可以查看需要哪些材料并开始准备。",
       "checklist": "你的清单 · 已完成 {{done}}/{{total}}",
       "preview": "你需要准备的材料",
@@ -845,16 +845,16 @@
         "language": "匹配要求 TOPIK、IELTS 或 TOEFL 的专业",
         "preferences": "按你的预算和城市为大学排序",
         "passport": "提交任何申请之前都需要",
-        "sponsor": "准备签证所需的资金证明文件",
+        "sponsor": "让你提前准备签证所需的资金证明文件",
         "default": "让你的匹配结果更准确"
       },
       "done": "已完成",
       "todo": "待填写",
       "editOnWeb": "你可以随时在网页版上修改这些回答。",
-      "places": "你的内容"
+      "places": "你的信息"
     },
     "quick": {
-      "open": "查看可申请的学校（免注册）",
+      "open": "看看你可以申请的学校，无需账号",
       "title": "三个简单问题",
       "resultTitle": "你的初步结果",
       "q1": "你来自哪里？",
@@ -945,7 +945,12 @@
       "waitingOn": {
         "us": "等待我们处理",
         "student": "等待学生处理",
-        "university": "等待大学处理"
+        "university": "等待大学处理",
+        "agency": "等待机构团队处理",
+        "counselor": "等待顾问处理",
+        "external": "等待外部机构处理",
+        "hangyul": "等待 Hangyul 处理",
+        "none": "无等待事项"
       },
       "message": "发消息",
       "upload": "上传",
@@ -1005,8 +1010,8 @@
       "correctionTitle": "学生需要修改什么？",
       "templates": "团队模板",
       "reason": "给学生的消息",
-      "studentSees": "{{name}} 会在文件旁看到这段原文。",
-      "studentSeesGeneric": "学生会在文件旁看到这段原文。"
+      "studentSees": "{{name}} 会在文件旁一字不差地看到这段文字。",
+      "studentSeesGeneric": "学生会在文件旁一字不差地看到这段文字。"
     },
     "tasks": {
       "view": {
@@ -1031,7 +1036,7 @@
       "tab": {
         "review": "审核",
         "applicants": "申请人",
-        "pipeline": "流程",
+        "pipeline": "概览",
         "students": "学生"
       },
       "needsTitle": "需要你决定",
@@ -1086,8 +1091,8 @@
       "populationIntake_one": "基于 {{intake}} 的 {{count}} 份已提交申请。",
       "populationIntake_other": "基于 {{intake}} 的 {{count}} 份已提交申请。",
       "allIntakes": "所有入学批次",
-      "conv": "上一步的 {{pct}} · {{d}} 中的 {{n}}",
-      "convFew": "上一步 {{d}} 中的 {{n}} · 数量太少，无法计算比率",
+      "conv": "占上一步的 {{pct}} · {{n}}/{{d}}",
+      "convFew": "{{n}}/{{d}} 来自上一步 · 数量太少，无法计算比率",
       "closed": "已结束：{{rejected}} 人未被录取，{{withdrawn}} 人撤回。比率至少需要 {{min}} 人。",
       "step": {
         "SUBMITTED": "已提交",
@@ -1099,7 +1104,7 @@
         "ARRIVED": "已抵达韩国",
         "ENROLLED": "已入学"
       },
-      "nOfD": "{{d}} 中的 {{n}}",
+      "nOfD": "{{n}}/{{d}}",
       "retention": "仍在读",
       "graduation": "已毕业",
       "allCohorts": "所有 Hangyul 学生",
@@ -1126,9 +1131,9 @@
       },
       "openRequests_one": "已要求 {{count}} 份文件",
       "openRequests_other": "已要求 {{count}} 份文件",
-      "decisionNow": "结果",
-      "decisionContext_one": "必需文件已就绪 {{ready}}/{{total}} · {{count}} 项要求未完成。",
-      "decisionContext_other": "必需文件已就绪 {{ready}}/{{total}} · {{count}} 项要求未完成。",
+      "decisionNow": "决定",
+      "decisionContext_one": "必需文件已就绪 {{ready}}/{{total}} · {{count}} 项文件要求待回复。",
+      "decisionContext_other": "必需文件已就绪 {{ready}}/{{total}} · {{count}} 项文件要求待回复。",
       "otherDecisions": "其他决定",
       "move": {
         "UNIVERSITY_REVIEW": "开始审核",
@@ -1174,13 +1179,13 @@
       "requestNote": "给学生的说明",
       "requestNoteHint": "具体缺少什么以及如何补正",
       "requestSend": "发送要求",
-      "requestWho": "学生及其 Hangyul 顾问会收到通知，并看到这段原文。",
+      "requestWho": "学生及其 Hangyul 顾问会收到通知，并一字不差地看到这段文字。",
       "applicant": "申请人",
       "decisionDocs": "必需文件已就绪 {{ready}}/{{total}}。"
     },
     "push": {
       "title": "此手机上的提醒",
-      "idle": "文件审核完成、截止日期临近或顾问回复时，接收推送提醒。",
+      "idle": "文件审核完成、截止日期临近或 Hangyul 团队回复时，接收推送提醒。",
       "enable": "开启提醒",
       "on": "提醒已开启。你可以在手机设置中更改。",
       "pending-server": "此手机已允许提醒。推送功能尚未上线；所有内容仍会显示在此列表中。",
@@ -1213,7 +1218,7 @@
   "v4": {
     "application": {
       "blocks": "完成这一步之前，你的申请无法提交。",
-      "blocksUni": "{{university}}在等这一项完成后才会继续处理。",
+      "blocksUni": "{{university}} 在等这一项完成后才会继续处理。",
       "doneSummary_other": "已完成 {{count}} 项：{{items}}",
       "next": "你的下一步",
       "nextFix": "修改你的{{item}}",
@@ -1223,17 +1228,18 @@
       "nextWrite": "撰写你的{{item}}",
       "nothingForYou": "你现在没有需要处理的事项",
       "openDocument": "打开文件",
-      "reviewLate": "比平时花的时间更长。我们已告知你的顾问审核延迟，你无需重新上传。",
-      "waitBody": "你的顾问正在检查你提交的内容。如果有需要修改的地方，我们会通知你。",
+      "reviewLate": "比平时用的时间长。我们已提醒 Hangyul 团队审核延迟，你无需重新上传。",
+      "waitBody": "Hangyul 团队正在检查你提交的内容。如有需要修改的地方，我们会通知你。",
       "waitTitle": "你现在没有需要处理的事项",
-      "writeOnWeb": "请在网页版中撰写，顾问的评语也会显示在那里。"
+      "writeOnWeb": "请在网页版中撰写，Hangyul 团队的评语也会显示在那里。",
+      "doneSummary_one": "已完成 {{count}} 项：{{items}}"
     },
     "discover": {
       "firstYear": "第一年 {{range}}"
     },
     "documents": {
       "late": "耗时较长",
-      "lateLine": "已标记为逾期并提醒你的顾问"
+      "lateLine": "已标记为延迟并提醒 Hangyul 团队"
     },
     "home": {
       "item": {
@@ -1259,7 +1265,7 @@
         },
         "REVISE_ESSAY": {
           "cta": "打开草稿",
-          "text": "你的顾问留了评论。文书通过审核之前，你的申请无法提交。",
+          "text": "Hangyul 团队留了评语。文书通过之前，你的申请无法提交。",
           "title": "修改用于{{university}}的{{label}}"
         },
         "TOO_OLD": {
@@ -1274,7 +1280,7 @@
         },
         "WRITE_ESSAY": {
           "cta": "开始写作",
-          "text": "你的顾问会和你一起审阅。先写个初稿吧，不需要完美。",
+          "text": "Hangyul 团队会和你一起审阅。先写个初稿吧，不需要完美。",
           "title": "撰写用于{{university}}的{{label}}"
         }
       }
@@ -1286,10 +1292,21 @@
     },
     "visa": {
       "hideDone": "隐藏已完成的步骤",
-      "showDone_other": "显示 {{count}} 个已完成的步骤"
+      "showDone_other": "显示 {{count}} 个已完成的步骤",
+      "showDone_one": "显示 {{count}} 个已完成的步骤"
     },
     "reviews": {
       "tickAll": "已检查 {{done}}/{{total}} 项。全部检查完才能核验通过。"
+    },
+    "uni": {
+      "actor": {
+        "AGENCY": "合作留学机构",
+        "STUDENT": "申请人",
+        "SYSTEM": "自动",
+        "UNIVERSITY": "贵校"
+      },
+      "toReview_one": "待审核 · {{count}}",
+      "toReview_other": "待审核 · {{count}}"
     }
   },
   "more": {
@@ -1301,15 +1318,15 @@
     "choose": "选择",
     "allowanceSpent": "此方案包含的次数已用完。方案页面会显示哪个方案包含更多。",
     "support": "获取帮助",
-    "supportHint": "与你的顾问发消息",
+    "supportHint": "给 Hangyul 团队发消息",
     "webNote": "编辑资料和付款在网页上进行。"
   },
   "plan": {
     "paid": "已付金额",
     "included": "方案包含",
-    "ongoing": "持续支持",
+    "ongoing": "整个服务期间",
     "chooseTitle": "选择方案",
-    "chooseLede": "一次付款，覆盖整个申请流程。",
+    "chooseLede": "一次性付款，无需订阅。整个准备期间方案一直有效。",
     "plansTitle": "方案",
     "upgradeTitle": "升级",
     "oneTime": "一次付款",
@@ -1318,11 +1335,11 @@
     "handoff": "付款在浏览器中完成，结束后会回到应用。",
     "card": "可使用境外卡（Visa、Mastercard、JCB）付款。",
     "browserFailed": "无法打开浏览器。请在网页上付款。",
-    "highestAlready": "你已在最高方案。",
+    "highestAlready": "你已经是最高方案了。",
     "webNote": "方案记录和收据可在网页上查看。",
     "allowance": {
-      "max_managed_applications": "代办申请学校",
-      "essay_review_rounds": "文书修改",
+      "max_managed_applications": "代办申请",
+      "essay_review_rounds": "个人陈述与学习计划书修改",
       "mock_interviews": "模拟面试",
       "follow_up_consultations": "后续咨询",
       "max_recommended_institutions": "大学推荐",
@@ -1332,7 +1349,7 @@
   "v18": {
     "offline": {
       "title": "当前离线",
-      "stamp": "最后更新于{{when}}"
+      "stamp": "最后更新于 {{when}}"
     }
   },
   "signup": {
@@ -1362,7 +1379,7 @@
     "nationalityHint": "你的国籍决定了适用于你的文件和签证步骤。",
     "password": "密码",
     "passwordConfirm": "确认密码",
-    "passwordHint": "至少 10 个字符。一句容易记住的话是最好的选择。",
+    "passwordHint": "至少 10 个字符。最好用一句你记得住的话。",
     "passwordMatch": "密码一致",
     "passwordMismatch": "两次输入的密码不一致",
     "showPassword": "显示密码",
@@ -1391,7 +1408,7 @@
     "captchaTitle": "快速验证",
     "captchaText": "这一步用于阻止自动注册，只需一秒。",
     "captchaWaiting": "完成验证后即可继续。",
-    "consentTitle": "个人信息处理说明与同意",
+    "consentTitle": "我们如何处理你的信息",
     "consentText": "需同意必选项才能创建账号。可选项的同意可随时在设置中撤回。",
     "consentAll": "全部同意",
     "required": "必选",
@@ -1403,11 +1420,11 @@
       },
       "PRIVACY": {
         "label": "我同意收集和使用我的个人信息",
-        "summary": "邮箱、手机号、姓名、国籍、密码（加密）— 用于创建和保护账号。"
+        "summary": "邮箱、手机号、姓名、国籍和密码（加密存储），用于创建和保护你的账号。"
       },
       "CROSS_BORDER_VERIFICATION": {
         "label": "我已知悉为进行身份验证，我的邮箱和手机号将在境外处理",
-        "summary": "Twilio Inc.（美国）负责发送验证短信和邮件，Cloudflare, Inc.（美国）负责拦截自动注册。传输的项目、时间、保存期限及拒绝方式见隐私政策。如拒绝，将无法创建账号。"
+        "summary": "Twilio Inc.（美国）负责发送验证短信和邮件；Cloudflare, Inc.（美国）负责确认注册并非自动操作。详情（包括如何拒绝）见隐私政策。如拒绝，将无法创建账号。"
       },
       "MARKETING": {
         "label": "我愿意接收韩国留学资讯和活动信息",
@@ -1419,7 +1436,7 @@
     "legalVersion": "版本 {{version}}",
     "submit": "创建账号",
     "doneTitle": "{{name}}，欢迎你",
-    "doneText": "你的邮箱和手机号已验证完成。再告诉我们两件事，就能为你展示合适的项目。",
+    "doneText": "你的邮箱和手机号已验证完成。再告诉我们两件事，就能为你显示合适的专业。",
     "quickDegree": "你想学什么？",
     "quickLanguage": "你的韩语或英语水平",
     "quickLevel": "级别/分数",
@@ -1511,19 +1528,26 @@
     "plan": {
       "term": "服务期限",
       "termUntil": "至 {{date}}",
-      "termToAgree": "开始时一起确定",
+      "termToAgree": "服务开始时商定",
       "supportUntil": "咨询支持至 {{date}}",
-      "supportDays": "自首次咨询起 {{count}} 天",
+      "supportDays": "自首次咨询起 {{count}} 天的咨询支持",
       "arrival": "入境与安顿",
       "arrivalWindow": "{{from}} ~ {{until}}",
       "unrationed": {
         "CONTRACTED_DOCUMENTS": "合同材料内不限轮数",
-        "TEAM": "负责团队支持",
+        "TEAM": "你的团队持续跟进",
         "PRIORITY": "优先回复",
         "ROUNDS": "包含"
       },
       "upgradePending": "升级价格尚未确定，Hangyul Univ 团队会直接与你沟通。",
       "askTeam": "咨询团队"
+    },
+    "mfa": {
+      "codeHint": "请输入身份验证器应用中的 6 位验证码，或输入恢复码。",
+      "codeLabel": "验证码",
+      "enrollOnWeb": "此账号需要两步验证。请先在网页控制台中设置，然后再在此登录。",
+      "verify": "验证并登录",
+      "wrongCode": "验证码错误或已过期，请输入新的验证码。"
     }
   }
 }

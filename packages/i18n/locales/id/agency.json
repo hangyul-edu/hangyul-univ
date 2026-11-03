@@ -1,867 +1,1285 @@
 {
- "apps": {
-  "allStatuses": "Semua status",
-  "allUniversities": "Semua universitas",
-  "closed": "Ditutup",
-  "col": {
-   "intake": "Periode penerimaan",
-   "program": "Universitas / program",
-   "status": "Status",
-   "student": "Mahasiswa"
+  "apps": {
+    "allStatuses": "Semua status",
+    "allUniversities": "Semua universitas",
+    "closed": "Ditutup",
+    "col": {
+      "intake": "Periode penerimaan",
+      "program": "Universitas / program",
+      "status": "Status",
+      "student": "Mahasiswa"
+    },
+    "deadline": "Tenggat",
+    "detail": "Pendaftaran",
+    "empty": "Tidak ada pendaftaran yang sesuai dengan filter ini. Ubah atau hapus filternya.",
+    "flagged": "Ditandai",
+    "onlyFlagged": "Hanya yang ditandai",
+    "searchPh": "Cari mahasiswa, program, universitas, atau nomor referensi…",
+    "sort": "Urutkan",
+    "sortBy": {
+      "deadline": "Tenggat",
+      "submitted": "Baru dikirim",
+      "updated": "Baru diperbarui",
+      "readiness": "Kesiapan"
+    },
+    "uniHint": "Memfilter berdasarkan nama universitas",
+    "university": "Universitas",
+    "actor": {
+      "AGENCY": "Agensi",
+      "STUDENT": "Mahasiswa",
+      "SYSTEM": "Sistem",
+      "UNIVERSITY": "Universitas"
+    },
+    "checklist": "Daftar periksa dokumen",
+    "checklistCount": "{{ready}} dari {{total}} item siap",
+    "confirmMove": "Pindahkan ke “{{status}}”",
+    "externalRef": "Nomor referensi universitas",
+    "externalRefHint": "Nomor pendaftaran dari portal universitas, jika ada.",
+    "flag": "Tandai",
+    "flagReason": "Alasan penandaan",
+    "flagTitle": "Tandai untuk ditindaklanjuti",
+    "history": "Riwayat status",
+    "legalization": "Notarisasi & legalisasi",
+    "moveTo": "Ubah status pendaftaran",
+    "moved": "Pendaftaran dipindahkan ke {{status}}.",
+    "noTransitions": "Tidak ada perubahan status yang tersedia untuk organisasi Anda pada tahap ini.",
+    "note": "Catatan",
+    "noteHint": "Disimpan dalam riwayat status.",
+    "readiness": "Kesiapan",
+    "reused": "Dipakai ulang dari brankas",
+    "scholarship": "Catatan beasiswa",
+    "semester": "Semester dimulai",
+    "submitBlocked": "Dokumen wajib belum lengkap, sehingga pengajuan diblokir:",
+    "submitted": "Terkirim",
+    "translation": "Terjemahan",
+    "withdrawWarn": "Penarikan pendaftaran ini bersifat final."
   },
-  "deadline": "Tenggat",
-  "detail": "Pendaftaran",
-  "empty": "Tidak ada pendaftaran yang sesuai dengan filter ini.",
-  "flagged": "Ditandai",
-  "onlyFlagged": "Hanya yang ditandai",
-  "searchPh": "Cari mahasiswa, program, universitas, atau nomor referensi…",
-  "sort": "Urutkan",
-  "sortBy": {
-   "deadline": "Tenggat",
-   "submitted": "Baru dikirim",
-   "updated": "Baru diperbarui"
+  "docs": {
+    "allCategories": "Semua kategori",
+    "assigned": {
+      "any": "Semua",
+      "me": "Ditugaskan ke saya",
+      "unassigned": "Belum ditugaskan"
+    },
+    "backToQueue": "Antrean",
+    "bulkVerify": "Verifikasi yang dipilih",
+    "bulkVerifyText": "Hanya verifikasi dokumen yang sudah Anda buka dan periksa. Setiap mahasiswa akan diberi tahu, dan setiap keputusan dicatat dalam log audit atas nama Anda.",
+    "bulkVerifyTitle_other": "Verifikasi {{count}} dokumen?",
+    "category": "Kategori",
+    "chooseCategory": "Pilih jenis dokumen",
+    "durDays": "{{count}} hr",
+    "durHours": "{{count}} j",
+    "file": "Berkas",
+    "fileHint": "PDF, PNG, JPEG, atau WebP, maksimal 15 MB.",
+    "pick": "Pilih dokumen untuk diperiksa",
+    "pickText": "Gunakan J / K untuk berpindah dalam antrean.",
+    "position": "{{n}} dari {{total}}",
+    "queue": "Antrean pemeriksaan",
+    "reviewer": "Pemeriksaan dokumen",
+    "sc": {
+      "cancel": "Batal",
+      "changes": "Minta perbaikan",
+      "checks": "Pilih pemeriksaan atau alasan",
+      "nav": "Dokumen berikutnya / sebelumnya",
+      "send": "Kirim permintaan perbaikan",
+      "verify": "Verifikasi"
+    },
+    "selectDoc": "Pilih {{doc}} dari {{name}}",
+    "shortcuts": "Pintasan",
+    "upload": "Unggah",
+    "uploadForHint": "Gunakan ini jika mahasiswa mengirim dokumen dengan cara lain (misalnya lewat email). Dokumen akan masuk ke brankas dokumennya, ditandai sebagai diunggah oleh Anda, dan menunggu pemeriksaan seperti unggahan lainnya.",
+    "uploadForStudent": "Unggah untuk mahasiswa",
+    "uploadForName": "Unggah untuk {{name}}",
+    "bulkAssign": "Tugaskan pemeriksa",
+    "bulkAssigned_one": "{{count}} dokumen ditugaskan",
+    "bulkAssigned_other": "{{count}} dokumen ditugaskan",
+    "bulkFailed_one": "{{count}} dokumen tidak dapat diubah (sudah diperiksa atau bukan mahasiswa yang Anda tangani)",
+    "bulkFailed_other": "{{count}} dokumen tidak dapat diubah (sudah diperiksa atau bukan mahasiswa yang Anda tangani)",
+    "bulkLabel": "Tindakan untuk dokumen yang dipilih",
+    "bulkVerified_one": "{{count}} dokumen diverifikasi",
+    "bulkVerified_other": "{{count}} dokumen diverifikasi",
+    "bulkVerifyTitle_one": "Verifikasi {{count}} dokumen?",
+    "empty": "Antrean kosong",
+    "emptyBy": {
+      "any": "Tidak ada dokumen yang menunggu pemeriksaan.",
+      "me": "Tidak ada yang ditugaskan kepada Anda saat ini.",
+      "unassigned": "Setiap dokumen yang menunggu sudah punya pemeriksa."
+    },
+    "notInQueue": "Tidak dalam antrean pemeriksaan",
+    "subSla": "{{count}} menunggu pemeriksaan · {{late}} melewati target {{hours}} jam",
+    "sub_other": "{{count}} dokumen menunggu pemeriksaan, yang terlama lebih dulu.",
+    "uploadedFor": "Ditambahkan ke brankas dokumen {{name}}",
+    "you": "Anda"
   },
-  "uniHint": "Memfilter berdasarkan nama universitas",
-  "university": "Universitas"
- },
- "docs": {
-  "allCategories": "Semua kategori",
-  "assigned": {
-   "any": "Semua",
-   "me": "Ditugaskan ke saya",
-   "unassigned": "Belum ditugaskan"
+  "essaysPage": {
+    "col": {
+      "reviewer": "Peninjau"
+    }
   },
-  "backToQueue": "Antrean",
-  "bulkVerify": "Verifikasi yang dipilih",
-  "bulkVerifyText": "Hanya verifikasi dokumen yang sudah Anda buka dan periksa. Setiap mahasiswa akan diberi tahu, dan setiap keputusan dicatat dalam log audit atas nama Anda.",
-  "bulkVerifyTitle_other": "Verifikasi {{count}} dokumen?",
-  "category": "Kategori",
-  "chooseCategory": "Pilih jenis dokumen",
-  "durDays": "{{count}} hr",
-  "durHours": "{{count}} j",
-  "file": "Berkas",
-  "fileHint": "PDF, PNG, JPEG, atau WebP, maksimal 15 MB.",
-  "pick": "Pilih dokumen untuk ditinjau",
-  "pickText": "Gunakan J / K untuk berpindah dalam antrean.",
-  "position": "{{n}} dari {{total}}",
-  "queue": "Antrean tinjauan",
-  "reviewer": "Tinjauan dokumen",
-  "sc": {
-   "cancel": "Batal",
-   "changes": "Minta perubahan",
-   "checks": "Pilih pemeriksaan atau alasan",
-   "nav": "Dokumen berikutnya / sebelumnya",
-   "send": "Kirim permintaan perbaikan",
-   "verify": "Verifikasi"
+  "inbox": {
+    "all": "Semua",
+    "attach": "Lampirkan",
+    "audienceStudent": "{{name}} akan melihat ini",
+    "createTask": "Buat tugas dari pesan ini",
+    "inbox": "Kotak masuk",
+    "internalBanner": "Internal — tidak terlihat oleh mahasiswa",
+    "internalNote": "Catatan internal",
+    "mention": "Sebut",
+    "message": "Pesan",
+    "messagePh": "Tulis balasan… (Ctrl+Enter untuk mengirim)",
+    "messages": "Pesan",
+    "mode": "Jenis pesan",
+    "modeMessage": "Pesan",
+    "needsReply": "Perlu dibalas",
+    "needsReplyShort": "Perlu dibalas",
+    "new": "Pesan baru",
+    "newHint": "Mahasiswa akan diberi tahu melalui email dan di aplikasinya.",
+    "pick": "Pilih percakapan",
+    "pickText": "Atau mulai percakapan baru dengan mahasiswa mana pun yang Anda dampingi.",
+    "searchPh": "Cari orang atau subjek…",
+    "sendTo": "Kirim ke {{name}}",
+    "subReply_other": "{{count}} percakapan menunggu balasan Anda",
+    "subUnread_other": "{{count}} percakapan belum dibaca",
+    "subject": "Subjek",
+    "thread": "Percakapan",
+    "unread": "Belum dibaca",
+    "unreadN_one": "{{count}} pesan belum dibaca",
+    "audienceTeam": "Hanya tim Anda yang melihat ini",
+    "manageTemplates": "Kelola templat…",
+    "noMessages": "Belum ada pesan.",
+    "notePh": "Tulis catatan internal untuk tim Anda… (Ctrl+Enter untuk menyimpan)",
+    "noteSaved": "Catatan internal tersimpan.",
+    "openFile": "Buka berkas",
+    "participants": "peserta",
+    "removeFile": "Hapus {{name}}",
+    "saveNote": "Simpan catatan",
+    "sent": "Pesan terkirim.",
+    "subReply_one": "{{count}} percakapan menunggu balasan Anda",
+    "subUnread_one": "{{count}} percakapan belum dibaca",
+    "system": "Sistem",
+    "taskCreated": "Tugas dibuat dari pesan ini",
+    "taskDue": "Tenggat tugas",
+    "taskHint": "Tugas diberikan kepada rekan tim yang disebut pertama, atau kepada Anda.",
+    "unreadN_other": "{{count}} pesan belum dibaca",
+    "willNotify_other": "{{count}} rekan tim akan diberi tahu"
   },
-  "selectDoc": "Pilih {{doc}} dari {{name}}",
-  "shortcuts": "Pintasan",
-  "upload": "Unggah",
-  "uploadForHint": "Gunakan ini jika mahasiswa mengirim dokumen dengan cara lain (misalnya lewat email). Dokumen akan masuk ke brankas dokumennya, ditandai sebagai diunggah oleh Anda, dan menunggu tinjauan seperti unggahan lainnya.",
-  "uploadForStudent": "Unggah untuk mahasiswa",
-  "uploadForName": "Unggah untuk {{name}}"
- },
- "essaysPage": {
-  "col": {
-   "reviewer": "Peninjau"
-  }
- },
- "inbox": {
-  "all": "Semua",
-  "attach": "Lampirkan",
-  "audienceStudent": "{{name}} akan melihat ini",
-  "createTask": "Buat tugas dari pesan ini",
-  "inbox": "Kotak masuk",
-  "internalBanner": "Internal — tidak terlihat oleh mahasiswa",
-  "internalNote": "Catatan internal",
-  "mention": "Sebut",
-  "message": "Pesan",
-  "messagePh": "Tulis balasan… (Ctrl+Enter untuk mengirim)",
-  "messages": "Pesan",
-  "mode": "Jenis pesan",
-  "modeMessage": "Pesan",
-  "needsReply": "Perlu dibalas",
-  "needsReplyShort": "Menunggu balasan Anda",
-  "new": "Pesan baru",
-  "newHint": "Mahasiswa akan diberi tahu melalui email dan di aplikasinya.",
-  "pick": "Pilih percakapan",
-  "pickText": "Atau mulai percakapan baru dengan mahasiswa mana pun yang Anda dampingi.",
-  "searchPh": "Cari orang atau subjek…",
-  "sendTo": "Kirim ke {{name}}",
-  "subReply_other": "{{count}} percakapan menunggu balasan Anda",
-  "subUnread_other": "{{count}} percakapan belum dibaca",
-  "subject": "Subjek",
-  "thread": "Percakapan",
-  "unread": "Belum dibaca",
-  "unreadN_one": "{{count}} pesan belum dibaca"
- },
- "misc": {
-  "student": "Mahasiswa",
-  "breadcrumb": "Navigasi jejak"
- },
- "review": {
-  "check": {
-   "dates": "Tanggal terbit cukup baru dan belum kedaluwarsa",
-   "issuer": "Institusi penerbit, stempel, atau tanda tangan terlihat",
-   "legible": "Lengkap dan terbaca — setiap halaman, tanpa tepi terpotong",
-   "name": "Nama dan tanggal lahir sesuai dengan paspor",
-   "translation": "Terjemahan tersumpah terlampir"
-  },
-  "checked": "{{n}} dari {{total}} diperiksa",
-  "checklist": "Sebelum Anda memverifikasi",
-  "expires": "Kedaluwarsa",
-  "issued": "Diterbitkan",
-  "issuingCountry": "Negara penerbit",
-  "language": "Bahasa",
-  "metadata": "Detail",
-  "noPdfViewer": "Browser ini tidak dapat menampilkan PDF di dalam halaman.",
-  "openTab": "Buka di tab baru",
-  "requestChanges": "Minta perubahan",
-  "scan": "Pemindaian virus",
-  "secureNote": "Tautan pratinjau kedaluwarsa setelah 5 menit dan setiap akses dicatat.",
-  "translation": "Terjemahan",
-  "translationNeeded": "Terjemahan tersumpah diperlukan",
-  "uploaded": "Diunggah",
-  "verify": "Verifikasi",
-  "verifyHint": "Pilih pemeriksaan terlebih dahulu, atau konfirmasi untuk memverifikasi tanpa pemeriksaan"
- },
- "savedViews": {
-  "name": "Nama",
-  "namePh": "mis. Vietnam · Musim semi 2027 · mendesak",
-  "personal": "Hanya saya",
-  "save": "Simpan tampilan",
-  "saveHintEmpty": "Tidak ada filter yang diatur, jadi tampilan ini akan menampilkan semua mahasiswa. Tambahkan filter terlebih dahulu agar lebih berguna.",
-  "saveTitle": "Simpan tampilan ini",
-  "shareWith": "Siapa yang dapat menggunakannya",
-  "team": "Seluruh tim"
- },
- "settings": {
-  "deadlinesHint": "Semua tenggat mendatang untuk mahasiswa yang Anda tangani",
-  "notificationsHint": "Riwayat notifikasi lengkap"
- },
- "shell": {
-  "product": "Konsol Agensi",
-  "searchLabel": "Cari mahasiswa",
-  "searchPlaceholder": "Cari mahasiswa berdasarkan nama atau email…"
- },
- "sidebar": {
-  "documents": "Dokumen",
-  "essays": "Esai",
-  "universities": "Universitas"
- },
- "students": {
-  "col": {
-   "intakeShort": "Periode penerimaan",
-   "updated": "Diperbarui"
-  },
-  "dShort_other": "{{count}} hr",
-  "deadlineShort": "Tenggat {{date}}",
-  "subCount": "{{count}} mahasiswa yang Anda tangani",
-  "view": {
-   "attention": "Perlu perhatian",
-   "waiting_student": "Menunggu mahasiswa"
-  }
- },
- "today": {
-  "morning": "Selamat pagi, {{name}}",
-  "phase": {
-   "admitted": "Diterima",
-   "applied": "Sudah mendaftar",
-   "leads": "Baru & ditugaskan",
-   "preparing": "Persiapan",
-   "visa": "Visa & kedatangan"
-  },
-  "evening": "Selamat malam, {{name}}"
- },
- "v11": {
-  "manage": {
-   "auditHint": "Siapa mengubah apa, dan kapan",
-   "catalogHint": "Universitas, program, dan persyaratannya",
-   "org": "Organisasi",
-   "paymentsHint": "Tagihan dan pembayaran",
-   "people": "Orang dan penyedia",
-   "servicesHint": "Kasus layanan yang sedang Anda berikan untuk mahasiswa",
-   "settingsHint": "Profil dan preferensi agensi Anda",
-   "sub": "Pengaturan dan bahan referensi untuk agensi Anda.",
-   "teamHint": "Akun administrator: undang, nonaktifkan",
-   "templatesHint": "Templat pesan dan daftar periksa",
-   "vendorsHint": "Tempat tinggal, penjemputan, dan penyedia lain yang Anda pesan",
-   "work": "Cara Anda bekerja"
+  "misc": {
+    "student": "Mahasiswa",
+    "breadcrumb": "Jejak navigasi",
+    "change": "Ubah",
+    "days_other": "{{count}} hari",
+    "hours_other": "{{count}} jam",
+    "no": "Tidak",
+    "notFoundText": "Halaman mungkin telah dipindahkan, atau Anda tidak memiliki akses ke halaman ini.",
+    "searchStudents": "Cari mahasiswa Anda…",
+    "unassigned": "Belum ditugaskan",
+    "yes": "Ya"
   },
   "review": {
-   "sub": "Dokumen dan tulisan yang menunggu Anda.",
-   "title": "Tinjauan"
-  }
- },
- "v22": {
-  "nav": {
-   "insights": "Wawasan",
-   "messages": "Pesan",
-   "settings": "Pengaturan",
-   "students": "Mahasiswa",
-   "today": "Hari ini",
-   "work": "Pendaftaran & dokumen"
+    "check": {
+      "dates": "Tanggal terbit cukup baru dan belum kedaluwarsa",
+      "issuer": "Institusi penerbit, stempel, atau tanda tangan terlihat",
+      "legible": "Lengkap dan terbaca — setiap halaman, tanpa tepi terpotong",
+      "name": "Nama dan tanggal lahir sesuai dengan paspor",
+      "translation": "Terjemahan tersumpah terlampir"
+    },
+    "checked": "{{n}} dari {{total}} diperiksa",
+    "checklist": "Sebelum Anda memverifikasi",
+    "expires": "Kedaluwarsa",
+    "issued": "Diterbitkan",
+    "issuingCountry": "Negara penerbit",
+    "language": "Bahasa",
+    "metadata": "Detail",
+    "noPdfViewer": "Browser ini tidak dapat menampilkan PDF di dalam halaman.",
+    "openTab": "Buka di tab baru",
+    "requestChanges": "Minta perubahan",
+    "scan": "Pemindaian virus",
+    "secureNote": "Tautan pratinjau kedaluwarsa setelah 5 menit dan setiap akses dicatat.",
+    "translation": "Terjemahan",
+    "translationNeeded": "Terjemahan tersumpah diperlukan",
+    "uploaded": "Diunggah",
+    "verify": "Verifikasi",
+    "verifyHint": "Pilih pemeriksaan terlebih dahulu, atau konfirmasi untuk memverifikasi tanpa pemeriksaan"
   },
-  "stage": {
-   "admitted": "Diterima",
-   "all": "Semua",
-   "arrived": "Telah tiba",
-   "closedN_other": "{{count}} ditutup",
-   "counselling": "Konseling",
-   "documents": "Dokumen",
-   "new": "Baru",
-   "ready": "Siap",
-   "review": "Tinjauan universitas",
-   "strip": "Proses",
-   "submitted": "Terkirim",
-   "visa": "Visa"
+  "savedViews": {
+    "name": "Nama",
+    "namePh": "mis. Vietnam · Musim semi 2027 · mendesak",
+    "personal": "Hanya saya",
+    "save": "Simpan tampilan",
+    "saveHintEmpty": "Tidak ada filter yang diatur, jadi tampilan ini akan menampilkan semua mahasiswa. Tambahkan filter terlebih dahulu agar lebih berguna.",
+    "saveTitle": "Simpan tampilan ini",
+    "shareWith": "Siapa yang dapat menggunakannya",
+    "team": "Seluruh tim",
+    "delete": "Hapus {{name}}",
+    "saveHint_one": "Menyimpan filter dan urutan saat ini agar daftar ini bisa dibuka dengan sekali klik.",
+    "saveHint_other": "Menyimpan {{count}} filter dan urutan saat ini agar daftar ini bisa dibuka dengan sekali klik.",
+    "saved": "Tersimpan “{{name}}”"
   },
-  "team": {
-   "title": "Akun administrator"
+  "settings": {
+    "deadlinesHint": "Semua tenggat mendatang untuk mahasiswa yang Anda tangani",
+    "notificationsHint": "Riwayat notifikasi lengkap",
+    "account": "Akun",
+    "language": "Bahasa",
+    "languageHint": "Bahasa antarmuka. Data mahasiswa tetap dalam bahasa aslinya.",
+    "localOnly": "Hanya disimpan di browser ini.",
+    "org": "Organisasi",
+    "poll": "Pembaruan langsung",
+    "pollHint": "Segarkan antrean dan jumlah setiap menit.",
+    "scSearch": "Telusuri hasil pencarian global",
+    "scSend": "Kirim pesan atau simpan catatan",
+    "shortcuts": "Pintasan keyboard",
+    "sub": "Preferensi pribadi untuk konsol ini.",
+    "timezone": "Zona waktu",
+    "updates": "Pembaruan langsung"
+  },
+  "shell": {
+    "product": "Konsol Agensi",
+    "searchLabel": "Cari mahasiswa",
+    "searchPlaceholder": "Cari mahasiswa berdasarkan nama atau email…",
+    "hqProduct": "Operasional Hangyul",
+    "hqView": "Hangyul HQ · semua agensi",
+    "searchAll": "Lihat semua hasil untuk “{{q}}”"
+  },
+  "sidebar": {
+    "documents": "Dokumen",
+    "essays": "Esai",
+    "universities": "Universitas",
+    "agencies": "Agensi",
+    "catalog": "Universitas & program",
+    "operations": "Operasional",
+    "override": "Penggantian penugasan"
+  },
+  "students": {
+    "col": {
+      "intakeShort": "Periode penerimaan",
+      "updated": "Diperbarui",
+      "degree": "Jenjang",
+      "nationality": "Kewarganegaraan"
+    },
+    "dShort_other": "{{count}} hr",
+    "deadlineShort": "Tenggat {{date}}",
+    "subCount": "{{count}} mahasiswa yang Anda tangani",
+    "view": {
+      "attention": "Perlu perhatian",
+      "waiting_student": "Menunggu mahasiswa",
+      "all": "Semua",
+      "arrived": "Sudah tiba",
+      "deadline": "Tenggat dekat",
+      "docs": "Dokumen perlu diperbaiki",
+      "incomplete": "Dokumen belum lengkap",
+      "mine": "Mahasiswa saya",
+      "requested": "Universitas meminta dokumen",
+      "university": "Menunggu universitas",
+      "waiting_external": "Menunggu kedutaan atau pihak lain",
+      "waiting_us": "Menunggu kami"
+    },
+    "bulk": {
+      "confirmRegen_other": "Hitung ulang daftar tugas otomatis untuk {{count}} mahasiswa? Tugas manual tetap disimpan.",
+      "confirmStage_other": "Pindahkan {{count}} mahasiswa ke “{{stage}}”? Tindakan ini dicatat di log audit.",
+      "confirmTitle": "Terapkan tindakan massal?",
+      "done_other": "{{count}} mahasiswa diperbarui.",
+      "regen": "Buat ulang tugas",
+      "stage": "Pindahkan ke tahap…"
+    },
+    "dShort_one": "{{count}} hr",
+    "f": {
+      "allDegrees": "Semua jenjang",
+      "allNationalities": "Semua kewarganegaraan"
+    },
+    "noReply": "SLA respons pertama terlewat. Mahasiswa ini menunggu balasan",
+    "noReplyShort": "Perlu dibalas"
   },
   "today": {
-   "sub": "Semua mahasiswa per langkah proses. Pilih satu langkah; tabel di bawahnya adalah langkah tersebut."
+    "morning": "Selamat pagi, {{name}}",
+    "phase": {
+      "admitted": "Diterima",
+      "applied": "Sudah mendaftar",
+      "leads": "Baru & ditugaskan",
+      "preparing": "Persiapan",
+      "visa": "Visa & kedatangan",
+      "studying": "Sedang kuliah"
+    },
+    "evening": "Selamat malam, {{name}}",
+    "afternoon": "Selamat siang, {{name}}",
+    "allClear": "Tidak ada yang perlu ditangani saat ini. Pekerjaan baru akan muncul di sini begitu masuk.",
+    "attention": "Perlu perhatian",
+    "attentionSub": "Item paling mendesak ditampilkan lebih dulu. Buka satu baris untuk mengerjakan daftar ini.",
+    "attentionV4": "Siapa yang membutuhkan Anda hari ini",
+    "clearList": "Semua beres: {{list}}",
+    "closing": "Pendaftaran yang ditutup dalam 7 hari",
+    "closingDetail": "Berikutnya: {{university}} · {{student}}, ditutup {{date}}",
+    "closingV4": "Mahasiswa dengan tenggat pendaftaran dalam 7 hari",
+    "cta": {
+      "deadlines": "Lihat tenggat",
+      "messages": "Buka kotak masuk",
+      "reply": "Balas",
+      "review": "Mulai pemeriksaan",
+      "students": "Buka mahasiswa",
+      "tasks": "Buka tugas"
+    },
+    "deadlines": "Tenggat dalam 7 hari ke depan",
+    "deadlinesDetail": "Berikutnya: {{title}} · {{student}}, {{when}}",
+    "docs": "Dokumen menunggu pemeriksaan",
+    "docsDetail": "Terlama: {{student}} · {{doc}}, menunggu {{wait}}",
+    "docsOldest": "terlama: {{student}} · {{doc}}, diunggah {{when}}",
+    "docsSla_one": "{{count}} dokumen melewati target pemeriksaan {{hours}} jam",
+    "docsSla_other": "{{count}} dokumen melewati target pemeriksaan {{hours}} jam",
+    "essays": "Esai menunggu tinjauan",
+    "essaysDetail": "Berikutnya: {{title}} · {{student}}",
+    "keyMove": "pindah",
+    "keyOpen": "buka",
+    "messages": "Percakapan dengan pesan belum dibaca",
+    "messagesDetail": "Menunggu paling lama: {{who}}, {{when}}",
+    "openPipeline": "Buka alur",
+    "overdueDef": "Tugas terbuka yang tenggatnya sudah lewat.",
+    "overdueDetail": "Terlama: {{title}} · {{student}}, tenggat {{when}}",
+    "overdueMine": "Tugas Anda yang terlambat",
+    "overdueTeam": "Tugas terlambat di seluruh tim",
+    "pipeline": "Mahasiswa yang ditangani per tahap",
+    "pipelineSub": "{{count}} mahasiswa. Pilih tahap untuk melihat siapa saja di dalamnya.",
+    "pipelineSubV4_one": "{{count}} mahasiswa",
+    "pipelineSubV4_other": "{{count}} mahasiswa",
+    "replies": "Mahasiswa yang menunggu balasan",
+    "repliesDetail": "Pesan terakhir mereka belum dibalas.",
+    "repliesOldest": "Menunggu paling lama: {{student}}, {{when}}",
+    "repliesV4": "Perlu dibalas",
+    "requests": "Permintaan dokumen dari universitas",
+    "requestsDetail": "Mahasiswa harus mengunggahnya. Pastikan dokumennya masuk.",
+    "sla": "Mahasiswa yang harus mendapat respons pertama dalam 24 jam",
+    "slaDetail": "{{student}} · respons paling lambat {{when}}",
+    "unread": "Percakapan belum dibaca",
+    "unreadDetail": "Terbaru: {{who}}, {{when}}",
+    "upcoming": "Tenggat mendatang",
+    "upcomingEmpty": "Tidak ada tenggat dalam 14 hari ke depan.",
+    "upcomingSub": "14 hari ke depan",
+    "upcomingV4": "14 hari ke depan",
+    "v5": {
+      "andMore_one": "dan {{count}} lainnya",
+      "andMore_other": "dan {{count}} lainnya",
+      "checks": "Pemeriksaan dokumen yang membutuhkan pemeriksa",
+      "services": {
+        "needs_assignment": "Permintaan layanan baru untuk ditugaskan",
+        "overdue": "Kasus layanan yang melewati waktu respons",
+        "today": "Kasus layanan dengan tenggat hari ini"
+      },
+      "servicesCta": "Buka layanan",
+      "servicesDetail": "{{type}} · {{student}} · {{reason}}",
+      "visa": "Kasus visa yang membutuhkan Anda",
+      "visaCta": "Buka",
+      "writingDetail": "{{essay}} · {{student}}, {{university}}",
+      "writingDue": "Tinjauan esai dengan tenggat dalam 48 jam",
+      "writingDue48": "tenggat {{when}}",
+      "writingOverdue": "Tinjauan esai yang melewati waktu yang dijanjikan",
+      "writingRevised_one": "{{count}} revisi mahasiswa",
+      "writingRevised_other": "{{count}} revisi mahasiswa"
+    },
+    "waitingOn": "Kasus menurut pihak yang ditunggu",
+    "workload": "Beban kerja tim",
+    "workloadSub": "Mahasiswa aktif dan pekerjaan terbuka per orang"
   },
-  "work": {
-   "allCountries": "Semua negara",
-   "allIntakes": "Semua periode penerimaan",
-   "allViews": "Semua mahasiswa",
-   "anyWaiting": "Menunggu siapa pun",
-   "closedHint": "Mahasiswa yang ditolak dan mengundurkan diri",
-   "col": {
-    "activity": "Aktivitas terakhir",
-    "country": "Negara",
-    "due": "Tenggat",
-    "next": "Tindakan berikutnya",
-    "stage": "Tahap saat ini",
-    "student": "Mahasiswa",
-    "university": "Universitas",
-    "waiting": "Menunggu"
-   },
-   "emptyFiltered": "Tidak ada mahasiswa yang sesuai dengan filter ini",
-   "noUpcoming": "Tidak ada tenggat dalam 14 hari ke depan",
-   "saveView": "Simpan tampilan",
-   "searchPh": "Cari mahasiswa…",
-   "showAll": "Tampilkan semua {{count}}",
-   "showing": "Menampilkan {{shown}} dari {{total}}",
-   "teamViews": "Tampilan tim",
-   "top": "Paling mendesak dulu",
-   "upcoming_other": "{{count}} tenggat dalam 14 hari",
-   "view": "Tampilan",
-   "owner": "Penanggung jawab"
+  "v11": {
+    "manage": {
+      "auditHint": "Siapa mengubah apa, dan kapan",
+      "catalogHint": "Universitas, program, dan persyaratannya",
+      "org": "Organisasi",
+      "paymentsHint": "Tagihan dan pembayaran",
+      "people": "Orang dan penyedia",
+      "servicesHint": "Kasus layanan yang sedang Anda berikan untuk mahasiswa",
+      "settingsHint": "Profil dan preferensi agensi Anda",
+      "sub": "Pengaturan dan bahan referensi untuk agensi Anda.",
+      "teamHint": "Akun administrator: undang, nonaktifkan",
+      "templatesHint": "Templat pesan dan daftar periksa",
+      "vendorsHint": "Tempat tinggal, penjemputan, dan penyedia lain yang Anda pesan",
+      "work": "Cara Anda bekerja"
+    },
+    "review": {
+      "sub": "Dokumen dan tulisan yang menunggu Anda.",
+      "title": "Tinjauan"
+    }
   },
-  "ws": {
-   "appsTitle": "Pendaftaran",
-   "conversation": "Percakapan terakhir",
-   "details": "Detail",
-   "detailsHint": "Detail lengkap, saat Anda membutuhkannya.",
-   "hideDetails": "Sembunyikan detail",
-   "needsAction": "Perlu tindakan",
-   "noConversation": "Belum ada percakapan.",
-   "seeAll": "Lihat semua",
-   "tab": {
-    "application": "Pendaftaran",
-    "communication": "Komunikasi",
-    "more": "Tugas & layanan",
-    "profile": "Profil & paket"
-   }
-  }
- },
- "v23": {
-  "work": {
-   "submissionsNeed_other": "{{count}} pengiriman memerlukan tim"
-  }
- },
- "v7": {
-  "today": {
-   "overdueN_one": "{{count}} lewat tenggat",
-   "overdueN_other": "{{count}} lewat tenggat"
-  }
- },
- "v8": {
-  "apps": {
-   "remaining": "Item tersisa",
-   "sub": "Semua pendaftaran yang Anda dampingi: apa yang tersisa sebelum pengiriman, siapa yang ditunggu, dan tenggatnya."
+  "v22": {
+    "nav": {
+      "insights": "Wawasan",
+      "messages": "Pesan",
+      "settings": "Pengaturan",
+      "students": "Mahasiswa",
+      "today": "Hari ini",
+      "work": "Pendaftaran & dokumen",
+      "hqAccounts": "Akun universitas"
+    },
+    "stage": {
+      "admitted": "Diterima",
+      "all": "Semua",
+      "arrived": "Sudah tiba",
+      "closedN_other": "{{count}} ditutup",
+      "counselling": "Konsultasi",
+      "documents": "Dokumen",
+      "new": "Baru",
+      "ready": "Siap diajukan",
+      "review": "Tinjauan universitas",
+      "strip": "Tahap",
+      "submitted": "Terkirim",
+      "visa": "Visa",
+      "closed": "Ditutup",
+      "stripHint": "Pilih tahap untuk menampilkan mahasiswanya saja. Jumlahnya sama dengan baris di bawah."
+    },
+    "team": {
+      "title": "Akun administrator",
+      "active": "Aktif",
+      "count_other": "{{count}} akun",
+      "devNote": "Pengembangan: kode dicetak ke konsol API, tidak dikirim lewat email.",
+      "disable": "Nonaktifkan",
+      "disableReason": "Alasan",
+      "disableReasonPh": "Keluar dari agensi",
+      "disableText": "Mereka tidak bisa masuk lagi. Mahasiswa, pemeriksaan, dan tugas yang masih terbuka dialihkan ke rekan kerja secara otomatis.",
+      "disableTitle": "Nonaktifkan {{name}}?",
+      "disabled": "Nonaktif",
+      "empty": "Belum ada akun.",
+      "enable": "Aktifkan",
+      "invite": "Undang administrator",
+      "inviteSub": "Mereka menerima email berisi kode sekali pakai untuk membuat kata sandi.",
+      "lastLogin": "Terakhir masuk",
+      "mailFailed": "Undangan tidak dapat dikirim lewat email. Minta mereka menggunakan “Lupa kata sandi” dengan alamat ini.",
+      "name": "Nama",
+      "never": "Belum pernah",
+      "sendInvite": "Kirim undangan",
+      "sent": "Undangan terkirim",
+      "sentTo": "Kami telah mengirim undangan ke {{email}}.",
+      "sub": "Setiap administrator memiliki izin yang sama.",
+      "unverified": "Diundang · belum diverifikasi",
+      "you": "Anda"
+    },
+    "today": {
+      "sub": "Semua mahasiswa per langkah proses. Pilih satu langkah; tabel di bawahnya adalah langkah tersebut."
+    },
+    "work": {
+      "allCountries": "Semua negara",
+      "allIntakes": "Semua periode penerimaan",
+      "allViews": "Semua mahasiswa",
+      "anyWaiting": "Menunggu siapa pun",
+      "closedHint": "Mahasiswa yang ditolak dan mengundurkan diri",
+      "col": {
+        "activity": "Aktivitas terakhir",
+        "country": "Negara",
+        "due": "Tenggat",
+        "next": "Tindakan berikutnya",
+        "stage": "Tahap saat ini",
+        "student": "Mahasiswa",
+        "university": "Universitas",
+        "waiting": "Menunggu"
+      },
+      "emptyFiltered": "Tidak ada mahasiswa yang sesuai dengan filter ini. Coba ubah filternya.",
+      "noUpcoming": "Tidak ada tenggat dalam 14 hari ke depan",
+      "saveView": "Simpan tampilan",
+      "searchPh": "Cari mahasiswa…",
+      "showAll": "Tampilkan semua {{count}}",
+      "showing": "Menampilkan {{shown}} dari {{total}}",
+      "teamViews": "Tampilan tim",
+      "top": "Paling mendesak dulu",
+      "upcoming_other": "{{count}} tenggat dalam 14 hari ke depan",
+      "view": "Tampilan",
+      "owner": "Penanggung jawab",
+      "bulkOwner": "Tetapkan penanggung jawab…",
+      "confirmOwner_other": "Tetapkan {{name}} sebagai penanggung jawab {{count}} mahasiswa?",
+      "deleteView": "Hapus tampilan ini",
+      "empty": "Tidak ada mahasiswa pada tahap ini",
+      "myViews": "Tampilan saya",
+      "showTop": "Tampilkan 10 teratas",
+      "total_other": "{{count}} mahasiswa"
+    },
+    "ws": {
+      "appsTitle": "Pendaftaran",
+      "conversation": "Percakapan terakhir",
+      "details": "Detail",
+      "detailsHint": "Detail lengkap, saat Anda membutuhkannya.",
+      "hideDetails": "Sembunyikan detail",
+      "needsAction": "Perlu tindakan",
+      "noConversation": "Belum ada percakapan. Kirim pesan pertama.",
+      "seeAll": "Lihat semua",
+      "tab": {
+        "application": "Pendaftaran",
+        "communication": "Komunikasi",
+        "more": "Tugas & layanan",
+        "profile": "Profil & paket"
+      },
+      "docFix_other": "{{count}} dokumen perlu diperbaiki",
+      "docReview_other": "{{count}} dokumen perlu diperiksa",
+      "needsActionEmpty": "Tidak ada yang menunggu Anda untuk mahasiswa ini.",
+      "openThread": "Buka percakapan"
+    },
+    "hq": {
+      "accounts": {
+        "adminUser": "Pengguna admin",
+        "assigned": "Universitas yang ditetapkan",
+        "empty": "Belum ada akun universitas.",
+        "invite": "Undang admin universitas",
+        "noUniversity": "Belum terhubung ke universitas",
+        "pickUniversity": "Universitas",
+        "pickUniversityPh": "Pilih universitas mitra",
+        "reassign": "Ganti universitas",
+        "reassignText": "Keanggotaannya dipindahkan ke organisasi universitas yang dipilih. Keanggotaan lama dinonaktifkan.",
+        "reassignTitle": "Pindahkan {{name}} ke universitas lain",
+        "search": "Cari berdasarkan nama, email, atau universitas…",
+        "sub": "Pengguna admin dari universitas mitra. Setiap administrator universitas memiliki izin yang sama.",
+        "title": "Akun universitas",
+        "university": "Universitas"
+      }
+    }
   },
-  "channel": {
-   "IN_APP": "Dalam aplikasi"
+  "v23": {
+    "work": {
+      "submissionsNeed_other": "{{count}} pendaftaran menunggu diajukan oleh tim",
+      "memberFilter": "Menampilkan mahasiswa satu anggota tim",
+      "openAll": "Buka semua {{count}} di Mahasiswa",
+      "submissionsNeed_one": "{{count}} pendaftaran menunggu diajukan oleh tim"
+    }
   },
-  "nav": {
-   "operations": "Operasional"
+  "v7": {
+    "today": {
+      "overdueN_one": "{{count}} lewat tenggat",
+      "overdueN_other": "{{count}} lewat tenggat"
+    }
   },
-  "ops": {
-   "ageing": {
-    "caption": "Kasus aktif menurut tahap dan jumlah hari sejak kasus terakhir bergerak",
-    "cellLabel": "{{count}} mahasiswa di {{phase}}, {{bucket}} sejak terakhir bergerak — tampilkan",
-    "longest": "Paling lama tanpa pergerakan",
-    "oldest": "Kasus tertua: {{name}} tidak bergerak selama {{count}} hari ({{stage}}).",
-    "phase": "Tahap",
-    "q": "Kasus mana yang berhenti bergerak, dan di tahap mana? Pilih sel untuk menampilkan daftar mahasiswanya.",
-    "title": "Lama kasus per tahap"
-   },
-   "backlog": {
-    "documents": "Tinjauan dokumen",
-    "essays": "Tinjauan esai",
-    "openDocs_other": "{{count}} tinjauan dokumen terbuka saat ini",
-    "openEssays_other": "{{count}} tinjauan esai terbuka saat ini",
-    "openTasks_other": "{{count}} tugas tim terbuka saat ini",
-    "q": "Apakah pekerjaan terbuka bertambah atau berkurang? Tugas tim, tinjauan dokumen, dan tinjauan esai yang terbuka di akhir setiap minggu selama 8 minggu terakhir.",
-    "tasks": "Tugas tim",
-    "title": "Tren tunggakan",
-    "up_other": "+{{count}} dalam 8 minggu"
-   },
-   "bucket": {
-    "0_7": "0–7 hari",
-    "15_30": "15–30 hari",
-    "30_plus": "30+ hari",
-    "8_14": "8–14 hari"
-   },
-   "days_one": "{{count}} hari",
-   "days_other": "{{count}} hari",
-   "deadlines": {
-    "inDays_other": "dalam {{count}} hari",
-    "q": "Pendaftaran dengan tenggat dalam {{count}} hari yang masih kekurangan item wajib.",
-    "title": "Tenggat berisiko",
-    "inDays_one": "dalam {{count}} hari"
-   },
-   "generated": "Diperbarui {{when}}",
-   "load": {
-    "over_one": "{{count}} orang melebihi kapasitas",
-    "q": "Siapa yang kelebihan beban? Kasus aktif per orang dibandingkan dengan pembagian rata kapasitas agensi.",
-    "title": "Beban konselor vs kapasitas"
-   },
-   "open": "Buka",
-   "openNow": "Terbuka saat ini",
-   "outcomes": "Hasil",
-   "since": "sejak {{when}}",
-   "sla": {
-    "docs": "Tinjauan dokumen lebih dari 48 jam",
-    "essays": "Tinjauan esai melewati waktu yang dijanjikan",
-    "first": "Balasan pertama terlambat",
-    "q": "Janji mana yang sudah dilanggar?",
-    "title": "Pelanggaran SLA"
-   },
-   "stages": {
-    "median_other": "median {{count}} hari",
-    "now_one": "{{n}} di sana saat ini",
-    "now_other": "{{n}} di sana saat ini",
-    "q": "Di mana pendaftaran menunggu paling lama? Median hari di setiap status (masa tinggal yang berakhir dalam setahun terakhir).",
-    "slowest": "Paling lambat: {{stage}} — median {{count}} hari dari {{n}} masa tinggal.",
-    "title": "Tahap lambat",
-    "tooFew": "terlalu sedikit untuk dinilai ({{n}} dari {{min}})",
-    "unrated_other": "{{count}} status dengan kurang dari {{min}} masa tinggal selesai (tidak dinilai)"
-   },
-   "sub": "Di mana operasional bermasalah: tunggakan, kasus macet, kelebihan beban, janji yang terlewat, tenggat berisiko, dan tahap lambat. Setiap angka membuka catatannya.",
-   "switch": "Tampilan",
-   "total": "Jumlah",
-   "allN_other": "Lihat semua ({{count}})"
+  "v8": {
+    "apps": {
+      "remaining": "Item tersisa",
+      "sub": "Semua pendaftaran yang Anda dampingi: apa yang tersisa sebelum pengiriman, siapa yang ditunggu, dan tenggatnya."
+    },
+    "channel": {
+      "IN_APP": "Dalam aplikasi"
+    },
+    "nav": {
+      "operations": "Operasional"
+    },
+    "ops": {
+      "ageing": {
+        "caption": "Kasus aktif menurut tahap dan jumlah hari sejak kasus terakhir bergerak",
+        "cellLabel": "{{count}} mahasiswa di {{phase}}, {{bucket}} sejak terakhir bergerak — tampilkan",
+        "longest": "Paling lama tanpa pergerakan",
+        "oldest": "Kasus tertua: {{name}} tidak bergerak selama {{count}} hari ({{stage}}).",
+        "phase": "Tahap",
+        "q": "Kasus mana yang berhenti bergerak, dan di tahap mana? Pilih sel untuk menampilkan daftar mahasiswanya.",
+        "title": "Lama kasus per tahap"
+      },
+      "backlog": {
+        "documents": "Tinjauan dokumen",
+        "essays": "Tinjauan esai",
+        "openDocs_other": "{{count}} tinjauan dokumen terbuka saat ini",
+        "openEssays_other": "{{count}} tinjauan esai terbuka saat ini",
+        "openTasks_other": "{{count}} tugas tim terbuka saat ini",
+        "q": "Apakah pekerjaan terbuka bertambah atau berkurang? Tugas tim, tinjauan dokumen, dan tinjauan esai yang terbuka di akhir setiap minggu selama 8 minggu terakhir.",
+        "tasks": "Tugas tim",
+        "title": "Tren tunggakan",
+        "up_other": "+{{count}} dalam 8 minggu"
+      },
+      "bucket": {
+        "0_7": "0–7 hari",
+        "15_30": "15–30 hari",
+        "30_plus": "30+ hari",
+        "8_14": "8–14 hari"
+      },
+      "days_one": "{{count}} hari",
+      "days_other": "{{count}} hari",
+      "deadlines": {
+        "inDays_other": "dalam {{count}} hari",
+        "q": "Pendaftaran dengan tenggat dalam {{count}} hari yang masih kekurangan item wajib.",
+        "title": "Tenggat berisiko",
+        "inDays_one": "dalam {{count}} hari"
+      },
+      "generated": "Diperbarui {{when}}",
+      "load": {
+        "over_one": "{{count}} orang melebihi kapasitas",
+        "q": "Siapa yang kelebihan beban? Kasus aktif per orang dibandingkan dengan pembagian rata kapasitas agensi.",
+        "title": "Beban konselor vs kapasitas"
+      },
+      "open": "Buka",
+      "openNow": "Terbuka saat ini",
+      "outcomes": "Hasil",
+      "since": "sejak {{when}}",
+      "sla": {
+        "docs": "Tinjauan dokumen lebih dari 48 jam",
+        "essays": "Tinjauan esai melewati waktu yang dijanjikan",
+        "first": "Balasan pertama terlambat",
+        "q": "Janji mana yang sudah dilanggar?",
+        "title": "Pelanggaran SLA"
+      },
+      "stages": {
+        "median_other": "median {{count}} hari",
+        "now_one": "{{n}} di sana saat ini",
+        "now_other": "{{n}} di sana saat ini",
+        "q": "Di mana pendaftaran menunggu paling lama? Median hari di setiap status (masa tinggal yang berakhir dalam setahun terakhir).",
+        "slowest": "Paling lambat: {{stage}} — median {{count}} hari dari {{n}} masa tinggal.",
+        "title": "Tahap lambat",
+        "tooFew": "terlalu sedikit untuk dinilai ({{n}} dari {{min}})",
+        "unrated_other": "{{count}} status dengan kurang dari {{min}} masa tinggal selesai (tidak dinilai)"
+      },
+      "sub": "Di mana operasional bermasalah: tunggakan, kasus macet, kelebihan beban, janji yang terlewat, tenggat berisiko, dan tahap lambat. Setiap angka membuka catatannya.",
+      "switch": "Tampilan",
+      "total": "Jumlah",
+      "allN_other": "Lihat semua ({{count}})"
+    },
+    "view": {
+      "deadline7": "Tenggat < 7 hari",
+      "docs": "Dokumen perlu diperbaiki",
+      "new_paid": "Mahasiswa baru yang sudah membayar",
+      "student_silent": "Menunggu mahasiswa > 3 hari",
+      "unassigned": "Belum ditugaskan",
+      "university": "Menunggu universitas",
+      "urgent": "Kasus mendesak saya",
+      "visa_blocked": "Visa terhambat"
+    },
+    "move": {
+      "lastMoved_other": "terakhir bergerak {{count}} hari lalu",
+      "why": "Mengapa kasus ini tidak bergerak?"
+    }
   },
-  "view": {
-   "deadline7": "Tenggat < 7 hari",
-   "docs": "Dokumen perlu diperbaiki",
-   "new_paid": "Mahasiswa baru yang sudah membayar",
-   "student_silent": "Menunggu mahasiswa > 3 hari",
-   "unassigned": "Belum ditugaskan",
-   "university": "Menunggu universitas",
-   "urgent": "Kasus mendesak saya",
-   "visa_blocked": "Visa terhambat"
-  },
-  "move": {
-   "lastMoved_other": "terakhir bergerak {{count}} hari lalu",
-   "why": "Mengapa kasus ini tidak bergerak?"
-  }
- },
- "v9": {
-  "msg": {
-   "link": "Tautkan ke pendaftaran",
-   "state": {
-    "READ": "Dibaca"
-   }
-  },
-  "next": {
-   "app": {
-    "OFFERED": "membalas tawaran"
-   },
-   "essay_review": "Tinjau esai",
-   "final_check": "Pemeriksaan akhir dan serah terima · {{university}}",
-   "reply_owed": "Balas mahasiswa",
-   "review_unassigned_one": "Tetapkan peninjau untuk {{count}} dokumen",
-   "student": {
-    "submit_on_portal": "kirim di portal resmi dan catat nomor referensinya",
-    "university_request": "unggah dokumen yang diminta {{university}}"
-   },
-   "studentSays": "Mahasiswa: {{what}}",
-   "submit": "Kirim atas nama mahasiswa dan catat nomor referensinya",
-   "universitySays": "Universitas: {{what}}",
-   "taskTitle": "Lewat tenggat: {{title}}"
-  },
-  "ops": {
-   "blocked": {
-    "q_other": "Kasus mana yang menunggu seseorang dan tidak bergerak lebih dari {{count}} hari?",
-    "title": "Kasus terhambat"
-   },
-   "cases_other": "{{count}} kasus",
-   "days_other": "{{count}} hari",
-   "pointsOf": "{{n}} / {{cap}} poin",
-   "q": {
-    "blocked": "Kasus terhambat paling lama",
-    "deadlines": "Tenggat berisiko",
-    "overloaded": "Melebihi kapasitas",
-    "sla": "Pelanggaran SLA",
-    "stage": "Tahap paling lambat",
-    "unpaid": "Kasus berbayar belum ditugaskan"
-   },
-   "questions": "Enam pertanyaan",
-   "slaRisk_one": "{{count}} berisiko SLA",
-   "unpaid": {
-    "none": "Setiap kasus berbayar sudah memiliki penanggung jawab.",
-    "q": "Mahasiswa mana yang sudah membayar layanan tetapi kasusnya belum punya penanggung jawab?",
-    "title": "Kasus berbayar belum ditugaskan"
-   },
-   "weightsLink": "Bobot",
-   "slaRisk_other": "{{count}} berisiko melewati SLA"
-  },
-  "owner": {
-   "agency": "Tim agensi"
-  },
-  "q": {
-   "tab": "Kualitas proses"
-  },
-  "team": {
-   "onLeave": "Cuti hingga {{date}}"
+  "v9": {
+    "msg": {
+      "link": "Tautkan ke pendaftaran",
+      "state": {
+        "READ": "Dibaca"
+      }
+    },
+    "next": {
+      "app": {
+        "OFFERED": "membalas tawaran"
+      },
+      "essay_review": "Tinjau esai",
+      "final_check": "Pemeriksaan akhir dan serah terima · {{university}}",
+      "reply_owed": "Balas mahasiswa",
+      "review_unassigned_one": "Tetapkan peninjau untuk {{count}} dokumen",
+      "student": {
+        "submit_on_portal": "kirim di portal resmi dan catat nomor referensinya",
+        "university_request": "unggah dokumen yang diminta {{university}}"
+      },
+      "studentSays": "Mahasiswa: {{what}}",
+      "submit": "Kirim atas nama mahasiswa dan catat nomor referensinya",
+      "universitySays": "Universitas: {{what}}",
+      "taskTitle": "Lewat tenggat: {{title}}"
+    },
+    "ops": {
+      "blocked": {
+        "q_other": "Kasus mana yang menunggu seseorang dan tidak bergerak lebih dari {{count}} hari?",
+        "title": "Kasus terhambat"
+      },
+      "cases_other": "{{count}} kasus",
+      "days_other": "{{count}} hari",
+      "pointsOf": "{{n}} / {{cap}} poin",
+      "q": {
+        "blocked": "Kasus terhambat paling lama",
+        "deadlines": "Tenggat berisiko",
+        "overloaded": "Melebihi kapasitas",
+        "sla": "Pelanggaran SLA",
+        "stage": "Tahap paling lambat",
+        "unpaid": "Kasus berbayar belum ditugaskan"
+      },
+      "questions": "Enam pertanyaan",
+      "slaRisk_one": "{{count}} berisiko SLA",
+      "unpaid": {
+        "none": "Setiap kasus berbayar sudah memiliki penanggung jawab.",
+        "q": "Mahasiswa mana yang sudah membayar layanan tetapi kasusnya belum punya penanggung jawab?",
+        "title": "Kasus berbayar belum ditugaskan"
+      },
+      "weightsLink": "Bobot",
+      "slaRisk_other": "{{count}} berisiko melewati SLA"
+    },
+    "owner": {
+      "agency": "Tim agensi"
+    },
+    "q": {
+      "tab": "Kualitas proses"
+    },
+    "team": {
+      "onLeave": "Cuti hingga {{date}}"
+    },
+    "waiting": {
+      "on": {
+        "agency": "Menunggu tim agensi",
+        "counselor": "Menunggu konselor",
+        "external": "Menunggu pihak luar",
+        "hangyul": "Menunggu Hangyul",
+        "student": "Menunggu mahasiswa",
+        "university": "Menunggu universitas",
+        "us": "Menunggu kita (konselor atau tim)"
+      },
+      "party": {
+        "agency": "Tim agensi",
+        "counselor": "Konselor",
+        "external": "Pihak luar",
+        "student": "Mahasiswa",
+        "university": "Universitas",
+        "hangyul": "Hangyul",
+        "none": "Tidak ada"
+      },
+      "reason": {
+        "essay_review": "esai menunggu tinjauan",
+        "final_check": "pemeriksaan akhir sebelum pengiriman",
+        "rail_confirmation": "nomor konfirmasi belum ada",
+        "reply_owed": "mahasiswa menunggu balasan",
+        "review_unassigned_one": "{{count}} dokumen untuk ditinjau · tanpa peninjau",
+        "student_task_one": "{{count}} tugas untuk dikerjakan",
+        "student_task_other": "{{count}} tugas untuk dikerjakan",
+        "submit": "diberi kuasa untuk mengirim",
+        "submit_on_portal": "akan dikirim di portal resmi",
+        "university_request": "universitas meminta dokumen",
+        "task_one": "{{count}} tugas lewat tenggat",
+        "paid_no_agency": "sudah bayar, belum ada agensi",
+        "unassigned_case": "belum ada konselor",
+        "first_contact": "kontak pertama jatuh tempo",
+        "review_one": "{{count}} dokumen untuk ditinjau",
+        "review_other": "{{count}} dokumen untuk ditinjau",
+        "review_unassigned_other": "{{count}} dokumen untuk ditinjau · tanpa peninjau",
+        "essay_unassigned": "tinjauan esai · tanpa peninjau",
+        "task_other": "{{count}} tugas lewat tenggat",
+        "task_unassigned_one": "{{count}} tugas lewat tenggat · tanpa penanggung jawab",
+        "task_unassigned_other": "{{count}} tugas lewat tenggat · tanpa penanggung jawab",
+        "profile_check": "pemeriksaan profil",
+        "service": "kasus layanan",
+        "service_unassigned": "kasus layanan · tanpa penanggung jawab",
+        "payment_issue": "masalah pembayaran",
+        "fix_one": "{{count}} dokumen untuk diperbaiki",
+        "fix_other": "{{count}} dokumen untuk diperbaiki",
+        "visa_decision": "keputusan visa (kedutaan)",
+        "provider": "konfirmasi dari penyedia"
+      },
+      "title": "Menunggu"
+    },
+    "meet": {
+      "decisions": "Keputusan",
+      "notes": "Yang dibahas",
+      "oneper": "Satu per baris.",
+      "recordTitle": "Catat pertemuan",
+      "save": "Simpan catatan pertemuan",
+      "scheduleNext": "Jadwalkan pertemuan berikutnya",
+      "staffTasks": "Tindak lanjut untuk tim",
+      "studentHint": "Satu per baris. Mahasiswa dapat melihatnya.",
+      "studentTasks": "Tugas untuk mahasiswa"
+    },
+    "strip": {
+      "deadline": "Tenggat",
+      "next": "Tindakan berikutnya",
+      "why": "Mengapa tidak bergerak"
+    }
   },
   "waiting": {
-   "on": {
-    "agency": "Menunggu tim agensi",
-    "counselor": "Menunggu konselor",
-    "external": "Menunggu pihak luar",
-    "hangyul": "Menunggu Hangyul",
-    "student": "Menunggu mahasiswa",
-    "university": "Menunggu universitas",
-    "us": "Menunggu kita (konselor atau tim)"
-   },
-   "party": {
-    "agency": "Tim agensi",
-    "counselor": "Konselor",
-    "external": "Pihak luar",
-    "student": "Mahasiswa",
-    "university": "Universitas",
-    "hangyul": "Hangyul",
-    "none": "Tidak ada"
-   },
-   "reason": {
-    "essay_review": "esai menunggu tinjauan",
-    "final_check": "pemeriksaan akhir sebelum pengiriman",
-    "rail_confirmation": "nomor konfirmasi belum ada",
-    "reply_owed": "mahasiswa menunggu balasan",
-    "review_unassigned_one": "{{count}} dokumen untuk ditinjau · tanpa peninjau",
-    "student_task_one": "{{count}} tugas untuk dikerjakan",
-    "student_task_other": "{{count}} tugas untuk dikerjakan",
-    "submit": "diberi kuasa untuk mengirim",
-    "submit_on_portal": "akan dikirim di portal resmi",
-    "university_request": "universitas meminta dokumen",
-    "task_one": "{{count}} tugas lewat tenggat",
-    "paid_no_agency": "sudah bayar, belum ada agensi",
-    "unassigned_case": "belum ada konselor",
-    "first_contact": "kontak pertama jatuh tempo",
-    "review_one": "{{count}} dokumen untuk ditinjau",
-    "review_other": "{{count}} dokumen untuk ditinjau",
-    "review_unassigned_other": "{{count}} dokumen untuk ditinjau · tanpa peninjau",
-    "essay_unassigned": "tinjauan esai · tanpa peninjau",
-    "task_other": "{{count}} tugas lewat tenggat",
-    "task_unassigned_one": "{{count}} tugas lewat tenggat · tanpa penanggung jawab",
-    "task_unassigned_other": "{{count}} tugas lewat tenggat · tanpa penanggung jawab",
-    "profile_check": "pemeriksaan profil",
-    "service": "kasus layanan",
-    "service_unassigned": "kasus layanan · tanpa penanggung jawab",
-    "payment_issue": "masalah pembayaran",
-    "fix_one": "{{count}} dokumen untuk diperbaiki",
-    "fix_other": "{{count}} dokumen untuk diperbaiki",
-    "visa_decision": "keputusan visa (kedutaan)",
-    "provider": "konfirmasi dari penyedia"
-   },
-   "title": "Menunggu"
+    "app": {
+      "DRAFT": "pendaftaran belum dimulai",
+      "INTERVIEW": "wawancara",
+      "OFFERED": "membalas tawaran",
+      "OFFER_ACCEPTED": "tagihan biaya kuliah",
+      "SUBMITTED": "terkirim",
+      "UNIVERSITY_REVIEW": "sedang ditinjau",
+      "VISA_ISSUED": "rencana kedatangan",
+      "WAITLISTED": "dalam daftar tunggu",
+      "DOCUMENT_PREPARATION": "menyiapkan dokumen",
+      "VISA_PREPARATION": "dokumen visa",
+      "ADDITIONAL_DOCUMENTS": "universitas meminta dokumen",
+      "ADMISSION_CERTIFICATE_ISSUED": "mulai visa",
+      "ADMISSION_CERTIFICATE_PENDING": "surat penerimaan",
+      "PROFILE_REVIEW": "pemeriksaan profil",
+      "READY": "siap diajukan",
+      "TUITION_PAID": "surat penerimaan",
+      "TUITION_PENDING": "pembayaran biaya kuliah",
+      "VISA_SUBMITTED": "keputusan visa (kedutaan)"
+    },
+    "reason": {
+      "student_task_one": "{{count}} tugas untuk dikerjakan",
+      "student_task_other": "{{count}} tugas untuk dikerjakan",
+      "first_contact": "kontak pertama jatuh tempo",
+      "fix_one": "{{count}} dokumen perlu diperbaiki",
+      "fix_other": "{{count}} dokumen perlu diperbaiki",
+      "overdue_task_one": "{{count}} tugas terlambat",
+      "overdue_task_other": "{{count}} tugas terlambat",
+      "reply": "mahasiswa membalas",
+      "review_one": "{{count}} dokumen perlu diperiksa",
+      "review_other": "{{count}} dokumen perlu diperiksa"
+    }
   },
-  "meet": {
-   "decisions": "Keputusan",
-   "notes": "Yang dibahas",
-   "oneper": "Satu per baris.",
-   "recordTitle": "Catat pertemuan",
-   "save": "Simpan catatan pertemuan",
-   "scheduleNext": "Jadwalkan pertemuan berikutnya",
-   "staffTasks": "Tindak lanjut untuk tim",
-   "studentHint": "Satu per baris. Mahasiswa dapat melihatnya.",
-   "studentTasks": "Tugas untuk mahasiswa"
-  },
-  "strip": {
-   "deadline": "Tenggat",
-   "next": "Tindakan berikutnya",
-   "why": "Mengapa tidak bergerak"
-  }
- },
- "waiting": {
-  "app": {
-   "DRAFT": "pendaftaran belum dimulai",
-   "INTERVIEW": "wawancara",
-   "OFFERED": "membalas tawaran",
-   "OFFER_ACCEPTED": "tagihan biaya kuliah",
-   "SUBMITTED": "terkirim",
-   "UNIVERSITY_REVIEW": "sedang ditinjau",
-   "VISA_ISSUED": "rencana kedatangan",
-   "WAITLISTED": "dalam daftar tunggu",
-   "DOCUMENT_PREPARATION": "menyiapkan dokumen",
-   "VISA_PREPARATION": "dokumen visa"
-  },
-  "reason": {
-   "student_task_one": "{{count}} tugas untuk dikerjakan",
-   "student_task_other": "{{count}} tugas untuk dikerjakan"
-  }
- },
- "ws": {
-  "itemsInReview_one": "{{count}} sedang ditinjau",
-  "itemsNone": "Semua item siap",
-  "itemsRemain_other": "{{count}} item tersisa",
-  "act": {
-   "message": "Pesan",
-   "task": "Tugas",
-   "call": "Jadwalkan panggilan"
-  },
-  "block": {
-   "deadline_one": "Pendaftaran {{uni}} ditutup dalam {{count}} hari",
-   "sla": "Menunggu respons pertama Anda",
-   "slaDetail": "Target respons pertama terlewati {{when}}",
-   "fix": "{{doc}} perlu diperbaiki",
-   "expired": "{{doc}} sudah kedaluwarsa",
-   "review_one": "{{count}} dokumen menunggu tinjauan Anda",
-   "review_other": "{{count}} dokumen menunggu tinjauan Anda",
-   "uniRequest": "{{uni}} meminta dokumen tambahan",
-   "deadline_other": "Pendaftaran {{uni}} ditutup dalam {{count}} hari",
-   "readiness": "Pendaftaran {{pct}}% siap",
-   "overdue": "Lewat tenggat: {{title}}"
-  },
-  "consulate": "Konsulat",
-  "docsHint": "Semua dokumen di penyimpanan dokumen mahasiswa. Dipakai ulang untuk semua pendaftarannya.",
-  "more": "Tindakan lain",
-  "profileComplete": "Profil {{pct}}% lengkap",
-  "tab": {
-   "applications": "Pendaftaran",
-   "documents": "Dokumen",
-   "essays": "Tulisan",
-   "visa": "Visa",
-   "overview": "Ringkasan",
-   "portfolio": "Portofolio",
-   "tasks": "Tugas",
-   "messages": "Pesan",
-   "appointments": "Janji temu",
-   "activity": "Aktivitas",
-   "history": "Riwayat"
-  },
-  "targetEntry": "Target tanggal masuk",
-  "visaIssued": "Terbit pada",
-  "visaNotes": "Catatan kasus (staf)",
-  "visaProgress": "Progres daftar periksa visa",
-  "visaStatus": "Status visa",
-  "visaSubmitted": "Diajukan pada",
-  "visaType": "Visa {{type}}",
-  "sections": "Bagian ruang kerja mahasiswa",
-  "stage": "Tahap alur",
-  "target": "Target",
-  "locale": "Bahasa",
-  "profile": "Kelengkapan profil",
-  "counselor": "Konselor",
-  "sla": "SLA respons pertama",
-  "services": "Layanan yang dibeli",
-  "noServices": "Belum ada",
-  "since": "Ditugaskan sejak",
-  "notAssigned": "Belum ditugaskan ke agensi",
-  "whyAssigned": "Mengapa penugasan ini?",
-  "assignedBy": "Ditugaskan oleh {{by}}",
-  "by": {
-   "ENGINE": "mesin pencocokan",
-   "OPERATIONS_OVERRIDE": "tim operasional Hangyul (penggantian manual)",
-   "ORDER": "pembelian layanan",
-   "MANUAL": "seorang manajer"
-  },
-  "score": "Skor kecocokan {{score}} / 100",
-  "noBreakdown": "Tidak ada rincian skor yang tercatat untuk penugasan ini.",
-  "weightsNote": "Poin yang diperoleh per faktor dari bobotnya (total bobot {{total}}). Skor menjelaskan pilihan, bukan penilaian mutu.",
-  "factor": {
-   "country": "Keahlian negara",
-   "language": "Kecocokan bahasa",
-   "university": "Universitas tujuan",
-   "degree": "Keahlian jenjang",
-   "workload": "Kapasitas tersedia",
-   "sla": "Rekam SLA terbaru",
-   "preference": "Preferensi mahasiswa"
-  },
-  "education": "Pendidikan",
-  "noEducation": "Belum ada data pendidikan.",
-  "level": {
-   "HIGH_SCHOOL": "SMA/sederajat",
-   "ASSOCIATE": "Diploma",
-   "BACHELOR": "Sarjana (S1)",
-   "MASTER": "Magister (S2)",
-   "DOCTORATE": "Doktor (S3)"
-  },
-  "grad": {
-   "GRADUATED": "Lulus",
-   "EXPECTED": "Akan lulus",
-   "IN_PROGRESS": "Sedang berjalan"
-  },
-  "gpa": "IPK",
-  "gpaNorm": "{{pct}}% setelah dinormalisasi",
-  "gpaNormHint": "IPK dikonversi ke skala 0–100% agar sistem penilaian yang berbeda dapat dibandingkan.",
-  "languages": "Tes bahasa",
-  "noLanguages": "Belum ada skor tes.",
-  "planned": "direncanakan",
-  "expires": "Kedaluwarsa {{date}}",
-  "selfLevels": "Penilaian sendiri: Korea {{ko}}, Inggris {{en}}",
-  "preferences": "Preferensi",
-  "fields": "Bidang",
-  "regions": "Wilayah",
-  "budget": "Anggaran tahunan",
-  "scholarship": "Perlu beasiswa",
-  "housing": "Tempat tinggal",
-  "housingPref": {
-   "DORM": "Asrama",
-   "OFF_CAMPUS": "Di luar kampus",
-   "NO_PREFERENCE": "Tidak ada preferensi"
-  },
-  "sponsor": "Penanggung biaya",
-  "sponsorKind": {
-   "SELF": "Sendiri",
-   "PARENTS": "Orang tua",
-   "RELATIVE": "Kerabat",
-   "SCHOLARSHIP": "Beasiswa",
-   "EMPLOYER": "Pemberi kerja"
-  },
-  "career": "Tujuan karier",
-  "identity": "Identitas & status",
-  "nationality": "Kewarganegaraan",
-  "residence": "Negara tempat tinggal",
-  "dob": "Tanggal lahir",
-  "passport": "Paspor",
-  "maskedHint": "Disamarkan demi privasi. Nomor lengkap hanya ada di penyimpanan dokumen mahasiswa.",
-  "passportExpiry": "Masa berlaku paspor",
-  "inKorea": "Sedang di Korea",
-  "visaHistory": "Riwayat visa Korea",
-  "noApps": "Belum ada pendaftaran",
-  "noAppsText": "Pendaftaran muncul di sini setelah mahasiswa memulainya.",
-  "noDocs": "Belum ada dokumen di penyimpanan dokumen",
-  "noEssays": "Belum ada esai",
-  "tasksHint": "Tugas tim dan tugas yang terlihat oleh mahasiswa ini.",
-  "noConversations": "Belum ada percakapan dengan mahasiswa ini",
-  "noVisa": "Belum ada kasus visa",
-  "noVisaText": "Kasus visa terbuka otomatis setelah universitas menerbitkan surat penerimaan.",
-  "blockers": "Hambatan",
-  "blockedBy": "Menunggu: {{deps}}",
-  "apptHint": "Konsultasi dan latihan wawancara dengan mahasiswa ini.",
-  "noActivity": "Belum ada aktivitas yang tercatat",
-  "activityNote": "Dari log audit: tampilan, perubahan, dan keputusan pada data mahasiswa ini.",
-  "selfLevel": {
-   "NONE": "Tidak ada",
-   "BEGINNER": "Pemula",
-   "INTERMEDIATE": "Menengah",
-   "ADVANCED": "Mahir"
-  },
-  "counselorIs": "Konselor: {{name}}",
-  "sinceDate": "Bersama kami sejak {{date}}",
-  "blockingTitle": "Yang menghambat kemajuan",
-  "blockingSub": "Selesaikan ini dulu. Setiap item membuka bagian tempat masalahnya bisa diperbaiki.",
-  "nothingBlocking": "Tidak ada yang menghambat {{name}} saat ini.",
-  "nextSteps": "Langkah berikutnya",
-  "noNextSteps": "Tidak ada tugas terbuka dengan tenggat.",
-  "profileTitle": "Profil",
-  "selfReported": "dilaporkan sendiri",
-  "waitingOn": "Menunggu",
-  "itemsRemain_one": "{{count}} item tersisa",
-  "itemsInReview_other": "{{count}} sedang ditinjau",
-  "blockingTitleV4": "Yang menghambat mahasiswa ini",
-  "v11": {
-   "tab": {
-    "overview": "Ringkasan",
-    "application": "Pendaftaran",
-    "communication": "Komunikasi",
-    "more": "Lainnya"
-   }
-  }
- },
- "v25": {
-  "today": {
-   "title": "Hari ini",
-   "urgent": "mendesak",
-   "deadline7": "jatuh tempo dalam 7 hari",
-   "waiting_counselor": "menunggu balasan kami",
-   "student_silent": "mahasiswa tidak merespons",
-   "requested": "permintaan universitas"
-  }
- },
- "v26": {
   "ws": {
-   "replyOwed": "Mahasiswa menunggu balasan Anda",
-   "reply": "Balas",
-   "requests": "Permintaan universitas",
-   "requestFrom": "{{university}} meminta: {{label}}",
-   "requestedOn": "Diminta {{date}}"
+    "itemsInReview_one": "{{count}} item sedang diperiksa",
+    "itemsNone": "Semua item siap",
+    "itemsRemain_other": "{{count}} item tersisa",
+    "act": {
+      "message": "Pesan",
+      "task": "Tugas",
+      "call": "Jadwalkan konsultasi"
+    },
+    "block": {
+      "deadline_one": "Pendaftaran {{uni}} ditutup dalam {{count}} hari",
+      "sla": "Menunggu respons pertama Anda",
+      "slaDetail": "Target respons pertama terlewati {{when}}",
+      "fix": "{{doc}} perlu diperbaiki",
+      "expired": "{{doc}} sudah kedaluwarsa",
+      "review_one": "{{count}} dokumen menunggu pemeriksaan Anda",
+      "review_other": "{{count}} dokumen menunggu pemeriksaan Anda",
+      "uniRequest": "{{uni}} meminta dokumen tambahan",
+      "deadline_other": "Pendaftaran {{uni}} ditutup dalam {{count}} hari",
+      "readiness": "Pendaftaran {{pct}}% siap",
+      "overdue": "Lewat tenggat: {{title}}"
+    },
+    "consulate": "Konsulat",
+    "docsHint": "Semua dokumen di brankas dokumen mahasiswa. Dipakai ulang untuk semua pendaftarannya.",
+    "more": "Tindakan lain",
+    "profileComplete": "Profil {{pct}}% lengkap",
+    "tab": {
+      "applications": "Pendaftaran",
+      "documents": "Dokumen",
+      "essays": "Esai",
+      "visa": "Visa",
+      "overview": "Ringkasan",
+      "portfolio": "Portofolio",
+      "tasks": "Tugas",
+      "messages": "Pesan",
+      "appointments": "Janji temu",
+      "activity": "Aktivitas",
+      "history": "Riwayat"
+    },
+    "targetEntry": "Rencana tanggal kedatangan",
+    "visaIssued": "Terbit pada",
+    "visaNotes": "Catatan kasus (staf)",
+    "visaProgress": "Progres daftar periksa visa",
+    "visaStatus": "Status visa",
+    "visaSubmitted": "Diajukan pada",
+    "visaType": "Visa {{type}}",
+    "sections": "Bagian ruang kerja mahasiswa",
+    "stage": "Tahap alur",
+    "target": "Target",
+    "locale": "Bahasa",
+    "profile": "Kelengkapan profil",
+    "counselor": "Konselor",
+    "sla": "SLA respons pertama",
+    "services": "Layanan yang dibeli",
+    "noServices": "Belum ada",
+    "since": "Ditugaskan sejak",
+    "notAssigned": "Belum ditugaskan ke agensi",
+    "whyAssigned": "Mengapa penugasan ini?",
+    "assignedBy": "Ditugaskan oleh {{by}}",
+    "by": {
+      "ENGINE": "mesin pencocokan",
+      "OPERATIONS_OVERRIDE": "tim operasional Hangyul (penggantian manual)",
+      "ORDER": "pembelian layanan",
+      "MANUAL": "seorang administrator"
+    },
+    "score": "Skor kecocokan {{score}} / 100",
+    "noBreakdown": "Tidak ada rincian skor yang tercatat untuk penugasan ini.",
+    "weightsNote": "Poin yang diperoleh per faktor dari bobotnya (total bobot {{total}}). Skor menjelaskan pilihan, bukan penilaian mutu.",
+    "factor": {
+      "country": "Keahlian negara",
+      "language": "Kecocokan bahasa",
+      "university": "Universitas tujuan",
+      "degree": "Keahlian jenjang",
+      "workload": "Kapasitas tersedia",
+      "sla": "Rekam SLA terbaru",
+      "preference": "Preferensi mahasiswa"
+    },
+    "education": "Pendidikan",
+    "noEducation": "Belum ada data pendidikan.",
+    "level": {
+      "HIGH_SCHOOL": "SMA/sederajat",
+      "ASSOCIATE": "Diploma",
+      "BACHELOR": "Sarjana (S1)",
+      "MASTER": "Magister (S2)",
+      "DOCTORATE": "Doktor (S3)"
+    },
+    "grad": {
+      "GRADUATED": "Lulus",
+      "EXPECTED": "Akan lulus",
+      "IN_PROGRESS": "Sedang berjalan"
+    },
+    "gpa": "IPK",
+    "gpaNorm": "{{pct}}% setelah dinormalisasi",
+    "gpaNormHint": "IPK dikonversi ke skala 0–100% agar sistem penilaian yang berbeda dapat dibandingkan.",
+    "languages": "Tes bahasa",
+    "noLanguages": "Belum ada skor tes bahasa.",
+    "planned": "direncanakan",
+    "expires": "Kedaluwarsa {{date}}",
+    "selfLevels": "Penilaian sendiri: Korea {{ko}}, Inggris {{en}}",
+    "preferences": "Preferensi",
+    "fields": "Bidang",
+    "regions": "Wilayah",
+    "budget": "Anggaran tahunan",
+    "scholarship": "Perlu beasiswa",
+    "housing": "Tempat tinggal",
+    "housingPref": {
+      "DORM": "Asrama",
+      "OFF_CAMPUS": "Di luar kampus",
+      "NO_PREFERENCE": "Tidak ada preferensi"
+    },
+    "sponsor": "Penanggung biaya",
+    "sponsorKind": {
+      "SELF": "Sendiri",
+      "PARENTS": "Orang tua",
+      "RELATIVE": "Kerabat",
+      "SCHOLARSHIP": "Beasiswa",
+      "EMPLOYER": "Pemberi kerja"
+    },
+    "career": "Tujuan karier",
+    "identity": "Identitas & tempat tinggal",
+    "nationality": "Kewarganegaraan",
+    "residence": "Negara tempat tinggal",
+    "dob": "Tanggal lahir",
+    "passport": "Paspor",
+    "maskedHint": "Disamarkan demi privasi. Nomor lengkap hanya ada di brankas dokumen mahasiswa.",
+    "passportExpiry": "Masa berlaku paspor",
+    "inKorea": "Sedang di Korea",
+    "visaHistory": "Riwayat visa Korea",
+    "noApps": "Belum ada pendaftaran",
+    "noAppsText": "Pendaftaran muncul di sini setelah mahasiswa memulainya.",
+    "noDocs": "Belum ada dokumen di brankas",
+    "noEssays": "Belum ada esai",
+    "tasksHint": "Tugas tim dan tugas yang terlihat oleh mahasiswa ini.",
+    "noConversations": "Belum ada percakapan dengan mahasiswa ini",
+    "noVisa": "Belum ada kasus visa",
+    "noVisaText": "Kasus visa terbuka otomatis setelah universitas menerbitkan surat penerimaan standar (standard admission letter).",
+    "blockers": "Hambatan",
+    "blockedBy": "Selesaikan dulu: {{deps}}",
+    "apptHint": "Konsultasi dan simulasi wawancara dengan mahasiswa ini.",
+    "noActivity": "Belum ada aktivitas yang tercatat",
+    "activityNote": "Dari log audit: siapa yang melihat, mengubah, dan memutuskan data mahasiswa ini.",
+    "selfLevel": {
+      "NONE": "Tidak ada",
+      "BEGINNER": "Pemula",
+      "INTERMEDIATE": "Menengah",
+      "ADVANCED": "Mahir"
+    },
+    "counselorIs": "Konselor: {{name}}",
+    "sinceDate": "Ditugaskan sejak {{date}}",
+    "blockingTitle": "Yang menghambat kemajuan",
+    "blockingSub": "Selesaikan ini dulu. Setiap item membuka bagian tempat masalahnya bisa diperbaiki.",
+    "nothingBlocking": "Tidak ada yang menghambat {{name}} saat ini.",
+    "nextSteps": "Langkah berikutnya",
+    "noNextSteps": "Tidak ada tugas terbuka dengan tenggat.",
+    "profileTitle": "Profil",
+    "selfReported": "dilaporkan sendiri",
+    "waitingOn": "Menunggu",
+    "itemsRemain_one": "{{count}} item tersisa",
+    "itemsInReview_other": "{{count}} item sedang diperiksa",
+    "blockingTitleV4": "Yang menghambat mahasiswa ini",
+    "v11": {
+      "tab": {
+        "overview": "Ringkasan",
+        "application": "Pendaftaran",
+        "communication": "Komunikasi",
+        "more": "Lainnya"
+      }
+    }
+  },
+  "v25": {
+    "today": {
+      "title": "Hari ini",
+      "urgent": "mendesak",
+      "deadline7": "jatuh tempo dalam 7 hari",
+      "waiting_counselor": "menunggu balasan kami",
+      "student_silent": "mahasiswa tidak merespons",
+      "requested": "permintaan universitas"
+    }
+  },
+  "v26": {
+    "ws": {
+      "replyOwed": "Mahasiswa menunggu balasan Anda",
+      "reply": "Balas",
+      "requests": "Permintaan universitas",
+      "requestFrom": "{{university}} meminta: {{label}}",
+      "requestedOn": "Diminta {{date}}"
+    }
+  },
+  "consult": {
+    "channel": {
+      "IN_PERSON": "Tatap muka",
+      "PHONE": "Telepon",
+      "VIDEO": "Panggilan video"
+    },
+    "channelLabel": "Saluran",
+    "duration": "Durasi",
+    "kind": {
+      "CONSULTATION": "Konsultasi",
+      "INTERVIEW": "Wawancara",
+      "INTERVIEW_PREP": "Latihan wawancara"
+    },
+    "kindLabel": "Jenis",
+    "minutes_other": "{{count}} menit",
+    "new": "Jadwalkan konsultasi",
+    "notes": "Agenda / catatan",
+    "notesHint": "Terlihat oleh mahasiswa di detail janji temunya.",
+    "notifyNote": "Mahasiswa menerima notifikasi berisi tanggal dan jam sesuai zona waktunya sendiri.",
+    "schedule": "Jadwalkan",
+    "when": "Tanggal & jam"
+  },
+  "tasksPage": {
+    "create": "Buat tugas",
+    "description": "Detail",
+    "due": "Tenggat",
+    "forStudent": "Tugaskan ke mahasiswa (akan muncul di aplikasinya)",
+    "me": "saya",
+    "new": "Tugas baru",
+    "owner": "Penanggung jawab",
+    "priority": "Prioritas",
+    "title": "Tugas",
+    "type": "Jenis"
+  },
+  "v15": {
+    "plan": {
+      "PREMIUM": "Premium",
+      "title": "Paket dibeli: {{plan}}"
+    },
+    "readiness": {
+      "READY": "Siap dikirim",
+      "SUBMITTED": "Terkirim",
+      "CHECKS_REQUIRED_one": "{{count}} hal perlu diperiksa sebelum dikirim",
+      "CHECKS_REQUIRED_other": "{{count}} hal perlu diperiksa sebelum dikirim",
+      "WAITING_UNIVERSITY": "Menunggu universitas",
+      "WAITING_STUDENT": "Menunggu mahasiswa",
+      "blockers": "Yang perlu diperhatikan",
+      "blocker": {
+        "document_missing": "{{detail}} diperlukan",
+        "document_expired": "{{detail}} sudah kedaluwarsa. Perlu yang masih berlaku",
+        "document_correction": "{{detail}}",
+        "document_legalization": "{{detail}} perlu apostille atau legalisasi konsuler",
+        "document_too_old": "{{detail}} diterbitkan di luar rentang waktu universitas",
+        "document_in_review": "{{detail}} sedang ditinjau",
+        "university_request": "Universitas meminta: {{detail}}",
+        "essay_draft": "{{detail}} belum selesai",
+        "essay_revision": "{{detail}} perlu perubahan yang diminta"
+      }
+    },
+    "scope": {
+      "strip": "Paket"
+    }
+  },
+  "v27": {
+    "guide": {
+      "missingTitle": "Panduan pendaftaran belum diverifikasi",
+      "missingBody": "Panduan pendaftaran resmi terbaru untuk universitas dan jenjang ini belum diverifikasi, jadi daftar dokumen belum ditampilkan. Daftar muncul setelah tim operasional Hangyul memverifikasi panduannya.",
+      "current": "Daftar dokumen dari",
+      "previous": "Berdasarkan panduan periode sebelumnya; panduan baru sedang diperiksa",
+      "source": "Panduan resmi",
+      "verified": "diperiksa {{date}}"
+    },
+    "stage": {
+      "ADMIT": "Tawaran & pendaftaran ulang",
+      "APPLY": "Pendaftaran terkirim",
+      "ARRIVAL": "Kedatangan",
+      "CONSULT": "Konsultasi",
+      "DOCUMENTS": "Dokumen",
+      "REVIEW": "Tinjauan universitas",
+      "VISA": "Visa",
+      "label": "Tahap kasus",
+      "nextSr": "tahap berikutnya",
+      "recent": "Perubahan terakhir {{count}} hari lalu",
+      "stalled": "Terhenti {{count}} hari",
+      "overdue": "Tenggat sudah lewat",
+      "stalled_one": "Terhenti 1 hari",
+      "recent_one": "Perubahan terakhir 1 hari lalu"
+    },
+    "issue": {
+      "UPLOAD": "Perlu diunggah",
+      "FIX": "Perlu diperbaiki",
+      "IN_REVIEW": "Sedang diperiksa",
+      "APOSTILLE": "Perlu apostille",
+      "CONSULAR": "Perlu legalisasi konsuler",
+      "CHINA_CHSI": "Perlu verifikasi CHSI",
+      "LEGALIZATION_REVIEW": "Jalur legalisasi perlu dicek",
+      "TRANSLATION": "Perlu terjemahan",
+      "NOTARIZATION": "Perlu notarisasi",
+      "ORIGINAL_CHECKED": "Dokumen asli sudah dicek",
+      "DONE": "Selesai"
+    },
+    "party": {
+      "student": "Mahasiswa yang mengurus",
+      "agency": "Kami yang mengurus"
+    },
+    "ifApplies": "Jika berlaku",
+    "evidence": {
+      "open": "Tampilkan bukti",
+      "legal": "Legalisasi",
+      "byNationality": "menurut kewarganegaraan; negara penerbit belum diketahui",
+      "extra": "Juga",
+      "form": "Diserahkan sebagai",
+      "age": "Diterbitkan dalam",
+      "ageDays": "{{count}} hari",
+      "when": "Berlaku jika",
+      "quote": "Kutipan panduan",
+      "proof": "Bukti dari mahasiswa",
+      "none": "Belum diunggah"
+    },
+    "legal": {
+      "NONE": "Tidak perlu",
+      "APOSTILLE": "Apostille",
+      "CONSULAR": "Legalisasi konsuler",
+      "CHINA_CHSI": "Verifikasi CHSI Tiongkok atau apostille",
+      "STAFF_REVIEW": "Cek sesuai negara penerbit",
+      "UNSPECIFIED": "Tidak disebutkan dalam panduan"
+    },
+    "form": {
+      "ORIGINAL": "Asli",
+      "COPY": "Salinan",
+      "EITHER": "Asli atau salinan"
+    },
+    "submit": {
+      "UPLOAD": "Unggah online",
+      "MAIL": "Lewat pos",
+      "IN_PERSON": "Datang langsung",
+      "ONLINE": "Formulir online",
+      "UPLOAD_MAIL": "Unggah, lalu kirim dokumen asli lewat pos"
+    },
+    "hq": {
+      "guidesTitle": "Panduan pendaftaran yang perlu diverifikasi",
+      "guidesSub": "Tanpa panduan terbaru yang terverifikasi, mahasiswa tidak melihat daftar dokumen. Diurutkan menurut jumlah mahasiswa yang menunggu.",
+      "guidesNone": "Tidak ada panduan pendaftaran yang perlu diverifikasi.",
+      "kind": {
+        "MISSING_GUIDE": "Belum ada panduan terverifikasi",
+        "STALE": "Panduan dari periode sebelumnya",
+        "CONFLICT": "Sumber resmi saling bertentangan",
+        "REVIEW_REQUIRED": "Perlu ditinjau",
+        "SPOT_CHECK": "Cek acak terhadap dokumen asli"
+      },
+      "waiting": "{{count}} pendaftaran sedang disiapkan"
+    }
+  },
+  "v28": {
+    "stage": {
+      "next": "Berikutnya: {{stage}}",
+      "of": "Tahap {{n}} dari {{total}}"
+    }
+  },
+  "actions": {
+    "moreFilters": "Filter lainnya"
+  },
+  "dash": {
+    "days_other": "{{count}} hari",
+    "period": "Periode laporan",
+    "subHq": "Tampilan lintas agensi untuk semua mahasiswa aktif, antrean, dan SLA.",
+    "workload": {
+      "member": "Anggota tim",
+      "open": "Tugas terbuka",
+      "overdue": "Terlambat",
+      "students": "Mahasiswa aktif"
+    }
+  },
+  "login": {
+    "asideFoot": "Data setiap organisasi disimpan terpisah dan setiap akses dicatat. Mahasiswa tidak pernah melihat catatan internal.",
+    "asideLead": "Mahasiswa, pekerjaan pendaftaran dan dokumen, serta pesan dalam satu ruang kerja.",
+    "asideTitle": "Siapa yang membutuhkan Anda, mengapa, dan sampai kapan, dimulai dari hari ini.",
+    "p1Text": "Setiap angka tahap membuka tepat mahasiswa yang ada di dalamnya.",
+    "p1Title": "Mahasiswa per tahap",
+    "p2Text": "Perbaikan dokumen, tenggat pendaftaran, dan balasan yang perlu diberikan, diurutkan menurut tenggat.",
+    "p2Title": "Pekerjaan dengan tenggat",
+    "p3Text": "Pratinjau aman dan daftar periksa; permintaan perbaikan disertai alasan yang jelas.",
+    "p3Title": "Pemeriksaan dokumen",
+    "p4Text": "Mahasiswa menerima kabar dari tim Hangyul Univ; siapa yang mengerjakannya tercatat di log audit.",
+    "p4Title": "Mahasiswa melihat tim Hangyul Univ",
+    "subtitle": "Untuk staf operasional Hangyul dan agensi studi ke luar negeri mitra.",
+    "title": "Masuk ke Konsol Agensi"
+  },
+  "notifs": {
+    "sub": "Semua yang terjadi selama Anda tidak ada."
+  },
+  "v29": {
+    "guide": {
+      "field": {
+        "checklist": "daftar periksa dokumen",
+        "current_intake": "panduan periode ini",
+        "deadline": "tenggat",
+        "source_url": "sumber resmi",
+        "submission_method": "cara pengajuan",
+        "verified_date": "tanggal verifikasi"
+      },
+      "verifyRequired": "Verifikasi sebelum pendaftaran yang dikelola: {{fields}}"
+    },
+    "plan": {
+      "addOnStatus": {
+        "ACTIVE": "Sedang berjalan",
+        "APPROVED": "Aktif (lama)",
+        "AWAITING_PAYMENT": "Menunggu pembayaran",
+        "COMPLETED": "Selesai",
+        "OFFERED": "Diusulkan"
+      },
+      "duty": {
+        "dedicated": "Tim khusus · balasan prioritas",
+        "docs": {
+          "CHECKLIST": "Dokumen: daftar periksa",
+          "INTENSIVE": "Dokumen: pemeriksaan intensif",
+          "REVIEW_GUIDANCE": "Dokumen: pemeriksaan dan catatan perbaikan"
+        },
+        "dorm": {
+          "APPLICATION": "Asrama: bantuan pendaftaran dan pilihan tempat tinggal lain",
+          "INFORMATION": "Asrama: informasi",
+          "SCHEDULE": "Asrama: jadwal pendaftaran dipantau"
+        },
+        "settle": {
+          "FULL": "Adaptasi: H-30 sampai H+30",
+          "INFORMATION": "Adaptasi: informasi dasar",
+          "NONE": "Adaptasi: tidak termasuk"
+        },
+        "visa": {
+          "DOCUMENT_PREP": "Visa: bantuan menyiapkan dokumen",
+          "GUIDANCE": "Visa: panduan proses",
+          "INTENSIVE": "Visa: dokumen dan tanggal penting dikelola"
+        }
+      },
+      "legacy": "Dibeli dengan {{version}}",
+      "offer": {
+        "howItWorks": "Berlaku hanya setelah mahasiswa melihat harga dan cakupan, menyetujui, dan membayar.",
+        "open": "Usulkan layanan tambahan",
+        "quantity": "Jumlah ({{unit}})",
+        "quote": "Penawaran khusus: masukkan harga dan cakupan",
+        "range": "Rentang yang disarankan {{min}}–{{max}}",
+        "scope": "Catatan cakupan (ditampilkan ke mahasiswa)",
+        "scopeRequired": "Cakupan (wajib, ditampilkan ke mahasiswa)",
+        "send": "Usulkan ke mahasiswa",
+        "service": "Layanan",
+        "total": "Mahasiswa membayar {{amount}}",
+        "unitPrice": "Harga satuan (USD)"
+      },
+      "term": {
+        "arrival": "Kedatangan",
+        "arrivalLabel": "Rencana tanggal kedatangan",
+        "arrivalUnknown": "Tanggal kedatangan belum dikonfirmasi",
+        "arrivalWindow": "Persiapan mulai {{from}} · tiba {{arrive}} · berakhir {{until}}",
+        "ended": "Masa layanan berakhir",
+        "endsLabel": "Akhir kontrak",
+        "notStarted": "Sebelum konsultasi pertama",
+        "saved": "Tanggal layanan tersimpan.",
+        "set": "Simpan tanggal",
+        "since": "Dimulai {{date}}",
+        "support": "Konsultasi hingga {{date}}",
+        "supportDays": "{{count}} hari sejak konsultasi pertama",
+        "title": "Masa layanan",
+        "toAgree": "Masa layanan belum ditetapkan",
+        "until": "Hingga {{date}}"
+      },
+      "unrationed": {
+        "CONTRACTED_DOCUMENTS": "Tanpa batas dalam cakupan dokumen dan jadwal sesuai kontrak",
+        "PRIORITY": "Balasan prioritas",
+        "ROUNDS": "Termasuk",
+        "TEAM": "Tindak lanjut tim"
+      },
+      "usedSoFar": "{{count}} selesai"
+    }
+  },
+  "v30": {
+    "def": {
+      "ops": {
+        "ageing": "Hari sejak kasus terakhir bergerak: yang terbaru di antara perubahan tahap alur, perubahan status pendaftaran, atau penugasan ke agensi ini.",
+        "backlog": "Pekerjaan terbuka pada akhir setiap minggu: tugas tim (bukan tugas mahasiswa sendiri) yang belum selesai, versi dokumen yang belum diperiksa, dan esai yang diajukan untuk ditinjau tetapi belum ditinjau (putaran tinjauan saat ini).",
+        "blocked": "Kasus dianggap terhambat jika menunggu suatu pihak dan tidak bergerak lebih dari 14 hari. Yang terlama lebih dulu.",
+        "deadlines": "Pendaftaran yang belum diajukan, tenggat pendaftarannya dalam 14 hari, dan masih kekurangan item wajib.",
+        "load": "Beban tertimbang per orang: setiap jenis pekerjaan terbuka yang dipegang × bobotnya (tabel bobot agensi), dibandingkan dengan kapasitas pribadinya dalam poin yang sama. Kelebihan beban = beban di atas kapasitas. Orang yang sedang cuti tidak diberi pekerjaan baru.",
+        "sla": "Balasan pertama tidak diberikan sampai tenggatnya; dokumen menunggu pemeriksaan lebih dari 48 jam; tinjauan esai melewati waktu tinjauan yang dijanjikan.",
+        "stages": "Median hari sebuah pendaftaran berada dalam satu status sebelum berpindah (masa yang berakhir dalam 365 hari terakhir). Tidak ditampilkan jika kurang dari {{n}} masa.",
+        "unassigned_paid": "Sudah membayar layanan Hangyul, tetapi belum ada konselor yang menangani kasusnya (atau, untuk Hangyul, belum ada agensi yang ditugaskan)."
+      },
+      "svc": {
+        "arrival": "Penjemputan bandara selesai ÷ penjemputan yang waktu kedatangannya sudah lewat (yang dibatalkan tidak dihitung)",
+        "completion": "Selesai ÷ kasus yang dibuat dalam periode ini (yang dibatalkan tidak dihitung)",
+        "resolution": "Median jam dari permintaan hingga selesai, hanya kasus yang selesai",
+        "sla": "Kasus yang ditindak tim setelah SLA (atau belum ditindak dan SLA-nya sudah lewat) ÷ kasus yang SLA-nya sudah jatuh tempo"
+      }
+    }
+  },
+  "v31": {
+    "stage": {
+      "closed": "Ditutup"
+    }
   }
- },
- "consult": {
-  "channel": {
-   "IN_PERSON": "Tatap muka",
-   "PHONE": "Telepon",
-   "VIDEO": "Panggilan video"
-  },
-  "channelLabel": "Saluran",
-  "duration": "Durasi",
-  "kind": {
-   "CONSULTATION": "Konsultasi",
-   "INTERVIEW": "Wawancara",
-   "INTERVIEW_PREP": "Latihan wawancara"
-  },
-  "kindLabel": "Jenis",
-  "minutes_other": "{{count}} menit",
-  "new": "Jadwalkan konsultasi",
-  "notes": "Agenda / catatan",
-  "notesHint": "Terlihat oleh mahasiswa di detail janji temunya.",
-  "notifyNote": "Mahasiswa menerima notifikasi berisi tanggal dan jam sesuai zona waktunya sendiri.",
-  "schedule": "Jadwalkan",
-  "when": "Tanggal & jam"
- },
- "tasksPage": {
-  "create": "Buat tugas",
-  "description": "Detail",
-  "due": "Tenggat",
-  "forStudent": "Tugaskan ke mahasiswa (akan muncul di aplikasinya)",
-  "me": "saya",
-  "new": "Tugas baru",
-  "owner": "Penanggung jawab",
-  "priority": "Prioritas",
-  "title": "Tugas",
-  "type": "Jenis"
- },
- "v15": {
-  "plan": {
-   "PREMIUM": "Premium",
-   "title": "Paket dibeli: {{plan}}"
-  },
-  "readiness": {
-   "READY": "Siap dikirim",
-   "SUBMITTED": "Terkirim",
-   "CHECKS_REQUIRED_one": "{{count}} hal perlu diperiksa sebelum dikirim",
-   "CHECKS_REQUIRED_other": "{{count}} hal perlu diperiksa sebelum dikirim",
-   "WAITING_UNIVERSITY": "Menunggu universitas",
-   "WAITING_STUDENT": "Menunggu mahasiswa",
-   "blockers": "Yang perlu diperhatikan",
-   "blocker": {
-    "document_missing": "{{detail}} diperlukan",
-    "document_expired": "{{detail}} sudah kedaluwarsa. Perlu yang masih berlaku",
-    "document_correction": "{{detail}}",
-    "document_legalization": "{{detail}} perlu apostille atau legalisasi konsuler",
-    "document_too_old": "{{detail}} diterbitkan di luar rentang waktu universitas",
-    "document_in_review": "{{detail}} sedang ditinjau",
-    "university_request": "Universitas meminta: {{detail}}",
-    "essay_draft": "{{detail}} belum selesai",
-    "essay_revision": "{{detail}} perlu perubahan yang diminta"
-   }
-  },
-  "scope": {
-   "strip": "Paket"
-  }
- },
- "v27": {
-  "guide": {
-   "missingTitle": "Panduan pendaftaran belum diverifikasi",
-   "missingBody": "Panduan pendaftaran resmi terbaru untuk universitas dan jenjang ini belum diverifikasi, jadi daftar dokumen belum ditampilkan. Daftar muncul setelah tim operasional Hangyul memverifikasi panduannya.",
-   "current": "Daftar dokumen dari",
-   "previous": "Berdasarkan panduan periode sebelumnya; panduan baru sedang diperiksa",
-   "source": "Panduan resmi",
-   "verified": "diperiksa {{date}}"
-  },
-  "stage": {
-   "ADMIT": "Tawaran & pendaftaran ulang",
-   "APPLY": "Pendaftaran terkirim",
-   "ARRIVAL": "Kedatangan",
-   "CONSULT": "Konsultasi",
-   "DOCUMENTS": "Dokumen",
-   "REVIEW": "Peninjauan universitas",
-   "VISA": "Visa",
-   "label": "Tahap kasus",
-   "nextSr": "tahap berikutnya",
-   "recent": "Perubahan terakhir {{count}} hari lalu",
-   "stalled": "Terhenti {{count}} hari",
-   "overdue": "Tenggat sudah lewat",
-   "stalled_one": "Terhenti 1 hari",
-   "recent_one": "Perubahan terakhir 1 hari lalu"
-  },
-  "issue": {
-   "UPLOAD": "Perlu diunggah",
-   "FIX": "Perlu diperbaiki",
-   "IN_REVIEW": "Sedang ditinjau",
-   "APOSTILLE": "Perlu apostille",
-   "CONSULAR": "Perlu legalisasi konsuler",
-   "CHINA_CHSI": "Perlu verifikasi CHSI",
-   "LEGALIZATION_REVIEW": "Jalur legalisasi perlu dicek",
-   "TRANSLATION": "Perlu terjemahan",
-   "NOTARIZATION": "Perlu notarisasi",
-   "ORIGINAL_CHECKED": "Dokumen asli sudah dicek",
-   "DONE": "Selesai"
-  },
-  "party": {
-   "student": "Mahasiswa yang mengurus",
-   "agency": "Kami yang mengurus"
-  },
-  "ifApplies": "Jika berlaku",
-  "evidence": {
-   "open": "Alasan dan sumber",
-   "legal": "Legalisasi",
-   "byNationality": "menurut kewarganegaraan; negara penerbit belum diketahui",
-   "extra": "Juga",
-   "form": "Bentuk",
-   "age": "Diterbitkan dalam",
-   "ageDays": "{{count}} hari",
-   "when": "Berlaku jika",
-   "quote": "Kutipan panduan",
-   "proof": "Bukti dari mahasiswa",
-   "none": "Belum diunggah"
-  },
-  "legal": {
-   "NONE": "Tidak perlu",
-   "APOSTILLE": "Apostille",
-   "CONSULAR": "Legalisasi konsuler",
-   "CHINA_CHSI": "Verifikasi CHSI Tiongkok atau apostille",
-   "STAFF_REVIEW": "Cek sesuai negara penerbit",
-   "UNSPECIFIED": "Tidak disebutkan dalam panduan"
-  },
-  "form": {
-   "ORIGINAL": "Asli",
-   "COPY": "Salinan",
-   "EITHER": "Asli atau salinan"
-  },
-  "submit": {
-   "UPLOAD": "Unggah online",
-   "MAIL": "Lewat pos",
-   "IN_PERSON": "Datang langsung",
-   "ONLINE": "Formulir online",
-   "UPLOAD_MAIL": "Unggah, lalu kirim dokumen asli lewat pos"
-  },
-  "hq": {
-   "guidesTitle": "Panduan pendaftaran untuk ditinjau",
-   "guidesSub": "Tanpa panduan terbaru yang terverifikasi, mahasiswa tidak melihat daftar dokumen. Diurutkan menurut jumlah mahasiswa yang menunggu.",
-   "guidesNone": "Tidak ada yang perlu ditinjau.",
-   "kind": {
-    "MISSING_GUIDE": "Belum ada panduan terverifikasi",
-    "STALE": "Panduan dari periode sebelumnya",
-    "CONFLICT": "Sumber resmi saling bertentangan",
-    "REVIEW_REQUIRED": "Perlu ditinjau",
-    "SPOT_CHECK": "Cek acak dengan PDF"
-   },
-   "waiting": "{{count}} pendaftaran sedang disiapkan"
-  }
- },
- "v28": {
-  "stage": {
-   "next": "Berikutnya: {{stage}}",
-   "of": "Tahap {{n}} dari {{total}}"
-  }
- }
 }

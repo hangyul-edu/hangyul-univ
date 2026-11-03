@@ -4,12 +4,11 @@ import { changeLocale, consoleLocale, i18next, initI18n, installKeyRecorder, isR
 import { loadIntlFallback } from '@hangyul/utils';
 import type { ClientApp } from '@hangyul/types';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useCallback, useEffect, useState, type FormEvent, type ReactNode } from 'react';
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router';
 
 import { Logo } from './brand';
 import { LocaleSelector, setLocaleSelectorSurface } from './locale-selector';
-import { useDemoParamLogin } from './devaccess';
 import { ToastProvider } from './overlays';
 import { Button, Callout, Field, Input, Skeleton } from './primitives';
 
@@ -65,17 +64,7 @@ export async function bootWebApp(opts: { client: ClientApp; namespaces: Namespac
   // localization crawl can measure which keys each customer route actually renders (scripts/qa/v23/l10n-crawl.mjs).
   if (import.meta.env.DEV) installKeyRecorder();
   applyDocumentLocale(locale);
-  /*
-   * **Review mode** (V17, REPORT §153) — the one seam between the product and the server.
-   *
-   * `VITE_REVIEW_MODE` is a build-time literal, so a production build folds this to `false`, the dynamic
-   * import below becomes dead code, and Vite drops both the review transport and the fixture JSON it pulls
-   * in. Nothing downstream — no page, query, hook or component — knows which transport it got.
-   */
-  const review = import.meta.env.VITE_REVIEW_MODE === 'true'
-    ? await loadReviewTransport(opts.client)
-    : undefined;
-  const api = createApiClient({ baseUrl: '', client: opts.client, fetchImpl: review, getLocale: () => i18next.language });
+  const api = createApiClient({ baseUrl: '', client: opts.client, getLocale: () => i18next.language });
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -94,35 +83,6 @@ export async function bootWebApp(opts: { client: ClientApp; namespaces: Namespac
   return { api, queryClient };
 }
 
-
-/**
- * The fixture-backed `fetch` for a server-free preview, loaded only when the build asked for one.
- *
- * Each app gets its own bundle, captured from a live dev stack by `npm run review:fixtures`. A bundle that
- * is missing is not fatal: the preview falls back to the real transport, which in a server-free deployment
- * surfaces as the apps' ordinary network error states rather than as a blank screen with no explanation.
- */
-async function loadReviewTransport(client: ClientApp): Promise<typeof fetch | undefined> {
-  try {
-    const { reviewFetch } = await import('@hangyul/api-client/review');
-    // **Literal paths, one per app.** A template-literal import across a package boundary is not statically
-    // analysable, so Vite cannot emit the chunk and the import fails at run time — silently, into the catch
-    // below, leaving the preview talking to a server that is not there. That is exactly what the first
-    // review build did: every app rendered its sign-in screen and the only symptom was a 501 from the
-    // static file server. Four literals cost nothing and cannot fail that way.
-    const bundle = await (
-      client === 'student' ? import('@hangyul/api-client/fixtures/student.json')
-        : client === 'agency' ? import('@hangyul/api-client/fixtures/agency.json')
-          : client === 'university' ? import('@hangyul/api-client/fixtures/university.json')
-            : import('@hangyul/api-client/fixtures/marketing.json')
-    );
-    return reviewFetch((bundle as { default: Parameters<typeof reviewFetch>[0] }).default);
-  } catch (e) {
-    // Loud, not silent: a preview that quietly falls back to the network looks like a product bug.
-    console.error('[review] fixture bundle could not be loaded — falling back to the network', e);
-    return undefined;
-  }
-}
 
 export function AppProviders({ api, queryClient, children }: { api: ApiClient; queryClient: QueryClient; children: ReactNode }) {
   return (
@@ -147,10 +107,30 @@ export function FullPageLoader() {
   );
 }
 
+/**
+ * V32 — the service could not be reached. Branded, calm, localized, with one action; never a raw transport message,
+ * never stale or synthetic data in its place. Shown by `RequireAuth` when the session restore finds no API, and
+ * available to the consoles' own shells.
+ */
+export function ServiceUnavailable({ onRetry, product }: { onRetry?: () => void; product?: string }) {
+  const { t } = useLocale('common');
+  return (
+    <div className="hg-unavailable" role="status">
+      <div className="hg-unavailable__card">
+        <Logo tag={product} />
+        <h1 className="hg-title-md">{t('states.unavailableTitle')}</h1>
+        <p className="hg-muted">{t('states.unavailableText')}</p>
+        {onRetry && <Button onClick={onRetry}>{t('actions.retry')}</Button>}
+      </div>
+    </div>
+  );
+}
+
 export function RequireAuth({ children, loginPath = '/login' }: { children: ReactNode; loginPath?: string }) {
-  const { status } = useAuth();
+  const { status, retry } = useAuth();
   const loc = useLocation();
   if (status === 'loading') return <FullPageLoader />;
+  if (status === 'unavailable') return <ServiceUnavailable onRetry={() => void retry()} />;
   if (status === 'anonymous') return <Navigate to={`${loginPath}?next=${encodeURIComponent(loc.pathname + loc.search)}`} replace />;
   return <>{children}</>;
 }
@@ -169,7 +149,6 @@ export function safeNext(value: string | null | undefined, fallback: string): st
  */
 export function carryQuery(search: string): string {
   const q = new URLSearchParams(search);
-  q.delete('demo');            // development-only persona shortcut; never forwarded
   const out = q.toString();
   return out ? `?${out}` : '';
 }
@@ -215,13 +194,13 @@ export function LoginScreen({ product, title, subtitle, aside, footer, afterLogi
       nav(next, { replace: true });
     } catch (err) {
       const s = (err as { status?: number }).status;
-      setFormError(s === 401 ? t('auth.invalid') : (err as Error).message);
+      const unreachable = (err as { unreachable?: boolean }).unreachable;
+      setFormError(s === 401 ? t('auth.invalid') : unreachable ? t('states.unavailableText') : (err as Error).message);
     } finally {
       setBusy(false);
     }
   };
 
-  const demoError = useDemoParamLogin(useCallback(() => nav(next, { replace: true }), [nav, next]));
   void aside;
 
   return (
@@ -237,7 +216,7 @@ export function LoginScreen({ product, title, subtitle, aside, footer, afterLogi
             {subtitle && <p className="hg-muted">{subtitle}</p>}
           </div>
           <form onSubmit={submit} noValidate className="hg-stack" style={{ '--hg-gap': '14px' } as React.CSSProperties}>
-            {(formError || demoError) && <Callout tone="danger">{formError || demoError}</Callout>}
+            {formError && <Callout tone="danger">{formError}</Callout>}
             <Field label={t('auth.email')} htmlFor="email" error={errors.email}>
               <Input id="email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} invalid={!!errors.email} />
             </Field>

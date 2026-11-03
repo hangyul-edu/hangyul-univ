@@ -1,4 +1,4 @@
-// V26 — axe detail for one route (REPORT §348). node scripts/qa/v26/axe-probe.mjs <url> [width] [demo-login-email]
+// V26 — axe detail for one route (REPORT §348). node scripts/qa/v26/axe-probe.mjs <url> [width] [fixture-email]
 import { chromium } from '@playwright/test';
 import fs from 'node:fs';
 const [url, w = '1440', login] = process.argv.slice(2);

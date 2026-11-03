@@ -1,0 +1,2158 @@
+{
+  "_notes": [
+    "plan: unified to «тариф» in every student/mobile string of this job (cur mixed «жоспар», «қолдау жоспары», «тариф»). «жоспар» collides with «оқу жоспары» (study plan); marketing/common/agency kk already say «тариф».",
+    "team identity (V22): student-facing «кеңесшіңіз / тексерушіңіз» replaced by «Hangyul командасы» (English «Hangyul team») and «Hangyul Univ командасы» (English «Hangyul Univ team»); «Hangyul Univ тобы» inside the job changed to «командасы». About 59 strings in packages/i18n/locales/kk/student.json outside this job still say «Hangyul Univ тобы» — owner to decide on a global rename. Staff-facing agency/university strings keep «кеңесші» where the English says counselor.",
+    "passport: unified to the official «төлқұжат» (cur mixed «паспорт»); «паспорт» remains in a few strings outside this job.",
+    "personal statement = «мотивациялық хат» (established in common/marketing kk); «editing» rendered «редакциялау», not «түзету» (correction), so the student-does-the-writing promise is kept. Mock interview = «сынақ сұхбат» (common kk). Priority response = «Бірінші кезекте жауап» (common kk).",
+    "applicant (university console) rendered «талапкер», the usual Kazakhstani admissions word; university.json has one «үміткер» (v25.head.decide) outside this job — owner may want to align it.",
+    "Dates/amounts after a placeholder cannot take a Kazakh case suffix safely, so «by {{date}}» is «{{date}} күніне дейін» and budget ranges are «Ең көбі {{amount}}» / «{{amount}} және одан көп».",
+    "mobile:login.networkError: the current Kazakh carried developer-only emulator instructions; replaced with the glossary «can't be reached» wording.",
+    "student:v17.gate.named keeps the frame «Тариф {{what}} қамтиды» so the existing accusative gate.what.* values still read as one sentence.",
+    "Kazakh has no plural inflection on counted nouns, so _one/_other forms are identical and always carry {{count}}.",
+    "Not changed, for the owner: «кеңес» is kept for consultation (bundle-wide); «консультация» would be clearer for a scheduled session in Kazakhstan but changing it is a global decision. Localized examples (Әл-Фараби атындағы ҚазҰУ, қазақстандық компаниялар) were left as they are."
+  ],
+  "student:dashboard.counselor.noneCta": {
+    "text": "Тарифтерді көру",
+    "why": "plan = тариф; says what it is"
+  },
+  "student:dashboard.counselor.noneText": {
+    "text": "Тариф таңдасаңыз, Hangyul командасы құжаттарыңызды, эсселеріңізді және стратегияңызды сіздің тіліңізде қарап шығады.",
+    "why": "plan = тариф"
+  },
+  "student:documents.privacy.short": {
+    "text": "Шифрланып сақталады. Өтінім жібергенге дейін оны тек сіз және Hangyul командасы аша алады.",
+    "why": "team term unified"
+  },
+  "student:home.docAction.IN_REVIEW": {
+    "text": "Тексерілуде",
+    "why": "missing"
+  },
+  "student:home.docAction.LEGALIZE": {
+    "text": "Апостиль қажет",
+    "why": "missing"
+  },
+  "student:home.docAction.OPEN": {
+    "text": "Ашу",
+    "why": "missing"
+  },
+  "student:home.documents": {
+    "text": "Назар аударатын құжаттар",
+    "why": "«өңделетін» read as being processed"
+  },
+  "student:home.team": {
+    "text": "Hangyul Univ командасы",
+    "why": "matches English; team term unified"
+  },
+  "student:housing.noDorms": {
+    "text": "Бұл университет жатақхана туралы ақпаратты әлі жарияламаған.",
+    "why": "missing"
+  },
+  "student:housing.noUni": {
+    "text": "Тұрғын үй бөлімі алғашқы өтініміңізден кейін ашылады",
+    "why": "missing"
+  },
+  "student:housing.noUniCta": {
+    "text": "Өтінімдерге өту",
+    "why": "missing"
+  },
+  "student:housing.noUniText": {
+    "text": "Өтінім бергеннен кейін сол университеттің жатақхана нұсқалары мен бағаларын көрсетеміз.",
+    "why": "missing"
+  },
+  "student:housing.subtitle": {
+    "text": "Жатақхана нұсқаларын салыстырып, тұрғын үй қадамдарыңызды қадағалаңыз.",
+    "why": "missing"
+  },
+  "student:housing.title": {
+    "text": "Тұрғын үй",
+    "why": "missing"
+  },
+  "student:login.aside.point3": {
+    "text": "Сіздің тіліңізде сөйлейтін Hangyul командасының нақты адамдарымен бірге дайындалыңыз.",
+    "why": "counselor → Hangyul team (V22)"
+  },
+  "student:messages.new.subtitle": {
+    "text": "Hangyul командасы осында жауап береді.",
+    "why": "team term unified"
+  },
+  "student:onboarding.education.levels.HIGH_SCHOOL": {
+    "text": "Орта мектеп",
+    "why": "«мектеп» alone is ambiguous"
+  },
+  "student:onboarding.goals.degreeSub.LANGUAGE": {
+    "text": "Алдымен корей тілінен бастаңыз, өз қарқыныңызбен",
+    "why": "dropped claim not in English"
+  },
+  "student:onboarding.passport.expiry": {
+    "text": "Төлқұжаттың жарамдылық мерзімі",
+    "why": "passport = төлқұжат"
+  },
+  "student:onboarding.passport.number": {
+    "text": "Төлқұжат нөмірі",
+    "why": "passport = төлқұжат"
+  },
+  "student:onboarding.passport.numberHint": {
+    "text": "Міндетті емес. Біз тек соңғы цифрларды сақтаймыз; толық нөмір төлқұжат құжатыңызда қалады.",
+    "why": "passport = төлқұжат"
+  },
+  "student:onboarding.passport.visa.D-4": {
+    "text": "D-4 (тіл курсы)",
+    "why": "language course, not learner"
+  },
+  "student:onboarding.passport.visa.F": {
+    "text": "F (тұру немесе отбасы)",
+    "why": "simpler, matches English"
+  },
+  "student:onboarding.preferences.budgetOver": {
+    "text": "{{amount}} және одан көп",
+    "why": "placeholder needs no case suffix"
+  },
+  "student:onboarding.preferences.budgetUpTo": {
+    "text": "Ең көбі {{amount}}",
+    "why": "placeholder needs no case suffix"
+  },
+  "student:onboarding.preferences.scholarshipYesSub": {
+    "text": "Сізге сай келуі мүмкін стипендиясы бар бағдарламаларды ерекше белгілейміз",
+    "why": "unnatural word order"
+  },
+  "student:onboarding.steps.basics.eyebrow": {
+    "text": "Сіз туралы",
+    "why": "missing"
+  },
+  "student:onboarding.steps.education.eyebrow": {
+    "text": "Оқуыңыз",
+    "why": "missing"
+  },
+  "student:onboarding.steps.goals.eyebrow": {
+    "text": "Мақсатыңыз",
+    "why": "missing"
+  },
+  "student:onboarding.steps.language.eyebrow": {
+    "text": "Тілдер",
+    "why": "missing"
+  },
+  "student:onboarding.steps.passport.eyebrow": {
+    "text": "Сапар",
+    "why": "missing"
+  },
+  "student:onboarding.steps.preferences.eyebrow": {
+    "text": "Бюджет және өмір",
+    "why": "missing"
+  },
+  "student:onboarding.steps.sponsor.eyebrow": {
+    "text": "Соңғы қадам",
+    "why": "missing"
+  },
+  "student:onboarding.steps.passport.title": {
+    "text": "Төлқұжат және виза тарихы",
+    "why": "passport = төлқұжат"
+  },
+  "student:onboarding.steps.sponsor.subtitle": {
+    "text": "Университеттер мен виза қызметкерлері қаржылық қолдау туралы сұрайды. Мақсатыңызды білу Hangyul командасына сізге бағыт беруге көмектеседі.",
+    "why": "team term; closer to English"
+  },
+  "student:profile.title": {
+    "text": "Профиліңіз",
+    "why": "missing"
+  },
+  "student:register.consent.CROSS_BORDER_VERIFICATION.label": {
+    "text": "Электрондық поштам мен ұялы телефон нөмірімді растау үшін олардың шетелде өңделетінін білемін",
+    "why": "verify them, not identity"
+  },
+  "student:register.consent.MARKETING.summary": {
+    "text": "Міндетті емес. Электрондық пошта немесе SMS арқылы; кез келген уақытта бас тартуға болады.",
+    "why": "optional = міндетті емес"
+  },
+  "student:register.consent.PRIVACY.summary": {
+    "text": "Тіркелгіңізді жасау және қорғау үшін: электрондық пошта, ұялы телефон нөмірі, аты-жөні, азаматтығы және құпиясөз (шифрланып сақталады).",
+    "why": "«хэш» is jargon; match English"
+  },
+  "student:register.consent.text": {
+    "text": "Тіркелгі жасау үшін міндетті тармақтарға келісім беру қажет. Қосымша келісімді Баптаулардан кез келген уақытта кері қайтаруға болады.",
+    "why": "Settings = Баптаулар"
+  },
+  "student:register.consent.title": {
+    "text": "Деректеріңізді қалай өңдейміз",
+    "why": "match plain English title"
+  },
+  "student:register.exists": {
+    "text": "Бұл электрондық поштамен тіркелгі бұрыннан бар. Оның орнына кіріп көріңіз.",
+    "why": "email term unified"
+  },
+  "student:register.prior.level.HIGH_SCHOOL": {
+    "text": "орта мектеп",
+    "why": "«мектеп» alone is ambiguous"
+  },
+  "student:register.verify.delivery.REGION_UNSUPPORTED.email": {
+    "text": "Бұл мекенжайға хат жіберу мүмкін емес. Басқа электрондық пошта мекенжайын пайдаланыңыз.",
+    "why": "email term unified"
+  },
+  "student:register.verify.delivery.UNREACHABLE.email": {
+    "text": "Дәл қазір электрондық пошта қызметімізге қосыла алмадық. Енгізгеніңіздің бәрі сақталған. {{seconds}} секундтан кейін қайталап көріңіз.",
+    "why": "email term unified"
+  },
+  "student:register.verify.sentTo": {
+    "text": "Код жіберілді: {{target}}",
+    "why": "target may be a phone, not an address"
+  },
+  "student:register.verify.text": {
+    "text": "Біз жіберген кодтарды енгізіңіз. Әр код 5 минут бойы жарамды.",
+    "why": "plural codes"
+  },
+  "student:register.verify.tooSoon": {
+    "text": "Жаңа код сұрамас бұрын сәл күте тұрыңыз.",
+    "why": "cur said the opposite (ask again)"
+  },
+  "student:settings.privacy.purpose.OUTCOME_RESEARCH.title": {
+    "text": "Анонимделген нәтижелерімді зерттеуге пайдалану",
+    "why": "«жасырын» = secret, not anonymized"
+  },
+  "student:settings.privacy.who.agency": {
+    "text": "Hangyul командасының серіктес агенттігі: профиліңіз, құжаттарыңыз және эсселеріңіз, тек тариф таңдағаннан кейін.",
+    "why": "after you have a plan"
+  },
+  "student:settings.privacy.who.hangyul": {
+    "text": "Hangyul қызметкерлері: тек қолдау және тексеру үшін, әрбір кіру тіркеліп отырады.",
+    "why": "«қолжетімділік» is a calque"
+  },
+  "student:v15.services.allowance.key.essay_review_rounds": {
+    "text": "Мотивациялық хат пен оқу жоспарын редакциялау",
+    "why": "editing ≠ correction"
+  },
+  "student:v15.services.allowance.key.max_managed_applications": {
+    "text": "Бірге жүргізілетін өтінімдер",
+    "why": "one term for managed application"
+  },
+  "student:v15.services.allowance.key.mock_interviews": {
+    "text": "Сынақ сұхбаттар",
+    "why": "mock interview = сынақ сұхбат"
+  },
+  "student:v15.services.allowance.title": {
+    "text": "Не кіреді және нені пайдаландыңыз",
+    "why": "plain, matches English"
+  },
+  "student:v15.services.current": {
+    "text": "Сіздің тарифіңіз",
+    "why": "matches English"
+  },
+  "student:v15.services.scope.personal_roadmap": {
+    "text": "Шетелде оқудың жеке жол картасы",
+    "why": "study-abroad was dropped"
+  },
+  "student:v15.services.scope.priority_response": {
+    "text": "Hangyul командасынан бірінші кезекте жауап",
+    "why": "team term; priority term unified"
+  },
+  "student:v15.services.scope.title": {
+    "text": "Тарифіңізге кіретіндер",
+    "why": "matches English"
+  },
+  "student:v15.services.scope.visa_support": {
+    "text": "Виза құжаттарын дайындау",
+    "why": "glossary: visa document preparation"
+  },
+  "student:v16.pay.amount": {
+    "text": "Сома",
+    "why": "missing"
+  },
+  "student:v16.pay.cancelled": {
+    "text": "Төлемді болдырмадыңыз. Ақша алынған жоқ.",
+    "why": "missing"
+  },
+  "student:v16.pay.couldNotStart": {
+    "text": "Төлем терезесін аша алмадық.",
+    "why": "missing"
+  },
+  "student:v16.pay.cta": {
+    "text": "Төлеп, бастау",
+    "why": "missing"
+  },
+  "student:v16.pay.fail.title": {
+    "text": "Төлем өтпеді",
+    "why": "missing"
+  },
+  "student:v16.pay.method": {
+    "text": "Төлем тәсілі",
+    "why": "missing"
+  },
+  "student:v16.pay.methodCard": {
+    "text": "Карта",
+    "why": "missing"
+  },
+  "student:v16.pay.notCharged": {
+    "text": "Ақша алынған жоқ.",
+    "why": "missing"
+  },
+  "student:v16.pay.orderNo": {
+    "text": "Тапсырыс",
+    "why": "missing"
+  },
+  "student:v16.pay.orderTitle": {
+    "text": "Тапсырысыңыз",
+    "why": "missing"
+  },
+  "student:v16.pay.receipt": {
+    "text": "Түбіртекті көру",
+    "why": "missing"
+  },
+  "student:v16.pay.retry": {
+    "text": "Төлемді қайталау",
+    "why": "missing"
+  },
+  "student:v16.pay.sdkDown": {
+    "text": "Төлем терезесі жүктелмеді. Байланысыңызды тексеріп, қайталап көріңіз.",
+    "why": "missing"
+  },
+  "student:v16.pay.selected": {
+    "text": "Таңдалды",
+    "why": "missing"
+  },
+  "student:v16.pay.status.CANCELLED": {
+    "text": "Болдырылмады",
+    "why": "missing"
+  },
+  "student:v16.pay.status.FAILED": {
+    "text": "Сәтсіз",
+    "why": "missing"
+  },
+  "student:v16.pay.status.PENDING": {
+    "text": "Күтілуде",
+    "why": "missing"
+  },
+  "student:v16.pay.success.cta": {
+    "text": "Дайындықты бастау",
+    "why": "missing"
+  },
+  "student:v16.pay.success.text": {
+    "text": "{{name}} тарифімен Кореяда оқуға дайындықты бастадыңыз.",
+    "why": "missing"
+  },
+  "student:v16.pay.success.title": {
+    "text": "Төлем аяқталды",
+    "why": "missing"
+  },
+  "student:v17.gate.general": {
+    "text": "Hangyul-дың бұл бөлігі тарифке кіреді. Бастау үшін тариф таңдаңыз.",
+    "why": "plan = тариф"
+  },
+  "student:v17.gate.named": {
+    "text": "Тариф {{what}} қамтиды. Бастау үшін тариф таңдаңыз.",
+    "why": "plan = тариф; keeps accusative {{what}}"
+  },
+  "student:v17.gate.what.arrival": {
+    "text": "келу және орнығу көмегін",
+    "why": "glossary: arrival and settling-in help"
+  },
+  "student:v17.gate.what.essays": {
+    "text": "мотивациялық хат пен оқу жоспарын редакциялауды",
+    "why": "editing, personal statement term"
+  },
+  "student:v17.gate.what.help": {
+    "text": "Hangyul командасының көмегін",
+    "why": "says who helps"
+  },
+  "student:v17.gate.what.housing": {
+    "text": "жатақхана бойынша көмекті",
+    "why": "dormitory, not housing"
+  },
+  "student:v17.gate.what.messages": {
+    "text": "Hangyul командасымен хат алмасуды",
+    "why": "was a bare noun, broke the sentence"
+  },
+  "student:v17.gate.what.scholarships": {
+    "text": "стипендия іріктеуді",
+    "why": "scholarship = стипендия"
+  },
+  "student:v17.gate.what.tasks": {
+    "text": "тапсырмалар тізіміңізді",
+    "why": "list, not plan"
+  },
+  "student:v17.gate.what.visa": {
+    "text": "виза құжаттарын дайындауды",
+    "why": "glossary term"
+  },
+  "student:v17.pay.afterPay": {
+    "text": "Сізді Toss Payments-ке жібереміз, онда шетелдік картамен (Visa, Mastercard, JCB) төлей аласыз. Төлем расталған сәтте тарифіңіз басталады.",
+    "why": "plan = тариф"
+  },
+  "student:v17.upgrade.amount": {
+    "text": "Ауысу бағасы",
+    "why": "it is a price, not an action"
+  },
+  "student:v17.upgrade.cta": {
+    "text": "{{plan}} тарифіне ауысу",
+    "why": "plan = тариф"
+  },
+  "student:v17.upgrade.currentPlan": {
+    "text": "Қазіргі тариф",
+    "why": "plan = тариф"
+  },
+  "student:v17.upgrade.feature.essay_review": {
+    "text": "Мотивациялық хатты редакциялау",
+    "why": "personal statement editing"
+  },
+  "student:v17.upgrade.feature.managed_application": {
+    "text": "Бірге жүргізілетін өтінімдер",
+    "why": "one term for managed application"
+  },
+  "student:v17.upgrade.title": {
+    "text": "{{feature}} — {{plan}} тарифінің бөлігі.",
+    "why": "plan = тариф"
+  },
+  "student:v21.pay.afterCard": {
+    "text": "Бір реттік төлем. Төлем расталған бойда тарифіңіз басталады. Автоматты ұзарту да, қайталама төлем де жоқ.",
+    "why": "plan = тариф"
+  },
+  "student:v21.pay.cardFailed": {
+    "text": "Төлем өтпеді",
+    "why": "missing"
+  },
+  "student:v21.pay.cardSecure": {
+    "text": "Карта деректеріңіз шифрланған байланыс арқылы тек Hangyul-ға, одан әрі төлем провайдерімізге жіберіледі. Карта нөміріңізді ешқашан сақтамаймыз.",
+    "why": "missing"
+  },
+  "student:v21.pay.cardTitle": {
+    "text": "Картамен төлеу",
+    "why": "missing"
+  },
+  "student:v21.pay.declined": {
+    "text": "Карта қабылданбады: {{reason}} Басқа картаны қолданып көріңіз немесе банкіңізден сұраңыз.",
+    "why": "missing"
+  },
+  "student:v21.pay.expiry": {
+    "text": "Жарамдылық мерзімі",
+    "why": "missing"
+  },
+  "student:v21.pay.holder": {
+    "text": "Картадағы аты-жөні",
+    "why": "missing"
+  },
+  "student:v21.pay.notConfigured": {
+    "text": "Картамен төлеу мұнда әзірге қолжетімсіз. Кейінірек қайталап көріңіз немесе бізге хабарласыңыз.",
+    "why": "missing"
+  },
+  "student:v21.pay.number": {
+    "text": "Карта нөмірі",
+    "why": "missing"
+  },
+  "student:v21.pay.numberInvalid": {
+    "text": "Карта нөмірін тексеріңіз.",
+    "why": "missing"
+  },
+  "student:v21.pay.optional": {
+    "text": "міндетті емес",
+    "why": "missing"
+  },
+  "student:v21.pay.payCta": {
+    "text": "Осы картамен төлеу",
+    "why": "missing"
+  },
+  "student:v21.pay.processing": {
+    "text": "Төлем өңделуде…",
+    "why": "missing"
+  },
+  "student:v21.pay.savedDelete": {
+    "text": "Жою",
+    "why": "missing"
+  },
+  "student:v21.pay.savedDeleteBody": {
+    "text": "{{card}} картасын тіркелгіңізден жоямыз. Бұл бұрын жасалған төлемге әсер етпейді.",
+    "why": "missing"
+  },
+  "student:v21.pay.savedDeleteFailed": {
+    "text": "Картаны жою мүмкін болмады. Қайталап көріңіз.",
+    "why": "missing"
+  },
+  "student:v21.pay.savedDeleteTitle": {
+    "text": "Бұл картаны жоясыз ба?",
+    "why": "missing"
+  },
+  "student:v21.pay.savedNotReusable": {
+    "text": "Келесі сатып алуда картаңызды қайта енгізесіз.",
+    "why": "missing"
+  },
+  "student:v21.pay.savedTitle": {
+    "text": "Картаңыз",
+    "why": "missing"
+  },
+  "student:v21.pay.tooMany": {
+    "text": "Карта әрекеттері тым көп. Қайталамас бұрын бірнеше минут күтіңіз.",
+    "why": "missing"
+  },
+  "student:v22.checkout.included": {
+    "text": "Не кіреді",
+    "why": "matches English, same as allowance title"
+  },
+  "student:v22.checkout.oneTime": {
+    "text": "Бір реттік төлем · жазылым емес",
+    "why": "not a subscription"
+  },
+  "student:v22.home.appTeam.follow": {
+    "text": "{{university}} қабылдау бөлімімен барысы нақтыланып жатыр",
+    "why": "admissions office was dropped"
+  },
+  "student:v22.home.appTeam.letter": {
+    "text": "{{university}} беретін стандартты қабылдау хатыңыз қадағаланып жатыр",
+    "why": "official name: стандартты қабылдау хаты"
+  },
+  "student:v22.home.appTeam.submit": {
+    "text": "{{university}} университетіне жіберілетін өтініміңіз дайындалып жатыр",
+    "why": "bare university name read wrong"
+  },
+  "student:v22.home.appsNeedYou": {
+    "text": "Сізден әрекет күтетін өтінімдер",
+    "why": "«сізді қажет ететін» is unnatural"
+  },
+  "student:v22.home.writing": {
+    "text": "Эсселер",
+    "why": "«Жазбалар» = notes; section is essays"
+  },
+  "student:v26.explore.otherLevel": {
+    "text": "Басқа деңгейдегі бағдарламалар күңгірттеу көрсетілген ({{count}}).",
+    "why": "dimmed"
+  },
+  "student:v26.now.scopeToggle": {
+    "text": "Тарифке кіретінің бәрін көру",
+    "why": "it is a toggle action; тариф"
+  },
+  "student:v29.services.catalogue.premiumEditing": {
+    "text": "Premium тарифіне келісімшарттағы құжаттарыңызды редакциялау бұрыннан кіреді.",
+    "why": "editing; «already»"
+  },
+  "student:v29.services.legacyContract": {
+    "text": "Бұл тариф сатып алған кездегі қызмет шарты ({{version}}) бойынша ұсынылады.",
+    "why": "plan = тариф"
+  },
+  "student:v29.services.unrationed.PRIORITY": {
+    "text": "Бірінші кезекте жауап",
+    "why": "priority term unified (common)"
+  },
+  "student:v29.services.unrationed.TEAM": {
+    "text": "Командаңыздың қолдауы",
+    "why": "one wording with mobile"
+  },
+  "student:v29.services.upgrade.amountPending": {
+    "text": "Hangyul Univ командасымен келісіледі",
+    "why": "arranged, not announced"
+  },
+  "student:v29.services.upgrade.sheetLede": {
+    "text": "Осы уақытқа дейін жасалғанның бәрі сақталады. Жоғары тарифке ауысу бағасын Hangyul Univ командасы өзі хабарлайды.",
+    "why": "plan = тариф"
+  },
+  "student:writing.needYou": {
+    "text": "Жазу немесе түзету кезегі сізде",
+    "why": "says what is expected"
+  },
+  "student:writing.others": {
+    "text": "Hangyul командасы қарап жатыр немесе дайын",
+    "why": "clearer"
+  },
+  "student:writing.status.FINAL_REVIEW": {
+    "text": "Hangyul командасы тексеріп жатыр",
+    "why": "same as AGENCY_REVIEW"
+  },
+  "student:writing.title": {
+    "text": "Эсселер",
+    "why": "«Жазбалар» = notes"
+  },
+  "mobile:agency.deadlines.empty": {
+    "text": "Алдағы 30 күнде мерзім жоқ",
+    "why": "missing"
+  },
+  "mobile:agency.deadlines.subtitle": {
+    "text": "Студенттеріңіздің алдағы 30 күндегі мерзімдері.",
+    "why": "missing"
+  },
+  "mobile:agency.deadlines.title": {
+    "text": "Еске салулар",
+    "why": "missing"
+  },
+  "mobile:agency.messages.subtitle": {
+    "text": "Студенттермен сөйлесулер және ішкі жазбалар.",
+    "why": "missing"
+  },
+  "mobile:agency.messages.title": {
+    "text": "Хабарламалар",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.detailTitle": {
+    "text": "Тексеру",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.empty": {
+    "text": "Тексеру кезегі бос",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.emptyBody": {
+    "text": "Студенттеріңіздің жаңа жүктеген файлдары осында көрсетіледі.",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.history": {
+    "text": "Тексеру тарихы",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.lastReason": {
+    "text": "Алдыңғы түзету сұрауы",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.noFile": {
+    "text": "Бұл құжатқа әлі файл жүктелмеген.",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.sendToStudent": {
+    "text": "Студентке жіберу",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.tabA11y_one": {
+    "text": "Тексерулер, {{count}} күтуде",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.tabA11y_other": {
+    "text": "Тексерулер, {{count}} күтуде",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.title": {
+    "text": "Құжат тексерулері",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.verify": {
+    "text": "Құжатты растау",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.waitingDays_one": {
+    "text": "{{count}} күн күтуде",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.waitingDays_other": {
+    "text": "{{count}} күн күтуде",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.waitingHours_one": {
+    "text": "{{count}} сағат күтуде",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.waitingHours_other": {
+    "text": "{{count}} сағат күтуде",
+    "why": "missing"
+  },
+  "mobile:agency.students.detailTitle": {
+    "text": "Студент",
+    "why": "missing"
+  },
+  "mobile:agency.tasks.unassigned": {
+    "text": "Тағайындалмаған",
+    "why": "missing"
+  },
+  "mobile:app.agency": {
+    "text": "Hangyul Agency",
+    "why": "missing; app name stays official"
+  },
+  "mobile:app.university": {
+    "text": "Hangyul University",
+    "why": "missing; app name stays official"
+  },
+  "mobile:login.networkError": {
+    "text": "Дәл қазір Hangyul-ға {{url}} арқылы қосылу мүмкін емес. Байланысыңызды тексеріп, сәлден соң қайталап көріңіз.",
+    "why": "dev-only emulator text removed"
+  },
+  "mobile:messages.internalToggle": {
+    "text": "Ішкі жазба, студентке көрінбейді",
+    "why": "one term: ішкі жазба"
+  },
+  "mobile:more.active": {
+    "text": "Қолданыста",
+    "why": "missing"
+  },
+  "mobile:more.allowanceSpent": {
+    "text": "Бұл тарифке кіретіннің бәрін пайдаландыңыз. Қай тариф көбірек қамтитынын тариф экранынан көре аласыз.",
+    "why": "missing"
+  },
+  "mobile:more.choose": {
+    "text": "Таңдау",
+    "why": "missing"
+  },
+  "mobile:more.noPlan": {
+    "text": "Әзірге тариф жоқ",
+    "why": "missing"
+  },
+  "mobile:more.noPlanHint": {
+    "text": "Тариф таңдаңыз — Hangyul сізбен жұмысты бастайды",
+    "why": "missing"
+  },
+  "mobile:more.plan": {
+    "text": "Тариф",
+    "why": "missing"
+  },
+  "mobile:more.support": {
+    "text": "Көмек алу",
+    "why": "missing"
+  },
+  "mobile:more.supportHint": {
+    "text": "Hangyul командасына жазу",
+    "why": "missing"
+  },
+  "mobile:more.webNote": {
+    "text": "Профильді өңдеу мен төлем сайтта жасалады.",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.essay_review_rounds": {
+    "text": "Мотивациялық хат пен оқу жоспарын редакциялау",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.follow_up_consultations": {
+    "text": "Қайталама кеңестер",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.max_managed_applications": {
+    "text": "Бірге жүргізілетін өтінімдер",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.max_recommended_institutions": {
+    "text": "Университет ұсыныстары",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.mock_interviews": {
+    "text": "Сынақ сұхбаттар",
+    "why": "missing"
+  },
+  "mobile:plan.browserFailed": {
+    "text": "Браузер ашылмады. Сайт арқылы төлеңіз.",
+    "why": "missing"
+  },
+  "mobile:plan.card": {
+    "text": "Шетелдік картамен (Visa, Mastercard, JCB) төлей аласыз.",
+    "why": "missing"
+  },
+  "mobile:plan.chooseLede": {
+    "text": "Бір реттік төлем, жазылымсыз. Дайындық кезінде тарифіңіз сізбен бірге болады.",
+    "why": "missing"
+  },
+  "mobile:plan.chooseTitle": {
+    "text": "Тариф таңдау",
+    "why": "missing"
+  },
+  "mobile:plan.handoff": {
+    "text": "Төлем браузерде жасалады, аяқталған соң қолданбаға қайтасыз.",
+    "why": "missing"
+  },
+  "mobile:plan.highestAlready": {
+    "text": "Сіз қазірдің өзінде ең жоғары тарифтесіз.",
+    "why": "missing"
+  },
+  "mobile:plan.included": {
+    "text": "Тарифіңізге кіретіндер",
+    "why": "missing"
+  },
+  "mobile:plan.oneTime": {
+    "text": "Бір реттік төлем",
+    "why": "missing"
+  },
+  "mobile:plan.ongoing": {
+    "text": "Қызмет мерзімі бойы",
+    "why": "missing"
+  },
+  "mobile:plan.paid": {
+    "text": "Төленген сома",
+    "why": "missing"
+  },
+  "mobile:plan.pay": {
+    "text": "Төлеу",
+    "why": "missing"
+  },
+  "mobile:plan.plansTitle": {
+    "text": "Тарифтер",
+    "why": "missing"
+  },
+  "mobile:plan.selected": {
+    "text": "Таңдалды",
+    "why": "missing"
+  },
+  "mobile:plan.upgradeTitle": {
+    "text": "Тарифті жоғарылату",
+    "why": "missing"
+  },
+  "mobile:plan.webNote": {
+    "text": "Тариф тарихы мен түбіртектер сайтта.",
+    "why": "missing"
+  },
+  "mobile:settings.elsewhere": {
+    "text": "Басқа жерде",
+    "why": "missing"
+  },
+  "mobile:settings.languageHint": {
+    "text": "Осы қолданбаның тілін таңдаңыз. Кейбір тілдер — әлі тексеріліп жатқан машиналық аударма.",
+    "why": "still being reviewed"
+  },
+  "mobile:settings.notificationsHint": {
+    "text": "Алған хабарландыруларыңызды көру",
+    "why": "missing"
+  },
+  "mobile:settings.signOutBody": {
+    "text": "Қайта кіру үшін электрондық поштаңыз бен құпиясөзіңіз керек болады.",
+    "why": "email term unified"
+  },
+  "mobile:settings.title": {
+    "text": "Баптаулар",
+    "why": "missing"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.label": {
+    "text": "Электрондық поштам мен ұялы телефон нөмірімді растау үшін олардың шетелде өңделетінін білемін",
+    "why": "verify them, not identity"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Twilio Inc. (АҚШ) растау SMS-і мен хатын жібереді, Cloudflare, Inc. (АҚШ) тіркелудің автоматты емес екенін тексереді. Толық мәлімет пен бас тарту тәсілі Құпиялылық саясатында көрсетілген. Бас тартсаңыз, тіркелгі жасалмайды.",
+    "why": "aligned with English and web copy"
+  },
+  "mobile:signup.consent.MARKETING.summary": {
+    "text": "Міндетті емес. Электрондық пошта немесе SMS арқылы; кез келген уақытта бас тартуға болады.",
+    "why": "optional = міндетті емес"
+  },
+  "mobile:signup.consentText": {
+    "text": "Тіркелгі жасау үшін міндетті тармақтарға келісім беру қажет. Қосымша келісімді Баптаулардан кез келген уақытта кері қайтаруға болады.",
+    "why": "Settings = Баптаулар"
+  },
+  "mobile:signup.consentTitle": {
+    "text": "Деректеріңізді қалай өңдейміз",
+    "why": "match plain English title"
+  },
+  "mobile:signup.degree.TRANSFER": {
+    "text": "Ауысып оқу",
+    "why": "«Ауысу» alone is unclear"
+  },
+  "mobile:signup.fullNameHint": {
+    "text": "Төлқұжатыңызда жазылғандай.",
+    "why": "passport = төлқұжат"
+  },
+  "mobile:signup.lang.NONE": {
+    "text": "Әзірге тест жоқ",
+    "why": "test = тест; shorter"
+  },
+  "mobile:signup.optional": {
+    "text": "Міндетті емес",
+    "why": "optional = міндетті емес"
+  },
+  "mobile:signup.quickLevel": {
+    "text": "Деңгей",
+    "why": "label matches English"
+  },
+  "mobile:signup.sentTo": {
+    "text": "Код жіберілді: {{target}}",
+    "why": "target may be a phone"
+  },
+  "mobile:signup.verifyText": {
+    "text": "Біз жіберген кодтарды енгізіңіз. Әр код 5 минут бойы жарамды.",
+    "why": "plural codes"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.body": {
+    "text": "Сіз {{university}} ұсынысын қабылдап жатырсыз. Hangyul Univ командасы оқу ақысын төлеу және стандартты қабылдау хатын алу бойынша жол көрсетеді.",
+    "why": "counselor → team; official letter name"
+  },
+  "mobile:student.documents.emptyBody": {
+    "text": "Төлқұжатыңызды, бағалар транскриптіңізді және тест нәтижелеріңізді веб-қолданбадан жүктеңіз.",
+    "why": "passport, transcript terms"
+  },
+  "mobile:student.documents.fixFallback": {
+    "text": "Hangyul командасы бұл құжатты түзетуді сұрады.",
+    "why": "counselor → team (V22)"
+  },
+  "mobile:student.messages.subtitle": {
+    "text": "Hangyul Univ командасымен сөйлесіңіз.",
+    "why": "counselor → team (V22)"
+  },
+  "mobile:student.nextAction.REVIEW_MATCHES": {
+    "text": "Сізге сай университеттерді қараңыз",
+    "why": "more natural"
+  },
+  "mobile:student.profile.step.passport": {
+    "text": "Төлқұжат",
+    "why": "passport = төлқұжат"
+  },
+  "mobile:student.tasks.subtitle": {
+    "text": "Hangyul командасының тапсырмалары және өтінім тізімдеріңіз.",
+    "why": "counselor → team; checklists"
+  },
+  "mobile:student.tasks.title": {
+    "text": "Тапсырмалар",
+    "why": "«Тізім» too vague for a tab"
+  },
+  "mobile:university.applicants.anonymous": {
+    "text": "Талапкер",
+    "why": "missing"
+  },
+  "mobile:university.applicants.confirmBody": {
+    "text": "{{name}} және оның кеңесшісіне хабарланады. Жазба үшін ескертпе қосыңыз (міндетті емес).",
+    "why": "missing"
+  },
+  "mobile:university.applicants.confirmTitle": {
+    "text": "Мәртебені «{{status}}» деп өзгертесіз бе?",
+    "why": "missing"
+  },
+  "mobile:university.applicants.detailTitle": {
+    "text": "Талапкер",
+    "why": "missing"
+  },
+  "mobile:university.applicants.history": {
+    "text": "Мәртебе тарихы",
+    "why": "missing"
+  },
+  "mobile:university.applicants.interview": {
+    "text": "Сұхбат",
+    "why": "missing"
+  },
+  "mobile:university.applicants.moveTo": {
+    "text": "Ауыстыру: {{status}}",
+    "why": "missing"
+  },
+  "mobile:university.applicants.notShared": {
+    "text": "Университетіңізбен әлі бөлісілмеген",
+    "why": "missing"
+  },
+  "mobile:university.applicants.note": {
+    "text": "Ескертпе",
+    "why": "missing"
+  },
+  "mobile:university.applicants.previewHint": {
+    "text": "Қауіпсіз, мерзімі шектеулі алдын ала қарауды ашады",
+    "why": "missing"
+  },
+  "mobile:university.applicants.reference": {
+    "text": "Сіздің тіркеу нөміріңіз",
+    "why": "missing"
+  },
+  "mobile:university.applicants.submitted": {
+    "text": "{{date}} жіберілді",
+    "why": "missing"
+  },
+  "mobile:university.applicants.submittedLabel": {
+    "text": "Жіберілді",
+    "why": "missing"
+  },
+  "mobile:university.applicants.viaAgency": {
+    "text": "{{agency}} арқылы",
+    "why": "missing"
+  },
+  "mobile:university.flagged.add": {
+    "text": "Қадағалауға белгілеу",
+    "why": "missing"
+  },
+  "mobile:university.flagged.addBody": {
+    "text": "Бұл белгі мен себепті тек университет командаңыз көреді.",
+    "why": "missing"
+  },
+  "mobile:university.flagged.flagged": {
+    "text": "Белгіленген",
+    "why": "missing"
+  },
+  "mobile:university.flagged.reason": {
+    "text": "Себебі",
+    "why": "missing"
+  },
+  "mobile:university.flagged.remove": {
+    "text": "Белгіні алу",
+    "why": "missing"
+  },
+  "mobile:university.flagged.removeTitle": {
+    "text": "Бұл өтінімнен белгіні аласыз ба?",
+    "why": "missing"
+  },
+  "mobile:university.inbox.title": {
+    "text": "Хабарламалар",
+    "why": "missing"
+  },
+  "mobile:university.login.tagline": {
+    "text": "Халықаралық бөліміңіз үшін талапкерлер, шешімдер және топтар.",
+    "why": "missing"
+  },
+  "mobile:v18.offline.title": {
+    "text": "Интернет байланысы жоқ",
+    "why": "«офлайнсыз» is a calque"
+  },
+  "mobile:v23.more.opensWeb": {
+    "text": "Сайтта ашылады",
+    "why": "«вебте» is a calque"
+  },
+  "mobile:v23.team.name": {
+    "text": "Hangyul Univ командасы",
+    "why": "team term unified"
+  },
+  "mobile:v23.team.withAgency": {
+    "text": "{{org}} ұйымымен бірге",
+    "why": "missing postposition"
+  },
+  "mobile:v29.mfa.codeHint": {
+    "text": "Аутентификатор қолданбасындағы 6 таңбалы кодты немесе қалпына келтіру кодын енгізіңіз.",
+    "why": "missing"
+  },
+  "mobile:v29.mfa.codeLabel": {
+    "text": "Растау коды",
+    "why": "missing"
+  },
+  "mobile:v29.mfa.enrollOnWeb": {
+    "text": "Бұл тіркелгіге екі сатылы растау қажет. Алдымен веб-консольде орнатыңыз, содан кейін осында кіріңіз.",
+    "why": "missing"
+  },
+  "mobile:v29.mfa.verify": {
+    "text": "Растап, кіру",
+    "why": "missing"
+  },
+  "mobile:v29.mfa.wrongCode": {
+    "text": "Код қате немесе мерзімі өткен. Жаңасын енгізіңіз.",
+    "why": "missing"
+  },
+  "mobile:v29.plan.supportDays": {
+    "text": "Алғашқы кеңестен бастап {{count}} күн кеңес қолдауы",
+    "why": "support was dropped"
+  },
+  "mobile:v29.plan.supportUntil": {
+    "text": "Кеңес қолдауы {{date}} күніне дейін",
+    "why": "date needs «күніне»"
+  },
+  "mobile:v29.plan.termUntil": {
+    "text": "{{date}} күніне дейін",
+    "why": "date needs «күніне»"
+  },
+  "mobile:v29.plan.unrationed.CONTRACTED_DOCUMENTS": {
+    "text": "Келісімшарттағы құжаттар аясында шектеу жоқ",
+    "why": "one term with student"
+  },
+  "mobile:v29.plan.unrationed.PRIORITY": {
+    "text": "Бірінші кезекте жауап",
+    "why": "priority term unified"
+  },
+  "mobile:v29.plan.unrationed.TEAM": {
+    "text": "Командаңыздың қолдауы",
+    "why": "one wording with student"
+  },
+  "mobile:v29.plan.upgradePending": {
+    "text": "Жоғары тарифке ауысу бағасы әлі белгіленбеген. Hangyul Univ командасы оны сізбен тікелей келіседі.",
+    "why": "plan = тариф"
+  },
+  "mobile:v3.agency.allClear": {
+    "text": "Бәрі ретімен: {{list}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.applications_one": {
+    "text": "{{count}} өтінім",
+    "why": "missing"
+  },
+  "mobile:v3.agency.applications_other": {
+    "text": "{{count}} өтінім",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.breached_one": {
+    "text": "{{count}} уәде мерзімінен асқан",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.breached_other": {
+    "text": "{{count}} уәде мерзімінен асқан",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.closing_one": {
+    "text": "Өтінім 7 күн ішінде жабылады",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.closing_other": {
+    "text": "Өтінімдер 7 күн ішінде жабылады",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.docs_one": {
+    "text": "Құжат тексеруді күтуде",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.docs_other": {
+    "text": "Құжаттар тексеруді күтуде",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.next": {
+    "text": "Келесі: {{who}} үшін {{uni}}, {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.overSla": {
+    "text": "{{hours}} сағаттан ұзақ күтуде: {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.overdue_one": {
+    "text": "Мерзімі өткен тапсырма",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.overdue_other": {
+    "text": "Мерзімі өткен тапсырмалар",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.replies_one": {
+    "text": "Студент жауабыңызды күтуде",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.replies_other": {
+    "text": "Студенттер жауабыңызды күтуде",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.since": {
+    "text": "Ең ескісі: {{who}}, {{when}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.sla_one": {
+    "text": "Алғашқы жауабы кешігу қаупі бар студент",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.sla_other": {
+    "text": "Алғашқы жауабы кешігу қаупі бар студенттер",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.deadline": {
+    "text": "{{uni}} өтінімі жақында жабылады",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.fix": {
+    "text": "{{doc}} — студенттің түзетуі қажет",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.requested": {
+    "text": "{{uni}} қосымша құжат сұрады",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.review": {
+    "text": "{{doc}} тексеруіңізді күтуде",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.sla": {
+    "text": "Алғашқы жауап мерзімі",
+    "why": "missing"
+  },
+  "mobile:v3.agency.blockers_one": {
+    "text": "{{count}} мәселе бұл студентті кідіртіп тұр",
+    "why": "missing"
+  },
+  "mobile:v3.agency.blockers_other": {
+    "text": "{{count}} мәселе бұл студентті кідіртіп тұр",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.closing": {
+    "text": "осы аптадағы мерзімдер",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.docs": {
+    "text": "құжат тексерулері",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.overdue": {
+    "text": "мерзімі өткен тапсырмалар",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.replies": {
+    "text": "студент жауаптары",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.sla": {
+    "text": "алғашқы жауаптар",
+    "why": "missing"
+  },
+  "mobile:v3.agency.conversationSubject": {
+    "text": "Кореяда оқу бойынша командаңыз",
+    "why": "missing"
+  },
+  "mobile:v3.agency.deadline": {
+    "text": "{{uni}} {{when}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.documents": {
+    "text": "Құжаттар · {{total}} ішінен {{verified}} расталды",
+    "why": "missing"
+  },
+  "mobile:v3.agency.dueToday_one": {
+    "text": "Мерзімі бүгін · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.dueToday_other": {
+    "text": "Мерзімі бүгін · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.findStudent": {
+    "text": "Студент іздеу",
+    "why": "missing"
+  },
+  "mobile:v3.agency.firstMessage": {
+    "text": "Хабарлама жазу: {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.greeting.afternoon": {
+    "text": "Қайырлы күн, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.greeting.evening": {
+    "text": "Қайырлы кеш, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.greeting.morning": {
+    "text": "Қайырлы таң, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.message": {
+    "text": "Хабарлама",
+    "why": "missing"
+  },
+  "mobile:v3.agency.messageLabel": {
+    "text": "Хабарлама",
+    "why": "missing"
+  },
+  "mobile:v3.agency.needsAttention": {
+    "text": "Назар қажет",
+    "why": "missing"
+  },
+  "mobile:v3.agency.nextAction": {
+    "text": "Келесі: {{what}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.noBlockers": {
+    "text": "Бұл студентті ештеңе кідіртпейді",
+    "why": "missing"
+  },
+  "mobile:v3.agency.noBlockersBody": {
+    "text": "Құжаттар, мерзімдер мен жауаптар — бәрі ретімен.",
+    "why": "missing"
+  },
+  "mobile:v3.agency.noStudents": {
+    "text": "Бұл көріністе студент жоқ",
+    "why": "missing"
+  },
+  "mobile:v3.agency.noStudentsBody": {
+    "text": "Басқа көріністі таңдаңыз немесе іздеуді тазалаңыз.",
+    "why": "missing"
+  },
+  "mobile:v3.agency.searchPlaceholder": {
+    "text": "Аты немесе электрондық поштасы",
+    "why": "missing"
+  },
+  "mobile:v3.agency.stage": {
+    "text": "Кезең",
+    "why": "missing"
+  },
+  "mobile:v3.agency.stageNote": {
+    "text": "Командаға ескертпе (міндетті емес)",
+    "why": "missing"
+  },
+  "mobile:v3.agency.stageTo": {
+    "text": "{{stage}} кезеңіне ауыстыру",
+    "why": "missing"
+  },
+  "mobile:v3.agency.teamView": {
+    "text": "Команда · {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.toFix_one": {
+    "text": "Түзетілетін құжат: {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.toFix_other": {
+    "text": "Түзетілетін құжат: {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.today": {
+    "text": "Бүгін",
+    "why": "missing"
+  },
+  "mobile:v3.agency.upload": {
+    "text": "Жүктеу",
+    "why": "missing"
+  },
+  "mobile:v3.agency.uploadFor": {
+    "text": "{{name}} үшін {{doc}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.uploadWhat": {
+    "text": "Қай құжатты жүктеп жатырсыз?",
+    "why": "missing"
+  },
+  "mobile:v3.agency.uploaded": {
+    "text": "Студенттің қоймасына жүктелді. Тексеруге дайын.",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.all": {
+    "text": "Барлығы",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.attention": {
+    "text": "Назар қажет",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.deadline": {
+    "text": "Мерзімі жақын",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.docs": {
+    "text": "Түзетілетін құжаттар",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.mine": {
+    "text": "Менің студенттерім",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.sla": {
+    "text": "Алғашқы жауап уәдесінен асқан немесе жақындаған студенттер",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.university": {
+    "text": "Университетті күтуде",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.visa": {
+    "text": "Виза",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.waiting_student": {
+    "text": "Студентті күтуде",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.waiting_us": {
+    "text": "Бізді күтуде",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.agency": {
+    "text": "Агенттік командасын күтуде",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.counselor": {
+    "text": "Кеңесшіні күтуде",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.external": {
+    "text": "Сыртқы мекемені күтуде",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.hangyul": {
+    "text": "Hangyul-ды күтуде",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.none": {
+    "text": "Ешкімді күтпейді",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.student": {
+    "text": "Студентті күтуде",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.university": {
+    "text": "Университетті күтуде",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.us": {
+    "text": "Бізді күтуде",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Қабылдау хатыңыз дайын. Виза құжаттарын бастаңыз.",
+    "why": "says the next step"
+  },
+  "mobile:v3.appStatus.ENROLLED": {
+    "text": "Сіз оқуға тіркелдіңіз. Кореяға қош келдіңіз.",
+    "why": "enrolled ≠ admitted"
+  },
+  "mobile:v3.appStatus.PROFILE_REVIEW": {
+    "text": "Hangyul Univ командасы профиліңізді тексеріп жатыр.",
+    "why": "counselor → team (V22)"
+  },
+  "mobile:v3.application.reviewBody": {
+    "text": "{{date}} жіберілді. Университет тағы бір құжат немесе сұхбат сұрауы мүмкін. Hangyul командасы өтініміңіздің барысын қадағалап отыр.",
+    "why": "team term"
+  },
+  "mobile:v3.application.teamMonitoring": {
+    "text": "Университетпен байланыста",
+    "why": "shorter, matches English"
+  },
+  "mobile:v3.deadlines.bucket.later_other": {
+    "text": "Осы айдың соңына дейін · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.bucket.overdue_other": {
+    "text": "Мерзімі өткен · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.bucket.week_other": {
+    "text": "Алдағы 7 күн · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.emptyView": {
+    "text": "Бұл көріністе мерзім жоқ",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.student": {
+    "text": "Студент",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.who.all": {
+    "text": "Барлығы",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.who.mine": {
+    "text": "Менікі",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.who.unassigned": {
+    "text": "Тағайындалмаған",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.you": {
+    "text": "Сіз",
+    "why": "missing"
+  },
+  "mobile:v3.docAction.IN_REVIEW": {
+    "text": "Hangyul командасы тексеріп жатыр",
+    "why": "counselor → team (V22)"
+  },
+  "mobile:v3.docAction.LEGALIZE": {
+    "text": "Апостиль немесе консулдық заңдастыру қажет",
+    "why": "official term"
+  },
+  "mobile:v3.home.nextBody.DOCUMENT_UPLOAD": {
+    "text": "Анық скан немесе фото жүктеңіз. Hangyul командасы оны тексеріп, бірдеңе түзету керек болса хабарлайды.",
+    "why": "counselor → team (V22)"
+  },
+  "mobile:v3.home.nextBody.ESSAY_WRITE": {
+    "text": "Жобадан бастаңыз. Hangyul командасы оны сізбен бірге қарап шығады.",
+    "why": "counselor → team (V22)"
+  },
+  "mobile:v3.home.noCounselor": {
+    "text": "Тариф таңдаңыз — Hangyul Univ командасы сізбен өз тіліңізде жұмыс істейді.",
+    "why": "plan = тариф"
+  },
+  "mobile:v3.home.stageLine.apply": {
+    "text": "Университеттер өтінімдеріңізді қарап жатыр",
+    "why": "matches English"
+  },
+  "mobile:v3.home.stageLine.visa": {
+    "text": "Студенттік визаңызды дайындау",
+    "why": "preparing, not obtaining"
+  },
+  "mobile:v3.home.team": {
+    "text": "Hangyul Univ командасы",
+    "why": "counselor → team (V22)"
+  },
+  "mobile:v3.messages.attachUnavailable": {
+    "text": "Файл тіркеу әзірге қолжетімсіз.",
+    "why": "«бұл серверде» not in English"
+  },
+  "mobile:v3.messages.conversations": {
+    "text": "Сөйлесулер",
+    "why": "missing"
+  },
+  "mobile:v3.offer.deadline": {
+    "text": "{{date}} күніне дейін ұсынысты қабылдап, оқу ақысын төлеңіз · {{left}}",
+    "why": "accept, not reply; date suffix"
+  },
+  "mobile:v3.profile.unlock.sponsor": {
+    "text": "Визаға қажет қаржылық құжаттарды ертерек дайындауға мүмкіндік береді",
+    "why": "cur implied we prepare them"
+  },
+  "mobile:v3.push.idle": {
+    "text": "Құжат тексерілгенде, мерзім жақындағанда немесе Hangyul командасы жауап бергенде push-хабарландыру алыңыз.",
+    "why": "counselor → team (V22)"
+  },
+  "mobile:v3.reviews.beforeVerify": {
+    "text": "Растамас бұрын",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.bulkBody": {
+    "text": "Мұны тек өзіңіз ашып, тексерген құжаттар үшін жасаңыз. Әр студентке хабарланады.",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.bulkDone": {
+    "text": "{{ok}} расталды, {{failed}} өткізілді",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.bulkTitle_one": {
+    "text": "{{count}} құжатты растайсыз ба?",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.bulkTitle_other": {
+    "text": "{{count}} құжатты растайсыз ба?",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.date": {
+    "text": "Берілген күні жеткілікті жақын және мерзімі өтпеген",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.issuer": {
+    "text": "Берген орган, мөр немесе қол көрінеді",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.legal": {
+    "text": "{{path}} тіркелген және құжатқа сәйкес",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.legible": {
+    "text": "Әр бет толық және оқылады",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.name": {
+    "text": "Аты-жөні мен туған күні төлқұжатқа сәйкес",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.correctionTitle": {
+    "text": "Студент нені түзетуі керек?",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.expires": {
+    "text": "Жарамдылық мерзімі",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.issuedIn": {
+    "text": "Берілген елі",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.issuedOn": {
+    "text": "Берілген күні",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.legalization": {
+    "text": "Заңдастыру",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.notNeeded": {
+    "text": "Қажет емес",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.open": {
+    "text": "{{name}} ашу",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.overSla": {
+    "text": "{{waiting}} · тексеру уәдесінен асқан",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.reason": {
+    "text": "Студентке хабарлама",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.requestCorrection": {
+    "text": "Түзету сұрау",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.required": {
+    "text": "Міндетті",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.select": {
+    "text": "Таңдау",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.studentSees": {
+    "text": "{{name}} бұл мәтінді құжаттың жанында дәл осылай көреді.",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.studentSeesGeneric": {
+    "text": "Студент бұл мәтінді құжаттың жанында дәл осылай көреді.",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.summary": {
+    "text": "{{count}} күтуде · {{over}} {{hours}} сағаттық тексеру уәдесінен асқан",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.templates": {
+    "text": "Команда үлгілері",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.translation": {
+    "text": "Аударма",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.uploaded": {
+    "text": "{{when}} жүктелді",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.verifyN_one": {
+    "text": "{{count}} құжатты растау",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.verifyN_other": {
+    "text": "{{count}} құжатты растау",
+    "why": "missing"
+  },
+  "mobile:v3.settings.consoleHint": {
+    "text": "Команда мүшелері, төлем және экспорт агенттіктің веб-консолінде басқарылады.",
+    "why": "missing"
+  },
+  "mobile:v3.settings.work": {
+    "text": "Жұмысыңыз",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.empty.team": {
+    "text": "Командада ашық тапсырма жоқ",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.empty.today": {
+    "text": "Бүгін мерзімі жететін тапсырма жоқ",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.empty.waiting": {
+    "text": "Басқа нәрсені күтіп тұрған тапсырма жоқ",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.empty.week": {
+    "text": "Осы аптада мерзімі жететін тапсырма жоқ",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.open": {
+    "text": "Ашық",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.overdue": {
+    "text": "Мерзімі өткен · {{when}}",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.overdue": {
+    "text": "Мерзімі өткен",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.team": {
+    "text": "Команда",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.today": {
+    "text": "Бүгін",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.waiting": {
+    "text": "Күтуде",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.week": {
+    "text": "Осы апта",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.waitingOn": {
+    "text": "Күтуде: {{what}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.allClear": {
+    "text": "Қазір шешім қажет ететін ештеңе жоқ.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.allCohorts": {
+    "text": "Барлық Hangyul студенттері",
+    "why": "missing"
+  },
+  "mobile:v3.uni.allIntakes": {
+    "text": "Барлық қабылдау кезеңдері",
+    "why": "missing"
+  },
+  "mobile:v3.uni.applicant": {
+    "text": "Талапкер",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.gpa": {
+    "text": "GPA",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.interview": {
+    "text": "Сұхбат",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.interviewRequired": {
+    "text": "Бұл бағдарламада міндетті",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.level": {
+    "text": "{{level}}-деңгей",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.minimum": {
+    "text": "Ең төменгі {{need}} · Талапкер {{have}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.notProvided": {
+    "text": "көрсетілмеген",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.below": {
+    "text": "Ең төменгіден төмен",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.meets": {
+    "text": "Сәйкес",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.missing": {
+    "text": "Көрсетілмеген",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.planned": {
+    "text": "Тест жоспарланған",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.unscheduled": {
+    "text": "Жоспарланбаған",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.topik": {
+    "text": "TOPIK",
+    "why": "missing"
+  },
+  "mobile:v3.uni.checksNote": {
+    "text": "Талапкер көрсеткен балдарды бағдарламаның жарияланған ең төменгі талаптарымен салыстырады. Бұл тексеруіңізге көмек; шешімді ол қабылдамайды.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.checksTitle": {
+    "text": "Талаптарды тексеру",
+    "why": "missing"
+  },
+  "mobile:v3.uni.closed": {
+    "text": "Жабылған: {{rejected}} қабылданбады, {{withdrawn}} кері қайтарылды. Көрсеткіштер үшін кемінде {{min}} адам қажет.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohortIntro_one": {
+    "text": "{{count}} студент сізге Hangyul арқылы келді. Олардың жағдайы мынадай.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohortIntro_other": {
+    "text": "{{count}} студент сізге Hangyul арқылы келді. Олардың жағдайы мынадай.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohortNote": {
+    "text": "Көрсеткіштер кемінде {{min}} студент болғанда көрсетіледі. {{date}} жағдайы бойынша.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohort_one": {
+    "text": "{{label}} · {{count}} студент",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohort_other": {
+    "text": "{{label}} · {{count}} студент",
+    "why": "missing"
+  },
+  "mobile:v3.uni.conv": {
+    "text": "Алдыңғы қадамның {{pct}} · {{d}} ішінен {{n}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.convFew": {
+    "text": "Алдыңғы қадамнан {{d}} ішінен {{n}} · бағалауға тым аз",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.admitted_one": {
+    "text": "қабылданған, оқу ақысын әлі төлемеген студент",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.admitted_other": {
+    "text": "қабылданған, оқу ақысын әлі төлемеген студенттер",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.documents_one": {
+    "text": "студенттің құжаттары күтілуде",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.documents_other": {
+    "text": "студенттердің құжаттары күтілуде",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.flagged_one": {
+    "text": "белгіленген өтінім",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.flagged_other": {
+    "text": "белгіленген өтінімдер",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.interview_one": {
+    "text": "өткізілетін немесе бағаланатын сұхбат",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.interview_other": {
+    "text": "өткізілетін немесе бағаланатын сұхбаттар",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.offer_one": {
+    "text": "студенттің жауабын күткен ұсыныс",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.offer_other": {
+    "text": "студенттердің жауабын күткен ұсыныстар",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.returned_one": {
+    "text": "студент қайтарған құжат",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.returned_other": {
+    "text": "студенттер қайтарған құжаттар",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.review_one": {
+    "text": "қаралатын өтінім",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.review_other": {
+    "text": "қаралатын өтінімдер",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionContext_one": {
+    "text": "{{total}} міндетті құжаттың {{ready}} дайын · {{count}} сұрау ашық.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionContext_other": {
+    "text": "{{total}} міндетті құжаттың {{ready}} дайын · {{count}} сұрау ашық.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionDocs": {
+    "text": "{{total}} міндетті құжаттың {{ready}} дайын.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.admitted": {
+    "text": "Төлем түскенде растаңыз",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.documents": {
+    "text": "Жүктегенше әрекет қажет емес",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.flagged": {
+    "text": "Мұқият қарауға белгіленген",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.interview": {
+    "text": "Сұхбаттан кейін нәтижесін жазыңыз",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.offer": {
+    "text": "Студентпен Hangyul байланысады",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.returned": {
+    "text": "Сұрағаныңызды қайта тексеріңіз",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.review": {
+    "text": "Жіберілген және шешім қабылдауға жеткілікті",
+    "why": "missing"
+  },
+  "mobile:v3.uni.docsTitle": {
+    "text": "Құжаттар · {{total}} ішінен {{ready}} дайын",
+    "why": "missing"
+  },
+  "mobile:v3.uni.dueOn": {
+    "text": "мерзімі {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.empty.all": {
+    "text": "Мұнда талапкер жоқ",
+    "why": "missing"
+  },
+  "mobile:v3.uni.empty.flagged": {
+    "text": "Белгіленген өтінім жоқ",
+    "why": "missing"
+  },
+  "mobile:v3.uni.empty.review": {
+    "text": "Қарауды күткен өтінім жоқ",
+    "why": "missing"
+  },
+  "mobile:v3.uni.graduation": {
+    "text": "Бітірді",
+    "why": "missing"
+  },
+  "mobile:v3.uni.latest": {
+    "text": "Соңғы келгендер",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.ADDITIONAL_DOCUMENTS": {
+    "text": "Қосымша құжат сұрау",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Қабылдау хатын беру",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.INTERVIEW": {
+    "text": "Сұхбатқа шақыру",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.OFFERED": {
+    "text": "Ұсыныс жасау",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.REJECTED": {
+    "text": "Қабылдамау",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.TUITION_PAID": {
+    "text": "Оқу ақысы төленгенін растау",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.TUITION_PENDING": {
+    "text": "Оқу ақысы шотын жіберу",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.UNIVERSITY_REVIEW": {
+    "text": "Қарауды бастау",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.WAITLISTED": {
+    "text": "Күту тізіміне қою",
+    "why": "missing"
+  },
+  "mobile:v3.uni.nOfD": {
+    "text": "{{d}} ішінен {{n}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.needsTitle": {
+    "text": "Шешіміңіз қажет",
+    "why": "missing"
+  },
+  "mobile:v3.uni.noMinimums": {
+    "text": "Бұл бағдарламаның жарияланған ең төменгі талаптары әзірге жоқ.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.nothingToReview": {
+    "text": "Қарауды күткен ештеңе жоқ",
+    "why": "missing"
+  },
+  "mobile:v3.uni.openRequests_one": {
+    "text": "{{count}} құжат сұралды",
+    "why": "missing"
+  },
+  "mobile:v3.uni.openRequests_other": {
+    "text": "{{count}} құжат сұралды",
+    "why": "missing"
+  },
+  "mobile:v3.uni.otherDecisions": {
+    "text": "Басқа шешімдер",
+    "why": "missing"
+  },
+  "mobile:v3.uni.populationAll_one": {
+    "text": "{{count}} жіберілген өтінім негізінде, барлық қабылдау кезеңдері.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.populationAll_other": {
+    "text": "{{count}} жіберілген өтінім негізінде, барлық қабылдау кезеңдері.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.populationIntake_one": {
+    "text": "{{intake}} үшін {{count}} жіберілген өтінім негізінде.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.populationIntake_other": {
+    "text": "{{intake}} үшін {{count}} жіберілген өтінім негізінде.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.reason": {
+    "text": "Себебі (Hangyul-мен бөлісіледі)",
+    "why": "missing"
+  },
+  "mobile:v3.uni.request": {
+    "text": "Сұрау",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestLabel": {
+    "text": "Не қажет?",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestLabelHint": {
+    "text": "мысалы, апостиль қойылған мектеп аттестаты",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestNote": {
+    "text": "Студентке нұсқау",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestNoteHint": {
+    "text": "Нақты не жетіспейді және қалай түзету керек",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestSend": {
+    "text": "Сұрау жіберу",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestTitle": {
+    "text": "{{name}}: құжат сұрау",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestWho": {
+    "text": "Студент пен оның Hangyul кеңесшісіне хабарланады және олар дәл осы мәтінді көреді.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestedOn": {
+    "text": "{{date}} сұралды",
+    "why": "missing"
+  },
+  "mobile:v3.uni.retention": {
+    "text": "Әлі оқуда",
+    "why": "missing"
+  },
+  "mobile:v3.uni.search": {
+    "text": "Аты, бағдарлама немесе нөмір бойынша іздеу",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.ACCEPTED": {
+    "text": "Ұсынысты қабылдады",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.ARRIVED": {
+    "text": "Кореяға келді",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.ENROLLED": {
+    "text": "Тіркелді",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.OFFERED": {
+    "text": "Ұсыныс алды",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.REVIEWED": {
+    "text": "Қаралды",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.SUBMITTED": {
+    "text": "Жіберілді",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.TUITION_PAID": {
+    "text": "Оқу ақысын төледі",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.VISA_ISSUED": {
+    "text": "Виза берілді",
+    "why": "missing"
+  },
+  "mobile:v3.uni.tab.applicants": {
+    "text": "Талапкерлер",
+    "why": "missing"
+  },
+  "mobile:v3.uni.tab.pipeline": {
+    "text": "Шолу",
+    "why": "missing"
+  },
+  "mobile:v3.uni.tab.students": {
+    "text": "Студенттер",
+    "why": "missing"
+  },
+  "mobile:v3.uni.tooFew": {
+    "text": "Бағалауға тым аз",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.admitted": {
+    "text": "Қабылданған",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.all": {
+    "text": "Барлығы",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.documents": {
+    "text": "Құжаты жетіспейтіндер",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.enrolment": {
+    "text": "Виза және тіркелу",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.flagged": {
+    "text": "Белгіленген",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.interview": {
+    "text": "Сұхбат",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.offer": {
+    "text": "Ұсыныс",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.review": {
+    "text": "Қарау қажет",
+    "why": "missing"
+  },
+  "mobile:v3.uni.waitingStudent": {
+    "text": "Студентті күтуде",
+    "why": "missing"
+  },
+  "mobile:v3.university.admissionsSite": {
+    "text": "Халықаралық қабылдау сайты",
+    "why": "matches English"
+  },
+  "mobile:v3.university.documentsCount": {
+    "text": "{{count}} құжат · {{legal}} құжатқа апостиль немесе консулдық заңдастыру керек",
+    "why": "official term"
+  },
+  "mobile:v3.upload.privacy": {
+    "text": "Құжаттарыңызды тек сіз және Hangyul командасы аша аласыз. Университет оларды тек сіз оған өтінім жібергеннен кейін көреді.",
+    "why": "counselor → team (V22)"
+  },
+  "mobile:v3.visa.beforeTitle": {
+    "text": "Визаға дайындық қабылдау ұсынысынан кейін басталады",
+    "why": "cur read as «after the visa is accepted»"
+  },
+  "mobile:v3.visa.blockers": {
+    "text": "Алдымен қажет",
+    "why": "«Күтілуде» loses the meaning"
+  },
+  "mobile:v3.visa.phase.apply": {
+    "text": "Виза өтінімі",
+    "why": "disambiguate from university application"
+  },
+  "mobile:v3.visa.phase.decision": {
+    "text": "Елшілік шешімі",
+    "why": "says whose decision"
+  },
+  "mobile:v3.visa.title": {
+    "text": "{{type}} визасын дайындау",
+    "why": "preparing, not a plan"
+  },
+  "mobile:v4.application.nextLegalize": {
+    "text": "{{item}} құжатына апостиль немесе консулдық заңдастыру алыңыз",
+    "why": "official term"
+  },
+  "mobile:v4.application.reviewLate": {
+    "text": "Әдеттегіден ұзаққа созылып жатыр. Hangyul командасына кешігу туралы хабарланды. Қайта жүктеудің қажеті жоқ.",
+    "why": "counselor → team (V22)"
+  },
+  "mobile:v4.application.waitBody": {
+    "text": "Hangyul командасы сіз жібергенді тексеріп жатыр. Бірдеңе өзгерту керек болса, хабарлаймыз.",
+    "why": "counselor → team (V22)"
+  },
+  "mobile:v4.application.writeOnWeb": {
+    "text": "Оны сайтта жазыңыз. Hangyul командасының пікірлері де сонда көрінеді.",
+    "why": "counselor → team (V22)"
+  },
+  "mobile:v4.documents.lateLine": {
+    "text": "Hangyul командасына кешіккен деп белгіленді",
+    "why": "counselor → team (V22)"
+  },
+  "mobile:v4.home.item.LEGALIZE.text": {
+    "text": "Корей университеттері бұл құжатты тек заңдастырылғаннан кейін қабылдайды. Біз еліңізге арналған қадамдарды көрсетеміз.",
+    "why": "«куәландыру» = notarize, not authenticate"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.text": {
+    "text": "Hangyul командасы пікір қалдырды. Ол бекітілмейінше өтініміңізді жіберу мүмкін емес.",
+    "why": "counselor → team (V22)"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.text": {
+    "text": "Hangyul командасы оны сізбен бірге қарап шығады. Жобадан бастаңыз. Мінсіз болуы міндетті емес.",
+    "why": "counselor → team (V22)"
+  },
+  "mobile:v4.uni.actor.AGENCY": {
+    "text": "Серіктес агенттік",
+    "why": "missing"
+  },
+  "mobile:v4.uni.actor.HANGYUL": {
+    "text": "Hangyul",
+    "why": "missing"
+  },
+  "mobile:v4.uni.actor.STUDENT": {
+    "text": "Талапкер",
+    "why": "missing"
+  },
+  "mobile:v4.uni.actor.SYSTEM": {
+    "text": "Автоматты",
+    "why": "missing"
+  },
+  "mobile:v4.uni.actor.UNIVERSITY": {
+    "text": "Сіздің университетіңіз",
+    "why": "missing"
+  },
+  "mobile:v4.uni.toReview_one": {
+    "text": "Қарау қажет · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v4.uni.toReview_other": {
+    "text": "Қарау қажет · {{count}}",
+    "why": "missing"
+  }
+}

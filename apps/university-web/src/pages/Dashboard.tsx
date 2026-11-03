@@ -194,9 +194,11 @@ function useStageCounts(base: Partial<ApplicantParams>) {
 }
 
 /**
- * V25 (REPORT §315 U1): the first screen answers "how many need us, what changed, where do I click" before the strip. Four
- * quiet figures, not cards. Each is the total of the same `GET /applications` filter it opens, so a figure is always the row
- * count behind it; a figure of 0 stays visible (a quiet week is information) but is not a link.
+ * V25 (REPORT §315 U1) put four quiet figures of equal weight here; V31 recorded the page as "legible, not yet calm"
+ * (REPORT §434). V32: the screen answers ONE question first — how many applicants are waiting on our decision — as the
+ * one large figure with its own action, and the other three facts recede into a single quiet line beneath it. Each
+ * figure is still the total of the same `GET /applications` filter it opens, so a number is always the row count
+ * behind it; a zero stays visible (a quiet week is information) but is not a link.
  */
 function Headline({ base, set }: { base: Partial<ApplicantParams>; set: (patch: Partial<ApplicantParams>) => void }) {
   const { t, locale } = useLocale(['university', 'common']);
@@ -204,26 +206,38 @@ function Headline({ base, set }: { base: Partial<ApplicantParams>; set: (patch: 
   const requests = useApplicationCount({ ...base, status: [], requests: 'open' });
   const fresh = useApplicationCount({ ...base, status: [], submitted_within: 7 });
   const moved = useApplicationCount({ ...base, status: [], updated_within: 7 });
-  const items: { k: string; n?: number; label: string; patch: Partial<ApplicantParams>; lead?: boolean }[] = [
-    { k: 'decide', n: decide.count, label: t('university:v25.head.decide'), patch: { stage: undefined, status: AWAITING_DECISION }, lead: true },
+  const rest: { k: string; n?: number; label: string; patch: Partial<ApplicantParams> }[] = [
     { k: 'requests', n: requests.count, label: t('university:v25.head.requests'), patch: { stage: undefined, status: [], requests: 'open' } },
     { k: 'fresh', n: fresh.count, label: t('university:v25.head.fresh'), patch: { stage: undefined, status: [], submitted_within: 7 } },
     { k: 'moved', n: moved.count, label: t('university:v25.head.moved'), patch: { stage: undefined, status: [], updated_within: 7 } },
   ];
+  const n = decide.count;
+  const leadInner = (
+    <>
+      <span className="uv25-head__n hg-num">{n === undefined ? '–' : formatNumber(n, locale)}</span>
+      <span className="uv25-head__l">{t('university:v25.head.decide')}</span>
+      {n ? <ChevronRight className="uv25-head__chev hg-flip-rtl" aria-hidden /> : null}
+    </>
+  );
   return (
     <section className="uv25-head" aria-label={t('university:v25.head.label')}>
-      {items.map((it) => {
-        const inner = (<><span className="uv25-head__n hg-num">{it.n === undefined ? '–' : formatNumber(it.n, locale)}</span><span className="uv25-head__l">{it.label}</span></>);
-        return it.n ? (
-          <button key={it.k} type="button" className={cx('uv25-head__item', it.lead && 'is-lead')} data-head={it.k} data-count={it.n} onClick={() => set(it.patch)}>{inner}</button>
-        ) : <span key={it.k} className={cx('uv25-head__item is-zero', it.lead && 'is-lead')} data-head={it.k} data-count={it.n ?? ''}>{inner}</span>;
-      })}
+      {n ? (
+        <button type="button" className="uv25-head__item is-lead" data-head="decide" data-count={n} onClick={() => set({ stage: undefined, status: AWAITING_DECISION })}>{leadInner}</button>
+      ) : <span className="uv25-head__item is-lead is-zero" data-head="decide" data-count={n ?? ''}>{leadInner}</span>}
+      <div className="uv25-head__rest">
+        {rest.map((it) => {
+          const inner = (<><span className="uv25-head__n hg-num">{it.n === undefined ? '–' : formatNumber(it.n, locale)}</span><span className="uv25-head__l">{it.label}</span></>);
+          return it.n ? (
+            <button key={it.k} type="button" className="uv25-head__item" data-head={it.k} data-count={it.n} onClick={() => set(it.patch)}>{inner}</button>
+          ) : <span key={it.k} className="uv25-head__item is-zero" data-head={it.k} data-count={it.n ?? ''}>{inner}</span>;
+        })}
+      </div>
     </section>
   );
 }
 
 /**
- * V28 (UX_AUDIT UN-1): below "what needs us", one line of pipeline health and outcomes — every step with its count and the
+ * V28 (UX_AUDIT UN-1): one line of pipeline health and outcomes (V32: below the queue, so decisions come first) — every step with its count and the
  * share of the step before it (denominator shown; a share under the minimum sample is "표본 부족", never a number). The line
  * opens Analytics, where each bar drills to its rows. No cards, no chart on the home.
  */
@@ -428,7 +442,6 @@ export default function Dashboard() {
       </header>
 
       <Headline base={headBase} set={set} />
-      <PipelineLine base={headBase} />
 
       <div className="uv22-strip">
         <StageStrip<StageKey> label={t('university:v22.stripLabel')} stages={stages} selected={p.stage ?? null} onSelect={pick}
@@ -493,6 +506,9 @@ export default function Dashboard() {
           />
         )}
       </div>
+
+      {/* V32: outcomes come after the work that needs doing — a quiet line that opens Analytics, not a box above the queue. */}
+      <PipelineLine base={headBase} />
       <p className="fs-12 text-muted uv7-pagenote">{t('university:applicants.privacyNote')}</p>
       <Drawer open={drawer} onClose={() => setDrawer(false)} title={t('common:actions.filter')} footer={<Button variant="primary" block onClick={() => setDrawer(false)}>{t('common:actions.done')}</Button>}>
         <div className="hg-stack"><FilterFields p={p} set={set} idp="apd" /></div>

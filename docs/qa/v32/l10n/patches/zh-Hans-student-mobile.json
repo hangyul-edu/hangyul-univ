@@ -1,0 +1,652 @@
+{
+  "_notes": [
+    "Team identity: the English says 'Hangyul team' / 'Hangyul Univ team'; every '你的顾问' (your counselor) and the invented Chinese name '韩橘' were replaced with the official 'Hangyul 团队' / 'Hangyul Univ 团队' exactly as the English has it (V22 team display identity, glossary: never invent an institution name).",
+    "Official documents: 'standard admission letter' is always 标准入学许可书 (was 录取通知书 / 入学许可书 in two keys); apostille 海牙认证, consular legalization 领事认证, kept.",
+    "'managed applications' rendered as 代办申请 in all three places (was 与你共同管理的申请 / 代办申请学校 / 申请管理); 'personal statement and study plan editing' as 个人陈述与学习计划书修改 wherever the English spells it out, 文书修改 only where the English says 'essay editing'.",
+    "'program' is 专业 throughout; the eight keys that used 项目 were aligned.",
+    "'password (stored encrypted)' rendered literally as 密码（加密存储）; the old 密码哈希值 (password hash) is a technical claim the English does not make.",
+    "CROSS_BORDER_VERIFICATION summary: the old Chinese listed 传输的项目、时间、保存期限 (items, timing, retention) which the reviewed English does not; aligned to the English. Owner may want the Korean legal text checked if that list is required by PIPA notice rules.",
+    "mobile:login.networkError: the old Chinese carried Android-emulator developer instructions (10.0.2.2:8001) that are not in the English; replaced with the glossary 'can't be reached' wording.",
+    "mobile:plan.chooseLede: the old Chinese promised '覆盖整个申请流程' (covers the whole application process); replaced with the English meaning (one payment, no subscription, plan stays active while you prepare).",
+    "mobile:v3.discover.upTo 'Up to ₩{{amount}}M': rendered as 最高 {{amount}} 百万韩元 because the number cannot be rescaled; 500万 would need the amount in 万. Owner decision whether to format the amount for zh.",
+    "document = 文件 vs 材料: the Student web mixes both (upload sheet uses 文件, lists use 材料); only the one same-screen plural pair (v22.home.docsChecking_one/_other) was aligned. A single-term sweep is left to the owner; both are natural Chinese.",
+    "Analytical ratios in the University app ('{{n}} of {{d}}') rendered as {{n}}/{{d}} instead of '{{d}} 中的 {{n}}' which reverses the reading order.",
+    "'sees this exact text' rendered as 一字不差地看到这段文字; the old 原文 (original text) was ambiguous."
+  ],
+  "student:dashboard.counselor.noneCta": {
+    "text": "查看服务方案",
+    "why": "'顾问' not in English; plan = 服务方案"
+  },
+  "student:documents.drawer.translationYes": {
+    "text": "需要认证翻译件",
+    "why": "certified ≠ notarized; match mobile wording"
+  },
+  "student:documents.privacy.short": {
+    "text": "加密存储。在你提交申请前，只有你和 Hangyul 团队可以打开。",
+    "why": "English says Hangyul team"
+  },
+  "student:home.team": {
+    "text": "Hangyul Univ 团队",
+    "why": "official team name, no '你的'"
+  },
+  "student:login.aside.point3": {
+    "text": "与 Hangyul 团队里会说你的语言的真人一起准备。",
+    "why": "team, not individual counselors"
+  },
+  "student:messages.new.subtitle": {
+    "text": "Hangyul 团队会在这里回复。",
+    "why": "match English team name"
+  },
+  "student:onboarding.goals.degreeSub.LANGUAGE": {
+    "text": "先学韩语，按自己的节奏起步",
+    "why": "old text added claims not in English"
+  },
+  "student:onboarding.preferences.scholarshipYesSub": {
+    "text": "我们会重点标出提供你可能符合条件的奖学金的专业",
+    "why": "old wording ambiguous (奖学金专业)"
+  },
+  "student:onboarding.steps.sponsor.subtitle": {
+    "text": "大学和签证官会询问经济支持情况。告诉我们你的目标，Hangyul 团队就能更好地指导你。",
+    "why": "match English team name"
+  },
+  "student:register.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Twilio Inc.（美国）负责发送验证短信和邮件；Cloudflare, Inc.（美国）负责确认注册并非自动操作。详情（包括如何拒绝）见隐私政策。如拒绝，将无法创建账号。",
+    "why": "old text listed items/retention not in English"
+  },
+  "student:register.consent.PRIVACY.summary": {
+    "text": "邮箱、手机号、姓名、国籍和密码（加密存储），用于创建和保护你的账号。",
+    "why": "'password hash' is not what English says"
+  },
+  "student:register.consent.title": {
+    "text": "我们如何处理你的信息",
+    "why": "warmer, matches English title"
+  },
+  "student:register.done.text": {
+    "text": "你的邮箱和手机号已验证完成。现在一起来找适合你的专业吧。",
+    "why": "program = 专业"
+  },
+  "student:register.passwordHint": {
+    "text": "至少 10 个字符。最好用一句你记得住的话。",
+    "why": "more natural"
+  },
+  "student:register.prior.EXPECTED": {
+    "text": "我会在开学前完成",
+    "why": "'专业开学' is unnatural"
+  },
+  "student:v15.services.allowance.key.max_managed_applications": {
+    "text": "代办申请",
+    "why": "glossary: managed application, one term"
+  },
+  "student:v15.services.chosen": {
+    "text": "你在网站上选择的方案。",
+    "why": "您 → 你, tone consistency"
+  },
+  "student:v15.services.scope.consultation_minutes": {
+    "text": "{{count}} 分钟咨询",
+    "why": "natural word order"
+  },
+  "student:v15.services.scope.visa_support": {
+    "text": "签证材料准备",
+    "why": "glossary: visa document preparation"
+  },
+  "student:v16.pay.chooseSubtitle": {
+    "text": "根据你希望 Hangyul 提供多少帮助来选择方案。一次性付款，无需订阅。",
+    "why": "'不是订阅' reads oddly"
+  },
+  "student:v16.pay.success.text": {
+    "text": "你将使用{{name}}开始韩国留学准备。",
+    "why": "'以{{name}}' is unclear"
+  },
+  "student:v17.gate.named": {
+    "text": "服务方案包含{{what}}。选择一个方案即可开始。",
+    "why": "'韩橘' is an invented name"
+  },
+  "student:v17.gate.what.applications": {
+    "text": "你的申请",
+    "why": "match English"
+  },
+  "student:v17.gate.what.arrival": {
+    "text": "入境与安顿帮助",
+    "why": "glossary: arrival and settling-in help"
+  },
+  "student:v17.gate.what.essays": {
+    "text": "个人陈述与学习计划书修改",
+    "why": "match English, one term"
+  },
+  "student:v17.gate.what.help": {
+    "text": "Hangyul 团队的帮助",
+    "why": "'礼宾支持' (concierge) not in English"
+  },
+  "student:v17.gate.what.housing": {
+    "text": "宿舍申请帮助",
+    "why": "'help' was dropped"
+  },
+  "student:v17.gate.what.messages": {
+    "text": "与 Hangyul 团队的消息往来",
+    "why": "old text was only the team name"
+  },
+  "student:v17.gate.what.saved": {
+    "text": "你收藏的院校",
+    "why": "app uses 收藏 for saved"
+  },
+  "student:v17.gate.what.tasks": {
+    "text": "你的任务清单",
+    "why": "match English"
+  },
+  "student:v17.gate.what.visa": {
+    "text": "签证材料准备",
+    "why": "glossary term"
+  },
+  "student:v17.pay.fromApp": {
+    "text": "你是从应用跳转过来的。付款完成后可以返回应用。",
+    "why": "natural phrasing"
+  },
+  "student:v17.upgrade.feature.managed_application": {
+    "text": "代办申请",
+    "why": "one term for managed application"
+  },
+  "student:v21.pay.cardFailed": {
+    "text": "付款未成功",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.cardSecure": {
+    "text": "你的卡信息只会通过加密连接发送给 Hangyul，再转给我们的支付服务商。我们不会保存你的卡号。",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.cardTitle": {
+    "text": "银行卡付款",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.declined": {
+    "text": "该卡未被接受：{{reason}} 请换一张卡，或向你的银行确认。",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.expiry": {
+    "text": "有效期",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.holder": {
+    "text": "持卡人姓名",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.notConfigured": {
+    "text": "此处暂不支持银行卡付款。请稍后再试或联系我们。",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.number": {
+    "text": "卡号",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.numberInvalid": {
+    "text": "请检查卡号。",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.optional": {
+    "text": "选填",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.payCta": {
+    "text": "用这张卡付款",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.processing": {
+    "text": "正在处理你的付款…",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.savedDelete": {
+    "text": "移除",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.savedDeleteBody": {
+    "text": "我们将从你的账号中删除 {{card}}。这不会影响你已完成的付款。",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.savedDeleteFailed": {
+    "text": "无法移除该卡，请重试。",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.savedDeleteTitle": {
+    "text": "要移除这张卡吗？",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.savedNotReusable": {
+    "text": "下次购买时需要重新输入卡信息。",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.savedTitle": {
+    "text": "你的银行卡",
+    "why": "was untranslated"
+  },
+  "student:v21.pay.tooMany": {
+    "text": "银行卡尝试次数过多。请等几分钟后再试。",
+    "why": "was untranslated"
+  },
+  "student:v22.home.appTeam.follow": {
+    "text": "正在向 {{university}} 招生办公室了解进展",
+    "why": "admissions office was dropped"
+  },
+  "student:v22.home.appTeam.letter": {
+    "text": "正在跟进 {{university}} 的标准入学许可书",
+    "why": "official document name"
+  },
+  "student:v22.home.appTeam.review": {
+    "text": "正在针对 {{university}} 的申请审核你的个人资料",
+    "why": "'为大学审核' read as on its behalf"
+  },
+  "student:v22.home.docsChecking_other": {
+    "text": "正在核查 {{count}} 份材料",
+    "why": "match _one form (材料)"
+  },
+  "student:v26.now.scopeToggle": {
+    "text": "查看本方案包含的全部内容",
+    "why": "toggle label needs the verb"
+  },
+  "student:v29.services.catalogue.ask": {
+    "text": "向你的团队咨询附加服务",
+    "why": "'负责团队' is CRM-ish"
+  },
+  "student:v29.services.unrationed.TEAM": {
+    "text": "你的团队持续跟进",
+    "why": "second person, warm"
+  },
+  "student:v29.services.upgrade.amountPending": {
+    "text": "由 Hangyul Univ 团队安排",
+    "why": "'arranged' not 'announced'"
+  },
+  "student:writing.needYou": {
+    "text": "轮到你撰写或修改",
+    "why": "match English meaning"
+  },
+  "student:writing.status.AI_PRECHECK": {
+    "text": "已提交",
+    "why": "English says Submitted"
+  },
+  "student:writing.status.FINAL_REVIEW": {
+    "text": "Hangyul 团队审阅中",
+    "why": "same English as AGENCY_REVIEW"
+  },
+  "student:writing.status.STUDENT_REVISION": {
+    "text": "已给出修改建议",
+    "why": "same English as CHANGES_REQUESTED"
+  },
+  "student:writing.status.SUBMITTED": {
+    "text": "已提交",
+    "why": "English says Submitted"
+  },
+  "mobile:agency.messages.title": {
+    "text": "消息",
+    "why": "English is Messages, not Inbox"
+  },
+  "mobile:agency.reviews.noFile": {
+    "text": "此材料尚未上传任何文件。",
+    "why": "document vs file distinction"
+  },
+  "mobile:agency.reviews.tab": {
+    "text": "工作",
+    "why": "English tab label is Work"
+  },
+  "mobile:login.networkError": {
+    "text": "目前无法连接到 Hangyul（{{url}}）。请检查网络连接，稍后再试。",
+    "why": "old text had developer instructions"
+  },
+  "mobile:more.supportHint": {
+    "text": "给 Hangyul 团队发消息",
+    "why": "team, not counselor"
+  },
+  "mobile:plan.allowance.essay_review_rounds": {
+    "text": "个人陈述与学习计划书修改",
+    "why": "match English, one term"
+  },
+  "mobile:plan.allowance.max_managed_applications": {
+    "text": "代办申请",
+    "why": "one term for managed application"
+  },
+  "mobile:plan.chooseLede": {
+    "text": "一次性付款，无需订阅。整个准备期间方案一直有效。",
+    "why": "old text promised full-process coverage"
+  },
+  "mobile:plan.highestAlready": {
+    "text": "你已经是最高方案了。",
+    "why": "natural phrasing"
+  },
+  "mobile:plan.ongoing": {
+    "text": "整个服务期间",
+    "why": "match English"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.summary": {
+    "text": "Twilio Inc.（美国）负责发送验证短信和邮件；Cloudflare, Inc.（美国）负责确认注册并非自动操作。详情（包括如何拒绝）见隐私政策。如拒绝，将无法创建账号。",
+    "why": "align with English and web"
+  },
+  "mobile:signup.consent.PRIVACY.summary": {
+    "text": "邮箱、手机号、姓名、国籍和密码（加密存储），用于创建和保护你的账号。",
+    "why": "align with English and web"
+  },
+  "mobile:signup.consentTitle": {
+    "text": "我们如何处理你的信息",
+    "why": "warmer, matches English title"
+  },
+  "mobile:signup.doneText": {
+    "text": "你的邮箱和手机号已验证完成。再告诉我们两件事，就能为你显示合适的专业。",
+    "why": "program = 专业"
+  },
+  "mobile:signup.passwordHint": {
+    "text": "至少 10 个字符。最好用一句你记得住的话。",
+    "why": "more natural"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.body": {
+    "text": "你即将接受 {{university}} 的录取。Hangyul Univ 团队会指导你缴纳学费并领取标准入学许可书。",
+    "why": "team name; official document name"
+  },
+  "mobile:student.documents.fixFallback": {
+    "text": "Hangyul 团队要求修改此文件。",
+    "why": "match English"
+  },
+  "mobile:student.messages.subtitle": {
+    "text": "与 Hangyul Univ 团队沟通。",
+    "why": "no individual counselor promised"
+  },
+  "mobile:student.nextAction.COMPARE_OFFERS": {
+    "text": "比较 {{count}} 份录取通知",
+    "why": "spacing around placeholder"
+  },
+  "mobile:student.nextAction.FINISH_APPLICATION": {
+    "text": "完成 {{university}} 的申请，还剩 {{remaining}} 项",
+    "why": "spacing around placeholder"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.budget": {
+    "text": "添加预算，按费用排序 {{count}} 个专业",
+    "why": "program = 专业"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.education": {
+    "text": "添加学历，核对 {{count}} 个专业",
+    "why": "program = 专业; check = 核对"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.gpa": {
+    "text": "添加成绩，核对 {{count}} 个专业",
+    "why": "program = 专业; check = 核对"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.language": {
+    "text": "添加语言成绩，核对 {{count}} 个专业",
+    "why": "program = 专业; check = 核对"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.other": {
+    "text": "完善资料，核对 {{count}} 个专业",
+    "why": "program = 专业; check = 核对"
+  },
+  "mobile:student.tasks.subtitle": {
+    "text": "来自 Hangyul 团队和你的申请清单的任务。",
+    "why": "team; checklist not 'system'"
+  },
+  "mobile:university.applicants.reference": {
+    "text": "贵校编号",
+    "why": "formal, matches 贵校 elsewhere"
+  },
+  "mobile:university.inbox.title": {
+    "text": "消息",
+    "why": "English is Messages, not Inbox"
+  },
+  "mobile:v18.offline.stamp": {
+    "text": "最后更新于 {{when}}",
+    "why": "spacing around placeholder"
+  },
+  "mobile:v29.mfa.codeHint": {
+    "text": "请输入身份验证器应用中的 6 位验证码，或输入恢复码。",
+    "why": "was untranslated"
+  },
+  "mobile:v29.mfa.codeLabel": {
+    "text": "验证码",
+    "why": "was untranslated"
+  },
+  "mobile:v29.mfa.enrollOnWeb": {
+    "text": "此账号需要两步验证。请先在网页控制台中设置，然后再在此登录。",
+    "why": "was untranslated"
+  },
+  "mobile:v29.mfa.verify": {
+    "text": "验证并登录",
+    "why": "was untranslated"
+  },
+  "mobile:v29.mfa.wrongCode": {
+    "text": "验证码错误或已过期，请输入新的验证码。",
+    "why": "was untranslated"
+  },
+  "mobile:v29.plan.supportDays": {
+    "text": "自首次咨询起 {{count}} 天的咨询支持",
+    "why": "'consultation support' was dropped"
+  },
+  "mobile:v29.plan.termToAgree": {
+    "text": "服务开始时商定",
+    "why": "clearer"
+  },
+  "mobile:v29.plan.unrationed.TEAM": {
+    "text": "你的团队持续跟进",
+    "why": "match web; follow-up"
+  },
+  "mobile:v3.agency.waitingOn.agency": {
+    "text": "等待机构团队处理",
+    "why": "was untranslated"
+  },
+  "mobile:v3.agency.waitingOn.counselor": {
+    "text": "等待顾问处理",
+    "why": "was untranslated"
+  },
+  "mobile:v3.agency.waitingOn.external": {
+    "text": "等待外部机构处理",
+    "why": "was untranslated"
+  },
+  "mobile:v3.agency.waitingOn.hangyul": {
+    "text": "等待 Hangyul 处理",
+    "why": "was untranslated"
+  },
+  "mobile:v3.agency.waitingOn.none": {
+    "text": "无等待事项",
+    "why": "was untranslated"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "你的入学许可书已准备好。开始准备签证材料吧。",
+    "why": "next step is the visa documents"
+  },
+  "mobile:v3.appStatus.PROFILE_REVIEW": {
+    "text": "Hangyul Univ 团队正在检查你的个人资料。",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.appStatus.REJECTED": {
+    "text": "这次大学没有录取你。",
+    "why": "clearer, plain"
+  },
+  "mobile:v3.application.reviewBody": {
+    "text": "提交于 {{date}}。大学可能会要求补交文件或参加面试。Hangyul 团队正在跟进进展。",
+    "why": "team name"
+  },
+  "mobile:v3.application.teamMonitoring": {
+    "text": "正在与大学联系",
+    "why": "'跟进' needs an object"
+  },
+  "mobile:v3.discover.upTo": {
+    "text": "最高 {{amount}} 百万韩元",
+    "why": "₩…百万 is unreadable"
+  },
+  "mobile:v3.docAction.IN_REVIEW": {
+    "text": "Hangyul 团队正在核查",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.home.nextBody.DOCUMENT_UPLOAD": {
+    "text": "上传清晰的扫描件或照片。Hangyul 团队会核查，如有需要修改的地方会告诉你。",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.home.nextBody.ESSAY_WRITE": {
+    "text": "先写个初稿，Hangyul 团队会和你一起审阅。",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.home.noCounselor": {
+    "text": "选择方案后，Hangyul Univ 团队会用你的语言与你一起准备。",
+    "why": "plan, not 支持方案"
+  },
+  "mobile:v3.home.stageLine.apply": {
+    "text": "大学正在审核你的申请",
+    "why": "match English"
+  },
+  "mobile:v3.home.stageLine.visa": {
+    "text": "正在准备留学签证",
+    "why": "preparing, not processing"
+  },
+  "mobile:v3.home.team": {
+    "text": "Hangyul Univ 团队",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.match.close": {
+    "text": "暂不符合条件——只差一步",
+    "why": "full-width dash; match English"
+  },
+  "mobile:v3.messages.attachUnavailable": {
+    "text": "暂不支持附件。",
+    "why": "'此服务器' not in English"
+  },
+  "mobile:v3.offer.deadline": {
+    "text": "请在 {{date}} 前接受录取并缴纳学费 · {{left}}",
+    "why": "accept, not 答复"
+  },
+  "mobile:v3.profile.places": {
+    "text": "你的信息",
+    "why": "'内容' is vague"
+  },
+  "mobile:v3.profile.unlock.sponsor": {
+    "text": "让你提前准备签证所需的资金证明文件",
+    "why": "'early' was dropped"
+  },
+  "mobile:v3.push.idle": {
+    "text": "文件审核完成、截止日期临近或 Hangyul 团队回复时，接收推送提醒。",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.quick.open": {
+    "text": "看看你可以申请的学校，无需账号",
+    "why": "match English, warmer"
+  },
+  "mobile:v3.reviews.studentSees": {
+    "text": "{{name}} 会在文件旁一字不差地看到这段文字。",
+    "why": "'原文' was ambiguous"
+  },
+  "mobile:v3.reviews.studentSeesGeneric": {
+    "text": "学生会在文件旁一字不差地看到这段文字。",
+    "why": "'原文' was ambiguous"
+  },
+  "mobile:v3.uni.conv": {
+    "text": "占上一步的 {{pct}} · {{n}}/{{d}}",
+    "why": "reading order of the ratio"
+  },
+  "mobile:v3.uni.convFew": {
+    "text": "{{n}}/{{d}} 来自上一步 · 数量太少，无法计算比率",
+    "why": "reading order of the ratio"
+  },
+  "mobile:v3.uni.decisionContext_one": {
+    "text": "必需文件已就绪 {{ready}}/{{total}} · {{count}} 项文件要求待回复。",
+    "why": "'request open' = awaiting answer"
+  },
+  "mobile:v3.uni.decisionContext_other": {
+    "text": "必需文件已就绪 {{ready}}/{{total}} · {{count}} 项文件要求待回复。",
+    "why": "'request open' = awaiting answer"
+  },
+  "mobile:v3.uni.decisionNow": {
+    "text": "决定",
+    "why": "English is Decision"
+  },
+  "mobile:v3.uni.nOfD": {
+    "text": "{{n}}/{{d}}",
+    "why": "reading order of the ratio"
+  },
+  "mobile:v3.uni.requestWho": {
+    "text": "学生及其 Hangyul 顾问会收到通知，并一字不差地看到这段文字。",
+    "why": "'原文' was ambiguous"
+  },
+  "mobile:v3.uni.tab.pipeline": {
+    "text": "概览",
+    "why": "English is Overview"
+  },
+  "mobile:v3.upload.privacy": {
+    "text": "只有你和 Hangyul 团队可以打开你的文件。只有在你向某所大学提交申请后，该大学才能看到。",
+    "why": "team, not counselor"
+  },
+  "mobile:v3.visa.beforeTitle": {
+    "text": "收到录取后才开始准备签证",
+    "why": "preparing, not processing"
+  },
+  "mobile:v3.visa.blockers": {
+    "text": "需要先完成",
+    "why": "English is Needed first"
+  },
+  "mobile:v3.visa.phase.apply": {
+    "text": "签证申请",
+    "why": "match English"
+  },
+  "mobile:v3.visa.phase.decision": {
+    "text": "使馆审批结果",
+    "why": "embassy was dropped"
+  },
+  "mobile:v3.visa.title": {
+    "text": "准备你的 {{type}} 签证",
+    "why": "match English"
+  },
+  "mobile:v4.application.blocksUni": {
+    "text": "{{university}} 在等这一项完成后才会继续处理。",
+    "why": "spacing around placeholder"
+  },
+  "mobile:v4.application.doneSummary_one": {
+    "text": "已完成 {{count}} 项：{{items}}",
+    "why": "was untranslated"
+  },
+  "mobile:v4.application.reviewLate": {
+    "text": "比平时用的时间长。我们已提醒 Hangyul 团队审核延迟，你无需重新上传。",
+    "why": "team, not counselor"
+  },
+  "mobile:v4.application.waitBody": {
+    "text": "Hangyul 团队正在检查你提交的内容。如有需要修改的地方，我们会通知你。",
+    "why": "team, not counselor"
+  },
+  "mobile:v4.application.writeOnWeb": {
+    "text": "请在网页版中撰写，Hangyul 团队的评语也会显示在那里。",
+    "why": "team, not counselor"
+  },
+  "mobile:v4.documents.lateLine": {
+    "text": "已标记为延迟并提醒 Hangyul 团队",
+    "why": "team; late ≠ overdue"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.text": {
+    "text": "Hangyul 团队留了评语。文书通过之前，你的申请无法提交。",
+    "why": "team, not counselor"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.text": {
+    "text": "Hangyul 团队会和你一起审阅。先写个初稿吧，不需要完美。",
+    "why": "team, not counselor"
+  },
+  "mobile:v4.uni.actor.AGENCY": {
+    "text": "合作留学机构",
+    "why": "was untranslated"
+  },
+  "mobile:v4.uni.actor.HANGYUL": {
+    "text": "Hangyul",
+    "why": "was untranslated; brand name"
+  },
+  "mobile:v4.uni.actor.STUDENT": {
+    "text": "申请人",
+    "why": "was untranslated"
+  },
+  "mobile:v4.uni.actor.SYSTEM": {
+    "text": "自动",
+    "why": "was untranslated"
+  },
+  "mobile:v4.uni.actor.UNIVERSITY": {
+    "text": "贵校",
+    "why": "was untranslated"
+  },
+  "mobile:v4.uni.toReview_one": {
+    "text": "待审核 · {{count}}",
+    "why": "was untranslated"
+  },
+  "mobile:v4.uni.toReview_other": {
+    "text": "待审核 · {{count}}",
+    "why": "was untranslated"
+  },
+  "mobile:v4.visa.showDone_one": {
+    "text": "显示 {{count}} 个已完成的步骤",
+    "why": "was untranslated"
+  }
+}

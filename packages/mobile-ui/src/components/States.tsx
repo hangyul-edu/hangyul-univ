@@ -36,8 +36,9 @@ export function ErrorState({ error, onRetry, compact }: { error?: unknown; onRet
   const api = error instanceof ApiError ? error : null;
   const forbidden = api?.isForbidden;
   const offline = !api && error instanceof TypeError; // fetch network failure
-  const title = forbidden ? t('states.forbidden') : offline ? t('states.offline') : api?.isNotFound ? t('states.notFound') : t('states.error');
-  const body = forbidden ? t('states.forbiddenDetail') : t('states.errorDetail');
+  const unreachable = !!api?.unreachable; // V32: the service itself answered nothing usable
+  const title = forbidden ? t('states.forbidden') : offline ? t('states.offline') : unreachable ? t('states.unavailableTitle') : api?.isNotFound ? t('states.notFound') : t('states.error');
+  const body = forbidden ? t('states.forbiddenDetail') : unreachable ? t('states.unavailableText') : t('states.errorDetail');
   return (
     <EmptyState
       compact={compact}

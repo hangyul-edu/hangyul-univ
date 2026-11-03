@@ -1,4 +1,5 @@
 // V6 university console captures. Usage: OUT=docs/qa/v6/university/after node scripts/qa/v6-university.mjs [widths] [filter]
+import { FIXTURE_PASSWORD } from './auth.mjs';
 import { chromium } from '@playwright/test';
 const B = 'http://localhost:3103';
 const out = process.env.OUT ?? 'docs/qa/v6/university/after';
@@ -10,7 +11,7 @@ const page = await ctx.newPage();
 async function login(email) {
   await ctx.clearCookies();
   await page.goto(`${B}/login`);
-  const r = await page.request.post(`${B}/api/v1/auth/demo-login`, { data: { email, client: 'university' } });
+  const r = await page.request.post(`${B}/api/v1/auth/login`, { data: { email, password: FIXTURE_PASSWORD, client: 'university' } });
   if (!r.ok()) console.log('login fail', email, r.status());
   return (await r.json()).access_token;
 }

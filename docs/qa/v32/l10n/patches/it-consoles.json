@@ -1,0 +1,2881 @@
+{
+ "_notes": [
+  "Address form, Agency console: impersonal by construction (infinitives for instructions, nominal labels, 'il team' / 'in carico' instead of 'tu'); the existing informal 'tu' prose (…che segui, a tuo nome, ti servono) was rewritten. Button and menu labels keep the conventional Italian UI imperative (Salva, Invia, Apri), which is register-neutral.",
+  "Address form, University console: impersonal / third person ('l'università', 'l'ufficio', 'lo staff Hangyul'); the earlier mixed 'voi' (la vostra università, avete confermato) and 'tu' (il tuo account) were removed. No 'Lei' was needed anywhere once phrasing is impersonal.",
+  "Gender neutrality (V31 open item): singular statuses, chips and sentences that described one student or the reader with a masculine default were rewritten to be neutral by construction (Da inviare, Candidatura inviata, Ammissione negata o ritiro, Risposta dovuta, 'chi lascia il team', 'la persona candidata'). Generic plural group labels ('studenti', 'ammessi', 'iscritti', 'candidati') are kept as the unmarked Italian plural (otherwise the stage strip becomes unreadable); role titles ('amministratore', 'revisore') kept as functional labels — both flagged for the owner.",
+  "'You' as the current user in lists (docs.you, team.you, settings.youShort) is rendered 'io' / 'Io', the convention Italian productivity tools use for the signed-in user.",
+  "Offer = 'ammissione' (Ammissione comunicata / accettata; Tasso di ammissione), consistent with the marketing/common patch; 'offerta' in Italian reads as a commercial deal.",
+  "Standard admission letter = 'lettera di ammissione standard', once glossed '(standard admission letter)' in agency:ws.noVisaText; the University action is 'Emetti lettera di ammissione standard'.",
+  "Document review = 'verifica' (Coda di verifica, Verifica documenti, in verifica, da verificare); 'revisione' is reserved for essay review. Audit log = 'registro di audit' (replacing 'registro di controllo') to match common:nav.audit.",
+  "Official admission guide = 'bando' (bando ufficiale / bando di ammissione), the natural Italian term; caseload = 'in carico'; Hangyul HQ = 'Sede Hangyul'; Hangyul Operations = 'Operazioni Hangyul' (matches common:role); Insights = 'Statistiche' (university:v28.pipe.label said 'Analisi').",
+  "Plurals: every _one/_other family received the noun in both forms (e.g. {{count}} documento da correggere / documenti da correggere); 'and {{count}} more' is 'e {{count}} in più' so both forms read correctly."
+ ],
+ "agency:actions.moreFilters": {
+  "text": "Altri filtri",
+  "why": "missing"
+ },
+ "agency:apps.actor.AGENCY": {
+  "text": "Agenzia",
+  "why": "missing"
+ },
+ "agency:apps.actor.HANGYUL": {
+  "text": "Hangyul",
+  "why": "missing"
+ },
+ "agency:apps.actor.STUDENT": {
+  "text": "Studente",
+  "why": "missing"
+ },
+ "agency:apps.actor.SYSTEM": {
+  "text": "Sistema",
+  "why": "missing"
+ },
+ "agency:apps.actor.UNIVERSITY": {
+  "text": "Università",
+  "why": "missing"
+ },
+ "agency:apps.checklist": {
+  "text": "Checklist dei documenti",
+  "why": "missing"
+ },
+ "agency:apps.checklistCount": {
+  "text": "{{ready}} di {{total}} voci pronte",
+  "why": "missing"
+ },
+ "agency:apps.confirmMove": {
+  "text": "Sposta in «{{status}}»",
+  "why": "missing"
+ },
+ "agency:apps.empty": {
+  "text": "Nessuna candidatura corrisponde a questi filtri. Modificarli o azzerarli.",
+  "why": "second sentence was dropped"
+ },
+ "agency:apps.externalRef": {
+  "text": "Riferimento dell'università",
+  "why": "missing"
+ },
+ "agency:apps.externalRefHint": {
+  "text": "Il numero di candidatura del portale dell'università, se disponibile.",
+  "why": "missing"
+ },
+ "agency:apps.flag": {
+  "text": "Segnala",
+  "why": "missing"
+ },
+ "agency:apps.flagReason": {
+  "text": "Motivo della segnalazione",
+  "why": "missing"
+ },
+ "agency:apps.flagTitle": {
+  "text": "Segnala per follow-up",
+  "why": "missing"
+ },
+ "agency:apps.history": {
+  "text": "Cronologia degli stati",
+  "why": "missing"
+ },
+ "agency:apps.legalization": {
+  "text": "Autenticazione notarile e legalizzazione",
+  "why": "missing"
+ },
+ "agency:apps.moveTo": {
+  "text": "Cambia stato della candidatura",
+  "why": "missing"
+ },
+ "agency:apps.moved": {
+  "text": "Candidatura spostata in {{status}}.",
+  "why": "missing"
+ },
+ "agency:apps.noTransitions": {
+  "text": "In questa fase la propria organizzazione non può cambiare lo stato.",
+  "why": "missing"
+ },
+ "agency:apps.note": {
+  "text": "Nota",
+  "why": "missing"
+ },
+ "agency:apps.noteHint": {
+  "text": "Salvata nella cronologia degli stati.",
+  "why": "missing"
+ },
+ "agency:apps.readiness": {
+  "text": "Completezza",
+  "why": "missing"
+ },
+ "agency:apps.reused": {
+  "text": "Ripreso dall'archivio documenti",
+  "why": "missing"
+ },
+ "agency:apps.scholarship": {
+  "text": "Nota sulla borsa di studio",
+  "why": "missing"
+ },
+ "agency:apps.semester": {
+  "text": "Inizio del semestre",
+  "why": "missing"
+ },
+ "agency:apps.sortBy.readiness": {
+  "text": "Completezza",
+  "why": "missing"
+ },
+ "agency:apps.submitBlocked": {
+  "text": "Mancano documenti obbligatori, quindi l'invio è bloccato:",
+  "why": "missing"
+ },
+ "agency:apps.submitted": {
+  "text": "Inviata",
+  "why": "missing"
+ },
+ "agency:apps.translation": {
+  "text": "Traduzione",
+  "why": "missing"
+ },
+ "agency:apps.withdrawWarn": {
+  "text": "Il ritiro di questa candidatura è definitivo.",
+  "why": "missing"
+ },
+ "agency:dash.days_other": {
+  "text": "{{count}} giorni",
+  "why": "missing"
+ },
+ "agency:dash.period": {
+  "text": "Periodo di riferimento",
+  "why": "missing"
+ },
+ "agency:dash.subHq": {
+  "text": "Vista su tutte le agenzie: ogni studente attivo, coda e SLA.",
+  "why": "missing"
+ },
+ "agency:dash.workload.member": {
+  "text": "Membro del team",
+  "why": "missing"
+ },
+ "agency:dash.workload.open": {
+  "text": "Attività aperte",
+  "why": "missing"
+ },
+ "agency:dash.workload.overdue": {
+  "text": "In ritardo",
+  "why": "missing"
+ },
+ "agency:dash.workload.students": {
+  "text": "Studenti attivi",
+  "why": "missing"
+ },
+ "agency:docs.bulkAssign": {
+  "text": "Assegna la verifica",
+  "why": "missing"
+ },
+ "agency:docs.bulkAssigned_one": {
+  "text": "{{count}} documento assegnato",
+  "why": "missing"
+ },
+ "agency:docs.bulkAssigned_other": {
+  "text": "{{count}} documenti assegnati",
+  "why": "missing"
+ },
+ "agency:docs.bulkFailed_one": {
+  "text": "{{count}} documento non modificabile (già verificato o non in carico)",
+  "why": "missing"
+ },
+ "agency:docs.bulkFailed_other": {
+  "text": "{{count}} documenti non modificabili (già verificati o non in carico)",
+  "why": "missing"
+ },
+ "agency:docs.bulkLabel": {
+  "text": "Azioni per i documenti selezionati",
+  "why": "missing"
+ },
+ "agency:docs.bulkVerified_one": {
+  "text": "{{count}} documento verificato",
+  "why": "missing"
+ },
+ "agency:docs.bulkVerified_other": {
+  "text": "{{count}} documenti verificati",
+  "why": "missing"
+ },
+ "agency:docs.bulkVerifyText": {
+  "text": "Verificare solo i documenti aperti e controllati. Ogni studente riceve una notifica e ogni decisione viene registrata nel registro di audit a nome di chi la prende.",
+  "why": "impersonal console voice"
+ },
+ "agency:docs.bulkVerifyTitle_one": {
+  "text": "Verificare {{count}} documento?",
+  "why": "missing"
+ },
+ "agency:docs.empty": {
+  "text": "Coda vuota",
+  "why": "missing"
+ },
+ "agency:docs.emptyBy.any": {
+  "text": "Nessun documento in attesa di verifica.",
+  "why": "missing"
+ },
+ "agency:docs.emptyBy.me": {
+  "text": "Al momento nessun documento assegnato.",
+  "why": "missing"
+ },
+ "agency:docs.emptyBy.unassigned": {
+  "text": "Ogni documento in attesa ha già chi lo verifica.",
+  "why": "missing"
+ },
+ "agency:docs.notInQueue": {
+  "text": "Non in coda di verifica",
+  "why": "missing"
+ },
+ "agency:docs.pick": {
+  "text": "Scegli un documento da verificare",
+  "why": "document review = verifica"
+ },
+ "agency:docs.pickText": {
+  "text": "J / K per scorrere la coda.",
+  "why": "impersonal console voice"
+ },
+ "agency:docs.queue": {
+  "text": "Coda di verifica",
+  "why": "document review = verifica"
+ },
+ "agency:docs.reviewer": {
+  "text": "Verifica documenti",
+  "why": "document review = verifica"
+ },
+ "agency:docs.subSla": {
+  "text": "{{count}} in attesa di verifica · {{late}} oltre l'obiettivo di {{hours}} ore",
+  "why": "missing"
+ },
+ "agency:docs.sub_other": {
+  "text": "{{count}} documenti in attesa di verifica, dal più vecchio.",
+  "why": "missing"
+ },
+ "agency:docs.uploadForHint": {
+  "text": "Da usare quando un documento arriva per altra via (per esempio via email). Entra nell'archivio documenti dello studente, viene contrassegnato come caricato dallo staff e attende la verifica come qualsiasi altro caricamento.",
+  "why": "impersonal console voice"
+ },
+ "agency:docs.uploadedFor": {
+  "text": "Aggiunto all'archivio documenti di {{name}}",
+  "why": "missing"
+ },
+ "agency:docs.you": {
+  "text": "io",
+  "why": "missing"
+ },
+ "agency:inbox.audienceTeam": {
+  "text": "Visibile solo al team",
+  "why": "missing"
+ },
+ "agency:inbox.manageTemplates": {
+  "text": "Gestisci modelli…",
+  "why": "missing"
+ },
+ "agency:inbox.messagePh": {
+  "text": "Scrivere una risposta… (Ctrl+Invio per inviare)",
+  "why": "impersonal console voice"
+ },
+ "agency:inbox.needsReplyShort": {
+  "text": "Risposta dovuta",
+  "why": "impersonal console voice"
+ },
+ "agency:inbox.noMessages": {
+  "text": "Ancora nessun messaggio.",
+  "why": "missing"
+ },
+ "agency:inbox.notePh": {
+  "text": "Scrivere una nota interna per il team… (Ctrl+Invio per salvare)",
+  "why": "missing"
+ },
+ "agency:inbox.noteSaved": {
+  "text": "Nota interna salvata.",
+  "why": "missing"
+ },
+ "agency:inbox.openFile": {
+  "text": "Apri file",
+  "why": "missing"
+ },
+ "agency:inbox.participants": {
+  "text": "partecipanti",
+  "why": "missing"
+ },
+ "agency:inbox.pickText": {
+  "text": "Oppure avviarne una nuova con uno studente in carico.",
+  "why": "impersonal console voice"
+ },
+ "agency:inbox.removeFile": {
+  "text": "Rimuovi {{name}}",
+  "why": "missing"
+ },
+ "agency:inbox.saveNote": {
+  "text": "Salva nota",
+  "why": "missing"
+ },
+ "agency:inbox.sent": {
+  "text": "Messaggio inviato.",
+  "why": "missing"
+ },
+ "agency:inbox.subReply_one": {
+  "text": "{{count}} conversazione in attesa di risposta",
+  "why": "missing"
+ },
+ "agency:inbox.subReply_other": {
+  "text": "{{count}} conversazioni in attesa di risposta",
+  "why": "impersonal console voice"
+ },
+ "agency:inbox.subUnread_one": {
+  "text": "{{count}} conversazione non letta",
+  "why": "missing"
+ },
+ "agency:inbox.system": {
+  "text": "Sistema",
+  "why": "missing"
+ },
+ "agency:inbox.taskCreated": {
+  "text": "Attività creata da questo messaggio",
+  "why": "missing"
+ },
+ "agency:inbox.taskDue": {
+  "text": "Scadenza dell'attività",
+  "why": "missing"
+ },
+ "agency:inbox.taskHint": {
+  "text": "L'attività va alla prima persona del team menzionata, altrimenti a chi la crea.",
+  "why": "missing"
+ },
+ "agency:inbox.unreadN_other": {
+  "text": "{{count}} messaggi non letti",
+  "why": "missing"
+ },
+ "agency:inbox.willNotify_other": {
+  "text": "{{count}} membri del team riceveranno una notifica",
+  "why": "missing"
+ },
+ "agency:login.asideFoot": {
+  "text": "I dati di ogni organizzazione restano separati e ogni accesso viene registrato. Gli studenti non vedono mai le note interne.",
+  "why": "missing"
+ },
+ "agency:login.asideLead": {
+  "text": "Studenti, candidature, documenti e messaggi in un unico spazio di lavoro.",
+  "why": "missing"
+ },
+ "agency:login.asideTitle": {
+  "text": "Chi ha bisogno del team, perché ed entro quando, a partire da oggi.",
+  "why": "missing"
+ },
+ "agency:login.p1Text": {
+  "text": "Ogni conteggio per fase apre esattamente quegli studenti.",
+  "why": "missing"
+ },
+ "agency:login.p1Title": {
+  "text": "Studenti per fase",
+  "why": "missing"
+ },
+ "agency:login.p2Text": {
+  "text": "Correzioni ai documenti, scadenze delle candidature e risposte dovute, in ordine di scadenza.",
+  "why": "missing"
+ },
+ "agency:login.p2Title": {
+  "text": "Lavoro con scadenza",
+  "why": "missing"
+ },
+ "agency:login.p3Text": {
+  "text": "Anteprime sicure e checklist; correzioni richieste con un motivo chiaro.",
+  "why": "missing"
+ },
+ "agency:login.p3Title": {
+  "text": "Verifica documenti",
+  "why": "missing"
+ },
+ "agency:login.p4Text": {
+  "text": "Gli studenti ricevono le comunicazioni dal team Hangyul Univ; chi ha svolto il lavoro resta nel registro di audit.",
+  "why": "missing"
+ },
+ "agency:login.p4Title": {
+  "text": "Gli studenti vedono il team Hangyul Univ",
+  "why": "missing"
+ },
+ "agency:login.subtitle": {
+  "text": "Per lo staff operativo Hangyul e le agenzie partner per lo studio all'estero.",
+  "why": "missing"
+ },
+ "agency:login.title": {
+  "text": "Accedi alla Console agenzia",
+  "why": "missing"
+ },
+ "agency:misc.change": {
+  "text": "Cambia",
+  "why": "missing"
+ },
+ "agency:misc.days_other": {
+  "text": "{{count}} giorni",
+  "why": "missing"
+ },
+ "agency:misc.hours_other": {
+  "text": "{{count}} ore",
+  "why": "missing"
+ },
+ "agency:misc.internalTag": {
+  "text": "Interno",
+  "why": "missing"
+ },
+ "agency:misc.no": {
+  "text": "No",
+  "why": "missing"
+ },
+ "agency:misc.notFoundText": {
+  "text": "La pagina potrebbe essere stata spostata, oppure l'accesso non è consentito.",
+  "why": "missing"
+ },
+ "agency:misc.searchStudents": {
+  "text": "Cerca tra gli studenti in carico…",
+  "why": "missing"
+ },
+ "agency:misc.unassigned": {
+  "text": "Senza assegnazione",
+  "why": "missing"
+ },
+ "agency:misc.yes": {
+  "text": "Sì",
+  "why": "missing"
+ },
+ "agency:notifs.filter": {
+  "text": "Filtra",
+  "why": "missing"
+ },
+ "agency:notifs.sub": {
+  "text": "Tutto ciò che è successo nel frattempo.",
+  "why": "missing"
+ },
+ "agency:savedViews.delete": {
+  "text": "Elimina {{name}}",
+  "why": "missing"
+ },
+ "agency:savedViews.saveHintEmpty": {
+  "text": "Nessun filtro impostato: questa vista mostrerà tutti gli studenti. Aggiungere prima dei filtri per renderla più utile.",
+  "why": "impersonal console voice"
+ },
+ "agency:savedViews.saveHint_one": {
+  "text": "Salva il filtro e l'ordinamento attuali per aprire questo elenco con un clic.",
+  "why": "missing"
+ },
+ "agency:savedViews.saveHint_other": {
+  "text": "Salva i {{count}} filtri e l'ordinamento attuali per aprire questo elenco con un clic.",
+  "why": "missing"
+ },
+ "agency:savedViews.saved": {
+  "text": "Salvata «{{name}}»",
+  "why": "missing"
+ },
+ "agency:settings.account": {
+  "text": "Account",
+  "why": "missing"
+ },
+ "agency:settings.deadlinesHint": {
+  "text": "Tutte le prossime scadenze degli studenti in carico",
+  "why": "impersonal console voice"
+ },
+ "agency:settings.language": {
+  "text": "Lingua",
+  "why": "missing"
+ },
+ "agency:settings.languageHint": {
+  "text": "Lingua dell'interfaccia. I dati degli studenti restano nella lingua originale.",
+  "why": "missing"
+ },
+ "agency:settings.localOnly": {
+  "text": "Salvato solo in questo browser.",
+  "why": "missing"
+ },
+ "agency:settings.org": {
+  "text": "Organizzazione",
+  "why": "missing"
+ },
+ "agency:settings.poll": {
+  "text": "Aggiornamenti in tempo reale",
+  "why": "missing"
+ },
+ "agency:settings.pollHint": {
+  "text": "Aggiorna code e conteggi ogni minuto.",
+  "why": "missing"
+ },
+ "agency:settings.scSearch": {
+  "text": "Scorri i risultati della ricerca globale",
+  "why": "missing"
+ },
+ "agency:settings.scSend": {
+  "text": "Invia messaggio o salva nota",
+  "why": "missing"
+ },
+ "agency:settings.shortcuts": {
+  "text": "Scorciatoie da tastiera",
+  "why": "missing"
+ },
+ "agency:settings.sub": {
+  "text": "Preferenze personali per questa console.",
+  "why": "missing"
+ },
+ "agency:settings.timezone": {
+  "text": "Fuso orario",
+  "why": "missing"
+ },
+ "agency:settings.updates": {
+  "text": "Aggiornamenti in tempo reale",
+  "why": "missing"
+ },
+ "agency:shell.hqProduct": {
+  "text": "Operazioni Hangyul",
+  "why": "missing"
+ },
+ "agency:shell.hqView": {
+  "text": "Sede Hangyul · tutte le agenzie",
+  "why": "missing"
+ },
+ "agency:shell.searchAll": {
+  "text": "Vedi tutti i risultati per «{{q}}»",
+  "why": "missing"
+ },
+ "agency:sidebar.agencies": {
+  "text": "Agenzie",
+  "why": "missing"
+ },
+ "agency:sidebar.catalog": {
+  "text": "Università e programmi",
+  "why": "missing"
+ },
+ "agency:sidebar.hangyul": {
+  "text": "Sede Hangyul",
+  "why": "missing"
+ },
+ "agency:sidebar.operations": {
+  "text": "Operazioni",
+  "why": "missing"
+ },
+ "agency:sidebar.override": {
+  "text": "Assegnazione forzata",
+  "why": "missing"
+ },
+ "agency:students.bulk.confirmRegen_other": {
+  "text": "Ricalcolare gli elenchi automatici di attività per {{count}} studenti? Le attività manuali vengono mantenute.",
+  "why": "missing"
+ },
+ "agency:students.bulk.confirmStage_other": {
+  "text": "Spostare {{count}} studenti in «{{stage}}»? L'operazione viene registrata nel registro di audit.",
+  "why": "missing"
+ },
+ "agency:students.bulk.confirmTitle": {
+  "text": "Applicare l'azione in blocco?",
+  "why": "missing"
+ },
+ "agency:students.bulk.done_other": {
+  "text": "Aggiornati {{count}} studenti.",
+  "why": "missing"
+ },
+ "agency:students.bulk.regen": {
+  "text": "Rigenera attività",
+  "why": "missing"
+ },
+ "agency:students.bulk.stage": {
+  "text": "Sposta alla fase…",
+  "why": "missing"
+ },
+ "agency:students.col.degree": {
+  "text": "Titolo di studio",
+  "why": "missing"
+ },
+ "agency:students.col.nationality": {
+  "text": "Nazionalità",
+  "why": "missing"
+ },
+ "agency:students.dShort_one": {
+  "text": "{{count}} g",
+  "why": "missing"
+ },
+ "agency:students.f.allDegrees": {
+  "text": "Tutti i titoli",
+  "why": "missing"
+ },
+ "agency:students.f.allNationalities": {
+  "text": "Tutte le nazionalità",
+  "why": "missing"
+ },
+ "agency:students.noReply": {
+  "text": "SLA di prima risposta non rispettato: risposta ancora dovuta",
+  "why": "missing"
+ },
+ "agency:students.noReplyShort": {
+  "text": "Risposta dovuta",
+  "why": "missing"
+ },
+ "agency:students.subCount": {
+  "text": "{{count}} studenti in carico",
+  "why": "impersonal console voice"
+ },
+ "agency:students.view.all": {
+  "text": "Tutti",
+  "why": "missing"
+ },
+ "agency:students.view.arrived": {
+  "text": "Arrivi",
+  "why": "missing"
+ },
+ "agency:students.view.attention": {
+  "text": "Richiede attenzione",
+  "why": "'attenzionare' is bureaucratic jargon"
+ },
+ "agency:students.view.deadline": {
+  "text": "Scadenza vicina",
+  "why": "missing"
+ },
+ "agency:students.view.docs": {
+  "text": "Documenti da correggere",
+  "why": "missing"
+ },
+ "agency:students.view.incomplete": {
+  "text": "Documenti incompleti",
+  "why": "missing"
+ },
+ "agency:students.view.mine": {
+  "text": "I miei studenti",
+  "why": "missing"
+ },
+ "agency:students.view.requested": {
+  "text": "Documenti richiesti dall'università",
+  "why": "missing"
+ },
+ "agency:students.view.university": {
+  "text": "In attesa dell'università",
+  "why": "missing"
+ },
+ "agency:students.view.visa": {
+  "text": "Visto",
+  "why": "missing"
+ },
+ "agency:students.view.waiting_external": {
+  "text": "In attesa dell'ambasciata o di terzi",
+  "why": "missing"
+ },
+ "agency:students.view.waiting_us": {
+  "text": "In attesa del team",
+  "why": "missing"
+ },
+ "agency:today.afternoon": {
+  "text": "Buon pomeriggio, {{name}}",
+  "why": "missing"
+ },
+ "agency:today.allClear": {
+  "text": "Nulla richiede attenzione al momento. Il nuovo lavoro comparirà qui man mano che arriva.",
+  "why": "missing"
+ },
+ "agency:today.attention": {
+  "text": "Richiede attenzione",
+  "why": "missing"
+ },
+ "agency:today.attentionSub": {
+  "text": "La voce più urgente è in cima. Aprire una riga per scorrere l'elenco.",
+  "why": "missing"
+ },
+ "agency:today.attentionV4": {
+  "text": "Chi ha bisogno del team oggi",
+  "why": "missing"
+ },
+ "agency:today.clearList": {
+  "text": "Tutto a posto: {{list}}",
+  "why": "missing"
+ },
+ "agency:today.closing": {
+  "text": "Candidature in chiusura entro 7 giorni",
+  "why": "missing"
+ },
+ "agency:today.closingDetail": {
+  "text": "Prossima: {{university}} · {{student}}, chiude il {{date}}",
+  "why": "missing"
+ },
+ "agency:today.closingV4": {
+  "text": "Studenti con scadenza di candidatura entro 7 giorni",
+  "why": "missing"
+ },
+ "agency:today.cta.deadlines": {
+  "text": "Vedi scadenze",
+  "why": "missing"
+ },
+ "agency:today.cta.messages": {
+  "text": "Apri la posta",
+  "why": "missing"
+ },
+ "agency:today.cta.reply": {
+  "text": "Rispondi",
+  "why": "missing"
+ },
+ "agency:today.cta.review": {
+  "text": "Avvia verifica",
+  "why": "missing"
+ },
+ "agency:today.cta.students": {
+  "text": "Apri studenti",
+  "why": "missing"
+ },
+ "agency:today.cta.tasks": {
+  "text": "Apri attività",
+  "why": "missing"
+ },
+ "agency:today.deadlines": {
+  "text": "Scadenze nei prossimi 7 giorni",
+  "why": "missing"
+ },
+ "agency:today.deadlinesDetail": {
+  "text": "Prossima: {{title}} · {{student}}, {{when}}",
+  "why": "missing"
+ },
+ "agency:today.docs": {
+  "text": "Documenti in attesa di verifica",
+  "why": "missing"
+ },
+ "agency:today.docsDetail": {
+  "text": "Più vecchio: {{student}} · {{doc}}, in attesa da {{wait}}",
+  "why": "missing"
+ },
+ "agency:today.docsOldest": {
+  "text": "più vecchio: {{student}} · {{doc}}, caricato {{when}}",
+  "why": "missing"
+ },
+ "agency:today.docsSla_one": {
+  "text": "{{count}} documento oltre l'obiettivo di verifica di {{hours}} ore",
+  "why": "missing"
+ },
+ "agency:today.docsSla_other": {
+  "text": "{{count}} documenti oltre l'obiettivo di verifica di {{hours}} ore",
+  "why": "missing"
+ },
+ "agency:today.essays": {
+  "text": "Elaborati in attesa di revisione",
+  "why": "missing"
+ },
+ "agency:today.essaysDetail": {
+  "text": "Prossimo: {{title}} · {{student}}",
+  "why": "missing"
+ },
+ "agency:today.keyMove": {
+  "text": "sposta",
+  "why": "missing"
+ },
+ "agency:today.keyOpen": {
+  "text": "apri",
+  "why": "missing"
+ },
+ "agency:today.messages": {
+  "text": "Conversazioni con messaggi non letti",
+  "why": "missing"
+ },
+ "agency:today.messagesDetail": {
+  "text": "In attesa da più tempo: {{who}}, {{when}}",
+  "why": "missing"
+ },
+ "agency:today.openPipeline": {
+  "text": "Apri la pipeline",
+  "why": "missing"
+ },
+ "agency:today.overdueDef": {
+  "text": "Attività aperte con scadenza superata.",
+  "why": "missing"
+ },
+ "agency:today.overdueDetail": {
+  "text": "Più vecchia: {{title}} · {{student}}, scadenza {{when}}",
+  "why": "missing"
+ },
+ "agency:today.overdueMine": {
+  "text": "Le mie attività in ritardo",
+  "why": "missing"
+ },
+ "agency:today.overdueTeam": {
+  "text": "Attività in ritardo di tutto il team",
+  "why": "missing"
+ },
+ "agency:today.phase.applied": {
+  "text": "Candidature inviate",
+  "why": "nominal stage label"
+ },
+ "agency:today.phase.studying": {
+  "text": "In corso di studi",
+  "why": "missing"
+ },
+ "agency:today.pipeline": {
+  "text": "Studenti in carico per fase",
+  "why": "missing"
+ },
+ "agency:today.pipelineSub": {
+  "text": "{{count}} studenti. Selezionare una fase per vedere chi vi si trova.",
+  "why": "missing"
+ },
+ "agency:today.pipelineSubV4_one": {
+  "text": "{{count}} studente",
+  "why": "missing"
+ },
+ "agency:today.pipelineSubV4_other": {
+  "text": "{{count}} studenti",
+  "why": "missing"
+ },
+ "agency:today.replies": {
+  "text": "Studenti in attesa di risposta",
+  "why": "missing"
+ },
+ "agency:today.repliesDetail": {
+  "text": "L'ultimo messaggio non ha ancora una risposta.",
+  "why": "missing"
+ },
+ "agency:today.repliesOldest": {
+  "text": "In attesa da più tempo: {{student}}, {{when}}",
+  "why": "missing"
+ },
+ "agency:today.repliesV4": {
+  "text": "Risposte dovute",
+  "why": "missing"
+ },
+ "agency:today.requests": {
+  "text": "Richieste di documenti dalle università",
+  "why": "missing"
+ },
+ "agency:today.requestsDetail": {
+  "text": "Il caricamento spetta allo studente. Controllare che arrivi.",
+  "why": "missing"
+ },
+ "agency:today.sla": {
+  "text": "Studenti a cui è dovuta una prima risposta entro 24 ore",
+  "why": "missing"
+ },
+ "agency:today.slaDetail": {
+  "text": "{{student}} · risposta entro {{when}}",
+  "why": "missing"
+ },
+ "agency:today.unread": {
+  "text": "Conversazioni non lette",
+  "why": "missing"
+ },
+ "agency:today.unreadDetail": {
+  "text": "Più recente: {{who}}, {{when}}",
+  "why": "missing"
+ },
+ "agency:today.upcoming": {
+  "text": "Prossime scadenze",
+  "why": "missing"
+ },
+ "agency:today.upcomingEmpty": {
+  "text": "Nessuna scadenza nei prossimi 14 giorni.",
+  "why": "missing"
+ },
+ "agency:today.upcomingSub": {
+  "text": "Prossimi 14 giorni",
+  "why": "missing"
+ },
+ "agency:today.upcomingV4": {
+  "text": "Prossimi 14 giorni",
+  "why": "missing"
+ },
+ "agency:today.v5.andMore_one": {
+  "text": "e {{count}} in più",
+  "why": "missing"
+ },
+ "agency:today.v5.andMore_other": {
+  "text": "e {{count}} in più",
+  "why": "missing"
+ },
+ "agency:today.v5.checks": {
+  "text": "Verifiche di documenti senza assegnazione",
+  "why": "missing"
+ },
+ "agency:today.v5.checksDetail": {
+  "text": "{{student}} · {{doc}}: {{what}}",
+  "why": "missing"
+ },
+ "agency:today.v5.services.needs_assignment": {
+  "text": "Nuove richieste di servizio da assegnare",
+  "why": "missing"
+ },
+ "agency:today.v5.services.overdue": {
+  "text": "Pratiche di servizio oltre il tempo di risposta",
+  "why": "missing"
+ },
+ "agency:today.v5.services.today": {
+  "text": "Pratiche di servizio in scadenza oggi",
+  "why": "missing"
+ },
+ "agency:today.v5.servicesCta": {
+  "text": "Apri servizi",
+  "why": "missing"
+ },
+ "agency:today.v5.servicesDetail": {
+  "text": "{{type}} · {{student}} · {{reason}}",
+  "why": "missing"
+ },
+ "agency:today.v5.visa": {
+  "text": "Pratiche visto che richiedono un intervento",
+  "why": "missing"
+ },
+ "agency:today.v5.visaCta": {
+  "text": "Apri",
+  "why": "missing"
+ },
+ "agency:today.v5.writingDetail": {
+  "text": "{{essay}} · {{student}}, {{university}}",
+  "why": "missing"
+ },
+ "agency:today.v5.writingDue": {
+  "text": "Revisioni di elaborati in scadenza entro 48 ore",
+  "why": "missing"
+ },
+ "agency:today.v5.writingDue48": {
+  "text": "scadenza {{when}}",
+  "why": "missing"
+ },
+ "agency:today.v5.writingOverdue": {
+  "text": "Revisioni di elaborati oltre il tempo promesso",
+  "why": "missing"
+ },
+ "agency:today.v5.writingRevised_one": {
+  "text": "{{count}} nuova versione dallo studente",
+  "why": "missing"
+ },
+ "agency:today.v5.writingRevised_other": {
+  "text": "{{count}} nuove versioni dagli studenti",
+  "why": "missing"
+ },
+ "agency:today.waitingOn": {
+  "text": "Pratiche per parte in attesa",
+  "why": "missing"
+ },
+ "agency:today.workload": {
+  "text": "Carico di lavoro del team",
+  "why": "missing"
+ },
+ "agency:today.workloadSub": {
+  "text": "Studenti attivi e lavoro aperto per persona",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.adminUser": {
+  "text": "Utente amministratore",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.assigned": {
+  "text": "Università assegnata",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.empty": {
+  "text": "Ancora nessun account universitario.",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.invite": {
+  "text": "Invita un account amministratore universitario",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.noUniversity": {
+  "text": "Nessuna università collegata",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.pickUniversity": {
+  "text": "Università",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.pickUniversityPh": {
+  "text": "Scegli un'università partner",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.reassign": {
+  "text": "Cambia università",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.reassignText": {
+  "text": "L'account passa all'organizzazione dell'università scelta. Quella precedente viene disattivata.",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.reassignTitle": {
+  "text": "Sposta {{name}} a un'altra università",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.search": {
+  "text": "Cerca per nome, email o università…",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.sub": {
+  "text": "Account amministratore delle università partner. Ogni account amministratore universitario ha gli stessi permessi.",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.title": {
+  "text": "Account universitari",
+  "why": "missing"
+ },
+ "agency:v22.hq.accounts.university": {
+  "text": "Università",
+  "why": "missing"
+ },
+ "agency:v22.nav.hqAccounts": {
+  "text": "Account universitari",
+  "why": "missing"
+ },
+ "agency:v22.stage.closed": {
+  "text": "Pratiche chiuse",
+  "why": "missing"
+ },
+ "agency:v22.stage.closedN_other": {
+  "text": "{{count}} pratiche chiuse",
+  "why": "gender-neutral (was 'chiusi')"
+ },
+ "agency:v22.stage.ready": {
+  "text": "Da inviare",
+  "why": "gender-neutral (was 'Pronti'); matches English"
+ },
+ "agency:v22.stage.strip": {
+  "text": "Fasi",
+  "why": "matches English ('Stages')"
+ },
+ "agency:v22.stage.stripHint": {
+  "text": "Selezionare una fase per mostrare solo i suoi studenti. Il conteggio corrisponde alle righe sotto.",
+  "why": "missing"
+ },
+ "agency:v22.stage.submitted": {
+  "text": "Candidature inviate",
+  "why": "nominal stage label"
+ },
+ "agency:v22.team.active": {
+  "text": "Attivo",
+  "why": "missing"
+ },
+ "agency:v22.team.count_other": {
+  "text": "{{count}} account",
+  "why": "missing"
+ },
+ "agency:v22.team.devNote": {
+  "text": "Sviluppo: il codice è stato stampato nella console API, non inviato per email.",
+  "why": "missing"
+ },
+ "agency:v22.team.disable": {
+  "text": "Disattiva",
+  "why": "missing"
+ },
+ "agency:v22.team.disableReason": {
+  "text": "Motivo",
+  "why": "missing"
+ },
+ "agency:v22.team.disableReasonPh": {
+  "text": "Ha lasciato l'agenzia",
+  "why": "missing"
+ },
+ "agency:v22.team.disableText": {
+  "text": "L'accesso viene bloccato. Studenti, verifiche e attività aperte passano automaticamente al resto del team.",
+  "why": "missing"
+ },
+ "agency:v22.team.disableTitle": {
+  "text": "Disattivare {{name}}?",
+  "why": "missing"
+ },
+ "agency:v22.team.disabled": {
+  "text": "Disattivato",
+  "why": "missing"
+ },
+ "agency:v22.team.email": {
+  "text": "Email",
+  "why": "missing"
+ },
+ "agency:v22.team.empty": {
+  "text": "Ancora nessun account.",
+  "why": "missing"
+ },
+ "agency:v22.team.enable": {
+  "text": "Attiva",
+  "why": "missing"
+ },
+ "agency:v22.team.invite": {
+  "text": "Invita un nuovo account amministratore",
+  "why": "missing"
+ },
+ "agency:v22.team.inviteSub": {
+  "text": "Riceve un'email con un codice monouso per impostare la password.",
+  "why": "missing"
+ },
+ "agency:v22.team.lastLogin": {
+  "text": "Ultimo accesso",
+  "why": "missing"
+ },
+ "agency:v22.team.mailFailed": {
+  "text": "Non è stato possibile inviare l'invito per email. Suggerire di usare «Password dimenticata» con questo indirizzo.",
+  "why": "missing"
+ },
+ "agency:v22.team.name": {
+  "text": "Nome",
+  "why": "missing"
+ },
+ "agency:v22.team.never": {
+  "text": "Mai",
+  "why": "missing"
+ },
+ "agency:v22.team.sendInvite": {
+  "text": "Invia invito",
+  "why": "missing"
+ },
+ "agency:v22.team.sent": {
+  "text": "Invito inviato",
+  "why": "missing"
+ },
+ "agency:v22.team.sentTo": {
+  "text": "Invito inviato per email a {{email}}.",
+  "why": "missing"
+ },
+ "agency:v22.team.status": {
+  "text": "Stato",
+  "why": "missing"
+ },
+ "agency:v22.team.sub": {
+  "text": "Ogni account amministratore ha gli stessi permessi.",
+  "why": "missing"
+ },
+ "agency:v22.team.unverified": {
+  "text": "Invito inviato · non ancora verificato",
+  "why": "missing"
+ },
+ "agency:v22.team.you": {
+  "text": "Io",
+  "why": "missing"
+ },
+ "agency:v22.work.bulkOwner": {
+  "text": "Imposta responsabile…",
+  "why": "missing"
+ },
+ "agency:v22.work.closedHint": {
+  "text": "Ammissione negata o ritiro",
+  "why": "gender-neutral (was 'respinti o ritirati')"
+ },
+ "agency:v22.work.confirmOwner_other": {
+  "text": "Impostare {{name}} come responsabile di {{count}} studenti?",
+  "why": "missing"
+ },
+ "agency:v22.work.deleteView": {
+  "text": "Elimina questa vista",
+  "why": "missing"
+ },
+ "agency:v22.work.empty": {
+  "text": "Nessuno studente in questa fase",
+  "why": "missing"
+ },
+ "agency:v22.work.emptyFiltered": {
+  "text": "Nessuno studente corrisponde a questi filtri. Provare a modificarli.",
+  "why": "second sentence was dropped"
+ },
+ "agency:v22.work.myViews": {
+  "text": "Le mie viste",
+  "why": "missing"
+ },
+ "agency:v22.work.showTop": {
+  "text": "Mostra i primi 10",
+  "why": "missing"
+ },
+ "agency:v22.work.total_other": {
+  "text": "{{count}} studenti",
+  "why": "missing"
+ },
+ "agency:v22.work.upcoming_other": {
+  "text": "{{count}} scadenze nei prossimi 14 giorni",
+  "why": "'in 14 giorni' was ambiguous"
+ },
+ "agency:v22.ws.detailsHint": {
+  "text": "Tutti i dettagli, quando servono.",
+  "why": "impersonal console voice"
+ },
+ "agency:v22.ws.docFix_other": {
+  "text": "{{count}} documenti da correggere",
+  "why": "missing"
+ },
+ "agency:v22.ws.docReview_other": {
+  "text": "{{count}} documenti da verificare",
+  "why": "missing"
+ },
+ "agency:v22.ws.needsActionEmpty": {
+  "text": "Nulla in attesa del team per questo studente.",
+  "why": "missing"
+ },
+ "agency:v22.ws.noConversation": {
+  "text": "Ancora nessuna conversazione. Inviare il primo messaggio.",
+  "why": "second sentence was dropped"
+ },
+ "agency:v22.ws.openThread": {
+  "text": "Apri conversazione",
+  "why": "missing"
+ },
+ "agency:v23.work.memberFilter": {
+  "text": "Studenti di un solo membro del team",
+  "why": "missing"
+ },
+ "agency:v23.work.openAll": {
+  "text": "Apri tutti i {{count}} in Studenti",
+  "why": "missing"
+ },
+ "agency:v23.work.submissionsNeed_one": {
+  "text": "{{count}} candidatura in attesa dell'invio da parte del team",
+  "why": "missing"
+ },
+ "agency:v23.work.submissionsNeed_other": {
+  "text": "{{count}} candidature in attesa dell'invio da parte del team",
+  "why": "noun was missing; clearer"
+ },
+ "agency:v26.ws.replyOwed": {
+  "text": "Lo studente attende una risposta",
+  "why": "impersonal console voice"
+ },
+ "agency:v27.evidence.age": {
+  "text": "Rilasciato entro",
+  "why": "missing"
+ },
+ "agency:v27.evidence.ageDays": {
+  "text": "{{count}} giorni",
+  "why": "missing"
+ },
+ "agency:v27.evidence.byNationality": {
+  "text": "per nazionalità; paese di rilascio non ancora noto",
+  "why": "missing"
+ },
+ "agency:v27.evidence.extra": {
+  "text": "Inoltre",
+  "why": "missing"
+ },
+ "agency:v27.evidence.form": {
+  "text": "Da presentare come",
+  "why": "missing"
+ },
+ "agency:v27.evidence.legal": {
+  "text": "Legalizzazione",
+  "why": "missing"
+ },
+ "agency:v27.evidence.none": {
+  "text": "Non ancora caricato",
+  "why": "missing"
+ },
+ "agency:v27.evidence.open": {
+  "text": "Mostra prova",
+  "why": "missing"
+ },
+ "agency:v27.evidence.proof": {
+  "text": "Caricamento dello studente",
+  "why": "missing"
+ },
+ "agency:v27.evidence.quote": {
+  "text": "Testo del bando",
+  "why": "missing"
+ },
+ "agency:v27.evidence.when": {
+  "text": "Si applica quando",
+  "why": "missing"
+ },
+ "agency:v27.form.COPY": {
+  "text": "Copia",
+  "why": "missing"
+ },
+ "agency:v27.form.EITHER": {
+  "text": "Originale o copia",
+  "why": "missing"
+ },
+ "agency:v27.form.ORIGINAL": {
+  "text": "Originale",
+  "why": "missing"
+ },
+ "agency:v27.guide.current": {
+  "text": "Elenco documenti da",
+  "why": "missing"
+ },
+ "agency:v27.guide.missingBody": {
+  "text": "Il bando ufficiale corrente per questa università e questo livello non è stato verificato, quindi non viene mostrato alcun elenco di documenti. Comparirà quando le Operazioni Hangyul avranno verificato il bando.",
+  "why": "missing"
+ },
+ "agency:v27.guide.previous": {
+  "text": "Basato sul bando della sessione precedente; il nuovo bando è in verifica",
+  "why": "missing"
+ },
+ "agency:v27.guide.source": {
+  "text": "Bando ufficiale",
+  "why": "missing"
+ },
+ "agency:v27.guide.verified": {
+  "text": "verificato il {{date}}",
+  "why": "missing"
+ },
+ "agency:v27.hq.guidesNone": {
+  "text": "Nessun bando di ammissione da verificare.",
+  "why": "missing"
+ },
+ "agency:v27.hq.guidesSub": {
+  "text": "Senza un bando corrente verificato, gli studenti non vedono l'elenco dei documenti. Ordinati per studenti in attesa.",
+  "why": "missing"
+ },
+ "agency:v27.hq.guidesTitle": {
+  "text": "Bandi di ammissione da verificare",
+  "why": "missing"
+ },
+ "agency:v27.hq.kind.CONFLICT": {
+  "text": "Le fonti ufficiali discordano",
+  "why": "missing"
+ },
+ "agency:v27.hq.kind.MISSING_GUIDE": {
+  "text": "Nessun bando verificato",
+  "why": "missing"
+ },
+ "agency:v27.hq.kind.REVIEW_REQUIRED": {
+  "text": "Da rivedere",
+  "why": "missing"
+ },
+ "agency:v27.hq.kind.SPOT_CHECK": {
+  "text": "Controllo a campione sull'originale",
+  "why": "missing"
+ },
+ "agency:v27.hq.kind.STALE": {
+  "text": "Il bando è di una sessione precedente",
+  "why": "missing"
+ },
+ "agency:v27.hq.waiting": {
+  "text": "{{count}} candidature in preparazione",
+  "why": "missing"
+ },
+ "agency:v27.ifApplies": {
+  "text": "Se applicabile",
+  "why": "missing"
+ },
+ "agency:v27.issue.APOSTILLE": {
+  "text": "Serve l'apostille",
+  "why": "missing"
+ },
+ "agency:v27.issue.CHINA_CHSI": {
+  "text": "Serve la verifica CHSI",
+  "why": "missing"
+ },
+ "agency:v27.issue.CONSULAR": {
+  "text": "Serve la legalizzazione consolare",
+  "why": "missing"
+ },
+ "agency:v27.issue.DONE": {
+  "text": "Fatto",
+  "why": "missing"
+ },
+ "agency:v27.issue.FIX": {
+  "text": "Da correggere",
+  "why": "missing"
+ },
+ "agency:v27.issue.IN_REVIEW": {
+  "text": "In verifica",
+  "why": "missing"
+ },
+ "agency:v27.issue.LEGALIZATION_REVIEW": {
+  "text": "Procedura di legalizzazione da controllare",
+  "why": "missing"
+ },
+ "agency:v27.issue.NOTARIZATION": {
+  "text": "Serve l'autenticazione notarile",
+  "why": "missing"
+ },
+ "agency:v27.issue.ORIGINAL_CHECKED": {
+  "text": "Originale controllato",
+  "why": "missing"
+ },
+ "agency:v27.issue.TRANSLATION": {
+  "text": "Serve la traduzione",
+  "why": "missing"
+ },
+ "agency:v27.issue.UPLOAD": {
+  "text": "Da caricare",
+  "why": "missing"
+ },
+ "agency:v27.legal.APOSTILLE": {
+  "text": "Apostille",
+  "why": "missing"
+ },
+ "agency:v27.legal.CHINA_CHSI": {
+  "text": "Verifica CHSI (Cina) o apostille",
+  "why": "missing"
+ },
+ "agency:v27.legal.CONSULAR": {
+  "text": "Legalizzazione consolare",
+  "why": "missing"
+ },
+ "agency:v27.legal.NONE": {
+  "text": "Non necessaria",
+  "why": "missing"
+ },
+ "agency:v27.legal.STAFF_REVIEW": {
+  "text": "Da controllare in base al paese di rilascio",
+  "why": "missing"
+ },
+ "agency:v27.legal.UNSPECIFIED": {
+  "text": "Non indicato nel bando",
+  "why": "missing"
+ },
+ "agency:v27.party.agency": {
+  "text": "A carico del team",
+  "why": "missing"
+ },
+ "agency:v27.party.student": {
+  "text": "A carico dello studente",
+  "why": "missing"
+ },
+ "agency:v27.stage.ADMIT": {
+  "text": "Ammissione e iscrizione",
+  "why": "offer = ammissione"
+ },
+ "agency:v27.stage.overdue": {
+  "text": "Scadenza superata",
+  "why": "missing"
+ },
+ "agency:v27.stage.stalled": {
+  "text": "Ferma da {{count}} giorni",
+  "why": "missing"
+ },
+ "agency:v27.submit.IN_PERSON": {
+  "text": "Di persona",
+  "why": "missing"
+ },
+ "agency:v27.submit.MAIL": {
+  "text": "Per posta",
+  "why": "missing"
+ },
+ "agency:v27.submit.ONLINE": {
+  "text": "Modulo online",
+  "why": "missing"
+ },
+ "agency:v27.submit.UPLOAD": {
+  "text": "Caricamento online",
+  "why": "missing"
+ },
+ "agency:v27.submit.UPLOAD_MAIL": {
+  "text": "Caricamento, poi originale per posta",
+  "why": "missing"
+ },
+ "agency:v29.guide.field.checklist": {
+  "text": "checklist dei documenti",
+  "why": "missing"
+ },
+ "agency:v29.guide.field.current_intake": {
+  "text": "bando di questa sessione",
+  "why": "missing"
+ },
+ "agency:v29.guide.field.deadline": {
+  "text": "scadenza",
+  "why": "missing"
+ },
+ "agency:v29.guide.field.source_url": {
+  "text": "fonte ufficiale",
+  "why": "missing"
+ },
+ "agency:v29.guide.field.submission_method": {
+  "text": "modalità di invio",
+  "why": "missing"
+ },
+ "agency:v29.guide.field.verified_date": {
+  "text": "data di verifica",
+  "why": "missing"
+ },
+ "agency:v29.guide.verifyRequired": {
+  "text": "Verificare prima di una candidatura gestita: {{fields}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.addOnStatus.ACTIVE": {
+  "text": "In corso",
+  "why": "missing"
+ },
+ "agency:v29.plan.addOnStatus.APPROVED": {
+  "text": "Attivo (precedente)",
+  "why": "missing"
+ },
+ "agency:v29.plan.addOnStatus.AWAITING_PAYMENT": {
+  "text": "In attesa di pagamento",
+  "why": "missing"
+ },
+ "agency:v29.plan.addOnStatus.COMPLETED": {
+  "text": "Fatto",
+  "why": "missing"
+ },
+ "agency:v29.plan.addOnStatus.OFFERED": {
+  "text": "Proposto",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.dedicated": {
+  "text": "Team dedicato · risposte prioritarie",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.docs.CHECKLIST": {
+  "text": "Documenti: checklist",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.docs.INTENSIVE": {
+  "text": "Documenti: verifica approfondita",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.docs.REVIEW_GUIDANCE": {
+  "text": "Documenti: verifica e indicazioni su cosa correggere",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.dorm.APPLICATION": {
+  "text": "Residenza universitaria: aiuto con la domanda e altre soluzioni di alloggio",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.dorm.INFORMATION": {
+  "text": "Residenza universitaria: informazioni",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.dorm.SCHEDULE": {
+  "text": "Residenza universitaria: date della domanda seguite",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.settle.FULL": {
+  "text": "Ambientamento: da D-30 a D+30",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.settle.INFORMATION": {
+  "text": "Ambientamento: informazioni di base",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.settle.NONE": {
+  "text": "Ambientamento: non incluso",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.visa.DOCUMENT_PREP": {
+  "text": "Visto: aiuto nella preparazione dei documenti",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.visa.GUIDANCE": {
+  "text": "Visto: indicazioni sulla procedura",
+  "why": "missing"
+ },
+ "agency:v29.plan.duty.visa.INTENSIVE": {
+  "text": "Visto: documenti e date chiave seguiti",
+  "why": "missing"
+ },
+ "agency:v29.plan.legacy": {
+  "text": "Acquistato con {{version}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.howItWorks": {
+  "text": "Si applica solo dopo che lo studente ha visto prezzo e ambito, ha accettato e ha pagato.",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.open": {
+  "text": "Proponi un servizio aggiuntivo",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.quantity": {
+  "text": "Quantità ({{unit}})",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.quote": {
+  "text": "Preventivo su misura: inserire prezzo e ambito",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.range": {
+  "text": "Intervallo consigliato {{min}}–{{max}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.scope": {
+  "text": "Nota sull'ambito (visibile allo studente)",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.scopeRequired": {
+  "text": "Ambito (obbligatorio, visibile allo studente)",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.send": {
+  "text": "Proponi allo studente",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.service": {
+  "text": "Servizio",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.total": {
+  "text": "Lo studente paga {{amount}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.offer.unitPrice": {
+  "text": "Prezzo unitario (USD)",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.arrival": {
+  "text": "Arrivo",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.arrivalLabel": {
+  "text": "Data di arrivo prevista",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.arrivalUnknown": {
+  "text": "Data di arrivo non confermata",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.arrivalWindow": {
+  "text": "Preparazione dal {{from}} · arrivo {{arrive}} · fine {{until}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.ended": {
+  "text": "Periodo di servizio terminato",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.endsLabel": {
+  "text": "Fine del contratto",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.notStarted": {
+  "text": "Prima della prima consulenza",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.saved": {
+  "text": "Date del servizio salvate.",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.set": {
+  "text": "Salva date",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.since": {
+  "text": "Iniziato il {{date}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.support": {
+  "text": "Consulenze fino al {{date}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.supportDays": {
+  "text": "{{count}} giorni dalla prima consulenza",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.title": {
+  "text": "Periodo di servizio",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.toAgree": {
+  "text": "Periodo di servizio non impostato",
+  "why": "missing"
+ },
+ "agency:v29.plan.term.until": {
+  "text": "Fino al {{date}}",
+  "why": "missing"
+ },
+ "agency:v29.plan.unrationed.CONTRACTED_DOCUMENTS": {
+  "text": "Nessun limite nell'ambito dei documenti e del calendario previsti dal contratto",
+  "why": "missing"
+ },
+ "agency:v29.plan.unrationed.PRIORITY": {
+  "text": "Risposte prioritarie",
+  "why": "missing"
+ },
+ "agency:v29.plan.unrationed.ROUNDS": {
+  "text": "Incluso",
+  "why": "missing"
+ },
+ "agency:v29.plan.unrationed.TEAM": {
+  "text": "Follow-up del team",
+  "why": "missing"
+ },
+ "agency:v29.plan.usedSoFar": {
+  "text": "{{count}} completate",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.ageing": {
+  "text": "Giorni dall'ultimo movimento della pratica: il più recente tra cambio di fase della pipeline, cambio di stato di una candidatura e assegnazione a questa agenzia.",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.backlog": {
+  "text": "Lavoro aperto a fine settimana: attività del team (non le cose da fare dello studente) non ancora concluse, versioni di documenti non ancora verificate ed elaborati inviati per revisione e non ancora revisionati (ciclo di revisione corrente).",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.blocked": {
+  "text": "Una pratica è bloccata quando è in attesa di una parte e non si muove da più di 14 giorni. Dalla più vecchia.",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.deadlines": {
+  "text": "Candidature non ancora inviate con scadenza entro 14 giorni e a cui mancano ancora elementi obbligatori.",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.load": {
+  "text": "Carico ponderato per persona: ogni tipo di lavoro aperto in carico × il suo peso (tabella dei pesi dell'agenzia), rispetto alla capacità personale espressa negli stessi punti. Sovraccarico = carico superiore alla capacità. A chi è in congedo non viene assegnato nuovo lavoro.",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.sla": {
+  "text": "Prima risposta non data entro la scadenza; documenti in attesa di verifica da più di 48 ore; revisioni di elaborati oltre il tempo di revisione promesso.",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.stages": {
+  "text": "Giorni mediani di permanenza di una candidatura in uno stato prima di passare oltre (permanenze concluse negli ultimi 365 giorni). Non mostrato sotto {{n}} permanenze.",
+  "why": "missing"
+ },
+ "agency:v30.def.ops.unassigned_paid": {
+  "text": "Servizio Hangyul pagato e nessun consulente responsabile della pratica (o, per Hangyul, nessuna agenzia ancora assegnata).",
+  "why": "missing"
+ },
+ "agency:v30.def.svc.arrival": {
+  "text": "Accoglienze in aeroporto completate ÷ accoglienze con orario di arrivo già passato (annullate escluse)",
+  "why": "missing"
+ },
+ "agency:v30.def.svc.completion": {
+  "text": "Completate ÷ pratiche create nel periodo (annullate escluse)",
+  "why": "missing"
+ },
+ "agency:v30.def.svc.resolution": {
+  "text": "Ore mediane dalla richiesta al completamento, solo pratiche completate",
+  "why": "missing"
+ },
+ "agency:v30.def.svc.sla": {
+  "text": "Pratiche in cui il team è intervenuto dopo lo SLA (o non è intervenuto e lo SLA è scaduto) ÷ pratiche con SLA giunto a scadenza",
+  "why": "missing"
+ },
+ "agency:v31.stage.closed": {
+  "text": "Chiusa",
+  "why": "missing"
+ },
+ "agency:waiting.app.ADDITIONAL_DOCUMENTS": {
+  "text": "l'università ha richiesto un documento",
+  "why": "missing"
+ },
+ "agency:waiting.app.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "avviare la pratica visto",
+  "why": "missing"
+ },
+ "agency:waiting.app.ADMISSION_CERTIFICATE_PENDING": {
+  "text": "lettera di ammissione standard",
+  "why": "missing"
+ },
+ "agency:waiting.app.OFFERED": {
+  "text": "risposta all'ammissione",
+  "why": "offer = ammissione"
+ },
+ "agency:waiting.app.PROFILE_REVIEW": {
+  "text": "controllo del profilo",
+  "why": "missing"
+ },
+ "agency:waiting.app.READY": {
+  "text": "pronta per l'invio",
+  "why": "missing"
+ },
+ "agency:waiting.app.TUITION_PAID": {
+  "text": "lettera di ammissione standard",
+  "why": "missing"
+ },
+ "agency:waiting.app.TUITION_PENDING": {
+  "text": "pagamento delle tasse",
+  "why": "missing"
+ },
+ "agency:waiting.app.VISA_SUBMITTED": {
+  "text": "decisione sul visto (ambasciata)",
+  "why": "missing"
+ },
+ "agency:waiting.reason.first_contact": {
+  "text": "primo contatto in scadenza",
+  "why": "missing"
+ },
+ "agency:waiting.reason.fix_one": {
+  "text": "{{count}} documento da correggere",
+  "why": "missing"
+ },
+ "agency:waiting.reason.fix_other": {
+  "text": "{{count}} documenti da correggere",
+  "why": "missing"
+ },
+ "agency:waiting.reason.overdue_task_one": {
+  "text": "{{count}} attività in ritardo",
+  "why": "missing"
+ },
+ "agency:waiting.reason.overdue_task_other": {
+  "text": "{{count}} attività in ritardo",
+  "why": "missing"
+ },
+ "agency:waiting.reason.reply": {
+  "text": "lo studente ha risposto",
+  "why": "missing"
+ },
+ "agency:waiting.reason.review_one": {
+  "text": "{{count}} documento da verificare",
+  "why": "missing"
+ },
+ "agency:waiting.reason.review_other": {
+  "text": "{{count}} documenti da verificare",
+  "why": "missing"
+ },
+ "agency:ws.act.call": {
+  "text": "Prenota consulenza",
+  "why": "missing"
+ },
+ "agency:ws.activityNote": {
+  "text": "Dal registro di audit: consultazioni, modifiche e decisioni sui dati di questo studente.",
+  "why": "missing"
+ },
+ "agency:ws.apptHint": {
+  "text": "Consulenze e simulazioni di colloquio con questo studente.",
+  "why": "missing"
+ },
+ "agency:ws.assignedBy": {
+  "text": "Assegnazione fatta da {{by}}",
+  "why": "missing"
+ },
+ "agency:ws.block.deadline_other": {
+  "text": "La candidatura a {{uni}} chiude tra {{count}} giorni",
+  "why": "missing"
+ },
+ "agency:ws.block.overdue": {
+  "text": "In ritardo: {{title}}",
+  "why": "missing"
+ },
+ "agency:ws.block.review_one": {
+  "text": "{{count}} documento in attesa di verifica",
+  "why": "missing"
+ },
+ "agency:ws.block.review_other": {
+  "text": "{{count}} documenti in attesa di verifica",
+  "why": "missing"
+ },
+ "agency:ws.block.sla": {
+  "text": "In attesa della prima risposta",
+  "why": "missing"
+ },
+ "agency:ws.block.slaDetail": {
+  "text": "L'obiettivo di prima risposta è scaduto {{when}}",
+  "why": "missing"
+ },
+ "agency:ws.block.uniRequest": {
+  "text": "{{uni}} ha richiesto documenti aggiuntivi",
+  "why": "missing"
+ },
+ "agency:ws.blockedBy": {
+  "text": "Completare prima: {{deps}}",
+  "why": "missing"
+ },
+ "agency:ws.blockers": {
+  "text": "Blocchi",
+  "why": "missing"
+ },
+ "agency:ws.budget": {
+  "text": "Budget annuale",
+  "why": "missing"
+ },
+ "agency:ws.by.ENGINE": {
+  "text": "il motore di abbinamento",
+  "why": "missing"
+ },
+ "agency:ws.by.MANUAL": {
+  "text": "un account amministratore",
+  "why": "missing"
+ },
+ "agency:ws.by.OPERATIONS_OVERRIDE": {
+  "text": "Operazioni Hangyul (forzatura)",
+  "why": "missing"
+ },
+ "agency:ws.by.ORDER": {
+  "text": "l'acquisto di un servizio",
+  "why": "missing"
+ },
+ "agency:ws.dob": {
+  "text": "Data di nascita",
+  "why": "missing"
+ },
+ "agency:ws.education": {
+  "text": "Istruzione",
+  "why": "missing"
+ },
+ "agency:ws.expires": {
+  "text": "Scade il {{date}}",
+  "why": "missing"
+ },
+ "agency:ws.factor.country": {
+  "text": "Esperienza sul paese",
+  "why": "missing"
+ },
+ "agency:ws.factor.degree": {
+  "text": "Esperienza sul titolo di studio",
+  "why": "missing"
+ },
+ "agency:ws.factor.language": {
+  "text": "Lingua in comune",
+  "why": "missing"
+ },
+ "agency:ws.factor.preference": {
+  "text": "Preferenza dello studente",
+  "why": "missing"
+ },
+ "agency:ws.factor.sla": {
+  "text": "SLA recenti",
+  "why": "missing"
+ },
+ "agency:ws.factor.university": {
+  "text": "Università di interesse",
+  "why": "missing"
+ },
+ "agency:ws.factor.workload": {
+  "text": "Capacità disponibile",
+  "why": "missing"
+ },
+ "agency:ws.fields": {
+  "text": "Ambiti",
+  "why": "missing"
+ },
+ "agency:ws.gpa": {
+  "text": "GPA",
+  "why": "missing"
+ },
+ "agency:ws.gpaNorm": {
+  "text": "{{pct}}% normalizzato",
+  "why": "missing"
+ },
+ "agency:ws.identity": {
+  "text": "Identità e residenza",
+  "why": "missing"
+ },
+ "agency:ws.itemsInReview_one": {
+  "text": "{{count}} voce in verifica",
+  "why": "noun was missing; verifica"
+ },
+ "agency:ws.itemsInReview_other": {
+  "text": "{{count}} voci in verifica",
+  "why": "missing"
+ },
+ "agency:ws.itemsRemain_one": {
+  "text": "{{count}} voce rimanente",
+  "why": "missing"
+ },
+ "agency:ws.languages": {
+  "text": "Test di lingua",
+  "why": "missing"
+ },
+ "agency:ws.level.ASSOCIATE": {
+  "text": "Associate degree",
+  "why": "missing"
+ },
+ "agency:ws.level.BACHELOR": {
+  "text": "Laurea triennale",
+  "why": "missing"
+ },
+ "agency:ws.level.DOCTORATE": {
+  "text": "Dottorato",
+  "why": "missing"
+ },
+ "agency:ws.level.HIGH_SCHOOL": {
+  "text": "Scuola superiore",
+  "why": "missing"
+ },
+ "agency:ws.level.MASTER": {
+  "text": "Laurea magistrale",
+  "why": "missing"
+ },
+ "agency:ws.maskedHint": {
+  "text": "Mascherato per privacy. Il numero completo è solo nell'archivio documenti dello studente.",
+  "why": "missing"
+ },
+ "agency:ws.noActivity": {
+  "text": "Nessuna attività registrata",
+  "why": "missing"
+ },
+ "agency:ws.noApps": {
+  "text": "Ancora nessuna candidatura",
+  "why": "missing"
+ },
+ "agency:ws.noAppsText": {
+  "text": "Le candidature compaiono qui quando lo studente ne avvia una.",
+  "why": "missing"
+ },
+ "agency:ws.noBreakdown": {
+  "text": "Per questa assegnazione non è stato registrato alcun dettaglio del punteggio.",
+  "why": "missing"
+ },
+ "agency:ws.noConversations": {
+  "text": "Ancora nessuna conversazione con questo studente",
+  "why": "missing"
+ },
+ "agency:ws.noDocs": {
+  "text": "Ancora nessun documento nell'archivio",
+  "why": "missing"
+ },
+ "agency:ws.noEducation": {
+  "text": "Nessun titolo di studio inserito.",
+  "why": "missing"
+ },
+ "agency:ws.noEssays": {
+  "text": "Ancora nessun elaborato",
+  "why": "missing"
+ },
+ "agency:ws.noLanguages": {
+  "text": "Nessun punteggio di test di lingua.",
+  "why": "missing"
+ },
+ "agency:ws.noVisa": {
+  "text": "Ancora nessuna pratica visto",
+  "why": "missing"
+ },
+ "agency:ws.noVisaText": {
+  "text": "La pratica visto si apre automaticamente quando l'università emette la lettera di ammissione standard (standard admission letter).",
+  "why": "missing"
+ },
+ "agency:ws.notAssigned": {
+  "text": "Nessuna agenzia assegnata",
+  "why": "missing"
+ },
+ "agency:ws.passport": {
+  "text": "Passaporto",
+  "why": "missing"
+ },
+ "agency:ws.passportExpiry": {
+  "text": "Scadenza del passaporto",
+  "why": "missing"
+ },
+ "agency:ws.planned": {
+  "text": "in programma",
+  "why": "missing"
+ },
+ "agency:ws.preferences": {
+  "text": "Preferenze",
+  "why": "missing"
+ },
+ "agency:ws.profileTitle": {
+  "text": "Profilo",
+  "why": "missing"
+ },
+ "agency:ws.regions": {
+  "text": "Regioni",
+  "why": "missing"
+ },
+ "agency:ws.residence": {
+  "text": "Paese di residenza",
+  "why": "missing"
+ },
+ "agency:ws.scholarship": {
+  "text": "Necessita di borsa di studio",
+  "why": "missing"
+ },
+ "agency:ws.score": {
+  "text": "Punteggio di abbinamento {{score}} / 100",
+  "why": "missing"
+ },
+ "agency:ws.selfReported": {
+  "text": "autodichiarato",
+  "why": "missing"
+ },
+ "agency:ws.sinceDate": {
+  "text": "Assegnazione dal {{date}}",
+  "why": "missing"
+ },
+ "agency:ws.sponsor": {
+  "text": "Chi finanzia gli studi",
+  "why": "missing"
+ },
+ "agency:ws.sponsorKind.EMPLOYER": {
+  "text": "Datore di lavoro",
+  "why": "missing"
+ },
+ "agency:ws.sponsorKind.PARENTS": {
+  "text": "Genitori",
+  "why": "missing"
+ },
+ "agency:ws.sponsorKind.RELATIVE": {
+  "text": "Parente",
+  "why": "missing"
+ },
+ "agency:ws.sponsorKind.SCHOLARSHIP": {
+  "text": "Borsa di studio",
+  "why": "missing"
+ },
+ "agency:ws.sponsorKind.SELF": {
+  "text": "Risorse proprie",
+  "why": "missing"
+ },
+ "agency:ws.stage": {
+  "text": "Fase della pipeline",
+  "why": "missing"
+ },
+ "agency:ws.tab.essays": {
+  "text": "Elaborati",
+  "why": "matches sidebar term"
+ },
+ "agency:ws.tab.history": {
+  "text": "Cronologia",
+  "why": "missing"
+ },
+ "agency:ws.tab.messages": {
+  "text": "Messaggi",
+  "why": "missing"
+ },
+ "agency:ws.tab.portfolio": {
+  "text": "Portfolio",
+  "why": "missing"
+ },
+ "agency:ws.tab.tasks": {
+  "text": "Attività",
+  "why": "missing"
+ },
+ "agency:ws.targetEntry": {
+  "text": "Data di arrivo prevista",
+  "why": "one term with v29.plan.term.arrivalLabel"
+ },
+ "agency:ws.tasksHint": {
+  "text": "Attività del team e attività visibili allo studente.",
+  "why": "missing"
+ },
+ "agency:ws.visaHistory": {
+  "text": "Storico dei visti coreani",
+  "why": "missing"
+ },
+ "agency:ws.weightsNote": {
+  "text": "Punti ottenuti per fattore rispetto al suo peso (peso totale {{total}}). I punteggi spiegano la scelta; non sono una valutazione di qualità.",
+  "why": "missing"
+ },
+ "agency:ws.whyAssigned": {
+  "text": "Perché questa assegnazione?",
+  "why": "missing"
+ },
+ "university:af.applications": {
+  "text": "Candidature",
+  "why": "missing"
+ },
+ "university:af.fromPrevious": {
+  "text": "Dalla fase precedente",
+  "why": "missing"
+ },
+ "university:af.lowN": {
+  "text": "Troppo poche per un tasso",
+  "why": "missing"
+ },
+ "university:af.step": {
+  "text": "Fase",
+  "why": "missing"
+ },
+ "university:af.stepDef.ACCEPTED": {
+  "text": "L'ammissione è stata accettata.",
+  "why": "impersonal; gender-neutral; offer = ammissione"
+ },
+ "university:af.stepDef.ARRIVED": {
+  "text": "Arrivo in Corea comunicato dallo studente (o iscrizione effettuata).",
+  "why": "missing"
+ },
+ "university:af.stepDef.ENROLLED": {
+  "text": "L'università ha confermato l'iscrizione.",
+  "why": "third person instead of 'voi'"
+ },
+ "university:af.stepDef.OFFERED": {
+  "text": "L'università ha comunicato l'ammissione.",
+  "why": "third person; offer = ammissione"
+ },
+ "university:af.stepDef.REVIEWED": {
+  "text": "L'ufficio ha avviato la valutazione, richiesto documenti, svolto il colloquio o deciso.",
+  "why": "missing"
+ },
+ "university:af.stepDef.SUBMITTED": {
+  "text": "Candidature inviate all'università.",
+  "why": "missing"
+ },
+ "university:af.stepDef.TUITION_PAID": {
+  "text": "L'università ha confermato il pagamento delle tasse.",
+  "why": "missing"
+ },
+ "university:af.stepDef.VISA_ISSUED": {
+  "text": "Visto D-2/D-4 rilasciato.",
+  "why": "missing"
+ },
+ "university:af.stepName.ACCEPTED": {
+  "text": "Ammissione accettata",
+  "why": "offer = ammissione"
+ },
+ "university:af.stepName.OFFERED": {
+  "text": "Ammissione comunicata",
+  "why": "offer = ammissione"
+ },
+ "university:af.title": {
+  "text": "Funnel delle ammissioni",
+  "why": "missing"
+ },
+ "university:analytics.dim.agency": {
+  "text": "Agenzia",
+  "why": "missing"
+ },
+ "university:analytics.dim.nationality": {
+  "text": "Nazionalità",
+  "why": "missing"
+ },
+ "university:analytics.dim.program": {
+  "text": "Programma",
+  "why": "missing"
+ },
+ "university:applicants.col.student": {
+  "text": "Nome",
+  "why": "gender-neutral column header (was 'Candidato')"
+ },
+ "university:applicants.customStatus_other": {
+  "text": "{{count}} stati selezionati",
+  "why": "missing"
+ },
+ "university:applicants.flagged": {
+  "text": "Segnalata",
+  "why": "missing"
+ },
+ "university:applicants.privacyNote": {
+  "text": "Sono elencate solo le candidature inviate a questa università. Le esportazioni vengono registrate nel registro di audit.",
+  "why": "impersonal; registro di audit"
+ },
+ "university:applicants.requested_one": {
+  "text": "{{count}} documento richiesto",
+  "why": "noun was missing"
+ },
+ "university:applicants.requested_other": {
+  "text": "{{count}} documenti richiesti",
+  "why": "missing"
+ },
+ "university:applicants.status": {
+  "text": "Stato",
+  "why": "missing"
+ },
+ "university:common.yes": {
+  "text": "Sì",
+  "why": "missing"
+ },
+ "university:dash.noApplicants": {
+  "text": "Ancora nessuna candidatura inviata per questi filtri.",
+  "why": "missing"
+ },
+ "university:decision.action.ADDITIONAL_DOCUMENTS": {
+  "text": "Richiedi documenti",
+  "why": "missing"
+ },
+ "university:decision.action.ADMISSION_CERTIFICATE_ISSUED": {
+  "text": "Emetti lettera di ammissione standard",
+  "why": "missing"
+ },
+ "university:decision.action.ADMISSION_CERTIFICATE_PENDING": {
+  "text": "Segna lettera di ammissione in attesa",
+  "why": "missing"
+ },
+ "university:decision.action.ENROLLED": {
+  "text": "Conferma iscrizione",
+  "why": "missing"
+ },
+ "university:decision.action.INTERVIEW": {
+  "text": "Programma colloquio",
+  "why": "missing"
+ },
+ "university:decision.action.OFFERED": {
+  "text": "Comunica ammissione",
+  "why": "missing"
+ },
+ "university:decision.action.REJECTED": {
+  "text": "Respingi",
+  "why": "missing"
+ },
+ "university:decision.action.TUITION_PAID": {
+  "text": "Conferma pagamento tasse",
+  "why": "missing"
+ },
+ "university:decision.action.TUITION_PENDING": {
+  "text": "Emetti fattura tasse",
+  "why": "missing"
+ },
+ "university:decision.action.UNIVERSITY_REVIEW": {
+  "text": "Avvia valutazione",
+  "why": "missing"
+ },
+ "university:decision.action.WAITLISTED": {
+  "text": "Lista d'attesa",
+  "why": "missing"
+ },
+ "university:decision.certificateInfo": {
+  "text": "L'emissione della lettera di ammissione standard apre automaticamente la pratica visto dello studente.",
+  "why": "missing"
+ },
+ "university:decision.confirm": {
+  "text": "Spostare {{student}} da «{{from}}» a «{{to}}». Lo studente e la sua agenzia ricevono una notifica.",
+  "why": "missing"
+ },
+ "university:decision.done": {
+  "text": "Candidatura spostata in «{{status}}».",
+  "why": "missing"
+ },
+ "university:decision.interviewAt": {
+  "text": "Data e ora del colloquio",
+  "why": "missing"
+ },
+ "university:decision.none": {
+  "text": "In questa fase non è prevista alcuna azione dell'università.",
+  "why": "missing"
+ },
+ "university:decision.note": {
+  "text": "Nota",
+  "why": "missing"
+ },
+ "university:decision.noteHint": {
+  "text": "Salvata nella cronologia degli stati e condivisa con lo studente e l'agenzia.",
+  "why": "missing"
+ },
+ "university:decision.readOnly": {
+  "text": "Ruolo in sola lettura: le decisioni spettano all'ufficio ammissioni o all'amministrazione.",
+  "why": "missing"
+ },
+ "university:decision.reason": {
+  "text": "Motivo",
+  "why": "missing"
+ },
+ "university:decision.reasonHint": {
+  "text": "Resta nella cronologia della candidatura. Lo studente vede una sintesi rispettosa; il motivo completo è visibile a chi lo segue in agenzia.",
+  "why": "missing"
+ },
+ "university:decision.rejectWarning": {
+  "text": "In Hangyul il rifiuto è definitivo. Se un posto potrebbe liberarsi, valutare la lista d'attesa.",
+  "why": "missing"
+ },
+ "university:decision.scholarshipNote": {
+  "text": "Nota sulla borsa di studio",
+  "why": "missing"
+ },
+ "university:decision.scholarshipNoteHint": {
+  "text": "Es. «esonero del 30% delle tasse, primo semestre». Mostrata allo studente insieme all'ammissione.",
+  "why": "missing"
+ },
+ "university:decision.title": {
+  "text": "Decisione",
+  "why": "missing"
+ },
+ "university:decision.tuitionAmount": {
+  "text": "Importo delle tasse (KRW)",
+  "why": "missing"
+ },
+ "university:decision.tuitionDue": {
+  "text": "Scadenza del pagamento",
+  "why": "missing"
+ },
+ "university:detail.applicant": {
+  "text": "Persona candidata",
+  "why": "missing"
+ },
+ "university:detail.decided": {
+  "text": "Data della decisione",
+  "why": "missing"
+ },
+ "university:detail.externalRef": {
+  "text": "Riferimento interno",
+  "why": "missing"
+ },
+ "university:detail.externalRefHint": {
+  "text": "Numero di candidatura o di ammissione interno all'università (visibile a Hangyul e all'agenzia).",
+  "why": "missing"
+ },
+ "university:detail.gpaNormalized": {
+  "text": "GPA {{value}}% (normalizzato)",
+  "why": "missing"
+ },
+ "university:detail.gpaUnknown": {
+  "text": "GPA non fornito",
+  "why": "missing"
+ },
+ "university:detail.history": {
+  "text": "Cronologia degli stati",
+  "why": "missing"
+ },
+ "university:detail.interview": {
+  "text": "Colloquio",
+  "why": "missing"
+ },
+ "university:detail.legalization": {
+  "text": "Apostille o legalizzazione consolare",
+  "why": "missing"
+ },
+ "university:detail.noEducation": {
+  "text": "Nessun titolo di studio condiviso.",
+  "why": "missing"
+ },
+ "university:detail.notShared": {
+  "text": "Non condiviso",
+  "why": "missing"
+ },
+ "university:detail.notSharedHint": {
+  "text": "Lo studente non ha condiviso questo documento con l'università.",
+  "why": "missing"
+ },
+ "university:detail.optionalDoc": {
+  "text": "Facoltativo",
+  "why": "missing"
+ },
+ "university:detail.refSaved": {
+  "text": "Riferimento salvato",
+  "why": "missing"
+ },
+ "university:detail.residence": {
+  "text": "Paese di residenza",
+  "why": "missing"
+ },
+ "university:detail.scholarshipNote": {
+  "text": "Nota sulla borsa di studio",
+  "why": "missing"
+ },
+ "university:detail.selfReported": {
+  "text": "Autodichiarato",
+  "why": "missing"
+ },
+ "university:detail.sharingNote": {
+  "text": "Sono consultabili i documenti che lo studente ha condiviso con l'università al momento dell'invio. Ogni consultazione viene registrata.",
+  "why": "missing"
+ },
+ "university:detail.side": {
+  "text": "Dettagli della candidatura",
+  "why": "missing"
+ },
+ "university:detail.translation": {
+  "text": "Traduzione",
+  "why": "missing"
+ },
+ "university:detail.tuition": {
+  "text": "Tasse",
+  "why": "missing"
+ },
+ "university:detail.verified": {
+  "text": "Verificato",
+  "why": "missing"
+ },
+ "university:documents.analystNote": {
+  "text": "Il ruolo analista consente l'anteprima dei documenti ma non il download.",
+  "why": "missing"
+ },
+ "university:documents.emptyText": {
+  "text": "I documenti compaiono qui quando gli studenti inviano candidature a questa università.",
+  "why": "impersonal instead of 'vostra'"
+ },
+ "university:documents.expires": {
+  "text": "Scade",
+  "why": "missing"
+ },
+ "university:documents.file": {
+  "text": "File",
+  "why": "missing"
+ },
+ "university:documents.hangyulBody": {
+  "text": "Lo staff Hangyul non è limitato a una sola università in questa pagina. Aprire una candidatura per vedere esattamente quali documenti lo studente ha condiviso con quell'università.",
+  "why": "missing"
+ },
+ "university:documents.hangyulTitle": {
+  "text": "Apri i documenti da una candidatura",
+  "why": "missing"
+ },
+ "university:documents.issued": {
+  "text": "Rilasciato",
+  "why": "missing"
+ },
+ "university:documents.legalization": {
+  "text": "Autenticazione notarile e legalizzazione",
+  "why": "notarization was dropped"
+ },
+ "university:documents.openApplication": {
+  "text": "Apri candidatura",
+  "why": "missing"
+ },
+ "university:documents.openTab": {
+  "text": "Apri in una nuova scheda",
+  "why": "missing"
+ },
+ "university:documents.sharingRule": {
+  "text": "Gli studenti condividono i documenti con l'università quando inviano una candidatura. I documenti non condivisi non compaiono mai qui. Ogni consultazione viene registrata.",
+  "why": "impersonal instead of 'voi'"
+ },
+ "university:documents.subtitle": {
+  "text": "Documenti che gli studenti hanno condiviso con questa università.",
+  "why": "impersonal instead of 'vostra'"
+ },
+ "university:documents.usedIn": {
+  "text": "Usato nelle candidature",
+  "why": "missing"
+ },
+ "university:header.certificationHint": {
+  "text": "Stato della certificazione IEQAS (accreditamento del Ministero dell'Istruzione per il reclutamento e il supporto degli studenti internazionali)",
+  "why": "missing"
+ },
+ "university:header.hangyulView": {
+  "text": "Vista staff Hangyul",
+  "why": "missing"
+ },
+ "university:header.partner": {
+  "text": "Partner Hangyul",
+  "why": "missing"
+ },
+ "university:kpi.definitionOf": {
+  "text": "Definizione di {{label}}",
+  "why": "missing"
+ },
+ "university:kpi.insufficientDetail": {
+  "text": "Mostrato a partire da {{min}} record (attualmente {{n}}).",
+  "why": "matches English order and meaning"
+ },
+ "university:kpi.retention": {
+  "text": "Tasso di permanenza",
+  "why": "matches 'rate'"
+ },
+ "university:kpi.sample": {
+  "text": "n = {{n}}",
+  "why": "missing"
+ },
+ "university:kpi.viewList": {
+  "text": "Vedi elenco",
+  "why": "missing"
+ },
+ "university:kpi.yield": {
+  "text": "Conversione in iscrizioni",
+  "why": "missing"
+ },
+ "university:login.ssoContinue": {
+  "text": "Continua con l'account universitario",
+  "why": "missing"
+ },
+ "university:login.ssoEnforced": {
+  "text": "{{org}} richiede il single sign-on. Usare il pulsante qui sopra.",
+  "why": "missing"
+ },
+ "university:login.ssoHint": {
+  "text": "{{org}} usa il single sign-on. È possibile accedere anche con la password.",
+  "why": "missing"
+ },
+ "university:login.ssoUnavailable": {
+  "text": "{{org}} è configurata per l'accesso SAML, non ancora disponibile. Contattare il supporto Hangyul.",
+  "why": "missing"
+ },
+ "university:login.subtitle": {
+  "text": "Per gli uffici internazionali e i team ammissioni delle università partner di Hangyul.",
+  "why": "missing"
+ },
+ "university:login.title": {
+  "text": "Accedi alla Console università",
+  "why": "missing"
+ },
+ "university:metric.period": {
+  "text": "inviate {{from}} – {{to}}",
+  "why": "missing"
+ },
+ "university:metric.population": {
+  "text": "Popolazione: candidature inviate · {{intake}} · {{n}} candidature",
+  "why": "missing"
+ },
+ "university:nav.earlyWarnings": {
+  "text": "Segnali di allerta",
+  "why": "natural Italian"
+ },
+ "university:nav.programsRules": {
+  "text": "Programmi e requisiti",
+  "why": "glossary term"
+ },
+ "university:nav.settingsTeam": {
+  "text": "Impostazioni e team",
+  "why": "missing"
+ },
+ "university:nav.students": {
+  "text": "Studenti iscritti",
+  "why": "'enrolled' was dropped"
+ },
+ "university:notFound.body": {
+  "text": "La pagina cercata non esiste o è stata spostata.",
+  "why": "missing"
+ },
+ "university:notFound.cta": {
+  "text": "Torna alla dashboard",
+  "why": "missing"
+ },
+ "university:notifications.subtitle": {
+  "text": "Aggiornamenti su candidature, documenti e messaggi.",
+  "why": "missing"
+ },
+ "university:notifications.unread": {
+  "text": "Non lette",
+  "why": "missing"
+ },
+ "university:picker.body": {
+  "text": "Accesso effettuato come staff Hangyul. Selezionare l'università partner da visualizzare: ogni pagina sarà poi limitata a quella università.",
+  "why": "missing"
+ },
+ "university:picker.label": {
+  "text": "Università",
+  "why": "missing"
+ },
+ "university:picker.placeholder": {
+  "text": "Scegli un'università partner…",
+  "why": "missing"
+ },
+ "university:picker.title": {
+  "text": "Scegli un'università",
+  "why": "missing"
+ },
+ "university:settings.hangyulTeam": {
+  "text": "Questa università è visualizzata come staff Hangyul. Il suo team è gestito dall'amministrazione dell'università.",
+  "why": "missing"
+ },
+ "university:settings.noTeam": {
+  "text": "Nessun membro del team. Chiedere a Hangyul di aggiungerne.",
+  "why": "second sentence was dropped"
+ },
+ "university:settings.sso": {
+  "text": "Single sign-on",
+  "why": "missing"
+ },
+ "university:settings.ssoAdminOnly": {
+  "text": "Il single sign-on è gestito dall'amministrazione dell'università.",
+  "why": "missing"
+ },
+ "university:settings.ssoDomains": {
+  "text": "Domini email",
+  "why": "missing"
+ },
+ "university:settings.ssoEnforce": {
+  "text": "Accesso con password bloccato",
+  "why": "missing"
+ },
+ "university:settings.ssoNone": {
+  "text": "Non configurato. Hangyul può collegare l'identity provider dell'università (OpenID Connect): rivolgersi al referente Hangyul.",
+  "why": "missing"
+ },
+ "university:settings.ssoNote": {
+  "text": "I segreti non vengono mai salvati nel database di Hangyul Univ. SAML non è ancora disponibile.",
+  "why": "missing"
+ },
+ "university:settings.ssoOff": {
+  "text": "Configurato, non attivo",
+  "why": "missing"
+ },
+ "university:settings.ssoOn": {
+  "text": "Attivo",
+  "why": "missing"
+ },
+ "university:settings.ssoProtocol": {
+  "text": "Protocollo",
+  "why": "missing"
+ },
+ "university:settings.ssoSecret": {
+  "text": "Client secret",
+  "why": "missing"
+ },
+ "university:settings.ssoSecretMissing": {
+  "text": "Mancante nel deployment",
+  "why": "missing"
+ },
+ "university:settings.ssoSecretOk": {
+  "text": "Fornito dal deployment",
+  "why": "missing"
+ },
+ "university:settings.ssoStatus": {
+  "text": "Stato",
+  "why": "missing"
+ },
+ "university:settings.ssoSub": {
+  "text": "Consente allo staff di accedere con l'account universitario.",
+  "why": "missing"
+ },
+ "university:settings.subtitle": {
+  "text": "Il proprio accesso e il team di {{university}} su Hangyul.",
+  "why": "missing"
+ },
+ "university:settings.teamSub": {
+  "text": "Persone dell'università con accesso alla console",
+  "why": "missing"
+ },
+ "university:settings.you": {
+  "text": "Il mio accesso",
+  "why": "missing"
+ },
+ "university:settings.youShort": {
+  "text": "io",
+  "why": "missing"
+ },
+ "university:stage.ADMITTED": {
+  "text": "Ammessi",
+  "why": "missing"
+ },
+ "university:stage.APPLIED": {
+  "text": "Candidature inviate",
+  "why": "missing"
+ },
+ "university:stage.ARRIVED": {
+  "text": "Arrivati",
+  "why": "missing"
+ },
+ "university:stage.ENROLLED": {
+  "text": "Iscritti",
+  "why": "missing"
+ },
+ "university:stage.GRADUATED": {
+  "text": "Laureati",
+  "why": "missing"
+ },
+ "university:stage.INTERESTED": {
+  "text": "Interessati",
+  "why": "missing"
+ },
+ "university:stage.PREPARING": {
+  "text": "In preparazione",
+  "why": "missing"
+ },
+ "university:stage.RETAINED": {
+  "text": "Ancora iscritti",
+  "why": "missing"
+ },
+ "university:stage.TUITION_PAID": {
+  "text": "Tasse pagate",
+  "why": "missing"
+ },
+ "university:stage.VISA_ISSUED": {
+  "text": "Visto rilasciato",
+  "why": "missing"
+ },
+ "university:v22.closed": {
+  "text": "{{n}} chiuse (non ammesse o ritirate)",
+  "why": "missing"
+ },
+ "university:v22.empty.admitted": {
+  "text": "Nessuna ammissione in sospeso.",
+  "why": "missing"
+ },
+ "university:v22.empty.decision": {
+  "text": "Lista d'attesa vuota.",
+  "why": "missing"
+ },
+ "university:v22.empty.documents": {
+  "text": "Nessuna candidatura in attesa di documenti.",
+  "why": "missing"
+ },
+ "university:v22.empty.documents_check": {
+  "text": "Nessuna candidatura inviata in attesa del controllo documenti.",
+  "why": "missing"
+ },
+ "university:v22.empty.enrolled": {
+  "text": "Nessuna iscrizione corrisponde a questi filtri.",
+  "why": "missing"
+ },
+ "university:v22.empty.enrolment": {
+  "text": "Nessuna candidatura tra ammissione e iscrizione.",
+  "why": "missing"
+ },
+ "university:v22.empty.in_review": {
+  "text": "Nessuna candidatura in valutazione al momento.",
+  "why": "missing"
+ },
+ "university:v22.empty.received": {
+  "text": "Nessuna candidatura ricevuta in attesa dell'avvio della valutazione.",
+  "why": "missing"
+ },
+ "university:v22.in.agencyTitle": {
+  "text": "{{n}} candidature · {{offers}} ammesse · {{enrolled}} iscritte",
+  "why": "offer = ammissione; agrees with candidature"
+ },
+ "university:v22.in.byProgram": {
+  "text": "Tasso di ammissione per programma",
+  "why": "offer = ammissione"
+ },
+ "university:v22.in.byProgramFoot": {
+  "text": "Ammissioni ÷ candidature decise per programma; mostrato solo con almeno {{min}} decisioni.",
+  "why": "offer = ammissione"
+ },
+ "university:v22.in.chain": {
+  "text": "Ammissione → accettazione → iscrizione",
+  "why": "offer = ammissione"
+ },
+ "university:v22.in.chainFoot": {
+  "text": "Ammissioni comunicate, quante sono state accettate e quante di queste si sono concluse con l'iscrizione. Le percentuali richiedono almeno {{min}} ammissioni.",
+  "why": "offer = ammissione; gender-neutral"
+ },
+ "university:v22.in.closedN": {
+  "text": "{{n}} chiuse (non ammesse o ritirate)",
+  "why": "missing"
+ },
+ "university:v22.in.countryTitle": {
+  "text": "{{n}} inviate · {{offered}} ammesse · {{enrolled}} iscritte",
+  "why": "offer = ammissione; agrees with candidature"
+ },
+ "university:v22.in.dropText": {
+  "text": "{{lost}} su {{of}} ({{pct}}) non hanno raggiunto la fase successiva.",
+  "why": "matches English; analytical tone"
+ },
+ "university:v22.in.enrolledN": {
+  "text": "{{n}} iscrizioni",
+  "why": "gender-neutral"
+ },
+ "university:v22.in.noDrop": {
+  "text": "Nessuna fase con almeno {{min}} candidature mostra ancora un calo.",
+  "why": "missing"
+ },
+ "university:v22.in.ofOffers": {
+  "text": "delle ammissioni",
+  "why": "offer = ammissione"
+ },
+ "university:v22.in.q.admit": {
+  "text": "Quali candidature arrivano all'ammissione e all'iscrizione?",
+  "why": "analytical; gender-neutral"
+ },
+ "university:v22.in.q.dropoff": {
+  "text": "In quale fase si perdono le candidature?",
+  "why": "'Dove li perdiamo?' was informal"
+ },
+ "university:v22.in.q.origin": {
+  "text": "Da dove arrivano le candidature?",
+  "why": "gender-neutral"
+ },
+ "university:v22.in.q.settle": {
+  "text": "Gli studenti si ambientano dopo l'iscrizione?",
+  "why": "subject was missing"
+ },
+ "university:v22.manage.agenciesHint": {
+  "text": "Agenzie che inviano candidature a questa università",
+  "why": "impersonal instead of 'vi'"
+ },
+ "university:v22.manage.inactive": {
+  "text": "Inattivo",
+  "why": "missing"
+ },
+ "university:v22.manage.notificationsHint": {
+  "text": "Su cosa avvisa la console, e come",
+  "why": "impersonal instead of 'vi'"
+ },
+ "university:v22.manage.settingsHint": {
+  "text": "Account, lingua, single sign-on e modifiche al team",
+  "why": "impersonal instead of 'tuo'"
+ },
+ "university:v22.manage.teamManage": {
+  "text": "Riassegna le candidature di chi lascia il team",
+  "why": "gender-neutral; matches English"
+ },
+ "university:v22.manage.teamNote": {
+  "text": "Ogni membro dell'università è amministratore: non ci sono ruoli da assegnare. Per aggiungere o rimuovere persone, rivolgersi a Hangyul.",
+  "why": "impersonal instead of 'vostra/chiedete'"
+ },
+ "university:v22.manage.teamSub": {
+  "text": "Tutte le persone dell'università con accesso alla console. Ogni membro può fare tutto.",
+  "why": "impersonal instead of 'vostra'"
+ },
+ "university:v22.stageHint.admitted": {
+  "text": "Ammissione comunicata o accettata",
+  "why": "offer = ammissione"
+ },
+ "university:v22.stageHint.documents": {
+  "text": "In attesa dei documenti richiesti",
+  "why": "gender-neutral"
+ },
+ "university:v22.stageHint.documents_check": {
+  "text": "Inviata; controllo documenti non ancora completato",
+  "why": "matches English"
+ },
+ "university:v22.stageHint.enrolment": {
+  "text": "Tasse, lettera di ammissione standard e visto in corso",
+  "why": "official document name"
+ },
+ "university:v22.stageHint.received": {
+  "text": "Controllo documenti completato. Avviare la valutazione",
+  "why": "matches English; impersonal"
+ },
+ "university:v23.co.openCohort": {
+  "text": "Mostra gli studenti di questa coorte",
+  "why": "missing"
+ },
+ "university:v25.in.yield": {
+  "text": "Ammissioni concluse con l'iscrizione",
+  "why": "offer = ammissione"
+ },
+ "university:v26.sortBy.decision": {
+  "text": "Prima le candidature che richiedono una decisione",
+  "why": "gender-neutral"
+ },
+ "university:v28.pipe.label": {
+  "text": "Risultati finora; dettagli in Statistiche",
+  "why": "matches English; Insights = Statistiche"
+ },
+ "university:v28.pipe.step.OFFERED": {
+  "text": "Ammesse",
+  "why": "offer = ammissione"
+ },
+ "university:v28.pipe.title": {
+  "text": "Risultati finora",
+  "why": "matches English"
+ },
+ "university:v30.def.visaOutcome": {
+  "text": "Visti rifiutati ÷ decisioni sul visto (rilasciati + rifiutati) per le candidature a questa università provenienti da questa agenzia, nella sessione selezionata. Un rifiuto conta solo se registrato nella pratica visto dello studente; gli esiti non registrati sono elencati a parte, mai presunti.",
+  "why": "missing"
+ }
+}

@@ -10,8 +10,6 @@ M = Marketing (`hangyul-univ`), S = Student, A = Agency, U = University, API = `
 | `VITE_STUDENT_APP_URL` | ✓ | ✓ | ✓ | ✓ | | `https://app.univ.talkhangyul.com` | same | no | marketing CTAs (`marketing-web/src/lib/env.ts`), `productUrl()` in `packages/ui/src/devaccess.tsx` |
 | `VITE_AGENCY_APP_URL` | ✓ | ✓ | ✓ | ✓ | | `https://admin.univ.talkhangyul.com` | same | no | as above |
 | `VITE_UNIVERSITY_APP_URL` | ✓ | ✓ | ✓ | ✓ | | `https://partner.univ.talkhangyul.com` | same | no | as above |
-| `VITE_DEMO_LOGINS` | — | — | — | — | | **unset** | unset | no | must stay unset in production: unset folds test login and demo personas out of the bundle |
-| `VITE_REVIEW_MODE` | — | — | — | — | | **unset** | unset | no | must stay unset: the static review build only |
 | `VERCEL_GIT_COMMIT_SHA`, `VERCEL_ENV` | auto | auto | auto | auto | auto | system | system | no | written into `/build-info.json` |
 | `HG_ENV` | | | | | ✓ | `production` | `staging` | no | fail-closed start-up checks |
 | `HG_DATABASE_URL` | | | | | ✓ | managed Postgres | separate DB | **yes** | SQLAlchemy URL (`postgresql+psycopg://…`) |
@@ -29,4 +27,6 @@ M = Marketing (`hangyul-univ`), S = Student, A = Agency, U = University, API = `
 | `SENDGRID_API_KEY`, `SENDGRID_FROM_EMAIL`, `SENDGRID_FROM_NAME` | | | | | ✓ | | | key **yes** | e-mail verification |
 | `TWILIO_ACCOUNT_SID`, `TWILIO_API_KEY_SID`, `TWILIO_API_KEY_SECRET`, `TWILIO_MESSAGING_SERVICE_SID` | | | | | ✓ | | | **yes** | SMS verification |
 | `HG_PAYMENT_PROVIDER`, `HG_TOSS_ENV`, `HG_TOSS_RETURN_ORIGIN`, `HG_TOSS_*_MID/CLIENT_KEY/SECRET_KEY/SECURITY_KEY` | | | | | ✓ | production refuses Toss test keys; live keys only after merchant approval | test keys allowed | **yes** | `HG_TOSS_RETURN_ORIGIN=https://app.univ.talkhangyul.com` |
-| `HG_TEST_PAYMENT_BYPASS`, `HG_DEMO_LOGINS` | | | | | ✓ | **unset / false** | unset | no | development only |
+
+
+`VITE_DEMO_LOGINS` and `VITE_REVIEW_MODE` were removed in V32 with the features they switched; no build reads them.

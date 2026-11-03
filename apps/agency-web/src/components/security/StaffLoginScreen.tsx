@@ -12,7 +12,7 @@
  */
 import { useAuth } from '@hangyul/auth';
 import { useLocale } from '@hangyul/i18n';
-import { Button, Callout, Field, Input, LocaleSelector, Logo, safeNext, useDemoParamLogin } from '@hangyul/ui';
+import { Button, Callout, Field, Input, LocaleSelector, Logo, safeNext } from '@hangyul/ui';
 import { useCallback, useEffect, useState, type CSSProperties, type FormEvent, type ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
@@ -68,13 +68,12 @@ export function StaffLoginScreen({ product, title, subtitle, footer, afterLogin 
       else setStep({ kind: 'enroll', token: res.enrollment_token });
     } catch (err) {
       const s = (err as { status?: number }).status;
-      setFormError(s === 401 ? t('auth.invalid') : err instanceof Error ? err.message : String(err));
+      const unreachable = (err as { unreachable?: boolean }).unreachable;
+      setFormError(s === 401 ? t('auth.invalid') : unreachable ? t('states.unavailableText') : err instanceof Error ? err.message : String(err));
     } finally {
       setBusy(false);
     }
   };
-
-  const demoError = useDemoParamLogin(finish);
 
   return (
     <div className="hg-login">
@@ -91,7 +90,7 @@ export function StaffLoginScreen({ product, title, subtitle, footer, afterLogin 
                 {subtitle && <p className="hg-muted">{subtitle}</p>}
               </div>
               <form onSubmit={submit} noValidate className="hg-stack" style={{ '--hg-gap': '14px' } as CSSProperties}>
-                {(formError || demoError) && <Callout tone="danger">{formError || demoError}</Callout>}
+                {formError && <Callout tone="danger">{formError}</Callout>}
                 <Field label={t('auth.email')} htmlFor="email" error={errors.email}>
                   <Input id="email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} invalid={!!errors.email} />
                 </Field>

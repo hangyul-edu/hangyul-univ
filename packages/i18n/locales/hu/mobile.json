@@ -6,7 +6,8 @@
     }
   },
   "login": {
-    "webSignup": "Először jársz itt? Közvetlenül az appban létrehozhatod a fiókodat."
+    "webSignup": "Először jársz itt? Közvetlenül az appban létrehozhatod a fiókodat.",
+    "networkError": "A Hangyul most nem érhető el itt: {{url}}. Ellenőrizd a kapcsolatot, és próbáld újra egy kicsit később."
   },
   "signup": {
     "title": "Fiók létrehozása",
@@ -80,7 +81,7 @@
       },
       "CROSS_BORDER_VERIFICATION": {
         "label": "Tudomásul veszem, hogy az e-mail-címem és a mobilszámom ellenőrzése külföldön történik",
-        "summary": "A Twilio Inc. (Egyesült Államok) küldi az ellenőrző SMS-t és e-mailt, a Cloudflare, Inc. (Egyesült Államok) pedig kiszűri az automatizált regisztrációkat. Az átadott adatok, az időpont, a megőrzési idő és az elutasítás módja az Adatkezelési tájékoztatóban olvasható. Elutasítás esetén nem hozható létre fiók."
+        "summary": "A Twilio Inc. (Egyesült Államok) küldi az ellenőrző SMS-t és e-mailt, a Cloudflare, Inc. (Egyesült Államok) pedig ellenőrzi, hogy a regisztráció nem automatizált. A részleteket, köztük az elutasítás módját, az Adatvédelmi szabályzat tartalmazza. Elutasítás esetén nem hozható létre fiók."
       },
       "MARKETING": {
         "label": "Kérek híreket a koreai tanulmányokról és információt az eseményekről",
@@ -97,11 +98,11 @@
     "quickLanguage": "Koreai vagy angol nyelvtudásod szintje",
     "quickLevel": "Szint",
     "quickSkip": "Most kihagyom",
-    "quickGo": "Ajánlásaim megtekintése",
+    "quickGo": "Hozzám illő képzések",
     "degree": {
       "LANGUAGE": "Koreai nyelv",
       "BACHELOR": "Alapképzés (BA/BSc)",
-      "TRANSFER": "Átvétel",
+      "TRANSFER": "Átjelentkezés",
       "MASTER": "Mesterképzés",
       "DOCTORATE": "Doktori képzés"
     },
@@ -164,68 +165,613 @@
     "quick": {
       "createAccount": "Regisztrálj a folytatáshoz",
       "open": "Nézd meg a lehetőségeidet. Fiók nélkül",
-      "dataUnverified": "Néhány képzési adat még nincs ellenőrizve. Nézd meg őket az egyetem hivatalos honlapján."
+      "dataUnverified": "Néhány képzési adat még nincs ellenőrizve. Nézd meg őket az egyetem hivatalos honlapján.",
+      "again": "Válaszaim módosítása"
     },
     "home": {
-      "noCounselor": "Válassz támogatási csomagot, és a Hangyul Univ csapata a saját nyelveden segít.",
+      "noCounselor": "Válassz csomagot, és a Hangyul Univ csapata a saját nyelveden dolgozik veled.",
       "stageLine": {
-        "admission": "Felvettek. Most biztosítjuk a helyedet"
+        "admission": "Felvettek. Most biztosítjuk a helyedet",
+        "apply": "Az egyetemek vizsgálják a jelentkezéseidet",
+        "arrival": "Készülés a koreai érkezésre",
+        "discover": "A megfelelő egyetemek keresése",
+        "prepare": "A jelentkezéseid előkészítése",
+        "visa": "A diákvízumod előkészítése"
       },
       "nextBody": {
-        "ESSAY_WRITE": "Kezdd egy nyers vázlattal. A tanácsadód veled együtt nézi át."
-      }
+        "ESSAY_WRITE": "Kezdd egy nyers vázlattal. A Hangyul csapata veled együtt nézi át.",
+        "APPLICATION_DEADLINE": "Fejezd be az ellenőrzőlistát, hogy a jelentkezésed időben beadható legyen.",
+        "DOCUMENT_UPLOAD": "Tölts fel egy jól olvasható szkennelést vagy fotót. A Hangyul csapata ellenőrzi, és szól, ha valamit javítani kell.",
+        "REVIEW_MATCHES": "Összevetettük a profilodat a közzétett követelményekkel. Ments el néhányat, majd indíts egy jelentkezést.",
+        "TUITION_PAYMENT": "A tandíjat közvetlenül az egyetemnek fizeted, a saját nevedben.",
+        "UNIVERSITY_REQUEST": "Az egyetem még egy dokumentumot kért, mielőtt dönthet.",
+        "VISA_STEP": "Végezd el a vízum-ellenőrzőlistád következő pontját.",
+        "WAIT": "Most nincs teendőd. Azonnal szólunk, ha valami változik."
+      },
+      "applications": "A jelentkezéseid",
+      "closes": "Határidő: {{date}} · {{left}}",
+      "documentsHint": "Feltöltés, javítás vagy apostille beszerzése",
+      "documents_one": "{{count}} dokumentum rád vár",
+      "documents_other": "{{count}} dokumentum rád vár",
+      "due": "Esedékes: {{date}} · {{left}}",
+      "findUniversities": "Egyetemek keresése",
+      "greeting": {
+        "afternoon": "Jó napot, {{name}}!",
+        "evening": "Jó estét, {{name}}!",
+        "morning": "Jó reggelt, {{name}}!"
+      },
+      "message": "Üzenet",
+      "nextCta": {
+        "APPLICATION_DEADLINE": "Jelentkezés megnyitása",
+        "APPLICATION_SUBMIT": "Átnézés és beadás",
+        "ARRIVAL_CHECKLIST": "Érkezési ellenőrzőlista megnyitása",
+        "COMPARE_OFFERS": "Ajánlatok összehasonlítása",
+        "COMPLETE_PROFILE": "Profil folytatása",
+        "DOCUMENT_UPLOAD": "Dokumentum feltöltése",
+        "ESSAY_WRITE": "Vázlat megnyitása",
+        "INTERVIEW": "Felkészülés az interjúra",
+        "RESPOND_OFFER": "Ajánlat megtekintése",
+        "REVIEW_MATCHES": "Az egyetemeim",
+        "TUITION_PAYMENT": "Fizetési adatok",
+        "UNIVERSITY_REQUEST": "Mit kért az egyetem",
+        "VISA_STEP": "Vízumlépések megnyitása"
+      },
+      "nextCtaDefault": "Kezdd el most",
+      "nextEyebrow": "Mi a teendő most",
+      "noApplications": "Még nincs jelentkezésed. Kezdd a hozzád illő egyetemekkel.",
+      "otherTasks_one": "{{count}} további feladat",
+      "otherTasks_other": "{{count}} további feladat",
+      "team": "A Hangyul Univ csapata",
+      "unread_one": "{{count}} olvasatlan üzenet",
+      "unread_other": "{{count}} olvasatlan üzenet",
+      "upcoming": "Közelgő"
     },
     "agency": {
       "assigned": "Felelős: {{counselor}} · {{since}} óta",
       "att": {
         "oldest": "Legrégebbi: {{what}} ({{who}})",
-        "oldestSelf": "Legrégebbi: {{what}}"
+        "oldestSelf": "Legrégebbi: {{what}}",
+        "breached_one": "{{count}} már túllépte a vállalt határidőt",
+        "breached_other": "{{count}} már túllépte a vállalt határidőt",
+        "closing_one": "7 napon belül záruló jelentkezés",
+        "closing_other": "7 napon belül záruló jelentkezések",
+        "docs_one": "Ellenőrzésre váró dokumentum",
+        "docs_other": "Ellenőrzésre váró dokumentumok",
+        "next": "Következő: {{uni}} – {{who}}, {{date}}",
+        "overSla": "{{count}} több mint {{hours}} órája vár",
+        "overdue_one": "Lejárt feladat",
+        "overdue_other": "Lejárt feladatok",
+        "replies_one": "Válaszra váró hallgató",
+        "replies_other": "Válaszra váró hallgatók",
+        "since": "Legrégebbi: {{who}}, {{when}}",
+        "sla_one": "Hallgató, akinél késhet az első válasz",
+        "sla_other": "Hallgatók, akiknél késhet az első válasz"
+      },
+      "allClear": "Minden rendben: {{list}}",
+      "applications_one": "{{count}} jelentkezés",
+      "applications_other": "{{count}} jelentkezés",
+      "block": {
+        "deadline": "A(z) {{uni}} jelentkezése hamarosan zárul",
+        "fix": "{{doc}}: javítás szükséges a hallgatótól",
+        "requested": "{{uni}} további dokumentumokat kért",
+        "review": "{{doc}}: az Ön ellenőrzésére vár",
+        "sla": "Első válasz esedékes"
+      },
+      "blockers_one": "{{count}} dolog akadályozza ezt a hallgatót",
+      "blockers_other": "{{count}} dolog akadályozza ezt a hallgatót",
+      "clear": {
+        "closing": "heti határidők",
+        "docs": "dokumentum-ellenőrzések",
+        "overdue": "lejárt feladatok",
+        "replies": "hallgatói válaszok",
+        "sla": "első válaszok"
+      },
+      "conversationSubject": "A koreai tanulmányaid csapata",
+      "deadline": "{{uni}} {{when}}",
+      "documents": "Dokumentumok · {{verified}} / {{total}} jóváhagyva",
+      "dueToday_one": "Ma esedékes · {{count}}",
+      "dueToday_other": "Ma esedékes · {{count}}",
+      "findStudent": "Hallgató keresése",
+      "firstMessage": "Üzenet: {{name}}",
+      "greeting": {
+        "afternoon": "Jó napot, {{name}}!",
+        "evening": "Jó estét, {{name}}!",
+        "morning": "Jó reggelt, {{name}}!"
+      },
+      "message": "Üzenet",
+      "messageLabel": "Üzenet",
+      "needsAttention": "Figyelmet igényel",
+      "nextAction": "Következő: {{what}}",
+      "noBlockers": "Semmi nem akadályozza ezt a hallgatót",
+      "noBlockersBody": "A dokumentumok, a határidők és a válaszok rendben haladnak.",
+      "noStudents": "Nincs hallgató ebben a nézetben",
+      "noStudentsBody": "Próbáljon másik nézetet, vagy törölje a keresést.",
+      "searchPlaceholder": "Név vagy e-mail",
+      "stage": "Szakasz",
+      "stageNote": "Megjegyzés a csapatnak (nem kötelező)",
+      "stageTo": "Áthelyezés ide: {{stage}}",
+      "teamView": "Csapat · {{name}}",
+      "toFix_one": "{{count}} javítandó dok.",
+      "toFix_other": "{{count}} javítandó dok.",
+      "today": "Ma",
+      "upload": "Feltöltés",
+      "uploadFor": "{{doc}} – {{name}}",
+      "uploadWhat": "Melyik dokumentumot tölti fel?",
+      "uploaded": "Feltöltve a hallgató dokumentumtárába. Ellenőrzésre kész.",
+      "view": {
+        "all": "Összes",
+        "attention": "Figyelmet igényel",
+        "deadline": "Közeli határidő",
+        "docs": "Javítandó dokumentumok",
+        "mine": "Saját hallgatóim",
+        "sla": "Hallgatók az első válasz vállalt határidején túl vagy annak közelében",
+        "university": "Egyetemre vár",
+        "visa": "Vízum",
+        "waiting_student": "Hallgatóra vár",
+        "waiting_us": "Ránk vár"
+      },
+      "waitingOn": {
+        "agency": "Az ügynökségi csapatra vár",
+        "counselor": "A tanácsadóra vár",
+        "external": "Külső hivatalra vár",
+        "hangyul": "A Hangyulra vár",
+        "none": "Semmire nem vár",
+        "student": "Hallgatóra vár",
+        "university": "Egyetemre vár",
+        "us": "Ránk vár"
       }
     },
     "discover": {
       "explain": {
-        "possible": "Megfelelsz a közzétett minimumoknak, de egy dologra figyelni kell, általában a keretre vagy egy határidőre."
-      }
+        "possible": "Megfelelsz a közzétett minimumoknak, de egy dologra figyelni kell, általában a keretre vagy egy határidőre.",
+        "notyet": "Egy közzétett követelmény még nem teljesül. Minden sor pontosan megmondja, melyik.",
+        "strong": "Minden közzétett alapkövetelménynek megfelelsz, és illik a keretedhez és a terveidhez."
+      },
+      "all": "Összes",
+      "any": "Bármelyik",
+      "closes": "határidő: {{date}}",
+      "degree": "Mit szeretnél tanulni?",
+      "emptyVerdict": "Itt most nincs semmi",
+      "filters": "Szűrők",
+      "filtersN": "Szűrők · {{count}}",
+      "forYou": "Neked",
+      "language": "Oktatás nyelve",
+      "noLanguageMin": "Nincs nyelvi minimum",
+      "openOnly": "Jelentkezés nyitva",
+      "perYear": "≈ {{amount}} / év",
+      "saved": "Mentve · {{count}}",
+      "savedEmpty": "Még nincs mentett egyetem",
+      "savedEmptyBody": "Koppints a szívre bármelyik képzésnél, hogy ide mentsd későbbre.",
+      "showResults_one": "{{count}} képzés megjelenítése",
+      "showResults_other": "{{count}} képzés megjelenítése",
+      "summary_one": "{{count}} képzés közzétett követelményeinek felelsz meg.",
+      "summary_other": "{{count}} képzés közzétett követelményeinek felelsz meg.",
+      "tuition": "Tandíj félévenként",
+      "upTo": "Legfeljebb {{amount}} M ₩"
     },
     "university": {
       "verdict": {
-        "REACH": "Közel vagy. Egy követelménynél kicsit lemaradsz."
-      }
+        "REACH": "Közel vagy. Egy követelménynél kicsit lemaradsz.",
+        "COMPETITIVE": "Megfelelsz a közzétett minimumoknak. Egy dologra figyelni kell.",
+        "NOT_ELIGIBLE": "Egy közzétett követelmény még nem teljesül.",
+        "RECOMMENDED": "Neked ajánljuk.",
+        "STRONG": "Minden közzétett alapkövetelménynek megfelelsz, és illik a keretedhez."
+      },
+      "admissionsSite": "Nemzetközi felvételi weboldal",
+      "deadline": "Jelentkezési határidő",
+      "documents": "Dokumentumok",
+      "documentsCount": "{{count}} dokumentum · {{legal}} igényel apostille-t vagy konzuli felülhitelesítést",
+      "dorm": "Kollégium félévenként",
+      "dormRange": "{{min}}–{{max}}",
+      "estimate": "Becsült összköltség",
+      "estimateNote": "Becslés a közzétett tandíj és a város jellemző havi megélhetési költsége alapján.",
+      "fee": "Jelentkezési díj",
+      "gpa": "Jegyek",
+      "gpaMin": "A maximális átlag legalább {{pct}}%-a",
+      "intake": "Felvételi időszak",
+      "interview": "Interjú",
+      "interviewYes": "Az egyetem interjúra hívhat",
+      "language": "Nyelv",
+      "links": "Hivatalos információ",
+      "living": "Megélhetés (12 hónap)",
+      "noIntake": "Nincs nyitott felvételi időszak",
+      "noVerdict": "Töltsd ki a profilodat, hogy lásd, megfelelsz-e a képzés követelményeinek.",
+      "notPublished": "Nincs közzétéve",
+      "program": "Képzés",
+      "requirements": "Követelmények",
+      "start": "Jelentkezés indítása",
+      "website": "Az egyetem weboldala",
+      "yearCost": "Első éves költség (becslés)"
     },
     "application": {
       "writingWeb": "Az esszéidet a weben írhatod és szerkesztheted. A tanácsadód megjegyzései is ott jelennek meg.",
-      "uploadFor": "Feltöltés: {{item}}"
+      "uploadFor": "Feltöltés: {{item}}",
+      "closes": "Határidő: {{date}} · {{left}}",
+      "due": "Esedékes: {{date}}",
+      "ready": "Beadásra kész",
+      "readyBody": "Minden szükséges dolog megvan.",
+      "reviewBody": "Beadva: {{date}}. Az egyetem kérhet még egy dokumentumot vagy interjút. A Hangyul csapata követi, hogyan halad.",
+      "reviewTitle": "{{university}} vizsgálja a jelentkezésedet",
+      "reviewing": "Ellenőrzés alatt: {{item}}",
+      "submit": "Jelentkezés beadása",
+      "teamMonitoring": "Kapcsolatban az egyetemmel",
+      "teamWaiting": "A dokumentumaidra várunk",
+      "timeline": "Idővonal",
+      "uni": {
+        "decided": "Döntés megszületett",
+        "reviewing": "Vizsgálja a jelentkezésedet",
+        "waiting": "A beadásodra vár"
+      },
+      "university": "Egyetem",
+      "uploadRequested": "Töltsd fel ezt a dokumentumot",
+      "who": "Ki mit csinál",
+      "withdraw": "Jelentkezés visszavonása",
+      "you": "Te"
     },
     "appStatus": {
       "READY": "Minden ellenőrizve. Beadásra kész.",
-      "VISA_ISSUED": "Kiállították a vízumodat. Most már tervezheted az érkezést."
+      "VISA_ISSUED": "Kiállították a vízumodat. Most már tervezheted az érkezést.",
+      "ADDITIONAL_DOCUMENTS": "Az egyetem még egy dokumentumot kért.",
+      "ADMISSION_CERTIFICATE_ISSUED": "Kész a felvételi leveled. Kezdd el a vízumdokumentumokat.",
+      "ADMISSION_CERTIFICATE_PENDING": "Várjuk a standard felvételi leveledet.",
+      "DOCUMENT_PREPARATION": "A dokumentumaidat készíted elő.",
+      "DRAFT": "Elkezdted ezt a jelentkezést.",
+      "ENROLLED": "Beiratkoztál. Üdvözlünk Koreában!",
+      "INTERVIEW": "Az egyetem interjúra hív.",
+      "OFFERED": "Felvételi ajánlatot kaptál.",
+      "OFFER_ACCEPTED": "Elfogadtad az ajánlatot. Következik: a tandíj.",
+      "PROFILE_REVIEW": "A Hangyul Univ csapata ellenőrzi a profilodat.",
+      "REJECTED": "Az egyetem ezúttal nem ajánlott fel helyet.",
+      "SUBMITTED": "Beadva ide: {{university}}.",
+      "TUITION_PAID": "A tandíj beérkezett. Az egyetem készíti a felvételi leveledet.",
+      "TUITION_PENDING": "Fizesd be a tandíjat közvetlenül az egyetemnek a határidőig.",
+      "UNIVERSITY_REVIEW": "{{university}} vizsgálja a jelentkezésedet.",
+      "VISA_PREPARATION": "A vízumkérelmedet készíted elő.",
+      "VISA_SUBMITTED": "Vízumkérelem beadva.",
+      "WAITLISTED": "Várólistán vagy.",
+      "WITHDRAWN": "Ezt a jelentkezést visszavonták."
     },
     "docAction": {
       "RENEW": "Lejárt. Tölts fel újat",
-      "TOO_OLD": "Túl régen állították ki. Kérj újat"
+      "TOO_OLD": "Túl régen állították ki. Kérj újat",
+      "FIX": "Javítás szükséges",
+      "IN_REVIEW": "A Hangyul csapata ellenőrzi",
+      "LEGALIZE": "Apostille vagy konzuli felülhitelesítés szükséges",
+      "UPLOAD": "Még nincs feltöltve"
     },
     "documents": {
       "legalize": "Ellenőrizve, de mielőtt egy koreai egyetem elfogadja, még kell: {{path}}",
-      "howToBody": "Csak a dokumentumod kiállító országára vonatkozó lépéseket mutatjuk. Jelöld késznek mindegyiket, amikor elvégezted."
+      "howToBody": "Csak a dokumentumod kiállító országára vonatkozó lépéseket mutatjuk. Jelöld késznek mindegyiket, amikor elvégezted.",
+      "allSet": "Most nincs vele teendőd.",
+      "checking": "Ellenőrzés alatt",
+      "howTo": "Így szerezd be: {{path}}",
+      "issuedIn": "Kiállítás helye",
+      "issuedOn": "Kiállítás dátuma",
+      "needYou_one": "{{count}} rád vár",
+      "needYou_other": "{{count}} rád vár",
+      "neededFor": "Ehhez kell: {{university}}",
+      "needsYou": "Rád vár",
+      "newVersion": "Új verzió feltöltése",
+      "ready": "Kész",
+      "readyOf": "{{ready}} / {{total}} dokumentum kész",
+      "readyTitle": "Kész",
+      "sourceVerified": "Hivatalos forrás · ellenőrizve: {{date}}",
+      "state": {
+        "fix": "Javítás szükséges",
+        "legalize": "Apostille szükséges",
+        "ready": "Kész",
+        "review": "Ellenőrzés alatt"
+      },
+      "submitted": "Beküldve: {{when}}",
+      "upload": "Feltöltés",
+      "validUntil": "Érvényes eddig: {{date}}",
+      "validUntilLabel": "Érvényes eddig"
     },
     "visa": {
-      "title": "{{type}} vízumterved",
+      "title": "{{type}} vízumod előkészítése",
       "beforeBody": "Ha elfogadod az ajánlatot és befizeted a tandíjat, az egyetem kiállítja a felvételi leveledet. Már most láthatod, mire lesz szükséged, és elkezdheted összegyűjteni.",
-      "after": "Ezek után érhető el: {{list}}"
+      "after": "Ezek után érhető el: {{list}}",
+      "beforeTitle": "A vízum előkészítése a felvételi ajánlat után kezdődik",
+      "blockers": "Előbb ez kell",
+      "checklist": "Az ellenőrzőlistád · {{done}} / {{total}} kész",
+      "forNationality": "Az állampolgárságodra vonatkozik",
+      "now": "Ami most rád vár",
+      "phase": {
+        "admission": "Felvétel",
+        "apply": "Vízumkérelem",
+        "decision": "Nagykövetségi döntés",
+        "documents": "Vízumdokumentumok",
+        "letter": "Felvételi levél"
+      },
+      "preview": "Mire lesz szükséged",
+      "seeRequirement": "Hivatalos követelmény megtekintése",
+      "sourceChecked": "Hivatalos forrás · ellenőrizve: {{date}}",
+      "titleGeneric": "A diákvízumod"
     },
     "profile": {
       "unlockTitle": "Mit ad egy teljes profil",
       "unlock": {
-        "language": "Így TOPIK-, IELTS- vagy TOEFL-eredményt kérő képzésekhez is párosíthatunk"
-      }
+        "language": "Így TOPIK-, IELTS- vagy TOEFL-eredményt kérő képzésekhez is párosíthatunk",
+        "basics": "Megmutatja, milyen dokumentum- és vízumszabályok vonatkoznak rád",
+        "default": "Pontosabbá teszi a hozzád illő képzések listáját",
+        "education": "Kiszűri azokat a képzéseket, amelyek tanulmányi követelményeinek nem felelsz meg",
+        "goals": "Csak a kívánt szintű és kezdésű képzéseket mutatja",
+        "passport": "Enélkül nem adható be jelentkezés",
+        "preferences": "A kereted és a város szerint rangsorolja az egyetemeket",
+        "sponsor": "Korán elkezdheted a vízumhoz szükséges pénzügyi dokumentumokat"
+      },
+      "completeTitle": "A profilod teljes",
+      "done": "Kész",
+      "editOnWeb": "Ezeket a válaszokat a weben bármikor szerkesztheted.",
+      "places": "Adataid",
+      "todo": "Megadandó"
     },
     "tasks": {
       "empty": {
-        "overdue": "Nincs lejárt teendő. Szép munka"
-      }
+        "overdue": "Nincs lejárt teendő. Szép munka",
+        "team": "A csapatnak nincs nyitott feladata",
+        "today": "Ma nincs esedékes feladat",
+        "waiting": "Egyetlen feladat sem vár másra",
+        "week": "Ezen a héten nincs esedékes feladat"
+      },
+      "open": "Nyitott",
+      "overdue": "Lejárt · {{when}}",
+      "view": {
+        "overdue": "Lejárt",
+        "team": "Csapat",
+        "today": "Ma",
+        "waiting": "Várakozik",
+        "week": "Ez a hét"
+      },
+      "waitingOn": "Erre vár: {{what}}"
     },
     "uni": {
-      "decisionNow": "Döntés"
+      "decisionNow": "Döntés",
+      "allClear": "Jelenleg nincs döntésre váró ügy.",
+      "allCohorts": "Minden Hangyul-hallgató",
+      "allIntakes": "Minden felvételi időszak",
+      "applicant": "Jelentkező",
+      "check": {
+        "gpa": "Tanulmányi átlag",
+        "interview": "Interjú",
+        "interviewRequired": "A képzés megköveteli",
+        "level": "{{level}}. szint",
+        "minimum": "Minimum: {{need}} · Jelentkező: {{have}}",
+        "notProvided": "nincs megadva",
+        "state": {
+          "below": "Minimum alatt",
+          "meets": "Megfelel",
+          "missing": "Nincs megadva",
+          "planned": "Vizsga tervezve",
+          "unscheduled": "Nincs időpont"
+        },
+        "topik": "TOPIK"
+      },
+      "checksNote": "Az önbevallott eredményeket veti össze a képzés közzétett minimumaival. Az elbírálást támogatja; nem dönt.",
+      "checksTitle": "Követelmény-ellenőrzés",
+      "closed": "Lezárva: {{rejected}} nem felvett, {{withdrawn}} visszavont. Az arányokhoz legalább {{min}} fő szükséges.",
+      "cohortIntro_one": "{{count}} hallgató érkezett Önökhöz a Hangyulon keresztül. Így haladnak.",
+      "cohortIntro_other": "{{count}} hallgató érkezett Önökhöz a Hangyulon keresztül. Így haladnak.",
+      "cohortNote": "Az arányok akkor jelennek meg, ha legalább {{min}} hallgató megfelel. {{date}} szerinti állapot.",
+      "cohort_one": "{{label}} · {{count}} hallgató",
+      "cohort_other": "{{label}} · {{count}} hallgató",
+      "conv": "{{pct}} az előző lépéshez képest · {{n}} / {{d}}",
+      "convFew": "{{n}} / {{d}} az előző lépésből · túl kevés az arányhoz",
+      "decision": {
+        "admitted_one": "felvett hallgató, aki még nem fizetett tandíjat",
+        "admitted_other": "felvett hallgató, akik még nem fizettek tandíjat",
+        "documents_one": "a hallgató dokumentumaira vár",
+        "documents_other": "a hallgatók dokumentumaira vár",
+        "flagged_one": "megjelölt jelentkezés",
+        "flagged_other": "megjelölt jelentkezés",
+        "interview_one": "interjú lebonyolításra vagy értékelésre",
+        "interview_other": "interjú lebonyolításra vagy értékelésre",
+        "offer_one": "ajánlat a hallgató válaszára vár",
+        "offer_other": "ajánlat a hallgatók válaszára vár",
+        "returned_one": "a hallgató által visszaküldött dokumentum",
+        "returned_other": "a hallgatók által visszaküldött dokumentum",
+        "review_one": "elbírálandó jelentkezés",
+        "review_other": "elbírálandó jelentkezés"
+      },
+      "decisionContext_one": "{{ready}} / {{total}} kötelező dokumentum kész · {{count}} nyitott kérés.",
+      "decisionContext_other": "{{ready}} / {{total}} kötelező dokumentum kész · {{count}} nyitott kérés.",
+      "decisionDocs": "{{ready}} / {{total}} kötelező dokumentum kész.",
+      "decisionHint": {
+        "admitted": "A befizetés beérkezésekor erősítse meg",
+        "documents": "Nincs teendő, amíg fel nem töltik",
+        "flagged": "Alaposabb vizsgálatra jelölve",
+        "interview": "Az interjú után rögzítse az eredményt",
+        "offer": "A Hangyul követi a hallgatónál",
+        "returned": "Ellenőrizze újra, amit kért",
+        "review": "Beadva, és elég teljes a döntéshez"
+      },
+      "docsTitle": "Dokumentumok · {{ready}} / {{total}} kész",
+      "dueOn": "esedékes: {{date}}",
+      "empty": {
+        "all": "Nincs itt jelentkező",
+        "flagged": "Nincs megjelölt jelentkezés",
+        "review": "Nincs elbírálásra váró jelentkezés"
+      },
+      "graduation": "Végzett",
+      "latest": "Legutóbb érkezett elbírálásra",
+      "move": {
+        "ADDITIONAL_DOCUMENTS": "További dokumentumok kérése",
+        "ADMISSION_CERTIFICATE_ISSUED": "Felvételi levél kiállítása",
+        "INTERVIEW": "Meghívás interjúra",
+        "OFFERED": "Ajánlattétel",
+        "REJECTED": "Nem veszi fel",
+        "TUITION_PAID": "Tandíjfizetés megerősítése",
+        "TUITION_PENDING": "Tandíjszámla küldése",
+        "UNIVERSITY_REVIEW": "Elbírálás indítása",
+        "WAITLISTED": "Várólistára"
+      },
+      "nOfD": "{{n}} / {{d}}",
+      "needsTitle": "Az Ön döntésére vár",
+      "noMinimums": "Ehhez a képzéshez még nincs közzétett minimum.",
+      "nothingToReview": "Nincs elbírálásra váró ügy",
+      "openRequests_one": "{{count}} kért dokumentum",
+      "openRequests_other": "{{count}} kért dokumentum",
+      "otherDecisions": "Egyéb döntések",
+      "populationAll_one": "{{count}} beadott jelentkezés alapján, minden felvételi időszak.",
+      "populationAll_other": "{{count}} beadott jelentkezés alapján, minden felvételi időszak.",
+      "populationIntake_one": "{{count}} beadott jelentkezés alapján, {{intake}}.",
+      "populationIntake_other": "{{count}} beadott jelentkezés alapján, {{intake}}.",
+      "reason": "Indoklás (a Hangyullal megosztva)",
+      "request": "Kérés",
+      "requestLabel": "Mire van szüksége?",
+      "requestLabelHint": "pl. Apostille-jal ellátott érettségi bizonyítvány",
+      "requestNote": "Útmutató a hallgatónak",
+      "requestNoteHint": "Pontosan mi hiányzik, és hogyan pótolható",
+      "requestSend": "Kérés küldése",
+      "requestTitle": "Dokumentum kérése tőle: {{name}}",
+      "requestWho": "A hallgató és a Hangyul-tanácsadója értesítést kap, és pontosan ezt a szöveget látja.",
+      "requestedOn": "Kérve: {{date}}",
+      "retention": "Még tanul",
+      "search": "Keresés név, képzés vagy hivatkozási szám alapján",
+      "step": {
+        "ACCEPTED": "Ajánlat elfogadva",
+        "ARRIVED": "Megérkezett Koreába",
+        "ENROLLED": "Beiratkozott",
+        "OFFERED": "Ajánlatot kapott",
+        "REVIEWED": "Elbírálva",
+        "SUBMITTED": "Beadva",
+        "TUITION_PAID": "Tandíjat fizetett",
+        "VISA_ISSUED": "Vízum kiállítva"
+      },
+      "tab": {
+        "applicants": "Jelentkezők",
+        "pipeline": "Áttekintés",
+        "students": "Hallgatók"
+      },
+      "tooFew": "Túl kevés az arányhoz",
+      "view": {
+        "admitted": "Felvett",
+        "all": "Összes",
+        "documents": "Hiányzó dokumentumok",
+        "enrolment": "Vízum és beiratkozás",
+        "flagged": "Megjelölt",
+        "interview": "Interjú",
+        "offer": "Ajánlat",
+        "review": "Elbírálásra vár"
+      },
+      "waitingStudent": "Hallgatóra vár"
+    },
+    "common": {
+      "all": "Összes megtekintése"
+    },
+    "deadlines": {
+      "bucket": {
+        "later_other": "Később ebben a hónapban · {{count}}",
+        "overdue_other": "Lejárt · {{count}}",
+        "week_other": "Következő 7 nap · {{count}}"
+      },
+      "emptyView": "Nincs esedékes elem ebben a nézetben",
+      "student": "Hallgató",
+      "who": {
+        "all": "Összes",
+        "mine": "Sajátjaim",
+        "unassigned": "Nincs hozzárendelve"
+      },
+      "you": "Ön"
+    },
+    "journey": {
+      "admission": "Felvétel",
+      "apply": "Jelentkezés",
+      "arrival": "Érkezés",
+      "discover": "Felfedezés",
+      "next": "Következő: {{stage}}",
+      "of": "· {{n}} / {{total}}",
+      "prepare": "Felkészülés",
+      "step": "{{n}}. lépés ({{total}} közül): {{stage}}",
+      "visa": "Vízum"
+    },
+    "match": {
+      "close": "Még nem jogosult – egy lépés hiányzik",
+      "notYet": "Még nem jogosult",
+      "possible": "Részben illik hozzád",
+      "strong": "Illik hozzád"
+    },
+    "messages": {
+      "attach": "Fájl csatolása",
+      "attachUnavailable": "A csatolmányok még nem érhetők el.",
+      "attachmentOnly_one": "{{count}} csatolmány elküldve",
+      "attachmentOnly_other": "{{count}} csatolmány elküldve",
+      "conversations": "Beszélgetések",
+      "openAttachment": "Megnyitás: {{name}}",
+      "removeAttachment": "Eltávolítás: {{name}}"
+    },
+    "offer": {
+      "accept": "Ajánlat elfogadása",
+      "body": "{{university}} helyet ajánlott neked ezen a képzésen: {{program}}.",
+      "deadline": "Fogadd el és fizesd be a tandíjat eddig: {{date}} · {{left}}",
+      "next": "Mi következik",
+      "scholarship": "Ösztöndíj",
+      "step": {
+        "accept": "Fogadd el az ajánlatot",
+        "letter": "Megkapod a standard felvételi leveledet",
+        "review": "Nézd át az ajánlatot és az esetleges feltételeket",
+        "tuition": "Fizesd be a tandíjat közvetlenül az egyetemnek",
+        "visa": "Készítsd elő a diákvízumodat"
+      },
+      "tuition": "Tandíj",
+      "tuitionDirect": "A Hangyul soha nem szed be tandíjat. Az egyetemnek fizess, a saját nevedben, az egyetem útmutatása szerint."
+    },
+    "push": {
+      "denied": "Az értesítések ki vannak kapcsolva. Kapcsold be őket a telefon beállításaiban a Hangyulnál.",
+      "enable": "Értesítések bekapcsolása",
+      "error": "Nem sikerült bekapcsolni az értesítéseket. Próbáld újra.",
+      "idle": "Kapj push-értesítést, ha egy dokumentumot ellenőriztünk, közeleg egy határidő, vagy válaszol a Hangyul csapata.",
+      "on": "Az értesítések be vannak kapcsolva. A telefon beállításaiban módosíthatod.",
+      "pending-server": "Az értesítések engedélyezve vannak ezen a telefonon. A push-kézbesítés még nem él; minden továbbra is megjelenik ebben a listában.",
+      "title": "Értesítések ezen a telefonon"
+    },
+    "reviews": {
+      "beforeVerify": "Jóváhagyás előtt",
+      "bulkBody": "Csak olyan dokumentumoknál tegye ezt, amelyeket megnyitott és ellenőrzött. Minden hallgató értesítést kap.",
+      "bulkDone": "{{ok}} jóváhagyva, {{failed}} kihagyva",
+      "bulkTitle_one": "Jóváhagy {{count}} dokumentumot?",
+      "bulkTitle_other": "Jóváhagy {{count}} dokumentumot?",
+      "check": {
+        "date": "A kiállítás dátuma elég friss, és nem járt le",
+        "issuer": "A kiállító, a pecsét vagy az aláírás látható",
+        "legal": "A(z) {{path}} csatolva van, és a dokumentumhoz tartozik",
+        "legible": "Minden oldal teljes és olvasható",
+        "name": "A név és a születési dátum egyezik az útlevéllel"
+      },
+      "correctionTitle": "Mit javítson a hallgató?",
+      "expires": "Érvényes eddig",
+      "issuedIn": "Kiállítás helye",
+      "issuedOn": "Kiállítás dátuma",
+      "legalization": "Felülhitelesítés",
+      "notNeeded": "Nem szükséges",
+      "open": "Megnyitás: {{name}}",
+      "overSla": "{{waiting}} · az ellenőrzés vállalt határidején túl",
+      "reason": "Üzenet a hallgatónak",
+      "requestCorrection": "Javítás kérése",
+      "required": "Kötelező",
+      "select": "Kijelölés",
+      "studentSees": "{{name}} pontosan ezt a szöveget látja a dokumentum mellett.",
+      "studentSeesGeneric": "A hallgató pontosan ezt a szöveget látja a dokumentum mellett.",
+      "summary": "{{count}} várakozik · {{over}} a(z) {{hours}} órás vállalt ellenőrzési határidőn túl",
+      "templates": "Csapatsablonok",
+      "translation": "Fordítás",
+      "uploaded": "feltöltve: {{when}}",
+      "verifyN_one": "{{count}} dokumentum jóváhagyása",
+      "verifyN_other": "{{count}} dokumentum jóváhagyása"
+    },
+    "settings": {
+      "consoleHint": "A csapattagok, a számlázás és az exportok kezelése az ügynökségi webes konzolban történik.",
+      "work": "Az Ön munkája"
+    },
+    "upload": {
+      "camera": "Fotó készítése",
+      "cameraHint": "Tedd a dokumentumot sima felületre, jó fényben",
+      "failed": "Nem sikerült megnyitni a fájlt. Próbáld újra.",
+      "files": "Fájl kiválasztása",
+      "filesHint": "PDF, JPG vagy PNG, legfeljebb 15 MB",
+      "library": "Választás a fotók közül",
+      "privacy": "A dokumentumaidat csak te és a Hangyul csapata nyithatja meg. Az egyetem csak azután látja őket, hogy jelentkezést adtál be hozzá.",
+      "tooLarge": "Ez a fájl nagyobb 15 MB-nál. Próbáld PDF-szkenneléssel vagy kisebb fotóval."
     }
   },
   "v23": {
@@ -241,14 +787,44 @@
     "reviews": {
       "tab": "Teendők",
       "notReviewable": "Ez a dokumentum nem vár ellenőrzésre.",
-      "reasonPlaceholder": "Például: Hiányzik az Apostille-oldal. Töltsd fel az összes oldalt.",
-      "changesDone": "Javítás kérve. A hallgató értesítést kapott"
+      "reasonPlaceholder": "Például: Hiányzik az apostille oldala. Töltsd fel az összes oldalt.",
+      "changesDone": "Javítás kérve. A hallgató értesítést kapott",
+      "detailTitle": "Ellenőrzés",
+      "empty": "Nincs ellenőrzésre váró dokumentum",
+      "emptyBody": "A hallgatói új feltöltései itt jelennek meg.",
+      "history": "Ellenőrzési előzmények",
+      "lastReason": "Előző javítási kérés",
+      "noFile": "Ehhez a dokumentumhoz még nem töltöttek fel fájlt.",
+      "sendToStudent": "Küldés a hallgatónak",
+      "tabA11y_one": "Ellenőrzések, {{count}} várakozik",
+      "tabA11y_other": "Ellenőrzések, {{count}} várakozik",
+      "title": "Dokumentum-ellenőrzések",
+      "verify": "Dokumentum jóváhagyása",
+      "waitingDays_one": "{{count}} napja vár",
+      "waitingDays_other": "{{count}} napja vár",
+      "waitingHours_one": "{{count}} órája vár",
+      "waitingHours_other": "{{count}} órája vár"
     },
     "login": {
-      "tagline": "Ügyeid, ellenőrzéseid és üzeneteid mobilon."
+      "tagline": "Hallgatói, ellenőrzései és üzenetei mobilon."
     },
     "dashboard": {
       "noOverdue": "Nincs lejárt feladat. Szép munka."
+    },
+    "deadlines": {
+      "empty": "Nincs határidő a következő 30 napban",
+      "subtitle": "A hallgatói határidői a következő 30 napban.",
+      "title": "Emlékeztetők"
+    },
+    "messages": {
+      "subtitle": "Hallgatói beszélgetések és belső megjegyzések.",
+      "title": "Üzenetek"
+    },
+    "students": {
+      "detailTitle": "Hallgató"
+    },
+    "tasks": {
+      "unassigned": "Nincs hozzárendelve"
     }
   },
   "v26": {
@@ -263,7 +839,17 @@
     }
   },
   "messages": {
-    "internalToggle": "Belső megjegyzés, a hallgató nem látja"
+    "internalToggle": "Belső megjegyzés, a hallgató nem látja",
+    "empty": "Még nincsenek beszélgetések",
+    "emptyBody": "A csapatoddal váltott üzenetek itt jelennek meg.",
+    "internalLabel": "Belső megjegyzés",
+    "internalOn": "Belső megjegyzés: csak a csapata látja",
+    "internalPlaceholder": "Belső megjegyzés írása (csak a csapatnak)…",
+    "noMessages": "Még nincs üzenet",
+    "placeholder": "Üzenet írása…",
+    "sendInternal": "Belső megjegyzés mentése",
+    "unreadCount_one": "{{count}} olvasatlan üzenet",
+    "unreadCount_other": "{{count}} olvasatlan üzenet"
   },
   "student": {
     "login": {
@@ -275,23 +861,98 @@
     },
     "nextAction": {
       "WAIT": "Most nincs teendőd. Értesítünk, ha valamire figyelned kell",
-      "FINISH_APPLICATION": "Fejezd be a jelentkezést: {{university}}. Hátralévő tételek: {{remaining}}"
+      "FINISH_APPLICATION": "Fejezd be a jelentkezésedet ide: {{university}}. Hátra van még: {{remaining}}",
+      "ARRIVAL_CHECKLIST": "Készülj a koreai érkezésedre",
+      "COMPARE_OFFERS": "Hasonlítsd össze a(z) {{count}} felvételi ajánlatodat",
+      "COMPLETE_PROFILE": "Töltsd ki a profilodat, hogy lásd, mely egyetemek illenek hozzád",
+      "PROFILE_UNLOCK": {
+        "budget": "Add meg a keretedet, hogy {{count}} képzést költség szerint rangsoroljunk",
+        "education": "Add meg a tanulmányaidat, hogy {{count}} képzést ellenőrizhessünk",
+        "gpa": "Add meg a jegyeidet, hogy {{count}} képzést ellenőrizhessünk",
+        "language": "Add meg a nyelvvizsga-eredményedet, hogy {{count}} képzést ellenőrizhessünk",
+        "other": "Töltsd ki a profilodat, hogy {{count}} képzést ellenőrizhessünk"
+      },
+      "RESPOND_OFFER": "Válaszolj a felvételi ajánlatodra",
+      "REVIEW_MATCHES": "Nézd át a hozzád illő egyetemeket"
     },
     "applications": {
-      "emptyBody": "Kezdd az egyezéseidnél: azoknál a képzéseknél, amelyek követelményeinek megfelelsz."
+      "emptyBody": "Kezdd a hozzád illő képzésekkel: azokkal, amelyek követelményeinek megfelelsz.",
+      "active": "Aktív",
+      "closed": "Lezárt",
+      "confirm": {
+        "OFFER_ACCEPTED": {
+          "body": "Elfogadod a(z) {{university}} felvételi ajánlatát. A Hangyul Univ csapata végigvezet a tandíj befizetésén és a standard felvételi levél megszerzésén.",
+          "cta": "Ajánlat elfogadása",
+          "title": "Elfogadod ezt az ajánlatot?"
+        },
+        "WITHDRAWN": {
+          "body": "A(z) {{university}} egyetemre beadott jelentkezésedet lezárjuk. Ezt az appból nem lehet visszavonni.",
+          "cta": "Jelentkezés visszavonása",
+          "title": "Visszavonod ezt a jelentkezést?"
+        }
+      },
+      "detailTitle": "Jelentkezés",
+      "empty": "Nincs aktív jelentkezés",
+      "emptyClosed": "Nincs lezárt jelentkezés",
+      "submittedOn": "Beadva: {{date}}",
+      "subtitle": "Kövesd minden jelentkezésedet egy helyen."
     },
     "documents": {
       "subtitle": "Elmentett dokumentumaid, több jelentkezéshez is felhasználva.",
       "verifiedBody": "Ellenőrizve. Ezt a dokumentumot más jelentkezésekhez is felhasználhatod.",
-      "legalizationHint": "Jelöld késznek az egyes lépéseket, amikor elvégezted őket. A feltöltés után a csapatunk végzi a végső ellenőrzést."
+      "legalizationHint": "Jelöld késznek az egyes lépéseket, amikor elvégezted őket. A feltöltés után a csapatunk végzi a végső ellenőrzést.",
+      "detailTitle": "Dokumentum",
+      "empty": "A dokumentumtárad üres",
+      "emptyBody": "Töltsd fel az útleveledet, a bizonyítványaidat és a nyelvvizsga-eredményeidet a webes alkalmazásból.",
+      "file": "{{name}} · {{version}}. verzió",
+      "fixFallback": "A Hangyul csapata módosítást kért ezen a dokumentumon.",
+      "fixTitle": "Mit kell javítani",
+      "openFile": "Biztonságos előnézet megnyitása",
+      "reviews": "Ellenőrzési előzmények",
+      "translationBody": "Ehhez a dokumentumhoz hiteles koreai vagy angol fordítás szükséges."
     },
     "matches": {
       "tierHint": {
         "NOT_ELIGIBLE": "Egy közzétett követelmény még nem teljesül. Az okokat lent látod."
-      }
+      },
+      "deadline": "Határidő: {{date}} · {{due}}"
     },
     "profile": {
-      "editOnWeb": "A profilodat a webes alkalmazásban szerkesztheted. A változások automatikusan megjelennek itt."
+      "editOnWeb": "A profilodat a webes alkalmazásban szerkesztheted. A változások automatikusan megjelennek itt.",
+      "completion": "Profil kitöltöttsége",
+      "step": {
+        "basics": "Alapadatok",
+        "education": "Tanulmányok",
+        "goals": "Tanulmányi célok",
+        "language": "Nyelvvizsga-eredmények",
+        "passport": "Útlevél",
+        "preferences": "Preferenciák",
+        "sponsor": "Anyagi támogató"
+      }
+    },
+    "explore": {
+      "clear": "Keresés törlése",
+      "save": "Mentés: {{name}}",
+      "searchPlaceholder": "Képzés vagy egyetem keresése",
+      "unsave": "Eltávolítás a mentettek közül: {{name}}"
+    },
+    "messages": {
+      "subtitle": "Beszélgess a Hangyul Univ csapatával.",
+      "unreadA11y_one": "Üzenetek, {{count}} olvasatlan",
+      "unreadA11y_other": "Üzenetek, {{count}} olvasatlan"
+    },
+    "saved": {
+      "empty": "Még nincs mentett egyetem",
+      "emptyBody": "Koppints a szívre egy képzésnél, hogy ide mentsd az egyetemét."
+    },
+    "tasks": {
+      "confirmTitle": "Késznek jelölöd ezt a feladatot?",
+      "empty": "Most nincs teendőd",
+      "emptyBody": "Ide tesszük a feladatokat, amikor valamire figyelned kell.",
+      "overdue": "Lejárt ({{count}})",
+      "subtitle": "Feladatok a Hangyul csapatától és a jelentkezési ellenőrzőlistáidból.",
+      "title": "Teendők",
+      "upcoming": "Teendő"
     }
   },
   "university": {
@@ -300,16 +961,58 @@
     },
     "flagged": {
       "hint": "A jelölések az egyetemen belüliek. A hallgatók és az ügynökségek nem látják őket.",
-      "emptyBody": "Egy jelentkezést a részletes oldaláról jelölhetsz meg, hogy később átnézd."
+      "emptyBody": "Egy jelentkezést a részletes oldaláról jelölhetsz meg, hogy később átnézd.",
+      "add": "Megjelölés utánkövetésre",
+      "addBody": "Ezt a jelölést és az indoklást csak az egyetemi csapata látja.",
+      "flagged": "Megjelölve",
+      "reason": "Indoklás",
+      "remove": "Jelölés eltávolítása",
+      "removeTitle": "Eltávolítja a jelölést erről a jelentkezésről?"
     },
     "cohorts": {
       "riskHint": "A korai figyelmeztetések csak az egyetemi rendszerek által megosztott adatokon alapulnak (jelenlét, tanulmányi helyzet, beiratkozás, vízumdátumok). Arra jeleznek, hogy érdemes felvenni a kapcsolatot a hallgatóval, nem előrejelzések."
+    },
+    "applicants": {
+      "anonymous": "Jelentkező",
+      "confirmBody": "{{name}} és a tanácsadója értesítést kap. Megjegyzés a nyilvántartáshoz (nem kötelező).",
+      "confirmTitle": "Módosítja az állapotot erre: „{{status}}”?",
+      "detailTitle": "Jelentkező",
+      "history": "Állapotelőzmények",
+      "interview": "Interjú",
+      "moveTo": "Áthelyezés ide: {{status}}",
+      "notShared": "Még nincs megosztva az egyetemével",
+      "note": "Megjegyzés",
+      "previewHint": "Biztonságos, lejáró előnézetet nyit meg",
+      "reference": "Az Önök hivatkozási száma",
+      "submitted": "Beadva: {{date}}",
+      "submittedLabel": "Beadva",
+      "viaAgency": "Közvetítő: {{agency}}"
+    },
+    "inbox": {
+      "title": "Üzenetek"
+    },
+    "login": {
+      "tagline": "Jelentkezők, döntések és évfolyamok a nemzetközi irodának."
     }
   },
   "v4": {
     "application": {
-      "writeOnWeb": "A weben írd meg. A tanácsadód megjegyzései ott jelennek meg.",
-      "reviewLate": "A szokásosnál tovább tart. A tanácsadód tud a csúszásról. Nem kell újra feltöltened."
+      "writeOnWeb": "A weben írd meg. A Hangyul csapatának megjegyzései is ott jelennek meg.",
+      "reviewLate": "A szokásosnál tovább tart. A Hangyul csapata tud a késésről. Nem kell újra feltöltened.",
+      "blocks": "Amíg ez nincs kész, a jelentkezésed nem adható be.",
+      "blocksUni": "{{university}} erre vár, mielőtt továbblép.",
+      "doneSummary_one": "{{count}} kész: {{items}}",
+      "doneSummary_other": "{{count}} kész: {{items}}",
+      "next": "A következő lépésed",
+      "nextFix": "Javítsd ezt: {{item}}",
+      "nextLegalize": "Szerezz apostille-t vagy konzuli felülhitelesítést ehhez: {{item}}",
+      "nextRequest": "{{university}} ezt kérte: {{item}}",
+      "nextUpload": "Töltsd fel ezt: {{item}}",
+      "nextWrite": "Írd meg ezt: {{item}}",
+      "nothingForYou": "Most nincs teendőd",
+      "openDocument": "Dokumentum megnyitása",
+      "waitBody": "A Hangyul csapata ellenőrzi, amit küldtél. Szólunk, ha valamin változtatni kell.",
+      "waitTitle": "Most nincs teendőd"
     },
     "reviews": {
       "tickAll": "{{done}}/{{total}} ellenőrizve. Az ellenőrzéshez pipáld ki az összeset."
@@ -317,9 +1020,73 @@
     "home": {
       "item": {
         "WRITE_ESSAY": {
-          "text": "A tanácsadód veled együtt nézi át. Kezdd egy nyers vázlattal, nem kell tökéletesnek lennie."
+          "text": "A Hangyul csapata veled együtt nézi át. Kezdd egy nyers vázlattal, nem kell tökéletesnek lennie.",
+          "cta": "Kezdj írni",
+          "title": "Írd meg ezt: {{label}} ({{university}})"
+        },
+        "FIX": {
+          "cta": "Hogyan javítsd",
+          "text": "Amíg ez nincs javítva, a jelentkezésed nem adható be.",
+          "title": "Javítsd ezt: {{label}} ({{university}})"
+        },
+        "LEGALIZE": {
+          "cta": "Lépések megtekintése",
+          "text": "A koreai egyetemek csak hitelesítés után fogadják el ezt a dokumentumot. Megmutatjuk az országodra vonatkozó lépéseket.",
+          "title": "Szerezz apostille-t ehhez: {{label}} ({{university}})"
+        },
+        "RENEW": {
+          "cta": "Mi a teendő",
+          "text": "A feltöltött példány lejárt.",
+          "title": "Szerezz be újat ebből: {{label}} ({{university}})"
+        },
+        "REQUEST": {
+          "cta": "Feltöltés és küldés",
+          "text": "Az egyetem kérte ezt a dokumentumot. Amíg meg nem érkezik, a jelentkezésed nem halad tovább.",
+          "title": "Küldd el ezt: {{label}} ({{university}})"
+        },
+        "REVISE_ESSAY": {
+          "cta": "Vázlat megnyitása",
+          "text": "A Hangyul csapata megjegyzéseket írt. Amíg nincs jóváhagyva, a jelentkezésed nem adható be.",
+          "title": "Dolgozd át ezt: {{label}} ({{university}})"
+        },
+        "TOO_OLD": {
+          "cta": "Mi a teendő",
+          "text": "Az egyetemnek frissen kiállított példány kell.",
+          "title": "Szerezz frissebbet ebből: {{label}} ({{university}})"
+        },
+        "UPLOAD": {
+          "cta": "Feltöltés",
+          "text": "Enélkül a jelentkezésed nem adható be.",
+          "title": "Töltsd fel ezt: {{label}} ({{university}})"
         }
       }
+    },
+    "discover": {
+      "firstYear": "{{range}} az első évben"
+    },
+    "documents": {
+      "late": "Tovább tart",
+      "lateLine": "késésként jelezve a Hangyul csapatának"
+    },
+    "uni": {
+      "actor": {
+        "AGENCY": "Partnerügynökség",
+        "STUDENT": "Jelentkező",
+        "SYSTEM": "Automatikus",
+        "UNIVERSITY": "Az Ön egyeteme"
+      },
+      "toReview_one": "Elbírálandó · {{count}}",
+      "toReview_other": "Elbírálandó · {{count}}"
+    },
+    "university": {
+      "continue": "Jelentkezés folytatása",
+      "firstYear": "Első év, becsült",
+      "tuitionYear": "Tandíj évenként"
+    },
+    "visa": {
+      "hideDone": "Kész lépések elrejtése",
+      "showDone_one": "{{count}} kész lépés megjelenítése",
+      "showDone_other": "{{count}} kész lépés megjelenítése"
     }
   },
   "v29": {
@@ -327,23 +1094,78 @@
       "term": "Szolgáltatási időszak",
       "termUntil": "Lejárat: {{date}}",
       "termToAgree": "Induláskor egyeztetjük",
-      "supportUntil": "Konzultáció eddig: {{date}}",
-      "supportDays": "{{count}} nap az első konzultációtól",
+      "supportUntil": "Konzultációs támogatás eddig: {{date}}",
+      "supportDays": "{{count}} napos konzultációs támogatás az első konzultációtól",
       "arrival": "Érkezés és beilleszkedés",
       "arrivalWindow": "{{from}} – {{until}}",
       "unrationed": {
         "CONTRACTED_DOCUMENTS": "Korlát nélkül a szerződéses dokumentumokon belül",
-        "TEAM": "Csapattámogatás",
+        "TEAM": "Nyomon követés a csapatodtól",
         "PRIORITY": "Elsőbbségi válasz",
         "ROUNDS": "Tartalmazza"
       },
       "upgradePending": "A váltás ára még nincs meghatározva. A Hangyul Univ csapata közvetlenül egyezteti veled.",
       "askTeam": "Kérdezd a csapatot"
+    },
+    "mfa": {
+      "codeHint": "Adja meg a hitelesítő alkalmazás 6 jegyű kódját vagy egy helyreállítási kódot.",
+      "codeLabel": "Ellenőrző kód",
+      "enrollOnWeb": "Ehhez a fiókhoz kétlépcsős azonosítás szükséges. Állítsa be először a webes konzolban, majd jelentkezzen be itt.",
+      "verify": "Ellenőrzés és bejelentkezés",
+      "wrongCode": "A kód hibás vagy lejárt. Adjon meg újat."
     }
   },
   "plan": {
     "allowance": {
-      "consultation_sessions": "Felmérő konzultáció"
-    }
+      "consultation_sessions": "Felmérő konzultáció",
+      "essay_review_rounds": "Motivációs levél és tanulmányi terv lektorálása",
+      "follow_up_consultations": "Követő konzultációk",
+      "max_managed_applications": "Közösen intézett jelentkezések",
+      "max_recommended_institutions": "Egyetemi ajánlások",
+      "mock_interviews": "Próbainterjúk"
+    },
+    "browserFailed": "Nem sikerült megnyitni a böngészőt. Fizess a weben.",
+    "card": "Külföldi kártyával fizethetsz (Visa, Mastercard, JCB).",
+    "chooseLede": "Egyszeri fizetés, nincs előfizetés. A csomagod végig veled marad, amíg készülsz.",
+    "chooseTitle": "Válassz csomagot",
+    "handoff": "A fizetés a böngésződben történik, és ha kész, visszatérsz az appba.",
+    "highestAlready": "Már a legmagasabb csomagod van.",
+    "included": "A csomagod tartalma",
+    "oneTime": "Egyszeri fizetés",
+    "ongoing": "A teljes szolgáltatási időszak alatt",
+    "paid": "Fizetett összeg",
+    "pay": "Fizetés",
+    "plansTitle": "Csomagok",
+    "selected": "Kiválasztva",
+    "upgradeTitle": "Váltás",
+    "webNote": "A csomagelőzmények és a nyugták a weben érhetők el."
+  },
+  "more": {
+    "active": "Aktív",
+    "allowanceSpent": "Mindent felhasználtál, amit ez a csomag tartalmaz. A csomag képernyőn látod, melyik csomag ad többet.",
+    "choose": "Választás",
+    "noPlan": "Még nincs csomagod",
+    "noPlanHint": "Válassz csomagot, és a Hangyul elkezd veled dolgozni",
+    "plan": "Csomag",
+    "support": "Segítség kérése",
+    "supportHint": "Üzenet a Hangyul csapatának",
+    "webNote": "A profil szerkesztése és a fizetés a weben történik."
+  },
+  "notifications": {
+    "unread": "Olvasatlan"
+  },
+  "settings": {
+    "elsewhere": "Máshol",
+    "language": "Nyelv",
+    "languageHint": "Válaszd ki az app nyelvét. Egyes nyelvek még ellenőrzés alatt álló gépi fordítások.",
+    "machineDraft": "gépi fordítás",
+    "notificationsHint": "A kapott értesítések megtekintése",
+    "rtlNote": "A jobbról balra írás már érvényes; a teljes elrendezés az app következő megnyitásakor tükröződik.",
+    "selected": "kiválasztva",
+    "server": "Szerver: {{url}}",
+    "signOutBody": "Az újbóli bejelentkezéshez az e-mail-címedre és a jelszavadra lesz szükséged.",
+    "signOutTitle": "Kijelentkezel?",
+    "title": "Beállítások",
+    "version": "{{version}} verzió"
   }
 }

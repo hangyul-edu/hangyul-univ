@@ -30,7 +30,7 @@
 
 ---
 
-# 0. Current state (V31 — 2026-11-01)
+# 0. Current state (V32 — 2026-11-04)
 
 > **Read this section first.** Everything below §1 is a *dated record*: each pass wrote its audit, its
 > implementation log and its gaps, and those sections are deliberately never rewritten — an audit that gets
@@ -60,10 +60,23 @@ tuition** — Korean MOE guidance requires it be paid by the student, in their o
 | PostgreSQL 16 | 5432 | native, not Docker |
 | Redis | 6379 | native |
 
-Every web app proxies `/api` to the API same-origin, so auth cookies stay first-party. Any document, script
+The Student, Agency and University apps proxy `/api` to the API same-origin, so auth cookies stay first-party; the
+marketing site needs no API at all since §435 (static export + the Vercel fit function, §0.2a). Any document, script
 or comment still naming `:8000` for the Hangyul API is stale; V18 migrated the dev scripts, the Vite proxy,
 Playwright, the e2e helpers, the QA gates, the three Expo configs and the mobile bootstrap, and verified the
 API answering on 8001.
+
+## 0.2a Production deployment (V32 — current)
+
+| Surface | Where | State |
+|---|---|---|
+| `univ.talkhangyul.com` | Vercel project `hangyul-univ` (apps/marketing-web) | **Live, fully public without any API**: directory, 425 university pages, scholarships, Quick Fit and the fit summary read a static export (`apps/marketing-web/public/data/public/`, `scripts/public-data/export.py`); Quick Fit's ranking runs the unchanged `server/app/services/fit.py` as a Vercel Python function (`apps/marketing-web/api/public-fit.py`, §435) |
+| `app.` / `admin.` / `partner.univ.talkhangyul.com` | Vercel projects `hangyul-univ-{student,agency,university}` | Static builds live; `/api/*` rewrites to `https://api.univ.talkhangyul.com`, **which the owner has deferred** — until it exists the three apps show the localized service-unavailable state (§436), never demo data |
+| Private API (FastAPI, PostgreSQL, Redis, S3, ClamAV, workers) | — | **Not provisioned, by owner decision** (`docs/deployment/VERCEL_DEPLOYMENT.md`) |
+
+Every production build emits `/build-info.json` (commit, built-at) so a stale deploy is visible from a browser. Per-app
+`vercel.json` is generated (`scripts/ops/gen-vercel.mjs`) from `infra/csp.json`. `npm run qa:marketing-serverless` checks a
+deployed marketing site end to end (local 23/23, production 22/22 at the last verification).
 
 ## 0.3 Products
 
@@ -76,13 +89,33 @@ notifications, visa, tasks, plan/services (checkout hands off to the web), housi
 student's language), profile, settings and language, and the verified four-step **sign-up** (§267). The student is served by
 **한귤 유니브 상담팀** ("with {agency}" under it, as on the web). `apps/agency-mobile` — 오늘 · 학생 · 지원·서류 · 메시지 · 설정,
 one role. `apps/university-mobile` — 지원자 · 메시지 · 현황 · 설정, one role. Staff apps use the V22 white/tangerine tokens.
-**Every non-production build shows "테스트 계정으로 로그인"; production builds contain no test sign-in at all** (Metro folds
-`__DEV__ || EXPO_PUBLIC_TEST_LOGIN === 'true'`; production profiles set it to `"false"`; `qa:v23 --part native` scans the
-exported bundles). **Android: six V25 artifacts** (preview APK + production AAB per app, QA-signed, rebuilt 2026-10-27 from the V25 source) in
-`result/<app>-mobile/android/` with `BUILD_INFO.json` (pass V25); production AABs scanned clean of test sign-in and demo personas,
-the preview APK positive control finds them (§327). *(V23's artifacts were emulator smoke-tested (§284); the V25 rebuild was not
-re-smoke-tested on an emulator.)* **iOS: not built** — EAS is not authenticated
-(`docs/qa/v23/IOS_BUILD_BLOCKER.md`). Full essay editing remains web-only (§180).
+**No build of any app carries a test sign-in, persona picker or `EXPO_PUBLIC_TEST_LOGIN` switch — V32 removed the
+feature rather than hiding it** (§436); when the API cannot be reached the apps show the localized service-unavailable
+state. The six V25 Android artifacts in `result/<app>-mobile/android/` predate V32 and are superseded: store binaries must be
+rebuilt from the V32 source (V32 verified the Expo production exports leak-clean and ran the apps on the `hg35` emulator
+through Metro). **iOS: not built** — EAS is not authenticated (`docs/qa/v23/IOS_BUILD_BLOCKER.md`). Full essay editing
+remains web-only (§180).
+
+## 0.3j What V32 changed (summary — §436)
+
+- **Test and demo access removed, not hidden**: no test sign-in, persona picker, `?demo=`, `/__dev`, demo-login endpoint,
+  `VITE_DEMO_LOGINS` / `EXPO_PUBLIC_TEST_LOGIN`, `dev-complete` paid-state bypass (all removed) or "테스트: 선택한 플랜으로 시작" in any app,
+  build, API or current doc (`qa:v32-leak` over source, docs and the production web and Expo bundles).
+- **Seed split**: `app.seed.run` = reference data only; `app.seed.fixtures` = synthetic members, refused outside test/e2e
+  databases. Development database: **0 users**, 425 institutions, 461 scholarships, 963 language rules, 41 visa routes
+  (`qa:v32-data-clean`); e2e databases are dropped at exit (`teardown-check`).
+- **One canonical select** (`packages/ui/src/select.tsx`): own listbox (popover on desktop, bottom sheet on phones, full
+  keyboard/ARIA); no native `<select>` anywhere (`qa:v32-selects`, crawl).
+- **Service-unavailable state** on web and native when the API cannot be reached — what the three authenticated
+  production domains show until the owner connects the private API.
+- **Visual**: University home decisions → pipeline → outcomes; native University home hierarchy; stage rail never
+  breaks a word; pricing tail spacing; Quick Fit nationality control.
+- **Languages**: every market locale re-reviewed against the glossary; the consoles and native staff apps are now
+  translated in every market (`docs/qa/v32/l10n/LANGUAGE_SIGNOFF.md`), status `SYNTHETIC_NATIVE_REVIEWED_V32`, no human.
+- **Native production builds use the public origins** (`api.`/`app.`/`univ.talkhangyul.com` in the EAS `production`
+  profiles); earlier profiles fell back to localhost and emulator addresses. Review mode (canned demo API responses)
+  removed.
+- Gate: `npm run qa:v32` (`scripts/qa/v32/chain.sh`) — all 17 steps PASS in one clean run (§436.15). Evidence: `docs/qa/v32/`.
 
 ## 0.3i What V31 changed (summary — §418–§434)
 
@@ -161,7 +194,7 @@ re-smoke-tested on an emulator.)* **iOS: not built** — EAS is not authenticate
 
 ## 0.3e What V27 changed (summary — §353–§371)
 
-- **Quick university check** (`/start`, web + native, one endpoint `POST /public/fit`): nationality · 7 study levels (박사,
+- **Quick university check** (`/start`, web + native, one endpoint `POST /public/fit` — on the deployed marketing site served by `apps/marketing-web/api/public-fit.py` over the exported snapshot, §435): nationality · 7 study levels (박사,
   석박사 통합 added) · GPA on the student's own scale (raw + scale + percentage + method, WES iGPA helper link) · a 13-test language
   registry (`packages/types/src/admissions.ts` → `shared/admissions.json`) → **every relevant institution** (218 학사 / 262
   석박사) in four honest groups (확인된 기본 조건 충족 · 도전해 볼 만한 · 한 가지 보완 · 거리가 먼), no probability, 추천순 = an editorial
@@ -198,7 +231,7 @@ causes** (`docs/qa/v26/ROOT_CAUSE_MATRIX.md`), each fixed at its cause and each 
   queue 2.9 s → < 1 s, an unknown filter value 500 → 422; CLS 0.671 → 0 on university pages, 0.16 → 0.01 on the applicants
   list; **RC-29**: a build rule keyed on file paths had silently stopped purging the marketing stylesheet (dev ≠ prod for
   nineteen releases) — fixed at source, entry CSS 246 KB.
-- **QA hygiene**: no test residue in development data (every writer tears down; the gate counts), no future-dated history,
+- **QA hygiene** (V32: stronger — the development database holds reference data and **zero members**; fixtures exist only in test/e2e databases, `qa:v32-data-clean`): no test residue in development data, no future-dated history,
   the lint scope restored, the V21 payment check asserts its precondition, the e2e stack owns its upload directory.
 - **Repository**: 7.75 GB of superseded evidence, build output, duplicate media and probes removed by a scripted, manifested
   cleanup (§350); the final logs in `docs/qa/v26/completion/logs/` come from the post-cleanup runs.
@@ -232,8 +265,8 @@ causes** (`docs/qa/v26/ROOT_CAUSE_MATRIX.md`), each fixed at its cause and each 
   films, 3 logo compositions, 192 designed identity compositions** (name + province mark + region; registry facts only).
   Verified official films 128 → 158. Directory: search first, places in one row, filters in a bottom sheet on phones,
   exact/prefix name matches first. `docs/qa/v23/UNIVERSITY_VISUAL_COVERAGE.csv`.
-- **Test access**: one-click "테스트 계정으로 로그인" on Student, Agency and University login (web and native), non-production only;
-  the paid-state bypass is unchanged and production-refused.
+- **Test access** (V23; removed entirely in V32, §436): a one-click test sign-in on the three logins, non-production only,
+  and a production-refused paid-state bypass. Neither exists in any build now.
 - **Consoles**: agency links keep their filters, every count opens its rows; university export = table, outcomes exclude
   drafts, every chart bar opens its applicants, decorative cohort charts removed.
 - **Legal text matches the code**: card number + expiry relayed by Hangyul's server to Toss Payments (domestic processor,
@@ -310,9 +343,10 @@ said only `HANGYUL` buys a plan and that a `bill_*` config must never be wired t
 it; this paragraph had not been updated until V23.)*
 
 Merchant reality: four owner-provided Toss **test** configs; payments stay in **test mode** by agreement. Live keys, card
-review and the overseas-card USD contract are owner/Toss items. **Development/test only:** "테스트: 선택한 플랜으로 시작"
-activates the selected plan through the real order/entitlement path without calling Toss (`POST /me/orders/dev-complete`);
-production answers 404 whatever the flags say. Secrets live only in `server/.env`.
+review and the overseas-card USD contract are owner/Toss items. The development paid-state bypass that earlier passes
+documented here was removed in V32 (§436): a paid state for a test or e2e database is granted only by the fixture tooling
+(`server/scripts/fixture_pay.py`, `app.seed.fixtures.grant_plan` / `pay_order`), which refuses any database whose name is
+not a test/e2e one. Secrets live only in `server/.env`.
 
 **Native payment is web-handled, by design (unchanged in V18).** The app opens the student web checkout in
 the system browser and returns by deep link; there is one backend payment state machine and the Toss SDK is
@@ -366,9 +400,9 @@ The measured statement is **§351**; the short form:
 | University photography | **166 / 425 real photographs — not complete** (unchanged from V25; external acquisition) |
 | Android | built sequentially after the cleanup, production bundles scanned, emulator smoke — see §349 for the actual result |
 | iOS | **Not built** — Linux host, no Xcode, EAS not authenticated |
-| Payments | Toss test mode; foreign-card key-in buys the plan; test paid-state bypass outside production only |
+| Payments | Toss test mode; foreign-card key-in buys the plan; the test paid-state bypass this row once listed was removed in V32 |
 | Localization | V27: 727 student-facing keys × 34 locales, three-pass synthetic review (`SYNTHETIC_NATIVE_REVIEWED`); nothing human-reviewed |
-| Admissions data (V27) | 8 universities with verified current checklists; 24 with verified scholarships/rules; catalogue programme requirements still DEMO (§370) |
+| Admissions data (V27) | 8 universities with verified current checklists; 24 with verified scholarships/rules; catalogue programme requirements were DEMO (§370); V32 removed every catalogue row from the runtime database |
 | Identity delivery (V27) | code + live check ready; **BLOCKED — provider credentials absent on this host** |
 | Usability | protocol prepared, **not run** |
 | Repository | no version control on this host; cleanup manifested (`FILE_CLEANUP_MANIFEST.txt`) |
@@ -20167,3 +20201,263 @@ as not-found. The marquee was unaffected because it already reads a generated ma
 preview `dpl_63ukkmgcB2dZJvhtjgrHZGUwtjXS` (same tier counts as local FastAPI: 39 / 176 / 3 / 0, total 218), then
 merged to `main`. The final production SHA is recorded in `docs/deployment/VERCEL_DEPLOYMENT.md` and served at
 `/build-info.json`.
+
+# 436. V32 Final Release Candidate Audit (2026-11-04)
+
+The owner's brief for this pass: finish the product code so that when the private API is connected later nothing else
+has to be cleaned up — zero demo data, the premium white-base design everywhere, every foreign language re-reviewed,
+the native-browser select gone, and the whole thing validated from a clean, production-like state. The private API's
+production connection stays deferred by the owner; the marketing site's serverless public data (§435) is preserved.
+
+## BEFORE
+
+### 436.1 Interrupted-state recovery
+
+The previous session stopped while waiting for the four production builds of `81ecf98`. On resume: `git status`
+clean, local HEAD = `origin/main` = `81ecf98`, no stale processes, and `/build-info.json` on all four domains already
+reported `81ecf98`. The one unfinished P0 step — the live Quick Fit check — was run against production:
+`qa:marketing-serverless` 22/22 against `https://univ.talkhangyul.com` (425/425 detail routes, Quick Fit through the
+Vercel function, the scholarship summary from the fit engine, no localhost request). The P0 hotfix was therefore complete
+before any V32 change; nothing was redone.
+
+### 436.2 Recurrent-defect audit (V1–V31)
+
+A forensic read of §1–§435 produced `docs/qa/v32/FINAL_DEFECT_MATRIX.md`: sixteen families with first-seen section,
+recurrences and the report's own root cause, each mapped to a V32 fix and a regression gate. The families that drove the
+work order: native/browser-default controls (first §116, last §408–§410 — the V30 fix styled the *face* and left the
+platform menu), demo/test leakage (§10 → §268, every fix a gate rather than a removal), seed pollution (§9 → §432, one
+seed for reference data and demo members), stale translation meaning (§52 → §433), and visual gates that passed on
+presence rather than the opened, rendered state (§70 → §407.2).
+
+### 436.3 Native-control audit
+
+Source: `Select` and `FilterSelect` (`packages/ui/src/primitives.tsx`) both rendered a native `<select>` — 54 call
+sites across the four apps and the shared packages; two raw Bootstrap `<select class="form-select">` in
+`agency Plan.tsx` and `university Programs.tsx`; the `CountrySelect` trigger styled by the native select rule. The
+owner's screenshot (`/universities`, institution-type filter) showed the browser's menu: square, blue, platform font.
+
+### 436.4 Runtime test-data audit
+
+Development database before: 227 users, 75 student profiles, 100 applications, 473 documents, 196 essays, 57 orders and
+payments, 8 organizations, 171 tasks — all synthetic — beside 425 institutions, 462 scholarships (one of them a DEMO
+catalogue sample), 963 language rules and 41 visa routes. One seed (`app.seed.run`) created both kinds. Test access:
+`/auth/demo-login` + persona picker on three web logins and three native logins, `?demo=` auto-login, `/__dev` pages,
+`VITE_DEMO_LOGINS` / `EXPO_PUBLIC_TEST_LOGIN`, and the paid-state bypass (`POST /me/orders/dev-complete` ×2,
+"테스트: 선택한 플랜으로 시작"). README documented the fixture password and 20 demo addresses.
+
+### 436.5 Translation audit
+
+Active-string census (`scripts/i18n/v32/census.mjs`): 9,126 of 13,556 keys are rendered by some client or emitted by
+the API; the remaining 4,430 are dead copy from superseded screens. 33 markets (`packages/i18n/src/markets.ts`), 52
+bundles. V31's open language items: Basic f4 ("basic admission document checklist" meaning lost in most locales),
+partnership "guarantee" wording, Polish register, three `_one` plurals without `{{count}}`, ro/nl FAQ label, Italian
+gendered forms, `task.writingOverdue` (two "overdue"s), the Arabic/Urdu range convention; no human native review of any
+locale.
+
+### 436.6 Visual audit (before)
+
+Baseline captures in `docs/qa/v32/shots/before*/` (1440 and 390): the consoles were already closer to the brief than
+the matrix suggested — white main canvas, hairline rows, one primary action on Agency Today, the Student home warm
+and guided. The structural exception was the University home: four equal-weight figures, then a boxed "Outcomes to
+date" strip, then the stage rail, before the queue — exactly the "legible, not yet calm" of §434. The Quick Fit
+nationality control rendered as an unstyled browser-default button. The pricing tail's gap between the compare toggle and
+the services panel measured ~107 px at 1440.
+
+### 436.7 API-boundary audit
+
+Every public marketing surface reads the static export (§435). The authenticated apps had no state for "the service
+cannot be reached": a missing API produced a login page whose submit showed the transport message ("Failed to fetch"),
+and the native login printed the emulator hint (`10.0.2.2:8001`) to a customer.
+
+### 436.8 Plan
+
+1. Split the seed (reference vs. fixtures), remove every test-access and bypass path (web, native, API, tests, gates,
+   docs), purge the development database, prove it with a gate.
+2. One canonical select (combobox + own listbox, popover/sheet), convert every site, gate the opened state.
+3. The service-unavailable state across web and native.
+4. University home hierarchy; the native University home; the pricing tail; the country picker.
+5. The glossary; the English pass over the active set; per-market review of the customer-critical set; the V31 items.
+6. `qa:v32` from a clean state; native exports and an emulator run; docs and this section; deploy Marketing; verify.
+
+## AFTER
+
+### 436.9 Test and demo removal (not hidden — gone)
+
+Deleted from the tree: `packages/ui/src/{devaccess,test-access,devtools}.tsx`, `packages/auth/src/demo-personas.ts`,
+the four `apps/*-web/src/pages/DevTools.tsx` (`/__dev`), `apps/student-web/src/lib/devpay.ts`,
+`packages/mobile-ui/src/components/TestAccountSignIn.tsx`, the `useDemoParamLogin` / `?demo=` hook and `demoLogin` client
+method, the server's `DemoLoginIn` / `POST /auth/demo-login`, `demo_logins` and `test_payment_bypass` settings, the
+`demo_signin` readiness flag, both `dev-complete` order endpoints and the "테스트: 선택한 플랜으로 시작" button, the
+`VITE_DEMO_LOGINS` / `EXPO_PUBLIC_TEST_LOGIN` switches and every bundle key that named them (`v21.testPay.*`,
+`v8.ready.*demo_signin`). Tests that exercised the bypass (`test_v21b_test_paid_state.py`) were deleted; the ones that
+needed a paid state (`test_v26`, `test_v29_contract`) grant it through the fixture helpers instead.
+
+**Seed split.** `server/app/seed/run.py` now creates reference data only — institutions, scholarships, language rules,
+visa routes, playbooks, content — and `server/app/seed/fixtures.py` creates the synthetic members, applications,
+documents, essays, orders, tasks and organizations. `fixtures.main()` refuses any database whose name does not contain
+`test` or `e2e` unless `HG_ALLOW_FIXTURES=1` is set explicitly; `grant_plan` / `pay_order` (and the
+`server/scripts/fixture_pay.py` CLI) are the only way a paid state is created outside Toss. `tests/conftest.py` and
+`scripts/qa/e2e-db.mjs` build their databases from the reference seed plus fixtures; `scripts/qa/e2e-run.mjs` drops the
+e2e database on exit and `scripts/qa/v32/teardown-check.mjs` proves it (no `hangyul_univ_e2e*` database remains, no
+fixture user in the development database).
+
+**Development database after the purge** (`npm run qa:v32-data-clean`, `scripts/qa/v32/data-clean.py`): users 227 → **0**,
+student profiles 0, applications 0, documents 0, essays 0, orders 0, payments 0, organizations 0, tasks 0; institutions
+**425**, scholarships **461** (the one DEMO catalogue sample removed), language rules **963**, visa routes **41**. The
+public export (`npm run public-data:export`) was regenerated from the purged database and the parity script
+(`scripts/qa/public-fit-parity.py`) still agrees 16/16 with the fit engine.
+
+**Leak gate** (`npm run qa:v32-leak`, `scripts/qa/v32/leak.mjs`): no demo address, fixture password, persona, test-login
+switch, bypass endpoint or `/__dev` path in `apps/`, `packages/` (tests excluded), the current docs, REPORT §0, the four
+production web bundles or the three Expo production exports (`.hbc` read as latin1 and UTF-16LE; positive control: the
+V25 preview APK's bundle is found). README's accounts section now says how to create a user, not which one to use.
+
+### 436.10 One canonical select
+
+`packages/ui/src/select.tsx`: `Select` (form field) and `FilterSelect` (toolbar `category · value ⌄`) share one
+implementation — a W3C select-only combobox (`role="combobox"`, `aria-haspopup="listbox"`, `aria-expanded`,
+`aria-activedescendant`), its own `role="listbox"` in a portal placed by `placePopover` on desktop and in the `Drawer`
+bottom sheet on phones, type-ahead, Home/End/PageUp/PageDown, Escape, focus return, `aria-labelledby` from the field label.
+The native `<select>` is gone from `primitives.tsx`; the 54 call sites, the two Bootstrap `<select class="form-select">`
+(`agency Plan.tsx`, `university Programs.tsx`) and the `CountrySelect` trigger all render the same control, styled by
+`.hg-sel*` / `.hg-select-popup` / `.hg-listbox*` in `components.css` from the design tokens (white surface, warm hairline,
+tangerine focus ring, 44 px rows on phones).
+
+Gate: `npm run qa:v32-selects` (`e2e/v32-selects.spec.ts`) opens a select on every product at 1440 and 390, captures the
+**opened** state (`docs/qa/v32/shots/selects/`), checks the ARIA contract, keyboard navigation and that the phone sheet
+is a `dialog`; the crawl (`qa:v32-crawl`) fails on any visible native `<select>` on any route of any product. Unit:
+`apps/student-web/src/test/select.test.tsx`.
+
+### 436.11 Service-unavailable state
+
+`ApiError.unreachable` (network failure, 502/503/504 or a non-JSON gateway answer) → `api.unavailable` → the auth
+provider's `AuthStatus 'unavailable'` with `retry()`. `RequireAuth` (web) and `AuthGate` (native) render
+`ServiceUnavailable`: the brand mark, `common:states.unavailableTitle` ("We're getting the service ready"),
+`unavailableText`, one Retry button — localized in all 56 bundles, no transport text, no demo data, no login form that
+cannot work. The native login's emulator hint (`10.0.2.2:8001`) is gone from every locale. This is what
+`app.`/`admin.`/`partner.univ.talkhangyul.com` show today, by the owner's decision to defer the private API.
+
+### 436.12 Visual pass
+
+- **University home** (`apps/university-web/src/pages/Dashboard.tsx`): the headline is one lead figure — applicants to
+  decide, with a chevron into the queue — and a quiet second line for the other counts; the stage rail moved below the
+  queue and lost its box; outcomes stay a hairline strip at the end. Decisions → pipeline → outcomes. Native University
+  home (`apps/university-mobile/app/(tabs)/index.tsx`): the 2×2 equal grid became one lead figure and a muted row of three.
+- **Stage rail** (`packages/ui/src/styles/workflow.css`): a stage is never narrower than its longest word
+  (`minmax(min-content, 1fr)`), labels take two lines at most, no mid-word break; nine English stages fit at 1280 without
+  the fade (`docs/qa/v32/shots/rail/`).
+- **Agency**: white canvas, warm-paper navigation, one primary action per row — unchanged from V31 where it already met
+  the brief; filters now open the Hangyul listbox. **Student**: warm surface, the same select in the family/budget forms.
+- **Quick Fit nationality** (`CountrySelect`): the browser-default button is now the Hangyul trigger with the placeholder
+  from `form.selectPlaceholder`.
+- **Pricing tail**: the gap between the compare toggle and the services panel is `clamp(32px, 4vw, 52px)` (~107 → ~48 px at
+  1440), judged against the section rhythm above it.
+- Captures: `docs/qa/v32/shots/after*/` (1440, 1280, 390), the crawl set `docs/qa/v32/crawl/<app>/` (every route at 1440
+  and 390).
+
+### 436.13 Localization
+
+- `docs/I18N_GLOSSARY.md`: one term per concept (document review ≠ verification, consultation not counselling, plan not
+  package, standard admission letter, consular legalization, "visa document preparation" never "visa"), tone per product,
+  the promise rule (say what we do; never admission or a visa).
+- `scripts/i18n/v32/census.mjs` — 9,126 of 13,556 keys are active; `critical-keys.mjs` — 3,668 customer-critical keys;
+  `jobs.mjs` — per-locale review jobs (marketing+common, consoles, student+mobile) with the reviewed English as the
+  meaning reference; `apply-patch.mjs` — placeholder-checked, refuses untranslated lines, creates a missing key only when
+  English has it, accepts CLDR plural families, logs every change to `docs/qa/v32/l10n/applied/<locale>.json`.
+- **English first**: 283 strings revised across marketing, common, consoles, student and mobile (plan copy,
+  states, pipeline vocabulary, console questions in a formal register).
+- **Every market locale** (32 besides Korean and English) plus Urdu and Traditional Chinese (offered in the Student app)
+  re-reviewed by a native-level synthetic reviewer in five passes (meaning, naturalness, clarity, tone, back-check) with
+  the glossary: **48,606 strings changed in 34 locales, 38,816 of them keys that had no translation at all** and rendered
+  in English — most of the Agency and University consoles and the native staff apps in nearly every market.
+- **The Student app's deep screens** (application detail, visa route, dossier, writing, outcomes, arrival) were outside
+  the first jobs, and their English had changed: the V9 coverage gate (`_student_status.json`), regenerated honestly,
+  would have withdrawn 19 locales from the Student app. A second job per offered locale (`<loc>-deep.json`, 7,297 strings)
+  reviewed exactly the stale entries; `scripts/i18n/v32/restamp.mjs` then records a current source hash only for keys a
+  V32 reviewer saw. Result: all 19 offered locales at 100 % web and native — and Vietnamese, previously web-only in the
+  native app (99.9 %), is now offered there too.
+- Two English source lines broke the glossary and were fixed ("Preparing your visa documents"; "standard admission
+  letter"). Russian `_one` families gained `{{count}}` (CLDR "one" also covers 21, 31…) and `_many` forms. Records: `docs/qa/v32/l10n/patches/`
+  (with each reviewer's `_notes`) and `docs/qa/v32/l10n/applied/`.
+- V31 open items closed: Polish register decided per product; ro/nl FAQ labels; Italian gendered forms; Arabic/Urdu
+  ranges rendered per the reviewer's stated convention; `task.writingOverdue`; the three `_one` plurals.
+- The V11 Russian fidelity gate (`scripts/qa/v11-copy-fidelity.mjs`): Korean stays the owner's verbatim source; the 25
+  Russian halves that the review re-rendered are now pinned to the reviewed text and marked `ruRevised: "V32"` in
+  `docs/qa/v11/koreanasha-copy.json` — a deliberate update, recorded.
+- The 22 non-market bundles received the two new keys in their own language; nothing else in them was reviewed.
+- Status: `SYNTHETIC_NATIVE_REVIEWED_V32` — **no human native review** of any locale, as before.
+
+### 436.14 Native
+
+Emulator run (`scripts/qa/v32/native-emulator.sh`, AVD `hg35`, Expo Go + Metro in CI mode against the QA stack):
+University app signed in through the real form — login with no test sign-in, the re-weighted home in Korean and English;
+Student app — login, home in Korean and Thai, the language picker. Captures:
+`docs/qa/v32/shots/native/`. Defects found on the device and fixed:
+
+- **Agency and University Settings drew the account card under the status bar** (tab roots without a native header
+  must pad `top`) — fixed in both apps, re-verified on the device.
+- **Production native builds pointed at development hosts.** The `production` EAS profiles set no environment, so a
+  store build would have called `http://localhost:8001`, loaded campus photos and the checkout from `localhost:3101`, and
+  opened the sign-up consent documents from `10.0.2.2:3100`. The profiles now set the public origins
+  (`api.`/`app.`/`univ.talkhangyul.com`), the legal-sheet fallback is development-only, and `native-export.sh` fails
+  if a production export contains a development host or lacks the public API origin. With the API deferred, a store build
+  shows the service-unavailable state — never a localhost error.
+- The Thai and Burmese fifth tab label truncated; shortened.
+
+Expo Go was killed on its first launch after every fresh Metro start (host memory, as in V31) and worked on the second;
+deeper native flows were not driven. iOS remains unbuilt (no Xcode on this host, EAS not authenticated).
+
+### 436.14a Found by the final gates and fixed
+
+- **Review mode removed.** `VITE_REVIEW_MODE` builds served canned API responses recorded from demo personas
+  (`packages/api-client/fixtures/*.json`: fixture addresses, `test_payment_bypass: true`) — a mock API with demo members.
+  The fixtures, the transport (`packages/api-client/src/review.ts`), `scripts/review/` and the `review:*` scripts are
+  deleted; the leak gate found them.
+- **Marketing links fell back to `localhost:310x`** in a build without Vercel's env; the fallback is now development-only.
+- The native sign-up integration suite created an account on whatever API it found (the development database by
+  default); it now runs only on the isolated e2e stack (`e2e-run.mjs --vitest apps/student-mobile`, chain step 13b).
+- Two critical E2E specs still addressed pre-V31/V32 markup (the add-on table, the native nationality select).
+
+### 436.15 Gates — `npm run qa:v32` from a clean state
+
+Final run, one pass, `QA_V32_NATIVE=1 npm run qa:v32` (ledger `docs/qa/v32/logs/ledger.txt`, logs beside it):
+
+| # | Step | Result |
+|---|---|---|
+| 01 | `qa:v32-leak` — source, current docs, REPORT §0 | PASS |
+| 02 | `qa:v32-data-clean` — development DB: 0 users, 425 institutions, reference data intact | PASS |
+| 03 | `i18n:check` — 56 bundles | PASS |
+| 04 | typecheck (7 workspaces) | PASS |
+| 05 | `lint:api` (ruff) | PASS |
+| 06 | `test:api` — 619 tests on the fixture database | PASS |
+| 07 | `test:web` — every web/package unit suite (the API-integration suite excluded here, see 13b) | PASS |
+| 08 | production build, four web apps | PASS |
+| 09 | `qa:marketing-serverless` against the local build | PASS 23/23 |
+| 10 | `qa:v32-selects` — opened state, ARIA, keyboard, phone sheet, all products | PASS 7/7 |
+| 11 | `qa:v32-crawl` — every router route of all four products at 1440 and 390 | PASS 4/4 (0 findings) |
+| 12 | `qa:v32-a11y` — axe WCAG 2.1 AA incl. the opened select | PASS 4/4 (0 serious/critical) |
+| 13 | critical E2E (V29 contract, V16 journey, tenancy) | PASS 9/9 |
+| 13b | native sign-up against the e2e API | PASS |
+| 14 | E2E teardown — no e2e database, no upload directory, development DB reference-only | PASS |
+| 15 | Expo production exports ×3, no development host, public API origin present | PASS |
+| 16 | `qa:v32-leak` — production web bundles + Expo exports | PASS |
+
+The first two runs of the chain failed five and then one step; every failure is listed in §436.14a with its fix.
+
+### 436.16 Deployment
+
+The commit that adds this section is pushed to `main`; Vercel builds the four projects from it, and `/build-info.json`
+on each domain names that commit. `qa:marketing-serverless` is re-run against `https://univ.talkhangyul.com` after the
+build (the result is in the release note of this pass, not here, so this section never claims a run it cannot have
+seen). The three authenticated apps show the service-unavailable state (no API) — expected until the owner connects the
+private API.
+
+### 436.17 What is not done (honest)
+
+- The private API is not deployed (owner decision); until it is, sign-up, sign-in and every authenticated screen on the
+  production domains show the service-unavailable state.
+- No human has reviewed any language; the review is synthetic, recorded per locale, with each reviewer's open questions
+  (brand name in Chinese, plan terminology in Thai/Mongolian, institution-type glosses, localized example placeholders)
+  listed in the patch `_notes` for the owner.
+- Payments stay in Toss test mode; iOS is not built; the V25 Android store artifacts are superseded and must be rebuilt
+  from this source.

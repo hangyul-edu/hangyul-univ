@@ -92,8 +92,7 @@ const layer = (file, from) => { const s = read(file); const i = s.indexOf(`â”€â”
 
   // V23 invariants that V24 touched files near.
   const app = read('packages/ui/src/app.tsx');
-  ok('V23', 'web test sign-in is still lazy and DEV/VITE_DEMO_LOGINS-gated', /import\.meta\.env\.DEV/.test(app + read('packages/ui/src/test-access.tsx')) || /VITE_DEMO_LOGINS/.test(app));
-  ok('V23', 'native test sign-in still behind TEST_LOGIN require()', /TEST_LOGIN \? require\('\.\.\/components\/TestAccountSignIn'\)/.test(read('packages/mobile-ui/src/bootstrap/LoginScreen.tsx')));
+  ok('V32', 'no test sign-in in web or native (feature removed)', !/VITE_DEMO_LOGINS|devaccess/.test(app) && !/TEST_LOGIN|TestAccountSignIn/.test(read('packages/mobile-ui/src/bootstrap/LoginScreen.tsx')));
   ok('V23', 'server env still fails closed (default production)', /production/.test(read('server/app/core/config.py')) && /_normalise_env/.test(read('server/app/core/config.py')));
 }
 

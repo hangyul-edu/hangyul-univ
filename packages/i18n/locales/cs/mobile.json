@@ -6,7 +6,8 @@
     }
   },
   "login": {
-    "webSignup": "Jste tu poprvé? Účet si můžete vytvořit přímo v aplikaci."
+    "webSignup": "Jste tu poprvé? Účet si můžete vytvořit přímo v aplikaci.",
+    "networkError": "Hangyul je teď nedostupný na adrese {{url}}. Zkontrolujte prosím připojení a zkuste to za chvíli znovu."
   },
   "signup": {
     "title": "Vytvořte si účet",
@@ -80,7 +81,7 @@
       },
       "CROSS_BORDER_VERIFICATION": {
         "label": "Beru na vědomí, že můj e-mail a mobilní číslo jsou za účelem ověření zpracovávány v zahraničí",
-        "summary": "Twilio Inc. (USA) odesílá ověřovací SMS a e-maily a Cloudflare, Inc. (USA) blokuje automatizované registrace. Předávané údaje, lhůty, doba uchování a způsob odmítnutí jsou popsány v Zásadách ochrany osobních údajů. Při odmítnutí nelze účet vytvořit."
+        "summary": "Twilio Inc. (USA) doručuje ověřovací SMS a e-mail; Cloudflare, Inc. (USA) ověřuje, že registrace není automatizovaná. Podrobnosti včetně způsobu odmítnutí najdete v Zásadách ochrany osobních údajů. Při odmítnutí nelze účet vytvořit."
       },
       "MARKETING": {
         "label": "Chci dostávat novinky o studiu v Koreji a informace o akcích",
@@ -97,7 +98,7 @@
     "quickLanguage": "Vaše úroveň korejštiny nebo angličtiny",
     "quickLevel": "Úroveň",
     "quickSkip": "Zatím přeskočit",
-    "quickGo": "Zobrazit moje doporučení",
+    "quickGo": "Zobrazit moje shody",
     "degree": {
       "LANGUAGE": "Korejský jazyk",
       "BACHELOR": "Bakalářské studium",
@@ -164,68 +165,641 @@
     "quick": {
       "createAccount": "Zaregistrujte se a pokračujte",
       "open": "Prověřte své možnosti. Bez účtu",
-      "dataUnverified": "Některé údaje o programech zatím nejsou ověřené. Zkontrolujte je na oficiálním webu univerzity."
+      "dataUnverified": "Některé údaje o programech zatím nejsou ověřené. Zkontrolujte je na oficiálním webu univerzity.",
+      "again": "Změnit odpovědi"
     },
     "home": {
-      "noCounselor": "Vyberte plán podpory a tým Hangyul Univ s vámi bude pracovat ve vašem jazyce.",
+      "noCounselor": "Vyberte si balíček a tým Hangyul Univ s vámi bude pracovat ve vašem jazyce.",
       "stageLine": {
-        "admission": "Jste přijati. Teď si zajišťujete místo"
+        "admission": "Univerzita vás přijala. Teď si zajišťujete místo",
+        "apply": "Univerzity posuzují vaše přihlášky",
+        "arrival": "Příprava na příjezd do Koreje",
+        "discover": "Hledání správných univerzit",
+        "prepare": "Příprava přihlášek",
+        "visa": "Příprava studentského víza"
       },
       "nextBody": {
-        "ESSAY_WRITE": "Začněte hrubým konceptem. Váš poradce ho s vámi projde."
-      }
+        "ESSAY_WRITE": "Začněte hrubým konceptem. Tým Hangyul ho s vámi projde.",
+        "APPLICATION_DEADLINE": "Dokončete kontrolní seznam, aby se přihláška stihla podat včas.",
+        "DOCUMENT_UPLOAD": "Nahrajte čitelný sken nebo fotku. Tým Hangyul ho zkontroluje a dá vám vědět, pokud bude potřeba něco opravit.",
+        "REVIEW_MATCHES": "Porovnali jsme váš profil se zveřejněnými požadavky. Pár si jich uložte a pak založte přihlášku.",
+        "TUITION_PAYMENT": "Školné se platí přímo univerzitě, na vaše jméno.",
+        "UNIVERSITY_REQUEST": "Univerzita potřebuje ještě jeden dokument, než rozhodne.",
+        "VISA_STEP": "Dokončete další položku ve svém vízovém seznamu.",
+        "WAIT": "Teď od vás nic nepotřebujeme. Jakmile se něco změní, dáme vám vědět."
+      },
+      "applications": "Vaše přihlášky",
+      "closes": "Uzávěrka {{date}} · {{left}}",
+      "documentsHint": "Nahrajte, opravte nebo získejte apostilu",
+      "documents_one": "{{count}} dokument čeká na vás",
+      "documents_few": "{{count}} dokumenty čekají na vás",
+      "documents_other": "{{count}} dokumentů čeká na vás",
+      "due": "Termín {{date}} · {{left}}",
+      "findUniversities": "Najít univerzity",
+      "greeting": {
+        "afternoon": "Dobré odpoledne, {{name}}",
+        "evening": "Dobrý večer, {{name}}",
+        "morning": "Dobré ráno, {{name}}"
+      },
+      "message": "Zpráva",
+      "nextCta": {
+        "APPLICATION_DEADLINE": "Otevřít přihlášku",
+        "APPLICATION_SUBMIT": "Zkontrolovat a podat",
+        "ARRIVAL_CHECKLIST": "Otevřít seznam k příjezdu",
+        "COMPARE_OFFERS": "Porovnat nabídky",
+        "COMPLETE_PROFILE": "Pokračovat v profilu",
+        "DOCUMENT_UPLOAD": "Nahrát dokument",
+        "ESSAY_WRITE": "Otevřít koncept",
+        "INTERVIEW": "Připravit se na pohovor",
+        "RESPOND_OFFER": "Zobrazit nabídku",
+        "REVIEW_MATCHES": "Zobrazit moje univerzity",
+        "TUITION_PAYMENT": "Zobrazit platební údaje",
+        "UNIVERSITY_REQUEST": "Zobrazit, co univerzita žádá",
+        "VISA_STEP": "Otevřít vízové kroky"
+      },
+      "nextCtaDefault": "Začít",
+      "nextEyebrow": "Co udělat teď",
+      "noApplications": "Zatím žádné přihlášky. Začněte univerzitami, které vám sedí.",
+      "otherTasks_one": "{{count}} další úkol",
+      "otherTasks_few": "{{count}} další úkoly",
+      "otherTasks_other": "{{count}} dalších úkolů",
+      "team": "Tým Hangyul Univ",
+      "unread_one": "{{count}} nepřečtená zpráva",
+      "unread_few": "{{count}} nepřečtené zprávy",
+      "unread_other": "{{count}} nepřečtených zpráv",
+      "upcoming": "Blíží se"
     },
     "agency": {
       "assigned": "Odpovídá: {{counselor}} · od {{since}}",
       "att": {
         "oldest": "Nejstarší: {{what}} ({{who}})",
-        "oldestSelf": "Nejstarší: {{what}}"
+        "oldestSelf": "Nejstarší: {{what}}",
+        "breached_one": "{{count}} už po slíbené lhůtě",
+        "breached_few": "{{count}} už po slíbené lhůtě",
+        "breached_other": "{{count}} už po slíbené lhůtě",
+        "closing_one": "Přihláška s uzávěrkou do 7 dnů",
+        "closing_few": "Přihlášky s uzávěrkou do 7 dnů",
+        "closing_other": "Přihlášky s uzávěrkou do 7 dnů",
+        "docs_one": "Dokument čeká na kontrolu",
+        "docs_few": "Dokumenty čekají na kontrolu",
+        "docs_other": "Dokumenty čekají na kontrolu",
+        "next": "Další: {{uni}} pro {{who}}, {{date}}",
+        "overSla": "{{count}} čeká déle než {{hours}} h",
+        "overdue_one": "Úkol po termínu",
+        "overdue_few": "Úkoly po termínu",
+        "overdue_other": "Úkoly po termínu",
+        "replies_one": "Student čeká na vaši odpověď",
+        "replies_few": "Studenti čekají na vaši odpověď",
+        "replies_other": "Studenti čekají na vaši odpověď",
+        "since": "Nejstarší od {{who}}, {{when}}",
+        "sla_one": "Studentovi hrozí pozdní první odpověď",
+        "sla_few": "Studentům hrozí pozdní první odpověď",
+        "sla_other": "Studentům hrozí pozdní první odpověď"
+      },
+      "allClear": "Vše v pořádku: {{list}}",
+      "applications_one": "{{count}} přihláška",
+      "applications_few": "{{count}} přihlášky",
+      "applications_other": "{{count}} přihlášek",
+      "block": {
+        "deadline": "Uzávěrka {{uni}} se blíží",
+        "fix": "{{doc}}: student musí opravit",
+        "requested": "{{uni}} žádá další dokumenty",
+        "review": "{{doc}} čeká na vaši kontrolu",
+        "sla": "Termín první odpovědi"
+      },
+      "blockers_one": "{{count}} věc tohoto studenta brzdí",
+      "blockers_few": "{{count}} věci tohoto studenta brzdí",
+      "blockers_other": "{{count}} věcí tohoto studenta brzdí",
+      "clear": {
+        "closing": "uzávěrky tento týden",
+        "docs": "kontroly dokumentů",
+        "overdue": "úkoly po termínu",
+        "replies": "odpovědi studentům",
+        "sla": "první odpovědi"
+      },
+      "conversationSubject": "Váš tým pro studium v Koreji",
+      "deadline": "{{uni}} {{when}}",
+      "documents": "Dokumenty · ověřeno {{verified}} z {{total}}",
+      "dueToday_one": "Dnes · {{count}}",
+      "dueToday_few": "Dnes · {{count}}",
+      "dueToday_other": "Dnes · {{count}}",
+      "findStudent": "Najít studenta",
+      "firstMessage": "Zpráva pro {{name}}",
+      "greeting": {
+        "afternoon": "Dobré odpoledne, {{name}}",
+        "evening": "Dobrý večer, {{name}}",
+        "morning": "Dobré ráno, {{name}}"
+      },
+      "message": "Zpráva",
+      "messageLabel": "Zpráva",
+      "needsAttention": "Vyžaduje pozornost",
+      "nextAction": "Další: {{what}}",
+      "noBlockers": "Tohoto studenta nic nebrzdí",
+      "noBlockersBody": "Dokumenty, termíny i odpovědi jsou v pořádku.",
+      "noStudents": "V tomto zobrazení nejsou žádní studenti",
+      "noStudentsBody": "Zkuste jiné zobrazení nebo vymažte hledání.",
+      "searchPlaceholder": "Jméno nebo e-mail",
+      "stage": "Fáze",
+      "stageNote": "Poznámka pro tým (nepovinné)",
+      "stageTo": "Přesunout do fáze {{stage}}",
+      "teamView": "Tým · {{name}}",
+      "toFix_one": "{{count}} dokument k opravě",
+      "toFix_few": "{{count}} dokumenty k opravě",
+      "toFix_other": "{{count}} dokumentů k opravě",
+      "today": "Dnes",
+      "upload": "Nahrát",
+      "uploadFor": "{{doc}} pro {{name}}",
+      "uploadWhat": "Který dokument nahráváte?",
+      "uploaded": "Nahráno do úložiště studenta. Je připraveno ke kontrole.",
+      "view": {
+        "all": "Vše",
+        "attention": "Vyžaduje pozornost",
+        "deadline": "Blížící se uzávěrka",
+        "docs": "Dokumenty k opravě",
+        "mine": "Moji studenti",
+        "sla": "Studenti po slíbené lhůtě první odpovědi nebo blízko ní",
+        "university": "Čeká se na univerzitu",
+        "visa": "Vízum",
+        "waiting_student": "Čeká se na studenta",
+        "waiting_us": "Čeká se na nás"
+      },
+      "waitingOn": {
+        "agency": "Čeká se na tým agentury",
+        "counselor": "Čeká se na poradce",
+        "external": "Čeká se na externí úřad",
+        "hangyul": "Čeká se na Hangyul",
+        "none": "Na nic se nečeká",
+        "student": "Čeká se na studenta",
+        "university": "Čeká se na univerzitu",
+        "us": "Čeká se na nás"
       }
     },
     "discover": {
       "explain": {
-        "possible": "Zveřejněná minima splňujete, ale jedna věc vyžaduje pozornost, obvykle rozpočet nebo termín."
-      }
+        "possible": "Zveřejněná minima splňujete, ale jedna věc vyžaduje pozornost, obvykle rozpočet nebo termín.",
+        "notyet": "Některý zveřejněný požadavek zatím není splněn. U každého řádku je přesně uvedeno který.",
+        "strong": "Splňujete všechny zveřejněné základní požadavky a program odpovídá vašemu rozpočtu i plánům."
+      },
+      "all": "Vše",
+      "any": "Libovolné",
+      "closes": "uzávěrka {{date}}",
+      "degree": "Co chcete studovat?",
+      "emptyVerdict": "Teď tu nic není",
+      "filters": "Filtry",
+      "filtersN": "Filtry · {{count}}",
+      "forYou": "Pro vás",
+      "language": "Jazyk výuky",
+      "noLanguageMin": "Bez jazykového minima",
+      "openOnly": "Otevřeno pro přihlášky",
+      "perYear": "≈ {{amount}} / rok",
+      "saved": "Uložené · {{count}}",
+      "savedEmpty": "Zatím žádné uložené univerzity",
+      "savedEmptyBody": "Klepněte na srdíčko u programu a uložíte si ho na později.",
+      "showResults_one": "Zobrazit {{count}} program",
+      "showResults_few": "Zobrazit {{count}} programy",
+      "showResults_other": "Zobrazit {{count}} programů",
+      "summary_one": "Splňujete zveřejněné požadavky {{count}} programu.",
+      "summary_few": "Splňujete zveřejněné požadavky {{count}} programů.",
+      "summary_other": "Splňujete zveřejněné požadavky {{count}} programů.",
+      "tuition": "Školné za semestr",
+      "upTo": "Do {{amount}} mil. ₩"
     },
     "university": {
       "verdict": {
-        "REACH": "Jste blízko. U jednoho požadavku vám kousek chybí."
-      }
+        "REACH": "Jste blízko. U jednoho požadavku vám kousek chybí.",
+        "COMPETITIVE": "Splňujete zveřejněná minima. Jedna věc vyžaduje pozornost.",
+        "NOT_ELIGIBLE": "Některý zveřejněný požadavek zatím není splněn.",
+        "RECOMMENDED": "Doporučeno pro vás.",
+        "STRONG": "Splňujete všechny zveřejněné základní požadavky a program odpovídá vašemu rozpočtu."
+      },
+      "admissionsSite": "Web pro zahraniční uchazeče",
+      "deadline": "Přihlášky do",
+      "documents": "Dokumenty",
+      "documentsCount": "Dokumenty: {{count}} · s apostilou nebo konzulární superlegalizací: {{legal}}",
+      "dorm": "Kolej za semestr",
+      "dormRange": "{{min}}–{{max}}",
+      "estimate": "Odhad celkem",
+      "estimateNote": "Odhad podle zveřejněného školného a obvyklých měsíčních životních nákladů ve městě.",
+      "fee": "Poplatek za přihlášku",
+      "gpa": "Známky",
+      "gpaMin": "Alespoň {{pct}} % z maxima GPA",
+      "intake": "Nástup",
+      "interview": "Pohovor",
+      "interviewYes": "Univerzita vás může pozvat na pohovor",
+      "language": "Jazyk",
+      "links": "Oficiální informace",
+      "living": "Životní náklady (12 měsíců)",
+      "noIntake": "Žádný otevřený nástupní termín",
+      "noVerdict": "Dokončete profil a uvidíte, zda splňujete požadavky tohoto programu.",
+      "notPublished": "Nezveřejněno",
+      "requirements": "Požadavky",
+      "start": "Založit přihlášku",
+      "website": "Web univerzity",
+      "yearCost": "Náklady za první rok (odhad)"
     },
     "application": {
       "writingWeb": "Eseje pište a upravujte na webu. Najdete tam i komentáře poradce.",
-      "uploadFor": "Nahrát: {{item}}"
+      "uploadFor": "Nahrát: {{item}}",
+      "closes": "Uzávěrka {{date}} · {{left}}",
+      "due": "Termín {{date}}",
+      "ready": "Připraveno k podání",
+      "readyBody": "Vše potřebné je na místě.",
+      "reviewBody": "Podáno {{date}}. Univerzita může požádat o další dokument nebo pohovor. Tým Hangyul průběh sleduje.",
+      "reviewTitle": "{{university}} posuzuje vaši přihlášku",
+      "reviewing": "Kontroluje se: {{item}}",
+      "submit": "Podat přihlášku",
+      "teamMonitoring": "V kontaktu s univerzitou",
+      "teamWaiting": "Čeká se na vaše dokumenty",
+      "timeline": "Časová osa",
+      "uni": {
+        "decided": "Rozhodnuto",
+        "reviewing": "Posuzuje vaši přihlášku",
+        "waiting": "Čeká na vaše podání"
+      },
+      "university": "Univerzita",
+      "uploadRequested": "Nahrát tento dokument",
+      "who": "Kdo co dělá",
+      "withdraw": "Stáhnout tuto přihlášku",
+      "you": "Vy"
     },
     "appStatus": {
       "READY": "Vše je zkontrolováno. Připraveno k odeslání.",
-      "VISA_ISSUED": "Vaše vízum je vydané. Teď můžete plánovat příjezd."
+      "VISA_ISSUED": "Vaše vízum je vydané. Teď můžete plánovat příjezd.",
+      "ADDITIONAL_DOCUMENTS": "Univerzita požádala o další dokument.",
+      "ADMISSION_CERTIFICATE_ISSUED": "Váš dopis o přijetí je hotový. Začněte s dokumenty k vízu.",
+      "ADMISSION_CERTIFICATE_PENDING": "Čeká se na váš standardní dopis o přijetí.",
+      "DOCUMENT_PREPARATION": "Připravujete dokumenty.",
+      "DRAFT": "Tato přihláška je rozpracovaná.",
+      "ENROLLED": "Zápis je hotový. Vítejte v Koreji.",
+      "INTERVIEW": "Univerzita vás zve na pohovor.",
+      "OFFERED": "Máte nabídku přijetí.",
+      "OFFER_ACCEPTED": "Nabídka přijata. Další krok: školné.",
+      "PROFILE_REVIEW": "Tým Hangyul Univ kontroluje váš profil.",
+      "REJECTED": "Univerzita tentokrát místo nenabídla.",
+      "SUBMITTED": "Podáno na {{university}}.",
+      "TUITION_PAID": "Školné přijato. Univerzita připravuje váš dopis o přijetí.",
+      "TUITION_PENDING": "Zaplaťte školné přímo univerzitě do stanoveného termínu.",
+      "UNIVERSITY_REVIEW": "{{university}} posuzuje vaši přihlášku.",
+      "VISA_PREPARATION": "Připravujete žádost o vízum.",
+      "VISA_SUBMITTED": "Žádost o vízum podána.",
+      "WAITLISTED": "Jste na čekací listině.",
+      "WITHDRAWN": "Tato přihláška byla stažena."
     },
     "docAction": {
       "RENEW": "Prošlý. Nahrajte nový",
-      "TOO_OLD": "Vydán příliš dávno. Opatřete si novou kopii"
+      "TOO_OLD": "Vydán příliš dávno. Opatřete si novou kopii",
+      "FIX": "Potřebuje opravu",
+      "IN_REVIEW": "Kontroluje tým Hangyul",
+      "LEGALIZE": "Potřebuje apostilu nebo konzulární superlegalizaci",
+      "UPLOAD": "Zatím nenahráno"
     },
     "documents": {
       "legalize": "Ověřeno, ale než ho korejská univerzita přijme, potřebuje ještě: {{path}}",
-      "howToBody": "Zobrazují se jen kroky pro zemi vašeho dokumentu. Každý po dokončení označte jako hotový."
+      "howToBody": "Zobrazují se jen kroky pro zemi vašeho dokumentu. Každý po dokončení označte jako hotový.",
+      "allSet": "Teď od vás nic nepotřebujeme.",
+      "checking": "V kontrole",
+      "howTo": "Jak získat: {{path}}",
+      "issuedIn": "Vydáno v zemi",
+      "issuedOn": "Datum vydání",
+      "needYou_one": "{{count}} čeká na vás",
+      "needYou_few": "{{count}} čekají na vás",
+      "needYou_other": "{{count}} čeká na vás",
+      "neededFor": "Potřeba pro {{university}}",
+      "needsYou": "Čeká na vás",
+      "newVersion": "Nahrát novou verzi",
+      "ready": "Připraveno",
+      "readyOf": "Připraveno {{ready}} z {{total}} dokumentů",
+      "readyTitle": "Připravené",
+      "sourceVerified": "Oficiální zdroj · ověřeno {{date}}",
+      "state": {
+        "fix": "Potřebuje opravu",
+        "legalize": "Potřebuje apostilu",
+        "ready": "Připraveno",
+        "review": "V kontrole"
+      },
+      "submitted": "Podáno {{when}}",
+      "upload": "Nahrát",
+      "validUntil": "Platí do {{date}}",
+      "validUntilLabel": "Platí do"
     },
     "visa": {
-      "title": "Váš plán víza {{type}}",
-      "beforeBody": "Jakmile přijmete nabídku a zaplatíte školné, univerzita vám vydá potvrzení o přijetí. Už teď vidíte, co budete potřebovat, a můžete to začít shánět.",
-      "after": "Dostupné po: {{list}}"
+      "title": "Příprava vašeho víza {{type}}",
+      "beforeBody": "Jakmile přijmete nabídku a zaplatíte školné, univerzita vám vydá standardní dopis o přijetí. Už teď vidíte, co budete potřebovat, a můžete to začít shánět.",
+      "after": "Následuje po: {{list}}",
+      "beforeTitle": "Příprava víza začíná po nabídce přijetí",
+      "blockers": "Nejdřív je potřeba",
+      "checklist": "Váš seznam · hotovo {{done}} z {{total}}",
+      "forNationality": "Platí pro vaši státní příslušnost",
+      "now": "Co teď čeká na vás",
+      "phase": {
+        "admission": "Přijetí",
+        "apply": "Žádost o vízum",
+        "decision": "Rozhodnutí velvyslanectví",
+        "documents": "Dokumenty k vízu",
+        "letter": "Dopis o přijetí"
+      },
+      "preview": "Co budete potřebovat",
+      "seeRequirement": "Zobrazit oficiální požadavek",
+      "sourceChecked": "Oficiální zdroj · ověřeno {{date}}",
+      "titleGeneric": "Vaše studentské vízum"
     },
     "profile": {
       "unlockTitle": "Co vám dá úplný profil",
       "unlock": {
-        "language": "Najdeme vám programy, které vyžadují TOPIK, IELTS nebo TOEFL"
-      }
+        "language": "Najdeme vám programy, které vyžadují TOPIK, IELTS nebo TOEFL",
+        "basics": "Řekne nám, která pravidla pro dokumenty a víza se vás týkají",
+        "default": "Zpřesní vaše shody",
+        "education": "Odfiltruje programy, jejichž studijní požadavky nesplňujete",
+        "goals": "Ukáže programy na úrovni a v termínu, které chcete",
+        "passport": "Nutné před podáním jakékoli přihlášky",
+        "preferences": "Seřadí univerzity podle vašeho rozpočtu a města",
+        "sponsor": "Umožní vám včas připravit finanční dokumenty k vízu"
+      },
+      "completeTitle": "Váš profil je kompletní",
+      "done": "Hotovo",
+      "editOnWeb": "Tyto odpovědi můžete kdykoli upravit na webu.",
+      "places": "Vaše údaje",
+      "todo": "K doplnění"
     },
     "tasks": {
       "empty": {
-        "overdue": "Nic po termínu. Výborně"
-      }
+        "overdue": "Nic po termínu. Výborně",
+        "team": "Tým nemá žádné otevřené úkoly",
+        "today": "Dnes nic nemá termín",
+        "waiting": "Žádné úkoly nečekají na něco dalšího",
+        "week": "Tento týden nic nemá termín"
+      },
+      "open": "Otevřené",
+      "overdue": "Po termínu · {{when}}",
+      "view": {
+        "overdue": "Po termínu",
+        "team": "Tým",
+        "today": "Dnes",
+        "waiting": "Čekající",
+        "week": "Tento týden"
+      },
+      "waitingOn": "Čeká se na: {{what}}"
     },
     "uni": {
-      "decisionNow": "Rozhodnutí"
+      "decisionNow": "Rozhodnutí",
+      "allClear": "Teď nic nečeká na rozhodnutí.",
+      "allCohorts": "Všichni studenti Hangyul",
+      "allIntakes": "Všechny nástupní termíny",
+      "applicant": "Uchazeč",
+      "check": {
+        "interview": "Pohovor",
+        "interviewRequired": "Tento program ho vyžaduje",
+        "level": "Úroveň {{level}}",
+        "minimum": "Minimum {{need}} · Uchazeč {{have}}",
+        "notProvided": "neuvedeno",
+        "state": {
+          "below": "Pod minimem",
+          "meets": "Splňuje",
+          "missing": "Neuvedeno",
+          "planned": "Test plánován",
+          "unscheduled": "Nenaplánováno"
+        },
+        "topik": "TOPIK"
+      },
+      "checksNote": "Porovnává uchazečem uvedené výsledky se zveřejněnými minimy programu. Podporuje vaše posouzení; nerozhoduje.",
+      "checksTitle": "Kontrola požadavků",
+      "closed": "Uzavřeno: {{rejected}} nepřijato, {{withdrawn}} staženo. Pro výpočet podílů je potřeba alespoň {{min}} osob.",
+      "cohortIntro_one": "{{count}} student k vám přišel přes Hangyul. Takto si vede.",
+      "cohortIntro_few": "{{count}} studenti k vám přišli přes Hangyul. Takto si vedou.",
+      "cohortIntro_other": "{{count}} studentů k vám přišlo přes Hangyul. Takto si vedou.",
+      "cohortNote": "Podíly se zobrazí, jakmile je splňuje alespoň {{min}} studentů. Stav k {{date}}.",
+      "cohort_few": "{{label}} · {{count}} studenti",
+      "cohort_other": "{{label}} · {{count}} studentů",
+      "conv": "{{pct}} z předchozího kroku · {{n}} z {{d}}",
+      "convFew": "{{n}} z {{d}} z předchozího kroku · příliš málo pro výpočet",
+      "decision": {
+        "admitted_one": "přijatý student zatím bez zaplaceného školného",
+        "admitted_few": "přijatí studenti zatím bez zaplaceného školného",
+        "admitted_other": "přijatých studentů zatím bez zaplaceného školného",
+        "documents_one": "čeká se na dokumenty studenta",
+        "documents_few": "čeká se na dokumenty studentů",
+        "documents_other": "čeká se na dokumenty studentů",
+        "flagged_one": "označená přihláška",
+        "flagged_few": "označené přihlášky",
+        "flagged_other": "označených přihlášek",
+        "interview_one": "pohovor k uskutečnění nebo ohodnocení",
+        "interview_few": "pohovory k uskutečnění nebo ohodnocení",
+        "interview_other": "pohovorů k uskutečnění nebo ohodnocení",
+        "offer_one": "nabídka čeká na odpověď studenta",
+        "offer_few": "nabídky čekají na odpověď studenta",
+        "offer_other": "nabídek čeká na odpověď studenta",
+        "returned_one": "dokument vrácený studentem",
+        "returned_few": "dokumenty vrácené studenty",
+        "returned_other": "dokumentů vrácených studenty",
+        "review_one": "přihláška k posouzení",
+        "review_few": "přihlášky k posouzení",
+        "review_other": "přihlášek k posouzení"
+      },
+      "decisionContext_one": "Připraveno {{ready}} z {{total}} povinných dokumentů · {{count}} otevřená žádost.",
+      "decisionContext_few": "Připraveno {{ready}} z {{total}} povinných dokumentů · {{count}} otevřené žádosti.",
+      "decisionContext_other": "Připraveno {{ready}} z {{total}} povinných dokumentů · {{count}} otevřených žádostí.",
+      "decisionDocs": "Připraveno {{ready}} z {{total}} povinných dokumentů.",
+      "decisionHint": {
+        "admitted": "Potvrďte platbu, až dorazí",
+        "documents": "Bez akce, dokud nenahrají",
+        "flagged": "Označeno k bližšímu posouzení",
+        "interview": "Po pohovoru zaznamenejte výsledek",
+        "offer": "Hangyul se studentem komunikuje",
+        "returned": "Znovu zkontrolujte, co jste požadovali",
+        "review": "Podáno a dostatečně úplné k rozhodnutí"
+      },
+      "docsTitle": "Dokumenty · připraveno {{ready}} z {{total}}",
+      "dueOn": "termín {{date}}",
+      "empty": {
+        "all": "Žádní uchazeči",
+        "flagged": "Žádné označené přihlášky",
+        "review": "Žádné přihlášky nečekají na posouzení"
+      },
+      "graduation": "Absolvovali",
+      "latest": "Nejnovější k posouzení",
+      "move": {
+        "ADDITIONAL_DOCUMENTS": "Vyžádat další dokumenty",
+        "ADMISSION_CERTIFICATE_ISSUED": "Vydat dopis o přijetí",
+        "INTERVIEW": "Pozvat na pohovor",
+        "OFFERED": "Nabídnout přijetí",
+        "REJECTED": "Nepřijmout",
+        "TUITION_PAID": "Potvrdit zaplacení školného",
+        "TUITION_PENDING": "Odeslat výzvu k platbě školného",
+        "UNIVERSITY_REVIEW": "Zahájit posouzení",
+        "WAITLISTED": "Čekací listina"
+      },
+      "nOfD": "{{n}} z {{d}}",
+      "needsTitle": "Čeká na vaše rozhodnutí",
+      "noMinimums": "Tento program zatím nemá zveřejněná minima.",
+      "nothingToReview": "Nic nečeká na posouzení",
+      "openRequests_one": "Vyžádán {{count}} dokument",
+      "openRequests_few": "Vyžádány {{count}} dokumenty",
+      "openRequests_other": "Vyžádáno {{count}} dokumentů",
+      "otherDecisions": "Další rozhodnutí",
+      "populationAll_one": "Na základě {{count}} podané přihlášky, všechny nástupní termíny.",
+      "populationAll_few": "Na základě {{count}} podaných přihlášek, všechny nástupní termíny.",
+      "populationAll_other": "Na základě {{count}} podaných přihlášek, všechny nástupní termíny.",
+      "populationIntake_one": "Na základě {{count}} podané přihlášky pro {{intake}}.",
+      "populationIntake_few": "Na základě {{count}} podaných přihlášek pro {{intake}}.",
+      "populationIntake_other": "Na základě {{count}} podaných přihlášek pro {{intake}}.",
+      "reason": "Důvod (sdílí se s Hangyul)",
+      "request": "Žádost",
+      "requestLabel": "Co potřebujete?",
+      "requestLabelHint": "např. Maturitní vysvědčení s apostilou",
+      "requestNote": "Pokyny pro studenta",
+      "requestNoteHint": "Co přesně chybí a jak to napravit",
+      "requestSend": "Odeslat žádost",
+      "requestTitle": "Vyžádat dokument od: {{name}}",
+      "requestWho": "Student i jeho poradce v Hangyul dostanou upozornění a uvidí přesně toto znění.",
+      "requestedOn": "Vyžádáno {{date}}",
+      "retention": "Stále studují",
+      "search": "Hledat jméno, program nebo referenci",
+      "step": {
+        "ACCEPTED": "Nabídka přijata",
+        "ARRIVED": "V Koreji",
+        "ENROLLED": "Zapsáni",
+        "OFFERED": "Nabídnuto přijetí",
+        "REVIEWED": "Posouzeno",
+        "SUBMITTED": "Podáno",
+        "TUITION_PAID": "Školné zaplaceno",
+        "VISA_ISSUED": "Vízum vydáno"
+      },
+      "tab": {
+        "applicants": "Uchazeči",
+        "pipeline": "Přehled",
+        "students": "Studenti"
+      },
+      "tooFew": "Příliš málo pro výpočet",
+      "view": {
+        "admitted": "Přijatí",
+        "all": "Vše",
+        "documents": "Chybějící dokumenty",
+        "enrolment": "Vízum a zápis",
+        "flagged": "Označené",
+        "interview": "Pohovor",
+        "offer": "Nabídka",
+        "review": "K posouzení"
+      },
+      "waitingStudent": "Čeká se na studenta"
+    },
+    "common": {
+      "all": "Zobrazit vše"
+    },
+    "deadlines": {
+      "bucket": {
+        "later_other": "Později tento měsíc · {{count}}",
+        "overdue_other": "Po termínu · {{count}}",
+        "week_other": "Příštích 7 dní · {{count}}"
+      },
+      "emptyView": "V tomto zobrazení nic nemá termín",
+      "who": {
+        "all": "Vše",
+        "mine": "Moje",
+        "unassigned": "Nepřiřazené"
+      },
+      "you": "Vy"
+    },
+    "journey": {
+      "admission": "Přijetí",
+      "apply": "Přihlášky",
+      "arrival": "Příjezd",
+      "discover": "Objevování",
+      "next": "Další: {{stage}}",
+      "of": "· {{n}} z {{total}}",
+      "prepare": "Příprava",
+      "step": "Krok {{n}} z {{total}}: {{stage}}",
+      "visa": "Vízum"
+    },
+    "match": {
+      "close": "Zatím nesplňujete — chybí jeden krok",
+      "notYet": "Zatím nesplňujete",
+      "possible": "Možná shoda",
+      "strong": "Silná shoda"
+    },
+    "messages": {
+      "attach": "Přiložit soubor",
+      "attachUnavailable": "Přílohy zatím nejsou dostupné.",
+      "attachmentOnly_one": "Odeslána {{count}} příloha",
+      "attachmentOnly_few": "Odeslány {{count}} přílohy",
+      "attachmentOnly_other": "Odesláno {{count}} příloh",
+      "conversations": "Konverzace",
+      "openAttachment": "Otevřít {{name}}",
+      "removeAttachment": "Odebrat {{name}}"
+    },
+    "offer": {
+      "accept": "Přijmout nabídku",
+      "body": "{{university}} vám nabízí místo v programu {{program}}.",
+      "deadline": "Přijměte nabídku a zaplaťte školné do {{date}} · {{left}}",
+      "next": "Co bude dál",
+      "scholarship": "Stipendium",
+      "step": {
+        "accept": "Přijměte nabídku",
+        "letter": "Obdržíte standardní dopis o přijetí",
+        "review": "Projděte si nabídku a její podmínky",
+        "tuition": "Zaplaťte školné přímo univerzitě",
+        "visa": "Připravte si studentské vízum"
+      },
+      "tuition": "Školné",
+      "tuitionDirect": "Hangyul školné nikdy nevybírá. Zaplaťte univerzitě na své jméno podle jejích pokynů."
+    },
+    "push": {
+      "denied": "Upozornění jsou vypnutá. Zapněte je v nastavení telefonu pro aplikaci Hangyul.",
+      "enable": "Zapnout upozornění",
+      "error": "Upozornění se nepodařilo zapnout. Zkuste to znovu.",
+      "idle": "Dostávejte upozornění, když je dokument zkontrolován, blíží se termín nebo odpoví tým Hangyul.",
+      "on": "Upozornění jsou zapnutá. Změnit to můžete v nastavení telefonu.",
+      "pending-server": "Upozornění jsou na tomto telefonu povolená. Doručování push zatím neběží; vše se i tak zobrazuje v tomto seznamu.",
+      "title": "Upozornění na tomto telefonu"
+    },
+    "reviews": {
+      "beforeVerify": "Než ověříte",
+      "bulkBody": "Udělejte to jen u dokumentů, které jste otevřeli a zkontrolovali. Každý student dostane upozornění.",
+      "bulkDone": "Ověřeno: {{ok}}, přeskočeno: {{failed}}",
+      "bulkTitle_one": "Ověřit {{count}} dokument?",
+      "bulkTitle_few": "Ověřit {{count}} dokumenty?",
+      "bulkTitle_other": "Ověřit {{count}} dokumentů?",
+      "check": {
+        "date": "Datum vydání je dostatečně nedávné a platnost neskončila",
+        "issuer": "Vydavatel, razítko nebo podpis je viditelný",
+        "legal": "{{path}} je přiložena a odpovídá dokumentu",
+        "legible": "Každá stránka je úplná a čitelná",
+        "name": "Jméno a datum narození odpovídají pasu"
+      },
+      "correctionTitle": "Co má student opravit?",
+      "expires": "Platí do",
+      "issuedIn": "Vydáno v zemi",
+      "issuedOn": "Datum vydání",
+      "legalization": "Legalizace",
+      "notNeeded": "Není potřeba",
+      "open": "Otevřít {{name}}",
+      "overSla": "{{waiting}} · po slíbené lhůtě kontroly",
+      "reason": "Zpráva studentovi",
+      "requestCorrection": "Požádat o opravu",
+      "required": "Povinné",
+      "select": "Vybrat",
+      "studentSees": "{{name}} uvidí přesně tento text vedle dokumentu.",
+      "studentSeesGeneric": "Student uvidí přesně tento text vedle dokumentu.",
+      "summary": "Čeká: {{count}} · {{over}} po slíbené lhůtě kontroly {{hours}} h",
+      "templates": "Šablony týmu",
+      "translation": "Překlad",
+      "uploaded": "nahráno {{when}}",
+      "verifyN_one": "Ověřit {{count}} dokument",
+      "verifyN_few": "Ověřit {{count}} dokumenty",
+      "verifyN_other": "Ověřit {{count}} dokumentů"
+    },
+    "settings": {
+      "consoleHint": "Členové týmu, fakturace a exporty se spravují ve webové konzoli agentury.",
+      "work": "Vaše práce"
+    },
+    "upload": {
+      "camera": "Vyfotit",
+      "cameraHint": "Položte dokument naplocho a dobře ho osvětlete",
+      "failed": "Soubor se nepodařilo otevřít. Zkuste to prosím znovu.",
+      "files": "Vybrat soubor",
+      "filesHint": "PDF, JPG nebo PNG do 15 MB",
+      "library": "Vybrat z fotek",
+      "privacy": "Vaše dokumenty můžete otevřít jen vy a tým Hangyul. Univerzita je uvidí až poté, co jí podáte přihlášku.",
+      "tooLarge": "Soubor je větší než 15 MB. Zkuste sken do PDF nebo menší fotku."
     }
   },
   "v23": {
@@ -242,13 +816,43 @@
       "tab": "Práce",
       "notReviewable": "Tento dokument nečeká na kontrolu.",
       "reasonPlaceholder": "Například: Chybí stránka s apostilou. Nahrajte všechny stránky.",
-      "changesDone": "Oprava vyžádána. Student dostal upozornění"
+      "changesDone": "Oprava vyžádána. Student dostal upozornění",
+      "detailTitle": "Kontrola",
+      "empty": "Fronta kontrol je prázdná",
+      "emptyBody": "Nové soubory od vašich studentů se objeví tady.",
+      "history": "Historie kontrol",
+      "lastReason": "Předchozí žádost o opravu",
+      "noFile": "K tomuto dokumentu zatím nebyl nahrán žádný soubor.",
+      "sendToStudent": "Odeslat studentovi",
+      "tabA11y_one": "Kontroly, čeká {{count}}",
+      "tabA11y_few": "Kontroly, čekají {{count}}",
+      "tabA11y_other": "Kontroly, čeká {{count}}",
+      "title": "Kontroly dokumentů",
+      "verify": "Ověřit dokument",
+      "waitingDays_one": "Čeká {{count}} den",
+      "waitingDays_few": "Čeká {{count}} dny",
+      "waitingDays_other": "Čeká {{count}} dní",
+      "waitingHours_one": "Čeká {{count}} hodinu",
+      "waitingHours_few": "Čeká {{count}} hodiny",
+      "waitingHours_other": "Čeká {{count}} hodin"
     },
     "login": {
       "tagline": "Vaši studenti, kontroly a zprávy v mobilu."
     },
     "dashboard": {
       "noOverdue": "Žádné úkoly po termínu. Dobrá práce."
+    },
+    "deadlines": {
+      "empty": "Žádné termíny v příštích 30 dnech",
+      "subtitle": "Termíny vašich studentů v příštích 30 dnech.",
+      "title": "Připomínky"
+    },
+    "messages": {
+      "subtitle": "Konverzace se studenty a interní poznámky.",
+      "title": "Zprávy"
+    },
+    "tasks": {
+      "unassigned": "Nepřiřazeno"
     }
   },
   "v26": {
@@ -263,7 +867,18 @@
     }
   },
   "messages": {
-    "internalToggle": "Interní poznámka, student ji nevidí"
+    "internalToggle": "Interní poznámka, student ji nevidí",
+    "empty": "Zatím žádné konverzace",
+    "emptyBody": "Zprávy s vaším týmem se objeví tady.",
+    "internalLabel": "Interní poznámka",
+    "internalOn": "Interní poznámka: uvidí ji jen váš tým",
+    "internalPlaceholder": "Napište interní poznámku (jen pro tým)…",
+    "noMessages": "Zatím žádné zprávy",
+    "placeholder": "Napište zprávu…",
+    "sendInternal": "Uložit interní poznámku",
+    "unreadCount_one": "{{count}} nepřečtená zpráva",
+    "unreadCount_few": "{{count}} nepřečtené zprávy",
+    "unreadCount_other": "{{count}} nepřečtených zpráv"
   },
   "student": {
     "login": {
@@ -275,23 +890,99 @@
     },
     "nextAction": {
       "WAIT": "Teď není co dělat. Dáme vám vědět, až bude něco potřeba",
-      "FINISH_APPLICATION": "Dokončete přihlášku na {{university}}. Zbývající položky: {{remaining}}"
+      "FINISH_APPLICATION": "Dokončete přihlášku na {{university}}. Zbývající položky: {{remaining}}",
+      "ARRIVAL_CHECKLIST": "Připravte se na příjezd do Koreje",
+      "COMPARE_OFFERS": "Porovnejte své nabídky přijetí ({{count}})",
+      "COMPLETE_PROFILE": "Dokončete profil a uvidíte, které univerzity vám sedí",
+      "PROFILE_UNLOCK": {
+        "budget": "Přidejte rozpočet a seřadíme programy podle ceny ({{count}})",
+        "education": "Doplňte vzdělání a ověříme programy ({{count}})",
+        "gpa": "Doplňte známky a ověříme programy ({{count}})",
+        "language": "Doplňte jazykový výsledek a ověříme programy ({{count}})",
+        "other": "Dokončete profil a ověříme programy ({{count}})"
+      },
+      "RESPOND_OFFER": "Odpovězte na nabídku přijetí",
+      "REVIEW_MATCHES": "Projděte si své shody univerzit"
     },
     "applications": {
-      "emptyBody": "Začněte od svých shod: programů, jejichž požadavky splňujete."
+      "emptyBody": "Začněte od svých shod: programů, jejichž požadavky splňujete.",
+      "active": "Aktivní",
+      "closed": "Uzavřené",
+      "confirm": {
+        "OFFER_ACCEPTED": {
+          "body": "Přijímáte nabídku přijetí od univerzity {{university}}. Tým Hangyul Univ vás provede platbou školného a získáním standardního dopisu o přijetí.",
+          "cta": "Přijmout nabídku",
+          "title": "Přijmout tuto nabídku?"
+        },
+        "WITHDRAWN": {
+          "body": "Vaše přihláška na {{university}} bude uzavřena. V aplikaci to nelze vrátit zpět.",
+          "cta": "Stáhnout přihlášku",
+          "title": "Stáhnout tuto přihlášku?"
+        }
+      },
+      "detailTitle": "Přihláška",
+      "empty": "Žádné aktivní přihlášky",
+      "emptyClosed": "Žádné uzavřené přihlášky",
+      "submittedOn": "Podáno {{date}}",
+      "subtitle": "Sledujte všechny přihlášky na jednom místě."
     },
     "documents": {
       "subtitle": "Vaše uložené dokumenty, použitelné pro více přihlášek.",
       "verifiedBody": "Ověřeno. Tento dokument můžete použít i pro další přihlášky.",
-      "legalizationHint": "Každý krok po dokončení označte jako hotový. Po nahrání provede konečné ověření náš tým."
+      "legalizationHint": "Každý krok po dokončení označte jako hotový. Po nahrání provede konečné ověření náš tým.",
+      "detailTitle": "Dokument",
+      "empty": "Vaše úložiště dokumentů je prázdné",
+      "emptyBody": "Nahrajte pas, výpisy známek a výsledky testů ve webové aplikaci.",
+      "file": "{{name}} · verze {{version}}",
+      "fixFallback": "Tým Hangyul požádal o úpravu tohoto dokumentu.",
+      "fixTitle": "Co opravit",
+      "openFile": "Otevřít zabezpečený náhled",
+      "reviews": "Historie kontrol",
+      "translationBody": "K tomuto dokumentu je potřeba úředně ověřený překlad do korejštiny nebo angličtiny."
     },
     "matches": {
       "tierHint": {
         "NOT_ELIGIBLE": "Jeden zveřejněný požadavek zatím nesplňujete. Důvody najdete níže."
-      }
+      },
+      "deadline": "Uzávěrka {{date}} · {{due}}"
     },
     "profile": {
-      "editOnWeb": "Profil upravíte ve webové aplikaci. Změny se tu objeví automaticky."
+      "editOnWeb": "Profil upravíte ve webové aplikaci. Změny se tu objeví automaticky.",
+      "completion": "Vyplnění profilu",
+      "step": {
+        "basics": "Základní údaje",
+        "education": "Vzdělání",
+        "goals": "Studijní cíle",
+        "language": "Jazykové výsledky",
+        "passport": "Pas",
+        "preferences": "Preference",
+        "sponsor": "Financování studia"
+      }
+    },
+    "explore": {
+      "clear": "Vymazat hledání",
+      "save": "Uložit {{name}}",
+      "searchPlaceholder": "Hledat programy nebo univerzity",
+      "unsave": "Odebrat {{name}} z uložených"
+    },
+    "messages": {
+      "subtitle": "Pište si s týmem Hangyul Univ.",
+      "unreadA11y_one": "Zprávy, {{count}} nepřečtená",
+      "unreadA11y_few": "Zprávy, {{count}} nepřečtené",
+      "unreadA11y_other": "Zprávy, {{count}} nepřečtených"
+    },
+    "saved": {
+      "empty": "Zatím nic uloženého",
+      "emptyBody": "Klepněte na srdíčko u programu a jeho univerzita se uloží sem."
+    },
+    "tasks": {
+      "confirmTitle": "Označit tento úkol jako hotový?",
+      "empty": "Teď není co dělat",
+      "emptyBody": "Úkoly sem přidáme, až bude něco potřeba.",
+      "overdue": "Po termínu ({{count}})",
+      "subtitle": "Úkoly od týmu Hangyul a kontrolní seznamy vašich přihlášek.",
+      "title": "Seznam úkolů",
+      "upcoming": "K vyřízení"
     }
   },
   "university": {
@@ -300,16 +991,59 @@
     },
     "flagged": {
       "hint": "Označení jsou interní pro vaši univerzitu. Studenti ani agentury je nevidí.",
-      "emptyBody": "Přihlášku můžete označit na její stránce s detailem a vrátit se k ní později."
+      "emptyBody": "Přihlášku můžete označit na její stránce s detailem a vrátit se k ní později.",
+      "add": "Označit ke sledování",
+      "addBody": "Toto označení a důvod uvidí jen tým vaší univerzity.",
+      "flagged": "Označeno",
+      "reason": "Důvod",
+      "remove": "Odebrat označení",
+      "removeTitle": "Odebrat označení z této přihlášky?"
     },
     "cohorts": {
       "riskHint": "Včasná varování vycházejí jen z dat, která sdílejí vaše systémy (docházka, studijní výsledky, zápis, data víz). Jsou podnětem ke kontaktování studenta, ne předpovědí."
+    },
+    "applicants": {
+      "anonymous": "Uchazeč",
+      "confirmBody": "Uchazeč {{name}} i jeho poradce budou upozorněni. Přidejte poznámku pro záznam (nepovinné).",
+      "confirmTitle": "Změnit stav na „{{status}}“?",
+      "detailTitle": "Uchazeč",
+      "history": "Historie stavů",
+      "interview": "Pohovor",
+      "moveTo": "Přesunout do: {{status}}",
+      "notShared": "S vaší univerzitou zatím nesdíleno",
+      "note": "Poznámka",
+      "previewHint": "Otevře zabezpečený náhled s omezenou platností",
+      "reference": "Vaše referenční číslo",
+      "submitted": "Podáno {{date}}",
+      "submittedLabel": "Podáno",
+      "viaAgency": "Přes {{agency}}"
+    },
+    "inbox": {
+      "title": "Zprávy"
+    },
+    "login": {
+      "tagline": "Uchazeči, rozhodnutí a nástupní ročníky pro vaše zahraniční oddělení."
     }
   },
   "v4": {
     "application": {
-      "writeOnWeb": "Napište ji na webu. Najdete tam i komentáře poradce.",
-      "reviewLate": "Trvá to déle než obvykle. Váš poradce o zpoždění ví. Znovu nahrávat nemusíte."
+      "writeOnWeb": "Napište ji na webu. Najdete tam i komentáře týmu Hangyul.",
+      "reviewLate": "Trvá to déle než obvykle. Tým Hangyul o zpoždění ví. Znovu nahrávat nemusíte.",
+      "blocks": "Dokud to není hotové, přihlášku nelze podat.",
+      "blocksUni": "{{university}} na to čeká, než bude pokračovat.",
+      "doneSummary_one": "Hotovo {{count}}: {{items}}",
+      "doneSummary_few": "Hotovo {{count}}: {{items}}",
+      "doneSummary_other": "Hotovo {{count}}: {{items}}",
+      "next": "Váš další krok",
+      "nextFix": "Opravte: {{item}}",
+      "nextLegalize": "Získejte apostilu nebo konzulární superlegalizaci pro: {{item}}",
+      "nextRequest": "{{university}} žádá: {{item}}",
+      "nextUpload": "Nahrajte: {{item}}",
+      "nextWrite": "Napište: {{item}}",
+      "nothingForYou": "Teď od vás nic nepotřebujeme",
+      "openDocument": "Otevřít dokument",
+      "waitBody": "Tým Hangyul kontroluje, co jste poslali. Pokud bude potřeba něco změnit, dáme vám vědět.",
+      "waitTitle": "Teď od vás nic nepotřebujeme"
     },
     "reviews": {
       "tickAll": "Zkontrolováno {{done}} z {{total}}. K ověření dokončete všechny kontroly."
@@ -317,9 +1051,75 @@
     "home": {
       "item": {
         "WRITE_ESSAY": {
-          "text": "Váš poradce ji s vámi projde. Začněte hrubým konceptem, nemusí být dokonalý."
+          "text": "Tým Hangyul ji s vámi projde. Začněte hrubým konceptem, nemusí být dokonalý.",
+          "cta": "Začít psát",
+          "title": "Napište {{label}} pro {{university}}"
+        },
+        "FIX": {
+          "cta": "Zobrazit, jak to opravit",
+          "text": "Dokud to není opravené, přihlášku nelze podat.",
+          "title": "Opravte dokument {{label}} pro {{university}}"
+        },
+        "LEGALIZE": {
+          "cta": "Zobrazit kroky",
+          "text": "Korejské univerzity tento dokument přijmou až po ověření pravosti. Ukážeme vám kroky pro vaši zemi.",
+          "title": "Získejte apostilu pro dokument {{label}} pro {{university}}"
+        },
+        "RENEW": {
+          "cta": "Zobrazit, co dělat",
+          "text": "Nahranému dokumentu skončila platnost.",
+          "title": "Získejte nový dokument {{label}} pro {{university}}"
+        },
+        "REQUEST": {
+          "cta": "Nahrát a odeslat",
+          "text": "Univerzita tento dokument žádá. Dokud nedorazí, přihláška nemůže pokračovat.",
+          "title": "Pošlete dokument {{label}} na {{university}}"
+        },
+        "REVISE_ESSAY": {
+          "cta": "Otevřít koncept",
+          "text": "Tým Hangyul přidal komentáře. Dokud text neschválí, přihlášku nelze podat.",
+          "title": "Upravte {{label}} pro {{university}}"
+        },
+        "TOO_OLD": {
+          "cta": "Zobrazit, co dělat",
+          "text": "Univerzita potřebuje nedávno vydanou kopii.",
+          "title": "Získejte novější dokument {{label}} pro {{university}}"
+        },
+        "UPLOAD": {
+          "cta": "Nahrát",
+          "text": "Bez něj přihlášku nelze podat.",
+          "title": "Nahrajte dokument {{label}} pro {{university}}"
         }
       }
+    },
+    "discover": {
+      "firstYear": "{{range}} první rok"
+    },
+    "documents": {
+      "late": "Trvá déle",
+      "lateLine": "označeno týmu Hangyul jako zpožděné"
+    },
+    "uni": {
+      "actor": {
+        "AGENCY": "Partnerská agentura",
+        "STUDENT": "Uchazeč",
+        "SYSTEM": "Automaticky",
+        "UNIVERSITY": "Vaše univerzita"
+      },
+      "toReview_one": "K posouzení · {{count}}",
+      "toReview_few": "K posouzení · {{count}}",
+      "toReview_other": "K posouzení · {{count}}"
+    },
+    "university": {
+      "continue": "Pokračovat v přihlášce",
+      "firstYear": "První rok, odhad",
+      "tuitionYear": "Školné za rok"
+    },
+    "visa": {
+      "hideDone": "Skrýt dokončené kroky",
+      "showDone_one": "Zobrazit {{count}} dokončený krok",
+      "showDone_few": "Zobrazit {{count}} dokončené kroky",
+      "showDone_other": "Zobrazit {{count}} dokončených kroků"
     }
   },
   "v29": {
@@ -328,22 +1128,76 @@
       "termUntil": "Do {{date}}",
       "termToAgree": "Dohodneme při zahájení",
       "supportUntil": "Konzultace do {{date}}",
-      "supportDays": "{{count}} dnů od první konzultace",
+      "supportDays": "Konzultace po dobu {{count}} dnů od první konzultace",
       "arrival": "Příjezd a zabydlení",
       "arrivalWindow": "{{from}} – {{until}}",
       "unrationed": {
         "CONTRACTED_DOCUMENTS": "Bez omezení u smluvních dokumentů",
-        "TEAM": "Podpora týmu",
+        "TEAM": "Podpora od vašeho týmu",
         "PRIORITY": "Přednostní odpovědi",
         "ROUNDS": "Součástí"
       },
-      "upgradePending": "Cena přechodu na vyšší tarif zatím není stanovena. Tým Hangyul Univ ji s vámi dohodne přímo.",
+      "upgradePending": "Cena přechodu na vyšší balíček zatím není stanovena. Tým Hangyul Univ ji s vámi dohodne přímo.",
       "askTeam": "Zeptat se týmu"
+    },
+    "mfa": {
+      "codeHint": "Zadejte 6místný kód z ověřovací aplikace nebo záložní kód.",
+      "codeLabel": "Ověřovací kód",
+      "enrollOnWeb": "Tento účet vyžaduje dvoufázové ověření. Nejprve ho nastavte ve webové konzoli a pak se přihlaste tady.",
+      "verify": "Ověřit a přihlásit se",
+      "wrongCode": "Kód je nesprávný nebo vypršel. Zadejte nový."
     }
   },
   "plan": {
     "allowance": {
-      "consultation_sessions": "Diagnostická konzultace"
-    }
+      "consultation_sessions": "Diagnostická konzultace",
+      "essay_review_rounds": "Úpravy motivačního dopisu a studijního plánu",
+      "follow_up_consultations": "Navazující konzultace",
+      "max_managed_applications": "Přihlášky vedené týmem",
+      "max_recommended_institutions": "Doporučení univerzit",
+      "mock_interviews": "Zkušební pohovory"
+    },
+    "browserFailed": "Prohlížeč se nepodařilo otevřít. Zaplaťte prosím na webu.",
+    "card": "Zaplatit můžete zahraniční kartou (Visa, Mastercard, JCB).",
+    "chooseLede": "Jedna platba, žádné předplatné. Balíček vám zůstává po celou dobu přípravy.",
+    "chooseTitle": "Vyberte si balíček",
+    "handoff": "Platba proběhne v prohlížeči a po dokončení se vrátíte do aplikace.",
+    "highestAlready": "Už máte nejvyšší balíček.",
+    "included": "Zahrnuto ve vašem balíčku",
+    "oneTime": "Jedna platba",
+    "ongoing": "Po celé období služby",
+    "paid": "Zaplacená částka",
+    "pay": "Zaplatit",
+    "plansTitle": "Balíčky",
+    "selected": "Vybráno",
+    "upgradeTitle": "Přechod na vyšší balíček",
+    "webNote": "Historie balíčků a doklady jsou na webu."
+  },
+  "more": {
+    "active": "Aktivní",
+    "allowanceSpent": "Vše, co tento balíček zahrnuje, je využito. Na obrazovce balíčků uvidíte, který zahrnuje víc.",
+    "choose": "Vybrat",
+    "noPlan": "Zatím bez balíčku",
+    "noPlanHint": "Vyberte si balíček a Hangyul s vámi začne pracovat",
+    "plan": "Balíček",
+    "support": "Získat pomoc",
+    "supportHint": "Napsat týmu Hangyul",
+    "webNote": "Úprava profilu a platby probíhají na webu."
+  },
+  "notifications": {
+    "unread": "Nepřečtené"
+  },
+  "settings": {
+    "elsewhere": "Jinde",
+    "language": "Jazyk",
+    "languageHint": "Vyberte jazyk této aplikace. Některé jazyky jsou strojové návrhy, které ještě procházejí kontrolou.",
+    "machineDraft": "strojový návrh",
+    "notificationsHint": "Zobrazit přijatá oznámení",
+    "rtlNote": "Text zprava doleva se použije hned; celé rozložení se zrcadlí při příštím otevření aplikace.",
+    "selected": "vybráno",
+    "signOutBody": "K opětovnému přihlášení budete potřebovat e-mail a heslo.",
+    "signOutTitle": "Odhlásit se?",
+    "title": "Nastavení",
+    "version": "Verze {{version}}"
   }
 }

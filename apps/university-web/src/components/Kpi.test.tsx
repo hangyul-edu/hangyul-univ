@@ -19,7 +19,7 @@ describe('KpiTile', () => {
     render(<KpiTile label="Visa conversion" value="100%" insufficient sample={4} />);
     expect(screen.queryByText('100%')).not.toBeInTheDocument();
     expect(screen.getByText('Not enough data yet')).toBeInTheDocument();
-    expect(screen.getByText('Based on 4 records. Shown once there are 5.')).toBeInTheDocument();
+    expect(screen.getByText('Shown once there are 5 records (currently 4).')).toBeInTheDocument();
     expect(screen.getByTestId('kpi-tile')).toHaveClass('uc-kpi--insufficient');
   });
 

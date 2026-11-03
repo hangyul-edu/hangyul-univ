@@ -1,0 +1,4389 @@
+{
+  "_notes": [
+    "plan = «тариф» everywhere (student:v17.gate.*, v17.upgrade.currentPlan, v17.pay.afterPay, mobile:v3.home.noCounselor said «план»); «план» collides with «план навчання» (study plan) and «тариф» is already the dominant term in uk student/marketing files.",
+    "matches = «підібрані програми» / «підбір» (student:applications.emptyCta/emptyText, mobile:signup.quickGo, mobile:student.applications.emptyBody said «збіги»/«рекомендації»); «збіги» is a calque. common.json (7) and marketing.json (3) outside this job still say «збіги» — owner to decide on a global rename.",
+    "personal statement stays «мотиваційний лист» and study plan «план навчання» (existing uk convention; «навчальний план» means a curriculum). marketing.json uses «навчальний план» for the essay in 2 strings — owner to decide.",
+    "standard admission letter (표준입학허가서) = «стандартний лист про зарахування» wherever the English says it (v22.home.appTeam.letter, ADMISSION_CERTIFICATE_PENDING, offer.step.letter); plain «лист про зарахування» where the English says only «admission letter».",
+    "Student-facing «консультант» replaced by «команда Hangyul» (V22 team identity) in mobile:v3.home.nextBody.ESSAY_WRITE, v4.application.reviewLate/writeOnWeb, v4.home.item.WRITE_ESSAY.text; staff-facing agency/university strings keep «консультант» where the English says counselor. «Hangyul team» = «команда Hangyul», «Hangyul Univ team» = «команда Hangyul Univ», as the English distinguishes.",
+    "Admitted = «зараховано» (mobile:v3.home.stageLine.admission said «прийнято»; student VISA stage already says «зараховано»). applicant (university app) = «вступник» (existing uk/university.json); interview = «співбесіда»; conversation = «розмова»; vault = «сховище».",
+    "Plurals: uk `_other` is the CLDR fractional form (genitive singular, «1,5 повідомлення») and existing `_other` strings were kept; every newly translated family carries `_one/_few/_many/_other`; `_few/_many` added to student:v22.home.appsQuiet/docsChecking, which had none. Count-neutral strings repeat the same text in all forms. Strings with a count but no family (att.overSla, reviews.summary, nextAction.PROFILE_UNLOCK.*, university.documentsCount) are phrased count-neutrally.",
+    "Placeholders that carry names/labels/stages ({{label}}, {{name}}, {{who}}, {{stage}}, {{status}}, {{what}}, {{item}}) are kept in the nominative with a dash or colon frame (e.g. «{{label}} для {{university}} — завантажте», «Перевести на етап «{{stage}}»»), since Ukrainian would otherwise need case inflection of the inserted value. «для {{university}}» / «до {{university}}» follow the existing uk convention for university names.",
+    "student:v17.gate.named: the {{what}} values are lowercase nominative noun phrases, so the frame is «У тариф входить: {{what}}.»",
+    "«view» (agency filters) rendered «фільтр», not «подання», because «подання» already means application submission in this app.",
+    "mobile:v3.visa.title «Ваш план отримання візи» → «Підготовка до візи {{type}}» and stageLine.visa «Готуємо документи на студентську візу»: Hangyul prepares documents, never obtains the visa. visaroute.json (outside this job) still says «план отримання візи» — owner to decide.",
+    "Settings keep «акаунт» (consistent within student settings/register), while sign-up and mobile keep «обліковий запис»; both are current Ukrainian. Owner may unify later; not changed here.",
+    "student:onboarding.education.institutionPh keeps «Hanoi National University» untranslated; sponsor.goalPh example localized to Ukrainian companies."
+  ],
+  "student:applications.closed": {
+    "text": "Закриті заявки",
+    "why": "missing"
+  },
+  "student:applications.emptyCta": {
+    "text": "Переглянути підібрані програми",
+    "why": "matches = підібрані програми, not «збіги»"
+  },
+  "student:applications.emptyText": {
+    "text": "Щоб почати, оберіть програму з підібраних для вас. Готуватися можна у власному темпі.",
+    "why": "matches term unified"
+  },
+  "student:applications.updated": {
+    "text": "Оновлено {{date}}",
+    "why": "missing"
+  },
+  "student:dashboard.arrival.cta": {
+    "text": "Відкрити чек-лист приїзду",
+    "why": "missing"
+  },
+  "student:dashboard.arrival.landing": {
+    "text": "Приліт {{date}}",
+    "why": "missing"
+  },
+  "student:dashboard.arrival.noFlight": {
+    "text": "Додайте свій рейс, щоб ми спланували зустріч і перші дні.",
+    "why": "missing"
+  },
+  "student:dashboard.counselor.noneCta": {
+    "text": "Переглянути тарифи",
+    "why": "missing"
+  },
+  "student:dashboard.deadlines.empty": {
+    "text": "Найближчими тижнями строків немає.",
+    "why": "missing"
+  },
+  "student:dashboard.nextAction.TASK.ctaDefault": {
+    "text": "Почати",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.APPLY": {
+    "text": "Ви готуєте заявки. Крок за кроком.",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.ARRIVAL": {
+    "text": "Віза готова. Час планувати приїзд!",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.DECISION": {
+    "text": "Ваші заявки розглядають університети.",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.ENROLL": {
+    "text": "Вітаємо з пропозицією! Закріпімо ваше місце.",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.EXPLORE": {
+    "text": "Почнімо зі знайомства з вами.",
+    "why": "missing"
+  },
+  "student:dashboard.stageText.STUDENT_LIFE": {
+    "text": "Ласкаво просимо до Кореї. Ми поруч, якщо знадобимося.",
+    "why": "missing"
+  },
+  "student:documents.drawer.country": {
+    "text": "Країна видачі",
+    "why": "missing"
+  },
+  "student:documents.drawer.expired": {
+    "text": "Строк дії цього документа минув",
+    "why": "missing"
+  },
+  "student:documents.drawer.expiredText": {
+    "text": "Завантажте чинну копію, щоб ваші заявки залишалися дійсними.",
+    "why": "missing"
+  },
+  "student:documents.drawer.expires": {
+    "text": "Дійсний до",
+    "why": "missing"
+  },
+  "student:documents.drawer.file": {
+    "text": "Останній файл",
+    "why": "missing"
+  },
+  "student:documents.drawer.fixDefault": {
+    "text": "Цей документ потрібно виправити. Внесіть зміни та завантажте нову версію.",
+    "why": "missing"
+  },
+  "student:documents.drawer.fixTitle": {
+    "text": "Що виправити",
+    "why": "missing"
+  },
+  "student:documents.drawer.inReview": {
+    "text": "Ми перевіряємо цей документ. Зараз від вас нічого не потрібно.",
+    "why": "missing"
+  },
+  "student:documents.drawer.issued": {
+    "text": "Дата видачі",
+    "why": "missing"
+  },
+  "student:documents.drawer.newVersion": {
+    "text": "Нова версія",
+    "why": "missing"
+  },
+  "student:documents.drawer.reviewMeta": {
+    "text": "Версія {{version}} · {{when}}",
+    "why": "missing"
+  },
+  "student:documents.drawer.reviews": {
+    "text": "Історія перевірок",
+    "why": "missing"
+  },
+  "student:documents.drawer.translation": {
+    "text": "Переклад",
+    "why": "missing"
+  },
+  "student:documents.drawer.translationNo": {
+    "text": "Не потрібен",
+    "why": "missing"
+  },
+  "student:documents.drawer.translationYes": {
+    "text": "Потрібен засвідчений переклад",
+    "why": "missing"
+  },
+  "student:documents.drawer.uploadFixed": {
+    "text": "Завантажити виправлену версію",
+    "why": "missing"
+  },
+  "student:documents.drawer.versions": {
+    "text": "Версії",
+    "why": "missing"
+  },
+  "student:documents.drawer.viewVersion": {
+    "text": "Переглянути версію {{version}}",
+    "why": "missing"
+  },
+  "student:documents.reusable": {
+    "text": "Багаторазовий",
+    "why": "missing"
+  },
+  "student:documents.upload.category": {
+    "text": "Тип документа",
+    "why": "missing"
+  },
+  "student:documents.upload.choose": {
+    "text": "Вибрати файл",
+    "why": "missing"
+  },
+  "student:documents.upload.country": {
+    "text": "Країна видачі",
+    "why": "missing"
+  },
+  "student:documents.upload.countryHint": {
+    "text": "Від неї залежить, чи потрібен апостиль.",
+    "why": "missing"
+  },
+  "student:documents.upload.expires": {
+    "text": "Дійсний до",
+    "why": "missing"
+  },
+  "student:documents.upload.file": {
+    "text": "Файл",
+    "why": "missing"
+  },
+  "student:documents.upload.fileHint": {
+    "text": "PDF, JPG, PNG або WEBP, до {{mb}} МБ.",
+    "why": "missing"
+  },
+  "student:documents.upload.issued": {
+    "text": "Дата видачі",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.en": {
+    "text": "Англійська",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.id": {
+    "text": "Індонезійська",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.ja": {
+    "text": "Японська",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.ko": {
+    "text": "Корейська",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.mn": {
+    "text": "Монгольська",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.ne": {
+    "text": "Непальська",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.other": {
+    "text": "Інша",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.ru": {
+    "text": "Російська",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.th": {
+    "text": "Тайська",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.uz": {
+    "text": "Узбецька",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.vi": {
+    "text": "В’єтнамська",
+    "why": "missing"
+  },
+  "student:documents.upload.langs.zh": {
+    "text": "Китайська",
+    "why": "missing"
+  },
+  "student:documents.upload.language": {
+    "text": "Мова документа",
+    "why": "missing"
+  },
+  "student:documents.upload.subtitle": {
+    "text": "Підійде чіткий скан або фото з телефона. Ми перевіримо документ і повідомимо, якщо щось потрібно виправити.",
+    "why": "missing"
+  },
+  "student:documents.upload.title": {
+    "text": "Завантажити документ",
+    "why": "missing"
+  },
+  "student:documents.upload.titleLabel": {
+    "text": "Назва",
+    "why": "missing"
+  },
+  "student:documents.upload.types": {
+    "text": "PDF, JPG, PNG або WEBP",
+    "why": "missing"
+  },
+  "student:documents.upload.versionTitle": {
+    "text": "Завантажити нову версію",
+    "why": "missing"
+  },
+  "student:essays.comments_one": {
+    "text": "{{count}} коментар",
+    "why": "missing"
+  },
+  "student:essays.edited": {
+    "text": "Змінено {{when}}",
+    "why": "missing"
+  },
+  "student:essays.new.cta": {
+    "text": "Створити есе",
+    "why": "missing"
+  },
+  "student:essays.new.limit": {
+    "text": "Ліміт слів",
+    "why": "missing"
+  },
+  "student:essays.new.name": {
+    "text": "Назва",
+    "why": "missing"
+  },
+  "student:essays.new.subtitle": {
+    "text": "Для практики або для університету, якого ще немає в списку.",
+    "why": "missing"
+  },
+  "student:essays.new.title": {
+    "text": "Почати нове есе",
+    "why": "missing"
+  },
+  "student:essays.new.type": {
+    "text": "Тип есе",
+    "why": "missing"
+  },
+  "student:home.allMatches": {
+    "text": "Усі підібрані програми",
+    "why": "missing"
+  },
+  "student:home.arrivalProgress": {
+    "text": "Виконано {{done}} з 11 кроків приїзду",
+    "why": "missing"
+  },
+  "student:home.closest": {
+    "text": "Найближче до вашого профілю",
+    "why": "missing"
+  },
+  "student:home.docAction.IN_REVIEW": {
+    "text": "На перевірці",
+    "why": "missing"
+  },
+  "student:home.docAction.LEGALIZE": {
+    "text": "Потрібен апостиль",
+    "why": "missing"
+  },
+  "student:home.docAction.OPEN": {
+    "text": "Відкрити",
+    "why": "missing"
+  },
+  "student:home.greet.afternoon": {
+    "text": "Добрий день, {{name}}",
+    "why": "missing"
+  },
+  "student:home.otherTasks_one": {
+    "text": "{{count}} інше завдання",
+    "why": "missing"
+  },
+  "student:home.recommended": {
+    "text": "Рекомендовано для вас",
+    "why": "missing"
+  },
+  "student:home.recommendedSub": {
+    "text": "Програми, опублікованим вимогам яких ви відповідаєте.",
+    "why": "missing"
+  },
+  "student:home.team": {
+    "text": "Команда Hangyul Univ",
+    "why": "official team name"
+  },
+  "student:housing.noDorms": {
+    "text": "Цей університет ще не опублікував інформацію про гуртожитки.",
+    "why": "missing"
+  },
+  "student:housing.noUni": {
+    "text": "Житло відкриється з першою заявкою",
+    "why": "missing"
+  },
+  "student:housing.noUniCta": {
+    "text": "Перейти до заявок",
+    "why": "missing"
+  },
+  "student:housing.noUniText": {
+    "text": "Щойно ви подасте заявку, ми покажемо варіанти гуртожитків і вартість для цього університету.",
+    "why": "missing"
+  },
+  "student:housing.subtitle": {
+    "text": "Порівнюйте варіанти гуртожитків і стежте за кроками щодо житла.",
+    "why": "missing"
+  },
+  "student:housing.title": {
+    "text": "Житло",
+    "why": "missing"
+  },
+  "student:login.aside.eyebrow": {
+    "text": "Навчання в Кореї, крок за кроком",
+    "why": "missing"
+  },
+  "student:login.aside.note": {
+    "text": "Тисячі маленьких кроків — і щоразу один зрозумілий наступний.",
+    "why": "missing"
+  },
+  "student:login.aside.point2": {
+    "text": "Зберігайте всі документи в одному захищеному сховищі й використовуйте їх у різних заявках.",
+    "why": "missing"
+  },
+  "student:login.aside.point3": {
+    "text": "Готуйтеся з живими людьми з команди Hangyul, які говорять вашою мовою.",
+    "why": "missing"
+  },
+  "student:messages.new.body": {
+    "text": "Повідомлення",
+    "why": "missing"
+  },
+  "student:messages.new.subject": {
+    "text": "Тема",
+    "why": "missing"
+  },
+  "student:messages.new.title": {
+    "text": "Нова розмова",
+    "why": "missing"
+  },
+  "student:messages.unread_one": {
+    "text": "{{count}} непрочитане повідомлення",
+    "why": "missing"
+  },
+  "student:onboarding.basics.dobHint": {
+    "text": "Деякі стипендії мають вікові обмеження.",
+    "why": "missing"
+  },
+  "student:onboarding.basics.legalText": {
+    "text": "Офіційні документи з країни {{country}} зазвичай потребують цього кроку, перш ніж корейські університети їх приймуть: {{path}}. Коли настане час, ми проведемо вас через нього.",
+    "why": "missing"
+  },
+  "student:onboarding.basics.legalTitle": {
+    "text": "Знадобиться пізніше",
+    "why": "missing"
+  },
+  "student:onboarding.basics.residenceHint": {
+    "text": "Деякі посольства приймають візові заяви лише від резидентів своєї країни.",
+    "why": "missing"
+  },
+  "student:onboarding.education.country": {
+    "text": "Країна навчання",
+    "why": "missing"
+  },
+  "student:onboarding.education.gpaHint": {
+    "text": "Укажіть середній бал за шкалою вашого навчального закладу.",
+    "why": "missing"
+  },
+  "student:onboarding.education.gpaScale": {
+    "text": "Максимум шкали",
+    "why": "missing; clearer than «Із»"
+  },
+  "student:onboarding.education.gpaValue": {
+    "text": "Ваш GPA",
+    "why": "missing"
+  },
+  "student:onboarding.education.gradYear": {
+    "text": "Рік випуску",
+    "why": "missing"
+  },
+  "student:onboarding.education.institutionPh": {
+    "text": "напр. Hanoi National University",
+    "why": "missing; institution name untranslated"
+  },
+  "student:onboarding.education.levels.ASSOCIATE": {
+    "text": "Молодший спеціаліст / диплом коледжу",
+    "why": "missing"
+  },
+  "student:onboarding.education.levels.BACHELOR": {
+    "text": "Бакалаврат",
+    "why": "missing"
+  },
+  "student:onboarding.education.levels.DOCTORATE": {
+    "text": "Докторантура",
+    "why": "missing"
+  },
+  "student:onboarding.education.levels.MASTER": {
+    "text": "Магістратура",
+    "why": "missing"
+  },
+  "student:onboarding.education.major": {
+    "text": "Спеціальність або напрям",
+    "why": "missing"
+  },
+  "student:onboarding.education.normalized": {
+    "text": "Нормалізований бал",
+    "why": "missing"
+  },
+  "student:onboarding.education.previewEmpty": {
+    "text": "Введіть GPA та його шкалу, щоб побачити нормалізований бал.",
+    "why": "missing"
+  },
+  "student:onboarding.education.status": {
+    "text": "Статус навчання",
+    "why": "missing"
+  },
+  "student:onboarding.education.statuses.EXPECTED": {
+    "text": "Скоро випуск",
+    "why": "missing"
+  },
+  "student:onboarding.education.statuses.GRADUATED": {
+    "text": "Закінчив(ла)",
+    "why": "missing"
+  },
+  "student:onboarding.education.statuses.IN_PROGRESS": {
+    "text": "Ще навчаюся",
+    "why": "missing"
+  },
+  "student:onboarding.goals.degreeSub.ASSOCIATE": {
+    "text": "Практична програма на 2–3 роки",
+    "why": "missing"
+  },
+  "student:onboarding.goals.degreeSub.BACHELOR": {
+    "text": "4-річна програма бакалаврату",
+    "why": "missing"
+  },
+  "student:onboarding.goals.degreeSub.DOCTORATE": {
+    "text": "Дослідницький ступінь (PhD)",
+    "why": "missing"
+  },
+  "student:onboarding.goals.degreeSub.LANGUAGE": {
+    "text": "Спершу корейська мова, у власному темпі",
+    "why": "match English; no added claim"
+  },
+  "student:onboarding.goals.degreeSub.MASTER": {
+    "text": "Магістратура після бакалаврату",
+    "why": "missing"
+  },
+  "student:onboarding.goals.degreeSub.TRANSFER": {
+    "text": "Продовжити вже розпочате навчання",
+    "why": "missing"
+  },
+  "student:onboarding.goals.fieldsHint": {
+    "text": "Оберіть скільки завгодно.",
+    "why": "missing"
+  },
+  "student:onboarding.goals.intakeHint": {
+    "text": "Корейські університети починають навчання навесні (березень) і восени (вересень).",
+    "why": "missing"
+  },
+  "student:onboarding.goals.term": {
+    "text": "Семестр початку",
+    "why": "missing"
+  },
+  "student:onboarding.goals.termLabel.FALL": {
+    "text": "Осінь (вересень)",
+    "why": "missing"
+  },
+  "student:onboarding.goals.termLabel.SPRING": {
+    "text": "Весна (березень)",
+    "why": "missing"
+  },
+  "student:onboarding.goals.year": {
+    "text": "Рік початку",
+    "why": "missing"
+  },
+  "student:onboarding.language.have": {
+    "text": "У мене є результат",
+    "why": "missing"
+  },
+  "student:onboarding.language.level.BEGINNER": {
+    "text": "Початковий",
+    "why": "missing"
+  },
+  "student:onboarding.language.level.NATIVE": {
+    "text": "Рідна мова",
+    "why": "missing"
+  },
+  "student:onboarding.language.level.NONE": {
+    "text": "Поки немає",
+    "why": "missing"
+  },
+  "student:onboarding.language.planning": {
+    "text": "Планую скласти",
+    "why": "missing"
+  },
+  "student:onboarding.language.score": {
+    "text": "Бал ({{range}})",
+    "why": "missing"
+  },
+  "student:onboarding.language.test.TOEFL_IBT": {
+    "text": "TOEFL iBT",
+    "why": "missing"
+  },
+  "student:onboarding.language.testSub.IELTS": {
+    "text": "Тест з англійської, бали 0–9",
+    "why": "missing"
+  },
+  "student:onboarding.language.testSub.TOEFL_IBT": {
+    "text": "Тест з англійської, 0–120",
+    "why": "missing"
+  },
+  "student:onboarding.language.testSub.TOPIK": {
+    "text": "Тест на знання корейської мови, рівні 1–6",
+    "why": "missing"
+  },
+  "student:onboarding.language.testsHint": {
+    "text": "Пропустіть, якщо ще не починали.",
+    "why": "missing"
+  },
+  "student:onboarding.passport.currentVisa": {
+    "text": "Ваша поточна віза",
+    "why": "missing"
+  },
+  "student:onboarding.passport.expiry": {
+    "text": "Паспорт дійсний до",
+    "why": "missing"
+  },
+  "student:onboarding.passport.expiryHint": {
+    "text": "Бажано, щоб він був чинним протягом усього періоду навчання.",
+    "why": "missing"
+  },
+  "student:onboarding.passport.inKoreaNo": {
+    "text": "Ні, я за кордоном",
+    "why": "missing"
+  },
+  "student:onboarding.passport.inKoreaYes": {
+    "text": "Так, я в Кореї",
+    "why": "missing"
+  },
+  "student:onboarding.passport.no": {
+    "text": "Ще ні",
+    "why": "missing"
+  },
+  "student:onboarding.passport.number": {
+    "text": "Номер паспорта",
+    "why": "missing"
+  },
+  "student:onboarding.passport.numberHint": {
+    "text": "Необов’язково. Ми зберігаємо лише останні цифри; повний номер залишається у вашому паспортному документі.",
+    "why": "missing"
+  },
+  "student:onboarding.passport.previousHint": {
+    "text": "Від цього може залежати, які візові кроки стосуються вас.",
+    "why": "missing"
+  },
+  "student:onboarding.passport.visa.C-3": {
+    "text": "C-3 (короткостроковий візит)",
+    "why": "missing"
+  },
+  "student:onboarding.passport.visa.D-2": {
+    "text": "D-2 (студентська)",
+    "why": "missing"
+  },
+  "student:onboarding.passport.visa.D-4": {
+    "text": "D-4 (мовні курси)",
+    "why": "missing"
+  },
+  "student:onboarding.passport.visa.E-7": {
+    "text": "E-7 (робоча)",
+    "why": "missing"
+  },
+  "student:onboarding.passport.visa.NONE": {
+    "text": "Ніколи",
+    "why": "missing"
+  },
+  "student:onboarding.passport.visa.OTHER": {
+    "text": "Інша",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.budgetOver": {
+    "text": "Понад {{amount}}",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.budgetUpTo": {
+    "text": "До {{amount}}",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.housingOpt.NO_PREFERENCE": {
+    "text": "Без переваг",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.housingOpt.OFF_CAMPUS": {
+    "text": "Кімната поза кампусом",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.housingSub.DORM": {
+    "text": "Більшість іноземних першокурсників обирають цей варіант",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.perMonth": {
+    "text": "близько {{amount}} на місяць",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.regionsHint": {
+    "text": "Залиште порожнім, якщо підійде будь-яке місце в Кореї.",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.scholarshipNo": {
+    "text": "Було б добре, але не обов’язково",
+    "why": "missing"
+  },
+  "student:onboarding.preferences.scholarshipYesSub": {
+    "text": "Ми виділимо програми зі стипендіями, на які ви можете претендувати",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.goalHint": {
+    "text": "Одного-двох речень цілком досить. Це допоможе пізніше з планом навчання.",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.goalPh": {
+    "text": "напр. Працювати в маркетингу між корейськими та українськими компаніями.",
+    "why": "missing; localized example"
+  },
+  "student:onboarding.sponsor.option.EMPLOYER": {
+    "text": "Мій роботодавець",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.option.OTHER": {
+    "text": "Хтось інший",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.option.RELATIVE": {
+    "text": "Інший родич",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.option.SCHOLARSHIP": {
+    "text": "Стипендія",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.option.SELF": {
+    "text": "Я сам(а)",
+    "why": "missing"
+  },
+  "student:onboarding.sponsor.whoHint": {
+    "text": "Для візової заяви потрібне підтвердження коштів від цієї особи або організації.",
+    "why": "missing"
+  },
+  "student:onboarding.steps.basics.eyebrow": {
+    "text": "Про вас",
+    "why": "missing"
+  },
+  "student:onboarding.steps.basics.subtitle": {
+    "text": "Так ми дізнаємося, які документи та візові правила стосуються вас.",
+    "why": "missing"
+  },
+  "student:onboarding.steps.basics.title": {
+    "text": "Звідки ви?",
+    "why": "missing"
+  },
+  "student:onboarding.steps.education.eyebrow": {
+    "text": "Ваше навчання",
+    "why": "missing"
+  },
+  "student:onboarding.steps.education.subtitle": {
+    "text": "Це потрібно, щоб перевірити вимоги до вступу. Поки що досить приблизних даних.",
+    "why": "missing"
+  },
+  "student:onboarding.steps.education.title": {
+    "text": "Розкажіть про свою поточну освіту",
+    "why": "missing"
+  },
+  "student:onboarding.steps.goals.eyebrow": {
+    "text": "Ваша мета",
+    "why": "missing"
+  },
+  "student:onboarding.steps.goals.title": {
+    "text": "Що ви хотіли б вивчати?",
+    "why": "missing"
+  },
+  "student:onboarding.steps.language.eyebrow": {
+    "text": "Мови",
+    "why": "missing"
+  },
+  "student:onboarding.steps.language.title": {
+    "text": "Як у вас із корейською та англійською?",
+    "why": "missing"
+  },
+  "student:onboarding.steps.passport.eyebrow": {
+    "text": "Поїздка",
+    "why": "missing"
+  },
+  "student:onboarding.steps.passport.title": {
+    "text": "Паспорт і візова історія",
+    "why": "missing"
+  },
+  "student:onboarding.steps.preferences.eyebrow": {
+    "text": "Бюджет і побут",
+    "why": "missing"
+  },
+  "student:onboarding.steps.preferences.subtitle": {
+    "text": "Бюджет, стипендії та житло допомагають нам упорядкувати програми для вас.",
+    "why": "missing"
+  },
+  "student:onboarding.steps.preferences.title": {
+    "text": "Що для вас важливо в повсякденному житті?",
+    "why": "missing"
+  },
+  "student:onboarding.steps.sponsor.eyebrow": {
+    "text": "Останній крок",
+    "why": "missing"
+  },
+  "student:onboarding.steps.sponsor.title": {
+    "text": "Хто підтримує ваше навчання?",
+    "why": "missing"
+  },
+  "student:profile.anywhere": {
+    "text": "Будь-де в Кореї",
+    "why": "missing"
+  },
+  "student:profile.institutionMissing": {
+    "text": "Навчальний заклад ще не додано",
+    "why": "missing"
+  },
+  "student:profile.planned": {
+    "text": "{{test}} (заплановано)",
+    "why": "missing"
+  },
+  "student:profile.saved": {
+    "text": "Профіль оновлено. Підбір оновлено",
+    "why": "natural phrasing"
+  },
+  "student:profile.title": {
+    "text": "Ваш профіль",
+    "why": "missing"
+  },
+  "student:register.consent.PRIVACY.summary": {
+    "text": "Електронна пошта, номер мобільного телефону, ім’я, громадянство та пароль (зберігається в зашифрованому вигляді) — для створення й захисту облікового запису.",
+    "why": "match English; «хеш» was an added claim"
+  },
+  "student:services.success.assigned": {
+    "text": "Вас супроводжуватиме {{agency}}",
+    "why": "missing"
+  },
+  "student:settings.account.saved": {
+    "text": "Акаунт оновлено",
+    "why": "missing"
+  },
+  "student:settings.data.kind.DELETE": {
+    "text": "Видалення акаунта",
+    "why": "missing"
+  },
+  "student:settings.data.status.COMPLETED": {
+    "text": "Виконано",
+    "why": "missing"
+  },
+  "student:settings.data.status.IN_REVIEW": {
+    "text": "Виконується",
+    "why": "missing"
+  },
+  "student:settings.data.status.REJECTED": {
+    "text": "Відхилено",
+    "why": "missing"
+  },
+  "student:settings.privacy.saved": {
+    "text": "Вибір щодо конфіденційності збережено",
+    "why": "missing"
+  },
+  "student:tasks.emptyText": {
+    "text": "Нові завдання з’являться тут, коли вам буде що зробити.",
+    "why": "missing"
+  },
+  "student:tasks.markDone": {
+    "text": "Позначити «{{title}}» як виконане",
+    "why": "missing"
+  },
+  "student:tasks.title": {
+    "text": "Завдання",
+    "why": "missing"
+  },
+  "student:v15.services.allowance.key.max_managed_applications": {
+    "text": "Заявки із супроводом",
+    "why": "glossary: managed application; short label"
+  },
+  "student:v15.services.allowance.key.mock_interviews": {
+    "text": "Пробні співбесіди",
+    "why": "missing"
+  },
+  "student:v15.services.choose": {
+    "text": "Обрати {{name}}",
+    "why": "missing"
+  },
+  "student:v15.services.chosen": {
+    "text": "Тариф, який ви обрали на сайті.",
+    "why": "missing"
+  },
+  "student:v15.services.scope.consultation_minutes": {
+    "text": "Консультація на {{count}} хвилин",
+    "why": "missing; count-neutral"
+  },
+  "student:v15.services.scope.interview_preparation": {
+    "text": "Підготовка до співбесіди",
+    "why": "missing"
+  },
+  "student:v15.services.scope.personal_roadmap": {
+    "text": "Особистий план навчання за кордоном",
+    "why": "missing"
+  },
+  "student:v15.services.scope.pre_arrival_orientation": {
+    "text": "Онлайн-орієнтація перед поїздкою",
+    "why": "missing"
+  },
+  "student:v15.services.scope.settlement_support": {
+    "text": "Допомога після приїзду",
+    "why": "match English"
+  },
+  "student:v15.services.scope.visa_support": {
+    "text": "Підготовка візових документів",
+    "why": "glossary: visa document preparation"
+  },
+  "student:v16.pay.amount": {
+    "text": "Сума",
+    "why": "missing"
+  },
+  "student:v16.pay.cancelled": {
+    "text": "Ви скасували платіж. Гроші не списано.",
+    "why": "missing"
+  },
+  "student:v16.pay.couldNotStart": {
+    "text": "Не вдалося відкрити вікно оплати.",
+    "why": "missing"
+  },
+  "student:v16.pay.cta": {
+    "text": "Оплатити й почати",
+    "why": "missing"
+  },
+  "student:v16.pay.fail.title": {
+    "text": "Платіж не пройшов",
+    "why": "missing"
+  },
+  "student:v16.pay.method": {
+    "text": "Спосіб",
+    "why": "missing"
+  },
+  "student:v16.pay.methodCard": {
+    "text": "Картка",
+    "why": "missing"
+  },
+  "student:v16.pay.notCharged": {
+    "text": "Гроші не списано.",
+    "why": "missing"
+  },
+  "student:v16.pay.orderNo": {
+    "text": "Замовлення",
+    "why": "missing"
+  },
+  "student:v16.pay.orderTitle": {
+    "text": "Ваше замовлення",
+    "why": "missing"
+  },
+  "student:v16.pay.receipt": {
+    "text": "Переглянути квитанцію",
+    "why": "missing"
+  },
+  "student:v16.pay.retry": {
+    "text": "Спробувати оплатити ще раз",
+    "why": "missing"
+  },
+  "student:v16.pay.sdkDown": {
+    "text": "Не вдалося завантажити вікно оплати. Перевірте з’єднання та спробуйте ще раз.",
+    "why": "missing"
+  },
+  "student:v16.pay.selected": {
+    "text": "Обрано",
+    "why": "missing"
+  },
+  "student:v16.pay.status.CANCELLED": {
+    "text": "Скасовано",
+    "why": "missing"
+  },
+  "student:v16.pay.status.FAILED": {
+    "text": "Не пройшов",
+    "why": "missing"
+  },
+  "student:v16.pay.status.PENDING": {
+    "text": "Очікує",
+    "why": "missing"
+  },
+  "student:v16.pay.success.cta": {
+    "text": "Почати підготовку",
+    "why": "missing"
+  },
+  "student:v16.pay.success.text": {
+    "text": "Ви починаєте підготовку до навчання в Кореї з тарифом {{name}}.",
+    "why": "missing"
+  },
+  "student:v16.pay.success.title": {
+    "text": "Оплату завершено",
+    "why": "missing"
+  },
+  "student:v17.gate.general": {
+    "text": "Ця частина Hangyul входить у тариф. Оберіть тариф, щоб почати.",
+    "why": "plan = тариф"
+  },
+  "student:v17.gate.named": {
+    "text": "У тариф входить: {{what}}. Оберіть тариф, щоб почати.",
+    "why": "plan = тариф; nominative {{what}}"
+  },
+  "student:v17.gate.what.applications": {
+    "text": "ваші заявки",
+    "why": "lowercase after colon"
+  },
+  "student:v17.gate.what.arrival": {
+    "text": "допомога з приїздом і облаштуванням",
+    "why": "match English"
+  },
+  "student:v17.gate.what.budget": {
+    "text": "ваш план витрат",
+    "why": "lowercase after colon"
+  },
+  "student:v17.gate.what.compare": {
+    "text": "порівняння програм поруч",
+    "why": "clearer"
+  },
+  "student:v17.gate.what.documents": {
+    "text": "перевірка документів",
+    "why": "lowercase after colon"
+  },
+  "student:v17.gate.what.essays": {
+    "text": "редагування мотиваційного листа та плану навчання",
+    "why": "match English"
+  },
+  "student:v17.gate.what.family": {
+    "text": "перегляд для родини",
+    "why": "lowercase after colon"
+  },
+  "student:v17.gate.what.help": {
+    "text": "допомога команди Hangyul",
+    "why": "match English"
+  },
+  "student:v17.gate.what.home": {
+    "text": "ваш простір підготовки",
+    "why": "lowercase after colon"
+  },
+  "student:v17.gate.what.housing": {
+    "text": "допомога з гуртожитком",
+    "why": "match English"
+  },
+  "student:v17.gate.what.messages": {
+    "text": "повідомлення з командою Hangyul",
+    "why": "match English"
+  },
+  "student:v17.gate.what.saved": {
+    "text": "ваш шорт-лист",
+    "why": "match English"
+  },
+  "student:v17.gate.what.scholarships": {
+    "text": "підбір стипендій",
+    "why": "match English"
+  },
+  "student:v17.gate.what.tasks": {
+    "text": "ваш список завдань",
+    "why": "match English"
+  },
+  "student:v17.gate.what.visa": {
+    "text": "підготовка візових документів",
+    "why": "glossary term"
+  },
+  "student:v17.pay.afterPay": {
+    "text": "Ми перенесемо вас на Toss Payments, де можна заплатити закордонною карткою (Visa, Mastercard, JCB). Тариф починає діяти в момент підтвердження платежу.",
+    "why": "plan = тариф"
+  },
+  "student:v17.upgrade.amount": {
+    "text": "Вартість переходу",
+    "why": "match English"
+  },
+  "student:v17.upgrade.currentPlan": {
+    "text": "Поточний тариф",
+    "why": "plan = тариф"
+  },
+  "student:v17.upgrade.feature.document_review": {
+    "text": "Поглиблена перевірка документів",
+    "why": "match English"
+  },
+  "student:v17.upgrade.feature.essay_review": {
+    "text": "Редагування мотиваційного листа",
+    "why": "match English"
+  },
+  "student:v17.upgrade.feature.managed_application": {
+    "text": "Заявки із супроводом",
+    "why": "unified term"
+  },
+  "student:v17.upgrade.feature.settlement": {
+    "text": "Допомога після приїзду",
+    "why": "unified term"
+  },
+  "student:v21.pay.cardFailed": {
+    "text": "Платіж не пройшов",
+    "why": "missing"
+  },
+  "student:v21.pay.cardSecure": {
+    "text": "Дані вашої картки передаються лише Hangyul через зашифроване з’єднання, а далі — нашому платіжному провайдеру. Ми ніколи не зберігаємо номер картки.",
+    "why": "missing"
+  },
+  "student:v21.pay.cardTitle": {
+    "text": "Оплата карткою",
+    "why": "missing"
+  },
+  "student:v21.pay.declined": {
+    "text": "Картку не прийнято: {{reason}} Спробуйте іншу картку або зверніться до свого банку.",
+    "why": "missing"
+  },
+  "student:v21.pay.expiry": {
+    "text": "Термін дії",
+    "why": "missing"
+  },
+  "student:v21.pay.holder": {
+    "text": "Ім’я на картці",
+    "why": "missing"
+  },
+  "student:v21.pay.notConfigured": {
+    "text": "Оплата карткою тут поки недоступна. Спробуйте пізніше або зв’яжіться з нами.",
+    "why": "missing"
+  },
+  "student:v21.pay.number": {
+    "text": "Номер картки",
+    "why": "missing"
+  },
+  "student:v21.pay.numberInvalid": {
+    "text": "Перевірте номер картки.",
+    "why": "missing"
+  },
+  "student:v21.pay.optional": {
+    "text": "необов’язково",
+    "why": "missing"
+  },
+  "student:v21.pay.payCta": {
+    "text": "Оплатити цією карткою",
+    "why": "missing"
+  },
+  "student:v21.pay.processing": {
+    "text": "Обробляємо ваш платіж…",
+    "why": "missing"
+  },
+  "student:v21.pay.savedDelete": {
+    "text": "Видалити",
+    "why": "missing"
+  },
+  "student:v21.pay.savedDeleteBody": {
+    "text": "Ми видалимо {{card}} з вашого акаунта. На вже здійснені платежі це не впливає.",
+    "why": "missing"
+  },
+  "student:v21.pay.savedDeleteFailed": {
+    "text": "Не вдалося видалити картку. Спробуйте ще раз.",
+    "why": "missing"
+  },
+  "student:v21.pay.savedDeleteTitle": {
+    "text": "Видалити цю картку?",
+    "why": "missing"
+  },
+  "student:v21.pay.savedNotReusable": {
+    "text": "Для наступної покупки потрібно буде ввести картку знову.",
+    "why": "missing"
+  },
+  "student:v21.pay.savedTitle": {
+    "text": "Ваша картка",
+    "why": "missing"
+  },
+  "student:v21.pay.tooMany": {
+    "text": "Забагато спроб оплати карткою. Зачекайте кілька хвилин і спробуйте ще раз.",
+    "why": "missing"
+  },
+  "student:v22.home.appTeam.follow": {
+    "text": "Уточнюємо стан розгляду в приймальній комісії {{university}}",
+    "why": "match English"
+  },
+  "student:v22.home.appTeam.letter": {
+    "text": "Відстежуємо ваш стандартний лист про зарахування від {{university}}",
+    "why": "official document name"
+  },
+  "student:v22.home.appsQuiet_few": {
+    "text": "Усі {{count}} заявки розглядають університети. Зараз від вас нічого не потрібно.",
+    "why": "uk plural form added"
+  },
+  "student:v22.home.appsQuiet_many": {
+    "text": "Усі {{count}} заявок розглядають університети. Зараз від вас нічого не потрібно.",
+    "why": "uk plural form added"
+  },
+  "student:v22.home.docsChecking_few": {
+    "text": "Перевіряються {{count}} документи",
+    "why": "uk plural form added"
+  },
+  "student:v22.home.docsChecking_many": {
+    "text": "Перевіряється {{count}} документів",
+    "why": "uk plural form added"
+  },
+  "student:v29.services.unrationed.TEAM": {
+    "text": "Супровід вашої команди",
+    "why": "match English"
+  },
+  "student:v29.services.upgrade.amountPending": {
+    "text": "Узгоджує команда Hangyul Univ",
+    "why": "match English"
+  },
+  "student:writing.needYou": {
+    "text": "Ваша черга писати або доопрацьовувати",
+    "why": "match English"
+  },
+  "student:writing.others": {
+    "text": "На перевірці в команди Hangyul або готово",
+    "why": "clearer"
+  },
+  "student:writing.status.AI_PRECHECK": {
+    "text": "Надіслано",
+    "why": "missing"
+  },
+  "student:writing.status.APPROVED": {
+    "text": "Готово",
+    "why": "missing"
+  },
+  "student:writing.status.CHANGES_REQUESTED": {
+    "text": "Потрібні зміни",
+    "why": "missing"
+  },
+  "student:writing.status.STUDENT_REVISION": {
+    "text": "Потрібні зміни",
+    "why": "missing"
+  },
+  "student:writing.status.SUBMITTED": {
+    "text": "Надіслано",
+    "why": "missing"
+  },
+  "student:writing.title": {
+    "text": "Тексти",
+    "why": "consistent with v22.home.writing"
+  },
+  "mobile:agency.deadlines.empty": {
+    "text": "Наступні 30 днів без строків",
+    "why": "missing"
+  },
+  "mobile:agency.deadlines.subtitle": {
+    "text": "Строки ваших студентів на наступні 30 днів.",
+    "why": "missing"
+  },
+  "mobile:agency.deadlines.title": {
+    "text": "Нагадування",
+    "why": "missing"
+  },
+  "mobile:agency.messages.subtitle": {
+    "text": "Розмови зі студентами та внутрішні примітки.",
+    "why": "missing"
+  },
+  "mobile:agency.messages.title": {
+    "text": "Повідомлення",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.detailTitle": {
+    "text": "Перевірка",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.empty": {
+    "text": "Черга перевірок порожня",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.emptyBody": {
+    "text": "Нові завантаження від ваших студентів з’являться тут.",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.history": {
+    "text": "Історія перевірок",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.lastReason": {
+    "text": "Попередній запит на виправлення",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.noFile": {
+    "text": "Для цього документа ще не завантажено файл.",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.sendToStudent": {
+    "text": "Надіслати студенту",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.tabA11y_few": {
+    "text": "Перевірки, {{count}} очікують",
+    "why": "uk plural"
+  },
+  "mobile:agency.reviews.tabA11y_many": {
+    "text": "Перевірки, {{count}} очікують",
+    "why": "uk plural"
+  },
+  "mobile:agency.reviews.tabA11y_one": {
+    "text": "Перевірки, {{count}} очікує",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.tabA11y_other": {
+    "text": "Перевірки, {{count}} очікує",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.title": {
+    "text": "Перевірка документів",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.verify": {
+    "text": "Підтвердити документ",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.waitingDays_few": {
+    "text": "Очікує {{count}} дні",
+    "why": "uk plural"
+  },
+  "mobile:agency.reviews.waitingDays_many": {
+    "text": "Очікує {{count}} днів",
+    "why": "uk plural"
+  },
+  "mobile:agency.reviews.waitingDays_one": {
+    "text": "Очікує {{count}} день",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.waitingDays_other": {
+    "text": "Очікує {{count}} дня",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.waitingHours_few": {
+    "text": "Очікує {{count}} години",
+    "why": "uk plural"
+  },
+  "mobile:agency.reviews.waitingHours_many": {
+    "text": "Очікує {{count}} годин",
+    "why": "uk plural"
+  },
+  "mobile:agency.reviews.waitingHours_one": {
+    "text": "Очікує {{count}} годину",
+    "why": "missing"
+  },
+  "mobile:agency.reviews.waitingHours_other": {
+    "text": "Очікує {{count}} години",
+    "why": "missing"
+  },
+  "mobile:agency.students.detailTitle": {
+    "text": "Студент",
+    "why": "missing"
+  },
+  "mobile:agency.tasks.unassigned": {
+    "text": "Не призначено",
+    "why": "missing"
+  },
+  "mobile:app.agency": {
+    "text": "Hangyul Agency",
+    "why": "missing; product name"
+  },
+  "mobile:app.student": {
+    "text": "Hangyul Univ",
+    "why": "missing; product name"
+  },
+  "mobile:app.university": {
+    "text": "Hangyul University",
+    "why": "missing; product name"
+  },
+  "mobile:login.networkError": {
+    "text": "Зараз не вдається зв’язатися з Hangyul за адресою {{url}}. Перевірте з’єднання та спробуйте ще раз за хвилину.",
+    "why": "missing"
+  },
+  "mobile:login.webSignup": {
+    "text": "Уперше тут? Створіть обліковий запис у застосунку.",
+    "why": "застосунок, consistent term"
+  },
+  "mobile:messages.empty": {
+    "text": "Розмов поки немає",
+    "why": "missing"
+  },
+  "mobile:messages.emptyBody": {
+    "text": "Повідомлення з вашою командою з’являться тут.",
+    "why": "missing"
+  },
+  "mobile:messages.internalLabel": {
+    "text": "Внутрішня примітка",
+    "why": "missing"
+  },
+  "mobile:messages.internalOn": {
+    "text": "Внутрішня примітка: її бачить лише ваша команда",
+    "why": "missing"
+  },
+  "mobile:messages.internalPlaceholder": {
+    "text": "Напишіть внутрішню примітку (лише для команди)…",
+    "why": "missing"
+  },
+  "mobile:messages.noMessages": {
+    "text": "Повідомлень поки немає",
+    "why": "missing"
+  },
+  "mobile:messages.placeholder": {
+    "text": "Напишіть повідомлення…",
+    "why": "missing"
+  },
+  "mobile:messages.sendInternal": {
+    "text": "Зберегти внутрішню примітку",
+    "why": "missing"
+  },
+  "mobile:messages.unreadCount_few": {
+    "text": "{{count}} непрочитані повідомлення",
+    "why": "uk plural"
+  },
+  "mobile:messages.unreadCount_many": {
+    "text": "{{count}} непрочитаних повідомлень",
+    "why": "uk plural"
+  },
+  "mobile:messages.unreadCount_one": {
+    "text": "{{count}} непрочитане повідомлення",
+    "why": "missing"
+  },
+  "mobile:messages.unreadCount_other": {
+    "text": "{{count}} непрочитаного повідомлення",
+    "why": "missing"
+  },
+  "mobile:more.active": {
+    "text": "Активний",
+    "why": "missing"
+  },
+  "mobile:more.allowanceSpent": {
+    "text": "Ви використали все, що входить у цей тариф. На екрані тарифів видно, який тариф покриває більше.",
+    "why": "missing"
+  },
+  "mobile:more.choose": {
+    "text": "Обрати",
+    "why": "missing"
+  },
+  "mobile:more.noPlan": {
+    "text": "Тарифу поки немає",
+    "why": "missing"
+  },
+  "mobile:more.noPlanHint": {
+    "text": "Оберіть тариф — і Hangyul почне працювати з вами",
+    "why": "missing"
+  },
+  "mobile:more.plan": {
+    "text": "Тариф",
+    "why": "missing"
+  },
+  "mobile:more.support": {
+    "text": "Отримати допомогу",
+    "why": "missing"
+  },
+  "mobile:more.supportHint": {
+    "text": "Написати команді Hangyul",
+    "why": "missing"
+  },
+  "mobile:more.webNote": {
+    "text": "Редагування профілю та оплата доступні у вебверсії.",
+    "why": "missing"
+  },
+  "mobile:notifications.unread": {
+    "text": "Непрочитані",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.essay_review_rounds": {
+    "text": "Редагування мотиваційного листа й плану навчання",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.follow_up_consultations": {
+    "text": "Додаткові консультації",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.max_managed_applications": {
+    "text": "Заявки із супроводом",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.max_recommended_institutions": {
+    "text": "Рекомендації університетів",
+    "why": "missing"
+  },
+  "mobile:plan.allowance.mock_interviews": {
+    "text": "Пробні співбесіди",
+    "why": "missing"
+  },
+  "mobile:plan.browserFailed": {
+    "text": "Не вдалося відкрити браузер. Оплатіть, будь ласка, у вебверсії.",
+    "why": "missing"
+  },
+  "mobile:plan.card": {
+    "text": "Можна оплатити закордонною карткою (Visa, Mastercard, JCB).",
+    "why": "missing"
+  },
+  "mobile:plan.chooseLede": {
+    "text": "Один платіж, без підписки. Тариф залишається з вами на час підготовки.",
+    "why": "missing"
+  },
+  "mobile:plan.chooseTitle": {
+    "text": "Оберіть тариф",
+    "why": "missing"
+  },
+  "mobile:plan.handoff": {
+    "text": "Оплата відбувається в браузері, а після завершення ви повернетеся в застосунок.",
+    "why": "missing"
+  },
+  "mobile:plan.highestAlready": {
+    "text": "У вас уже найвищий тариф.",
+    "why": "missing"
+  },
+  "mobile:plan.included": {
+    "text": "Входить у ваш тариф",
+    "why": "missing"
+  },
+  "mobile:plan.oneTime": {
+    "text": "Один платіж",
+    "why": "missing"
+  },
+  "mobile:plan.ongoing": {
+    "text": "Протягом усього періоду надання послуг",
+    "why": "missing"
+  },
+  "mobile:plan.paid": {
+    "text": "Сплачена сума",
+    "why": "missing"
+  },
+  "mobile:plan.pay": {
+    "text": "Оплатити",
+    "why": "missing"
+  },
+  "mobile:plan.plansTitle": {
+    "text": "Тарифи",
+    "why": "missing"
+  },
+  "mobile:plan.selected": {
+    "text": "Обрано",
+    "why": "missing"
+  },
+  "mobile:plan.upgradeTitle": {
+    "text": "Перехід на вищий тариф",
+    "why": "missing"
+  },
+  "mobile:plan.webNote": {
+    "text": "Історія тарифів і квитанції доступні у вебверсії.",
+    "why": "missing"
+  },
+  "mobile:settings.elsewhere": {
+    "text": "Інше",
+    "why": "missing"
+  },
+  "mobile:settings.language": {
+    "text": "Мова",
+    "why": "missing"
+  },
+  "mobile:settings.languageHint": {
+    "text": "Оберіть мову цього застосунку. Деякі мови — машинні чернетки, які ще перевіряються.",
+    "why": "missing"
+  },
+  "mobile:settings.machineDraft": {
+    "text": "машинна чернетка",
+    "why": "missing"
+  },
+  "mobile:settings.notificationsHint": {
+    "text": "Переглянути отримані сповіщення",
+    "why": "missing"
+  },
+  "mobile:settings.rtlNote": {
+    "text": "Текст справа наліво застосовано вже зараз; повністю макет віддзеркалиться після наступного відкриття застосунку.",
+    "why": "missing"
+  },
+  "mobile:settings.selected": {
+    "text": "обрано",
+    "why": "missing"
+  },
+  "mobile:settings.server": {
+    "text": "Сервер: {{url}}",
+    "why": "missing"
+  },
+  "mobile:settings.signOutBody": {
+    "text": "Щоб увійти знову, знадобляться електронна пошта та пароль.",
+    "why": "missing"
+  },
+  "mobile:settings.signOutTitle": {
+    "text": "Вийти?",
+    "why": "missing"
+  },
+  "mobile:settings.title": {
+    "text": "Налаштування",
+    "why": "missing"
+  },
+  "mobile:settings.version": {
+    "text": "Версія {{version}}",
+    "why": "missing"
+  },
+  "mobile:signup.consent.CROSS_BORDER_VERIFICATION.label": {
+    "text": "Я беру до відома, що мої електронна пошта й номер мобільного телефону обробляються за кордоном для їх підтвердження",
+    "why": "verify them (contacts), not identity"
+  },
+  "mobile:signup.degree.BACHELOR": {
+    "text": "Бакалаврат",
+    "why": "degree level, not person"
+  },
+  "mobile:signup.degree.DOCTORATE": {
+    "text": "Докторантура",
+    "why": "degree level, not person"
+  },
+  "mobile:signup.degree.MASTER": {
+    "text": "Магістратура",
+    "why": "degree level, not person"
+  },
+  "mobile:signup.quickGo": {
+    "text": "Показати підібрані програми",
+    "why": "matches term unified"
+  },
+  "mobile:student.applications.active": {
+    "text": "Активні",
+    "why": "missing"
+  },
+  "mobile:student.applications.closed": {
+    "text": "Закриті",
+    "why": "missing"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.body": {
+    "text": "Ви приймаєте пропозицію від {{university}}. Команда Hangyul Univ проведе вас через оплату навчання й отримання стандартного листа про зарахування.",
+    "why": "missing"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.cta": {
+    "text": "Прийняти пропозицію",
+    "why": "missing"
+  },
+  "mobile:student.applications.confirm.OFFER_ACCEPTED.title": {
+    "text": "Прийняти цю пропозицію?",
+    "why": "missing"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.body": {
+    "text": "Вашу заявку до {{university}} буде закрито. Скасувати це із застосунку неможливо.",
+    "why": "missing"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.cta": {
+    "text": "Відкликати заявку",
+    "why": "missing"
+  },
+  "mobile:student.applications.confirm.WITHDRAWN.title": {
+    "text": "Відкликати цю заявку?",
+    "why": "missing"
+  },
+  "mobile:student.applications.detailTitle": {
+    "text": "Заявка",
+    "why": "missing"
+  },
+  "mobile:student.applications.empty": {
+    "text": "Активних заявок немає",
+    "why": "missing"
+  },
+  "mobile:student.applications.emptyBody": {
+    "text": "Почніть із підібраних програм — тих, чиїм вимогам ви відповідаєте.",
+    "why": "matches term; clearer"
+  },
+  "mobile:student.applications.emptyClosed": {
+    "text": "Закритих заявок немає",
+    "why": "missing"
+  },
+  "mobile:student.applications.submittedOn": {
+    "text": "Подано {{date}}",
+    "why": "missing"
+  },
+  "mobile:student.applications.subtitle": {
+    "text": "Стежте за всіма заявками в одному місці.",
+    "why": "missing"
+  },
+  "mobile:student.documents.detailTitle": {
+    "text": "Документ",
+    "why": "missing"
+  },
+  "mobile:student.documents.empty": {
+    "text": "Ваше сховище порожнє",
+    "why": "missing"
+  },
+  "mobile:student.documents.emptyBody": {
+    "text": "Завантажте паспорт, виписки з оцінками та результати тестів у вебверсії.",
+    "why": "missing"
+  },
+  "mobile:student.documents.file": {
+    "text": "{{name}} · версія {{version}}",
+    "why": "missing"
+  },
+  "mobile:student.documents.fixFallback": {
+    "text": "Команда Hangyul попросила змінити цей документ.",
+    "why": "missing"
+  },
+  "mobile:student.documents.fixTitle": {
+    "text": "Що виправити",
+    "why": "missing"
+  },
+  "mobile:student.documents.openFile": {
+    "text": "Відкрити захищений перегляд",
+    "why": "missing"
+  },
+  "mobile:student.documents.reviews": {
+    "text": "Історія перевірок",
+    "why": "missing"
+  },
+  "mobile:student.documents.translationBody": {
+    "text": "Для цього документа потрібен засвідчений переклад корейською або англійською.",
+    "why": "missing"
+  },
+  "mobile:student.explore.clear": {
+    "text": "Очистити пошук",
+    "why": "missing"
+  },
+  "mobile:student.explore.save": {
+    "text": "Зберегти {{name}}",
+    "why": "missing"
+  },
+  "mobile:student.explore.searchPlaceholder": {
+    "text": "Пошук програм або університетів",
+    "why": "missing"
+  },
+  "mobile:student.explore.unsave": {
+    "text": "Прибрати {{name}} зі збережених",
+    "why": "missing"
+  },
+  "mobile:student.matches.deadline": {
+    "text": "Строк подання {{date}} · {{due}}",
+    "why": "missing"
+  },
+  "mobile:student.messages.subtitle": {
+    "text": "Спілкуйтеся з командою Hangyul Univ.",
+    "why": "missing"
+  },
+  "mobile:student.messages.unreadA11y_few": {
+    "text": "Повідомлення, {{count}} непрочитані",
+    "why": "uk plural"
+  },
+  "mobile:student.messages.unreadA11y_many": {
+    "text": "Повідомлення, {{count}} непрочитаних",
+    "why": "uk plural"
+  },
+  "mobile:student.messages.unreadA11y_one": {
+    "text": "Повідомлення, {{count}} непрочитане",
+    "why": "missing"
+  },
+  "mobile:student.messages.unreadA11y_other": {
+    "text": "Повідомлення, {{count}} непрочитаного",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.ARRIVAL_CHECKLIST": {
+    "text": "Підготуйтеся до приїзду в Корею",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.COMPARE_OFFERS": {
+    "text": "Порівняйте ваші пропозиції про зарахування ({{count}})",
+    "why": "missing; count-neutral"
+  },
+  "mobile:student.nextAction.COMPLETE_PROFILE": {
+    "text": "Заповніть профіль, щоб побачити, які університети вам підходять",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.budget": {
+    "text": "Додайте бюджет, щоб упорядкувати {{count}} програм за вартістю",
+    "why": "missing; count-neutral"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.education": {
+    "text": "Додайте освіту, щоб перевірити {{count}} програм",
+    "why": "missing; count-neutral"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.gpa": {
+    "text": "Додайте оцінки, щоб перевірити {{count}} програм",
+    "why": "missing; count-neutral"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.language": {
+    "text": "Додайте мовний бал, щоб перевірити {{count}} програм",
+    "why": "missing; count-neutral"
+  },
+  "mobile:student.nextAction.PROFILE_UNLOCK.other": {
+    "text": "Заповніть профіль, щоб перевірити {{count}} програм",
+    "why": "missing; count-neutral"
+  },
+  "mobile:student.nextAction.RESPOND_OFFER": {
+    "text": "Дайте відповідь на пропозицію про зарахування",
+    "why": "missing"
+  },
+  "mobile:student.nextAction.REVIEW_MATCHES": {
+    "text": "Перегляньте підібрані університети",
+    "why": "missing"
+  },
+  "mobile:student.profile.completion": {
+    "text": "Заповненість профілю",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.basics": {
+    "text": "Основна інформація",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.education": {
+    "text": "Освіта",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.goals": {
+    "text": "Навчальні цілі",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.language": {
+    "text": "Мовні бали",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.passport": {
+    "text": "Паспорт",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.preferences": {
+    "text": "Побажання",
+    "why": "missing"
+  },
+  "mobile:student.profile.step.sponsor": {
+    "text": "Фінансовий спонсор",
+    "why": "missing"
+  },
+  "mobile:student.saved.empty": {
+    "text": "Збережених поки немає",
+    "why": "missing"
+  },
+  "mobile:student.saved.emptyBody": {
+    "text": "Торкніться сердечка біля програми, щоб зберегти її університет тут.",
+    "why": "missing"
+  },
+  "mobile:student.tasks.confirmTitle": {
+    "text": "Позначити це завдання як виконане?",
+    "why": "missing"
+  },
+  "mobile:student.tasks.empty": {
+    "text": "Зараз нічого робити не потрібно",
+    "why": "missing"
+  },
+  "mobile:student.tasks.emptyBody": {
+    "text": "Ми додамо сюди завдання, коли щось потребуватиме вашої уваги.",
+    "why": "missing"
+  },
+  "mobile:student.tasks.overdue": {
+    "text": "Прострочено ({{count}})",
+    "why": "missing"
+  },
+  "mobile:student.tasks.subtitle": {
+    "text": "Завдання від команди Hangyul і чек-листи ваших заявок.",
+    "why": "missing"
+  },
+  "mobile:student.tasks.title": {
+    "text": "Чек-лист",
+    "why": "missing"
+  },
+  "mobile:student.tasks.upcoming": {
+    "text": "До виконання",
+    "why": "missing"
+  },
+  "mobile:university.applicants.anonymous": {
+    "text": "Вступник",
+    "why": "missing"
+  },
+  "mobile:university.applicants.confirmBody": {
+    "text": "{{name}} та консультант отримають сповіщення. Додайте примітку для запису (необов’язково).",
+    "why": "missing"
+  },
+  "mobile:university.applicants.confirmTitle": {
+    "text": "Змінити статус на «{{status}}»?",
+    "why": "missing"
+  },
+  "mobile:university.applicants.detailTitle": {
+    "text": "Вступник",
+    "why": "missing"
+  },
+  "mobile:university.applicants.history": {
+    "text": "Історія статусів",
+    "why": "missing"
+  },
+  "mobile:university.applicants.interview": {
+    "text": "Співбесіда",
+    "why": "missing"
+  },
+  "mobile:university.applicants.moveTo": {
+    "text": "Перевести в статус «{{status}}»",
+    "why": "missing; status stays nominative"
+  },
+  "mobile:university.applicants.notShared": {
+    "text": "Вашому університету ще не передано",
+    "why": "missing"
+  },
+  "mobile:university.applicants.note": {
+    "text": "Примітка",
+    "why": "missing"
+  },
+  "mobile:university.applicants.previewHint": {
+    "text": "Відкриває захищений перегляд з обмеженим строком дії",
+    "why": "missing"
+  },
+  "mobile:university.applicants.reference": {
+    "text": "Ваш реєстраційний номер",
+    "why": "missing"
+  },
+  "mobile:university.applicants.submitted": {
+    "text": "Подано {{date}}",
+    "why": "missing"
+  },
+  "mobile:university.applicants.submittedLabel": {
+    "text": "Подано",
+    "why": "missing"
+  },
+  "mobile:university.applicants.viaAgency": {
+    "text": "Через {{agency}}",
+    "why": "missing"
+  },
+  "mobile:university.flagged.add": {
+    "text": "Позначити для подальшого розгляду",
+    "why": "missing"
+  },
+  "mobile:university.flagged.addBody": {
+    "text": "Цю позначку та причину бачитиме лише команда вашого університету.",
+    "why": "missing"
+  },
+  "mobile:university.flagged.flagged": {
+    "text": "Позначено",
+    "why": "missing"
+  },
+  "mobile:university.flagged.reason": {
+    "text": "Причина",
+    "why": "missing"
+  },
+  "mobile:university.flagged.remove": {
+    "text": "Зняти позначку",
+    "why": "missing"
+  },
+  "mobile:university.flagged.removeTitle": {
+    "text": "Зняти позначку з цієї заявки?",
+    "why": "missing"
+  },
+  "mobile:university.inbox.title": {
+    "text": "Повідомлення",
+    "why": "missing"
+  },
+  "mobile:university.login.tagline": {
+    "text": "Вступники, рішення та когорти для вашого міжнародного відділу.",
+    "why": "missing"
+  },
+  "mobile:v29.mfa.codeHint": {
+    "text": "Введіть 6-значний код із застосунку-автентифікатора або код відновлення.",
+    "why": "missing"
+  },
+  "mobile:v29.mfa.codeLabel": {
+    "text": "Код підтвердження",
+    "why": "missing"
+  },
+  "mobile:v29.mfa.enrollOnWeb": {
+    "text": "Для цього облікового запису потрібна двоетапна перевірка. Спершу налаштуйте її у вебконсолі, а потім увійдіть тут.",
+    "why": "missing"
+  },
+  "mobile:v29.mfa.verify": {
+    "text": "Підтвердити й увійти",
+    "why": "missing"
+  },
+  "mobile:v29.mfa.wrongCode": {
+    "text": "Код неправильний або його термін дії минув. Введіть новий.",
+    "why": "missing"
+  },
+  "mobile:v29.plan.supportDays": {
+    "text": "Консультації протягом {{count}} днів від першої консультації",
+    "why": "match English; count-neutral"
+  },
+  "mobile:v29.plan.term": {
+    "text": "Період надання послуг",
+    "why": "glossary: service period"
+  },
+  "mobile:v29.plan.termToAgree": {
+    "text": "Узгоджується на початку послуги",
+    "why": "match English"
+  },
+  "mobile:v29.plan.unrationed.TEAM": {
+    "text": "Супровід вашої команди",
+    "why": "match English"
+  },
+  "mobile:v3.agency.allClear": {
+    "text": "Усе гаразд: {{list}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.applications_few": {
+    "text": "{{count}} заявки",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.applications_many": {
+    "text": "{{count}} заявок",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.applications_one": {
+    "text": "{{count}} заявка",
+    "why": "missing"
+  },
+  "mobile:v3.agency.applications_other": {
+    "text": "{{count}} заявки",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.breached_few": {
+    "text": "{{count}} уже понад обіцяний строк",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.att.breached_many": {
+    "text": "{{count}} уже понад обіцяний строк",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.att.breached_one": {
+    "text": "{{count}} уже понад обіцяний строк",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.breached_other": {
+    "text": "{{count}} уже понад обіцяний строк",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.closing_few": {
+    "text": "Строк подання заявок минає протягом 7 днів",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.att.closing_many": {
+    "text": "Строк подання заявок минає протягом 7 днів",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.att.closing_one": {
+    "text": "Строк подання заявки минає протягом 7 днів",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.closing_other": {
+    "text": "Строк подання заявок минає протягом 7 днів",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.docs_few": {
+    "text": "Документи очікують перевірки",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.att.docs_many": {
+    "text": "Документи очікують перевірки",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.att.docs_one": {
+    "text": "Документ очікує перевірки",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.docs_other": {
+    "text": "Документи очікують перевірки",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.next": {
+    "text": "Далі: {{uni}} ({{who}}), {{date}}",
+    "why": "missing; name stays nominative"
+  },
+  "mobile:v3.agency.att.overSla": {
+    "text": "Очікують довше {{hours}} год: {{count}}",
+    "why": "missing; count-neutral"
+  },
+  "mobile:v3.agency.att.overdue_few": {
+    "text": "Прострочені завдання",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.att.overdue_many": {
+    "text": "Прострочені завдання",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.att.overdue_one": {
+    "text": "Прострочене завдання",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.overdue_other": {
+    "text": "Прострочені завдання",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.replies_few": {
+    "text": "Студенти чекають на вашу відповідь",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.att.replies_many": {
+    "text": "Студенти чекають на вашу відповідь",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.att.replies_one": {
+    "text": "Студент чекає на вашу відповідь",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.replies_other": {
+    "text": "Студенти чекають на вашу відповідь",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.since": {
+    "text": "Найдавніше: {{who}}, {{when}}",
+    "why": "missing; name stays nominative"
+  },
+  "mobile:v3.agency.att.sla_few": {
+    "text": "Студенти з ризиком запізнілої першої відповіді",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.att.sla_many": {
+    "text": "Студенти з ризиком запізнілої першої відповіді",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.att.sla_one": {
+    "text": "Студент із ризиком запізнілої першої відповіді",
+    "why": "missing"
+  },
+  "mobile:v3.agency.att.sla_other": {
+    "text": "Студенти з ризиком запізнілої першої відповіді",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.deadline": {
+    "text": "Строк подання до {{uni}} скоро мине",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.fix": {
+    "text": "{{doc}}: потрібне виправлення від студента",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.requested": {
+    "text": "{{uni}} запитав додаткові документи",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.review": {
+    "text": "{{doc}} очікує вашої перевірки",
+    "why": "missing"
+  },
+  "mobile:v3.agency.block.sla": {
+    "text": "Час першої відповіді",
+    "why": "missing"
+  },
+  "mobile:v3.agency.blockers_few": {
+    "text": "{{count}} перешкоди стримують цього студента",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.blockers_many": {
+    "text": "{{count}} перешкод стримують цього студента",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.blockers_one": {
+    "text": "{{count}} перешкода стримує цього студента",
+    "why": "missing"
+  },
+  "mobile:v3.agency.blockers_other": {
+    "text": "{{count}} перешкоди стримують цього студента",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.closing": {
+    "text": "строки цього тижня",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.docs": {
+    "text": "перевірки документів",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.overdue": {
+    "text": "прострочені завдання",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.replies": {
+    "text": "відповіді студентам",
+    "why": "missing"
+  },
+  "mobile:v3.agency.clear.sla": {
+    "text": "перші відповіді",
+    "why": "missing"
+  },
+  "mobile:v3.agency.conversationSubject": {
+    "text": "Ваша команда з навчання в Кореї",
+    "why": "missing"
+  },
+  "mobile:v3.agency.deadline": {
+    "text": "{{uni}} {{when}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.documents": {
+    "text": "Документи · підтверджено {{verified}} з {{total}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.dueToday_few": {
+    "text": "Строк сьогодні · {{count}}",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.dueToday_many": {
+    "text": "Строк сьогодні · {{count}}",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.dueToday_one": {
+    "text": "Строк сьогодні · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.dueToday_other": {
+    "text": "Строк сьогодні · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.findStudent": {
+    "text": "Знайти студента",
+    "why": "missing"
+  },
+  "mobile:v3.agency.firstMessage": {
+    "text": "Написати: {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.greeting.afternoon": {
+    "text": "Добрий день, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.greeting.evening": {
+    "text": "Добрий вечір, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.greeting.morning": {
+    "text": "Доброго ранку, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.message": {
+    "text": "Написати",
+    "why": "missing"
+  },
+  "mobile:v3.agency.messageLabel": {
+    "text": "Повідомлення",
+    "why": "missing"
+  },
+  "mobile:v3.agency.needsAttention": {
+    "text": "Потребує уваги",
+    "why": "missing"
+  },
+  "mobile:v3.agency.nextAction": {
+    "text": "Далі: {{what}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.noBlockers": {
+    "text": "Ніщо не стримує цього студента",
+    "why": "missing"
+  },
+  "mobile:v3.agency.noBlockersBody": {
+    "text": "Документи, строки та відповіді — усе за графіком.",
+    "why": "missing"
+  },
+  "mobile:v3.agency.noStudents": {
+    "text": "У цьому фільтрі студентів немає",
+    "why": "missing"
+  },
+  "mobile:v3.agency.noStudentsBody": {
+    "text": "Спробуйте інший фільтр або очистіть пошук.",
+    "why": "missing"
+  },
+  "mobile:v3.agency.searchPlaceholder": {
+    "text": "Ім’я або електронна пошта",
+    "why": "missing"
+  },
+  "mobile:v3.agency.stage": {
+    "text": "Етап",
+    "why": "missing"
+  },
+  "mobile:v3.agency.stageNote": {
+    "text": "Примітка для команди (необов’язково)",
+    "why": "missing"
+  },
+  "mobile:v3.agency.stageTo": {
+    "text": "Перевести на етап «{{stage}}»",
+    "why": "missing; stage stays nominative"
+  },
+  "mobile:v3.agency.teamView": {
+    "text": "Команда · {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.agency.toFix_few": {
+    "text": "Виправити: {{count}} документи",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.toFix_many": {
+    "text": "Виправити: {{count}} документів",
+    "why": "uk plural"
+  },
+  "mobile:v3.agency.toFix_one": {
+    "text": "Виправити: {{count}} документ",
+    "why": "missing"
+  },
+  "mobile:v3.agency.toFix_other": {
+    "text": "Виправити: {{count}} документа",
+    "why": "missing"
+  },
+  "mobile:v3.agency.today": {
+    "text": "Сьогодні",
+    "why": "missing"
+  },
+  "mobile:v3.agency.upload": {
+    "text": "Завантажити",
+    "why": "missing"
+  },
+  "mobile:v3.agency.uploadFor": {
+    "text": "{{doc}} · {{name}}",
+    "why": "missing; name stays nominative"
+  },
+  "mobile:v3.agency.uploadWhat": {
+    "text": "Який документ ви завантажуєте?",
+    "why": "missing"
+  },
+  "mobile:v3.agency.uploaded": {
+    "text": "Завантажено у сховище студента. Готово до перевірки.",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.all": {
+    "text": "Усі",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.attention": {
+    "text": "Потребують уваги",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.deadline": {
+    "text": "Строк близько",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.docs": {
+    "text": "Документи на виправлення",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.mine": {
+    "text": "Мої студенти",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.sla": {
+    "text": "Студенти, яким перша відповідь прострочена або майже прострочена",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.university": {
+    "text": "Чекають на університет",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.visa": {
+    "text": "Віза",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.waiting_student": {
+    "text": "Чекають на студента",
+    "why": "missing"
+  },
+  "mobile:v3.agency.view.waiting_us": {
+    "text": "Чекають на нас",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.agency": {
+    "text": "Чекає на команду агенції",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.counselor": {
+    "text": "Чекає на консультанта",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.external": {
+    "text": "Чекає на зовнішню установу",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.hangyul": {
+    "text": "Чекає на Hangyul",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.none": {
+    "text": "Нічого не очікується",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.student": {
+    "text": "Чекає на студента",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.university": {
+    "text": "Чекає на університет",
+    "why": "missing"
+  },
+  "mobile:v3.agency.waitingOn.us": {
+    "text": "Чекає на нас",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.ADDITIONAL_DOCUMENTS": {
+    "text": "Університет попросив ще один документ.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Ваш лист про зарахування готовий. Починайте візові документи.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.ADMISSION_CERTIFICATE_PENDING": {
+    "text": "Очікуємо ваш стандартний лист про зарахування.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.DOCUMENT_PREPARATION": {
+    "text": "Ви готуєте документи.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.DRAFT": {
+    "text": "Ви почали цю заявку.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.ENROLLED": {
+    "text": "Вас зараховано на навчання. Ласкаво просимо до Кореї.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.INTERVIEW": {
+    "text": "Університет хоче провести з вами співбесіду.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.OFFERED": {
+    "text": "Ви отримали пропозицію.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.OFFER_ACCEPTED": {
+    "text": "Ви прийняли пропозицію. Далі: оплата навчання.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.PROFILE_REVIEW": {
+    "text": "Команда Hangyul Univ перевіряє ваш профіль.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.READY": {
+    "text": "Усе перевірено. Можна подавати.",
+    "why": "submit = подати"
+  },
+  "mobile:v3.appStatus.REJECTED": {
+    "text": "Цього разу університет не запропонував місце.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.SUBMITTED": {
+    "text": "Подано до {{university}}.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.TUITION_PAID": {
+    "text": "Оплату навчання отримано. Університет готує ваш лист про зарахування.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.TUITION_PENDING": {
+    "text": "Оплатіть навчання безпосередньо університету до зазначеного строку.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.UNIVERSITY_REVIEW": {
+    "text": "{{university}} розглядає вашу заявку.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.VISA_PREPARATION": {
+    "text": "Ви готуєте візову заяву.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.VISA_SUBMITTED": {
+    "text": "Візову заяву подано.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.WAITLISTED": {
+    "text": "Ви в списку очікування.",
+    "why": "missing"
+  },
+  "mobile:v3.appStatus.WITHDRAWN": {
+    "text": "Цю заявку відкликано.",
+    "why": "missing"
+  },
+  "mobile:v3.application.closes": {
+    "text": "Закривається {{date}} · {{left}}",
+    "why": "missing"
+  },
+  "mobile:v3.application.due": {
+    "text": "До {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.application.ready": {
+    "text": "Готово до подання",
+    "why": "missing"
+  },
+  "mobile:v3.application.readyBody": {
+    "text": "Усе необхідне на місці.",
+    "why": "missing"
+  },
+  "mobile:v3.application.reviewBody": {
+    "text": "Подано {{date}}. Університет може попросити ще один документ або запросити на співбесіду. Команда Hangyul стежить за розглядом.",
+    "why": "missing"
+  },
+  "mobile:v3.application.reviewTitle": {
+    "text": "{{university}} розглядає вашу заявку",
+    "why": "missing"
+  },
+  "mobile:v3.application.reviewing": {
+    "text": "Перевіряємо: {{item}}",
+    "why": "missing"
+  },
+  "mobile:v3.application.submit": {
+    "text": "Подати заявку",
+    "why": "missing"
+  },
+  "mobile:v3.application.teamMonitoring": {
+    "text": "На зв’язку з університетом",
+    "why": "missing"
+  },
+  "mobile:v3.application.teamWaiting": {
+    "text": "Чекаємо на ваші документи",
+    "why": "missing"
+  },
+  "mobile:v3.application.timeline": {
+    "text": "Хронологія",
+    "why": "missing"
+  },
+  "mobile:v3.application.uni.decided": {
+    "text": "Рішення ухвалено",
+    "why": "missing"
+  },
+  "mobile:v3.application.uni.reviewing": {
+    "text": "Розглядає вашу заявку",
+    "why": "missing"
+  },
+  "mobile:v3.application.uni.waiting": {
+    "text": "Чекає на вашу заявку",
+    "why": "missing"
+  },
+  "mobile:v3.application.university": {
+    "text": "Університет",
+    "why": "missing"
+  },
+  "mobile:v3.application.uploadRequested": {
+    "text": "Завантажте цей документ",
+    "why": "missing"
+  },
+  "mobile:v3.application.who": {
+    "text": "Хто що робить",
+    "why": "missing"
+  },
+  "mobile:v3.application.withdraw": {
+    "text": "Відкликати цю заявку",
+    "why": "missing"
+  },
+  "mobile:v3.application.you": {
+    "text": "Ви",
+    "why": "missing"
+  },
+  "mobile:v3.common.all": {
+    "text": "Переглянути все",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.bucket.later_few": {
+    "text": "Пізніше цього місяця · {{count}}",
+    "why": "uk plural"
+  },
+  "mobile:v3.deadlines.bucket.later_many": {
+    "text": "Пізніше цього місяця · {{count}}",
+    "why": "uk plural"
+  },
+  "mobile:v3.deadlines.bucket.later_one": {
+    "text": "Пізніше цього місяця · {{count}}",
+    "why": "uk plural"
+  },
+  "mobile:v3.deadlines.bucket.later_other": {
+    "text": "Пізніше цього місяця · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.bucket.overdue_few": {
+    "text": "Прострочено · {{count}}",
+    "why": "uk plural"
+  },
+  "mobile:v3.deadlines.bucket.overdue_many": {
+    "text": "Прострочено · {{count}}",
+    "why": "uk plural"
+  },
+  "mobile:v3.deadlines.bucket.overdue_one": {
+    "text": "Прострочено · {{count}}",
+    "why": "uk plural"
+  },
+  "mobile:v3.deadlines.bucket.overdue_other": {
+    "text": "Прострочено · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.bucket.week_few": {
+    "text": "Наступні 7 днів · {{count}}",
+    "why": "uk plural"
+  },
+  "mobile:v3.deadlines.bucket.week_many": {
+    "text": "Наступні 7 днів · {{count}}",
+    "why": "uk plural"
+  },
+  "mobile:v3.deadlines.bucket.week_one": {
+    "text": "Наступні 7 днів · {{count}}",
+    "why": "uk plural"
+  },
+  "mobile:v3.deadlines.bucket.week_other": {
+    "text": "Наступні 7 днів · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.emptyView": {
+    "text": "У цьому фільтрі нічого не заплановано",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.student": {
+    "text": "Студент",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.who.all": {
+    "text": "Усі",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.who.mine": {
+    "text": "Мої",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.who.unassigned": {
+    "text": "Не призначено",
+    "why": "missing"
+  },
+  "mobile:v3.deadlines.you": {
+    "text": "Ви",
+    "why": "missing"
+  },
+  "mobile:v3.discover.all": {
+    "text": "Усі",
+    "why": "missing"
+  },
+  "mobile:v3.discover.any": {
+    "text": "Без обмежень",
+    "why": "missing; gender-neutral filter value"
+  },
+  "mobile:v3.discover.closes": {
+    "text": "закривається {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.discover.degree": {
+    "text": "Що ви хочете вивчати?",
+    "why": "missing"
+  },
+  "mobile:v3.discover.emptyVerdict": {
+    "text": "Зараз тут нічого немає",
+    "why": "missing"
+  },
+  "mobile:v3.discover.explain.notyet": {
+    "text": "Одна з опублікованих вимог поки не виконана. У кожному рядку сказано, яка саме.",
+    "why": "missing"
+  },
+  "mobile:v3.discover.explain.possible": {
+    "text": "Ви відповідаєте опублікованим мінімальним вимогам, але одне потребує уваги — зазвичай бюджет або строк подання.",
+    "why": "no «дедлайн»; glossary wording"
+  },
+  "mobile:v3.discover.explain.strong": {
+    "text": "Ви відповідаєте всім опублікованим базовим вимогам, і програма підходить за бюджетом і планами.",
+    "why": "missing"
+  },
+  "mobile:v3.discover.filters": {
+    "text": "Фільтри",
+    "why": "missing"
+  },
+  "mobile:v3.discover.filtersN": {
+    "text": "Фільтри · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.discover.forYou": {
+    "text": "Для вас",
+    "why": "missing"
+  },
+  "mobile:v3.discover.language": {
+    "text": "Мова навчання",
+    "why": "missing"
+  },
+  "mobile:v3.discover.noLanguageMin": {
+    "text": "Без мовного мінімуму",
+    "why": "missing"
+  },
+  "mobile:v3.discover.openOnly": {
+    "text": "Відкриті для подання",
+    "why": "missing"
+  },
+  "mobile:v3.discover.perYear": {
+    "text": "≈ {{amount}} / рік",
+    "why": "missing"
+  },
+  "mobile:v3.discover.saved": {
+    "text": "Збережені · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v3.discover.savedEmpty": {
+    "text": "Збережених університетів поки немає",
+    "why": "missing"
+  },
+  "mobile:v3.discover.savedEmptyBody": {
+    "text": "Торкніться сердечка біля будь-якої програми, щоб зберегти її тут на потім.",
+    "why": "missing"
+  },
+  "mobile:v3.discover.showResults_few": {
+    "text": "Показати {{count}} програми",
+    "why": "uk plural"
+  },
+  "mobile:v3.discover.showResults_many": {
+    "text": "Показати {{count}} програм",
+    "why": "uk plural"
+  },
+  "mobile:v3.discover.showResults_one": {
+    "text": "Показати {{count}} програму",
+    "why": "missing"
+  },
+  "mobile:v3.discover.showResults_other": {
+    "text": "Показати {{count}} програми",
+    "why": "missing"
+  },
+  "mobile:v3.discover.summary_few": {
+    "text": "Ви відповідаєте опублікованим вимогам {{count}} програм.",
+    "why": "uk plural"
+  },
+  "mobile:v3.discover.summary_many": {
+    "text": "Ви відповідаєте опублікованим вимогам {{count}} програм.",
+    "why": "uk plural"
+  },
+  "mobile:v3.discover.summary_one": {
+    "text": "Ви відповідаєте опублікованим вимогам {{count}} програми.",
+    "why": "missing"
+  },
+  "mobile:v3.discover.summary_other": {
+    "text": "Ви відповідаєте опублікованим вимогам {{count}} програми.",
+    "why": "missing"
+  },
+  "mobile:v3.discover.tuition": {
+    "text": "Навчання за семестр",
+    "why": "missing"
+  },
+  "mobile:v3.discover.upTo": {
+    "text": "До ₩{{amount}} млн",
+    "why": "missing"
+  },
+  "mobile:v3.docAction.FIX": {
+    "text": "Потрібно виправити",
+    "why": "missing"
+  },
+  "mobile:v3.docAction.IN_REVIEW": {
+    "text": "Перевіряє команда Hangyul",
+    "why": "missing"
+  },
+  "mobile:v3.docAction.LEGALIZE": {
+    "text": "Потрібен апостиль або консульська легалізація",
+    "why": "missing"
+  },
+  "mobile:v3.docAction.UPLOAD": {
+    "text": "Ще не завантажено",
+    "why": "missing"
+  },
+  "mobile:v3.documents.allSet": {
+    "text": "Зараз від вас нічого не потрібно.",
+    "why": "missing"
+  },
+  "mobile:v3.documents.checking": {
+    "text": "На перевірці",
+    "why": "missing"
+  },
+  "mobile:v3.documents.howTo": {
+    "text": "Як отримати: {{path}}",
+    "why": "missing"
+  },
+  "mobile:v3.documents.issuedIn": {
+    "text": "Країна видачі",
+    "why": "missing"
+  },
+  "mobile:v3.documents.issuedOn": {
+    "text": "Дата видачі",
+    "why": "missing"
+  },
+  "mobile:v3.documents.needYou_few": {
+    "text": "{{count}} потребують вашої уваги",
+    "why": "uk plural"
+  },
+  "mobile:v3.documents.needYou_many": {
+    "text": "{{count}} потребують вашої уваги",
+    "why": "uk plural"
+  },
+  "mobile:v3.documents.needYou_one": {
+    "text": "{{count}} потребує вашої уваги",
+    "why": "missing"
+  },
+  "mobile:v3.documents.needYou_other": {
+    "text": "{{count}} потребує вашої уваги",
+    "why": "missing"
+  },
+  "mobile:v3.documents.neededFor": {
+    "text": "Потрібен для {{university}}",
+    "why": "missing"
+  },
+  "mobile:v3.documents.needsYou": {
+    "text": "Потребує вашої уваги",
+    "why": "missing"
+  },
+  "mobile:v3.documents.newVersion": {
+    "text": "Завантажити нову версію",
+    "why": "missing"
+  },
+  "mobile:v3.documents.ready": {
+    "text": "Готово",
+    "why": "missing"
+  },
+  "mobile:v3.documents.readyOf": {
+    "text": "Готово документів: {{ready}} з {{total}}",
+    "why": "missing"
+  },
+  "mobile:v3.documents.readyTitle": {
+    "text": "Готові",
+    "why": "missing"
+  },
+  "mobile:v3.documents.sourceVerified": {
+    "text": "Офіційне джерело · перевірено {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.documents.state.fix": {
+    "text": "Потрібно виправити",
+    "why": "missing"
+  },
+  "mobile:v3.documents.state.legalize": {
+    "text": "Потрібен апостиль",
+    "why": "missing"
+  },
+  "mobile:v3.documents.state.ready": {
+    "text": "Готово",
+    "why": "missing"
+  },
+  "mobile:v3.documents.state.review": {
+    "text": "На перевірці",
+    "why": "missing"
+  },
+  "mobile:v3.documents.submitted": {
+    "text": "Подано {{when}}",
+    "why": "missing"
+  },
+  "mobile:v3.documents.upload": {
+    "text": "Завантажити",
+    "why": "missing"
+  },
+  "mobile:v3.documents.validUntil": {
+    "text": "Дійсний до {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.documents.validUntilLabel": {
+    "text": "Дійсний до",
+    "why": "missing"
+  },
+  "mobile:v3.home.applications": {
+    "text": "Ваші заявки",
+    "why": "missing"
+  },
+  "mobile:v3.home.closes": {
+    "text": "Закривається {{date}} · {{left}}",
+    "why": "missing"
+  },
+  "mobile:v3.home.documentsHint": {
+    "text": "Завантажте, виправте або отримайте апостиль",
+    "why": "missing"
+  },
+  "mobile:v3.home.documents_few": {
+    "text": "{{count}} документи потребують вашої уваги",
+    "why": "uk plural"
+  },
+  "mobile:v3.home.documents_many": {
+    "text": "{{count}} документів потребують вашої уваги",
+    "why": "uk plural"
+  },
+  "mobile:v3.home.documents_one": {
+    "text": "{{count}} документ потребує вашої уваги",
+    "why": "missing"
+  },
+  "mobile:v3.home.documents_other": {
+    "text": "{{count}} документа потребують вашої уваги",
+    "why": "missing"
+  },
+  "mobile:v3.home.due": {
+    "text": "До {{date}} · {{left}}",
+    "why": "missing"
+  },
+  "mobile:v3.home.findUniversities": {
+    "text": "Знайти університети",
+    "why": "missing"
+  },
+  "mobile:v3.home.greeting.afternoon": {
+    "text": "Добрий день, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.home.greeting.evening": {
+    "text": "Добрий вечір, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.home.greeting.morning": {
+    "text": "Доброго ранку, {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.home.message": {
+    "text": "Написати",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.APPLICATION_DEADLINE": {
+    "text": "Завершіть чек-лист, щоб заявку можна було подати вчасно.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.DOCUMENT_UPLOAD": {
+    "text": "Завантажте чіткий скан або фото. Команда Hangyul перевірить і повідомить, якщо щось потрібно виправити.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.ESSAY_WRITE": {
+    "text": "Почніть із чернетки. Команда Hangyul перегляне її разом з вами.",
+    "why": "team identity, not «консультант»"
+  },
+  "mobile:v3.home.nextBody.REVIEW_MATCHES": {
+    "text": "Ми порівняли ваш профіль з опублікованими вимогами. Збережіть кілька програм, а потім почніть заявку.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.TUITION_PAYMENT": {
+    "text": "Навчання оплачується безпосередньо університету, від вашого імені.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.UNIVERSITY_REQUEST": {
+    "text": "Університет попросив ще один документ, перш ніж ухвалити рішення.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.VISA_STEP": {
+    "text": "Виконайте наступний пункт візового чек-листа.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextBody.WAIT": {
+    "text": "Зараз від вас нічого не потрібно. Ми повідомимо, щойно щось зміниться.",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.APPLICATION_DEADLINE": {
+    "text": "Відкрити заявку",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.APPLICATION_SUBMIT": {
+    "text": "Перевірити й подати",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.ARRIVAL_CHECKLIST": {
+    "text": "Відкрити чек-лист приїзду",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.COMPARE_OFFERS": {
+    "text": "Порівняти пропозиції",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.COMPLETE_PROFILE": {
+    "text": "Продовжити профіль",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.DOCUMENT_UPLOAD": {
+    "text": "Завантажити документ",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.ESSAY_WRITE": {
+    "text": "Відкрити чернетку",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.INTERVIEW": {
+    "text": "Підготуватися до співбесіди",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.RESPOND_OFFER": {
+    "text": "Переглянути пропозицію",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.REVIEW_MATCHES": {
+    "text": "Мої університети",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.TUITION_PAYMENT": {
+    "text": "Деталі оплати",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.UNIVERSITY_REQUEST": {
+    "text": "Що запитав університет",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCta.VISA_STEP": {
+    "text": "Відкрити візові кроки",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextCtaDefault": {
+    "text": "Почати",
+    "why": "missing"
+  },
+  "mobile:v3.home.nextEyebrow": {
+    "text": "Що робити зараз",
+    "why": "missing"
+  },
+  "mobile:v3.home.noApplications": {
+    "text": "Заявок поки немає. Почніть з університетів, які вам підходять.",
+    "why": "missing"
+  },
+  "mobile:v3.home.noCounselor": {
+    "text": "Оберіть тариф — і команда Hangyul Univ працюватиме з вами вашою мовою.",
+    "why": "plan = тариф"
+  },
+  "mobile:v3.home.otherTasks_few": {
+    "text": "{{count}} інші завдання",
+    "why": "uk plural"
+  },
+  "mobile:v3.home.otherTasks_many": {
+    "text": "{{count}} інших завдань",
+    "why": "uk plural"
+  },
+  "mobile:v3.home.otherTasks_one": {
+    "text": "{{count}} інше завдання",
+    "why": "missing"
+  },
+  "mobile:v3.home.otherTasks_other": {
+    "text": "{{count}} іншого завдання",
+    "why": "missing"
+  },
+  "mobile:v3.home.stageLine.admission": {
+    "text": "Вас зараховано. Закріплюємо ваше місце",
+    "why": "Admitted = зараховано, consistent"
+  },
+  "mobile:v3.home.stageLine.apply": {
+    "text": "Університети розглядають ваші заявки",
+    "why": "missing"
+  },
+  "mobile:v3.home.stageLine.arrival": {
+    "text": "Готуємося до приїзду в Корею",
+    "why": "missing"
+  },
+  "mobile:v3.home.stageLine.discover": {
+    "text": "Шукаємо відповідні університети",
+    "why": "missing"
+  },
+  "mobile:v3.home.stageLine.prepare": {
+    "text": "Готуємо ваші заявки",
+    "why": "missing"
+  },
+  "mobile:v3.home.stageLine.visa": {
+    "text": "Готуємо документи на студентську візу",
+    "why": "missing; we do not issue visas"
+  },
+  "mobile:v3.home.team": {
+    "text": "Команда Hangyul Univ",
+    "why": "missing"
+  },
+  "mobile:v3.home.unread_few": {
+    "text": "{{count}} непрочитані повідомлення",
+    "why": "uk plural"
+  },
+  "mobile:v3.home.unread_many": {
+    "text": "{{count}} непрочитаних повідомлень",
+    "why": "uk plural"
+  },
+  "mobile:v3.home.unread_one": {
+    "text": "{{count}} непрочитане повідомлення",
+    "why": "missing"
+  },
+  "mobile:v3.home.unread_other": {
+    "text": "{{count}} непрочитаного повідомлення",
+    "why": "missing"
+  },
+  "mobile:v3.home.upcoming": {
+    "text": "Найближчим часом",
+    "why": "missing"
+  },
+  "mobile:v3.journey.admission": {
+    "text": "Зарахування",
+    "why": "missing"
+  },
+  "mobile:v3.journey.apply": {
+    "text": "Подання",
+    "why": "missing"
+  },
+  "mobile:v3.journey.arrival": {
+    "text": "Приїзд",
+    "why": "missing"
+  },
+  "mobile:v3.journey.discover": {
+    "text": "Пошук",
+    "why": "missing"
+  },
+  "mobile:v3.journey.next": {
+    "text": "Далі: {{stage}}",
+    "why": "missing"
+  },
+  "mobile:v3.journey.of": {
+    "text": "· {{n}} з {{total}}",
+    "why": "missing"
+  },
+  "mobile:v3.journey.prepare": {
+    "text": "Підготовка",
+    "why": "missing"
+  },
+  "mobile:v3.journey.step": {
+    "text": "Крок {{n}} з {{total}}: {{stage}}",
+    "why": "missing"
+  },
+  "mobile:v3.journey.visa": {
+    "text": "Віза",
+    "why": "missing"
+  },
+  "mobile:v3.match.close": {
+    "text": "Поки не відповідає — лишився один крок",
+    "why": "missing"
+  },
+  "mobile:v3.match.notYet": {
+    "text": "Поки не відповідає вимогам",
+    "why": "missing"
+  },
+  "mobile:v3.match.possible": {
+    "text": "Можливий варіант",
+    "why": "missing"
+  },
+  "mobile:v3.match.strong": {
+    "text": "Підходить добре",
+    "why": "missing"
+  },
+  "mobile:v3.messages.attach": {
+    "text": "Прикріпити файл",
+    "why": "missing"
+  },
+  "mobile:v3.messages.attachUnavailable": {
+    "text": "Вкладення поки недоступні.",
+    "why": "missing"
+  },
+  "mobile:v3.messages.attachmentOnly_few": {
+    "text": "Надіслано {{count}} вкладення",
+    "why": "uk plural"
+  },
+  "mobile:v3.messages.attachmentOnly_many": {
+    "text": "Надіслано {{count}} вкладень",
+    "why": "uk plural"
+  },
+  "mobile:v3.messages.attachmentOnly_one": {
+    "text": "Надіслано {{count}} вкладення",
+    "why": "missing"
+  },
+  "mobile:v3.messages.attachmentOnly_other": {
+    "text": "Надіслано {{count}} вкладення",
+    "why": "missing"
+  },
+  "mobile:v3.messages.conversations": {
+    "text": "Розмови",
+    "why": "missing"
+  },
+  "mobile:v3.messages.openAttachment": {
+    "text": "Відкрити {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.messages.removeAttachment": {
+    "text": "Прибрати {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.offer.accept": {
+    "text": "Прийняти пропозицію",
+    "why": "missing"
+  },
+  "mobile:v3.offer.body": {
+    "text": "{{university}} запропонував вам місце на програмі {{program}}.",
+    "why": "missing"
+  },
+  "mobile:v3.offer.deadline": {
+    "text": "Прийміть і оплатіть навчання до {{date}} · {{left}}",
+    "why": "missing"
+  },
+  "mobile:v3.offer.next": {
+    "text": "Що буде далі",
+    "why": "missing"
+  },
+  "mobile:v3.offer.scholarship": {
+    "text": "Стипендія",
+    "why": "missing"
+  },
+  "mobile:v3.offer.step.accept": {
+    "text": "Прийміть пропозицію",
+    "why": "missing"
+  },
+  "mobile:v3.offer.step.letter": {
+    "text": "Отримайте стандартний лист про зарахування",
+    "why": "missing"
+  },
+  "mobile:v3.offer.step.review": {
+    "text": "Перегляньте пропозицію та її умови",
+    "why": "missing"
+  },
+  "mobile:v3.offer.step.tuition": {
+    "text": "Оплатіть навчання безпосередньо університету",
+    "why": "missing"
+  },
+  "mobile:v3.offer.step.visa": {
+    "text": "Підготуйте студентську візу",
+    "why": "missing"
+  },
+  "mobile:v3.offer.tuition": {
+    "text": "Навчання",
+    "why": "missing"
+  },
+  "mobile:v3.offer.tuitionDirect": {
+    "text": "Hangyul ніколи не збирає плату за навчання. Платіть університету від свого імені за його інструкціями.",
+    "why": "missing"
+  },
+  "mobile:v3.profile.completeTitle": {
+    "text": "Ваш профіль заповнено",
+    "why": "missing"
+  },
+  "mobile:v3.profile.done": {
+    "text": "Готово",
+    "why": "missing"
+  },
+  "mobile:v3.profile.editOnWeb": {
+    "text": "Ці відповіді можна будь-коли змінити у вебверсії.",
+    "why": "missing"
+  },
+  "mobile:v3.profile.places": {
+    "text": "Ваші дані",
+    "why": "missing"
+  },
+  "mobile:v3.profile.todo": {
+    "text": "Залишилося додати",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.basics": {
+    "text": "Показує, які правила щодо документів і віз стосуються вас",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.default": {
+    "text": "Робить підбір програм точнішим",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.education": {
+    "text": "Прибирає програми, академічним вимогам яких ви не відповідаєте",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.goals": {
+    "text": "Показує програми потрібного рівня та набору",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.passport": {
+    "text": "Потрібно, перш ніж подати будь-яку заявку",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.preferences": {
+    "text": "Упорядковує університети за вашим бюджетом і містом",
+    "why": "missing"
+  },
+  "mobile:v3.profile.unlock.sponsor": {
+    "text": "Дає змогу заздалегідь підготувати фінансові документи для візи",
+    "why": "missing"
+  },
+  "mobile:v3.push.denied": {
+    "text": "Сповіщення вимкнено. Увімкніть їх для Hangyul у налаштуваннях телефона.",
+    "why": "missing"
+  },
+  "mobile:v3.push.enable": {
+    "text": "Увімкнути сповіщення",
+    "why": "missing"
+  },
+  "mobile:v3.push.error": {
+    "text": "Не вдалося ввімкнути сповіщення. Спробуйте ще раз.",
+    "why": "missing"
+  },
+  "mobile:v3.push.idle": {
+    "text": "Отримуйте push-сповіщення, коли документ перевірено, наближається строк або відповідає команда Hangyul.",
+    "why": "missing"
+  },
+  "mobile:v3.push.on": {
+    "text": "Сповіщення ввімкнено. Змінити це можна в налаштуваннях телефона.",
+    "why": "missing"
+  },
+  "mobile:v3.push.pending-server": {
+    "text": "Сповіщення на цьому телефоні дозволено. Push-доставка ще не працює; усе й далі з’являється в цьому списку.",
+    "why": "missing"
+  },
+  "mobile:v3.push.title": {
+    "text": "Сповіщення на цьому телефоні",
+    "why": "missing"
+  },
+  "mobile:v3.quick.again": {
+    "text": "Змінити відповіді",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.beforeVerify": {
+    "text": "Перш ніж підтвердити",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.bulkBody": {
+    "text": "Робіть це лише для документів, які ви відкрили й перевірили. Кожен студент отримає сповіщення.",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.bulkDone": {
+    "text": "Підтверджено: {{ok}}, пропущено: {{failed}}",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.bulkTitle_few": {
+    "text": "Підтвердити {{count}} документи?",
+    "why": "uk plural"
+  },
+  "mobile:v3.reviews.bulkTitle_many": {
+    "text": "Підтвердити {{count}} документів?",
+    "why": "uk plural"
+  },
+  "mobile:v3.reviews.bulkTitle_one": {
+    "text": "Підтвердити {{count}} документ?",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.bulkTitle_other": {
+    "text": "Підтвердити {{count}} документа?",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.date": {
+    "text": "Дата видачі достатньо свіжа, строк дії не минув",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.issuer": {
+    "text": "Видно установу, печатку або підпис",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.legal": {
+    "text": "{{path}} додано, і він відповідає документу",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.legible": {
+    "text": "Кожна сторінка повна й читабельна",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.check.name": {
+    "text": "Ім’я та дата народження збігаються з паспортом",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.correctionTitle": {
+    "text": "Що студент має виправити?",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.expires": {
+    "text": "Дійсний до",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.issuedIn": {
+    "text": "Країна видачі",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.issuedOn": {
+    "text": "Дата видачі",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.legalization": {
+    "text": "Легалізація",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.notNeeded": {
+    "text": "Не потрібна",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.open": {
+    "text": "Відкрити {{name}}",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.overSla": {
+    "text": "{{waiting}} · понад обіцяний строк перевірки",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.reason": {
+    "text": "Повідомлення студенту",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.requestCorrection": {
+    "text": "Запросити виправлення",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.required": {
+    "text": "Обов’язково",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.select": {
+    "text": "Вибрати",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.studentSees": {
+    "text": "{{name}} бачить саме цей текст поруч із документом.",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.studentSeesGeneric": {
+    "text": "Студент бачить саме цей текст поруч із документом.",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.summary": {
+    "text": "Очікують: {{count}} · понад {{hours}}-годинний строк перевірки: {{over}}",
+    "why": "missing; count-neutral"
+  },
+  "mobile:v3.reviews.templates": {
+    "text": "Шаблони команди",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.translation": {
+    "text": "Переклад",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.uploaded": {
+    "text": "завантажено {{when}}",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.verifyN_few": {
+    "text": "Підтвердити {{count}} документи",
+    "why": "uk plural"
+  },
+  "mobile:v3.reviews.verifyN_many": {
+    "text": "Підтвердити {{count}} документів",
+    "why": "uk plural"
+  },
+  "mobile:v3.reviews.verifyN_one": {
+    "text": "Підтвердити {{count}} документ",
+    "why": "missing"
+  },
+  "mobile:v3.reviews.verifyN_other": {
+    "text": "Підтвердити {{count}} документа",
+    "why": "missing"
+  },
+  "mobile:v3.settings.consoleHint": {
+    "text": "Учасники команди, рахунки та експорт керуються у вебконсолі агенції.",
+    "why": "missing"
+  },
+  "mobile:v3.settings.work": {
+    "text": "Ваша робота",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.empty.team": {
+    "text": "У команди немає відкритих завдань",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.empty.today": {
+    "text": "На сьогодні нічого немає",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.empty.waiting": {
+    "text": "Немає завдань, що чекають на щось інше",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.empty.week": {
+    "text": "На цей тиждень нічого немає",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.open": {
+    "text": "Відкриті",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.overdue": {
+    "text": "Прострочено · {{when}}",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.overdue": {
+    "text": "Прострочені",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.team": {
+    "text": "Команда",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.today": {
+    "text": "Сьогодні",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.waiting": {
+    "text": "Очікують",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.view.week": {
+    "text": "Цей тиждень",
+    "why": "missing"
+  },
+  "mobile:v3.tasks.waitingOn": {
+    "text": "Чекає на: {{what}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.allClear": {
+    "text": "Зараз нічого не потребує рішення.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.allCohorts": {
+    "text": "Усі студенти Hangyul",
+    "why": "missing"
+  },
+  "mobile:v3.uni.allIntakes": {
+    "text": "Усі набори",
+    "why": "missing"
+  },
+  "mobile:v3.uni.applicant": {
+    "text": "Вступник",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.gpa": {
+    "text": "GPA",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.interview": {
+    "text": "Співбесіда",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.interviewRequired": {
+    "text": "Вимагається цією програмою",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.level": {
+    "text": "Рівень {{level}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.minimum": {
+    "text": "Мінімум {{need}} · Вступник {{have}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.notProvided": {
+    "text": "не вказано",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.below": {
+    "text": "Нижче мінімуму",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.meets": {
+    "text": "Відповідає",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.missing": {
+    "text": "Не вказано",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.planned": {
+    "text": "Тест заплановано",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.state.unscheduled": {
+    "text": "Не заплановано",
+    "why": "missing"
+  },
+  "mobile:v3.uni.check.topik": {
+    "text": "TOPIK",
+    "why": "missing"
+  },
+  "mobile:v3.uni.checksNote": {
+    "text": "Порівнює самостійно вказані бали з опублікованими мінімумами програми. Це допомагає в розгляді, але не ухвалює рішення.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.checksTitle": {
+    "text": "Перевірка вимог",
+    "why": "missing"
+  },
+  "mobile:v3.uni.closed": {
+    "text": "Закрито: {{rejected}} не зараховано, {{withdrawn}} відкликано. Для показників потрібно щонайменше {{min}} осіб.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohortIntro_few": {
+    "text": "{{count}} студенти прийшли до вас через Hangyul. Ось як у них справи.",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.cohortIntro_many": {
+    "text": "{{count}} студентів прийшли до вас через Hangyul. Ось як у них справи.",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.cohortIntro_one": {
+    "text": "{{count}} студент прийшов до вас через Hangyul. Ось як у нього справи.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohortIntro_other": {
+    "text": "{{count}} студента прийшли до вас через Hangyul. Ось як у них справи.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohortNote": {
+    "text": "Показники з’являються, коли кваліфікуються щонайменше {{min}} студентів. Станом на {{date}}.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohort_few": {
+    "text": "{{label}} · {{count}} студенти",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.cohort_many": {
+    "text": "{{label}} · {{count}} студентів",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.cohort_one": {
+    "text": "{{label}} · {{count}} студент",
+    "why": "missing"
+  },
+  "mobile:v3.uni.cohort_other": {
+    "text": "{{label}} · {{count}} студента",
+    "why": "missing"
+  },
+  "mobile:v3.uni.conv": {
+    "text": "{{pct}} від попереднього кроку · {{n}} з {{d}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.convFew": {
+    "text": "{{n}} з {{d}} від попереднього кроку · замало для показника",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.admitted_few": {
+    "text": "зарахованих студентів ще не оплатили навчання",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.decision.admitted_many": {
+    "text": "зарахованих студентів ще не оплатили навчання",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.decision.admitted_one": {
+    "text": "зарахований студент ще не оплатив навчання",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.admitted_other": {
+    "text": "зарахованих студентів ще не оплатили навчання",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.documents_few": {
+    "text": "очікують документів від студентів",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.decision.documents_many": {
+    "text": "очікують документів від студентів",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.decision.documents_one": {
+    "text": "очікує документів від студента",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.documents_other": {
+    "text": "очікують документів від студентів",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.flagged_few": {
+    "text": "позначені заявки",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.decision.flagged_many": {
+    "text": "позначених заявок",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.decision.flagged_one": {
+    "text": "позначена заявка",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.flagged_other": {
+    "text": "позначеної заявки",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.interview_few": {
+    "text": "співбесіди, які треба провести або оцінити",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.decision.interview_many": {
+    "text": "співбесід, які треба провести або оцінити",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.decision.interview_one": {
+    "text": "співбесіда, яку треба провести або оцінити",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.interview_other": {
+    "text": "співбесіди, які треба провести або оцінити",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.offer_few": {
+    "text": "пропозиції чекають на відповідь студентів",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.decision.offer_many": {
+    "text": "пропозицій чекають на відповідь студентів",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.decision.offer_one": {
+    "text": "пропозиція чекає на відповідь студента",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.offer_other": {
+    "text": "пропозиції чекають на відповідь студентів",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.returned_few": {
+    "text": "документи, повернуті студентами",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.decision.returned_many": {
+    "text": "документів, повернутих студентами",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.decision.returned_one": {
+    "text": "документ, повернутий студентом",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.returned_other": {
+    "text": "документа, повернутого студентами",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.review_few": {
+    "text": "заявки на розгляд",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.decision.review_many": {
+    "text": "заявок на розгляд",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.decision.review_one": {
+    "text": "заявка на розгляд",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decision.review_other": {
+    "text": "заявки на розгляд",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionContext_few": {
+    "text": "Готово {{ready}} з {{total}} обов’язкових документів · {{count}} відкриті запити.",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.decisionContext_many": {
+    "text": "Готово {{ready}} з {{total}} обов’язкових документів · {{count}} відкритих запитів.",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.decisionContext_one": {
+    "text": "Готово {{ready}} з {{total}} обов’язкових документів · {{count}} відкритий запит.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionContext_other": {
+    "text": "Готово {{ready}} з {{total}} обов’язкових документів · {{count}} відкритого запиту.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionDocs": {
+    "text": "Готово {{ready}} з {{total}} обов’язкових документів.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.admitted": {
+    "text": "Підтвердьте оплату, коли вона надійде",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.documents": {
+    "text": "Без дій, доки не завантажать",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.flagged": {
+    "text": "Позначено для уважнішого розгляду",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.interview": {
+    "text": "Зафіксуйте результат після співбесіди",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.offer": {
+    "text": "Hangyul нагадує студентові",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.returned": {
+    "text": "Перевірте ще раз те, що ви запитували",
+    "why": "missing"
+  },
+  "mobile:v3.uni.decisionHint.review": {
+    "text": "Подано й достатньо повно для рішення",
+    "why": "missing"
+  },
+  "mobile:v3.uni.docsTitle": {
+    "text": "Документи · готово {{ready}} з {{total}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.dueOn": {
+    "text": "до {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.empty.all": {
+    "text": "Вступників тут немає",
+    "why": "missing"
+  },
+  "mobile:v3.uni.empty.flagged": {
+    "text": "Позначених заявок немає",
+    "why": "missing"
+  },
+  "mobile:v3.uni.empty.review": {
+    "text": "Заявок, що очікують розгляду, немає",
+    "why": "missing"
+  },
+  "mobile:v3.uni.graduation": {
+    "text": "Випустилися",
+    "why": "missing"
+  },
+  "mobile:v3.uni.latest": {
+    "text": "Останні на розгляд",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.ADDITIONAL_DOCUMENTS": {
+    "text": "Запитати додаткові документи",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.ADMISSION_CERTIFICATE_ISSUED": {
+    "text": "Видати лист про зарахування",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.INTERVIEW": {
+    "text": "Запросити на співбесіду",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.OFFERED": {
+    "text": "Зробити пропозицію",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.REJECTED": {
+    "text": "Не зараховувати",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.TUITION_PAID": {
+    "text": "Підтвердити оплату навчання",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.TUITION_PENDING": {
+    "text": "Надіслати рахунок за навчання",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.UNIVERSITY_REVIEW": {
+    "text": "Почати розгляд",
+    "why": "missing"
+  },
+  "mobile:v3.uni.move.WAITLISTED": {
+    "text": "У список очікування",
+    "why": "missing"
+  },
+  "mobile:v3.uni.nOfD": {
+    "text": "{{n}} з {{d}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.needsTitle": {
+    "text": "Потребує вашого рішення",
+    "why": "missing"
+  },
+  "mobile:v3.uni.noMinimums": {
+    "text": "Ця програма ще не опублікувала мінімальних вимог.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.nothingToReview": {
+    "text": "Нічого не очікує розгляду",
+    "why": "missing"
+  },
+  "mobile:v3.uni.openRequests_few": {
+    "text": "Запитано {{count}} документи",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.openRequests_many": {
+    "text": "Запитано {{count}} документів",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.openRequests_one": {
+    "text": "Запитано {{count}} документ",
+    "why": "missing"
+  },
+  "mobile:v3.uni.openRequests_other": {
+    "text": "Запитано {{count}} документа",
+    "why": "missing"
+  },
+  "mobile:v3.uni.otherDecisions": {
+    "text": "Інші рішення",
+    "why": "missing"
+  },
+  "mobile:v3.uni.populationAll_few": {
+    "text": "На основі {{count}} поданих заявок, усі набори.",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.populationAll_many": {
+    "text": "На основі {{count}} поданих заявок, усі набори.",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.populationAll_one": {
+    "text": "На основі {{count}} поданої заявки, усі набори.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.populationAll_other": {
+    "text": "На основі {{count}} поданої заявки, усі набори.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.populationIntake_few": {
+    "text": "На основі {{count}} поданих заявок на {{intake}}.",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.populationIntake_many": {
+    "text": "На основі {{count}} поданих заявок на {{intake}}.",
+    "why": "uk plural"
+  },
+  "mobile:v3.uni.populationIntake_one": {
+    "text": "На основі {{count}} поданої заявки на {{intake}}.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.populationIntake_other": {
+    "text": "На основі {{count}} поданої заявки на {{intake}}.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.reason": {
+    "text": "Причина (передається Hangyul)",
+    "why": "missing"
+  },
+  "mobile:v3.uni.request": {
+    "text": "Запит",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestLabel": {
+    "text": "Що вам потрібно?",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestLabelHint": {
+    "text": "напр. Атестат про середню освіту з апостилем",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestNote": {
+    "text": "Інструкції для студента",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestNoteHint": {
+    "text": "Чого саме бракує і як це виправити",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestSend": {
+    "text": "Надіслати запит",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestTitle": {
+    "text": "Запит документа — {{name}}",
+    "why": "missing; name stays nominative"
+  },
+  "mobile:v3.uni.requestWho": {
+    "text": "Студент і його консультант у Hangyul отримають сповіщення й побачать саме це формулювання.",
+    "why": "missing"
+  },
+  "mobile:v3.uni.requestedOn": {
+    "text": "Запитано {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.uni.retention": {
+    "text": "Ще навчаються",
+    "why": "missing"
+  },
+  "mobile:v3.uni.search": {
+    "text": "Пошук за ім’ям, програмою або номером",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.ACCEPTED": {
+    "text": "Прийняли пропозицію",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.ARRIVED": {
+    "text": "Прибули до Кореї",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.ENROLLED": {
+    "text": "Зараховані на навчання",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.OFFERED": {
+    "text": "Отримали пропозицію",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.REVIEWED": {
+    "text": "Розглянуто",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.SUBMITTED": {
+    "text": "Подано",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.TUITION_PAID": {
+    "text": "Оплатили навчання",
+    "why": "missing"
+  },
+  "mobile:v3.uni.step.VISA_ISSUED": {
+    "text": "Візу видано",
+    "why": "missing"
+  },
+  "mobile:v3.uni.tab.applicants": {
+    "text": "Вступники",
+    "why": "missing"
+  },
+  "mobile:v3.uni.tab.pipeline": {
+    "text": "Огляд",
+    "why": "missing"
+  },
+  "mobile:v3.uni.tab.students": {
+    "text": "Студенти",
+    "why": "missing"
+  },
+  "mobile:v3.uni.tooFew": {
+    "text": "Замало для показника",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.admitted": {
+    "text": "Зараховані",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.all": {
+    "text": "Усі",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.documents": {
+    "text": "Бракує документів",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.enrolment": {
+    "text": "Віза та зарахування",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.flagged": {
+    "text": "Позначені",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.interview": {
+    "text": "Співбесіда",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.offer": {
+    "text": "Пропозиція",
+    "why": "missing"
+  },
+  "mobile:v3.uni.view.review": {
+    "text": "Потребують розгляду",
+    "why": "missing"
+  },
+  "mobile:v3.uni.waitingStudent": {
+    "text": "Чекає на студента",
+    "why": "missing"
+  },
+  "mobile:v3.university.admissionsSite": {
+    "text": "Сайт міжнародного вступу",
+    "why": "missing"
+  },
+  "mobile:v3.university.deadline": {
+    "text": "Подати до",
+    "why": "missing"
+  },
+  "mobile:v3.university.documents": {
+    "text": "Документи",
+    "why": "missing"
+  },
+  "mobile:v3.university.documentsCount": {
+    "text": "Документів: {{count}} · {{legal}} потребують апостиля або консульської легалізації",
+    "why": "missing; count-neutral"
+  },
+  "mobile:v3.university.dorm": {
+    "text": "Гуртожиток за семестр",
+    "why": "missing"
+  },
+  "mobile:v3.university.dormRange": {
+    "text": "{{min}}–{{max}}",
+    "why": "missing"
+  },
+  "mobile:v3.university.estimate": {
+    "text": "Орієнтовна сума",
+    "why": "missing"
+  },
+  "mobile:v3.university.estimateNote": {
+    "text": "Оцінка на основі опублікованої вартості навчання та типових місячних витрат на життя в цьому місті.",
+    "why": "missing"
+  },
+  "mobile:v3.university.fee": {
+    "text": "Реєстраційний внесок",
+    "why": "missing"
+  },
+  "mobile:v3.university.gpa": {
+    "text": "Оцінки",
+    "why": "missing"
+  },
+  "mobile:v3.university.gpaMin": {
+    "text": "Щонайменше {{pct}}% від максимального GPA",
+    "why": "missing"
+  },
+  "mobile:v3.university.intake": {
+    "text": "Набір",
+    "why": "missing"
+  },
+  "mobile:v3.university.interview": {
+    "text": "Співбесіда",
+    "why": "missing"
+  },
+  "mobile:v3.university.interviewYes": {
+    "text": "Університет може запросити вас на співбесіду",
+    "why": "missing"
+  },
+  "mobile:v3.university.language": {
+    "text": "Мова",
+    "why": "missing"
+  },
+  "mobile:v3.university.links": {
+    "text": "Офіційна інформація",
+    "why": "missing"
+  },
+  "mobile:v3.university.living": {
+    "text": "Витрати на життя (12 місяців)",
+    "why": "missing"
+  },
+  "mobile:v3.university.noIntake": {
+    "text": "Відкритого набору немає",
+    "why": "missing"
+  },
+  "mobile:v3.university.noVerdict": {
+    "text": "Заповніть профіль, щоб побачити, чи відповідаєте ви вимогам цієї програми.",
+    "why": "missing"
+  },
+  "mobile:v3.university.notPublished": {
+    "text": "Не опубліковано",
+    "why": "missing"
+  },
+  "mobile:v3.university.program": {
+    "text": "Програма",
+    "why": "missing"
+  },
+  "mobile:v3.university.requirements": {
+    "text": "Вимоги",
+    "why": "missing"
+  },
+  "mobile:v3.university.start": {
+    "text": "Почати заявку",
+    "why": "missing"
+  },
+  "mobile:v3.university.verdict.COMPETITIVE": {
+    "text": "Ви відповідаєте опублікованим мінімальним вимогам. Одне потребує уваги.",
+    "why": "missing"
+  },
+  "mobile:v3.university.verdict.NOT_ELIGIBLE": {
+    "text": "Одна з опублікованих вимог поки не виконана.",
+    "why": "missing"
+  },
+  "mobile:v3.university.verdict.RECOMMENDED": {
+    "text": "Рекомендовано для вас.",
+    "why": "missing"
+  },
+  "mobile:v3.university.verdict.STRONG": {
+    "text": "Ви відповідаєте всім опублікованим базовим вимогам, і програма підходить за бюджетом.",
+    "why": "missing"
+  },
+  "mobile:v3.university.website": {
+    "text": "Сайт університету",
+    "why": "missing"
+  },
+  "mobile:v3.university.yearCost": {
+    "text": "Вартість першого року (орієнтовно)",
+    "why": "missing"
+  },
+  "mobile:v3.upload.camera": {
+    "text": "Зробити фото",
+    "why": "missing"
+  },
+  "mobile:v3.upload.cameraHint": {
+    "text": "Покладіть документ рівно при хорошому освітленні",
+    "why": "missing"
+  },
+  "mobile:v3.upload.failed": {
+    "text": "Не вдалося відкрити цей файл. Спробуйте ще раз.",
+    "why": "missing"
+  },
+  "mobile:v3.upload.files": {
+    "text": "Вибрати файл",
+    "why": "missing"
+  },
+  "mobile:v3.upload.filesHint": {
+    "text": "PDF, JPG або PNG до 15 МБ",
+    "why": "missing"
+  },
+  "mobile:v3.upload.library": {
+    "text": "Вибрати з фото",
+    "why": "missing"
+  },
+  "mobile:v3.upload.privacy": {
+    "text": "Відкрити ваші документи можуть лише ви та команда Hangyul. Університет бачить їх лише після того, як ви подасте до нього заявку.",
+    "why": "missing"
+  },
+  "mobile:v3.upload.tooLarge": {
+    "text": "Цей файл більший за 15 МБ. Спробуйте PDF-скан або менше фото.",
+    "why": "missing"
+  },
+  "mobile:v3.visa.beforeTitle": {
+    "text": "Підготовка візи починається після пропозиції про зарахування",
+    "why": "missing"
+  },
+  "mobile:v3.visa.blockers": {
+    "text": "Спочатку потрібно",
+    "why": "missing"
+  },
+  "mobile:v3.visa.checklist": {
+    "text": "Ваш чек-лист · виконано {{done}} з {{total}}",
+    "why": "missing"
+  },
+  "mobile:v3.visa.forNationality": {
+    "text": "Залежить від вашого громадянства",
+    "why": "missing"
+  },
+  "mobile:v3.visa.now": {
+    "text": "Що потребує вашої уваги зараз",
+    "why": "missing"
+  },
+  "mobile:v3.visa.phase.admission": {
+    "text": "Зарахування",
+    "why": "missing"
+  },
+  "mobile:v3.visa.phase.apply": {
+    "text": "Візова заява",
+    "why": "missing"
+  },
+  "mobile:v3.visa.phase.decision": {
+    "text": "Рішення посольства",
+    "why": "missing"
+  },
+  "mobile:v3.visa.phase.documents": {
+    "text": "Візові документи",
+    "why": "missing"
+  },
+  "mobile:v3.visa.phase.letter": {
+    "text": "Лист про зарахування",
+    "why": "missing"
+  },
+  "mobile:v3.visa.preview": {
+    "text": "Що вам знадобиться",
+    "why": "missing"
+  },
+  "mobile:v3.visa.seeRequirement": {
+    "text": "Переглянути офіційну вимогу",
+    "why": "missing"
+  },
+  "mobile:v3.visa.sourceChecked": {
+    "text": "Офіційне джерело · перевірено {{date}}",
+    "why": "missing"
+  },
+  "mobile:v3.visa.title": {
+    "text": "Підготовка до візи {{type}}",
+    "why": "match English; Hangyul does not issue visas"
+  },
+  "mobile:v3.visa.titleGeneric": {
+    "text": "Ваша студентська віза",
+    "why": "missing"
+  },
+  "mobile:v4.application.blocks": {
+    "text": "Поки це не зроблено, заявку не можна подати.",
+    "why": "missing"
+  },
+  "mobile:v4.application.blocksUni": {
+    "text": "{{university}} чекає на це, перш ніж продовжити.",
+    "why": "missing"
+  },
+  "mobile:v4.application.doneSummary_few": {
+    "text": "Виконано {{count}}: {{items}}",
+    "why": "uk plural"
+  },
+  "mobile:v4.application.doneSummary_many": {
+    "text": "Виконано {{count}}: {{items}}",
+    "why": "uk plural"
+  },
+  "mobile:v4.application.doneSummary_one": {
+    "text": "Виконано {{count}}: {{items}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.doneSummary_other": {
+    "text": "Виконано {{count}}: {{items}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.next": {
+    "text": "Ваш наступний крок",
+    "why": "missing"
+  },
+  "mobile:v4.application.nextFix": {
+    "text": "Виправте: {{item}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.nextLegalize": {
+    "text": "Отримайте апостиль або консульську легалізацію: {{item}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.nextRequest": {
+    "text": "{{university}} запитав: {{item}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.nextUpload": {
+    "text": "Завантажте: {{item}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.nextWrite": {
+    "text": "Напишіть: {{item}}",
+    "why": "missing"
+  },
+  "mobile:v4.application.nothingForYou": {
+    "text": "Зараз від вас нічого не потрібно",
+    "why": "missing"
+  },
+  "mobile:v4.application.openDocument": {
+    "text": "Відкрити документ",
+    "why": "missing"
+  },
+  "mobile:v4.application.reviewLate": {
+    "text": "Перевірка триває довше, ніж зазвичай. Команді Hangyul повідомили про затримку. Завантажувати документ знову не потрібно.",
+    "why": "team identity, not «консультант»"
+  },
+  "mobile:v4.application.waitBody": {
+    "text": "Команда Hangyul перевіряє те, що ви надіслали. Ми повідомимо, якщо щось потрібно змінити.",
+    "why": "missing"
+  },
+  "mobile:v4.application.waitTitle": {
+    "text": "Зараз від вас нічого не потрібно",
+    "why": "missing"
+  },
+  "mobile:v4.application.writeOnWeb": {
+    "text": "Напишіть це у вебверсії. Коментарі команди Hangyul теж з’являться там.",
+    "why": "team identity, not «консультант»"
+  },
+  "mobile:v4.discover.firstYear": {
+    "text": "{{range}} за перший рік",
+    "why": "missing"
+  },
+  "mobile:v4.documents.late": {
+    "text": "Триває довше",
+    "why": "missing"
+  },
+  "mobile:v4.documents.lateLine": {
+    "text": "позначено як затримку для команди Hangyul",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.FIX.cta": {
+    "text": "Як виправити",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.FIX.text": {
+    "text": "Поки це не виправлено, заявку не можна подати.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.FIX.title": {
+    "text": "{{label}} для {{university}} — потрібно виправити",
+    "why": "missing; label stays nominative"
+  },
+  "mobile:v4.home.item.LEGALIZE.cta": {
+    "text": "Переглянути кроки",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.LEGALIZE.text": {
+    "text": "Корейські університети приймають цей документ лише після його засвідчення. Ми покажемо кроки для вашої країни.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.LEGALIZE.title": {
+    "text": "{{label}} для {{university}} — отримайте апостиль",
+    "why": "missing; label stays nominative"
+  },
+  "mobile:v4.home.item.RENEW.cta": {
+    "text": "Що робити",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.RENEW.text": {
+    "text": "Строк дії завантаженого документа минув.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.RENEW.title": {
+    "text": "{{label}} для {{university}} — отримайте новий документ",
+    "why": "missing; label stays nominative"
+  },
+  "mobile:v4.home.item.REQUEST.cta": {
+    "text": "Завантажити й надіслати",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.REQUEST.text": {
+    "text": "Університет запитав цей документ. Заявка не рухатиметься далі, доки він не надійде.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.REQUEST.title": {
+    "text": "{{label}} — надішліть до {{university}}",
+    "why": "missing; label stays nominative"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.cta": {
+    "text": "Відкрити чернетку",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.text": {
+    "text": "Команда Hangyul залишила коментарі. Поки текст не схвалено, заявку не можна подати.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.REVISE_ESSAY.title": {
+    "text": "{{label}} для {{university}} — доопрацюйте",
+    "why": "missing; label stays nominative"
+  },
+  "mobile:v4.home.item.TOO_OLD.cta": {
+    "text": "Що робити",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.TOO_OLD.text": {
+    "text": "Університету потрібна нещодавно видана копія.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.TOO_OLD.title": {
+    "text": "{{label}} для {{university}} — отримайте свіжішу копію",
+    "why": "missing; label stays nominative"
+  },
+  "mobile:v4.home.item.UPLOAD.cta": {
+    "text": "Завантажити",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.UPLOAD.text": {
+    "text": "Без цього заявку не можна подати.",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.UPLOAD.title": {
+    "text": "{{label}} для {{university}} — завантажте",
+    "why": "missing; label stays nominative"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.cta": {
+    "text": "Почати писати",
+    "why": "missing"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.text": {
+    "text": "Команда Hangyul перегляне текст разом з вами. Почніть із чернетки — вона не мусить бути ідеальною.",
+    "why": "team identity, not «консультант»"
+  },
+  "mobile:v4.home.item.WRITE_ESSAY.title": {
+    "text": "{{label}} для {{university}} — напишіть",
+    "why": "missing; label stays nominative"
+  },
+  "mobile:v4.uni.actor.AGENCY": {
+    "text": "Партнерська агенція",
+    "why": "missing"
+  },
+  "mobile:v4.uni.actor.HANGYUL": {
+    "text": "Hangyul",
+    "why": "missing"
+  },
+  "mobile:v4.uni.actor.STUDENT": {
+    "text": "Вступник",
+    "why": "missing"
+  },
+  "mobile:v4.uni.actor.SYSTEM": {
+    "text": "Автоматично",
+    "why": "missing"
+  },
+  "mobile:v4.uni.actor.UNIVERSITY": {
+    "text": "Ваш університет",
+    "why": "missing"
+  },
+  "mobile:v4.uni.toReview_few": {
+    "text": "На розгляд · {{count}}",
+    "why": "uk plural"
+  },
+  "mobile:v4.uni.toReview_many": {
+    "text": "На розгляд · {{count}}",
+    "why": "uk plural"
+  },
+  "mobile:v4.uni.toReview_one": {
+    "text": "На розгляд · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v4.uni.toReview_other": {
+    "text": "На розгляд · {{count}}",
+    "why": "missing"
+  },
+  "mobile:v4.university.continue": {
+    "text": "Продовжити заявку",
+    "why": "missing"
+  },
+  "mobile:v4.university.firstYear": {
+    "text": "Перший рік, орієнтовно",
+    "why": "missing"
+  },
+  "mobile:v4.university.tuitionYear": {
+    "text": "Навчання за рік",
+    "why": "missing"
+  },
+  "mobile:v4.visa.hideDone": {
+    "text": "Сховати виконані кроки",
+    "why": "missing"
+  },
+  "mobile:v4.visa.showDone_few": {
+    "text": "Показати {{count}} виконані кроки",
+    "why": "uk plural"
+  },
+  "mobile:v4.visa.showDone_many": {
+    "text": "Показати {{count}} виконаних кроків",
+    "why": "uk plural"
+  },
+  "mobile:v4.visa.showDone_one": {
+    "text": "Показати {{count}} виконаний крок",
+    "why": "missing"
+  },
+  "mobile:v4.visa.showDone_other": {
+    "text": "Показати {{count}} виконаного кроку",
+    "why": "missing"
+  }
+}
