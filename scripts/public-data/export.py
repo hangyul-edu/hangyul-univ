@@ -57,6 +57,27 @@ def all_cards(client: TestClient, order: str) -> list[dict]:
         page += 1
 
 
+def fit_snapshot() -> dict:
+    """The Quick Fit engine's own snapshot (`app.services.fit.snapshot`), serialised for the serverless function in
+    apps/marketing-web/api/public-fit.py, which runs the same engine over it. Every value in it is already public:
+    the cards, verified language rules and current scholarships the directory and detail pages show."""
+    from dataclasses import asdict
+
+    from app.core.db import SessionLocal
+    from app.services import fit
+
+    fit.invalidate()
+    with SessionLocal() as db:
+        snap = fit.snapshot(db)
+    insts = []
+    for inst in sorted(snap["insts"].values(), key=lambda i: i.slug):
+        d = asdict(inst)
+        d["id"] = str(d["id"])
+        d["rules"] = {k: d["rules"][k] for k in sorted(d["rules"])}
+        insts.append(d)
+    return {"engine": fit.ENGINE, "insts": insts, "featured": snap["featured"]}
+
+
 def build(target: Path) -> dict:
     files: dict[str, bytes] = {}
     with TestClient(app) as client:
@@ -74,6 +95,7 @@ def build(target: Path) -> dict:
             files[f"institutions/{s}.json"] = dump(get(client, f"/directory/institutions/{s}"))
             files[f"admissions/{s}.json"] = dump(get(client, f"/directory/institutions/{s}/admissions"))
         files["countries.json"] = dump(get(client, "/meta/countries", priority_only="true"))
+    files["fit-snapshot.json"] = dump(fit_snapshot())
     digest = hashlib.sha256()
     for name in sorted(files):
         digest.update(name.encode() + b"\0" + files[name])

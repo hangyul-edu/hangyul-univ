@@ -34,13 +34,35 @@ const security = (app) => [
   { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=(self)' },
 ];
 
+/**
+ * Marketing only (P0, 2026-11-03): anonymous Quick Fit and the visitor-specific scholarship summary run the fit engine
+ * (server/app/services/fit.py, unchanged) in a Python function over the exported public snapshot — no FastAPI, no DB.
+ * The rewrites keep the API's own paths, so the page calls the same URLs in development (Vite proxy → FastAPI).
+ */
+const MARKETING_FUNCTION = 'api/public-fit.py';
+const marketingExtras = {
+  rewrites: [
+    { source: '/api/v1/public/fit', destination: '/api/public-fit' },
+    { source: '/api/v1/directory/institutions/:slug/admissions', destination: '/api/public-fit?admissions=:slug' },
+  ],
+  functions: {
+    [MARKETING_FUNCTION]: {
+      includeFiles: '{../../server/app/__init__.py,../../server/app/models/**/*.py,../../server/app/services/__init__.py,../../server/app/services/fit.py,../../shared/admissions.json,public/data/public/fit-snapshot.json,public/data/public/admissions/**}',
+      excludeFiles: '{public/media/**,public/flags/**,public/og/**,dist/**,node_modules/**,src/**}',
+      maxDuration: 10,
+    },
+  },
+};
+
 const configFor = (app, dir) => ({
   $schema: 'https://openapi.vercel.sh/vercel.json',
   framework: 'vite',
   installCommand: 'cd ../.. && npm ci --no-audit --no-fund',
   buildCommand: `cd ../.. && npm run build -w @hangyul/${dir}`,
   outputDirectory: 'dist',
+  ...(app === 'marketing' ? { functions: marketingExtras.functions } : {}),
   rewrites: [
+    ...(app === 'marketing' ? marketingExtras.rewrites : []),
     { source: '/api/:path*', destination: `${API_ORIGIN}/api/:path*` },
     { source: '/((?!assets/|data/).*)', destination: '/index.html' },
   ],

@@ -4,7 +4,22 @@
   "installCommand": "cd ../.. && npm ci --no-audit --no-fund",
   "buildCommand": "cd ../.. && npm run build -w @hangyul/marketing-web",
   "outputDirectory": "dist",
+  "functions": {
+    "api/public-fit.py": {
+      "includeFiles": "{../../server/app/__init__.py,../../server/app/models/**/*.py,../../server/app/services/__init__.py,../../server/app/services/fit.py,../../shared/admissions.json,public/data/public/fit-snapshot.json,public/data/public/admissions/**}",
+      "excludeFiles": "{public/media/**,public/flags/**,public/og/**,dist/**,node_modules/**,src/**}",
+      "maxDuration": 10
+    }
+  },
   "rewrites": [
+    {
+      "source": "/api/v1/public/fit",
+      "destination": "/api/public-fit"
+    },
+    {
+      "source": "/api/v1/directory/institutions/:slug/admissions",
+      "destination": "/api/public-fit?admissions=:slug"
+    },
     {
       "source": "/api/:path*",
       "destination": "https://api.univ.talkhangyul.com/api/:path*"

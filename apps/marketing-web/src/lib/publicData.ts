@@ -118,9 +118,9 @@ export const publicData = {
     return load<InstitutionDetail>(`institutions/${slug}.json`);
   },
 
-  /** The verified scholarships and language rules. `summary` (the visitor-specific scholarship pick) needs the fit
-   *  engine and is null here; the page shows the strongest scheme without it, exactly as it does with no answers. */
-  async admissions(slug: string, _fit?: Query): Promise<InstAdmissions> {
+  /** The verified scholarships and language rules, as the API returns them without quick-fit answers (`summary: null`).
+   *  With answers the page asks the fit engine instead (see UniversityDetail). */
+  async admissions(slug: string): Promise<InstAdmissions> {
     if (!SLUG.test(slug)) throw notFound();
     return load<InstAdmissions>(`admissions/${slug}.json`, { missingIsNotFound: true });
   },

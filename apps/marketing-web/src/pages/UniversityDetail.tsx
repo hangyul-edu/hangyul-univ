@@ -33,6 +33,7 @@
 import { ArrowUpRight, Sparkles } from '@hangyul/icons';
 import { useLocale } from '@hangyul/i18n';
 import { FIT_TIERS, fitGpa, normaliseGpa, readFitAnswers, type InstitutionDetail, type StudyLevel } from '@hangyul/types';
+import { useApi } from '@hangyul/auth';
 import { useQuery } from '@tanstack/react-query';
 import {
   ErrorState, PhotoCredit, Skeleton, UniversityHero, UniversityOfficialLinks, UniversityPhilosophy,
@@ -146,13 +147,19 @@ export default function UniversityDetail() {
   const fit = readFitAnswers(sp);
   const fitLevel = (fit.level || null) as StudyLevel | null;
   const gpa = fitGpa(fit);
+  const api = useApi();
   const adm = useQuery({
     queryKey: ['inst-admissions', slug, fitLevel, sp.get('langs'), gpa?.value, gpa?.scale_max],
-    queryFn: () => publicData.admissions(slug!, {
-      ...(fitLevel ? { level: fitLevel } : {}),
-      ...(fit.languages.length ? { langs: fit.languages.map((l) => `${l.test}:${l.score}`).join(',') } : {}),
-      ...(gpa ? { gpa_pct: normaliseGpa(gpa.value, gpa.scale_max) ?? undefined } : {}),
-    }),
+    // Without quick-fit answers the record is the static public export (no API). With answers, the visitor-specific
+    // summary needs the fit engine: the same API path, which production serves from the serverless fit function
+    // (apps/marketing-web/api/public-fit.py) and development from FastAPI.
+    queryFn: () => (fitLevel
+      ? api.directory.admissions(slug!, {
+        level: fitLevel,
+        ...(fit.languages.length ? { langs: fit.languages.map((l) => `${l.test}:${l.score}`).join(',') } : {}),
+        ...(gpa ? { gpa_pct: normaliseGpa(gpa.value, gpa.scale_max) ?? undefined } : {}),
+      })
+      : publicData.admissions(slug!)),
     enabled: !!slug,
     staleTime: 5 * 60_000,
   });
