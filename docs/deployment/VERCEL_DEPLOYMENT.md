@@ -44,7 +44,7 @@ default). The build settings live in the committed `apps/<app>/vercel.json`, whi
 |---|---|
 | Framework | Vite |
 | Install Command | `cd ../.. && npm ci --no-audit --no-fund` (monorepo root, from the lockfile) |
-| Build Command | `cd ../.. && npm run build -w @hangyul/<app>-web` |
+| Build Command | `cd ../.. && npm run build -w @hangyul/<app>-web` (marketing adds `&& node scripts/public-data/stage-fit.mjs`) |
 | Output Directory | `dist` |
 
 Routing (Vercel checks the filesystem first, then rewrites):
@@ -98,6 +98,14 @@ server/app/data/korean_institutions.json, enrichment, research/…   (source of 
   503. It checks the bundle has no localhost URL, the browser makes no localhost:8001 request, the directory count is
   425 in six locales, search, filter, the empty and error states, invalid slug → 404, marquee links, scholarship
   rendering and **all 425 detail routes**. `BASE=https://univ.talkhangyul.com` runs the same checks live.
+- **Quick Fit** (`/start`) and the visitor-specific scholarship summary on a detail page run the fit engine
+  `server/app/services/fit.py`, **unchanged**, in a Vercel Python function (`apps/marketing-web/api/public-fit.py`,
+  dependency `sqlalchemy` only) over the exported `fit-snapshot.json`. The marketing rewrites map the API's own paths
+  (`POST /api/v1/public/fit`, `GET /api/v1/directory/institutions/:slug/admissions`) to it, so development still
+  calls FastAPI through the Vite proxy with the same URLs. The marketing build stages the engine into `api/_fit/`
+  (`scripts/public-data/stage-fit.mjs`, gitignored), because a function bundle may not reference `../../server`.
+  `scripts/qa/public-fit-parity.py` checks the function returns byte-identical responses to FastAPI (16 cases).
+  Not reproduced serverlessly: the anonymous `quick_fit_completed` analytics event, which needs the database.
 - Authenticated products (Student, Agency, University) and all private data (accounts, applications, documents,
   messages, payments, tenant data) remain API-only.
 

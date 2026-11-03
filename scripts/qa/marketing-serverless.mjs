@@ -8,7 +8,8 @@
 //
 //   BASE=https://univ.talkhangyul.com node scripts/qa/marketing-serverless.mjs   # same checks against a live deployment
 //   ROUTES=all (default) | sample                                                  # every institution slug, or the sample
-import { createServer } from 'node:http';
+import { spawn } from 'node:child_process';
+import { createServer, request as httpRequest } from 'node:http';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { extname, join, normalize, resolve } from 'node:path';
 import { chromium } from '@playwright/test';
@@ -36,8 +37,27 @@ if (!base) {
 
   const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml',
     '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.avif': 'image/avif', '.woff2': 'font/woff2', '.woff': 'font/woff', '.ico': 'image/x-icon' };
+  // The Quick Fit function, run locally exactly as deployed (apps/marketing-web/api/public-fit.py's `handler`).
+  const py = join(ROOT, 'server/.venv/bin/python');
+  const fnProc = spawn(existsSync(py) ? py : 'python3', ['-c', [
+    'import importlib.util, sys', 'from http.server import ThreadingHTTPServer',
+    `s = importlib.util.spec_from_file_location("pf", ${JSON.stringify(join(ROOT, 'apps/marketing-web/api/public-fit.py'))})`,
+    'm = importlib.util.module_from_spec(s); s.loader.exec_module(m)',
+    'srv = ThreadingHTTPServer(("127.0.0.1", 0), m.handler); print(srv.server_address[1], flush=True); srv.serve_forever()'].join('\n')],
+  { stdio: ['ignore', 'pipe', 'inherit'] });
+  const fnPort = await new Promise((r, j) => { fnProc.stdout.once('data', (d) => r(Number(String(d).trim()))); fnProc.once('exit', (c) => j(new Error(`fit function exited ${c}`))); });
+  process.on('exit', () => fnProc.kill());
+  const proxyFn = (req, res, path) => {
+    const up = httpRequest({ host: '127.0.0.1', port: fnPort, path, method: req.method, headers: req.headers }, (r) => { res.writeHead(r.statusCode, r.headers); r.pipe(res); });
+    req.pipe(up);
+  };
   server = createServer((req, res) => {
-    const path = decodeURIComponent(new URL(req.url, 'http://x').pathname);
+    const url = new URL(req.url, 'http://x');
+    const path = decodeURIComponent(url.pathname);
+    // = the marketing rewrites in apps/marketing-web/vercel.json
+    if (path === '/api/v1/public/fit') return proxyFn(req, res, '/api/public-fit');
+    const adm = path.match(/^\/api\/v1\/directory\/institutions\/([^/]+)\/admissions$/);
+    if (adm) return proxyFn(req, res, `/api/public-fit?admissions=${encodeURIComponent(adm[1])}${url.search ? `&${url.search.slice(1)}` : ''}`);
     if (path.startsWith('/api/')) { res.writeHead(503, { 'content-type': 'application/json' }); res.end('{"detail":"API offline (qa:marketing-serverless)"}'); return; }
     const file = normalize(join(DIST, path));
     if (file.startsWith(DIST) && existsSync(file) && statSync(file).isFile()) {
@@ -48,7 +68,7 @@ if (!base) {
   });
   await new Promise((r) => server.listen(0, '127.0.0.1', r));
   base = `http://127.0.0.1:${server.address().port}`;
-  console.log(`serving the production build at ${base} (API → 503)`);
+  console.log(`serving the production build at ${base} (FastAPI offline: /api/* → 503; Quick Fit → the serverless function)`);
 }
 const ORIGIN = new URL(base).origin;
 
@@ -143,6 +163,27 @@ for (const lang of ['en', 'ko', 'vi', 'zh-Hans', 'ja', 'ar']) {
   const { ctx, p } = await page();
   await p.goto(`${base}/universities/no-such-university-xyz?lang=en`, { waitUntil: 'networkidle' });
   check('invalid slug → not-found', (await p.getByText("We couldn't find that page.").count()) > 0);
+  await ctx.close();
+}
+
+// Quick Fit (public, serverless) + a detail page carrying the visitor's answers
+{
+  const { ctx, p, errors } = await page();
+  const fitRes = p.waitForResponse((r) => r.url().endsWith('/api/v1/public/fit') && r.request().method() === 'POST', { timeout: 30000 }).catch(() => null);
+  await p.goto(`${base}/start?lang=en&nationality=VN&level=BACHELOR&gpa=3.4&gpa_scale=4.0&langs=TOPIK:3`, { waitUntil: 'networkidle' });
+  const countries = await p.locator('select option, [role="option"]').count().catch(() => 0);
+  await p.getByRole('button', { name: 'Show my universities' }).click();
+  const r = await fitRes;
+  const body = r ? await r.json().catch(() => null) : null;
+  await p.locator('.mk-qs__results').waitFor({ timeout: 20000 }).catch(() => {});
+  const shown = await p.locator('.mk-qs__results a[href*="/universities/"]').count();
+  check('Quick Fit: public flow returns real results without FastAPI', r?.status() === 200 && body?.total > 0 && shown > 0 && errors.length === 0,
+    `status ${r?.status()} total ${body?.total} counts ${JSON.stringify(body?.counts)} links ${shown} countries ${countries}`);
+  const admRes = p.waitForResponse((x) => /\/admissions\?/.test(x.url()), { timeout: 30000 }).catch(() => null);
+  await p.goto(`${base}/universities/kaist?lang=en&level=MASTER&langs=TOEFL_IBT:90`, { waitUntil: 'networkidle' });
+  const a = await admRes;
+  const aj = a ? await a.json().catch(() => null) : null;
+  check('detail with Quick Fit answers: scholarship summary from the fit engine', a?.status() === 200 && aj?.summary != null, `status ${a?.status()} summary ${aj?.summary ? aj.summary.count : null}`);
   await ctx.close();
 }
 

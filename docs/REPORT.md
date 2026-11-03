@@ -20128,3 +20128,42 @@ including untouched ones while another project saturated the host — recorded, 
   not yet calm.
 - The pricing tail is one composition, but the space between the compare toggle and the panel is generous.
 - No locale has had a human native reviewer; the Arabic/Urdu range convention in particular should be confirmed.
+
+# 435. P0 hotfix — public university discovery without the API (2026-11-03)
+
+**Symptom.** `https://univ.talkhangyul.com/universities?lang=en` showed "0 institutions" together with "We couldn't
+find that page." Local `:3100` showed the 425 institutions.
+
+**Root cause.** Every public discovery surface fetched FastAPI: the directory list, region counts and detail
+(`/api/v1/directory/*`), admissions (`…/admissions`), the Quick Fit country list (`/api/v1/meta/countries`) and Quick
+Fit itself (`/api/v1/public/fit`). Locally the Vite dev server proxies `/api` to `:8001`. In production `/api` is
+rewritten to `api.univ.talkhangyul.com`, where no API is deployed (the frontend-only scope, §436), so every call
+returned 404. The directory then printed `total ?? 0` as "0 institutions" next to `ErrorState`, which renders any 404
+as not-found. The marquee was unaffected because it already reads a generated manifest.
+
+**Fix.**
+- `scripts/public-data/export.py` calls the API's **own** public endpoints in-process over the canonical seeded DB
+  and writes `apps/marketing-web/public/data/public/` (manifest with content hash, regions, 425 cards with the
+  English order, 425 detail and 425 admissions records, countries, the fit snapshot). It is repeatable, and `--check`
+  detects a stale export. No rows were hand-copied and no serializer was duplicated.
+- `apps/marketing-web/src/lib/publicData.ts` answers those calls from the files with the API's response shapes.
+  A load failure is a 503 "couldn't load" state with Retry. A 404 is only an unknown slug or an invalid filter.
+  The count is no longer stated when the load failed. `/data/*` is excluded from the SPA fallback.
+- Quick Fit and the per-visitor scholarship summary run `server/app/services/fit.py`, unchanged, in a Vercel Python
+  function (`apps/marketing-web/api/public-fit.py`) over the exported snapshot, reached through rewrites of the
+  API's own paths. `scripts/qa/public-fit-parity.py`: **16/16 responses byte-identical to FastAPI**.
+- Public versus private boundary: only data an anonymous visitor already received from the public endpoints is
+  exported. Accounts, applications, documents, messages, payments, tenant data and audit logs remain API-only.
+
+**Gate.** `npm run qa:marketing-serverless` builds marketing and serves the production `dist/` with FastAPI offline
+(`/api/*` → 503, Quick Fit → the function handler).
+- Locally: **23/23**. That covers the bundle localhost scan, homepage, 69 marquee links (canonical slugs, locale
+  kept), directory **425** in en, ko, vi, zh-Hans, ja and ar, search, region filter, a real empty state, the
+  data-failure state, invalid slug → 404, the Quick Fit flow, the detail summary, scholarship rendering, **425/425
+  detail routes**, and zero requests to localhost:8001.
+- Against production (`BASE=https://univ.talkhangyul.com`), directory part, commit `78d61c8`: 20/20, including 425/425 routes.
+
+**Deployments.** Directory fix `78d61c8` → `dpl_Cm4uHezoRjhkf7YnHhJuzupkDxxR`. Quick Fit function verified on
+preview `dpl_63ukkmgcB2dZJvhtjgrHZGUwtjXS` (same tier counts as local FastAPI: 39 / 176 / 3 / 0, total 218), then
+merged to `main`. The final production SHA is recorded in `docs/deployment/VERCEL_DEPLOYMENT.md` and served at
+`/build-info.json`.
