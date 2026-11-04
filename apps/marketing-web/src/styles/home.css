@@ -187,6 +187,46 @@ a.kn-crest:active .kn-crest__img { transform: translateY(0) scale(0.98); }
   overflow-wrap: anywhere;
 }
 
+/* Refinement 2026-11-04 (b) — phones (< 768 px) only: the homepage's storytelling sections read as one centred column.
+   The section heads were already centred while the 01–03 propositions and the service stories below them sat flush
+   left, so every section turned its axis halfway down. Here the ordinal, title and body share the head's axis; the
+   body gets a measure (~20 Korean characters, 3–4 lines) instead of running edge to edge, and `balance` stops a
+   centred paragraph ending on one orphaned word. The hairline between propositions becomes a centred rule shorter
+   than the column, so it no longer draws a left edge. Tablet (768–899 stacked) and desktop keep their compositions;
+   data UI (pricing, FAQ, logos, the CTA card, header, footer) is not touched. */
+@media (max-width: 767.98px) {
+  #why .kn-tri__col {
+    padding-inline: clamp(8px, 2.5vw, 12px); /* + the 16 px page gutter = 24–28 px each side */
+    padding-block: 32px;
+    text-align: center;
+  }
+  #why .kn-tri__col + .kn-tri__col { border-top: 0; }
+  #why .kn-tri__col + .kn-tri__col::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 12%;            /* a 76 % rule, centred */
+    height: 1px;
+    background: var(--hg-border-subtle);
+  }
+  #why .kn-tri__n { margin-bottom: 12px; }
+  #why .kn-tri__title { margin-bottom: 12px; }
+  #why .kn-tri__text,
+  #services .kn-rows .kn-mediarow__text {
+    max-width: 21rem;
+    margin-inline: auto;
+    text-wrap: balance;
+    /* Centred lines expose a word split mid-word far more than ragged-right ones did ("최/적의", "유/학생활"). */
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  #services .kn-head__lede { word-break: keep-all; overflow-wrap: anywhere; text-wrap: balance; }
+  #services .kn-rows .kn-mediarow > :not(figure) { padding-inline: clamp(8px, 2.5vw, 12px); }
+  #services .kn-rows .kn-mediarow__title,
+  #services .kn-rows .kn-mediarow__text { text-align: center; }
+  #services .kn-rows .kn-mediarow__title { text-wrap: balance; }
+}
+
 /* ── from v15.css ───────────────────────────────────────────────────────────────────────────────────────────── */
 /*
  * V15 b — the pricing section, recomposed.

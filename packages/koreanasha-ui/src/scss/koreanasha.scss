@@ -407,9 +407,11 @@
 // now grows with the small viewport height (svh: the height with the browser bars shown, so it never jumps), floored at
 // the old value + ~10 px for short phones and capped so tall phones do not open a gap: ≈ +24–36 px on 740–932 px tall
 // phones, ≈ +12 px on a 568 px one. The background photo and the header do not move.
-@media (max-width: 389.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + 56px + clamp(28px, 7svh - 8px, 56px)); } }
-@media (min-width: 390px) and (max-width: 429.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + 56px + clamp(36px, 7svh, 64px)); } }
-@media (min-width: 430px) and (max-width: 767.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + 56px + clamp(48px, 7svh + 8px, 76px)); } }
+// Refinement 2026-11-04 (b): the whole group (headline, copy, both CTAs) sits a further 20 px lower on phones — more air
+// under the floating pill; the CTAs keep their size and the group keeps its internal spacing.
+@media (max-width: 389.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + 56px + 20px + clamp(28px, 7svh - 8px, 56px)); } }
+@media (min-width: 390px) and (max-width: 429.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + 56px + 20px + clamp(36px, 7svh, 64px)); } }
+@media (min-width: 430px) and (max-width: 767.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + 56px + 20px + clamp(48px, 7svh + 8px, 76px)); } }
 
 .kn-hero__content { max-width: 640px; color: #fff; }
 @media (max-width: 1199px) { .kn-hero__content { max-width: 620px; margin-inline: auto; text-align: center; } }
