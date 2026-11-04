@@ -333,3 +333,57 @@
    down twice when the content arrived: CLS 0.671 on a university page (measured, perf-before.json). The main area always
    claims at least the viewport, so the footer starts below the fold and never moves into view and out again. */
 .ed-main { min-height: 100vh; }
+
+/* ── Final mobile polish (2026-11-04) ─────────────────────────────────────────────────────────────────────────────
+   Phones only; tablet and desktop are untouched. */
+@media (max-width: 575px) {
+  /* Closing band copy: Korean broke inside words ("준비 / 해야", "드립 / 니다"). */
+  .kn .kn-cta__title:lang(ko), .kn .kn-cta__text:lang(ko) { word-break: keep-all; overflow-wrap: anywhere; }
+}
+@media (max-width: 639.98px) {
+  /* Footer: the CTA band → footer seam was 56 + 56 px of white either side of the hairline; the footer side is 40. */
+  .kn .kn-footer { padding-block: 40px calc(var(--hg-space-8) + env(safe-area-inset-bottom, 0px)); }
+  .kn .kn-footer__top { gap: 28px; }
+  /* The folded columns read as three floating headings 68 px apart with nothing saying they open. One 48 px row each,
+     no gap, and a chevron that turns — the same affordance the FAQ above uses. Still start-aligned. */
+  .kn .kn-footer__cols { gap: 0; }
+  .kn .kn-fcol__title { display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding-block: 4px; }
+  .kn .kn-fcol__title::after {
+    content: ''; flex: none; inline-size: 16px; block-size: 16px; opacity: 0.55;
+    background: no-repeat center / 16px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23181A1F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    transition: transform var(--hg-motion-base) var(--hg-motion-easing);
+  }
+  .kn .kn-fcol[open] .kn-fcol__title::after { transform: rotate(180deg); }
+  .kn .kn-fcol ul { padding-block: 2px 14px; }
+  .kn .kn-fcol a { display: inline-flex; align-items: center; min-height: 40px; }
+  /* The language control's ghost button carries 10 px + 1 px of inner space; pull it back so the flag sits on the
+     column's left edge like the logo and the social glyphs, and close the gap under the social row. */
+  .kn .kn-footer__lang { margin-inline-start: -11px; margin-block-start: -6px; }
+  /* Social targets: 44 px, glyph unchanged. */
+  .kn .kn-footer__social-link { inline-size: 44px; block-size: 44px; }
+  .kn .kn-footer__social-list { margin-inline-start: -12px; gap: 2px; }
+}
+@media (prefers-reduced-motion: reduce) { .kn .kn-fcol__title::after { transition: none; } }
+/* Landscape phones with a notch: the floating pill never sits under the sensor housing. No inset → no change. */
+.kn .kn-header { left: max(var(--kn-header-inset), env(safe-area-inset-left, 0px)); right: max(var(--kn-header-inset), env(safe-area-inset-right, 0px)); }
+/* Mobile menu sheet (portalled to <body>, so not under `.kn`): a 44 px close target that keeps its glyph on the same
+   edge, and padding that respects the device's safe areas — identical to before on a device without insets. */
+.ed-offcanvas .side-info-close { inline-size: 44px; block-size: 44px; margin-inline-end: -4px; }
+.ed-offcanvas {
+  padding-top: max(30px, calc(env(safe-area-inset-top, 0px) + 16px));
+  padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+  padding-inline: max(40px, env(safe-area-inset-left, 0px)) max(40px, env(safe-area-inset-right, 0px));
+}
+@media (max-width: 399.98px) { .ed-offcanvas { padding-inline: max(28px, env(safe-area-inset-left, 0px)) max(28px, env(safe-area-inset-right, 0px)); } }
+/* Two menu defects found by the final mobile QA, both live before this pass:
+   1. The sheet is portalled to <body>, outside `.kn`, so `--kn-accent` was undefined there and the menu's 내 유학 준비
+      rendered as white text on a transparent button — present, focusable, invisible. The sheet now carries the accent.
+   2. The language picker opened from the menu is a bottom sheet at z-index 50 (`--hg-z-modal`); the menu is 999, so the
+      picker opened *behind* it and none of its options could be reached. It, and its scrim, now stack above the menu. */
+.ed-offcanvas { --kn-accent: var(--hg-primary); --kn-accent-text: var(--hg-primary-text); }
+.hg-overlay:has(+ .hg-locale__sheet) { z-index: 1000; }
+.hg-locale__sheet { z-index: 1001; }
+/* The sheet is a flex column, where `justify-self` (the shared rule) does nothing: the grip sat in the corner. */
+.hg-locale__sheet > .hg-locale__grip { align-self: center; }
+/* Footer tagline broke inside a word at 320 px ("모 / 든 것"). Phones only — desktop untouched. */
+@media (max-width: 767.98px) { .kn .kn-footer__statement:lang(ko) { word-break: keep-all; overflow-wrap: anywhere; } }

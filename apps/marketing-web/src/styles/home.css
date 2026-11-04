@@ -1008,3 +1008,31 @@ a.kn-crest:active .kn-crest__img { transform: translateY(0) scale(0.98); }
 /* V31 (REPORT §422, brief §7): every in-page target clears the floating header pill (top offset + ~56 px pill + air),
    so #pricing, #plan-compare, #plan-notes, #faq never land under it from a link, the header CTA or the browser. */
 .kn [id] { scroll-margin-top: calc(var(--kn-header-top, 16px) + 56px + 24px); }
+/* Phones: the offset moves from each target to the scroller. `scroll-padding-top` on the root is what Chrome and Safari
+   also honour when *focus* scrolls a control into view, so a Tab onto an FAQ question hidden behind the floating pill
+   brings it out below the pill — `scroll-margin` alone only covers anchors. 86 = pill top 12 + pill 52 + border 2 + 20
+   of air (`--kn-header-space` + 20; the root cannot read `.kn`'s variables, qa:marketing-mobile-hotfix asserts it). */
+@media (max-width: 767.98px) {
+  html { scroll-padding-top: 86px; }
+  .kn [id] { scroll-margin-top: 0; }
+}
+
+/* Final mobile polish 2026-11-04 — FAQ on phones. Korean questions broke inside a 어절 ("있을 / 까요?", "어 / 디인가요?");
+   keep-all breaks at spaces, `anywhere` still rescues a long unspaced token. Questions and answers stay start-aligned. */
+@media (max-width: 767.98px) {
+  :lang(ko) .kn-faq__q span, :lang(ko) .kn-faq__a { word-break: keep-all; overflow-wrap: anywhere; }
+  .kn-faq__q { min-height: 56px; padding-block: 16px; line-height: 1.45; }
+  .kn-faq__q span { text-wrap: balance; }
+}
+
+/* Final mobile polish 2026-11-04 — rhythm and wrapping on phones.
+   · #why → #services was the one seam at 144 px (the last proposition's own 32 px bottom padding on top of the band's
+     56 + 56); every other seam is 112. The last proposition no longer pads its bottom.
+   · Plan feature lines left a single word on the last line at 320 ("5곳", "1회", "없음"): `pretty` avoids the orphan. */
+@media (max-width: 767.98px) {
+  #why .kn-tri__col:last-child { padding-block-end: 0; }
+  .kn-plan__list li { text-wrap: pretty; }
+  /* "…기다리고 / 있습니다." at 320–375: `balance` does not rebalance the line after the heading's <br>; `pretty` does
+     ("여러분의 입학을 / 기다리고 있습니다."). */
+  #unis-title { text-wrap: pretty; }
+}

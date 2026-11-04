@@ -62,6 +62,10 @@
 
 // 576 px is where the pill stops being the full width of the screen and the page stops feeling like a card.
 @media (min-width: 576px) { .kn { --kn-page-breathe: 38px; } }
+// Final mobile polish 2026-11-04: on phones the pill is 4 px shorter (52 + border) and sits 16 px in from the edges
+// (12 px under 360 px). Everything that clears the header derives from these, so nothing else restates a number.
+@media (max-width: 767.98px) { .kn { --kn-header-h: 52px; --kn-header-inset: 16px; } }
+@media (max-width: 359.98px) { .kn { --kn-header-inset: 12px; } }
 @media (min-width: 768px) {
   .kn { --kn-band: 72px; --kn-gutter: 24px; --kn-header-inset: 20px; --kn-header-top: 20px; --kn-page-breathe: 44px; }
 }
@@ -124,6 +128,31 @@
   .kn-header__right .kn-btn { padding-inline: 14px; }
   .kn-header__right .kn-btn .ed-icon { display: none; }   // the arrow is decoration; the label carries it
   .kn-burger { width: 44px; height: 44px; } // V27: 44-px touch target
+}
+
+// Final mobile polish 2026-11-04 (phones only; tablet and desktop untouched). The pill was 58 px tall with a 44 px
+// button inside it, a 26 px lockup and a broad 28 px halo, which read heavy on a 360–430 px screen. Now: 52 px inside
+// the border, the lockup at 24 px, the action keeps its 44 px target but drops the decorative arrow at every phone width,
+// and the burger's 44 px circle sits concentric with the pill's end cap (4 px from it). The shadow is a gentle lift.
+// Distribution is LOGO · flexible air · [ACTION MENU]: the spacers absorb the air; the right group is one unit.
+@media (max-width: 767.98px) {
+  .kn-header {
+    box-shadow:
+      0 1px 2px rgba(24, 26, 31, 0.05),
+      0 6px 18px -8px rgba(24, 26, 31, 0.18);
+  }
+  .kn-header__inner { min-height: var(--kn-header-h); gap: var(--hg-space-2); padding-inline: 16px 4px; }
+  .kn-header__brand .hg-logo { --hg-logo-h: 24px; }
+  .kn-header__right { gap: 6px; }
+  .kn-header__right .kn-btn { padding-inline: 16px; }
+  .kn-header__right .kn-btn .ed-icon, .kn-header__right .kn-btn > svg { display: none; }
+}
+// 320–359 px: the same three controls, tighter air — nothing is dropped, nothing shrinks below 44 px.
+@media (max-width: 359.98px) {
+  .kn-header__inner { gap: 6px; padding-inline: 12px 4px; }
+  .kn-header__brand .hg-logo { --hg-logo-h: 22px; }
+  .kn-header__right { gap: 4px; }
+  .kn-header__right .kn-btn { padding-inline: 12px; }
 }
 
 // The header action's label is a translated phrase, and some languages need nearly four times the characters
@@ -409,9 +438,9 @@
 // phones, ≈ +12 px on a 568 px one. The background photo and the header do not move.
 // Refinement 2026-11-04 (b): the whole group (headline, copy, both CTAs) sits a further 20 px lower on phones — more air
 // under the floating pill; the CTAs keep their size and the group keeps its internal spacing.
-@media (max-width: 389.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + 56px + 20px + clamp(28px, 7svh - 8px, 56px)); } }
-@media (min-width: 390px) and (max-width: 429.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + 56px + 20px + clamp(36px, 7svh, 64px)); } }
-@media (min-width: 430px) and (max-width: 767.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + 56px + 20px + clamp(48px, 7svh + 8px, 76px)); } }
+@media (max-width: 389.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + var(--kn-header-h) + 20px + clamp(28px, 7svh - 8px, 56px)); } }
+@media (min-width: 390px) and (max-width: 429.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + var(--kn-header-h) + 20px + clamp(36px, 7svh, 64px)); } }
+@media (min-width: 430px) and (max-width: 767.98px) { .kn-hero__inner { padding-block-start: calc(var(--kn-header-top) + var(--kn-header-h) + 20px + clamp(48px, 7svh + 8px, 76px)); } }
 
 .kn-hero__content { max-width: 640px; color: #fff; }
 @media (max-width: 1199px) { .kn-hero__content { max-width: 620px; margin-inline: auto; text-align: center; } }
@@ -824,7 +853,6 @@ a.kn-chip:hover { border-color: var(--hg-border-strong); color: var(--kn-accent-
 @media (max-width: 575px) {
   .kn-cta__actions { flex-direction: column; align-items: stretch; }
   .kn-cta__actions .kn-btn--primary { width: 100%; }
-  .kn-cta__actions .kn-btn--quiet-onphoto { align-self: center; }
 }
 
 // A grid item's default `min-width: auto` is its content's minimum, and `.kn-btn` is `white-space: nowrap`:
@@ -838,8 +866,23 @@ a.kn-chip:hover { border-color: var(--hg-border-strong); color: var(--kn-accent-
 .kn-cta > *, .kn-cta__actions > * { min-width: 0; }
 @media (max-width: 575px) {
   .kn-cta__actions .kn-btn { white-space: normal; overflow-wrap: anywhere; height: auto; padding-block: 10px; line-height: 1.25; }
-  .kn-cta__actions .kn-btn--quiet-onphoto { padding-inline: 16px; }
 }
+// Final mobile polish 2026-11-04 — the closing band on phones. The two actions share one geometry and differ only in
+// emphasis: both take the card's content width, both are 56 px, same padding, same radius, same 10 px label→arrow gap
+// (`.kn-btn` centres label + arrow as one group). A grid with `1fr` rows keeps the heights equal even when a long
+// translation wraps one label and not the other. The card's own padding is a little deeper at the top than the sides,
+// so the headline is not pressed against the radius.
+@media (max-width: 575px) {
+  .kn-cta { padding: 28px 22px 22px; gap: var(--hg-space-5); }
+  .kn-cta__actions { display: grid; grid-template-columns: minmax(0, 1fr); grid-auto-rows: 1fr; gap: 12px; }
+  .kn-cta__actions > .kn-btn {
+    width: 100%; min-height: var(--hg-control-height-lg); padding: 10px 20px;
+    font-size: var(--hg-text-lg); line-height: 1.25; text-align: center;
+    white-space: normal; overflow-wrap: anywhere;
+  }
+  .kn-cta__text { font-size: var(--hg-text-lg); line-height: 1.65; max-width: 34em; }
+}
+@media (max-width: 359.98px) { .kn-cta { padding: 24px 18px 18px; } }
 // `.kn-btn` is `white-space: nowrap`, which is right for a button sitting in a row and wrong for one that is
 // already the full width of the screen: there, a two-line label is fine and a label wider than the viewport
 // is not. A full-width button therefore wraps and grows instead of overflowing.
