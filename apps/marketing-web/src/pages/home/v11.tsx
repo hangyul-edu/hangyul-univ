@@ -337,10 +337,17 @@ export function Services() {
 
 /* ---------------------------------------------------------------------------------------------- 5. FAQ */
 
-/** Koreanasha's own ten questions and ten answers, verbatim, as native `<details>` (no JS, keyboard-correct). */
+/**
+ * Koreanasha's own questions and answers as native `<details>` (no JS, keyboard-correct).
+ *
+ * Nine, not ten: the employment-after-graduation question was removed in every locale (designer feedback,
+ * 2026-11-09). The count must match the `v11.faq.q1…qN` keys in the bundles, or a raw key renders.
+ */
+const FAQ_COUNT = 9;
+
 export function Questions() {
   const { t } = useLocale('marketing');
-  const items = Array.from({ length: 10 }, (_, i) => ({
+  const items = Array.from({ length: FAQ_COUNT }, (_, i) => ({
     q: t(`v11.faq.q${i + 1}.q`),
     a: koreanasha(t(`v11.faq.q${i + 1}.a`)),
   }));
