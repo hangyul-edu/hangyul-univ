@@ -141,7 +141,7 @@ async function finalPolish() {
     ok(g.header.h >= 50 && g.header.h <= 58 && g.header.b <= 72, `${tag} compact header: pill ${g.header.h}px, footprint ${Math.round(g.header.b)}px (50–58, ≤ 72)`);
     ok(g.header.l >= 12 && g.header.l <= 20 && near(g.header.l, w - g.header.r), `${tag} header side margin ${g.header.l}px, symmetric`);
     const inside = (x) => x && x.l >= g.header.l - 0.5 && x.r <= g.header.r + 0.5 && x.t >= g.header.t - 0.5 && x.b <= g.header.b + 0.5;
-    ok(inside(g.logo) && inside(g.act) && inside(g.burger) && g.logo.w >= 90, `${tag} logo (${Math.round(g.logo.w)}px), action, menu all inside the pill`);
+    ok(inside(g.logo) && inside(g.act) && inside(g.burger) && g.logo.w >= 70 /* final Hangyul Univ lockup is 3.32:1 — 73 px at 22 px tall, 80 px at 24 (was 4.75:1, ≥ 90) */, `${tag} logo (${Math.round(g.logo.w)}px), action, menu all inside the pill`);
     ok(g.logo.r + 8 <= g.act.l && g.act.r <= g.burger.l + 0.5, `${tag} no collision: logo→action ${Math.round(g.act.l - g.logo.r)}px, action→menu ${Math.round(g.burger.l - g.act.r)}px`);
     ok(g.lines === 1 && g.actOverflow <= 0, `${tag} header action on one line, unclipped`);
     ok(g.act.h >= 44 && g.burger.w >= 44 && g.burger.h >= 44, `${tag} header targets: action ${g.act.h}px tall, menu ${g.burger.w}×${g.burger.h}`);

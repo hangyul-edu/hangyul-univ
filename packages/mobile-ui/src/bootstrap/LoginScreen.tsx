@@ -83,7 +83,7 @@ export function LoginScreen({ client, productName, tagline, extra, secondary }: 
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
           <View style={styles.brand}>
-            <Image source={require('../../assets/brand/symbol-192.png')} style={styles.logo} resizeMode="contain" accessibilityIgnoresInvertColors accessibilityLabel={t('common:a11y.logoAlt')} />
+            <Image source={require('../../assets/brand/hangyul-univ-logo-vertical-orange.png')} style={styles.logo} resizeMode="contain" accessibilityIgnoresInvertColors accessibilityLabel={t('common:a11y.logoAlt')} />
             <AppText variant="title" align="center" accessibilityRole="header">{t('common:auth.signInTo', { product: productName })}</AppText>
             <AppText variant="body" secondary align="center">{tagline ?? t('common:brand.tagline')}</AppText>
           </View>
@@ -153,6 +153,6 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: theme.color.bgCanvas },
   content: { padding: theme.space[5], gap: theme.space[6], flexGrow: 1, justifyContent: 'center', maxWidth: 520, width: '100%', alignSelf: 'center' },
   brand: { alignItems: 'center', gap: 8 },
-  logo: { width: 52, height: 60, marginBottom: 8 },
+  logo: { width: 62, height: 80, marginBottom: 8 },
   form: { gap: theme.space[4] },
 });

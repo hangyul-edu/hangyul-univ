@@ -99,12 +99,10 @@ No facial recognition was used; every association comes from repository metadata
 
 ### Brand assets
 
-Canonical source: `packages/icons/assets/brand/`, exported as `brandAssets` from `@hangyul/icons`. `logo-combined.png`
-(+ `@2x`) is **the lockup** in every header and footer; `logo-combined-light.png` (+ `@2x`) is the derived light-ink variant
-for dark surfaces (only the `#282828` wordmark ink repainted white; the tangerine symbol is byte-identical); `symbol.webp`
-serves collapsed console rails; `favicon-32/64.png`, `apple-touch-icon.png`, `app-icon-1024.png`, `adaptive-foreground-1024.png`
-and `splash.png` are the tab, home-screen and native icons; `hand-tangerine.webp` is the student login aside;
-`wordmark-en.png` / `wordmark-ko.png` are available but not placed. No Koreanasha or Eduan logo ships in any app or bundle.
+Canonical source since 2026-11-17: the owner-supplied Hangyul Univ logo set in `packages/icons/assets/brand/hangyul-univ/`
+(masters in `master/`, generated derivatives beside them), exported as `HANGYUL_UNIV_BRAND` from `@hangyul/icons` — see
+`docs/BRAND_ASSETS.md`. It replaces the earlier Hangyul BI-kit lockup (`logo-combined*`, `symbol*`, `wordmark-*`), which
+is removed. `hand-tangerine.webp` remains as the student login aside. No Koreanasha or Eduan logo ships in any app or bundle.
 
 ---
 

@@ -169,7 +169,8 @@ export default function UniversityDetail() {
   const secondary = inst ? (korean ? inst.name_en : inst.name_ko) : null;
 
   useSeo({
-    title: inst ? t('v12.seo.university.title', { name: primary }) : t('v12.seo.directory.title'),
+    // `<University> | Hangyul Univ` — the same title the build prerenders into this page's static HTML.
+    title: inst ? `${primary} | ${t('common:brand.name')}` : t('v12.seo.directory.title'),
     description: inst
       ? t('v12.seo.university.description', {
           name: primary,

@@ -114,12 +114,13 @@
 .hg-tabbar a.active svg { stroke-width: 2.1; }
 .hg-tabbar__dot { position: absolute; top: 7px; inset-inline-start: calc(50% + 7px); width: 8px; height: 8px; border-radius: 50%; background: var(--hg-primary); border: 2px solid var(--hg-surface); }
 
-/* V10: the brand lockup is the BI-kit asset, not type set in CSS. `--hg-logo-h` sizes it; the @2x source keeps it
-   sharp on high-DPI screens. `.hg-logo__mark` (the symbol alone) is only shown where the lockup cannot fit — the
-   collapsed console rail. */
+/* The brand lockup is the owner-supplied Hangyul Univ logo image (docs/BRAND_ASSETS.md), never type set in CSS.
+   `--hg-logo-h` sizes it by height only, so the 3.32:1 artwork is never distorted; the @2x source keeps it sharp.
+   `.hg-logo__mark` (the symbol alone) is only shown where the lockup cannot fit — the collapsed console rail. */
 .hg-logo { --hg-logo-h: 26px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none !important; color: var(--hg-text); flex: none; }
 .hg-logo__img { display: block; height: var(--hg-logo-h); width: auto; }
 .hg-logo__mark { display: none; height: calc(var(--hg-logo-h) + 6px); width: auto; }
+.hg-logo-vertical { display: block; height: auto; max-width: 100%; }
 .hg-logo__tag { display: block; font-size: var(--hg-text-xs); font-weight: var(--hg-weight-medium); color: var(--hg-text-tertiary); margin-top: 4px; letter-spacing: 0; }
 .hg-shell[data-collapsed='true'] .hg-logo__mark { display: block; }
 

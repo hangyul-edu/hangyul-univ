@@ -71,7 +71,7 @@ export function ServiceUnavailable({ onRetry }: { onRetry: () => void }) {
   const { t } = useTranslation('common');
   return (
     <View style={styles.splash} accessibilityRole="summary">
-      <Image source={require('../../assets/brand/symbol-192.png')} style={styles.logo} resizeMode="contain" />
+      <Image source={require('../../assets/brand/hangyul-univ-logo-vertical-orange.png')} style={styles.logo} resizeMode="contain" />
       <EmptyState icon={CloudOff} title={t('states.unavailableTitle')} body={t('states.unavailableText')} actionLabel={t('actions.retry')} onAction={onRetry} />
     </View>
   );
@@ -80,7 +80,7 @@ export function ServiceUnavailable({ onRetry }: { onRetry: () => void }) {
 export function BrandSplash() {
   return (
     <View style={styles.splash} accessible accessibilityRole="progressbar" accessibilityLabel="Hangyul Univ">
-      <Image source={require('../../assets/brand/symbol-192.png')} style={styles.logo} resizeMode="contain" accessibilityIgnoresInvertColors />
+      <Image source={require('../../assets/brand/hangyul-univ-logo-vertical-orange.png')} style={styles.logo} resizeMode="contain" accessibilityIgnoresInvertColors />
       <ActivityIndicator color={theme.color.primary} />
     </View>
   );
@@ -166,5 +166,5 @@ export function AuthGate({ children, login, hold = false }: { children: ReactNod
 
 const styles = StyleSheet.create({
   splash: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 24, backgroundColor: theme.color.bgCanvas },
-  logo: { width: 81, height: 96 },
+  logo: { width: 87, height: 112 },
 });

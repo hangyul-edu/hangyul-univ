@@ -1,4 +1,5 @@
 import { useLocale } from '@hangyul/i18n';
+import { HANGYUL_UNIV_BRAND, HANGYUL_UNIV_SITE_URL } from '@hangyul/icons';
 import { useEffect } from 'react';
 
 function setMeta(attr: 'name' | 'property', key: string, content: string) {
@@ -26,12 +27,16 @@ function setLink(rel: string, href: string, extra?: Record<string, string>) {
 /**
  * Per-route document title, description, canonical and social cards.
  *
- * V10: the Open Graph identity is Hangyul's own — a 1200×630 card built from the Hangyul photo library with the
- * BI lockup (`/og/hangyul-univ.jpg`). Nothing here descends from the Koreanasha template, whose `index.html`
- * carried `og:image: assets/img/pre_img.png`, `og:url`/canonical pointing at `edu.koreanasha.com`, a
- * `naver-site-verification` token and a Russian keyword block — none of which exist in this codebase.
+ * The same tags exist in the **static HTML** — `index.html` for the homepage and the pages
+ * `scripts/seo/prerender-meta.mjs` writes at build time for the directory and every university — because
+ * link-preview crawlers do not run this hook. This hook keeps them right while the visitor navigates and
+ * localises them; it updates the existing tags in place, so there is never a second copy.
  *
- * The canonical URL is the current origin plus the path, with query and hash dropped, so a filtered or
+ * The card is the owner-supplied 1200×630 image, always as an absolute URL on the public origin (never the
+ * current host, which may be a preview or localhost). A page may pass its own `image` only if it is a public,
+ * permanent, same-site asset; nothing does today, so every page falls back to the Hangyul Univ card.
+ *
+ * The canonical URL is the public origin plus the path, with query and hash dropped, so a filtered or
  * anchor-linked view does not advertise itself as a separate page. `og:locale` reflects the chosen language.
  */
 export function useSeo({ title, description, image }: { title: string; description?: string; image?: string }) {
@@ -40,8 +45,8 @@ export function useSeo({ title, description, image }: { title: string; descripti
   useEffect(() => {
     const full = title.includes(brand) || title.includes('Hangyul') ? title : `${title} · ${brand}`;
     document.title = full;
-    const url = `${window.location.origin}${window.location.pathname}`;
-    const card = new URL(image ?? '/og/hangyul-univ.jpg', window.location.origin).toString();
+    const url = `${HANGYUL_UNIV_SITE_URL}${window.location.pathname}`;
+    const card = image ? new URL(image, HANGYUL_UNIV_SITE_URL).toString() : HANGYUL_UNIV_BRAND.social.og;
 
     setMeta('property', 'og:title', full);
     setMeta('property', 'og:site_name', brand);

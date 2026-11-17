@@ -1,4 +1,5 @@
-import { brandAssets, Check, ChevronDown, ExternalLink, Search, ShieldCheck, TriangleAlert } from '@hangyul/icons';
+import { HANGYUL_UNIV_BRAND, Check, ChevronDown, ExternalLink, Search, ShieldCheck, TriangleAlert } from '@hangyul/icons';
+import type { BrandLogoColor } from '@hangyul/icons';
 import { changeLocale, translationQuality, useLocale, type Namespace } from '@hangyul/i18n';
 import type { Country, Freshness } from '@hangyul/types';
 import { countryName, cx, flagEmoji, formatDate } from '@hangyul/utils';
@@ -7,38 +8,47 @@ import { useMemo, useState, type ReactNode } from 'react';
 import { Popover } from './overlays';
 
 /**
- * The Hangyul lockup. V10: this renders the **brand asset** (`logo-combined.png` from the Hangyul BI kit, with an
- * @2x source for high-DPI screens) instead of the typeset "Hangyul Univ" string V1–V9 drew in CSS.
+ * The Hangyul Univ lockup: the owner-supplied horizontal logo (cap-and-leaf symbol + "univ." wordmark), served
+ * from `HANGYUL_UNIV_BRAND` with an @2x source. It is an image, never type set in CSS — see docs/BRAND_ASSETS.md.
  *
- * `tone="light"` swaps to the variant whose wordmark ink is white, for dark surfaces (the university console
- * sidebar, any chrome over a photograph). The tangerine symbol is identical in both.
+ * Ink follows the surface: `tone="dark"` (default) is black ink for light surfaces; `tone="light"` is ivory ink for
+ * dark or orange surfaces (the navy console sidebar, chrome over a photograph). `color` picks a variant explicitly —
+ * `orange` is the sparing accent for white/ivory identity moments and must never sit on an orange surface.
  *
  * The collapsed console rail hides `.hg-logo__full` and shows `.hg-logo__mark` (see styles/layout.css), so the
  * rail keeps the symbol alone rather than a clipped lockup.
+ *
+ * `below` marks a lockup that is **not** in the first viewport — the footer's, in practice — so it loads lazily
+ * (V20 §48). The header's lockup keeps the default, because it is the LCP candidate on several routes.
+ *
+ * The link carries the accessible name ("Hangyul Univ" + product), so both images are `alt=""`.
  */
-/**
- * `below` marks a lockup that is **not** in the first viewport — the footer's, in practice. V20's
- * §48 check found the footer logo loading eagerly 3,600 px down every page in the product: 40 KB of
- * brand asset competing with the hero photograph for the first connections. The header's lockup keeps
- * the default, because it is the LCP candidate on several routes and deferring it would be worse.
- */
-export function Logo({ product, href = '/', as: As, tag, tone = 'dark', below }: {
-  product?: string; href?: string; as?: React.ElementType; tag?: string; tone?: 'dark' | 'light'; below?: boolean;
+export function Logo({ product, href = '/', as: As, tag, tone = 'dark', color, below }: {
+  product?: string; href?: string; as?: React.ElementType; tag?: string; tone?: 'dark' | 'light'; color?: BrandLogoColor; below?: boolean;
 }) {
   const { t } = useLocale('common');
   const Comp = As ?? 'a';
-  const light = tone === 'light';
-  const src = light ? brandAssets.logoCombinedLight : brandAssets.logoCombined;
-  const src2x = light ? brandAssets.logoCombinedLight2x : brandAssets.logoCombined2x;
+  const ink: BrandLogoColor = color ?? (tone === 'light' ? 'ivory' : 'black');
+  const full = HANGYUL_UNIV_BRAND.logoHorizontal[ink];
+  const mark = HANGYUL_UNIV_BRAND.symbol[ink];
   return (
     <Comp className="hg-logo" {...(As ? { to: href } : { href })} aria-label={`${t('brand.name')}${product ? ` ${product}` : ''}`}>
-      <img className="hg-logo__mark" src={brandAssets.symbol} alt="" width={27} height={32} aria-hidden loading={below ? 'lazy' : undefined} />
+      <img className="hg-logo__mark" src={mark.src} srcSet={`${mark.src} 1x, ${mark.src2x} 2x`} alt="" width={mark.width} height={mark.height} aria-hidden loading={below ? 'lazy' : undefined} />
       <span className="hg-logo__full">
-        <img className="hg-logo__img" src={src} srcSet={`${src} 1x, ${src2x} 2x`} alt="" width={456} height={96} loading={below ? 'lazy' : undefined} decoding={below ? 'async' : undefined} />
+        <img className="hg-logo__img" src={full.src} srcSet={`${full.src} 1x, ${full.src2x} 2x`} alt="" width={full.width} height={full.height} loading={below ? 'lazy' : undefined} decoding={below ? 'async' : undefined} />
         {tag && <span className="hg-logo__tag">{tag}</span>}
       </span>
     </Comp>
   );
+}
+
+/**
+ * The vertical lockup (symbol above wordmark) for a centred identity moment — an auth card, a splash, an empty
+ * state. Never use it in a header or any horizontal bar. Decorative by default; pass `alt` when it stands alone.
+ */
+export function LogoVertical({ color = 'orange', height = 96, alt = '' }: { color?: BrandLogoColor; height?: number; alt?: string }) {
+  const img = HANGYUL_UNIV_BRAND.logoVertical[color];
+  return <img className="hg-logo-vertical" src={img.src} srcSet={`${img.src} 1x, ${img.src2x} 2x`} alt={alt} width={Math.round((img.width / img.height) * height)} height={height} />;
 }
 
 /**
