@@ -13,7 +13,7 @@ Hangyul Univ is the operating system that connects **students → Hangyul → pa
 | API | http://localhost:8001 · docs http://localhost:8001/docs | FastAPI · SQLAlchemy 2 · Alembic · PostgreSQL 16 |
 | Native apps | Expo Go / simulators | React Native 0.86 · Expo SDK 57 · expo-router |
 
-Docs: [PRODUCT](docs/PRODUCT.md) · [ARCHITECTURE](docs/ARCHITECTURE.md) · [DATA_MODEL](docs/DATA_MODEL.md) · [WORKFLOWS](docs/WORKFLOWS.md) · [I18N](docs/I18N.md) · [SECURITY](docs/SECURITY.md) · [RESEARCH](docs/RESEARCH.md) · [ROADMAP](docs/ROADMAP.md) · [FRONTEND_CONVENTIONS](docs/FRONTEND_CONVENTIONS.md)
+Docs: [서비스 기획서 (디자인 공유용)](docs/한귤유니브_서비스기획서.pdf) · [PRODUCT](docs/PRODUCT.md) · [ARCHITECTURE](docs/ARCHITECTURE.md) · [DATA_MODEL](docs/DATA_MODEL.md) · [WORKFLOWS](docs/WORKFLOWS.md) · [I18N](docs/I18N.md) · [SECURITY](docs/SECURITY.md) · [RESEARCH](docs/RESEARCH.md) · [ROADMAP](docs/ROADMAP.md) · [FRONTEND_CONVENTIONS](docs/FRONTEND_CONVENTIONS.md)
 
 ## Prerequisites
 
