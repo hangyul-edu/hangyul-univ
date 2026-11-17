@@ -37,7 +37,7 @@ for (const o of ['horizontal', 'vertical']) for (const c of COLORS) {
 }
 for (const f of ['master/hangyul-univ-og-3600x1890.jpg', 'master/hangyul-univ-banner-3072x1500.jpg', 'hangyul-univ-og-v1.jpg', 'hangyul-univ-banner-1024x500.jpg',
   'favicon.ico', 'favicon-32.png', 'favicon-48.png', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png',
-  'native/app-icon-1024.png', 'native/adaptive-foreground-1024.png', 'native/splash.png']) check(existsSync(abs(`${BRAND}/${f}`)), `canonical ${f}`);
+  'native/app-icon-1024.png', 'native/adaptive-foreground-1024.png', 'native/adaptive-monochrome-1024.png', 'native/notification-icon.png', 'native/splash.png', 'native/splash-icon.png']) check(existsSync(abs(`${BRAND}/${f}`)), `canonical ${f}`);
 
 // 2. Dimensions.
 const dims = (p, w, h) => { if (!existsSync(abs(p))) return check(false, `${p} exists`); const [a, b] = size(abs(p)); check(a === w && b === h, `${p} is ${w}×${h}`, `${a}×${b}`); };
@@ -88,6 +88,17 @@ for (const app of ['marketing', 'student', 'agency', 'university']) {
 for (const app of ['student', 'agency', 'university']) {
   const cfg = read(`apps/${app}-mobile/app.json`);
   for (const r of cfg.matchAll(/"\.\/(assets\/[^"]+\.png)"/g)) check(existsSync(abs(`apps/${app}-mobile/${r[1]}`)), `${app}-mobile: ${r[1]} exists`);
+}
+
+// 5b. Marketing chrome uses the orange lockup; Android adaptive icon is orange-on-ivory with a themed variant.
+{
+  const layout = read('apps/marketing-web/src/components/SiteLayout.tsx');
+  const logos = [...layout.matchAll(/<Logo [^>]*\/>/g)].map((m) => m[0]);
+  check(logos.length >= 3 && logos.every((l) => l.includes('color="orange"')), 'marketing header, menu and footer use the orange lockup', logos.join(' '));
+  for (const app of ['student', 'agency', 'university']) {
+    const a = JSON.parse(read(`apps/${app}-mobile/app.json`)).expo.android.adaptiveIcon;
+    check(a.backgroundColor === '#F5F5E6' && !!a.monochromeImage && !!a.foregroundImage, `${app}-mobile: adaptive icon is foreground + ivory background + monochrome`, JSON.stringify(a));
+  }
 }
 
 // 6. No current-product source still points at the retired Hangyul lockup.

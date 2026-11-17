@@ -116,8 +116,22 @@ emit(BRAND / "icon-512.png", on_canvas(sym, (512, 512), IVORY, fit=0.60))
 
 # ------------------------------------------------------------------ native
 emit(BRAND / "native/app-icon-1024.png", on_canvas(sym, (1024, 1024), IVORY, fit=0.60))
-emit(BRAND / "native/adaptive-foreground-1024.png", on_canvas(sym, (1024, 1024), None, fit=0.46))  # 66 % safe circle
+# Android adaptive icon: 108 dp canvas, launcher masks (circle, squircle, rounded square, Samsung) show the centre
+# 72 dp and guarantee only the centre 66 dp circle. At fit 0.45 the farthest opaque pixel (the leaf tip) is 32.3 dp
+# from the centre — inside that 33 dp radius on every mask — and the symbol still fills ~68 % of the visible icon.
+ADAPTIVE_FIT = 0.45
+emit(BRAND / "native/adaptive-foreground-1024.png", on_canvas(sym, (1024, 1024), None, fit=ADAPTIVE_FIT))
+# Themed (Android 13+) icon: the same symbol as a single-colour silhouette — the black master, never the colour art.
+emit(BRAND / "native/adaptive-monochrome-1024.png", on_canvas(symbols["black"], (1024, 1024), None, fit=ADAPTIVE_FIT))
+# Status-bar notification glyph: Android draws only the alpha channel, so this is the silhouette in white.
+glyph = on_canvas(symbols["black"], (96, 96), None, fit=0.92)
+white = Image.new("RGBA", glyph.size, (255, 255, 255, 0))
+white.putalpha(glyph.getchannel("A"))
+emit(BRAND / "native/notification-icon.png", white)
 emit(BRAND / "native/splash.png", on_canvas(verticals["orange"], (1284, 2778), SPLASH_BG, fit=0.36))
+# Android 12+ shows the splash image inside a circle (192 dp of a 288 dp canvas). A transparent square holding only
+# the vertical logo lets `imageWidth` size the logo itself instead of a full-screen picture shrunk to a sliver.
+emit(BRAND / "native/splash-icon.png", on_canvas(verticals["orange"], (1024, 1024), None, fit=1.0))
 
 # ------------------------------------------------------------------ manifest of sizes (read by @hangyul/icons)
 emit_bytes(BRAND / "dimensions.json", (json.dumps(dims, indent=2) + "\n").encode())
@@ -141,7 +155,7 @@ emit_bytes(mk / "og/hangyul-univ-og-v1.jpg", outputs[BRAND / "hangyul-univ-og-v1
 # A stable public logo URL (structured data, e-mail, partners) — never hashed by the bundler.
 emit_bytes(mk / "brand/hangyul-univ-logo-horizontal-black.png", outputs[BRAND / "hangyul-univ-logo-horizontal-black@2x.png"])
 for app in ("student-mobile", "agency-mobile", "university-mobile"):
-    for f in ("app-icon-1024.png", "adaptive-foreground-1024.png", "splash.png"):
+    for f in ("app-icon-1024.png", "adaptive-foreground-1024.png", "adaptive-monochrome-1024.png", "notification-icon.png", "splash.png", "splash-icon.png"):
         emit_bytes(ROOT / "apps" / app / "assets" / f, outputs[BRAND / "native" / f])
 emit_bytes(ROOT / "packages/mobile-ui/assets/brand/hangyul-univ-logo-vertical-orange.png", outputs[BRAND / "hangyul-univ-logo-vertical-orange@2x.png"])
 

@@ -21,10 +21,11 @@ The owner-supplied final logo set (2026-11-17). One source, one definition, gene
 
 | Surface | Variant |
 | --- | --- |
-| Light / white (headers, light footer, auth pages, dialogs) | **horizontal black** — `<Logo />` |
+| **Marketing site** header, menu and footer (white / light) | **horizontal orange** — `<Logo color="orange" />` (owner decision 2026-11-17: ties the brand to the orange primary action) |
+| Product shells and auth pages on light (student app, admin, university console) | **horizontal black** — `<Logo />` |
 | Dark (navy sidebar, dark footer/CTA, over a photograph) | **horizontal ivory** — `<Logo tone="light" />` |
 | Orange / tangerine | **ivory**. Never the orange logo on orange. |
-| White / ivory identity moment (splash, app sign-in, app icon) | **orange**, sparingly |
+| White / ivory identity moment (native splash, native sign-in, app icon, favicon) | **orange** |
 
 - **Horizontal** for anything bar-shaped: headers, navigation, footers, auth headers, e-mail bars.
 - **Vertical** only for a centred identity moment: native splash, native sign-in, an empty/centred brand area
@@ -59,6 +60,20 @@ Symbol only — the wordmark is never squeezed into an icon. `favicon.ico` (16/3
 `favicon-48.png` transparent; `apple-touch-icon.png` (180), `icon-192.png`, `icon-512.png` and the native
 `app-icon-1024.png` are the orange symbol on brand ivory `#F5F5E6`, inside the maskable safe zone. Android adaptive
 foreground keeps the symbol inside the 66 % safe circle. Native splash: vertical orange logo on `#FFFDF8`.
+
+### Android (all three Expo apps)
+
+| Piece | File (in `apps/*-mobile/assets/`) | Notes |
+| --- | --- | --- |
+| Adaptive foreground | `adaptive-foreground-1024.png` | orange symbol + green leaf, 45 % of the canvas — inside the 66 dp safe circle on circle / squircle / rounded-square / Samsung masks |
+| Adaptive background | `#F5F5E6` (app.json) | brand ivory; never black |
+| Themed (Android 13+) | `adaptive-monochrome-1024.png` | single-colour silhouette from the black master |
+| Legacy / iOS / store icon | `app-icon-1024.png` | orange symbol on ivory |
+| Notification small icon | `notification-icon.png` (student) | white silhouette, tinted `#CC4E00` by the system; never the colour icon |
+| Splash (student, Android 12+) | `splash-icon.png`, `imageWidth: 140` | vertical orange logo on a transparent square, sized to sit inside the system splash circle |
+
+The launcher icon never carries the wordmark. After changing any of these, re-run `expo prebuild` and rebuild —
+an installed app keeps its old icon until the new APK is installed (launchers also cache icons).
 
 ## Do not
 

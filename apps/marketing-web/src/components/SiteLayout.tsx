@@ -100,7 +100,9 @@ function Header() {
       {/* No state class: the pill is the pill, at the top of the page and 4,000 px down it. */}
       <div className="kn-header">
         <div className="kn-header__inner">
-          <div className="kn-header__brand"><Logo as={LocaleLink} href="/" /></div>
+          {/* Owner decision 2026-11-17: the marketing chrome is white/light, and the orange lockup ties the brand to the
+              orange primary action. Consoles and the student app keep black; dark surfaces keep ivory. */}
+          <div className="kn-header__brand"><Logo as={LocaleLink} href="/" color="orange" /></div>
           <div className="kn-header__spacer" />
           <nav className="kn-nav d-none d-xl-block" aria-label={t('nav.primary')}>
             <ul>
@@ -127,7 +129,7 @@ function Header() {
           </div>
         </div>
       </div>
-      <Offcanvas open={open} onClose={() => setOpen(false)} title={t('nav.menu')} closeLabel={t('common:actions.close')} logo={<Logo as={LocaleLink} href="/" />}>
+      <Offcanvas open={open} onClose={() => setOpen(false)} title={t('nav.menu')} closeLabel={t('common:actions.close')} logo={<Logo as={LocaleLink} href="/" color="orange" />}>
         <nav className="kn-mnav" aria-label={t('nav.primary')}>
           <NavLink to={lang('/')} end>{t('common:nav.home')}</NavLink>
           {PRIMARY.map((n) => (n.to.includes('#')
@@ -315,7 +317,7 @@ function Footer() {
         <div className="kn-footer__top">
           <div className="kn-footer__brand">
             {/* `below`: the footer lockup is ~3,600 px down every page and was loading eagerly (V20 §48). */}
-            <Logo as={LocaleLink} href="/" below />
+            <Logo as={LocaleLink} href="/" color="orange" below />
             <p className="kn-footer__statement">{t('footer.statement')}</p>
             <SocialLinks />
             <div className="kn-footer__lang"><LocaleSelector /></div>

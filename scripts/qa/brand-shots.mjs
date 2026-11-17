@@ -4,7 +4,7 @@ import { mkdirSync } from 'node:fs';
 
 const BASE = process.env.BASE ?? 'http://localhost:4699';
 const OUT = process.env.OUT ?? 'docs/qa/brand/shots';
-const WIDTHS = (process.env.WIDTHS ?? '320,360,375,390,412,430,768,1440').split(',').map(Number);
+const WIDTHS = (process.env.WIDTHS ?? '320,360,375,390,412,430,768,1280,1440,1920').split(',').map(Number);
 mkdirSync(OUT, { recursive: true });
 const browser = await chromium.launch();
 let fail = 0;
@@ -28,7 +28,7 @@ for (const w of WIDTHS) {
   const ratio = g.img.w / g.img.h, nat = g.natural[0] / g.natural[1];
   const problems = [];
   if (Math.abs(ratio - nat) > 0.06) problems.push(`distorted ${ratio.toFixed(2)} vs ${nat.toFixed(2)}`);
-  if (!/horizontal-black/.test(g.src) && !g.src.startsWith('data:')) problems.push(`unexpected src ${g.src}`);
+  if (!/horizontal-orange/.test(g.src) && !g.src.startsWith('data:')) problems.push(`unexpected src ${g.src}`);
   if (g.cta && g.cta.x - g.img.r < 8) problems.push('logo crowds CTA');
   if (g.burger && (g.burger.w < 44 || g.burger.h < 44)) problems.push('burger < 44px');
   if (g.cta && g.cta.h < 44 && w < 768) problems.push('CTA < 44px');
@@ -38,6 +38,7 @@ for (const w of WIDTHS) {
   if (problems.length) fail += 1;
   console.log(`${w}: header ${g.header.h}px · logo ${g.img.w}×${g.img.h} · cta ${g.cta ? `${g.cta.w}×${g.cta.h} gap ${g.cta.x - g.img.r}` : '—'} · burger ${g.burger ? `${g.burger.w}×${g.burger.h}` : '—'} → ${problems.length ? `FAIL ${problems.join('; ')}` : 'PASS'}`);
   await page.screenshot({ path: `${OUT}/marketing-header-${w}.png`, clip: { x: 0, y: 0, width: w, height: Math.min(160, g.header.h + g.header.y + 40) } });
+  if ([320, 390, 1440].includes(w)) await page.screenshot({ path: `${OUT}/marketing-top-${w}.png`, clip: { x: 0, y: 0, width: w, height: 420 } });
   if ([390, 1440].includes(w)) {
     const footer = page.locator('.kn-footer');
     await footer.scrollIntoViewIfNeeded();

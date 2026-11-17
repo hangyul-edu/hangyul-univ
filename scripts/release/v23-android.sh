@@ -2,7 +2,7 @@
 # V23 Android release artifacts, one app and one stage at a time (low-memory host: one Gradle, no daemon, 1 worker,
 # pinned to 2 CPUs, chunked under the tool's 10-minute limit — re-run a stage until it prints DONE).
 #
-#   scripts/release/v23-android.sh <student|agency|university> <prebuild-preview|apk|prebuild-prod|aab|collect>
+#   scripts/release/v23-android.sh <student|agency|university> <prebuild-preview|apk|prebuild-prod|aab|apk-prod|collect>
 #
 # preview APK  : EXPO_PUBLIC_TEST_LOGIN=true,  HG_QA_CLEARTEXT=1 (talks to the local dev API from the emulator)
 # production AAB: EXPO_PUBLIC_TEST_LOGIN=false, cleartext off (store-shaped; production API origin is an owner input)
@@ -32,5 +32,10 @@ case "$STAGE" in
   aab)
     common_env; export EXPO_PUBLIC_TEST_LOGIN=false; unset HG_QA_CLEARTEXT
     cd "$DIR/android" && timeout 560 "${GRADLE[@]}" :app:bundleRelease && echo DONE ;;
+  apk-prod)
+    # A release APK shaped like the store build (production origins, no cleartext) for sideloading onto a real device.
+    # Run after `prebuild-prod` with HG_ANDROID_API_URL / _WEB_URL / _MARKETING_URL set to the public origins.
+    common_env; export EXPO_PUBLIC_TEST_LOGIN=false; unset HG_QA_CLEARTEXT
+    cd "$DIR/android" && timeout 560 "${GRADLE[@]}" :app:assembleRelease && echo DONE ;;
   *) echo "unknown stage $STAGE"; exit 2 ;;
 esac
