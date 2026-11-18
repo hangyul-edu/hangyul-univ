@@ -153,6 +153,10 @@ export function hangyulViteConfig(port: number, extra: Partial<UserConfig> = {})
       port,
       strictPort: true,
       host: true,
+      // Dev tunnels (ngrok) reach the dev server under their own hostname; Vite rejects unknown hosts otherwise.
+      // Extra hosts: HG_ALLOWED_HOSTS=a.example.com,.example.org
+      allowedHosts: ['.ngrok-free.app', '.ngrok-free.dev', '.ngrok.app', '.ngrok.dev',
+        ...(process.env.HG_ALLOWED_HOSTS ?? '').split(',').map((h) => h.trim()).filter(Boolean)],
       proxy: { '/api': { target: api, changeOrigin: false } },
     },
     preview: { port, strictPort: true, proxy: { '/api': { target: api } } },

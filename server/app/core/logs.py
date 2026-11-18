@@ -91,11 +91,16 @@ class RedactionFilter(logging.Filter):
     def filter(self, record: logging.LogRecord) -> bool:
         if self._secrets is None:
             self._secrets = _secret_values()
-        try:
-            msg = record.getMessage()
-        except Exception:  # noqa: BLE001
-            msg = str(record.msg)
-        record.msg, record.args = redact(msg, self._secrets), None
+        if record.name == "uvicorn.access" and isinstance(record.args, tuple):
+            # uvicorn's AccessFormatter unpacks args as (client, method, path, http_version, status): keep the tuple
+            # shape and redact each element (the query string in `path` can carry secrets).
+            record.args = tuple(redact(a, self._secrets) if isinstance(a, str) else a for a in record.args)
+        else:
+            try:
+                msg = record.getMessage()
+            except Exception:  # noqa: BLE001
+                msg = str(record.msg)
+            record.msg, record.args = redact(msg, self._secrets), None
         if record.exc_info:
             import traceback
 
