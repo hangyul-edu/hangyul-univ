@@ -1,10 +1,10 @@
 import { useAuth } from '@hangyul/auth';
 import { ChevronRight, Info, Lock, Search, SlidersHorizontal, Timer } from '@hangyul/icons';
-import { useLocale } from '@hangyul/i18n';
+import { MARKETS, useLocale } from '@hangyul/i18n';
 import type { AgencyNextAction, AgencyWaitingOwner, AgencyWaitingParty, AgencyWaitingReason, ApplicationStatus, DocumentStatus, EssayStatus, PipelineStage, TaskPriority, TaskType, VisaStatus } from '@hangyul/types';
-import { Avatar, Badge, Button, Card, CardHeader, Drawer, Skeleton, StatusText } from '@hangyul/ui';
+import { Avatar, Badge, Button, Card, CardHeader, Drawer, Flag as FlagImage, Skeleton, StatusText } from '@hangyul/ui';
 import {
-  applicationTone, countryName, cx, documentTone, essayTone, flagEmoji, pipelineTone, priorityTone, visaTone,
+  applicationTone, countryName, cx, documentTone, essayTone, pipelineTone, priorityTone, visaTone,
 } from '@hangyul/utils';
 import { useQuery } from '@tanstack/react-query';
 import { useState, type CSSProperties, type ReactNode } from 'react';
@@ -52,12 +52,24 @@ export function InternalBadge() {
   return <span className="ag-internal-tag"><Lock aria-hidden size={12} />{t('misc.internalTag')}</span>;
 }
 
+/**
+ * The country's flag as artwork (`/flags/<code>.svg`, the market set the web apps publish). Emoji flags are regional
+ * indicator pairs: Windows and headless Chromium have no glyphs for them and draw two empty boxes. A country outside
+ * the published set gets no mark at all — its name is always printed beside it — rather than a broken image.
+ */
+const FLAG_CODES: ReadonlySet<string> = new Set(MARKETS.map((m) => m.code));
+export function FlagMark({ code }: { code: string | null | undefined }) {
+  const c = code?.toUpperCase();
+  if (!c || !FLAG_CODES.has(c)) return null;
+  return <FlagImage code={c} className="ag-flagmark" />;
+}
+
 export function Flag({ code, name = true }: { code: string | null | undefined; name?: boolean }) {
   const { locale } = useT();
   if (!code) return <span className="hg-subtle">—</span>;
   return (
     <span className="ag-flag" title={countryName(code, locale)}>
-      <span aria-hidden>{flagEmoji(code)}</span>
+      <FlagMark code={code} />
       {name ? <span className="hg-truncate">{countryName(code, locale)}</span> : <span className="hg-sr-only">{countryName(code, locale)}</span>}
     </span>
   );
@@ -253,7 +265,7 @@ export function StudentPicker({ value, onChange, label }: { value: { id: string;
         {res.data?.items.length === 0 && <div className="hg-subtle hg-small" style={{ padding: 10 }}>{t('states.noResults')}</div>}
         {res.data?.items.map((s) => (
           <button key={s.id} type="button" role="option" aria-selected={false} className="hg-menu-item" onClick={() => onChange({ id: s.id, full_name: s.full_name })}>
-            <span aria-hidden>{flagEmoji(s.nationality)}</span>
+            <FlagMark code={s.nationality} />
             <span className="hg-grow hg-truncate">{s.full_name}<span className="hg-subtle hg-xs" style={{ display: 'block' }}>{s.email}</span></span>
             <StageBadge stage={s.pipeline_stage} />
           </button>

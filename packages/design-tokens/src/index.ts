@@ -55,6 +55,11 @@ export const color = {
   secondary: palette.mint,
   bg: palette.gray[0],
   bgCanvas: palette.warm[25],
+  /**
+   * Design foundation (2026-11): the one warm-paper surface. Product apps paint their working canvas WHITE (`bg`) and
+   * use `bgPaper` only for the navigation panel and for a quiet aside — never for a full page, a content well or a card.
+   */
+  bgPaper: palette.warm[25],
   bgMuted: palette.gray[50],
   surface: palette.gray[0],
   surfaceWarm: palette.warm[50],
@@ -77,7 +82,13 @@ export const color = {
   textOnPrimary: '#FFFFFF',
   focus: '#CC4E00',
   overlay: 'rgba(19, 21, 25, 0.44)',
-  admin: { sidebar: palette.gray[50], sidebarText: palette.gray[600], sidebarActive: palette.gray[900] },
+  admin: { sidebar: palette.warm[25], sidebarText: palette.gray[600], sidebarActive: '#B84600' },
+  /**
+   * Design foundation (2026-11): "selected / you are here" is ORANGE, not ink. One recipe for every current-state
+   * control (navigation item, tab, chip, segmented option, option card, switch): pale tangerine wash, tangerine text
+   * (5.2:1 on white, 4.6:1 on the wash) and the action tangerine for the edge / indicator (≥ 3:1 on white).
+   */
+  selected: { bg: '#FFF1E7', bgHover: '#FFE8D8', fg: '#B84600', border: '#CC4E00' },
 } as const;
 
 /** Semantic status colours. Each has fg (text/icon), bg (subtle fill) and solid (dot / bar). */
@@ -86,7 +97,7 @@ export const status = {
   info: { fg: palette.blue[700], bg: palette.blue[50], solid: palette.blue[500] },
   warning: { fg: palette.amber[700], bg: palette.amber[50], solid: palette.amber[500] },
   danger: { fg: palette.red[700], bg: palette.red[50], solid: palette.red[500] },
-  neutral: { fg: palette.gray[600], bg: palette.gray[100], solid: palette.gray[400] },
+  neutral: { fg: palette.gray[600], bg: palette.warm[50], solid: palette.gray[400] },
   brand: { fg: '#B84600', bg: '#FFF1E7', solid: '#CC4E00' },
   teal: { fg: palette.teal[700], bg: palette.teal[50], solid: palette.teal[500] },
 } as const;
@@ -165,7 +176,11 @@ export const flow = {
   group: 'clamp(40px, 4.6vw, 64px)',
 } as const;
 
-export const radius = { xs: 4, sm: 6, md: 8, lg: 10, xl: 14, pill: 999 } as const;
+/**
+ * Radius roles (design foundation 2026-11): `sm` badges and small marks · `md` menu items and inner wells ·
+ * `lg` = the control radius (buttons, inputs, selects) · `xl` cards, panels, callouts, popovers · `2xl` modals and sheets.
+ */
+export const radius = { xs: 4, sm: 6, md: 8, lg: 10, xl: 14, '2xl': 20, pill: 999 } as const;
 /**
  * V25 (REPORT §317) — one action shape for the whole brand. Marketing buttons were 999-px pills, the student app 8 px and the
  * consoles 6 px: three shapes for one brand. Every product now draws its buttons from these values; pills are kept for chips,
@@ -178,6 +193,8 @@ export const radius = { xs: 4, sm: 6, md: 8, lg: 10, xl: 14, pill: 999 } as cons
  */
 export const control = {
   radius: 10,
+  /** Dense desktop consoles only (toolbar / table-row actions). Grows to the 44 px touch minimum on phones. */
+  heightXs: 36,
   heightSm: 40,
   height: 48,
   heightLg: 56,

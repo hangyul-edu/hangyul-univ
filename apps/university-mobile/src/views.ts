@@ -28,3 +28,16 @@ export const VIEW_STATUSES: Record<(typeof VIEWS)[number], ApplicationStatus[] |
   flagged: null,
   all: null,
 };
+
+/** Decisions that end the application for the applicant — always offered last and drawn apart from the rest. */
+export const NEGATIVE_DECISIONS: ApplicationStatus[] = ['REJECTED', 'WITHDRAWN'];
+const PRIMARY_ORDER: ApplicationStatus[] = ['OFFERED', 'TUITION_PENDING', 'TUITION_PAID', 'ADMISSION_CERTIFICATE_ISSUED', 'ENROLLED', 'UNIVERSITY_REVIEW'];
+/**
+ * The one primary action for a state, in the web console's order (apps/university-web ApplicationDetail `decisionPlan`):
+ * a new submission starts the review; otherwise the step that moves the application forward. It only ever picks from
+ * the transitions the API allows, and falls back to the first non-negative one.
+ */
+export function primaryDecision(status: ApplicationStatus, allowed: ApplicationStatus[]): ApplicationStatus | undefined {
+  if (status === 'SUBMITTED' && allowed.includes('UNIVERSITY_REVIEW')) return 'UNIVERSITY_REVIEW';
+  return PRIMARY_ORDER.find((s) => allowed.includes(s)) ?? allowed.find((s) => !NEGATIVE_DECISIONS.includes(s));
+}

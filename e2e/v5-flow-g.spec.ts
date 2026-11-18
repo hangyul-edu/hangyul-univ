@@ -42,7 +42,7 @@ test('Today carries application, writing and service work in one queue; counts m
   await page.goto(URLS.agency);
   // V22: Today is the process strip + ONE work table. Every stage count equals the rows the table shows when that
   // stage is selected (REPORT §249 G1, §260) — checked here for every stage with a non-zero count.
-  const strip = page.locator('.hg-pipe__rail');   // V31: views (전체/긴급/종료) sit outside the rail; stages only
+  const strip = page.locator('.ops-rail__stages');   // All / Closed sit outside the stage list; stages only
   await expect(strip).toBeVisible();
   const table = page.locator('[data-work-total]');
   await expect(table).toBeVisible();
@@ -50,7 +50,7 @@ test('Today carries application, writing and service work in one queue; counts m
   await expect.poll(async () => Number(await table.getAttribute('data-work-total')), { timeout: 15_000 }).toBeGreaterThan(0);
   let checked = 0;
   for (const li of await strip.locator('li[data-stage]').all()) {
-    const n = Number(((await li.locator('.hg-pipe__count').textContent().catch(() => '0')) ?? '0').replace(/\D/g, '') || 0);
+    const n = Number(((await li.locator('.ops-rail__count').textContent().catch(() => '0')) ?? '0').replace(/\D/g, '') || 0);
     if (!n) continue;
     await li.locator('button').click();
     const key = await li.getAttribute('data-stage');

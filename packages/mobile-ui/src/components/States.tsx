@@ -109,7 +109,7 @@ export function QueryState<T>({ query, children, loading, isEmpty, empty }: {
 const styles = StyleSheet.create({
   empty: { alignItems: 'center', justifyContent: 'center', gap: 10, paddingVertical: 48, paddingHorizontal: 24 },
   compact: { paddingVertical: 20 },
-  emptyIcon: { width: 44, height: 44, borderRadius: 10, backgroundColor: theme.color.surfaceSunken, alignItems: 'center', justifyContent: 'center', marginBottom: 4 },
+  emptyIcon: { width: 48, height: 48, borderRadius: 24, backgroundColor: theme.color.surfaceWarm, alignItems: 'center', justifyContent: 'center', marginBottom: 4 },
   emptyBody: { maxWidth: 320 },
   loading: { gap: 16, paddingVertical: 8 },
   skelRow: { flexDirection: 'row', gap: 12, alignItems: 'center' },

@@ -179,7 +179,7 @@ function Decision({ doc, onDecided, hotkeys }: { doc: VaultDocument; onDecided?:
         </div>
       ) : mode !== 'NEEDS_CORRECTION' ? (
         <div className="ag-decision__buttons">
-          <Button variant={allChecked ? 'primary' : 'secondary'} icon={<CheckCircle2 />} loading={m.isPending && m.variables === 'VERIFIED'} onClick={verify}
+          <Button variant="primary" icon={<CheckCircle2 />} loading={m.isPending && m.variables === 'VERIFIED'} onClick={verify}
             title={allChecked ? undefined : t('review.verifyHint')}>
             {t('review.verify')}{hotkeys && <Kbd>V</Kbd>}
           </Button>

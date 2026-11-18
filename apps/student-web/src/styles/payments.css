@@ -1,0 +1,95 @@
+/* Payments — checkout, saved payment methods and the return screen.
+   White surface, hairlines, ink type; Hangyul orange marks the selected method and the one action.
+   Logical properties throughout (RTL-safe). */
+
+.pay { display: grid; gap: var(--hg-space-4); min-inline-size: 0; }
+.pay__summary {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: var(--hg-space-4);
+  padding-block: var(--hg-space-4);
+  border-block: 1px solid var(--hg-border-subtle);
+}
+.pay__service { margin: 0; font-size: var(--hg-text-lg); font-weight: var(--hg-weight-semibold); line-height: 1.35; overflow-wrap: anywhere; }
+.pay__once {
+  display: inline-flex; align-items: center; gap: 6px; margin: 6px 0 0;
+  font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); color: var(--hg-primary-text, var(--hg-primary));
+}
+.pay__once svg { inline-size: 14px; block-size: 14px; flex: none; }
+.pay__amount { font-size: var(--hg-text-2xl, 24px); letter-spacing: -0.02em; white-space: nowrap; line-height: 1.2; }
+
+.pay__methods { display: grid; gap: var(--hg-space-2); }
+.pay__label { margin: 0 0 2px; font-size: var(--hg-text-sm); font-weight: var(--hg-weight-semibold); color: var(--hg-text-secondary); }
+.pay__skeleton { block-size: 60px; border-radius: var(--hg-radius-md); background: var(--hg-surface-warm, #F6F3EE); }
+
+.pay__method, .pay__kind {
+  display: flex; align-items: center; gap: var(--hg-space-3);
+  inline-size: 100%; min-block-size: 60px; padding: 10px 14px;
+  border: 1px solid var(--hg-border); border-radius: var(--hg-radius-md);
+  background: var(--hg-surface, #fff); color: inherit; font: inherit; text-align: start; cursor: pointer;
+  transition: border-color 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
+}
+.pay__method:hover, .pay__kind:hover:not(:disabled) { border-color: var(--hg-border-control, #8C867C); }
+.pay__method:focus-visible, .pay__kind:focus-visible, .pay__addtoggle:focus-visible { outline: 2px solid var(--hg-focus, var(--hg-primary)); outline-offset: 2px; }
+.pay__method[data-on] { border-color: var(--hg-primary); box-shadow: 0 0 0 1px var(--hg-primary); background: var(--hg-primary-subtle, #FFF1E7); }
+.pay__kind:disabled { opacity: .55; cursor: default; }
+
+.pay__radio {
+  flex: none; inline-size: 18px; block-size: 18px; border-radius: 50%;
+  border: 1.5px solid var(--hg-border-control, #8C867C); background: var(--hg-surface, #fff);
+}
+.pay__method[data-on] .pay__radio { border-color: var(--hg-primary); box-shadow: inset 0 0 0 4px var(--hg-surface, #fff); background: var(--hg-primary); }
+.pay__icon { display: inline-grid; place-items: center; flex: none; inline-size: 32px; block-size: 32px; border-radius: var(--hg-radius-sm); background: var(--hg-surface-warm, #F6F3EE); color: var(--hg-text-secondary); }
+.pay__icon svg { inline-size: 18px; block-size: 18px; }
+.pay__name { display: grid; gap: 1px; min-inline-size: 0; flex: 1; }
+.pay__name > :first-child { font-weight: var(--hg-weight-medium); overflow-wrap: anywhere; }
+.pay__tag {
+  flex: none; padding: 2px 8px; border-radius: 999px;
+  font-size: var(--hg-text-xs); font-weight: var(--hg-weight-medium);
+  color: var(--hg-text-secondary); background: var(--hg-surface-warm, #F6F3EE);
+}
+
+.pay__addtoggle {
+  display: inline-flex; align-items: center; gap: 6px; justify-self: start;
+  min-block-size: 44px; padding: 0 4px; border: 0; background: none; cursor: pointer;
+  font: inherit; font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); color: var(--hg-primary-text, var(--hg-primary));
+}
+.pay__addtoggle svg { inline-size: 16px; block-size: 16px; }
+.pay__add { display: grid; gap: var(--hg-space-2); }
+.pay__addlede { margin: 0; color: var(--hg-text-secondary); }
+.pay__kinds { display: grid; gap: var(--hg-space-2); grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+.pay__kind { font-weight: var(--hg-weight-medium); }
+.pay__secure { display: flex; align-items: flex-start; gap: 6px; margin: 2px 0 0; line-height: 1.5; }
+.pay__secure svg { inline-size: 13px; block-size: 13px; flex: none; margin-block-start: 3px; }
+
+.pay__consent { margin: 0; line-height: 1.6; color: var(--hg-text-secondary); }
+.pay__cta { justify-self: start; min-inline-size: min(320px, 100%); }
+.pay__after { margin: 0; line-height: 1.6; }
+@media (max-width: 599.98px) { .pay__cta { justify-self: stretch; inline-size: 100%; } }
+
+/* Inside the order block the plan and its price are already stated above the checkout. */
+.sv16-order .pay { padding-block-start: var(--hg-space-2); }
+
+/* ---- saved payment methods */
+.paym { display: grid; gap: var(--hg-space-3); margin-block-start: var(--hg-space-6); padding-block-start: var(--hg-space-5); border-block-start: 1px solid var(--hg-border-subtle); }
+.paym__head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--hg-space-3); }
+.paym__head p { margin: 4px 0 0; max-inline-size: 60ch; }
+.paym__list { display: grid; margin: 0; padding: 0; list-style: none; }
+.paym__row {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--hg-space-3);
+  padding-block: var(--hg-space-3); border-block-end: 1px solid var(--hg-border-subtle);
+}
+.paym__row:first-child { border-block-start: 1px solid var(--hg-border-subtle); }
+.paym__what { display: grid; gap: 2px; flex: 1 1 180px; min-inline-size: 0; }
+.paym__warn { color: var(--hg-status-warning-fg, #8A5A00); }
+
+/* ---- the return screen: the method is saved, the amount is still the student's to confirm */
+.pay-return { display: grid; gap: var(--hg-space-5); max-inline-size: 560px; margin-inline: auto; }
+.pay-return__note {
+  display: flex; align-items: flex-start; gap: var(--hg-space-3);
+  padding: var(--hg-space-4); border-radius: var(--hg-radius-md);
+  background: var(--hg-status-success-bg, #EBF6EF); color: var(--hg-text);
+}
+.pay-return__note svg { inline-size: 20px; block-size: 20px; flex: none; margin-block-start: 2px; color: var(--hg-status-success-fg, #1F7F45); }
+.pay-return__note p { margin: 0; }
+.pay-return__back { justify-self: center; min-block-size: 44px; display: inline-flex; align-items: center; }
+
+@media (prefers-reduced-motion: reduce) { .pay__method, .pay__kind { transition: none; } }

@@ -106,6 +106,20 @@ export function Flag({ code, className }: { code: string | undefined; className?
   );
 }
 
+/**
+ * A country's flag in a country or dial-code picker (student page pass, 2026-11).
+ *
+ * These pickers used the regional-indicator emoji, which Windows and most headless browsers draw as two
+ * letters in a box. The owner's SVG set covers the markets Hangyul serves; a country outside it gets the
+ * same fixed slot left empty, so the names stay on one x and nothing renders as a broken glyph.
+ */
+export function CountryFlag({ code, className }: { code: string | null | undefined; className?: string }) {
+  const iso = code?.toUpperCase();
+  const market = iso ? MARKETS.find((m) => m.code === iso) : undefined;
+  if (!market) return <span className={cx('hg-flag-slot', className)} aria-hidden />;
+  return <Flag code={market.code} className={className} />;
+}
+
 function useOptions(query: string, current: string) {
   return useMemo(() => {
     const all = localeOptions(current);

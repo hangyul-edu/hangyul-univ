@@ -517,3 +517,68 @@
 
 /* V28: a film still often carries a title card in its top band — anchor the crop low so the campus, not the caption, shows. */
 .hg-uni-hero__media img.hg-uni-hero__still { object-position: 50% 100%; transform: scale(1.14); transform-origin: 50% 100%; }
+
+/* ------------------------------------------------------------------------------- video, side by side
+   Launch pass: the film no longer fills the whole measure. On a wide screen it sits beside what it is —
+   the kind of film, its title, the channel — and the university's other verified films. */
+.hg-uni-video__layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px 44px; margin-block-start: clamp(20px, 2.6vw, 30px); }
+@media (min-width: 960px) { .hg-uni-video__layout { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); align-items: start; } }
+.hg-uni-video__layout .hg-uni-video__frame { margin-block-start: 0; }
+.hg-uni-video__side { min-inline-size: 0; }
+.hg-uni-video__side .hg-uni-video__meta { margin: 0; display: grid; gap: 6px; }
+.hg-uni-video__kind { font-size: 12.5px; font-weight: 600; color: var(--hg-primary-text); }
+.hg-uni-video__side .hg-uni-video__title { font-size: 16.5px; line-height: 1.42; font-weight: 650; overflow-wrap: anywhere; }
+.hg-uni-video__more { margin-block-start: 22px; border-block-start: 1px solid var(--hg-border); }
+.hg-uni-video__more-h { margin: 14px 0 4px; font-size: 13px; font-weight: 600; color: var(--hg-text-secondary); }
+.hg-uni-video__more ul { list-style: none; margin: 0; padding: 0; }
+.hg-uni-video__more li { border-block-end: 1px solid var(--hg-border-subtle); }
+.hg-uni-video__more button {
+  inline-size: 100%; min-block-size: 44px; padding: 11px 0; border: 0; background: none; cursor: pointer;
+  display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 10px; align-items: start;
+  font: inherit; font-size: 14px; line-height: 1.45; text-align: start; color: var(--hg-text);
+}
+.hg-uni-video__more button > svg { margin-block-start: 4px; color: var(--hg-text-tertiary); fill: currentColor; }
+.hg-uni-video__more button > span { display: grid; gap: 1px; min-inline-size: 0; overflow-wrap: anywhere; }
+.hg-uni-video__more-kind { font-size: 12.5px; color: var(--hg-text-tertiary); }
+.hg-uni-video__more button:hover { color: var(--hg-primary-text); }
+.hg-uni-video__more button:focus-visible { outline: 2px solid var(--hg-focus); outline-offset: 2px; border-radius: var(--hg-radius-sm); }
+
+/* ----------------------------------------------------------------- identity board (no campus photograph)
+   The institution's name, mark and place on an ink field — the region mark was drawn for a dark ground —
+   beside a photograph of the region, captioned as the region. Never a stand-in campus. */
+.hg-uni-board { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; margin-block-start: clamp(22px, 2.8vw, 34px); }
+@media (min-width: 860px) { .hg-uni-board[data-has-city] { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); } }
+.hg-uni-board__id {
+  position: relative; isolation: isolate; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  min-block-size: clamp(250px, 30vw, 380px); padding: clamp(20px, 2.6vw, 32px);
+  border-radius: 14px; background: var(--hg-palette-gray-900, #16181C); color: #fff;
+}
+.hg-uni-board__map { position: absolute; z-index: -1; inset-block-start: 7%; inset-inline-end: -3%; block-size: 86%; inline-size: auto; max-inline-size: none; pointer-events: none; }
+.hg-uni-board__plate { position: absolute; inset-block-start: clamp(16px, 2vw, 24px); inset-inline-start: clamp(16px, 2vw, 24px); display: inline-flex; padding: 8px 10px; border-radius: 10px; background: #fff; }
+.hg-uni-board__plate img { display: block; max-inline-size: 150px; object-fit: contain; }
+.hg-uni-board__text { max-inline-size: min(100%, 30ch); }
+.hg-uni-board .hg-uni-board__name { color: #fff; }
+.hg-uni-board__name { margin: 0; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.2; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; overflow-wrap: anywhere; }
+.hg-uni-board__alt { margin: 6px 0 0; font-size: 14.5px; line-height: 1.45; color: rgb(255 255 255 / 0.8); }
+.hg-uni-board__where { margin: 14px 0 0; display: flex; flex-wrap: wrap; gap: 0 9px; font-size: 13px; font-weight: 500; color: rgb(255 255 255 / 0.74); }
+.hg-uni-board__where > span + span::before { content: '·'; margin-inline-end: 9px; opacity: 0.6; }
+.hg-uni-board__city { position: relative; margin: 0; overflow: hidden; border-radius: 14px; background: var(--hg-surface-sunken); min-block-size: clamp(220px, 30vw, 380px); }
+.hg-uni-board__city img { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; }
+.hg-uni-board__city figcaption {
+  position: absolute; inset-block-end: 10px; inset-inline-start: 10px; max-inline-size: calc(100% - 20px);
+  padding: 3px 9px; border-radius: var(--hg-radius-sm); background: rgb(0 0 0 / 0.52); color: rgb(255 255 255 / 0.94);
+  font-size: 12px; line-height: 1.45;
+}
+.hg-uni-board__note { grid-column: 1 / -1; margin: 0; font-size: 13px; line-height: 1.55; color: var(--hg-text-tertiary); }
+:lang(ko) :is(.hg-uni-board__name, .hg-uni-board__note) { word-break: keep-all; overflow-wrap: break-word; }
+
+/* A lone gallery photograph is a band, not a poster: the hero already carried the full-height campus picture. */
+@media (min-width: 860px) { .hg-uni-gal--single > li.is-lead img { aspect-ratio: 21 / 9; } }
+/* The name never sits on the highlighted region: an ink veil rises from the tile's foot, and on a phone the mark is
+   smaller and higher. */
+.hg-uni-board__id::after {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(to top, var(--hg-palette-gray-900, #16181C) 0%, rgb(22 24 28 / 0.82) 26%, rgb(22 24 28 / 0) 58%);
+}
+@media (max-width: 859px) { .hg-uni-board__map { inset-block-start: 5%; block-size: 66%; } }

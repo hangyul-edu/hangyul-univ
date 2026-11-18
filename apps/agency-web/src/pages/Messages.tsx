@@ -1,7 +1,7 @@
 import { useAuth } from '@hangyul/auth';
 import { ChevronLeft, Lock, MessagesSquare, Plus } from '@hangyul/icons';
 import type { ConversationSummary } from '@hangyul/types';
-import { Button, Card, EmptyState, ErrorState, Skeleton } from '@hangyul/ui';
+import { Button, Card, EmptyState, ErrorState, Segmented, Skeleton } from '@hangyul/ui';
 import { PageHeader } from '@hangyul/ynex-ui';
 import { cx } from '@hangyul/utils';
 import { useQuery } from '@tanstack/react-query';
@@ -52,11 +52,7 @@ export default function Messages() {
     nav(`/messages/${first.id}${sp.toString() ? `?${sp}` : ''}`, { replace: true });
   }, [id, list]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const chip = (f: Filter, label: string, count?: number) => (
-    <button type="button" className="btn btn-sm btn-light ag26-filterchip" aria-pressed={filter === f} onClick={() => setFilter(f)}>
-      {label}{count ? <span className="badge rounded-pill ms-1 ag26-count">{count}</span> : null}
-    </button>
-  );
+  const opt = (f: Filter, label: string, count?: number) => ({ value: f, label: <span className="ops-modes__opt"><span>{label}</span>{count ? <span className="ops-modes__n hg-num">{count}</span> : null}</span> });
 
   return (
     <div className="ag7 ag7-inbox">
@@ -69,11 +65,8 @@ export default function Messages() {
           </div>
           <div className="ag-split__listhead ag-split__listhead--stack">
             <SearchBox value={q} onChange={setQ} placeholder={t('inbox.searchPh')} label={t('actions.search')} />
-            <div className="btn-group ag7-seg" role="group" aria-label={t('inbox.inbox')}>
-              {chip('all', t('inbox.all'))}
-              {chip('reply', t('inbox.needsReply'), replyCount)}
-              {chip('unread', t('inbox.unread'), unreadConvs)}
-            </div>
+            <Segmented<Filter> label={t('inbox.inbox')} value={filter} onChange={setFilter}
+              options={[opt('all', t('inbox.all')), opt('reply', t('inbox.needsReply'), replyCount), opt('unread', t('inbox.unread'), unreadConvs)]} />
           </div>
           {source.isLoading ? <div className="hg-stack" style={{ padding: 12 }}>{Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} h={56} r={10} />)}</div>
             : source.isError ? <ErrorState compact error={source.error} onRetry={() => source.refetch()} />

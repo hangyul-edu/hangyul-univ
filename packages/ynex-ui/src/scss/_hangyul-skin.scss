@@ -1,138 +1,28 @@
-// YNEX skin for Hangyul's shared `hg-*` components inside the consoles.
-// Pages built directly with YNEX markup (card custom-card, table, badge bg-*-transparent …) need nothing from here;
-// this layer makes every *other* console page render in the same YNEX language: canvas #f0f1f7, white soft-shadow
-// cards with the accent-bar title, 13–14 px Inter/Pretendard tables with semibold heads, soft badges, YNEX buttons/inputs.
-// Replaces packages/ui/src/styles/console.css (V6 blue system) for the web consoles.
+// YNEX glue for the consoles (Operations/Admin, University).
+// Since the 2026-11 design foundation this file no longer re-skins anything: shared `hg-*` components render as
+// `@hangyul/ui` defines them, and YNEX/Bootstrap markup is restyled by `@hangyul/ui/console-v22.css`. What is left is
+// the React port's shell glue and a few YNEX component helpers (`yx-*`).
 
 $yx-shadow: 0 0.125rem 0 rgba(10, 10, 10, 0.04);
 $yx-radius: 0.5rem;
 
 html[data-surface='console'] {
-  // ---- tokens: V6 hg-* variables re-pointed at YNEX values ----
-  --hg-bg: #ffffff;
-  --hg-bg-canvas: rgb(var(--body-bg-rgb));
-  --hg-bg-muted: #f7f8f9;
-  --hg-surface: #ffffff;
-  --hg-surface-warm: #f7f8f9;
-  --hg-surface-sunken: #f3f6f8;
-  --hg-surface-hover: #f5f6f7;
-  --hg-border: #eceef3;
-  --hg-border-subtle: #f3f3f3;
-  --hg-border-strong: #dfe3ec;
-  --hg-text: #333335;
-  --hg-text-secondary: #536485;
-  --hg-text-tertiary: #5f6b80;
-  --hg-text-disabled: #a0a9b8;
-  --hg-primary: rgb(var(--primary-rgb));
-  --hg-primary-hover: #1b48b8;
-  --hg-primary-pressed: #163c9a;
-  --hg-primary-subtle: rgba(var(--primary-rgb), 0.1);
-  --hg-primary-text: #1e4fc2;
-  --hg-focus: rgb(var(--primary-rgb));
-  --hg-shadow-focus: 0 0 0 0.25rem rgba(var(--primary-rgb), 0.12);
-  --hg-radius-lg: #{$yx-radius};
-  --hg-radius-md: 0.35rem;
-  --hg-status-brand-fg: #1e4fc2;
-  --hg-status-brand-bg: rgba(var(--primary-rgb), 0.1);
-  --hg-status-brand-solid: rgb(var(--primary-rgb));
-  --hg-status-info-fg: #1e4fc2;
-  --hg-status-info-bg: rgba(var(--primary-rgb), 0.1);
-  --hg-status-info-solid: rgb(var(--primary-rgb));
-  // YNEX soft tones (text on 10 % tint ≥ 4.5:1 — darker text shades than YNEX's own, see contrast script)
-  --hg-status-success-fg: #11795e;
-  --hg-status-success-bg: rgba(var(--success-rgb), 0.12);
-  --hg-status-warning-fg: #8a5a00;
-  --hg-status-warning-bg: rgba(var(--warning-rgb), 0.16);
-  --hg-status-danger-fg: #b5321d;
-  --hg-status-danger-bg: rgba(var(--danger-rgb), 0.1);
-  --hg-status-neutral-fg: #4a5670;
-  --hg-status-neutral-bg: #f0f2f6;
-  --hg-chart-1: rgb(var(--primary-rgb));
-  --hg-chart-grid: #f0f1f5;
-  --hg-chart-axis: #5f6b80;
+  // Design foundation (2026-11): this block used to re-point every `--hg-*` token at YNEX's cool blue-grey values
+  // (#f3f6f8 wells, #536485 / #5f6b80 / #4a5670 text, #f0f2f6 neutral badges, teal-green success, 5.6 px radii).
+  // `console-v22.css` only re-pointed some of them back, so the rest leaked into every console screen. The consoles
+  // now read the SAME tokens as the student app (`@hangyul/design-tokens`); nothing is re-pointed here.
   color-scheme: light;
 
   body { background: var(--hg-bg-canvas); font-size: 0.875rem; line-height: 1.5; }
   ::selection { background: rgba(var(--primary-rgb), 0.18); }
   a:not([class]) { color: var(--hg-primary-text); }
 
-  // ---- page header (partials/page-header.html) ----
-  .hg-page-head { align-items: center; margin-block: 1.5rem 1.25rem; }
-  .hg-page-head h1, .hg-page-head__title { font-size: 1.125rem; line-height: 1.4; font-weight: 600; letter-spacing: 0; }
-  .hg-page-head__sub { font-size: 0.8125rem; color: var(--text-muted); margin-top: 0.125rem; }
-
-  // ---- cards (card custom-card) ----
-  .hg-card, .hg-panel {
-    background: #fff; border: 0; border-radius: $yx-radius; box-shadow: $yx-shadow;
-  }
-  .hg-card--warm { background: #fff; }
-  .hg-card--flat { background: transparent; box-shadow: none; }
-  .hg-card--interactive:hover { box-shadow: 0 0.25rem 1rem rgba(10, 10, 10, 0.06); }
-  .hg-card--pad { padding: 1.25rem; }
-  .hg-card__header { padding: 1rem 1.25rem; min-height: 0; border-bottom: 1px solid var(--hg-border-subtle); }
-  .hg-card__header + .hg-card__body { padding-top: 1rem; }
-  .hg-card__body { padding: 1rem 1.25rem 1.25rem; }
-  .hg-card__footer { padding: 1rem 1.25rem; border-top-color: var(--hg-border-subtle); }
-  .hg-card__title, .hg-section__title {
-    position: relative; font-size: 0.9375rem; font-weight: 700; letter-spacing: 0; padding-inline-start: 0.65rem;
-    &::before {
-      content: ''; position: absolute; inset-inline-start: 0; top: 0.2rem; height: 1rem; width: 0.2rem; border-radius: $yx-radius;
-      background: linear-gradient(to bottom, rgba(var(--primary-rgb), 0.5) 50%, rgba(var(--secondary-rgb), 0.5) 50%);
-    }
-  }
-  .hg-section--ruled { border-top: 0; padding-top: 0.5rem; }
-
-  // ---- tables (YNEX tables + crm-contacts) ----
-  .hg-table { font-size: 0.8125rem; }
-  .hg-table th {
-    background: #fff; color: var(--hg-text); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0;
-    border-bottom: 1px solid var(--hg-border-subtle); padding-block: 0.75rem;
-  }
-  .hg-table td { border-bottom: 1px solid var(--hg-border-subtle); padding-block: 0.75rem; font-weight: 500; }
-  .hg-table tbody tr:hover td { background: #f8f9fb; }
-  .hg-table tbody tr[aria-selected='true'] td { background: rgba(var(--primary-rgb), 0.06); }
-  .hg-table-toolbar { gap: 0.5rem; }
-
-  // ---- buttons (bootstrap/_buttons.scss) ----
-  .hg-btn { border-radius: 0.35rem; font-size: 0.85rem; font-weight: 500; }
-  .hg-btn--sm { border-radius: 0.25rem; font-size: 0.75rem; min-height: 30px; }
-  .hg-btn--primary { font-weight: 500; }
-  .hg-btn--soft { --btn-bg: rgba(var(--primary-rgb), 0.1); --btn-fg: #1e4fc2; }
-  .hg-btn--soft:hover { background: rgb(var(--primary-rgb)); color: #fff; }
-  .hg-btn--secondary { border-color: var(--hg-control-secondary-border); } // V27: the shared secondary edge (tokens.css)
-  .hg-btn--ghost:hover { background: #f3f6f8; }
-
-  // ---- badges: YNEX "-transparent" soft badges ----
-  .hg-badge { border-radius: 0.25rem; font-size: 0.75em; font-weight: 600; box-shadow: none; }
-  .hg-chip[aria-pressed='true'], .hg-chip[aria-checked='true'] {
-    background: rgba(var(--primary-rgb), 0.1); border-color: rgba(var(--primary-rgb), 0.35); color: #163c9a; font-weight: 600;
-  }
-
-  // ---- forms (bootstrap/_forms.scss) ----
-  .hg-input, .hg-select, .hg-textarea {
-    border-color: var(--hg-control-secondary-border); border-radius: 0.35rem; font-size: 0.875rem; background-color: #fff; // V27: 3:1 edge
-  }
-  .hg-input:focus, .hg-select:focus, .hg-textarea:focus { border-color: rgba(var(--primary-rgb), 0.5); box-shadow: var(--hg-shadow-focus); }
-
-  // ---- tabs (nav-tabs tab-style-2: underline in primary) ----
-  .hg-tab { font-weight: 500; color: var(--text-muted); }
-  // V29 a11y: tangerine *text* on a near-white surface is #B84600 (5.1:1); #CC4E00 measured 4.31:1 — below AA for 14 px text.
-  .hg-tab[aria-selected='true'], .hg-tab.active { color: #B84600; }
-  .hg-seg { background: #f3f6f8; border-radius: 0.35rem; }
-  .hg-seg button[aria-pressed='true'] { background: rgb(var(--primary-rgb)); color: #fff; box-shadow: none; }
-
-  // ---- metrics / stats (HRM main cards) ----
-  .hg-metrics { background: #fff; border-radius: $yx-radius; box-shadow: $yx-shadow; border: 0; }
-  .hg-metric__value, .hg-stat__value { font-weight: 600; letter-spacing: -0.01em; }
-
-  // ---- lists, overlays, callouts ----
-  .hg-lrow:hover { background: #f8f9fb; }
-  .hg-popover, .hg-modal, .hg-drawer { border-radius: $yx-radius; border: 0; box-shadow: 0 0.25rem 1.25rem rgba(10, 10, 10, 0.12); }
-  // V26 (REPORT §338): a callout is information, not the brand — warm neutral, never a tangerine tint.
-  .hg-callout { border: 0; border-radius: $yx-radius; background: var(--hg-surface-warm); }
-  .hg-progress__bar { border-radius: 1rem; }
+  // Design foundation (2026-11): the block that re-skinned the shared `hg-*` components into YNEX's look (0.5 rem
+  // shadow cards with an accent-bar title and a ruled header, 13 px tables, 30 px / 12 px buttons, 5.6 px radii,
+  // cool-grey hovers) is GONE. In the consoles `hg-*` components now render exactly as `@hangyul/ui` defines them;
+  // YNEX/Bootstrap markup (`card custom-card`, `table`, `badge`, `btn`, `form-control`) is brought to the same
+  // language in `@hangyul/ui/console-v22.css`. Only genuinely console-specific behaviour stays here.
   .hg-kanban__col { background: transparent; }
-
 }
 
 // ======================================================================= YNEX shell glue (React port)
@@ -157,7 +47,7 @@ html[data-nav-layout='vertical'] {
   .app-header .yx-search, .app-header .yx-org, .app-header .yx-headlink { align-items: center; }
   .app-header .yx-search { min-width: 0; flex: 0 1 26rem; padding-inline-start: 0.75rem; }
   .app-header .yx-search > * { width: 100%; }
-  .app-header .yx-search .hg-input { background: #f3f6f8; border-color: transparent; border-radius: 0.35rem; height: 2.375rem; }
+  .app-header .yx-search .hg-input { height: 2.5rem; min-height: 2.5rem; }
   .app-header .yx-org { padding-inline: 0.75rem; border-inline-end: 1px solid var(--header-border-color); }
   .app-header .header-content-left { flex: 1 1 auto; min-width: 0; }
   .app-header .header-content-right { flex: none; gap: 0.25rem; padding-inline-end: 0.5rem; }
@@ -190,7 +80,11 @@ html[data-nav-layout='vertical'] {
 }
 
 // ======================================================================= YNEX component glue
-.yx-pagehead { gap: 0.75rem 1rem; }
+.yx-pagehead { gap: 1rem 1.5rem; flex-wrap: wrap; }
+// The title block takes the room it needs and the actions keep their natural width; when both cannot share a line
+// the actions wrap under the title instead of being squeezed (a segmented control used to lose its last option).
+.yx-pagehead__text { flex: 1 1 20rem; min-width: 0; max-width: 45rem; }
+.yx-pagehead > .yx-pagehead__end { flex: 0 0 auto; }
 .yx-pagehead__eyebrow { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.25rem; }
 .yx-pagehead__sub { font-size: 0.8125rem; margin-top: 0.125rem; }
 .yx-pagehead__end { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
@@ -215,7 +109,7 @@ button.yx-stat { border: 0; background: #fff; padding: 0; font: inherit; }
 .yx-staticon svg { width: 1.25rem; height: 1.25rem; }
 
 .yx-tl__link { display: block; color: inherit; text-decoration: none; border-radius: 0.35rem; margin-inline: -0.5rem; padding-inline: 0.5rem; }
-.yx-tl__link:hover { background: #f8f9fb; }
+.yx-tl__link:hover { background: var(--hg-surface-hover); }
 .yx-tl__date { min-width: 2.75rem; }
 
 .yx-prow { display: block; padding-block: 0.6rem; color: inherit; text-decoration: none; }

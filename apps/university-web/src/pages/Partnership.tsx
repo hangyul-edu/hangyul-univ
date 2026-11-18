@@ -246,7 +246,7 @@ export default function Partnership() {
   const q = usePartnership();
   if (!perms.canViewPartnership) return <NoAccess />;
   return (
-    <div className="hg-stack uc-page uv7">
+    <div className="hg-stack uc-page uv7 un-partner">
       <PageHeader title={t('common:nav.partnership')} sub={t('university:v6.partner.subtitle')} />
       <ValuePanel />
       <QueryState query={q} skeleton={<SkeletonCard lines={6} />} isEmpty={(d) => d.length === 0}

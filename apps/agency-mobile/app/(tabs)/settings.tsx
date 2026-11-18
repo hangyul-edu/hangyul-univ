@@ -1,5 +1,5 @@
 import { useTranslation } from '@hangyul/i18n';
-import { AccountCard, AppText, LanguagePicker, ListGroup, ListItem, Screen, SectionTitle, SignOutSection } from '@hangyul/mobile-ui';
+import { AccountCard, AppText, LanguagePicker, ListGroup, ListItem, Screen, SectionTitle, SignOutSection, theme } from '@hangyul/mobile-ui';
 import { router } from 'expo-router';
 import { CalendarClock } from 'lucide-react-native';
 import { View } from 'react-native';
@@ -11,7 +11,7 @@ export default function SettingsScreen() {
   return (
     <Screen edges={['top', 'left', 'right']}>
       <AccountCard />
-      <View style={{ gap: 8 }}>
+      <View style={{ gap: theme.space[2] }}>
         <SectionTitle title={t('v3.settings.work')} />
         <ListGroup>
           <ListItem icon={CalendarClock} title={t('agency.deadlines.title')} subtitle={t('agency.deadlines.subtitle')} onPress={() => router.push('/deadlines')} />

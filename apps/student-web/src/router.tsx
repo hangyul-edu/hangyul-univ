@@ -55,8 +55,7 @@ export const routes: RouteObject[] = [
       // Toss returns the buyer to these two paths; the server's own `success_url` / `fail_url` are built
       // from them, so they are a contract, not a convenience. They sit inside the authenticated shell
       // because confirming a payment requires the session that created the order.
-      { path: 'services/payment/success', lazy: async () => ({ Component: (await import('./pages/PaymentReturn')).PaymentSuccess }) },
-      { path: 'services/payment/fail', lazy: async () => ({ Component: (await import('./pages/PaymentReturn')).PaymentFail }) },
+      { path: 'services/payment-methods/return', lazy: async () => ({ Component: (await import('./pages/PaymentReturn')).default }) },
       { path: 'support', ...page(() => import('./pages/Support')) },
       { path: 'profile', ...page(() => import('./pages/Profile')) },
       { path: 'settings', ...page(() => import('./pages/Settings')) },

@@ -335,7 +335,7 @@ a.uc-notif:hover { background: var(--hg-surface-hover); }
 
 /* ---------- AA text shades on YNEX tints (same values as the agency console / _hangyul-skin badges) ---------- */
 .uv7 .text-danger { color: #b5321d !important; }
-.uv7 .badge.bg-light.text-muted { color: #4a5670 !important; }
+.uv7 .badge.bg-light.text-muted { color: var(--hg-text-secondary) !important; }
 .uv7 .btn.btn-primary-light { color: #1e4fc2; }
 .uv7 .btn.btn-primary-light:hover, .uv7 .btn.btn-primary-light:focus-visible { color: #fff; }
 
@@ -369,8 +369,8 @@ a.uc-notif:hover { background: var(--hg-surface-hover); }
 
 /* section heading above a stat strip (decisions) */
 .uv7-sechead { display: flex; align-items: flex-end; justify-content: space-between; gap: 0.75rem 1rem; flex-wrap: wrap; margin-block-end: 0.875rem; }
-.uv7-sechead__title { font-size: 0.9375rem; font-weight: 600; margin: 0; display: flex; align-items: center; gap: 0.5rem; }
-.uv7-sechead__title::before { content: ''; width: 0.2rem; height: 1rem; border-radius: 0.5rem; background: linear-gradient(to bottom, rgba(var(--primary-rgb), 0.5) 50%, rgba(var(--secondary-rgb), 0.5) 50%); }
+/* Section title: the foundation's 18 px section heading — no accent bar (design foundation 2026-11). */
+.uv7-sechead__title { font-size: var(--hg-text-xl); line-height: 1.35; font-weight: var(--hg-weight-semibold); letter-spacing: -0.012em; margin: 0; color: var(--hg-text); }
 .uv7-sechead__sub { margin: 0.2rem 0 0; font-size: 0.8125rem; color: var(--text-muted); }
 
 /* HRM stat strip */
@@ -392,7 +392,7 @@ a.uc-notif:hover { background: var(--hg-surface-hover); }
 .uv7-funnelsum__pop { flex-basis: 100%; }
 @media (min-width: 768px) { .uv7-funnelsum__pop { flex-basis: auto; margin-inline-start: auto !important; } }
 .uv7-funnel { font-size: 0.8125rem; }
-.uv7-funnel thead th { background: rgb(243, 246, 248); border-block-end: 0; font-weight: 600; font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
+.uv7-funnel thead th { background: var(--hg-bg); border-block-end: 1px solid var(--hg-border); font-weight: 600; font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
 .uv7-funnel th, .uv7-funnel td { padding: 0.65rem 0.75rem; vertical-align: middle; border-color: var(--default-border); }
 .uv7-funnel tbody th { font-weight: 600; }
 .uv7-funnel__bar { width: 45%; min-width: 6rem; }
@@ -405,7 +405,7 @@ a.uc-notif:hover { background: var(--hg-surface-hover); }
 }
 .uv7-list > li + li { border-block-start: 1px dashed var(--default-border); }
 .uv7-listrow { display: flex; align-items: center; gap: 0.75rem; padding: 0.8rem 1.25rem; color: inherit; text-decoration: none; font-size: 0.8125rem; }
-.uv7-listrow:hover { background: #f8f9fb; }
+.uv7-listrow:hover { background: var(--hg-surface-hover); }
 .uv7-listrow:hover .flex-fill { color: rgb(var(--primary-rgb)); }
 .uv7-listrow .avatar { flex: none; }
 .uv7-list__empty { padding: 1rem 1.25rem; font-size: 0.8125rem; }
@@ -428,7 +428,7 @@ a.uc-notif:hover { background: var(--hg-surface-hover); }
 .uv7-viewtabs .nav-link.active { color: rgb(var(--primary-rgb)); box-shadow: inset 0 -2px 0 rgb(var(--primary-rgb)); background: none; }
 .uv7-apptable .hg-table-toolbar { padding: 0.875rem 1.25rem; border-block-end: 1px solid var(--default-border); }
 .uv7-apptable .hg-table { font-size: 0.8125rem; }
-.uv7-apptable .hg-table thead th { background: rgb(243, 246, 248); border-block-end: 0; white-space: nowrap; }
+.uv7-apptable .hg-table thead th { background: var(--hg-bg); border-block-end: 1px solid var(--hg-border); white-space: nowrap; }
 .uv7-apptable .hg-table td { padding-block: 0.7rem; height: auto; vertical-align: middle; }
 .uv7-apptable .hg-table td:first-child, .uv7-apptable .hg-table th:first-child { padding-inline-start: 1.25rem; }
 .uv7-apptable .hg-table tbody tr { border-block-end: 1px solid var(--default-border); }
@@ -479,7 +479,7 @@ a.uc-notif:hover { background: var(--hg-surface-hover); }
 .uv7-decision__more { display: grid; gap: 0.5rem; margin-block-start: 0.75rem; }
 .uv7-decision__more .btn { justify-content: center; min-height: 2.25rem; }
 .uv7-btn-quiet { border-color: var(--default-border) !important; color: var(--default-text-color) !important; background: #fff; }
-.uv7-btn-quiet:hover { background: #f3f6f8 !important; }
+.uv7-btn-quiet:hover { background: var(--hg-surface-warm) !important; }
 .uv7 .btn-outline-danger { color: #b5321d; border-color: rgba(var(--danger-rgb), 0.45); }
 .uv7 .btn-outline-danger:hover { color: #fff; }
 /* Launch-final: the label column may take at most 45 % — with `max-content` a long label left the value ~0 px wide and
@@ -489,7 +489,7 @@ a.uc-notif:hover { background: var(--hg-surface-hover); }
 .uv7-kv dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
 .uv7-details__edit { margin-block-start: 1rem; padding-block-start: 1rem; border-block-start: 1px dashed var(--default-border); }
 .uv7-table { font-size: 0.8125rem; }
-.uv7-table thead th { background: rgb(243, 246, 248); border-block-end: 0; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
+.uv7-table thead th { background: var(--hg-bg); border-block-end: 1px solid var(--hg-border); font-size: 0.75rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
 .uv7-table th, .uv7-table td { padding: 0.65rem 0.75rem; vertical-align: middle; border-color: var(--default-border); }
 .uv7-docs { list-style: none; padding: 0; margin: 0; border: 1px solid var(--default-border); border-radius: 0.5rem; }
 .uv7-doc { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 0.9rem !important; border: 0 !important; }
@@ -505,7 +505,7 @@ a.uc-notif:hover { background: var(--hg-surface-hover); }
 .uv7-tl__dot { flex: none; width: 0.75rem; height: 0.75rem; margin-block-start: 0.3rem; border-radius: 50%; background: #fff; border: 2px solid rgba(var(--primary-rgb), 0.35); position: relative; z-index: 1; }
 .uv7-tl__dot.is-current { background: rgb(var(--primary-rgb)); border-color: rgba(var(--primary-rgb), 0.25); box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.12); }
 /* reader-first statements: keep the V6 reading column, YNEX chrome */
-.uv7-review .uc-reader__doc { background: #fbfbfd; border: 1px solid var(--default-border); border-radius: 0.5rem; }
+.uv7-review .uc-reader__doc { background: var(--hg-bg-paper); border: 1px solid var(--default-border); border-radius: 0.5rem; }
 .uv7-review .uc-reader__tabs { border-block-end: 1px solid var(--default-border); }
 .uv7-review .uc-requests { border-radius: 0.5rem; }
 .uv7-review .uc-reqs-wrap { margin-block-end: 1rem; }
@@ -522,7 +522,7 @@ a.uc-notif:hover { background: var(--hg-surface-hover); }
 .uv7-master__filters .hg-fsel { align-self: flex-start; } /* V30: a filter hugs its content, even in a column */
 .uv7-master__items { padding: 0.5rem; }
 .uv7-master__item { display: block; width: 100%; text-align: start; background: none; border: 0; border-radius: 0.5rem; padding: 0.65rem 0.75rem; font: inherit; font-size: 0.8125rem; color: inherit; min-width: 0; }
-.uv7-master__item:hover { background: #f8f9fb; }
+.uv7-master__item:hover { background: var(--hg-surface-hover); }
 .uv7-master__item.is-active { background: rgba(var(--primary-rgb), 0.08); box-shadow: inset 3px 0 0 rgb(var(--primary-rgb)); }
 [dir='rtl'] .uv7-master__item.is-active { box-shadow: inset -3px 0 0 rgb(var(--primary-rgb)); }
 .uv7-master__item.is-active .fw-semibold { color: #B84600; } /* V29 a11y: 4.82:1 on the tinted row (primary was 4.05:1) */
@@ -542,11 +542,11 @@ a.uc-notif:hover { background: var(--hg-surface-hover); }
 .uv7-settings dt { color: var(--text-muted); font-weight: 500; }
 .uv7-settings dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
 @media (max-width: 991.98px) { .uv7-studentsee { margin-block-start: 1rem; } }
-.uv7-studentsee { background: #f8f9fb; border: 1px dashed rgba(var(--primary-rgb), 0.3); border-radius: 0.5rem; padding: 1rem; }
+.uv7-studentsee { background: var(--hg-surface-hover); border: 1px dashed rgba(var(--primary-rgb), 0.3); border-radius: 0.5rem; padding: 1rem; }
 .uv7-bullets { margin: 0; padding-inline-start: 1.1rem; font-size: 0.8125rem; display: grid; gap: 0.35rem; }
 .uv7-bullets li::marker { color: rgb(var(--primary-rgb)); }
 .uv7-rules .uc-proposal { border: 1px solid rgba(var(--warning-rgb), 0.45); background: rgba(var(--warning-rgb), 0.06); border-radius: 0.5rem; padding: 0.875rem 1rem; margin-block-end: 1rem; display: grid; gap: 0.75rem; }
-.uv7-rules .uc-rules-preview { background: #f8f9fb; border: 1px dashed rgba(var(--primary-rgb), 0.3); border-radius: 0.5rem; padding: 1rem; }
+.uv7-rules .uc-rules-preview { background: var(--hg-surface-hover); border: 1px dashed rgba(var(--primary-rgb), 0.3); border-radius: 0.5rem; padding: 1rem; }
 .uv7-empty { display: flex; align-items: center; gap: 0.75rem; padding: 1rem; border: 1px dashed var(--default-border); border-radius: 0.5rem; font-size: 0.8125rem; color: var(--text-muted); }
 .uv7-empty .avatar { flex: none; }
 
@@ -571,7 +571,7 @@ a.uc-notif:hover { background: var(--hg-surface-hover); }
 .uv7-agtable .uv7-rate { justify-content: flex-start; flex-wrap: nowrap; white-space: nowrap; }
 .uv7-cardwrap > .card.custom-card { margin-block-end: 1.5rem; }
 .uv7 .uc-cmp th, .uv7 .uc-outcomes th { font-size: 0.75rem; }
-.uv7 .hg-table thead th { background: rgb(243, 246, 248); }
+.uv7 .hg-table thead th { background: var(--hg-bg); }
 
 /* ---------- remaining pages: shared hg components inside the YNEX page frame ---------- */
 .hg-stack.uv7 > .card.custom-card, .hg-stack.uv7 .hg-stack > .card.custom-card { margin-block-end: 0; }

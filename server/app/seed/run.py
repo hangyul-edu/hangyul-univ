@@ -46,7 +46,7 @@ from app.seed.reference_data import COUNTRIES, HCCH, LOCALES
 from app.services import entitlements as entitlements_svc
 from app.services.freshness import run_freshness_scan
 
-RESEARCH_JSON = Path(__file__).resolve().parents[3] / "docs" / "docs/research/sources.json"
+RESEARCH_JSON = Path(__file__).resolve().parents[3] / "docs" / "research" / "sources.json"
 TODAY = date.today()
 NOW = datetime.now(timezone.utc)
 rng = random.Random(2026)

@@ -4,21 +4,22 @@ import { AppText, ErrorState, ListGroup, LoadingState, Screen, SectionTitle, the
 import type { UniversityAttention } from '@hangyul/types';
 import { useQueries, useQuery } from '@tanstack/react-query';
 import { router } from 'expo-router';
-import { ChevronRight, CircleCheck } from 'lucide-react-native';
+import { ChevronRight } from 'lucide-react-native';
 import { Platform, Pressable, StyleSheet, View } from 'react-native';
 
 import { ApplicantList, useApplicants } from '../../src/ApplicantList';
 import { HEAD_VIEWS, viewQuery, type HeadView } from '../../src/views';
 import { useOverview } from '../../src/queries';
 
-/** What needs our decision: the applications to review, then the other open decisions. Rates live on the Pipeline tab. */
+/** What needs our decision: the count, the queue of applicants awaiting a decision (decidable first), then the other open items. Rates live on the Pipeline tab. */
 export default function NeedsReviewScreen() {
   const { t } = useTranslation();
   const api = useApi();
   const { session } = useAuth();
   const overview = useOverview();
   const attention = useQuery({ queryKey: ['university', 'attention'], queryFn: () => api.university.attention() });
-  const latest = useApplicants('review', '', 5);
+  // The decision queue itself: everyone still awaiting a decision, in the web console's "needs a decision first" order.
+  const latest = useApplicants('decide', '', 5, 'decision');
   return (
     <Screen onRefresh={() => Promise.all([attention.refetch(), latest.refetch()])} edges={['top', 'left', 'right']}>
       <View style={styles.head}>
@@ -28,12 +29,12 @@ export default function NeedsReviewScreen() {
         </View>
       </View>
       <Headline />
-      {attention.isPending ? <LoadingState rows={4} /> : attention.isError ? <ErrorState error={attention.error} onRetry={() => void attention.refetch()} /> : <Decisions a={attention.data!} />}
       <View style={{ gap: 8 }}>
-        {/* V4: the review queue is this list (no separate "N to review" row above it). */}
-        <SectionTitle title={attention.data ? t('v4.uni.toReview', { count: attention.data.awaiting_review }) : t('v3.uni.latest')} action={t('v3.common.all')} onAction={() => router.push({ pathname: '/applicants', params: { view: 'review' } })} />
-        <ApplicantList query={latest} emptyTitle={t('v3.uni.nothingToReview')} showCount={false} />
+        {/* The queue comes straight after the figure that counts it; the other open items follow. */}
+        <SectionTitle title={t('v26.uni.head.decide')} action={t('v3.common.all')} onAction={() => router.push({ pathname: '/applicants', params: { view: 'decide' } })} />
+        <ApplicantList query={latest} emptyTitle={t('v3.uni.allClear')} showCount={false} />
       </View>
+      {attention.isPending ? <LoadingState rows={4} /> : attention.isError ? <ErrorState error={attention.error} onRetry={() => void attention.refetch()} /> : <Decisions a={attention.data!} />}
     </Screen>
   );
 }
@@ -55,7 +56,7 @@ function Headline() {
   const open = (v: HeadView) => router.push({ pathname: '/applicants', params: { view: v } });
   return (
     <View style={styles.head2} accessibilityRole="summary" accessibilityLabel={t('v26.uni.head.label')}>
-      <Pressable disabled={!decide} onPress={() => open('decide')} accessibilityRole="button" accessibilityLabel={`${t('v26.uni.head.decide')} ${decide ?? 0}`}
+      <Pressable disabled={!decide} onPress={() => open('decide')} accessibilityRole="button" accessibilityState={{ disabled: !decide }} accessibilityLabel={`${t('v26.uni.head.decide')} ${decide ?? 0}`}
         style={({ pressed }) => [styles.lead, pressed && { opacity: 0.6 }]}>
         <AppText variant="display" color={decide ? theme.color.primaryText : theme.color.textTertiary}>{decide ?? '–'}</AppText>
         <AppText variant="subheading">{t('v26.uni.head.decide')}</AppText>
@@ -65,7 +66,7 @@ function Headline() {
         {(['requests', 'fresh', 'moved'] as HeadView[]).map((v) => {
           const c = n(v);
           return (
-            <Pressable key={v} disabled={!c} onPress={() => open(v)} accessibilityRole="button" accessibilityLabel={`${t(`v26.uni.head.${v}`)} ${c ?? 0}`}
+            <Pressable key={v} disabled={!c} onPress={() => open(v)} accessibilityRole="button" accessibilityState={{ disabled: !c }} accessibilityLabel={`${t(`v26.uni.head.${v}`)} ${c ?? 0}`}
               style={({ pressed }) => [styles.secondaryItem, pressed && { opacity: 0.6 }]}>
               <AppText variant="subheading" color={c ? theme.color.text : theme.color.textTertiary}>{c ?? '–'}</AppText>
               <AppText variant="caption" numberOfLines={2} color={c ? theme.color.textSecondary : theme.color.textTertiary}>{t(`v26.uni.head.${v}`)}</AppText>
@@ -105,9 +106,7 @@ function Decisions({ a }: { a: UniversityAttention }) {
             </Pressable>
           ))}
         </ListGroup>
-      ) : a.awaiting_review ? null : (
-        <View style={styles.clear}><CircleCheck size={16} color={theme.status.success.fg} /><AppText variant="body">{t('v3.uni.allClear')}</AppText></View>
-      )}
+      ) : null}
     </View>
   );
 }
@@ -116,9 +115,8 @@ const styles = StyleSheet.create({
   head: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingTop: 4 },
   row: { flexDirection: 'row', alignItems: 'center', gap: 14, paddingVertical: 14, paddingHorizontal: 16, minHeight: 64 },
   count: { minWidth: 36, textAlign: 'center' },
-  clear: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   head2: { gap: 10, paddingVertical: 8, borderTopWidth: StyleSheet.hairlineWidth, borderBottomWidth: StyleSheet.hairlineWidth, borderColor: theme.color.border },
   lead: { flexDirection: 'row', alignItems: 'center', gap: 12, minHeight: 56, paddingVertical: 6 },
   secondary: { flexDirection: 'row', gap: 12, paddingBottom: 4 },
-  secondaryItem: { flex: 1, gap: 2 },
+  secondaryItem: { flex: 1, gap: 2, minHeight: 48, justifyContent: 'center' },
 });

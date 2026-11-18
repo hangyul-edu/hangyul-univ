@@ -188,29 +188,10 @@ export async function activatePlan(
    *
    * The sandbox card number is not written here; it is in the untracked env (REPORT §237.1).
    */
-  if (res.status() === 201 && body.status === 'PENDING' && body.card_form) {
-    const pan = qaTestCard();
-    if (!pan) return { paid: false, reason: 'HG_QA_TEST_CARD is not set, so the card route cannot be exercised' };
-    /*
-     * The card endpoint allows 8 attempts per 300 s per user *and* per IP, and a full suite run now
-     * makes roughly that many from one address. Tripping Hangyul's own limiter is the control
-     * working, not the payment path failing, so the helper waits the window out rather than turning
-     * a security feature into a flaky test. The limiter is not relaxed for the suite.
-     */
-    for (let attempt = 0; ; attempt += 1) {
-      const payment = await request.post(`${API}/me/orders/${body.order_id}/pay-with-card`, {
-        headers,
-        data: { card: { number: pan, expiry_month: '12', expiry_year: '30', holder_name: 'E2E HELPER' } },
-        failOnStatusCode: false,
-      });
-      const paidBody = await payment.json();
-      if (payment.status() === 200 && paidBody.status === 'PAID') return { paid: true, order: paidBody };
-      const limited = payment.status() === 429 && paidBody?.detail?.code === 'TOO_MANY_CARD_ATTEMPTS';
-      if (!limited || attempt >= 6) {
-        return { paid: false, reason: `the card was not accepted: ${payment.status()} ${JSON.stringify(paidBody).slice(0, 160)}` };
-      }
-      await new Promise((r) => { setTimeout(r, 50_000); });
-    }
+  if (res.status() === 201 && body.status === 'PENDING') {
+    // Toss is the provider: an order is paid on the billing-key rail, which needs a payment method registered in
+    // Toss's hosted window by a person. That is a browser journey, not something a request helper can stand in for.
+    return { paid: false, reason: 'the order needs a registered payment method (billing-key rail); run with the demo provider' };
   }
 
   const code = body?.detail?.code;

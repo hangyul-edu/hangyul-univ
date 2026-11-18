@@ -52,7 +52,7 @@ describe('the paywall is on the service, not on the account', () => {
   it('never closes a route that would strand the student', () => {
     // A paywall that redirects the login page has made the product unreachable, and one that redirects the
     // payment return has taken money and then hidden the receipt.
-    for (const p of ['/login', '/register', '/services/payment/success', '/services/payment/fail']) {
+    for (const p of ['/login', '/register', '/services/payment-methods/return']) {
       expect(isOpenToUnpaid(p), p).toBe(true);
     }
   });

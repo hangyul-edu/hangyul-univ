@@ -264,7 +264,7 @@ export function UniversityHero({ id, children, kicker, index }: {
       <div className="hg-uni-hero__inner">
         <UniversityLogo content={id.content} name={id.name} size={64} className="hg-uni-hero__logo" />
         <h1 className="hg-uni-hero__name">{id.name}</h1>
-        {id.altName && <p className="hg-uni-hero__alt" lang={/[가-힣]/.test(id.altName) ? 'ko' : 'en'}>{id.altName}</p>}
+        {id.altName && id.altName !== id.name && <p className="hg-uni-hero__alt" lang={/[가-힣]/.test(id.altName) ? 'ko' : 'en'}>{id.altName}</p>}
         {children}
       </div>
       {/* Shown only when the picture is NOT this university. On a campus photograph there is nothing to
@@ -308,7 +308,9 @@ export function UniversityPhilosophy({ content, name }: { content?: UniversityCo
   return (
     <section className="hg-uni-sec hg-uni-phil" aria-labelledby="hg-uni-phil-h">
       <p className="hg-uni-sec__eyebrow">{t('v20.uni.philosophyEyebrow')}</p>
-      <h2 className="hg-uni-sec__h" id="hg-uni-phil-h">{reviewed?.heading ?? t('v17.uni.missionTitle')}</h2>
+      {/* The reviewed heading is the university's own Korean wording; outside Korean the section is named in the reader's
+          language and the original heading leads the quotation below. */}
+      <h2 className="hg-uni-sec__h" id="hg-uni-phil-h">{(ko && reviewed?.heading) || t('v17.uni.missionTitle')}</h2>
       {reviewed ? (
         <>
           <p className="hg-uni-phil__read">{summary}</p>
@@ -340,8 +342,12 @@ export function UniversityPhilosophy({ content, name }: { content?: UniversityCo
  */
 export function UniversityVideo({ content, name }: { content?: UniversityContent | null; name: string }) {
   const { t } = useLocale(['marketing', 'common']);
-  const [playing, setPlaying] = useState(false);
   const yt = content?.youtube;
+  // The film the research chose leads (an international-student film outranks the brand film in the data itself);
+  // the university's other verified films are offered beside it and never autoplay.
+  const list = (yt?.videos ?? []).filter((v) => v.video_id);
+  const [picked, setPicked] = useState<string | null>(null);
+  const [playing, setPlaying] = useState(false);
   if (!yt?.channel_url) return null;
 
   if (!yt.video_id) {
@@ -358,39 +364,108 @@ export function UniversityVideo({ content, name }: { content?: UniversityContent
     );
   }
 
+  const videoId = picked ?? yt.video_id;
+  const entry = list.find((v) => v.video_id === videoId) as ({ channel_title?: string } & (typeof list)[number]) | undefined;
+  const title = entry?.title ?? yt.video_title;
+  const channel = entry?.channel_title ?? yt.channel_title;
+  const purpose = entry?.purpose ?? yt.purpose;
+  // Only the film the record was reviewed with has a probed poster size; the others use the size every upload has.
+  const poster = videoId === yt.video_id ? yt.poster ?? 'hqdefault' : 'hqdefault';
+  const others = list.filter((v) => v.video_id !== videoId).slice(0, 3);
+
   return (
     <section className="hg-uni-sec hg-uni-video" aria-labelledby="hg-uni-video-h">
       <p className="hg-uni-sec__eyebrow">{t('v20.uni.videoEyebrow')}</p>
       {/* V27: the heading says what the film is — a film made for overseas students is named as one. */}
       <h2 className="hg-uni-sec__h" id="hg-uni-video-h">{yt.purpose && yt.purpose !== 'GENERAL_PROMO' ? t(`common:uni27.video.${yt.purpose}`) : t('v17.uni.videoTitle')}</h2>
-      <div className="hg-uni-video__frame">
-        {playing ? (
-          <iframe
-            src={`https://www.youtube-nocookie.com/embed/${yt.video_id}?autoplay=1`}
-            title={yt.video_title || t('v17.uni.videoTitle')}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
-            allowFullScreen
-            loading="lazy"
-          />
-        ) : (
-          <button type="button" className="hg-uni-video__play" onClick={() => setPlaying(true)}>
-            <img
-              src={`https://i.ytimg.com/vi/${yt.video_id}/${yt.poster ?? 'hqdefault'}.jpg`}
-              alt="" aria-hidden width={1280} height={720} loading="lazy" decoding="async"
-              // maxres does not exist for every upload; hq always does, and a broken poster is worse
-              // than a smaller one.
-              onError={(e) => { (e.currentTarget as HTMLImageElement).src = `https://i.ytimg.com/vi/${yt.video_id}/hqdefault.jpg`; }}
+      <div className="hg-uni-video__layout" data-has-more={others.length > 0 || undefined}>
+        <div className="hg-uni-video__frame">
+          {playing ? (
+            <iframe
+              key={videoId}
+              src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`}
+              title={title || t('v17.uni.videoTitle')}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
+              allowFullScreen
+              loading="lazy"
             />
-            <span className="hg-uni-video__btn" aria-hidden><Play /></span>
-            <span className="hg-sr-only">{t('v17.uni.playVideo', { name })}</span>
-          </button>
-        )}
+          ) : (
+            <button type="button" className="hg-uni-video__play" onClick={() => setPlaying(true)}>
+              <img
+                key={videoId}
+                src={`https://i.ytimg.com/vi/${videoId}/${poster}.jpg`}
+                alt="" aria-hidden width={1280} height={720} loading="lazy" decoding="async"
+                // maxres does not exist for every upload; hq always does, and a broken poster is worse
+                // than a smaller one.
+                onError={(e) => { const img = e.currentTarget as HTMLImageElement; const hq = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`; if (img.src !== hq) img.src = hq; }}
+              />
+              <span className="hg-uni-video__btn" aria-hidden><Play /></span>
+              <span className="hg-sr-only">{t('v17.uni.playVideo', { name })}</span>
+            </button>
+          )}
+        </div>
+        <div className="hg-uni-video__side">
+          <p className="hg-uni-video__meta">
+            {videoId !== yt.video_id && purpose && purpose !== 'GENERAL_PROMO' && <span className="hg-uni-video__kind">{t(`common:uni27.video.${purpose}`, { defaultValue: '' })}</span>}
+            <span className="hg-uni-video__title" data-no-l10n>{title}</span>
+            {channel && <span className="hg-uni-video__chan" data-no-l10n>{channel}</span>}
+          </p>
+          {others.length > 0 && (
+            <div className="hg-uni-video__more">
+              <p className="hg-uni-video__more-h">{t('common:uniDetail.video.more')}</p>
+              <ul>
+                {others.map((v) => (
+                  <li key={v.video_id}>
+                    <button type="button" onClick={() => { setPicked(v.video_id); setPlaying(false); }}>
+                      <Play aria-hidden size={13} />
+                      <span>
+                        <span className="hg-uni-video__more-kind">{t(`common:uni27.video.${v.purpose}`, { defaultValue: '' })}</span>
+                        <span data-no-l10n>{v.title}</span>
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
-      <p className="hg-uni-video__meta">
-        <span className="hg-uni-video__title">{yt.video_title}</span>
-        {yt.channel_title && <span className="hg-uni-video__chan">{yt.channel_title}</span>}
-      </p>
     </section>
+  );
+}
+
+/**
+ * The identity composition for the campus section when Hangyul holds **no licensed photograph of this campus**.
+ *
+ * It is never a stand-in campus: no other institution's picture, no stock campus, nothing generated. It sets what is
+ * true and sourced — the institution's name in both scripts, its official mark where one may be shown, and where in
+ * Korea it is (the KOSTAT region mark) — beside a photograph of the **region**, captioned as the region.
+ */
+export function UniversityIdentityBoard({ id, regionLabel, kindLabel, cityPhoto, cityAlt, cityCaption, note }: {
+  id: UniversityIdentity; regionLabel: string; kindLabel?: string;
+  cityPhoto?: UniversityMedia | null; cityAlt?: string; cityCaption?: string; note?: string;
+}) {
+  const logo = resolveUniversityVisual(id.slug, id.region, id.content).logo;
+  const other = id.altName && id.altName !== id.name ? id.altName : null;
+  return (
+    <div className="hg-uni-board" data-has-city={cityPhoto ? true : undefined}>
+      <div className="hg-uni-board__id">
+        <img className="hg-uni-board__map" src={`/media/region-mark/${id.region}.svg`} alt="" aria-hidden width={82} height={87} loading="lazy" decoding="async" />
+        {logo && <span className="hg-uni-board__plate"><UniversityLogo content={id.content} name={id.name} size={44} /></span>}
+        <div className="hg-uni-board__text">
+          <p className="hg-uni-board__name">{id.name}</p>
+          {other && <p className="hg-uni-board__alt" lang={/[가-힣]/.test(other) ? 'ko' : 'en'}>{other}</p>}
+          <p className="hg-uni-board__where"><span>{regionLabel}</span>{kindLabel && <span>{kindLabel}</span>}</p>
+        </div>
+      </div>
+      {cityPhoto && (
+        <figure className="hg-uni-board__city">
+          <UniversityPhoto media={cityPhoto} sizes="(min-width: 860px) 56vw, 92vw" alt={cityAlt ?? ''} />
+          {cityCaption && <figcaption>{cityCaption}</figcaption>}
+        </figure>
+      )}
+      {note && <p className="hg-uni-board__note">{note}</p>}
+    </div>
   );
 }
 

@@ -8,8 +8,7 @@
 #   particles      qa:v28-particles — Korean particle pairs
 #   fidelity       V11 owner copy fidelity (ko + ru Koreanasha strings verbatim)
 #   localnames     pytest server/tests/test_v31_localnames.py — server names resolved for the reader
-#   stage          qa:v31-stage — pipeline rail: views outside the rail, count == records, selection, keyboard, one
-#                  target, zero stage, no overflow at 1440/1280/1024/768/390
+#   (stage — retired 2026-11: the Operations rail is now `ops-rail`, asserted by e2e and the counts check)
 #   pricing        qa:v31-pricing — homepage pricing tail: one composition, alignment, columns, disclosure groups,
 #                  blank regions, sticky-header anchor (ko/en/vi/ar × 1440/1024/768/390)
 #   crawl          V30 visual crawl (ko 390+1280, every route) — buttons, hitbox, overflow, raw key, mixed locale
@@ -22,7 +21,7 @@ set -u
 cd "$(dirname "$0")/../../.."
 mkdir -p docs/qa/v31/logs
 BASE_MARKETING="${BASE_MARKETING:-http://127.0.0.1:3100}"
-STEPS="${*:-typecheck lint-api l10n particles fidelity localnames stage pricing crawl crawl-locales v30 native}"
+STEPS="${*:-typecheck lint-api l10n particles fidelity localnames pricing crawl crawl-locales v30 native}"
 fails=0
 run() { local name=$1; shift; echo "== $name"; "$@" > "docs/qa/v31/logs/$name.log" 2>&1; local rc=$?; tail -n 3 "docs/qa/v31/logs/$name.log"; echo "EXIT[$name]=$rc"; [ $rc -eq 0 ] || fails=$((fails+1)); }
 native() { for a in student-mobile agency-mobile university-mobile; do (cd apps/$a && npx expo export --platform android --output-dir /tmp/claude-0/v31-export-$a >/dev/null) || return 1; echo "$a bundled"; done; }
@@ -34,7 +33,6 @@ for s in $STEPS; do
     particles)     run particles npm run qa:v28-particles ;;
     fidelity)      run fidelity node scripts/qa/v11-copy-fidelity.mjs ;;
     localnames)    run localnames bash -c 'cd server && HG_REDIS_URL=redis://localhost:6379/9 .venv/bin/python -m pytest -q -p no:warnings tests/test_v31_localnames.py' ;;
-    stage)         run stage node scripts/qa/v31/stage.mjs ;;
     pricing)       run pricing env BASE="$BASE_MARKETING" node scripts/qa/v31/pricing.mjs ;;
     crawl)         run crawl node scripts/qa/v30/visual.mjs --label=v31-gate --locales=ko --widths=390,1280 --check ;;
     crawl-locales) run crawl-locales node scripts/qa/v30/visual.mjs --label=v31-gate-locales --locales=en,vi,zh-Hans,ar --widths=390,1280 \

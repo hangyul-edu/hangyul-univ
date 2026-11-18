@@ -162,14 +162,14 @@ export function CheckRow({ label, detail, checked, onToggle, disabled, trailing 
 const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', gap: 12, minHeight: 56, paddingVertical: 10, paddingHorizontal: 16 },
   body: { flex: 1, gap: 2 },
-  iconWrap: { width: 32, height: 32, borderRadius: 8, backgroundColor: theme.color.surfaceSunken, alignItems: 'center', justifyContent: 'center' },
+  iconWrap: { width: 32, height: 32, borderRadius: 8, backgroundColor: theme.color.surfaceWarm, alignItems: 'center', justifyContent: 'center' },
   pressed: { backgroundColor: theme.color.bgMuted },
   divider: { height: StyleSheet.hairlineWidth, backgroundColor: theme.color.border },
-  group: { backgroundColor: theme.color.surface, borderRadius: theme.radius.lg, borderWidth: 1, borderColor: theme.color.border, overflow: 'hidden' },
+  group: { backgroundColor: theme.color.surface, borderRadius: theme.radius.xl, borderWidth: 1, borderColor: theme.color.border, overflow: 'hidden' },
   section: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', minHeight: 32, marginTop: 12 },
   sectionTitle: { flex: 1 },
   sectionAction: { minHeight: 44, justifyContent: 'center', paddingStart: 12 },
-  box: { width: 22, height: 22, borderRadius: 6, borderWidth: 1.5, borderColor: theme.color.borderStrong, alignItems: 'center', justifyContent: 'center' },
-  boxOn: { backgroundColor: theme.color.text, borderColor: theme.color.text },
+  box: { width: 22, height: 22, borderRadius: 6, borderWidth: 1.5, borderColor: theme.color.borderControl, alignItems: 'center', justifyContent: 'center' },
+  boxOn: { backgroundColor: theme.color.primary, borderColor: theme.color.primary },
   done: { color: theme.color.textSecondary },
 });

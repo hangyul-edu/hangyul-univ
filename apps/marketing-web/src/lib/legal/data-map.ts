@@ -86,11 +86,14 @@ export const DATA_CATEGORIES: DataCategory[] = [
   },
   {
     key: 'payment',
-    // No card number, expiry, CVC or billing address is stored anywhere: checkout is hosted by the provider and
-    // only its reference comes back. `raw` is a sanitised provider payload.
-    tables: ['orders', 'payments', 'service_cases'],
+    // No card number, expiry, CVC or billing address is stored anywhere: the payment method is registered on the
+    // provider's hosted page. What is kept is the provider's payment-method token (a billing key, AES-256-GCM
+    // sealed), the network/issuer and last four digits it echoes, and an opaque customer identifier.
+    tables: ['orders', 'payments', 'service_cases', 'student_payment_methods', 'payment_customers', 'payment_method_registrations',
+      'payment_webhook_events'],
     fields: ['order contents and amount', 'currency', 'payment status', 'provider name', 'provider transaction reference',
-      'sanitised provider payload', 'refund records'],
+      'sanitised provider payload', 'refund records', 'encrypted payment-method token', 'card network / issuer and last four digits',
+      'opaque provider customer identifier'],
     recipients: ['HANGYUL'],
     optional: true,
   },
@@ -194,8 +197,8 @@ export const STATUTORY_RECORDS = [
 ] as const;
 
 /**
- * **Domestic processors** (V23, REPORT §268 P3). Since V21 a plan is bought with card details typed into Hangyul's own
- * form and relayed by Hangyul's server to Toss Payments' key-in API (`POST /v1/payments/key-in`); Toss is therefore a
+ * **Domestic processors** (V23, REPORT §268 P3). A purchase is paid with a payment method the student registers on Toss Payments' hosted
+ * page (billing key) and that Hangyul's server then charges once; card data never reaches Hangyul. Toss is therefore a
  * processor (개인정보 보호법 제26조) and is disclosed in §4. It is in Korea, so it is **not** an overseas transfer and is
  * not listed in §5. Entity, address and privacy policy read from tosspayments.com's own footer on 2026-10-25
  * (사업자등록번호 411-86-01799).

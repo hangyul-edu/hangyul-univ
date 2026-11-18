@@ -46,7 +46,7 @@ test('student: home, discovery with verdicts, compare, documents and visa', asyn
 test('agency: Today, saved views and the review queue', async ({ page }) => {
   await uiLogin(page, 'agency', 'manager@lotus.demo.hangyul.kr');
   // V22/V31: Today is the pipeline rail + work table; a stage click filters the table and the counts agree.
-  await expect(page.locator('.hg-pipe__rail')).toBeVisible();
+  await expect(page.locator('.ops-rail__stages')).toBeVisible();
   await expect(page.locator('[data-work-total]')).toBeVisible();
   await page.getByRole('link', { name: 'Students', exact: true }).first().click();
   // The former view tabs are one toolbar select; `?view=attention` is still the URL contract.

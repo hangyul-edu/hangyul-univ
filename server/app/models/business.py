@@ -2,10 +2,10 @@
 import uuid
 from datetime import date, datetime
 
-from sqlalchemy import JSON, BigInteger, Boolean, Date, DateTime, Integer, String, Text, Uuid
+from sqlalchemy import JSON, BigInteger, Boolean, Date, DateTime, Integer, String, Text, UniqueConstraint, Uuid
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.models.base import Base, IdMixin, TimestampMixin, enum_col, fk
+from app.models.base import Base, IdMixin, TimestampMixin, enum_col, fk, utcnow
 from app.models.enums import AddOnStatus, AwardStatus, ContractStatus, OrderStatus
 
 
@@ -89,6 +89,11 @@ class Order(IdMixin, TimestampMixin, Base):
     #: The plan (or add-on) exactly as sold: name, price, entitlements, comparison cells, catalogue version.
     plan_snapshot: Mapped[dict | None] = mapped_column(JSON)
     purchase_terms_version: Mapped[str | None] = mapped_column(String(32))
+    #: The billing-key payment state machine (`app/services/billing.py::PAYMENT_STATES`). ``status`` stays the
+    #: coarse commercial fact (PENDING / PAID / …); this says where in the payment the order actually is.
+    #: A billing key being issued never moves an order to PAID — only a successful charge does.
+    payment_state: Mapped[str] = mapped_column(String(32), default="PENDING", server_default="PENDING", index=True)
+    payment_method_id: Mapped[uuid.UUID | None] = fk("student_payment_methods.id", nullable=True, ondelete="SET NULL")
 
 
 class ServiceEngagement(IdMixin, TimestampMixin, Base):
@@ -184,6 +189,16 @@ class Payment(IdMixin, TimestampMixin, Base):
     refunded_amount_minor: Mapped[int | None] = mapped_column(BigInteger)
     refund_ref: Mapped[str | None] = mapped_column(String(120))
     refunded_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # ---- billing-key charge attempts. One row per attempt; an attempt has its own provider order id and its
+    # own idempotency key, so a declined card can be retried without replaying the cached decline, while a
+    # repeat of the *same* attempt is still one charge.
+    #: Which merchant configuration this attempt was sent to. A refund goes back through the same one.
+    provider_mid: Mapped[str | None] = mapped_column(String(48))
+    #: The `orderId` sent to Toss for this attempt (unique at the provider).
+    provider_order_id: Mapped[str | None] = mapped_column(String(64), index=True)
+    attempt: Mapped[int | None] = mapped_column(Integer)
+    payment_method_id: Mapped[uuid.UUID | None] = fk("student_payment_methods.id", nullable=True, ondelete="SET NULL")
+    failure_code: Mapped[str | None] = mapped_column(String(64))
 
 
 class PartnerContract(IdMixin, TimestampMixin, Base):
@@ -287,6 +302,12 @@ class StudentPaymentMethod(IdMixin, TimestampMixin, Base):
     card_type: Mapped[str | None] = mapped_column(String(24))
     owner_type: Mapped[str | None] = mapped_column(String(24))
 
+    #: DOMESTIC_CARD · FOREIGN_CARD · TOSS_PAY · NAVER_PAY — which decides the merchant configuration.
+    kind: Mapped[str] = mapped_column(String(24), default="FOREIGN_CARD", server_default="FOREIGN_CARD")
+    #: HMAC-SHA256 of the billing key under the envelope key. Lets a provider "billing key deleted" event and
+    #: a duplicate registration be matched to a row without decrypting every credential.
+    billing_key_fingerprint: Mapped[str | None] = mapped_column(String(64), index=True)
+
     is_default: Mapped[bool] = mapped_column(Boolean, default=True)
     #: ACTIVE · REVOKED. A revoked row is kept for reconciliation and can never be charged.
     status: Mapped[str] = mapped_column(String(16), default="ACTIVE", index=True)
@@ -297,3 +318,54 @@ class StudentPaymentMethod(IdMixin, TimestampMixin, Base):
         """What the student sees. Never the credential, never an unmasked digit beyond the last four."""
         brand = self.card_brand or "Card"
         return f"{brand} •••• {self.last4}" if self.last4 else brand
+
+
+class PaymentCustomer(IdMixin, TimestampMixin, Base):
+    """The opaque Toss ``customerKey`` for one user — random, stable, and derived from nothing.
+
+    Never an e-mail, a phone number, a database id or anything else a third party could guess.
+    """
+
+    __tablename__ = "payment_customers"
+    __table_args__ = (UniqueConstraint("user_id", name="uq_payment_customers_user_id"),
+                      UniqueConstraint("customer_key", name="uq_payment_customers_customer_key"))
+
+    user_id = fk("users.id")
+    customer_key: Mapped[str] = mapped_column(String(64))
+
+
+class PaymentMethodRegistration(IdMixin, TimestampMixin, Base):
+    """One attempt to register a payment method through Toss's hosted billing authentication.
+
+    The row's id travels in the return URL and is the only thing that may be completed; it is bound to the
+    user, the kind and (optionally) the order the student was paying when they added the method.
+    """
+
+    __tablename__ = "payment_method_registrations"
+
+    user_id = fk("users.id")
+    kind: Mapped[str] = mapped_column(String(24))
+    provider_mid: Mapped[str | None] = mapped_column(String(48))
+    order_id: Mapped[uuid.UUID | None] = fk("orders.id", nullable=True, ondelete="SET NULL")
+    #: PENDING · COMPLETED · FAILED · CANCELLED · EXPIRED
+    status: Mapped[str] = mapped_column(String(16), default="PENDING", index=True)
+    failure_code: Mapped[str | None] = mapped_column(String(64))
+    payment_method_id: Mapped[uuid.UUID | None] = fk("student_payment_methods.id", nullable=True, ondelete="SET NULL")
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+class PaymentWebhookEvent(IdMixin, Base):
+    """Every provider webhook delivery, once. The body is never trusted — it is a prompt to ask Toss."""
+
+    __tablename__ = "payment_webhook_events"
+    __table_args__ = (UniqueConstraint("dedupe_key", name="uq_payment_webhook_events_dedupe_key"),)
+
+    dedupe_key: Mapped[str] = mapped_column(String(64))
+    event_type: Mapped[str] = mapped_column(String(48), index=True)
+    provider_order_id: Mapped[str | None] = mapped_column(String(64), index=True)
+    #: APPLIED · NO_CHANGE · UNKNOWN_PAYMENT · AMOUNT_MISMATCH · IGNORED · ERROR
+    outcome: Mapped[str] = mapped_column(String(24))
+    signature_valid: Mapped[bool | None] = mapped_column(Boolean)
+    received_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+

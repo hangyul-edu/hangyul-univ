@@ -112,6 +112,11 @@ for r in (auth.router, catalog.router, student.router, journey.router, documents
     app.include_router(r, prefix=PREFIX)
 app.include_router(applications.requests_router, prefix=PREFIX)
 app.include_router(student.payments_router, prefix=PREFIX)  # V9 reliability: provider payment callback (idempotent)
+from app.api.v1 import billing as billing_api  # noqa: E402  (billing-key payments: the only real-money rail)
+
+app.include_router(billing_api.router, prefix=PREFIX)
+app.include_router(billing_api.ops_router, prefix=PREFIX)
+app.include_router(billing_api.webhook_router, prefix=PREFIX)
 app.include_router(sso.router, prefix=PREFIX)
 from app.api.v1 import directory  # noqa: E402  (V12 public Korean university directory)
 

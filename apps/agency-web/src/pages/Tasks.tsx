@@ -1,8 +1,8 @@
 import { useAuth } from '@hangyul/auth';
-import { AlarmClock, CalendarDays, CalendarRange, Check, CheckCircle2, Hourglass, Plus, UserRound, UserRoundCheck } from '@hangyul/icons';
+import { Check, CheckCircle2, Plus, UserRound, UserRoundCheck } from '@hangyul/icons';
 import type { Task, TaskPriority, TaskType } from '@hangyul/types';
 import { Button, EmptyState, ErrorState, Popover, FilterSelect, Skeleton, StatusText } from '@hangyul/ui';
-import { Col, PageHeader, ProgressRow, Row, StatCard, YCard, YTabs, type YxTone } from '@hangyul/ynex-ui';
+import { Col, PageHeader, ProgressRow, Row, YCard, YTabs, type YxTone } from '@hangyul/ynex-ui';
 import { cx, formatDateTime, formatNumber, formatRelative } from '@hangyul/utils';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
@@ -138,16 +138,12 @@ export default function Tasks() {
   const byPrio = (['URGENT', 'HIGH', 'MEDIUM', 'LOW'] as TaskPriority[]).map((p) => ({ p, n: openFiltered.filter((x) => x.priority === p).length }));
   const prioMax = Math.max(1, ...byPrio.map((x) => x.n));
   const setView = (v: AnyView) => f.set({ view: v === 'mine' ? null : v });
-  const stat = (v: View, tone: YxTone, icon: React.ReactNode) => (
-    <StatCard tone={tone} icon={icon} label={t(`tasksPage.view.${v}`)} value={q.data ? formatNumber(counts[v], locale) : <Skeleton w={32} h={24} />}
-      onClick={() => setView(v)} selected={!extra && view === v} />
-  );
   return (
     <div className="ag7 ag7-tasks">
       <PageHeader title={t('tasksPage.title')} sub={t('v7.tasks.sub')}
         actions={<Button variant="primary" size="sm" icon={<Plus />} onClick={() => setCreating(true)}>{t('tasksPage.new')}</Button>} />
       <Row>
-        <Col xxl={9} xl={8}>
+        <Col xxl={9} xl={9}>
       <YCard className="ag-table-panel ag7-taskcard" flush title={extra ? t(`v8.tasks.view.${extra}`) : t(`tasksPage.view.${view}`)} count={extra ? extraCount[extra] : q.data ? rows.length : undefined}>
         <div className="ag7-viewtabs">
           <YTabs label={t('tasksPage.title')} value={extra ?? view} onChange={setView}
@@ -186,14 +182,9 @@ export default function Tasks() {
         </>}
       </YCard>
         </Col>
-        <Col xxl={3} xl={4}>
-          <div className="ag7-sidestats">
-            {stat('overdue', 'danger', <AlarmClock />)}
-            {stat('today', 'primary', <CalendarDays />)}
-            {stat('week', 'info', <CalendarRange />)}
-            {stat('waiting', 'warning', <Hourglass />)}
-          </div>
-          <YCard title={t('v7.tasks.byPriority')}>
+        <Col xxl={3} xl={3}>
+          {/* The view counts live on the tabs (one predicate, `inView`); the four stat tiles that repeated them are gone. */}
+          <YCard title={t('v7.tasks.byPriority')} className="ops-aside">
             <p className="text-muted fs-12 mb-2">{t('v7.tasks.byPrioritySub', { view: t(`tasksPage.view.${view}`) })}</p>
             {byPrio.map(({ p, n }) => (
               <button key={p} type="button" className="ag7-prio" aria-pressed={f.values.priority === p} onClick={() => f.set({ priority: f.values.priority === p ? null : p })}>

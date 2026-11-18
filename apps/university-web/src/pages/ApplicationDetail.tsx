@@ -5,7 +5,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '@hangyul/auth';
 import {
-  BookOpen, Building2, CalendarDays, ChevronLeft, ChevronRight, Eye, FileText, Flag, FlagOff, GraduationCap, Lock, MessageSquare, Send,
+  ChevronLeft, ChevronRight, Eye, FileText, Flag, FlagOff, GraduationCap, Lock, MessageSquare, Send,
 } from '@hangyul/icons';
 import { useLocale, localName } from '@hangyul/i18n';
 import type { ApplicationDetail as Detail, ApplicationStatus, ChecklistItem, Requirements } from '@hangyul/types';
@@ -14,13 +14,13 @@ import {
   Textarea, useToast,
 } from '@hangyul/ui';
 import { PageHeader, SoftBadge, YCard } from '@hangyul/ynex-ui';
-import { countryName, cx, documentTone, essayTone, flagEmoji, formatDate, formatDateTime, formatMoney, formatNumber, formatRelative, type Tone } from '@hangyul/utils';
+import { countryName, cx, documentTone, essayTone, formatDate, formatDateTime, formatMoney, formatNumber, formatRelative, type Tone } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate, useParams } from 'react-router';
 
-import { Provenance } from '../components/common';
+import { Country, Provenance } from '../components/common';
 import { StatusSoft, yxTone } from '../components/ynex';
 import { SubmissionEvidence } from '../components/success/SubmissionEvidence';
 import { actionVariant, buildTransitionBody, decisionSchema, type DecisionValues } from '../lib/decision';
@@ -29,6 +29,7 @@ import { decisionActions, PENDING_DECISION } from '../lib/permissions';
 import { useApplications, usePrograms, useStatements, useTeam } from '../lib/queries';
 import { useUniversity } from '../lib/university';
 import { useApplicationAgency, useNarrow } from '../lib/v9';
+import { stageOf } from '../lib/workflow';
 
 function useInvalidate() {
   const qc = useQueryClient();
@@ -768,6 +769,8 @@ export default function ApplicationDetail() {
   const q = useQuery({ queryKey: ['application', id], queryFn: () => api.applications.get(id), enabled: !!id });
   const ev = useEvidence(q.data);
   const [sentinel, seen] = useSeen<HTMLDivElement>();
+  const evEnd = useRef<HTMLDivElement | null>(null);
+  const setSentinel = (el: HTMLDivElement | null) => { evEnd.current = el; sentinel(el); };
   const wide = useNarrow('(min-width: 1280px)');
   const unflag = useMutation({
     mutationFn: () => api.applications.update(id, { flagged: false, flag_reason: null }),
@@ -788,7 +791,11 @@ export default function ApplicationDetail() {
   const openRequests = requests.filter((r) => r.status === 'OPEN').length;
   const canRequest = perms.canEdit && AWAIT.includes(a.status);
   const nationality = prof?.nationality ?? a.student?.nationality;
-  const { primary, secondary } = decisionPlanV9(a.status, actions, { openRequests, canRequest, evidence: ev.r, seen: seen || !AWAIT.includes(a.status) });
+  // The plan is always the one the evidence supports; what `seen` changes is whether the primary may be pressed yet.
+  // Before the evidence table has been on screen the primary is shown DISABLED with the reason — never hidden.
+  const { primary, secondary } = decisionPlanV9(a.status, actions, { openRequests, canRequest, evidence: ev.r, seen: true });
+  const locked = AWAIT.includes(a.status) && !seen && !!primary;
+  const toEvidence = () => evEnd.current?.scrollIntoView({ block: 'center', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   const statusLabel = (st: string) => t(`university:v4.status.${st}`, { defaultValue: t(`common:appStatus.${st}`, { defaultValue: st }) });
   const actionLabel = (st: ApplicationStatus) => (st === 'UNIVERSITY_REVIEW' && a.status === 'ADDITIONAL_DOCUMENTS'
     ? t('university:v4.decision.resume') : t(`university:decision.action.${st}`, { defaultValue: statusLabel(st) }));
@@ -799,37 +806,47 @@ export default function ApplicationDetail() {
   const afterDecision = (st: ApplicationStatus) => () => { if (FINAL.includes(st)) advance(); };
   const name = a.student?.full_name ?? t('university:detail.applicant');
   const awaiting = AWAIT.includes(a.status);
+  const stage = stageOf(a);
 
+  const primaryLabel = primary ? (primary === 'REQUEST' ? t('university:request.cta') : actionLabel(primary)) : '';
+  const primaryButton = (id: string, block?: boolean) => primary && (
+    <Button variant={primary === 'REJECTED' ? 'danger' : 'primary'} block={block} icon={primary === 'REQUEST' ? <Send /> : undefined}
+      aria-disabled={locked || undefined} aria-describedby={locked ? `${id}-why` : undefined} className={cx('un-decision__primary', locked && 'is-locked')}
+      onClick={() => (locked ? toEvidence() : run(primary))}>
+      {primaryLabel}
+    </Button>
+  );
   const decisionCard = (
-    <section className="card custom-card uv7-decision uv8-decision uv9-decision" aria-labelledby="dec-h">
-      <div className="card-body">
-        <h2 id="dec-h" className="uv8-decision__title">{t('university:decision.title')}</h2>
-        <p className="fs-13 mb-2">
-          {perms.readOnly ? t('university:decision.readOnly') : t(`university:v4.decision.state.${a.status}`, { defaultValue: t('university:decision.none'), count: openRequests })}
-        </p>
-        {!perms.readOnly && awaiting && !seen && <p className="uv9-decision__hint">{t('university:v9.rv.evidenceFirst')}</p>}
-        {!perms.readOnly && awaiting && seen && !primary && ev.r.below > 0 && <p className="uv9-decision__hint">{t('university:v9.rv.belowHint')}</p>}
-        {!perms.readOnly && (primary || secondary.length > 0) && (
-          <div className="uv9-decision__grid">
-            {primary && (
-              <button type="button" className={cx('btn uv7-btn uv7-decision__primary', primary === 'REJECTED' ? 'btn-danger' : 'btn-primary')} onClick={() => run(primary)}>
-                {primary === 'REQUEST' ? <><Send aria-hidden />{t('university:request.cta')}</> : actionLabel(primary)}
-              </button>
-            )}
+    <section className="un-decision uv9-decision" aria-labelledby="dec-h">
+      <h2 id="dec-h" className="un-decision__title">{t('university:decision.title')}</h2>
+      <p className="un-decision__state">
+        {perms.readOnly ? t('university:decision.readOnly') : t(`university:v4.decision.state.${a.status}`, { defaultValue: t('university:decision.none'), count: openRequests })}
+      </p>
+      {!perms.readOnly && awaiting && !primary && ev.r.below > 0 && <p className="un-decision__hint">{t('university:v9.rv.belowHint')}</p>}
+      {!perms.readOnly && primary && (
+        <div className="un-decision__main">
+          {primaryButton('dec', true)}
+          {locked && <p className="un-decision__why" id="dec-why"><Lock aria-hidden size={14} />{t('university:v33.rv.locked')}</p>}
+        </div>
+      )}
+      {!perms.readOnly && secondary.length > 0 && (
+        <div className="un-decision__alt" role="group" aria-label={t('university:v33.rv.other')}>
+          <p className="un-decision__altk">{primary ? t('university:v33.rv.other') : t('university:v33.rv.choose')}</p>
+          <div className="un-decision__altlist">
             {secondary.map((st) => (
-              <button key={st} type="button" className={cx('btn btn-sm uv7-btn', st === 'REJECTED' ? 'btn-outline-danger' : 'btn-outline-light uv7-btn-quiet')} onClick={() => run(st)}>
-                {st === 'REQUEST' ? <><Send aria-hidden />{t('university:request.cta')}</> : actionLabel(st)}
-              </button>
+              <Button key={st} size="sm" variant="ghost" className={cx('un-decision__altbtn', st === 'REJECTED' && 'is-danger')} icon={st === 'REQUEST' ? <Send /> : undefined} onClick={() => run(st)}>
+                {st === 'REQUEST' ? t('university:request.cta') : actionLabel(st)}
+              </Button>
             ))}
           </div>
-        )}
-        {!perms.readOnly && awaiting && queue.total > 1 && (
-          <label className="uv8-opennext">
-            <input type="checkbox" checked={openNext} onChange={(e) => { setOpenNext(e.target.checked); writeOpenNext(e.target.checked); }} />
-            <span>{t('university:v9.rv.openNext', { count: Math.max(0, queue.total - (queue.i >= 0 ? 1 : 0)) })}</span>
-          </label>
-        )}
-      </div>
+        </div>
+      )}
+      {!perms.readOnly && awaiting && queue.total > 1 && (
+        <label className="un-decision__next uv8-opennext">
+          <input type="checkbox" checked={openNext} onChange={(e) => { setOpenNext(e.target.checked); writeOpenNext(e.target.checked); }} />
+          <span>{t('university:v9.rv.openNext', { count: Math.max(0, queue.total - (queue.i >= 0 ? 1 : 0)) })}</span>
+        </label>
+      )}
     </section>
   );
   const detailsCard = (
@@ -902,7 +919,7 @@ export default function ApplicationDetail() {
   );
 
   return (
-    <div className="uv7 uv7-review uv8-review uv9-review">
+    <div className={cx('uv7 uv7-review uv8-review uv9-review un-review', !wide && !perms.readOnly && primary && 'has-decidebar')}>
       <div className="uv7-rvtop">
         <nav aria-label="breadcrumb"><ol className="breadcrumb mb-0">
           <li className="breadcrumb-item"><Link to="/applicants">{t('common:nav.applicants')}</Link></li>
@@ -911,32 +928,35 @@ export default function ApplicationDetail() {
         <ReviewQueueNav queue={queue} />
       </div>
 
-      <header className="card custom-card uv9-rvhead">
-        <h1 className="uv9-rvhead__name" title={name}>{name}</h1>
-        <StatusSoft status={a.status} />
-        {a.flagged && <span className="badge bg-danger-transparent d-inline-flex align-items-center gap-1" title={a.flag_reason ?? undefined}><Flag aria-hidden size={12} />{t('university:applicants.flagged')}</span>}
-        <div className="uv9-rvhead__meta">
-          <span>{nationality ? <><span aria-hidden>{flagEmoji(nationality)} </span>{countryName(nationality, locale)}</> : '—'}</span>
-          <span><BookOpen aria-hidden /><b>{localName(a.program)}</b>&nbsp;· {t(`common:degreeShort.${a.program.degree_level}`)}</span>
-          <span><CalendarDays aria-hidden />{intakeText(intake, t)}</span>
-          <span><Building2 aria-hidden />{t('university:ev.via', { agency: a.agency?.name ?? t('university:agencies.direct') })}</span>
+      <header className="un-rvhead uv9-rvhead">
+        <div className="un-rvhead__id">
+          <h1 className="un-rvhead__name uv9-rvhead__name" title={name}>{name}</h1>
+          <StatusSoft status={a.status} />
+          {a.flagged && <span className="un-rvhead__flagged" title={a.flag_reason ?? undefined}><Flag aria-hidden size={13} />{t('university:applicants.flagged')}</span>}
         </div>
-        <div className="uv9-rvhead__actions">
-          <button type="button" className="btn btn-sm btn-light uv7-btn" onClick={() => setReaderOpen(true)} disabled={a.essays.length === 0}
-            title={a.essays.length ? t('university:v8.rv.readStatements', { count: a.essays.length }) : t('university:v4.material.noEssays')}>
-            <FileText aria-hidden /><span className="hg-sr-only">{a.essays.length ? t('university:v8.rv.readStatements', { count: a.essays.length }) : t('university:v4.material.noEssays')}</span>{a.essays.length ? <span aria-hidden>{a.essays.length}</span> : null}
-          </button>
-          <button type="button" className="btn btn-sm btn-light uv7-btn" onClick={() => setMsgOpen(true)} title={t('university:message.cta')}><MessageSquare aria-hidden /><span className="hg-sr-only">{t('university:message.cta')}</span></button>
+        <div className="un-rvhead__actions">
+          <Button size="sm" variant="ghost" icon={<FileText />} onClick={() => setReaderOpen(true)} disabled={a.essays.length === 0}
+            title={a.essays.length ? undefined : t('university:v4.material.noEssays')}>
+            {a.essays.length ? t('university:v8.rv.readStatements', { count: a.essays.length }) : t('university:v4.material.noEssays')}
+          </Button>
+          <Button size="sm" variant="ghost" icon={<MessageSquare />} onClick={() => setMsgOpen(true)}>{t('university:message.cta')}</Button>
           {perms.canEdit && (a.flagged
-            ? <button type="button" className="btn btn-sm btn-light uv7-btn" disabled={unflag.isPending} onClick={() => unflag.mutate()} title={t('university:flag.unflag')}><FlagOff aria-hidden /><span className="hg-sr-only">{t('university:flag.unflag')}</span></button>
-            : <button type="button" className="btn btn-sm btn-light uv7-btn" onClick={() => setFlagOpen(true)} title={t('university:flag.cta')}><Flag aria-hidden /><span className="hg-sr-only">{t('university:flag.cta')}</span></button>)}
+            ? <Button size="sm" variant="ghost" icon={<FlagOff />} disabled={unflag.isPending} onClick={() => unflag.mutate()}>{t('university:flag.unflag')}</Button>
+            : <Button size="sm" variant="ghost" icon={<Flag />} onClick={() => setFlagOpen(true)}>{t('university:flag.cta')}</Button>)}
         </div>
-        {a.flagged && a.flag_reason && <p className="uv9-rvhead__flag text-danger">{t('university:flag.reasonTitle')}: {a.flag_reason}</p>}
+        <dl className="un-rvhead__facts">
+          <div><dt>{t('university:applicants.col.program')}</dt><dd title={localName(a.program)}>{localName(a.program)}<span className="un-rvhead__sub">{t(`common:degreeShort.${a.program.degree_level}`)}</span></dd></div>
+          <div><dt>{t('university:applicants.col.intake')}</dt><dd>{intakeText(intake, t)}<span className="un-rvhead__sub">{t('university:v33.rv.deadline', { date: formatDate(a.intake.application_deadline, locale, { month: 'short', day: 'numeric' }) })}</span></dd></div>
+          <div><dt>{t('university:v8.aq.country')}</dt><dd><Country code={nationality} /></dd></div>
+          <div><dt>{t('university:v33.rv.stage')}</dt><dd>{stage && stage !== 'closed' ? t(`university:v22.stage.${stage}`) : statusLabel(a.status)}{a.submitted_at && <span className="un-rvhead__sub">{t('university:v33.rv.submitted', { date: formatDate(a.submitted_at, locale, { month: 'short', day: 'numeric', year: 'numeric' }) })}</span>}</dd></div>
+          <div><dt>{t('university:applicants.col.agency')}</dt><dd>{a.agency?.name ?? t('university:agencies.direct')}</dd></div>
+        </dl>
+        {a.flagged && a.flag_reason && <p className="un-rvhead__flag">{t('university:flag.reasonTitle')}: {a.flag_reason}</p>}
       </header>
 
       <div className="uv9-rvgrid">
         <div className="uv9-rvgrid__main">
-          <DecisionEvidence app={a} ev={ev} canRequest={canRequest} onRequest={() => setRequestOpen(true)} sentinel={sentinel} />
+          <DecisionEvidence app={a} ev={ev} canRequest={canRequest} onRequest={() => setRequestOpen(true)} sentinel={setSentinel} />
           {!wide && decisionCard}
           {background}
         </div>
@@ -945,6 +965,15 @@ export default function ApplicationDetail() {
           {detailsCard}
         </aside>
       </div>
+
+      {/* Below 1280 the decision panel follows the evidence, so the one primary action is also pinned to the viewport:
+          reachable at any scroll position, and disabled — with the reason — until the evidence has been on screen. */}
+      {!wide && !perms.readOnly && primary && (
+        <div className="un-decidebar" role="region" aria-label={t('university:decision.title')}>
+          <p className="un-decidebar__why" id="bar-why">{locked ? t('university:v33.rv.lockedShort') : t(`university:v4.statusShort.${a.status}`, { defaultValue: statusLabel(a.status) })}</p>
+          {primaryButton('bar')}
+        </div>
+      )}
 
       {decision && <DecisionModal app={a} to={decision} onClose={() => setDecision(null)} onDecided={afterDecision(decision)} />}
       {flagOpen && <FlagModal app={a} onClose={() => setFlagOpen(false)} />}

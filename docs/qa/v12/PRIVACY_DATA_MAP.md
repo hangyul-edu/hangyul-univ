@@ -16,7 +16,7 @@ policy omits it rather than inventing one.
 | §1 `collect.profile` | profile | `student_profiles` ✓<br>`student_educations` ✓<br>`student_languages` ✓ | Hangyul, assigned agency, university applied to | no |
 | §1 `collect.documents` | documents | `documents` ✓<br>`document_versions` ✓<br>`application_documents` ✓<br>`document_reviews` ✓<br>`audit_logs` ✓ | Hangyul, assigned agency, university applied to | no |
 | §1 `collect.counselling` | counselling | `messages` ✓<br>`message_attachments` ✓<br>`conversations` ✓<br>`essays` ✓<br>`essay_versions` ✓<br>`essay_comments` ✓<br>`appointments` ✓<br>`application_status_history` ✓<br>`tasks` ✓ | Hangyul, assigned agency, university applied to | no |
-| §1 `collect.payment` | payment | `orders` ✓<br>`payments` ✓<br>`service_cases` ✓ | Hangyul | yes |
+| §1 `collect.payment` | payment | `orders` ✓<br>`payments` ✓<br>`service_cases` ✓<br>`student_payment_methods` ✓<br>`payment_customers` ✓<br>`payment_method_registrations` ✓<br>`payment_webhook_events` ✓ | Hangyul | yes |
 | §1 `collect.verification` | verification | `verification_challenges` ✓ | Hangyul | no |
 | §1 `collect.security` | security | `auth_security_events` ✓ | Hangyul | no |
 | §1 `collect.automatic` | automatic | `login_events` ✓<br>`audit_logs` ✓<br>`analytics_events` ✓ | Hangyul | no |
@@ -98,6 +98,9 @@ policy omits it rather than inventing one.
 - `provider transaction reference`
 - `sanitised provider payload`
 - `refund records`
+- `encrypted payment-method token`
+- `card network / issuer and last four digits`
+- `opaque provider customer identifier`
 
 ### verification
 
@@ -152,7 +155,7 @@ explicitly, so no reader concludes that every university holds every document.
 | contract | 5 years | Korean e-commerce consumer-protection law |
 | payment | 5 years | Korean e-commerce consumer-protection law |
 | complaint | 3 years | Korean e-commerce consumer-protection law |
-| applicant documents | **not approved** | no value exists; `LEGAL_DEPENDENCIES.md` L8 is `OPEN` |
+| applicant documents | **not approved** | no value exists; `docs/LEGAL.md` L8 is `OPEN` |
 | account and profile | **not approved** | as above |
 | audit and access logs | **not approved** | as above |
 

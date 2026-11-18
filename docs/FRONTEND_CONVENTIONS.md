@@ -121,6 +121,39 @@ their route component and load with its chunk); student `app.css`; agency and un
 - **Gates:** `npm run qa:launch-matrix` fails on any page-level horizontal overflow
   (`documentElement.scrollWidth > innerWidth`) across 320–1920 px.
 
+## Design foundation (2026-11) — white canvas, warm separation, orange for "current"
+
+One visual language for Student, Operations/Admin and University, set in the shared layer (tokens, `packages/ui`
+styles, the console surface). Page CSS composes these; it does not restate colours, radii or control sizes.
+
+- **Surfaces.** The working canvas is white (`--hg-bg`) in all three apps, including top bars. `--hg-bg-paper`
+  (`#FBFAF7`) is the one warm surface: the console navigation panel, a quiet aside (`Card warm`), a `hg-well` inside a
+  card, a disabled field. Never a full-page grey, a grey content well or a grey card. `--hg-surface-warm` is for hover
+  and small marks; `--hg-surface-sunken` only for data tracks (progress, heat cells).
+- **Section vs card.** Default grouping is `Section` (heading + content, no box; `ruled` for a hairline between
+  groups). `Card` / `hg-panel` / YNEX `card custom-card` only for a self-contained object or a table/list container:
+  white, one hairline, 14 px radius, no shadow, no ruled header, no accent bar. Never a card inside a card.
+- **Selected / current is orange.** `--hg-selected-bg|fg|border` (pale tangerine wash, `#B84600` text, `#CC4E00`
+  edge) for navigation items, tabs (underline), chips, segmented options, option cards, filters with a value, selected
+  rows, switches and checkboxes. Ink is no longer a selection colour. Counts stay ink.
+- **Buttons.** One primary (solid tangerine) per decision area. Secondary = default `Button` / `btn-light`
+  (white + 3:1 edge). `soft` / `ghost` for tool actions, `link` for inline actions, `danger` for destructive only.
+  Heights 36 (`sm`, dense desktop) / 40 / 48, all ≥ 44 px on phones; radius 10 px (`--hg-control-radius`).
+- **Inputs.** `Field` + `Input` / `Select` / `Textarea`: 44 px, 10 px radius, 3:1 edge, tangerine focus ring; invalid =
+  red edge + `hg-error` under the control; disabled / read-only = warm paper with a hairline.
+- **Type.** Page title = `--hg-type-h1` (consoles clamp 22–28 px), section title 18 px, card title 16 px, body 14 px in
+  consoles and 15–16 px in the student app, supporting text 13 px, nothing under 12 px. One family (Pretendard).
+- **Radii.** 6 badges · 8 menu items and small buttons · 10 controls · 14 cards, panels, callouts, popovers · 20 modals
+  and bottom sheets.
+- **Tables.** `DataTable` / `hg-table` / YNEX `.table`: white header, 13 px semibold labels, 56 px rows (`dense` 44),
+  hairline rows, warm hover, tangerine-wash selection. Cards under 768 px.
+- **States.** Loading = `Skeleton` (warm shimmer, static under reduced motion); empty / waiting = `EmptyState` (warm
+  disc, title, one sentence, at most one action); error = `ErrorState` (red disc, retry); inline notices = `Callout`
+  (info is warm paper; warning / danger / success carry their semantic wash). Status in lists = `StatusText`
+  (dot + words); `Badge` for a compact tag. Tones: `success | info | warning | danger | neutral | brand | teal`.
+- **Motion.** Interface durations only (`--hg-motion-fast|base|slow`): tab underline, bottom sheet, popover, accordion.
+  `prefers-reduced-motion` collapses all of it (base.css).
+
 ## Design Preview mode
 
 A design-review aid behind one build flag, `VITE_ENABLE_DESIGN_PREVIEW` (requirements in `docs/SECURITY.md`).

@@ -7,6 +7,8 @@ import './styles/base.css';
 import '@hangyul/ui/console-v22.css';
 // V26: every screen composition in one canonical file, after the white surface (REPORT §347).
 import './styles/screens.css';
+// 2026-11 page-level design pass: executive summary, charts, review header — tokens only, loaded last.
+import './styles/analytics.css';
 
 import { AppProviders, bootWebApp } from '@hangyul/ui';
 import { StrictMode } from 'react';

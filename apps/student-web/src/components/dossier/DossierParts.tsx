@@ -103,8 +103,9 @@ export function WhoCanSee({ row }: { row?: DossierRow | null }) {
  * "할 일 있음" under a section called "직접 해야 할 일". A badge that appears on every row of a list carries
  * no information; it is a wall. It stays wherever rows of different states can sit together.
  */
-export function DossierRowItem({ row, onAction, stateInHeading, focused }: {
+export function DossierRowItem({ row, onAction, stateInHeading, focused, lead }: {
   row: DossierRow; onAction: (row: DossierRow, action: RowAction) => void; stateInHeading?: boolean;
+  /** The first thing that needs the student on the page: its action is the page's one primary button. */ lead?: boolean;
   /** V26: the requirement a task or notification was about (`/documents?focus=<category>`). */ focused?: boolean;
 }) {
   const { t, fmt } = useDT();
@@ -132,7 +133,7 @@ export function DossierRowItem({ row, onAction, stateInHeading, focused }: {
           : <StatusText tone={STATE_TONE[row.state]} hollow={!row.document}>{t(`state.${row.state}`)}</StatusText>}
       </div>
       <div className="dz-row__action">
-        <Button size="sm" variant={primary ? 'secondary' : 'ghost'} onClick={() => onAction(row, action)}>{t(`action.${action}`)}</Button>
+        <Button size="sm" variant={primary ? (lead ? 'primary' : 'secondary') : 'ghost'} onClick={() => onAction(row, action)}>{t(`action.${action}`)}</Button>
       </div>
     </li>
   );

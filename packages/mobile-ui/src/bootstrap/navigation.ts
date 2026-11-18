@@ -9,9 +9,9 @@ export const stackScreenOptions: NativeStackNavigationOptions = {
   headerTintColor: theme.color.primaryText,
   headerTitleStyle: { color: theme.color.text },
   headerShadowVisible: false,
-  headerStyle: { backgroundColor: theme.color.bgCanvas },
+  headerStyle: { backgroundColor: theme.color.bg },
   headerBackButtonDisplayMode: 'minimal',
-  contentStyle: { backgroundColor: theme.color.bgCanvas },
+  contentStyle: { backgroundColor: theme.color.bg },
   animation: Platform.OS === 'android' ? 'fade_from_bottom' : 'default',
 };
 
@@ -19,8 +19,9 @@ export const stackScreenOptions: NativeStackNavigationOptions = {
 export function tabScreenOptions(fontsReady: boolean): BottomTabNavigationOptions {
   return {
     headerShown: false,
-    tabBarActiveTintColor: theme.color.primary,
-    tabBarInactiveTintColor: theme.color.textTertiary,
+    // Current tab = the tangerine text colour (5.2:1 on white); the rest secondary ink, as on the web tab bar.
+    tabBarActiveTintColor: theme.color.selected.fg,
+    tabBarInactiveTintColor: theme.color.textSecondary,
     // Native bars size themselves around the safe area; the web preview (react-native-web) needs explicit room so labels aren't clipped.
     tabBarStyle: Platform.OS === 'web'
       ? { backgroundColor: theme.color.surface, borderTopColor: theme.color.border, height: 60, paddingTop: 6, paddingBottom: 8 }

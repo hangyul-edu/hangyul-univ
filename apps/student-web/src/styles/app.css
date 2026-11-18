@@ -91,8 +91,9 @@
 
 /* ------------------------------------------------------------------ dashboard */
 
-.st-appt { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; padding: 10px 12px; border-radius: var(--hg-radius-lg); background: var(--hg-status-info-bg); color: var(--hg-text); }
-.st-appt > svg { color: var(--hg-status-info-fg); flex: none; margin-top: 2px; }
+.st-appt { display: flex; gap: 12px; align-items: flex-start; margin-top: 14px; padding: 14px 16px; border-radius: var(--hg-radius-xl); background: var(--hg-bg-paper); color: var(--hg-text); }
+.st-appt > .hg-grow { display: grid; gap: 10px; min-width: 0; }
+.st-appt > svg { color: var(--hg-text-secondary); flex: none; margin-top: 2px; }
 .st-appt--list { margin: 0 0 12px; }
 
 .st-cost-row { display: flex; justify-content: space-between; gap: 12px; font-size: var(--hg-text-base); }
@@ -502,7 +503,7 @@
 
 /* ---------- Lists that were stacks of cards ---------- */
 .st-conv { border-radius: var(--hg-radius-lg); }
-.st-conv--active { border-color: var(--hg-text); background: var(--hg-surface); }
+.st-conv--active { border-color: var(--hg-selected-border); background: var(--hg-selected-bg); }
 .st-msg--mine .st-msg__bubble { background: var(--hg-text); border-color: var(--hg-text); }
 .st-schol__cover, .st-pcard__money > div { background: var(--hg-bg-muted); }
 
@@ -918,109 +919,12 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
    the band, the h6 admission-form card for the one next step, h5 event date blocks for "coming up", square tangerine
    actions. Scoped to `.st7-*` and the home; other screens inherit only the action/card refinements at the end. */
 
-:root {
-  --st7-action: #cc4e00;
-  --st7-action-hover: #a83f00;
-  --st7-night: #16130f;
-  --st7-charcoal: #282828;
-  --st7-paper: #f5f3ef;
-  --st7-shadow: 0 20px 60px rgba(30, 30, 30, 0.08);
-}
 
 .ed-svgicon { display: inline-flex; align-items: center; justify-content: center; line-height: 0; }
 .ed-svgicon svg { width: 100%; height: auto; }
 
-/* ---------- Band ----------
-   V16: the band's geometry, shade and typography moved to v16.css, which states the composition once
-   rather than amending it per version. This left three rules here whose only job was to fight v9.css's
-   `flex-direction: column` — see REPORT §130 #3. */
-
-/* ---------- Journey tiles (Eduan h7_slider-thumb) ---------- */
-/* V19: no bespoke inset. The band, the grid, the main column and the next-step card all sit on the page's
-   own gutter; this strip alone sat 24 px inside it on desktop and 12 px on phones, so the one element that
-   straddles the photograph was also the one element misaligned with everything above and below it. */
-.st7-journey { position: relative; z-index: 2; }
-.st7-tiles { display: grid !important; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0 !important; padding: 0; margin: 0; list-style: none; }
-.st7-tiles::before, .st7-tiles li::before, .st7-tiles li::after { display: none !important; }
-.st7-tiles li { margin: 0 !important; }
-.st7-tiles li button {
-  width: 100%; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; border: 0; background: #fff; color: var(--st7-charcoal); text-align: start; cursor: pointer; transition: transform 0.25s ease, filter 0.25s ease;
-}
-.st7-tiles li[data-state='current'] button { box-shadow: none; }
-.st7-tiles li[data-state='todo'] button { background: #fff; }
-.st7-tiles__n { font-weight: 600; display: inline-flex; align-items: center; }
-.st7-tiles .sh-phases__label { line-height: 1.2; text-decoration: none !important; color: inherit !important; }
-.st7-tiles li button[aria-expanded='true']:not([aria-current]) { outline: 2px solid var(--st7-action); outline-offset: -2px; }
-/* Attached to the strip, so it is the strip's caption and not a third panel of its own width (it was
-   720 px against a 1024 px strip and a 704 px main column — three widths in one composition). */
-.st7-phase-text { background: var(--st7-paper); max-width: none; }
-
-/* ---------- V19: phone progress line (see `Journey` in Dashboard.tsx) ---------- */
-.st7-progress { display: none; }
-
-
-/* ---------- Next step (Eduan h6_admission-form card) ---------- */
-.st7-home .sh-next {
-  border-radius: 0; border: 0; box-shadow: var(--st7-shadow); background: #fff; padding: 34px 36px;
-  border-top: 3px solid var(--st7-action); border-inline-start: 0;
-}
-.st7-home .sh-next::before { display: none; }
-.st7-home .sh-next__eyebrow { color: var(--st7-action); font-weight: 600; }
-.st7-home .sh-next__title { font-size: clamp(22px, 2.2vw, 28px); line-height: 1.25; font-weight: 700; letter-spacing: -0.015em; }
-
-/* ---------- Coming up (Eduan h5_event date blocks) ---------- */
-.st7-home .sh-dates { display: grid; gap: 10px; }
-.st7-home .sh-dates li { gap: 0 !important; padding: 0 !important; background: #fff; align-items: stretch; }
-.st7-home .sh-dates__day {
-  min-width: 72px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 6px;
-  background: var(--st7-charcoal); color: #fff !important; text-transform: none;
-}
-.st7-home .sh-dates li:nth-child(2n) .sh-dates__day { background: var(--st7-action); }
-.st7-home .sh-dates__day span { color: #fff !important; }
-.st7-home .sh-dates__day span:first-child { font-size: 24px; font-weight: 700; line-height: 1; }
-.st7-home .sh-dates__day span:last-child { font-size: 12px; margin-top: 4px; }
-.st7-home .sh-dates li > .hg-grow { padding: 12px 14px; }
-
-/* ---------- Section titles (Eduan section-area) ---------- */
-.st7-home .hg-section__title { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
-
 /* ---------- App-wide: square tangerine actions and soft-shadow cards, like the marketing site ---------- */
 .hg-sshell .hg-btn--primary { border-radius: 2px; font-weight: 600; }
-.st7-home .hg-panel, .st7-home .hg-card { border-radius: 0; border-color: transparent; box-shadow: 0 10px 34px rgba(30, 30, 30, 0.06); }
-
-@media (max-width: 1023.98px) {
-  .st7-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-@media (max-width: 767.98px) {
-  .st7-journey { margin-top: -40px; }
-  /* V19: the tile strip is replaced by the progress line on phones — see `Journey`. The tiles are still in
-     the DOM and still reachable (the progress line is `aria-hidden`, so a screen reader gets the real list,
-     not a decorative summary), they are simply not the phone composition. */
-  .st7-tiles { display: none !important; }
-  /* One card, not two stacked boxes: the progress line and the sentence that explains it are the same
-     thought, and giving each its own surface put a seam through the middle of it. */
-  .st7-journey { background: #fff; box-shadow: var(--st7-shadow); }
-  .st7-progress {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 6px 12px;
-    align-items: baseline;
-    margin: 0;
-    padding: 14px 16px 12px;
-  }
-  .st7-progress__label { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: var(--st7-charcoal); }
-  .st7-progress__count { font-size: 13px; font-weight: 600; color: var(--hg-text-tertiary); font-variant-numeric: tabular-nums; }
-  .st7-progress__track { grid-column: 1 / -1; height: 4px; border-radius: 999px; background: var(--hg-surface-sunken); overflow: hidden; }
-  .st7-progress__fill { display: block; block-size: 100%; background: var(--st7-action); border-radius: inherit; }
-  /* The stage sentence is the point of the strip on a phone, so it is shown rather than hidden behind a tap
-     on a tile that no longer exists. */
-  .st7-journey .st7-phase-text { display: block; background: transparent; padding: 0 16px 16px; }
-  .st7-home .sh-next { padding: 24px 20px; }
-}
-@media (prefers-reduced-motion: reduce) { .st7-tiles li button { transition: none; } }
-:lang(my) .st7-home .sh-head__title, :lang(ne) .st7-home .sh-head__title { line-height: 1.35; letter-spacing: 0; }
-/* older phone rule hid non-current phase labels; tiles always show their name */
-.st7-tiles .sh-phases__label { display: block !important; position: static !important; width: auto !important; height: auto !important; clip: auto !important; overflow: visible !important; white-space: nowrap; }
 
 /* ---------- Page headers on every student screen ----------
  *
@@ -1057,7 +961,7 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
 .hg-sshell :is(.hg-page-head, .st-intro)::after { content: none; }
 
 .hg-sshell :is(.hg-page-head, .st-intro) :is(h1, .hg-page-head__title, .st-intro__title) {
-  color: var(--st7-charcoal);
+  color: var(--hg-text);
   font-weight: 700;
   letter-spacing: -0.02em;
   /* One size up from the band version: with nothing behind it, the title has to do the work the band did. */
@@ -1114,30 +1018,24 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
 .hg-scontent { padding-bottom: calc(112px + env(safe-area-inset-bottom)); }
 @media (min-width: 768px) { .hg-scontent { padding-bottom: 64px; } }
 
-/* ---------- §55 #6: the photo credit sits in the flow above the title, never on top of it ---------- */
-/* V16: both rules deleted. The first was the direct cause of the greeting being on the right (REPORT
-   §130 #3) — it changed what `align-items: flex-end` meant two stylesheets earlier. The second styled a
-   photo credit that no longer exists: every asset we serve is CC0 with no attribution requirement. */
-:lang(my) .st7-home .sh-head__title { line-height: 1.35; font-size: clamp(28px, 7vw, 44px); }
-
 /* ---------- S1 routes ---------- */
-.v9-routes { border: 1px solid var(--hg-border); border-top: 3px solid var(--st7-action, #cc4e00); background: var(--hg-surface, #fff); padding: 18px 16px; display: flex; flex-direction: column; gap: 10px; }
-.v9-routes__eyebrow { margin: 0; color: var(--st7-action, #cc4e00); font-weight: 600; font-size: 14px; }
+.v9-routes { border: 1px solid var(--hg-border); background: var(--hg-bg); border-radius: var(--hg-radius-xl); padding: 18px 16px; display: flex; flex-direction: column; gap: 10px; }
+.v9-routes__eyebrow { margin: 0; color: var(--hg-primary); font-weight: 600; font-size: 14px; }
 .v9-routes__title { margin: 0; font-size: 21px; line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; }
 .v9-routes__sub { margin: 0; color: var(--hg-text-secondary); font-size: 15px; line-height: 1.5; }
 .v9-routes__list { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; counter-reset: route; }
 .v9-route { counter-increment: route; border: 1px solid var(--hg-border); padding: 12px 14px 12px 44px; position: relative; display: flex; flex-direction: column; gap: 6px; }
 .v9-route::before { content: counter(route); position: absolute; inset-inline-start: 12px; top: 12px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 700; background: var(--hg-bg-muted, #f3f3f1); color: var(--hg-text); }
 [dir='rtl'] .v9-route { padding: 12px 44px 12px 14px; }
-.v9-route[data-lead] { border-color: var(--st7-action, #cc4e00); background: #fff8f3; }
-.v9-route[data-lead]::before { background: var(--st7-action, #cc4e00); color: #fff; }
+.v9-route[data-lead] { border-color: var(--hg-selected-border); background: var(--hg-selected-bg); }
+.v9-route[data-lead]::before { background: var(--hg-primary); color: #fff; }
 .v9-route__name { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.3; }
 .v9-route__big { margin: 0; font-size: 15px; line-height: 1.4; }
 .v9-route__big strong { font-size: 26px; font-weight: 700; margin-inline-end: 4px; }
 .v9-route__line { margin: 0; font-size: 15px; line-height: 1.45; color: var(--hg-text-secondary); }
 .v9-route__facts { margin: 0; padding-inline-start: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 14.5px; line-height: 1.45; }
 .v9-route__next { font-weight: 600; }
-.v9-route__cta { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--st7-action, #cc4e00); text-decoration: none; min-height: 44px; }
+.v9-route__cta { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--hg-primary); text-decoration: none; min-height: 44px; }
 .v9-route__cta svg { width: 16px; height: 16px; }
 .v9-routes__note { margin: 0; display: flex; gap: 6px; font-size: 13px; color: var(--hg-text-tertiary); line-height: 1.4; }
 .v9-routes__note svg { width: 15px; height: 15px; flex: none; margin-top: 2px; }
@@ -1154,7 +1052,7 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
 .v9-line__main { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 180px; }
 .v9-line__name { font-weight: 600; font-size: 15px; }
 .v9-line__to, .v9-line__note { font-size: 13px; color: var(--hg-text-secondary); line-height: 1.4; }
-.v9-line__guard { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: var(--hg-palette-green-700, #1e6b35); }
+.v9-line__guard { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: var(--hg-status-success-fg); }
 .v9-line__guard svg { width: 14px; height: 14px; }
 .v9-line__end { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; text-align: end; flex: 0 1 auto; min-width: 0; max-width: 100%; }
 .v9-line__end > * { max-width: 100%; overflow-wrap: anywhere; }
@@ -1169,20 +1067,20 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
 .v9-asis { font-size: 13px; }
 .v9-asis summary { cursor: pointer; color: var(--hg-text-secondary); min-height: 32px; display: flex; align-items: center; }
 .v9-asis p { margin: 4px 0; color: var(--hg-text-secondary); }
-.v9-funds { border: 1px solid var(--hg-border); border-inline-start: 4px solid var(--hg-palette-blue-600, #2257d6); padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; background: var(--hg-surface, #fff); }
+.v9-funds { border: 0; border-radius: var(--hg-radius-xl); padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; background: var(--hg-bg); }
 .v9-funds__title { margin: 0; font-size: 18px; font-weight: 700; }
 .v9-funds__sub { margin: 0; font-size: 14px; color: var(--hg-text-secondary); }
 .v9-funds__facts { margin: 0; padding-inline-start: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 15px; line-height: 1.45; }
 .v9-funds__genuine { margin: 0; display: flex; gap: 6px; font-size: 13.5px; line-height: 1.45; }
-.v9-funds__genuine svg, .v9-guard > svg { width: 18px; height: 18px; flex: none; color: var(--hg-palette-green-700, #1e6b35); margin-top: 2px; }
-.v9-guard { display: flex; gap: 10px; padding: 12px 14px; border: 1px solid var(--hg-border); background: #f4f8f4; }
+.v9-funds__genuine svg, .v9-guard > svg { width: 18px; height: 18px; flex: none; color: var(--hg-status-success-fg); margin-top: 2px; }
+.v9-guard { display: flex; gap: 10px; padding: 12px 14px; border: 0; border-radius: var(--hg-radius-xl); background: var(--hg-status-success-bg); }
 .v9-guard__title { margin: 0 0 2px; font-weight: 700; }
 .v9-announced { font-size: 13.5px; }
 .v9-announced summary { cursor: pointer; display: flex; align-items: center; gap: 6px; min-height: 36px; color: var(--hg-text-secondary); }
 .v9-announced summary svg { width: 15px; height: 15px; }
 .v9-announced ul { margin: 4px 0 0; padding-inline-start: 18px; display: flex; flex-direction: column; gap: 6px; line-height: 1.45; }
-.v9-family-cta { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border: 1px dashed var(--hg-border-strong, #c9c7c2); color: inherit; text-decoration: none; }
-.v9-family-cta svg { width: 20px; height: 20px; flex: none; color: var(--st7-action, #cc4e00); margin-top: 2px; }
+.v9-family-cta { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border: 1px solid var(--hg-border); border-radius: var(--hg-radius-xl); color: inherit; text-decoration: none; }
+.v9-family-cta svg { width: 20px; height: 20px; flex: none; color: var(--hg-primary); margin-top: 2px; }
 .v9-family-cta > span { display: flex; flex-direction: column; gap: 2px; }
 .bd-schol-list { margin-top: 10px; }
 
@@ -1205,15 +1103,15 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
 .v9-family__link-end { display: flex; align-items: center; gap: 8px; }
 /* Inactive links are muted by colour, not opacity: opacity dropped the secondary text below 4.5:1. */
 .v9-family__link[data-state='REVOKED'] strong, .v9-family__link[data-state='EXPIRED'] strong { color: var(--hg-text-secondary); }
-.v9-sp { min-height: 100vh; background: var(--hg-bg-canvas, #faf9f7); }
+.v9-sp { min-height: 100vh; background: var(--hg-bg); }
 .v9-sp__main { max-width: 760px; margin: 0 auto; padding: 16px 16px 64px; display: flex; flex-direction: column; gap: 18px; }
 .v9-sp__intro { display: flex; flex-direction: column; gap: 6px; }
 .v9-sp__title { margin: 0; font-size: 26px; line-height: 1.25; font-weight: 700; }
 .v9-sp__meta { margin: 0; display: flex; gap: 6px; align-items: center; font-size: 13.5px; color: var(--hg-text-secondary); }
 .v9-sp__meta svg { width: 14px; height: 14px; }
-.v9-sp__block { background: var(--hg-surface, #fff); border: 1px solid var(--hg-border); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.v9-sp__block { background: var(--hg-bg); border: 1px solid var(--hg-border); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
 .v9-sp__h { margin: 0; display: flex; align-items: center; gap: 8px; font-size: 19px; font-weight: 700; }
-.v9-sp__h svg { width: 20px; height: 20px; color: var(--st7-action, #cc4e00); }
+.v9-sp__h svg { width: 20px; height: 20px; color: var(--hg-primary); }
 .v9-sp__total { margin: 0; font-size: 17px; font-weight: 700; }
 .v9-sp__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
 .v9-sp__list li { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; justify-content: space-between; padding: 10px 0; border-top: 1px solid var(--hg-border); }
@@ -1229,27 +1127,27 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
 .v9-who__dl { margin: 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px; line-height: 1.45; }
 .v9-who__dl dt { font-weight: 700; }
 .v9-who__dl dd { margin: 0; }
-.v9-who-fold { margin-top: 24px; border: 1px solid var(--hg-border); padding: 4px 14px; background: var(--hg-surface, #fff); }
+.v9-who-fold { margin-top: 24px; border: 1px solid var(--hg-border); padding: 4px 14px; background: var(--hg-bg); }
 .v9-who-fold > summary { cursor: pointer; display: flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 600; }
 .v9-who-fold > summary svg { width: 16px; height: 16px; }
 
 /* ---------- S8 refund ---------- */
-.v9-refund { border: 1px solid #f0c9b2; border-inline-start: 4px solid var(--st7-action, #cc4e00); background: #fff8f3; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
-.v9-refund__eyebrow { margin: 0; display: flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 600; color: var(--st7-action, #cc4e00); }
+.v9-refund { border: 0; border-radius: var(--hg-radius-xl); background: var(--hg-status-warning-bg); padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+.v9-refund__eyebrow { margin: 0; display: flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 600; color: var(--hg-primary); }
 .v9-refund__eyebrow svg { width: 15px; height: 15px; }
 .v9-refund__title { margin: 0; font-size: 19px; line-height: 1.3; font-weight: 700; }
 .v9-refund__facts { margin: 0; padding-inline-start: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 14.5px; line-height: 1.45; }
 .v9-refund__days { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 14px; }
 
 /* ---------- S5 discovery ---------- */
-.v9-row__schol { display: inline-flex; align-items: center; gap: 4px; color: var(--hg-palette-green-700, #1e6b35); font-weight: 600; }
+.v9-row__schol { display: inline-flex; align-items: center; gap: 4px; color: var(--hg-status-success-fg); font-weight: 600; }
 .v9-row__schol svg { width: 14px; height: 14px; }
 
 /* ---------- S6 visa: one column, folded rows ---------- */
 @media (min-width: 1024px) { .sv-layout.v9-visa { grid-template-columns: minmax(0, 780px); } }
 .v9-then { margin: -6px 0 0; font-size: 14.5px; line-height: 1.45; }
 .v9-then__k { font-weight: 700; }
-.v9-folds { display: flex; flex-direction: column; border: 1px solid var(--hg-border); background: var(--hg-surface, #fff); }
+.v9-folds { display: flex; flex-direction: column; border: 1px solid var(--hg-border); background: var(--hg-bg); }
 .v9-fold { border-top: 1px solid var(--hg-border); }
 .v9-fold:first-child { border-top: 0; }
 .v9-fold > summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px; padding: 12px 14px; min-height: 48px; }
@@ -1259,7 +1157,7 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
 .v9-fold__t { font-weight: 700; font-size: 15.5px; }
 .v9-fold__m { font-size: 13.5px; color: var(--hg-text-secondary); }
 .v9-fold__body { padding: 0 14px 14px; }
-.v9-fold--warn > summary .v9-fold__m { color: var(--hg-palette-amber-700, #8a5a00); }
+.v9-fold--warn > summary .v9-fold__m { color: var(--hg-status-warning-fg); }
 .v9-fold .hg-section, .v9-fold section { margin: 0; }
 .v9-vdisclaimer { margin: 0; display: flex; gap: 8px; font-size: 13px; color: var(--hg-text-secondary); line-height: 1.45; }
 .v9-vdisclaimer svg { width: 16px; height: 16px; flex: none; margin-top: 2px; }
@@ -1433,42 +1331,6 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
   gap: 4px;
   padding: 24px 28px;
 }
-
-/* ---- the home's own band: taller, with room under it for the journey rail */
-.st7-home .sh-band {
-  min-height: 268px;
-  border-radius: 0;
-  padding-bottom: 76px;
-}
-.st7-home .sh-band__text { padding-inline: 40px; }
-
-/*
- * Hierarchy: a small context label, a confident greeting, a small status line (brief Part 2).
- *
- * The greeting was `clamp(34px, 4vw, 52px)`. At 1440 that is 52 px of bold white type across a photograph —
- * loud rather than warm, and it was the thing forcing the composition to fight the picture. 40 px at the top
- * end is still unmistakably the page's headline and leaves the band feeling like a greeting rather than a
- * billboard.
- */
-.st7-band__sub {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: rgb(255 255 255 / 86%);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  margin-bottom: 10px;
-}
-.st7-band__icon { width: 20px; color: #ff8a3d; }
-.st7-home .sh-head__title {
-  font-size: clamp(28px, 3vw, 40px);
-  line-height: 1.12;
-  letter-spacing: -0.02em;
-  font-weight: 700;
-  color: #fff;
-  text-wrap: balance;
-}
 .sh-band__text p {
   margin: 6px 0 0;
   font-size: 15px;
@@ -1489,76 +1351,7 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
   [dir='rtl'] .sh-band__shade {
     background: linear-gradient(to bottom, rgb(10 9 8 / 78%) 0%, rgb(10 9 8 / 46%) 48%, rgb(10 9 8 / 30%) 72%, rgb(10 9 8 / 52%) 100%);
   }
-  .st7-home .sh-band { min-height: 176px; padding-bottom: 52px; }
-  .st7-home .sh-band__text { padding-inline: 20px; }
-  .st7-band__sub { font-size: 13px; margin-bottom: 6px; }
-  .st7-band__icon { width: 17px; }
 }
-
-/* ================================================================= the journey rail
- *
- * Six phases, not six buttons (brief Part 2, "do not let them look like six giant equal cards").
- *
- * They were 96 px tall, full-bleed, with the completed ones in charcoal — three near-black blocks, one
- * tangerine block and two white ones, reading as a toolbar of equal-weight actions directly under the
- * greeting. It is a **position indicator**: the only thing it has to say is where the student is.
- *
- *   completed  quiet — paper, a tertiary tick. It is done; it does not need to be loud to be reassuring.
- *   current    Hangyul tangerine. The one thing on the strip that is coloured.
- *   upcoming   white, secondary type.
- */
-.st7-journey { margin-top: -52px; }
-.st7-tiles { box-shadow: 0 14px 40px rgb(30 30 30 / 10%); border-radius: 12px; overflow: hidden; }
-.st7-tiles li button {
-  height: 64px;
-  gap: 2px;
-  padding: 0 14px;
-  box-shadow: inset -1px 0 0 var(--hg-border-subtle);
-}
-.st7-tiles li:last-child button { box-shadow: none; }
-.st7-tiles li[data-state='done'] button {
-  background: var(--st7-paper);
-  color: var(--hg-text-tertiary);
-  box-shadow: inset -1px 0 0 rgb(0 0 0 / 5%);
-}
-.st7-tiles li[data-state='done'] .st7-tiles__n { color: var(--hg-text-tertiary); }
-.st7-tiles li[data-state='todo'] button { color: var(--hg-text-secondary); }
-.st7-tiles li[data-state='current'] button { background: var(--st7-action); color: #fff; }
-.st7-tiles__n { font-size: 11px; letter-spacing: 0.06em; height: 15px; }
-.st7-tiles__n svg { width: 14px; height: 14px; }
-.st7-tiles .sh-phases__label { font-size: 14px; font-weight: 600; }
-/* A 4 px lift on a 64 px rail reads as a response; the 96 px tiles' −4 px read as the row coming apart. */
-.st7-tiles li button:hover { transform: none; filter: brightness(0.985); }
-.st7-tiles li[data-state='current'] button:hover { filter: brightness(1.06); }
-.st7-phase-text {
-  margin-top: 12px !important;
-  padding: 12px 16px;
-  border-radius: 10px;
-  font-size: 14px;
-  color: var(--hg-text-secondary);
-}
-@media (max-width: 767.98px) {
-  .st7-tiles li button { height: 56px; padding: 0 12px; }
-  .st7-tiles li { flex: 0 0 40%; }
-  .st7-tiles .sh-phases__label { font-size: 13px; }
-}
-
-/* ================================================================= coming up
- *
- * The date blocks alternated charcoal and tangerine down the list. The alternation carried no meaning —
- * `:nth-child(2n)` — so the second deadline looked urgent because it was second. Colour in this product
- * means something; one quiet treatment, and the nearest deadline is the only one that is emphasised.
- */
-.st7-home .sh-dates li { box-shadow: 0 1px 2px rgb(30 30 30 / 5%); border: 1px solid var(--hg-border-subtle) !important; border-radius: 10px; overflow: hidden; }
-.st7-home .sh-dates li .sh-dates__day,
-.st7-home .sh-dates li:nth-child(2n) .sh-dates__day { background: var(--st7-paper); }
-.st7-home .sh-dates__day span,
-.st7-home .sh-dates__day { color: var(--hg-text) !important; }
-.st7-home .sh-dates__day span:last-child { color: var(--hg-text-tertiary) !important; }
-/* Only the next one. `:first-child` is the nearest date because the list is sorted by date. */
-.st7-home .sh-dates li:first-child .sh-dates__day { background: var(--st7-action); }
-.st7-home .sh-dates li:first-child .sh-dates__day span,
-.st7-home .sh-dates li:first-child .sh-dates__day span:last-child { color: #fff !important; }
 
 /* ================================================================= the page-head band — removed in V18
  *
@@ -1593,7 +1386,7 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
   margin-top: var(--hg-space-5);
   border: 1px solid color-mix(in srgb, var(--hg-primary) 26%, transparent);
   border-radius: var(--hg-radius-lg);
-  background: var(--hg-surface-warm, #FFFAF6);
+  background: var(--hg-bg-paper);
 }
 .sv16-order__line {
   display: flex; align-items: baseline; justify-content: space-between; gap: var(--hg-space-4);
@@ -1622,9 +1415,9 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
   display: grid; justify-items: center; gap: var(--hg-space-4);
   padding-block: clamp(32px, 8vw, 72px);
 }
-.sv16-return__mark { color: var(--hg-status-success-fg, #2E7D32); }
+.sv16-return__mark { color: var(--hg-status-success-fg); }
 .sv16-return__mark svg { width: 48px; height: 48px; }
-.sv16-return[data-failed] .sv16-return__mark { color: var(--hg-status-danger-fg, #C62828); }
+.sv16-return[data-failed] .sv16-return__mark { color: var(--hg-status-danger-fg); }
 .sv16-return__lede { margin: 0; font-size: var(--hg-text-lg); line-height: 1.6; color: var(--hg-text-secondary); }
 .sv16-return__facts { display: grid; gap: var(--hg-space-2); width: 100%; margin: var(--hg-space-2) 0 0; text-align: start; }
 .sv16-return__facts > div { display: flex; align-items: baseline; justify-content: space-between; gap: var(--hg-space-4); padding: var(--hg-space-3) 0; border-bottom: 1px solid var(--hg-border-subtle); font-size: var(--hg-text-sm); }
@@ -1645,7 +1438,7 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
 .sv16-history__when { color: var(--hg-text-tertiary); font-variant-numeric: tabular-nums; }
 .sv16-history__amount { font-weight: var(--hg-weight-medium); font-variant-numeric: tabular-nums; }
 .sv16-history__status { color: var(--hg-text-secondary); }
-.sv16-history li[data-status='FAILED'] .sv16-history__status { color: var(--hg-status-danger-fg, #C62828); }
+.sv16-history li[data-status='FAILED'] .sv16-history__status { color: var(--hg-status-danger-fg); }
 @media (max-width: 599.98px) {
   .sv16-history li { grid-template-columns: minmax(0, 1fr) auto; }
   .sv16-history__when { grid-column: 1; }
@@ -1794,10 +1587,10 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
 .v22-journey .hg-strip__btn.is-static { opacity: 0.9; }
 .v22-journey .hg-strip__item.is-todo .hg-strip__btn.is-static { cursor: default; }
 .v22-journey .hg-strip__num { width: 24px; height: 24px; font-size: 11.5px; letter-spacing: 0.02em; }
-.v22-journey .hg-strip__item.is-current .hg-strip__btn.is-selected { background: #FFF1E7; border-color: #F3C9AE; }
+.v22-journey .hg-strip__item.is-current .hg-strip__btn.is-selected { background: var(--hg-selected-bg); border-color: var(--hg-selected-border); }
 .v22-journey__summary { display: flex; flex-direction: column; gap: 4px; max-width: 720px; }
 .v22-journey__eyebrow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); letter-spacing: 0.02em; }
-.v22-journey__summary[data-state='current'] .v22-journey__state { color: #B84600; font-weight: var(--hg-weight-semibold); }
+.v22-journey__summary[data-state='current'] .v22-journey__state { color: var(--hg-selected-fg); font-weight: var(--hg-weight-semibold); }
 .v22-journey__text { margin: 0; font-size: var(--hg-text-base); color: var(--hg-text-secondary); line-height: 1.55; }
 
 /* the grid: DOM order is the reading order (strip → next → team → upcoming → applications → documents → messages);
@@ -1812,8 +1605,8 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
 /* the one next action: no card — a tangerine eyebrow, a large title, one primary button */
 .v22-home .sh-next { padding: 0; background: transparent; border: 0; box-shadow: none; border-radius: 0; gap: 10px; }
 .v22-home .sh-next::before { display: none; }
-.v22-home .sh-next__eyebrow { color: #B84600; font-weight: var(--hg-weight-semibold); }
-.v22-home .sh-next__eyebrow > span:first-child { color: #B84600; }
+.v22-home .sh-next__eyebrow { color: var(--hg-selected-fg); font-weight: var(--hg-weight-semibold); }
+.v22-home .sh-next__eyebrow > span:first-child { color: var(--hg-selected-fg); }
 .v22-home .sh-next__title { letter-spacing: -0.02em; }
 .v22-home .sh-next__cta { margin-top: 6px; }
 
@@ -1829,7 +1622,7 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
 .v22-linkbtn { background: none; border: 0; padding: 0; font: inherit; cursor: pointer; }
 
 /* the team: brand mark avatar — white disc, hairline ring, tangerine symbol */
-.v22-team-avatar { background: #fff; border: 1px solid var(--hg-border); }
+.v22-team-avatar { background: var(--hg-bg); border: 1px solid var(--hg-border); }
 .v22-team-avatar img { width: 50%; height: auto; object-fit: contain; }
 
 /* phones: the strip scrolls sideways (packages/ui workflow.css does the nowrap); the summary stays put */
@@ -1892,7 +1685,7 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
 span.v25-line__btn { cursor: default; }
 .v25-line__node {
   display: grid; place-items: center; inline-size: var(--node); block-size: var(--node); border-radius: 50%;
-  background: #fff; border: 2px solid var(--hg-border-strong); color: #fff;
+  background: var(--hg-bg); border: 2px solid var(--hg-border-strong); color: var(--hg-text-on-primary);
 }
 .v25-line__step.is-done .v25-line__node { background: var(--hg-text); border-color: var(--hg-text); }
 .v25-line__step.is-current .v25-line__node { background: var(--hg-primary); border-color: var(--hg-primary); box-shadow: 0 0 0 5px rgb(204 78 0 / 0.14); }
@@ -1907,7 +1700,7 @@ span.v25-line__btn { cursor: default; }
 .v25-next {
   display: grid; grid-template-columns: minmax(0, 1fr); overflow: hidden;
   border-radius: var(--hg-radius-xl);
-  background: linear-gradient(160deg, #FFF8F2 0%, #FBF7F2 60%, #F7F3EE 100%);
+  background: var(--hg-bg-paper);
 }
 .v25-next .sh-next { padding: clamp(24px, 3vw, 36px) !important; gap: 12px; }
 .v25-next .sh-next__cta { margin-top: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
@@ -1931,7 +1724,7 @@ span.v25-line__btn { cursor: default; }
 
 /* ------------------------------------------------------------------------------------- calmer lists (S1) */
 .v22-home .v22-rows { border-top: 0; }
-.v22-home .v22-rows > li { border-bottom: 1px solid var(--hg-border-subtle, #EEEEEA); }
+.v22-home .v22-rows > li { border-bottom: 1px solid var(--hg-border-subtle); }
 .v22-home .v22-rows > li:last-child { border-bottom: 0; }
 .v22-home .v22-rows .hg-lrow { padding-block: 14px; }
 .v22-home .v22-rows .hg-lrow:hover { background: transparent; }
@@ -1939,7 +1732,7 @@ span.v25-line__btn { cursor: default; }
 .v22-home .hg-section__title { font-size: var(--hg-type-h3); font-weight: var(--hg-weight-bold); letter-spacing: -0.01em; }
 .v22-home .v22-grid { gap: 44px 64px; }
 /* The side column is a quiet aside: a warm surface, not a bordered box. */
-.v22-home .v22-side { padding: 22px 22px 18px; background: #FBF9F6; border-radius: var(--hg-radius-xl); }
+.v22-home .v22-side { padding: 22px 22px 18px; background: var(--hg-bg-paper); border-radius: var(--hg-radius-xl); }
 .v22-home .sh-person { gap: 12px; }
 
 /* Buttons: the student app shares the brand's one action shape (`--hg-control-*`). */
@@ -1983,7 +1776,7 @@ span.v25-line__btn { cursor: default; }
 /* ---------------------------------------------------------------- documents as requirements (S5) */
 /* Rows on the page, not rows in a grey box: hairlines between requirements, the action a quiet text action with →. */
 .dz-page .hg-panel.dz-list, .dz-page .hg-panel.dz-pkgs { background: transparent; border: 0; border-radius: 0; box-shadow: none; padding: 0; }
-.dz-page .dz-list > .dz-row { padding-inline: 0; border-block-end: 1px solid var(--hg-border-subtle, #EEEEEA); }
+.dz-page .dz-list > .dz-row { padding-inline: 0; border-block-end: 1px solid var(--hg-border-subtle); }
 .dz-page .dz-list > .dz-row:last-child { border-block-end: 0; }
 .dz-page .dz-row__title { font-size: var(--hg-text-lg); font-weight: var(--hg-weight-semibold); }
 .dz-page .dz-row[data-state='NEEDS_CORRECTION'] .dz-row__title::after,
@@ -2001,9 +1794,9 @@ span.v25-line__btn { cursor: default; }
 /* ------------------------------------------------------------------ essay review (S8): editorial, not admin */
 /* The notes above the text become quiet lines on a warm ground — status, the question, the consistency note — so the essay
    itself is the first strong object. The reading column (serif, 68ch) and the margin comments are unchanged. */
-.sw-page .hg-callout { border: 0; background: #FBF8F4; border-radius: var(--hg-radius-lg); padding: 14px 16px; }
-.sw-page .hg-callout[class*='warning'] { background: #FFF7EC; }
-.sw-page .st-wr-facts.hg-card { border: 0; background: #FFF7EC; box-shadow: none; }
+.sw-page .hg-callout { border: 0; background: var(--hg-bg-paper); border-radius: var(--hg-radius-lg); padding: 14px 16px; }
+.sw-page .hg-callout[class*='warning'] { background: var(--hg-status-warning-bg); }
+.sw-page .st-wr-facts.hg-card { border: 0; background: var(--hg-status-warning-bg); box-shadow: none; }
 .sw-page .st-wr-facts.hg-card::before { display: none; }
 .sw-page .sw-cmt, .sw-page [class*='sw-cmt'].hg-card { box-shadow: none; }
 
@@ -2068,3 +1861,168 @@ span.v25-line__btn { cursor: default; }
 .sv29-upgrade dd strong { color: var(--hg-text); }
 .sv29-upgrade__ask { justify-self: start; }
 @media (max-width: 559px) { .sv29-upgrade__ask { justify-self: stretch; text-align: center; } }
+
+/* ==================================================================================================
+   Student page pass (2026-11) — a guided service on the design foundation.
+
+   Composes the shared tokens; sets no colour literal. One warm surface (`--hg-bg-paper`) for the one
+   object that carries the page (the next step, the team contact); everything else is a section on
+   white with hierarchy from type, space and a hairline.
+   ================================================================================================== */
+
+/* ---------------------------------------------------------------------------------------- home */
+.sp-home { gap: 28px; }
+@media (min-width: 768px) { .sp-home { gap: 32px; } }
+.sp-home .v22-head { gap: 2px; }
+.sp-home .v22-head > p { font-size: var(--hg-text-md); }
+
+/* where am I: the rail, then one sentence that names the stage in words */
+.sp-home .v25-journey { gap: 12px; padding-block: 4px 0; }
+.sp-home .v22-journey__eyebrow { font-size: var(--hg-text-sm); letter-spacing: 0; }
+.sp-home .v22-journey__summary[data-state='current'] .v22-journey__state { color: var(--hg-selected-fg); }
+.sp-home .v22-journey__text { font-size: var(--hg-text-md); max-inline-size: 62ch; }
+.sp-home .v25-line__node { background: var(--hg-bg); }
+
+/* what do I do next: the page's one contained object */
+.sp-home .v25-next { background: var(--hg-bg-paper); border: 1px solid var(--hg-border-subtle); border-radius: var(--hg-radius-xl); }
+.sp-home .v25-next .sh-next { padding: clamp(22px, 3vw, 36px) !important; gap: 10px; }
+.sp-home .sh-next__eyebrow { color: var(--hg-selected-fg); font-size: var(--hg-text-sm); gap: 4px 8px; }
+.sp-home .sh-next__eyebrow > span:first-child { color: var(--hg-selected-fg); }
+.sp-home .sh-next__text { font-size: var(--hg-type-body); max-inline-size: 58ch; }
+.sp-home .v25-next .sh-next__cta { margin-block-start: 14px; gap: 12px 24px; }
+.sp-home .v25-next .sh-next__cta .hg-link-arrow { min-block-size: 44px; }
+
+/* the waiting state: the same object, calm — a green tick instead of an orange deadline, no primary action */
+.sp-home .sp-wait__eyebrow, .sp-home .sp-wait__eyebrow > span:first-child { color: var(--hg-status-success-fg); }
+.sp-wait__mark {
+  display: inline-grid; place-items: center; inline-size: 24px; block-size: 24px; flex: none; border-radius: 50%;
+  background: var(--hg-status-success-bg); color: var(--hg-status-success-fg);
+}
+
+/* who holds what: two lanes of plain rows */
+.sp-now { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; }
+@media (min-width: 768px) { .sp-now[data-lanes='2'] { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; } }
+.sp-lane { gap: 6px; }
+.sp-lane__empty { margin: 0; padding-block: 10px; color: var(--hg-text-secondary); font-size: var(--hg-text-md); line-height: 1.55; max-inline-size: 46ch; }
+.sp-home .sp-lane .hg-lrow { align-items: flex-start; }
+.sp-home .sp-lane .hg-lrow__chev { margin-block-start: 8px; }
+.sp-home .sp-lane .hg-lrow__title { line-height: 1.4; }
+/* inside a lane the status line stays beside its mark on a phone (the shared row wraps `end` under 640px; a lane has no `end`) */
+.sp-home .sp-lane .hg-lrow { flex-wrap: nowrap; }
+
+/* the aside: "coming up" is a plain section; the team is the one quiet warm card */
+.sp-home .v22-side { padding: 0; background: none; border-radius: 0; }
+.sp-home .v22-side.sp-team { padding: 20px; background: var(--hg-bg-paper); border-radius: var(--hg-radius-xl); gap: 14px; }
+.sp-home .sp-team .hg-section__title { font-size: var(--hg-text-lg); }
+.sp-home .sp-team .hg-btn { min-block-size: 44px; }
+.sp-home .sh-dates li { padding-block: 12px; gap: 14px; }
+.sp-home .sh-dates li:first-child { padding-block-start: 4px; }
+.sp-home .sh-dates li + li { border-block-start: 1px solid var(--hg-border-subtle); }
+.sp-home .sh-dates__day { inline-size: 44px; padding: 6px 0; border-radius: var(--hg-radius-lg); background: var(--hg-bg-paper); }
+.sp-home .sh-dates .hg-link { font-weight: var(--hg-weight-medium); color: var(--hg-text); }
+.sp-home .v22-grid { gap: 40px 56px; }
+@media (max-width: 767px) { .sp-home .v22-grid { gap: 36px; } }
+/* The aside is one column beside the page from 1024px (it spans every row, so the rows carry no gap of their own and
+   the main blocks space themselves); below that its two blocks join the single column and the team card goes last. */
+.sp-aside { display: contents; }
+.sp-aside > .sp-team { order: 1; }
+@media (min-width: 1024px) {
+  .sp-home .v22-grid { row-gap: 0; }
+  .sp-home .v22-grid > .v22-main:not(:last-child) { margin-block-end: 40px; }
+  .sp-aside { display: flex; flex-direction: column; gap: 36px; grid-column: 2; grid-row: 1 / span 12; min-inline-size: 0; }
+  .sp-aside > .sp-team { order: 0; }
+}
+
+/* ------------------------------------------------------------------------- applications (list) */
+/* Rows on the page, not rows in a box: the same hairline list as the home. */
+.sp-apps .hg-panel { background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+.sp-apps .hg-panel > .hg-list > li { border-block-end: 1px solid var(--hg-border-subtle); }
+.sp-apps .hg-panel > .hg-list > li:last-child { border-block-end: 0; }
+.sp-apps .hg-panel > .hg-list > li > .hg-lrow, .sp-apps .hg-panel > .hg-list > li.sx-entry { padding-inline: 0; padding-block: 16px; }
+.sp-apps .hg-panel > .hg-list > li > .hg-lrow:hover { background: transparent; }
+.sp-apps .hg-lrow__title { font-size: var(--hg-text-lg); font-weight: var(--hg-weight-semibold); }
+.sp-apps .sx-line[data-kind='blocked'] { color: var(--hg-text-secondary); }
+
+/* ----------------------------------------------------------------------- application (detail) */
+/* One hierarchy: the next step is the single warm object; lanes and "what can improve" are sections on white. */
+.sa-page .sa-next {
+  padding: clamp(20px, 3vw, 32px); background: var(--hg-bg-paper); border: 1px solid var(--hg-border-subtle);
+  border-radius: var(--hg-radius-xl); box-shadow: none;
+}
+.sa-page .sa-next::before { display: none; }
+.sa-page .v4-hero__eyebrow { color: var(--hg-selected-fg); font-weight: var(--hg-weight-semibold); margin: 0; }
+.sa-page .v4-hero__title { font-size: var(--hg-type-h2); line-height: var(--hg-type-h2-leading); margin: 0; }
+.sa-page .sa-next__text > p { margin: 0; max-inline-size: 60ch; }
+.sa-page .sa-next__text { gap: 8px; }
+.sa-page .ws-head__facts { gap: 6px 20px; }
+/* lane heads: one quiet label and a hairline at the same height in every column */
+.sa-page .v4-lanes .ws-lane__who {
+  border-block-end: 1px solid var(--hg-border); padding-block-end: 12px; margin-block-end: 10px;
+  font-size: var(--hg-text-lg); font-weight: var(--hg-weight-semibold); align-content: flex-start;
+}
+@media (min-width: 900px) { .sa-page .v4-lanes .ws-lane__who { min-block-size: 54px; } }
+.sa-page a.v4-lane__title { text-decoration: none; }
+.sa-page a.v4-lane__title:hover, .sa-page a.v4-lane__title:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+.sa-page .v4-lanes .ws-lane__list { gap: 14px; }
+.sa-page .sx-block { padding: 28px 0 0; border: 0; border-block-start: 1px solid var(--hg-border); border-radius: 0; background: transparent; }
+
+/* ---------------------------------------------------------------------------------- documents */
+.dz-page .dz-pkg { padding-inline: 0; }
+.dz-page .dz-row__action .hg-btn { min-inline-size: 104px; justify-content: center; }
+.dz-page .v9-who-fold { border: 0; border-radius: var(--hg-radius-xl); background: var(--hg-bg-paper); padding: 6px 16px; }
+
+/* ----------------------------------------------------------------------- services: the order */
+/* Summary → what's included → payment method → pay; the fine print follows the decision. White, one hairline. */
+.sv16-order.sp-order {
+  gap: var(--hg-space-6); padding: clamp(20px, 3vw, 32px);
+  border: 1px solid var(--hg-border); border-radius: var(--hg-radius-xl); background: var(--hg-bg);
+}
+.sp-order__summary { display: grid; gap: var(--hg-space-5); min-inline-size: 0; }
+.sp-order .sv16-order__line { padding-block-end: 0; border-block-end: 0; align-items: flex-start; flex-wrap: wrap; }
+.sp-order .sv16-order__name { font-size: var(--hg-type-h2); line-height: var(--hg-type-h2-leading); letter-spacing: -0.01em; }
+.sp-order .sv16-order__amount { flex-direction: column; align-items: flex-end; gap: 0; }
+.sp-order .sv16-order__amount strong { font-size: var(--hg-text-4xl); line-height: 1.15; }
+.sp-order .sv16-order__amount .hg-subtle { color: var(--hg-text-secondary); }
+.sp-order__label { margin: 0 0 10px; font-size: var(--hg-text-sm); font-weight: var(--hg-weight-semibold); color: var(--hg-text-secondary); }
+.sp-order__included .st-ticks { font-size: var(--hg-text-md); gap: 10px; }
+.sp-order .sv22-summary { margin: 0; padding: 0; border: 0; gap: 0; font-size: var(--hg-text-sm); }
+.sp-order .sv22-summary > div { padding-block: 14px; border-block-start: 1px solid var(--hg-border-subtle); grid-template-columns: minmax(96px, 0.3fr) minmax(0, 1fr); gap: 4px 16px; }
+.sp-order .sv22-summary dt { color: var(--hg-text-secondary); }
+.sp-order .sv22-summary dd { line-height: 1.55; }
+.sp-order .sv22-summary > .sp-order__total { grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; border-block-start-color: var(--hg-border); }
+.sp-order .sp-order__total dt { color: var(--hg-text); font-weight: var(--hg-weight-semibold); font-size: var(--hg-text-md); }
+.sp-order .sp-order__total dd { font-size: var(--hg-text-xl); font-weight: var(--hg-weight-semibold); }
+.sp-order__pay { display: grid; gap: var(--hg-space-3); min-inline-size: 0; }
+.sp-order__pay .pay { padding-block-start: 0; }
+.sp-order .sv22-summary__agree { margin: 0; line-height: 1.6; max-inline-size: 70ch; }
+.sp-order__fine { padding-block-start: var(--hg-space-5); border-block-start: 1px solid var(--hg-border-subtle); }
+.sp-order__fine .sv29-notes { margin: 0; font-size: var(--hg-text-sm); line-height: 1.55; gap: 6px; }
+@media (min-width: 900px) {
+  /* two columns: the receipt on the start side, the payment on the end side; the fine print spans both */
+  .sv16-order.sp-order { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); column-gap: clamp(32px, 4vw, 56px); align-items: start; }
+  .sp-order > h2, .sp-order__fine { grid-column: 1 / -1; }
+  .sp-order__fine .sv29-notes { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; }
+}
+@media (max-width: 480px) { .sp-order .sv22-summary > div:not(.sp-order__total) { grid-template-columns: 1fr; } }
+.sp-order .pay__cta { justify-self: stretch; inline-size: 100%; }
+@media (min-width: 900px) {
+  .sp-order__fine .sv29-notes { display: block; columns: 2; }
+  .sp-order__fine .sv29-notes > li { break-inside: avoid; margin-block-end: 6px; }
+}
+
+/* ------------------------------------------------------------------------- phone refinements */
+/* 320–374px: six labels do not fit six columns. Only the current stage keeps its label (the sentence under the rail
+   names it in full); the others stay in the accessibility tree but leave the row. */
+@media (max-width: 374px) {
+  .sp-home .v25-line__step:not(.is-current) .v25-line__label { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .sp-home .v25-line__step.is-current .v25-line__label { white-space: nowrap; }
+  .sp-home .v25-line__step:nth-last-child(-n + 2).is-current .v25-line__btn { align-items: flex-end; }
+}
+@media (max-width: 767px) {
+  /* "View all" beside a section title is a full touch target */
+  .sp-home .hg-section__head > .hg-link-arrow, .sp-apps .hg-section__head > .hg-link-arrow { min-block-size: 44px; }
+  .sp-home .hg-section__head { align-items: center; }
+  /* application rows: status, closing date and the blocker stack on one edge instead of wrapping raggedly */
+  .sp-apps .hg-lrow__end > .sh-app-end { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .sp-apps .sa-when { text-align: start; }
+}

@@ -2,9 +2,10 @@ import { HANGYUL_UNIV_BRAND, Check, ChevronDown, ExternalLink, Search, ShieldChe
 import type { BrandLogoColor } from '@hangyul/icons';
 import { changeLocale, translationQuality, useLocale, type Namespace } from '@hangyul/i18n';
 import type { Country, Freshness } from '@hangyul/types';
-import { countryName, cx, flagEmoji, formatDate } from '@hangyul/utils';
+import { countryName, cx, formatDate } from '@hangyul/utils';
 import { useMemo, useState, type ReactNode } from 'react';
 
+import { CountryFlag } from './locale-selector';
 import { Popover } from './overlays';
 
 /**
@@ -137,7 +138,7 @@ export function CountrySelect({ countries, value, onChange, label, placeholder, 
       width={320}
       trigger={(p) => (
         <button type="button" className="hg-sel" aria-label={label} aria-invalid={invalid || undefined} data-open={open || undefined} {...p} aria-haspopup="listbox">
-          <span className="hg-sel__value">{selected ? `${flagEmoji(selected.code)}  ${countryName(selected.code, locale)}` : <span className="hg-subtle">{placeholder ?? t('form.selectPlaceholder')}</span>}</span>
+          <span className="hg-sel__value">{selected ? <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, maxWidth: '100%' }}><CountryFlag code={selected.code} /><span className="hg-truncate">{countryName(selected.code, locale)}</span></span> : <span className="hg-subtle">{placeholder ?? t('form.selectPlaceholder')}</span>}</span>
           <ChevronDown className="hg-sel__chev" aria-hidden />
         </button>
       )}
@@ -152,7 +153,7 @@ export function CountrySelect({ countries, value, onChange, label, placeholder, 
             {filtered.length === 0 && <div className="hg-muted hg-small" style={{ padding: 12 }}>{t('form.noOptions')}</div>}
             {filtered.map((c) => (
               <button key={c.code} role="option" aria-selected={c.code === value} className="hg-menu-item" onClick={() => { onChange(c.code); setQ(''); close(); }}>
-                <span aria-hidden style={{ fontSize: 18 }}>{flagEmoji(c.code)}</span>
+                <CountryFlag code={c.code} />
                 <span className="hg-grow">
                   {countryName(c.code, locale)}
                   {c.name_native && c.name_native !== countryName(c.code, locale) && <span className="hg-subtle hg-xs" style={{ marginInlineStart: 6 }}>{c.name_native}</span>}

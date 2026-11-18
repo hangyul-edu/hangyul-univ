@@ -80,7 +80,7 @@ appointment's `duration_minutes`, never a plan property.
 **A range is not a charge.** The operator offers one exact unit price inside the range (or a quote and its written
 scope); the student sees service, scope, quantity and the exact USD amount. Lifecycle:
 `OFFERED → (approve) AWAITING_PAYMENT + ADD_ON order → (paid) ACTIVE → COMPLETED` / `DECLINED` / `CANCELLED`. Nothing
-is granted before payment; approving twice returns the same order; activation is idempotent; every step is audited and
+is granted before payment (a one-time billing-key charge of the exact approved amount, the same checkout as a plan — [`payments/BILLING.md`](payments/BILLING.md)); approving twice returns the same order; activation is idempotent; every step is audited and
 tracked (`add_on_offered`, `add_on_approved`, `add_on_purchased`). Code: `server/app/services/addons.py`.
 
 ## Upgrades

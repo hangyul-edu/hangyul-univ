@@ -1,36 +1,42 @@
-// PRIMARY QUESTION: "Where is every applicant in our process, and which ones need us?" (V22, REPORT §250 V1–V3).
+// PRIMARY QUESTION: "Where is every applicant in our process, and which ones need us?"
 //
-// The home screen IS the work: one clickable stage strip (lib/workflow.ts) over one dense applicant table. The strip's
-// numbers are the table's totals — the same `GET /applications` filter counts the stage and fills the table, so the two
-// cannot disagree. The V15 Overview (ranked decision queue, funnel card, market bars, post-admission rates) is gone from
-// here: "needs us" is a tangerine mark on the stages where the university must act, the funnel and markets live on
-// Insights, and the nearest intake date is one line of toolbar meta. `/applicants` renders this same screen.
+// 2026-11 design pass. The home is an executive overview over one work table, in this order:
+//   1. the summary band (components/overview/Summary) — who needs a decision, which documents are outstanding, offers
+//      made, what happened after admission — four ruled columns, every figure a link to the rows it counts;
+//   2. two supporting signals, lazily loaded (components/overview/Signals) — source countries and the monthly trend;
+//   3. the pipeline rail (lib/workflow.ts): the stage counts ARE the table's totals for the same filter;
+//   4. one toolbar row (search + filters + sort) and the applicant table.
+// `/applicants` renders this same screen without the summary's supporting signals collapsed away — it is one screen.
 import { useAuth } from '@hangyul/auth';
-import { ChevronRight, Download, Filter, Flag, Users } from '@hangyul/icons';
+import { ChevronRight, Download, Filter, Flag, Search, Users } from '@hangyul/icons';
 import { useLocale, localName } from '@hangyul/i18n';
 import type { Application, ApplicationStatus } from '@hangyul/types';
 import { DEGREE_LEVELS } from '@hangyul/types';
 import {
-  Badge, Button, Checkbox, DataTable, Drawer, EmptyState, ErrorState, Field, FilterSelect, Select, StageStrip, StatusText, useToast, WorkToolbar, type ColumnDef, type Stage,
+  Badge, Button, Checkbox, DataTable, Drawer, EmptyState, ErrorState, Field, FilterSelect, PageHeader, Select, Skeleton, StageStrip, StatusText, useToast, type ColumnDef, type Stage,
 } from '@hangyul/ui';
-import { countryName, cx, downloadBlob, flagEmoji, formatDate, formatNumber, formatRelative } from '@hangyul/utils';
-import { useQuery } from '@tanstack/react-query';
-import { useEffect, useMemo, useState } from 'react';
+import { countryName, cx, downloadBlob, formatDate, formatNumber, formatRelative } from '@hangyul/utils';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router';
 
+import { Country } from '../components/common';
 import { useFilterOptions } from '../components/FilterBar';
+import { ExecutiveSummary } from '../components/overview/Summary';
 import { BulkActions } from '../components/v8/BulkActions';
 import { NeedText } from '../components/v8/NeedText';
 import { decisionNeed } from '../lib/v8';
-import { StatusSoft, YAvatar } from '../components/ynex';
+import { StatusSoft } from '../components/ynex';
 import { activeChips, parseApplicantParams, REACHED_STEPS, writeApplicantParams, type ApplicantParams, type ApplicantSort, type ChipKey } from '../lib/filters';
 import { intakeText } from '../lib/format';
 import { VISIBLE_STATUSES } from '../lib/permissions';
 import { useAgencyDirectory, useApplicantQuery, useApplicationCount, useApplications, usePrograms, useTeam } from '../lib/queries';
 import { useUniversity } from '../lib/university';
 import { listFilters } from '../lib/v9';
-import { AWAITING_DECISION, awaitingDecision, CLOSED_STATUSES, documentsText, nextDeadline, STAGES, stageFilter, stageFor, withStage, type StageKey } from '../lib/workflow';
+import { awaitingDecision, CLOSED_STATUSES, documentsText, nextDeadline, STAGES, stageFilter, stageFor, withStage, type StageKey } from '../lib/workflow';
+
+/** Charts never block the work table: the two supporting signals ship in their own chunk. */
+const OverviewSignals = lazy(() => import('../components/overview/Signals'));
 
 type T = ReturnType<typeof useLocale>['t'];
 
@@ -79,13 +85,24 @@ function FilterFields({ p, set, idp, inline }: { p: ApplicantParams; set: (patch
           <option value="">{t('university:filters.allIntakesOption')}</option>
           {[...new Set([...(p.intake ? [p.intake] : []), ...o.intakes])].map((k) => <option key={k} value={k}>{intakeText(k, t)}</option>)}
       </FilterPick>
-      <FilterPick inline={inline} id={`${idp}-nat`} label={t('university:filters.nationality')} value={p.nationality ?? ''} onChange={(v) => set({ nationality: v || undefined })}>
+      <FilterPick inline={inline} id={`${idp}-nat`} label={t('university:v8.aq.country')} value={p.nationality ?? ''} onChange={(v) => set({ nationality: v || undefined })}>
           <option value="">{t('university:filters.allNationalities')}</option>
           {[...new Set([...(p.nationality ? [p.nationality] : []), ...o.nationalities])].map((c) => <option key={c} value={c}>{countryName(c, locale)}</option>)}
       </FilterPick>
       <FilterPick inline={inline} id={`${idp}-program`} label={t('university:filters.program')} value={p.program_id ?? ''} onChange={(v) => set({ program_id: v || undefined })}>
           <option value="">{t('university:filters.allPrograms')}</option>
           {o.programs.map((x) => <option key={x.id} value={x.id}>{x.name}</option>)}
+      </FilterPick>
+      {/* Required action / missing item: the two server filters that say what a decision is waiting for. One control,
+          because an application is in exactly one of these states (lib/v8.ts decisionNeed). */}
+      <FilterPick inline={inline} id={`${idp}-need`} label={t('university:v33.list.need')} value={p.requests ? `requests:${p.requests}` : p.eligibility ? `eligibility:${p.eligibility}` : ''}
+        onChange={(v) => { const [k, x] = v.split(':'); set({ requests: k === 'requests' ? (x as ApplicantParams['requests']) : undefined, eligibility: k === 'eligibility' ? (x as ApplicantParams['eligibility']) : undefined }); }}>
+          <option value="">{t('university:filters.all')}</option>
+          <option value="eligibility:MEETS">{t('university:v9.chip.eligibility.MEETS')}</option>
+          <option value="eligibility:BELOW">{t('university:v9.chip.eligibility.BELOW')}</option>
+          <option value="eligibility:TO_CHECK">{t('university:v9.chip.eligibility.TO_CHECK')}</option>
+          <option value="requests:open">{t('university:v4.aq.requests.open')}</option>
+          <option value="requests:returned">{t('university:v4.aq.requests.returned')}</option>
       </FilterPick>
       <div className={cx('uc-filter-check', inline && 'uv22-tool')}>
         <Checkbox label={t('university:applicants.flaggedOnly')} checked={p.flagged === true} onChange={(e) => set({ flagged: e.target.checked ? true : undefined })} />
@@ -125,11 +142,11 @@ function FilterFields({ p, set, idp, inline }: { p: ApplicantParams; set: (patch
               {REACHED_STEPS.map((k) => <option key={k} value={k}>{t(`university:af.stepName.${k}`)}</option>)}
             </Select>
           </Field>
-          <Field label={t('university:v4.aq.requests.label', { defaultValue: t('university:v8.chip.key.requests') })} htmlFor={`${idp}-req`}>
-            <Select id={`${idp}-req`} compact value={p.requests ?? ''} onChange={(e) => set({ requests: (e.target.value || undefined) as ApplicantParams['requests'] })}>
-              <option value="">{t('university:filters.all')}</option>
-              <option value="open">{t('university:v4.aq.requests.open')}</option>
-              <option value="returned">{t('university:v4.aq.requests.returned')}</option>
+          <Field label={t('university:v33.list.updated')} htmlFor={`${idp}-upd`}>
+            <Select id={`${idp}-upd`} compact value={p.updated_within ? String(p.updated_within) : ''} onChange={(e) => set({ updated_within: e.target.value ? Number(e.target.value) : undefined })}>
+              <option value="">{t('university:v33.list.anyTime')}</option>
+              {[7, 30, 90].map((d) => <option key={d} value={d}>{t('university:v25.chip.days', { count: d })}</option>)}
+              {p.updated_within && ![7, 30, 90].includes(p.updated_within) && <option value={p.updated_within}>{t('university:v25.chip.days', { count: p.updated_within })}</option>}
             </Select>
           </Field>
         </>
@@ -194,80 +211,6 @@ function useStageCounts(base: Partial<ApplicantParams>) {
   return { byStage: Object.fromEntries(STAGES.map((s, i) => [s.key, counts[i].count])) as Record<StageKey, number | undefined>, all: all.count, closed: closed.count };
 }
 
-/**
- * V25 (REPORT §315 U1) put four quiet figures of equal weight here; V31 recorded the page as "legible, not yet calm"
- * (REPORT §434). V32: the screen answers ONE question first — how many applicants are waiting on our decision — as the
- * one large figure with its own action, and the other three facts recede into a single quiet line beneath it. Each
- * figure is still the total of the same `GET /applications` filter it opens, so a number is always the row count
- * behind it; a zero stays visible (a quiet week is information) but is not a link.
- */
-function Headline({ base, set }: { base: Partial<ApplicantParams>; set: (patch: Partial<ApplicantParams>) => void }) {
-  const { t, locale } = useLocale(['university', 'common']);
-  const decide = useApplicationCount({ ...base, status: AWAITING_DECISION });
-  const requests = useApplicationCount({ ...base, status: [], requests: 'open' });
-  const fresh = useApplicationCount({ ...base, status: [], submitted_within: 7 });
-  const moved = useApplicationCount({ ...base, status: [], updated_within: 7 });
-  const rest: { k: string; n?: number; label: string; patch: Partial<ApplicantParams> }[] = [
-    { k: 'requests', n: requests.count, label: t('university:v25.head.requests'), patch: { stage: undefined, status: [], requests: 'open' } },
-    { k: 'fresh', n: fresh.count, label: t('university:v25.head.fresh'), patch: { stage: undefined, status: [], submitted_within: 7 } },
-    { k: 'moved', n: moved.count, label: t('university:v25.head.moved'), patch: { stage: undefined, status: [], updated_within: 7 } },
-  ];
-  const n = decide.count;
-  const leadInner = (
-    <>
-      <span className="uv25-head__n hg-num">{n === undefined ? '–' : formatNumber(n, locale)}</span>
-      <span className="uv25-head__l">{t('university:v25.head.decide')}</span>
-      {n ? <ChevronRight className="uv25-head__chev hg-flip-rtl" aria-hidden /> : null}
-    </>
-  );
-  return (
-    <section className="uv25-head" aria-label={t('university:v25.head.label')}>
-      {n ? (
-        <button type="button" className="uv25-head__item is-lead" data-head="decide" data-count={n} onClick={() => set({ stage: undefined, status: AWAITING_DECISION })}>{leadInner}</button>
-      ) : <span className="uv25-head__item is-lead is-zero" data-head="decide" data-count={n ?? ''}>{leadInner}</span>}
-      <div className="uv25-head__rest">
-        {rest.map((it) => {
-          const inner = (<><span className="uv25-head__n hg-num">{it.n === undefined ? '–' : formatNumber(it.n, locale)}</span><span className="uv25-head__l">{it.label}</span></>);
-          return it.n ? (
-            <button key={it.k} type="button" className="uv25-head__item" data-head={it.k} data-count={it.n} onClick={() => set(it.patch)}>{inner}</button>
-          ) : <span key={it.k} className="uv25-head__item is-zero" data-head={it.k} data-count={it.n ?? ''}>{inner}</span>;
-        })}
-      </div>
-    </section>
-  );
-}
-
-/**
- * V28 (UX_AUDIT UN-1): one line of pipeline health and outcomes (V32: below the queue, so decisions come first) — every step with its count and the
- * share of the step before it (denominator shown; a share under the minimum sample is "표본 부족", never a number). The line
- * opens Analytics, where each bar drills to its rows. No cards, no chart on the home.
- */
-function PipelineLine({ base }: { base: Partial<ApplicantParams> }) {
-  const { t, locale } = useLocale(['university', 'common']);
-  const { api } = useAuth();
-  const q = useQuery({ queryKey: ['university', 'funnel-line', base], queryFn: () => api.university.admissionsFunnel(base as Record<string, string | undefined>), staleTime: 60_000 });
-  const steps = (q.data?.steps ?? []).filter((s) => ['SUBMITTED', 'OFFERED', 'ACCEPTED', 'VISA_ISSUED', 'ENROLLED'].includes(s.key));
-  if (!steps.length) return null;
-  return (
-    <Link to="/analytics" className="uv28-pipe" aria-label={t('university:v28.pipe.label')}>
-      <span className="uv28-pipe__h">{t('university:v28.pipe.title')}</span>
-      <ol className="uv28-pipe__steps">
-        {steps.map((s, i) => (
-          <li key={s.key}>
-            <span className="uv28-pipe__n hg-num">{formatNumber(s.count, locale)}</span>
-            <span className="uv28-pipe__l">{t(`university:v28.pipe.step.${s.key}`)}</span>
-            {i > 0 && s.conversion && (
-              <span className="uv28-pipe__r">{s.conversion.insufficient_data
-                ? t('university:v28.pipe.small', { n: s.conversion.denominator })
-                : t('university:v28.pipe.rate', { pct: Math.round((s.conversion.value ?? 0) * 100), den: s.conversion.denominator })}</span>
-            )}
-          </li>
-        ))}
-      </ol>
-    </Link>
-  );
-}
-
 export default function Dashboard() {
   const { t, locale } = useLocale(['university', 'common']);
   const { api } = useAuth();
@@ -303,7 +246,7 @@ export default function Dashboard() {
   const counts = useStageCounts(base);
   const list = useApplications(eff);
   const listQuery = useApplicantQuery(eff);
-  const secondary = activeChips(p).filter((k) => !['intake', 'nationality', 'program_id', 'flagged'].includes(k) && !(p.stage && k === 'admin_check')).length;
+  const secondary = activeChips(p).filter((k) => !['intake', 'nationality', 'program_id', 'flagged', 'requests', 'eligibility'].includes(k) && !(p.stage && k === 'admin_check')).length;
   const clearAll = () => setSp(writeApplicantParams({ stage: p.stage, q: p.q, sort: p.sort }), { replace: true });
 
   const stages: Stage<StageKey>[] = STAGES.map((s) => ({
@@ -324,67 +267,67 @@ export default function Dashboard() {
       const label = t(key);
       return { id, header: () => head(id, label), enableSorting: false, meta: { label, exportValue, hideOnMobile, priority, minWidth }, ...def } as ColumnDef<Application, unknown>;
     };
-    // Column priority (1024–1279): Applicant · Programme · Country · Status · Documents · Need · Updated; agency and
-    // submitted date fold into the row details first. Nothing scrolls sideways.
+    // Scanning order: who · what they applied for · where from · where they are · documents · what a decision needs ·
+    // last change. Hangyul team, submitted date and deadline are secondary: they live in the row expander (priority 9
+    // never fits beside the seven above) and in the CSV. Nothing scrolls sideways; narrower tables fold the highest
+    // priority number first.
     return [
       {
         id: 'student', header: () => head('student', t('university:applicants.col.student')), enableSorting: false, enableHiding: false,
-        meta: { primary: true, priority: 1, minWidth: 150, label: t('university:applicants.col.student'), exportValue: (r: Application) => r.student?.full_name ?? '' },
+        meta: { primary: true, priority: 1, minWidth: 140, label: t('university:applicants.col.student'), exportValue: (r: Application) => r.student?.full_name ?? '' },
         cell: ({ row }) => {
           const r = row.original;
           return (
-            <span className="uv7-who" data-col="student">
-              <YAvatar name={r.student?.full_name ?? '?'} />
-              <span className="min-w-0 d-flex align-items-center gap-1">
-                <span className="fw-semibold text-truncate uv7-who__name" title={r.student?.full_name}>{r.student?.full_name ?? '—'}</span>
-                {r.flagged && <Flag size={13} className="uc-flag" aria-label={t('university:applicants.flagged')} />}
-              </span>
+            <span className="un-who" data-col="student">
+              <span className="un-who__name" title={r.student?.full_name}>{r.student?.full_name ?? '—'}</span>
+              {r.flagged && <span className="un-who__flag" title={r.flag_reason ?? t('university:applicants.flagged')}><Flag size={13} aria-hidden /><span className="hg-sr-only">{t('university:applicants.flagged')}</span></span>}
             </span>
           );
         },
       },
       col('program', 'university:applicants.col.program', {
-        priority: 2, minWidth: 130, exportValue: (r) => `${localName(r.program)} · ${r.intake.year}-${r.intake.term}`,
+        priority: 2, minWidth: 184, exportValue: (r) => `${localName(r.program)} · ${r.intake.year}-${r.intake.term}`,
         cell: ({ row }) => (
-          <span className="d-block min-w-0" data-col="program">
-            <span className="d-block text-truncate uv7-prog" title={localName(row.original.program)}>{localName(row.original.program)}</span>
-            <span className="d-block fs-11 text-muted">{intakeText(`${row.original.intake.year}-${row.original.intake.term}`, t)}</span>
+          <span className="un-prog" data-col="program">
+            <span className="un-prog__name" title={localName(row.original.program)}>{localName(row.original.program)}</span>
+            <span className="un-prog__meta">{intakeText(`${row.original.intake.year}-${row.original.intake.term}`, t)} · {t(`common:degreeShort.${row.original.program.degree_level}`)}</span>
           </span>
         ),
       }),
       col('country', 'university:v8.aq.country', {
-        priority: 3, minWidth: 90, exportValue: (r) => r.student?.nationality ?? '',
-        cell: ({ row }) => {
-          const nat = row.original.student?.nationality;
-          return <span data-col="country" className="uc-cell-trunc" title={nat ? countryName(nat, locale) : undefined}>{nat ? <><span aria-hidden>{flagEmoji(nat)} </span>{countryName(nat, locale)}</> : '—'}</span>;
-        },
+        priority: 4, minWidth: 120, exportValue: (r) => r.student?.nationality ?? '',
+        cell: ({ row }) => <span data-col="country"><Country code={row.original.student?.nationality} /></span>,
       }),
       col('status', 'university:applicants.col.status', {
-        priority: 2, minWidth: 100, exportValue: (r) => t(`common:appStatus.${r.status}`),
+        priority: 2, minWidth: 116, exportValue: (r) => t(`common:appStatus.${r.status}`),
         cell: ({ row }) => <span data-col="status" title={t(`university:v4.status.${row.original.status}`, { defaultValue: '' })}><StatusSoft status={row.original.status} short /></span>,
       }),
       col('documents', 'university:applicants.col.documents', {
-        priority: 3, minWidth: 90, exportValue: (r) => documentsText(r, t as never),
+        priority: 5, minWidth: 112, exportValue: (r) => documentsText(r, t as never),
         cell: ({ row }) => <span data-col="documents"><DocumentsCell a={row.original} /></span>,
       }),
-      col('need', 'university:v8.aq.need', {
-        priority: 2, minWidth: 120, exportValue: (r) => (awaitingDecision(r.status) ? r.eligibility?.status ?? '' : ''),
-        cell: ({ row }) => <span data-col="need" className="uc-cell-trunc"><NeedText a={row.original} /></span>,
+      col('need', 'university:v33.list.action', {
+        priority: 2, minWidth: 148, exportValue: (r) => (awaitingDecision(r.status) ? r.eligibility?.status ?? '' : ''),
+        cell: ({ row }) => <span data-col="need" className="un-need"><NeedText a={row.original} /></span>,
       }),
       col('updated', 'university:aq.updated', {
-        priority: 4, minWidth: 70, hideOnMobile: true, exportValue: (r) => r.updated_at,
-        cell: ({ row }) => <span data-col="updated" className="uc-sub uc-nowrap" title={formatDate(row.original.updated_at, locale)}>{formatRelative(row.original.updated_at, locale)}</span>,
-      }),
-      col('agency', 'university:applicants.col.agency', {
-        priority: 6, minWidth: 130, hideOnMobile: true, exportValue: (r) => agencies.nameOf(r.agency_org_id) ?? '',
-        cell: ({ row }) => {
-          const name = agencies.nameOf(row.original.agency_org_id);
-          return <span className="uc-cell-trunc" data-col="agency" title={name ?? undefined}>{name ?? <span className="hg-subtle">{row.original.agency_org_id ? '…' : t('university:agencies.direct')}</span>}</span>;
-        },
+        priority: 6, minWidth: 104, hideOnMobile: true, exportValue: (r) => r.updated_at,
+        cell: ({ row }) => <span data-col="updated" className="un-when" title={formatDate(row.original.updated_at, locale)}>{formatRelative(row.original.updated_at, locale)}</span>,
       }),
       col('submitted', 'university:applicants.col.submitted', {
-        priority: 5, minWidth: 96, hideOnMobile: true, exportValue: (r) => r.submitted_at ?? '',
-        cell: ({ row }) => <span data-col="submitted" className="hg-small hg-num uc-nowrap" title={row.original.submitted_at ? formatDate(row.original.submitted_at, locale) : undefined}>{row.original.submitted_at ? formatDate(row.original.submitted_at, locale, { month: 'short', day: 'numeric' }) : '—'}</span>,
+        priority: 9, minWidth: 2000, hideOnMobile: true, exportValue: (r) => r.submitted_at ?? '',
+        cell: ({ row }) => <span data-col="submitted" className="hg-num">{row.original.submitted_at ? formatDate(row.original.submitted_at, locale) : '—'}</span>,
+      }),
+      col('deadline', 'university:applicants.col.deadline', {
+        priority: 9, minWidth: 2000, hideOnMobile: true, exportValue: (r) => r.intake.application_deadline ?? '',
+        cell: ({ row }) => <span data-col="deadline" className="hg-num">{row.original.intake.application_deadline ? formatDate(row.original.intake.application_deadline, locale) : '—'}</span>,
+      }),
+      col('agency', 'university:applicants.col.agency', {
+        priority: 9, minWidth: 2000, hideOnMobile: true, exportValue: (r) => agencies.nameOf(r.agency_org_id) ?? '',
+        cell: ({ row }) => {
+          const name = agencies.nameOf(row.original.agency_org_id);
+          return <span data-col="agency">{name ?? <span className="hg-subtle">{row.original.agency_org_id ? '…' : t('university:agencies.direct')}</span>}</span>;
+        },
       }),
     ];
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -406,112 +349,116 @@ export default function Dashboard() {
     }
   };
 
-  // The nearest intake date as one line of meta — the only trace of the former dates widget (brief Part 27).
+  // The nearest intake date and the closed count are one line of page meta, not widgets.
   const soonest = nextDeadline(programs.data ?? []);
-  const meta = (
-    <>
+  const name = overview ? (locale === 'ko' ? overview.name_ko : overview.name_en) : '';
+  const rows = list.data?.items ?? [];
+  const total = list.data?.total;
+  const emptyTitle = p.stage && !secondary && !p.q ? t(`university:v22.empty.${p.stage}`) : secondary || p.q ? t('common:states.noResults') : t('university:applicants.empty');
+  const subtitle = (
+    <span className="un-pagemeta">
+      <span>{name}</span>
+      {counts.all !== undefined && <span>{t('university:v22.allN', { n: formatNumber(counts.all, locale) })}</span>}
       {soonest && (
         <Link to="/programs" className="uv22-meta__date">
           {t('university:v15.ov.nextDate', { kind: t(`university:ov.dates.kind.${soonest.kind}`), date: formatDate(soonest.date, locale, { month: 'short', day: 'numeric' }) })}
         </Link>
       )}
-      {counts.closed !== undefined && counts.closed > 0 && (
-        <Link to={`/applicants?${writeApplicantParams({ ...base, status: CLOSED_STATUSES }).toString()}`} className="uv22-meta__closed" data-closed-count={counts.closed}>
-          {t('university:v22.closed', { n: formatNumber(counts.closed, locale) })}
-        </Link>
-      )}
-    </>
+    </span>
   );
-
-  const name = overview ? (locale === 'ko' ? overview.name_ko : overview.name_en) : '';
-  const rows = list.data?.items ?? [];
-  const total = list.data?.total;
-  const emptyTitle = p.stage && !secondary && !p.q ? t(`university:v22.empty.${p.stage}`) : secondary || p.q ? t('common:states.noResults') : t('university:applicants.empty');
+  const sortLabel: Record<string, string> = { decision: t('university:v26.sortBy.decision'), submitted: t('university:applicants.sortBy.submitted'), deadline: t('university:applicants.sortBy.deadline'), updated: t('university:applicants.sortBy.updated') };
 
   return (
-    <div className="uv7 uv7-applicants uv22-work">
-      <header className="uv22-head">
-        <h1 className="uv22-head__title">{t('common:nav.applicants')}</h1>
-        <p className="uv22-head__sub">{name}{counts.all !== undefined ? ` · ${t('university:v22.allN', { n: formatNumber(counts.all, locale) })}` : ''}</p>
-        <div className="uv22-head__actions">
-          {perms.canExport && (
-            <button type="button" className="hg-btn hg-btn--ghost hg-btn--sm" disabled={exporting} onClick={serverExport}>
-              <Download aria-hidden size={14} />{p.stage || secondary ? t('university:v8.aq.exportFiltered') : t('university:exports.applicationsCsv')}
-            </button>
+    <div className="uv7 uv7-applicants uv22-work un-home">
+      <PageHeader title={t('common:nav.applicants')} subtitle={subtitle}
+        actions={perms.canExport ? (
+          <Button size="sm" icon={<Download />} disabled={exporting} onClick={serverExport}>
+            {p.stage || secondary ? t('university:v8.aq.exportFiltered') : t('university:exports.applicationsCsv')}
+          </Button>
+        ) : undefined} />
+
+      <ExecutiveSummary base={headBase} set={set} byStage={counts.byStage} all={counts.all} />
+
+      <Suspense fallback={<div className="un-sig" aria-hidden><Skeleton h={168} /><Skeleton h={168} /></div>}>
+        <OverviewSignals base={headBase} set={set} />
+      </Suspense>
+
+      <section className="un-work" aria-labelledby="work-h">
+        <div className="un-work__head">
+          <h2 id="work-h" className="un-work__title">{t('university:v33.list.title')}</h2>
+          {counts.closed !== undefined && counts.closed > 0 && (
+            <Link to={`/applicants?${writeApplicantParams({ ...base, status: CLOSED_STATUSES }).toString()}`} className="un-work__closed uv22-meta__closed" data-closed-count={counts.closed}>
+              {t('university:v22.closed', { n: formatNumber(counts.closed, locale) })}
+            </Link>
           )}
         </div>
-      </header>
-
-      <Headline base={headBase} set={set} />
-
-      <div className="uv22-strip">
-        <StageStrip<StageKey> label={t('university:v22.stripLabel')} stages={stages} selected={p.stage ?? null} onSelect={pick}
-          allLabel={t('university:filters.all')} allCount={counts.all} />
-      </div>
-
-      <WorkToolbar search={q} onSearch={setQ} placeholder={t('university:applicants.searchPlaceholder')} meta={meta}>
-        <div className="uv22-tools" role="group" aria-label={t('university:filters.label')}>
-          <FilterFields p={p} set={set} idp="apf" inline />
+        <div className="uv22-strip">
+          <StageStrip<StageKey> label={t('university:v22.stripLabel')} stages={stages} selected={p.stage ?? null} onSelect={pick}
+            allLabel={t('university:filters.all')} allCount={counts.all} />
         </div>
-        <Button size="sm" variant="ghost" icon={<Filter />} onClick={() => setDrawer(true)}>
-          <span className="uc-only-compact">{t('common:actions.filter')}</span><span className="uc-only-wide">{t('university:v4.aq.moreFilters')}</span>
-          {secondary > 0 && <Badge tone="neutral" size="sm">{secondary}</Badge>}
-        </Button>
-        <FilterSelect id="ap-sort" size="sm" label={t('university:applicants.sort')} value={p.sort} active={false} onChange={(e) => set({ sort: e.target.value as ApplicantSort })}>
-            <option value="decision">{t('university:v26.sortBy.decision')}</option>
-            <option value="submitted">{t('university:applicants.sortBy.submitted')}</option>
-            <option value="deadline">{t('university:applicants.sortBy.deadline')}</option>
-            <option value="updated">{t('university:applicants.sortBy.updated')}</option>
-        </FilterSelect>
-      </WorkToolbar>
 
-      <FilterChips p={p} set={set} onClear={clearAll} />
+        {/* One row at desktop widths: search, the scope filters, more filters, sort. Phones keep search + one Filters button. */}
+        <div className="un-tools" role="search" aria-label={t('university:filters.label')}>
+          <div className="hg-input-icon un-tools__search">
+            <Search aria-hidden />
+            <input type="search" className="hg-input hg-input--sm" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t('university:applicants.searchPlaceholder')} aria-label={t('university:applicants.searchPlaceholder')} />
+          </div>
+          <div className="un-tools__filters uv22-tools" role="group" aria-label={t('university:filters.label')}>
+            <FilterFields p={p} set={set} idp="apf" inline />
+          </div>
+          <Button size="sm" variant="ghost" icon={<Filter />} onClick={() => setDrawer(true)} className="un-tools__more">
+            <span className="uc-only-compact">{t('common:actions.filter')}</span><span className="uc-only-wide">{t('university:v4.aq.moreFilters')}</span>
+            {secondary > 0 && <Badge tone="brand" size="sm">{secondary}</Badge>}
+          </Button>
+          <div className="un-tools__sort">
+            <FilterSelect id="ap-sort" size="sm" label={t('university:applicants.sort')} value={p.sort} active={false} onChange={(e) => set({ sort: e.target.value as ApplicantSort })}>
+              {(['decision', 'submitted', 'deadline', 'updated'] as const).map((k) => <option key={k} value={k}>{sortLabel[k]}</option>)}
+            </FilterSelect>
+          </div>
+        </div>
 
-      <div className="uv22-table" data-work-total={total ?? ''} data-work-stage={p.stage ?? 'all'}>
-        {list.isError ? <ErrorState error={list.error} onRetry={() => list.refetch()} /> : (
-          <DataTable<Application>
-            columns={columns}
-            data={rows}
-            loading={list.isLoading}
-            getRowId={(r) => r.id}
-            onRowClick={(r) => nav(`/applications/${r.id}`)}
-            caption={t('common:nav.applicants')}
-            selectable={perms.canEdit || perms.canExport}
-            bulkActions={(ids, clear) => <BulkActions ids={ids} rows={rows} clear={clear} total={total} filters={listFilters(eff, isHangyul)} />}
-            renderCard={(r) => (
-              <span className="hg-lrow uv7-acard" style={{ padding: 0 }}>
-                <YAvatar name={r.student?.full_name ?? '?'} />
-                <span className="hg-lrow__main">
-                  <span className="hg-row hg-between" style={{ gap: 8 }}>
-                    <span className="uc-applicant__name hg-truncate">{r.student?.full_name ?? '—'}{r.flagged && <Flag size={13} className="uc-flag" aria-label={t('university:applicants.flagged')} style={{ display: 'inline', marginInlineStart: 6 }} />}</span>
+        <FilterChips p={p} set={set} onClear={clearAll} />
+
+        <div className="uv22-table un-table" data-work-total={total ?? ''} data-work-stage={p.stage ?? 'all'}>
+          {list.isError ? <ErrorState error={list.error} onRetry={() => list.refetch()} /> : (
+            <DataTable<Application>
+              columns={columns}
+              data={rows}
+              loading={list.isLoading}
+              getRowId={(r) => r.id}
+              onRowClick={(r) => nav(`/applications/${r.id}`)}
+              caption={t('common:nav.applicants')}
+              selectable={perms.canEdit || perms.canExport}
+              bulkActions={(ids, clear) => <BulkActions ids={ids} rows={rows} clear={clear} total={total} filters={listFilters(eff, isHangyul)} />}
+              renderCard={(r) => (
+                <span className="un-acard">
+                  <span className="un-acard__top">
+                    <span className="un-acard__name">{r.student?.full_name ?? '—'}{r.flagged && <Flag size={13} className="un-acard__flag" aria-label={t('university:applicants.flagged')} />}</span>
                     <StatusSoft status={r.status} short />
                   </span>
-                  <span className="hg-lrow__meta hg-truncate">{localName(r.program)} · {intakeText(`${r.intake.year}-${r.intake.term}`, t)}</span>
-                  <span className="hg-lrow__meta">{r.student?.nationality ? countryName(r.student.nationality, locale) : '—'} · {documentsText(r, t as never)}</span>
+                  <span className="un-acard__meta">{localName(r.program)} · {intakeText(`${r.intake.year}-${r.intake.term}`, t)}</span>
+                  <span className="un-acard__meta un-acard__facts"><Country code={r.student?.nationality} /><span>{documentsText(r, t as never)}</span></span>
                   {/* A decided application needs nothing: on the card that is no line at all, not a lone dash. */}
-                  {decisionNeed(r).kind !== 'decided' && <span className="hg-lrow__meta"><NeedText a={r} /></span>}
+                  {decisionNeed(r).kind !== 'decided' && <span className="un-acard__need"><NeedText a={r} /></span>}
+                  <ChevronRight className="un-acard__chev hg-flip-rtl" aria-hidden />
                 </span>
-                <ChevronRight className="hg-lrow__chev hg-flip-rtl" aria-hidden />
-              </span>
-            )}
-            server={{
-              total: total ?? 0,
-              pagination: { pageIndex: p.page - 1, pageSize: p.page_size },
-              onPaginationChange: (u) => {
-                const next = typeof u === 'function' ? u({ pageIndex: p.page - 1, pageSize: p.page_size }) : u;
-                setSp(writeApplicantParams({ ...p, page: next.pageSize !== p.page_size ? 1 : next.pageIndex + 1, page_size: next.pageSize }), { replace: true });
-              },
-            }}
-            empty={<EmptyState compact icon={<Users />} title={emptyTitle}
-              text={secondary || p.q ? undefined : t('university:applicants.emptyText')}
-              action={secondary || p.q ? <Button size="sm" onClick={clearAll}>{t('common:actions.clearFilters')}</Button> : undefined} />}
-          />
-        )}
-      </div>
-
-      {/* V32: outcomes come after the work that needs doing — a quiet line that opens Analytics, not a box above the queue. */}
-      <PipelineLine base={headBase} />
-      <p className="fs-12 text-muted uv7-pagenote">{t('university:applicants.privacyNote')}</p>
+              )}
+              server={{
+                total: total ?? 0,
+                pagination: { pageIndex: p.page - 1, pageSize: p.page_size },
+                onPaginationChange: (u) => {
+                  const next = typeof u === 'function' ? u({ pageIndex: p.page - 1, pageSize: p.page_size }) : u;
+                  setSp(writeApplicantParams({ ...p, page: next.pageSize !== p.page_size ? 1 : next.pageIndex + 1, page_size: next.pageSize }), { replace: true });
+                },
+              }}
+              empty={<EmptyState compact icon={<Users />} title={emptyTitle}
+                text={secondary || p.q ? undefined : t('university:applicants.emptyText')}
+                action={secondary || p.q ? <Button size="sm" onClick={clearAll}>{t('common:actions.clearFilters')}</Button> : undefined} />}
+            />
+          )}
+        </div>
+        <p className="un-pagenote">{t('university:applicants.privacyNote')}</p>
+      </section>
       <Drawer open={drawer} onClose={() => setDrawer(false)} title={t('common:actions.filter')} footer={<Button variant="primary" block onClick={() => setDrawer(false)}>{t('common:actions.done')}</Button>}>
         <div className="hg-stack"><FilterFields p={p} set={set} idp="apd" /></div>
       </Drawer>

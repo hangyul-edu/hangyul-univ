@@ -8,16 +8,22 @@
  *   · no toolbar filter  → counts from `GET /agency/stage-counts` (one grouped query, same tenant scope);
  *   · any toolbar filter → one `page_size=1` count query per step with the same filters (ten light requests).
  *
- * Today (`mode="today"`): no paging, top 10 rows, most urgent first — the ranked Today queue's position is merged into
- * the rows where it exists, the rest keep the server's deadline order. Students (`mode="students"`): full paging, the
- * built-in views are a toolbar filter, sortable columns. The table wrapper carries `data-work-total` / `data-work-stage`
- * for the `qa:v22` gate.
+ * 2026-11 (operations design pass): the strip is `PipelineBoard` (components/Pipeline.tsx). One "pool" query loads
+ * everything that matches the toolbar without the stage; when it holds every matching student (≤ 100) the strip, the
+ * attention lanes and the table are all cut from that one array (lib/caseload.ts), so a count is the length of the
+ * rows it opens by construction. Above 100 the server counts each step and filters the rows as before, and picking a
+ * stage clears the lane (the server does not know lanes).
+ *
+ * Today (`mode="today"`): no paging, top 10 rows, most urgent first — the ranked Today queue orders the rows, names
+ * the reason in "Current situation" and defines the "act now" lane (tier 1). Students (`mode="students"`): full
+ * paging, the built-in views are a toolbar filter, sortable columns, no lanes. The table wrapper carries
+ * `data-work-total` / `data-work-stage` / `data-work-lane` for the count gates.
  */
 import { useAuth } from '@hangyul/auth';
 import { Bookmark, SlidersHorizontal, Trash2 } from '@hangyul/icons';
 import { PIPELINE_STAGES, type AgencySavedView, type AgencyStudentRow, type AgencyViewKey, type PipelineStage } from '@hangyul/types';
-import { Button, DataTable, EmptyState, ErrorState, FilterSelect, StageStrip, StageView, WorkToolbar, type ColumnDef } from '@hangyul/ui';
-import { countryName, cx, flagEmoji, formatDate, formatNumber, formatRelative } from '@hangyul/utils';
+import { Button, DataTable, EmptyState, ErrorState, FilterSelect, StatusText, WorkToolbar, type ColumnDef } from '@hangyul/ui';
+import { countryName, cx, formatDate, formatNumber, formatRelative, pipelineTone } from '@hangyul/utils';
 import { keepPreviousData, useQueries, useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router';
@@ -27,14 +33,15 @@ import { useDebounced, useHotkeys, usePerms, useUrlFilters } from '../lib/hooks'
 import { shortRelative } from '../lib/logic';
 import { CLOSED_KEY, groupOf, isStripKey, STAGE_GROUPS, stagesFor, stripCounts, type StripKey } from '../lib/stages';
 import { rowHref } from '../lib/focus';
-import { useTodayQueue } from '../lib/v8';
-import { useT, useWaitingText, WAITING_PARTIES, WaitingOn } from './bits';
-import { StageSoft } from './ynex';
+import { countByStep, inLane, isLaneKey, LANE_KEYS, laneCounts, matchesFilters, stageTones, type LaneKey } from '../lib/caseload';
+import { reasonText, useTodayQueue, type QueueItem } from '../lib/v8';
+import { FlagMark, useT, useWaitingText, WAITING_PARTIES, WaitingOn } from './bits';
+import { PipelineBoard, type Lane } from './Pipeline';
 
 export type CaseloadMode = 'today' | 'students';
 
 /** Every URL key the caseload understands. Old links (`?view=`, `?missing=1`, `?stage=NEW_LEAD`) keep resolving. */
-const KEYS = ['stage', 'q', 'counselor', 'nationality', 'waiting', 'intake', 'view', 'saved', 'agency', 'degree', 'sla', 'within', 'missing', 'closing', 'sla_risk', 'sort', 'page', 'size'] as const;
+const KEYS = ['stage', 'lane', 'q', 'counselor', 'nationality', 'waiting', 'intake', 'view', 'saved', 'agency', 'degree', 'sla', 'within', 'missing', 'closing', 'sla_risk', 'sort', 'page', 'size'] as const;
 type Key = (typeof KEYS)[number];
 
 const SORT_TO_COL: Record<string, { id: string; desc: boolean }> = {
@@ -134,37 +141,66 @@ export function Caseload({ mode, bulkActions, saveView }: {
   const pageIndex = today ? 0 : Math.max(0, Number(v.page || 1) - 1);
   const pageSize = today ? 100 : Number(v.size || 50);
   const sort = today ? 'deadline' : v.sort || 'deadline';
+  const fetchRows = (q: Parameters<typeof api.agency.students>[0]) => api.agency.students(q);
+  /** The filters that are plain equalities on a row's own fields — applied by the server, and again to what came back. */
+  const rowFilters = { nationality: v.nationality || undefined, intake: v.intake || undefined, degree: v.degree || undefined, waiting: v.waiting || undefined, view: view || undefined };
+
+  // ---- the pool: everything that matches the toolbar, without the stage. When it holds every matching student
+  // (total ≤ 100) the strip, the lanes and the table are all cut from this one array, so no count can disagree with
+  // its rows. Above that the server counts each step and filters the rows (the V22 behaviour).
+  const poolQuery = { ...base, sort: 'deadline', page: 1, page_size: 100 };
+  const poolQ = useQuery({ queryKey: ['agency', 'students', poolQuery], queryFn: () => fetchRows(poolQuery), placeholderData: keepPreviousData, staleTime: 30_000 });
+  const pool = useMemo(() => (poolQ.data?.items ?? []).filter((r) => matchesFilters(r, rowFilters)), [poolQ.data, v.nationality, v.intake, v.degree, v.waiting, view]); // eslint-disable-line react-hooks/exhaustive-deps
+  const complete = !!poolQ.data && poolQ.data.total <= poolQ.data.items.length;
+
   const query = { ...base, stage: stages, sort, page: pageIndex + 1, page_size: pageSize };
-  const rowsQ = useQuery({ queryKey: ['agency', 'students', query], queryFn: () => api.agency.students(query), placeholderData: keepPreviousData });
+  const rowsQ = useQuery({ queryKey: ['agency', 'students', query], queryFn: () => fetchRows(query), placeholderData: keepPreviousData, enabled: !today || !complete });
+  const served = useMemo(() => (rowsQ.data?.items ?? []).filter((r) => matchesFilters(r, { ...rowFilters, stages })), [rowsQ.data, stages?.join(','), v.nationality, v.intake, v.degree, v.waiting, view]); // eslint-disable-line react-hooks/exhaustive-deps
+  /** Rows the server sent that contradict the active filter (none against the API) leave the total with them. */
+  const servedTotal = (rowsQ.data?.total ?? 0) - ((rowsQ.data?.items.length ?? 0) - served.length);
+
+  // ---- Today: the ranked queue gives the urgency order, the reason a student is on the list, and the "act now" lane.
+  const queue = useTodayQueue(today ? 'team' : undefined, null, 100, null);
+  const queued = useMemo(() => new Map<string, QueueItem>((today ? queue.data?.items ?? [] : []).map((it) => [it.student.id, it])), [queue.data, today]);
+  const tiers = useMemo(() => new Map([...queued].map(([id, it]) => [id, it.rank?.tier ?? Math.min(...it.reasons.map((r) => r.tier), 99)])), [queued]);
+  const lane: LaneKey | null = today && isLaneKey(v.lane) ? v.lane : null;
+
+  /** Today's rows in the selected stage, before the lane. */
+  const staged = useMemo(() => (today && complete ? pool.filter((r) => matchesFilters(r, { stages })) : served), [today, complete, pool, served, stages?.join(',')]); // eslint-disable-line react-hooks/exhaustive-deps
+  const items = useMemo(() => (lane ? staged.filter((r) => inLane(r, lane, tiers)) : staged), [staged, lane, tiers]);
+  const ordered = useMemo(() => {
+    if (!today) return items;
+    const ranked = items.filter((r) => queued.has(r.id)).sort((a, b) => queued.get(a.id)!.position - queued.get(b.id)!.position);
+    return [...ranked, ...items.filter((r) => !queued.has(r.id))];
+  }, [items, queued, today]);
+  const [all, setAll] = useState(false);
+  const shown = today && !all ? ordered.slice(0, 10) : ordered;
+  const total = today && (complete || lane) ? items.length : servedTotal;
+  const rowsLoading = today ? poolQ.isLoading || (!complete && rowsQ.isLoading) : rowsQ.isLoading;
+  const rowsError = today && complete ? null : rowsQ.isError ? rowsQ : poolQ.isError && today ? poolQ : null;
 
   // ---- strip counts: the same predicate as the rows, one number per step.
-  const plain = useQuery({ queryKey: ['agency', 'stage-counts'], queryFn: () => api.agency.stageCounts(), enabled: !filtered, staleTime: 30_000 });
   const stripKeys: StripKey[] = [...STAGE_GROUPS.map((g) => g.key), CLOSED_KEY];
+  const serverCounts = !!poolQ.data && !complete;
+  const plain = useQuery({ queryKey: ['agency', 'stage-counts'], queryFn: () => api.agency.stageCounts(), enabled: !filtered, staleTime: 30_000 });
   const perStep = useQueries({
     queries: stripKeys.map((k) => ({
       queryKey: ['agency', 'students', 'count', k, base],
       queryFn: () => api.agency.students({ ...base, stage: stagesFor(k), page_size: 1 }),
-      enabled: filtered, staleTime: 30_000,
+      enabled: filtered && serverCounts, staleTime: 30_000,
     })),
   });
-  const allQ = useQuery({ queryKey: ['agency', 'students', 'count', 'all', base], queryFn: () => api.agency.students({ ...base, page_size: 1 }), enabled: filtered, staleTime: 30_000 });
-  const counts: Record<StripKey, number> = filtered
-    ? (Object.fromEntries(stripKeys.map((k, i) => [k, perStep[i].data?.total ?? 0])) as Record<StripKey, number>)
-    : stripCounts(plain.data);
-  const allCount = filtered ? allQ.data?.total ?? 0 : stripKeys.reduce((a, k) => a + counts[k], 0);
-
-  // ---- Today: urgency order from the ranked queue, merged where it exists.
-  const queue = useTodayQueue(today ? 'team' : undefined, null, 100, null);
-  const items = rowsQ.data?.items ?? [];
-  const ordered = useMemo(() => {
-    if (!today || stageKey) return items;
-    const pos = new Map((queue.data?.items ?? []).map((it) => [it.student.id, it.position]));
-    const ranked = items.filter((r) => pos.has(r.id)).sort((a, b) => pos.get(a.id)! - pos.get(b.id)!);
-    return [...ranked, ...items.filter((r) => !pos.has(r.id))];
-  }, [items, queue.data, today, stageKey]);
-  const [all, setAll] = useState(false);
-  const shown = today && !all ? ordered.slice(0, 10) : ordered;
-  const total = rowsQ.data?.total ?? 0;
+  const allQ = useQuery({ queryKey: ['agency', 'students', 'count', 'all', base], queryFn: () => api.agency.students({ ...base, page_size: 1 }), enabled: filtered && serverCounts, staleTime: 30_000 });
+  const lanePool = useMemo(() => (lane ? pool.filter((r) => inLane(r, lane, tiers)) : pool), [pool, lane, tiers]);
+  const counts: Record<StripKey, number> = complete
+    ? countByStep(lanePool, stripKeys)
+    : filtered
+      ? (Object.fromEntries(stripKeys.map((k, i) => [k, perStep[i].data?.total ?? 0])) as Record<StripKey, number>)
+      : stripCounts(plain.data);
+  const allCount = complete ? lanePool.length : filtered ? allQ.data?.total ?? 0 : stripKeys.reduce((a, k) => a + counts[k], 0);
+  const countsLoading = complete ? false : filtered ? !poolQ.data || allQ.isLoading : plain.isLoading;
+  const tones = useMemo(() => (today ? stageTones(pool, tiers, complete) : {}), [today, pool, tiers, complete]);
+  const laneN = useMemo(() => laneCounts(staged, tiers), [staged, tiers]);
 
   // ---- toolbar helpers
   const waitingCounts = useQuery({ queryKey: ['agency', 'today'], queryFn: () => api.agency.today(), staleTime: 60_000 });
@@ -178,87 +214,109 @@ export function Caseload({ mode, bulkActions, saveView }: {
   const intakes = useMemo(() => { const y = new Date().getFullYear(); return [y, y + 1, y + 2].flatMap((yr) => ['SPRING', 'FALL'].map((term) => `${yr}-${term}`)); }, []);
   const clearAll: Partial<Record<Key, null>> = Object.fromEntries(KEYS.filter((k) => k !== 'agency').map((k) => [k, null]));
   const applySaved = (sv: AgencySavedView) => f.set({ ...clearAll, ...fromFilters(sv.filters), sort: sv.sort, saved: sv.id });
-  const activeFilters = [v.counselor, v.nationality, v.waiting, v.intake, view, v.degree, v.sla, v.within, v.missing, v.closing, v.sla_risk].filter(Boolean).length;
+  const activeFilters = [v.counselor, v.nationality, v.waiting, v.intake, view, v.degree, v.sla, v.within, v.missing, v.closing, v.sla_risk, lane].filter(Boolean).length;
 
   useHotkeys({
     '/': () => document.querySelector<HTMLInputElement>('.ag22-work .hg-worktools input')?.focus(),
     j: () => { if (!document.activeElement?.closest('tbody')) document.querySelector<HTMLElement>('.ag22-work tbody tr[tabindex]')?.focus(); },
   });
 
+  const dueCell = (r: AgencyStudentRow) => {
+    const d = r.next_deadline;
+    if (!d) return <span className="hg-subtle">—</span>;
+    const n = daysUntil(d.date);
+    return (
+      <span className={cx('ops-due', n < 0 && 'is-late', n >= 0 && n <= 7 && 'is-soon')} title={`${localName({ name_en: d.university, name_ko: d.university_ko })} · ${t('students.dShort', { count: n })}`}>
+        <span className="hg-num hg-nowrap">{formatDate(d.date, locale, { month: 'short', day: 'numeric' })}</span>
+        <span className="ops-due__rel hg-nowrap">{t('students.dShort', { count: n })}</span>
+      </span>
+    );
+  };
+  /** Where the case stands: its stage, and — when the ranked queue lists the student — the reason it is on the list. */
+  const situation = (r: AgencyStudentRow) => {
+    const q = queued.get(r.id);
+    const top = q ? [...q.reasons].sort((a, b) => a.tier - b.tier)[0] : undefined;
+    const tone = pipelineTone(r.pipeline_stage);
+    const act = (tiers.get(r.id) ?? 99) <= 1;
+    const raw = top ? reasonText(t, top).trim() : '';
+    const why = raw ? raw.charAt(0).toLocaleUpperCase(locale) + raw.slice(1) : '';
+    return (
+      <span className="ops-sit">
+        <span className="ops-sit__top">
+          <StatusText tone={tone === 'info' ? 'neutral' : tone}>{t(`pipeline.${r.pipeline_stage}`)}</StatusText>
+          {act && <span className="ops-tag ops-tag--danger">{t('v8.tier.1')}</span>}
+          {r.sla_breached && <span className="ops-tag ops-tag--danger" title={t('students.noReply')}>{t('students.noReplyShort')}</span>}
+        </span>
+        {why && <span className="ops-sit__why" data-act={act || undefined} title={why}>{why}</span>}
+      </span>
+    );
+  };
+  const uniName = (r: AgencyStudentRow) => (r.top_university ? localName({ name_en: r.top_university.name, name_ko: r.top_university.name_ko }) : null);
+
   const columns = useMemo<ColumnDef<AgencyStudentRow>[]>(() => [
     { id: 'full_name', accessorKey: 'full_name', header: t('v22.work.col.student'), enableHiding: false, enableSorting: !today, size: 190,
-      meta: { primary: true, priority: 1, minWidth: 170, label: t('v22.work.col.student'), exportValue: (r) => r.full_name },
+      meta: { primary: true, priority: 1, minWidth: 180, label: t('v22.work.col.student'), exportValue: (r) => r.full_name },
       cell: ({ row }) => (
-        <span className="ag22-cell-name">
-          <span className="fw-semibold text-truncate">{row.original.full_name}</span>
-          {row.original.sla_breached && <span className="badge bg-danger-transparent" title={t('students.noReply')}>{t('students.noReplyShort')}</span>}
-          {/* V24 (REPORT §295): the country is context for the name, not a column to decide by. */}
-          <span className="ag24-cell-country text-muted text-truncate"><span aria-hidden>{flagEmoji(row.original.nationality)} </span>{countryName(row.original.nationality, locale)}</span>
+        <span className="ops-who">
+          <span className="ops-who__name" title={row.original.full_name}>{row.original.full_name}</span>
+          <span className="ops-who__sub"><FlagMark code={row.original.nationality} /><span className="hg-truncate">{countryName(row.original.nationality, locale)}</span></span>
         </span>
       ) },
-    { id: 'country', accessorFn: (r) => countryName(r.nationality, locale), header: t('v22.work.col.country'), enableSorting: false, size: 110, meta: { label: t('v22.work.col.country'), priority: 3, minWidth: 100, hideOnMobile: true, defaultHidden: true },
-      cell: ({ row }) => <span className="hg-nowrap text-truncate" title={countryName(row.original.nationality, locale)}><span aria-hidden>{flagEmoji(row.original.nationality)} </span>{countryName(row.original.nationality, locale)}</span> },
-    { id: 'pipeline_stage', accessorKey: 'pipeline_stage', header: t('v22.work.col.stage'), enableSorting: !today, size: 120, meta: { label: t('v22.work.col.stage'), priority: 1, minWidth: 116, exportValue: (r) => t(`pipeline.${r.pipeline_stage}`) },
-      cell: ({ getValue }) => <StageSoft stage={getValue<PipelineStage>()} /> },
+    { id: 'country', accessorFn: (r) => countryName(r.nationality, locale), header: t('v22.work.col.country'), enableSorting: false, size: 130, meta: { label: t('v22.work.col.country'), priority: 3, minWidth: 110, hideOnMobile: true, defaultHidden: true },
+      cell: ({ row }) => <span className="ops-who__sub" title={countryName(row.original.nationality, locale)}><FlagMark code={row.original.nationality} /><span className="hg-truncate">{countryName(row.original.nationality, locale)}</span></span> },
+    { id: 'pipeline_stage', accessorKey: 'pipeline_stage', header: t('ops.col.situation'), enableSorting: !today, meta: { label: t('ops.col.situation'), priority: 1, minWidth: 210, exportValue: (r) => t(`pipeline.${r.pipeline_stage}`) },
+      cell: ({ row }) => situation(row.original) },
     { id: 'next_action', accessorFn: (r) => waitText.next(r.next_action) ?? '', header: t('v22.work.col.next'), enableSorting: false,
-      meta: { label: t('v22.work.col.next'), priority: 1, minWidth: 180, exportValue: (r) => waitText.next(r.next_action) ?? '' },
+      meta: { label: t('v22.work.col.next'), priority: 1, minWidth: 190, exportValue: (r) => waitText.next(r.next_action) ?? '' },
       cell: ({ row }) => {
         const na = row.original.next_action;
         const text = waitText.next(na);
         if (!text) return <span className="hg-subtle">—</span>;
         // V26 (REPORT §341): the next action is the link to the exact record it names, not a sentence to go and find.
         return (
-          <Link to={rowHref(row.original, view)} className={cx('ag7-clamp ag26-next', na?.task?.overdue && 'ag-overdue')} onClick={(e) => e.stopPropagation()}
+          <Link to={rowHref(row.original, view)} className={cx('ops-clamp ag26-next', na?.task?.overdue && 'ag-overdue')} onClick={(e) => e.stopPropagation()}
             title={[text, waitText.owner(row.original.waiting_owner)].filter(Boolean).join(' · ')}>{text}</Link>
         );
       } },
-    { id: 'waiting_on', accessorFn: (r) => r.waiting_on ?? '', header: t('v22.work.col.waiting'), enableSorting: false, size: 120,
-      meta: { label: t('v22.work.col.waiting'), priority: 2, minWidth: 110, exportValue: (r) => (r.waiting_on ? waitText.party(r.waiting_on) : '') },
+    { id: 'waiting_on', accessorFn: (r) => r.waiting_on ?? '', header: t('v22.work.col.waiting'), enableSorting: false, size: 142,
+      meta: { label: t('v22.work.col.waiting'), priority: 2, minWidth: 140, exportValue: (r) => (r.waiting_on ? waitText.party(r.waiting_on) : '') },
       cell: ({ row }) => <WaitingOn on={row.original.waiting_on} reason={row.original.waiting_reason} bare /> },
-    { id: 'next_deadline', accessorFn: (r) => r.next_deadline?.date ?? '', header: t('v22.work.col.due'), enableSorting: !today, size: 92, meta: { label: t('v22.work.col.due'), priority: 1, minWidth: 88 },
-      cell: ({ row }) => {
-        const d = row.original.next_deadline;
-        if (!d) return <span className="hg-subtle">—</span>;
-        const n = daysUntil(d.date);
-        return <span className={cx('hg-num hg-nowrap', n < 0 && 'text-danger', n >= 0 && n <= 7 && 'ag-soon')} title={`${localName({ name_en: d.university, name_ko: d.university_ko })} · ${t('students.dShort', { count: n })}`}>{formatDate(d.date, locale, { month: 'short', day: 'numeric' })}</span>;
-      } },
-    { id: 'university', accessorFn: (r) => r.top_university?.name ?? '', header: t('v22.work.col.university'), enableSorting: false, size: 130, meta: { label: t('v22.work.col.university'), priority: 3, minWidth: 120, hideOnMobile: true },
-      cell: ({ row }) => row.original.top_university ? <span className="ag7-clamp" title={row.original.top_university.name}>{row.original.top_university.name}</span> : <span className="hg-subtle">—</span> },
-    { id: 'last_activity', accessorFn: (r) => r.last_activity_at ?? '', header: t('v22.work.col.activity'), enableSorting: !today, size: 80, meta: { label: t('v22.work.col.activity'), priority: 4, minWidth: 80, hideOnMobile: true },
-      cell: ({ getValue }) => <span className="hg-subtle hg-small hg-nowrap" title={getValue<string>() ? formatRelative(getValue<string>(), locale) : undefined}>{shortRelative(getValue<string>(), locale)}</span> },
-  ], [t, locale, waitText, today, view]);
+    { id: 'next_deadline', accessorFn: (r) => r.next_deadline?.date ?? '', header: t('v22.work.col.due'), enableSorting: !today, size: 92, meta: { label: t('v22.work.col.due'), priority: 1, minWidth: 84 },
+      cell: ({ row }) => dueCell(row.original) },
+    { id: 'university', accessorFn: (r) => uniName(r) ?? '', header: t('v22.work.col.university'), enableSorting: false, meta: { label: t('v22.work.col.university'), priority: 3, minWidth: 150, hideOnMobile: true },
+      cell: ({ row }) => uniName(row.original) ? <span className="ops-clamp ops-clamp--uni" title={uniName(row.original)!}>{uniName(row.original)}</span> : <span className="hg-subtle">—</span> },
+    { id: 'last_activity', accessorFn: (r) => r.last_activity_at ?? '', header: t('ops.col.activity'), enableSorting: !today, size: 84, meta: { label: t('v22.work.col.activity'), priority: 4, minWidth: 80, hideOnMobile: true },
+      cell: ({ getValue }) => <span className="hg-subtle hg-nowrap" title={getValue<string>() ? formatRelative(getValue<string>(), locale) : undefined}>{shortRelative(getValue<string>(), locale)}</span> },
+  ], [t, locale, waitText, today, view, queued, tiers]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const sorting = !today && v.sort && SORT_TO_COL[v.sort] ? [SORT_TO_COL[v.sort]] : [];
-  const stripStages = STAGE_GROUPS.map((g) => ({ key: g.key as StripKey, label: t(`v22.stage.${g.key}`), count: counts[g.key] }));
-
-  // V25 (REPORT §314 A1): the morning answer — who needs us today, as work, before the process strip. Each item is a
-  // server view (`/agency/students/views`), the same predicate the table filters by, so the number is the row count.
-  // Zero items are not shown; selecting one filters the table in place, selecting it again clears it.
-  // V26 (REPORT §341, RC-26): the item labelled "대학 요청" is the `requested` view — an open university document request or
-  // an application returned for documents — which is work for us today. V25 bound that label to `university`, the
-  // "waiting on the university" view (applications under review), so the figure counted the wrong thing and the row
-  // opened an application nobody could act on. "대학 응답 대기" stays available in the Filter select.
+  const railStages = STAGE_GROUPS.map((g) => ({ key: g.key as StripKey, label: t(`v22.stage.${g.key}`), count: counts[g.key], tone: tones[g.key] }));
+  const LANE_META: Record<LaneKey, { label: string; tone: Lane['tone']; hint: string }> = {
+    act: { label: t('v8.tier.1'), tone: 'danger', hint: t('v8.tierWhat.1') },
+    ours: { label: t('ops.lane.ours'), tone: 'neutral', hint: t('ops.lane.oursHint') },
+    student: { label: t('ops.lane.student'), tone: 'warning', hint: t('ops.lane.studentHint') },
+    university: { label: t('ops.lane.university'), tone: 'warning', hint: t('ops.lane.universityHint') },
+  };
+  const lanes: Lane[] | undefined = today ? LANE_KEYS.map((k) => ({ key: k, count: laneN[k], ...LANE_META[k] })) : undefined;
   const [filtersOpen, setFiltersOpen] = useState(false);
   const activeFilterN = [v.nationality, v.waiting, v.intake, v.view, v.degree].filter(Boolean).length;
-  const urgentN = today && viewCounts.data && !perms.isHangyul ? (viewCounts.data.urgent ?? 0) : 0;
+  // Above 100 matching students the strip is counted by the server, which does not know the lane: picking a stage (or
+  // All) then drops the lane, so the number pressed is still the number of rows shown.
+  const stagePatch = (k: string | null) => ({ stage: k, page: null, ...(complete ? {} : { lane: null }) });
 
   return (
-    <div className="ag22-work" data-mode={mode}>
-      {/* V28 (UX_AUDIT AG-4): one control band. The urgent count leads the stage strip; the other work types live in the
-          view select below, with their counts, instead of a second row of chips. */}
-      <div className="ag22-strip">
-        {/* V31 (REPORT §421): 전체 and 종료 are VIEWS beside the journey, 긴급 (above) is an ATTENTION filter — three
-            dimensions that used to be drawn as one row of look-alike chips. */}
-        <StageStrip<StripKey> stages={stripStages} selected={stageKey === CLOSED_KEY ? ('__none__' as StripKey) : stageKey} label={t('v22.stage.strip')} allLabel={t('v22.stage.all')} allCount={allCount}
-          onSelect={(k) => { setAll(false); f.set({ stage: k, page: null, ...(k == null && view === 'urgent' ? { view: null } : {}) }); }}
-          allSelected={stageKey == null && view !== 'urgent'}
-          before={urgentN > 0 ? (
-            <StageView tone="alert" label={t('v25.today.urgent')} count={urgentN} selected={view === 'urgent'}
-              onSelect={() => f.set({ view: view === 'urgent' ? null : 'urgent', page: null })} />
-          ) : undefined}
-          after={<StageView label={t('v31.stage.closed')} count={counts.closed} selected={stageKey === CLOSED_KEY} title={t('v22.work.closedHint')}
-            onSelect={() => { setAll(false); f.set({ stage: stageKey === CLOSED_KEY ? null : CLOSED_KEY, page: null }); }} />} />
-      </div>
+    <div className="ag22-work ops-work" data-mode={mode}>
+      <PipelineBoard<StripKey>
+        lanes={lanes} lane={lane} lanesLabel={t('ops.lane.title')}
+        onLane={(k) => { setAll(false); f.set({ lane: k }); }}
+        stages={railStages} selected={stageKey === CLOSED_KEY ? null : stageKey} railLabel={t('v22.stage.strip')}
+        onSelect={(k) => { setAll(false); f.set(stagePatch(k)); }}
+        allLabel={t('v22.stage.all')} allCount={allCount}
+        closedLabel={t('v31.stage.closed')} closedCount={counts.closed} closedSelected={stageKey === CLOSED_KEY} closedHint={t('v22.work.closedHint')}
+        onClosed={() => { setAll(false); f.set(stagePatch(stageKey === CLOSED_KEY ? null : CLOSED_KEY)); }}
+        toneLabel={{ urgent: t('v8.tier.1'), waiting: t('ops.rail.waiting') }}
+        loading={countsLoading || (today && poolQ.isLoading)}
+      />
       {/* V25 (REPORT §314 A6): on a phone the filters wait behind one control, so the first student is above the fold. */}
       <div className={cx('ag25-tools', filtersOpen && 'is-open')}>
       <WorkToolbar search={search} onSearch={setSearch} placeholder={t('v22.work.searchPh')}
@@ -314,14 +372,14 @@ export function Caseload({ mode, bulkActions, saveView }: {
         {(activeFilters > 0 || v.q) && <Button size="sm" variant="ghost" onClick={() => { setSearch(''); f.set(clearAll); }}>{t('actions.clearFilters')}{activeFilters ? ` · ${activeFilters}` : ''}</Button>}
       </WorkToolbar>
       </div>
-      <div className="ag22-table" data-work-total={total} data-work-stage={stageKey ?? 'all'}>
-        {rowsQ.isError ? <ErrorState error={rowsQ.error} onRetry={() => rowsQ.refetch()} /> : (
+      <div className="ag22-table ops-table" data-work-total={total} data-work-stage={stageKey ?? 'all'} data-work-lane={lane ?? undefined}>
+        {rowsError ? <ErrorState error={rowsError.error} onRetry={() => rowsError.refetch()} /> : (
           <DataTable<AgencyStudentRow>
             dense
             selectable={!today && !!bulkActions}
             columns={columns}
             data={shown}
-            loading={rowsQ.isLoading}
+            loading={rowsLoading}
             getRowId={(r) => r.id}
             // V26: a row opens the record its work is about (the request, the thread, the document …), chosen by the TODAY
             // view in use and then by the row's own waiting reason (lib/focus.ts).
@@ -330,17 +388,25 @@ export function Caseload({ mode, bulkActions, saveView }: {
             exportName={today ? undefined : 'students'}
             caption={today ? t('v22.nav.today') : t('v22.nav.students')}
             renderCard={(r) => (
-              <div className="ag-scard">
-                <div className="ag-scard__top">
-                  <span className="min-w-0">
-                    <span className="d-block fw-semibold text-truncate">{r.full_name}</span>
-                    <span className="d-block fs-11 text-muted text-truncate"><span aria-hidden>{flagEmoji(r.nationality)} </span>{countryName(r.nationality, locale)}</span>
+              <div className="ops-card" data-act={(tiers.get(r.id) ?? 99) <= 1 || undefined}>
+                <div className="ops-card__top">
+                  <span className="ops-who">
+                    <span className="ops-who__name">{r.full_name}</span>
+                    <span className="ops-who__sub"><FlagMark code={r.nationality} /><span className="hg-truncate">{countryName(r.nationality, locale)}</span></span>
                   </span>
-                  <StageSoft stage={r.pipeline_stage} />
+                  {r.next_deadline && dueCell(r)}
                 </div>
-                {r.waiting_on && <WaitingOn on={r.waiting_on} reason={r.waiting_reason} />}
-                {r.next_action && <div className={r.next_action.task?.overdue ? 'ag-overdue hg-small' : 'hg-small'}>{waitText.next(r.next_action)}</div>}
-                <div className="hg-subtle hg-xs">{[r.top_university ? localName({ name_en: r.top_university.name, name_ko: r.top_university.name_ko }) : null, r.next_deadline ? t('students.deadlineShort', { date: formatDate(r.next_deadline.date, locale, { month: 'short', day: 'numeric' }) }) : null].filter(Boolean).join(' · ')}</div>
+                {situation(r)}
+                {r.next_action && (
+                  <div className="ops-card__next">
+                    <span className="ops-card__k">{t('v22.work.col.next')}</span>
+                    <span className={r.next_action.task?.overdue ? 'ag-overdue' : undefined}>{waitText.next(r.next_action)}</span>
+                  </div>
+                )}
+                <div className="ops-card__foot">
+                  {r.waiting_on && <WaitingOn on={r.waiting_on} reason={r.waiting_reason} bare />}
+                  {uniName(r) && <span className="hg-truncate">{uniName(r)}</span>}
+                </div>
               </div>
             )}
             server={today
@@ -351,8 +417,8 @@ export function Caseload({ mode, bulkActions, saveView }: {
                 sorting,
                 onSortingChange: (u) => { const n = typeof u === 'function' ? u(sorting) : u; f.set({ sort: n[0] ? COL_TO_SORT[n[0].id] ?? null : null }); },
               }}
-            empty={<EmptyState compact title={stageKey ? t('v22.work.empty') : t('v22.work.emptyFiltered')}
-              action={activeFilters || v.q || stageKey ? <Button size="sm" onClick={() => { setSearch(''); f.set(clearAll); }}>{t('actions.clearFilters')}</Button> : undefined} />}
+            empty={<EmptyState compact title={stageKey && !lane ? t('v22.work.empty') : t('v22.work.emptyFiltered')}
+              action={activeFilters || v.q || stageKey || lane ? <Button size="sm" onClick={() => { setSearch(''); f.set(clearAll); }}>{t('actions.clearFilters')}</Button> : undefined} />}
           />
         )}
         {today && total > 0 && (
@@ -361,7 +427,7 @@ export function Caseload({ mode, bulkActions, saveView }: {
             {ordered.length > 10 && <Button size="sm" variant="ghost" onClick={() => setAll((x) => !x)} aria-expanded={all}>{all ? t('v22.work.showTop') : t('v22.work.showAll', { count: ordered.length })}</Button>}
             {/* V23 §272 A6: Today loads the first 100 by deadline. When there are more, the rest are one click away in
                 Students with the same filters, rather than hidden behind a footer total. */}
-            {total > ordered.length && <Link className="hg-link hg-small" to={`/students${location.search}`}>{t('v23.work.openAll', { count: total })}</Link>}
+            {!complete && !lane && total > ordered.length && <Link className="hg-link hg-small" to={`/students${location.search}`}>{t('v23.work.openAll', { count: total })}</Link>}
           </div>
         )}
       </div>

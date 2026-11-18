@@ -40,7 +40,7 @@ export default function Manage() {
       title: t('v11.manage.org'),
       items: [
         { to: '/settings', label: t('nav.settings'), hint: t('v11.manage.settingsHint'), icon: <Settings /> },
-        { to: '/payments', label: t('nav.payments'), hint: t('v11.manage.paymentsHint'), icon: <Receipt /> },
+        { to: '/payments', label: t('nav.payments'), hint: t('ops.manage.paymentsHint'), icon: <Receipt /> },
         { to: '/audit', label: t('nav.audit'), hint: t('v11.manage.auditHint'), icon: <ScrollText /> },
       ],
     },

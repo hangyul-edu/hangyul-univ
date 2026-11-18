@@ -2,8 +2,7 @@
 import { Download, GraduationCap, Plane, TriangleAlert } from '@hangyul/icons';
 import { useLocale } from '@hangyul/i18n';
 import type { CohortStudent } from '@hangyul/types';
-import { Badge, Button, Callout, Card, CardHeader, Chip, DataTable, Drawer, EmptyState, QueryState, SkeletonCard, Tabs, type ColumnDef } from '@hangyul/ui';
-import { PageHeader } from '@hangyul/ynex-ui';
+import { Badge, Button, Callout, Card, CardHeader, Chip, DataTable, Drawer, EmptyState, PageHeader, QueryState, Section, SkeletonCard, Tabs, type ColumnDef } from '@hangyul/ui';
 import { formatDate, formatPercent, type Tone } from '@hangyul/utils';
 import { useMemo, useState } from 'react';
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router';
@@ -15,7 +14,6 @@ import {
   type CohortSummary,
 } from '../lib/metrics';
 import { LifecycleSummary, OutcomesTable } from '../components/Outcomes';
-import { Panel } from '../components/Panel';
 import { useCohorts } from '../lib/queries';
 import { useUniversity } from '../lib/university';
 import { useNarrow } from '../lib/v9';
@@ -252,8 +250,8 @@ export default function Cohorts() {
   const riskN = q.data ? riskWorklist(q.data).length : undefined;
   const visaN = q.data ? visaExpiring(q.data, 60).length : undefined;
   return (
-    <div className="hg-stack uc-page uv7">
-      <PageHeader title={t('university:nav.students')} sub={tab === 'outcomes' ? t('university:outcomes.sub') : t(`university:cohorts.sub.${tab}`)} />
+    <div className="hg-stack uc-page uv7 un-page un-cohorts">
+      <PageHeader title={t('university:nav.students')} subtitle={tab === 'outcomes' ? t('university:outcomes.sub') : t(`university:cohorts.sub.${tab}`)} />
       <div style={{ overflowX: 'auto' }}>
         <Tabs label={t('common:nav.cohorts')} value={tab} onChange={(v) => nav(PATH[v])}
           tabs={TABS.map((k) => ({ value: k, label: titles[k], count: k === 'risk' ? riskN : k === 'visa' ? visaN : undefined }))} />
@@ -263,8 +261,8 @@ export default function Cohorts() {
         {(data) => (
           <>
             {tab === 'outcomes' && <>
-              <Panel id="co-life" title={t('university:v7.ov.lifeTitle')}><LifecycleSummary /></Panel>
-              <Panel id="co-outcomes" title={t('university:outcomes.title')}><OutcomesTable /></Panel>
+              <Section id="co-life" title={t('university:v7.ov.lifeTitle')}><LifecycleSummary /></Section>
+              <Section id="co-outcomes" ruled title={t('university:v33.co.matrixTitle')} sub={t('university:v33.co.matrixSub')}><OutcomesTable /></Section>
             </>}
             {tab === 'cohorts' && <CohortTab data={data} onOpen={setOpen} />}
             {tab === 'risk' && <RiskTab data={data} onOpen={setOpen} />}

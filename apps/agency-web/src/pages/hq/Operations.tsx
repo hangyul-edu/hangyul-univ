@@ -14,14 +14,14 @@
 import { useAuth } from '@hangyul/auth';
 import { ArrowRight } from '@hangyul/icons';
 import { ErrorState, Skeleton } from '@hangyul/ui';
-import { flagEmoji, formatDate, formatNumber, formatRelative } from '@hangyul/utils';
+import { formatDate, formatNumber, formatRelative } from '@hangyul/utils';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Link } from 'react-router';
 
 import { PageHeader, YCard } from '@hangyul/ynex-ui';
 
-import { useT } from '../../components/bits';
+import { FlagMark, useT } from '../../components/bits';
 import { YAvatar } from '../../components/ynex';
 import { usePerms } from '../../lib/hooks';
 
@@ -142,7 +142,7 @@ function AgencyTable({ d }: { d: Overview }) {
                   <span className="d-flex align-items-center gap-2 min-w-0">
                     <YAvatar name={a.name} size="sm" square />
                     <span className="ag-hq-agency">
-                      <Link to={base(a)} className="ag-hq-agency__name">{a.country_code && <span aria-hidden>{flagEmoji(a.country_code)} </span>}{a.name}</Link>
+                      <Link to={base(a)} className="ag-hq-agency__name"><FlagMark code={a.country_code} />{a.country_code ? ' ' : ''}{a.name}</Link>
                       {a.sla_breaches > 0 && <span className="ag-hq-agency__why">{breakdown(a)}</span>}
                     </span>
                   </span>

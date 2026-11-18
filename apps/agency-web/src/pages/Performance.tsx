@@ -1,8 +1,7 @@
 import { useAuth } from '@hangyul/auth';
 import type { AgencyPerformance, RateKpi } from '@hangyul/types';
-import { Callout, DataTable, QueryState, Segmented, FilterSelect, type ColumnDef } from '@hangyul/ui';
-import { Col, PageHeader, ProgressRow, Row, StatCard, YCard, type YxTone } from '@hangyul/ynex-ui';
-import { CircleGauge, FileWarning, MessageSquareReply, Timer } from '@hangyul/icons';
+import { Callout, DataTable, Metrics, QueryState, Segmented, FilterSelect, type ColumnDef, type MetricItem } from '@hangyul/ui';
+import { Col, PageHeader, ProgressRow, Row, YCard } from '@hangyul/ynex-ui';
 import type { ReactNode } from 'react';
 import { countryName, formatMoney, formatNumber, formatPercent } from '@hangyul/utils';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
@@ -32,15 +31,14 @@ function RateText({ r }: { r: RateKpi | null }) {
   return <span className="hg-num">{t('perf3.rate', { pct: formatPercent(r.value, locale, 0), num: formatNumber(r.numerator, locale), den: formatNumber(r.denominator, locale) })}</span>;
 }
 
-/** A rate as an HRM stat card: the % only when the sample is large enough, always with "n of N"; links to the records. */
-function RateStat({ label, r, to, tone, icon, def }: { label: string; r: RateKpi; to?: string; tone: YxTone; icon: ReactNode; def?: string }) {
-  const { t, locale } = useT();
+/** A rate as one cell of the ruled metrics strip: the % only when the sample is large enough, always with "n of N"; links to the records. */
+function rateMetric(t: (k: string, o?: Record<string, unknown>) => string, locale: string, label: string, r: RateKpi, to?: string): MetricItem {
   const insufficient = r.insufficient_data || r.value === null;
-  return (
-    <StatCard tone={tone} icon={icon} label={label} to={to}
-      value={insufficient ? <span className="fs-14 text-muted">{t('states.insufficientData')}</span> : formatPercent(r.value, locale, 0)}
-      caption={<>{insufficient ? t('perf3.tooFew', { num: r.numerator, den: r.denominator }) : t('perf3.fraction', { num: r.numerator, den: r.denominator })}{def && <span className="d-block">{def}</span>}</>} />
-  );
+  return {
+    label, as: to ? Link : undefined, to,
+    value: insufficient ? t('states.insufficientData') : formatPercent(r.value, locale, 0), muted: insufficient,
+    foot: insufficient ? t('perf3.tooFew', { num: r.numerator, den: r.denominator }) : t('perf3.fraction', { num: r.numerator, den: r.denominator }),
+  };
 }
 
 function Outcomes({ switcher }: { switcher?: ReactNode }) {
@@ -96,13 +94,12 @@ function Outcomes({ switcher }: { switcher?: ReactNode }) {
           const natMax = Math.max(1, ...d.cohort.by_nationality.map((r) => r.count));
           return (
             <div style={{ opacity: q.isPlaceholderData ? 0.6 : 1 }}>
-              <div className="ag7-stats">
-                <RateStat tone="success" icon={<CircleGauge />} label={t('perf3.enrollConversion')} r={d.cohort.enrollment_conversion} to="/applications?status=ENROLLED" />
-                <RateStat tone="primary" icon={<Timer />} label={t('perf3.sla')} r={d.operations.sla} to="/students?sla=1" />
-                <RateStat tone="warning" icon={<FileWarning />} label={t('perf3.correction')} r={d.operations.document_correction} to="/documents" />
-                <StatCard tone="danger" icon={<MessageSquareReply />} label={t('perf3.unanswered')} value={formatNumber(d.operations.sla.unanswered, locale)}
-                  caption={t('perf3.lastDays', { count: d.operations.period_days })} to="/students?sla=1" />
-              </div>
+              <Metrics className="ops-insights__metrics" items={[
+                rateMetric(t, locale, t('perf3.enrollConversion'), d.cohort.enrollment_conversion, '/applications?status=ENROLLED'),
+                rateMetric(t, locale, t('perf3.sla'), d.operations.sla, '/students?sla=1'),
+                rateMetric(t, locale, t('perf3.correction'), d.operations.document_correction, '/documents'),
+                { label: t('perf3.unanswered'), value: formatNumber(d.operations.sla.unanswered, locale), foot: t('perf3.lastDays', { count: d.operations.period_days }), as: Link, to: '/students?sla=1' },
+              ]} />
               <Row>
                 <Col xl={8}>
                   <YCard title={t('perf3.cohortTitle', { intake: d.intake ? intakeLabel(d.intake) : t('perf.allIntakes') })} flush
@@ -224,7 +221,7 @@ export default function Performance() {
         Today: putting leadership metrics on the practitioner's home screen is the failure mode the
         benchmark records for this product category (docs/qa/v15/COMPETITIVE_OPERATIONS_AUDIT.md §4).
       */}
-      <div className="card custom-card"><div className="card-body"><PlanDelivery /></div></div>
+      <section className="ops-flat"><PlanDelivery /></section>
     </div>
   );
   return (

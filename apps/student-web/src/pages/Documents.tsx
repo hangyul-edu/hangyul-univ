@@ -107,7 +107,7 @@ export default function Documents() {
               )}
               {todo.length > 0 && (
                 <Section title={t('group.todo')}>
-                  <ul className="hg-panel dz-list">{todo.map((r) => <DossierRowItem key={r.category} row={r} onAction={onRow} stateInHeading focused={r.category === focusCat} />)}</ul>
+                  <ul className="hg-panel dz-list">{todo.map((r, i) => <DossierRowItem key={r.category} row={r} onAction={onRow} stateInHeading focused={r.category === focusCat} lead={i === 0 && d.requests.length === 0} />)}</ul>
                 </Section>
               )}
               {(check.length > 0 || d.counts.matching > 0) && (

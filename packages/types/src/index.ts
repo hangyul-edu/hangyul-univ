@@ -440,37 +440,46 @@ export interface OrderRow {
 }
 
 /**
- * Everything the browser needs to open the provider's own window — and nothing it needs to decide the
- * outcome. There is no secret here and no status: `amount` is the server's canonical figure, echoed back so
- * the SDK can be called with it, and the server re-derives it from the order before it confirms anything.
+ * `POST /me/orders` — the order the server priced. It carries **nothing that can start a payment**: no
+ * client key, no checkout object. The order is paid by `POST /me/orders/{id}/pay` with a saved payment
+ * method (the billing-key rail), and only that response — or a later read — says it is PAID.
  */
-export interface TossCheckout {
-  sdk: string; client_key: string; customer_key: string;
-  order_id: string; order_name: string;
-  amount: { value: number; currency: string };
-  success_url: string; fail_url: string; env: string;
-}
 export interface OrderResult {
   order_id: UUID; status: string; provider: string; redirect_url: string | null; is_demo_payment: boolean;
   assignment: { organization: string; organization_id: UUID } | null;
-  /**
-   * V21 — the server's number, for the card form to print. The browser displays it and never sends
-   * it back: the amount charged is read from the Order row.
-   */
-  amount_minor?: number; currency?: string; product_code?: string; product_name?: string;
-  /** True when this server takes the card itself (no provider window). See `PaymentsConfig`. */
-  card_form?: boolean;
-  checkout?: TossCheckout | null;
-  customer?: { name: string; email: string } | null;
+  /** The server's numbers. The browser shows them and echoes them back to `pay`; they are never *used* from the browser. */
+  amount_minor: number; currency: string; product_code?: string; product_name?: string;
+  payment_state: PaymentState;
+  /** Always true: every Hangyul Univ purchase is a one-time payment. There is no renewal. */
+  one_time: true;
 }
+export type PaymentState =
+  | 'PENDING' | 'PAYMENT_METHOD_REQUIRED' | 'BILLING_AUTH_PENDING' | 'BILLING_KEY_READY' | 'CHARGING'
+  | 'PAID' | 'FAILED' | 'CANCELLED' | 'REFUNDED' | 'PARTIALLY_REFUNDED';
 export interface PaymentResult {
   order_id: UUID; status: string; product_code: string; product_name: string;
+  kind?: string; add_on_code?: string | null;
   amount_minor: number; currency: string; paid_at: string | null;
-  method: string | null; receipt_url: string | null;
+  payment_state: PaymentState; one_time: true;
+  method: string | null; receipt_url: string | null; refunded_amount_minor?: number;
   assignment?: { organization: string; organization_id: UUID } | null;
+  already_paid?: boolean;
+  /** Present on a 202: the charge was sent and its outcome is being confirmed with the provider. */
+  code?: 'PAYMENT_PENDING_CONFIRMATION';
+  payment_method?: StudentPaymentMethod;
 }
 
 // ---------- agency ----------
+/** One service purchase as Operations sees it: the order, how it was paid (always a one-time charge) and any refund. */
+export interface AgencyOrderRow {
+  id: UUID; student: PublicUser; product_code: string; product_name: string; status: string; kind?: string;
+  amount_minor: number; currency: string; paid_at: string | null; created_at: string;
+  provider: string | null; is_demo_payment: boolean;
+  payment_state?: PaymentState; one_time?: true; attempts?: number;
+  provider_ref?: string | null; provider_mid?: string | null; failure_code?: string | null;
+  method?: string | null; receipt_url?: string | null;
+  refunded_amount_minor?: number; refunded_at?: string | null; refund_reason?: string | null;
+}
 export interface AgencyStudentRow {
   id: UUID; full_name: string; email: string; nationality: string | null; residence_country: string | null; target_degree: DegreeLevel | null;
   target_intake: string | null; pipeline_stage: PipelineStage; profile_percent: number; counselor: PublicUser | null; organization_id: UUID | null;
@@ -1613,72 +1622,66 @@ export interface UniversityContent {
 
 
 /* ================================================================================================
- * V21 — foreign-card payment (brief §26–§42).
+ * Payments — the billing-key rail.
  *
- * `CardInput` is the only shape that ever carries card data, it exists for the duration of one
- * request, and **no response type contains it**. `StudentPaymentMethod` is what the server is
- * willing to say about a card afterwards: a brand, four digits and a flag saying whether it can be
- * charged again. There is deliberately no field for a billing key — not optional, not nullable,
- * absent — so no client can render one and no log can serialise one.
+ * Every purchase is: register a payment method in Toss's hosted window → the server issues and seals a
+ * billing key → the student confirms the one-time amount → the server charges it once. The products are
+ * one-time purchases; a saved method is never charged on a schedule.
+ *
+ * There is deliberately no field for a billing key, an auth key or a secret anywhere below — not
+ * optional, not nullable, absent — so no client can render one and no log can serialise one. No type
+ * here carries card data either: Hangyul has no card form.
  * ============================================================================================== */
 
-export interface CardInput {
-  /** Digits only; the form strips spaces before it sends. */
-  number: string;
-  /** `MM`. */
-  expiry_month: string;
-  /** `YY`. */
-  expiry_year: string;
-  holder_name?: string | null;
-}
+export type PaymentMethodKind = 'DOMESTIC_CARD' | 'FOREIGN_CARD' | 'TOSS_PAY' | 'NAVER_PAY';
 
 export interface StudentPaymentMethod {
   id: UUID;
+  kind: PaymentMethodKind;
+  /** Card network or wallet name, as the provider reported it. */
   brand: string | null;
   /** `•••• 4242` — Hangyul's own mask, not the provider's longer one. */
   masked_number: string | null;
   last4: string | null;
   issuer_code: string | null;
   card_type: string | null;
-  /**
-   * Can this card be charged again **without** the student re-entering it? False on the merchant
-   * configuration in use, which issues no reusable credential, and the UI must say so rather than
-   * offering a "pay with this card" button that cannot work.
-   */
-  reusable: boolean;
   is_default: boolean;
   status: 'ACTIVE' | 'REVOKED' | string;
   created_at: ISODateTime;
+  /** Can this method pay right now (for the order's currency, when one was given)? */
+  usable: boolean;
+  unavailable_reason: string | null;
 }
 
-/** `GET /me/payments/config` — merchant configuration, by name. Never a key of any kind. */
-export interface PaymentsConfig {
+/** `GET /me/payments/options` — what can be used to pay, and the saved methods. Never a key of any kind. */
+export interface PaymentOptions {
   provider: string;
-  env: string;
-  currency: string;
-  usd_readiness: Record<string, boolean>;
-  live_usd_checkout_enabled: boolean;
-  /**
-   * V21 b — may this server activate a plan without a payment (REPORT §243.2)? `false` in production,
-   * always. The student app renders its local paid-state button only when this is true *and* the bundle
-   * was built with the flag.
-   */
-  foreign_card: {
-    mid: string | null;
-    product: string;
-    configured: boolean;
-    test_ready: boolean;
-    live_ready: boolean;
-    enabled: boolean;
-    /** `"hangyul"` means the card fields are rendered here and there is no provider window. */
-    card_form: 'hangyul' | string;
-    reusable_credential: boolean;
-    used_by_plan_purchase: boolean;
-    methods: string[];
-  };
-  contract: { foreign_card_review: string; live_credentials_configured: boolean };
-  methods_offered: string[];
-  one_time: { mid: string | null; product: string; configured: boolean; methods: string[]; used_by_plan_purchase: boolean };
-  billing: { key: string; mid: string | null; product: string; configured: boolean; used_by_plan_purchase: boolean }[];
+  mode: 'test' | 'live';
+  live_payment_enabled: boolean;
+  one_time: true;
+  recurring: false;
+  rail: 'BILLING_KEY';
+  methods: { kind: PaymentMethodKind; available: boolean; reason: string | null; currency: string | null }[];
+  saved: StudentPaymentMethod[];
+  order: PaymentResult | null;
+}
+
+/**
+ * `POST /me/payment-methods/registrations` — what the browser needs to open Toss's hosted registration
+ * window. `client_key` is the merchant's **public** key; nothing secret is here.
+ */
+export interface PaymentRegistration {
+  registration_id: UUID;
+  kind: PaymentMethodKind;
+  order_id: UUID | null;
+  sdk: string;
+  client_key: string;
+  customer_key: string;
+  method: 'CARD';
+  success_url: string;
+  fail_url: string;
+  customer_name: string | null;
+  customer_email: string | null;
+  mode: 'test' | 'live';
 }
 export * from './refund-policy';

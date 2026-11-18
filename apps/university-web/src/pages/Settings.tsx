@@ -2,8 +2,7 @@
 import { useAuth } from '@hangyul/auth';
 import { Users } from '@hangyul/icons';
 import { useLocale } from '@hangyul/i18n';
-import { Avatar, EmptyState, LocaleSelector, QueryState, Section, SkeletonCard, StatusText } from '@hangyul/ui';
-import { PageHeader } from '@hangyul/ynex-ui';
+import { Avatar, EmptyState, LocaleSelector, PageHeader, QueryState, Section, SkeletonCard, StatusText } from '@hangyul/ui';
 import { useQuery } from '@tanstack/react-query';
 
 import { useTeam } from '../lib/queries';
@@ -15,7 +14,7 @@ import { TwoStepPanel, useSecurityT } from '../components/security/TwoStep';
 function TwoStepVerification() {
   const { tx } = useSecurityT();
   return (
-    <Section title={tx('title')}>
+    <Section ruled className="un-set" title={tx('title')}>
       <TwoStepPanel />
     </Section>
   );
@@ -28,7 +27,7 @@ function SingleSignOn() {
   const isAdmin = session?.active_org?.org_type === 'UNIVERSITY';
   const q = useQuery({ queryKey: ['sso', 'config'], queryFn: () => api.sso.config(), enabled: isAdmin, staleTime: 60_000 });
   return (
-    <Section title={t('university:settings.sso')} sub={t('university:settings.ssoSub')}>
+    <Section ruled className="un-set" title={t('university:settings.sso')} sub={t('university:settings.ssoSub')}>
       {!isAdmin ? <p className="hg-small hg-muted">{t('university:settings.ssoAdminOnly')}</p> : q.isLoading ? <SkeletonCard lines={2} /> : !q.data ? (
         <p className="hg-small">{t('university:settings.ssoNone')}</p>
       ) : (
@@ -51,28 +50,25 @@ export default function Settings() {
   const { isHangyul, overview } = useUniversity();
   const team = useTeam();
   return (
-    <div className="hg-stack uc-page uv7" style={{ '--hg-gap': '32px' } as React.CSSProperties}>
-      <PageHeader title={t('university:nav.settingsTeam')} sub={t('university:settings.subtitle', { university: overview?.name_en ?? '' })} />
-      <div className="uc-split">
-        <Section title={t('university:settings.you')}>
-          <div className="hg-row" style={{ gap: 12 }}>
-            <Avatar name={session?.user.full_name ?? '?'} size={40} />
-            <div style={{ minWidth: 0 }}>
-              <div className="hg-medium">{session?.user.full_name}</div>
-              <div className="uc-sub">{session?.user.email}{session?.active_org ? ` · ${session.active_org.org_name}` : ''}</div>
-            </div>
+    <div className="uc-page uv7 un-page un-settings">
+      <PageHeader title={t('university:nav.settingsTeam')} subtitle={t('university:settings.subtitle', { university: overview?.name_en ?? '' })} />
+      {/* One column of ruled sections with the same rhythm: title on the left, content on the right (stacked on phones). */}
+      <Section ruled className="un-set" title={t('university:settings.you')}>
+        <div className="un-set__me">
+          <Avatar name={session?.user.full_name ?? '?'} size={40} />
+          <div style={{ minWidth: 0 }}>
+            <div className="hg-medium">{session?.user.full_name}</div>
+            <div className="uc-sub un-set__email">{session?.user.email}{session?.active_org ? ` · ${session.active_org.org_name}` : ''}</div>
           </div>
-          <div className="hg-row hg-between" style={{ gap: 8 }}>
-            <span className="hg-small">{t('common:actions.language')}</span>
-            <LocaleSelector />
-          </div>
-        </Section>
-        <SingleSignOn />
-      </div>
-      <div className="uc-split">
-        <TwoStepVerification />
-      </div>
-      <Section title={t('common:nav.team')} sub={isHangyul ? t('university:settings.hangyulTeam') : t('university:settings.teamSub')}>
+        </div>
+        <div className="un-set__row">
+          <span>{t('common:actions.language')}</span>
+          <LocaleSelector />
+        </div>
+      </Section>
+      <TwoStepVerification />
+      <SingleSignOn />
+      <Section ruled className="un-set un-set--wide" title={t('common:nav.team')} sub={isHangyul ? t('university:settings.hangyulTeam') : t('university:settings.teamSub')}>
         <QueryState query={team} skeleton={<SkeletonCard lines={3} />} isEmpty={(d) => d.length === 0} empty={<EmptyState compact icon={<Users />} title={t('university:settings.noTeam')} />}>
           {(members) => <TeamManager team={members} isAdmin={!isHangyul} me={session?.user.id} />}
         </QueryState>

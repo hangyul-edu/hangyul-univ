@@ -66,10 +66,8 @@ function Ageing({ ops }: { ops: Ops }) {
     <YCard as="section" id="ops-ageing" title={t('v8.ops.ageing.title')}>
       <p className="ag8-q">{t('v8.ops.ageing.q')}</p>
       {oldest && (
-        <p className="ag8-callout">
-          {t('v8.ops.ageing.oldest', { name: oldest.student ?? '—', count: oldest.days, stage: t(`pipeline.${oldest.stage}`) })}{' '}
-          <Link to={oldest.link}>{t('v8.ops.open')}</Link>
-        </p>
+        <Callout tone="warning" title={t('v8.ops.ageing.oldest', { name: oldest.student ?? '—', count: oldest.days, stage: t(`pipeline.${oldest.stage}`) })}
+          action={<Link className="hg-link" to={oldest.link}>{t('v8.ops.open')}</Link>} />
       )}
       <table className="ag8-matrix">
         <caption className="visually-hidden">{t('v8.ops.ageing.caption')}</caption>
@@ -125,10 +123,15 @@ function Load({ ops }: { ops: Ops }) {
   return (
     <YCard as="section" id="ops-load" title={t('v8.ops.load.title')} tools={<Link to="/team" className="fs-12 text-muted">{t('v9.ops.weightsLink')}</Link>}>
       <p className="ag8-q">{t('v8.ops.load.q')}</p>
-      <p className="ag8-callout">
-        {over.length > 0 ? <strong className="text-danger">{t('v8.ops.load.over', { count: over.length })}</strong> : t('v9.ops.noneOver')}
-        {l.unassigned > 0 && <> · <Link to="/students?view=unassigned">{t('v8.ops.load.unassigned', { count: l.unassigned })}</Link></>}
-      </p>
+      {over.length > 0
+        ? <Callout tone="danger" title={t('ops.insights.overOf', { count: over.length, total: l.counselors.length })}
+            action={l.unassigned > 0 ? <Link className="hg-link" to="/students?view=unassigned">{t('v8.ops.load.unassigned', { count: l.unassigned })}</Link> : undefined} />
+        : (
+          <p className="ops-lead">
+            {t('v9.ops.noneOver')}
+            {l.unassigned > 0 && <> · <Link to="/students?view=unassigned">{t('v8.ops.load.unassigned', { count: l.unassigned })}</Link></>}
+          </p>
+        )}
       {l.counselors.map((c) => (
         <ProgressRow key={c.user_id} to={`/students?counselor=${c.user_id}`} label={c.name} max={max} value={c.points ?? c.active_cases}
           tone={c.overloaded ? 'danger' : c.load !== null && c.load > 0.85 ? 'warning' : 'primary'}
@@ -291,7 +294,7 @@ function Stages({ ops }: { ops: Ops }) {
   return (
     <YCard as="section" id="ops-stages" title={t('v8.ops.stages.title')}>
       <p className="ag8-q">{t('v8.ops.stages.q')}</p>
-      {slowest && <p className="ag8-callout">{t('v8.ops.stages.slowest', { stage: t(`appStatus.${slowest.status}`), count: slowest.median_days ?? 0, n: slowest.n })}</p>}
+      {slowest && <p className="ops-lead">{t('v8.ops.stages.slowest', { stage: t(`appStatus.${slowest.status}`), count: slowest.median_days ?? 0, n: slowest.n })}</p>}
       {rated.map((s) => (
         <ProgressRow key={s.status} to={s.link} label={t(`appStatus.${s.status}`)} max={max} value={s.median_days ?? 0} tone={s === slowest ? 'warning' : 'primary'}
           display={s.median_days !== null ? t('v8.ops.stages.median', { count: s.median_days }) : t('v8.ops.stages.tooFew', { n: s.n, min: ops.min_n })}

@@ -1,6 +1,6 @@
 import { useApi } from '@hangyul/auth';
 import { useTranslation } from '@hangyul/i18n';
-import { AppText, CheckRow, ChipGroup, EmptyState, ListGroup, QueryState, Screen, useFormat, taskTitle } from '@hangyul/mobile-ui';
+import { AppText, Button, CheckRow, ChipGroup, EmptyState, ListGroup, QueryState, Screen, useFormat, taskTitle } from '@hangyul/mobile-ui';
 import type { Page, Task } from '@hangyul/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -33,10 +33,13 @@ export default function TasksScreen() {
   const f = useFormat();
   const api = useApi();
   const qc = useQueryClient();
-  const params = useLocalSearchParams<{ view?: string }>();
+  const params = useLocalSearchParams<{ view?: string; scope?: string }>();
   const [view, setView] = useState<View>(VIEWS.includes(params.view as View) ? (params.view as View) : 'today');
-  useEffect(() => { if (VIEWS.includes(params.view as View)) setView(params.view as View); }, [params.view]);
-  const scope = view === 'team' ? 'team' : 'mine';
+  // Today's overdue row counts the whole team's tasks, so it opens this screen with `scope=team`: the same set, not only mine.
+  // Picking any chip goes back to the normal views (mine, or the Team chip).
+  const [teamWide, setTeamWide] = useState(params.scope === 'team');
+  useEffect(() => { if (VIEWS.includes(params.view as View)) { setView(params.view as View); setTeamWide(params.scope === 'team'); } }, [params.view, params.scope]);
+  const scope = view === 'team' || teamWide ? 'team' : 'mine';
   const q = useQuery({ queryKey: qk.tasks(scope), queryFn: () => api.tasks.list({ scope, status: ['OPEN', 'IN_PROGRESS', 'BLOCKED'], page_size: 200 }) });
   const complete = useMutation({
     mutationFn: (id: string) => api.tasks.update(id, { status: 'DONE' }),
@@ -62,7 +65,8 @@ export default function TasksScreen() {
 
   return (
     <Screen title={t('common:nav.tasks')} onRefresh={() => q.refetch()}>
-      <ChipGroup<View> options={VIEWS.map((v) => ({ value: v, label: v === 'team' ? t('v3.tasks.view.team') : `${t(`v3.tasks.view.${v}`)} · ${count(v)}` }))} selected={[view]} onToggle={setView} />
+      <ChipGroup<View> options={VIEWS.map((v) => ({ value: v, label: v === 'team' ? t('v3.tasks.view.team') : `${t(`v3.tasks.view.${v}`)} · ${count(v)}` }))} selected={[view]} onToggle={(v) => { setView(v); setTeamWide(false); }} />
+      {teamWide && view !== 'team' ? <AppText variant="caption">{`${t('v3.tasks.view.team')} · ${t(`v3.tasks.view.${view}`)}`}</AppText> : null}
       <QueryState query={q}>
         {() => {
           const items = all.filter((x) => inView(x, view)).sort((a, b) => (a.due_at ?? '9').localeCompare(b.due_at ?? '9'));
@@ -70,17 +74,17 @@ export default function TasksScreen() {
           return (
             <ListGroup>
               {items.map((x) => (
-                <CheckRow key={x.id} checked={false} disabled={complete.isPending || view === 'team'}
-                  onToggle={view === 'team' ? undefined : () => complete.mutate(x.id)}
+                <CheckRow key={x.id} checked={false} disabled={complete.isPending || scope === 'team'}
+                  onToggle={scope === 'team' ? undefined : () => complete.mutate(x.id)}
                   label={taskTitle(t, x)}
                   detail={[
                     x.student_name,
                     x.due_at ? (x.overdue ? t('v3.tasks.overdue', { when: f.due(x.due_at) }) : f.due(x.due_at)) : null,
                     x.priority === 'URGENT' || x.priority === 'HIGH' ? t(`common:priority.${x.priority}`) : null,
-                    view === 'team' && x.owner ? x.owner.full_name : null,
+                    scope === 'team' && x.owner ? x.owner.full_name : null,
                     x.depends_on && !x.depends_on.done ? t('v3.tasks.waitingOn', { what: taskTitle(t, { ...x.depends_on, title_params: x.depends_on.title_params }) }) : null,
                   ].filter(Boolean).join(' · ')}
-                  trailing={x.link && mapWebLink(x.link) ? <AppText variant="caption" weight="semibold" onPress={() => router.push(mapWebLink(x.link)!)}>{t('v3.tasks.open')}</AppText> : null}
+                  trailing={x.link && mapWebLink(x.link) ? <Button label={t('v3.tasks.open')} size="sm" variant="ghost" accessibilityLabel={`${t('v3.tasks.open')}: ${taskTitle(t, x)}`} onPress={() => router.push(mapWebLink(x.link)!)} /> : null}
                 />
               ))}
             </ListGroup>

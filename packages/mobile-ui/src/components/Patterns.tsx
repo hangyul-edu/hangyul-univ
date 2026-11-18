@@ -39,20 +39,31 @@ export function SectionTitle({ title, action, onAction, style }: { title: string
   );
 }
 
-/** The one dominant block on a home screen: what to do now. */
-export function NextAction({ eyebrow, title, body, meta, actionLabel, onAction, secondaryLabel, onSecondary, icon: Icon }: {
-  eyebrow: string; title: string; body?: string | null; meta?: string | null; actionLabel?: string; onAction?: () => void;
-  secondaryLabel?: string; onSecondary?: () => void; icon?: LucideIcon;
+/**
+ * The one dominant block on a home screen: what to do now — or, with `calm`, that nothing is the student's to do.
+ *
+ * Student page pass (2026-11): a warm paper surface with no accent bar (the web's next-step object). `calm` swaps
+ * the tangerine eyebrow for a green tick and never draws a primary button: a waiting state must not look urgent.
+ * The secondary action is a full 44 pt target.
+ */
+export function NextAction({ eyebrow, title, body, meta, actionLabel, onAction, secondaryLabel, onSecondary, icon: Icon, calm }: {
+  eyebrow?: string | null; title: string; body?: string | null; meta?: string | null; actionLabel?: string; onAction?: () => void;
+  secondaryLabel?: string; onSecondary?: () => void; icon?: LucideIcon; calm?: boolean;
 }) {
   return (
     <View style={styles.next} accessibilityRole="summary">
-      <View style={styles.nextAccent} />
-      <AppText variant="caption" weight="semibold" color={theme.color.primaryText}>{eyebrow}</AppText>
+      {calm ? (
+        <View style={styles.nextCalm}>
+          <View style={styles.nextCalmMark}><Check size={13} color={theme.status.success.fg} strokeWidth={3} /></View>
+          {eyebrow ? <AppText variant="caption" weight="semibold" color={theme.status.success.fg} style={{ flex: 1 }}>{eyebrow}</AppText> : null}
+        </View>
+      ) : eyebrow ? <AppText variant="caption" weight="semibold" color={theme.color.primaryText}>{eyebrow}</AppText> : null}
       <AppText variant="title" accessibilityRole="header">{title}</AppText>
       {body ? <AppText variant="body" secondary>{body}</AppText> : null}
-      {meta ? <AppText variant="caption">{meta}</AppText> : null}
-      {actionLabel && onAction ? <Button label={actionLabel} onPress={onAction} icon={Icon} fullWidth style={{ marginTop: 6 }} /> : null}
-      {secondaryLabel && onSecondary ? (
+      {meta ? <AppText variant="caption" weight="semibold" color={theme.color.text}>{meta}</AppText> : null}
+      {!calm && actionLabel && onAction ? <Button label={actionLabel} onPress={onAction} icon={Icon} fullWidth style={{ marginTop: 10 }} /> : null}
+      {calm && secondaryLabel && onSecondary ? <Button label={secondaryLabel} variant="secondary" onPress={onSecondary} fullWidth style={{ marginTop: 10 }} /> : null}
+      {!calm && secondaryLabel && onSecondary ? (
         <Pressable onPress={onSecondary} accessibilityRole="button" accessibilityLabel={secondaryLabel} hitSlop={8} style={styles.nextSecondary}>
           <AppText variant="caption" weight="semibold" color={theme.color.textSecondary}>{secondaryLabel}</AppText>
         </Pressable>
@@ -243,11 +254,12 @@ const styles = StyleSheet.create({
   sectionTitle: { flexDirection: 'row', alignItems: 'center', minHeight: 32 },
   sectionAction: { flexDirection: 'row', alignItems: 'center', gap: 2, minHeight: 44, paddingStart: 12 },
   next: {
-    backgroundColor: theme.color.surface, borderRadius: theme.radius.xl, borderWidth: 1, borderColor: theme.color.border,
-    padding: 20, paddingStart: 22, gap: 6, overflow: 'hidden',
+    backgroundColor: theme.color.bgPaper, borderRadius: theme.radius.xl, borderWidth: 1, borderColor: theme.color.borderSubtle,
+    padding: 20, gap: 8,
   },
-  nextAccent: { position: 'absolute', top: 20, bottom: 20, start: 0, width: 3, borderTopRightRadius: 3, borderBottomRightRadius: 3, backgroundColor: theme.color.primary },
-  nextSecondary: { minHeight: 40, justifyContent: 'center', alignItems: 'center' },
+  nextCalm: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  nextCalmMark: { width: 24, height: 24, borderRadius: 12, alignItems: 'center', justifyContent: 'center', backgroundColor: theme.status.success.bg },
+  nextSecondary: { minHeight: 44, justifyContent: 'center', alignItems: 'center' },
   segments: { flexDirection: 'row', gap: 4 },
   segment: { flex: 1, height: 4, borderRadius: 2, backgroundColor: theme.color.surfaceSunken },
   segDone: { backgroundColor: theme.color.text },

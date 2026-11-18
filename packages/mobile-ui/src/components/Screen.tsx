@@ -83,7 +83,8 @@ export function Screen({
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: theme.color.bgCanvas },
+  // Design foundation (2026-11): the working canvas is WHITE in every product, as on the web; warm paper is for asides.
+  root: { flex: 1, backgroundColor: theme.color.bg },
   flex: { flex: 1 },
   padded: { padding: theme.space[4], paddingBottom: theme.space[10] },
   gap: { gap: theme.space[5] },

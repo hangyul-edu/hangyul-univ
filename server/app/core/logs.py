@@ -22,13 +22,19 @@ REDACTED = "[REDACTED]"
 _KEYVAL = re.compile(
     r"""(?ix)
     (?P<key>["']?(?:[a-z0-9_]*?(?:password|passwd|secret|token|api[_-]?key|authorization|auth[_-]?token|private[_-]?key|
-        security[_-]?key|encryption[_-]?key|access[_-]?key|cookie|otp|totp|recovery[_-]?code|mfa[_-]?code))["']?)
+        security[_-]?key|encryption[_-]?key|access[_-]?key|cookie|otp|totp|recovery[_-]?code|mfa[_-]?code|
+        auth[_-]?key|billing[_-]?key|customer[_-]?key|card[_-]?number|cvc|cvv))["']?)
     (?P<sep>\s*[:=]\s*|\s+)
     (?P<val>"[^"]*"|'[^']*'|Bearer\s+[A-Za-z0-9._~+/=-]+|[^\s,;&}\]]+)
     """
 )
 _CARD = re.compile(r"(?<![\d-])(?:\d[ -]?){12,18}\d(?![\d-])")
 _BEARER = re.compile(r"(?i)\bBearer\s+[A-Za-z0-9._~+/=-]{8,}")
+_BASIC = re.compile(r"(?i)\bBasic\s+[A-Za-z0-9+/=]{8,}")
+#: Toss credentials by shape — API keys (`live_sk_…`, `test_gsk_…`) and the billing-key path segment — so they
+#: are masked even where no `key=` label precedes them (an httpx access log line, a URL in a traceback).
+_TOSS_KEY = re.compile(r"\b(?:live|test)_g?[cs]k_[A-Za-z0-9]{8,}")
+_BILLING_PATH = re.compile(r"(/v1/billing/)(?!authorizations)[A-Za-z0-9_\-=.%]{8,}")
 
 
 def _luhn_ok(digits: str) -> bool:
@@ -77,6 +83,9 @@ def redact(text: str, secrets: list[str] | None = None) -> str:
         if v in text:
             text = text.replace(v, REDACTED)
     text = _BEARER.sub("Bearer " + REDACTED, text)
+    text = _BASIC.sub("Basic " + REDACTED, text)
+    text = _TOSS_KEY.sub(REDACTED, text)
+    text = _BILLING_PATH.sub(lambda m: m.group(1) + REDACTED, text)
     text = _KEYVAL.sub(lambda m: f"{m.group('key')}{m.group('sep')}{REDACTED}", text)
     return _CARD.sub(_mask_card, text)
 
@@ -144,4 +153,8 @@ def configure_logging(*, json_format: bool, level: int = logging.INFO) -> None:
             h.addFilter(RedactionFilter())
         if json_format:
             h.setFormatter(JsonFormatter())
+    # httpx logs every request line at INFO — and a billing charge's URL *is* the billing key. The filter above
+    # masks it; not emitting the line at all is the second lock on the same door.
+    for name in ("httpx", "httpcore"):
+        logging.getLogger(name).setLevel(max(logging.WARNING, logging.getLogger(name).level))
     _configured = True

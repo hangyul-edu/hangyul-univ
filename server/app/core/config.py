@@ -15,9 +15,9 @@ SERVER_DIR = Path(__file__).resolve().parents[2]
 #: and the bundle scan (`scripts/ops/scan-bundles-for-secrets.mjs`), so a new secret is added here once.
 SECRET_FIELDS: tuple[str, ...] = (
     "database_url", "redis_url", "jwt_secret", "file_url_secret", "stripe_secret_key",
-    "toss_normal_secret_key", "toss_normal_security_key", "toss_domestic_billing_secret_key", "toss_domestic_billing_security_key",
+    "toss_domestic_billing_secret_key", "toss_domestic_billing_security_key",
     "toss_foreign_billing_secret_key", "toss_foreign_billing_security_key", "toss_easypay_billing_secret_key",
-    "toss_easypay_billing_security_key", "toss_secret_key", "payment_token_encryption_key",
+    "toss_easypay_billing_security_key", "payment_token_encryption_key",
     "sendgrid_api_key", "twilio_api_key_secret", "twilio_auth_token", "turnstile_secret_key",
     "mfa_encryption_key", "s3_access_key_id", "s3_secret_access_key", "alert_webhook_url",
 )
@@ -93,29 +93,27 @@ class Settings(BaseSettings):
     push_provider: str = "none"  # none | expo
     stripe_secret_key: str | None = None
 
-    # ---------------------------------------------------------------- Toss Payments (V16, REPORT §135)
+    # ---------------------------------------------------------------- Toss Payments — billing key only
     #
-    # Four owner-provided merchant configurations, and they are not interchangeable. Toss issues one client
-    # key per MID per product, and the key's prefix *is* the product: every key here is `test_ck_…`, the
-    # "API 개별 연동" family, which drives 결제창(구버전) / 브랜드페이 / 자동결제. (The current payment-widget
-    # product uses `test_gck_…` and `widgets()`; no gck key exists for this merchant.)
+    # Owner decision (final product pass): every real purchase is taken on the **billing-key rail**.
     #
-    #   HANGYUL      일반 결제  → one-time card payment. **This is the plan-purchase MID.**
-    #   bill_talko18s0 / bill_talkoab1 / bill_talkspm0
-    #                자동결제  → billing-key registration. Charging a saved card later is a different
-    #                product from buying a package once, and Hangyul's plans are one-time purchases
-    #                (business plan §3). These are configured so the capability is recorded and testable;
-    #                **nothing in the student journey may reach them.**
+    #     register a payment method → Toss issues a billing key → the server charges that key ONCE
+    #     for the order amount → the order is PAID → the entitlement switches on.
     #
-    # The secret key is read here and never leaves the server; the client key is handed to the browser by
-    # `POST /me/orders`, so exactly one place knows which configuration is in use. `toss_env` keeps a
-    # production deployment from silently running on test credentials.
-    toss_env: str = "test"  # test | live
+    # The products stay one-time purchases. There is no schedule, no renewal and no subscription state; the
+    # billing key is a payment-method token and nothing more. There is deliberately **no ordinary-payment
+    # rail** left in this server: no `/v1/payments/confirm`, no 결제창 `requestPayment`, no raw-card key-in.
+    #
+    # Three owner-provided 자동결제 merchant configurations, one per kind of payment method:
+    #
+    #   domestic   bill_talko18s0   domestic card registration + billing charge
+    #   foreign    bill_talkoab1    international card registration + billing charge
+    #   easypay    bill_talkspm0    Toss Pay / Naver Pay registration + billing charge
+    #
+    # Secret and security keys never leave the server. A client key is handed to the browser only by the
+    # registration endpoint, for the one merchant the student is registering with.
+    toss_env: str = "test"  # test | live — never inferred, never silently downgraded
     toss_api_base: str = "https://api.tosspayments.com"
-    toss_normal_mid: str | None = None
-    toss_normal_client_key: str | None = None
-    toss_normal_secret_key: str | None = None
-    toss_normal_security_key: str | None = None
     toss_domestic_billing_mid: str | None = None
     toss_domestic_billing_client_key: str | None = None
     toss_domestic_billing_secret_key: str | None = None
@@ -128,34 +126,33 @@ class Settings(BaseSettings):
     toss_easypay_billing_client_key: str | None = None
     toss_easypay_billing_secret_key: str | None = None
     toss_easypay_billing_security_key: str | None = None
-    # ---------------------------------------------------------------- USD / overseas-card readiness (V17)
-    #
-    # Four contract facts, each of which is **outside this repository** and none of which code can verify.
-    # `docs/payments/TOSS_FOREIGN_CARD_REVIEW.md` carries the evidence and what the owner must request.
-    #
-    # They gate a *live* USD checkout. The reason they are four flags and not one is that they are acquired
-    # in sequence and each takes real time: the foreign-card contract registers in ~2 business days, the
-    # card-company review that follows it takes 10–14 **business** days, the multi-currency contract is a
-    # separate negotiation, and the USD MID's live keys arrive last. A single boolean would hide where the
-    # process actually is.
-    #
-    # There is deliberately **no KRW fallback**. If the page says $349 and the order is created in won at
-    # today's rate, the student is charged an amount nobody quoted them and the refund becomes a second FX
-    # question. When USD is not contracted the correct behaviour is to refuse the payment.
-    toss_foreign_card_contract_ready: bool = False
-    toss_card_review_ready: bool = False
-    toss_usd_multicurrency_ready: bool = False
-    toss_live_keys_ready: bool = False
+    #: The one currency each MID settles ("하나의 MID는 하나의 통화만 가질 수 있어요"). An order is only ever
+    #: charged on a merchant whose currency is the order's own; there is no conversion and no fallback.
+    #: These are contract facts — set them to what the merchant contract actually says.
+    toss_domestic_billing_currency: str = "KRW"
+    toss_foreign_billing_currency: str = "USD"
+    toss_easypay_billing_currency: str = "KRW"
+    #: Capability of each payment-method kind on its live merchant: UNVERIFIED | VERIFIED | BLOCKED.
+    #: VERIFIED is set by a person only after a real provider response has confirmed the whole path
+    #: (registration → billing key → charge) on that MID; `server/scripts/toss_capability_probe.py` and
+    #: docs/payments/BILLING.md describe the evidence. A live method that is not VERIFIED is never offered.
+    toss_capability_domestic_card: str = "UNVERIFIED"
+    toss_capability_foreign_card: str = "UNVERIFIED"
+    toss_capability_toss_pay: str = "UNVERIFIED"
+    toss_capability_naver_pay: str = "UNVERIFIED"
+    #: The master switch for charging real money. False by default: live keys alone do not take a payment.
+    #: Turn it on only on the production payment host (HTTPS, durable, backed up, monitored).
+    live_payment_enabled: bool = False
+    #: Students do not refund themselves: there is no approved refund schedule, so a person at Hangyul decides
+    #: each refund and executes it from Operations. Development and tests may open the student route.
+    student_self_refund_enabled: bool = False
 
-    #: V21 — the AES-256-GCM key for the stored payment-credential envelope (`app/core/crypto.py`).
-    #: 32 bytes, base64url, from `server/.env` only. No default: a missing key must stop a credential
-    #: being stored, not quietly store it in the clear.
+    #: The AES-256-GCM key for the stored billing-key envelope (`app/core/crypto.py`). 32 bytes, base64url.
+    #: No default: a missing key must stop a credential being stored, not quietly store it in the clear.
     payment_token_encryption_key: str | None = None
 
     #: Where Toss sends the buyer back. The student app's origin; the paths are fixed by the product.
     toss_return_origin: str = "http://localhost:3101"
-    #: Legacy single-key form, still honoured so an existing deployment keeps working.
-    toss_secret_key: str | None = None
 
     malware_scanner: str = "noop"
 
@@ -325,90 +322,13 @@ class Settings(BaseSettings):
         return "providers" if (self.sendgrid_configured or self.twilio_configured) else "console"
 
     @property
-    def toss_one_time_secret(self) -> str | None:
-        """The secret for the **one-time payment** merchant configuration, and only that one.
-
-        `toss_secret_key` is the pre-V16 single-key setting; it is accepted as a fallback so an existing
-        deployment is not broken by the rename, and it is never preferred over the explicit one.
-        """
-        return self.toss_normal_secret_key or self.toss_secret_key
-
-    @property
-    def toss_configured(self) -> bool:
-        return bool(self.toss_normal_client_key and self.toss_one_time_secret)
-
-    @property
-    def usd_readiness(self) -> dict[str, bool]:
-        """Each contract fact, by name, so a status surface can say *which* one is missing."""
-        return {
-            "foreign_card_contract": self.toss_foreign_card_contract_ready,
-            "card_review": self.toss_card_review_ready,
-            "usd_multicurrency": self.toss_usd_multicurrency_ready,
-            "live_keys": self.toss_live_keys_ready,
-        }
-
-    # ------------------------------------------------- V21: foreign-card billing, separately from live
-    #
-    # The four flags above gate a **live** USD payment through the `HANGYUL` 결제창. They are keyed to
-    # `toss_env == "live"`, so under test they are false by construction and no test transaction of any
-    # kind could run — which is the whole reason the owner could never reach a pay button (REPORT §230).
-    #
-    # `bill_talkoab1` is a different merchant configuration and a different route. Measured against the
-    # sandbox with the owner's own TEST credentials (REPORT §229.3), it accepts
-    # `POST /v1/payments/key-in` with a foreign card and settles in **USD**. Its readiness therefore has
-    # nothing to do with the 결제창 contracts and is given its own two states.
-
-    @property
-    def foreign_billing_configured(self) -> bool:
-        """The paired `bill_*` foreign-card triple is present."""
-        return bool(
-            self.toss_foreign_billing_mid
-            and self.toss_foreign_billing_client_key
-            and self.toss_foreign_billing_secret_key
+    def toss_billing_configured(self) -> bool:
+        """At least one billing merchant has its MID, client key and secret key."""
+        return any(
+            getattr(self, f"toss_{m}_billing_mid") and getattr(self, f"toss_{m}_billing_client_key")
+            and getattr(self, f"toss_{m}_billing_secret_key")
+            for m in ("domestic", "foreign", "easypay")
         )
-
-    @property
-    def foreign_billing_test_ready(self) -> bool:
-        """May a **test** foreign-card charge be attempted?
-
-        Credentials paired, environment is test, and the credential envelope has a key — because a card
-        payment that cannot store its result safely is one this product does not take.
-        """
-        from app.core import crypto  # local: keeps config importable without the crypto dependency
-
-        return self.toss_env == "test" and self.foreign_billing_configured and crypto.configured()
-
-    @property
-    def foreign_billing_live_ready(self) -> bool:
-        """May a **live** foreign-card charge be taken? Live keys, live environment, nothing inferred.
-
-        `test_` prefixes are the thing that actually distinguishes the two, so they are checked rather
-        than trusted to a boolean somebody could set by hand.
-        """
-        from app.core import crypto
-
-        live_keys = bool(
-            self.toss_foreign_billing_secret_key
-            and not self.toss_foreign_billing_secret_key.startswith("test_")
-            and self.toss_foreign_billing_client_key
-            and not self.toss_foreign_billing_client_key.startswith("test_")
-        )
-        return self.toss_env == "live" and self.foreign_billing_configured and live_keys and crypto.configured()
-
-    @property
-    def foreign_billing_enabled(self) -> bool:
-        """The one question the purchase path asks."""
-        return self.foreign_billing_test_ready or self.foreign_billing_live_ready
-
-    @property
-    def live_usd_checkout_enabled(self) -> bool:
-        """May a **live** USD payment be opened?
-
-        All four contracts, and a live environment. In test the answer is always no for a different reason:
-        the supplied test MID is a KRW MID and the provider refuses USD on it (REPORT §152), which is a
-        verified provider result rather than a policy choice.
-        """
-        return self.toss_env == "live" and all(self.usd_readiness.values())
 
 
 #: Substrings that mark a value as a placeholder rather than a credential (V29: extends V23's `dev-only` check).
@@ -467,13 +387,14 @@ def get_settings() -> Settings:
         violations = v29_production_violations(s)
         if violations:
             raise RuntimeError("Refusing to start in production: " + " ".join(violations))
-    # A live deployment running on `test_` credentials takes real orders that are never charged. The
-    # cheapest place to catch that is the moment the process starts.
+    # A production deployment on `test_` credentials takes real orders that are never charged, and one that
+    # mixes modes charges on a merchant nobody meant. Both are caught the moment the process starts.
     if s.is_production and s.payment_provider == "toss":
-        if s.toss_env != "live":
-            raise RuntimeError("Refusing to start in production with HG_TOSS_ENV != live.")
-        if (s.toss_normal_client_key or "").startswith("test_") or (s.toss_one_time_secret or "").startswith("test_"):
-            raise RuntimeError("Refusing to start in production with Toss test keys.")
+        from app.services.billing import production_violations
+
+        problems = production_violations(s)
+        if problems:
+            raise RuntimeError("Refusing to start in production: " + " ".join(problems))
     if s.is_production:
         if not s.turnstile_configured:
             raise RuntimeError("Refusing to start in production without Cloudflare Turnstile keys (signup would run unprotected).")

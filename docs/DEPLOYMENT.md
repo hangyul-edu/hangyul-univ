@@ -168,4 +168,13 @@ The same generator holds the `/api` rewrite target (`API_ORIGIN`), which current
 7. Native: rebuild Android from current source with the Play upload key; build iOS (Apple/EAS credentials) —
    [`mobile/STORE_READINESS.md`](mobile/STORE_READINESS.md).
 
-Everything else that blocks launch (payments, legal, human review) is in [ROADMAP.md](ROADMAP.md).
+8. Payments (after 1–4, on the production host only): run migration `v33billing0001`; install the three live Toss
+   billing merchants (`HG_TOSS_{DOMESTIC,FOREIGN,EASYPAY}_BILLING_{MID,CLIENT_KEY,SECRET_KEY,SECURITY_KEY,CURRENCY}`),
+   `HG_PAYMENT_TOKEN_ENCRYPTION_KEY`, `HG_PAYMENT_PROVIDER=toss`, `HG_TOSS_ENV=live`,
+   `HG_TOSS_RETURN_ORIGIN=https://app.univ.talkhangyul.com` into the host's secret store (never a Vercel variable, never
+   a file in the tree); register `https://<api-origin>/api/v1/payments/webhooks/toss` in each Toss merchant console;
+   `npm run payments:probe`; one controlled live transaction per method, then `HG_TOSS_CAPABILITY_<METHOD>=VERIFIED`;
+   `HG_LIVE_PAYMENT_ENABLED=true`; `npm run release:payment-gate` must pass. Full procedure and current results:
+   [`payments/BILLING.md`](payments/BILLING.md). **Do not put live payment secrets on the tunnelled development machine.**
+
+Everything else that blocks launch (legal, human review) is in [ROADMAP.md](ROADMAP.md).

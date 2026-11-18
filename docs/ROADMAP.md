@@ -11,7 +11,7 @@ the report.
 | 1 | **Durable production API host** | The API is reachable only through an ngrok tunnel to the owner's machine running a development configuration. `api.univ.talkhangyul.com` fails TLS. Needed: HTTPS origin, managed PostgreSQL + Redis, private S3 bucket with SSE, ClamAV, the worker service, secret manager, scheduled off-host backups; then repoint the four `/api` rewrites ([DEPLOYMENT.md](DEPLOYMENT.md) §9). | Owner / infrastructure |
 | 2 | **Seeded catalogue in the connected database** | `/api/v1/universities` and `/programs` return `total: 0`. Reference data must be migrated and seeded; real programme rows (requirements, deadlines, fees) do not exist yet — only verified guides for 8 universities. | Engineering + data |
 | 3 | **Design Preview off** | ON for owner review: `VITE_ENABLE_DESIGN_PREVIEW=1` in `build.env` of the student, agency and university `vercel.json`. Set `DESIGN_PREVIEW = false` in `scripts/ops/gen-vercel.mjs`, regenerate, and run `npm run release:preview-gate -- --launch --bundles off` before public launch. | Engineering |
-| 4 | **Payments live** | Toss test mode. Needed: live keys, overseas-card / USD contract and card review ([`payments/TOSS_FOREIGN_CARD_REVIEW.md`](payments/TOSS_FOREIGN_CARD_REVIEW.md)); the **refund schedule** (`OWNER_POLICY_REQUIRED`); the **upgrade pricing rule** (upgrades are refused until it exists). | Owner / Toss |
+| 4 | **Payments live** | Billing-key-only rail is built and tested (`payments/BILLING.md`), but cannot charge: (a) no live Toss credentials are installed anywhere — install the three live merchants and `HG_PAYMENT_TOKEN_ENCRYPTION_KEY` into the production host's secret store (blocked on #1); (b) per-method live verification with an owner-approved card: **Korean card** — KRW merchant, catalogue is USD-only, so needs KRW prices or a USD-settling contract; **International card** — Toss documents billing for Korean-issued cards only, live confirmation needed; **Toss Pay / Naver Pay** — no billing registration documented by Toss (`PROVIDER_SPEC_REQUIRED`), request the integration contract; (c) register the webhook URL; (d) `npm run release:payment-gate` must pass. Also: the **refund schedule** (`OWNER_POLICY_REQUIRED`) and the **upgrade pricing rule**. | Owner / Toss |
 | 5 | **Identity delivery in production** | Registration requires e-mail and SMS codes plus Turnstile. Production SendGrid / Twilio / Turnstile credentials and a live delivery check (`npm run qa:identity-live`) are required; production refuses to boot without the keys. | Owner |
 | 6 | **Legal** | Ten company identity fields unset (sections omitted until set); counsel review of privacy/terms/consent/cross-border text; retention periods (every period `OWNER_COUNSEL_REQUIRED`); 통신판매업 신고 ([LEGAL.md](LEGAL.md)). | Owner / counsel |
 | 7 | **Security sign-off** | Independent penetration test; production secrets and staff MFA enforced on the real host ([SECURITY.md](SECURITY.md)). | Owner |
@@ -26,6 +26,7 @@ the report.
 - **University data.** Verified admission guides for 8 universities (bachelor's, 2027 Spring); verified language
   rules for 43 institutions; 176 "needs checking" because the official rule is unpublished in a usable form or not
   yet researched.
+- **University detail data not in the public export at all:** tuition, application fee, intakes/application periods, required documents, legalization rule, degree levels offered, street address (0 / 425 each). Needs a structured research pass and an export change.
 - **University photography.** 166 / 425 institutions have their own campus photograph; the rest need commissioned or
   university-supplied photography (`OWNER_AUTHORISED`); 50 KOGL-1 originals await manual download
   (`docs/qa/v25/MANUAL_MEDIA_ACQUISITION.md`).
@@ -47,9 +48,10 @@ the report.
    real-account journeys against the connected API.
 7. Replace flag emoji in the phone-country picker with the SVG flag set (emoji flags do not render on Windows); move
    remaining single-column grids to `minmax(0, 1fr)`.
-8. Native: deeper device flows (only home screens and sign-in were driven on the emulator); iOS build.
+8. Native: build and run all three apps on a device or emulator and review the redesigned screens (not visually verified in the final pass); iOS build.
 9. SAML and SCIM for university SSO when a real IdP is connected (OIDC is implemented).
-10. Performance attribution of LCP on a quiet host (lab numbers were taken on a saturated machine).
+10. Remaining visual work: Student Explore and Profile/More; Operations Manage and secondary pages (Templates, Vendors, Catalog, Audit, essay editor); University Programs header; preview-pill overlap at 768.
+11. Performance attribution of LCP on a quiet host (lab numbers were taken on a saturated machine).
 
 ## 4. Explicitly not planned
 

@@ -15,7 +15,7 @@ export interface CardProps {
 }
 
 export function Card({ children, onPress, accessibilityLabel, accessibilityHint, tone, padded = true, style }: CardProps) {
-  const bg = tone === 'warm' ? theme.color.surfaceWarm : tone ? toneColors(tone).bg : theme.color.surface;
+  const bg = tone === 'warm' ? theme.color.bgPaper : tone ? toneColors(tone).bg : theme.color.surface;
   const border = tone === 'warm' ? theme.color.borderSubtle : tone ? toneColors(tone).bg : theme.color.border;
   const base = [styles.card, { backgroundColor: bg, borderColor: border }, padded && styles.padded, style];
   if (!onPress) return <View style={base}>{children}</View>;
@@ -34,7 +34,7 @@ export function Card({ children, onPress, accessibilityLabel, accessibilityHint,
 }
 
 const styles = StyleSheet.create({
-  card: { borderRadius: theme.radius.lg, borderWidth: 1, overflow: Platform.OS === 'android' ? 'hidden' : 'visible' },
+  card: { borderRadius: theme.radius.xl, borderWidth: 1, overflow: Platform.OS === 'android' ? 'hidden' : 'visible' },
   padded: { padding: theme.space[4], gap: theme.space[3] },
   pressed: { opacity: 0.75 },
 });

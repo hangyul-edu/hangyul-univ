@@ -7,7 +7,7 @@ export default function ThreadScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const [subject, setSubject] = useState('');
   return (
-    <View style={{ flex: 1, backgroundColor: theme.color.bgCanvas }}>
+    <View style={{ flex: 1, backgroundColor: theme.color.bg }}>
       <Stack.Screen options={{ title: subject }} />
       <ChatThread conversationId={id} allowInternal onLoaded={(subj, student) => setSubject(student ?? subj)} />
     </View>

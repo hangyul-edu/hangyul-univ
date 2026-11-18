@@ -67,9 +67,6 @@
     "qa:agency": "node scripts/qa/v15-agency.mjs",
     "qa:university": "node scripts/qa/v15-university.mjs",
     "qa:v15": "npm run qa:pricing && npm run qa:entitlements && npm run qa:handoff",
-    "qa:v16": "node scripts/qa/v16-gate.mjs",
-    "qa:v16-shots": "node scripts/qa/v16-capture.mjs",
-    "qa:v17": "node scripts/qa/v17-gate.mjs",
     "qa:v18-locales": "node scripts/qa/v18-locale-coverage.mjs",
     "qa:v18": "node scripts/qa/v18-gate.mjs",
     "qa:v18-shots": "node scripts/qa/v18-student-shots.mjs",
@@ -96,9 +93,7 @@
     "test:release": "node scripts/release/test-release.mjs",
     "qa:v21": "node scripts/qa/v21-gate.mjs && node scripts/qa/v21/security-scan.mjs",
     "qa:v21-static": "node scripts/qa/v21-gate.mjs --static",
-    "qa:v21-payment": "node scripts/qa/v21/toss-test-transaction.mjs",
     "qa:v21-security": "node scripts/qa/v21/security-scan.mjs",
-    "qa:v21-shots": "node scripts/qa/v21/capture.mjs",
     "qa:v22": "node scripts/qa/v22-gate.mjs && node scripts/qa/v22/provider-smoke.mjs && node scripts/qa/v21/security-scan.mjs --no-runtime",
     "qa:v22-static": "node scripts/qa/v22-gate.mjs --static",
     "qa:v22-smoke": "node scripts/qa/v22/provider-smoke.mjs",
@@ -132,7 +127,6 @@
     "qa:v30-routes": "node scripts/qa/v30/routes.mjs",
     "qa:v30": "bash scripts/qa/v30/chain.sh",
     "qa:v31-l10n": "node scripts/qa/v31/l10n.mjs",
-    "qa:v31-stage": "node scripts/qa/v31/stage.mjs",
     "qa:v31-pricing": "node scripts/qa/v31/pricing.mjs",
     "qa:v31": "bash scripts/qa/v31/chain.sh",
     "public-data:export": "server/.venv/bin/python scripts/public-data/export.py",
@@ -150,7 +144,9 @@
     "qa:launch-matrix": "node scripts/qa/launch-final/matrix.mjs --tag after --preview --marketing http://127.0.0.1:4100 --student http://127.0.0.1:4101 --agency http://127.0.0.1:4102 --university http://127.0.0.1:4103",
     "qa:launch-preview": "node scripts/qa/launch-final/preview.mjs --strict",
     "qa:launch-signup": "node scripts/qa/launch-final/signup-walk.mjs",
-    "release:preview-gate": "node scripts/release/preview-gate.mjs"
+    "release:preview-gate": "node scripts/release/preview-gate.mjs",
+    "payments:probe": "cd server && HG_ENV=${HG_ENV:-development} .venv/bin/python scripts/toss_capability_probe.py",
+    "release:payment-gate": "cd server && .venv/bin/python scripts/payment_release_gate.py --bundles ../apps/student-web/dist ../apps/agency-web/dist ../apps/university-web/dist ../apps/marketing-web/dist"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",

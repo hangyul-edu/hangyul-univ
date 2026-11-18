@@ -17,14 +17,15 @@
  * V16 made the second state answer "do I pay now?" (REPORT §136). Before it, the primary action said
  * 올인원 선택, the word 결제 did not appear until a modal had already been opened, and the modal's first
  * element was a warning that the payment was not real. The modal is gone, the word is on the button, and
- * the payment is a real Toss test transaction.
+ * the payment is a real one-time charge to a saved payment method.
  *
  * Nothing here holds a price of its own: the numbers come from `/me/services`, which serves what the seed
  * wrote from `shared/plans.json`, which is generated from `packages/types/src/plans.ts`. Nothing here
- * decides that a payment succeeded either — see `lib/toss.ts` and `/me/payments/toss/confirm`.
+ * decides that a payment succeeded either — see `components/PaymentCheckout.tsx` and `POST /me/orders/{id}/pay`.
  */
 import { useApi } from '@hangyul/auth';
 import { BadgeCheck, Check, CreditCard } from '@hangyul/icons';
+import type { PaymentResult } from '@hangyul/types';
 import {
   ADD_ONS, ADD_ON_BY_CODE, COMPARE_GROUPS, COMPARE_ROWS, PLAN_BY_CODE, SERVICE_NOTES, addOnFor, compareCell, planPresentationByCode, planText, upgradeOffer,
   type AddOnCode, type AddOnDef, type EntitlementUse, type OrderRow, type PlanCode, type ServiceAddOn, type ServiceNowLine, type ServiceProduct, type StudentPlan,
@@ -40,13 +41,13 @@ import { GateNotice } from '../components/Upgrade';
 import { rememberAppReturn } from '../lib/apphandoff';
 import { tr, useT } from '../lib/i18n';
 import { readPlanParam } from '../lib/quick';
-import { openTossCheckout } from '../lib/toss';
-import { CardForm, type CardValue } from '../components/CardForm';
+import { failureCode, failureKey } from '../lib/billing';
+import { PaymentCheckout, type CheckoutOrder } from '../components/PaymentCheckout';
+import { PaymentMethods } from '../components/PaymentMethods';
 
 const MARKETING_URL = (import.meta.env.VITE_MARKETING_URL as string | undefined) ?? (import.meta.env.DEV ? 'http://localhost:3100' : '');
 /** The purchase-terms version the summary renders; the API refuses a stale one (REPORT §245 L5). */
 const PURCHASE_TERMS_VERSION = '2026-10-30';
-import { SavedCards } from '../components/SavedCards';
 
 /**
  * Everything that changes the moment an order is paid. `services` carries the plan itself and is what the route
@@ -171,10 +172,10 @@ const defOf = (a: ServiceAddOn): AddOnDef | null =>
  * never a range — before deciding. Approving creates the order to pay; nothing is switched on until it is paid. Declining
  * is a one-click terminal answer that costs nothing, and the decline control is as prominent as the approve one.
  */
-function AddOns({ items, onDecide, onPay, pending, cardMode }: {
-  items: ServiceAddOn[]; pending: string | null; cardMode: boolean;
+function AddOns({ items, onDecide, onPaid, pending }: {
+  items: ServiceAddOn[]; pending: string | null;
   onDecide: (id: string, approve: boolean) => void;
-  onPay: (a: ServiceAddOn, card?: CardValue) => void;
+  onPaid: () => void;
 }) {
   const { t, locale } = useT();
   const A = 'v29.services.addOn';
@@ -205,10 +206,12 @@ function AddOns({ items, onDecide, onPay, pending, cardMode }: {
             {a.status === 'AWAITING_PAYMENT' && (
               <div className="sv15-addons__pay">
                 <p className="hg-small">{t(`${A}.awaiting`)}</p>
-                {cardMode && paying === a.id
-                  ? <CardForm amount={money(a)} busy={pending === a.id} error={null} onSubmit={(card) => onPay(a, card)} />
-                  : <Button variant="primary" size="sm" loading={pending === a.id}
-                      onClick={() => (cardMode ? setPaying(a.id) : onPay(a))}>{t(`${A}.pay`, { amount: money(a) })}</Button>}
+                {/* The same one-time checkout as a plan: a saved payment method, the exact amount, one charge. */}
+                {paying === a.id && a.order_id && a.amount_minor
+                  ? <PaymentCheckout serviceName={name(a)} amountMinor={a.amount_minor} currency={a.currency ?? 'USD'}
+                      order={{ order_id: a.order_id, amount_minor: a.amount_minor, currency: a.currency ?? 'USD' }} onPaid={onPaid} />
+                  : <Button variant="primary" size="sm" disabled={!a.order_id}
+                      onClick={() => setPaying(a.id)}>{t(`${A}.pay`, { amount: money(a) })}</Button>}
               </div>
             )}
           </li>
@@ -278,7 +281,7 @@ function UpgradePanel({ from, to }: { from: PlanCode; to: PlanCode }) {
   );
 }
 
-function CurrentPlan({ plan, now, cardMode }: { plan: StudentPlan; now: ServiceNowLine[]; cardMode: boolean }) {
+function CurrentPlan({ plan, now }: { plan: StudentPlan; now: ServiceNowLine[] }) {
   const { t, locale } = useT();
   const api = useApi();
   const qc = useQueryClient();
@@ -288,15 +291,6 @@ function CurrentPlan({ plan, now, cardMode }: { plan: StudentPlan; now: ServiceN
   const fail = (e: unknown) => { toast.error(t('v29.services.addOn.failed')); setPending(null); void e; };
   const m = useMutation({
     mutationFn: ({ id, approve }: { id: string; approve: boolean }) => api.me.decideAddOn(id, approve),
-    onSuccess: refresh, onError: fail,
-  });
-  // V29: an add-on is paid through the same order state machine as a plan (card key-in on the foreign-card merchant).
-  const pay = useMutation({
-    mutationFn: async ({ a, card }: { a: ServiceAddOn; card?: CardValue }) => {
-      if (!a.order_id) throw new Error('no_order');
-      if (!card) throw new Error('card_required');
-      return api.me.payOrderWithCard(a.order_id, { number: card.number, expiry_month: card.expiry_month, expiry_year: card.expiry_year, holder_name: card.holder_name || null });
-    },
     onSuccess: refresh, onError: fail,
   });
   return (
@@ -327,9 +321,9 @@ function CurrentPlan({ plan, now, cardMode }: { plan: StudentPlan; now: ServiceN
         <Scope plan={plan} />
       </div>
       </details>
-      <AddOns items={plan.add_ons} pending={pending} cardMode={cardMode}
+      <AddOns items={plan.add_ons} pending={pending}
         onDecide={(id, approve) => { setPending(id); m.mutate({ id, approve }); }}
-        onPay={(a, card) => { setPending(a.id); pay.mutate({ a, card }); }} />
+        onPaid={refresh} />
       <AddOnCatalogue plan={plan} />
     </section>
   );
@@ -410,57 +404,72 @@ function NowLines({ lines }: { lines: ServiceNowLine[] }) {
  * happens the second I pay. The amount is on the button because the button is the last thing read.
  */
 /**
- * The order, and the card (V21).
+ * The order, and how it is paid.
  *
- * Until V21 this block ended at a button that opened the provider's window. The merchant
- * configuration the owner contracted takes the card **here** (REPORT §229.3, §236), so the form is
- * Hangyul's and the student never leaves: one section, one price, one action that both registers
- * the card and pays — which is what §35 asks for and what the API actually does in one call.
+ * The summary says what was chosen and what it costs; the checkout below it is the one-time payment — a
+ * saved payment method (or adding one on the payment provider's secure page), the amount on the button,
+ * and one charge. Hangyul renders no card field.
  */
-export function OrderBlock({ p, busy, error, onPay, cardMode, benefits }: {
-  p: ServiceProduct; busy: boolean; error: string | null;
-  onPay: (card?: CardValue) => void; cardMode: boolean;
+export function OrderBlock({ p, benefits, createOrder, onPaid, demo }: {
+  p: ServiceProduct;
   /** V22: the plan's approved benefit lines, shown once more where the money is (REPORT §245 L5). */
   benefits?: string[];
+  /** Creates the order when the student commits; the server prices it. */
+  createOrder: () => Promise<CheckoutOrder>;
+  onPaid: (r?: PaymentResult) => void;
+  /** Local development only: the demo provider completes an order the moment it is created (refused in production). */
+  demo?: { busy: boolean; error: string | null; onPay: () => void } | null;
 }) {
   const { t, locale } = useT();
   const amount = p.price ? formatMoney(p.price.amount_minor, p.price.currency, locale, { minor: true, gap: true, symbolOnly: true }) : '—';
   return (
-    <section className="sv16-order" aria-labelledby="sv16-order-h">
+    <section className="sv16-order sp-order" aria-labelledby="sv16-order-h">
       <h2 className="hg-title-sm" id="sv16-order-h">{t('v16.pay.orderTitle')}</h2>
-      <div className="sv16-order__line">
-        <span className="sv16-order__name">{planName(t, p)}</span>
-        <span className="sv16-order__amount">
-          <strong className="hg-num">{amount}</strong>
-          <span className="hg-subtle hg-xs">{t('services.oneTime')}</span>
-        </span>
+      {/* Summary → what's included → payment method → pay. The purchase summary (brief §27: plan · price · one-time ·
+          included · service-start condition · refund link) is one quiet receipt; the version shown is recorded with
+          the order. */}
+      <div className="sp-order__summary">
+        <div className="sv16-order__line">
+          <span className="sv16-order__name">{planName(t, p)}</span>
+          <span className="sv16-order__amount">
+            <strong className="hg-num">{amount}</strong>
+            <span className="hg-subtle hg-xs">{t('services.oneTime')}</span>
+          </span>
+        </div>
+        {benefits && benefits.length > 0 && (
+          <div className="sp-order__included">
+            <h3 className="sp-order__label">{t('v22.checkout.included')}</h3>
+            <ul className="st-ticks">{benefits.map((b) => <li key={b}><Check aria-hidden />{b}</li>)}</ul>
+          </div>
+        )}
+        <dl className="sv22-summary">
+          <div><dt>{t('v22.checkout.start')}</dt><dd>{t('v22.checkout.startCondition')} <a href={`${MARKETING_URL}/terms?lang=${locale}#refunds`} target="_blank" rel="noreferrer" className="hg-link">{t('v22.checkout.refundLink')}</a></dd></div>
+          <div className="sp-order__total"><dt>{t('v22.checkout.oneTime')}</dt><dd className="hg-num">{amount}</dd></div>
+        </dl>
       </div>
-      {/* V22 purchase summary (brief §27): plan · price · one-time · included · service-start condition · refund link.
-          A short list and a link, not a legal paragraph; the version shown is recorded with the order. */}
-      <dl className="sv22-summary">
-        <div><dt>{t('v22.checkout.oneTime')}</dt><dd className="hg-num">{amount}</dd></div>
-        {benefits && benefits.length > 0 && <div><dt>{t('v22.checkout.included')}</dt><dd><ul>{benefits.map((b) => <li key={b}>{b}</li>)}</ul></dd></div>}
-        <div><dt>{t('v22.checkout.start')}</dt><dd>{t('v22.checkout.startCondition')} <a href={`${MARKETING_URL}/terms?lang=${locale}#refunds`} target="_blank" rel="noreferrer" className="hg-link">{t('v22.checkout.refundLink')}</a></dd></div>
-      </dl>
-      {/* V29 이용 안내 — stated in full where the money is (brief §12): USD, exchange and card fees, third-party costs,
-          documents vary, visa decisions are the authority's, the agreement sets detail, Premium's editing scope. */}
-      <ul className="sv29-notes hg-small">
-        {SERVICE_NOTES.filter((k) => k !== 'premiumScope' || p.code === 'PREMIUM').map((k) => <li key={k}>{t(`common:v29.pricing.notes.${k}`)}</li>)}
-      </ul>
-      <p className="hg-subtle hg-xs sv22-summary__agree">{t('v22.checkout.agree')}</p>
-      {cardMode ? (
-        <CardForm amount={amount} busy={busy} error={error} onSubmit={(card) => onPay(card)} />
-      ) : (
-        <>
-          {error && <Callout tone="danger">{error}</Callout>}
-          {/* The amount rides on the button because the button is the last thing read before the
-              decision. A price that lives only in a row above it is a price the eye has already left. */}
-          <Button variant="primary" size="lg" icon={<CreditCard />} loading={busy} onClick={() => onPay()} className="sv16-order__pay">
-            {t('v16.pay.cta')}<span className="sv16-order__sum hg-num" aria-hidden>{amount}</span>
-          </Button>
-          <p className="hg-subtle hg-xs sv16-order__after">{t('v17.pay.afterPay')}</p>
-        </>
-      )}
+      <div className="sp-order__pay">
+        {demo ? (
+          <>
+            {demo.error && <Callout tone="danger">{demo.error}</Callout>}
+            <Button variant="primary" size="lg" icon={<CreditCard />} loading={demo.busy} onClick={demo.onPay} className="sv16-order__pay">
+              {t('billing.payCta', { amount })}
+            </Button>
+          </>
+        ) : p.price ? (
+          <PaymentCheckout key={p.code} embedded serviceName={planName(t, p)} amountMinor={p.price.amount_minor} currency={p.price.currency}
+            createOrder={createOrder} onPaid={onPaid} />
+        ) : null}
+        <p className="hg-subtle hg-xs sv22-summary__agree">{t('v22.checkout.agree')}</p>
+      </div>
+      {/* V29 이용 안내 — still stated in full where the money is (brief §12): USD, exchange and card fees, third-party
+          costs, documents vary, visa decisions are the authority's, the agreement sets detail, Premium's editing scope.
+          It is the fine print of the order, so it reads after the decision, not between the price and the payment. */}
+      <div className="sp-order__fine">
+        <h3 className="sp-order__label">{t('common:v29.pricing.notes.title')}</h3>
+        <ul className="sv29-notes hg-small">
+          {SERVICE_NOTES.filter((k) => k !== 'premiumScope' || p.code === 'PREMIUM').map((k) => <li key={k}>{t(`common:v29.pricing.notes.${k}`)}</li>)}
+        </ul>
+      </div>
     </section>
   );
 }
@@ -574,69 +583,33 @@ export default function Services() {
   const selected = products.find((x) => x.code === selectedCode) ?? null;
 
   /**
-   * One payment path, and it is the same one on every surface.
-   *
-   * Create the order on the server (which prices it), then open the provider's own window. Nothing here
-   * decides anything: if the window cannot be opened the order is cancelled so it cannot be left dangling,
-   * and if the provider is the development demo provider the server has already completed the order and the
-   * answer is simply to refresh the screen.
+   * One payment path, and it is the same one on every surface: the server prices the order, the student
+   * chooses (or adds) a payment method and confirms the one-time amount, and the server charges it once.
+   * Nothing here decides anything — not the amount, not whether it was paid.
    */
-  /**
-   * Does the server take the card itself? V21: on the foreign-card configuration it does, so the
-   * student sees Hangyul's form rather than a provider window (REPORT §236). Read from the server
-   * rather than from a build flag, because which merchant configuration is live is a server fact.
-   */
-  const payCfg = useQuery({ queryKey: ['payments-config'], queryFn: () => api.me.paymentsConfig(), staleTime: 5 * 60_000 });
-  const cardMode = payCfg.data?.foreign_card?.enabled === true;
-
   const purchaseTermsVersion = PURCHASE_TERMS_VERSION;
-  const pay = async (card?: CardValue) => {
+  const paid = () => {
+    PAID_STATE_QUERY_KEYS.forEach((k) => qc.invalidateQueries({ queryKey: [k] }));
+    setSp((prev) => { const n = new URLSearchParams(prev); n.set('payment', 'done'); return n; }, { replace: true });
+  };
+  const createOrder = async (): Promise<CheckoutOrder> => {
+    if (!selected) throw new Error('no_plan');
+    const r = await api.me.checkout(selected.code, purchaseTermsVersion);
+    return { order_id: r.order_id, amount_minor: r.amount_minor, currency: r.currency };
+  };
+  // Local development only: the demo provider completes the order as it is created. The server refuses the
+  // demo provider in production, so this branch cannot be reached there.
+  const provider = useQuery({ queryKey: ['payment-options', 'provider'], queryFn: () => api.me.paymentOptions(), staleTime: 5 * 60_000 });
+  const payDemo = async () => {
     if (!selected || busy) return;
     setBusy(true);
     setError(null);
-    let orderId: string | null = null;
     try {
       const r = await api.me.checkout(selected.code, purchaseTermsVersion);
-      orderId = r.order_id;
-      // V21 — the card path. `card_form` is the server saying "I take the card myself": the digits go
-      // straight to Hangyul's API, which charges Toss and returns a paid order. No window opens, so
-      // there is nothing to cancel and nothing to come back from.
-      if (card && r.card_form) {
-        await api.me.payOrderWithCard(orderId, {
-          number: card.number, expiry_month: card.expiry_month,
-          expiry_year: card.expiry_year, holder_name: card.holder_name || null,
-        });
-        PAID_STATE_QUERY_KEYS.forEach((k) => qc.invalidateQueries({ queryKey: [k] }));
-        setSp((prev) => { const n = new URLSearchParams(prev); n.set('payment', 'done'); return n; }, { replace: true });
-        return;
-      }
-      if (r.checkout) {
-        await openTossCheckout(r.checkout, r.customer);
-        return; // the browser is leaving for the payment window
-      }
-      // No provider-hosted window (the development demo provider): the server already completed the order.
-      PAID_STATE_QUERY_KEYS.forEach((k) => qc.invalidateQueries({ queryKey: [k] }));
-      setSp((prev) => { const n = new URLSearchParams(prev); n.set('payment', 'done'); return n; }, { replace: true });
+      if (r.status === 'PAID') paid();
     } catch (e) {
-      const err = e as Error & { body?: { detail?: { code?: string; message?: string } } };
-      const code = err.body?.detail?.code;
-      // V21 — a *declined card* must not cancel the order. The student's plan choice survives so they
-      // can try another card on the same order (brief §40); only a failure to open the provider window
-      // leaves a dangling order worth cancelling.
-      if (orderId && !card) api.me.cancelOrder(orderId).catch(() => undefined);
-      // V17: the provider is not contracted for this currency yet (REPORT §152). That is a *status*, not a
-      // failure the student caused, and it must not be shown as one — and it must never be "resolved" by
-      // quietly creating a won order for a dollar price.
-      setError(
-        code === 'CURRENCY_NOT_CONTRACTED' ? t('v17.pay.currencyPending')
-          : code === 'FOREIGN_BILLING_NOT_READY' ? t('v21.pay.notConfigured')
-            : code === 'TOO_MANY_CARD_ATTEMPTS' ? t('v21.pay.tooMany')
-              : err.body?.detail?.message ? t('v21.pay.declined', { reason: err.body.detail.message })
-                : err.message === 'payment_sdk_unavailable' ? t('v16.pay.sdkDown')
-                  // V23: never the raw transport/JS message ("Failed to fetch") — a localized, recoverable line.
-                  : t(card ? 'v21.pay.cardFailed' : 'v16.pay.couldNotStart'),
-      );
-      if (code !== 'CURRENCY_NOT_CONTRACTED') toast.error(t(card ? 'v21.pay.cardFailed' : 'v16.pay.couldNotStart'));
+      setError(t(failureKey(failureCode(e))));
+      toast.error(t('billing.fail.default'));
     } finally {
       setBusy(false);
     }
@@ -653,14 +626,14 @@ export default function Services() {
       {/* Owner review only (one build flag): the entitled screens from synthetic state — no order, no payment. */}
       {!plan && <DesignPreviewPaidEntry />}
       {notice === 'cancelled' && <Callout tone="info">{t('v16.pay.cancelled')}</Callout>}
+      {sp.get('method') === 'added' && <Callout tone="success">{t('billing.manage.addedNotice')}</Callout>}
       {/* V17: the student arrived from the native app, in a browser they did not choose to open. Saying so
           is the whole difference between a handoff and the app having thrown them out. */}
       {fromApp && <Callout tone="info">{t('v17.pay.fromApp')}</Callout>}
       <QueryState query={q} skeleton={<SkeletonCard lines={8} />}>
         {(d) => (
           <>
-            {d.plan && <CurrentPlan plan={d.plan} now={d.now ?? []} cardMode={cardMode} />}
-            {cardMode && <SavedCards />}
+            {d.plan && <CurrentPlan plan={d.plan} now={d.now ?? []} />}
             {/* Before a plan is bought the order comes first: the question on this screen is "do I pay now,
                 and for what", and the answer should not be below three cards. Once a plan is owned the
                 other two are a way to change rather than an offer, so the block is not shown *by default*.
@@ -685,7 +658,8 @@ export default function Services() {
             {!d.plan && selected
               && (
                 <OrderBlock
-                  p={selected} busy={busy} error={error} onPay={pay} cardMode={cardMode}
+                  p={selected} createOrder={createOrder} onPaid={paid}
+                  demo={provider.data?.provider === 'demo' ? { busy, error, onPay: payDemo } : null}
                   benefits={(() => { const pres = planPresentationByCode(selected.code); return pres ? planText(t, pres).benefits : []; })()}
                 />
               )}
@@ -715,6 +689,8 @@ export default function Services() {
             </div>
             )}
             <p className="hg-subtle hg-xs sv15-external">{t('v15.services.external')}</p>
+            {/* Saved payment methods — charged only when their owner confirms a one-time payment. */}
+            <PaymentMethods />
             <History rows={d.history ?? []} />
           </>
         )}

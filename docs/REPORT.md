@@ -1,6 +1,6 @@
 # Hangyul Univ — Launch Report
 
-> **Current as of 2026-11-18, launch pass commit `e3f0e0f4`.** This is the current-state launch report. It replaces the
+> **Current as of 2026-11-19, final product pass (billing-key payments and product UX).** Earlier baseline: launch pass `e3f0e0f4`. This is the current-state launch report. It replaces the
 > 20,000-line version-by-version record (V1–V32), which remains in git history
 > (`git log -- docs/REPORT.md`; last full version at commit `fd2f4ba7`). Everything in this file is meant to be true
 > today; when something changes, edit the statement instead of appending a dated section.
@@ -19,8 +19,9 @@ The **university makes the final admission decision**; the immigration authority
 **One-paragraph verdict.** The four web products are deployed and reachable, the API answers through a tunnel to a
 non-production host, and the product code is release-candidate quality (V32 gate chain green on 2026-11-04, brand and
 copy work since). It is **not ready for a public launch**: there is no durable production API host, the connected
-database has no programme catalogue, payments are in test mode, legal identity fields and counsel review are open, no
-language has been reviewed by a human, and iOS is not built. See §9.
+database has no programme catalogue, **no live payment method is verified and no production payment host exists** (the
+billing-key rail is built and tested, but cannot charge real money yet), legal identity fields and counsel review are
+open, no language has been reviewed by a human, and iOS is not built. See §9.
 
 | Product | Domain | Code | State |
 |---|---|---|---|
@@ -99,27 +100,40 @@ service-unavailable state with Retry — never fabricated data or a transport er
 - Students see one identity, "한귤 유니브 상담팀 / Hangyul Univ team"; the real author stays on every row for audit.
 - Student UX rule: the next action comes before the internal stage.
 
-**Payments.** Toss Payments in **test mode**. A plan is bought through Hangyul's own card form: order → card number
-and expiry → server relays to Toss key-in on the foreign-card merchant `bill_talkoab1` (USD), with an order-derived
-idempotency key and attempt limits. Card data is not stored (only issuer and masked number if the student saves the
-card). Live USD checkout is off (`live_usd_checkout_enabled: false`); a student who reaches the pay button is told
-so and is never charged in another currency. Native apps hand checkout to the web. Open: live keys, the
-overseas-card/USD contract, the refund schedule, the upgrade rule.
+**Payments — billing key only (owner decision).** Every purchase is a **one-time** payment: the student chooses a
+saved payment method or registers one on Toss's hosted page (Hangyul never sees card data), the server issues and
+AES-256-GCM-seals the billing key (**this charges and activates nothing**), the student confirms "Pay $349 · one-time
+payment", and the server charges that key **once** for the server-priced order. No subscription, no renewal, no
+scheduler, no ordinary-payment fallback — the old 결제창 and key-in routes were removed. Exactly-once is enforced by an
+order row lock, a durable CHARGING state before the call, per-attempt idempotency keys and a provider lookup before any
+retry; webhooks only trigger a lookup. Refunds are executed by Operations for an amount a person decides (no refund
+schedule is approved); students cannot refund themselves. Upgrades stay refused until an upgrade price rule exists.
+**Live state:** no live credentials are installed on any host, there is no production payment host, and no method has a
+verified live capability, so nothing can be charged today. Detail, gates and per-method results:
+[`payments/BILLING.md`](payments/BILLING.md).
 
 ## 4. Current data coverage
 
 | Data | Verified / present | Incomplete |
 |---|---|---|
 | Institution directory | **425** institutions (대학알리미, Study in Korea, Wikidata), every field sourced; 425 public detail pages | — |
-| Admission guides → checklists | **8** universities (bachelor's, 2027 Spring), from official guides | All other universities show "guide under review" and no checklist |
+| Admission guides → checklists | **8** universities with a document checklist built from an official guide (bachelor's, 2027 Spring); **39 / 425** link a verified official guide on their public page | Others show "not yet verified" with the official source link |
 | Language rules | 963 rule rows; **43** institutions with verified rules | **176** institutions "needs checking" |
 | Scholarships | **461** schemes for 24 universities, as published | Other universities: not researched, shown as unknown (never "none") |
 | GKS participation | 98 institutions (NIIED lists) | — |
 | Visa routes | 41 routes, 14 countries × visa type, sourced | Per-route open items for a human reviewer |
 | University photographs | **166 / 425** with an own campus photograph (462 photos, full rights metadata) | **259** use a designed identity composition |
-| Official films | 158 verified | — |
+| Official films | **165 / 425** with a verified official video (24 of them international-student / English / campus-tour films) | — |
 | Programme catalogue (programmes, fees, deadlines) | **None.** No sample rows exist anywhere | Empty in the connected database (`total: 0`) |
 | Members | 0 users in the reference seed; synthetic fixtures only in test/e2e databases | — |
+
+Public detail-page coverage, measured by `node scripts/qa/university-coverage.mjs` (425 records): own campus photo
+166 · servable official logo 63 · official website 348 · international office link 123 (37 from verified research) ·
+international admissions page 207 (46 verified) · verified guide 39 · verified language rule 43 · structured
+scholarships 24 · GKS (NIIED list) 98 · IEQAS 173 · dormitory verified 28 · official video 165. **Not in the public data
+at all (0 / 425): tuition, application fee, intakes/application periods, required documents, legalization rule,
+degree levels offered, street address** — the detail page shows these as "not yet verified" with the official source,
+never as "none". Unverified data presented as fact: 0.
 
 Two different data sets are live: the **public site** reads a static export of the reference data (so it shows 425
 universities and Quick Fit works); the **connected API database** is unseeded for the catalogue endpoints.
@@ -127,18 +141,33 @@ Seeding it is an open task. Public rule: a public surface renders only what can 
 
 ## 5. Current UI/UX state
 
-- **Marketing:** Koreanasha-derived layout on the Eduan chassis; orange horizontal logo on the light header; photo-first
-  directory with search, region and type filters and a map; university pages lead with verified facts; Quick Fit in four
-  groups; pricing with comparison and the purchase notes; compact mobile header and hero (post-V32 polish).
-- **Student:** warm guided surface; journey line; one photo-led next action; lanes "내가 할 일 · 한귤이 하는 일 · 대학이
-  확인하는 일"; documents as rows; services shows what is active and who acts next before the plan matrix.
-- **Operations/Admin:** white canvas, warm-paper navigation; Today (count = rows) with a pipeline rail; student
-  workspace with one progress line and the plan panel; one issue label per document; every count opens its rows.
-- **University:** home leads with applicants to decide, then pipeline, then outcomes; insights answer named
-  questions with denominators and a small-sample rule.
-- **Shared system:** one warm neutral ramp; tangerine only for the primary action, current item and focus; one
-  action shape and four button roles; one canonical select (own listbox, popover on desktop, bottom sheet on phones —
-  no native `<select>`); 44 px phone targets; visible focus everywhere.
+Final product pass (2026-11-19). Every change below was judged from real screenshots at 320–1920 (Design Preview,
+synthetic data), not from automated passes alone; screenshots were captured for every major route at 10 widths.
+
+- **Shared foundation:** the YNEX skin that re-pointed tokens to cool blue-grey was removed; white canvas, one warm
+  paper surface (`--hg-bg-paper`), `--hg-selected-*` orange for current/selected state everywhere (tabs, chips,
+  segmented, rows, nav), all seven status tones restored (six had rendered grey since the first commit), one type face,
+  larger console type, 10/14/20 px radii, white table headers, quieter modals and drawers.
+- **Marketing:** unchanged except the university detail page, rebuilt as a decision page: identity hero (badges only
+  where data supports them) → decision summary (study options · admissions · cost · student life · support, confirmed
+  facts only, "not yet verified" with the official source otherwise) → admissions with source and checked date →
+  scholarships grouped by type with eligibility, benefit, period, source → campus and student life (own photographs
+  only; otherwise an identity board with logo, region map and regional photo labelled as the region) → official video
+  → one closing action.
+- **Student:** home answers where am I → one next step (with deadline) → what Hangyul is doing → what the university is
+  doing → coming up → applications → documents. A calm "nothing to do right now" state names the university reviewing
+  and keeps the next dates visible. Applications, application detail and documents use hairline rows and one primary
+  action; checkout reads summary → included → payment method → "Pay $349" → one-time consent; saved payment methods
+  can be added, set default and removed.
+- **Operations/Admin:** Today leads with "who needs attention now" lanes (act now · our turn · waiting on student ·
+  waiting on university) and a stage rail (orange selected, red where someone needs action, amber where all are
+  waiting); 54 of 54 count clicks open exactly the rows counted. The work queue shows student, situation, next action,
+  waiting on, due, university and activity without clipping; SVG flags replace emoji. The student workspace is one
+  case; Insights uses sections and denominators; Payments shows state, receipts and refunds with a typed-amount refund.
+- **University:** the overview answers attention, pipeline, missing documents, offers, post-admission outcomes,
+  countries and monthly trend above the fold at 1440; Insights is rebuilt on lightweight charts (step funnel,
+  country bars, month trend, cohort matrix) with "n of N" everywhere and the n<5 rule unchanged; the applicant review
+  has one primary decision with its lock reason visible.
 - **Brand:** marketing light header = orange horizontal logo; dark surfaces = ivory; product shells on light = black
   horizontal; app icons and favicons = orange symbol on ivory; OG card `hangyul-univ-og-v1.jpg` in static HTML
   ([BRAND_AND_MEDIA.md](BRAND_AND_MEDIA.md)).
@@ -146,8 +175,13 @@ Seeding it is an open task. Public rule: a public surface renders only what can 
   in" under the Student / Operations / University logins and "Preview without paying" under paywalls; synthetic
   fixtures only, read-only, no auth session, no private API calls, a small "Design Preview" indicator. Must be off
   before public launch; a release gate checks it.
-- **Native:** all three apps share the web model; emulator runs covered sign-in and home screens in Korean, English
-  and Thai; deeper native flows were not driven. Full essay editing is web-only.
+- **Native:** all three apps were updated in code in this pass (student home with the calm waiting state and one
+  primary action; Operations queue-first Today; University decision-first queue and one primary decision). **None of
+  these changes were run on an emulator or device** — no Android/iOS toolchain was available — so native visual quality
+  is unverified. Native payment hands off to the web checkout (one backend payment model).
+- **Remaining known visual issues:** Explore and Profile/More (student) still use dense bordered lists; Operations
+  Manage is a grid of navigation cards and several secondary pages got token convergence only; University Programs has
+  two orange buttons in one header; the Design Preview pill overlaps one helper line at 768 (preview-only).
 - **Not done:** usability sessions with real students; a human screen-reader walk-through.
 
 Last measured lab figures (V26–V31, on a saturated host, not re-measured since): consoles LCP 112–552 ms, marketing
@@ -194,6 +228,26 @@ V32 measured 9,126 active keys of 13,556; 3,668 customer-critical; 48,606 string
 translations would admit more console languages.
 
 ## 8. Final launch QA
+
+### Final product pass (2026-11-19)
+
+| Area | Result |
+|---|---|
+| API tests (local PostgreSQL 16 + Redis stand-in) | 44 new billing-key tests PASS. Full suite: all pass except **8** in `test_v5_dossier`, `test_v5_success`, `test_v6_submission`, `test_v9_adversarial` — every one also fails on an untouched checkout of the previous HEAD (9 there), so they are pre-existing |
+| API lint (ruff, whole server tree) | PASS |
+| Migration `v33billing0001` | upgrade → downgrade → upgrade PASS on a fresh database |
+| Typecheck | PASS, 7 workspaces |
+| Web unit tests | PASS — agency 64, marketing 78 (+22 skipped), student-mobile 14, student 129, university 72 |
+| Production builds | PASS, 4 web apps; marketing prerenders 425 university pages |
+| i18n check | PASS (pre-existing ko `_one` plural warnings) |
+| Security scan (tracked tree + database) | 0 unauthorized occurrences |
+| Payment release gate | **FAIL, as expected**: no live merchant configured, live payment disabled, no verified capability. Bundle scan inside the gate: no secret and no non-billing payment call in any of the four built bundles |
+| Responsive (320–1920, 10 widths, every major route of Student / Operations / University / university detail) | 0 horizontal overflow |
+| Accessibility (axe WCAG 2.1 A/AA, 390 and 1280) | 0 serious/critical — Student 17 screens, Operations 98 scans, University 28 routes, university detail 3 pages (en, ar) |
+| Operations counts = rows | 54 of 54 clicks |
+
+Not run in this pass: seeded E2E, real-account journeys against a live API (the tunnelled API was down), native builds
+or emulator screenshots, any live Toss request, production smoke of the payment backend (none exists).
 
 <!-- LAUNCH-QA:START -->
 
@@ -248,19 +302,19 @@ Full list with owners: [ROADMAP.md](ROADMAP.md).
 | 1 | No durable production API host (tunnel to a personal machine; `api.` subdomain fails TLS) | Infrastructure |
 | 2 | Connected database not seeded; no real programme catalogue | Data |
 | 3 | Design Preview flag is ON for owner review (`build.env` in three `vercel.json`); must be removed before public launch (`npm run release:preview-gate -- --launch --bundles off`) | Release |
-| 4 | Payments in Toss test mode; refund schedule and upgrade rule undecided | Owner / Toss |
+| 4 | Live payments: billing-key rail built and tested, but no live Toss credentials installed, no production payment host, no live capability verified (easy-pay billing undocumented by Toss; overseas-card billing unconfirmed; KRW merchants vs USD-only catalogue); refund schedule and upgrade rule undecided — [`payments/BILLING.md`](payments/BILLING.md) §6–7 | Owner / Toss |
 | 5 | Production SendGrid / Twilio / Turnstile credentials and live delivery check | Owner |
 | 6 | Legal: ten company identity fields, counsel review, retention periods | Owner / counsel |
 | 7 | Independent penetration test | Owner |
 | 8 | iOS not built; Android to be rebuilt with the Play upload key | Owner |
 | 9 | No human native-speaker review of any language; no usability sessions | People |
 | 11 | Privacy policy and terms still describe a "partner agency" receiving data (10 keys under `marketing.v12.privacy.*` / `v12.terms.*`, all locales) — legal text was not edited; needs counsel sign-off to match the direct-operation model | Owner / counsel |
-| 12 | API tests, seeded E2E, real-account journeys and native builds were not run in the launch pass (see §8) | Engineering |
+| 12 | Seeded E2E, real-account journeys and native builds/screenshots were not run (see §8); 8 API tests (dossier extraction, submission fixtures) fail, all of them also on the untouched baseline | Engineering |
 | 10 | 176 institutions without verified rules; 259 without an own photograph; no recorded university agreement | Data / partnerships |
 
 Could not be verified from this workspace: whether SendGrid/Twilio credentials are now configured on the connected
 host (the last two commits add production message copy and the Twilio SDK; the last recorded live check was BLOCKED);
-current Toss configuration on the connected host; current Android build state.
+current Android build state.
 
 ## 10. Changelog summary
 
@@ -304,4 +358,5 @@ One line per pass; detail is in git history (`git log`, and earlier versions of 
 | post-V32 | 2026-11-17 | Final Hangyul Univ branding and social metadata; orange branding on web and Android (`bc6be153`, `50e4f14c`) |
 | post-V32 | 2026-11-18 | Local stack reachable through ngrok; Vercel `/api` routed to the tunnel (`9a306bee`, `72cfca1c`) |
 | post-V32 | 2026-11-18 | Twilio SDK declared; production copy for verification e-mail and SMS (`47c8fec5`, `fd2f4ba7`) |
+| Final product pass | 2026-11-19 | Billing-key-only payments (registration → sealed key → one charge; old rails removed), payment methods UI, Operations refunds; shared design foundation de-greyed; Student, Operations, University and university detail redesigned |
 | Launch pass (`e3f0e0f4`) | 2026-11-18 | Shared gutter/container tokens and control states; sign-up verification and footer rebuilt; 25 visual defects fixed; Design Preview mode; direct-operation copy in every locale; docs consolidated to 19 root files; historical QA output removed; this report rewritten |

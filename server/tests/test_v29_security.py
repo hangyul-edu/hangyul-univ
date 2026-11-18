@@ -167,25 +167,45 @@ def test_otp_brute_force_cannot_succeed(client, strict_limits):
     assert client.post(f"{API}/auth/verification/verify", json={"challenge_id": cid, "code": real}).status_code in (400, 429)
 
 
-def test_payment_idempotency_key_is_derived_from_the_order(monkeypatch):
+def test_payment_idempotency_key_is_sent_with_every_billing_charge(monkeypatch):
+    """The billing charge carries the caller's attempt-derived key, and the amount in the provider's unit."""
     import httpx
 
-    from app.services.payments import TossProvider
+    from app.services import billing
 
     seen = []
 
     class R:
         status_code = 200
+        content = b"{}"
 
         def json(self):
-            return {"status": "DONE", "paymentKey": "pk", "totalAmount": 1000}
+            return {"status": "DONE", "paymentKey": "pk", "totalAmount": 10.0, "currency": "USD", "orderId": "o-01"}
 
-    monkeypatch.setattr(httpx, "post", lambda url, headers=None, json=None, timeout=None: seen.append(headers["Idempotency-Key"]) or R())
-    p = TossProvider(secret="test_sk_x", client_key="test_ck_x", mid="M", api_base="https://api.example", return_origin="http://x", env="test")
-    p.confirm(payment_key="pk", order_id="order-1", amount_minor=1000)
-    p.confirm(payment_key="pk", order_id="order-1", amount_minor=1000)
-    p.confirm(payment_key="pk", order_id="order-2", amount_minor=1000)
-    assert seen[0] == seen[1] == "hg-confirm-order-1" and seen[2] == "hg-confirm-order-2"
+    def fake(method, url, headers=None, json=None, timeout=None):
+        seen.append((method, url, headers.get("Idempotency-Key"), json))
+        return R()
+
+    monkeypatch.setattr(httpx, "request", fake)
+    m = billing.Merchant(key="foreign", mid="M", client_key="test_ck_x", secret_key="test_sk_x", security_key=None, currency="USD")
+    c = billing.BillingClient(m, api_base="https://api.example")
+    for key in ("hg-charge-order-1-1", "hg-charge-order-1-1", "hg-charge-order-1-2"):
+        r = c.charge(billing_key="cred", customer_key="hgc_" + "a" * 30, provider_order_id="o-01", amount_minor=1000, currency="USD",
+                     order_name="Plan", idempotency_key=key)
+        assert r.paid and r.amount_minor == 1000
+    assert [s[2] for s in seen] == ["hg-charge-order-1-1", "hg-charge-order-1-1", "hg-charge-order-1-2"]
+    assert all(s[0] == "POST" and s[1] == "https://api.example/v1/billing/cred" for s in seen)
+    assert seen[0][3]["amount"] == 10.0 and seen[0][3]["currency"] == "USD"  # cents → the provider's major unit
+    # A KRW merchant sends a bare whole-won amount and refuses another currency before the network.
+    krw = billing.BillingClient(billing.Merchant(key="domestic", mid="K", client_key="test_ck_x", secret_key="test_sk_x",
+                                                 security_key=None, currency="KRW"), api_base="https://api.example")
+    import pytest
+
+    from app.services.payments import ProviderError
+    with pytest.raises(ProviderError) as e:
+        krw.charge(billing_key="cred", customer_key="hgc_" + "a" * 30, provider_order_id="o-02", amount_minor=1000, currency="USD",
+                   order_name="Plan", idempotency_key="k")
+    assert e.value.code == "CURRENCY_MISMATCH" and len(seen) == 3
 
 
 # ------------------------------------------------------------------------------------------------ staff MFA

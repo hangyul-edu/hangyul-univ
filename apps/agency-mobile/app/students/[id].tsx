@@ -2,7 +2,7 @@ import { useApi } from '@hangyul/auth';
 import { useTranslation, localName } from '@hangyul/i18n';
 import {
   AppText, Avatar, Button, Callout, ListGroup, ListItem, LoadingState, PickerSheet, PromptSheet, QueryState, Screen, SectionTitle, StatusBadge,
-  UploadSheet, useConversations, useFormat, type PickedFile,
+  theme, UploadSheet, useConversations, useFormat, type PickedFile,
 } from '@hangyul/mobile-ui';
 import { PIPELINE_STAGES, type DocumentCategory, type PipelineStage, type StudentWorkspace } from '@hangyul/types';
 import { countryName } from '@hangyul/utils';
@@ -82,7 +82,7 @@ function Workspace({ w }: { w: StudentWorkspace }) {
             {[p.nationality ? countryName(p.nationality, f.locale) : null, p.target_degree ? t(`common:degreeShort.${p.target_degree}`) : null,
               p.target_intake_term && p.target_intake_year ? t('common:intakeLabel', { term: t(`common:term.${p.target_intake_term}`), year: p.target_intake_year }) : null].filter(Boolean).join(' · ')}
           </AppText>
-          <StatusBadge kind="pipeline" value={p.pipeline_stage} style={{ marginTop: 4 }} />
+          <StatusBadge kind="pipeline" value={p.pipeline_stage} style={{ marginTop: theme.space[1] }} />
         </View>
       </View>
       <View style={styles.actions}>
@@ -92,7 +92,7 @@ function Workspace({ w }: { w: StudentWorkspace }) {
       </View>
       {w.assignment ? <AppText variant="caption">{t('v3.agency.assigned', { counselor: w.assignment.counselor?.full_name ?? '—', since: f.date(w.assignment.since) })}{w.services.length ? ` · ${w.services.map((s) => s.name).join(', ')}` : ''}</AppText> : null}
 
-      <View style={{ gap: 8 }}>
+      <View style={{ gap: theme.space[2] }}>
         <SectionTitle title={blockers.length ? t('v3.agency.blockers', { count: blockers.length }) : t('v3.agency.noBlockers')} />
         {blockers.length ? (
           <ListGroup>{blockers.map((b) => <ListItem key={b.key} title={b.title} subtitle={b.detail ?? null} onPress={b.go} />)}</ListGroup>
@@ -100,7 +100,7 @@ function Workspace({ w }: { w: StudentWorkspace }) {
       </View>
 
       {w.applications.length ? (
-        <View style={{ gap: 8 }}>
+        <View style={{ gap: theme.space[2] }}>
           <SectionTitle title={t('v3.agency.applications', { count: w.applications.length })} />
           <ListGroup>
             {w.applications.map((a) => (
@@ -111,7 +111,7 @@ function Workspace({ w }: { w: StudentWorkspace }) {
         </View>
       ) : null}
 
-      <View style={{ gap: 8 }}>
+      <View style={{ gap: theme.space[2] }}>
         <SectionTitle title={t('v3.agency.documents', { verified: w.documents.filter((d) => d.status === 'VERIFIED').length, total: w.documents.length })} />
         <ListGroup>
           {w.documents.map((d) => <ListItem key={d.id} title={t(`common:docCategory.${d.category}`)} subtitle={d.status === 'NEEDS_CORRECTION' ? d.rejection_reason : null} footer={<StatusBadge kind="document" value={d.status} />} onPress={() => router.push(`/reviews/${d.id}`)} />)}
@@ -135,6 +135,6 @@ function Workspace({ w }: { w: StudentWorkspace }) {
 }
 
 const styles = StyleSheet.create({
-  head: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  actions: { flexDirection: 'row', gap: 8 },
+  head: { flexDirection: 'row', alignItems: 'center', gap: theme.space[3] },
+  actions: { flexDirection: 'row', gap: theme.space[2] },
 });

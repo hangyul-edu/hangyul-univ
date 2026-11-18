@@ -148,9 +148,12 @@ call.** Development reads codes through `GET /auth/verification/peek/{id}` (404 
 (`apps/student-mobile/src/signup/`) uses the same four endpoints. Provider credentials are environment variables and
 are absent on this host, so the live smoke is BLOCKED.
 
-**Plan purchase** — one-time, USD. `POST /me/orders` (plan code; records a versioned `PURCHASE_TERMS`
-consent) → Hangyul's **own card form** (no Toss popup) → `POST /me/orders/{id}/pay-with-card` → the server calls Toss's
-key-in API on MID `bill_talkoab1` (foreign-card key-in, settles USD; `Idempotency-Key: hg-keyin-{order_id}`) and relays card
-number and expiry **without storing them**; the card endpoint is limited to 8 attempts / 300 s per student and per IP. A
-paid order opens the operations team assignment above. Toss runs in **TEST mode**; live keys and the overseas-card/USD contracts are
-owner actions, so `live_usd_checkout_enabled` is false and the student is told so rather than charged in another currency.
+**Plan purchase** — one-time, USD, billing-key rail. `POST /me/orders` (plan code; records a versioned `PURCHASE_TERMS`
+consent; state `PAYMENT_METHOD_REQUIRED` or `BILLING_KEY_READY`) → a saved payment method, or `POST /me/payment-methods/registrations`
+→ Toss's hosted registration page → `/services/payment-methods/return` → `POST …/registrations/{id}/complete` (billing key
+issued and sealed; **nothing charged**) → the student confirms "Pay $349", one-time → `POST /me/orders/{id}/pay` (server
+amount; `CHARGING` committed before the call; `Idempotency-Key: hg-charge-{order}-{attempt}`) → `PAID` → the engagement
+starts and the operations team assignment above opens. A declined charge leaves the order payable; an unknown outcome
+stays `CHARGING` until Toss is asked (poll, webhook or worker sweep). Registration and charge are limited to 10 attempts /
+300 s per student and per IP. Add-on orders are paid the same way. Refunds: `POST /agency/orders/{id}/refund` by Operations.
+State machine, gates and live status: [`payments/BILLING.md`](payments/BILLING.md). No live method is verified yet.

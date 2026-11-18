@@ -1,5 +1,9 @@
 # Toss Payments — overseas card & USD multi-currency status
 
+> **Historical record — not current (2026-11-18).** The one-time 결제창 route and the foreign-card key-in route described
+> below were removed. Every purchase is now taken on the billing-key rail; the current design, modes, gates and live
+> capability results are in [`BILLING.md`](BILLING.md).
+
 > **Superseded (V21, 2026-10-21; current state in REPORT §0.4).** This is the V17 review and is kept as a dated record. Its §4 conclusion that no `bill_*` configuration may buy a plan no longer holds: V21 **measured** that `bill_talkoab1` refuses billing-key issuance but approves `/v1/payments/key-in` in USD, so **plans are bought by foreign-card key-in on MID `bill_talkoab1`** through Hangyul's own card form (card number and expiry relayed by the server to Toss, not stored). Toss still runs in **TEST mode**; live keys and the overseas-card / USD contracts (§7 below) remain owner actions.
 
 **Verified 2026-10-20** · V17, REPORT §152 · owner action required on four items.

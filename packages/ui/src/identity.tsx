@@ -12,8 +12,10 @@
 import { Check, ChevronDown, Eye, EyeOff, Search } from '@hangyul/icons';
 import { useLocale } from '@hangyul/i18n';
 import type { ConsentCatalogueItem } from '@hangyul/types';
-import { countryName, cx, dialCode, flagEmoji, phoneCountries } from '@hangyul/utils';
+import { countryName, cx, dialCode, phoneCountries } from '@hangyul/utils';
 import { forwardRef, useEffect, useId, useMemo, useRef, useState, type InputHTMLAttributes, type ReactNode } from 'react';
+
+import { CountryFlag } from './locale-selector';
 
 // ---------------------------------------------------------------------------------------------- phone
 export interface PhoneValue { country: string; local: string }
@@ -45,7 +47,7 @@ export function PhoneInput({ value, onChange, invalid, id, disabled, autoFocus }
     <div className={cx('hg-phone', invalid && 'is-invalid')} ref={wrap}>
       <button type="button" className="hg-phone__country" aria-haspopup="listbox" aria-expanded={open} aria-controls={listId}
         aria-label={t('auth.phoneCountry', { country: countryName(value.country, locale), dial })} onClick={() => setOpen((o) => !o)} disabled={disabled}>
-        <span className="hg-phone__flag" aria-hidden>{flagEmoji(value.country)}</span>
+        <CountryFlag code={value.country} className="hg-phone__flag" />
         <span className="hg-phone__dial hg-num">+{dial}</span>
         <ChevronDown aria-hidden size={14} />
       </button>
@@ -61,7 +63,7 @@ export function PhoneInput({ value, onChange, invalid, id, disabled, autoFocus }
             {shown.slice(0, 260).map((c) => (
               <li key={c.code} role="option" aria-selected={c.code === value.country}>
                 <button type="button" className={cx('hg-phone__opt', c.code === value.country && 'is-selected')} onClick={() => { onChange({ ...value, country: c.code }); setOpen(false); setQ(''); }}>
-                  <span aria-hidden className="hg-phone__flag">{flagEmoji(c.code)}</span>
+                  <CountryFlag code={c.code} className="hg-phone__flag" />
                   <span className="hg-grow hg-truncate">{c.name}</span>
                   <span className="hg-num hg-subtle">+{c.dial}</span>
                   {c.code === value.country && <Check aria-hidden size={14} />}

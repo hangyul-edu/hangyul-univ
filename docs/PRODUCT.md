@@ -106,13 +106,14 @@ The business plan's optional paid services (§6-2) are `ServiceAddOn` rows: the 
 case when an allowance is spent, the **student** approves it, and approval raises exactly one entitlement by
 the agreed quantity. They are never a homepage card and never a navigation area.
 
-Payments run on **Toss Payments in TEST mode** (`HG_PAYMENT_PROVIDER=toss`, `HG_TOSS_ENV=test`; V21).
-A plan is bought by **foreign-card key-in on MID `bill_talkoab1`** through Hangyul's **own card form** (no Toss
-popup): `POST /me/orders` → the card form → `POST /me/orders/{id}/pay-with-card`; the server relays the card number
-and expiry to Toss's key-in API and **stores neither**. Approved prices do not make checkout production-ready:
-live keys and the overseas-card/USD contracts are owner actions (`docs/payments/TOSS_FOREIGN_CARD_REVIEW.md`), and
-`release:check` still blocks on them and on the commercial refund schedule (`OWNER_POLICY_REQUIRED`,
-`shared/refund-policy.json`). A `demo` provider exists for automated tests only.
+Every purchase is a **one-time** payment taken on the **Toss Payments billing-key rail** (owner decision): `POST /me/orders` (server-priced) → the student chooses a saved payment method or registers one on Toss's hosted page (`POST /me/payment-methods/registrations` → `…/complete`, which issues and AES-256-GCM-seals the billing key and charges nothing) → the student confirms the one-time amount → `POST /me/orders/{id}/pay` charges that key **once**. There is no subscription, no renewal and no ordinary-payment fallback (no `/v1/payments/confirm`, no 결제창 payment, no card form — card data never reaches Hangyul).
+Methods: Korean card (`bill_talko18s0`), international card (`bill_talkoab1`), Toss Pay / Naver Pay (`bill_talkspm0`); a
+method is offered only when its merchant is configured, settles the order's currency and — in live mode — has a
+verified capability and `HG_LIVE_PAYMENT_ENABLED`. **No live method is verified yet** and no production payment host
+exists, so real customers cannot be charged today ([`payments/BILLING.md`](payments/BILLING.md)). Upgrades stay refused
+until an upgrade price rule is approved; refunds are executed by Operations for an amount a person decides, because the
+commercial refund schedule is still `OWNER_POLICY_REQUIRED` (`shared/refund-policy.json`). A `demo` provider exists
+for local development and automated tests only and is refused in production.
 
 ## Money flows
 

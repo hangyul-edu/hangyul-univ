@@ -69,10 +69,19 @@ def integrations(db: Session) -> list[dict]:
     if s.payment_provider == "demo":
         out.append(_item("payments", "money", DEV, setting="HG_PAYMENT_PROVIDER", requires=["HG_PAYMENT_PROVIDER=stripe|toss", "provider secret key", "merchant agreement"],
                          fallback="Demo checkout approves immediately (refused in production)."))
+    elif s.payment_provider == "toss":
+        from app.services import billing as billing_svc
+
+        live = billing_svc.available_kinds()
+        blocked = {k: billing_svc.availability(k).reason for k in billing_svc.METHOD_KINDS if k not in live}
+        out.append(_item("payments", "money", ACTIVE if live else NEEDS, setting="HG_PAYMENT_PROVIDER",
+                         requires=["HG_TOSS_*_BILLING_* (per merchant)", "HG_PAYMENT_TOKEN_ENCRYPTION_KEY", "HG_LIVE_PAYMENT_ENABLED (live)",
+                                   "HG_TOSS_CAPABILITY_* = VERIFIED (live)"],
+                         note=f"toss billing-key rail, mode={s.toss_env}; one-time purchases, no recurrence. Available: {', '.join(live) or 'none'}."
+                              + (f" Unavailable: {', '.join(f'{k} ({v})' for k, v in blocked.items())}." if blocked else "")))
     else:
-        key = {"stripe": s.stripe_secret_key, "toss": s.toss_secret_key}.get(s.payment_provider)
-        env = {"stripe": "HG_STRIPE_SECRET_KEY", "toss": "HG_TOSS_SECRET_KEY"}.get(s.payment_provider, "provider key")
-        out.append(_item("payments", "money", NEEDS if key else NOT, setting="HG_PAYMENT_PROVIDER", requires=[env, "merchant agreement"],
+        out.append(_item("payments", "money", NEEDS if s.stripe_secret_key else NOT, setting="HG_PAYMENT_PROVIDER",
+                         requires=["HG_STRIPE_SECRET_KEY", "merchant agreement"],
                          note=f"{s.payment_provider}: checkout is wired but not enabled in this build — no payment can be taken."))
 
     # --- messaging

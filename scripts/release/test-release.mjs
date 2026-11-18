@@ -114,8 +114,6 @@ const STEPS = [
   { group: 'QA gates', name: 'qa:v13', cmd: 'npm run qa:v13' },
   { group: 'QA gates', name: 'qa:v14', cmd: 'npm run qa:v14' },
   { group: 'QA gates', name: 'qa:v15', cmd: 'npm run qa:v15' },
-  { group: 'QA gates', name: 'qa:v16', cmd: 'npm run qa:v16' },
-  { group: 'QA gates', name: 'qa:v17', cmd: 'npm run qa:v17' },
   { group: 'QA gates', name: 'qa:v18', cmd: 'npm run qa:v18' },
   { group: 'QA gates', name: 'qa:v19', cmd: 'npm run qa:v19' },
   /*

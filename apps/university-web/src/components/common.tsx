@@ -1,8 +1,9 @@
 import { Lock } from '@hangyul/icons';
 import { useLocale } from '@hangyul/i18n';
 import type { ApplicationStatus, Freshness } from '@hangyul/types';
-import { Badge, Card, CardHeader, EmptyState, FreshnessBadge } from '@hangyul/ui';
-import { applicationTone, countryName, flagEmoji, type Tone } from '@hangyul/utils';
+import { MARKETS } from '@hangyul/i18n';
+import { Badge, Card, CardHeader, EmptyState, Flag, FreshnessBadge } from '@hangyul/ui';
+import { applicationTone, countryName, type Tone } from '@hangyul/utils';
 import type { ReactNode } from 'react';
 
 import { useUniversity } from '../lib/university';
@@ -12,10 +13,25 @@ export function StatusBadge({ status, size }: { status: ApplicationStatus | stri
   return <Badge tone={applicationTone[status as ApplicationStatus] ?? 'neutral'} size={size}>{t(`appStatus.${status}`, { defaultValue: status })}</Badge>;
 }
 
-export function Country({ code }: { code: string | null | undefined }) {
+const FLAG_CODES = new Set(MARKETS.map((m) => m.code));
+
+/**
+ * A country's flag from the owner's SVG set (`public/flags`, the same files the language picker uses) — never an emoji:
+ * regional-indicator emoji render as two boxed letters on Windows and in headless Chromium. A country outside the 33
+ * market flags gets its ISO code in the same slot, so a column of countries still aligns. Decorative: the name follows.
+ */
+export function CountryFlag({ code }: { code: string | null | undefined }) {
+  if (!code) return null;
+  const c = code.toUpperCase();
+  if (FLAG_CODES.has(c)) return <Flag code={c} className="uc-flagslot" />;
+  return <span className="uc-flagslot uc-flagslot--code" aria-hidden>{c}</span>;
+}
+
+export function Country({ code, className }: { code: string | null | undefined; className?: string }) {
   const { locale } = useLocale('common');
   if (!code) return <span className="hg-subtle">—</span>;
-  return <span className="uc-country"><span aria-hidden>{flagEmoji(code)}</span> {countryName(code, locale)}</span>;
+  const name = countryName(code, locale);
+  return <span className={className ? `uc-country ${className}` : 'uc-country'} title={name}><CountryFlag code={code} /><span className="uc-country__name">{name}</span></span>;
 }
 
 /**

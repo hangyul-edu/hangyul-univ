@@ -1,6 +1,8 @@
 export const qk = {
   analytics: ['agency', 'analytics', 30] as const,
   students: (q: string, slaOnly: boolean) => ['agency', 'students', q, slaOnly] as const,
+  /** Today's student queue — the same `attention` view the Students tab opens from "See all". */
+  attention: ['agency', 'students', { view: 'attention', page_size: 50 }] as const,
   student: (id: string) => ['agency', 'student', id] as const,
   tasks: (scope: 'mine' | 'team') => ['tasks', scope] as const,
   overdue: ['tasks', 'overdue'] as const,

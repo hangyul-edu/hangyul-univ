@@ -8,8 +8,8 @@
  *   LegalSheet      the canonical document, served by the web app with `?embed=1` — never a copy in the bundle
  *   TurnstileChallenge  Cloudflare Turnstile inside a small controlled WebView; the app only ever receives a token
  */
-import { useTranslation } from '@hangyul/i18n';
-import { AppText, Button, Sheet, TextField, theme } from '@hangyul/mobile-ui';
+import { MARKETS, useTranslation } from '@hangyul/i18n';
+import { AppText, Button, MarketFlag, Sheet, TextField, theme } from '@hangyul/mobile-ui';
 import { countryName, flagEmoji, phoneCountries } from '@hangyul/utils';
 import { Check, ChevronDown, Eye, EyeOff, Search } from 'lucide-react-native';
 import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
@@ -20,6 +20,19 @@ import { toE164Preview } from './phone';
 import { PROGRESS_STEPS, type Step } from './state';
 
 export const TANGERINE = '#CC4E00';
+
+/**
+ * A country's flag in the dial-code picker: the owner's SVG artwork for the markets Hangyul serves (the same set the
+ * language picker draws), the platform emoji for every other country. One fixed 28 pt slot keeps the names aligned.
+ */
+function CountryFlag({ code }: { code: string }) {
+  const market = MARKETS.some((m) => m.code === code.toUpperCase());
+  return (
+    <View style={{ width: 28, alignItems: 'center', justifyContent: 'center' }} accessible={false}>
+      {market ? <MarketFlag code={code.toUpperCase()} height={16} /> : <AppText variant="body" style={{ fontSize: 18 }}>{flagEmoji(code)}</AppText>}
+    </View>
+  );
+}
 
 export function StepDots({ step }: { step: Step }) {
   const { t } = useTranslation();
@@ -112,7 +125,7 @@ export const PhoneField = forwardRef<TextInput, { country: string; local: string
         <View style={ph.row}>
           <Pressable onPress={() => setOpen(true)} style={[ph.country, !!error && { borderColor: theme.status.danger.solid }]} accessibilityRole="button"
             accessibilityLabel={t('mobile:signup.phoneCountry', { country: countryName(country, locale), dial })}>
-            <AppText variant="body" style={{ fontSize: 18 }}>{flagEmoji(country)}</AppText>
+            <CountryFlag code={country} />
             <AppText variant="body" weight="semibold">+{dial}</AppText>
             <ChevronDown size={14} color={theme.color.textSecondary} />
           </Pressable>
@@ -132,7 +145,7 @@ export const PhoneField = forwardRef<TextInput, { country: string; local: string
             renderItem={({ item }) => (
               <Pressable onPress={() => { onChange({ country: item.code, local }); setOpen(false); setQ(''); }} style={({ pressed }) => [ph.opt, pressed && { backgroundColor: theme.color.surfaceWarm }]}
                 accessibilityRole="button" accessibilityState={{ selected: item.code === country }} accessibilityLabel={`${item.name} +${item.dial}`}>
-                <AppText variant="body" style={{ fontSize: 20, width: 28 }}>{flagEmoji(item.code)}</AppText>
+                <CountryFlag code={item.code} />
                 <AppText variant="body" style={{ flex: 1 }} numberOfLines={1}>{item.name}</AppText>
                 <AppText variant="body" secondary>+{item.dial}</AppText>
                 {item.code === country ? <Check size={16} color={TANGERINE} /> : null}

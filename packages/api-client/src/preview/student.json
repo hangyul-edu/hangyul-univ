@@ -23137,71 +23137,77 @@
     ]
    }
   },
-  "GET /api/v1/me/payments/config": {
+  "GET /api/v1/me/payments/options": {
    "status": 200,
    "body": {
     "provider": "toss",
-    "env": "test",
-    "currency": "USD",
-    "usd_readiness": {
-     "foreign_card_contract": false,
-     "card_review": false,
-     "usd_multicurrency": false,
-     "live_keys": false
-    },
-    "live_usd_checkout_enabled": false,
-    "foreign_card": {
-     "mid": "preview_mid_foreign",
-     "product": "해외카드 키인 결제 (/v1/payments/key-in)",
-     "configured": true,
-     "test_ready": true,
-     "live_ready": false,
-     "enabled": true,
-     "card_form": "hangyul",
-     "reusable_credential": false,
-     "used_by_plan_purchase": true,
-     "methods": [
-      "OVERSEAS_CARD"
-     ]
-    },
-    "contract": {
-     "foreign_card_review": "OWNER_CONFIRMED_COMPLETE",
-     "live_credentials_configured": false
-    },
-    "methods_offered": [
-     "OVERSEAS_CARD"
+    "mode": "test",
+    "live_payment_enabled": false,
+    "one_time": true,
+    "recurring": false,
+    "rail": "BILLING_KEY",
+    "methods": [
+     {
+      "kind": "DOMESTIC_CARD",
+      "available": true,
+      "reason": null,
+      "currency": "USD"
+     },
+     {
+      "kind": "FOREIGN_CARD",
+      "available": true,
+      "reason": null,
+      "currency": "USD"
+     },
+     {
+      "kind": "TOSS_PAY",
+      "available": true,
+      "reason": null,
+      "currency": "USD"
+     },
+     {
+      "kind": "NAVER_PAY",
+      "available": true,
+      "reason": null,
+      "currency": "USD"
+     }
     ],
-    "one_time": {
-     "mid": "preview_mid_onetime",
-     "product": "일반 결제 (결제창)",
-     "configured": true,
-     "methods": [
-      "CARD",
-      "EASY_PAY"
-     ],
-     "used_by_plan_purchase": false
-    },
-    "billing": [
+    "saved": [
      {
-      "key": "domestic_billing",
-      "mid": "preview_mid_domestic",
-      "product": "자동결제 (domestic card billing key)",
-      "configured": true,
-      "used_by_plan_purchase": false
-     },
+      "id": "00000000-0000-4000-8000-00000000aa01",
+      "kind": "FOREIGN_CARD",
+      "brand": "Visa",
+      "masked_number": "•••• 4242",
+      "last4": "4242",
+      "issuer_code": null,
+      "card_type": null,
+      "is_default": true,
+      "status": "ACTIVE",
+      "created_at": "2026-10-02T09:00:00+00:00",
+      "usable": true,
+      "unavailable_reason": null
+     }
+    ],
+    "order": null
+   }
+  },
+  "GET /api/v1/me/payment-methods": {
+   "status": 200,
+   "body": {
+    "items": [
      {
-      "key": "foreign_billing",
-      "mid": "preview_mid_foreign",
-      "product": "해외카드 키인 결제 (/v1/payments/key-in)",
-      "configured": true,
-      "used_by_plan_purchase": true
-     },
-     {
-      "key": "easypay_billing",
-      "mid": "preview_mid_easypay",
-      "product": "자동결제 (easy-pay method registration)",
-      "configured": true,
-      "used_by_plan_purchase": false
+      "id": "00000000-0000-4000-8000-00000000aa01",
+      "kind": "FOREIGN_CARD",
+      "brand": "Visa",
+      "masked_number": "•••• 4242",
+      "last4": "4242",
+      "issuer_code": null,
+      "card_type": null,
+      "is_default": true,
+      "status": "ACTIVE",
+      "created_at": "2026-10-02T09:00:00+00:00",
+      "usable": true,
+      "unavailable_reason": null
      }
     ]
    }

@@ -1,13 +1,13 @@
 import { useAuth } from '@hangyul/auth';
 import { CheckCircle2, ChevronLeft, FileCheck, Keyboard, Upload, UserCheck } from '@hangyul/icons';
-import { Button, EmptyState, ErrorState, Modal, Popover, FilterSelect, Skeleton, useToast } from '@hangyul/ui';
+import { Button, EmptyState, ErrorState, Modal, Popover, FilterSelect, Segmented, Skeleton, useToast } from '@hangyul/ui';
 import { PageHeader } from '@hangyul/ynex-ui';
-import { countryName, cx, flagEmoji } from '@hangyul/utils';
+import { countryName, cx } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
-import { Kbd, useT } from '../components/bits';
+import { FlagMark, Kbd, useT } from '../components/bits';
 import { UploadOnBehalf } from '../components/UploadOnBehalf';
 import { DocumentReviewPanel } from '../components/DocumentReviewPanel';
 import { YAvatar } from '../components/ynex';
@@ -103,12 +103,8 @@ export default function DocumentQueue({ embedded }: { embedded?: boolean } = {})
             <h2 className="card-title" id="dq-title">{t('docs.queue')}<span className="badge bg-light text-default rounded ms-1 fs-12 align-middle yx-count">{items.length}</span></h2>
           </div>
           <div className="ag7-queue-pane__filters">
-            <div className="btn-group ag7-seg" role="group" aria-label={t('docs.queue')}>
-              {(['any', 'me', 'unassigned'] as const).map((v) => (
-                <button key={v} type="button" className="btn btn-sm btn-light" aria-pressed={assigned === v}
-                  onClick={() => setParam('assigned', v === 'any' ? null : v)}>{t(`docs.assigned.${v}`)}</button>
-              ))}
-            </div>
+            <Segmented label={t('docs.queue')} value={assigned as 'any' | 'me' | 'unassigned'} onChange={(v) => setParam('assigned', v === 'any' ? null : v)}
+              options={(['any', 'me', 'unassigned'] as const).map((v) => ({ value: v, label: t(`docs.assigned.${v}`) }))} />
             <FilterSelect size="sm" label={t('docs.category')} value={category} onChange={(e) => setParam('category', e.target.value || null)}>
               <option value="">{t('docs.allCategories')}</option>
               {categories.map((c) => <option key={c} value={c}>{t(`docCategory.${c}`)}</option>)}
@@ -153,7 +149,7 @@ export default function DocumentQueue({ embedded }: { embedded?: boolean } = {})
                           <YAvatar name={d.owner_name ?? '?'} />
                           <span className="min-w-0 flex-fill">
                             <span className="d-flex justify-content-between gap-2 min-w-0">
-                              <span className="fw-semibold text-truncate"><span aria-hidden title={countryName(d.owner_nationality, locale)}>{flagEmoji(d.owner_nationality)}</span> {d.owner_name}</span>
+                              <span className="fw-semibold text-truncate"><span title={countryName(d.owner_nationality, locale)}><FlagMark code={d.owner_nationality} /></span> {d.owner_name}</span>
                               <span className={cx('badge', d.over_sla ? 'bg-danger-transparent' : 'bg-light text-muted')}>{waitLabel(d.waiting_hours ?? 0, t)}</span>
                             </span>
                             <span className="d-flex justify-content-between gap-2 min-w-0 fs-12 text-muted">

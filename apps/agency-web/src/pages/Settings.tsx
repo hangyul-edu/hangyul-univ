@@ -17,7 +17,7 @@ export default function Settings() {
     { key: 'pollNotifications', label: t('settings.poll'), hint: t('settings.pollHint') },
   ];
   return (
-    <div className="hg-stack ag-page">
+    <div className="hg-stack ag-page ops-settings">
       <PageHeader title={t('nav.settings')} subtitle={t('settings.sub')} />
       <div className="ag-grid-2">
         <Card>

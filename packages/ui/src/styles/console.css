@@ -6,7 +6,6 @@
    Contrast (WCAG 2.1): text #0F1B2D 17.3:1 on white · secondary #535D6E 6.4:1 / 5.9:1 on canvas · tertiary #5F6B80 5.4:1 / 5.0:1 on canvas, 4.7:1 on selected
    · cobalt #2257D6 white-on 6.2:1, on canvas 5.8:1, on selected #EAF0FD 5.4:1 · navy sidebar text #C7D2E4 on #0F2240 10.4:1. */
 html[data-surface='console'] {
-  --hg-text-disabled: #A0A9B8;
 
   /* Navy, deep blue and blue-grey for structure */
 
@@ -62,32 +61,25 @@ html[data-product='university'] .hg-drawer .hg-sidebar .hg-navlink:hover { backg
 html[data-product='university'] .hg-drawer .hg-sidebar .hg-navlink.active svg { color: var(--hg-primary); }
 html[data-product='university'] .hg-drawer .hg-sidebar .hg-navlink__badge--alert { background: #FFF1E7; color: #B84600; }
 
-/* ---------- Page headers: smaller, denser, institutional ---------- */
-html[data-surface='console'] .hg-page-head h1, html[data-surface='console'] .hg-content > h1 { font-size: 22px; line-height: 30px; letter-spacing: -0.01em; font-weight: 600; }
+/* Page headers, tables, chips: the console no longer overrides the shared components here (design foundation 2026-11).
+   The V6 "faint blue band" table header (#F7F9FC), blue row hover/selection and the 22 px page title lived in this
+   block; they are now the shared `hg-table` / `hg-page-head` values, restated for consoles in console-v22.css. */
 
 /* ---------- Panels: white on cool canvas, hairline, no shadow ---------- */
 html[data-surface='console'] .hg-card, html[data-surface='console'] .hg-panel { border-color: var(--hg-border); box-shadow: none; }
 
-/* ---------- Tables: navy-ink header labels on a faint blue band ---------- */
-html[data-surface='console'] .hg-table th { background: #F7F9FC; color: #56524B; font-weight: 600; font-size: 12px; letter-spacing: 0.01em; }
-html[data-surface='console'] .hg-table tbody tr:hover td { background: #F5F8FD; }
-html[data-surface='console'] .hg-table tbody tr[aria-selected='true'] td { background: #EEF3FD; }
 
 /* ---------- Buttons ---------- */
-html[data-surface='console'] .hg-btn--primary { box-shadow: 0 1px 0 rgba(15, 27, 45, 0.06); }
 html[data-surface='console'] .hg-btn--secondary { border-color: var(--hg-control-secondary-border); }
 
 /* ---------- Badges / status: blue for "info" and "brand" tone ---------- */
 html[data-surface='console'] .hg-bell__count { background: var(--hg-text); } /* V31: was cobalt, the last V6 blue on a live surface */
 
 /* ---------- Login ---------- */
-html[data-surface='console'] .hg-login { background: var(--hg-bg-canvas); }
+html[data-surface='console'] .hg-login { background: var(--hg-bg); }
 
 /* university — V6 university-console workstream (additive). Selected filter chips use the console "selected" blue,
    not near-black, so a segment picker reads as a choice rather than as a heavy badge row. */
-html[data-product='university'] .hg-chip[aria-pressed='true'], html[data-product='university'] .hg-chip[aria-checked='true'] {
-  background: var(--hg-primary-subtle); border-color: #A9C2F0; color: var(--hg-primary-pressed); font-weight: 600;
-}
 html[data-product='university'] .hg-bars__track { height: 6px; border-radius: 3px; }
 /* .hg-bars__fill is an inline <span>: without display:block its width/height are ignored and no bar renders (shared bug, see report). */
 html[data-product='university'] .hg-bars__track { display: block; }

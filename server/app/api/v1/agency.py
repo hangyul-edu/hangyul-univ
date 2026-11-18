@@ -616,16 +616,24 @@ def agency_orders(p: Principal = Depends(require_agency_or_hangyul), db: Session
     ).all()
     out = []
     for o, prod, u in rows:
-        pay = db.scalar(select(Payment).where(Payment.order_id == o.id))
+        # The charge that paid the order if there is one, otherwise the latest attempt.
+        pay = (db.scalar(select(Payment).where(Payment.order_id == o.id, Payment.status == "PAID").order_by(Payment.created_at.desc()))
+               or db.scalar(select(Payment).where(Payment.order_id == o.id).order_by(Payment.created_at.desc())))
+        attempts = db.scalar(select(func.count()).select_from(Payment).where(Payment.order_id == o.id)) or 0
+        raw = (pay.raw or {}) if pay else {}
         out.append({"id": str(o.id), "student": ser_user_public(u), "product_code": prod.code, "product_name": prod.name_en, "status": o.status.value,
-                    "amount_minor": o.amount_minor, "currency": o.currency, "paid_at": iso(o.paid_at), "created_at": iso(o.created_at),
+                    "kind": o.kind, "amount_minor": o.amount_minor, "currency": o.currency, "paid_at": iso(o.paid_at), "created_at": iso(o.created_at),
                     "provider": pay.provider if pay else None, "is_demo_payment": bool(pay and pay.provider == "demo"),
-                    # V16 (brief Part 25): the provider's own reference and method, for Finance/Operations to
-                    # reconcile a Toss transaction against. Never a key, never a card — `Payment.raw` is
-                    # already sanitised by `payments.sanitize()` and this reads two fields out of it.
+                    # For Operations to reconcile against Toss. Never a key, never a card: `Payment.raw` is sanitised
+                    # and these are the provider's own references. Every purchase is a one-time billing-key charge.
+                    "payment_state": o.payment_state, "one_time": True, "attempts": attempts,
                     "provider_ref": (pay.provider_ref if pay else None),
-                    "method": ((pay.raw or {}).get("method") if pay else None),
-                    "receipt_url": ((pay.raw or {}).get("receiptUrl") if pay else None)})
+                    "provider_mid": (pay.provider_mid if pay else None),
+                    "failure_code": (pay.failure_code if pay else None),
+                    "method": raw.get("method"),
+                    "receipt_url": raw.get("receiptUrl"),
+                    "refunded_amount_minor": o.refund_amount_minor or 0, "refunded_at": iso(o.refunded_at),
+                    "refund_reason": o.refund_reason})
     return out
 
 

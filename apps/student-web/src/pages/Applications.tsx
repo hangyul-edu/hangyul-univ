@@ -95,7 +95,7 @@ export default function Applications() {
   const api = useApi();
   const q = useQuery({ queryKey: ['applications', {}], queryFn: () => api.applications.list({ page_size: 50 }) });
   return (
-    <div className="st-page">
+    <div className="st-page sp-apps">
       <PageIntro title={t('applications.title')} subtitle={t('applications.subtitle')}
         actions={<ButtonLink as={Link} to="/explore?tab=foryou">{t('applications.add')}</ButtonLink>} />
       <QueryState

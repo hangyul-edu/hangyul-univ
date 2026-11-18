@@ -1,4 +1,5 @@
 import type { Dashboard, JourneyStage } from '@hangyul/types';
+import { applicationWaitingOn } from '@hangyul/utils';
 
 /**
  * V22 student journey (REPORT §248 S1).
@@ -52,4 +53,22 @@ export function needsStudent(d: Pick<Dashboard, 'missing_documents' | 'improve'>
   if (STUDENT_STATUSES.has(a.status)) return true;
   if (d.missing_documents.some((m) => (m.application_id ? m.application_id === a.id : m.university === a.university.name_en))) return true;
   return (d.improve ?? []).some((i) => i.application_id === a.id);
+}
+
+/**
+ * The waiting state: the API found nothing that is the student's to do (`next_action.code === 'WAIT'`,
+ * `server/app/api/v1/student.py`). It is the one signal the home uses — never inferred from counts.
+ */
+export function isWaiting(d: Pick<Dashboard, 'next_action'>): boolean {
+  return d.next_action.code === 'WAIT';
+}
+
+/** Applications whose next move is the university's (the shared waiting-on model, `applicationWaitingOn`). */
+export function withUniversity<A extends { status: string }>(d: { applications: A[] }): A[] {
+  return d.applications.filter((a) => applicationWaitingOn(a.status as Parameters<typeof applicationWaitingOn>[0]) === 'university');
+}
+
+/** Applications a university is actually reviewing — the only ones the home may describe as "being reviewed". */
+export function underReview<A extends { status: string }>(d: { applications: A[] }): A[] {
+  return d.applications.filter((a) => a.status === 'UNIVERSITY_REVIEW');
 }

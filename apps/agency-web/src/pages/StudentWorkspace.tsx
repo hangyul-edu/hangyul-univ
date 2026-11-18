@@ -6,7 +6,7 @@ import { useAuth } from '@hangyul/auth';
 import { CalendarPlus, Check, NotebookPen, ChevronRight, Reply, Ellipsis, GraduationCap, Info, Languages, Mail, MessageSquarePlus, Phone, Plus, Sparkles, Upload, UserRound, Wallet } from '@hangyul/icons';
 import { PIPELINE_STAGES, VISA_STATUSES, type PipelineStage, type StudentWorkspace as WS, type Task, type VisaStatus } from '@hangyul/types';
 import {
-  Badge, Button, Callout, Card, DescriptionList, Drawer, EmptyState, ErrorState, Field, Popover, Progress, QueryState, Select, Skeleton, StatusText, Textarea, useToast,
+  Badge, Button, Callout, Card, DescriptionList, Drawer, EmptyState, ErrorState, Field, Popover, Progress, QueryState, Section, Select, Skeleton, StatusText, Textarea, useToast,
 } from '@hangyul/ui';
 import { applicationTone, formatDate, formatDateTime, formatMoney, formatRelative } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -30,6 +30,7 @@ import { bucketTasks, TASK_BUCKETS, taskTitle } from '../lib/logic';
 import { AppointmentForm } from './Consultations';
 import { StudentServices } from '../components/ServiceCases';
 import { PlanScope } from '../components/Plan';
+import { StudentPayments } from '../components/StudentPayments';
 import { YAvatar } from '../components/ynex';
 import { parseFocus, type Focus } from '../lib/focus';
 
@@ -130,64 +131,54 @@ function Header({ ws, onAction, onReply }: { ws: WS; onAction: (a: 'message' | '
   const intake = ws.profile.target_intake_year && ws.profile.target_intake_term ? `${ws.profile.target_intake_year}-${ws.profile.target_intake_term}` : null;
   const sla = a && !a.first_response_at && a.first_response_due_at;
   return (
-    <header className="card custom-card ag7-wshead">
-      <div className="card-body">
-        <div className="d-sm-flex align-items-start gap-4 ag7-wshead__top">
-          <YAvatar name={ws.student.full_name} size="xl" className="ag7-wshead__av" />
-          <div className="flex-fill min-w-0">
-            <div className="d-flex flex-wrap align-items-center gap-2 mb-1">
-              <h1 className="fs-20 fw-semibold mb-0">{ws.student.full_name}</h1>
+    <header className="ops-case">
+      <div className="ops-case__top">
+        <div className="ops-case__id">
+          <YAvatar name={ws.student.full_name} size="lg" className="ops-case__av" />
+          <div className="ops-case__who">
+            <div className="ops-case__name">
+              <h1>{ws.student.full_name}</h1>
               {sla && <SlaBadge dueAt={a.first_response_due_at} respondedAt={a.first_response_at} compact />}
             </div>
-            <div className="ag7-wshead__meta">
+            <div className="ops-case__meta">
               <span><Flag code={ws.profile.nationality} /></span>
               <span><GraduationCap aria-hidden />{ws.profile.target_degree ? t(`degreeShort.${ws.profile.target_degree}`) : '—'} · <Intake value={intake} /></span>
               <span><Mail aria-hidden /><a href={`mailto:${ws.student.email}`}>{ws.student.email}</a></span>
               {ws.student.phone && <span><Phone aria-hidden />{ws.student.phone}</span>}
             </div>
-            <div className="ag7-wshead__facts">
-              <span className="ag7-fact">
-                <span className="text-muted">{t('v22.work.owner')}</span>
-                {a?.counselor ? <span className="d-inline-flex align-items-center gap-1 fw-semibold"><YAvatar name={a.counselor.full_name} size="xs" />{a.counselor.full_name}</span>
-                  : <span className="fw-semibold">{t('ws.notAssigned')}</span>}
-              </span>
-              {/*
-                V15: the purchased-plan badge that used to sit here is gone. The case strip below now carries
-                the plan as its first cell, translated, beside the four facts it belongs with — so this was
-                the same fact twice, eight pixels apart, and the badge version printed the English product
-                name on a Korean screen.
-              */}
-              <span className="ag7-fact ag7-fact--progress">
-                <span className="text-muted">{t('ws.profileComplete', { pct: ws.profile_percent })}</span>
-                <div className="progress progress-xs" role="presentation"><div className="progress-bar bg-primary" style={{ width: `${ws.profile_percent}%` }} /></div>
-              </span>
+            <div className="ops-case__meta">
+              <span><UserRound aria-hidden />{t('v22.work.owner')}: <strong>{a?.counselor ? a.counselor.full_name : t('ws.notAssigned')}</strong></span>
+              {/* V15: the plan lives in the case strip below, once. */}
+              <span>{t('ws.profileComplete', { pct: ws.profile_percent })}</span>
             </div>
           </div>
-          <div className="btn-list ag7-wshead__actions">
-            {/* V26 (REPORT §335 A3): one primary, and it is the next action — answering the student when a reply is owed
-                (the thread opens with the cursor in the reply box); otherwise a new message. "할 일" is the neutral secondary. */}
-            {onReply
-              ? <button type="button" className="btn btn-primary" onClick={onReply}><Reply aria-hidden className="ag7-btnicon" />{t('v26.ws.reply')}</button>
-              : <button type="button" className="btn btn-primary" onClick={() => onAction('message')}><MessageSquarePlus aria-hidden className="ag7-btnicon" />{t('ws.act.message')}</button>}
-            {onReply && <button type="button" className="btn btn-light" onClick={() => onAction('message')}><MessageSquarePlus aria-hidden className="ag7-btnicon" />{t('ws.act.message')}</button>}
-            <button type="button" className="btn btn-light" onClick={() => onAction('task')}><Plus aria-hidden className="ag7-btnicon" />{t('ws.act.task')}</button>
-            <Popover width={280} align="end" trigger={(p) => <button type="button" className="btn btn-icon btn-light ag7-iconbtn" aria-label={t('ws.more')} {...p}><Ellipsis aria-hidden /></button>}>
-              {(close) => (
-                <div className="hg-stack" style={{ padding: 10, '--hg-gap': '10px' } as React.CSSProperties}>
-                  <button type="button" className="hg-menu-item" onClick={() => { close(); onAction('call'); }}><CalendarPlus aria-hidden /> {t('ws.act.call')}</button>
-                  <button type="button" className="hg-menu-item" onClick={() => { close(); onAction('meeting'); }}><NotebookPen aria-hidden /> {t('v9.meet.recordTitle')}</button>
-                  {<Field label={t('ws.stage')}><StageSelect ws={ws} /></Field>}
-                  {a && <div className="hg-subtle hg-xs">{t('ws.sinceDate', { date: formatDate(a.since, locale) })}</div>}
-                  {a && <AssignmentWhy a={a} />}
-                </div>
-              )}
-            </Popover>
-          </div>
+        </div>
+        <div className="btn-list ag7-wshead__actions ops-case__actions">
+          {/* V26 (REPORT §335 A3): one primary, and it is the next action — answering the student when a reply is owed
+              (the thread opens with the cursor in the reply box); otherwise a new message. "할 일" is the neutral secondary. */}
+          {onReply
+            ? <button type="button" className="btn btn-primary" onClick={onReply}><Reply aria-hidden className="ag7-btnicon" />{t('v26.ws.reply')}</button>
+            : <button type="button" className="btn btn-primary" onClick={() => onAction('message')}><MessageSquarePlus aria-hidden className="ag7-btnicon" />{t('ws.act.message')}</button>}
+          {onReply && <button type="button" className="btn btn-light" onClick={() => onAction('message')}><MessageSquarePlus aria-hidden className="ag7-btnicon" />{t('ws.act.message')}</button>}
+          <button type="button" className="btn btn-light" onClick={() => onAction('task')}><Plus aria-hidden className="ag7-btnicon" />{t('ws.act.task')}</button>
+          <Popover width={280} align="end" trigger={(p) => <button type="button" className="btn btn-icon btn-light ag7-iconbtn" aria-label={t('ws.more')} {...p}><Ellipsis aria-hidden /></button>}>
+            {(close) => (
+              <div className="hg-stack" style={{ padding: 10, '--hg-gap': '10px' } as React.CSSProperties}>
+                <button type="button" className="hg-menu-item" onClick={() => { close(); onAction('call'); }}><CalendarPlus aria-hidden /> {t('ws.act.call')}</button>
+                <button type="button" className="hg-menu-item" onClick={() => { close(); onAction('meeting'); }}><NotebookPen aria-hidden /> {t('v9.meet.recordTitle')}</button>
+                {<Field label={t('ws.stage')}><StageSelect ws={ws} /></Field>}
+                {a && <div className="hg-subtle hg-xs">{t('ws.sinceDate', { date: formatDate(a.since, locale) })}</div>}
+                {a && <AssignmentWhy a={a} />}
+              </div>
+            )}
+          </Popover>
         </div>
       </div>
-      {/* V27: the stage first (brief §25 — 현재 단계), then why it is stopped, who acts, what next, the deadline. */}
-      <div className="ag27-wshead__progress"><CaseProgress studentId={ws.student.id} statuses={ws.applications.map((x) => x.status)} /></div>
-      <div className="ag9-wshead__strip"><CaseStrip studentId={ws.student.id} /></div>
+      {/* Status → next action: the stage first (brief §25 — 현재 단계), then what happens next, who it waits on, by when, and why. */}
+      <div className="ops-case__status">
+        <CaseProgress studentId={ws.student.id} statuses={ws.applications.map((x) => x.status)} />
+        <CaseStrip studentId={ws.student.id} />
+      </div>
     </header>
   );
 }
@@ -269,9 +260,9 @@ function NeedsAction({ ws, tasks, go, open }: { ws: WS; tasks: Task[] | undefine
   const review = ws.documents.filter((d) => d.status === 'UPLOADED' || d.status === 'NEEDS_REVIEW').length;
   const fix = ws.documents.filter((d) => d.status === 'NEEDS_CORRECTION' || d.status === 'EXPIRED').length;
   return (
-    <YCard as="section" title={t('v22.ws.needsAction')} count={blockers.length || undefined} flush className="ag22-needs"
-      tools={<span className="hg-subtle hg-xs">{[review ? t('v22.ws.docReview', { count: review }) : null, fix ? t('v22.ws.docFix', { count: fix }) : null].filter(Boolean).join(' · ')}</span>}>
-      {blockers.length === 0 ? <p className="text-muted p-3 mb-0">{t('v22.ws.needsActionEmpty')}</p> : (
+    <Section className="ag22-needs ops-wssec" id="ops-needs" title={<>{t('v22.ws.needsAction')}{blockers.length > 0 && <span className="ops-wssec__n hg-num">{blockers.length}</span>}</>}
+      action={<span className="ops-wssec__aside">{[review ? t('v22.ws.docReview', { count: review }) : null, fix ? t('v22.ws.docFix', { count: fix }) : null].filter(Boolean).join(' · ')}</span>}>
+      {blockers.length === 0 ? <p className="ops-wssec__empty">{t('v22.ws.needsActionEmpty')}</p> : (
         <ul className="list-unstyled mb-0 ag7-list">
           {blockers.map((b) => (
             <li key={b.key}>
@@ -279,7 +270,7 @@ function NeedsAction({ ws, tasks, go, open }: { ws: WS; tasks: Task[] | undefine
                 <span className="ag22-needs__dot" aria-hidden />
                 <span className="flex-fill min-w-0">
                   <span className="d-block fw-semibold">{b.title}</span>
-                  {b.detail && <span data-user-content className="d-block fs-12 text-muted text-truncate">{b.detail}</span>}
+                  {b.detail && <span data-user-content className="ops-row__sub">{b.detail}</span>}
                 </span>
                 <ChevronRight size={16} aria-hidden className="hg-flip-rtl hg-subtle" />
               </button>
@@ -289,24 +280,27 @@ function NeedsAction({ ws, tasks, go, open }: { ws: WS; tasks: Task[] | undefine
       )}
       {ws.applications.length > 0 && (
         <div className="ag22-needs__apps">
-          <div className="ag22-needs__h">{t('v22.ws.appsTitle')} <span className="hg-subtle">{ws.applications.length}</span><button type="button" className="btn btn-sm btn-link p-0 ms-auto" onClick={() => go('applications')}>{t('v22.ws.seeAll')}</button></div>
+          <div className="ag22-needs__h"><h3>{t('v22.ws.appsTitle')}</h3> <span className="ops-wssec__n hg-num">{ws.applications.length}</span><button type="button" className="hg-link ms-auto" onClick={() => go('applications')}>{t('v22.ws.seeAll')}</button></div>
           <ul className="list-unstyled mb-0 ag7-list">
             {ws.applications.slice(0, 3).map((x) => (
               <li key={x.id}>
-                <button type="button" className="ag7-listrow" onClick={() => open(`app:${x.id}`)}>
-                  <span className="flex-fill min-w-0">
-                    <span className="d-block fw-semibold text-truncate">{localName(x.university)}</span>
-                    <span className="d-block fs-12 text-muted text-truncate">{localName(x.program)} · {t('apps.deadline')} {formatDate(x.intake.application_deadline, locale)}</span>
+                <button type="button" className="ag7-listrow ops-approw" onClick={() => open(`app:${x.id}`)}>
+                  <span className="ops-approw__main">
+                    <span className="ops-approw__head">
+                      <span className="fw-semibold">{localName(x.university)}</span>
+                      <StatusText tone={applicationTone[x.status] ?? 'neutral'}>{t(`appStatus.${x.status}`)}</StatusText>
+                    </span>
+                    <span className="ops-row__sub">{localName(x.program)} · {t('apps.deadline')} {formatDate(x.intake.application_deadline, locale)}</span>
                     <ReadinessText a={x} />
                   </span>
-                  <StatusText tone={applicationTone[x.status] ?? 'neutral'}>{t(`appStatus.${x.status}`)}</StatusText>
+                  <ChevronRight size={16} aria-hidden className="hg-flip-rtl hg-subtle" />
                 </button>
               </li>
             ))}
           </ul>
         </div>
       )}
-    </YCard>
+    </Section>
   );
 }
 
@@ -317,8 +311,8 @@ function RecentConversation({ ws, go, onNew }: { ws: WS; go: (section: Section) 
   const q = useQuery({ queryKey: ['conversations', { student_id: ws.student.id }], queryFn: () => api.messages.conversations(ws.student.id) });
   const latest = q.data?.[0];
   return (
-    <YCard as="section" title={t('v22.ws.conversation')} className="ag22-conv" flush
-      tools={latest ? <button type="button" className="btn btn-sm btn-link p-0" onClick={() => go('messages')}>{t('v22.ws.openThread')}</button> : null}>
+    <YCard as="section" title={t('v22.ws.conversation')} className="ag22-conv ops-conv" flush
+      tools={latest ? <button type="button" className="hg-link" onClick={() => go('messages')}>{t('v22.ws.openThread')}</button> : null}>
       {q.isLoading ? <div className="p-3"><Skeleton h={160} /></div> : q.isError ? <ErrorState error={q.error} onRetry={() => q.refetch()} />
         : !latest ? <div className="p-3"><EmptyState compact title={t('v22.ws.noConversation')} action={<Button size="sm" onClick={onNew}>{t('inbox.new')}</Button>} /></div>
           : <div className="ag22-conv__thread"><MessageThread key={latest.id} id={latest.id} /></div>}
@@ -787,7 +781,10 @@ export default function StudentWorkspace() {
                   <NeedsAction ws={ws} tasks={tasks.data ? openTasks : undefined} go={goSection} open={openFocus} />
                   {/* V29 (brief §20): plan · service term · used/included · add-ons, and "추가 서비스 제안" — on the first view, so
                       nobody has to remember the plan rules or open a tab to find them. */}
-                  <YCard title={t('v15.scope.title')} className="ag15-scopecard"><PlanScope plan={ws.plan} studentId={ws.student.id} /></YCard>
+                  <Section className="ops-wssec ag15-scopecard" id="ops-service" title={t('ops.ws.service')} ruled>
+                    <PlanScope plan={ws.plan} studentId={ws.student.id} />
+                    <StudentPayments studentId={ws.student.id} />
+                  </Section>
                 </div>
                 <RecentConversation ws={ws} go={goSection} onNew={() => setAction('message')} />
               </div>

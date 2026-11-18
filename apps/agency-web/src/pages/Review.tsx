@@ -1,4 +1,5 @@
 import { FileCheck, GraduationCap, PenLine } from '@hangyul/icons';
+import { Segmented } from '@hangyul/ui';
 import { PageHeader } from '@hangyul/ynex-ui';
 import { lazy, Suspense, type ReactNode } from 'react';
 import { Link, useSearchParams } from 'react-router';
@@ -45,13 +46,9 @@ export default function Review() {
         title={t('v22.nav.work')}
         sub={t('v11.review.sub')}
         actions={
-          <div className="ag-revhub__modes" role="group" aria-label={t('v11.review.title')}>
-            {modes.map((m) => (
-              <button key={m.id} type="button" className="ag-revhub__mode" aria-pressed={mode === m.id} onClick={() => go(m.id)}>
-                {m.icon}<span>{m.label}</span>
-                {m.count ? <span className="ag-revhub__count">{m.count}</span> : null}
-              </button>
-            ))}
+          <div className="ops-modes">
+            <Segmented<Mode> label={t('v11.review.title')} value={mode} onChange={go}
+              options={modes.map((m) => ({ value: m.id, label: <span className="ops-modes__opt">{m.icon}<span>{m.label}</span>{m.count ? <span className="ops-modes__n hg-num">{m.count}</span> : null}</span> }))} />
           </div>
         }
       />

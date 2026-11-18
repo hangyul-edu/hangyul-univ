@@ -1,23 +1,23 @@
 /**
- * **The plan, and how the app pays for it** (V17, brief §35–37).
+ * **The plan, and how the app pays for it.**
  *
- * The rule that must not bend is *one backend state machine*. The web app's checkout is the only place a
- * Toss payment window is opened, `POST /me/orders` is the only place an order is created, and
- * `POST /me/payments/toss/confirm` is the only place one is confirmed. A second implementation of any of
- * those inside the native app is a second source of truth about whether a student has paid — which is how
- * a student ends up charged twice, or charged once and unentitled.
+ * The rule that must not bend is *one backend payment model*. `POST /me/orders` is the only place an order is
+ * created, a payment method is only ever registered on the payment provider's hosted page opened by the web app,
+ * and `POST /me/orders/{id}/pay` is the only place an order is charged — once, for the server's amount. A second
+ * implementation of any of those inside the native app would be a second source of truth about whether a student
+ * has paid, which is how a student ends up charged twice, or charged once and unentitled.
  *
  * So the native app does not implement payment. It hands off:
  *
  *     Linking.openURL(`${web}/services?plan=…&return=hangyul-student://services`)
- *       → the system browser, where the student's web session and the Toss 결제창 live
- *       → Toss redirects to `/services/payment/success`, the web app confirms the order
- *       → the web page sends the student back to `hangyul-student://services`
+ *       → the system browser, where the student's web session lives
+ *       → the student chooses or adds a payment method (provider-hosted) and confirms the one-time amount
+ *       → the web confirmation offers the way back to `hangyul-student://services`
  *       → this screen refetches `/me/services` and the plan is simply there
  *
- * The **system** browser, not an in-app one: 3-D Secure and an overseas card issuer's own app both need
- * to leave the page and come back, and a WebView is where that breaks. It also means the payment never
- * touches a surface this app controls, which is the same reason Hangyul stores no card data at all.
+ * The **system** browser, not an in-app one: 3-D Secure and a card issuer's own app both need to leave the page
+ * and come back, and a WebView is where that breaks. It also means no payment detail ever touches a surface this
+ * app controls. Every purchase is a one-time payment; nothing is renewed.
  */
 import { useApi } from '@hangyul/auth';
 import { getApiBaseUrl } from '@hangyul/mobile-ui';

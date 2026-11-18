@@ -30,7 +30,10 @@ const env = Object.fromEntries(
 
 /** The needles. A literal is a value read from the untracked env; a pattern is a shape. */
 const NEEDLES = [
-  ...['HG_TOSS_NORMAL_SECRET_KEY', 'HG_TOSS_FOREIGN_BILLING_SECRET_KEY', 'HG_TOSS_BILLING_SECRET_KEY',
+  ...['HG_TOSS_DOMESTIC_BILLING_SECRET_KEY', 'HG_TOSS_DOMESTIC_BILLING_SECURITY_KEY',
+      'HG_TOSS_FOREIGN_BILLING_SECRET_KEY', 'HG_TOSS_FOREIGN_BILLING_SECURITY_KEY',
+      'HG_TOSS_EASYPAY_BILLING_SECRET_KEY', 'HG_TOSS_EASYPAY_BILLING_SECURITY_KEY',
+      'HG_TOSS_NORMAL_SECRET_KEY', 'HG_TOSS_BILLING_SECRET_KEY',
       'HG_JWT_SECRET', 'HG_FILE_URL_SECRET', 'HG_PAYMENT_TOKEN_ENCRYPTION_KEY']
     // A value the repo ships on purpose — `dev-only-…`, `change-me` — is a placeholder, not a secret:
     // it is *meant* to appear in `.env.example` and in the config default, and `get_settings()`
@@ -183,7 +186,7 @@ print(json.dumps(out))
 let dbCells = 0;
 try {
   const raw = execFileSync(join(ROOT, 'server/.venv/bin/python'), ['-c', PY],
-    { cwd: join(ROOT, 'server'), encoding: 'utf8', maxBuffer: 512 * 1024 * 1024 });
+    { cwd: join(ROOT, 'server'), encoding: 'utf8', maxBuffer: 512 * 1024 * 1024, env: { ...process.env, HG_ENV: process.env.HG_ENV ?? 'development' } });
   const rows = JSON.parse(raw.slice(raw.indexOf('[')));
   dbCells = rows.length;
   for (const [where, value] of rows) scan(`db:${where}`, value);

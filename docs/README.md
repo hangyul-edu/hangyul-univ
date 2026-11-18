@@ -41,6 +41,6 @@ in subfolders. Check links and root gates with `python3 scripts/docs/check-links
 | [`legal/`](legal/) | Statute texts, vendor facts and source URLs |
 | [`deployment/`](deployment/) | Vercel project detail and the environment matrix |
 | [`mobile/`](mobile/) | Store readiness for the three native apps |
-| [`payments/`](payments/) | Toss foreign-card / USD review |
+| [`payments/`](payments/) | [`BILLING.md`](payments/BILLING.md) — billing-key payment rail, gates, live capability results; `TOSS_FOREIGN_CARD_REVIEW.md` is a superseded historical record |
 | [`qa/launch-final/`](qa/launch-final/) | **The current QA folder** — launch-pass results |
 | `qa/v9` … `qa/v32` | Only the retained baselines and evidence that code, data or gates read by path (see [`qa/README.md`](qa/README.md)); all other historical QA output was removed and is in git history |

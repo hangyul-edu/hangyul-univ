@@ -152,7 +152,7 @@ function ExportJobs() {
                   <LastRun last={p.last_run} />
                   <span className="d-flex flex-wrap gap-2">
                     {p.key !== 'outcomes' && <Button size="sm" variant="ghost" onClick={() => setSaving(p.key)}>{t('university:v8.ex.saveConfig')}</Button>}
-                    <Button size="sm" variant="primary" icon={<Download />} loading={busy === p.key} onClick={() => runJob(p.key, p.key)}>{t('university:exports.csv')}</Button>
+                    <Button size="sm" icon={<Download />} loading={busy === p.key} onClick={() => runJob(p.key, p.key)}>{t('university:exports.csv')}</Button>
                   </span>
                 </div>
               </div>

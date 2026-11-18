@@ -101,7 +101,7 @@ async function staticPart() {
   ok('TEST ACCESS', 'server environment fails closed (default production, normalised)', /env: str = "production"/.test(cfg) && /_normalise_env/.test(cfg));
   const st = read('server/app/api/v1/student.py');
   ok('TEST PAID STATE', 'no dev-complete endpoint and no bypass setting', !/dev-complete|test_payment_bypass/.test(st + cfg));
-  ok('TEST PAID STATE', 'real Toss key-in path intact', /\/v1\/payments\/key-in/.test(read('server/app/services/foreign_card.py')));
+  ok('TEST PAID STATE', 'real Toss billing-key rail intact', /\/v1\/billing\/\{billing_key\}/.test(read('server/app/services/billing.py')));
 
   // AGENCY / UNIVERSITY — static
   const roleHits = [];

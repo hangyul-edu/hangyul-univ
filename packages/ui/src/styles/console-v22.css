@@ -31,6 +31,56 @@ html[data-surface='console'] {
   --hg-status-info-fg: #2C47A6;
   --hg-status-info-bg: #EEF3FE;
   --hg-status-info-solid: #4F74E8;
+  --hg-text-disabled: #A29C92;
+  /* Two names the console apps read with cool-grey fallbacks (#f8f9fb) but nobody defined. */
+  --hg-surface-muted: #FBFAF7;
+  --hg-surface-subtle: #FBFAF7;
+  --hg-status-neutral-fg: #56524B;
+  --hg-status-neutral-bg: #F6F3EE;
+  --hg-status-neutral-solid: #A29C92;
+  /* ---- Design foundation (2026-11): the YNEX / Bootstrap variables themselves are re-pointed at the Hangyul tokens.
+     ~120 rules in the two console apps read `--default-border`, `--text-muted`, `--default-text-color`, `--light-rgb`
+     … directly; they were still YNEX's cool blue-greys (#f3f3f3, #5f6b80, #333335, #f3f6f8, #536485), which is what
+     kept the consoles looking like a grey admin template after V22/V31 re-pointed only the `--hg-*` names. */
+  --body-bg-rgb: 255, 255, 255;
+  --light-rgb: 246, 243, 238;
+  --dark-rgb: 24, 26, 31;
+  --secondary-rgb: 86, 82, 75;
+  --success-rgb: 46, 158, 91;
+  --warning-rgb: 230, 154, 0;
+  --danger-rgb: 229, 72, 77;
+  --info-rgb: 79, 116, 232;
+  --teal-rgb: 58, 168, 168;
+  --orange-rgb: 204, 78, 0;
+  --primary-color: #CC4E00;
+  --primary-border: #CC4E00;
+  --default-body-bg-color: #FFFFFF;
+  --default-text-color: var(--hg-text);
+  --default-border: var(--hg-border);
+  --default-background: var(--hg-bg-paper);
+  --text-muted: var(--hg-text-tertiary);
+  --menu-bg: var(--hg-bg-paper);
+  --menu-prime-color: var(--hg-text-secondary);
+  --menu-border-color: var(--hg-border);
+  --header-bg: #FFFFFF;
+  --header-prime-color: var(--hg-text-secondary);
+  --header-border-color: var(--hg-border);
+  --bootstrap-card-border: var(--hg-border);
+  --list-hover-focus-bg: var(--hg-surface-hover);
+  --input-border: var(--hg-control-secondary-border);
+  --form-control-bg: #FFFFFF;
+  --gray-1: #FBFAF7; --gray-2: #F6F3EE; --gray-3: #EFEBE4; --gray-4: #E3DED6; --gray-5: #A29C92; --gray-6: #6A655D; --gray-7: #56524B; --gray-8: #3D3A35; --gray-9: #292722;
+  --bs-body-color: var(--hg-text);
+  --bs-body-bg: #FFFFFF;
+  --bs-secondary-color: var(--hg-text-secondary);
+  --bs-tertiary-color: var(--hg-text-tertiary);
+  --bs-border-color: var(--hg-border);
+  --bs-link-color-rgb: 184, 70, 0;
+  --bs-link-hover-color-rgb: 158, 60, 0;
+  --bs-primary-rgb: 204, 78, 0;
+  --bs-light-rgb: 246, 243, 238;
+  --bs-secondary-bg: #F6F3EE;
+  --bs-tertiary-bg: #FBFAF7;
   --hg-console-navy: #181A1F;
   --hg-console-navy-2: #2A2D33;
   --hg-console-ink-soft: #C9CBD0;
@@ -49,31 +99,149 @@ html[data-surface='console'] {
   --hg-chart-axis: #6A655D;
   --hg-chart-seq-1: #FFF6F0; --hg-chart-seq-2: #FFE2CC; --hg-chart-seq-3: #FFC59E; --hg-chart-seq-4: #F2A06A; --hg-chart-seq-5: #E07A3A; --hg-chart-seq-6: #CC4E00; --hg-chart-seq-7: #8F3600;
 }
-html[data-surface='console'] body { background: var(--hg-bg-canvas); }
+html[data-surface='console'] body { background: #FFFFFF; color: var(--hg-text); font-size: 0.875rem; line-height: 1.5; }
 html[data-surface='console'] ::selection { background: #FFE2CC; }
-html[data-surface='console'] .hg-card, html[data-surface='console'] .hg-panel, html[data-surface='console'] .card.custom-card { box-shadow: none; border: 1px solid var(--hg-border); border-radius: 10px; }
-html[data-surface='console'] .hg-card__title::before, html[data-surface='console'] .hg-section__title::before { display: none; }
-html[data-surface='console'] .hg-card__title, html[data-surface='console'] .hg-section__title { padding-inline-start: 0; }
-/* the YNEX sidebar is always light in V22: ink on white, hairline divider, tangerine active */
-/* V31 (REPORT §420): one shell, not three template layers. The working canvas is WHITE (it used to be off-white with
-   a white top bar, white sidebar and white table cards floating on it — three hairline-separated slabs that read as a
-   grey admin template). The navigation is the one warm-paper panel, divided by a single hairline; the top bar is the
-   canvas's own white. Depth comes from type, spacing and the selected state, not from surfaces stacked on grey. */
-html[data-surface='console'] .app-sidebar { background: var(--hg-bg-paper) !important; border-inline-end: 1px solid var(--hg-border) !important; box-shadow: none !important; }
+html[data-surface='console'] a:not([class]) { color: var(--hg-primary-text); }
+
+/* ================= Shell =================
+   One shell, not three template layers: a WHITE working canvas with a white top bar, and ONE warm-paper navigation
+   panel divided from it by a single hairline. Depth comes from type, spacing and the tangerine selected state — never
+   from white cards floating on a grey desktop. One typeface (the YNEX sidebar used to set Montserrat). */
+html[data-surface='console'] .app-sidebar { background: var(--hg-bg-paper) !important; border-inline-end: 1px solid var(--hg-border) !important; box-shadow: none !important; font-family: inherit; }
 html[data-surface='console'] .app-sidebar .main-sidebar-header { background: var(--hg-bg-paper) !important; border-color: transparent !important; }
-html[data-surface='console'] .app-sidebar .side-menu__item { color: var(--hg-text-secondary) !important; border-radius: 8px; }
+html[data-surface='console'] .app-sidebar .side-menu__item { color: var(--hg-text-secondary) !important; border-radius: var(--hg-control-radius); min-height: 44px; padding: 10px 12px; font-family: inherit; font-size: var(--hg-text-md); font-weight: var(--hg-weight-medium); margin-block-end: 2px; transition: background var(--hg-motion-fast), color var(--hg-motion-fast); }
+html[data-surface='console'] .app-sidebar .side-menu__label { color: inherit; font-family: inherit; font-size: inherit; font-weight: inherit; }
 html[data-surface='console'] .app-sidebar .side-menu__item:hover { background: var(--hg-surface-warm) !important; color: var(--hg-text) !important; }
-html[data-surface='console'] .app-sidebar .side-menu__item.active { background: #FFF1E7 !important; color: #B84600 !important; font-weight: 600; }
-html[data-surface='console'] .app-sidebar .side-menu__item.active .side-menu__icon { color: #B84600 !important; }
-html[data-surface='console'] .app-sidebar .side-menu__icon { color: var(--hg-text-tertiary) !important; }
+html[data-surface='console'] .app-sidebar .side-menu__item.active { background: var(--hg-selected-bg) !important; color: var(--hg-selected-fg) !important; font-weight: var(--hg-weight-semibold); }
+html[data-surface='console'] .app-sidebar .side-menu__item.active .side-menu__icon { color: var(--hg-selected-fg) !important; }
+html[data-surface='console'] .app-sidebar .side-menu__icon { color: var(--hg-text-tertiary) !important; flex: none; }
+html[data-surface='console'] .app-sidebar .slide__category { font-family: inherit; color: var(--hg-text-tertiary); font-size: var(--hg-text-xs); font-weight: var(--hg-weight-semibold); letter-spacing: 0.04em; }
+html[data-surface='console'] .app-sidebar .hg-logo__tag { color: var(--hg-text-secondary); font-size: var(--hg-text-sm); }
 html[data-surface='console'] .app-header { background: #FFFFFF !important; border-bottom: 1px solid var(--hg-border) !important; box-shadow: none !important; }
-html[data-surface='console'] .btn-primary { background: #CC4E00 !important; border-color: #CC4E00 !important; color: #fff !important; }
-html[data-surface='console'] .btn-primary:hover { background: #B84600 !important; border-color: #B84600 !important; }
-html[data-surface='console'] .btn-primary-light { background: #FFF1E7 !important; color: #B84600 !important; border-color: transparent !important; }
-html[data-surface='console'] .text-primary { color: #B84600 !important; }
-html[data-surface='console'] .bg-primary-transparent { background: #FFF1E7 !important; color: #B84600 !important; }
-html[data-surface='console'] .table thead th { background: var(--hg-bg-paper); color: var(--hg-text-secondary); font-weight: 600; border-bottom: 1px solid var(--hg-border); }
-html[data-surface='console'] .table td { border-color: var(--hg-border-subtle); }
+html[data-surface='console'] .app-header .yx-org { border-inline-end-color: var(--hg-border); }
+/* The working area: generous top air so the page title is never glued to the bar, one rhythm between blocks. */
+html[data-surface='console'] .yx-main { padding-block: 28px 72px; font-variant-numeric: tabular-nums; }
+@media (min-width: 1024px) { html[data-surface='console'] .yx-main { padding-block: 40px 96px; } }
+
+/* ================= Page header ================= */
+html[data-surface='console'] .hg-page-head { align-items: flex-end; margin-block: 0 24px; }
+@media (min-width: 1024px) { html[data-surface='console'] .hg-page-head { margin-block-end: 32px; } }
+html[data-surface='console'] .hg-page-head h1, html[data-surface='console'] .hg-page-head__title { font-size: clamp(22px, 1.9vw, 28px); line-height: 1.25; font-weight: var(--hg-weight-semibold); letter-spacing: -0.02em; color: var(--hg-text); }
+html[data-surface='console'] .hg-page-head__sub, html[data-surface='console'] .yx-pagehead__sub { font-size: var(--hg-text-md); line-height: 1.55; color: var(--hg-text-secondary); margin-top: 6px; }
+html[data-surface='console'] .yx-pagehead__eyebrow { text-transform: none; letter-spacing: 0; font-size: var(--hg-text-sm); color: var(--hg-text-tertiary); }
+html[data-surface='console'] .page-header-breadcrumb { margin-block: 0 24px !important; align-items: flex-end !important; }
+@media (min-width: 1024px) { html[data-surface='console'] .page-header-breadcrumb { margin-block-end: 32px !important; } }
+html[data-surface='console'] .page-header-breadcrumb h1, html[data-surface='console'] .page-header-breadcrumb .page-title { font-size: clamp(22px, 1.9vw, 28px) !important; line-height: 1.25; font-weight: var(--hg-weight-semibold) !important; letter-spacing: -0.02em; color: var(--hg-text); margin: 0; }
+html[data-surface='console'] .breadcrumb { font-size: var(--hg-text-sm); }
+html[data-surface='console'] .breadcrumb-item a { color: var(--hg-text-secondary); text-decoration: none; }
+html[data-surface='console'] .breadcrumb-item a:hover { color: var(--hg-text); text-decoration: underline; text-underline-offset: 3px; }
+html[data-surface='console'] .breadcrumb-item.active { color: var(--hg-text); font-weight: var(--hg-weight-medium); }
+
+/* ================= Cards (YNEX `card custom-card`, shared `hg-card` / `hg-panel`) =================
+   White, one hairline, 14 px radius. No shadow, no ruled header, no accent bar before the title: the title is type. */
+html[data-surface='console'] .hg-card, html[data-surface='console'] .hg-panel, html[data-surface='console'] .card.custom-card { box-shadow: none; border: 1px solid var(--hg-border); border-radius: var(--hg-radius-xl); background: #FFFFFF; }
+html[data-surface='console'] .card.custom-card { margin-block-end: 24px; color: var(--hg-text); }
+html[data-surface='console'] .card.custom-card .card-header { background: transparent; border-bottom: 0; padding: 20px 24px 0; }
+html[data-surface='console'] .card.custom-card .card-header:first-child { border-radius: var(--hg-radius-xl) var(--hg-radius-xl) 0 0; }
+html[data-surface='console'] .card.custom-card .card-header .card-title, html[data-surface='console'] .card.custom-card h2.card-title { font-size: var(--hg-text-lg); line-height: 1.35; font-weight: var(--hg-weight-semibold); letter-spacing: -0.008em; color: var(--hg-text); padding-inline-start: 0; }
+html[data-surface='console'] .card.custom-card .card-header .card-title::before, html[data-surface='console'] .hg-card__title::before, html[data-surface='console'] .hg-section__title::before { display: none; }
+html[data-surface='console'] .card.custom-card .card-body { padding: 16px 24px 24px; }
+html[data-surface='console'] .card.custom-card .card-header + .card-body { padding-top: 14px; }
+html[data-surface='console'] .card.custom-card .card-footer { background: transparent; border-top: 1px solid var(--hg-border-subtle); padding: 14px 24px; }
+@media (max-width: 767px) {
+  html[data-surface='console'] .card.custom-card .card-header { padding: 16px 16px 0; }
+  html[data-surface='console'] .card.custom-card .card-body { padding: 14px 16px 16px; }
+  html[data-surface='console'] .card.custom-card .card-footer { padding: 12px 16px; }
+}
+html[data-surface='console'] .card.custom-card.hrm-main-card { border-top-width: 1px; border-color: var(--hg-border); }
+
+/* ================= Tables (YNEX `.table`) — same density as `hg-table` ================= */
+html[data-surface='console'] .table { --bs-table-color: var(--hg-text); --bs-table-bg: transparent; --bs-table-border-color: var(--hg-border-subtle); --bs-table-hover-bg: var(--hg-surface-hover); --bs-table-hover-color: var(--hg-text); --bs-table-striped-bg: var(--hg-bg-paper); color: var(--hg-text); font-size: var(--hg-text-base); }
+html[data-surface='console'] .table thead th { background: #FFFFFF; color: var(--hg-text-secondary); font-weight: var(--hg-weight-semibold); letter-spacing: 0; text-transform: none; border-bottom: 1px solid var(--hg-border); }
+html[data-surface='console'] .table td { border-color: var(--hg-border-subtle); color: var(--hg-text); vertical-align: middle; }
+/* Geometry sits at class-level specificity (`:where`) so a page's own compact table (e.g. a dense matrix on a phone)
+   still wins; colour above does not yield. */
+:where(html[data-surface='console']) .table th { padding: 12px 14px; }
+:where(html[data-surface='console']) .table td { font-size: var(--hg-text-base); font-weight: var(--hg-weight-regular); padding: 12px 14px; }
+html[data-surface='console'] .table tbody tr:last-child td { border-bottom-width: 0; }
+
+/* ================= Buttons (Bootstrap `.btn`) — the shared hierarchy =================
+   primary = solid tangerine · `btn-light` / outline = the SECONDARY (white + 3:1 edge, not a grey slab) ·
+   `btn-primary-light` = tangerine wash for a current/selected tool · `btn-link` = text action. */
+html[data-surface='console'] .btn { --bs-btn-border-radius: var(--hg-control-radius); border-radius: var(--hg-control-radius); min-height: 40px; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: var(--hg-text-base); font-weight: var(--hg-weight-medium); line-height: 1.2; box-shadow: none; }
+html[data-surface='console'] .btn.btn-sm { border-radius: var(--hg-radius-md); min-height: var(--hg-control-height-xs); padding: 0 12px; font-size: var(--hg-text-sm); }
+html[data-surface='console'] .btn.btn-lg { min-height: 48px; padding: 0 22px; font-size: var(--hg-text-md); }
+html[data-surface='console'] .btn.btn-icon { padding: 0; width: 40px; }
+html[data-surface='console'] .btn.btn-icon.btn-sm { width: var(--hg-control-height-xs); }
+html[data-surface='console'] .btn.btn-link, html[data-surface='console'] .btn.p-0 { min-height: 24px; padding: 0; }
+@media (max-width: 1023px), (pointer: coarse) {
+  html[data-surface='console'] .btn, html[data-surface='console'] .btn.btn-sm { min-height: var(--hg-touch-min); }
+  html[data-surface='console'] .btn.btn-icon, html[data-surface='console'] .btn.btn-icon.btn-sm { width: var(--hg-touch-min); }
+}
+html[data-surface='console'] .btn-primary { background: var(--hg-primary) !important; border-color: var(--hg-primary) !important; color: #fff !important; font-weight: var(--hg-weight-semibold); }
+html[data-surface='console'] .btn-primary:hover { background: var(--hg-primary-hover) !important; border-color: var(--hg-primary-hover) !important; }
+html[data-surface='console'] .btn-primary:active { background: var(--hg-primary-pressed) !important; border-color: var(--hg-primary-pressed) !important; }
+html[data-surface='console'] .btn-primary-light { background: var(--hg-selected-bg) !important; color: var(--hg-selected-fg) !important; border-color: transparent !important; }
+html[data-surface='console'] .btn-primary-light:hover { background: var(--hg-selected-bg-hover) !important; color: var(--hg-selected-fg) !important; }
+html[data-surface='console'] .btn-light, html[data-surface='console'] .btn-outline-light, html[data-surface='console'] .btn-outline-secondary { background: var(--hg-control-secondary-bg); border-color: var(--hg-control-secondary-border); color: var(--hg-control-secondary-text); }
+html[data-surface='console'] .btn-light:hover, html[data-surface='console'] .btn-outline-light:hover, html[data-surface='console'] .btn-outline-secondary:hover { background: var(--hg-control-secondary-bg-hover); border-color: var(--hg-control-secondary-border-hover); color: var(--hg-control-secondary-text); }
+html[data-surface='console'] .btn-light:active, html[data-surface='console'] .btn-light.active { background: var(--hg-control-secondary-bg-pressed); border-color: var(--hg-control-secondary-border-hover); color: var(--hg-control-secondary-text); }
+html[data-surface='console'] .btn-danger, html[data-surface='console'] .btn-outline-danger { background: #FFFFFF; border-color: var(--hg-status-danger-fg); color: var(--hg-status-danger-fg); }
+html[data-surface='console'] .btn-danger:hover, html[data-surface='console'] .btn-outline-danger:hover { background: var(--hg-status-danger-bg); border-color: var(--hg-status-danger-fg); color: var(--hg-status-danger-fg); }
+html[data-surface='console'] .btn:disabled, html[data-surface='console'] .btn.disabled { background: var(--hg-bg-paper) !important; border-color: var(--hg-border) !important; color: var(--hg-text-disabled) !important; opacity: 1; cursor: not-allowed; }
+html[data-surface='console'] .btn-primary:disabled, html[data-surface='console'] .btn-primary.disabled { background: var(--hg-primary-subtle) !important; border-color: transparent !important; color: color-mix(in srgb, var(--hg-primary-text) 48%, var(--hg-primary-subtle)) !important; }
+html[data-surface='console'] .btn-link { color: var(--hg-primary-text); text-decoration: none; font-weight: var(--hg-weight-medium); }
+html[data-surface='console'] .btn-link:hover { color: var(--hg-primary-pressed); text-decoration: underline; text-underline-offset: 3px; }
+html[data-surface='console'] .text-primary { color: var(--hg-primary-text) !important; }
+
+/* ================= Inputs (Bootstrap `.form-control`) — same shape as `hg-input` ================= */
+html[data-surface='console'] .form-control, html[data-surface='console'] .form-select { min-height: 44px; padding: 10px 14px; border-radius: var(--hg-control-radius); border: 1px solid var(--hg-control-secondary-border); background-color: #FFFFFF; color: var(--hg-text); font-size: var(--hg-text-base); box-shadow: none; }
+html[data-surface='console'] .form-control.form-control-sm { min-height: 36px; padding: 6px 12px; border-radius: var(--hg-radius-md); font-size: var(--hg-text-base); }
+html[data-surface='console'] .form-control::placeholder { color: var(--hg-text-tertiary); opacity: 0.8; }
+html[data-surface='console'] .form-control:hover { border-color: var(--hg-control-secondary-border-hover); }
+html[data-surface='console'] .form-control:focus, html[data-surface='console'] .form-select:focus { border-color: var(--hg-primary); box-shadow: var(--hg-shadow-focus); outline: none; }
+html[data-surface='console'] .form-control:disabled { background: var(--hg-bg-paper); border-color: var(--hg-border); color: var(--hg-text-tertiary); }
+html[data-surface='console'] .form-label { font-size: var(--hg-text-base); font-weight: var(--hg-weight-medium); color: var(--hg-text); margin-block-end: 6px; }
+html[data-surface='console'] .form-text { font-size: var(--hg-text-sm); color: var(--hg-text-tertiary); }
+html[data-surface='console'] .form-check-input { border-color: var(--hg-control-secondary-border); }
+html[data-surface='console'] .form-check-input:checked { background-color: var(--hg-primary); border-color: var(--hg-primary); }
+@media (max-width: 767px) { html[data-surface='console'] .form-control, html[data-surface='console'] .form-control.form-control-sm { font-size: 16px; min-height: 44px; } }
+
+/* ================= Badges, tints and small type =================
+   Soft badges use the Hangyul semantic washes (warm neutral by default), 6 px radius, 12 px / 600. The template's
+   11–12 px utility sizes are lifted one step: nothing in a console is set below 12 px, and supporting text is 13 px. */
+html[data-surface='console'] .badge { border-radius: var(--hg-radius-sm); font-size: var(--hg-text-xs); font-weight: var(--hg-weight-semibold); padding: 4px 8px; letter-spacing: 0; line-height: 1.2; }
+html[data-surface='console'] .badge.bg-light, html[data-surface='console'] .bg-light { background-color: var(--hg-surface-warm) !important; }
+html[data-surface='console'] .badge.bg-light { color: var(--hg-text-secondary) !important; }
+html[data-surface='console'] .bg-primary-transparent, html[data-surface='console'] .badge.bg-primary-transparent { background: var(--hg-selected-bg) !important; color: var(--hg-selected-fg) !important; }
+html[data-surface='console'] .bg-secondary-transparent, html[data-surface='console'] .badge.bg-secondary-transparent { background: var(--hg-surface-warm) !important; color: var(--hg-text-secondary) !important; }
+html[data-surface='console'] .bg-success-transparent, html[data-surface='console'] .badge.bg-success-transparent { background: var(--hg-status-success-bg) !important; color: var(--hg-status-success-fg) !important; }
+html[data-surface='console'] .bg-warning-transparent, html[data-surface='console'] .badge.bg-warning-transparent, html[data-surface='console'] .bg-orange-transparent, html[data-surface='console'] .badge.bg-orange-transparent { background: var(--hg-status-warning-bg) !important; color: var(--hg-status-warning-fg) !important; }
+html[data-surface='console'] .bg-danger-transparent, html[data-surface='console'] .badge.bg-danger-transparent { background: var(--hg-status-danger-bg) !important; color: var(--hg-status-danger-fg) !important; }
+html[data-surface='console'] .bg-info-transparent, html[data-surface='console'] .badge.bg-info-transparent { background: var(--hg-status-info-bg) !important; color: var(--hg-status-info-fg) !important; }
+html[data-surface='console'] .bg-teal-transparent, html[data-surface='console'] .badge.bg-teal-transparent { background: var(--hg-status-teal-bg) !important; color: var(--hg-status-teal-fg) !important; }
+html[data-surface='console'] .text-muted { color: var(--hg-text-tertiary) !important; }
+html[data-surface='console'] .text-default { color: var(--hg-text) !important; }
+html[data-surface='console'] .text-success { color: var(--hg-status-success-fg) !important; }
+html[data-surface='console'] .text-danger { color: var(--hg-status-danger-fg) !important; }
+html[data-surface='console'] .text-warning { color: var(--hg-status-warning-fg) !important; }
+html[data-surface='console'] .text-info { color: var(--hg-status-info-fg) !important; }
+html[data-surface='console'] .fs-10, html[data-surface='console'] .fs-11 { font-size: var(--hg-text-xs) !important; }
+html[data-surface='console'] .fs-12 { font-size: var(--hg-text-sm) !important; }
+html[data-surface='console'] .fs-13 { font-size: var(--hg-text-base) !important; }
+html[data-surface='console'] .avatar.bg-light, html[data-surface='console'] .avatar.bg-primary-transparent { background: var(--hg-surface-warm) !important; color: var(--hg-text-secondary) !important; }
+html[data-surface='console'] .progress { background-color: var(--hg-palette-warm-100); }
+html[data-surface='console'] .alert { border-radius: var(--hg-radius-xl); border: 0; font-size: var(--hg-text-base); }
+html[data-surface='console'] .alert-warning { background: var(--hg-status-warning-bg); color: var(--hg-text); }
+html[data-surface='console'] .alert-danger { background: var(--hg-status-danger-bg); color: var(--hg-text); }
+html[data-surface='console'] .alert-success { background: var(--hg-status-success-bg); color: var(--hg-text); }
+
+/* ================= Tabs (YNEX `nav-tabs tab-style-2`) — underline in tangerine, like `hg-tab` ================= */
+html[data-surface='console'] .nav-tabs { border-bottom: 1px solid var(--hg-border); gap: 24px; }
+html[data-surface='console'] .nav-tabs .nav-link { color: var(--hg-text-secondary); font-size: var(--hg-text-md); font-weight: var(--hg-weight-medium); padding: 12px 0 13px; border: 0; border-bottom: 2px solid transparent; border-radius: 0; margin-block-end: -1px; background: none; }
+html[data-surface='console'] .nav-tabs .nav-link:hover { color: var(--hg-text); }
+html[data-surface='console'] .nav-tabs .nav-link.active { color: var(--hg-text); font-weight: var(--hg-weight-semibold); border-bottom-color: var(--hg-selected-border); background: none; }
+html[data-surface='console'] .nav-tabs .nav-link.active::before, html[data-surface='console'] .nav-tabs .nav-link::before { display: none; }
 
 /* V28: Bootstrap's `.btn:focus-visible { outline: 0 }` (plus `.btn:focus { box-shadow: none }`) outranks the global
    `:focus-visible` ring, so every console button lost its keyboard focus indicator (buttons gate NO_FOCUS, agency workspace).

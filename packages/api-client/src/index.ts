@@ -324,39 +324,32 @@ export function createApiClient(cfg: ApiClientConfig) {
       addOns: () => get<T.ServiceAddOn[]>('/me/add-ons'),
       // V29: approving returns the order to pay — the add-on is granted only once that order is PAID.
       decideAddOn: (id: string, approve: boolean) => post<{ id: string; status: string; plan: T.StudentPlan | null;
-        order: { order_id: string; amount_minor: number; currency: string; status: string; card_form: boolean } | null }>(`/me/add-ons/${id}`, { approve }),
+        order: { order_id: string; amount_minor: number; currency: string; status: string; payment_state: T.PaymentState; one_time: true } | null }>(`/me/add-ons/${id}`, { approve }),
       checkout: (product_code: string, purchase_terms_version?: string) => post<T.OrderResult>('/me/orders', { product_code, purchase_terms_version }),
-      /** 결제 승인 — the server asks Toss, with its own stored amount. Idempotent for the caller. */
-      confirmToss: (body: { payment_key: string; order_id: string; amount: number }) =>
-        post<T.PaymentResult>('/me/payments/toss/confirm', body),
       cancelOrder: (orderId: string) => post<T.PaymentResult>(`/me/orders/${orderId}/cancel`, {}),
-      /**
-       * **Local QA only: the plan's paid state, without a payment** (V21 b, REPORT §243.2).
-       *
-       * It performs the same activation a successful payment performs — a real Order, a real PAID
-       * state, the real entitlements — and it reaches no payment provider at all: no Toss call, no
-       * card, no billing key, no provider transaction id. The server answers 404 unless it is running
-       * in development/test, so this is never a path in production.
-       */
-      /** V29 — the same non-production paid-state action for an approved add-on's order (production answers 404). */
-      /**
-       * V21 — register the card **and** pay, in one call (brief §34, §35).
-       *
-       * The card's digits leave the browser exactly once, over HTTPS, to Hangyul's own API. There is
-       * no provider SDK in the bundle and no window to open: the server holds the secret key and
-       * talks to Toss. The amount is **not** a parameter — the server priced the order.
-       */
-      payOrderWithCard: (orderId: string, card: T.CardInput, saveCard = true) =>
-        post<T.PaymentResult & { payment_method?: T.StudentPaymentMethod; already_paid?: boolean }>(
-          `/me/orders/${orderId}/pay-with-card`, { card, save_card: saveCard }),
-      /** Pay with a card already on file. Refuses with `CARD_NOT_REUSABLE` where the merchant
-       *  configuration issues no reusable credential (REPORT §229.2). */
-      payOrderWithSavedCard: (orderId: string) =>
-        post<T.PaymentResult & { already_paid?: boolean }>(`/me/orders/${orderId}/pay-with-saved-card`, {}),
-      /** Which merchant configuration is live, and whether the card form is Hangyul's. No keys. */
-      paymentsConfig: () => get<T.PaymentsConfig>('/me/payments/config'),
+      // ---- payments: the billing-key rail. One-time purchases; a saved method is never charged on a schedule.
+      /** Which payment methods can be used (for an order's currency, when given) and the saved ones. No keys. */
+      paymentOptions: (q: { orderId?: string | null; currency?: string | null } = {}) =>
+        get<T.PaymentOptions>('/me/payments/options', { order_id: q.orderId ?? undefined, currency: q.orderId ? undefined : (q.currency ?? undefined) }),
       paymentMethods: () => get<{ items: T.StudentPaymentMethod[] }>('/me/payment-methods'),
+      /** Start registering a payment method in Toss's hosted window. Returns the public values to open it. */
+      startPaymentMethod: (kind: T.PaymentMethodKind, orderId?: string | null) =>
+        post<T.PaymentRegistration>('/me/payment-methods/registrations', { kind, order_id: orderId ?? null }),
+      /** The student came back from the window: the server issues and seals the credential. Charges nothing. */
+      completePaymentMethod: (registrationId: string, body: { auth_key: string; customer_key: string }) =>
+        post<{ payment_method: T.StudentPaymentMethod | null; order_id: string | null; already_completed: boolean }>(
+          `/me/payment-methods/registrations/${registrationId}/complete`, body),
+      failPaymentMethod: (registrationId: string, code: string | null) =>
+        post<{ status: string; code: string; order_id: string | null }>(`/me/payment-methods/registrations/${registrationId}/fail`, { code }),
+      setDefaultPaymentMethod: (id: string) => post<{ items: T.StudentPaymentMethod[] }>(`/me/payment-methods/${id}/default`, {}),
       deletePaymentMethod: (id: string) => del<{ deleted: boolean; remote: string }>(`/me/payment-methods/${id}`),
+      /**
+       * Charge the order **once** to a saved method. `amount_minor`/`currency` are what the student was shown:
+       * the server compares them with the order and refuses a mismatch — the figure charged is always its own.
+       */
+      payOrder: (orderId: string, body: { payment_method_id?: string | null; amount_minor: number; currency: string; one_time_confirmed: true }) =>
+        post<T.PaymentResult>(`/me/orders/${orderId}/pay`, body),
+      order: (orderId: string) => get<T.PaymentResult>(`/me/orders/${orderId}`),
       orders: () => get<{ id: string; product_code: string; product_name: string; status: string; amount_minor: number; currency: string; paid_at: string | null }[]>('/me/orders'),
       offers: () => get<{ items: T.StudentOffer[] }>('/me/offers'),
       assignment: () => get<{ organization: string; organization_id: string; counselor: T.PublicUser | null; languages: string[]; since: string } | null>('/me/assignment'),
@@ -493,7 +486,10 @@ export function createApiClient(cfg: ApiClientConfig) {
       deadlines: (days = 30) => get<{ id: string; title: string; title_key?: string | null; title_params?: Record<string, unknown> | null; task_type: T.TaskType; due_at: string; overdue: boolean; priority: T.TaskPriority; student: T.PublicUser | null; link: string | null; owner: T.PublicUser | null }[]>('/agency/deadlines', { days }),
       assignmentCandidates: (studentId: string) => get<{ organization_id: string; name: string; score: number; breakdown: T.MatchFactor[]; at_capacity: boolean }[]>(`/agency/assignment-candidates/${studentId}`),
       overrideAssignment: (body: { student_id: string; organization_id: string; counselor_id?: string; reason: string }) => post('/agency/assignments/override', body),
-      orders: () => get<{ id: string; student: T.PublicUser; product_code: string; product_name: string; status: string; amount_minor: number; currency: string; paid_at: string | null; created_at: string; provider: string | null; is_demo_payment: boolean }[]>('/agency/orders'),
+      orders: () => get<T.AgencyOrderRow[]>('/agency/orders'),
+      /** Execute a refund a person has decided, in whole or in part, through the payment provider. The amount is never computed. */
+      refundOrder: (orderId: string, body: { amount_minor: number; reason: string }) =>
+        post<T.PaymentResult & { fully_refunded: boolean }>(`/agency/orders/${orderId}/refund`, body),
       appointments: () => get<Appointment[]>('/agency/appointments'),
       createAppointment: (body: { student_id: string; starts_at: string; kind?: string; duration_minutes?: number; channel?: string; notes?: string }) => post<{ id: string }>('/agency/appointments', body),
       closeAppointment: (id: string, body: { status: 'COMPLETED' | 'NO_SHOW' | 'CANCELLED'; outcome_notes?: string; next_task_title?: string; next_task_due_at?: string }) =>

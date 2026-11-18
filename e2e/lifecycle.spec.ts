@@ -6,7 +6,7 @@
  */
 import { expect, test } from '@playwright/test';
 
-import { API, apiLogin, pdf, qaTestCard, registerStudent, uiLogin, URLS } from './helpers';
+import { API, apiLogin, pdf, registerStudent, uiLogin, URLS } from './helpers';
 
 test.describe.configure({ mode: 'serial' });
 
@@ -90,19 +90,10 @@ test('5–6 a card purchase assigns a partner agency by expertise, and opens the
    * to. The sandbox card number is not written here; it lives in the untracked env (REPORT §237.1).
    */
   let order = o;
-  if (order.status === 'PENDING' && order.card_form) {
-    const pan = qaTestCard();
-    if (!pan) {
-      notPaidReason = 'HG_QA_TEST_CARD is not set, so the card route cannot be exercised here';
-      test.skip(true, notPaidReason);
-      return;
-    }
-    const payment = await request.post(`${API}/me/orders/${order.order_id}/pay-with-card`, {
-      headers: S,
-      data: { card: { number: pan, expiry_month: '12', expiry_year: '30', holder_name: 'E2E LIFECYCLE' } },
-    });
-    expect(payment.status(), await payment.text()).toBe(200);
-    order = await payment.json();
+  if (order.status === 'PENDING') {
+    notPaidReason = 'the order needs a registered payment method (billing-key rail); run with the demo provider';
+    test.skip(true, notPaidReason);
+    return;
   }
   expect(order.status).toBe('PAID');
   expect(order.assignment.organization).toContain('Lotus Bridge');

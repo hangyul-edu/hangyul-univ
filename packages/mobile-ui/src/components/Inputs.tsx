@@ -69,7 +69,7 @@ export function SegmentedControl<T extends string>({ options, value, onChange, s
             android_ripple={{ color: 'rgba(15,23,41,0.06)', borderless: false }}
             style={[styles.segmentItem, selected && styles.segmentSelected]}
           >
-            <AppText variant="subheading" numberOfLines={1} color={selected ? theme.color.text : theme.color.textSecondary}>
+            <AppText variant="subheading" numberOfLines={1} color={selected ? theme.color.selected.fg : theme.color.textSecondary}>
               {o.label}{o.count !== undefined ? ` ${o.count}` : ''}
             </AppText>
           </Pressable>
@@ -111,18 +111,18 @@ export function Chip({ label, selected, onPress }: { label: string; selected?: b
 const styles = StyleSheet.create({
   field: { gap: 6 },
   inputWrap: {
-    flexDirection: 'row', alignItems: 'center', minHeight: 48, borderRadius: theme.radius.md, backgroundColor: theme.color.surface, paddingHorizontal: 12,
+    flexDirection: 'row', alignItems: 'center', minHeight: 48, borderRadius: theme.radius.lg, backgroundColor: theme.color.surface, paddingHorizontal: 14,
   },
   multilineWrap: { alignItems: 'flex-start', paddingVertical: 8 },
   input: { flex: 1, fontSize: 16, color: theme.color.text, paddingVertical: Platform.OS === 'ios' ? 12 : 8, textAlign: 'auto' },
   multiline: { minHeight: 88, textAlignVertical: 'top' },
-  segment: { flexDirection: 'row', backgroundColor: theme.color.surfaceSunken, borderRadius: theme.radius.md, padding: 3, gap: 3 },
+  segment: { flexDirection: 'row', backgroundColor: theme.color.surfaceWarm, borderRadius: theme.radius.lg, padding: 3, gap: 3 },
   segmentItem: { flex: 1, minHeight: 42, borderRadius: 8, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 8, overflow: 'hidden' },
   segmentSelected: { backgroundColor: theme.color.surface, shadowColor: '#000', shadowOpacity: 0.08, shadowRadius: 3, shadowOffset: { width: 0, height: 1 }, elevation: 1 },
   chips: { gap: 8, paddingVertical: 2 },
   chip: {
-    minHeight: 40, paddingHorizontal: 14, borderRadius: theme.radius.pill, borderWidth: 1, borderColor: theme.color.borderStrong,
+    minHeight: 40, paddingHorizontal: 14, borderRadius: theme.radius.pill, borderWidth: 1, borderColor: theme.color.borderControl,
     backgroundColor: theme.color.surface, alignItems: 'center', justifyContent: 'center', overflow: 'hidden',
   },
-  chipOn: { backgroundColor: theme.color.primarySubtle, borderColor: theme.color.primary },
+  chipOn: { backgroundColor: theme.color.selected.bg, borderColor: theme.color.selected.border },
 });

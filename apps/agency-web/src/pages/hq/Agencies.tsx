@@ -9,11 +9,11 @@
 import { useAuth } from '@hangyul/auth';
 import { ErrorState, Segmented, Skeleton } from '@hangyul/ui';
 import { PageHeader, SoftBadge, YCard } from '@hangyul/ynex-ui';
-import { flagEmoji, formatNumber } from '@hangyul/utils';
+import { formatNumber } from '@hangyul/utils';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router';
 
-import { useT } from '../../components/bits';
+import { FlagMark, useT } from '../../components/bits';
 import { useMetricText, type QualityMetric } from '../../components/ProcessQuality';
 import { usePerms, useUrlFilters } from '../../lib/hooks';
 
@@ -57,7 +57,7 @@ export default function Agencies() {
               return (
                 <li key={a.id} className="ag8-agrow">
                   <span className="ag8-agrow__who">
-                    <Link to={`/students?agency=${a.id}`} className="fw-semibold">{a.country_code && <span aria-hidden>{flagEmoji(a.country_code)} </span>}{a.name}</Link>
+                    <Link to={`/students?agency=${a.id}`} className="fw-semibold"><FlagMark code={a.country_code} />{a.country_code ? ' ' : ''}{a.name}</Link>
                     <span className="text-muted fs-12">{a.languages.map((l) => langName(l, locale)).join(', ')}</span>
                   </span>
                   <span className="ag8-agrow__load">
@@ -94,7 +94,7 @@ function PartnerQuality() {
         <div className="ag9-pq">
           {d.agencies.map((a) => (
             <section key={a.id} className="ag9-pq__agency" aria-labelledby={`pq-${a.id}`}>
-              <h3 className="ag9-pq__name" id={`pq-${a.id}`}>{a.country_code && <span aria-hidden>{flagEmoji(a.country_code)} </span>}{a.name}
+              <h3 className="ag9-pq__name" id={`pq-${a.id}`}><FlagMark code={a.country_code} />{a.country_code ? ' ' : ''}{a.name}
                 <span className="text-muted fs-12 fw-normal"> · {t('v9.pq.students', { count: a.students })} · {t(`v9.identity.reg.${a.registration_status}`, { defaultValue: t('v9.identity.notRecorded') })}</span></h3>
               <dl className="ag9-pq__grid">
                 {d.keys.map((k) => {

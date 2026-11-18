@@ -1,19 +1,14 @@
 import hashlib
 import logging
-import re
-import secrets
-import time
 import uuid
-from collections import defaultdict, deque
 from datetime import date, datetime, timedelta
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request
-from pydantic import BaseModel, Field, field_validator
-from sqlalchemy import func, select, update
+from fastapi import APIRouter, Depends, HTTPException, Query
+from pydantic import BaseModel, Field
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session, selectinload
 
 from app.api.common import iso, parse_uuid, ser_application, ser_intake, ser_profile, ser_program
-from app.core import crypto
 from app.core.audit import audit, track
 from app.core.config import get_settings
 from app.core.db import get_db
@@ -41,12 +36,10 @@ from app.models import (
     ProgramIntake,
     Scholarship,
     ServiceAddOn,
-    ServiceEngagement,
     ServiceProduct,
     StudentEducation,
     StudentEnrollment,
     StudentLanguage,
-    StudentPaymentMethod,
     StudentProfile,
     Task,
     University,
@@ -55,7 +48,9 @@ from app.models import (
 )
 from app.models.base import utcnow
 from app.models.enums import (
-    AddOnStatus,
+    ApplicationStatus as S,
+)
+from app.models.enums import (
     AssignmentStatus,
     ContractStatus,
     DegreeLevel,
@@ -66,9 +61,6 @@ from app.models.enums import (
     PipelineStage,
     TaskStatus,
     VisaStatus,
-)
-from app.models.enums import (
-    ApplicationStatus as S,
 )
 from app.services import assignment as assignment_svc
 from app.services import concierge as concierge_svc
@@ -81,10 +73,9 @@ from app.services import visa_routes as visa_routes_svc
 from app.services.budget import first_year_range
 from app.services.display_identity import team_identity
 from app.services.facts import withheld
-from app.services.foreign_card import CardInput, get_foreign_card
 from app.services.matching import ENGINE_VERSION, language_routes, match_program, normalize_gpa, scholarship_eligibility
 from app.services.notify import notify
-from app.services.payments import Approval, NotConfigured, ProviderError, billing_configs, get_provider, get_toss
+from app.services.payments import NotConfigured, get_provider
 from app.services.readiness import application_readiness, profile_percent, profile_steps, workspace_next
 from app.services.state_machine import TERMINAL, reached
 from app.services.tasks_engine import generate_for_student
@@ -772,31 +763,24 @@ def checkout(body: CheckoutIn, p: Principal = Depends(require_student), db: Sess
             db.commit()
             raise HTTPException(409, {"code": "UPGRADE_POLICY_REQUIRED", "current": current.product_code, "target": prod.code,
                                       "message": "Upgrade pricing has not been set yet. The Hangyul Univ team will arrange it with you."})
-    # V17: the currency gate runs **before** an order exists. Toss holds one currency per MID (REPORT §152),
-    # so a USD price on a KRW MID is a contract that does not exist — and a refusal that still leaves a
-    # PENDING order behind is not a refusal, it is a row for the recovery sweep to find later.
+    # The gate runs **before** an order exists: a refusal that still leaves a PENDING order behind is not a
+    # refusal, it is a row for the reconciler to find later. With Toss, an order can only ever be paid on the
+    # billing-key rail, on a merchant that settles the order's own currency — there is no conversion and no
+    # ordinary-payment fallback — so if no payment method could pay it, it is not created.
     settings = get_settings()
-    # V21 — the gate is now about **this** route's merchant configuration, not about the 결제창's.
-    #
-    # Until V21 the only question asked was `live_usd_checkout_enabled`, which is
-    # `toss_env == "live" and all four contract flags`. Every plan is priced in USD, so that refused
-    # 100 % of purchases and — because the first conjunct is `live` — refused them in test too. There
-    # was no test path at all (REPORT §230).
-    #
-    # The foreign-card configuration is a different contract and a different endpoint, and the sandbox
-    # proves it settles USD (REPORT §229.3). A USD order is allowed when **either** route can take it:
-    # the foreign-card key-in route, or the old 결제창 route once its live contracts land.
-    if (settings.payment_provider == "toss" and price.currency != "KRW"
-            and not settings.foreign_billing_enabled and not settings.live_usd_checkout_enabled):
-        audit(db, action="order.currency_unavailable", entity_type="service_product", entity_id=prod.id, actor=p,
-              subject_user_id=p.id, detail={"currency": price.currency, "readiness": settings.usd_readiness})
-        db.commit()
-        raise HTTPException(503, detail={
-            "code": "CURRENCY_NOT_CONTRACTED",
-            "currency": price.currency,
-            "readiness": settings.usd_readiness,
-            "message": f"{price.currency} payment is not enabled for this merchant yet.",
-        })
+    if settings.payment_provider == "toss":
+        from app.services import billing as billing_svc
+
+        if not billing_svc.available_kinds(currency=price.currency):
+            reasons = {k: billing_svc.availability(k, currency=price.currency).reason for k in billing_svc.METHOD_KINDS}
+            audit(db, action="order.payment_unavailable", entity_type="service_product", entity_id=prod.id, actor=p,
+                  subject_user_id=p.id, detail={"currency": price.currency, "reasons": reasons})
+            db.commit()
+            raise HTTPException(503, detail={
+                "code": "PAYMENT_UNAVAILABLE",
+                "currency": price.currency,
+                "message": "Payment is not available yet. You have not been charged.",
+            })
     plan = entitlements_svc.plan_def(prod.code)
     order = Order(user_id=p.id, product_id=prod.id, price_id=price.id, currency=price.currency, amount_minor=price.amount_minor,
                   kind="PLAN", catalog_version=entitlements_svc.catalog_version(),
@@ -814,30 +798,32 @@ def checkout(body: CheckoutIn, p: Principal = Depends(require_student), db: Sess
     track(db, "checkout_started", user_id=p.id, properties={"plan": prod.code, "catalog_version": order.catalog_version})
     try:
         session = get_provider().create_checkout(order_id=str(order.id), amount_minor=price.amount_minor,
-                                                 currency=price.currency, description=prod.name_en,
-                                                 language=_toss_language(p))
+                                                 currency=price.currency, description=prod.name_en)
     except NotConfigured as exc:
         raise HTTPException(503, str(exc))
-    db.add(Payment(order_id=order.id, provider=session.provider, provider_ref=session.provider_ref, status=session.status,
-                   amount_minor=price.amount_minor, currency=price.currency, raw={"demo": session.provider == "demo"}))
+    if session.provider != "toss":
+        # The billing-key rail records one Payment row per *charge attempt*; an order that has not been charged has none.
+        db.add(Payment(order_id=order.id, provider=session.provider, provider_ref=session.provider_ref, status=session.status,
+                       amount_minor=price.amount_minor, currency=price.currency, raw={"demo": session.provider == "demo"}))
     assignment = None
     if session.status == "PAID":
         assignment = activate_paid_order(db, order, prod, prof, p.user, provider=session.provider)
+        order.payment_state = "PAID"
     audit(db, action="order.create", entity_type="order", entity_id=order.id, actor=p, subject_user_id=p.id, detail={"product": prod.code, "status": order.status.value})
     db.commit()
-    # `checkout` is the only value that crosses to the browser, and it carries the **client** key and the
-    # amount the server just computed — never a status, and never a secret. The browser cannot make an order
-    # paid; only `/me/payments/toss/confirm` can, and it re-derives the amount from this row.
-    # V21 — the amount and currency are part of the order response now, because the card form is
-    # Hangyul's and has to print the figure the student is about to be charged. It is the **server's**
-    # number: the browser displays it and never sends it back as the amount.
-    return {"order_id": str(order.id), "status": order.status.value, "provider": session.provider, "redirect_url": session.redirect_url,
+    # Nothing that can start a payment crosses to the browser here — no client key, no status it could act on.
+    # The amount and currency are the **server's**: the browser displays them and the pay endpoint refuses a
+    # confirmation that does not echo exactly these numbers.
+    if session.provider == "toss":
+        from app.api.v1 import billing as billing_api
+
+        billing_api.settle_initial_state(db, order)
+        db.commit()
+    return {"order_id": str(order.id), "status": order.status.value, "payment_state": order.payment_state,
+            "provider": session.provider, "redirect_url": session.redirect_url,
             "is_demo_payment": session.provider == "demo", "assignment": assignment,
             "amount_minor": order.amount_minor, "currency": order.currency,
-            "product_code": prod.code, "product_name": prod.name_en,
-            "card_form": get_settings().foreign_billing_enabled,
-            "checkout": session.client,
-            "customer": {"name": p.user.full_name, "email": p.user.email} if session.client else None}
+            "product_code": prod.code, "product_name": prod.name_en, "one_time": True}
 
 
 def activate_paid_order(db: Session, order: Order, prod: ServiceProduct, prof: StudentProfile, user: User, *, provider: str) -> dict | None:
@@ -939,20 +925,13 @@ def _ensure_support_conversation(db: Session, p, a: AgencyAssignment):
                    created_at=utcnow()))
 
 
-# ---------------- Toss one-time payment (V16, REPORT §135) ----------------
-
-
-class TossConfirmIn(BaseModel):
-    """Exactly what Toss puts on the success URL. Nothing here is trusted as a *fact* — `amount` is compared
-    with the stored amount and then discarded; the number sent to Toss is always the server's own."""
-    payment_key: str = Field(min_length=3, max_length=200)
-    order_id: uuid.UUID
-    amount: int = Field(ge=0)
+# ---------------- order payloads shared with the billing-key rail (app/api/v1/billing.py) ----------------
 
 
 def _order_payload(db: Session, order: Order, prod: ServiceProduct) -> dict:
-    pay = db.scalar(select(Payment).where(Payment.order_id == order.id).order_by(Payment.created_at.desc()))
-    raw = pay.raw if isinstance(pay.raw, dict) else {}
+    pay = (db.scalar(select(Payment).where(Payment.order_id == order.id, Payment.status == "PAID").order_by(Payment.created_at.desc()))
+           or db.scalar(select(Payment).where(Payment.order_id == order.id).order_by(Payment.created_at.desc())))
+    raw = pay.raw if pay is not None and isinstance(pay.raw, dict) else {}
     return {
         "order_id": str(order.id),
         "status": order.status.value,
@@ -963,458 +942,12 @@ def _order_payload(db: Session, order: Order, prod: ServiceProduct) -> dict:
         "amount_minor": order.amount_minor,
         "currency": order.currency,
         "paid_at": iso(order.paid_at),
+        "payment_state": order.payment_state,
+        "one_time": True,
         "method": raw.get("method"),
         "receipt_url": raw.get("receiptUrl"),
+        "refunded_amount_minor": order.refund_amount_minor or 0,
     }
-
-
-def _finish(db: Session, order: Order, approval, *, provider: str) -> dict:
-    """Turn a successful provider approval into a paid order — once. Everything after this point is the
-    product switching on, and it must happen exactly once per order no matter how many times we are asked."""
-    prod = db.get(ServiceProduct, order.product_id)
-    user = db.get(User, order.user_id)
-    pay = db.scalar(select(Payment).where(Payment.order_id == order.id).order_by(Payment.created_at.desc()))
-    if pay is not None:
-        pay.status = "PAID"
-        pay.provider_ref = approval.provider_ref or pay.provider_ref
-        pay.amount_minor = approval.amount_minor or pay.amount_minor
-        pay.raw = approval.raw
-    assignment = activate_paid_order(db, order, prod, get_profile(db, user.id), user, provider=provider)
-    audit(db, action="order.paid", entity_type="order", entity_id=order.id, actor=None, subject_user_id=user.id,
-          detail={"provider": provider, "method": approval.method})
-    db.commit()
-    out = _order_payload(db, order, prod)
-    out["assignment"] = assignment
-    return out
-
-
-@router.post("/payments/toss/confirm", tags=["services"])
-def toss_confirm(body: TossConfirmIn, p: Principal = Depends(require_student), db: Session = Depends(get_db)):
-    """결제 승인 — the only place an order can become paid.
-
-    Every check below exists because the browser supplied the inputs:
-
-      * the order exists **and belongs to the caller** — an order id is a UUID, but a guessed UUID must not
-        pay for somebody else's plan or read back their payment;
-      * the order is still payable, or is already paid — the second case is not an error, it is a refresh;
-      * the amount Toss put on the URL equals the amount this server stored *before* the window opened;
-      * the product is still on sale at that price.
-
-    Only then is Toss asked to approve, with **the stored amount**, under an order-derived idempotency key.
-    """
-    order = db.scalar(select(Order).where(Order.id == body.order_id).with_for_update())
-    if order is None or order.user_id != p.id:
-        raise HTTPException(404, "Order not found.")
-    prod = db.get(ServiceProduct, order.product_id)
-    # A refresh of the success URL, the back button, or a second tab: the answer is the order, not an error.
-    if order.status == OrderStatus.PAID:
-        db.commit()
-        return _order_payload(db, order, prod)
-    if order.status != OrderStatus.PENDING:
-        raise HTTPException(409, "This order can no longer be paid.")
-    if body.amount != order.amount_minor:
-        audit(db, action="order.amount_mismatch", entity_type="order", entity_id=order.id, actor=p,
-              subject_user_id=p.id, detail={"expected": order.amount_minor, "returned": body.amount})
-        db.commit()
-        raise HTTPException(409, "The payment amount does not match this order.")
-    # V17: the order's own currency, not a hardcoded one. This said `!= "KRW"` under V16, when KRW was the
-    # product currency — which would have rejected every confirmation the moment the USD contract landed,
-    # *after* the student had already paid. What matters is that the currency is the one this server priced
-    # the order in, which it is by construction, and that the merchant is contracted for it.
-    settings = get_settings()
-    # This is the **결제창** confirm path and only that; the foreign-card route never reaches here, so
-    # its readiness is deliberately not consulted. A USD order that arrives at this endpoint really is
-    # one the 결제창 may not take.
-    if order.currency != "KRW" and not settings.live_usd_checkout_enabled:
-        raise HTTPException(409, detail={
-            "code": "CURRENCY_NOT_CONTRACTED",
-            "currency": order.currency,
-            "message": f"{order.currency} payment is not enabled for this merchant.",
-        })
-    try:
-        approval = get_toss().confirm(payment_key=body.payment_key, order_id=str(order.id), amount_minor=order.amount_minor)
-    except NotConfigured as exc:
-        raise HTTPException(503, str(exc)) from None
-    except ProviderError as exc:
-        pay = db.scalar(select(Payment).where(Payment.order_id == order.id).order_by(Payment.created_at.desc()))
-        if pay is not None:
-            pay.status = "FAILED"
-        order.status = OrderStatus.FAILED
-        audit(db, action="order.failed", entity_type="order", entity_id=order.id, actor=p, subject_user_id=p.id,
-              detail={"code": exc.code})
-        db.commit()
-        raise HTTPException(402, detail={"code": exc.code, "message": exc.message}) from None
-    if approval.status != "PAID":
-        db.commit()
-        raise HTTPException(402, detail={"code": approval.failure or approval.status, "message": "Payment was not approved."})
-    return _finish(db, order, approval, provider="toss")
-
-
-# ======================================================================================================
-# V21 — foreign-card payment: Hangyul's own card form, Toss's key-in API, USD, one action
-#
-# The architecture here is the owner's (brief §21–§49) and the route is the one the merchant
-# configuration actually serves (REPORT §229). `bill_talkoab1` accepts `POST /v1/payments/key-in`: the
-# card's digits reach **Hangyul's backend** and go server-to-server to Toss under the secret key. It
-# settles USD, which is what the plans are priced in.
-#
-# Three things are true of every endpoint below and are the reason they are written this way:
-#
-#   * **The card is never persisted and never logged.** It exists as a `CardInput` for the duration of
-#     one function call. `_CardIn` has no `__repr__` that can print it, FastAPI never echoes the request
-#     body, and the audit rows carry the order and the result — never the instrument.
-#   * **The amount is the server's.** Nothing a browser sends is used as the amount. The Order was
-#     priced from `ServicePrice` before the form opened.
-#   * **A charge happens at most once per order.** A row lock, an early return when the order is already
-#     paid, and a Toss `Idempotency-Key` derived from the order id. Double-click, refresh, retry and a
-#     lost response all converge on one payment.
-# ======================================================================================================
-
-_CARD_RATE_LIMIT = 8          # attempts
-_CARD_RATE_WINDOW = 300.0     # seconds
-_card_hits: dict[str, deque] = defaultdict(deque)
-
-
-def _card_rate_limited(request: Request, p: Principal = Depends(require_student)) -> None:
-    """Per student **and** per IP. Card testing is the attack; the student id is the cheap bound on it."""
-    now = time.monotonic()
-    ip = request.client.host if request.client else "unknown"
-    for bucket in (f"u:{p.id}", f"ip:{ip}"):
-        q = _card_hits[bucket]
-        while q and now - q[0] > _CARD_RATE_WINDOW:
-            q.popleft()
-        if len(q) >= _CARD_RATE_LIMIT:
-            raise HTTPException(429, detail={
-                "code": "TOO_MANY_CARD_ATTEMPTS",
-                "message": "Too many card attempts. Please wait a few minutes and try again.",
-            })
-    for bucket in (f"u:{p.id}", f"ip:{ip}"):
-        _card_hits[bucket].append(now)
-
-
-class _CardIn(BaseModel):
-    """The only fields this merchant configuration needs — verified against the live sandbox.
-
-    Toss's generic 자동결제 guide also lists `cardPassword` and `customerIdentityNumber`. The probe in
-    REPORT §229.3 charged this MID successfully **without either**, and asking someone in Hanoi for the
-    first two digits of a Korean card password or a 주민등록번호 would be asking for data that does not
-    exist and that Hangyul must not hold. They are not accepted here, so they cannot be sent.
-    """
-
-    model_config = {"extra": "forbid"}
-
-    number: str = Field(min_length=12, max_length=25)
-    expiry_month: str = Field(min_length=1, max_length=2)
-    expiry_year: str = Field(min_length=2, max_length=4)
-    holder_name: str | None = Field(default=None, max_length=60)
-
-    @field_validator("number")
-    @classmethod
-    def _digits_and_luhn(cls, v: str) -> str:
-        digits = re.sub(r"[^0-9]", "", v)
-        if not 12 <= len(digits) <= 19:
-            raise ValueError("card number length")
-        # Checked locally so an obvious typo costs a round trip to Toss rather than a declined
-        # authorisation on the student's statement.
-        total, parity = 0, len(digits) % 2
-        for i, ch in enumerate(digits):
-            d = int(ch)
-            if i % 2 == parity:
-                d *= 2
-                if d > 9:
-                    d -= 9
-            total += d
-        if total % 10 != 0:
-            raise ValueError("card number checksum")
-        return digits
-
-    @field_validator("expiry_month")
-    @classmethod
-    def _month(cls, v: str) -> str:
-        m = re.sub(r"[^0-9]", "", v)
-        if not m or not 1 <= int(m) <= 12:
-            raise ValueError("expiry month")
-        return m.zfill(2)
-
-    @field_validator("expiry_year")
-    @classmethod
-    def _year(cls, v: str) -> str:
-        y = re.sub(r"[^0-9]", "", v)
-        if len(y) not in (2, 4):
-            raise ValueError("expiry year")
-        return y[-2:]
-
-    def __repr__(self) -> str:  # noqa: D105 - never let a validation error print the PAN
-        return "<CardIn redacted>"
-
-    __str__ = __repr__
-
-
-class PayWithCardIn(BaseModel):
-    model_config = {"extra": "forbid"}
-    card: _CardIn
-    #: Keep the card for a later upgrade. Honoured only where the configuration issues a reusable
-    #: credential; `reusable` on the stored method is the truth the UI reads.
-    save_card: bool = True
-
-
-def _method_payload(m: StudentPaymentMethod) -> dict:
-    """What a browser may know about a stored card. The credential is not in this dict by construction."""
-    return {
-        "id": str(m.id),
-        "brand": m.card_brand,
-        "last4": m.last4,
-        "masked_number": m.masked_number,
-        "issuer_code": m.issuer_code,
-        "card_type": m.card_type,
-        "reusable": m.reusable,
-        "is_default": m.is_default,
-        "status": m.status,
-        "created_at": iso(m.created_at),
-    }
-
-
-def _remember_card(db: Session, *, user_id, result, save: bool) -> StudentPaymentMethod:
-    """Record the safe echo of the card that just paid, and the credential if there is one.
-
-    `customer_key` is 32 bytes of randomness (brief §31) — not the email, not the user id, not a UUID
-    that appears anywhere else, because a customer key is a handle an attacker should not be able to
-    guess from anything they already know.
-    """
-    # Compared against the mask **we** store, not the one Toss echoes: the row holds `•••• 1111` and
-    # the provider sends `41111111****111*`, so matching on the provider's string never matched
-    # anything and every charge on the same card opened another row. `issuer_code` is carried too,
-    # because two different cards can share their last four digits.
-    stored_mask = f"•••• {result.last4}" if result.last4 else None
-    existing = db.scalar(
-        select(StudentPaymentMethod).where(
-            StudentPaymentMethod.user_id == user_id,
-            StudentPaymentMethod.status == "ACTIVE",
-            StudentPaymentMethod.masked_number == stored_mask,
-            StudentPaymentMethod.issuer_code == result.issuer_code,
-        )
-    ) if stored_mask else None
-    if existing is not None:
-        existing.updated_at = utcnow()
-        return existing
-    db.execute(
-        update(StudentPaymentMethod)
-        .where(StudentPaymentMethod.user_id == user_id, StudentPaymentMethod.is_default.is_(True))
-        .values(is_default=False)
-    )
-    m = StudentPaymentMethod(
-        user_id=user_id,
-        provider="TOSS",
-        provider_mid=get_settings().toss_foreign_billing_mid,
-        customer_key="hgc_" + secrets.token_urlsafe(24),
-        reusable=False,  # key-in issues no credential; see REPORT §229.2
-        card_brand=_brand_of(result.masked_number),
-        issuer_code=result.issuer_code,
-        acquirer_code=result.acquirer_code,
-        # **Our** mask, not the provider's. Toss echoes `41111111****111*` — the BIN plus eight more
-        # digits, which is inside PCI DSS's display allowance and is still eleven digits of a card
-        # number that this product has no use for. The last four identify the card to its owner; the
-        # rest is stored by nobody here.
-        masked_number=stored_mask,
-        last4=result.last4,
-        card_type=result.card_type,
-        owner_type=result.owner_type,
-        is_default=True,
-        status="ACTIVE" if save else "REVOKED",
-        revoked_at=None if save else utcnow(),
-    )
-    db.add(m)
-    db.flush()
-    return m
-
-
-def _brand_of(masked: str | None) -> str | None:
-    """The network, from the first digit of the provider's masked echo. Nothing more is inferable."""
-    if not masked:
-        return None
-    first = masked[0]
-    return {"4": "Visa", "5": "Mastercard", "3": "Amex/JCB", "6": "Discover/UnionPay"}.get(first)
-
-
-@router.post("/orders/{order_id}/pay-with-card", tags=["services"],
-             dependencies=[Depends(_card_rate_limited)])
-def pay_order_with_card(order_id: uuid.UUID, body: PayWithCardIn,
-                        p: Principal = Depends(require_student), db: Session = Depends(get_db)):
-    """Register the card and pay this order — **one action** (brief §34, §35).
-
-    There is no "generate a billing key" step for the student to understand, because for this merchant
-    configuration there is not one to perform: the card authorises and captures in a single call.
-    """
-    settings = get_settings()
-    if not settings.foreign_billing_enabled:
-        raise HTTPException(503, detail={
-            "code": "FOREIGN_BILLING_NOT_READY",
-            "message": "Card payment is not configured on this server.",
-            "readiness": {"test": settings.foreign_billing_test_ready, "live": settings.foreign_billing_live_ready},
-        })
-
-    order = db.scalar(select(Order).where(Order.id == order_id).with_for_update())
-    if order is None or order.user_id != p.id:
-        raise HTTPException(404, "Order not found.")
-    prod = db.get(ServiceProduct, order.product_id)
-    # A second submit, a refresh, or a retry after a lost response: the answer is the order.
-    if order.status == OrderStatus.PAID:
-        db.commit()
-        return {**_order_payload(db, order, prod), "already_paid": True}
-    if order.status != OrderStatus.PENDING:
-        raise HTTPException(409, "This order can no longer be paid.")
-
-    # The response to the *first* attempt may have been lost in transit; ask Toss before charging again.
-    provider = get_foreign_card()
-    prior = provider.lookup(order_id=str(order.id))
-    if prior is not None and prior.status == "DONE":
-        method = _remember_card(db, user_id=p.id, result=prior, save=body.save_card)
-        return _finish_card_payment(db, order, prior, method)
-
-    pay = Payment(order_id=order.id, provider="toss", status="PENDING",
-                  amount_minor=order.amount_minor, currency=order.currency)
-    db.add(pay)
-    db.flush()
-    try:
-        result = provider.charge(
-            card=CardInput(number=body.card.number, expiry_year=body.card.expiry_year,
-                           expiry_month=body.card.expiry_month, holder_name=body.card.holder_name),
-            order_id=str(order.id),
-            amount_minor=order.amount_minor,
-            currency=order.currency,
-            order_name=(prod.name_en if prod else "Hangyul plan"),
-            idempotency_key=f"hg-keyin-{order.id}",
-        )
-    except NotConfigured as exc:
-        raise HTTPException(503, str(exc)) from None
-    except ProviderError as exc:
-        # The card was declined or the network failed. The order stays payable so the student can try
-        # another card without losing the plan they chose (brief §40).
-        pay.status = "FAILED"
-        audit(db, action="order.card_declined", entity_type="order", entity_id=order.id, actor=p,
-              subject_user_id=p.id, detail={"code": exc.code})
-        db.commit()
-        raise HTTPException(402, detail={"code": exc.code, "message": exc.message}) from None
-    finally:
-        body.card.number = ""  # the request model does not outlive the call either
-
-    if result.status != "DONE":
-        pay.status = "FAILED"
-        db.commit()
-        raise HTTPException(402, detail={"code": result.status, "message": "The payment was not approved."})
-    method = _remember_card(db, user_id=p.id, result=result, save=body.save_card)
-    return _finish_card_payment(db, order, result, method)
-
-
-def _finish_card_payment(db: Session, order: Order, result, method: StudentPaymentMethod) -> dict:
-    """Shared tail: mark paid, switch the plan on, return the order and the saved card."""
-    approval = Approval(status="PAID", provider_ref=result.payment_key, amount_minor=result.amount_minor,
-                        method="CARD", approved_at=result.approved_at, receipt_url=result.receipt_url,
-                        raw=result.raw, failure=None)
-    out = _finish(db, order, approval, provider="toss")
-    out["payment_method"] = _method_payload(method)
-    return out
-
-
-@router.post("/orders/{order_id}/pay-with-saved-card", tags=["services"],
-             dependencies=[Depends(_card_rate_limited)])
-def pay_order_with_saved_card(order_id: uuid.UUID, p: Principal = Depends(require_student),
-                              db: Session = Depends(get_db)):
-    """Pay with a card already on file (brief §38).
-
-    It exists, it is authenticated, it validates ownership and amount, and on `bill_talkoab1` it
-    **refuses with a specific reason**: that configuration performs a 키인 one-time charge and returns
-    no reusable credential (REPORT §229.2), so there is nothing to charge with. Returning
-    `CARD_NOT_REUSABLE` is the honest answer; silently re-prompting for the card from an endpoint whose
-    name promises otherwise is not.
-    """
-    order = db.scalar(select(Order).where(Order.id == order_id).with_for_update())
-    if order is None or order.user_id != p.id:
-        raise HTTPException(404, "Order not found.")
-    prod = db.get(ServiceProduct, order.product_id)
-    if order.status == OrderStatus.PAID:
-        db.commit()
-        return {**_order_payload(db, order, prod), "already_paid": True}
-    if order.status != OrderStatus.PENDING:
-        raise HTTPException(409, "This order can no longer be paid.")
-
-    method = db.scalar(
-        select(StudentPaymentMethod)
-        .where(StudentPaymentMethod.user_id == p.id, StudentPaymentMethod.status == "ACTIVE")
-        .order_by(StudentPaymentMethod.is_default.desc(), StudentPaymentMethod.created_at.desc())
-    )
-    if method is None:
-        raise HTTPException(404, detail={"code": "NO_SAVED_CARD", "message": "No saved card."})
-    if not method.reusable or not method.billing_key_ciphertext:
-        raise HTTPException(409, detail={
-            "code": "CARD_NOT_REUSABLE",
-            "message": "This card cannot be charged again without re-entering it.",
-            "card": _method_payload(method),
-        })
-    # Reachable only when a billing-key route is contracted; the credential is opened here and nowhere
-    # else, and it is never returned, logged or placed in an exception.
-    billing_key = crypto.open_sealed(method.billing_key_ciphertext,
-                                     key_version=method.billing_key_version or 1,
-                                     aad=str(method.user_id))
-    provider = get_foreign_card()
-    try:
-        result = provider.charge_with_billing_key(
-            billing_key=billing_key, customer_key=method.customer_key, order_id=str(order.id),
-            amount_minor=order.amount_minor, currency=order.currency,
-            order_name=(prod.name_en if prod else "Hangyul plan"),
-            idempotency_key=f"hg-billing-{order.id}")
-    except ProviderError as exc:
-        audit(db, action="order.card_declined", entity_type="order", entity_id=order.id, actor=p,
-              subject_user_id=p.id, detail={"code": exc.code})
-        db.commit()
-        raise HTTPException(402, detail={"code": exc.code, "message": exc.message}) from None
-    finally:
-        billing_key = ""
-    if result.status != "DONE":
-        raise HTTPException(402, detail={"code": result.status, "message": "The payment was not approved."})
-    return _finish_card_payment(db, order, result, method)
-
-
-@router.get("/payment-methods", tags=["services"])
-def my_payment_methods(p: Principal = Depends(require_student), db: Session = Depends(get_db)):
-    """The cards on file. The credential is not in this response and has no endpoint that returns it."""
-    rows = db.scalars(
-        select(StudentPaymentMethod)
-        .where(StudentPaymentMethod.user_id == p.id, StudentPaymentMethod.status == "ACTIVE")
-        .order_by(StudentPaymentMethod.is_default.desc(), StudentPaymentMethod.created_at.desc())
-    ).all()
-    return {"items": [_method_payload(m) for m in rows]}
-
-
-@router.delete("/payment-methods/{method_id}", tags=["services"], status_code=200)
-def delete_payment_method(method_id: uuid.UUID, p: Principal = Depends(require_student),
-                          db: Session = Depends(get_db)):
-    """Remove a card (brief §42).
-
-    Where a reusable credential exists it is revoked **at Toss first** and then locally, because the
-    opposite order can leave a credential alive at the provider that Hangyul no longer knows about. A
-    provider that is unreachable does not block the local revocation — the row is marked revoked and
-    can never be charged again from here either way.
-    """
-    m = db.scalar(select(StudentPaymentMethod).where(StudentPaymentMethod.id == method_id))
-    if m is None or m.user_id != p.id or m.status != "ACTIVE":
-        raise HTTPException(404, "Card not found.")
-    remote = "not_applicable"
-    if m.reusable and m.billing_key_ciphertext:
-        try:
-            billing_key = crypto.open_sealed(m.billing_key_ciphertext,
-                                             key_version=m.billing_key_version or 1, aad=str(m.user_id))
-            remote = "revoked" if get_foreign_card().revoke_billing_key(billing_key=billing_key) else "already_gone"
-        except (crypto.DecryptionFailed, ProviderError, NotConfigured):
-            remote = "unreachable"
-        finally:
-            billing_key = ""
-    m.status, m.revoked_at, m.is_default = "REVOKED", utcnow(), False
-    m.billing_key_ciphertext, m.billing_key_version, m.reusable = None, None, False
-    audit(db, action="payment_method.revoked", entity_type="payment_method", entity_id=m.id, actor=p,
-          subject_user_id=p.id, detail={"remote": remote})
-    db.commit()
-    return {"deleted": True, "remote": remote}
 
 
 @router.post("/orders/{order_id}/cancel", tags=["services"])
@@ -1428,7 +961,10 @@ def cancel_order(order_id: uuid.UUID, p: Principal = Depends(require_student), d
     if order is None or order.user_id != p.id:
         raise HTTPException(404, "Order not found.")
     if order.status == OrderStatus.PENDING:
-        order.status = OrderStatus.CANCELLED
+        if order.payment_state == "CHARGING":
+            # A charge is in flight and may yet succeed: cancelling now could leave a paid, cancelled order.
+            raise HTTPException(409, detail={"code": "PAYMENT_IN_PROGRESS", "message": "A payment for this order is being processed."})
+        order.status, order.payment_state = OrderStatus.CANCELLED, "CANCELLED"
         pay = db.scalar(select(Payment).where(Payment.order_id == order.id).order_by(Payment.created_at.desc()))
         if pay is not None and pay.status == "PENDING":
             pay.status = "CANCELLED"
@@ -1438,209 +974,10 @@ def cancel_order(order_id: uuid.UUID, p: Principal = Depends(require_student), d
 
 
 def reconcile_pending_orders(db: Session, user_id) -> bool:
-    """Payment recovery (brief Part 17): ask the provider what really happened to any order we still think
-    is pending.
+    """Ask the provider what really happened to any order whose charge outcome is unknown here."""
+    from app.api.v1 import billing as billing_api
 
-    The case this exists for is the one a redirect cannot cover — the browser was closed, or lost the
-    network, between Toss approving and the success URL loading. Locally the order is PENDING; at Toss the
-    payment is DONE. `/me/services` calls this before it renders, so the next thing the student sees is
-    their active plan rather than a second request for money.
-
-    Only orders from the last day are checked: a one-time Toss payment that was never confirmed within ten
-    minutes has expired, and asking about every order a student ever abandoned would make this screen's load
-    time a function of their history.
-    """
-    s = get_settings()
-    if s.payment_provider != "toss":
-        return False
-    cutoff = utcnow() - timedelta(days=1)
-    pending = db.scalars(select(Order).where(Order.user_id == user_id, Order.status == OrderStatus.PENDING,
-                                             Order.created_at >= cutoff)).all()
-    if not pending:
-        return False
-    changed = False
-    try:
-        toss = get_toss()
-    except NotConfigured:
-        return False
-    for order in pending:
-        # **A reconciliation failure must not take the page down** (V21).
-        #
-        # This runs on every `/me/services` load, once per pending order, against the real provider.
-        # Before V21 a USD order could not be created, so there were never any pending orders and this
-        # loop never ran; now there are, and Toss rate-limited us — `요청량이 초과되었습니다` — which
-        # escaped as a `ProviderError` and **500'd the whole services page**. Reconciliation is a
-        # convenience that recovers a payment approved while the browser was gone; the student's plan
-        # screen does not depend on it, and a provider that is unreachable or cross must not be able to
-        # stop them seeing what they own.
-        try:
-            approval = toss.lookup(order_id=str(order.id))
-        except (ProviderError, NotConfigured) as exc:
-            log.warning("order reconciliation skipped for %s: %s", order.id, type(exc).__name__)
-            continue
-        if approval is None or approval.status != "PAID":
-            continue
-        # The same equality the confirm endpoint enforces. A provider that reports a different total than
-        # the one we priced is a reconciliation problem for a human, not something to activate on.
-        if approval.amount_minor is not None and approval.amount_minor != order.amount_minor:
-            audit(db, action="order.amount_mismatch", entity_type="order", entity_id=order.id, actor=None,
-                  subject_user_id=user_id, detail={"expected": order.amount_minor, "provider": approval.amount_minor})
-            continue
-        _finish(db, order, approval, provider="toss")
-        changed = True
-    return changed
-
-
-def _toss_language(p: Principal) -> str:
-    """The payment window's language, from the reader's own locale.
-
-    Toss's 결제창 supports KO / EN / JA / ZH. Everyone else gets EN, which is the right answer for a
-    Vietnamese or Nepali student: an English payment window is legible, and a Korean one is not.
-    """
-    loc = (getattr(p.user, "locale", None) or "en").lower()
-    if loc.startswith("ko"):
-        return "KO"
-    if loc.startswith("ja"):
-        return "JA"
-    if loc.startswith("zh"):
-        return "ZH"
-    return "EN"
-
-
-class RefundIn(BaseModel):
-    """What a refund needs, and what it deliberately does not compute.
-
-    `amount_minor` is **required**. There is no default and no pro-rata rule, because Hangyul has no
-    approved refund policy (REPORT §152) and a server that invents one would be making a legal decision in
-    a request handler. A person decides the amount; this records and executes it.
-    """
-    amount_minor: int = Field(ge=1)
-    reason: str = Field(min_length=3, max_length=200)
-
-
-@router.post("/orders/{order_id}/refund", tags=["services"])
-def refund_order(order_id: uuid.UUID, body: RefundIn, p: Principal = Depends(require_student),
-                 db: Session = Depends(get_db)):
-    """Refund a paid order, in whole or in part (V17, REPORT §152).
-
-    The **technical** path only. Every check here is about whether this refund is possible and safe, never
-    about whether it is owed:
-
-      * the order is the caller's, and is PAID;
-      * the amount does not exceed what is left unrefunded;
-      * the provider is asked with an idempotency key derived from *this* refund, so a retry is a no-op but
-        a genuine second partial refund is not swallowed as a duplicate;
-      * the plan is switched off only once the provider confirms.
-
-    A student may ask for their own refund here. Staff-initiated refunds go through the same endpoint from
-    the operations console with the student's id, which is why the ownership check is explicit rather than
-    implied by the route.
-    """
-    order = db.scalar(select(Order).where(Order.id == order_id).with_for_update())
-    if order is None or order.user_id != p.id:
-        raise HTTPException(404, "Order not found.")
-    if order.status != OrderStatus.PAID:
-        raise HTTPException(409, "Only a paid order can be refunded.")
-    pay = db.scalar(select(Payment).where(Payment.order_id == order.id, Payment.status == "PAID")
-                    .order_by(Payment.created_at.desc()))
-    if pay is None or not pay.provider_ref:
-        raise HTTPException(409, "This order has no provider payment to refund.")
-    already = pay.refunded_amount_minor or 0
-    remaining = order.amount_minor - already
-    if body.amount_minor > remaining:
-        raise HTTPException(409, detail={"code": "AMOUNT_EXCEEDS_REMAINING", "remaining_minor": remaining})
-
-    # The key identifies *this* refund attempt: order + how much has already gone back. A second refund of
-    # a different amount therefore gets a different key, while a retry of the same one does not.
-    key = f"hg-refund-{order.id}-{already}-{body.amount_minor}"
-    try:
-        result = get_toss().cancel(payment_key=pay.provider_ref, reason=body.reason,
-                                   amount_minor=body.amount_minor, idempotency_key=key)
-    except NotConfigured as exc:
-        raise HTTPException(503, str(exc)) from None
-    except ProviderError as exc:
-        audit(db, action="order.refund_failed", entity_type="order", entity_id=order.id, actor=p,
-              subject_user_id=p.id, detail={"code": exc.code, "amount_minor": body.amount_minor})
-        db.commit()
-        raise HTTPException(402, detail={"code": exc.code, "message": exc.message}) from None
-
-    now = utcnow()
-    pay.refunded_amount_minor = already + body.amount_minor
-    pay.refund_ref = result.provider_ref or pay.refund_ref
-    pay.refunded_at = now
-    pay.raw = result.raw or pay.raw
-    order.refund_amount_minor = (order.refund_amount_minor or 0) + body.amount_minor
-    order.refund_reason = body.reason
-    order.refunded_at = now
-    full = order.refund_amount_minor >= order.amount_minor
-    if full:
-        # A fully refunded order is no longer a purchase, so the plan it bought stops being active. A
-        # partial refund does not: the student keeps the service they are still paying for.
-        order.status = OrderStatus.REFUNDED
-        # V29: the service instance it bought ends with it (the plan below it, if any, is not revived).
-        for eng in db.scalars(select(ServiceEngagement).where(ServiceEngagement.order_id == order.id)):
-            eng.status = "REFUNDED"
-        if order.kind == "ADD_ON":
-            for row in db.scalars(select(ServiceAddOn).where(ServiceAddOn.order_id == order.id)):
-                row.status = AddOnStatus.CANCELLED
-    audit(db, action="order.refunded", entity_type="order", entity_id=order.id, actor=p, subject_user_id=p.id,
-          detail={"amount_minor": body.amount_minor, "full": full, "provider_ref": result.provider_ref,
-                  "reason": body.reason})
-    track(db, "service_refunded", user_id=p.id, properties={"full": full, "amount_minor": body.amount_minor})
-    db.commit()
-    prod = db.get(ServiceProduct, order.product_id)
-    out = _order_payload(db, order, prod)
-    out["refunded_amount_minor"] = order.refund_amount_minor
-    out["fully_refunded"] = full
-    return out
-
-
-@router.get("/payments/config", tags=["services"])
-def payment_config(p: Principal = Depends(require_student)):
-    """What this deployment is configured to charge with — for support and for `npm run qa:v16`.
-
-    It names merchant configurations and says which one the plan purchase uses. It contains **no keys**:
-    not the secret, not the security key, and not the client key, which is handed out only with an actual
-    order so there is exactly one code path that can start a payment.
-    """
-    s = get_settings()
-    return {
-        "provider": s.payment_provider,
-        "env": s.toss_env,
-        # V17 — the four contract facts that gate a live USD checkout, by name, so a status surface can say
-        # *which* one is missing rather than only that something is. See docs/payments/TOSS_FOREIGN_CARD_REVIEW.md.
-        "currency": "USD",
-        "usd_readiness": s.usd_readiness,
-        "live_usd_checkout_enabled": s.live_usd_checkout_enabled,
-        # V21 — the route a student's plan purchase actually takes, and its own two readiness states.
-        # `card_form: "hangyul"` is the contract the student UI reads: Hangyul renders the fields and
-        # there is no provider window to open. `reusable_credential` is false because this merchant
-        # configuration issues none (REPORT §229.2) — the UI must not promise a saved card it cannot
-        # charge.
-        "foreign_card": {
-            "mid": s.toss_foreign_billing_mid,
-            "product": "해외카드 키인 결제 (/v1/payments/key-in)",
-            "configured": s.foreign_billing_configured,
-            "test_ready": s.foreign_billing_test_ready,
-            "live_ready": s.foreign_billing_live_ready,
-            "enabled": s.foreign_billing_enabled,
-            "card_form": "hangyul",
-            "reusable_credential": False,
-            "used_by_plan_purchase": True,
-            "methods": ["OVERSEAS_CARD"],
-        },
-        # Owner-confirmed 2026-10-21: the foreign-card review/contract is complete (brief §25). Test
-        # credentials are not live credentials, so the two are reported separately and neither is
-        # inferred from the other.
-        "contract": {
-            "foreign_card_review": "OWNER_CONFIRMED_COMPLETE",
-            "live_credentials_configured": s.foreign_billing_live_ready,
-        },
-        "methods_offered": ["OVERSEAS_CARD"],
-        "one_time": {"mid": s.toss_normal_mid, "product": "일반 결제 (결제창)", "configured": s.toss_configured,
-                     "methods": ["CARD", "EASY_PAY"], "used_by_plan_purchase": False},
-        "billing": billing_configs(),
-    }
+    return billing_api.reconcile_user_orders(db, user_id)
 
 
 @router.get("/orders", tags=["services"])
@@ -1804,7 +1141,6 @@ class DataRequestIn(BaseModel):
 
 @router.post("/data-requests", status_code=201)
 def data_request(body: DataRequestIn, p: Principal = Depends(require_student), db: Session = Depends(get_db)):
-    from datetime import timedelta
 
     r = DataRequest(user_id=p.id, kind=body.kind, note=body.note, due_at=utcnow() + timedelta(days=10))
     if body.kind == "DELETE":
@@ -1932,5 +1268,5 @@ def decide_add_on(add_on_id: str, body: AddOnDecisionIn, p: Principal = Depends(
     # on only when that order is PAID (``activate_paid_order`` → ``addons.activate``).
     return {"id": str(row.id), "status": row.status.value,
             "order": {"order_id": str(order.id), "amount_minor": order.amount_minor, "currency": order.currency,
-                      "status": order.status.value, "card_form": get_settings().foreign_billing_enabled} if order else None,
+                      "status": order.status.value, "payment_state": order.payment_state, "one_time": True} if order else None,
             "plan": entitlements_svc.student_plan(db, p.id)}

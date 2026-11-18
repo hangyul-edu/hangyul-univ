@@ -115,8 +115,7 @@ export default function Students() {
   const counts = useQuery({ queryKey: ['agency', 'students', 'views', null], queryFn: () => api.agency.studentViews() });
   return (
     <div className="ag7 ag-students ag22-students">
-      <PageHeader title={t('v22.nav.students')} sub={t('students.subCount', { count: counts.data?.all ?? 0 })}
-        crumbs={[{ label: t('v22.nav.today'), to: '/' }, { label: t('v22.nav.students') }]} />
+      <PageHeader title={t('v22.nav.students')} sub={t('students.subCount', { count: counts.data?.all ?? 0 })} />
       <Caseload mode="students" bulkActions={(ids, clear) => <BulkActions ids={ids} onDone={clear} />} saveView={(filters, sort) => setSave({ filters, sort })} />
       <SaveViewModal open={!!save} onClose={() => setSave(null)} filters={save?.filters ?? {}} sort={save?.sort ?? 'deadline'}
         onSaved={(v) => { qc.invalidateQueries({ queryKey: ['agency', 'saved-views'] }); setSp((p) => { const n = new URLSearchParams(p); n.set('saved', v.id); return n; }, { replace: true }); }} />

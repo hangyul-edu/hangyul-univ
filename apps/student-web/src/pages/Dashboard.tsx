@@ -13,7 +13,7 @@ import { Link, useSearchParams } from 'react-router';
 import { DaysLeft, TierLabel } from '../components/bits';
 import { isPreSubmit } from '../lib/format';
 import { intakeLabel, reasonText, tr, useT, type TFn } from '../lib/i18n';
-import { PHASES, TEAM_STATUSES, journeyPhases, needsStudent, phaseOfStage, showsRecommendations, type Phase } from '../lib/journey';
+import { PHASES, TEAM_STATUSES, isWaiting, journeyPhases, needsStudent, phaseOfStage, showsRecommendations, underReview, withUniversity, type Phase } from '../lib/journey';
 import { useDashboard } from '../lib/queries';
 import { useFirstYearText } from '../lib/cost';
 import { itemTitle, itemWhy } from '../lib/success';
@@ -32,12 +32,16 @@ type V9Home = DashboardData & { routes?: LanguageRoutes | null; refund?: RefundS
  * V22 (REPORT §248 S1–S3) fixes the order of the page once, and it never varies:
  *
  *   1. the six-stage journey strip      — where am I
- *   2. ONE next action                  — what do I do now
+ *   2. ONE next action                  — what do I do now (or, when nothing is the student's: the waiting state)
  *   3. what the Hangyul team is doing   — what is happening without me
- *   4. coming up                        — when
- *   5. applications that need me
- *   6. documents that need me
- *   7. messages (the team card)
+ *   4. what the university is doing     — who else holds my application
+ *   5. coming up                        — when
+ *   6. applications that need me
+ *   7. documents that need me
+ *   8. messages (the team card)
+ *
+ * The waiting state (`next_action.code === 'WAIT'`) is as common as the action state and is designed, not left
+ * over: it says plainly that nothing is the student's to do, and blocks 3–5 then answer "so what is happening?".
  *
  * Recommendations appear only in stage 01 with no applications. Everything else that used to live here —
  * photo band, "what you can do today", a named counselor — did not help the next decision and is gone.
@@ -65,6 +69,7 @@ function NextStep({ d }: { d: DashboardData }) {
       </section>
     );
   }
+  if (isWaiting(d)) return <Waiting d={d} />;
   if (a.code === 'CONCIERGE' || a.code === 'SUBMISSION_AUTHORIZE' || a.code === 'SUBMISSION_HANDOFF' || a.code === 'SUBMISSION_CONFIRM' || a.code === 'VISA_STEP') return <V5Next d={d} />;
   const nested = a.code === 'PROFILE_UNLOCK' ? `dashboard.nextAction.PROFILE_UNLOCK.${String(a.params.section)}`
     : a.code === 'APPLICATION_ITEM' ? `dashboard.nextAction.APPLICATION_ITEM.${String(a.params.item)}` : `dashboard.nextAction.${a.code}`;
@@ -93,6 +98,33 @@ function NextStep({ d }: { d: DashboardData }) {
 }
 
 /**
+ * Nothing is the student's to do. One calm statement — which university is reviewing, when that is what the
+ * records say — the promise to notify, and two quiet ways on (the applications, the team). No primary button:
+ * a tangerine action here would invent urgency the data does not have.
+ */
+function Waiting({ d }: { d: DashboardData }) {
+  const { t } = useT();
+  const reviewing = underReview(d);
+  const calm = t('dashboard.nextAction.WAIT.title');
+  const title = reviewing.length === 1 ? t('ws3.review.title', { university: localName(reviewing[0].university) })
+    : reviewing.length > 1 ? t('home.wait.reviewMany') : calm;
+  return (
+    <section className="sh-next v22-main sp-wait" aria-labelledby="next-title" data-state="waiting">
+      <div className="sh-next__eyebrow sp-wait__eyebrow">
+        <span className="sp-wait__mark" aria-hidden><Check size={14} strokeWidth={3} /></span>
+        {title !== calm && <span>{calm}</span>}
+      </div>
+      <h2 className="sh-next__title" id="next-title">{title}</h2>
+      <p className="sh-next__text">{t('dashboard.nextAction.WAIT.text')}</p>
+      <div className="sh-next__cta">
+        <ButtonLink as={Link} to={d.next_action.link || '/applications'} size="lg">{t('dashboard.nextAction.WAIT.cta')}</ButtonLink>
+        <Link to="/messages" className="hg-link-arrow">{t('dashboard.counselor.message')}<ChevronRight className="hg-flip-rtl" /></Link>
+      </div>
+    </section>
+  );
+}
+
+/**
  * V25 (REPORT §313 S1): the next action is the page's hero — a warm panel with the campus of the application it is about
  * (or the student's first application), so "what do I do now" is also "where am I going". No photo, no picture: the panel
  * stands on its own and never borrows another university's campus.
@@ -102,7 +134,7 @@ function NextPanel({ d, children }: { d: DashboardData; children: React.ReactNod
   const app = d.applications.find((a) => a.id === id) ?? (id ? undefined : d.applications[0]);
   const photo = app?.university.photo ?? null;
   return (
-    <div className={`v25-next v22-main${photo ? ' v25-next--photo' : ''}`}>
+    <div className={`v25-next v22-main${photo ? ' v25-next--photo' : ''}${isWaiting(d) ? ' sp-next--calm' : ''}`}>
       {children}
       {photo && (
         <figure className="v25-next__photo" aria-hidden>
@@ -212,10 +244,11 @@ function shortTitle(title: string, ...names: (string | null | undefined)[]): str
 }
 
 /**
- * What the Hangyul team is doing now — from data the home already has, never invented: the team's open tasks,
- * documents in review, and applications in a team-owned status. When there is nothing, it says so quietly.
+ * Who holds what, now — two lanes on the page, never a pipeline. Everything comes from data the home already has:
+ * the team's open tasks, documents in review, applications in a team-owned status (left), and the applications
+ * whose next move is the university's (right). When a lane is empty it says so in one quiet sentence.
  */
-function TeamNow({ d }: { d: DashboardData }) {
+export function Now({ d }: { d: DashboardData }) {
   const { t } = useT();
   const tasks = useMyTasks();
   const me = useAuth().session?.user.id;
@@ -227,18 +260,40 @@ function TeamNow({ d }: { d: DashboardData }) {
     ...(checking > 0 ? [{ key: 'docs', title: t('v22.home.docsChecking', { count: checking }), link: '/documents' }] : []),
     ...theirs.slice(0, 3).map((x) => ({ key: x.id, title: localizedTitle(t, x), meta: x.university, link: x.link ?? `/?${TASKS_PARAM}=tasks` })),
   ];
+  const uni = withUniversity(d);
+  // The university lane exists once something is the university's, or — honestly empty — while nothing has been sent
+  // yet. An application that was sent and is now the student's or closed (offer, visa, enrolled) has no line here.
+  const noneSent = d.applications.length > 0 && d.applications.every((x) => isPreSubmit(x.status));
+  const showUni = uni.length > 0 || noneSent;
+  const teamEmpty = !d.counselor ? t('dashboard.counselor.noneText') : isWaiting(d) ? t('home.wait.teamIdle') : t('v22.home.teamNowEmpty');
   return (
-    <Section title={t('v22.home.teamNow')} id="team-now" className="v22-main">
-      {rows.length === 0 ? (
-        <p className="hg-small hg-muted">{d.counselor ? t('v22.home.teamNowEmpty') : t('dashboard.counselor.noneText')}</p>
-      ) : (
-        <ul className="v22-rows">
-          {rows.map((r) => (
-            <li key={r.key}><ListRow as={Link} to={r.link} chevron lead={<TeamAvatar size={28} />} title={r.title} meta={r.meta} /></li>
-          ))}
-        </ul>
+    <div className="sp-now v22-main" data-lanes={showUni ? 2 : 1}>
+      <Section title={t('v22.home.teamNow')} id="team-now" className="sp-lane">
+        {rows.length === 0 ? <p className="sp-lane__empty">{teamEmpty}</p> : (
+          <ul className="v22-rows">
+            {rows.map((r) => (
+              <li key={r.key}><ListRow as={Link} to={r.link} chevron lead={<TeamAvatar size={32} />} title={r.title} meta={r.meta} /></li>
+            ))}
+          </ul>
+        )}
+      </Section>
+      {showUni && (
+        <Section title={t('home.uniNow')} id="university-now" className="sp-lane">
+          {uni.length === 0 ? <p className="sp-lane__empty">{t('home.uniNowEmpty')}</p> : (
+            <ul className="v22-rows">
+              {uni.map((a) => (
+                <li key={a.id}>
+                  <ListRow as={Link} to={`/applications/${a.id}`} chevron
+                    lead={<UniMark name={localName(a.university)} color={a.university.brand_color} photo={a.university.photo} />}
+                    title={t(`stage.${a.status}`, { defaultValue: t(`common:appStatus.${a.status}`) })}
+                    meta={`${localName(a.university)} · ${localName(a.program)}`} />
+                </li>
+              ))}
+            </ul>
+          )}
+        </Section>
       )}
-    </Section>
+    </div>
   );
 }
 
@@ -255,9 +310,10 @@ function ComingUp({ d }: { d: DashboardData }) {
     if (g) g.items.push(x); else groups.push({ key, date: x.date, items: [x] });
   });
   const shown = groups.slice(0, 4);
-  if (shown.length === 0 && d.applications.length > 0) return null; // zeros collapse: nothing dated is coming up
+  // Zeros collapse — except while waiting, where "nothing dated is coming up" is itself the answer to "what happens next?".
+  if (shown.length === 0 && d.applications.length > 0 && !isWaiting(d)) return null;
   return (
-    <Section title={t('home.comingUp')} id="coming-up" className="v22-side" action={d.open_tasks > 0 ? <Link to={`/?${TASKS_PARAM}=tasks`} className="hg-link-arrow">{t('common:actions.viewAll')}</Link> : undefined}>
+      <Section title={t('home.comingUp')} id="coming-up" className="v22-side sp-coming" action={d.open_tasks > 0 ? <Link to={`/?${TASKS_PARAM}=tasks`} className="hg-link-arrow">{t('common:actions.viewAll')}</Link> : undefined}>
       {shown.length === 0 ? <p className="hg-muted hg-small">{t('dashboard.deadlines.empty')}</p> : (
         <ol className="sh-dates">
           {shown.map((g) => {
@@ -317,36 +373,37 @@ function Applications({ d }: { d: DashboardData }) {
   const need = d.applications.filter((a) => needsStudent(d, a));
   const nextFor = (a: DashboardData['applications'][number]) => d.missing_documents.find((m) => (m.application_id ? m.application_id === a.id : m.university === localName(a.university)));
   const improve = d.improve ?? [];
+  // Nothing needs the student: the section becomes the plain list of their applications with where each one stands.
+  const quiet = need.length === 0;
+  const rows = quiet ? d.applications.slice(0, 4) : need;
   return (
-    <Section title={need.length > 0 ? t('v22.home.appsNeedYou') : t('home.applications')} id="applications" className="v22-main"
+    <Section title={quiet ? t('home.applications') : t('v22.home.appsNeedYou')} id="applications" className="v22-main"
       action={<Link to="/applications" className="hg-link-arrow">{t('common:actions.viewAll')}</Link>}>
-      {need.length === 0 ? <p className="hg-small hg-muted">{t('v22.home.appsQuiet', { count: d.applications.length })}</p> : (
-        <ul className="v22-rows">
-          {need.map((a) => {
-            const m = nextFor(a);
-            const it = improve.find((i) => i.application_id === a.id);
-            return (
-              <li key={a.id}>
-                <ListRow
-                  as={Link} to={it?.action?.link ?? `/applications/${a.id}`} chevron
-                  lead={<UniMark name={localName(a.university)} color={a.university.brand_color} photo={a.university.photo} />}
-                  title={localName(a.university)}
-                  meta={`${localName(a.program)} · ${intakeLabel(t, a.intake.term, a.intake.year)}`}
-                  end={
-                    <span className="sh-app-end">
-                      <span className="sh-app-next">
-                        <StatusText tone={applicationTone[a.status]}>{t(`stage.${a.status}`, { defaultValue: t(`common:appStatus.${a.status}`) })}</StatusText>
-                        {(it || m) && <span className="hg-xs hg-subtle hg-truncate">{it ? itemTitle(t, locale, it) : t('home.nextItem', { item: docLabel(t, m!) })}</span>}
-                      </span>
-                      {isPreSubmit(a.status) && <span className="hg-xs sh-hide-sm sa-when">{t('home.closes', { date: formatDate(a.intake.application_deadline, locale) })} · <DaysLeft date={a.intake.application_deadline} /></span>}
+      <ul className="v22-rows">
+        {rows.map((a) => {
+          const m = quiet ? undefined : nextFor(a);
+          const it = quiet ? undefined : improve.find((i) => i.application_id === a.id);
+          return (
+            <li key={a.id}>
+              <ListRow
+                as={Link} to={it?.action?.link ?? `/applications/${a.id}`} chevron
+                lead={<UniMark name={localName(a.university)} color={a.university.brand_color} photo={a.university.photo} />}
+                title={localName(a.university)}
+                meta={`${localName(a.program)} · ${intakeLabel(t, a.intake.term, a.intake.year)}`}
+                end={
+                  <span className="sh-app-end">
+                    <span className="sh-app-next">
+                      <StatusText tone={applicationTone[a.status]}>{t(`stage.${a.status}`, { defaultValue: t(`common:appStatus.${a.status}`) })}</StatusText>
+                      {(it || m) && <span className="hg-xs hg-subtle hg-truncate">{it ? itemTitle(t, locale, it) : t('home.nextItem', { item: docLabel(t, m!) })}</span>}
                     </span>
-                  }
-                />
-              </li>
-            );
-          })}
-        </ul>
-      )}
+                    {isPreSubmit(a.status) && <span className="hg-xs sh-hide-sm sa-when">{t('home.closes', { date: formatDate(a.intake.application_deadline, locale) })} · <DaysLeft date={a.intake.application_deadline} /></span>}
+                  </span>
+                }
+              />
+            </li>
+          );
+        })}
+      </ul>
     </Section>
   );
 }
@@ -417,7 +474,7 @@ function Team({ d }: { d: DashboardData }) {
   const appts = useQuery({ queryKey: ['appointments'], queryFn: () => api.me.appointments(), enabled: !!d.counselor });
   const next = (appts.data ?? []).find((a) => a.status === 'SCHEDULED' && new Date(a.starts_at).getTime() > Date.now());
   return (
-    <Section title={t('home.team')} id="team" className="v22-side">
+    <Section title={t('home.team')} id="team" className="v22-side sp-team">
       <div className="sh-person">
         <TeamAvatar size={40} />
         <div className="hg-grow" style={{ minWidth: 0 }}>
@@ -523,32 +580,41 @@ function greeting(t: ReturnType<typeof useT>['t'], name: string): string {
   return t(`home.greet.${dayPart()}`, { name });
 }
 
-export default function Dashboard() {
+/** The home for one dashboard payload — exported so the waiting state can be rendered from a stub in a unit test. */
+export function HomeBody({ d }: { d: DashboardData }) {
   const { t } = useT();
+  return (
+    <div className="st-page sh-home v22-home sp-home" data-state={isWaiting(d) ? 'waiting' : 'action'}>
+      <header className="v22-head">
+        <h1 className="v22-head__title">{greeting(t, d.greeting_name)}</h1>
+        <p className="hg-muted">{seasonLine(t, d)}</p>
+      </header>
+      <Journey d={d} />
+      <div className="v22-grid">
+        <NextPanel d={d}><NextStep d={d} /></NextPanel>
+        {(d as V9Home).refund && <div className="v22-main"><RefundCard r={(d as V9Home).refund!} /></div>}
+        <AllTasks />
+        {(d as V9Home).routes && showsRecommendations(d) && <div className="v22-main"><RoutesCard routes={(d as V9Home).routes!} compact={d.recommendations.length > 0} /></div>}
+        <Now d={d} />
+        {/* One aside: a real column beside the page on wide screens; on a phone its two blocks join the flow
+            (coming up here, the team card last). */}
+        <div className="sp-aside">
+          <ComingUp d={d} />
+          <Team d={d} />
+        </div>
+        <Applications d={d} />
+        <Documents d={d} />
+        {showsRecommendations(d) && <Recommended d={d} />}
+      </div>
+    </div>
+  );
+}
+
+export default function Dashboard() {
   const q = useDashboard();
   return (
     <QueryState query={q} skeleton={<HomeSkeleton />}>
-      {(d) => (
-        <div className="st-page sh-home v22-home">
-          <header className="v22-head">
-            <h1 className="v22-head__title">{greeting(t, d.greeting_name)}</h1>
-            <p className="hg-muted">{seasonLine(t, d)}</p>
-          </header>
-          <Journey d={d} />
-          <div className="v22-grid">
-            <NextPanel d={d}><NextStep d={d} /></NextPanel>
-            {(d as V9Home).refund && <div className="v22-main"><RefundCard r={(d as V9Home).refund!} /></div>}
-            <AllTasks />
-            {(d as V9Home).routes && showsRecommendations(d) && <div className="v22-main"><RoutesCard routes={(d as V9Home).routes!} compact={d.recommendations.length > 0} /></div>}
-            <TeamNow d={d} />
-            <ComingUp d={d} />
-            <Applications d={d} />
-            <Documents d={d} />
-            <Team d={d} />
-            {showsRecommendations(d) && <Recommended d={d} />}
-          </div>
-        </div>
-      )}
+      {(d) => <HomeBody d={d} />}
     </QueryState>
   );
 }

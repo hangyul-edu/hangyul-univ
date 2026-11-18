@@ -17,7 +17,9 @@ export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
 const palettes: Record<ButtonVariant, { bg: string; fg: string; border: string; ripple: string; pressed: string }> = {
   primary: { bg: theme.color.primary, fg: theme.color.textOnPrimary, border: theme.color.primary, ripple: 'rgba(255,255,255,0.25)', pressed: theme.color.primaryPressed },
   // V25 (REPORT §317): SECONDARY is the brand's warm-neutral filled surface (`control.secondaryBg`), as on the web — not an outline.
-  secondary: { bg: control.secondaryBg, fg: control.secondaryText, border: control.secondaryBg, ripple: 'rgba(15,23,41,0.08)', pressed: control.secondaryBgPressed },
+  // Design foundation (2026-11): since V27 `secondaryBg` is WHITE, so the border must be the 3:1 control edge — with
+  // `border: secondaryBg` a secondary button on a white screen had no visible boundary at all.
+  secondary: { bg: control.secondaryBg, fg: control.secondaryText, border: control.secondaryBorder, ripple: 'rgba(15,23,41,0.08)', pressed: control.secondaryBgPressed },
   ghost: { bg: 'transparent', fg: theme.color.primaryText, border: 'transparent', ripple: 'rgba(255,103,0,0.12)', pressed: theme.color.primarySubtle },
   danger: { bg: theme.status.danger.solid, fg: '#FFFFFF', border: theme.status.danger.solid, ripple: 'rgba(255,255,255,0.25)', pressed: theme.palette.red[600] },
 };
@@ -32,7 +34,7 @@ const palettes: Record<ButtonVariant, { bg: string; fg: string; border: string; 
  * `loading` is deliberately **not** disabled-looking: the action was accepted and is in flight, so the
  * button keeps its brand colour and shows the spinner in its own foreground.
  */
-const DISABLED = { bg: theme.color.surfaceSunken, fg: theme.color.textTertiary, border: theme.color.border } as const;
+const DISABLED = { bg: theme.color.bgPaper, fg: theme.color.textTertiary, border: theme.color.border } as const;
 
 export interface ButtonProps {
   label: string;

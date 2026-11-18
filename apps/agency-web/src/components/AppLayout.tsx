@@ -5,7 +5,6 @@ import {
 } from '@hangyul/icons';
 import { OrgBadge, type NavSection } from '@hangyul/ui';
 import { YnexShell } from '@hangyul/ynex-ui';
-import { flagEmoji } from '@hangyul/utils';
 import { useQuery } from '@tanstack/react-query';
 import { createContext, Suspense, useContext, useId, useRef, useState, type KeyboardEvent } from 'react';
 import { Outlet, useNavigate } from 'react-router';
@@ -13,7 +12,7 @@ import { Outlet, useNavigate } from 'react-router';
 import { useDebounced, usePerms } from '../lib/hooks';
 import { usePrefs } from '../lib/local';
 import { PageFallback } from './PageFallback';
-import { StageBadge, useT } from './bits';
+import { FlagMark, StageBadge, useT } from './bits';
 
 const ShellCtx = createContext<{ remount: () => void }>({ remount: () => undefined });
 /** Lets Settings force the shell to re-read theme/sidebar prefs from storage. */
@@ -88,7 +87,7 @@ function GlobalSearch() {
           {items.map((s, i) => (
             <button key={s.id} id={`${listId}-${i + 1}`} role="option" aria-selected={active === i + 1} type="button" className="hg-menu-item"
               onMouseDown={(e) => e.preventDefault()} onClick={() => go(`/students/${s.id}`)}>
-              <span aria-hidden>{flagEmoji(s.nationality)}</span>
+              <FlagMark code={s.nationality} />
               <span className="hg-grow hg-truncate">{s.full_name}<span className="hg-subtle hg-xs" style={{ display: 'block' }}>{s.email}</span></span>
               <StageBadge stage={s.pipeline_stage} />
             </button>

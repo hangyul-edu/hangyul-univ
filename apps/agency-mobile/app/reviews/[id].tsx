@@ -2,7 +2,7 @@ import { useApi } from '@hangyul/auth';
 import { useTranslation } from '@hangyul/i18n';
 import {
   absoluteApiUrl, AppText, Button, Callout, CheckRow, ChipGroup, KeyValue, ListGroup, ListItem, LoadingState, QueryState, Screen, SectionTitle, Sheet,
-  StatusBadge, TextField, useFormat,
+  StatusBadge, TextField, theme, useFormat,
 } from '@hangyul/mobile-ui';
 import type { Page, VaultDocument } from '@hangyul/types';
 import { countryName } from '@hangyul/utils';
@@ -69,16 +69,16 @@ function Review({ d }: { d: VaultDocument }) {
 
   return (
     <>
-      <View style={{ gap: 4 }}>
+      <View style={{ gap: theme.space[1] }}>
         <AppText variant="title" accessibilityRole="header">{t(`common:docCategory.${d.category}`, { defaultValue: d.title })}</AppText>
         <AppText variant="caption">{[d.owner_name, d.owner_nationality ? countryName(d.owner_nationality, f.locale) : null, t('v3.reviews.uploaded', { when: f.relative(d.updated_at) })].filter(Boolean).join(' · ')}</AppText>
-        <StatusBadge kind="document" value={d.status} style={{ marginTop: 4 }} />
+        <StatusBadge kind="document" value={d.status} style={{ marginTop: theme.space[1] }} />
       </View>
       {d.latest_file ? (
         <Button label={t('v3.reviews.open', { name: d.latest_file.filename })} icon={ExternalLink} variant="secondary" loading={preview.isPending} onPress={() => preview.mutate()} fullWidth />
       ) : <Callout tone="warning" body={t('agency.reviews.noFile')} />}
       <ListGroup>
-        <View style={{ padding: 16, gap: 2 }}>
+        <View style={{ padding: theme.space[4], gap: 2 }}>
           {d.issuing_country ? <KeyValue label={t('v3.reviews.issuedIn')} value={countryName(d.issuing_country, f.locale)} /> : null}
           {d.issue_date ? <KeyValue label={t('v3.reviews.issuedOn')} value={f.date(d.issue_date)} /> : null}
           {d.expires_on ? <KeyValue label={t('v3.reviews.expires')} value={f.date(d.expires_on)} /> : null}
@@ -88,7 +88,7 @@ function Review({ d }: { d: VaultDocument }) {
       </ListGroup>
       {d.rejection_reason ? <Callout tone="danger" title={t('agency.reviews.lastReason')} body={d.rejection_reason} /> : null}
       {canReview ? (
-        <View style={{ gap: 8 }}>
+        <View style={{ gap: theme.space[2] }}>
           <SectionTitle title={t('v3.reviews.beforeVerify')} />
           {/* V4: Verify unlocks when every check is ticked — the checklist is the review, not decoration. */}
           <ListGroup>
@@ -98,12 +98,12 @@ function Review({ d }: { d: VaultDocument }) {
             ))}
           </ListGroup>
           {!allTicked ? <AppText variant="caption">{t('v4.reviews.tickAll', { done: ticked.length, total: checks.length })}</AppText> : null}
-          <Button label={t('agency.reviews.verify')} icon={BadgeCheck} onPress={() => review.mutate({ decision: 'VERIFIED' })} disabled={!allTicked} loading={review.isPending && review.variables?.decision === 'VERIFIED'} fullWidth style={{ marginTop: 8 }} />
+          <Button label={t('agency.reviews.verify')} icon={BadgeCheck} onPress={() => review.mutate({ decision: 'VERIFIED' })} disabled={!allTicked} loading={review.isPending && review.variables?.decision === 'VERIFIED'} fullWidth style={{ marginTop: theme.space[2] }} />
           <Button label={t('v3.reviews.requestCorrection')} variant="secondary" onPress={() => setCorrecting(true)} fullWidth />
         </View>
       ) : <Callout tone="info" body={t('agency.reviews.notReviewable')} />}
       {d.reviews?.length ? (
-        <View style={{ gap: 8 }}>
+        <View style={{ gap: theme.space[2] }}>
           <SectionTitle title={t('agency.reviews.history')} />
           <ListGroup>{d.reviews.map((r, i) => <ListItem key={`${r.at}-${i}`} icon={History} title={t(`common:docStatus.${r.decision}`, { defaultValue: r.decision })} subtitle={r.reason} meta={`${r.reviewer} · ${f.dateTime(r.at)} · v${r.version}`} />)}</ListGroup>
         </View>
@@ -111,7 +111,7 @@ function Review({ d }: { d: VaultDocument }) {
       <Sheet visible={correcting} title={t('v3.reviews.correctionTitle')} onClose={() => setCorrecting(false)} closeLabel={t('common:actions.cancel')}
         footer={<Button label={t('agency.reviews.sendToStudent')} onPress={() => review.mutate({ decision: 'NEEDS_CORRECTION', reason: reason.trim() })} disabled={reason.trim().length < 3} loading={review.isPending} fullWidth />}>
         {shownTemplates.length ? (
-          <View style={{ gap: 6 }}>
+          <View style={{ gap: theme.space[2] }}>
             <AppText variant="label">{t('v3.reviews.templates')}</AppText>
             <ChipGroup options={shownTemplates.map((x) => ({ value: x.id, label: x.title }))} selected={[]} onToggle={(id) => { const x = shownTemplates.find((y) => y.id === id); if (x) setReason(fill(x.body)); }} />
           </View>

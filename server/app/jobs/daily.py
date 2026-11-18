@@ -27,7 +27,12 @@ def run(db) -> dict:
     late = sla_sweep(db)
     outcomes = record_outcomes(db)
     db.commit()
-    return {"freshness_reviews": reviews, "tasks_created": created, "metric_rows": metrics, "late_essay_reviews": late, "writing_outcomes": outcomes}
+    # Payments: settle any order whose one-time charge outcome is still unknown by asking the provider.
+    # (Reconciliation only — nothing here, or anywhere, schedules or repeats a charge.)
+    from app.api.v1 import billing as billing_api
+
+    settled = billing_api.reconcile_all(db)
+    return {"payments_reconciled": settled, "freshness_reviews": reviews, "tasks_created": created, "metric_rows": metrics, "late_essay_reviews": late, "writing_outcomes": outcomes}
 
 
 def main() -> None:

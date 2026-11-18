@@ -12,12 +12,13 @@ export default function ApplicantsScreen() {
   const { t } = useTranslation();
   const params = useLocalSearchParams<{ view?: string }>();
   const known = (v?: string): v is ViewKey => (VIEWS as readonly string[]).includes(v ?? '') || (HEAD_VIEWS as readonly string[]).includes(v ?? '');
-  const [view, setView] = useState<ViewKey>(known(params.view) ? params.view : 'review');
+  const [view, setView] = useState<ViewKey>(known(params.view) ? params.view : 'decide');
   useEffect(() => { if (known(params.view)) setView(params.view); }, [params.view]);
   const [input, setInput] = useState('');
   const [q, setQ] = useState('');
   useEffect(() => { const h = setTimeout(() => setQ(input.trim()), 300); return () => clearTimeout(h); }, [input]);
-  const list = useApplicants(view, q);
+  // The decision queue keeps the web console's order (decidable first); every other view is newest change first.
+  const list = useApplicants(view, q, 100, view === 'decide' ? 'decision' : 'updated');
   return (
     <Screen title={t('v3.uni.tab.applicants')} onRefresh={() => list.refetch()}>
       <TextField label={t('v3.uni.search')} hideLabel placeholder={t('v3.uni.search')} value={input} onChangeText={setInput} autoCorrect={false}

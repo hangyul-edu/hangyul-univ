@@ -71,10 +71,10 @@ export function PromptSheet({
 }
 
 const styles = StyleSheet.create({
-  callout: { flexDirection: 'row', gap: 10, padding: 12, borderRadius: theme.radius.lg },
+  callout: { flexDirection: 'row', gap: 12, padding: 14, borderRadius: theme.radius.xl },
   modalRoot: { flex: 1, justifyContent: 'flex-end', backgroundColor: theme.color.overlay },
   sheet: {
-    backgroundColor: theme.color.surface, borderTopLeftRadius: theme.radius.xl, borderTopRightRadius: theme.radius.xl,
+    backgroundColor: theme.color.surface, borderTopLeftRadius: theme.radius['2xl'], borderTopRightRadius: theme.radius['2xl'],
     padding: theme.space[5], gap: theme.space[3],
   },
   grabber: { alignSelf: 'center', width: 40, height: 4, borderRadius: 2, backgroundColor: theme.color.borderStrong, marginBottom: 4 },

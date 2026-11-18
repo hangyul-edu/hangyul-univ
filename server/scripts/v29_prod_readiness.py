@@ -144,7 +144,12 @@ def collect() -> dict:
     out.append(_e("identity_delivery", PASS if (s.sendgrid_configured and s.twilio_configured) else EXT,
                   "SendGrid + Twilio configured" if (s.sendgrid_configured and s.twilio_configured)
                   else "SendGrid/Twilio values absent on this host (production refuses to start without them)"))
-    out.append(_e("toss_live", PASS if s.toss_env == "live" else EXT, f"HG_TOSS_ENV={s.toss_env}; live keys require the merchant contract"))
+    from app.services import billing as _billing
+
+    _live = _billing.available_kinds() if s.toss_env == "live" else []
+    out.append(_e("toss_live", PASS if _live else EXT,
+                  f"HG_TOSS_ENV={s.toss_env}; billing-key rail; live methods available: {', '.join(_live) or 'none'} "
+                  "(needs live keys, HG_LIVE_PAYMENT_ENABLED and a VERIFIED capability per method)"))
     out.append(_e("pentest", EXT, "external penetration test not yet performed (THREAT_MODEL.md lists the EXTERNAL items)"))
     return {"environment": s.env, "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "controls": out}
 

@@ -4,13 +4,13 @@ import { useAuth } from '@hangyul/auth';
 import { Flag as FlagIcon } from '@hangyul/icons';
 import { APPLICATION_STATUSES, type AgencyWaitingParty, type Application, type ApplicationStatus } from '@hangyul/types';
 import { Card, Checkbox, DataTable, Drawer, EmptyState, ErrorState, PageHeader, FilterSelect, type ColumnDef } from '@hangyul/ui';
-import { daysUntil, flagEmoji, formatDate, formatRelative } from '@hangyul/utils';
+import { daysUntil, formatDate, formatRelative } from '@hangyul/utils';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
 
 import { ApplicationPanel } from '../components/ApplicationPanel';
-import { AppStatusBadge, FilterBar, SearchBox, useT, WaitingOn } from '../components/bits';
+import { AppStatusBadge, FilterBar, FlagMark, SearchBox, useT, WaitingOn } from '../components/bits';
 import { useDebounced, useUrlFilters } from '../lib/hooks';
 
 const SORTS = ['updated', 'deadline', 'submitted'] as const;
@@ -56,7 +56,7 @@ export default function Applications({ embedded }: { embedded?: boolean } = {}) 
   const rem = remaining.data;
   const columns = useMemo<ColumnDef<Application>[]>(() => [
     { id: 'student', accessorFn: (r) => r.student?.full_name ?? '', header: t('apps.col.student'), meta: { primary: true, priority: 1, minWidth: 170, label: t('apps.col.student') },
-      cell: ({ row }) => <span className="hg-medium" style={{ whiteSpace: 'nowrap' }}><span aria-hidden>{flagEmoji(row.original.student?.nationality ?? '')} </span>{row.original.student?.full_name}</span> },
+      cell: ({ row }) => <span className="hg-medium" style={{ whiteSpace: 'nowrap' }}><FlagMark code={row.original.student?.nationality} /> {row.original.student?.full_name}</span> },
     { id: 'university', accessorFn: (r) => `${localName(r.university)} — ${localName(r.program)}`, header: t('apps.col.program'), meta: { label: t('apps.col.program'), priority: 1, minWidth: 200 },
       cell: ({ row }) => <span className="ag-cell-2 ag8-clampcell"><span className="hg-truncate">{localName(row.original.university)}</span><span className="hg-subtle hg-xs hg-truncate">{localName(row.original.program)} · {t(`degreeShort.${row.original.program.degree_level}`)}</span></span> },
     { id: 'intake', accessorFn: (r) => `${r.intake.year}-${r.intake.term}`, header: t('apps.col.intake'), meta: { label: t('apps.col.intake'), hideOnMobile: true, priority: 4, minWidth: 110 },
@@ -80,7 +80,7 @@ export default function Applications({ embedded }: { embedded?: boolean } = {}) 
         const v = rem?.[row.original.id];
         return <WaitingOn on={v?.waiting_on ?? null} reason={v?.waiting_reason ? { code: v.waiting_reason, status: row.original.status } : null} />;
       } },
-    { id: 'deadline', accessorFn: (r) => r.intake.application_deadline, header: t('apps.deadline'), meta: { label: t('apps.deadline'), priority: 2, minWidth: 120 },
+    { id: 'deadline', accessorFn: (r) => r.intake.application_deadline, header: t('apps.deadline'), size: 124, meta: { label: t('apps.deadline'), priority: 1, minWidth: 116 },
       cell: ({ row }) => <DeadlineCell date={row.original.intake.application_deadline} /> },
     { id: 'updated', accessorKey: 'updated_at', header: t('students.col.updated'), meta: { label: t('students.col.updated'), hideOnMobile: true, priority: 5, minWidth: 100 },
       cell: ({ getValue }) => <span className="hg-subtle hg-small">{formatRelative(getValue<string>(), locale)}</span> },

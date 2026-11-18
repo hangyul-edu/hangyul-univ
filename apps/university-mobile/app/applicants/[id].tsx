@@ -1,7 +1,7 @@
 import { useApi } from '@hangyul/auth';
-import { useTranslation, localName } from '@hangyul/i18n';
+import { MARKETS, useTranslation, localName } from '@hangyul/i18n';
 import {
-  absoluteApiUrl, AppText, Avatar, Button, Callout, KeyValue, ListGroup, ListItem, LoadingState, PickerSheet, PromptSheet, QueryState,
+  absoluteApiUrl, AppText, Avatar, Button, Callout, KeyValue, ListGroup, ListItem, LoadingState, MarketFlag, PickerSheet, PromptSheet, QueryState,
   Screen, SectionTitle, Sheet, StatusBadge, StatusText, TextField, theme, useFormat,
 } from '@hangyul/mobile-ui';
 import type { ApplicationDetail, ApplicationStatus, ChecklistItem, Program } from '@hangyul/types';
@@ -10,11 +10,12 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { Flag, FlagOff, MoreHorizontal } from 'lucide-react-native';
 import { useState } from 'react';
-import { Alert, Linking, StyleSheet, View } from 'react-native';
+import { Alert, Linking, Platform, Pressable, StyleSheet, View } from 'react-native';
 
 import { qk, useCanDecide } from '../../src/queries';
+import { NEGATIVE_DECISIONS, primaryDecision } from '../../src/views';
 
-const NEGATIVE: ApplicationStatus[] = ['REJECTED', 'WITHDRAWN'];
+const NEGATIVE = NEGATIVE_DECISIONS;
 type Check = { key: string; label: string; need: string; have: string | null; state: 'meets' | 'below' | 'missing' | 'planned' | 'unscheduled' };
 
 export default function ApplicantDetailScreen() {
@@ -95,9 +96,14 @@ function Applicant({ a }: { a: ApplicationDetail }) {
   const required = a.checklist.filter((c) => c.required);
   const ready = required.filter((c) => c.ready).length;
   const openRequests = (a.document_requests ?? []).filter((r) => r.status === 'OPEN');
-  const positive = a.allowed_transitions.filter((s) => !NEGATIVE.includes(s));
-  const primary = positive[0];
-  const others = a.allowed_transitions.filter((s) => s !== primary);
+  // One primary action; the other forward steps wait behind "Other decisions"; a decision that ends the application is
+  // offered last, on its own, in the danger colour. Every option is one of the API's `allowed_transitions`.
+  const primary = primaryDecision(a.status, a.allowed_transitions);
+  const others = a.allowed_transitions.filter((s) => s !== primary && !NEGATIVE.includes(s));
+  const negatives = a.allowed_transitions.filter((s) => s !== primary && NEGATIVE.includes(s));
+  const moveLabel = (s: ApplicationStatus) => t(`v3.uni.move.${s}`, { defaultValue: t('university.applicants.moveTo', { status: t(`common:appStatus.${s}`) }) });
+  const nat = a.student?.nationality ?? null;
+  const origin = [nat ? countryName(nat, f.locale) : null, a.agency ? t('university.applicants.viaAgency', { agency: a.agency.name }) : null].filter(Boolean).join(' · ');
 
   return (
     <>
@@ -106,9 +112,12 @@ function Applicant({ a }: { a: ApplicationDetail }) {
         <View style={{ flex: 1, gap: 2 }}>
           <AppText variant="title" numberOfLines={2}>{name}</AppText>
           <AppText variant="caption">{localName(a.program)} · {intake}</AppText>
-          <AppText variant="caption">
-            {[a.student?.nationality ? countryName(a.student.nationality, f.locale) : null, a.agency ? t('university.applicants.viaAgency', { agency: a.agency.name }) : null].filter(Boolean).join(' · ')}
-          </AppText>
+          {origin ? (
+            <View style={styles.origin}>
+              {nat && MARKETS.some((m) => m.code === nat) ? <MarketFlag code={nat} height={12} /> : null}
+              <AppText variant="caption" style={{ flexShrink: 1 }}>{origin}</AppText>
+            </View>
+          ) : null}
           <View style={styles.statusRow}>
             <StatusBadge kind="application" value={a.status} />
             {a.flagged ? <StatusText label={t('university.flagged.flagged')} tone="danger" /> : null}
@@ -124,8 +133,15 @@ function Applicant({ a }: { a: ApplicationDetail }) {
             <AppText variant="body">{openRequests.length ? t('v3.uni.decisionContext', { ready, total: required.length, count: openRequests.length }) : t('v3.uni.decisionDocs', { ready, total: required.length })}</AppText>
             {/* V4: stacked, full width — decision labels are long ("Ask for more documents") and must never be clipped. */}
             <View style={{ gap: 8 }}>
-              {primary ? <Button label={t(`v3.uni.move.${primary}`, { defaultValue: t('university.applicants.moveTo', { status: t(`common:appStatus.${primary}`) }) })} onPress={() => setPending(primary)} loading={transition.isPending && transition.variables?.to === primary} fullWidth /> : null}
+              {primary ? <Button label={moveLabel(primary)} onPress={() => setPending(primary)} loading={transition.isPending && transition.variables?.to === primary} fullWidth /> : null}
               {others.length ? <Button label={t('v3.uni.otherDecisions')} icon={MoreHorizontal} variant="secondary" onPress={() => setMore(true)} fullWidth /> : null}
+              {negatives.map((s) => (
+                <Pressable key={s} onPress={() => setPending(s)} disabled={transition.isPending} accessibilityRole="button" accessibilityLabel={moveLabel(s)}
+                  accessibilityState={{ disabled: transition.isPending }} android_ripple={{ color: 'rgba(229,72,77,0.12)' }}
+                  style={({ pressed }) => [styles.negative, pressed && Platform.OS === 'ios' && { opacity: 0.6 }]}>
+                  <AppText variant="subheading" color={theme.status.danger.fg}>{moveLabel(s)}</AppText>
+                </Pressable>
+              ))}
             </View>
           </View>
         ) : null
@@ -183,7 +199,7 @@ function Applicant({ a }: { a: ApplicationDetail }) {
       ) : null}
 
       <PickerSheet visible={more} title={t('v3.uni.otherDecisions')} cancelLabel={t('common:actions.cancel')} onCancel={() => setMore(false)}
-        options={others.map((s) => ({ value: s, label: t(`v3.uni.move.${s}`, { defaultValue: t('university.applicants.moveTo', { status: t(`common:appStatus.${s}`) }) }) }))}
+        options={others.map((s) => ({ value: s, label: moveLabel(s) }))}
         onSelect={(s) => { setMore(false); setPending(s); }} />
       <PromptSheet visible={!!pending} title={pending ? t('university.applicants.confirmTitle', { status: t(`common:appStatus.${pending}`) }) : ''}
         message={t('university.applicants.confirmBody', { name })} label={pending && NEGATIVE.includes(pending) ? t('v3.uni.reason') : t('university.applicants.note')}
@@ -235,6 +251,8 @@ function DocRow({ c, onPreview }: { c: ChecklistItem; onPreview: (id: string) =>
 
 const styles = StyleSheet.create({
   head: { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
+  origin: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  negative: { minHeight: 48, alignItems: 'center', justifyContent: 'center', borderRadius: theme.radius.lg, paddingHorizontal: 16 },
   statusRow: { flexDirection: 'row', gap: 12, marginTop: 4 },
   decide: { gap: 8, padding: 16, borderRadius: theme.radius.lg, borderWidth: 1, borderColor: theme.color.border, backgroundColor: theme.color.surface },
 });

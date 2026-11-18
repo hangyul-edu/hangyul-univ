@@ -1,4 +1,4 @@
-// V6: professional blue surface — must stay the first import so every StyleSheet sees the console tokens.
+// Console surface (white canvas, tangerine for current/primary) — must stay the first import so every StyleSheet sees the console tokens.
 import '@hangyul/design-tokens/console-surface';
 import { useTranslation } from '@hangyul/i18n';
 import { AuthGate, LoginScreen, MobileProviders, stackScreenOptions } from '@hangyul/mobile-ui';

@@ -171,56 +171,8 @@ check('§9 "Living in {{city}}" is no longer a per-university heading', !/v20\.u
 
 /* ======================================================================= D. payment: nothing leaks */
 
-const paymentSrc = ['server/app/api/v1/student.py', 'server/app/services/foreign_card.py',
-  'server/app/core/crypto.py', 'apps/student-web/src/components/CardForm.tsx',
-  'packages/api-client/src/index.ts'];
-for (const f of paymentSrc) check(`${f} exists`, existsSync(join(ROOT, f)));
-
-const api = read('server/app/api/v1/student.py');
-const provider = read('server/app/services/foreign_card.py');
-const crypto = read('server/app/core/crypto.py');
-
-check('§29 the card model forbids unknown fields', /model_config = \{"extra": "forbid"\}/.test(api));
-const cardModel = /class _CardIn[\s\S]*?\n\nclass /.exec(api)?.[0] ?? '';
-check('§29 the card request model exists', cardModel.length > 0);
-// The declarations only — the docstring *names* these fields in order to say they are refused.
-const cardFields = cardModel.replace(/\"\"\"[\s\S]*?\"\"\"/g, '');
-check('§29 no Korean card password or identity number is accepted',
-  cardModel.length > 0 && !/cardPassword|card_password|identity_number|customerIdentityNumber/.test(cardFields));
-check('§29 the raw card type cannot be printed', /__repr__/.test(provider) && /redacted/.test(provider));
-check('§32 the credential is sealed with AES-256-GCM', /AESGCM/.test(crypto));
-check('§32 the envelope is bound to the row it belongs to', /aad/.test(crypto) && /aad=str\(m?e?t?h?o?d?\.?user_id\)|aad=str\(method\.user_id\)/.test(api));
-const payloadBody = /def _method_payload[\s\S]*?\n    \}\n/.exec(api)?.[0] ?? '';
-check('§43 the stored-card payload builder exists', payloadBody.length > 0);
-check('§43 the credential is never returned to a client',
-  payloadBody.length > 0
-  && !/billing_key|customer_key/.test(payloadBody)
-  && !/billing_key|billingKey/.test(read('packages/api-client/src/index.ts'))
-  // `TossCheckout.customer_key` is the 결제창 SDK handle (literally "ANONYMOUS"), a different field
-  // from the stored method's credential handle; the credential itself is what may not appear.
-  && !/billing_key|billingKey/.test(read('packages/types/src/index.ts')));
-check('§31 the customerKey is random and server-generated', /secrets\.token_urlsafe\(24\)/.test(api));
-check('§30 the card endpoint is authenticated and rate-limited',
-  /_card_rate_limited/.test(api) && /require_student/.test(api));
-check('§39 the charge carries an order-derived idempotency key', /idempotency_key=f"hg-keyin-\{order\.id\}"/.test(api));
-check('§40 a declined card does not cancel the order',
-  /if \(orderId && !card\)/.test(read('apps/student-web/src/pages/Services.tsx')));
-check('§42 deleting a card revokes it at the provider first', /revoke_billing_key/.test(api));
-
-// §24 — test readiness is independent of the live flags.
-const cfg = read('server/app/core/config.py');
-check('§24 foreign billing has its own TEST and LIVE states',
-  /def foreign_billing_test_ready/.test(cfg) && /def foreign_billing_live_ready/.test(cfg));
-const testReady = /def foreign_billing_test_ready[\s\S]*?\n\n    @property/.exec(cfg)?.[0] ?? '';
-check('§24 the TEST readiness property exists', testReady.length > 0);
-check('§24 TEST readiness does not depend on the four live contract flags',
-  testReady.length > 0 && !/usd_readiness|live_usd_checkout/.test(testReady));
-check('§24 LIVE readiness refuses a test_ key', /startswith\("test_"\)/.test(cfg));
-
-// §48 — no domestic or easy-pay method in the plan purchase UI.
-const services = read('apps/student-web/src/pages/Services.tsx');
-check('§48 the purchase UI offers no domestic or easy-pay method',
-  !/토스페이|네이버페이|카카오페이|계좌이체|국내카드|EASY_PAY/.test(services));
+// The payment-rail assertions that lived here described the retired key-in route. The billing-key rail is
+// asserted by server/tests/test_v33_billing.py and gated by server/scripts/payment_release_gate.py.
 
 // §58 — no secret, no test PAN, no credential literal anywhere in the tracked tree.
 const SCAN = ['scripts', 'apps', 'packages', 'server/app', 'docs', 'e2e'];
@@ -396,18 +348,6 @@ if (!STATIC_ONLY) {
     await browser.close();
   }
 
-  // §44 — the real Toss TEST transaction, through the product.
-  try {
-    const out = execFileSync('node', [join(ROOT, 'scripts/qa/v21/toss-test-transaction.mjs')],
-      { encoding: 'utf8', timeout: 240000, cwd: ROOT });
-    const m = /(\d+) passed, (\d+) failed/.exec(out);
-    check('§44 the real Toss TEST transaction runs end to end',
-      !!m && Number(m[2]) === 0, m ? `${m[1]} passed, ${m[2]} failed` : 'no result line');
-  } catch (e) {
-    const out = String(e.stdout ?? e);
-    const m = /(\d+) passed, (\d+) failed/.exec(out);
-    check('§44 the real Toss TEST transaction runs end to end', false, m ? `${m[1]} passed, ${m[2]} failed` : String(e).slice(0, 160));
-  }
 }
 
 /* ================================================================================== F. the verdict */
