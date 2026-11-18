@@ -24,9 +24,13 @@
 .dz-row__action--wide { justify-content: flex-start; }
 @media (min-width: 768px) { .dz-row__action--wide { justify-content: flex-end; } }
 .dz-quote { margin: 4px 0 0; font-size: var(--hg-text-sm); color: var(--hg-text-secondary); font-style: italic; }
-.dz-finding { margin: 6px 0 0; font-size: var(--hg-text-sm); line-height: 1.45; padding-inline-start: 10px; border-inline-start: 2px solid var(--hg-border-strong); color: var(--hg-text-secondary); }
-.dz-finding--danger { border-color: var(--hg-status-danger-solid); color: var(--hg-status-danger-fg); }
-.dz-finding--warning { border-color: var(--hg-status-warning-solid, #b45309); color: var(--hg-status-warning-fg); }
+/* A note from the automatic check: the foundation's status treatment — a tone dot and words — not a ruled quote. */
+.dz-finding { display: flex; align-items: flex-start; gap: 8px; margin: 6px 0 0; font-size: var(--hg-text-sm); line-height: 1.45; color: var(--hg-text-secondary); }
+.dz-finding::before { content: ''; flex: none; inline-size: 7px; block-size: 7px; margin-block-start: 0.48em; border-radius: 50%; background: var(--hg-status-neutral-solid); }
+.dz-finding--danger { color: var(--hg-status-danger-fg); }
+.dz-finding--danger::before { background: var(--hg-status-danger-solid); }
+.dz-finding--warning { color: var(--hg-status-warning-fg); }
+.dz-finding--warning::before { background: var(--hg-status-warning-solid); }
 .dz-more { margin-top: 4px; padding: 0; border: 0; background: none; font: inherit; font-size: var(--hg-text-sm); color: var(--hg-text-tertiary); text-decoration: underline; cursor: pointer; }
 .dz-summary { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 0; color: var(--hg-text-secondary); }
 .dz-summary strong { font-size: var(--hg-text-lg, 18px); font-weight: var(--hg-weight-semibold); color: var(--hg-text); }

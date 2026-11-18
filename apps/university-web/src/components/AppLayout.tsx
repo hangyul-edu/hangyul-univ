@@ -5,7 +5,7 @@ import { Badge, Card, ErrorState, Select, Skeleton, type NavSection } from '@han
 import { YnexShell } from '@hangyul/ynex-ui';
 import { useQuery } from '@tanstack/react-query';
 import { useState, type FormEvent } from 'react';
-import { Outlet, useNavigate } from 'react-router';
+import { Outlet, useLocation, useNavigate } from 'react-router';
 
 import { useUniversity } from '../lib/university';
 
@@ -109,13 +109,20 @@ export function AppLayout() {
    *   설정    everything administrative — programmes & rules, team, exports, scholarships, partnership,
    *           agencies, notifications, office settings — one page of links, none of it daily work.
    */
+  const first = `/${useLocation().pathname.split('/')[1] ?? ''}`;
+  const applicantsSection = first === '/applicants' || first === '/applications' ? first : null;
   const sections: NavSection[] = [
     {
       items: [
-        { to: '/', label: t('common:nav.applicants'), icon: <Users />, end: true },
+        // The applicant table also lives at `/applicants` (every drill-down lands there) and a review at
+        // `/applications/:id`; the shell's nav item matches by path prefix only, so the item points at the section the
+        // reader is in — `/applications` itself redirects to the table (router.tsx) — and stays marked as current.
+        { to: applicantsSection ?? '/', label: t('common:nav.applicants'), icon: <Users />, end: !applicantsSection },
         { to: '/messages', label: t('common:nav.messages'), icon: <MessageSquare /> },
         { to: '/analytics', label: t('university:v22.nav.insights'), icon: <ChartColumn /> },
-        { to: '/manage', label: t('common:nav.settings'), icon: <Settings /> },
+        // Settings is a hub (`/manage`) whose pages live at their own paths; on any of them the item stays current.
+        { to: '/manage', label: t('common:nav.settings'), icon: <Settings />,
+          match: ['/programs', '/rules', '/scholarships', '/partnership', '/agencies', '/exports', '/notifications', '/settings', '/documents'] },
       ],
     },
   ];

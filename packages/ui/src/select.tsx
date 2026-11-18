@@ -350,8 +350,14 @@ export interface FilterSelectProps extends Omit<SelectProps, 'compact' | 'invali
   /** Hide the visible category when the toolbar already names it (the accessible name stays). */
   hideLabel?: boolean;
   size?: 'sm' | 'md';
-  /** The filter is narrowing results (a non-default value) — drawn as selected. */
+  /** The filter is narrowing results (a non-default value) — drawn as selected. Overrides the derived state. */
   active?: boolean;
+  /**
+   * The value that means "not narrowing" (2026-11). When omitted it is derived: the reset option (value `""`) if the
+   * list has one, otherwise the first option — so a select with no "All" (a sort order, a period) is not drawn as a
+   * selected filter just because it always holds a value.
+   */
+  neutralValue?: string;
   /** For stretching inside a drawer / sheet column. */
   block?: boolean;
   /** The reset option (value `""`) shows as a short "All" after the category; `false` shows the option text; a string overrides. */
@@ -363,7 +369,7 @@ export interface FilterSelectProps extends Omit<SelectProps, 'compact' | 'invali
  * shows, and `active` marks a filter that is narrowing the results.
  */
 export const FilterSelect = forwardRef<HTMLButtonElement, FilterSelectProps>(function FilterSelect(
-  { label, hideLabel, size = 'md', active, block, allLabel, id, name, value, onChange, disabled, className, style, title, children, ...aria }, ref,
+  { label, hideLabel, size = 'md', active, neutralValue, block, allLabel, id, name, value, onChange, disabled, className, style, title, children, ...aria }, ref,
 ) {
   const { t } = useLocale('common');
   const { rows, options } = useMemo(() => readChildren(children), [children]);
@@ -373,7 +379,8 @@ export const FilterSelect = forwardRef<HTMLButtonElement, FilterSelectProps>(fun
   const selected = options[core.selectedIndex];
   const face = selected?.value === '' && allLabel !== false && !hideLabel ? (allLabel ?? t('common:v30.filter.all')) : selected?.label ?? '';
   const labelId = `${core.uid}-l`, valueId = `${core.uid}-v`;
-  const narrowing = active ?? (value !== undefined && value !== '');
+  const neutral = neutralValue ?? (options.some((o) => o.value === '') ? '' : options[0]?.value ?? '');
+  const narrowing = active ?? (value !== undefined && value !== '' && String(value) !== neutral);
   return (
     <>
       <button

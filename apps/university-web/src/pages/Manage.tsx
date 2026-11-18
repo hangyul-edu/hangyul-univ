@@ -1,7 +1,6 @@
-import { Bell, BookOpen, Download, Handshake, ScrollText, Settings, Users, Wallet } from '@hangyul/icons';
+import { Bell, BookOpen, ChevronRight, Download, Handshake, ScrollText, Settings, Users, Wallet } from '@hangyul/icons';
 import { useLocale } from '@hangyul/i18n';
-import { Avatar, EmptyState, QueryState, SkeletonCard, StatusText } from '@hangyul/ui';
-import { PageHeader } from '@hangyul/ynex-ui';
+import { Avatar, EmptyState, PageHeader, QueryState, SkeletonCard, StatusText } from '@hangyul/ui';
 import type { ReactNode } from 'react';
 import { Link } from 'react-router';
 
@@ -45,8 +44,8 @@ export default function Manage() {
     },
   ];
   return (
-    <div className="uv-manage uv22-manage">
-      <PageHeader title={t('common:nav.settings')} sub={t('university:v11.manage.sub')} />
+    <div className="uv-manage uv22-manage uv7 un-page un-manage">
+      <PageHeader title={t('common:nav.settings')} subtitle={t('university:v11.manage.sub')} />
       {groups.map((g) => (
         <section key={g.key} className="uv-manage__group" aria-labelledby={`umg-${g.key}`}>
           <h2 className="uv-manage__title" id={`umg-${g.key}`}>{t(`university:v22.manage.group.${g.key}`)}</h2>
@@ -55,7 +54,8 @@ export default function Manage() {
               <li key={i.to}>
                 <Link to={i.to} className="uv-manage__item">
                   <span className="uv-manage__icon" aria-hidden>{i.icon}</span>
-                  <span><strong>{i.label}</strong><span>{i.hint}</span></span>
+                  <span className="un-manage__text"><strong>{i.label}</strong><span>{i.hint}</span></span>
+                  <ChevronRight className="un-manage__chev hg-flip-rtl" aria-hidden />
                 </Link>
               </li>
             ))}

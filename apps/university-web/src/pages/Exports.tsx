@@ -2,8 +2,7 @@ import { useAuth } from '@hangyul/auth';
 import { Download, ShieldCheck } from '@hangyul/icons';
 import { useLocale } from '@hangyul/i18n';
 import { DEGREE_LEVELS, type CohortStudent, type ExportPresetKey, type ExportPresets } from '@hangyul/types';
-import { Button, Checkbox, ErrorState, Field, Input, Modal, Select, SkeletonCard, StatusText, useToast } from '@hangyul/ui';
-import { PageHeader } from '@hangyul/ynex-ui';
+import { Button, Checkbox, ErrorState, Field, Input, Modal, Select, SkeletonCard, StatusText, useToast, PageHeader } from '@hangyul/ui';
 import { downloadBlob, formatDateTime } from '@hangyul/utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState, type ReactNode } from 'react';
@@ -233,8 +232,8 @@ export default function Exports() {
   const kindLabel = (k: string) => (k.startsWith('PRESET:saved') ? t('university:v8.ex.savedRun') : k.startsWith('PRESET:') ? t(`university:v8.ex.preset.${k.slice(7)}.title`, { defaultValue: k })
     : t(`university:exports.kind.${k}`, { defaultValue: k }));
   return (
-    <div className="hg-stack uc-page uv7 uv8-exports">
-      <PageHeader title={t('common:nav.exports')} sub={t('university:exports.subtitle')} />
+    <div className="hg-stack uc-page uv7 uv8-exports un-page un-exports">
+      <PageHeader title={t('common:nav.exports')} subtitle={t('university:exports.subtitle')} />
       <p className="uc-note" style={{ maxInlineSize: 760 }}><ShieldCheck size={13} aria-hidden style={{ display: 'inline', verticalAlign: '-2px' }} /> {t('university:exports.privacyBody')}</p>
       <ExportJobs />
       <details className="card custom-card uv8-more">

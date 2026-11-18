@@ -102,7 +102,8 @@ function ContextHeader({ e, onReassign, onApprove, onChanges, onMove, onNext, ne
         </h1>
         <div className="wr-head__actions">
           {otherMoves.map((s) => <Button key={s} size="sm" variant="ghost" onClick={() => onMove(s)}>{t(`editor.action.${s}`, { defaultValue: t(`essayStatus.${s}`) })}</Button>)}
-          {canChanges && <Button size="sm" icon={<Undo2 />} onClick={onChanges} title={t('writing:v6.keyHint', { key: 'R' })}>{t('writing:v6.requestChanges')}</Button>}
+          {/* One primary: Approve when nothing blocks it; while blockers are open the forward action is "Request changes". */}
+          {canChanges && <Button size="sm" variant={!canApprove || blockers ? 'primary' : 'secondary'} icon={<Undo2 />} onClick={onChanges} title={t('writing:v6.keyHint', { key: 'R' })}>{t('writing:v6.requestChanges')}</Button>}
           {canApprove && (
             <Button size="sm" variant={blockers ? 'secondary' : 'primary'} icon={<ShieldCheck />} onClick={onApprove} title={t('writing:v6.keyHint', { key: 'A' })}>
               {blockers ? t('writing:gate.approveBlocked', { count: blockers }) : t('writing:v6.approve')}

@@ -1,5 +1,5 @@
 import { useAuth } from '@hangyul/auth';
-import { PlugZap, ShieldCheck, Shuffle } from '@hangyul/icons';
+import { ChevronRight, PlugZap, ShieldCheck, Shuffle } from '@hangyul/icons';
 import { PageHeader } from '@hangyul/ynex-ui';
 import { useQuery } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
@@ -28,12 +28,13 @@ export default function HqManage() {
   return (
     <div className="hg-stack ag-page">
       <PageHeader title={t('v11.hq.title')} sub={t('v11.hq.sub')} />
-      <ul className="ag-manage__list">
+      <ul className="ag-manage__list ag-manage__group">
         {items.map((i) => (
           <li key={i.to}>
             <Link to={i.to} className="ag-manage__item">
               <span className="ag-manage__icon" aria-hidden>{i.icon}</span>
-              <span><strong>{i.label}</strong><span>{i.hint}</span></span>
+              <span className="ag-manage__text"><strong>{i.label}</strong><span>{i.hint}</span></span>
+              <ChevronRight className="ag-manage__chev hg-flip-rtl" size={18} aria-hidden />
             </Link>
           </li>
         ))}

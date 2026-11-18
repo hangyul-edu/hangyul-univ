@@ -42,7 +42,7 @@ export function PaymentMethods() {
   const remove = useMutation({
     mutationFn: (id: string) => api.me.deletePaymentMethod(id),
     onSuccess: () => { setRemoving(null); toast.success(t('billing.manage.removed')); void refresh(); },
-    onError: (e) => { setRemoving(null); setError(t(failureCode(e) === 'DESIGN_PREVIEW' ? 'billing.fail.DESIGN_PREVIEW' : 'billing.manage.removeFailed')); },
+    onError: (e) => { setRemoving(null); setError(t(preview ? 'billing.previewOff' : 'billing.manage.removeFailed')); void e; },
   });
   const makeDefault = useMutation({
     mutationFn: (id: string) => api.me.setDefaultPaymentMethod(id),
@@ -52,7 +52,7 @@ export function PaymentMethods() {
 
   const add = async (kind: PaymentMethodKind) => {
     if (busyKind) return;
-    if (preview) { setError(t('billing.fail.DESIGN_PREVIEW')); return; }
+    if (preview) { setError(t('billing.previewOff')); return; }
     setBusyKind(kind);
     setError(null);
     try {

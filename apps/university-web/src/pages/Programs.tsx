@@ -1,10 +1,10 @@
 // PRIMARY QUESTION: "What do students see for this program, and what happens if we change a requirement?" (V9 U6: impact in the diff).
 import { useAuth } from '@hangyul/auth';
-import { BookOpen, CalendarDays, Clock, ExternalLink, Eye, Pencil, Receipt, Search, Users, Wallet } from '@hangyul/icons';
+import { BookOpen, ExternalLink, Eye, Pencil, Search, Users } from '@hangyul/icons';
 import { useLocale } from '@hangyul/i18n';
 import type { Intake, Program, RequirementProposal } from '@hangyul/types';
-import { Button, Drawer, EmptyState, FilterSelect, QueryState, Select, SkeletonCard, useToast } from '@hangyul/ui';
-import { Col, DateTimeline, PageHeader, Row, SoftBadge, YCard } from '@hangyul/ynex-ui';
+import { Button, Callout, Drawer, EmptyState, FilterSelect, PageHeader, QueryState, Select, SkeletonCard, useToast } from '@hangyul/ui';
+import { Col, DateTimeline, Row, SoftBadge, YCard } from '@hangyul/ynex-ui';
 import { cx, daysUntil, formatDate, formatDateTime, formatMoney, formatNumber } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
@@ -186,36 +186,32 @@ function ProgramDetail({ p, pending }: { p: Program; pending: RequirementProposa
   const RULE_KEYS = ['min_prior_education', 'min_gpa_percent', 'min_topik_level', 'min_ielts', 'min_toefl_ibt', 'language_alternative', 'requires_interview'] as const;
   return (
     <>
-      <div className="card custom-card uv7-proghead">
-        <div className="card-body">
-          <div className="d-sm-flex align-items-start gap-3">
-            <span className="avatar avatar-lg avatar-rounded bg-primary-transparent uv7-proghead__icon" aria-hidden><BookOpen /></span>
-            <div className="flex-fill min-w-0">
-              <h2 className="fs-18 fw-semibold mb-1">{p.name_en}</h2>
-              <p className="fs-13 text-muted mb-2">
-                {[p.name_ko, t(`common:degree.${p.degree_level}`), t(`common:instruction.${p.instruction_language}`), t(`common:field.${p.field}`, { defaultValue: p.field })].filter(Boolean).join(' · ')}
-              </p>
-              <div className="d-flex flex-wrap align-items-center gap-2">
-                {next ? <SoftBadge tone="success">{t('university:programs.open')}</SoftBadge> : <SoftBadge tone="light">{t('university:programs.noOpenIntake')}</SoftBadge>}
-                {pending.length > 0 && <SoftBadge tone="warning">{t('university:rules.pendingShort')}</SoftBadge>}
-                <Provenance data={p} compact />
-              </div>
-            </div>
-            <div className="uv7-proghead__actions">
-              <Link to={applicantsLink({ program_id: p.id })} className="btn btn-sm btn-light uv7-btn"><Users aria-hidden />{t('university:v7.pr.applicants', { count: p.applications ?? 0, n: formatNumber(p.applications ?? 0, locale) })}</Link>
-              <button type="button" className="btn btn-sm btn-primary-light uv7-btn" onClick={() => setPreview(true)}><Eye aria-hidden />{t('university:v4.preview.cta')}</button>
+      {/* Identity header: the programme, its state and four facts — no box, no icon tile. The only action up here is the
+          quiet link to its applicants; "Edit rules" below is the page's one primary. */}
+      <header className="un-proghead">
+        <div className="un-proghead__top">
+          <div className="un-proghead__id">
+            <h2 className="un-proghead__name">{p.name_en}</h2>
+            <p className="un-proghead__meta">
+              {[p.name_ko, t(`common:degree.${p.degree_level}`), t(`common:instruction.${p.instruction_language}`), t(`common:field.${p.field}`, { defaultValue: p.field })].filter(Boolean).join(' · ')}
+            </p>
+            <div className="un-proghead__badges">
+              {next ? <SoftBadge tone="success">{t('university:programs.open')}</SoftBadge> : <SoftBadge tone="light">{t('university:programs.noOpenIntake')}</SoftBadge>}
+              {pending.length > 0 && <SoftBadge tone="warning">{t('university:rules.pendingShort')}</SoftBadge>}
+              <Provenance data={p} compact />
             </div>
           </div>
-          <dl className="uv7-progfacts">
-            <div><dt><Wallet aria-hidden />{t('university:v4.programs.tuitionSemester')}</dt><dd>{p.tuition_per_semester_krw ? formatMoney(p.tuition_per_semester_krw, 'KRW', locale) : '—'}
-              {p.tuition_per_semester_krw ? <span className="d-block fs-11 text-muted fw-normal">{t('university:v4.programs.tuitionYear', { amount: formatMoney(p.tuition_per_semester_krw * 2, 'KRW', locale) })}</span> : null}</dd></div>
-            <div><dt><Receipt aria-hidden />{t('university:programs.fee')}</dt><dd>{formatMoney(p.application_fee_krw, 'KRW', locale)}</dd></div>
-            <div><dt><Clock aria-hidden />{t('university:programs.duration')}</dt><dd>{p.duration_semesters ? t('university:programs.semesters', { count: p.duration_semesters }) : '—'}</dd></div>
-            <div><dt><CalendarDays aria-hidden />{t('university:programs.nextDeadline')}</dt><dd>{next ? formatDate(next.application_deadline, locale) : '—'}
-              <span className="d-block fs-11 text-muted fw-normal">{next ? `${intakeText(intakeKey(next), t)} · ${t('common:time.daysLeft', { count: Math.max(0, daysUntil(next.application_deadline) ?? 0) })}` : t('university:programs.noOpenIntake')}</span></dd></div>
-          </dl>
+          <Link to={applicantsLink({ program_id: p.id })} className="hg-btn hg-btn--sm un-proghead__link"><Users aria-hidden />{t('university:v7.pr.applicants', { count: p.applications ?? 0, n: formatNumber(p.applications ?? 0, locale) })}</Link>
         </div>
-      </div>
+        <dl className="un-proghead__facts">
+          <div><dt>{t('university:v4.programs.tuitionSemester')}</dt><dd>{p.tuition_per_semester_krw ? formatMoney(p.tuition_per_semester_krw, 'KRW', locale) : '—'}
+            {p.tuition_per_semester_krw ? <span className="un-proghead__sub">{t('university:v4.programs.tuitionYear', { amount: formatMoney(p.tuition_per_semester_krw * 2, 'KRW', locale) })}</span> : null}</dd></div>
+          <div><dt>{t('university:programs.fee')}</dt><dd>{formatMoney(p.application_fee_krw, 'KRW', locale)}</dd></div>
+          <div><dt>{t('university:programs.duration')}</dt><dd>{p.duration_semesters ? t('university:programs.semesters', { count: p.duration_semesters }) : '—'}</dd></div>
+          <div><dt>{t('university:programs.nextDeadline')}</dt><dd>{next ? formatDate(next.application_deadline, locale) : '—'}
+            <span className="un-proghead__sub">{next ? `${intakeText(intakeKey(next), t)} · ${t('common:time.daysLeft', { count: Math.max(0, daysUntil(next.application_deadline) ?? 0) })}` : t('university:programs.noOpenIntake')}</span></dd></div>
+        </dl>
+      </header>
       {preview && <StudentPreview p={p} onClose={() => setPreview(false)} />}
 
       <YCard id="rules" className="uv7-rules" title={t('university:rules.title')}
@@ -227,7 +223,7 @@ function ProgramDetail({ p, pending }: { p: Program; pending: RequirementProposa
         })()}
         {pending.map((c) => <PendingChange key={c.id} c={c} />)}
         {editing && perms.canEditRules ? <RulesForm key={p.id} program={p} onDone={() => setEditing(false)} /> : !r ? (
-          <div className="uv7-empty"><span className="avatar avatar-md avatar-rounded bg-light text-muted" aria-hidden><Pencil /></span><span>{t('university:v7.pr.noRules')}</span></div>
+          <EmptyState compact icon={<Pencil />} title={t('university:v7.pr.noRules')} />
         ) : (
           <Row>
             <Col lg={7}>
@@ -245,7 +241,7 @@ function ProgramDetail({ p, pending }: { p: Program; pending: RequirementProposa
                   {pub && <a href={pub} target="_blank" rel="noopener noreferrer" className="fs-12 uv7-cardlink">{t('university:v7.pr.publicPage')}<ExternalLink aria-hidden /><span className="hg-sr-only"> {t('university:v7.pr.newTab')}</span></a>}
                 </div>
                 <ul className="uv7-bullets">{requirementLines(r, t).map((l) => <li key={l}>{l}</li>)}</ul>
-                <button type="button" className="btn btn-sm btn-light uv7-btn w-100 mt-2" onClick={() => setPreview(true)}><Eye aria-hidden />{t('university:v4.preview.cta')}</button>
+                <Button size="sm" block icon={<Eye />} onClick={() => setPreview(true)}>{t('university:v4.preview.cta')}</Button>
               </div>
             </Col>
           </Row>
@@ -348,11 +344,10 @@ export default function Programs() {
   const pendingBy = (id: string) => (proposals.data ?? []).filter((c) => c.program.id === id);
   const select = (id: string) => { const n = new URLSearchParams(sp); n.set('program', id); n.delete('edit'); setSp(n, { replace: true }); };
   return (
-    <div className="uv7 uv7-programs">
-      <PageHeader title={t('university:nav.programsRules')} sub={t('university:programs.subtitleV3')} />
-      <UpcomingDates />
+    <div className="uv7 uv7-programs un-page un-programs">
+      <PageHeader title={t('university:nav.programsRules')} subtitle={t('university:programs.subtitleV3')} />
       {(proposals.data?.length ?? 0) > 0 && (
-        <div className="alert alert-warning uv7-alert" role="status">{t('university:rules.pendingCount', { count: proposals.data?.length ?? 0 })}</div>
+        <div role="status" className="un-programs__notice"><Callout tone="warning">{t('university:rules.pendingCount', { count: proposals.data?.length ?? 0 })}</Callout></div>
       )}
       <QueryState query={q} skeleton={<SkeletonCard lines={5} />} isEmpty={(d) => d.length === 0}
         empty={<EmptyState icon={<BookOpen />} title={t('university:programs.empty')} text={t('university:programs.emptyText')} />}>
@@ -360,6 +355,7 @@ export default function Programs() {
           const selected = all.find((p) => p.id === sp.get('program')) ?? filtered.find((p) => p.is_active !== false) ?? all.find((p) => p.is_active !== false) ?? filtered[0] ?? all[0];
           return (
             <div className="uv7-master">
+              <div className="un-programs__side">
               <YCard className="uv7-master__list" title={t('university:v7.pr.listTitle')} count={formatNumber(filtered.length, locale)} flush>
                 <nav aria-label={t('university:rules.programList')}>
                   <div className="uv7-master__filters">
@@ -395,6 +391,9 @@ export default function Programs() {
                   </ul>
                 </nav>
               </YCard>
+              {/* The next intake dates sit under the list they belong to, not above the page's main task. */}
+              <UpcomingDates />
+              </div>
               <section className="uv7-master__detail" aria-live="polite" aria-label={selected?.name_en}>
                 {selected ? <ProgramDetail key={selected.id} p={selected} pending={pendingBy(selected.id)} /> : <EmptyState compact title={t('common:states.noResults')} />}
               </section>

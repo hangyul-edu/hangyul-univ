@@ -127,7 +127,7 @@ export function PaymentCheckout({ serviceName, amountMinor, currency, order: ini
 
   const pay = async () => {
     if (busy || !chosen) return;
-    if (preview) { setError(t('billing.fail.DESIGN_PREVIEW')); return; }
+    if (preview) { setError(t('billing.previewOff')); return; }
     setBusy('pay');
     setError(null);
     try {
@@ -148,7 +148,7 @@ export function PaymentCheckout({ serviceName, amountMinor, currency, order: ini
 
   const add = async (kind: PaymentMethodKind) => {
     if (busy) return;
-    if (preview) { setError(t('billing.fail.DESIGN_PREVIEW')); return; }
+    if (preview) { setError(t('billing.previewOff')); return; }
     setBusy('add');
     setError(null);
     try {

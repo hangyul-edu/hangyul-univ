@@ -50,7 +50,7 @@ the report.
    remaining single-column grids to `minmax(0, 1fr)`.
 8. Native: build and run all three apps on a device or emulator and review the redesigned screens (not visually verified in the final pass); iOS build.
 9. SAML and SCIM for university SSO when a real IdP is connected (OIDC is implemented).
-10. Remaining visual work: Student Explore and Profile/More; Operations Manage and secondary pages (Templates, Vendors, Catalog, Audit, essay editor); University Programs header; preview-pill overlap at 768.
+10. Remaining visual work: Operations HQ pages not reachable in Design Preview (HQ Operations, Production readiness, Accounts, Assignment override); University rule edit form and Notifications; checkbox visual size on phones.
 11. Performance attribution of LCP on a quiet host (lab numbers were taken on a saturated machine).
 
 ## 4. Explicitly not planned

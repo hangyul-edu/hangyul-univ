@@ -5,7 +5,7 @@
 // Markup and class names follow the template so its CSS applies unchanged.
 import { Menu } from '@hangyul/icons';
 import { useLocale } from '@hangyul/i18n';
-import { LocaleSelector, Logo, NotificationBell, RouteScrollManager, UserMenu, type NavSection } from '@hangyul/ui';
+import { LocaleSelector, Logo, navItemMatches, NotificationBell, RouteScrollManager, UserMenu, type NavSection } from '@hangyul/ui';
 import { cx } from '@hangyul/utils';
 import { useEffect, useState, type ReactNode } from 'react';
 import { Link, NavLink, useLocation } from 'react-router';
@@ -166,11 +166,25 @@ export function YnexShell({ product, productLabel, sections, menu = 'light', chi
 }
 
 function SidebarSection({ title, items }: NavSection) {
+  const { pathname } = useLocation();
   return (
     <>
       {title && <li className="slide__category"><span className="category-name">{title}</span></li>}
       {items.map((it) => (
         <li key={it.to} className="slide">
+          {/* NavLink only sets `aria-current` when its own `to` matches; an item current through `match` (a hub's
+              sub-pages that do not share its path prefix) is a Link that states it itself. */}
+          {navItemMatches(it, pathname) ? (
+            <Link to={it.to} className="side-menu__item active" aria-current="page">
+            <span className="side-menu__icon" aria-hidden>{it.icon}</span>
+            <span className="side-menu__label">{it.label}</span>
+            {it.badge ? (
+              <span className={cx('badge yx-navbadge', it.alert ? 'bg-primary-transparent' : 'bg-light text-muted')}>
+                {it.badge > 99 ? '99+' : it.badge}
+              </span>
+            ) : null}
+          </Link>
+          ) : (
           <NavLink to={it.to} end={it.end} className={({ isActive }) => cx('side-menu__item', isActive && 'active')}>
             <span className="side-menu__icon" aria-hidden>{it.icon}</span>
             <span className="side-menu__label">{it.label}</span>
@@ -180,6 +194,7 @@ function SidebarSection({ title, items }: NavSection) {
               </span>
             ) : null}
           </NavLink>
+          )}
         </li>
       ))}
     </>

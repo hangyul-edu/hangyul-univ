@@ -48,6 +48,8 @@ html[data-nav-layout='vertical'] {
   .app-header .yx-search { min-width: 0; flex: 0 1 26rem; padding-inline-start: 0.75rem; }
   .app-header .yx-search > * { width: 100%; }
   .app-header .yx-search .hg-input { height: 2.5rem; min-height: 2.5rem; }
+  // under a finger the top-bar search is a 44 px target like every other compact control (2026-11)
+  @media (pointer: coarse) { .app-header .yx-search .hg-input { height: 2.75rem; min-height: 2.75rem; } }
   .app-header .yx-org { padding-inline: 0.75rem; border-inline-end: 1px solid var(--header-border-color); }
   .app-header .header-content-left { flex: 1 1 auto; min-width: 0; }
   .app-header .header-content-right { flex: none; gap: 0.25rem; padding-inline-end: 0.5rem; }
@@ -89,6 +91,13 @@ html[data-nav-layout='vertical'] {
 .yx-pagehead__sub { font-size: 0.8125rem; margin-top: 0.125rem; }
 .yx-pagehead__end { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
 .yx-pagehead .btn-list { display: flex; flex-wrap: wrap; gap: 0.5rem; min-width: 0; max-width: 100%; }
+// 2026-11: the template spaces `.btn-list` with margins on every descendant `button / div / a / input` (0 6px 6px 0).
+// The page header already spaces its actions with `gap`, so the margins doubled the spacing — and, being descendant
+// selectors, they leaked into composite controls placed there (a Segmented track grew taller than its options).
+.yx-pagehead .btn-list { margin-block-end: 0; }
+.yx-pagehead .btn-list > :is(button, div, a, input),
+.btn-list :is(.hg-seg, .hg-tabs, .hg-fsel, .hg-sel, .hg-input-icon) :is(button, div, a, input),
+.btn-list :is(.hg-seg, .hg-tabs, .hg-fsel, .hg-sel, .hg-input-icon) { margin: 0; }
 .yx-pagehead__end { min-width: 0; max-width: 100%; }
 @media (max-width: 767.98px) { .yx-pagehead__end { align-items: flex-start; } }
 
@@ -154,6 +163,10 @@ button.yx-stat { border: 0; background: #fff; padding: 0; font: inherit; }
 .breadcrumb { display: flex; flex-wrap: wrap; list-style: none; padding: 0; margin: 0; font-size: 0.8125rem; }
 .breadcrumb-item + .breadcrumb-item { padding-inline-start: 0.5rem; }
 .breadcrumb-item + .breadcrumb-item::before { content: '›'; padding-inline-end: 0.5rem; color: var(--text-muted); }
+// 2026-11: the template's page-header divider is a tabler-icons glyph (\ea65). The icon fonts do not ship (Lucide
+// replaced them), so it drew an empty box. A plain chevron in the text face, mirrored for RTL.
+.page-header-breadcrumb .breadcrumb-item + .breadcrumb-item::before { content: '›'; font-family: inherit !important; color: var(--text-muted); }
+[dir='rtl'] .page-header-breadcrumb .breadcrumb-item + .breadcrumb-item::before { content: '‹'; font-family: inherit !important; }
 .breadcrumb-item a { color: rgb(var(--primary-rgb)); text-decoration: none; }
 .breadcrumb-item.active { color: var(--default-text-color); font-weight: 500; }
 // YNEX `.page` centres content vertically; short pages floated mid-screen.

@@ -2,13 +2,13 @@ import { useAuth } from '@hangyul/auth';
 import { Download, ExternalLink, FileText, Lock } from '@hangyul/icons';
 import { useLocale } from '@hangyul/i18n';
 import { DOCUMENT_CATEGORIES, type VaultDocument } from '@hangyul/types';
-import { Badge, Button, Callout, Card, DataTable, DescriptionList, Drawer, EmptyState, ErrorState, FilterSelect, Skeleton, useToast, type ColumnDef } from '@hangyul/ui';
-import { PageHeader } from '@hangyul/ynex-ui';
+import { Badge, Button, Callout, Card, DataTable, DescriptionList, Drawer, EmptyState, ErrorState, FilterSelect, PageHeader, Skeleton, useToast, type ColumnDef } from '@hangyul/ui';
 import { countryName, documentTone, formatDate, formatNumber } from '@hangyul/utils';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router';
 
+import { Country } from '../components/common';
 import { useUniversity } from '../lib/university';
 
 function formatBytes(n: number | undefined, locale: string) {
@@ -85,7 +85,7 @@ export default function Documents() {
     { id: 'title', header: t('university:documents.document'), enableSorting: false, enableHiding: false, meta: { primary: true, label: t('university:documents.document') },
       cell: ({ row }) => <span className="hg-row" style={{ gap: 8 }}><FileText size={16} aria-hidden className="hg-subtle" /><span><span className="hg-strong" style={{ display: 'block' }}>{row.original.title}</span><span className="hg-xs hg-subtle">{t(`common:docCategory.${row.original.category}`)}</span></span></span> },
     { id: 'student', header: t('university:documents.student'), enableSorting: false, meta: { label: t('university:documents.student') }, cell: ({ row }) => row.original.owner_name ?? '—' },
-    { id: 'country', header: t('university:documents.issuing'), enableSorting: false, meta: { label: t('university:documents.issuing'), hideOnMobile: true }, cell: ({ row }) => (row.original.issuing_country ? countryName(row.original.issuing_country, locale) : '—') },
+    { id: 'country', header: t('university:documents.issuing'), enableSorting: false, meta: { label: t('university:documents.issuing'), hideOnMobile: true }, cell: ({ row }) => <Country code={row.original.issuing_country} /> },
     { id: 'status', header: t('university:documents.status'), enableSorting: false, meta: { label: t('university:documents.status') }, cell: ({ row }) => <Badge size="sm" tone={documentTone[row.original.status]}>{t(`common:docStatus.${row.original.status}`)}</Badge> },
     { id: 'legal', header: t('university:documents.legalization'), enableSorting: false, meta: { label: t('university:documents.legalization'), hideOnMobile: true }, cell: ({ row }) => t(`common:legalization.status.${row.original.legalization_status}`) },
     { id: 'updated', header: t('university:documents.updated'), enableSorting: false, meta: { label: t('university:documents.updated') }, cell: ({ row }) => <span>{formatDate(row.original.updated_at, locale)}</span> },
@@ -94,15 +94,15 @@ export default function Documents() {
   if (isHangyul) {
     return (
       <div className="hg-stack uc-page uv7">
-        <PageHeader title={t('common:nav.documents')} sub={t('university:documents.subtitle')} />
+        <PageHeader title={t('common:nav.documents')} subtitle={t('university:documents.subtitle')} />
         <Callout tone="info" title={t('university:documents.hangyulTitle')}>{t('university:documents.hangyulBody')}</Callout>
       </div>
     );
   }
 
   return (
-    <div className="hg-stack uc-page uv7">
-      <PageHeader title={t('common:nav.documents')} sub={t('university:documents.subtitle')} />
+    <div className="hg-stack uc-page uv7 un-page un-documents">
+      <PageHeader title={t('common:nav.documents')} subtitle={t('university:documents.subtitle')} />
       <Callout tone="info" icon={<Lock aria-hidden />}>{t('university:documents.sharingRule')}</Callout>
       <Card>
         {q.isError ? <ErrorState error={q.error} onRetry={() => q.refetch()} /> : (

@@ -120,7 +120,7 @@ export default function Profile() {
   const [sp] = useSearchParams();
   const [editing, setEditing] = useState<StepKey | null>(() => (ORDER.includes(sp.get('edit') as StepKey) ? (sp.get('edit') as StepKey) : null));
   return (
-    <div className="st-page">
+    <div className="st-page sp-profile">
       <PageIntro title={t('profileV3.title')} subtitle={t('profileV3.subtitle')} />
       <QueryState query={q} skeleton={<SkeletonCard lines={8} />}>
         {(p) => {
@@ -137,7 +137,7 @@ export default function Profile() {
                 </div>
                 <p className="pf-head__state">{missing.length === 0 ? t('profileV3.allDone') : t('profileV3.left', { count: missing.length })}</p>
               </div>
-              <ul className="hg-panel pf-list">
+              <ul className="pf-list">
                 {ORDER.map((k) => {
                   const done = !!steps.find((s) => s.key === k)?.done;
                   const lines = SECTION_OF[k].map((key) => sections.find((x) => x.key === key)).filter((u) => u && (!done || u.effect.kind === 'NEXT_LEVEL')).map((u) => unlockText(t, u!)).filter(Boolean) as string[];

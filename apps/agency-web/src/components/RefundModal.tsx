@@ -49,8 +49,7 @@ export function RefundModal({ order, onClose, submit, onDone }: {
 
   const failureText = failure && (
     failure.code === 'AMOUNT_EXCEEDS_REMAINING' ? t('ops.refund.fail.AMOUNT_EXCEEDS_REMAINING', { remaining: money(failure.remainingMinor ?? remaining) })
-      : failure.code === 'DESIGN_PREVIEW' ? t('ops.refund.fail.DESIGN_PREVIEW')
-        : failure.message || t('ops.refund.fail.generic')
+      : failure.message || t('ops.refund.fail.generic')
   );
 
   return (
@@ -72,7 +71,8 @@ export function RefundModal({ order, onClose, submit, onDone }: {
         {failure && (
           <Callout tone="danger" title={t('ops.refund.fail.title')}>
             {failureText}
-            {failure.code && failure.code !== 'DESIGN_PREVIEW' && <span className="ops-refund__code hg-num">{t('ops.refund.fail.code', { code: failure.code })}</span>}
+            {/* a 503 is the service (or the owner-review transport) declining, not a refund refusal with a code to quote */}
+            {failure.code && failure.status !== 503 && <span className="ops-refund__code hg-num">{t('ops.refund.fail.code', { code: failure.code })}</span>}
           </Callout>
         )}
         <DescriptionList items={[

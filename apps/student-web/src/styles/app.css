@@ -2026,3 +2026,92 @@ span.v25-line__btn { cursor: default; }
   .sp-apps .hg-lrow__end > .sh-app-end { flex-direction: column; align-items: flex-start; gap: 4px; }
   .sp-apps .sa-when { text-align: start; }
 }
+
+/* ==================================================================================================
+   Student page pass, second round (2026-11): Explore, Profile, My progress.
+   ================================================================================================== */
+
+/* ---------------------------------------------------------------------------------- explore */
+/* A list of universities on the page, not a boxed table: each university is a block — mark, name, place — with
+   its programmes as quiet rows under it. One hairline between universities; none around them. */
+.sp-explore .v4-groups { background: transparent; border: 0; border-radius: 0; overflow: visible; }
+.sp-explore .v4-group { padding-block: 20px 8px; }
+.sp-explore .v4-group:first-child { padding-block-start: 4px; }
+.sp-explore .v4-group + .v4-group { border-block-start: 1px solid var(--hg-border); }
+.sp-explore .v4-group__head { padding: 0 0 10px; gap: 14px; }
+.sp-explore .v4-group__head > .hg-mark { inline-size: 48px; block-size: 48px; border-radius: var(--hg-radius-lg); font-size: var(--hg-text-xl); }
+.sp-explore .v4-group__head > .hg-mark--photo { inline-size: 64px; }
+.sp-explore .v4-group__head { grid-template-columns: auto minmax(0, 1fr) auto; }
+.sp-explore .v4-group__name { font-size: var(--hg-type-h3); line-height: var(--hg-type-h3-leading); letter-spacing: -0.01em; }
+.sp-explore .v4-group__meta { font-size: var(--hg-text-sm); color: var(--hg-text-secondary); }
+.sp-explore .v4-group__partner { color: var(--hg-selected-fg); }
+.sp-explore .v4-group .v4-row { border-block-start: 1px solid var(--hg-border-subtle); }
+.sp-explore .v4-row--open { background: transparent; }
+.sp-explore .v4-row__main { padding: 14px 0; gap: 12px; }
+.sp-explore .v4-row--grouped .v4-row__main { padding-inline-start: 62px; }
+.sp-explore .v4-row__more { padding: 0 0 18px 62px; }
+.sp-explore .v4-row__body { gap: 4px; }
+.sp-explore .v4-row__prog { font-size: var(--hg-type-body); }
+.sp-explore .v4-row__facts { gap: 2px 16px; line-height: 1.6; }
+.sp-explore .v4-row:not(.v4-row--grouped) + .v4-row:not(.v4-row--grouped) { border-block-start: 1px solid var(--hg-border-subtle); }
+@media (max-width: 767px) {
+  .sp-explore .v4-group { padding-block: 18px 6px; }
+  /* phones: programme rows start at the page edge; the university block above already carries the mark */
+  .sp-explore .v4-row--grouped .v4-row__main, .sp-explore .v4-row__more { padding-inline-start: 0; }
+  .sp-explore .v4-row__facts { gap: 2px 12px; }
+}
+/* The verdict filter: every option stays reachable — it wraps onto a second line instead of running under the edge. */
+.sp-explore .sx-bar .hg-seg { flex-wrap: wrap; overflow: visible; }
+@media (max-width: 599px) {
+  .sp-explore .sx-bar { align-items: stretch; flex-direction: column; gap: 6px; }
+  .sp-explore .sx-bar .hg-seg { display: flex; }
+  .sp-explore .sx-bar .hg-seg button { flex: 1 1 auto; white-space: normal; text-align: center; }
+  .sp-explore .sx-method summary { min-block-size: 44px; }
+}
+
+/* ------------------------------------------------------------------------ my progress (more) */
+.sp-rows { border-block-start: 0; }
+.sp-rows > li { border-block-end: 1px solid var(--hg-border-subtle); }
+.sp-rows > li:last-child { border-block-end: 0; }
+.sp-rows .hg-lrow { padding-block: 14px; min-block-size: 64px; flex-wrap: nowrap; gap: 14px; }
+.sp-rows .hg-lrow:hover { background: transparent; }
+.sp-rows .hg-lrow__title { font-size: var(--hg-type-body); font-weight: var(--hg-weight-medium); }
+.sp-more .st-more__icon { inline-size: 40px; block-size: 40px; border-radius: var(--hg-radius-lg); background: var(--hg-bg-paper); color: var(--hg-text); }
+.sp-more .st-more__icon svg { inline-size: 18px; block-size: 18px; }
+.sp-more .hg-section { gap: 4px; }
+.sp-more .hg-section__title { font-size: var(--hg-text-sm); font-weight: var(--hg-weight-semibold); color: var(--hg-text-secondary); letter-spacing: 0; }
+.sp-more { gap: 28px; }
+
+/* ----------------------------------------------------------------------------------- profile */
+.sp-profile .pf-head { padding-block-end: 20px; border-block-end: 1px solid var(--hg-border); }
+.sp-profile .pf-list { margin-block-start: -12px; }
+.sp-profile .pf-row { padding: 20px 0; gap: 20px; }
+.sp-profile .pf-row + .pf-row { border-block-start: 1px solid var(--hg-border-subtle); }
+.sp-profile .pf-row__title { font-size: var(--hg-type-h3); line-height: var(--hg-type-h3-leading); letter-spacing: -0.01em; }
+.sp-profile .pf-row__why { font-size: var(--hg-text-md); line-height: 1.55; }
+.sp-profile .pf-row__values { font-size: var(--hg-text-sm); color: var(--hg-text); }
+.sp-profile .pf-row__unlock { color: var(--hg-selected-fg); }
+.sp-profile .pf-row > .hg-btn { min-inline-size: 72px; justify-content: center; }
+@media (max-width: 767px) { .sp-profile .pf-row > .hg-btn { min-block-size: 44px; } .sp-profile .pf-row { gap: 12px; } }
+
+/* ------------------------------------------------------------------------------------- visa */
+/* The "what needs you now" object: the same warm surface as every other next step — no accent bar, no shadow. */
+.vr-page .sv-now { padding: clamp(20px, 3vw, 28px); background: var(--hg-bg-paper); border: 1px solid var(--hg-border-subtle); box-shadow: none; }
+.vr-page .sv-now::before { display: none; }
+.vr-page .sv-now__eyebrow { color: var(--hg-selected-fg); font-weight: var(--hg-weight-semibold); }
+/* The folded sections are one list container: card radius, hairlines inside. */
+.v9-folds { border-radius: var(--hg-radius-xl); overflow: hidden; }
+.v9-fold { border-block-start-color: var(--hg-border-subtle); }
+.v9-fold > summary { padding: 14px 16px; min-block-size: 52px; align-items: center; }
+
+/* The canvas is white to the very bottom: the body showed a strip of warm paper under the shell on short pages. */
+body { background: var(--hg-bg); }
+
+/* ---------------------------------------------------------------------------------- arrival */
+.hg-sshell .cg-hero { background: var(--hg-bg-paper); border: 1px solid var(--hg-border-subtle); box-shadow: none; }
+.hg-sshell .cg-hero::before { display: none; }
+
+/* ------------------------------------------------------------------------------------ tasks */
+/* The full task list on the home is rows on the page, like every other list there. */
+.sp-home .hg-panel.stk-list { background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+.sp-home .stk-list > .stk-row { padding-inline: 0; }

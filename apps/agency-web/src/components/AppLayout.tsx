@@ -121,10 +121,11 @@ export function AppLayout() {
     { items: [
       { to: '/', end: true, label: t('v22.nav.today'), icon: <LayoutDashboard />, badge: counts.overdue, alert: counts.overdue > 0 },
       { to: '/students', label: t('v22.nav.students'), icon: <Users /> },
-      { to: '/review', label: t('v22.nav.work'), icon: <FileCheck />, badge: counts.queue + counts.essays + counts.submissions, alert: counts.queue + counts.essays + counts.submissions > 0 },
+      { to: '/review', label: t('v22.nav.work'), icon: <FileCheck />, match: ['/applications', '/submissions', '/essays', '/documents'], badge: counts.queue + counts.essays + counts.submissions, alert: counts.queue + counts.essays + counts.submissions > 0 },
       { to: '/messages', label: t('v22.nav.messages'), icon: <MessagesSquare />, badge: counts.unread, alert: counts.unread > 0 },
       { to: '/performance', label: t('v22.nav.insights'), icon: <ChartColumn /> },
-      { to: '/manage', label: t('v22.nav.settings'), icon: <Settings /> },
+      { to: '/manage', label: t('v22.nav.settings'), icon: <Settings />,
+        match: ['/team', '/vendors', '/services', '/templates', '/universities', '/notifications', '/settings', '/payments', '/audit'] },
     ] },
     ...(perms.isHangyul ? [{ title: t('sidebar.hangyul'), items: [
       { to: '/hq', end: true, label: t('sidebar.operations', { defaultValue: 'Operations' }), icon: <Radar /> },

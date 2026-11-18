@@ -41,6 +41,7 @@ export const routes = [
       { index: true, lazy: page(() => import('./pages/Dashboard')) },
       { path: 'applicants', lazy: page(() => import('./pages/Dashboard')) },
       { path: 'applications/:id', lazy: page(() => import('./pages/ApplicationDetail')) },
+      { path: 'applications', element: <Navigate to="/" replace /> }, // the nav item's target while a review is open
       { path: 'pipeline', element: <WorkRedirect /> },
       { path: 'offers', element: <WorkRedirect stage="admitted" /> },
       { path: 'funnel', element: <Navigate to="/analytics" replace /> },

@@ -359,7 +359,7 @@ export default function Explore() {
   // "For you" counts what the tab lists: every program at the student's degree level (the groups below split it).
   const forYou = (matches.data?.items ?? []).filter((m) => !otherDegree(m)).length;
   return (
-    <div className="st-page">
+    <div className="st-page sp-explore">
       <PageIntro title={t('discover.title')} subtitle={t('v4.discoverSubtitle')}
         actions={<Link to="/compare#budget" className="hg-link-arrow">{t('discover.budgetLink')}</Link>} />
       <div className="hg-stack" style={{ '--hg-gap': '20px' } as React.CSSProperties}>

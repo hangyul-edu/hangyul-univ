@@ -15,6 +15,7 @@
 import type { PreviewApp, PreviewVariant } from '@hangyul/api-client/preview';
 import { i18next } from '@hangyul/i18n';
 import { Eye } from '@hangyul/icons';
+import { useEffect, useState } from 'react';
 
 export const DESIGN_PREVIEW_ENABLED: boolean = import.meta.env.VITE_ENABLE_DESIGN_PREVIEW === '1';
 export const DESIGN_PREVIEW_KEY = 'hg.designPreview';
@@ -86,23 +87,41 @@ export const DesignPreviewLoginEntry: (p: { variant?: PreviewVariant }) => React
 export const DesignPreviewPaidEntry: () => React.ReactNode = DESIGN_PREVIEW_ENABLED
   ? function DesignPreviewPaidEntry() {
     return (
-      <button type="button" className="hg-preview-entry" data-design-preview="paid" onClick={() => enterDesignPreview('paid')}>
-        <Eye aria-hidden size={16} />{copy().paid}
+      <button type="button" className="hg-preview-entry hg-preview-entry--quiet" data-design-preview="paid" onClick={() => enterDesignPreview('paid')}>
+        <Eye aria-hidden size={14} />{copy().paid}
       </button>
     );
   }
   : none;
 
-/** Small fixed indicator while preview is active. Out of the layout flow, so it cannot distort a screen. */
+/**
+ * The indicator while preview is active (2026-11). It must always be visible and must never sit on content, at any
+ * width — so by default it is a slim edge tab that lives entirely inside the page gutter (16 px at 320, wider
+ * above), reading "Design Preview" along the inline-start edge; on a console wide enough to show its side panel it is
+ * a small pill over the panel's empty bottom corner instead. Pressing the tab opens the pill with "Exit" (and
+ * pressing it again, Escape or leaving it closes it), so the only time anything overlays the page is while the
+ * reviewer is using it.
+ */
 export const DesignPreviewBadge: () => React.ReactNode = DESIGN_PREVIEW_ENABLED
   ? function DesignPreviewBadge() {
-    if (!designPreviewVariant()) return null;
+    const on = !!designPreviewVariant();
+    const [open, setOpen] = useState(false);
+    useEffect(() => {
+      if (!on) return undefined;
+      document.documentElement.setAttribute('data-design-preview', '');
+      return () => document.documentElement.removeAttribute('data-design-preview');
+    }, [on]);
+    if (!on) return null;
     const c = copy();
     return (
-      <div className="hg-preview-badge" role="status" data-design-preview="badge" title={c.note}>
-        <span className="hg-preview-badge__dot" aria-hidden />
-        <span>{c.badge}</span>
-        <button type="button" onClick={exitDesignPreview}>{c.exit}</button>
+      <div className="hg-preview-badge" role="status" data-design-preview="badge" data-open={open || undefined} title={c.note}
+        onKeyDown={(e) => { if (e.key === 'Escape') setOpen(false); }}
+        onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setOpen(false); }}>
+        <button type="button" className="hg-preview-badge__tab" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+          <span className="hg-preview-badge__dot" aria-hidden />
+          <span className="hg-preview-badge__label">{c.badge}</span>
+        </button>
+        <button type="button" className="hg-preview-badge__exit" onClick={exitDesignPreview}>{c.exit}</button>
       </div>
     );
   }

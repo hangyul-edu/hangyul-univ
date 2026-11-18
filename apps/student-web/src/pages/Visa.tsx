@@ -703,7 +703,7 @@ function Help({ plan, bare = false }: { plan: VisaRoutePlan; bare?: boolean }) {
           <div><dt>{t('help.who')}</dt><dd>{t(`who.${issue.who}`)}</dd></div>
           <div><dt>{t('help.when')}</dt><dd>{issue.when ? fmt(issue.when, locale) : t('help.noDate')}</dd></div>
           {h?.source_url && <div><dt>{t('help.source')}</dt><dd><a className="hg-link" href={h.source_url} target="_blank" rel="noreferrer">{t('route.source')}</a></dd></div>}
-          <div><dt>{t('help.contact')}</dt><dd>{h?.contact.name ?? t('who.counselor')} · <Link className="hg-link" to="/messages">{t('help.messages')}</Link></dd></div>
+          <div><dt>{t('help.contact')}</dt><dd>{/* Team identity: the student is served by the Hangyul Univ team — never a staff name (STATE_MAP). */}{t('student:messages.team')} · <Link className="hg-link" to="/messages">{t('help.messages')}</Link></dd></div>
         </dl>
       )}
       {h?.support_case && !h.support_case.closed && (

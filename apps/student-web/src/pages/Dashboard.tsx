@@ -278,7 +278,8 @@ export function Now({ d }: { d: DashboardData }) {
         )}
       </Section>
       {showUni && (
-        <Section title={t('home.uniNow')} id="university-now" className="sp-lane">
+        <Section title={t('home.uniNow')} id="university-now" className="sp-lane"
+          action={isWaiting(d) && uni.length > 0 ? <Link to="/applications" className="hg-link-arrow">{t('common:actions.viewAll')}</Link> : undefined}>
           {uni.length === 0 ? <p className="sp-lane__empty">{t('home.uniNowEmpty')}</p> : (
             <ul className="v22-rows">
               {uni.map((a) => (
@@ -286,7 +287,7 @@ export function Now({ d }: { d: DashboardData }) {
                   <ListRow as={Link} to={`/applications/${a.id}`} chevron
                     lead={<UniMark name={localName(a.university)} color={a.university.brand_color} photo={a.university.photo} />}
                     title={t(`stage.${a.status}`, { defaultValue: t(`common:appStatus.${a.status}`) })}
-                    meta={`${localName(a.university)} · ${localName(a.program)}`} />
+                    meta={`${localName(a.university)} · ${localName(a.program)} · ${intakeLabel(t, a.intake.term, a.intake.year)}`} />
                 </li>
               ))}
             </ul>
@@ -375,7 +376,11 @@ function Applications({ d }: { d: DashboardData }) {
   const improve = d.improve ?? [];
   // Nothing needs the student: the section becomes the plain list of their applications with where each one stands.
   const quiet = need.length === 0;
-  const rows = quiet ? d.applications.slice(0, 4) : need;
+  // While waiting, an application the university holds is already a row in the university lane (status, university,
+  // programme, intake, link) — it is said once, there. Only the ones that lane does not show are listed here.
+  const inLane = new Set(isWaiting(d) ? withUniversity(d).map((a) => a.id) : []);
+  const rows = quiet ? d.applications.filter((a) => !inLane.has(a.id)).slice(0, 4) : need;
+  if (rows.length === 0) return null;
   return (
     <Section title={quiet ? t('home.applications') : t('v22.home.appsNeedYou')} id="applications" className="v22-main"
       action={<Link to="/applications" className="hg-link-arrow">{t('common:actions.viewAll')}</Link>}>

@@ -84,6 +84,23 @@ describe('the home while nothing is the student\'s to do', () => {
     expect(within(next).getByText('No deadlines in the coming weeks.')).toBeInTheDocument();
   });
 
+  it('says each application once: in the university lane, with the way to all of them — not again in a list below', () => {
+    renderUI(<HomeBody d={dashboard()} />);
+    const uni = screen.getByRole('region', { name: 'What the university is doing' });
+    expect(within(uni).getByText(/Pusan National University · Business Administration \(BBA\) · Spring 2027/)).toBeInTheDocument();
+    expect(within(uni).getByRole('link', { name: 'View all' })).toHaveAttribute('href', '/applications');
+    expect(screen.queryByRole('region', { name: 'Your applications' })).toBeNull();
+    expect(screen.getAllByText(/Business Administration \(BBA\)/)).toHaveLength(2); // the team's line and the university's line
+  });
+
+  it('still lists an application the university lane does not show', () => {
+    const d = dashboard({ applications: [app('a1', 'UNIVERSITY_REVIEW', 'Pusan National University'), app('a2', 'ENROLLED', 'Kyungpook National University')] as never });
+    renderUI(<HomeBody d={d} />);
+    const list = screen.getByRole('region', { name: 'Your applications' });
+    expect(within(list).getByText('Kyungpook National University')).toBeInTheDocument();
+    expect(within(list).queryByText('Pusan National University')).toBeNull();
+  });
+
   it('never calls an application "reviewed" that a university is not reviewing', () => {
     renderUI(<HomeBody d={dashboard({ applications: [app('a1', 'WAITLISTED', 'Pusan National University')] as never })} />);
     expect(screen.getByRole('heading', { level: 2, name: 'Nothing to do right now' })).toBeInTheDocument();

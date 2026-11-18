@@ -1,8 +1,7 @@
 import { useAuth } from '@hangyul/auth';
 import { ArrowLeft, Lock, MessageSquare, Send } from '@hangyul/icons';
 import { useLocale } from '@hangyul/i18n';
-import { Avatar, Badge, Button, Card, Checkbox, EmptyState, ErrorState, QueryState, SkeletonCard, Textarea, useToast } from '@hangyul/ui';
-import { PageHeader } from '@hangyul/ynex-ui';
+import { Avatar, Badge, Button, ButtonLink, Card, Checkbox, Chip, EmptyState, ErrorState, PageHeader, QueryState, SkeletonCard, Textarea, useToast } from '@hangyul/ui';
 import { cx, formatDateTime, formatRelative } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
@@ -91,11 +90,11 @@ export default function Messages() {
   const list = q.data ?? [];
   if (!q.isLoading && !q.isError && list.length === 0) {
     return (
-      <div className="hg-stack uc-page uv7">
-        <PageHeader title={t('common:nav.messages')} sub={t('university:v8.msg.subtitle')} />
+      <div className="hg-stack uc-page uv7 un-page un-messages">
+        <PageHeader title={t('common:nav.messages')} subtitle={t('university:v8.msg.subtitle')} />
         <Card className="uv8-msgempty">
           <EmptyState icon={<MessageSquare />} title={t('university:v8.msg.emptyTitle')} text={t('university:v8.msg.emptyText')}
-            action={<Link to={appFilter ? `/applications/${appFilter}` : '/applicants'} className="btn btn-primary uv7-btn">{appFilter ? t('university:messages.openApplication') : t('university:v8.msg.openApplicants')}</Link>} />
+            action={<ButtonLink as={Link} to={appFilter ? `/applications/${appFilter}` : '/applicants'} variant="primary">{appFilter ? t('university:messages.openApplication') : t('university:v8.msg.openApplicants')}</ButtonLink>} />
           <ol className="uv8-msgempty__how">
             <li>{t('university:v8.msg.how1')}</li>
             <li>{t('university:v8.msg.how2')}</li>
@@ -110,15 +109,13 @@ export default function Messages() {
     .filter((c) => tab === 'all' || (tab === 'applications' ? !!c.application_id : c.unread > 0));
   const counts = { all: list.length, applications: list.filter((c) => c.application_id).length, unread: list.filter((c) => c.unread > 0).length };
   return (
-    <div className="hg-stack uc-page uv7">
-      <PageHeader title={t('common:nav.messages')} sub={t('university:v8.msg.subtitle')} />
+    <div className="hg-stack uc-page uv7 un-page un-messages">
+      <PageHeader title={t('common:nav.messages')} subtitle={t('university:v8.msg.subtitle')} />
       <div className="uc-inbox" data-open={id ? 'thread' : 'list'}>
         <Card className="uc-inbox__list">
           <div className="uv8-msgtabs" role="group" aria-label={t('university:v8.msg.show')}>
             {(['all', 'applications', 'unread'] as Tab[]).map((k) => (
-              <button key={k} type="button" className={cx('uv8-msgtab', tab === k && 'is-on')} aria-pressed={tab === k} onClick={() => setTab(k)}>
-                {t(`university:v8.msg.tab.${k}`)} <span className="uv7-num">{counts[k]}</span>
-              </button>
+              <Chip key={k} pressed={tab === k} onClick={() => setTab(k)}>{t(`university:v8.msg.tab.${k}`)} <span className="hg-num">{counts[k]}</span></Chip>
             ))}
           </div>
           <QueryState query={q} skeleton={<SkeletonCard lines={4} />}>
@@ -142,7 +139,7 @@ export default function Messages() {
                           ? <>{t('university:v8.msg.about')} <span className="hg-medium">{c.subject}</span>{c.application?.status ? <> · {t(`common:appStatus.${c.application.status}`)}</> : null}</>
                           : <span className="hg-subtle">{t(`university:messages.kind.${c.kind}`, { defaultValue: c.kind })} · {c.subject}</span>}
                       </div>
-                      <div className="hg-xs hg-subtle hg-truncate">{c.last_message?.internal ? `🔒 ` : ''}{c.last_message?.author?.full_name ? `${c.last_message.author.full_name}: ` : ''}{c.last_message?.body ?? ''}</div>
+                      <div className="hg-xs hg-subtle hg-truncate">{c.last_message?.internal ? <Lock size={11} aria-label={t('university:messages.internal')} className="un-conv__lock" /> : null}{c.last_message?.author?.full_name ? `${c.last_message.author.full_name}: ` : ''}{c.last_message?.body ?? ''}</div>
                       <div className="hg-xs hg-subtle">{formatRelative(c.last_message_at, locale)}{c.awaiting_reply ? ` · ${t('university:v8.msg.awaiting')}` : ''}</div>
                     </Link>
                   </li>

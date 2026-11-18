@@ -76,7 +76,7 @@ export default function UniversityDetail() {
                   <Card><DataTable dense columns={programCols} data={u.programs} getRowId={(r) => r.id} onRowClick={(r) => setOpenProgram(r.id)} caption={t('catalog.programs')} /></Card>
                   <Card pad>
                     {prog ? <><h3 className="hg-title-sm">{prog.name_en}</h3><p className="hg-subtle hg-xs" style={{ marginBottom: 10 }}>{t(`degreeShort.${prog.degree_level}`)} · {t(`instruction.${prog.instruction_language}`)}</p><RequirementsList p={prog} /></>
-                      : <p className="hg-subtle hg-small">{t('catalog.pickProgram')}</p>}
+                      : <EmptyState compact title={t('catalog.pickProgram')} />}
                   </Card>
                 </div>
               )}

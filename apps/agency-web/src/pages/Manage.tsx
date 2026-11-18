@@ -1,4 +1,4 @@
-import { Bell, Building2, CalendarClock, ClipboardList, ConciergeBell, Receipt, ScrollText, Settings, Store, UsersRound } from '@hangyul/icons';
+import { Bell, Building2, CalendarClock, ChevronRight, ClipboardList, ConciergeBell, Receipt, ScrollText, Settings, Store, UsersRound } from '@hangyul/icons';
 import { PageHeader } from '@hangyul/ynex-ui';
 import type { ReactNode } from 'react';
 import { Link } from 'react-router';
@@ -56,10 +56,11 @@ export default function Manage() {
               <li key={i.to}>
                 <Link to={i.to} className="ag-manage__item">
                   <span className="ag-manage__icon" aria-hidden>{i.icon}</span>
-                  <span>
+                  <span className="ag-manage__text">
                     <strong>{i.label}</strong>
                     <span>{i.hint}</span>
                   </span>
+                  <ChevronRight className="ag-manage__chev hg-flip-rtl" size={18} aria-hidden />
                 </Link>
               </li>
             ))}

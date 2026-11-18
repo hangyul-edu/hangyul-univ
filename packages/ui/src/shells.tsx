@@ -14,7 +14,19 @@ import { LocaleSelector } from './locale-selector';
 import { Drawer, Popover } from './overlays';
 import { Avatar, Button } from './primitives';
 
-export interface NavItem { to: string; label: string; icon: ReactNode; badge?: number; alert?: boolean; end?: boolean }
+export interface NavItem {
+  to: string; label: string; icon: ReactNode; badge?: number; alert?: boolean; end?: boolean;
+  /**
+   * Other paths that belong to this destination (2026-11) — the pages a hub links to, which do not share its path
+   * prefix (University "Settings" = `/manage` + `/programs`, `/settings`, `/exports` …). On any of them (or below it)
+   * the item is drawn as current and carries `aria-current="page"`. Optional; without it matching is by `to` alone.
+   */
+  match?: string[];
+}
+/** True when `pathname` is one of the item's extra paths, or below one. */
+export function navItemMatches(item: Pick<NavItem, 'match'>, pathname: string): boolean {
+  return !!item.match?.some((p) => pathname === p || pathname.startsWith(p.endsWith('/') ? p : `${p}/`));
+}
 export interface NavSection { title?: string; items: NavItem[] }
 
 // ------------------------------------------------------------- Notifications
@@ -210,11 +222,21 @@ export function ConsoleShell({ product, productLabel, sections, variant = 'light
         <div key={i}>
           {s.title && <div className="hg-sidebar__section">{s.title}</div>}
           {s.items.map((it) => (
+            // NavLink only sets `aria-current` when its own `to` matches, so an item current through `match` is a Link
+            // that states it itself.
+            navItemMatches(it, loc.pathname) ? (
+              <Link key={it.to} to={it.to} className="hg-navlink active" aria-current="page" title={collapsed ? it.label : undefined}>
+              {it.icon}
+              <span className="hg-truncate">{it.label}</span>
+              {it.badge ? <span className={cx('hg-navlink__badge', it.alert && 'hg-navlink__badge--alert')}>{it.badge > 99 ? '99+' : it.badge}</span> : null}
+            </Link>
+            ) : (
             <NavLink key={it.to} to={it.to} end={it.end} className={({ isActive }) => cx('hg-navlink', isActive && 'active')} title={collapsed ? it.label : undefined}>
               {it.icon}
               <span className="hg-truncate">{it.label}</span>
               {it.badge ? <span className={cx('hg-navlink__badge', it.alert && 'hg-navlink__badge--alert')}>{it.badge > 99 ? '99+' : it.badge}</span> : null}
             </NavLink>
+            )
           ))}
         </div>
       ))}

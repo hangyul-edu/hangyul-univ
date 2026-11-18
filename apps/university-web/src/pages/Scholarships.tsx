@@ -2,8 +2,7 @@ import { useAuth } from '@hangyul/auth';
 import { Plus, Wallet } from '@hangyul/icons';
 import { useLocale, localName } from '@hangyul/i18n';
 import type { Partnership, Scholarship } from '@hangyul/types';
-import { Button, Callout, EmptyState, Field, Input, Metrics, Modal, QueryState, Select, SkeletonCard, StatusText, Tabs, Textarea, useToast } from '@hangyul/ui';
-import { PageHeader } from '@hangyul/ynex-ui';
+import { Button, Callout, EmptyState, Field, Input, Metrics, Modal, PageHeader, QueryState, Select, SkeletonCard, StatusText, Tabs, Textarea, useToast } from '@hangyul/ui';
 import { formatDate, formatMoney, type Tone } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
@@ -108,7 +107,7 @@ function AwardAction({ award, to, onDone }: { award: Award; to: 'COMMITTED' | 'P
   });
   return (
     <>
-      <Button size="sm" variant={to === 'CANCELLED' ? 'ghost' : to === 'PAID' ? 'success' : 'secondary'} onClick={() => setConfirm(true)}>{t(`university:scholarships.action.${to}`)}</Button>
+      <Button size="sm" variant={to === 'CANCELLED' ? 'ghost' : 'secondary'} onClick={() => setConfirm(true)}>{t(`university:scholarships.action.${to}`)}</Button>
       {confirm && (
         <Modal open onClose={() => setConfirm(false)} title={t(`university:scholarships.action.${to}`)}
           description={t('university:scholarships.confirmMove', { student: award.student, amount: formatMoney(award.amount_krw, 'KRW', locale), status: t(`university:awardStatus.${to}`) })}
@@ -185,7 +184,7 @@ function CatalogScholarships({ kind }: { kind: 'UNIVERSITY' | 'GOVERNMENT' }) {
     staleTime: 10 * 60_000,
   });
   return (
-    <QueryState query={q} skeleton={<SkeletonCard lines={3} />} isEmpty={(d) => d.length === 0} empty={<p className="hg-subtle hg-small">{t('university:scholarships.noneListed')}</p>}>
+    <QueryState query={q} skeleton={<SkeletonCard lines={3} />} isEmpty={(d) => d.length === 0} empty={<EmptyState compact icon={<Wallet />} title={t('university:scholarships.noneListed')} />}>
       {(d) => (
         <div className="uc-table-scroll" tabIndex={0}>
           <table className="hg-table uc-simple-table">
@@ -221,8 +220,8 @@ export default function Scholarships() {
   const tab = (['partner', 'university', 'government'].includes(sp.get('tab') ?? '') ? sp.get('tab') : 'partner') as 'partner' | 'university' | 'government';
   const poolCount = (q.data ?? []).reduce((s, c) => s + c.pools.length, 0);
   return (
-    <div className="hg-stack uc-page uv7">
-      <PageHeader title={t('common:nav.scholarships')} sub={t('university:scholarships.subtitleV3')}
+    <div className="hg-stack uc-page uv7 un-page un-scholarships">
+      <PageHeader title={t('common:nav.scholarships')} subtitle={t('university:scholarships.subtitleV3')}
         actions={perms.canAward && hasActive && tab === 'partner' ? <Button variant="primary" icon={<Plus />} onClick={() => setCreate(true)}>{t('university:scholarships.create')}</Button> : undefined} />
       <Tabs label={t('university:scholarships.kinds')} value={tab} onChange={(v) => setSp({ tab: v }, { replace: true })}
         tabs={[

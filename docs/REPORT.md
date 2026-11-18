@@ -179,9 +179,18 @@ synthetic data), not from automated passes alone; screenshots were captured for 
   primary action; Operations queue-first Today; University decision-first queue and one primary decision). **None of
   these changes were run on an emulator or device** — no Android/iOS toolchain was available — so native visual quality
   is unverified. Native payment hands off to the web checkout (one backend payment model).
-- **Remaining known visual issues:** Explore and Profile/More (student) still use dense bordered lists; Operations
-  Manage is a grid of navigation cards and several secondary pages got token convergence only; University Programs has
-  two orange buttons in one header; the Design Preview pill overlaps one helper line at 768 (preview-only).
+- **Follow-up pass (2026-11-19):** Student Explore, Profile and More rebuilt as sections; plural copy fixed in 21
+  locales; Visa/Arrival accent bars removed; Operations Manage, Review (390), Tasks tabs, essay editor and secondary
+  pages brought to the same standard; University Programs, Documents, Scholarships, Messages, Manage and Exports
+  redone. Shared: `FilterSelect` no longer looks selected on its neutral value; breadcrumb divider fixed; header
+  button spacing fixed; the Design Preview indicator never covers content; sidebar marks the current section on every
+  sub-page (32/32 routes); compact controls are 44 px on phones; small inline targets get ≥24 px hit areas.
+- **Remaining known visual issues:** four Operations HQ pages (HQ Operations, Production readiness, Accounts,
+  Assignment override) cannot be opened in Design Preview, so they received shared changes only; the University rule
+  edit form and Notifications page were not restyled; checkbox inputs are 18–20 px with their labels as the tap target;
+  on phones a programme's degree label can wrap under a long name on Explore. Preview-only: Compare/Budget show an
+  error in Design Preview (comparison is a POST, which preview refuses), and the in-app university page lacks its
+  photos in preview.
 - **Not done:** usability sessions with real students; a human screen-reader walk-through.
 
 Last measured lab figures (V26–V31, on a saturated host, not re-measured since): consoles LCP 112–552 ms, marketing

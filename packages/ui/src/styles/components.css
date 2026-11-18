@@ -361,6 +361,17 @@ a.hg-metric:hover { background: var(--hg-surface-hover); text-decoration: none; 
 
 .hg-input--sm { min-height: 36px; padding: 6px 10px; font-size: var(--hg-text-base); }
 @media (max-width: 767px) { .hg-input--sm { min-height: 40px; font-size: 16px; } }
+/* Phones and coarse pointers (2026-11): the compact controls keep their 36 px desktop density, but under a finger
+   every one of them is a 44 px target — the filter select, the compact select (table page size), the compact input. */
+@media (max-width: 599.98px), (pointer: coarse) {
+  .hg-fsel--sm { --hg-fsel-h: 44px; }
+  .hg-sel--sm { min-height: 44px; }
+  /* `html:root body` outranks the per-surface rules that pin a toolbar or top-bar search to 36 / 40 px */
+  html:root body .hg-input--sm { min-block-size: 44px; block-size: 44px; }
+  /* a text link with an arrow stays a line of text; its hit area grows to 44 px through a pseudo-element */
+  .hg-link-arrow { position: relative; }
+  .hg-link-arrow::after { content: ''; position: absolute; inset-inline: -4px; inset-block: 50%; block-size: 44px; transform: translateY(-50%); }
+}
 .hg-input-icon { position: relative; }
 .hg-input-icon > svg { position: absolute; inset-inline-start: 11px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--hg-text-tertiary); pointer-events: none; }
 .hg-input-icon > .hg-input { padding-inline-start: 34px; }
@@ -872,9 +883,30 @@ button.hg-check-item { background: none; border: 0; width: 100%; text-align: sta
 .hg-preview-entry { display: inline-flex; align-items: center; justify-content: center; gap: 8px; align-self: center; min-height: var(--hg-touch-min); padding: 0 var(--hg-space-3); border: 0; border-radius: var(--hg-control-radius); background: none; color: var(--hg-primary-text); font: inherit; font-size: var(--hg-text-base); font-weight: var(--hg-weight-medium); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); }
 .hg-preview-entry:hover { text-decoration-color: currentColor; background: var(--hg-primary-subtle); }
 .hg-preview-entry:focus-visible { outline: none; box-shadow: var(--hg-shadow-focus); }
-.hg-preview-badge { position: fixed; inset-block-end: calc(12px + env(safe-area-inset-bottom, 0px)); inset-inline-start: 12px; z-index: var(--hg-z-toast); display: inline-flex; align-items: center; gap: 8px; padding: 4px 4px 4px 10px; border-radius: var(--hg-radius-pill); background: var(--hg-palette-ink-900); color: #fff; font-size: var(--hg-text-xs); font-weight: var(--hg-weight-medium); box-shadow: var(--hg-shadow-md); opacity: 0.92; }
-.hg-preview-badge__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--hg-brand-bright); }
-.hg-preview-badge button { border: 0; border-radius: var(--hg-radius-pill); padding: 4px 10px; background: rgba(255, 255, 255, 0.16); color: inherit; font: inherit; cursor: pointer; }
-.hg-preview-badge button:hover { background: rgba(255, 255, 255, 0.28); }
-/* Phone: just the dot and Exit, above the tab bar on the trailing side — away from headings and primary actions. */
-@media (max-width: 767px) { .hg-preview-badge { inset-block-end: calc(72px + env(safe-area-inset-bottom, 0px)); inset-inline: auto 8px; padding: 3px 3px 3px 8px; gap: 6px; font-size: 11px; opacity: 0.86; } .hg-preview-badge button { padding: 3px 8px; } }
+/* "Preview without paying": an owner-review aid on a paywall, so it is a caption-sized text link aligned with the
+   page's text edge and tucked under the intro — not a centred control floating between the intro and the offer. */
+.hg-preview-entry--quiet { align-self: flex-start; justify-content: flex-start; gap: 6px; min-height: 32px; padding: 0; margin-block: -8px 0; border-radius: var(--hg-radius-sm); color: var(--hg-text-secondary); font-size: var(--hg-text-sm); font-weight: var(--hg-weight-regular); }
+.hg-preview-entry--quiet:hover { background: none; color: var(--hg-text); }
+@media (max-width: 767px) { .hg-preview-entry--quiet { min-height: 44px; margin-block: -12px -4px; } }
+@media (min-width: 768px) { .hg-preview-entry--quiet { margin-block: -20px 0; } }
+/* Design Preview indicator (2026-11). Always visible, never on content: by default a slim edge tab that lives inside
+   the page gutter (16 px at 320, wider above) on the inline-start edge, reading upwards; pressing it opens a small
+   pill with Exit. On a console wide enough for its side panel the pill is shown outright over the panel's empty
+   bottom corner. On phones with the bottom tab bar the tab sits just above the bar. */
+.hg-preview-badge { position: fixed; inset-block-end: calc(12px + env(safe-area-inset-bottom, 0px) + var(--hg-preview-lift, 0px)); inset-inline-start: 0; z-index: var(--hg-z-toast); display: inline-flex; align-items: center; gap: 4px; color: #fff; font-size: var(--hg-text-xs); line-height: 1; font-weight: var(--hg-weight-medium); white-space: nowrap; }
+.hg-preview-badge__tab { display: inline-flex; align-items: center; gap: 6px; width: 16px; padding: 8px 0; border: 0; border-start-end-radius: 8px; border-end-end-radius: 8px; background: var(--hg-palette-ink-900); color: inherit; font: inherit; line-height: 16px; cursor: pointer; writing-mode: vertical-rl; transform: rotate(180deg); }
+[dir='rtl'] .hg-preview-badge__tab { transform: none; }
+.hg-preview-badge__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--hg-brand-bright); flex: none; }
+.hg-preview-badge__exit { display: none; block-size: 22px; padding: 0 8px; border: 0; border-radius: var(--hg-radius-pill); background: rgba(255, 255, 255, 0.16); color: inherit; font: inherit; cursor: pointer; }
+.hg-preview-badge__exit:hover { background: rgba(255, 255, 255, 0.28); }
+.hg-preview-badge button:focus-visible { outline: 2px solid var(--hg-primary); outline-offset: 2px; }
+/* opened by the reviewer, or shown outright where the console's side panel leaves the corner free */
+.hg-preview-badge[data-open] { inset-inline-start: 8px; block-size: 26px; padding: 2px 2px 2px 8px; border-radius: var(--hg-radius-pill); background: var(--hg-palette-ink-900); box-shadow: var(--hg-shadow-md); }
+.hg-preview-badge[data-open] .hg-preview-badge__tab { width: auto; padding: 0; background: none; border-radius: 4px; writing-mode: horizontal-tb; transform: none; line-height: 1; }
+.hg-preview-badge[data-open] .hg-preview-badge__exit { display: inline-block; }
+@media (min-width: 992px) {
+  html[data-surface='console'] .hg-preview-badge { inset-inline-start: 8px; inset-block-end: 8px; block-size: 26px; padding: 2px 2px 2px 8px; border-radius: var(--hg-radius-pill); background: var(--hg-palette-ink-900); }
+  html[data-surface='console'] .hg-preview-badge .hg-preview-badge__tab { width: auto; padding: 0; background: none; border-radius: 4px; writing-mode: horizontal-tb; transform: none; line-height: 1; cursor: default; }
+  html[data-surface='console'] .hg-preview-badge .hg-preview-badge__exit { display: inline-block; }
+}
+@media (max-width: 1023px) { html[data-design-preview]:has(.hg-tabbar) { --hg-preview-lift: 58px; } }

@@ -1061,11 +1061,14 @@ html[data-surface='console'] .ag22-today .page-header-breadcrumb, html[data-surf
 .ops-modes__opt { display: inline-flex; align-items: center; gap: 6px; min-inline-size: 0; }
 .ops-modes__n { font-weight: var(--hg-weight-semibold); color: var(--hg-text); }
 .hg-seg button[aria-pressed='true'] .ops-modes__n { color: inherit; }
+/* phones: the three modes are equal thirds of the full width, labels whole (never ellipsised), counts beside them */
 @media (max-width: 767.98px) {
-  .ops-modes, .ops-modes .hg-seg { inline-size: 100%; }
-  .ops-modes .hg-seg button { flex: 1 1 0; justify-content: center; padding-inline: 6px; min-inline-size: 0; }
-  .ops-modes__opt > span:first-of-type { overflow: hidden; text-overflow: ellipsis; }
+  .ag-revhub .yx-pagehead__end, .ag-revhub .yx-pagehead__end .btn-list, .ops-modes, .ops-modes .hg-seg { inline-size: 100%; }
+  .ops-modes .hg-seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: visible; }
+  .ops-modes .hg-seg button { display: flex; justify-content: center; min-inline-size: 0; padding-inline: 4px; }
+  .ops-modes__opt { justify-content: center; gap: 5px; }
 }
+@media (max-width: 419.98px) { .ops-modes .hg-seg button { font-size: var(--hg-text-xs); letter-spacing: -0.01em; } }
 .ag7-queue-pane__filters .hg-seg { max-inline-size: 100%; }
 
 /* ---- ad hoc selected states converge on the selection tokens (orange = current, never a filled action colour) ---- */
@@ -1097,7 +1100,16 @@ html[data-surface='console'] .ag7-perf .card.custom-card > .card-footer { paddin
 .ag8-cell[aria-pressed='true'] { border-color: var(--hg-selected-border); box-shadow: 0 0 0 2px var(--hg-selected-bg); }
 
 /* ---- Tasks: the tabs carry the counts; the priority filter is a quiet aside, not a card ---------------------------- */
-.ag7-viewtabs .nav { flex-wrap: wrap; }
+/* one line at every width: tighter spacing, and when the row cannot fit it scrolls sideways under an end fade (arrow
+   keys move between tabs and bring the focused one into view) */
+.ag7-viewtabs { padding-inline-end: 0; }
+.ag7-viewtabs .nav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-inline-end: var(--hg-space-6);
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); }
+[dir='rtl'] .ag7-viewtabs .nav { -webkit-mask-image: linear-gradient(to left, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to left, #000 calc(100% - 28px), transparent); }
+.ag7-viewtabs .nav::-webkit-scrollbar { display: none; }
+.ag7-viewtabs .nav-item { flex: none; }
+html[data-surface='console'] .ag7-viewtabs .nav-tabs { gap: var(--hg-space-5); border-block-end: 0; }
+html[data-surface='console'] .ag7-viewtabs .nav-link { margin-inline-end: 0; white-space: nowrap; font-size: var(--hg-text-base); }
 html[data-surface='console'] .ops-aside.card.custom-card { border: 0; border-radius: 0; background: none; }
 html[data-surface='console'] .ops-aside.card.custom-card > .card-header { padding: var(--hg-space-1) 0 0; }
 html[data-surface='console'] .ops-aside.card.custom-card > .card-body { padding: var(--hg-space-2) 0 0; }
@@ -1127,14 +1139,8 @@ html[data-surface='console'] .ops-aside.card.custom-card > .card-body { padding:
 .ops-work .ops-card .ops-sit, .ops-work .ops-card .ops-who { min-inline-size: 0; max-inline-size: none; }
 .ops-work td .ops-clamp--uni { min-inline-size: 130px; }
 
-/* A Segmented control inside the YNEX page header inherits `.btn-list` button margins (0 6px 6px 0), which left a gap
-   under the options and made the track taller than its buttons. */
-.page-header-breadcrumb .hg-seg button, .btn-list .hg-seg button { margin: 0; }
 @media (max-width: 479.98px) { .ops-modes__opt > svg { display: none; } }
 
-/* ---- breadcrumbs: the YNEX divider is an icon-font glyph that no longer ships (it drew an empty box) --------------- */
-.page-header-breadcrumb .breadcrumb-item + .breadcrumb-item::before { content: '›'; font-family: inherit; color: var(--hg-text-tertiary); }
-[dir='rtl'] .page-header-breadcrumb .breadcrumb-item + .breadcrumb-item::before { content: '‹'; }
 
 /* ---- accounts roster: a long name or mailbox wraps instead of pushing the actions out of the card ------------------ */
 .ag22-accounts .ag22-roster td, .ag22-accounts .ag22-roster th { white-space: normal; }
@@ -1146,3 +1152,61 @@ html[data-surface='console'] .ops-settings .hg-card { border: 0; border-block-st
 html[data-surface='console'] .ops-settings .hg-card .hg-card__header { padding: var(--hg-space-5) 0 0; border: 0; min-block-size: 0; }
 html[data-surface='console'] .ops-settings .hg-card .ag-panel__body { padding: var(--hg-space-3) 0 var(--hg-space-2); }
 @media (max-width: 575.98px) { .ag8-matrix tbody th { inline-size: 32%; } .ag8-matrix { border-spacing: 2px; } }
+
+/* ══ Operations follow-up pass (2026-11-19) ══════════════════════════════════════════════════════════════════════ */
+
+/* ---- Manage: ruled sections of destinations (icon · title · one-line purpose · chevron), not a grid of cards -------- */
+.ag-manage__group { max-inline-size: 880px; }
+.ag-manage__group + .ag-manage__group { margin-block-start: var(--hg-space-6); }
+.ag-manage__title { margin: 0; padding-block-end: var(--hg-space-2); font-size: var(--hg-type-h3); line-height: var(--hg-type-h3-leading); letter-spacing: 0; text-transform: none; color: var(--hg-text); border-block-end: 1px solid var(--hg-border); }
+.ag-manage__list { display: block; }
+@media (min-width: 768px) { .ag-manage__list { grid-template-columns: none; } }
+.ag-manage__list > li + li { border-block-start: 1px solid var(--hg-border-subtle); }
+.ag-manage__item { display: flex; align-items: center; gap: var(--hg-space-4); min-block-size: 64px; padding: var(--hg-space-3) var(--hg-space-2); margin-inline: calc(var(--hg-space-2) * -1); border: 0; border-radius: var(--hg-radius-md); background: none; color: var(--hg-text); text-decoration: none; }
+.ag-manage__item:hover { background: var(--hg-surface-hover); border-color: transparent; }
+.ag-manage__item:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: -2px; }
+.ag-manage__icon { margin: 0; inline-size: 36px; block-size: 36px; align-items: center; justify-content: center; border-radius: var(--hg-radius-md); background: var(--hg-surface-warm); }
+.ag-manage__icon svg { inline-size: 18px; block-size: 18px; }
+.ag-manage__text { flex: 1 1 auto; min-inline-size: 0; }
+.ag-manage__chev { flex: none; color: var(--hg-text-tertiary); }
+
+/* ---- hit areas (WCAG 2.5.8): at least 24 × 24 for every control, 44 for the task checkbox on phones — the drawn size
+   does not change. A text link or text button gets block padding cancelled by an equal negative margin; a 20 px box
+   is drawn by ::before inside a larger transparent button. ------------------------------------------------------------ */
+.wr-linkbtn, .wr-q__toggle, .ag8-audit__open, .ag-file__name, .ag8-rows li > a, .ag8-drill a, .ops-case__meta a, .ag7-crumbs a,
+.ag-attn__row a, .ag7 a.hg-xs, .ag7 a.hg-medium, a.hg-medium, .ag9-sub a.hg-medium, .ag7-psec a, .ag8-sub a, .hg-crumbs a, .ag8-move__item a, .yx-cardtools a {
+  display: inline-block; min-block-size: 24px; padding-block: 3px; margin-block: -3px; line-height: 18px; box-sizing: border-box;
+}
+.ag-file__name { vertical-align: middle; }
+.ag9-lang { min-block-size: 24px; min-inline-size: 32px; }
+.hg-tip { padding: 6px; margin: -6px; }
+.ag-task__check, .ag7 .hg-check-item__box {
+  position: relative; inline-size: 28px; block-size: 28px; margin: -4px; border: 0 !important; background: none !important; border-radius: 8px; flex: none;
+}
+.ag-task__check::before, .ag7 .hg-check-item__box::before {
+  content: ''; position: absolute; inset: 4px; border-radius: 6px; border: 2px solid var(--hg-control-secondary-border); background: var(--hg-surface);
+  transition: border-color var(--hg-motion-fast) var(--hg-motion-easing), background-color var(--hg-motion-fast) var(--hg-motion-easing);
+}
+.ag-task__check svg, .ag7 .hg-check-item__box svg { position: relative; z-index: 1; color: #fff; }
+.ag-task__check:hover:not(:disabled)::before { border-color: var(--hg-status-success-solid); }
+.ag-task--done .ag-task__check::before, .ag7 .hg-check-item[data-done='true'] .hg-check-item__box::before { background: var(--hg-status-success-solid); border-color: var(--hg-status-success-solid); }
+.ag-task__check:focus-visible, .ag7 .hg-check-item__box:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: -2px; }
+.ag-task__check:disabled::before, .ag7 .hg-check-item__box:disabled::before { opacity: 0.5; }
+.ag-work > .ag-task__check { margin-block-start: 0; }
+@media (max-width: 767.98px) {
+  .ag-task__check, .ag7 .hg-check-item__box { inline-size: 44px; block-size: 44px; margin: -12px; }
+  .ag-task__check::before, .ag7 .hg-check-item__box::before { inset: 12px; }
+  .ag-work > .ag-task__check { margin-block-start: -8px; }
+}
+@media (prefers-reduced-motion: reduce) { .ag-task__check::before, .ag7 .hg-check-item__box::before { transition: none; } }
+
+/* ---- token-only pages brought to the standard ------------------------------------------------------------------- */
+/* Vendors and other YNEX tables: a white header on a hairline, never a tinted slab */
+.ag7 .table > thead > tr > th, .ag7 .table thead th { background: var(--hg-surface); border-block-end: 1px solid var(--hg-border); color: var(--hg-text-secondary); font-weight: var(--hg-weight-semibold); }
+/* Catalog: the "finding programs for" picker is a labelled field on the page, not a card above the table card */
+.ag-forstudent { border: 0; border-radius: 0; background: none; padding: 0; }
+/* Templates: a placeholder reads as a quiet token on warm paper, not a blue info chip */
+.ag-ph { background: var(--hg-surface-warm); color: var(--hg-text); border: 1px solid var(--hg-border); padding: 0 5px; }
+/* HQ lists: one primary per area — the per-row "Operations" link is a quiet secondary, not a tinted button */
+html[data-surface='console'] .ag7 .btn.btn-primary-light { background: var(--hg-control-secondary-bg); border: 1px solid var(--hg-control-secondary-border); color: var(--hg-control-secondary-text); }
+html[data-surface='console'] .ag7 .btn.btn-primary-light:hover { background: var(--hg-control-secondary-bg-hover); border-color: var(--hg-control-secondary-border-hover); color: var(--hg-control-secondary-text); }
