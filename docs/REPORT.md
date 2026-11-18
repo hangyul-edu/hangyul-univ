@@ -1,6 +1,6 @@
 # Hangyul Univ — Launch Report
 
-> **Current as of 2026-11-18 (launch pass on top of commit `fd2f4ba7`).** This is the current-state launch report. It replaces the
+> **Current as of 2026-11-18, launch pass commit `e3f0e0f4`.** This is the current-state launch report. It replaces the
 > 20,000-line version-by-version record (V1–V32), which remains in git history
 > (`git log -- docs/REPORT.md`; last full version at commit `fd2f4ba7`). Everything in this file is meant to be true
 > today; when something changes, edit the statement instead of appending a dated section.
@@ -215,7 +215,7 @@ layer. **What this pass did not run is listed under the table and is not covered
 | Design Preview isolation | PASS — Student, Operations, University: 0 network requests to `/api` on any of 108 preview screens; unpaid → paywall → "preview without paying" → entitled; Exit clears state | `after/preview-isolation.json` |
 | Design Preview release gate | PASS — one switch, no network code in the transport, fixture hygiene; bundles built with the flag off contain no preview code | `after/logs/08-…`, `21-…` |
 | Static gates | PASS — docs gates and links, leak scan (source and bundles), i18n, tokens current, typecheck (7 workspaces), 332 web/package unit tests, four production builds | `after/logs/ledger.txt` |
-| Production smoke (4 domains) | see `after/production-smoke.json` — build-info commit, `/api` closed to anonymous access, headers, no overflow, preview entry present | `after/production-smoke.json` |
+| Production smoke (4 real domains, commit `e3f0e0f4`) | PASS — all four serve the commit; `/api/v1/auth/me` → 401 JSON and five private endpoints closed to anonymous access on every domain; security headers present; no page error, failed request, dev-origin URL or overflow at 390 / 1440; preview entry present on Student, Operations, University. Live route sweep: 240 loads (every route at 390 and 1440), 0 overflow, 0 errors. Live preview: 0 requests to `/api` | `after/production-smoke.json`, `after/production/` |
 
 **Not run in this pass (no PASS is claimed for these):**
 
@@ -304,4 +304,4 @@ One line per pass; detail is in git history (`git log`, and earlier versions of 
 | post-V32 | 2026-11-17 | Final Hangyul Univ branding and social metadata; orange branding on web and Android (`bc6be153`, `50e4f14c`) |
 | post-V32 | 2026-11-18 | Local stack reachable through ngrok; Vercel `/api` routed to the tunnel (`9a306bee`, `72cfca1c`) |
 | post-V32 | 2026-11-18 | Twilio SDK declared; production copy for verification e-mail and SMS (`47c8fec5`, `fd2f4ba7`) |
-| Launch pass | 2026-11-18 | Design Preview mode; docs consolidated to 19 root files; historical QA output removed; this report rewritten |
+| Launch pass (`e3f0e0f4`) | 2026-11-18 | Shared gutter/container tokens and control states; sign-up verification and footer rebuilt; 25 visual defects fixed; Design Preview mode; direct-operation copy in every locale; docs consolidated to 19 root files; historical QA output removed; this report rewritten |
