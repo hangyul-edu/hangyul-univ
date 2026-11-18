@@ -1,0 +1,27 @@
+# ngrok Traffic Policy for exposing a *development* API (HG_ENV=development) to the Vercel-hosted web apps.
+#   ngrok http 8001 --url https://<your-dev-domain>.ngrok-free.app --traffic-policy-file infra/ngrok/dev-api-policy.yml
+#
+# A development API parks every sign-up OTP in Redis and serves it at /api/v1/auth/verification/peek/{id}
+# (no web app calls it). Public, that endpoint would let anyone register any e-mail or phone number, so the
+# tunnel refuses it — including percent-encoded spellings of the path. Read codes locally instead:
+#   redis-cli -n 5 --scan --pattern 'hg:otp:dev:*'
+# Only /api/* and /healthz are forwarded; /docs and /openapi.json stay local.
+on_http_request:
+  - expressions:
+      - "req.url.path.matches('(?i)/verification/[^/]*(peek|%)')"
+    actions:
+      - type: custom-response
+        config:
+          status_code: 404
+          body: '{"detail":"Not found"}'
+          headers:
+            content-type: application/json
+  - expressions:
+      - "!(req.url.path.startsWith('/api/') || req.url.path == '/healthz')"
+    actions:
+      - type: custom-response
+        config:
+          status_code: 404
+          body: '{"detail":"Not found"}'
+          headers:
+            content-type: application/json

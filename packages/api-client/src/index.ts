@@ -112,11 +112,18 @@ function qs(query?: Query): string {
   return s ? `?${s}` : '';
 }
 
+/** Request header that skips ngrok's free-plan browser warning page (see `f` in createApiClient). */
+export const NGROK_SKIP_WARNING = 'ngrok-skip-browser-warning';
+
 export function createApiClient(cfg: ApiClientConfig) {
   let accessToken: string | null = null;
   let session: T.Session | null = null;
   let refreshing: Promise<boolean> | null = null;
-  const f = cfg.fetchImpl ?? ((...a: Parameters<typeof fetch>) => fetch(...a));
+  const rawFetch = cfg.fetchImpl ?? ((...a: Parameters<typeof fetch>) => fetch(...a));
+  // While the API is served through a free ngrok tunnel (behind the Vercel /api rewrite), ngrok answers any
+  // browser-like request with an HTML warning page unless this header is present. Harmless to any other server.
+  const f = (input: Parameters<typeof fetch>[0], init: RequestInit = {}) =>
+    rawFetch(input, { ...init, headers: { ...(init.headers as Record<string, string> | undefined), [NGROK_SKIP_WARNING]: '1' } });
   const base = `${cfg.baseUrl.replace(/\/$/, '')}/api/v1`;
 
   const setSession = async (tr: T.TokenResponse | null) => {

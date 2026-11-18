@@ -18,7 +18,7 @@ export interface SessionHint { authenticated: boolean; name: string | null }
 
 async function fetchHint(): Promise<SessionHint> {
   try {
-    const r = await fetch('/api/v1/auth/session-hint?client=student', { credentials: 'include', headers: { accept: 'application/json' } });
+    const r = await fetch('/api/v1/auth/session-hint?client=student', { credentials: 'include', headers: { accept: 'application/json', 'ngrok-skip-browser-warning': '1' } });
     if (!r.ok) return { authenticated: false, name: null };
     return (await r.json()) as SessionHint;
   } catch {
