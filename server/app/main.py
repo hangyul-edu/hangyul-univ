@@ -38,7 +38,7 @@ app = FastAPI(
     title="Hangyul Univ API",
     version="0.1.0",
     description=(
-        "Operating system for studying in Korea: students, partner agencies and partner universities.\n\n"
+        "Operating system for studying in Korea: students, the Hangyul Univ operations team and Korean universities.\n\n"
         "All time-sensitive facts carry `source_url`, `verified_at` and `verification_status`. "
         "Records with `verification_status = DEMO` are development sample data and are not verified facts."
     ),

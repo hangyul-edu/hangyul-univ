@@ -2,7 +2,7 @@
 /**
  * 한귤 유니브 서비스 기획서 — Markdown 원본을 A4 PDF로 만든다.
  *
- *   node scripts/docs/service-plan-pdf.mjs            → docs/한귤유니브_서비스기획서.pdf
+ *   node scripts/docs/service-plan-pdf.mjs            → docs/media/한귤유니브_서비스기획서.pdf
  *   node scripts/docs/service-plan-pdf.mjs --html x   → 같은 HTML을 x에 저장 (검수용)
  *
  * 원본: docs/한귤유니브_서비스기획서.md. 지원하는 문법은 원본 맨 위 주석에 적혀 있다.
@@ -16,7 +16,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const SRC = resolve(ROOT, 'docs/한귤유니브_서비스기획서.md');
-const OUT = resolve(ROOT, 'docs/한귤유니브_서비스기획서.pdf');
+const OUT = resolve(ROOT, 'docs/media/한귤유니브_서비스기획서.pdf');
 const LOGO = resolve(ROOT, "packages/icons/assets/brand/hangyul-univ/hangyul-univ-logo-horizontal-black@2x.png");
 const args = process.argv.slice(2);
 const htmlOut = args.includes('--html') ? args[args.indexOf('--html') + 1] : null;

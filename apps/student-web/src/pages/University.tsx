@@ -168,7 +168,7 @@ function Costs({ u }: { u: UniversityDetail }) {
     <div className="hg-stack">
       <Card>
         <CardHeader title={t('university.costs.tuition')} subtitle={t('university.costs.tuitionSub')} />
-        <div className="st-table-wrap">
+        <div className="st-table-wrap" tabIndex={0} role="region" aria-label={t('university.costs.tuition')}>
           <table className="st-table">
             <thead><tr><th>{t('university.costs.program')}</th><th className="st-num">{t('explore.card.tuition')}</th><th className="st-num">{t('university.costs.fee')}</th><th className="st-num">{t('v4.cost.firstYear')}</th></tr></thead>
             <tbody>
@@ -256,7 +256,7 @@ function Deadlines({ u }: { u: UniversityDetail }) {
   if (!u.deadlines.length) return <EmptyState title={t('university.deadlines.empty')} />;
   return (
     <Card>
-      <div className="st-table-wrap">
+      <div className="st-table-wrap" tabIndex={0} role="region" aria-label={t('university.tabs.deadlines', { defaultValue: t('university.deadlines.empty') })}>
         <table className="st-table">
           <thead><tr><th>{t('university.costs.program')}</th><th>{t('university.deadlines.intake')}</th><th>{t('university.deadlines.apply')}</th><th>{t('university.deadlines.docs')}</th><th>{t('university.deadlines.decision')}</th><th /></tr></thead>
           <tbody>

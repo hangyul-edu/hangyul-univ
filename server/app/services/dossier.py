@@ -1,6 +1,6 @@
 """Universal dossier — the student prepares each fact/document ONCE; Hangyul works out where it can be reused.
 
-Four jobs (see docs/DOCUMENT_AUTOMATION.md for the rules in plain words):
+Four jobs (see docs/admissions/document-automation.md for the rules in plain words):
 
 1. **Applicability** — for every document × every requirement of every active application (and, via
    ``applicability_for_requirement``, the visa): reusable as-is / near expiry / being checked / needs a fix /

@@ -144,7 +144,13 @@
     "qa:v32-leak": "node scripts/qa/v32/leak.mjs",
     "qa:v32-crawl": "node scripts/qa/e2e-run.mjs e2e/v32-crawl.spec.ts",
     "qa:v32-a11y": "node scripts/qa/e2e-run.mjs e2e/v32-a11y.spec.ts",
-    "qa:v32": "bash scripts/qa/v32/chain.sh"
+    "qa:v32": "bash scripts/qa/v32/chain.sh",
+    "qa:launch": "bash scripts/qa/launch-final/chain.sh",
+    "qa:launch-serve": "node scripts/qa/launch-final/serve.mjs",
+    "qa:launch-matrix": "node scripts/qa/launch-final/matrix.mjs --tag after --preview --marketing http://127.0.0.1:4100 --student http://127.0.0.1:4101 --agency http://127.0.0.1:4102 --university http://127.0.0.1:4103",
+    "qa:launch-preview": "node scripts/qa/launch-final/preview.mjs --strict",
+    "qa:launch-signup": "node scripts/qa/launch-final/signup-walk.mjs",
+    "release:preview-gate": "node scripts/release/preview-gate.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",

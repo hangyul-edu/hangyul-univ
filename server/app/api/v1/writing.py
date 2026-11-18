@@ -1,4 +1,4 @@
-"""V5 — writing review API (owned by the writing workstream; see docs/WRITING_REVIEW.md).
+"""V5 — writing review API (owned by the writing workstream; see docs/admissions/writing-review.md).
 
 The essay itself stays on /essays (collab.py); this router adds the professional review layer: the review queue,
 prompts (versioned per university / program / intake), rubric ratings, automatic-check findings, reviewer matching and

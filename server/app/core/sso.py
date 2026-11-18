@@ -1,7 +1,7 @@
 """Single sign-on providers for university and agency staff.
 
 OIDC (authorization code + PKCE) is implemented generically and works with any standards-compliant IdP
-(Microsoft Entra ID, Google Workspace, Okta, Keycloak, …). SAML 2.0 is defined as an interface only — see docs/SSO.md.
+(Microsoft Entra ID, Google Workspace, Okta, Keycloak, …). SAML 2.0 is defined as an interface only — see docs/SECURITY.md.
 
 Secrets are never stored in the database: ``OrgSSOConfig.client_secret_ref`` names an environment variable (or a
 secret-manager key resolved into the environment at deploy time) that holds the client secret.
@@ -134,7 +134,7 @@ class OIDCProvider:
 
 class SAMLProvider:
     """Interface placeholder. SAML 2.0 needs a signed-assertion library (e.g. python3-saml / pysaml2), SP metadata and
-    certificate management — see docs/SSO.md. Selecting SAML fails clearly instead of pretending to work."""
+    certificate management — see docs/SECURITY.md. Selecting SAML fails clearly instead of pretending to work."""
 
     def authorization_url(self, **_) -> str:
         raise SSOError("SAML sign-in is not available yet for this organisation.")

@@ -20,7 +20,7 @@ button.hg-strip__btn:hover { background: var(--hg-surface-warm); color: var(--hg
 .hg-strip__item.is-todo .hg-strip__btn { color: var(--hg-text-tertiary); }
 .hg-strip__item.is-todo .hg-strip__num { color: var(--hg-text-tertiary); border-color: var(--hg-border-strong); }
 @media (max-width: 767px) {
-  .hg-strip { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; margin-inline: -16px; padding-inline: 16px; }
+  .hg-strip { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; margin-inline: calc(var(--hg-gutter) * -1); padding-inline: var(--hg-gutter); scroll-padding-inline: var(--hg-gutter); }
   .hg-strip::-webkit-scrollbar { display: none; }
   .hg-strip__btn, .hg-strip--lg .hg-strip__btn { min-height: 44px; } /* V27: every strip pill is a 44-px target on a phone */
 }
@@ -104,7 +104,7 @@ button.hg-pipe__btn:hover { background: var(--hg-surface-hover); }
   .hg-pipe { flex-wrap: wrap; row-gap: 10px; }
   .hg-pipe__views--lead { border-inline-end: 0; padding-inline-end: 0; margin-inline-end: 0; }
   .hg-pipe__views--trail { order: -1; border-inline-start: 0; padding-inline-start: 0; margin-inline-start: 8px; }
-  .hg-pipe__rail { flex-basis: 100%; grid-auto-columns: minmax(92px, 1fr); margin-inline: -16px; padding-inline: 16px; scrollbar-width: none; }
+  .hg-pipe__rail { flex-basis: 100%; grid-auto-columns: minmax(92px, 1fr); margin-inline: calc(var(--hg-gutter) * -1); padding-inline: var(--hg-gutter); scroll-padding-inline: var(--hg-gutter); scrollbar-width: none; }
   .hg-pipe__rail::-webkit-scrollbar { display: none; }
   .hg-pipe__btn { min-block-size: 44px; }
 }

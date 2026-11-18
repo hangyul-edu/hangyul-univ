@@ -1,5 +1,8 @@
 # Frontend conventions
 
+> Naming: the `agency` app, namespace and `AGENCY_ADMIN` role are historical internal names for Hangyul's own
+> Operations/Admin console. There is no external agency product.
+
 How the four web apps and three native apps are built. Read this before adding a screen.
 
 ## Stack
@@ -18,8 +21,8 @@ How the four web apps and three native apps are built. Read this before adding a
 
 - `@hangyul/design-tokens` — colors, spacing, radius, typography, shadows, breakpoints, status and chart palettes (from the Hangyul BI). Web consumes CSS variables (`--hg-*`); RN imports the TS object.
 - `@hangyul/types` — domain types mirroring the FastAPI serializers.
-- `@hangyul/api-client` — `createApiClient()`; every endpoint is typed. Web uses same-origin `/api` (Vite proxy → :8001).
-- `@hangyul/auth` — `AuthProvider`, `useAuth()`, `useApi()`, `DEMO_ACCOUNTS` (dev only).
+- `@hangyul/api-client` — `createApiClient()`; every endpoint is typed. Web uses same-origin `/api` (development: Vite proxy to the local API on port 8001; production: the Vercel rewrite — see `docs/DEPLOYMENT.md`).
+- `@hangyul/auth` — `AuthProvider`, `useAuth()`, `useApi()`. There is no demo account list, test sign-in or persona picker (removed in V32).
 - `@hangyul/i18n` — `LOCALES` (56; 33 of them are market locales in `markets.ts`), `useLocale(ns)`, `changeLocale()`, RTL detection. Strings live in `packages/i18n/locales/<locale>/<namespace>.json`.
 - `@hangyul/ui` — web components + shells (see `packages/ui/src/index.ts`). Charts: `@hangyul/ui/charts`.
 - `@hangyul/utils` — `formatMoney/Date/Number/Percent/Relative`, `countryName`, `flagEmoji`, status→tone maps, `toCsv`, `cx`.
@@ -44,29 +47,29 @@ How the four web apps and three native apps are built. Read this before adding a
 
 ## Product personalities (one brand, four jobs) — design system v2
 
-Read `docs/REPORT.md` §14 and §16 first. Common rules: neutral-first surfaces, tangerine only for the primary action / "you are here" / focus, hierarchy through type and hairlines (use `Section`, `ListRow` in an `hg-panel`, `StatusText`, `Metrics`) — use `Card` only for genuinely self-contained objects, never KPI-tile grids.
+Common rules: neutral-first surfaces, tangerine only for the primary action / "you are here" / focus, hierarchy through type and hairlines (use `Section`, `ListRow` in an `hg-panel`, `StatusText`, `Metrics`) — use `Card` only for genuinely self-contained objects, never KPI-tile grids.
 
 - **Marketing** — editorial and restrained: short copy, one CTA, product previews built from real UI, sourced facts (nothing unverifiable on a public page, V12). No decorative motifs.
 - **Student** — a guided service, not a dashboard: every screen answers one question; one dominant next action; verdicts (Strong fit / Eligible / Reach / Not eligible yet) wherever a program appears; documents described as requirements.
-- **Agency** — dense but quiet: attention lists that link to filtered views, saved views on the caseload, single-line tables, keyboard-friendly review. KPIs live on Performance only.
+- **Operations/Admin** (`apps/agency-web`, Hangyul internal) — dense but quiet: attention lists that link to filtered views, saved views on the caseload, single-line tables, keyboard-friendly review. KPIs live on Performance only.
 - **University** — executive credibility: decisions first, one consistent funnel population with definitions and n<5 honesty, light sidebar, validated chart palette.
 
-## V7 — template-first
+## Template-first
 
-- **Marketing** is **Koreanasha over the Eduan chassis** (since V10): `@hangyul/koreanasha-ui` (header, hero, bands, cards, FAQ — inventory `docs/TEMPLATE_KOREANASHA_INVENTORY.md`) is imported after `@hangyul/eduan-ui` and wins wherever they overlap; Eduan remains the shared chassis and component source (inventory: `docs/TEMPLATE_EDUAN_INVENTORY.md`). Start from the Koreanasha/Eduan section that fits, keep its markup classes, swap content. Hangyul-specific glue lives in `packages/eduan-ui/src/scss/_hangyul-glue.scss` (`ed-*` classes). Every inner page starts with `PageHero` (Eduan breadcrumb band); page CTAs go through `CtaBand`, which feeds the layout's single closing band.
-- **Consoles** (agency, university, Hangyul operations) are built on YNEX (`@hangyul/ynex-ui`): `YnexShell`, `PageHeader`, `YCard`, `StatCard` (every number links to exactly its records), `DateTimeline`, `ProgressRow`, `YTabs`, `SplitPane`, plus YNEX/Bootstrap classes. Shared `hg-*` components are skinned to YNEX by `_hangyul-skin.scss`.
+- **Marketing** is **Koreanasha over the Eduan chassis** (since V10): `@hangyul/koreanasha-ui` (header, hero, bands, cards, FAQ) is imported after `@hangyul/eduan-ui` and wins wherever they overlap; Eduan remains the shared chassis and component source (inventory: `docs/FRONTEND_CONVENTIONS.md`). Start from the Koreanasha/Eduan section that fits, keep its markup classes, swap content. Hangyul-specific glue lives in `packages/eduan-ui/src/scss/_hangyul-glue.scss` (`ed-*` classes). Every inner page starts with `PageHero` (Eduan breadcrumb band); page CTAs go through `CtaBand`, which feeds the layout's single closing band.
+- **Consoles** (Operations/Admin = `apps/agency-web`, and University) are built on YNEX (`@hangyul/ynex-ui`): `YnexShell`, `PageHeader`, `YCard`, `StatCard` (every number links to exactly its records), `DateTimeline`, `ProgressRow`, `YTabs`, `SplitPane`, plus YNEX/Bootstrap classes. Shared `hg-*` components are skinned to YNEX by `_hangyul-skin.scss`.
 - **Student** stays a consumer product: Eduan language via `apps/student-web/src/styles/app.css` (the V26 merge of the former `v7.css` … `v25.css` layers), never YNEX admin chrome.
 - Before inventing a component, ask: does the template already have a better one? If yes, port it. Custom UI only for Hangyul-only workflows, styled natively to the template.
 - Template text transforms (`capitalize`, `uppercase`) are disabled — they break sentence case and many languages. Template colours that fail AA on tints are overridden centrally, never per page.
 
-## Stylesheets (V26)
+## Stylesheets
 
 The per-pass version layers (`v6.css` … `v25.css`) are gone. Each app owns purpose-named files under `apps/<app>/src/styles/`:
 marketing `base.css` · `site.css` · `home.css` · `start.css` · `directory.css` · `university.css` (route files are imported by
 their route component and load with its chunk); student `app.css`; agency and university `base.css` + `screens.css`
 (with `@hangyul/ui/console-v22.css` between them). Add to the file that owns the surface; do not start a new version layer.
 
-## V25 — one action shape, four roles (REPORT §317, §326)
+## One action shape, four roles
 
 - **Shape.** Every product draws buttons from `--hg-control-*` (`packages/design-tokens` `control`): 10 px radius, 40/48/56 px
   heights. Pills (999 px) are for chips, selectors and stage markers only — never for an action. Native `Button` reads the same
@@ -80,7 +83,7 @@ their route component and load with its chunk); student `app.css`; agency and un
   institution; show it (`UniMark photo=…`) instead of a letter tile.
 - **Gate.** `npm run qa:v25` (static · api · rendered). V25 stylesheets set no literal font size.
 
-## V32 — one selection control, no browser menus (REPORT §436)
+## One selection control, no browser menus
 
 - `Select` (form field) and `FilterSelect` (toolbar) in `packages/ui/src/select.tsx` are the only selection controls.
   Both are a `button[role="combobox"]` with our own portalled listbox: a popover on desktop (placed by the same
@@ -93,3 +96,65 @@ their route component and load with its chunk); student `app.css`; agency and un
 - The service-unavailable state (`ServiceUnavailable` in `packages/ui/src/app.tsx`, `AuthStatus 'unavailable'`) is the
   only thing an authenticated app shows when the API cannot be reached: never a raw transport message, never stale or
   synthetic data. `ApiError.unreachable` marks the failure; `ErrorState` prefers that wording too.
+
+## Layout, controls and states (launch-final)
+
+- **One gutter, one rail.** `--hg-gutter` (design-tokens `layout`) is the only page gutter: 16 px at 320, ~18–20 px at
+  360–390, ~21–22 px at 412–430, 24 px on tablets, 32 px on desktop. Shells write `padding-inline: var(--hg-gutter)`
+  once; pages never add their own side padding or media queries for it. Full-bleed scrollers use
+  `margin-inline: calc(var(--hg-gutter) * -1)` with matching `padding-inline` and `scroll-padding-inline`.
+- **Content widths** are named tokens: `--hg-container-editorial` (marketing), `--hg-container-task` (student),
+  `--hg-container-workspace` (Operations/Admin and University), `--hg-container-reading`.
+- **Buttons.** Primary = solid tangerine, white label. Secondary (the default `.hg-btn`) = white with a visible edge.
+  Tertiary = `button.hg-link` / `.hg-btn--link` (text with underline affordance — never a raw browser button).
+  Danger only for destructive actions. Heights come from `--hg-control-height-*`; every button is ≥ 44 px below
+  1024 px or on a coarse pointer.
+- **Disabled** is visibly inactive without a grey slab: neutral controls go warm-white with muted text; a disabled
+  primary keeps a pale tangerine wash. Inputs use the same warm-white.
+- **Errors** sit next to their control (`.hg-error`, `role="alert"`, `aria-describedby`), in the restrained semantic
+  red, and must not move the layout by more than a line.
+- **Phones get their own composition.** No two-column desktop form squeezed into a narrow screen: e.g. the sign-up
+  verification card stacks code field → full-width Verify below 480 px; the registration stepper is one line
+  ("2/4 · Verify") over four segments; operational tables render as priority-field cards (`DataTable renderCard`).
+- **Light only.** `color-scheme: only light` (tokens + `<meta name="color-scheme">`) stops device auto-dark from
+  repainting the product.
+- **Gates:** `npm run qa:launch-matrix` fails on any page-level horizontal overflow
+  (`documentElement.scrollWidth > innerWidth`) across 320–1920 px.
+
+## Design Preview mode
+
+A design-review aid behind one build flag, `VITE_ENABLE_DESIGN_PREVIEW` (requirements in `docs/SECURITY.md`).
+
+- Entry points: "Preview without signing in" under the Student / Operations / University login forms, and "Preview
+  without paying" under paywalls. Render them only when the flag is on; with the flag off the code path must be
+  tree-shaken out of the bundle.
+- Data comes from synthetic fixtures (`packages/api-client/src/preview/`), never from a private API. The seam is the
+  API client's `fetchImpl`: no page, hook or component knows preview exists, so do not add `if (preview)` branches.
+  Writes are refused in-process, no auth session is created, no payment is started.
+- The flag is read only in `packages/ui/src/design-preview.tsx`. New entry points use `DesignPreviewLoginEntry` /
+  `DesignPreviewPaidEntry` from `@hangyul/ui`; never read the env var anywhere else (`npm run release:preview-gate`).
+- A new endpoint used by a signed-in screen needs a synthetic response in `<app>.extra.json`, or
+  `npm run qa:launch-preview` fails on the miss.
+- Always show the small "Design Preview" indicator (`packages/ui/src/design-preview.tsx`) while preview is active.
+- Fixtures must look like plausible real states (including empty, waiting and action-needed states) but contain no
+  real person, university decision or invented statistic presented as fact — and never a probability or
+  "guaranteed admission".
+- The flag is off for public launch; a release gate checks the production bundles.
+
+## Templates: what is used, what was changed on purpose
+
+Three templates are foundations, not dependencies: only derived, compiled CSS ships, and the template folders
+(`template-koreanasha/`, `themeforest-eduan/`, `themeforest-ynex/`) stay outside the deployable apps. Licence and
+role per template: `docs/PRODUCT.md`.
+
+| Template | Used for | Kept | Changed on purpose |
+|---|---|---|---|
+| **Koreanasha** (owner-supplied; itself a customised Eduan build with a ~500-line customisation layer) → `packages/koreanasha-ui` | Marketing site since V10 | Floating pill header, full-viewport photographic hero with one hand-made crop per breakpoint, band alternation, centred eyebrow / two-tone headline / lead, 20 px white cards, alternating photo rows, pill CTA; ported to React: sticky header, offcanvas, logo marquee, FAQ accordion, "why" row, service rows | Removed: every Koreanasha brand artefact and person image, the public application modal, invented discounts and "BEST" badges, testimonials, flag language picker, jQuery + 14 plugins, Font Awesome, AOS, odometer, `lang.js` |
+| **Eduan** → `packages/eduan-ui` | Shared chassis under Koreanasha; Student app visual language | SCSS re-scoped under `:where(.ed)`, only the partials Hangyul renders, purged per build | Primary colour → action tangerine `#CC4E00` (AA); Roboto → Pretendard; visible focus ring restored; motion respects `prefers-reduced-motion`, no autoplay carousels; physical properties mirrored by `postcss-rtlcss`; all jQuery plugins replaced by React; no template photographs ship |
+| **YNEX** → `packages/ynex-ui` | Operations/Admin and University consoles | Bootstrap 5.3.3 subset + layout/menu partials; vertical layout ported as `YnexShell` | Muted text darkened to `#5F6B80` (AA); Inter → Pretendard; icon fonts (168 MB) → Lucide; template JS (SimpleBar, Choices, DataTables, ApexCharts, FullCalendar…) → React components and Recharts; status is always text + colour; since V22 consoles are white/hairline with tangerine only for the current step and the primary action |
+
+Defects in the original templates that must not be reintroduced: `<html lang="zxx">`; no `<h1>`; content hidden at
+`opacity: 0` until a CDN script answers; missing or placeholder `alt`; duplicate ids; megabytes of CSS/JS for a few
+glyphs; sliders initialised for pages that do not exist; unoptimised hero images; a marquee animation that never
+stops (off-screen, background tab, reduced motion); a hidden duplicate CTA creating an invisible tab stop;
+translations written with `innerHTML`; anchors instead of routes (no per-page SEO).

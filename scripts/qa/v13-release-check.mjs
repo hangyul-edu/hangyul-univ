@@ -91,7 +91,7 @@ const REQUIREMENTS = [
     title: 'Cross-border transfer consent wording approved under PIPA' },
   { level: 'beta', id: 'retention_schedule', owner: 'legal', manual: true,
     title: 'An approved retention period for applicant documents, accounts and audit logs',
-    detail: 'LEGAL_DEPENDENCIES.md L8, open since V9. The policy publishes the rule and no period, and no retention job exists to enforce one.' },
+    detail: 'docs/LEGAL.md L8, open since V9. The policy publishes the rule and no period, and no retention job exists to enforce one.' },
   { level: 'beta', id: 'incident_process', owner: 'business', manual: true,
     title: 'A named incident contact and a breach-notification process',
     detail: 'PIPA requires notification; nothing in this repository records who does it or how.' },

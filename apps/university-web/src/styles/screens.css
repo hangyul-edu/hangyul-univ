@@ -219,7 +219,9 @@
 .uv9-team__row:first-child { border-block-start: 0; }
 .uv9-team__who { flex: 1 1 14rem; min-width: 0; display: flex; align-items: center; gap: 0.6rem; }
 .uv9-team__meta { font-size: 0.75rem; color: var(--text-muted); }
-.uv9-team__row[data-inactive] .uv9-team__who { opacity: 0.6; }
+/* Inactive members: muted by colour, not opacity (opacity pushed the avatar initials and name below 4.5:1). */
+.uv9-team__row[data-inactive] .uv9-team__who { color: var(--hg-text-secondary); }
+.uv9-team__row[data-inactive] .uv9-team__who .hg-avatar { background: var(--hg-surface-sunken); color: var(--hg-text-secondary); }
 
 /* V11: the Manage hub — a list of links, not a dashboard (REPORT §78.1). Named `uv-manage-` to stay clear of
    the console's existing `uv7-`/`uv9-` layout families. */

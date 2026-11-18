@@ -1,9 +1,72 @@
-# Hangyul Univ — Korea Study-Abroad Domain Research
+# Research
+
+Two parts: **(A) decision-relevant findings** from the competitor and operating benchmarks, with pointers to the full
+records; **(B) the Korea study-abroad domain research** with its numbered sources. Nothing here is legal advice
+([LEGAL.md](LEGAL.md)).
+
+## Where the evidence lives
+
+| What | Where |
+|---|---|
+| Machine-readable source list for part B (`[S1]`…) | [`research/sources.json`](research/sources.json) |
+| Full competitor benchmark (V5, V6, V8, V10 passes; per-competitor entries; `[T…]` sources) | [`research/competitor-benchmark.md`](research/competitor-benchmark.md) |
+| V10 competitive UI audit (scoring, evidence, what was deliberately not copied) | [`research/v10-competitive-ui-audit.md`](research/v10-competitive-ui-audit.md) |
+| Operating-model research, validation protocols (incl. human translation review and usability protocols) | [`research/v9-operating-model.md`](research/v9-operating-model.md), [`research/v9-validation-protocols.md`](research/v9-validation-protocols.md), [`research/v9-sources.json`](research/v9-sources.json) |
+| Visa routes (41 routes, 14 countries), post-arrival rules, revalidation | [`research/visa-playbooks.json`](research/visa-playbooks.json), [`research/post-arrival-official.json`](research/post-arrival-official.json), [`research/v9-visa-revalidation.md`](research/v9-visa-revalidation.md), [`research/v9-visa-sources.json`](research/v9-visa-sources.json) |
+| Arrival facts and revalidation | [`research/arrival-official.json`](research/arrival-official.json), [`research/v9-arrival-revalidation.md`](research/v9-arrival-revalidation.md) |
+| University submission methods (15 entries) | [`research/submission-methods.json`](research/submission-methods.json) |
+| Study-in-Korea research brief used for university data (V27) | `docs/qa/v27/research/` and `server/app/data/research/v27/` |
+| Superseded research snapshots | [`research/archive/`](research/archive/) |
+| Statute texts and vendor facts | [`legal/V22_LEGAL_RESEARCH.md`](legal/V22_LEGAL_RESEARCH.md) |
+
+# Part A — Decision-relevant findings
+
+**Positioning.** Competing Korea study-abroad sites win attention with claims Hangyul will not make (98 % admission,
+"guaranteed", struck-through prices, testimonials). Hangyul's decision: open as clearly and concretely as the best of
+them — say exactly what the student gets — and be the honest one. Trust comes from visible preparation quality, verified
+facts and a named next action.
+
+**What the product must do better than the best reference, task by task**
+
+| Task | Bar |
+|---|---|
+| Discovery and eligibility | A document-free check that returns grouped results **labelled as not an offer**, each with the reason and the missing requirement |
+| Cost clarity | Service fee, application fee, tuition, housing and third-party costs separated; payee, basis, refund rule and source date per line |
+| Documents | Per-country, per-document checklist generated from the target university's rules, with status per document and the legalization route |
+| Writing | Rubric feedback, version history, authorship attestation — **no generation** |
+| Application status | Steps with evidence (application number, receipt); "submitted" is not "received by the university" |
+| Visa | The chain per country with official fee vs service fee split and no approval-rate claims |
+| Arrival | One arrival record; the dependency chain residence card → NHIS → bank account → postpaid SIM, with interim options |
+| Operations queue | Ranked work with reasons, saved views, bulk actions with preview; every number opens the rows it counts |
+| University review | Requirement · evidence · status first; flags with reasons and sources, never an auto-decision |
+
+**Do not copy:** unverifiable success or visa rates; urgency devices and fake discounts; hidden or bundled fees; AI
+authorship of essays and AI credibility scoring of students; pre-apply results without a "not an offer" label;
+unsourced deadline or cost tables; "verified" badges with no stated method; incentivised content without a label;
+vanity counters; opaque applicant scoring; logo and crest walls implying partnerships.
+
+**Product principles that came out of the research**
+
+1. One journey record, many rails: one profile and dossier feed matching, guided submission, visa and arrival; every
+   external step is explained before, preserved during and evidenced after.
+2. Official facts are versioned data (source URL, `verified_at`, status); anything below VERIFIED gets softer wording.
+3. University-specific facts are set per university; never generalised from one to another.
+4. A consented, read-only parent/sponsor view is the clearest open gap in the market.
+5. Providers are not partners by default; "partner" needs a stored agreement.
+6. Honest automation: no live data without an integration, no essay writing, no remote-bank-account promises.
+7. Status continues after arrival (residence card, address change, NHIS, extension, part-time permission).
+
+**Regulatory direction that shapes the product (see part B and [LEGAL.md](LEGAL.md)):** the MOE "quality turn"
+(2026-09-08) and the MOJ draft (2026-10-07) move toward mandatory disclosure, a ban on false advertising and tuition
+refunds paid directly to the student's own account — all consistent with Hangyul operating directly, never collecting
+tuition and never promising outcomes.
+
+# Part B — Korea study-abroad domain research
 
 - **Prepared:** 2026-09-27 (all sources accessed 2026-09-27)
-- **Scope:** international students → Hangyul → partner agencies → partner Korean universities
+- **Scope:** international students → Hangyul Univ → Korean universities. (The research was first scoped with partner agencies as a service layer; that model is retired — Hangyul operates the service directly. Agencies appear below only as market context, competitors and the subject of MOE/MOJ regulation.)
 - **Status legend:** **[V]** = confirmed on an official/authoritative page loaded during research. **[verify]** = from a secondary source, a search snippet, or a page we could not fully load, or a rule that changes often. Re-check before it goes into product logic or user-facing copy.
-- Source numbers such as `[S12]` refer to the **Sources** list at the end. `docs/research-sources.json` has the same set in machine-readable form.
+- Source numbers such as `[S12]` refer to the **Sources** list at the end. [`research/sources.json`](research/sources.json) has the same set in machine-readable form.
 
 > **Headline changes since most public guides were written (2025–2026):**
 > 1. International students in Korean higher education reached **307,464 (1 Apr 2026)**. **Vietnam (96,834) overtook China (78,890)** for the first time [S3][S4].
@@ -308,7 +371,7 @@ Sources: 2025 [S2]; 2026 [S3]. The 2026 Nepal and Mongolia ranks swapped.
    - TOPIK/IELTS vs track
    - Minister-designated / priority-country financial rules
    - the university's certification tier, which drives visa difficulty
-2. **Time-versioned rule and data registry** (`research-sources.json` is the seed). Every rule (apostille status, funding thresholds, part-time hours, deadlines) carries `source_url`, `verified_at` and `effective_from`, with automatic staleness flags. Examples of stale data today: SKKU's guide "China non-apostille" and Vietnam's Sep 2026 switch.
+2. **Time-versioned rule and data registry** (`research/sources.json` is the seed). Every rule (apostille status, funding thresholds, part-time hours, deadlines) carries `source_url`, `verified_at` and `effective_from`, with automatic staleness flags. Examples of stale data today: SKKU's guide "China non-apostille" and Vietnam's Sep 2026 switch.
 3. **Document vault and reuse.** Upload once, reuse across universities, the visa and the extension. Track **bank-certificate expiry (30 days / max 6 months)**, **TOPIK validity (2 years)** and apostille vs consular path per document. Add an OCR checklist and translation/notarization flags.
 4. **Apostille path guidance** per issuing country and issue date, with embassy-specific instructions (e.g. Nepal and Myanmar consular confirmation; Vietnam transition).
 5. **Agency CRM designed around the MOE standard agreement:**

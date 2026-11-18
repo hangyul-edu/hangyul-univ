@@ -10,7 +10,7 @@ import { loaders } from './resources';
  * Locale architecture
  * - Structured JSON per locale and namespace: locales/<locale>/<namespace>.json
  * - English is the source; missing keys fall back to English (never to a raw key in production UI).
- * - `status` is the translation QA state (V8 taxonomy, docs/I18N.md):
+ * - `status` is the translation QA state (V8 taxonomy, docs/LOCALIZATION.md):
  *     SOURCE_APPROVED    — the source language (English), written and approved by the product team;
  *     HUMAN_REVIEWED     — a named human reviewer checked it; only real human evidence (docs/qa/v8/l10n/) permits this;
  *     SYNTHETIC_REVIEWED — machine-drafted, then reviewed by AI personas against a written rubric (record in docs/qa/v8/l10n/);

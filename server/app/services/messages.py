@@ -1,6 +1,6 @@
 """Every outgoing identity message — verification emails and SMS — in one place.
 
-Rules (docs/I18N_GLOSSARY.md, brief §8):
+Rules (docs/LOCALIZATION.md, brief §8):
 - Say why the person received the message and what to do next. Student messages are warm and second person; the
   administrator invitation is concise and operational.
 - A code appears in the **body only**, never in a subject line (subjects show up in notifications, inbox lists and

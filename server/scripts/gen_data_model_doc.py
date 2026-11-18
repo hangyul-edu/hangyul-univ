@@ -19,6 +19,11 @@ HEADER = """# Data model
 PostgreSQL 16 via SQLAlchemy 2 (typed `Mapped[...]` models in `server/app/models/`) and Alembic migrations (`server/alembic/`).
 The reference below is **generated from the models** by `server/scripts/gen_data_model_doc.py` — regenerate after model changes.
 
+> **Naming.** `AGENCY` organisations, `AGENCY_*` roles, `agency_assignments` and other `agency_*` tables/columns are
+> legacy internal names for **Hangyul's own Operations/Admin team** — there is no external study-abroad agency in the
+> operating model (Student → Hangyul Univ → Korean university). They are not being renamed. `partner_contracts` and
+> related partnership tables are a data model only; no real agreement is recorded.
+
 ## Design notes
 
 - **UUID primary keys** everywhere (non-enumerable IDs), `created_at`/`updated_at` timestamps (UTC).

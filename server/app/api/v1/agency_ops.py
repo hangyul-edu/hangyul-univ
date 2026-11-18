@@ -308,7 +308,7 @@ def deactivate_member(user_id: str, body: LeaveIn, p: Principal = Depends(requir
             return pick.user_id if pick else None
         uid = parse_uuid(v)
         if uid not in colleagues:
-            raise HTTPException(422, "Reassign to an active colleague in your agency.")
+            raise HTTPException(422, "Reassign to an active colleague in your team.")
         return uid
 
     items = _open_items(db, p.org_id, u.id)

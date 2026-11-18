@@ -138,6 +138,11 @@
   --hg-space-16: 64px;
   --hg-space-20: 80px;
   --hg-space-24: 96px;
+  --hg-gutter: clamp(16px, 5.5vw - 1.6px, 24px);
+  --hg-container-reading: 720px;
+  --hg-container-task: 1120px;
+  --hg-container-editorial: 1200px;
+  --hg-container-workspace: 1440px;
   --hg-flow-heading: clamp(22px, 1.8vw, 26px);
   --hg-flow-copy: clamp(30px, 3.2vw, 40px);
   --hg-flow-actions: clamp(12px, 1vw, 16px);
@@ -227,8 +232,11 @@
   --hg-ease-exit: cubic-bezier(0.4, 0, 1, 1);
   --hg-ease-emphasis: cubic-bezier(0.16, 1, 0.3, 1);
   --hg-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  color-scheme: light;
+  /* Light-only product: 'only' opts out of browser/device forced-dark repainting. */
+  color-scheme: only light;
 }
+@media (min-width: 768px) { :root { --hg-gutter: 24px; } }
+@media (min-width: 1024px) { :root { --hg-gutter: 32px; } }
 
 /* Dark theme for admin consoles ([data-theme="dark"]) */
 [data-theme='dark'] {

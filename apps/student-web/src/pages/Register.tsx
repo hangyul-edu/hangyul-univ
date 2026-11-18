@@ -188,25 +188,29 @@ export default function Register() {
     const id = `otp-${channel.toLowerCase()}`;
     return (
       <section className="st-reg__chan" aria-labelledby={`${id}-h`} data-verified={!!ch.proof}>
+        {/* Method · destination · state. The destination wraps instead of truncating: it is the one fact the
+            student needs to check before typing a code. */}
         <div className="st-reg__chanhead">
           <span className="st-reg__chanicon" aria-hidden>{channel === 'EMAIL' ? <Mail size={16} /> : <Smartphone size={16} />}</span>
-          <div className="hg-grow" style={{ minWidth: 0 }}>
+          <div className="st-reg__chanwho">
             <h3 className="hg-title-sm" id={`${id}-h`}>{channel === 'EMAIL' ? t('register.verify.emailTitle') : t('register.verify.phoneTitle')}</h3>
-            <div className="hg-small hg-muted hg-truncate">{ch.sent ? t('register.verify.sentTo', { target: ch.sent.target_masked }) : target}</div>
+            <div className="hg-small hg-muted st-reg__dest">{ch.proof && ch.sent ? ch.sent.target_masked : ch.sent ? t('register.verify.sentTo', { target: ch.sent.target_masked }) : target}</div>
           </div>
           {ch.proof ? <span className="st-reg__ok"><Check size={14} aria-hidden /> {t('register.verify.verified')}</span>
             : <button type="button" className="hg-link hg-small" onClick={() => setStep(0)}>{t('register.verify.change')}</button>}
         </div>
         {!ch.proof && (
           <>
+            {/* Phone: code field, then a full-width Verify. From 480 px they share a row. */}
             <div className="st-reg__otp">
               <OtpInput id={id} value={ch.code} onChange={(v) => set((c) => ({ ...c, code: v, error: null }))} invalid={!!ch.error} aria-label={t('register.verify.codeLabel')} disabled={!ch.sent || ch.busy}
+                aria-describedby={ch.error ? `${id}-err` : undefined}
                 onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); verify(channel); } }} />
-              <Button variant="primary" onClick={() => verify(channel)} loading={ch.busy} disabled={!ch.sent || ch.code.length !== 6}>{t('register.verify.verify')}</Button>
+              <Button variant="primary" size="lg" onClick={() => verify(channel)} loading={ch.busy} disabled={!ch.sent || ch.code.length !== 6}>{t('register.verify.verify')}</Button>
             </div>
             <div className="st-reg__chanfoot">
-              {ch.error && <span className="hg-error" role="alert">{ch.error}{ch.attemptsLeft != null && ch.attemptsLeft > 0 ? ` · ${t('register.verify.attemptsLeft', { count: ch.attemptsLeft })}` : ''}</span>}
-              <button type="button" className="hg-link hg-small" disabled={wait > 0 || ch.busy} onClick={() => send(channel)}>
+              {ch.error && <span className="hg-error" role="alert" id={`${id}-err`}>{ch.error}{ch.attemptsLeft != null && ch.attemptsLeft > 0 ? ` · ${t('register.verify.attemptsLeft', { count: ch.attemptsLeft })}` : ''}</span>}
+              <button type="button" className="hg-link hg-small st-reg__resend" disabled={wait > 0 || ch.busy} onClick={() => send(channel)}>
                 {wait > 0 ? t('register.verify.resendIn', { seconds: wait }) : ch.sent ? t('register.verify.resend') : channel === 'EMAIL' ? t('register.verify.sendEmail') : t('register.verify.sendPhone')}
               </button>
             </div>
@@ -295,7 +299,7 @@ export default function Register() {
               <ConsentList items={cfg.consents.items} value={consents} onChange={(v) => { setConsents(v); setConsentErrors([]); }} labels={consentLabels} errorKeys={consentErrors} />
               {locale !== 'ko' && <p className="hg-subtle hg-xs">{t('register.consent.canonical')}</p>}
               <div className="hg-row" style={{ '--hg-gap': '10px' } as React.CSSProperties}>
-                <Button variant="ghost" onClick={() => setStep(1)}>{t('register.back')}</Button>
+                <Button variant="ghost" size="lg" onClick={() => setStep(1)}>{t('register.back')}</Button>
                 <Button variant="primary" size="lg" className="hg-grow" loading={busy} onClick={submit} iconEnd={<ArrowRight className="hg-flip-rtl" />}>{t('register.submit')}</Button>
               </div>
             </div>

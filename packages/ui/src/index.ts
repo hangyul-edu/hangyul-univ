@@ -8,6 +8,7 @@ export * from './funnel';
 export * from './DataTable';
 export * from './shells';
 export * from './app';
+export * from './design-preview';
 // V19: one route-scroll policy, shared by all four web apps.
 export * from './route-scroll';
 export * from './university';

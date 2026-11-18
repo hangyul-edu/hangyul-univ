@@ -34,7 +34,7 @@ class Locale(Base):
     name_en: Mapped[str] = mapped_column(String(80))
     name_native: Mapped[str] = mapped_column(String(80))
     direction: Mapped[str] = mapped_column(String(3), default="ltr")
-    translation_status: Mapped[str] = mapped_column(String(24), default="MACHINE_DRAFT")  # SOURCE_APPROVED | HUMAN_REVIEWED | SYNTHETIC_REVIEWED | MACHINE_DRAFT (V8 taxonomy, docs/I18N.md)
+    translation_status: Mapped[str] = mapped_column(String(24), default="MACHINE_DRAFT")  # SOURCE_APPROVED | HUMAN_REVIEWED | SYNTHETIC_REVIEWED | MACHINE_DRAFT (V8 taxonomy, docs/LOCALIZATION.md)
 
 
 class Source(IdMixin, TimestampMixin, Base):

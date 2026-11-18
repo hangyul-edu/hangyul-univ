@@ -1,4 +1,4 @@
-"""V5 writing review workflow (see docs/WRITING_REVIEW.md).
+"""V5 writing review workflow (see docs/admissions/writing-review.md).
 
 Hooks for the coordinator
 - ``today_items(db, principal)``     → Agency Today rows: overdue reviews · due within 48 h · student revised.
@@ -1301,7 +1301,7 @@ def outcome_patterns(db: Session, org_id=None) -> dict:
 #
 # V13, brief Part 7. `strategy.register_essay_hook` was built in V5 so the writing workstream could push its
 # own findings onto an application's quality check without strategy.py having to know about essays, and
-# `docs/ADMISSION_SUCCESS.md` has described it as the writing hook ever since — but **nothing ever registered
+# `docs/admissions/admission-success.md` has described it as the writing hook ever since — but **nothing ever registered
 # a function**, so for eight passes the hook list was empty and every gate below stayed inside the essay
 # editor. An application's quality check could say "Revise your study plan" and could not say *why*, even
 # though the reason was already computed and stored.

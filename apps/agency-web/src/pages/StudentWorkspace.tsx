@@ -801,8 +801,9 @@ export default function StudentWorkspace() {
                         {x.label}{x.count ? <span className="ag22-details__n">{x.count}</span> : null}
                       </button>
                     ))}
-                    {tab && <button type="button" className="btn btn-sm btn-link ag22-details__hide" onClick={() => setTab(null)}>{t('v22.ws.hideDetails')}</button>}
                   </div>
+                  {/* Outside the tablist: a tablist may only contain tabs (axe aria-required-children). */}
+                  {tab && <button type="button" className="btn btn-sm btn-link ag22-details__hide" onClick={() => setTab(null)}>{t('v22.ws.hideDetails')}</button>}
                 </div>
                 {tab && (
                   <div role="tabpanel" aria-labelledby={`tab-${tab}`} className="ag7-tabpanel ag22-details__panel">

@@ -1,4 +1,4 @@
-"""V5 — universal dossier API (owned by the dossier workstream; see docs/DOCUMENT_AUTOMATION.md and docs/REPORT.md §30).
+"""V5 — universal dossier API (owned by the dossier workstream; see docs/admissions/document-automation.md and docs/REPORT.md §30).
 
 Tenant rules are the existing ones: a student sees only their own dossier; agency staff only students with an active
 assignment to their organisation (counselors: their own students); Hangyul staff everyone; universities never see a

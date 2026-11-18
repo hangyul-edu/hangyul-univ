@@ -35,7 +35,7 @@ export interface LegalEntity {
    * this and **only** this. It is deliberately a separate field from `privacyOfficerName`: the two roles are
    * different in Korean law, the owner did not say they are the same person, and assigning a named individual
    * to a statutory data-protection role they were not appointed to would be a false public filing. See
-   * REPORT §115 and docs/LEGAL_DEPENDENCIES.md.
+   * REPORT §115 and docs/LEGAL.md.
    */
   businessDivisionContact: string | null;
   /** General support address, if different from the privacy officer's. */
@@ -106,7 +106,7 @@ export const legalEntityReady = (e: LegalEntity = LEGAL_ENTITY): boolean => miss
  * Retention is the other launch blocker and is deliberately not a number in this file. Korean statutory
  * commerce records have fixed periods and can be published as soon as Hangyul is the seller of record; the
  * periods for an applicant's *documents* and *account* are a business decision nobody has made, and
- * `docs/LEGAL_DEPENDENCIES.md` L8 has carried them as OPEN since V9. Inventing "3 years" to fill a table is
+ * `docs/LEGAL.md` L8 has carried them as OPEN since V9. Inventing "3 years" to fill a table is
  * exactly the failure this pass exists to stop, so the section states the rule it does follow — purpose
  * achieved, then destroyed — and names the statutory records only.
  */

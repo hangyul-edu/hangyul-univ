@@ -43,7 +43,7 @@ function Thread({ id }: { id: string }) {
           {c.application_id && <Link to={`/applications/${c.application_id}`}>{t('university:messages.openApplication')}</Link>}
         </div>
       </div>
-      <div className="uc-thread__body" aria-live="polite">
+      <div className="uc-thread__body" aria-live="polite" tabIndex={0} role="log">
         {c.messages.length === 0 && <p className="hg-subtle hg-small">{t('university:messages.noMessages')}</p>}
         {c.messages.map((m) => (
           <div key={m.id} className={cx('uc-msg', m.mine && 'uc-msg--mine', m.internal && 'uc-msg--internal')}>

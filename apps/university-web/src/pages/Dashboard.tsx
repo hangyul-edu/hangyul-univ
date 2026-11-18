@@ -22,6 +22,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router';
 import { useFilterOptions } from '../components/FilterBar';
 import { BulkActions } from '../components/v8/BulkActions';
 import { NeedText } from '../components/v8/NeedText';
+import { decisionNeed } from '../lib/v8';
 import { StatusSoft, YAvatar } from '../components/ynex';
 import { activeChips, parseApplicantParams, REACHED_STEPS, writeApplicantParams, type ApplicantParams, type ApplicantSort, type ChipKey } from '../lib/filters';
 import { intakeText } from '../lib/format';
@@ -487,7 +488,8 @@ export default function Dashboard() {
                   </span>
                   <span className="hg-lrow__meta hg-truncate">{localName(r.program)} · {intakeText(`${r.intake.year}-${r.intake.term}`, t)}</span>
                   <span className="hg-lrow__meta">{r.student?.nationality ? countryName(r.student.nationality, locale) : '—'} · {documentsText(r, t as never)}</span>
-                  <span className="hg-lrow__meta"><NeedText a={r} /></span>
+                  {/* A decided application needs nothing: on the card that is no line at all, not a lone dash. */}
+                  {decisionNeed(r).kind !== 'decided' && <span className="hg-lrow__meta"><NeedText a={r} /></span>}
                 </span>
                 <ChevronRight className="hg-lrow__chev hg-flip-rtl" aria-hidden />
               </span>

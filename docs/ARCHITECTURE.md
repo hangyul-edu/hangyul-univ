@@ -1,14 +1,56 @@
 # Architecture
 
+## Current reality (2026-11-18)
+
+**Service model in one line:** Student → Hangyul Univ → Korean university. Hangyul directly operates the student
+service; the university decides admission.
+
+| Product | Code | Production domain |
+|---|---|---|
+| Marketing | `apps/marketing-web` | `https://univ.talkhangyul.com` |
+| Student | `apps/student-web`, `apps/student-mobile` | `https://app.univ.talkhangyul.com` |
+| Hangyul internal Operations/Admin | `apps/agency-web`, `apps/agency-mobile` | `https://admin.univ.talkhangyul.com` |
+| University console | `apps/university-web`, `apps/university-mobile` | `https://partner.univ.talkhangyul.com` |
+| API | `server/` (FastAPI, prefix `/api/v1`, health `/healthz`) | same-origin `/api/*` on each domain |
+
 ```
-/root/hangyul-univ
+Browser ──▶ Vercel (static dist per app, CSP/HSTS headers, /build-info.json)
+              │  same-origin /api/:path*  (rewrite in apps/<app>/vercel.json)
+              ▼
+        ngrok tunnel (infra/ngrok/dev-api-policy.yml: only /api/* and /healthz)
+              ▼
+        FastAPI :8001 on the owner's machine ──▶ PostgreSQL 16 · Redis · local object storage
+
+Marketing discovery (no API): /data/public/*.json (static export) + /api/public-fit (Vercel Python function)
+```
+
+- The API **is connected**, through a tunnel to a **non-production host**. A durable production API host
+  (`api.univ.talkhangyul.com` currently fails TLS) and a seeded programme catalogue (`/api/v1/universities` → `total: 0`)
+  are open launch blockers. Operational detail: [DEPLOYMENT.md](DEPLOYMENT.md).
+- The intended production topology (nginx or equivalent in front of the API, managed PostgreSQL/Redis, private S3,
+  ClamAV, the worker) is described under "V29 infrastructure" below and is implemented in code but not provisioned.
+
+### Why the code says "agency"
+
+`apps/agency-web`, `apps/agency-mobile`, `@hangyul/agency-web`, the `agency` i18n namespace, `AGENCY_*` models and
+roles (`AGENCY_ADMIN`), `Agency*` tables, `services/agency_ops.py`, `services/assignment.py` and the `/api/v1/agency/...`
+prefix were written when the plan placed partner study-abroad agencies between Hangyul and the student. That operating
+model is retired: **there is no external agency in the service**. These identifiers now mean "Hangyul's internal
+Operations/Admin team and console" and are deliberately not renamed (API, database, bundle keys and deep links depend
+on them). An "agency organisation" row is Hangyul's own operations organisation; "assignment" assigns a student to
+that team. Sections further down that say "agency" or "partner agencies" (V8–V15 notes) use the historical name.
+
+## Repository layout
+
+```
+<repo root>
 ├── apps/
 │   ├── marketing-web      React + Vite  :3100   public site, SEO guides, public search
 │   ├── student-web        React + Vite  :3101   student platform
-│   ├── agency-web         React + Vite  :3102   agency / Hangyul operations console
+│   ├── agency-web         React + Vite  :3102   Hangyul internal Operations/Admin console (historical name)
 │   ├── university-web     React + Vite  :3103   university console
 │   ├── student-mobile     Expo (expo-router)    native student app
-│   ├── agency-mobile      Expo                  native agency app
+│   ├── agency-mobile      Expo                  native Operations/Admin app (historical name)
 │   └── university-mobile  Expo                  native university app
 ├── packages/
 │   ├── design-tokens   TS tokens → tokens.css (CSS variables) + RN objects
@@ -27,11 +69,11 @@
 │   └── config          tsconfig base + shared Vite config (proxy, chunking, SCSS, template-CSS RTL/purge)
 ├── server/             FastAPI + SQLAlchemy 2 + Alembic + PostgreSQL
 ├── scripts/            setup / dev / api helpers
-├── infra/              docker-compose init SQL
+├── infra/              csp.json (CSP source) · nginx · ngrok policy · systemd worker unit · postgres init SQL
 └── docs/
 ```
 
-## Runtime
+## Runtime (local development)
 
 ```
 Browser (3100–3103) ──/api proxy──▶ FastAPI :8001 ──▶ PostgreSQL 16
@@ -51,7 +93,7 @@ Expo apps ──── https://<host>:8001/api ───┘           Private ob
 | `services/` | `access` (tenant isolation), `state_machine`, `matching`, `readiness` (checklists, legalization routing, readiness %), `visa`, `assignment`, `tasks_engine`, `essays` (pre-check, diff), `analytics` (+ rollup), `freshness`, `payments`, `notify` |
 | `api/v1/` | `auth`, `catalog`, `directory` (V12: the public Korean institution directory — institution-level facts only, no price/deadline/requirement/match), `student` (`/me/*`), `documents`, `applications`, `collab` (essays, tasks, messages, notifications, visa), `agency`, `university`, `admin` (sources, freshness, audit) |
 | `jobs/daily.py` | freshness scan, intake closing, task regeneration, analytics rollup |
-| `seed/` | reference data, research-backed sources, demo catalog/tenants/students, and `institutions.py` — the **real** institution directory loaded from `app/data/korean_institutions.json` (not demo data; built by `scripts/catalog/import_korean_universities.py`) |
+| `seed/` | reference data and research-backed sources (`run.py`); synthetic fixtures for test/e2e databases only (`fixtures.py`); and `institutions.py` — the **real** institution directory loaded from `app/data/korean_institutions.json` (not demo data; built by `scripts/catalog/import_korean_universities.py`) |
 
 API docs: http://localhost:8001/docs (OpenAPI 3).
 
@@ -60,7 +102,7 @@ API docs: http://localhost:8001/docs (OpenAPI 3).
 - **Matching** (`services/matching.py`): Stage 1 hard eligibility (degree, prior education, nationality restriction, language minimums with `language_alternative`, GPA minimum, open intake; near-misses become REACH). Stage 2 weighted factors (academic 20, language 20, field 20, budget 15, scholarship 10, location 5, housing 5, deadline 5). Every point is returned as `factors[]`; every judgement as `reasons[]` with i18n `code` + `params`. `MatchSnapshot` stores results with `engine_version` for future model training. Future probabilities must carry sample size, model version, confidence and data freshness.
 - **State machine** (`services/state_machine.py`): explicit transitions with allowed actor kinds (STUDENT / AGENCY / UNIVERSITY / HANGYUL / SYSTEM). Every change writes `ApplicationStatusHistory`, an audit log row, an analytics event, notifications, pipeline stage updates, and triggers automation (e.g. `ADMISSION_CERTIFICATE_ISSUED` opens a visa case; `ENROLLED` creates a `StudentEnrollment`).
 - **Task engine** (`services/tasks_engine.py`): idempotent generation with `dedupe_key` from deadlines, missing/rejected/expired documents, legalization gaps, document reviews, essays, tuition, university requests, interviews, visa steps and agency first-response SLA; auto-closes tasks whose trigger disappears.
-- **Assignment** (`services/assignment.py`): scores partner agencies by country expertise, language, university and degree expertise, workload vs capacity, SLA history and student preference — not raw acceptance rate. Picks the lightest-loaded counselor. Operations can override (audited, with reason).
+- **Assignment** (`services/assignment.py`): scores operations teams (historically "partner agencies") by country expertise, language, university and degree expertise, workload vs capacity, SLA history and student preference — not raw acceptance rate. Picks the lightest-loaded counselor. Operations can override (audited, with reason).
 - **Legalization routing** (`services/readiness.py::legalization_for`): most specific `LegalizationRule` wins (country + category + university); otherwise derived from the time-versioned Hague membership (`Country.apostille_member` + `apostille_effective_from`), producing a human-readable step list and transition notes (e.g. Vietnam since 2026-09-11, Thailand from 2027-02-28).
 
 ## Analytics
@@ -71,8 +113,8 @@ Dashboards read the `daily_metrics` rollup (rebuilt by `jobs/daily.py`, idempote
 
 ## Identity, roles and payments (current — pointers)
 
-- **Identity (V22, REPORT §0.3a).** Registration is a four-step verified flow (`POST /auth/signup/session` with a Turnstile proof → `/auth/verification/send` + `/verify` for e-mail and SMS one-time codes → `/auth/register`); no account exists before the last call. **One role per tenant:** every partner-agency member is `AGENCY_ADMIN`, every university member `UNIVERSITY_ADMIN` (`server/app/models/enums.py`, legacy values survive only as aliases). Students see staff as one identity, *Hangyul Univ team* (`services/display_identity.py`). SendGrid / Twilio / Turnstile are read from environment variables and are **absent on this host**.
-- **Payments (V21, REPORT §0.4).** Plans are one-time USD purchases (Basic US$179 / All-in-One US$349 / Premium US$599; `packages/types/src/plans.ts` → `shared/plans.json`). Toss Payments runs in **TEST mode**: `POST /me/orders` → Hangyul's own card form → `POST /me/orders/{id}/pay-with-card` → the server relays card number and expiry to Toss's key-in API on MID `bill_talkoab1` and stores neither. Live keys and the overseas-card/USD contracts are owner actions (`docs/payments/TOSS_FOREIGN_CARD_REVIEW.md`).
+- **Identity.** Registration is a four-step verified flow (`POST /auth/signup/session` with a Turnstile proof → `/auth/verification/send` + `/verify` for e-mail and SMS one-time codes → `/auth/register`); no account exists before the last call. **One role per tenant:** every partner-agency member is `AGENCY_ADMIN`, every university member `UNIVERSITY_ADMIN` (`server/app/models/enums.py`, legacy values survive only as aliases). Students see staff as one identity, *Hangyul Univ team* (`services/display_identity.py`). SendGrid / Twilio / Turnstile are read from environment variables and are **absent on this host**.
+- **Payments.** Plans are one-time USD purchases (Basic US$179 / All-in-One US$349 / Premium US$599; `packages/types/src/plans.ts` → `shared/plans.json`). Toss Payments runs in **TEST mode**: `POST /me/orders` → Hangyul's own card form → `POST /me/orders/{id}/pay-with-card` → the server relays card number and expiry to Toss's key-in API on MID `bill_talkoab1` and stores neither. Live keys and the overseas-card/USD contracts are owner actions (`docs/payments/TOSS_FOREIGN_CARD_REVIEW.md`).
 - **Environment.** `HG_ENV` defaults to `production` and fails closed (unset or unknown = production); local runners set `development` explicitly.
 
 ## Frontend
@@ -114,17 +156,17 @@ The rules now:
 
 **V10.** `template-koreanasha/` is a site Hangyul owns (the same build served at univ.talkhangyul.com) and has
 authorised for this project. It is a **customised Eduan build** — its compiled `main.css` carries Eduan's banner
-and class vocabulary with ~500 hand-written lines prepended (REPORT §65.1). `packages/koreanasha-ui` therefore
+and class vocabulary with ~500 hand-written lines prepended. `packages/koreanasha-ui` therefore
 carries only that layer, re-authored as SCSS and re-themed to the Hangyul palette, and is imported **after**
 `@hangyul/eduan-ui` in `apps/marketing-web/src/main.tsx`, so Koreanasha's header, hero, bands and cards win
 wherever the two overlap. React ports in the package: `Hero` (a `<picture>` with one hand-made crop per
 breakpoint), `Band`, `SectionHead`, `Card(s)`, `MediaRow`, `Marquee` (CSS animation, not Koreanasha's endless
 rAF loop), `Faq` (native `<details>`, not Bootstrap collapse), `Cta`, `Reveal`; `Offcanvas` and
 `useStickyHeader` are re-exported from `eduan-ui` rather than written twice. The template folder itself is not
-served at runtime. Inventory: `docs/TEMPLATE_KOREANASHA_INVENTORY.md`.
+served at runtime. Inventory: `docs/FRONTEND_CONVENTIONS.md`.
 
 
-`themeforest-eduan/` and `themeforest-ynex/` are purchased ThemeForest templates the owner authorised for full use inside Hangyul Univ. They are **implementation sources**, not runtime folders: their SCSS is copied verbatim into `packages/eduan-ui/src/scss/eduan` and `packages/ynex-ui/src/scss/ynex` (licence headers intact; the only edits are documented in place), compiled with a Bootstrap 5 subset, themed through the templates' own CSS variables, and rendered by React ports of their markup. jQuery and template plugins (Swiper, WOW, MeanMenu, bxSlider, Odometer, SimpleBar, defaultmenu.js, DataTables, ApexCharts…) are not shipped. Build pipeline (`packages/config/vite.ts`): Eduan CSS gets automatic `[dir=rtl]` mirroring (postcss-rtlcss); production builds purge template selectors not used in any Hangyul source (PurgeCSS, runtime class patterns safelisted). Inventories: `docs/TEMPLATE_EDUAN_INVENTORY.md`, `docs/TEMPLATE_YNEX_INVENTORY.md`; mapping and decisions: REPORT §40–41.
+`themeforest-eduan/` and `themeforest-ynex/` are purchased ThemeForest templates the owner authorised for full use inside Hangyul Univ. They are **implementation sources**, not runtime folders: their SCSS is copied verbatim into `packages/eduan-ui/src/scss/eduan` and `packages/ynex-ui/src/scss/ynex` (licence headers intact; the only edits are documented in place), compiled with a Bootstrap 5 subset, themed through the templates' own CSS variables, and rendered by React ports of their markup. jQuery and template plugins (Swiper, WOW, MeanMenu, bxSlider, Odometer, SimpleBar, defaultmenu.js, DataTables, ApexCharts…) are not shipped. Build pipeline (`packages/config/vite.ts`): Eduan CSS gets automatic `[dir=rtl]` mirroring (postcss-rtlcss); production builds purge template selectors not used in any Hangyul source (PurgeCSS, runtime class patterns safelisted). Inventories: `docs/FRONTEND_CONVENTIONS.md`, `docs/FRONTEND_CONVENTIONS.md`; mapping and decisions:
 
 ## V8 additions (2026-10-09)
 
@@ -176,7 +218,7 @@ served at runtime. Inventory: `docs/TEMPLATE_KOREANASHA_INVENTORY.md`.
   (`v9.css` was still shipping on every home page load), four of `home/v7.tsx`'s seven exports are gone, and
   with them 281 now-unreachable CSS selectors — 253 of them in `_hangyul-glue.scss`, which lost a third of its
   size because Koreanasha's chrome replaced Eduan's. Marketing CSS: 273.7 → 255.1 KB (56.3 → 53.0 KB gzip).
-  REPORT §69.12 records what went and why. **Dead CSS hides behind dead TSX**: `prune-css.mjs` tests whether a
+  records what went and why. **Dead CSS hides behind dead TSX**: `prune-css.mjs` tests whether a
   class name appears in any source file, so a superseded-but-still-present component keeps its stylesheet
   alive. Delete the component first, then prune.
 - **QA tooling.**
@@ -191,7 +233,7 @@ served at runtime. Inventory: `docs/TEMPLATE_KOREANASHA_INVENTORY.md`.
   - `scripts/qa/v10-removed-css-probe.mjs`: takes the before/after pair of a stylesheet, derives the selectors
     the prune removed and asks the live DOM whether any of them still matches — and, where one does, whether
     the declarations it carried still reach the element. This is what proved the removal safe, and what caught
-    the `:is()` mistake. Baselines live in `docs/qa/v10/css-baseline/`.
+    the `:is()` mistake.
   - `scripts/qa/v10-pixdiff.py`: pixel comparison of two capture phases. Use it on marketing, not on the
     consoles: Chromium's full-page rasterisation jitters ~15 px horizontally between runs there while the DOM
     stays identical, so a third of console images "differ" with no code change. The capture's `metrics.json`
@@ -216,7 +258,7 @@ can carry real data while the application flow still runs on seeded figures:
 
 A directory entry with no catalogue entry is the ordinary case. The public page offers "prepare to study here"
 for it anyway, and the Student Platform answers with the institution's verified facts and a counsellor rather
-than with invented programme data (`DirectoryOnlyUniversity`, REPORT §90.5).
+than with invented programme data (`DirectoryOnlyUniversity`).
 
 Maintenance: `scripts/catalog/import_korean_universities.py` (registry → merge → `app/data/korean_institutions.json`,
 with `--offline` and `--check`), `scripts/catalog/build_korea_map.py` (KOSTAT boundaries → the region SVG), and
@@ -226,7 +268,7 @@ never served.
 
 ## V15 — the commercial model has one source of truth
 
-*2026-10-19. REPORT §117.*
+*2026-10-19.*
 
 Before V15 the price of a plan existed in three places that could drift: the homepage, the student service
 page, and a seed function on the server. Nothing structural stopped them disagreeing.
@@ -358,5 +400,5 @@ It is exposed as `POST /hq/data-requests/{id}/complete-deletion`, which needs a 
   accounts (`scripts/qa/auth.mjs`).
 - **Service unreachable.** `ApiError.unreachable` (network failure, our timeout, 502/503/504, or a non-JSON error page
   where the API should be) → the auth provider's `unavailable` status → `ServiceUnavailable` (web) / `AuthGate`
-  (native): branded, localized, Retry. The marketing site never needs it: public discovery is static (REPORT §435).
+  (native): branded, localized, Retry. The marketing site never needs it: public discovery is static.
 - **Canonical select.** `packages/ui/src/select.tsx` — see docs/FRONTEND_CONVENTIONS.md.

@@ -38,7 +38,7 @@ export type { ContentVerification, MediaAttribution, MediaKind, Provenance, Serv
  * rather than a thing every renderer has to remember. A client cannot assign a photograph at all; it can
  * only draw the one the record carries.
  *
- * The list is short, and `docs/MEDIA_LICENSE_AUDIT.md` records why: almost every good photograph of a
+ * The list is short, and `docs/media/LICENSE_AUDIT.md` records why: almost every good photograph of a
  * Korean campus on Commons is CC BY or CC BY-SA, and the owner's production state is no visible
  * attribution. Commissioned photography is the fix.
  */

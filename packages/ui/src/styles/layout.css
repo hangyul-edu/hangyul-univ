@@ -41,9 +41,10 @@
 }
 @media (min-width: 768px) { .hg-topbar { padding: 0 20px; } }
 .hg-topbar__search { flex: 1; max-width: 420px; min-width: 0; }
-.hg-content { padding: 16px 16px 48px; width: 100%; max-width: 1440px; margin-inline: auto; }
-@media (min-width: 768px) { .hg-content { padding: 24px 28px 64px; } }
-@media (min-width: 1024px) { .hg-content { padding: 28px 32px 64px; } }
+/* One rail per product: the gutter and the content width are tokens (design-tokens `layout`), not per-shell numbers. */
+.hg-content { padding: 16px var(--hg-gutter) 48px; width: 100%; max-width: var(--hg-container-workspace); margin-inline: auto; }
+@media (min-width: 768px) { .hg-content { padding-block: 24px 64px; } }
+@media (min-width: 1024px) { .hg-content { padding-block: 28px 64px; } }
 .hg-mobile-only { display: initial; }
 .hg-desktop-only { display: none; }
 @media (min-width: 1024px) { .hg-mobile-only { display: none !important; } .hg-desktop-only { display: initial; } }
@@ -63,7 +64,7 @@
   position: sticky; top: 0; z-index: var(--hg-z-header); background: color-mix(in srgb, var(--hg-bg-canvas) 92%, transparent); backdrop-filter: saturate(1.2) blur(10px);
   border-bottom: 1px solid var(--hg-border-subtle);
 }
-.hg-snav__inner { height: 60px; display: flex; align-items: center; gap: 8px; max-width: 1120px; margin-inline: auto; padding: 0 16px; }
+.hg-snav__inner { height: 60px; display: flex; align-items: center; gap: 8px; max-width: calc(var(--hg-container-task) + var(--hg-gutter) * 2); margin-inline: auto; padding: 0 var(--hg-gutter); }
 @media (min-width: 768px) { .hg-snav__inner { padding: 0 24px; gap: 12px; } }
 /*
  * The right-hand control group, spaced **optically** rather than evenly (brief Part 3.6).
@@ -100,8 +101,8 @@
 .hg-snav__link:hover { color: var(--hg-text); background: color-mix(in srgb, var(--hg-text) 4%, transparent); }
 .hg-snav__link.active { color: var(--hg-text); background: color-mix(in srgb, var(--hg-text) 6%, transparent); }
 .hg-snav__count { min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--hg-text); color: #fff; font-size: 11px; font-weight: var(--hg-weight-semibold); display: inline-grid; place-items: center; font-variant-numeric: tabular-nums; }
-.hg-scontent { flex: 1; width: 100%; max-width: 1120px; margin-inline: auto; padding: 20px 16px 104px; }
-@media (min-width: 768px) { .hg-scontent { padding: 32px 24px 64px; } }
+.hg-scontent { flex: 1; width: 100%; max-width: calc(var(--hg-container-task) + var(--hg-gutter) * 2); margin-inline: auto; padding: 20px var(--hg-gutter) 104px; }
+@media (min-width: 768px) { .hg-scontent { padding-block: 32px 64px; } }
 .hg-tabbar {
   position: fixed; z-index: var(--hg-z-tabbar); bottom: 0; inset-inline: 0; display: grid; grid-template-columns: repeat(5, 1fr);
   background: color-mix(in srgb, var(--hg-surface) 94%, transparent); backdrop-filter: saturate(1.2) blur(12px);
@@ -110,11 +111,16 @@
 @media (min-width: 1024px) { .hg-tabbar { display: none; } }
 .hg-tabbar a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; height: 56px; font-size: 12px; font-weight: var(--hg-weight-medium); color: var(--hg-text-tertiary); text-decoration: none !important; position: relative; }
 .hg-tabbar a svg { width: 22px; height: 22px; stroke-width: 1.75; }
+/* Launch-final: a tab label never wraps ("Universitie/s" at 320 px). It keeps one line inside its fifth of the bar,
+   ellipsised as a last resort, and steps down a size on the narrowest phones. */
+.hg-tabbar a { min-width: 0; padding-inline: 2px; }
+.hg-tabbar a > span:not(.hg-tabbar__dot) { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 374px) { .hg-tabbar a { font-size: 11px; letter-spacing: -0.01em; } }
 .hg-tabbar a.active { color: var(--hg-text); }
 .hg-tabbar a.active svg { stroke-width: 2.1; }
 .hg-tabbar__dot { position: absolute; top: 7px; inset-inline-start: calc(50% + 7px); width: 8px; height: 8px; border-radius: 50%; background: var(--hg-primary); border: 2px solid var(--hg-surface); }
 
-/* The brand lockup is the owner-supplied Hangyul Univ logo image (docs/BRAND_ASSETS.md), never type set in CSS.
+/* The brand lockup is the owner-supplied Hangyul Univ logo image (docs/BRAND_AND_MEDIA.md), never type set in CSS.
    `--hg-logo-h` sizes it by height only, so the 3.32:1 artwork is never distorted; the @2x source keeps it sharp.
    `.hg-logo__mark` (the symbol alone) is only shown where the lockup cannot fit — the collapsed console rail. */
 .hg-logo { --hg-logo-h: 26px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none !important; color: var(--hg-text); flex: none; }
@@ -210,9 +216,9 @@
 
 /* ================= Sign in ================= */
 .hg-login { min-height: 100dvh; display: flex; flex-direction: column; background: var(--hg-bg-canvas); }
-.hg-login__top { display: flex; align-items: center; justify-content: space-between; padding: 16px; max-width: 1160px; width: 100%; margin-inline: auto; }
-@media (min-width: 768px) { .hg-login__top { padding: 20px 24px; } }
-.hg-login__main { flex: 1; display: grid; place-items: start center; padding: 24px 16px 48px; }
+.hg-login__top { display: flex; align-items: center; justify-content: space-between; padding: 16px var(--hg-gutter); max-width: calc(var(--hg-container-task) + var(--hg-gutter) * 2); width: 100%; margin-inline: auto; }
+@media (min-width: 768px) { .hg-login__top { padding-block: 20px; } }
+.hg-login__main { flex: 1; display: grid; place-items: start center; padding: 24px var(--hg-gutter) 48px; }
 @media (min-width: 768px) { .hg-login__main { place-items: center; padding-bottom: 96px; } }
 .hg-login__panel { width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 24px; }
 .hg-login__intro { display: flex; flex-direction: column; gap: 6px; }

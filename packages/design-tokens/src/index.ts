@@ -123,6 +123,23 @@ export const space = { 0: 0, 1: 4, 2: 8, 3: 12, 4: 16, 5: 20, 6: 24, 8: 32, 10: 
  *
  * Measured against the brief's ranges: heading→copy 24–32, copy→action 28–36, action↔action 12–16.
  */
+/**
+ * Page layout (launch-final): ONE gutter and one content width per product, read by every shell.
+ *
+ * `gutter` is the distance from the viewport edge to the content rail. It is a single custom property whose
+ * value changes with the viewport (see `gutterSteps`), so a shell writes `padding-inline: var(--hg-gutter)`
+ * once and never repeats a media query: 16 px at 320, ~18–20 px at 360–390, ~21–22 px at 412–430, 24 px from
+ * 470 px and on tablets, 32 px on desktop. Pages inside one app therefore share one left/right rail.
+ *
+ * `container` names the intentional content widths: marketing is an editorial centred column, the student app a
+ * task-focused readable one, the Operations/Admin and University consoles a wide workspace.
+ */
+export const layout = {
+  gutter: 'clamp(16px, 5.5vw - 1.6px, 24px)',
+  gutterSteps: { 768: '24px', 1024: '32px' },
+  container: { reading: '720px', task: '1120px', editorial: '1200px', workspace: '1440px' },
+} as const;
+
 export const flow = {
   /**
    * Headline → its supporting copy. The small break: these two are one thought.
@@ -296,5 +313,5 @@ export const ease = {
 } as const;
 export const zIndex = { sticky: 10, header: 20, tabbar: 25, sidebar: 30, popover: 45, drawer: 50, modal: 50, toast: 60 } as const;
 
-export const tokens = { palette, color, status, chart, space, flow, radius, control, font, shadow, breakpoint, motion, ease, zIndex };
+export const tokens = { palette, color, status, chart, space, layout, flow, radius, control, font, shadow, breakpoint, motion, ease, zIndex };
 export default tokens;

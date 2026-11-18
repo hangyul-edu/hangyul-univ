@@ -151,6 +151,11 @@
    markets whose writing system it looks like it was written for. */
 :lang(ko) .mk-pagehead__title,
 :lang(ko) .mk-pagehead__lede { word-break: keep-all; }
+/* Launch-final: the same defect kept coming back one selector at a time (20+ unscoped `keep-all` declarations in
+   home.css; the ja home page overflowed 320 px by 35 px in the pricing notes). Scripts written without spaces can
+   never take `keep-all`, so it is switched off for them once, for every rule present and future. This is the one
+   place an `!important` is justified: it is a locale guarantee, not a style. */
+html:is(:lang(ja), :lang(zh), :lang(th), :lang(lo), :lang(km), :lang(my)) * { word-break: normal !important; }
 
 /* ── from v6.css ────────────────────────────────────────────────────────────────────────────────────────────── */
 /* Hangyul Univ — V6 marketing layer (REPORT §36).

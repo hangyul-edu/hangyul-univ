@@ -266,7 +266,7 @@ export function Services() {
   /**
    * One **owner-supplied** photograph per Koreanasha service row — the three Koreanasha uses for this exact
    * section on its own site (`template-koreanasha/assets/img/p1_c`, `s2_c`, `s3_c`). All three are
-   * `HANGYUL_OWNED`, so nothing here carries a visible credit; see docs/MEDIA_LICENSE_AUDIT.md.
+   * `HANGYUL_OWNED`, so nothing here carries a visible credit; see docs/media/LICENSE_AUDIT.md.
    *
    * Why a licensed set was not good enough for rows 2 and 3. The CC0 set they replace — the Songpa skyline
    * and the Namsan roofline — was accurate and completely impersonal: pictures of empty places. These are

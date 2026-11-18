@@ -1,9 +1,14 @@
 # Workflows
 
+> **Naming.** Hangyul Univ operates the student service directly; there is no external agency. In this file `agency`,
+> `counselor`, `AGENCY_REVIEW` and "Operations" columns refer to **Hangyul's internal operations team** (the code keeps
+> the historical `agency` identifiers; see [ARCHITECTURE.md](ARCHITECTURE.md)). Students always see one identity: the
+> Hangyul Univ team.
+
 ## Student lifecycle
 
 ```
-Explore → Profile → Eligibility → Matching → Consultation → Service purchase → Agency assignment
+Explore → Profile → Eligibility → Matching → Consultation → Service purchase → Hangyul operations team assignment
 → Document preparation → Application → Interview → Decision → Offer accepted → Tuition (paid by the student to the university)
 → Standard admission letter → Visa preparation → Visa issued → Pre-departure → Housing → Arrival
 → Residence card & insurance → Enrollment → Terms / retention → Graduation → Alumni / career
@@ -53,7 +58,7 @@ Checklists are generated per application from university/program `document_requi
 1. If issued in Korea → nothing needed.
 2. Else the most specific `legalization_rules` row (country + category + university) supplies the route and steps.
 3. Else derived from Hague membership **at today's date** (`apostille_member`, `apostille_effective_from`): APOSTILLE or CONSULAR_LEGALIZATION, with generic steps (original → notarise → apostille *or* MOFA authentication + Korean consular confirmation → certified translation → Hangyul verification) and transition notes.
-4. Unknown membership → "route to be confirmed by your counselor" (never guessed).
+4. Unknown membership → "route to be confirmed by the Hangyul Univ team" (never guessed).
 
 ## Essay / personal statement review
 
@@ -63,9 +68,9 @@ Checklists are generated per application from university/program `document_requi
 - Reviewers comment on quoted spans and may propose replacement text; **only the student can accept a suggestion** (creating a new version). Internal notes are hidden from students.
 - Every version is stored; any two versions can be diffed word-by-word.
 
-## Agency assignment
+## Operations team assignment (code: "agency assignment")
 
-On purchase of a plan (every plan includes Hangyul's counselling, V15), the engine scores partner agencies (country, language, university and degree expertise, workload/capacity, SLA history, preference), picks the top non-saturated agency and its lightest-loaded counselor, opens a support conversation and sets a first-response SLA deadline. Operations can override with a reason (audited).
+On purchase of a plan (every plan includes Hangyul's consultation), the engine assigns the case to a Hangyul operations team; the scoring model (written for multiple partner agencies, now applied to Hangyul's own teams) considers (country, language, university and degree expertise, workload/capacity, SLA history, preference), picks the top non-saturated agency and its lightest-loaded counselor, opens a support conversation and sets a first-response SLA deadline. Operations can override with a reason (audited).
 
 ## Task & deadline engine
 
@@ -101,15 +106,14 @@ Contracts define fees, incentives, target countries/programs, quotas and optiona
 - **Sponsor.** Student creates a link (scopes, expiry) → sponsor views without an account → every view audited → student revokes. Never shows messages, essays, notes or files.
 - **Waiting-on.** One party per case; the row's next action is phrased for that party; the student sees "who is doing what" with the same meaning.
 - **Counselor day.** Ranked queue (reasons, owner, deadline) with work-type chips → open → decide → next; meetings record notes + decisions + follow-up tasks + next appointment on the student timeline.
-- **Member leaves (agency or university).** Deactivation lists open items, requires a target and a reason, moves everything in one audited transaction; nothing is orphaned.
+- **Member leaves (operations team or university).** Deactivation lists open items, requires a target and a reason, moves everything in one audited transaction; nothing is orphaned.
 - **Submissions.** Seven states across every method: Ready · Needs final review · Authorized · Submitted (handed off, awaiting evidence) · Confirmation missing (> 2 days) · University received · Issue. SUBMITTED still requires evidence.
 - **University review.** Evidence table first; the decision panel highlights nothing until the evidence has been seen; "open the next applicant after deciding" also after a document request; bulk actions on "all N matching" with a server preview and per-item results; no bulk admit/reject.
 - **Rule change.** A proposal shows its impact on currently matching prospective students only when every counted profile can be evaluated; otherwise "Not enough data to estimate (N of M profiles lack X)". Existing applications are not silently invalidated; the student/agency get a `REQUIREMENT_CHANGED` item.
 
 ## V10 workflow changes — public site → Student Platform
 
-V10 removes the public application form and makes **Login** the public site's only account action
-(REPORT §68.5). The handover now works like this:
+V10 removes the public application form and makes **Login** the public site's only account action. The handover now works like this:
 
 ```
 public page ──┬── anonymous ──▶ /login?next=<student path> ──▶ sign in ──────────────▶ <student path>
@@ -135,7 +139,7 @@ public site stopped being a funnel into a form; it did not stop being a way in.
 
 ## V22 registration and V21 plan purchase (current)
 
-**Registration (V22, REPORT §0.3a)** — four steps, one write. `POST /auth/signup/session` (Cloudflare Turnstile proof →
+**Registration** — four steps, one write. `POST /auth/signup/session` (Cloudflare Turnstile proof →
 signed session, header `X-Signup-Session`) → `POST /auth/verification/send` + `/verify` for an **e-mail code (SendGrid)** and a
 **mobile code (Twilio Messaging Service)** — HMAC-stored 6-digit codes, 5-minute TTL, 60-second resend, 5 attempts, Redis
 rate limits → `POST /auth/register` with `email_proof`, `phone_proof`, `password_confirm` and the granular consents
@@ -144,9 +148,9 @@ call.** Development reads codes through `GET /auth/verification/peek/{id}` (404 
 (`apps/student-mobile/src/signup/`) uses the same four endpoints. Provider credentials are environment variables and
 are absent on this host, so the live smoke is BLOCKED.
 
-**Plan purchase (V21, REPORT §0.4)** — one-time, USD. `POST /me/orders` (plan code; records a versioned `PURCHASE_TERMS`
+**Plan purchase** — one-time, USD. `POST /me/orders` (plan code; records a versioned `PURCHASE_TERMS`
 consent) → Hangyul's **own card form** (no Toss popup) → `POST /me/orders/{id}/pay-with-card` → the server calls Toss's
 key-in API on MID `bill_talkoab1` (foreign-card key-in, settles USD; `Idempotency-Key: hg-keyin-{order_id}`) and relays card
 number and expiry **without storing them**; the card endpoint is limited to 8 attempts / 300 s per student and per IP. A
-paid order opens the agency assignment above. Toss runs in **TEST mode**; live keys and the overseas-card/USD contracts are
+paid order opens the operations team assignment above. Toss runs in **TEST mode**; live keys and the overseas-card/USD contracts are
 owner actions, so `live_usd_checkout_enabled` is false and the student is told so rather than charged in another currency.

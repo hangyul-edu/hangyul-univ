@@ -1,6 +1,6 @@
 """Submission hub (V5 → V6): how each application actually reaches the university, and the evidence that it did.
 
-Connector methods (docs/SUBMISSION_CONNECTORS.md, "V6")
+Connector methods (docs/admissions/submission-connectors.md, "V6")
     DIRECT_API            Hangyul submits through an official university API. None exists → ``DirectApiConnector.submit``
                           raises ``NotConfigured``; the UI shows "Awaiting provider integration", never a button.
     PARTNER_API           A partner platform's API (none contracted) → ``NotConfigured`` / "Awaiting provider integration".
@@ -540,8 +540,8 @@ def next_step(db: Session, app: Application) -> dict | None:
         return None  # V9 reliability: no "submit" step after the deadline (DEADLINE_PASSED is the counselor's item)
     if app.status == S.READY and conn.method == "AUTHORIZED_AGENCY" and status != "SUBMITTED_CONFIRMED" and active_authorization(db, app.id) is None:
         org = db.get(Organization, app.agency_org_id) if app.agency_org_id else None
-        return {"code": "SUBMISSION_AUTHORIZE", "severity": "improve", "owner": "student", "title": f"Authorize {org.name if org else 'your agency'} to submit",
-                "why": "Your Hangyul application is ready. Your agency can submit it once you authorize it.",
+        return {"code": "SUBMISSION_AUTHORIZE", "severity": "improve", "owner": "student", "title": f"Authorize {org.name if org else 'the Hangyul team'} to submit",
+                "why": "Your Hangyul application is ready. The Hangyul team can submit it once you authorize it.",
                 "params": {"university": uni.name_en, "university_id": str(uni.id), "agency": org.name if org else ""},
                 "action": {"code": "AUTHORIZE", "label": "Review and authorize", "link": link}, "sample": False}
     if app.status == S.READY and conn.can_student_handoff() and status in ("NOT_STARTED", "READY_FOR_HANDOFF"):
@@ -678,10 +678,10 @@ def revoke(db: Session, app: Application, student_id, reason: str | None = None)
     if auth is None:
         latest = latest_authorization(db, app.id)
         if latest and latest.status == "USED":
-            raise HTTPException(409, "Your agency already submitted this application — consent can't be withdrawn after submission.")
+            raise HTTPException(409, "The Hangyul team already submitted this application — consent can't be withdrawn after submission.")
         return latest
     if has_evidence(db, app):
-        raise HTTPException(409, "Your agency already submitted this application — consent can't be withdrawn after submission.")
+        raise HTTPException(409, "The Hangyul team already submitted this application — consent can't be withdrawn after submission.")
     now = utcnow()
     auth.status, auth.revoked_at, auth.revoked_reason = "REVOKED", now, (reason or "").strip()[:500] or None
     db.add(ConsentRecord(user_id=student_id, purpose=CONSENT_PURPOSE, version=auth.consent_version, granted=False, scope_org_id=auth.agency_org_id, created_at=now))

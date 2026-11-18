@@ -2,18 +2,20 @@
 
 > Everything you need to study in Korea — from your first question to graduation.
 
-Hangyul Univ is the operating system that connects **students → Hangyul → partner study-abroad agencies → partner Korean universities**. It combines honest eligibility and matching, a reusable secure document vault, a document legalization (apostille / consular confirmation) router, collaborative essay review, visa, housing and arrival guidance, an agency CRM, and university recruitment and outcome analytics. Every time-sensitive fact carries its source and the date it was verified.
+Hangyul Univ helps international students prepare a stronger application to the Korean university they want: **student → Hangyul Univ → Korean university**. Hangyul directly operates consultation, university recommendation, application preparation, document review, application management, essay review, visa-document preparation and arrival support; the university makes the admission decision. The product combines honest eligibility and fit, a reusable secure document dossier, a document legalization (apostille / consular legalization) router, essay review by people, visa, housing and arrival guidance, an internal Operations/Admin console, and a University console. Every time-sensitive fact carries its source and the date it was verified. (`agency-*` names in the code are historical names for the internal Operations/Admin product.)
 
 | Product | URL | Stack |
 |---|---|---|
 | Marketing website | http://localhost:3100 | React 19 · Vite 7 |
 | Student platform | http://localhost:3101 | React 19 · Vite 7 · TanStack Query |
-| Agency console | http://localhost:3102 | React 19 · Vite 7 · TanStack Table · Recharts |
+| Operations/Admin console (`agency-web`) | http://localhost:3102 | React 19 · Vite 7 · TanStack Table · Recharts |
 | University console | http://localhost:3103 | React 19 · Vite 7 · Recharts |
 | API | http://localhost:8001 · docs http://localhost:8001/docs | FastAPI · SQLAlchemy 2 · Alembic · PostgreSQL 16 |
 | Native apps | Expo Go / simulators | React Native 0.86 · Expo SDK 57 · expo-router |
 
-Docs: [서비스 기획서 (디자인 공유용)](docs/한귤유니브_서비스기획서.pdf) · [PRODUCT](docs/PRODUCT.md) · [ARCHITECTURE](docs/ARCHITECTURE.md) · [DATA_MODEL](docs/DATA_MODEL.md) · [WORKFLOWS](docs/WORKFLOWS.md) · [I18N](docs/I18N.md) · [SECURITY](docs/SECURITY.md) · [RESEARCH](docs/RESEARCH.md) · [ROADMAP](docs/ROADMAP.md) · [FRONTEND_CONVENTIONS](docs/FRONTEND_CONVENTIONS.md)
+Docs: start at [docs/README.md](docs/README.md) · [PRODUCT](docs/PRODUCT.md) · [SERVICE_CATALOG](docs/SERVICE_CATALOG.md) · [서비스 기획서](docs/한귤유니브_서비스기획서.md) ([PDF](docs/media/한귤유니브_서비스기획서.pdf)) · [REPORT](docs/REPORT.md) · [ARCHITECTURE](docs/ARCHITECTURE.md) · [ADMISSIONS](docs/ADMISSIONS.md) · [LOCALIZATION](docs/LOCALIZATION.md) · [BRAND_AND_MEDIA](docs/BRAND_AND_MEDIA.md) · [SECURITY](docs/SECURITY.md) · [DEPLOYMENT](docs/DEPLOYMENT.md) · [DATA_MODEL](docs/DATA_MODEL.md) · [WORKFLOWS](docs/WORKFLOWS.md) · [ROADMAP](docs/ROADMAP.md) · [FRONTEND_CONVENTIONS](docs/FRONTEND_CONVENTIONS.md)
+
+Production: https://univ.talkhangyul.com (marketing) · https://app.univ.talkhangyul.com (student) · https://admin.univ.talkhangyul.com (Operations/Admin) · https://partner.univ.talkhangyul.com (university). State and blockers: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## Prerequisites
 
@@ -56,7 +58,7 @@ Individual processes: `npm run dev:api`, `npm run dev:marketing`, `npm run dev:s
 There are **no test accounts**. `npm run setup` / `npm run db:seed` load reference data only — the 425-institution
 directory, verified scholarships and admission rules, legalization and visa rules, the approved plans — and **zero
 members**. Sign in is the real registration flow in every environment; there is no demo sign-in, no persona picker and
-no "activate without paying" action (all removed in V32, REPORT §436).
+no "activate without paying" action (all removed in V32).
 
 Automated tests get their synthetic people and cases from `server/app/seed/fixtures.py`, which **refuses any database
 whose name lacks `test`/`e2e`**: `npm run test:api` builds `hangyul_univ_test`, `scripts/qa/e2e-db.mjs` builds the e2e

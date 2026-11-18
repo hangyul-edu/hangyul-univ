@@ -952,6 +952,7 @@ a.kn-crest:active .kn-crest__img { transform: translateY(0) scale(0.98); }
   word-break: keep-all;
 }
 .kn-pricing__more {
+  min-width: 0; grid-template-columns: minmax(0, 1fr);
   /* V31 (REPORT §422): ONE composition after the plans — a warm-paper panel holding the service catalogue and, under
      it, the purchase notes. It replaced a 3fr/2fr grid whose right column held a single accordion and ~400 px of
      nothing. The panel's width is the plans' width, so the pricing story keeps one edge from cards to notes. */
@@ -997,7 +998,7 @@ a.kn-crest:active .kn-crest__img { transform: translateY(0) scale(0.98); }
 .kn-notes[open] .kn-notes__chev { transform: rotate(180deg); }
 .kn-notes__toggle:hover .kn-notes__title { color: var(--kn-accent-text, var(--hg-primary)); }
 .kn-notes__toggle:focus-visible { outline: 3px solid var(--hg-primary); outline-offset: 4px; border-radius: 6px; }
-.kn-notes__groups { display: grid; gap: clamp(20px, 2.4vw, 28px) clamp(32px, 5vw, 64px); padding: clamp(18px, 2vw, 24px) 0 4px; }
+.kn-notes__groups { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(20px, 2.4vw, 28px) clamp(32px, 5vw, 64px); padding: clamp(18px, 2vw, 24px) 0 4px; }
 @media (min-width: 900px) { .kn-notes__groups { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .kn-notes__gtitle { margin: 0 0 8px; font-size: var(--hg-text-base); font-weight: var(--hg-weight-semibold); color: var(--hg-text); }
 .kn-notes__list { margin: 0; padding-inline-start: 1.1em; display: grid; gap: 6px;

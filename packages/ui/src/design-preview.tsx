@@ -1,0 +1,109 @@
+/**
+ * **Design Preview mode** — owner review of signed-in and paid screens, with no sign-in and no payment.
+ *
+ * ONE flag controls everything: `VITE_ENABLE_DESIGN_PREVIEW=1` at build time. It is read here and nowhere
+ * else; every entry point, the indicator and the transport hang off `DESIGN_PREVIEW_ENABLED`. With the flag
+ * unset the constant folds to `false`, the entries render nothing, and the transport and its synthetic
+ * bundles are dropped from the build (`npm run release:preview-gate` proves it).
+ *
+ * This is not the removed demo login. Nothing is authenticated: the API client is built with a `fetch` that
+ * answers from synthetic fixtures (`@hangyul/api-client/preview`) and never touches the network, so preview
+ * cannot read real records, write anything, pay, message, upload or export. The choice is kept in
+ * `sessionStorage` (per tab, gone when the tab closes) and takes effect on a full reload, so a preview and
+ * a real session never share one running app.
+ */
+import type { PreviewApp, PreviewVariant } from '@hangyul/api-client/preview';
+import { i18next } from '@hangyul/i18n';
+import { Eye } from '@hangyul/icons';
+
+export const DESIGN_PREVIEW_ENABLED: boolean = import.meta.env.VITE_ENABLE_DESIGN_PREVIEW === '1';
+export const DESIGN_PREVIEW_KEY = 'hg.designPreview';
+
+/** The active preview variant, or null. Always null when the flag is off, whatever is in storage. */
+export function designPreviewVariant(): PreviewVariant | null {
+  if (!DESIGN_PREVIEW_ENABLED) return null;
+  try {
+    const v = sessionStorage.getItem(DESIGN_PREVIEW_KEY);
+    return v === 'paid' || v === 'unpaid' ? v : null;
+  } catch { return null; }
+}
+
+const home = () => `${(import.meta.env.BASE_URL || '/').replace(/\/+$/, '')}/`;
+
+export function enterDesignPreview(variant: PreviewVariant, to = home()) {
+  if (!DESIGN_PREVIEW_ENABLED) return;
+  try { sessionStorage.setItem(DESIGN_PREVIEW_KEY, variant); } catch { return; }
+  window.location.assign(to);
+}
+
+function exitDesignPreview() {
+  try { sessionStorage.removeItem(DESIGN_PREVIEW_KEY); } catch { /* ignore */ }
+  window.location.assign(`${home()}login`);
+}
+
+/** The synthetic transport for this app, or undefined when preview is not active. Called once, in `bootWebApp`. */
+export async function designPreviewFetch(client: string): Promise<typeof fetch | undefined> {
+  if (!DESIGN_PREVIEW_ENABLED) return undefined;
+  const variant = designPreviewVariant();
+  if (!variant || (client !== 'student' && client !== 'agency' && client !== 'university')) return undefined;
+  const { loadPreviewBundle, previewFetch } = await import('@hangyul/api-client/preview');
+  return previewFetch(await loadPreviewBundle(client as PreviewApp), variant);
+}
+
+/* The few strings of an owner-review tool live here rather than in the product's locale bundles. */
+const COPY: Record<string, { login: string; paid: string; badge: string; exit: string; note: string }> = {
+  en: { login: 'Preview without signing in', paid: 'Preview without paying', badge: 'Design Preview', exit: 'Exit', note: 'Sample data only. Nothing is saved.' },
+  ko: { login: '로그인 없이 화면 미리보기', paid: '결제 없이 화면 미리보기', badge: 'Design Preview', exit: '나가기', note: '샘플 데이터입니다. 저장되지 않습니다.' },
+  ja: { login: 'ログインせずに画面をプレビュー', paid: '支払いなしで画面をプレビュー', badge: 'Design Preview', exit: '終了', note: 'サンプルデータです。保存されません。' },
+  vi: { login: 'Xem trước không cần đăng nhập', paid: 'Xem trước không cần thanh toán', badge: 'Design Preview', exit: 'Thoát', note: 'Chỉ là dữ liệu mẫu. Không lưu gì cả.' },
+  'zh-Hans': { login: '无需登录预览界面', paid: '无需付款预览界面', badge: 'Design Preview', exit: '退出', note: '仅为示例数据，不会保存。' },
+  'zh-Hant': { login: '無需登入預覽畫面', paid: '無需付款預覽畫面', badge: 'Design Preview', exit: '離開', note: '僅為範例資料，不會儲存。' },
+  ru: { login: 'Предпросмотр без входа', paid: 'Предпросмотр без оплаты', badge: 'Design Preview', exit: 'Выйти', note: 'Только демонстрационные данные. Ничего не сохраняется.' },
+  ar: { login: 'معاينة بدون تسجيل الدخول', paid: 'معاينة بدون دفع', badge: 'Design Preview', exit: 'خروج', note: 'بيانات نموذجية فقط. لا يُحفظ شيء.' },
+};
+const copy = () => COPY[i18next.language] ?? COPY[(i18next.language ?? 'en').split('-')[0]] ?? COPY.en;
+
+/*
+ * The three components below are chosen by the build-time constant, in this file and nowhere else. With the flag
+ * off each one IS `() => null`, so the real implementations, the copy table and the storage key have no remaining
+ * reference and the bundler drops them: a public-launch bundle contains no preview code at all
+ * (`npm run release:preview-gate -- --bundles off`).
+ */
+const none = () => null;
+
+/** "Preview without signing in" — under a login form. */
+export const DesignPreviewLoginEntry: (p: { variant?: PreviewVariant }) => React.ReactNode = DESIGN_PREVIEW_ENABLED
+  ? function DesignPreviewLoginEntry({ variant = 'paid' }) {
+    return (
+      <button type="button" className="hg-preview-entry" data-design-preview="login" onClick={() => enterDesignPreview(variant)}>
+        <Eye aria-hidden size={16} />{copy().login}
+      </button>
+    );
+  }
+  : none;
+
+/** "Preview without paying" — under a plan/paywall area. Synthetic entitled state; creates no order or payment. */
+export const DesignPreviewPaidEntry: () => React.ReactNode = DESIGN_PREVIEW_ENABLED
+  ? function DesignPreviewPaidEntry() {
+    return (
+      <button type="button" className="hg-preview-entry" data-design-preview="paid" onClick={() => enterDesignPreview('paid')}>
+        <Eye aria-hidden size={16} />{copy().paid}
+      </button>
+    );
+  }
+  : none;
+
+/** Small fixed indicator while preview is active. Out of the layout flow, so it cannot distort a screen. */
+export const DesignPreviewBadge: () => React.ReactNode = DESIGN_PREVIEW_ENABLED
+  ? function DesignPreviewBadge() {
+    if (!designPreviewVariant()) return null;
+    const c = copy();
+    return (
+      <div className="hg-preview-badge" role="status" data-design-preview="badge" title={c.note}>
+        <span className="hg-preview-badge__dot" aria-hidden />
+        <span>{c.badge}</span>
+        <button type="button" onClick={exitDesignPreview}>{c.exit}</button>
+      </div>
+    );
+  }
+  : none;

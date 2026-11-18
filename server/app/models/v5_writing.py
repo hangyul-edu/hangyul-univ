@@ -1,4 +1,4 @@
-"""V5 — writing review models (owned by the writing workstream; see docs/WRITING_REVIEW.md).
+"""V5 — writing review models (owned by the writing workstream; see docs/admissions/writing-review.md).
 
 The essay itself (text, versions, comments, status) stays in ``workflow.py`` (Essay / EssayVersion / EssayComment).
 Everything the professional review workflow adds lives here, keyed by essay:

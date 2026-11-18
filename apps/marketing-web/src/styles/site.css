@@ -7,29 +7,36 @@
    element rules to `[dir] p` (0,1,1), which beats a single class (V13 §95). */
 
 /* ------------------------------------------------------------------ footer · social media (§269 M1) */
-.kn .kn-footer__social { display: flex; flex-direction: column; gap: 8px; margin-block: 20px 4px; }
+.kn .kn-footer__social { display: flex; flex-direction: column; gap: var(--hg-space-3); margin: 0; }
 .kn .kn-footer__social-title { margin: 0; font-size: 13px; font-weight: 500; line-height: 1.4; color: var(--hg-text-secondary); }
-.kn .kn-footer__social-list {
-  display: flex; align-items: center; gap: 4px; list-style: none; padding: 0; margin: 0;
-  margin-inline-start: -10px; /* first glyph aligns with the heading */
-}
+/* One rail (launch-final): the logo, tagline, social heading, icon boxes and language control all start on the
+   column's inline-start edge. The icons are equal 44 px boxes with a visible edge, so the BOX — not a glyph
+   floating inside invisible padding — is what aligns, and no negative margin is needed at any width. */
+.kn .kn-footer__social-list { display: flex; flex-wrap: wrap; align-items: center; gap: var(--hg-space-2); list-style: none; padding: 0; margin: 0; }
 .kn .kn-footer__social-link {
   display: inline-flex; align-items: center; justify-content: center;
-  inline-size: 40px; block-size: 40px; border-radius: 10px;
+  inline-size: var(--hg-touch-min); block-size: var(--hg-touch-min); border-radius: var(--hg-control-radius);
+  border: 1px solid var(--hg-border); background: var(--hg-surface);
   color: var(--brand, var(--hg-text-secondary));
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
-.kn .kn-footer__social-link svg { display: block; flex-shrink: 0; }
-.kn .kn-footer__social-link:hover { background-color: var(--brand-tint, var(--hg-surface-subtle)); transform: translateY(-1px); }
+.kn .kn-footer__social-link svg { display: block; flex-shrink: 0; inline-size: 20px; block-size: 20px; }
+.kn .kn-footer__social-link:hover { background-color: var(--brand-tint, var(--hg-surface-warm)); border-color: var(--hg-border-strong); }
 .kn .kn-footer__social-link:focus-visible {
-  background-color: var(--brand-tint, var(--hg-surface-subtle));
-  outline: 2px solid var(--hg-focus-ring, #FF6700); outline-offset: 2px;
+  background-color: var(--brand-tint, var(--hg-surface-warm));
+  outline: 2px solid var(--hg-focus); outline-offset: 2px;
 }
+/* The language control is a real, bordered control on the same rail: same height and radius as the icon boxes. */
+.kn .kn-footer__lang { margin: 0; }
+.kn .kn-footer__lang .hg-btn {
+  min-height: var(--hg-touch-min); padding-inline: var(--hg-space-3) var(--hg-space-4); border-radius: var(--hg-control-radius);
+  border: 1px solid var(--hg-border-strong); background: var(--hg-surface); color: var(--hg-text); font-size: var(--hg-text-base);
+}
+.kn .kn-footer__lang .hg-btn:hover { background: var(--hg-surface-warm); border-color: var(--hg-control-secondary-border-hover); }
+.kn .kn-footer__lang .hg-locale__trigger { gap: var(--hg-space-2); }
+.kn .kn-footer__brand { gap: var(--hg-space-5); }
 @media (forced-colors: active) { .kn .kn-footer__social-link { color: LinkText; } }
-@media (prefers-reduced-motion: reduce) {
-  .kn .kn-footer__social-link { transition: none; }
-  .kn .kn-footer__social-link:hover { transform: none; }
-}
+@media (prefers-reduced-motion: reduce) { .kn .kn-footer__social-link { transition: none; } }
 
 /* ------------------------------------------------------------------ university hero, identity tier (§270 D1) */
 .kn .hg-uni-hero--type .hg-uni-hero__crumbs a { color: inherit; }
@@ -356,12 +363,6 @@
   .kn .kn-fcol[open] .kn-fcol__title::after { transform: rotate(180deg); }
   .kn .kn-fcol ul { padding-block: 2px 14px; }
   .kn .kn-fcol a { display: inline-flex; align-items: center; min-height: 40px; }
-  /* The language control's ghost button carries 10 px + 1 px of inner space; pull it back so the flag sits on the
-     column's left edge like the logo and the social glyphs, and close the gap under the social row. */
-  .kn .kn-footer__lang { margin-inline-start: -11px; margin-block-start: -6px; }
-  /* Social targets: 44 px, glyph unchanged. */
-  .kn .kn-footer__social-link { inline-size: 44px; block-size: 44px; }
-  .kn .kn-footer__social-list { margin-inline-start: -12px; gap: 2px; }
 }
 @media (prefers-reduced-motion: reduce) { .kn .kn-fcol__title::after { transition: none; } }
 /* Landscape phones with a notch: the floating pill never sits under the sensor housing. No inset → no change. */
@@ -387,3 +388,10 @@
 .hg-locale__sheet > .hg-locale__grip { align-self: center; }
 /* Footer tagline broke inside a word at 320 px ("모 / 든 것"). Phones only — desktop untouched. */
 @media (max-width: 767.98px) { .kn .kn-footer__statement:lang(ko) { word-break: keep-all; overflow-wrap: anywhere; } }
+
+/* Launch-final: a long translated label wraps inside its button on a phone; `.kn .kn-btn` because the base rule's
+   `nowrap` is restated at this specificity further up the cascade. */
+@media (max-width: 479.98px) {
+  .kn .kn-btn { max-width: 100%; min-width: 0; white-space: normal; text-align: center; line-height: 1.25; padding-block: 10px; }
+  .hg-uni-hero__inner, .hg-uni-hero__act { min-width: 0; max-width: 100%; }
+}

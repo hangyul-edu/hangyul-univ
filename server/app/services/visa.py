@@ -53,7 +53,7 @@ def step_presentation(step_key: str, title: str) -> dict:
 
 
 def visa_checklist(db: Session, case: VisaCase, nationality: str | None, *, use_routes: bool = True) -> list[dict]:
-    """V5: when a researched embassy route resolves for the student (docs/VISA_ROUTES.md), the checklist is that route's
+    """V5: when a researched embassy route resolves for the student (docs/admissions/visa-routes.md), the checklist is that route's
     documents with their dossier reuse status. Otherwise the generic rule rows below stay the fallback."""
     if use_routes and getattr(case, "student_user_id", None) is not None:
         from app.services.visa_routes import route_checklist

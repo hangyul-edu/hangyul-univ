@@ -108,7 +108,8 @@
 }
 
 .hg-uni-hero__name {
-  font-size: clamp(32px, 5.4vw, 60px);
+  overflow-wrap: anywhere; min-width: 0;
+  font-size: clamp(28px, 5.4vw, 60px);
   line-height: 1.04;
   letter-spacing: -0.028em;
   font-weight: 700;
@@ -201,7 +202,7 @@
    below 900 px because a 34 px heading beside a 60ch measure needs real width to be a composition
    rather than two narrow columns. */
 .hg-uni-split {
-  display: grid; gap: clamp(18px, 3vw, 48px);
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(18px, 3vw, 48px);
   padding-block-start: clamp(26px, 3vw, 40px);
   border-block-start: 1px solid var(--hg-border-subtle);
 }

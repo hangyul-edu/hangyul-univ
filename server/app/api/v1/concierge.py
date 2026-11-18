@@ -1,4 +1,4 @@
-"""V5 — concierge API (owned by the concierge workstream; see docs/ARRIVAL_SERVICES.md).
+"""V5 — concierge API (owned by the concierge workstream; see docs/admissions/arrival-services.md).
 
 Student: service cases, arrival journey, flight, airport pickup, housing actions (dorm application, listing interest,
 lease review, move-in), "Need help in Korea?".

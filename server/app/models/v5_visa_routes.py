@@ -1,4 +1,4 @@
-"""V5 — visa route models (owned by the visa_routes workstream; see docs/VISA_ROUTES.md → Implementation).
+"""V5 — visa route models (owned by the visa_routes workstream; see docs/admissions/visa-routes.md → Implementation).
 
 * ``VisaRoute`` / ``VisaRouteDocument`` — the researched embassy playbooks (docs/research/visa-playbooks.json), versioned:
   a changed playbook becomes a new version and the previous one stops being current. Never edited by hand in the app.

@@ -5,7 +5,7 @@ Re-validated: **2026-10-10**
 **Baseline files**
 - `docs/research/arrival-official.json` (14 items)
 - `docs/research/post-arrival-official.json` (generated 2026-09-29)
-- `docs/ARRIVAL_SERVICES.md`
+- `docs/admissions/arrival-services.md`
 
 **Sources**: ids `V9V-Sn` in `docs/research/v9-visa-sources.json`. Arrival sources are S118–S167.
 

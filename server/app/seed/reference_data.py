@@ -111,7 +111,7 @@ LOCALES = [
     ("az", "Azerbaijani", "Azərbaycanca", "ltr", "MACHINE_DRAFT"),
     ("am", "Amharic", "አማርኛ", "ltr", "MACHINE_DRAFT"),
     ("sw", "Swahili", "Kiswahili", "ltr", "MACHINE_DRAFT"),
-    # V8 (machine-drafted; common namespace only — docs/I18N.md)
+    # V8 (machine-drafted; common namespace only — docs/LOCALIZATION.md)
     ("tk", "Turkmen", "Türkmençe", "ltr", "MACHINE_DRAFT"),
     ("ka", "Georgian", "ქართული", "ltr", "MACHINE_DRAFT"),
     ("he", "Hebrew", "עברית", "rtl", "MACHINE_DRAFT"),

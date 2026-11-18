@@ -5,7 +5,7 @@
  * on copy, and that is the point of the page:
  *
  *  - **제8조 (fees)** renders the real `service_prices` catalogue when prices are approved. Today they are demo
- *    values (`docs/LEGAL_DEPENDENCIES.md` L5, OPEN), so the article states how pricing is shown and where it is
+ *    values (`docs/LEGAL.md` L5, OPEN), so the article states how pricing is shown and where it is
  *    confirmed, and quotes no figure. An imaginary price in a contract is worse than no price.
  *  - **제9조 (refunds)** states only the refund rules that exist in the product — the visa-refusal case the
  *    service actually implements, and that tuition is paid by the student directly to the university and

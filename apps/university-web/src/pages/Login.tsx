@@ -10,7 +10,7 @@ import { StaffLoginScreen } from '../components/security/StaffLoginScreen';
 
 /**
  * "Continue with your university account" — shown only when the email typed above belongs to a domain whose
- * organisation has single sign-on configured (see docs/SSO.md). The sign-in form (StaffLoginScreen, V29 — LoginScreen's
+ * organisation has single sign-on configured (see docs/SECURITY.md). The sign-in form (StaffLoginScreen, V29 — LoginScreen's
  * markup plus two-step verification) owns the email field (`#email`), so we listen to it rather than duplicating it.
  */
 function SSOOption() {

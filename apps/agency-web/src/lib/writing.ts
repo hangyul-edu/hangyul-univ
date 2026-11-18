@@ -79,7 +79,7 @@ export function findingRanges(body: string, findings: WritingFinding[]): { start
 
 // ============================================================================ V6 review workspace
 // Contract additions (server/app/services/writing.py V6 + api/v1/writing.py). The shared @hangyul/types and
-// @hangyul/api-client don't carry these yet, so the typed extensions and calls live here (see docs/WRITING_REVIEW.md V6).
+// @hangyul/api-client don't carry these yet, so the typed extensions and calls live here (see docs/admissions/writing-review.md V6).
 
 export type SuggestionState = 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'WITHDRAWN';
 export interface V6Comment extends EssayComment {

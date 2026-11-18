@@ -6,7 +6,7 @@
  *    apps/*, packages/* (not tests), the Expo apps, the current docs (README, docs/*.md top level, deployment docs).
  * 2. BUNDLES: the four production web builds (apps/*-web/dist) and, when present, the Expo production exports
  *    (docs/qa/v32/native/*-export) contain none of the strings either.
- * Historical REPORT sections are dated record and are excluded on purpose; the current-state section (§0) is not.
+ * docs/REPORT.md is the current launch report and is scanned in full; the version-by-version history lives in git.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -28,7 +28,9 @@ function* walk(dir) {
 const isTest = (p) => /\.test\.|\/tests?\/|\/e2e\/|\/fixtures\.py|\/seed\/|scripts\/qa\/|scripts\/i18n\/|scripts\/release\/|scripts\/review\//.test(p);
 const hits = [];
 // 1. source
-for (const base of ['apps', 'packages', 'README.md', 'docs/deployment', 'docs/PRODUCT.md', 'docs/ARCHITECTURE.md', 'docs/I18N.md', 'docs/FRONTEND_CONVENTIONS.md', 'docs/SECURITY.md', 'docs/mobile']) {
+// Every top-level doc is a current doc since the 2026-11-18 consolidation (docs/README.md): scan them all, REPORT included.
+const ROOT_DOCS = fs.readdirSync(path.join(ROOT, 'docs')).filter((n) => n.endsWith('.md')).map((n) => `docs/${n}`);
+for (const base of ['apps', 'packages', 'README.md', 'docs/deployment', 'docs/mobile', ...ROOT_DOCS]) {
   const full = path.join(ROOT, base);
   if (!fs.existsSync(full)) continue;
   const files = fs.statSync(full).isDirectory() ? [...walk(full)] : [full];
@@ -48,13 +50,7 @@ for (const base of ['apps', 'packages', 'README.md', 'docs/deployment', 'docs/PR
     for (const re of PATTERNS) { const m = s.match(re); if (m) hits.push(`${path.relative(ROOT, f)}: ${m[0]}`); }
   }
 }
-// the REPORT's current-state section only
-const report = fs.readFileSync(path.join(ROOT, 'docs/REPORT.md'), 'utf8');
-const head = report.slice(0, report.indexOf('\n# 1.') > 0 ? report.indexOf('\n# 1.') : 60000);
-for (const line of head.split('\n')) {
-  if (/remov|no longer|gone|V32/i.test(line)) continue;
-  for (const re of [/테스트 계정으로 로그인/, /Hangyul!2026/, /dev-complete/, /@demo\.hangyul\.kr/]) { const m = line.match(re); if (m) { hits.push(`docs/REPORT.md §0: ${m[0]}`); break; } }
-}
+// docs/REPORT.md is a current-state report in full (no historical sections), so it is scanned above with the other root docs.
 // 2. bundles
 const bundles = [];
 for (const app of ['marketing', 'student', 'agency', 'university']) {

@@ -29,7 +29,7 @@ import {
   ADD_ONS, ADD_ON_BY_CODE, COMPARE_GROUPS, COMPARE_ROWS, PLAN_BY_CODE, SERVICE_NOTES, addOnFor, compareCell, planPresentationByCode, planText, upgradeOffer,
   type AddOnCode, type AddOnDef, type EntitlementUse, type OrderRow, type PlanCode, type ServiceAddOn, type ServiceNowLine, type ServiceProduct, type StudentPlan,
 } from '@hangyul/types';
-import { Button, Callout, QueryState, SkeletonCard, useToast } from '@hangyul/ui';
+import { Button, Callout, DesignPreviewPaidEntry, QueryState, SkeletonCard, useToast } from '@hangyul/ui';
 import { formatDate, formatDateTime, formatMoney } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
@@ -650,6 +650,8 @@ export default function Services() {
       {/* V17: why they are here. The paywall redirects with `?gate=<route>`; without the sentence a student
           who clicked 지원 현황 and landed on a pricing page has been bounced with no explanation. */}
       <GateNotice gate={sp.get('gate')} />
+      {/* Owner review only (one build flag): the entitled screens from synthetic state — no order, no payment. */}
+      {!plan && <DesignPreviewPaidEntry />}
       {notice === 'cancelled' && <Callout tone="info">{t('v16.pay.cancelled')}</Callout>}
       {/* V17: the student arrived from the native app, in a browser they did not choose to open. Saying so
           is the whole difference between a handoff and the app having thrown them out. */}

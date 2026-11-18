@@ -12,7 +12,7 @@
  */
 import { useAuth } from '@hangyul/auth';
 import { useLocale } from '@hangyul/i18n';
-import { Button, Callout, Field, Input, LocaleSelector, Logo, safeNext } from '@hangyul/ui';
+import { Button, Callout, DesignPreviewLoginEntry, Field, Input, LocaleSelector, Logo, safeNext } from '@hangyul/ui';
 import { useCallback, useEffect, useState, type CSSProperties, type FormEvent, type ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
@@ -100,6 +100,7 @@ export function StaffLoginScreen({ product, title, subtitle, footer, afterLogin 
                 <Button type="submit" variant="primary" size="lg" block loading={busy}>{t('actions.signIn')}</Button>
               </form>
               {footer}
+              <DesignPreviewLoginEntry />
             </>
           )}
           {step.kind === 'mfa' && (

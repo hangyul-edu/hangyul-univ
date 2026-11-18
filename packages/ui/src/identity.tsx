@@ -192,17 +192,22 @@ export function TurnstileWidget({ siteKey, onToken, onExpire, locale, nonce }: {
 // ---------------------------------------------------------------------------------------------- steps
 export function StepRail({ steps, current }: { steps: { key: string; label: ReactNode }[]; current: number }) {
   const { t } = useLocale('common');
+  const now = steps[Math.min(current, steps.length - 1)];
   return (
-    <ol className="hg-steps" aria-label={t('auth.stepsLabel')}>
-      {steps.map((s, i) => {
-        const state = i < current ? 'done' : i === current ? 'current' : 'todo';
-        return (
-          <li key={s.key} className="hg-steps__item" data-state={state} aria-current={state === 'current' ? 'step' : undefined}>
-            <span className="hg-steps__num hg-num" aria-hidden>{state === 'done' ? <Check size={12} /> : String(i + 1).padStart(2, '0')}</span>
-            <span className="hg-steps__label">{s.label}</span>
-          </li>
-        );
-      })}
-    </ol>
+    <div className="hg-steps-wrap">
+      {/* Phone: the whole rail in one line. Hidden from assistive tech — the list below already says it. */}
+      <p className="hg-steps__now" aria-hidden><span className="hg-num">{Math.min(current + 1, steps.length)}/{steps.length}</span>{now?.label}</p>
+      <ol className="hg-steps" aria-label={t('auth.stepsLabel')}>
+        {steps.map((s, i) => {
+          const state = i < current ? 'done' : i === current ? 'current' : 'todo';
+          return (
+            <li key={s.key} className="hg-steps__item" data-state={state} aria-current={state === 'current' ? 'step' : undefined}>
+              <span className="hg-steps__num hg-num" aria-hidden>{state === 'done' ? <Check size={12} /> : String(i + 1).padStart(2, '0')}</span>
+              <span className="hg-steps__label">{s.label}</span>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
   );
 }

@@ -280,8 +280,8 @@
 
 /* ------------------------------------------------------------------ auth */
 .st-auth { min-height: 100dvh; display: flex; flex-direction: column; background: var(--hg-bg-canvas); }
-.st-auth__head { display: flex; align-items: center; justify-content: space-between; padding: 16px; max-width: 1100px; width: 100%; margin-inline: auto; }
-.st-auth__main { flex: 1; display: grid; place-items: start center; padding: 16px 16px 48px; }
+.st-auth__head { display: flex; align-items: center; justify-content: space-between; padding: 16px var(--hg-gutter); max-width: 1100px; width: 100%; margin-inline: auto; }
+.st-auth__main { flex: 1; display: grid; place-items: start center; padding: 16px var(--hg-gutter) 48px; }
 @media (min-width: 768px) { .st-auth__main { place-items: center; } }
 .st-auth__card { width: 100%; max-width: 460px; }
 
@@ -305,17 +305,24 @@
 .st-reg { max-width: 520px; }
 .st-reg__pw > svg { top: 22px; }
 .st-reg__pw .hg-input { padding-inline-start: 36px; }
-.st-reg__chan { border: 1px solid var(--hg-border); border-radius: var(--hg-radius-lg); padding: 14px; display: grid; gap: 12px; }
-.st-reg__chan[data-verified='true'] { border-color: var(--hg-status-success-solid); background: var(--hg-status-success-bg); }
-.st-reg__chanhead { display: flex; align-items: center; gap: 10px; }
-.st-reg__chanicon { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--hg-surface-warm); color: var(--hg-text-secondary); flex: none; }
+/* Verification cards (launch-final). One column that can never be wider than the page (`minmax(0, 1fr)` — the old
+   implicit `auto` column grew to the unwrapped destination line and pushed the page to 404 px on a 320–393 px phone). */
+.st-reg__chan { border: 1px solid var(--hg-border); border-radius: var(--hg-radius-lg); background: var(--hg-surface); padding: var(--hg-space-4); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--hg-space-3); }
+.st-reg__chan[data-verified='true'] { border-color: var(--hg-status-success-solid); background: var(--hg-status-success-bg); padding-block: var(--hg-space-3); }
+.st-reg__chanhead { display: flex; align-items: flex-start; gap: var(--hg-space-3); }
+.st-reg__chanwho { flex: 1 1 auto; min-width: 0; }
+.st-reg__dest { overflow-wrap: anywhere; }
+.st-reg__chanicon { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--hg-primary-subtle); color: var(--hg-primary-text); flex: none; }
 .st-reg__chan[data-verified='true'] .st-reg__chanicon { background: var(--hg-status-success-solid); color: #fff; }
-.st-reg__ok { display: inline-flex; align-items: center; gap: 4px; color: var(--hg-status-success-fg); font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); }
-.st-reg__otp { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: stretch; }
-.st-reg__otp > * { min-width: 0; }
-.st-reg__chanhead > button, .st-reg__chanhead .hg-link { white-space: nowrap; flex: none; }
-.st-reg__chanfoot { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; min-height: 20px; }
-.st-reg__chanfoot button:disabled { color: var(--hg-text-tertiary); cursor: default; text-decoration: none; }
+.st-reg__ok { display: inline-flex; align-items: center; gap: 4px; min-block-size: 32px; color: var(--hg-status-success-fg); font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); white-space: nowrap; flex: none; }
+.st-reg__chanhead > button.hg-link { white-space: nowrap; flex: none; min-block-size: 32px; }
+.st-reg__otp { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--hg-space-2); }
+.st-reg__otp > .hg-btn { min-height: var(--hg-control-height); }
+@media (min-width: 480px) { .st-reg__otp { grid-template-columns: minmax(0, 1fr) auto; } .st-reg__otp > .hg-btn { min-width: 112px; } }
+/* Status line: the error stays beside its field (announced, restrained red) and Resend keeps its place at the end. */
+.st-reg__chanfoot { display: flex; align-items: center; justify-content: space-between; gap: 4px var(--hg-space-3); flex-wrap: wrap; }
+.st-reg__chanfoot .hg-error { flex: 1 1 200px; min-width: 0; font-size: var(--hg-text-sm); line-height: 1.4; }
+.st-reg__resend { margin-inline-start: auto; }
 .st-reg__captcha { display: grid; gap: 6px; }
 .st-reg__done { display: flex; gap: 12px; align-items: flex-start; color: var(--hg-text); }
 .st-reg__done svg { color: var(--hg-status-success-solid); flex: none; }
@@ -335,7 +342,7 @@
 
 .st-page { gap: 28px; }
 @media (min-width: 768px) { .st-page { gap: 36px; } }
-.st-days { color: var(--hg-text-tertiary); white-space: nowrap; }
+.st-days { color: var(--hg-text-tertiary); } /* launch-final: may wrap — "осталось 17 дней" does not fit a 320 px row on one line */
 .st-days--soon { color: var(--hg-status-warning-fg); }
 .st-days--urgent { color: var(--hg-status-danger-fg); font-weight: var(--hg-weight-medium); }
 
@@ -473,7 +480,7 @@
 .sa-withdraw .hg-btn--link { color: var(--hg-status-danger-fg); font-size: var(--hg-text-sm); }
 .hg-panel > .hg-list > li > .hg-lrow { padding-inline: 16px; }
 .hg-panel > .hg-list > li { padding-inline: 0 !important; }
-.sa-when { color: var(--hg-text-tertiary); white-space: nowrap; min-width: 150px; text-align: end; }
+.sa-when { color: var(--hg-text-tertiary); text-align: end; } /* launch-final: no nowrap/min-width — long locales wrap inside the row */
 
 /* ---------- Compare ---------- */
 .sc-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 0; margin: 0; border: 1px solid var(--hg-border); border-radius: var(--hg-radius-lg); background: var(--hg-surface); overflow: hidden; }
@@ -653,6 +660,8 @@
 .ws-offer__steps { margin: 0; padding-inline-start: 20px; display: grid; gap: 6px; }
 .ws-offer__actions { margin-top: 8px; }
 .su-cost dd { white-space: nowrap; }
+/* A money range ("19,1 млн ₩ – 24,5 млн ₩") may wrap on a phone; the row wraps so the value drops under its label. */
+@media (max-width: 479px) { .su-cost > div { flex-wrap: wrap; } .su-cost dd { white-space: normal; } }
 
 /* ---------- V3 · Progressive profile ---------- */
 .pf-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
@@ -821,6 +830,7 @@ a.stk-title:hover { text-decoration: underline; text-decoration-color: var(--hg-
 .v4-keyfacts { margin: 0; display: grid; gap: 0; border-block: 1px solid var(--hg-border-subtle); }
 .v4-keyfacts > div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 0; flex-wrap: wrap; }
 .v4-keyfacts > div + div { border-top: 1px solid var(--hg-border-subtle); }
+.v4-keyfacts dd { min-width: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
 .v4-keyfacts dt { color: var(--hg-text-secondary); font-size: var(--hg-text-base); }
 .v4-keyfacts dd { margin: 0; font-weight: var(--hg-weight-semibold); font-size: var(--hg-text-md); text-align: end; }
 .v4-keyfacts dd .st-days { font-weight: var(--hg-weight-regular); font-size: var(--hg-text-sm); margin-inline-start: 4px; }
@@ -1146,7 +1156,9 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
 .v9-line__to, .v9-line__note { font-size: 13px; color: var(--hg-text-secondary); line-height: 1.4; }
 .v9-line__guard { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: var(--hg-palette-green-700, #1e6b35); }
 .v9-line__guard svg { width: 14px; height: 14px; }
-.v9-line__end { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; text-align: end; flex: 0 1 auto; }
+.v9-line__end { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; text-align: end; flex: 0 1 auto; min-width: 0; max-width: 100%; }
+.v9-line__end > * { max-width: 100%; overflow-wrap: anywhere; }
+@media (max-width: 479px) { .v9-line__amount { white-space: normal; } }
 .v9-line__amount { font-weight: 700; font-size: 15px; white-space: nowrap; }
 .v9-line__refund { font-size: 12.5px; color: var(--hg-text-secondary); }
 .v9-line__refund[data-refund='NO'] { color: var(--hg-text); }
@@ -1191,7 +1203,8 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
 .v9-family__link p { margin: 0; }
 .v9-family__link-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 220px; }
 .v9-family__link-end { display: flex; align-items: center; gap: 8px; }
-.v9-family__link[data-state='REVOKED'], .v9-family__link[data-state='EXPIRED'] { opacity: 0.7; }
+/* Inactive links are muted by colour, not opacity: opacity dropped the secondary text below 4.5:1. */
+.v9-family__link[data-state='REVOKED'] strong, .v9-family__link[data-state='EXPIRED'] strong { color: var(--hg-text-secondary); }
 .v9-sp { min-height: 100vh; background: var(--hg-bg-canvas, #faf9f7); }
 .v9-sp__main { max-width: 760px; margin: 0 auto; padding: 16px 16px 64px; display: flex; flex-direction: column; gap: 18px; }
 .v9-sp__intro { display: flex; flex-direction: column; gap: 6px; }
@@ -1744,7 +1757,7 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
 .sv21-card__cancel { justify-self: start; }
 .sv21-card__after { margin: 0; line-height: 1.6; }
 
-.sv21-cards { display: grid; gap: 12px; }
+.sv21-cards { display: grid; gap: 12px; padding: var(--hg-space-4); } /* launch-final: the panel had no padding, so its title sat on the border */
 .sv21-cards__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
 .sv21-cards__row {
   display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px;
@@ -1938,6 +1951,16 @@ span.v25-line__btn { cursor: default; }
 .v25-next__photo figcaption { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 /* Six stages fit a 390 px phone without scrolling: two-syllable labels, 52 px columns. */
 @media (max-width: 767px) { .v25-line { grid-template-columns: repeat(6, minmax(52px, 1fr)); } .v25-line__btn { padding-inline-end: 4px; } }
+/* Launch-final: on a phone six nowrap labels ran into each other ("Prepare Apply", "AdmittedVisa"). Each label now
+   lives inside its own column (caption size, ellipsis); only the current stage may run past it, and the summary line
+   under the rail always names the stage in full. */
+@media (max-width: 599px) {
+  /* Six stages always fit the phone: no sideways scroll, no clipped first label. */
+  .v25-line { grid-template-columns: repeat(6, minmax(0, 1fr)); overflow-x: visible; }
+  .v25-line__btn { min-width: 0; max-width: 100%; }
+  .v25-line__label { display: block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; font-size: var(--hg-type-caption); }
+  .v25-line__step.is-current .v25-line__label { overflow: visible; }
+}
 
 /* ------------------------------------------------------------------- the student's university page (P2) */
 /* The shared photographic hero, inside the app's content column: rounded, a little shorter than the public page. */

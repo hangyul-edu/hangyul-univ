@@ -1,6 +1,6 @@
 """V5 visa concierge — route resolver, visa preparation and tracking (owned by the visa_routes workstream).
 
-Rules (docs/VISA_ROUTES.md → Implementation):
+Rules (docs/admissions/visa-routes.md → Implementation):
 * The route comes ONLY from the researched playbook for the student's nationality and visa type (``VisaRoute``). A country
   or level without a route is never inferred from another country: the student sees "we haven't verified the rules for
   {country} yet — your counselor confirms them" and the legacy generic checklist stays as a fallback.
@@ -77,10 +77,10 @@ LANGUAGE_CATEGORIES = ("TOPIK", "IELTS", "TOEFL")
 LEGALIZE_KEYS = {"final_education_certificate", "transcript"}
 # Validity text is applied as an "issued within N days" freshness rule only where it means the issue date.
 NO_FRESHNESS = {"passport", "photo", "language_certificate", "final_education_certificate", "transcript"}
-# Slow items to start early (VISA_ROUTES.md §4.2).
+# Slow items to start early (docs/admissions/visa-routes.md §4.2).
 SLOW_KEYS = {"tb_test", "criminal_record", "final_education_certificate", "transcript", "other_polio_vaccination"}
 WHO = {"student": "you", "university": "university", "bank": "bank", "sponsor": "sponsor", "authority": "authority"}
-# Curated research conflicts (VISA_ROUTES.md §3 and §7), shown in plain language; the English reviewer note stays in a disclosure.
+# Curated research conflicts (docs/admissions/visa-routes.md §3 and §7), shown in plain language; the English reviewer note stays in a disclosure.
 KNOWN_CONFLICTS: dict[tuple[str, str | None], list[str]] = {
     ("MM", None): ["LEGALIZATION_UNCLEAR"], ("BD", None): ["LEGALIZATION_UNCLEAR"], ("VN", None): ["APOSTILLE_TRANSITION"],
     ("KZ", None): ["DIPLOMA_APOSTILLE_POSTS", "TB_POST_CONFLICT"], ("IN", None): ["APOSTILLE_WORDING_POSTS"], ("KG", None): ["AMOUNTS_CONFLICT", "TB_VALIDITY_CONFLICT"],

@@ -887,7 +887,7 @@ def outcome_metrics(days: int = Query(90, ge=7, le=730), p: Principal = Depends(
                 num=c["arrival_support_completion"]["numerator"], den=c["arrival_support_completion"]["denominator"],
                 withheld=c["arrival_support_completion"]["insufficient"]),
     ]
-    return {"period_days": days, "scope": "all organisations" if org_id is None else "your agency", "includes_demo": True, "min_n": 5, "metrics": rows}
+    return {"period_days": days, "scope": "all organisations" if org_id is None else "your team", "includes_demo": True, "min_n": 5, "metrics": rows}
 
 
 # ------------------------------------------------------------------- V15: plan scope and optional extras

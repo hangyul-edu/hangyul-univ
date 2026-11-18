@@ -8,6 +8,7 @@ import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router';
 
 import { Logo } from './brand';
+import { DesignPreviewBadge, designPreviewFetch, DesignPreviewLoginEntry } from './design-preview';
 import { LocaleSelector, setLocaleSelectorSurface } from './locale-selector';
 import { ToastProvider } from './overlays';
 import { Button, Callout, Field, Input, Skeleton } from './primitives';
@@ -64,7 +65,10 @@ export async function bootWebApp(opts: { client: ClientApp; namespaces: Namespac
   // localization crawl can measure which keys each customer route actually renders (scripts/qa/v23/l10n-crawl.mjs).
   if (import.meta.env.DEV) installKeyRecorder();
   applyDocumentLocale(locale);
-  const api = createApiClient({ baseUrl: '', client: opts.client, getLocale: () => i18next.language });
+  // Design Preview (owner review, one build flag): a transport that answers from synthetic fixtures and never
+  // reaches the network. Undefined — the real `fetch` — whenever preview is off or not entered.
+  const fetchImpl = await designPreviewFetch(opts.client);
+  const api = createApiClient({ baseUrl: '', client: opts.client, getLocale: () => i18next.language, ...(fetchImpl ? { fetchImpl } : {}) });
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -89,6 +93,7 @@ export function AppProviders({ api, queryClient, children }: { api: ApiClient; q
     <QueryClientProvider client={queryClient}>
       <AuthProvider api={api}>
         <ToastProvider>{children}</ToastProvider>
+        <DesignPreviewBadge />
       </AuthProvider>
     </QueryClientProvider>
   );
@@ -226,6 +231,8 @@ export function LoginScreen({ product, title, subtitle, aside, footer, afterLogi
             <Button type="submit" variant="primary" size="lg" block loading={busy}>{t('actions.signIn')}</Button>
           </form>
           {footer}
+          {/* The student app is the only caller: preview starts unpaid, so the paywall is reviewed too. */}
+          <DesignPreviewLoginEntry variant="unpaid" />
         </div>
       </main>
       <footer className="hg-login__foot hg-subtle hg-xs">{t('footer.rights', { year: new Date().getFullYear() })}</footer>

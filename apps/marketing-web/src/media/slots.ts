@@ -4,7 +4,7 @@
  * **Every slug here is attribution-free** (V14, brief Parts 2 and 35): Hangyul-owned, or CC0 / public domain
  * with the licence read back from the source's own API rather than from a page's prose. That is the whole
  * mechanism behind "no customer-visible photo credits" — the captions were not hidden, the thirteen CC BY
- * photographs that required them were taken out of the product. `docs/MEDIA_LICENSE_AUDIT.md` lists all
+ * photographs that required them were taken out of the product. `docs/media/LICENSE_AUDIT.md` lists all
  * twenty-four assets, what each is licensed as, and where each one went.
  *
  * If you add a slot, add an attribution-free asset: `scripts/media/fetch_cc0.py` refuses anything else, and

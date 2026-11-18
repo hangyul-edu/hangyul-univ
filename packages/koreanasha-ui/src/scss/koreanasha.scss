@@ -14,8 +14,10 @@
   // Koreanasha `pt-100 pb-90`. The original has no phone step-down; 100 px of air above a 320 px-wide heading is
   // most of a viewport, so ours scales.
   --kn-band: 56px;
-  --kn-gutter: 16px;
-  --kn-max: 1200px;
+  // Launch-final: the gutter and the editorial width are the shared layout tokens (design-tokens `layout`), so the
+  // marketing rail steps with every other product instead of restating 16/24/32 here.
+  --kn-gutter: var(--hg-gutter);
+  --kn-max: var(--hg-container-editorial);
   --kn-accent: var(--hg-primary);     // was #1C49FF
   --kn-accent-text: var(--hg-primary-text); // was #145CE6 (`.text-blue`)
   --kn-card-radius: 20px;             // main.css `.h2_blog-content`
@@ -67,12 +69,12 @@
 @media (max-width: 767.98px) { .kn { --kn-header-h: 52px; --kn-header-inset: 16px; } }
 @media (max-width: 359.98px) { .kn { --kn-header-inset: 12px; } }
 @media (min-width: 768px) {
-  .kn { --kn-band: 72px; --kn-gutter: 24px; --kn-header-inset: 20px; --kn-header-top: 20px; --kn-page-breathe: 44px; }
+  .kn { --kn-band: 72px; --kn-header-inset: 20px; --kn-header-top: 20px; --kn-page-breathe: 44px; }
 }
 @media (min-width: 1200px) {
   // `--kn-header-h` steps with `.kn-header__inner`'s min-height at exactly this breakpoint; the two must not
   // be allowed to drift, and `qa:v19` asserts they still agree.
-  .kn { --kn-band: 100px; --kn-gutter: 32px; --kn-header-inset: 30px; --kn-header-top: 28px; --kn-header-h: 68px; --kn-page-breathe: 60px; }
+  .kn { --kn-band: 100px; --kn-header-inset: 30px; --kn-header-top: 28px; --kn-header-h: 68px; --kn-page-breathe: 60px; }
 }
 
 .kn-container {
@@ -126,6 +128,8 @@
   .kn-header__inner { gap: var(--hg-space-2); padding-inline: var(--hg-space-3); }
   .kn-header__brand .hg-logo { --hg-logo-h: 24px; }
   .kn-header__right .kn-btn { padding-inline: 14px; }
+// Launch-final: on a phone a long translated label wraps inside the button instead of widening the page.
+@media (max-width: 479.98px) { .kn-btn { max-width: 100%; white-space: normal; text-align: center; line-height: 1.25; padding-block: 10px; } }
   .kn-header__right .kn-btn .ed-icon { display: none; }   // the arrow is decoration; the label carries it
   .kn-burger { width: 44px; height: 44px; } // V27: 44-px touch target
 }
@@ -511,7 +515,7 @@
 // attribution was ever legally required by it; the caption was a habit from the licensed set around it, and a
 // line of source metadata under a full-screen photograph is the single clearest signal that a page is a
 // research exercise rather than a product. Attribution-required photography is not hidden — it is replaced,
-// which is what docs/MEDIA_LICENSE_AUDIT.md records.
+// which is what docs/media/LICENSE_AUDIT.md records.
 
 // --------------------------------------------------------------------------------------------------- Bands
 // Koreanasha alternates white and `.bg-gray` (#E8EFFD) sections at `pt-100 pb-90`.
@@ -987,7 +991,7 @@ a.kn-chip:hover { border-color: var(--hg-border-strong); color: var(--kn-accent-
 // ------------------------------------------------------------------------------------------------- Footer
 // Koreanasha's footer is a logo, a legal-identity block and six social icons on white. Hangyul has link columns
 // to keep (V7/V9) and no social accounts or registration number to publish, so the Koreanasha contribution here
-// is the calm white treatment and the "legal identity lives in the footer" habit — see MARKETING_ASSETS.md.
+// is the calm white treatment and the "legal identity lives in the footer" habit — see docs/BRAND_AND_MEDIA.md.
 
 .kn-footer {
   padding-block: var(--kn-band) var(--hg-space-8);

@@ -80,7 +80,7 @@ function DiffView({ essay }: { essay: V6Essay }) {
         <FilterSelect size="sm" label={t('essay.diff.to')} value={b} onChange={(e) => setB(Number(e.target.value))}>{versions.map((v) => <option key={v} value={v}>v{v}</option>)}</FilterSelect>
       </div>
       {a === b ? <p className="hg-muted hg-small">{t('essay.diff.same')}</p> : q.isLoading ? <Skeleton h={80} /> : q.data ? (
-        <div className="st-diff sw-diff" data-user-content aria-label={t('essay.diff.label', { a, b })}>
+        <div className="st-diff sw-diff" data-user-content tabIndex={0} role="region" aria-label={t('essay.diff.label', { a, b })}>
           {q.data.ops.map((o, i) => o.op === 'insert' ? <ins key={i}>{o.text}</ins> : o.op === 'delete' ? <del key={i}>{o.text}</del> : <span key={i}>{o.text}</span>)}
         </div>
       ) : null}

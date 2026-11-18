@@ -122,7 +122,7 @@ for (const r of STATUTORY_RECORDS) {
   const period = 'months' in r ? `${r.months} months` : `${r.years} years`;
   p(`| ${r.key} | ${period} | Korean e-commerce consumer-protection law |`);
 }
-p('| applicant documents | **not approved** | no value exists; `LEGAL_DEPENDENCIES.md` L8 is `OPEN` |');
+p('| applicant documents | **not approved** | no value exists; `docs/LEGAL.md` L8 is `OPEN` |');
 p('| account and profile | **not approved** | as above |');
 p('| audit and access logs | **not approved** | as above |');
 p();

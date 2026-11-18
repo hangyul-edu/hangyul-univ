@@ -1,4 +1,4 @@
-"""V5 — admission success API (owned by the success workstream; see docs/ADMISSION_SUCCESS.md, docs/SUBMISSION_CONNECTORS.md).
+"""V5 — admission success API (owned by the success workstream; see docs/admissions/admission-success.md, docs/admissions/submission-connectors.md).
 
 Strategy (what still affects each application), portfolio (the student's set of options + counselor review) and the
 submission hub (method per university, guided hand-off, evidence, application-fee status). Tenant isolation goes through

@@ -1,5 +1,7 @@
 # Vercel deployment
 
+> **Status (2026-11-18):** current deployment state is in [`../DEPLOYMENT.md`](../DEPLOYMENT.md). Since commit `72cfca1c` the four apps rewrite `/api` to an ngrok tunnel in front of the API on a non-production host; statements below that the API is "not deployed", "out of scope" or "deferred", and the `api.univ.talkhangyul.com` rewrite target, describe the earlier state and the intended production target. The "Agency" product is Hangyul's internal Operations/Admin console.
+
 One GitHub repository, four Vercel projects (one per web app), production branch `main`.
 No secrets in this file: names and structure only.
 

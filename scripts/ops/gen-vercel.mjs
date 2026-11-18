@@ -17,7 +17,16 @@ import { resolve } from 'node:path';
 import { APP_DIRS, headerFor, loadPolicy, problems, ROOT } from './csp.mjs';
 
 /** Infrastructure hostname of the FastAPI service. Not a product domain; never shown to customers. */
-export const API_ORIGIN = 'https://api.univ.talkhangyul.com';
+/**
+ * Where each Vercel app's same-origin `/api/*` is rewritten to.
+ *
+ * CURRENT REALITY (2026-11-18): the API is reachable only through an ngrok tunnel to a non-production host; the
+ * dedicated origin `https://api.univ.talkhangyul.com` does not serve yet (TLS fails). The committed vercel.json files
+ * were hand-pointed at the tunnel in 72cfca1c while this constant still named the dedicated origin, so regenerating
+ * would have silently cut production off from the API. The constant now states what is deployed. When the durable
+ * API host exists, change this one line back to the dedicated origin and regenerate (docs/DEPLOYMENT.md §9).
+ */
+export const API_ORIGIN = 'https://enclosure-cork-purifier.ngrok-free.dev';
 
 const policy = loadPolicy();
 const bad = problems(policy);
@@ -54,12 +63,18 @@ const marketingExtras = {
   },
 };
 
+/** The single deployment switch for Design Preview. `true` = owner review; `false` = public launch. */
+const DESIGN_PREVIEW = true;
+
 const configFor = (app, dir) => ({
   $schema: 'https://openapi.vercel.sh/vercel.json',
   framework: 'vite',
   installCommand: 'cd ../.. && npm ci --no-audit --no-fund',
   buildCommand: `cd ../.. && npm run build -w @hangyul/${dir}${app === 'marketing' ? ' && node scripts/public-data/stage-fit.mjs' : ''}`,
   outputDirectory: 'dist',
+  // Design Preview (owner review; docs/SECURITY.md). ON while `DESIGN_PREVIEW` is true; set it to false and regenerate
+  // before the public launch (`npm run release:preview-gate -- --launch --bundles off` then passes).
+  ...(DESIGN_PREVIEW && app !== 'marketing' ? { build: { env: { VITE_ENABLE_DESIGN_PREVIEW: '1' } } } : {}),
   ...(app === 'marketing' ? { functions: marketingExtras.functions } : {}),
   rewrites: [
     ...(app === 'marketing' ? marketingExtras.rewrites : []),

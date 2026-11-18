@@ -24,28 +24,29 @@ export const TANGERINE = '#CC4E00';
 export function StepDots({ step }: { step: Step }) {
   const { t } = useTranslation();
   const idx = Math.max(0, PROGRESS_STEPS.indexOf(step === 'challenge' ? 'account' : (step as (typeof PROGRESS_STEPS)[number])));
+  // Launch-final: the same progress as the web sign-up — one line ("2/4 · Verify") over four thin segments
+  // (done = ink, current = tangerine, upcoming = hairline) instead of a row of numbered circles.
   return (
-    <View style={dots.row} accessibilityRole="progressbar" accessibilityLabel={t('mobile:signup.progress', { n: idx + 1, total: PROGRESS_STEPS.length, step: t(`mobile:signup.steps.${PROGRESS_STEPS[idx]}`) })}>
-      {PROGRESS_STEPS.map((s, i) => {
-        const state = i < idx ? 'done' : i === idx ? 'current' : 'todo';
-        return (
-          <View key={s} style={dots.item} importantForAccessibility="no-hide-descendants">
-            <View style={[dots.dot, state === 'current' && dots.dotCurrent, state === 'done' && dots.dotDone]}>
-              {state === 'done' ? <Check size={11} color="#fff" strokeWidth={3} /> : <AppText variant="caption" color={state === 'current' ? '#fff' : theme.color.textTertiary} weight={state === 'current' ? 'semibold' : 'regular'}>{String(i + 1)}</AppText>}
-            </View>
-            {state === 'current' || i === idx ? <AppText variant="caption" color={theme.color.text} weight="semibold">{t(`mobile:signup.steps.${s}`)}</AppText> : null}
-          </View>
-        );
-      })}
+    <View style={dots.wrap} accessibilityRole="progressbar" accessibilityLabel={t('mobile:signup.progress', { n: idx + 1, total: PROGRESS_STEPS.length, step: t(`mobile:signup.steps.${PROGRESS_STEPS[idx]}`) })}>
+      <View style={dots.now} importantForAccessibility="no-hide-descendants">
+        <AppText variant="caption" color={TANGERINE} weight="semibold">{`${idx + 1}/${PROGRESS_STEPS.length}`}</AppText>
+        <AppText variant="caption" color={theme.color.text} weight="semibold">{t(`mobile:signup.steps.${PROGRESS_STEPS[idx]}`)}</AppText>
+      </View>
+      <View style={dots.row} importantForAccessibility="no-hide-descendants">
+        {PROGRESS_STEPS.map((s, i) => (
+          <View key={s} style={[dots.seg, i === idx && dots.segCurrent, i < idx && dots.segDone]} />
+        ))}
+      </View>
     </View>
   );
 }
 const dots = StyleSheet.create({
-  row: { flexDirection: 'row', gap: 12, paddingVertical: 4, alignItems: 'center' },
-  item: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  dot: { width: 22, height: 22, borderRadius: 11, borderWidth: 1, borderColor: theme.color.borderStrong, alignItems: 'center', justifyContent: 'center' },
-  dotCurrent: { backgroundColor: TANGERINE, borderColor: TANGERINE },
-  dotDone: { backgroundColor: theme.color.text, borderColor: theme.color.text },
+  wrap: { gap: 8, paddingVertical: 4 },
+  now: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  row: { flexDirection: 'row', gap: 6, alignItems: 'center' },
+  seg: { flex: 1, height: 3, borderRadius: 2, backgroundColor: theme.color.border },
+  segCurrent: { backgroundColor: TANGERINE },
+  segDone: { backgroundColor: theme.color.text },
 });
 
 // ------------------------------------------------------------------------------------------- password

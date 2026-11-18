@@ -18,7 +18,7 @@ const page = (load: () => Promise<{ default: React.ComponentType }>) => async ()
  * CC BY, which requires attribution — so the page was a legal obligation wearing the clothes of a content
  * page, and it read to a prospective student as a research bibliography. The obligation is discharged at the
  * source instead: every photograph on a customer surface is now Hangyul-owned or CC0, recorded in
- * `docs/MEDIA_LICENSE_AUDIT.md`, and none of them requires visible attribution. The factual provenance that
+ * `docs/media/LICENSE_AUDIT.md`, and none of them requires visible attribution. The factual provenance that
  * page also carried (institution sources, survey years) was never the customer's: it already appears, in a
  * restrained 공식 정보 section, on the university detail page it belongs to.
  *

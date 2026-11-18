@@ -307,7 +307,7 @@ function Footer() {
         { to: '/terms', label: t('common:footer.terms') },
         // No "사진 출처" link: `/credits` is retired (brief Part 3). Every photograph on a customer surface is
         // now Hangyul-owned or CC0, so there is no attribution for a customer to be sent to read, and a
-        // bibliography is not part of anyone's journey. See docs/MEDIA_LICENSE_AUDIT.md.
+        // bibliography is not part of anyone's journey. See docs/media/LICENSE_AUDIT.md.
       ],
     },
   ];

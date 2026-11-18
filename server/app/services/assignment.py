@@ -126,7 +126,7 @@ def assign(db: Session, student_user_id, *, org_id=None, counselor_user_id=None,
     ranked = [] if org_id else score_agencies(db, student_user_id)
     chosen_org = org_id or (ranked[0]["organization_id"] if ranked else None)
     if chosen_org is None:
-        raise ValueError("No partner agency available")
+        raise ValueError("No Hangyul operations team available")
     chosen_org = uuid.UUID(str(chosen_org))
     for existing in db.scalars(
         select(AgencyAssignment).where(AgencyAssignment.student_user_id == student_user_id, AgencyAssignment.status == AssignmentStatus.ACTIVE)

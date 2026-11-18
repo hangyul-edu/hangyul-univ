@@ -1,4 +1,4 @@
-/** Icon system: Lucide (ISC license) for UI glyphs + the Hangyul Univ brand assets (owner-supplied, see docs/BRAND_ASSETS.md). */
+/** Icon system: Lucide (ISC license) for UI glyphs + the Hangyul Univ brand assets (owner-supplied, see docs/BRAND_AND_MEDIA.md). */
 export * from 'lucide-react';
 
 import dimensions from '../assets/brand/hangyul-univ/dimensions.json';

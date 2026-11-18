@@ -482,8 +482,10 @@ a.uc-notif:hover { background: var(--hg-surface-hover); }
 .uv7-btn-quiet:hover { background: #f3f6f8 !important; }
 .uv7 .btn-outline-danger { color: #b5321d; border-color: rgba(var(--danger-rgb), 0.45); }
 .uv7 .btn-outline-danger:hover { color: #fff; }
-.uv7-kv { display: grid; grid-template-columns: minmax(6.5rem, max-content) 1fr; gap: 0.5rem 1rem; font-size: 0.8125rem; margin: 0; }
-.uv7-kv dt { color: var(--text-muted); font-weight: 500; }
+/* Launch-final: the label column may take at most 45 % — with `max-content` a long label left the value ~0 px wide and
+   `overflow-wrap: anywhere` broke it one character per line in the 20 rem side card. */
+.uv7-kv { display: grid; grid-template-columns: fit-content(45%) minmax(0, 1fr); gap: 0.5rem 1rem; font-size: 0.8125rem; margin: 0; }
+.uv7-kv dt { color: var(--text-muted); font-weight: 500; min-width: 0; overflow-wrap: anywhere; }
 .uv7-kv dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
 .uv7-details__edit { margin-block-start: 1rem; padding-block-start: 1rem; border-block-start: 1px dashed var(--default-border); }
 .uv7-table { font-size: 0.8125rem; }

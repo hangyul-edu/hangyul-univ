@@ -7,7 +7,7 @@ always be matched to the exact text the person saw.
 
 The Korean text is canonical; translations are readable renderings of it (brief §71). The versions below are
 the versions of the *documents as published by this repository* (`/terms`, `/privacy`); they are not a claim that
-counsel has approved them — that remains OWNER_POLICY_REQUIRED (docs/LEGAL_DEPENDENCIES.md L12/L14).
+counsel has approved them — that remains OWNER_POLICY_REQUIRED (docs/LEGAL.md L12/L14).
 """
 from dataclasses import asdict, dataclass
 

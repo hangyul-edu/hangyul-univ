@@ -143,7 +143,8 @@ html[data-nav-layout='vertical'] {
   .app-sidebar .side-menu__item { text-decoration: none; gap: 0; }
   .app-sidebar .side-menu__icon { display: inline-flex; width: 1.15rem; height: 1.15rem; margin-inline-end: 0.625rem; }
   .app-sidebar .side-menu__icon svg { width: 1.15rem; height: 1.15rem; stroke-width: 1.75; }
-  .app-sidebar .side-menu__label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  // Launch-final: a long destination ("Applications & documents") wraps to a second line instead of being cut at the rail's edge.
+  .app-sidebar .side-menu__label { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; white-space: normal; line-height: 1.25; }
   .app-sidebar .yx-navbadge { margin-inline-start: 0.5rem; font-size: 0.68rem; }
   .app-sidebar .slide__category { opacity: 1; font-size: 0.6875rem; }
   .main-sidebar { overflow-y: auto; height: calc(100vh - 3.75rem); padding-block-end: 2rem; scrollbar-width: thin; }
@@ -163,6 +164,10 @@ html[data-nav-layout='vertical'] {
   .app-header .hg-bell__count { background: rgb(var(--secondary-rgb)); }
 
   .yx-main { padding-block-end: 2.5rem; }
+  // Launch-final: the console content rail is the shared `--hg-gutter` (16 → 24 → 32 px), not YNEX's fixed 8 + 12 px,
+  // so Operations/Admin and University step with the student app and the marketing site.
+  .main-content.app-content { padding-inline: 0; }
+  .yx-main.container-fluid { padding-inline: var(--hg-gutter); }
   .yx-main > .hg-content-pad { padding: 0; }
 }
 
@@ -189,7 +194,8 @@ html[data-nav-layout='vertical'] {
 .yx-pagehead__eyebrow { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.25rem; }
 .yx-pagehead__sub { font-size: 0.8125rem; margin-top: 0.125rem; }
 .yx-pagehead__end { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
-.yx-pagehead .btn-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.yx-pagehead .btn-list { display: flex; flex-wrap: wrap; gap: 0.5rem; min-width: 0; max-width: 100%; }
+.yx-pagehead__end { min-width: 0; max-width: 100%; }
 @media (max-width: 767.98px) { .yx-pagehead__end { align-items: flex-start; } }
 
 .card.custom-card .card-header .card-title { text-transform: none; } // i18n: capitalize breaks German/Turkish casing

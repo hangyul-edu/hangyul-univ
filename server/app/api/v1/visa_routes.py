@@ -1,4 +1,4 @@
-"""V5 — visa concierge API (owned by the visa_routes workstream; see docs/VISA_ROUTES.md → Implementation).
+"""V5 — visa concierge API (owned by the visa_routes workstream; see docs/admissions/visa-routes.md → Implementation).
 
 Student (``/me/visa-route…``): the resolved plan (route, post, method, steps, documents with reuse status, timing,
 caveats, preparation form, tracking, help), the one jurisdiction answer, form confirmation, document links,

@@ -237,7 +237,7 @@ export function SignupFlow({ onCancel, defaultNationality = 'VN' }: { onCancel: 
                     <View style={st.chanHead}>
                       <View style={{ flex: 1 }}>
                         <AppText variant="subheading">{t(channel === 'email' ? 'mobile:signup.emailCode' : 'mobile:signup.smsCode')}</AppText>
-                        <AppText variant="caption" numberOfLines={1}>{ch.challengeId ? t('mobile:signup.sentTo', { target: ch.targetMasked ?? target }) : target}</AppText>
+                        <AppText variant="caption" numberOfLines={2}>{ch.challengeId ? t('mobile:signup.sentTo', { target: ch.targetMasked ?? target }) : target}</AppText>
                       </View>
                       {ch.proof ? (
                         <View style={st.ok}><Check size={14} color={theme.status.success.fg} /><AppText variant="caption" color={theme.status.success.fg} weight="semibold">{t('mobile:signup.verified')}</AppText></View>
@@ -342,10 +342,10 @@ const st = StyleSheet.create({
   linkRow: { minHeight: 44, justifyContent: 'center' },
   chan: { borderWidth: 1, borderColor: theme.color.border, borderRadius: theme.radius.lg, padding: 14, gap: 12, backgroundColor: theme.color.surface },
   chanDone: { borderColor: theme.status.success.solid, backgroundColor: theme.status.success.bg },
-  chanHead: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  chanHead: { flexDirection: 'row', alignItems: 'flex-start', gap: 10 },
   ok: { flexDirection: 'row', alignItems: 'center', gap: 4 },
   chanFoot: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  resend: { minHeight: 36, justifyContent: 'center' },
+  resend: { minHeight: 44, justifyContent: 'center' },
   consents: { borderWidth: 1, borderColor: theme.color.border, borderRadius: theme.radius.lg, overflow: 'hidden' },
   consent: { flexDirection: 'row', alignItems: 'flex-start', paddingVertical: 12, paddingHorizontal: 12, borderTopWidth: 1, borderTopColor: theme.color.border, gap: 8 },
   consentAll: { borderTopWidth: 0, backgroundColor: theme.color.surfaceWarm },

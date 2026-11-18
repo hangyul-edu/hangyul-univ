@@ -1,4 +1,4 @@
-"""V6 — writing review additions (owned by the writing workstream; see docs/WRITING_REVIEW.md §V6).
+"""V6 — writing review additions (owned by the writing workstream; see docs/admissions/writing-review.md §V6).
 
 - EssaySuggestionDecision — the student's decision on a reviewer's suggested wording (ACCEPTED / REJECTED), so the
   reviewer sees what happened to each suggestion. Accepting creates a new student-authored version; nothing is applied

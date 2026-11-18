@@ -9,7 +9,7 @@ import { Popover } from './overlays';
 
 /**
  * The Hangyul Univ lockup: the owner-supplied horizontal logo (cap-and-leaf symbol + "univ." wordmark), served
- * from `HANGYUL_UNIV_BRAND` with an @2x source. It is an image, never type set in CSS — see docs/BRAND_ASSETS.md.
+ * from `HANGYUL_UNIV_BRAND` with an @2x source. It is an image, never type set in CSS — see docs/BRAND_AND_MEDIA.md.
  *
  * Ink follows the surface: `tone="dark"` (default) is black ink for light surfaces; `tone="light"` is ivory ink for
  * dark or orange surfaces (the navy console sidebar, chrome over a photograph). `color` picks a variant explicitly —

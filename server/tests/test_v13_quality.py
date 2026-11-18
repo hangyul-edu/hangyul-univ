@@ -1,7 +1,7 @@
 """V13 — application quality check: the essay gates reach the application, and identity stays consistent.
 
 The first test here exists because of a specific eight-pass failure. `strategy.register_essay_hook` was built
-in V5, `docs/ADMISSION_SUCCESS.md` has documented it as the writing workstream's hook ever since, and
+in V5, `docs/admissions/admission-success.md` has documented it as the writing workstream's hook ever since, and
 `test_essay_hook_adds_items` has been green the whole time — because it registers *its own* hook after
 clearing the list. It proved the mechanism worked and never once asked whether anything used it. Nothing did.
 

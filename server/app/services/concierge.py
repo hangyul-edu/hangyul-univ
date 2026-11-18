@@ -1,4 +1,4 @@
-"""Concierge: one fulfilment model for everything after admission (docs/ARRIVAL_SERVICES.md).
+"""Concierge: one fulfilment model for everything after admission (docs/admissions/arrival-services.md).
 
 * ``ServiceCase`` + per-type state tables (``TABLES``) — every status says who the case is waiting on, which queue
   bucket it belongs to and which statuses may follow. The visa workstream registers its own VISA_SUPPORT table with

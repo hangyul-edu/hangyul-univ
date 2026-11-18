@@ -1,6 +1,6 @@
 """V6 submission seed — the authorised-agency *development fixture* (never created when HG_ENV=production).
 
-Research (docs/SUBMISSION_CONNECTORS.md, docs/COMPETITOR_BENCHMARK.md "Submission reality (2026-10)"): no catalogued
+Research (docs/admissions/submission-connectors.md, docs/research/competitor-benchmark.md "Submission reality (2026-10)"): no catalogued
 university or application provider (UWAY, JinhakApply, Gradnet) allows an agency to submit on a student's behalf —
 applicants must apply personally. So no real connector gets AUTHORIZED_AGENCY. To exercise the flow in development
 only, this module creates:

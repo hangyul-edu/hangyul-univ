@@ -1,7 +1,7 @@
 # V9 research: how the study-abroad industry actually operates (Korea inbound focus)
 
 *2026-10-10 · V9 research workstream · sources in `docs/research/v9-sources.json` (cited as [S*n*] = `V9-S`*n*).*
-*Builds on `docs/COMPETITOR_BENCHMARK.md` (V8 "Key findings", "What Hangyul must beat") and `docs/SUBMISSION_CONNECTORS.md` (V6). This document maps **workflows** (who does what, with which tool, where it breaks). It is not a feature list.*
+*Builds on `docs/research/competitor-benchmark.md` (V8 "Key findings", "What Hangyul must beat") and `docs/admissions/submission-connectors.md` (V6). This document maps **workflows** (who does what, with which tool, where it breaks). It is not a feature list.*
 
 ---
 

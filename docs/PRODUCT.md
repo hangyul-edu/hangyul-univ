@@ -1,43 +1,73 @@
 # Hangyul Univ — Product
 
-> Everything you need to study in Korea, from your first question to graduation.
+> Hangyul Univ helps an international student prepare a stronger application to the Korean university they want,
+> and looks after the whole process — from the first question to arrival.
 
-## The shift
+## What it is
 
-Traditional flow: **Student → study-abroad agency → university**. Information is fragmented across university sites, portals and agencies; agencies qualify leads by hand; universities see applicants only up to admission.
+**Student → Hangyul Univ → Korean university.**
 
-Hangyul Univ flow: **Student → Hangyul Univ → partner agency → partner university.** Hangyul is the operating system and data layer that connects all parties:
-
-| Party | What they get |
+| Party | Role |
 |---|---|
-| Student | One profile, honest eligibility, explained matches, a single document vault reused everywhere, deadlines and next steps, expert help, visa and arrival guidance, post-arrival support |
-| Partner agency | Qualified, paid, well-documented cases matched to their expertise; a CRM that automates checklists, reminders, SLA tracking and reviews |
-| Partner university | A pipeline of prepared applicants, triage tools, recruitment funnel and — uniquely — enrollment, visa, arrival, retention and graduation outcomes by cohort, agency and country |
-| Hangyul | A marketplace + data network: partnership economics, scholarship pools, freshness-verified information that compounds |
+| **Student** | Prepares and applies. Wants to get into the university they chose and not make a mistake on the way. |
+| **Hangyul Univ** | **Directly operates** the service: consultation, university recommendation, application preparation, document review, application management, essay review, visa-document preparation, arrival and settlement support. One team, seen by the student as "한귤 유니브 상담팀 / Hangyul Univ team". |
+| **Korean university** | Reviews applicants and **makes the admission decision**. Uses the University console to review applications shared with it. |
+
+There is **no external study-abroad agency** between the student and Hangyul, and no external operating partner.
+`apps/agency-web`, `apps/agency-mobile`, `@hangyul/agency-web`, `AGENCY_*` models and roles and the `/agency/...` API
+prefix are historical internal names for **Hangyul's internal Operations/Admin product**; they are not being renamed.
+
+## What the student buys
+
+One of three **one-time plans in USD** (never a subscription): Basic $179, All-in-One $349 (core product), Premium
+$599 — plus optional additional services the team proposes for that student at an exact price. Searching the
+directory, saving universities and Quick Fit are free and need no purchase. Full contract: [SERVICE_CATALOG.md](SERVICE_CATALOG.md).
+
+## How Hangyul improves the chance of admission
+
+By raising the quality of the application, not by predicting the result: a realistic choice of universities, a
+strategy per application, requirements read from the official guide, documents checked and correctly legalized,
+essays reviewed by people, deadlines kept, and university requests answered quickly. Hangyul never says "guaranteed
+admission" and never shows a probability, percentage or fake score. Detail: [ADMISSIONS.md](ADMISSIONS.md).
 
 ## Principles
 
-1. **Honesty over hype.** No invented acceptance rates, rankings or outcomes. Match tiers (Strong / Competitive / Reach / Not eligible yet) with reasons, never an admission probability. "Guaranteed" only when a configured partner contract with criteria and quota backs it (see `PartnerContract.guarantee_*`).
-2. **Freshness is a feature.** Every time-sensitive fact carries `source_url`, `verified_at`, `verification_status` (and `effective_from/to` where relevant). Stale items enter a review queue.
-3. **One primary action.** Students always see the single most useful next step.
-4. **Automate the repetitive, keep humans for judgment.** Checklists, reminders, task generation, first-pass essay structure checks, legalization routing, assignment scoring are automated; decisions (document verification, essay approval, admission) stay human.
+1. **Honesty over hype.** No invented acceptance rates, rankings or outcomes; fit groups with reasons, never odds.
+2. **Freshness is a feature.** Every time-sensitive fact carries `source_url`, `verified_at` and a verification status; unverified facts are left blank.
+3. **Next action before internal stage.** The student sees the one thing to do now — or that nothing is needed — not the internal pipeline. Detailed stages belong to the Operations console.
+4. **Automate the repetitive, keep people for judgment.** Checklists, reminders, legalization routing and first-pass checks are automated; document acceptance, essay approval and admission stay human.
 5. **Tenant isolation is non-negotiable** and enforced server-side.
+6. **Hangyul never collects tuition.** It is paid by the student, in their own name, to the university (MOE guidance).
 
-## Four web products
+## Products
 
-| App | Port | Personality | Core jobs |
+| Product | Domain | Code | For | Core jobs |
+|---|---|---|---|---|
+| Marketing | `univ.talkhangyul.com` | `apps/marketing-web` | Prospective students | Directory of 425 Korean institutions, university pages, Quick Fit, plans, legal pages, sign in |
+| Student | `app.univ.talkhangyul.com` | `apps/student-web`, `apps/student-mobile` | Students | Next action, matches, applications, document dossier, essays, visa, housing, arrival, services, messages |
+| Operations/Admin (Hangyul internal) | `admin.univ.talkhangyul.com` | `apps/agency-web`, `apps/agency-mobile` | Hangyul operations team | Today queue, student workspace, document and essay review, application management, add-on offers, performance; HQ tools |
+| University console | `partner.univ.talkhangyul.com` | `apps/university-web`, `apps/university-mobile` | University admissions staff | Applicants to decide, requests for documents, pipeline, outcomes and insights |
+
+One FastAPI API (`server/`, `/api/v1`) serves all of them. Deployment state: [DEPLOYMENT.md](DEPLOYMENT.md).
+
+## The student journey (service blueprint)
+
+| Stage | Student sees | Hangyul team does | University does |
 |---|---|---|---|
-| Marketing | 3100 | Editorial, aspirational, trustworthy | Make someone want Korea, show them where they could study (the national institution directory), publish what we are legally obliged to publish, sign in |
-| Student | 3101 | Calm, guided, low cognitive load | Onboarding, matches, search, compare, applications, document vault, essays, visa, housing, arrival, scholarships, services, messages |
-| Agency Console | 3102 | Dense but organized CRM | Pipeline kanban, student workspace, review queues, essay reviews, tasks & SLA, messaging with internal notes, analytics; Hangyul ops tools (assignment override, sources & freshness, audit) |
-| University Console | 3103 | Executive analytics + admissions ops | Applicant triage and decisions, funnel, admission rules, scholarship pools, partner agencies, cohorts/retention/graduation, exports, partnership |
+| 1. Find a university | Directory, university pages, Quick Fit groups, saved list | Publishes verified facts with sources | — |
+| 2. Prepare | One next action; requirements for the chosen universities; document dossier; essay drafts | Consultation, recommendation, strategy, document review, legalization guidance, essay review | Publishes the admission guide |
+| 3. Apply | Pre-submission check; guided submission on the university's own rail; proof of submission | Checks completeness and deadlines; records evidence | Receives the application |
+| 4. Wait for the result | "The university is reviewing — nothing to do" or "one more document by <date>" | Tracks requests and results; answers the university | Reviews, requests documents, **decides** |
+| 5. After admission | Enrollment, visa documents, dormitory, arrival checklist, first month | Visa-document preparation, schedule management, arrival support (by plan) | Issues the admission letter; enrolls |
 
-Native apps (Expo, not WebViews): Student, Agency, University — focused on the most frequent mobile workflows.
+Student-facing states are few (준비 중 · 지원 완료 · 대학 검토 중 · 추가 요청 있음 · 결과 발표); the nine internal stages
+live in the Operations console ([WORKFLOWS.md](WORKFLOWS.md), [STATE_MAP.md](STATE_MAP.md)). Designer-oriented summary:
+[한귤유니브_서비스기획서.md](한귤유니브_서비스기획서.md).
 
 ## Service plans
 
 *V29 (2026-10-30): the owner-approved V29 service contract. Full definition, add-ons, service-period semantics,
-versioning and UI placement: [`SERVICE_CATALOG_V29.md`](SERVICE_CATALOG_V29.md). Catalogue `2026-10-19.v15` (V15–V28:
+versioning and UI placement: [`SERVICE_CATALOG.md`](SERVICE_CATALOG.md). Catalogue `2026-10-19.v15` (V15–V28:
 30/60/90-minute consultations, All-in-One 1 edit round, Premium 2) is frozen for the buyers who bought under it.*
 
 | | 베이직 Basic | 올인원 All-in-One | 프리미엄 Premium |
@@ -72,53 +102,30 @@ Scope is **machine-readable**, not marketing strings: `ServiceProduct.entitlemen
 `dormitory_support_level`, `settlement_support_level`), held per purchase in a `ServiceEngagement` snapshot (V29). Usage is **derived from the records that prove the work happened**, never counted into
 a column; `null` means *not rationed* and is not the same as `0`.
 
-The business plan's optional paid services (§6-2) are `ServiceAddOn` rows: a counsellor offers one inside a
+The business plan's optional paid services (§6-2) are `ServiceAddOn` rows: the Hangyul team offers one inside a
 case when an allowance is spent, the **student** approves it, and approval raises exactly one entitlement by
 the agreed quantity. They are never a homepage card and never a navigation area.
 
-Payments run on **Toss Payments in TEST mode** (`HG_PAYMENT_PROVIDER=toss`, `HG_TOSS_ENV=test`; V21, REPORT §0.4).
+Payments run on **Toss Payments in TEST mode** (`HG_PAYMENT_PROVIDER=toss`, `HG_TOSS_ENV=test`; V21).
 A plan is bought by **foreign-card key-in on MID `bill_talkoab1`** through Hangyul's **own card form** (no Toss
 popup): `POST /me/orders` → the card form → `POST /me/orders/{id}/pay-with-card`; the server relays the card number
 and expiry to Toss's key-in API and **stores neither**. Approved prices do not make checkout production-ready:
 live keys and the overseas-card/USD contracts are owner actions (`docs/payments/TOSS_FOREIGN_CARD_REVIEW.md`), and
 `release:check` still blocks on them and on the commercial refund schedule (`OWNER_POLICY_REQUIRED`,
-`shared/refund-policy.json`). A `demo` provider exists for development and tests only.
+`shared/refund-policy.json`). A `demo` provider exists for automated tests only.
 
-## Tuition and money flows
+## Money flows
 
-Research (MOE guideline, rev. 2025-03-14) found tuition must be paid in the student's own name, normally to a personal virtual account, with refunds to the student. **Hangyul does not collect tuition**; the product links students to the university's payment channel and only charges for Hangyul services. Partnership economics (recruitment fees, incentives, scholarship pools) are modelled as configurable contracts, and Hangyul Partner Scholarships activate only while an active contract and funded pool exist.
+Hangyul charges only for its own services. Tuition, application fees, visa fees, translation and notarization costs
+are separate and paid to their own payees; the money plan shows payee, timing and refundability per line. Refund
+schedule and upgrade pricing are open owner decisions ([LEGAL.md](LEGAL.md), [ROADMAP.md](ROADMAP.md)).
 
-## Template foundations (ThemeForest, licensed)
-
-*Updated V10 (2026-10-16). The V1–V6 text here said no template CSS, JS or photos were used; that stopped being
-true in V7 (REPORT §40–46). V10 changes the marketing foundation again: `template-koreanasha` — a site Hangyul
-owns, authorised in writing for this project, and the same build served at univ.talkhangyul.com — replaces Eduan
-as the **primary** visual and structural foundation of the public site. Koreanasha is itself a customised Eduan
-build (REPORT §65.1), so this is not a second design language: `packages/koreanasha-ui` carries only Koreanasha's
-own ~500-line layer (floating pill header, full-viewport three-crop hero, band rhythm, card / media-row /
-marquee / FAQ anatomy), re-themed to Hangyul and layered over the shared Eduan chassis. The current state:*
-
-| Template | Role | What is used | What is not used |
-|---|---|---|---|
-| `template-koreanasha` (owner-supplied) | **Primary foundation of the marketing site since V10** | Its customisation layer, re-authored as SCSS in `packages/koreanasha-ui` and re-themed to the Hangyul palette; its hero technique (one hand-made crop per breakpoint); three of its photographs (`s1_c`, `s2_c`, `s3_c`), recorded as owner-supplied in `credits.json` | Its jQuery + 14 plugins, Font Awesome Pro, AOS/odometer, `lang.js`, the public application modal, all Koreanasha branding and metadata, and every image associated with a named Koreanasha person (`docs/MEDIA_LICENSE_AUDIT.md`, "Images deliberately not used"); its 23 university crests are `OWNER_AUTHORISED` and used as university marks since V20 |
-| `themeforest-eduan` | **Demoted in V10** to the shared chassis under Koreanasha, plus a component and asset source | Its SCSS (verbatim, re-scoped under `:where(.ed)`, RTL-processed, purged per build) through `packages/eduan-ui`; section compositions ported to React; no template photographs since V14 (the `/credits` page was retired; general marketing photographs are Hangyul-owned or CC0 only, `docs/MEDIA_LICENSE_AUDIT.md`) | jQuery plugins (replaced by React), FontAwesome Pro, the template as a standalone download, any template branding or demo text |
-| `themeforest-ynex` (Spruko) | Implementation foundation of the Agency, University and Hangyul-operations consoles | Its SCSS (Bootstrap 5.3.3 subset + layout/menu styles) through `packages/ynex-ui`; the vertical layout ported to React (`YnexShell`) | Bootstrap/jQuery runtime, the template's JS plugins and chart libraries (Recharts instead), its icon fonts (Lucide instead) |
-
-ThemeForest use is under the purchased licences for one end product (Hangyul Univ); `template-koreanasha` is
-Hangyul's own work, authorised by the owner for this project. No original template package is redistributed: only
-derived, compiled CSS ships, and the template folders stay outside the deployable apps. Hangyul's own BI
-(tangerine #FF5000/#FF6700, Hangyul Black, soft green, mint; Pretendard) sits on top, and since V10 the **brand
-lockup is the BI-kit asset** (`logo-combined.png` + an @2x and a light-ink variant), not the typeset
-"Hangyul Univ" string V1–V9 drew in CSS. Inventories: `docs/TEMPLATE_KOREANASHA_INVENTORY.md`,
-`docs/TEMPLATE_EDUAN_INVENTORY.md`, `docs/TEMPLATE_YNEX_INVENTORY.md`; photography and brand assets:
-`docs/MEDIA_LICENSE_AUDIT.md` (which absorbed `MARKETING_ASSETS.md` in V26).
-
-## Data in a runtime database (V32)
+## Data in a runtime database
 
 A development or production database holds **reference data and nothing else**: the 425-institution directory from
 대학알리미, Study in Korea and Wikidata (every field carrying its source, every unsourced field absent), the verified
 scholarships, language rules and admission guides, legalization and visa rules, the visa playbooks, the three approved
-plans and the editorial articles. There are **no demo people, agencies, partnerships, programmes, prices, deadlines or
+plans and the editorial articles. There are **no demo people, organisations, partnerships, programmes, prices, deadlines or
 dorm costs** in a runtime database, no `is_demo` or `verification_status = DEMO` rows, and no test accounts: sign-in is
 the real registration flow everywhere; the V16–V31 shortcuts ("테스트 계정으로 로그인" and "테스트: 선택한 플랜으로 시작") were removed
 from the product in V32.
@@ -130,22 +137,31 @@ renders only what it can verify, because nothing else exists to render. Authenti
 show their real first-user states (empty applications, empty documents, a clear next step), never fabricated cases; when
 the private API itself cannot be reached they show the branded service-unavailable state with Retry.
 
-## V9 — what the product is now (2026-10-14)
+**Connected environment today:** the API reachable from the deployed apps has an **empty programme catalogue**
+(`/api/v1/universities` and `/programs` return `total: 0`); the public site's 425 universities come from the static
+public export. See [DEPLOYMENT.md](DEPLOYMENT.md) and [REPORT.md](REPORT.md).
 
-**The promise** (internal, never a public claim): *the easiest and most reliable way to prepare for studying in Korea* — one profile, one document dossier, one journey, one source of application state, one communication history, one operating system for the agency, one structured pipeline for the university. No "highest acceptance rate", "best in Korea" or "guaranteed" appears anywhere; the product instead maximises application completeness, realistic selection, deadline compliance, document correctness, writing quality and visa preparedness.
+## Template foundations (ThemeForest, licensed)
 
-What V9 changed in the shape of the product (details: REPORT §58–63, `docs/SERVICE_BLUEPRINT.md`):
+*Updated V10 (2026-10-16). The V1–V6 text here said no template CSS, JS or photos were used; that stopped being
+true in V7 . V10 changes the marketing foundation again: `template-koreanasha` — a site Hangyul
+owns, authorised in writing for this project, and the same build served at univ.talkhangyul.com — replaces Eduan
+as the **primary** visual and structural foundation of the public site. Koreanasha is itself a customised Eduan
+build, so this is not a second design language: `packages/koreanasha-ui` carries only Koreanasha's
+own ~500-line layer (floating pill header, full-viewport three-crop hero, band rhythm, card / media-row /
+marquee / FAQ anatomy), re-themed to Hangyul and layered over the shared Eduan chassis. The current state:*
 
-| Audience | Job | V9 answer |
-|---|---|---|
-| Student with no TOPIK | "Can I realistically study in Korea?" | The check returns *routes* (Korean language program first / English-taught / smallest test step) with counts from published requirements — "not an offer" |
-| Student + parent | "How much, to whom, when?" | One money plan: payee, timing, refundability, basis; money to *show* for the visa is separate and present before the visa stage; payment-route guard; refund path |
-| Parent | "What does my family need to pay, show and know?" | Student-created, read-only, expiring, revocable sponsor link — never messages, essays, notes or files |
-| Student | "Who sees my passport?" | "Who can see this" on every document |
-| Counselor | "Who needs me now?" | One ranked work queue with reasons and work-type filters; seven-value waiting-on model |
-| Manager | "Where is my operation failing?" | Six questions at the top of Operations; weighted team load with editable weights; process quality metrics |
-| University reviewer | "Can I decide this applicant?" | Requirement · evidence · status first; review-and-advance; safe bulk with "select all matching" |
-| University manager | "Is Hangyul better than email + agents?" | Questions-first analytics, partnership value with cohort + denominator, rule impact preview |
-| Hangyul operations | "Where is the ecosystem failing?" | Severity-ordered failure list, partner-agency process quality, launch-readiness classification |
+| Template | Role | What is used | What is not used |
+|---|---|---|---|
+| `template-koreanasha` (owner-supplied) | **Primary foundation of the marketing site since V10** | Its customisation layer, re-authored as SCSS in `packages/koreanasha-ui` and re-themed to the Hangyul palette; its hero technique (one hand-made crop per breakpoint); three of its photographs (`s1_c`, `s2_c`, `s3_c`), recorded as owner-supplied in `credits.json` | Its jQuery + 14 plugins, Font Awesome Pro, AOS/odometer, `lang.js`, the public application modal, all Koreanasha branding and metadata, and every image associated with a named Koreanasha person (`docs/media/LICENSE_AUDIT.md`, "Images deliberately not used"); its 23 university crests are `OWNER_AUTHORISED` and used as university marks since V20 |
+| `themeforest-eduan` | **Demoted in V10** to the shared chassis under Koreanasha, plus a component and asset source | Its SCSS (verbatim, re-scoped under `:where(.ed)`, RTL-processed, purged per build) through `packages/eduan-ui`; section compositions ported to React; no template photographs since V14 (the `/credits` page was retired; general marketing photographs are Hangyul-owned or CC0 only, `docs/media/LICENSE_AUDIT.md`) | jQuery plugins (replaced by React), FontAwesome Pro, the template as a standalone download, any template branding or demo text |
+| `themeforest-ynex` (Spruko) | Implementation foundation of the Operations/Admin and University consoles | Its SCSS (Bootstrap 5.3.3 subset + layout/menu styles) through `packages/ynex-ui`; the vertical layout ported to React (`YnexShell`) | Bootstrap/jQuery runtime, the template's JS plugins and chart libraries (Recharts instead), its icon fonts (Lucide instead) |
 
-Honest boundaries (unchanged): Hangyul never collects tuition; official submission happens on the university's rail (guided hand-off + evidence); no integration is shown as live unless configured (`/hq/readiness`); legal text, live Toss keys and the overseas-card/USD contracts (prices are set — US$179 / 349 / 599), verified catalogue data, human translation review and user research are external dependencies (`docs/LEGAL_DEPENDENCIES.md`, REPORT §0.6).
+ThemeForest use is under the purchased licences for one end product (Hangyul Univ); `template-koreanasha` is
+Hangyul's own work, authorised by the owner for this project. No original template package is redistributed: only
+derived, compiled CSS ships, and the template folders stay outside the deployable apps. Hangyul's own BI
+(tangerine #FF5000/#FF6700, Hangyul Black, soft green, mint; Pretendard) sits on top, and since V10 the **brand
+lockup is the BI-kit asset** (`logo-combined.png` + an @2x and a light-ink variant), not the typeset
+"Hangyul Univ" string V1–V9 drew in CSS. Template usage rules: [FRONTEND_CONVENTIONS.md](FRONTEND_CONVENTIONS.md); photography and brand assets:
+[BRAND_AND_MEDIA.md](BRAND_AND_MEDIA.md).
+

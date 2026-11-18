@@ -1,4 +1,4 @@
-"""V5 — universal dossier models (owned by the dossier workstream). See docs/DOCUMENT_AUTOMATION.md.
+"""V5 — universal dossier models (owned by the dossier workstream). See docs/admissions/document-automation.md.
 
 * ``DocumentAnalysis`` — what the automatic check could compute for ONE file version (page count, text length, image
   size, detected document type). Computed once per version; never stores the document text itself.

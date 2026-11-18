@@ -54,7 +54,7 @@
 .hg-btn--icon.hg-btn--sm { width: 32px; }
 .hg-btn--icon.hg-btn--lg { width: 48px; }
 /* V27 (brief §22): on a phone every button is at least a 44-px touch target; the visual size of sm/icon grows with it. */
-@media (max-width: 767px) {
+@media (max-width: 1023px), (pointer: coarse) {
   .hg-btn, .hg-btn--sm { min-height: var(--hg-touch-min); }
   .hg-btn--icon, .hg-btn--icon.hg-btn--sm { width: var(--hg-touch-min); min-width: var(--hg-touch-min); }
   .hg-btn--link { min-height: var(--hg-touch-min); }
@@ -70,9 +70,17 @@
    written last wins. It was written first, which is why the first attempt left grey text on tangerine. */
 .hg-btn[disabled], .hg-btn[aria-disabled='true'] {
   cursor: not-allowed;
-  --btn-bg: var(--hg-surface-sunken); --btn-fg: var(--hg-text-tertiary); --btn-bd: var(--hg-border);
+  --btn-bg: var(--hg-surface-warm); --btn-fg: var(--hg-text-disabled); --btn-bd: var(--hg-border);
   box-shadow: none;
 }
+/* Launch-final: a disabled PRIMARY keeps a trace of what it is — a pale tangerine wash with muted tangerine text —
+   instead of the large warm-grey block it used to be. Still clearly inactive (no solid fill, no white label), and
+   the step to the solid colour when it enables is unmistakable. Secondary/ghost stay neutral above. */
+.hg-btn--primary[disabled], .hg-btn--primary[aria-disabled='true'] {
+  --btn-bg: var(--hg-primary-subtle); --btn-bd: transparent;
+  --btn-fg: color-mix(in srgb, var(--hg-primary-text) 48%, var(--hg-primary-subtle));
+}
+.hg-btn--ghost[disabled], .hg-btn--link[disabled], .hg-btn--ghost[aria-disabled='true'], .hg-btn--link[aria-disabled='true'] { --btn-bg: transparent; --btn-bd: transparent; }
 .hg-spinner { width: 15px; height: 15px; border-radius: 50%; border: 2px solid currentColor; border-inline-end-color: transparent; animation: hg-spin 0.7s linear infinite; }
 @keyframes hg-spin { to { transform: rotate(360deg); } }
 
@@ -103,6 +111,14 @@
 /* ---------- Status text: dot + words. Preferred over pills in lists and tables. ---------- */
 .hg-status { --b-fg: var(--hg-status-neutral-fg); --b-solid: var(--hg-status-neutral-solid); display: inline-flex; align-items: center; gap: 7px; font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); color: var(--hg-text); white-space: nowrap; max-width: 100%; }
 .hg-status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--b-solid); flex: none; }
+/* Launch-final: on a phone a status is a sentence that wraps (dot on the first line), not an unbreakable token — real
+   statuses are long ("Проверяем справку о банковском балансе"). Dense tables keep it on one line. */
+@media (max-width: 767px) {
+  .hg-status { white-space: normal; overflow-wrap: anywhere; align-items: flex-start; min-width: 0; }
+  .hg-status::before { margin-block-start: 0.45em; }
+  .hg-table .hg-status { white-space: nowrap; align-items: center; }
+  .hg-table .hg-status::before { margin-block-start: 0; }
+}
 .hg-status--hollow::before { background: transparent; box-shadow: inset 0 0 0 1.5px var(--b-solid); }
 .hg-status--text { color: var(--b-fg); }
 
@@ -110,10 +126,14 @@
 .hg-badge {
   --b-fg: var(--hg-status-neutral-fg); --b-bg: var(--hg-status-neutral-bg); --b-solid: var(--hg-status-neutral-solid);
   display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 7px; border-radius: var(--hg-radius-sm);
-  font-size: var(--hg-text-xs); font-weight: var(--hg-weight-medium); line-height: 1; color: var(--b-fg); background: var(--b-bg); white-space: nowrap; max-width: 100%;
+  font-size: var(--hg-text-xs); font-weight: var(--hg-weight-medium); line-height: 22px; color: var(--b-fg); background: var(--b-bg); white-space: nowrap; max-width: 100%;
 }
 .hg-badge svg { width: 12px; height: 12px; flex: none; }
 .hg-badge--sm { height: 20px; padding: 0 6px; }
+/* Launch-final: a badge honours its `max-width: 100%`. Its text is clipped with an ellipsis rather than spilling out of
+   the card and widening the page when a translation is long (the flex box alone could not shrink below its text). */
+.hg-badge { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.hg-row-wrap > .hg-badge { flex: 0 1 auto; }
 .hg-badge--dot::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--b-solid); flex: none; }
 .hg-badge--outline { background: transparent; box-shadow: inset 0 0 0 1px var(--hg-border); color: var(--hg-text-secondary); }
 .hg-tone-success { --b-fg: var(--hg-status-success-fg); --b-bg: var(--hg-status-success-bg); --b-solid: var(--hg-status-success-solid); }
@@ -226,6 +246,7 @@ a.hg-metric:hover { background: var(--hg-surface-hover); text-decoration: none; 
   transition: border-color var(--hg-motion-fast), box-shadow var(--hg-motion-fast);
 }
 @media (max-width: 767px) { .hg-input, .hg-textarea { font-size: 16px; min-height: 44px; } }
+.hg-input:disabled, .hg-textarea:disabled { background: var(--hg-surface-warm); border-color: var(--hg-border); color: var(--hg-text-disabled); cursor: not-allowed; }
 .hg-input::placeholder, .hg-textarea::placeholder { color: var(--hg-text-tertiary); opacity: 0.8; }
 .hg-input:hover, .hg-textarea:hover { border-color: var(--hg-control-secondary-border-hover); }
 .hg-input:focus, .hg-textarea:focus { outline: none; border-color: var(--hg-primary); box-shadow: var(--hg-shadow-focus); }
@@ -236,7 +257,9 @@ a.hg-metric:hover { background: var(--hg-surface-hover); text-decoration: none; 
    Content-sized: `category  value ⌄` read as one control, the chevron 6 px after the value (never pinned to
    the far edge), the native <select> invisibly covering the whole face so every pixel of it opens the list. */
 .hg-fsel {
-  position: relative; display: inline-flex; align-items: center; flex: none;
+  /* Launch-final: the trigger may SHRINK inside its row (`flex: 0 1 auto`, was `none`) and its text ellipsises, so a long
+     selected value or a long translated label can never push the page wider than the phone. */
+  position: relative; display: inline-flex; align-items: center; flex: 0 1 auto;
   inline-size: auto; max-inline-size: 100%; min-inline-size: 0;
   min-height: var(--hg-fsel-h, 44px); padding-inline: 14px 12px;
   border: 1px solid var(--hg-control-secondary-border); border-radius: var(--hg-control-radius);
@@ -248,8 +271,8 @@ a.hg-metric:hover { background: var(--hg-surface-hover); text-decoration: none; 
 .hg-fsel--sm { --hg-fsel-h: 36px; padding-inline: 12px 10px; font-size: var(--hg-text-sm); }
 .hg-fsel--block { display: flex; inline-size: 100%; }
 .hg-fsel--block .hg-fsel__value { flex: 1 1 auto; }
-.hg-fsel__face { display: inline-flex; align-items: center; gap: 6px; min-inline-size: 0; }
-.hg-fsel__label { color: var(--hg-text-secondary); font-weight: var(--hg-weight-regular); }
+.hg-fsel__face { display: inline-flex; align-items: center; gap: 6px; min-inline-size: 0; flex: 0 1 auto; overflow: hidden; }
+.hg-fsel__label { color: var(--hg-text-secondary); font-weight: var(--hg-weight-regular); flex: 0 2 auto; min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; }
 .hg-fsel__label::after { content: '·'; margin-inline-start: 6px; color: var(--hg-text-tertiary); }
 .hg-fsel__value { font-weight: var(--hg-weight-semibold); min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; }
 .hg-fsel__chev { inline-size: 16px; block-size: 16px; flex: none; color: var(--hg-text-secondary); margin-inline-start: 0; }
@@ -279,7 +302,7 @@ a.hg-metric:hover { background: var(--hg-surface-hover); text-decoration: none; 
   background: var(--hg-surface); color: var(--hg-text); font: inherit; font-size: var(--hg-text-md); line-height: 1.3;
   text-align: start; cursor: pointer; transition: border-color var(--hg-motion-fast), box-shadow var(--hg-motion-fast), background-color var(--hg-motion-fast);
 }
-.hg-sel--sm { min-height: 36px; padding: 6px 10px; font-size: var(--hg-text-base); width: auto; }
+.hg-sel--sm { min-height: 36px; padding: 6px 10px; font-size: var(--hg-text-base); width: auto; max-width: 100%; min-width: 0; }
 @media (max-width: 767px) { .hg-sel { font-size: 16px; min-height: 44px; } .hg-sel--sm { min-height: 40px; } }
 .hg-sel__value { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .hg-sel__chev { width: 16px; height: 16px; flex: none; color: var(--hg-text-secondary); transition: transform var(--hg-motion-fast); }
@@ -352,8 +375,8 @@ a.hg-metric:hover { background: var(--hg-surface-hover); text-decoration: none; 
 .hg-tab[aria-selected='true']::after, .hg-tab[aria-current='page']::after { content: ''; position: absolute; inset-inline: 0; bottom: -1px; height: 2px; background: var(--hg-text); }
 .hg-tab__count { font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); font-variant-numeric: tabular-nums; font-weight: var(--hg-weight-medium); }
 .hg-tab[aria-selected='true'] .hg-tab__count { color: var(--hg-text-secondary); }
-.hg-seg { display: inline-flex; padding: 2px; gap: 2px; border-radius: var(--hg-radius-md); background: var(--hg-surface-sunken); border: 1px solid var(--hg-control-secondary-border); /* V27: 3:1 edge */ }
-.hg-seg button { border: 1px solid transparent; background: transparent; padding: 5px 10px; border-radius: var(--hg-radius-sm); font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); color: var(--hg-text-secondary); }
+.hg-seg { display: inline-flex; max-width: 100%; overflow-x: auto; scrollbar-width: none; padding: 2px; gap: 2px; border-radius: var(--hg-radius-md); background: var(--hg-surface-sunken); border: 1px solid var(--hg-control-secondary-border); /* V27: 3:1 edge */ }
+.hg-seg button { flex: none; white-space: nowrap; border: 1px solid transparent; background: transparent; padding: 5px 10px; border-radius: var(--hg-radius-sm); font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); color: var(--hg-text-secondary); }
 .hg-seg button:hover { color: var(--hg-text); }
 .hg-seg button[aria-pressed='true'] { background: var(--hg-surface); color: var(--hg-text); border-color: var(--hg-text); font-weight: var(--hg-weight-semibold); }
 
@@ -494,7 +517,12 @@ a.hg-metric:hover { background: var(--hg-surface-hover); text-decoration: none; 
    widths are where a table can still need it, and the shared DataTable switches to row cards lower down).
    `scripts/qa/v10-design-errors.mjs` fails if anything starts overflowing its parent again. */
 .hg-table-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-@media (min-width: 992px) { .hg-table-wrap { overflow-x: visible; } }
+/* Launch-final: a wide table scrolls inside its own box until the viewport is genuinely wide. At 992–1535 px the console
+   sidebar leaves less room than a dense table needs, and `visible` let the table widen the whole page. */
+@media (min-width: 1536px) { .hg-table-wrap { overflow-x: visible; } }
+/* While the wrapper is the scroll box, a sticky header sticks to the WRAPPER, so the page-chrome offset must be zero
+   there — otherwise the header is pushed down over the first rows. */
+@media (max-width: 1535.98px) { .hg-table-wrap { --hg-table-sticky-top: 0px; } }
 .hg-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: var(--hg-text-base); }
 /* `--hg-table-sticky-top` is the height of whatever fixed chrome sits above the table on this surface
    (the consoles' app header is 4.75rem); without it the sticky row hides behind that chrome. */
@@ -525,6 +553,9 @@ a.hg-metric:hover { background: var(--hg-surface-hover); text-decoration: none; 
   .hg-rowcard__kv > span:first-child { color: var(--hg-text-tertiary); flex: none; }
   .hg-rowcard__kv > span:last-child { min-width: 0; text-align: end; overflow-wrap: anywhere; }
   .hg-rowcard { min-width: 0; }
+  /* Real data is long: a status sentence inside a card wraps (dot stays on the first line) instead of widening the page. */
+  .hg-rowcard .hg-status { white-space: normal; align-items: flex-start; text-align: start; overflow-wrap: anywhere; }
+  .hg-rowcard .hg-status::before { margin-block-start: 0.45em; }
 }
 
 /* ---------- List rows (the workhorse of calm screens) ---------- */
@@ -790,3 +821,14 @@ button.hg-check-item { background: none; border: 0; width: 100%; text-align: sta
   .hg-page-head__actions .hg-seg button { display: inline-flex; align-items: center; padding-block: 0; }
   .hg-page-head__actions > .hg-btn--sm, .hg-page-head__actions > a.hg-btn--sm { min-height: 36px; }
 }
+
+/* Design Preview (owner review; one build flag). The entry is a tertiary action; the badge is fixed and out of flow. */
+.hg-preview-entry { display: inline-flex; align-items: center; justify-content: center; gap: 8px; align-self: center; min-height: var(--hg-touch-min); padding: 0 var(--hg-space-3); border: 0; border-radius: var(--hg-control-radius); background: none; color: var(--hg-primary-text); font: inherit; font-size: var(--hg-text-base); font-weight: var(--hg-weight-medium); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); }
+.hg-preview-entry:hover { text-decoration-color: currentColor; background: var(--hg-primary-subtle); }
+.hg-preview-entry:focus-visible { outline: none; box-shadow: var(--hg-shadow-focus); }
+.hg-preview-badge { position: fixed; inset-block-end: calc(12px + env(safe-area-inset-bottom, 0px)); inset-inline-start: 12px; z-index: var(--hg-z-toast); display: inline-flex; align-items: center; gap: 8px; padding: 4px 4px 4px 10px; border-radius: var(--hg-radius-pill); background: var(--hg-palette-ink-900); color: #fff; font-size: var(--hg-text-xs); font-weight: var(--hg-weight-medium); box-shadow: var(--hg-shadow-md); opacity: 0.92; }
+.hg-preview-badge__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--hg-brand-bright); }
+.hg-preview-badge button { border: 0; border-radius: var(--hg-radius-pill); padding: 4px 10px; background: rgba(255, 255, 255, 0.16); color: inherit; font: inherit; cursor: pointer; }
+.hg-preview-badge button:hover { background: rgba(255, 255, 255, 0.28); }
+/* Phone: just the dot and Exit, above the tab bar on the trailing side — away from headings and primary actions. */
+@media (max-width: 767px) { .hg-preview-badge { inset-block-end: calc(72px + env(safe-area-inset-bottom, 0px)); inset-inline: auto 8px; padding: 3px 3px 3px 8px; gap: 6px; font-size: 11px; opacity: 0.86; } .hg-preview-badge button { padding: 3px 8px; } }
