@@ -74,7 +74,8 @@ def _invite(db: Session, request: Request, *, org: Organization, role: Role, bod
         member.role, member.is_active = role, True
     out = {"account": {**_account(member, user), "role": role.value}, "organization": {"id": str(org.id), "name": org.name}}
     try:
-        ch = verification.issue(db, purpose="INVITE", target=email, locale=body.locale, ip=_ip(request), user_id=user.id)
+        ch = verification.issue(db, purpose="INVITE", target=email, locale=body.locale, ip=_ip(request), user_id=user.id,
+                                context={"organization": org.name})
         out["invite"] = {"challenge_id": ch["challenge_id"], "delivery": ch["delivery"], "expires_in": ch["expires_in"]}
     except HTTPException as exc:
         if exc.status_code != 502:

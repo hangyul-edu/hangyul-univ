@@ -78,41 +78,4 @@ def validate_callback(url: str, form: dict, signature: str | None) -> bool:
     return RequestValidator(s.twilio_auth_token).validate(url, form, signature)
 
 
-def otp_text(code: str, locale: str) -> str:
-    """Localised verification SMS. Code, brand and validity only — no email, no password, no name (brief §8)."""
-    texts = {
-        "ko": f"[Hangyul Univ] 인증번호는 {code}입니다.\n5분 안에 입력해 주세요.",
-        "en": f"[Hangyul Univ] Your verification code is {code}.\nEnter it within 5 minutes.",
-        "vi": f"[Hangyul Univ] Mã xác minh của bạn là {code}.\nNhập trong vòng 5 phút.",
-        "ne": f"[Hangyul Univ] तपाईंको प्रमाणीकरण कोड {code} हो।\n५ मिनेटभित्र प्रविष्ट गर्नुहोस्।",
-        "my": f"[Hangyul Univ] သင့်အတည်ပြုကုဒ်မှာ {code} ဖြစ်သည်။\n၅ မိနစ်အတွင်း ထည့်သွင်းပါ။",
-        "uz": f"[Hangyul Univ] Tasdiqlash kodingiz: {code}.\n5 daqiqa ichida kiriting.",
-        "mn": f"[Hangyul Univ] Таны баталгаажуулах код {code}.\n5 минутын дотор оруулна уу.",
-        "zh-Hans": f"[Hangyul Univ] 您的验证码是 {code}。\n请在 5 分钟内输入。",
-        "ja": f"[Hangyul Univ] 認証番号は {code} です。\n5分以内に入力してください。",
-        "th": f"[Hangyul Univ] รหัสยืนยันของคุณคือ {code}\nกรุณากรอกภายใน 5 นาที",
-        "id": f"[Hangyul Univ] Kode verifikasi Anda {code}.\nMasukkan dalam 5 menit.",
-        "fil": f"[Hangyul Univ] Ang iyong verification code ay {code}.\nIlagay ito sa loob ng 5 minuto.",
-        "hi": f"[Hangyul Univ] आपका सत्यापन कोड {code} है।\n5 मिनट के भीतर दर्ज करें।",
-        "bn": f"[Hangyul Univ] আপনার যাচাইকরণ কোড {code}।\n৫ মিনিটের মধ্যে লিখুন।",
-        "kk": f"[Hangyul Univ] Растау кодыңыз: {code}.\n5 минут ішінде енгізіңіз.",
-        "ky": f"[Hangyul Univ] Ырастоо кодуңуз: {code}.\n5 мүнөттүн ичинде киргизиңиз.",
-        "ar": f"[Hangyul Univ] رمز التحقق الخاص بك هو {code}.\nأدخله خلال 5 دقائق.",
-        "tr": f"[Hangyul Univ] Doğrulama kodunuz {code}.\n5 dakika içinde girin.",
-        "ru": f"[Hangyul Univ] Ваш код подтверждения: {code}.\nВведите его в течение 5 минут.",
-        "uk": f"[Hangyul Univ] Ваш код підтвердження: {code}.\nВведіть його протягом 5 хвилин.",
-        "pl": f"[Hangyul Univ] Twój kod weryfikacyjny: {code}.\nWpisz go w ciągu 5 minut.",
-        "cs": f"[Hangyul Univ] Váš ověřovací kód je {code}.\nZadejte ho do 5 minut.",
-        "hu": f"[Hangyul Univ] Az ellenőrző kódod: {code}.\nÍrd be 5 percen belül.",
-        "ro": f"[Hangyul Univ] Codul tău de verificare este {code}.\nIntrodu-l în 5 minute.",
-        "sr": f"[Hangyul Univ] Vaš verifikacioni kod je {code}.\nUnesite ga u roku od 5 minuta.",
-        "el": f"[Hangyul Univ] Ο κωδικός επαλήθευσης είναι {code}.\nΕισαγάγετέ τον εντός 5 λεπτών.",
-        "it": f"[Hangyul Univ] Il tuo codice di verifica è {code}.\nInseriscilo entro 5 minuti.",
-        "es": f"[Hangyul Univ] Tu código de verificación es {code}.\nIntrodúcelo en 5 minutos.",
-        "pt": f"[Hangyul Univ] O seu código de verificação é {code}.\nIntroduza-o em 5 minutos.",
-        "fr": f"[Hangyul Univ] Votre code de vérification est {code}.\nSaisissez-le dans les 5 minutes.",
-        "de": f"[Hangyul Univ] Dein Bestätigungscode lautet {code}.\nGib ihn innerhalb von 5 Minuten ein.",
-        "nl": f"[Hangyul Univ] Je verificatiecode is {code}.\nVoer deze binnen 5 minuten in.",
-        "sv": f"[Hangyul Univ] Din verifieringskod är {code}.\nAnge den inom 5 minuter.",
-    }
-    return texts.get(locale) or texts.get(locale.split("-")[0]) or texts["en"]
+# The SMS wording (per purpose and locale) lives in app/services/messages.py::sms_text.

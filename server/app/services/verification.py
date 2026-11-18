@@ -31,7 +31,7 @@ from app.core.config import get_settings
 from app.core.security import JWT_LEEWAY_SECONDS
 from app.models import AuthSecurityEvent, VerificationChallenge
 from app.models.base import utcnow
-from app.services import mail, ratelimit, sms
+from app.services import mail, messages, ratelimit, sms
 from app.services.identity import mask_email, mask_phone, target_hash
 
 log = logging.getLogger("hangyul.verification")
@@ -65,7 +65,7 @@ def security_event(db: Session, kind: str, *, email: str | None = None, target: 
 
 # ------------------------------------------------------------------------------------------------ issue
 def issue(db: Session, *, purpose: str, target: str, locale: str, ip: str | None, user_id: uuid.UUID | None = None,
-          signup_session_hash: str | None = None, already_registered: bool = False) -> dict:
+          signup_session_hash: str | None = None, already_registered: bool = False, context: dict | None = None) -> dict:
     s = get_settings()
     channel = PURPOSES[purpose]
     now = utcnow()
@@ -109,7 +109,7 @@ def issue(db: Session, *, purpose: str, target: str, locale: str, ip: str | None
 
     try:
         if channel == "EMAIL":
-            res = _send_email(ch, code, locale, already_registered)
+            res = _send_email(ch, code, locale, already_registered, context)
         else:
             res = _send_sms(ch, code, locale)
         ch.provider, ch.provider_message_id, ch.delivery_status = res.provider, res.message_id, res.status
@@ -158,43 +158,19 @@ def delivery_reason(code: str) -> tuple[str, int | None]:
     return "SERVICE_CONFIG", 60
 
 
-def _send_email(ch: VerificationChallenge, code: str, locale: str, already_registered: bool) -> mail.SendResult:
-    subject, text, html = email_content(ch.purpose, code, locale, already_registered)
+def _send_email(ch: VerificationChallenge, code: str, locale: str, already_registered: bool, context: dict | None = None) -> mail.SendResult:
+    subject, text, html = messages.email_content(ch.purpose, code, locale, already_registered, context)
     return mail.send_email(to=ch.target, subject=subject, text=text, html=html, category=ch.purpose.lower())
 
 
 def _send_sms(ch: VerificationChallenge, code: str, locale: str) -> sms.SendResult:
     s = get_settings()
     cb = f"{s.public_api_origin.rstrip('/')}/api/v1/auth/webhooks/twilio/status" if s.public_api_origin else None
-    return sms.send_sms(to_e164=ch.target, body=sms.otp_text(code, locale), status_callback=cb)
+    return sms.send_sms(to_e164=ch.target, body=messages.sms_text(ch.purpose, code, locale), status_callback=cb)
 
 
-_SUBJECT = {
-    "ko": {"code": "[Hangyul Univ] 인증번호 {code}", "exists": "[Hangyul Univ] 이미 가입된 이메일입니다", "reset": "[Hangyul Univ] 비밀번호 재설정 인증번호 {code}", "invite": "[Hangyul Univ] 관리자 계정 초대"},
-    "en": {"code": "[Hangyul Univ] Your verification code is {code}", "exists": "[Hangyul Univ] You already have an account", "reset": "[Hangyul Univ] Password reset code {code}", "invite": "[Hangyul Univ] You have been invited as an administrator"},
-}
-_BODY = {
-    "ko": {"code": "인증번호는 {code}입니다. 5분 안에 입력해 주세요.\n\n요청하지 않으셨다면 이 메일을 무시하셔도 됩니다. 한귤은 인증번호를 묻지 않습니다.",
-           "exists": "이 이메일로 이미 Hangyul Univ 계정이 있습니다. 로그인하시거나, 비밀번호를 잊으셨다면 재설정해 주세요.\n\n요청하지 않으셨다면 이 메일을 무시하셔도 됩니다.",
-           "reset": "비밀번호 재설정 인증번호는 {code}입니다. 5분 안에 입력해 주세요.\n\n요청하지 않으셨다면 이 메일을 무시하셔도 됩니다. 비밀번호는 바뀌지 않습니다.",
-           "invite": "Hangyul Univ 콘솔 관리자 계정에 초대되었습니다. 아래 인증번호로 비밀번호를 설정해 주세요: {code}\n\n인증번호는 5분간 유효합니다."},
-    "en": {"code": "Your verification code is {code}. Enter it within 5 minutes.\n\nIf you did not request this, you can ignore this email. Hangyul will never ask you for this code.",
-           "exists": "There is already a Hangyul Univ account for this email. Sign in, or reset your password if you have forgotten it.\n\nIf you did not request this, you can ignore this email.",
-           "reset": "Your password reset code is {code}. Enter it within 5 minutes.\n\nIf you did not request this, you can ignore this email; your password will not change.",
-           "invite": "You have been invited to a Hangyul Univ console administrator account. Set your password with this code: {code}\n\nThe code is valid for 5 minutes."},
-}
-
-
-def email_content(purpose: str, code: str, locale: str, already_registered: bool) -> tuple[str, str, str]:
-    lang = "ko" if locale.startswith("ko") else "en"
-    kind = "exists" if already_registered else "reset" if purpose == "PASSWORD_RESET" else "invite" if purpose == "INVITE" else "code"
-    subject = _SUBJECT[lang][kind].format(code=code)
-    text = _BODY[lang][kind].format(code=code)
-    big = "" if kind == "exists" else f'<p style="font-size:28px;letter-spacing:6px;font-weight:700;margin:16px 0">{code}</p>'
-    html = (f'<div style="font-family:Pretendard,Apple SD Gothic Neo,Segoe UI,sans-serif;color:#282828;max-width:520px">'
-            f'<p style="color:#FF6700;font-weight:700;margin:0 0 12px">Hangyul Univ</p>{big}'
-            + "".join(f"<p>{line}</p>" for line in text.split("\n") if line) + "</div>")
-    return subject, text, html
+# Message copy lives in app/services/messages.py (codes in the body only, purpose-specific wording).
+email_content = messages.email_content
 
 
 # ------------------------------------------------------------------------------------------------ check

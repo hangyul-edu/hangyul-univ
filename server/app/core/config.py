@@ -183,6 +183,8 @@ class Settings(BaseSettings):
     twilio_api_base: str = "https://api.twilio.com"
     #: Public origin of this API as Twilio reaches it (for the delivery-status callback). Empty = no callback requested.
     public_api_origin: str | None = Field(default=None, validation_alias=AliasChoices("HG_PUBLIC_API_ORIGIN", "PUBLIC_API_ORIGIN"))
+    #: Student app origin for links in identity emails ("sign in", "reset your password"). Empty = no links.
+    student_app_url: str | None = Field(default=None, validation_alias=AliasChoices("HG_STUDENT_APP_URL", "STUDENT_APP_URL"))
 
     # --- Cloudflare Turnstile (automated-signup protection)
     turnstile_site_key: str | None = Field(default=None, validation_alias=AliasChoices("HG_TURNSTILE_SITE_KEY", "TURNSTILE_SITE_KEY"))
