@@ -14,7 +14,7 @@ import { Button } from './Button';
 import { Callout } from './Feedback';
 import { MarketFlag } from './Flag';
 import { Divider, ListGroup, ListItem, Row } from './List';
-import { SectionTitle } from './Patterns';
+import { SectionTitle, Sheet } from './Patterns';
 
 /** Signed-in identity: name, email, then organization · role as quiet text (V3: no card, no pills). */
 export function AccountCard() {
@@ -45,7 +45,14 @@ export function AccountCard() {
  *
  * Staff apps keep `surface="all"`: an agency counsellor's language is not a market.
  */
-export function LanguagePicker({ surface = 'all' }: { surface?: 'all' | 'student' | 'agency' | 'university' } = {}) {
+export function LanguagePicker({ surface = 'all', presentation = 'list' }: {
+  surface?: 'all' | 'student' | 'agency' | 'university';
+  /**
+   * `list` (default, unchanged) renders every language inline. `sheet` renders one row — the current language —
+   * that opens the list in a bottom sheet, so a 33-row language list is not the whole of a Settings screen.
+   */
+  presentation?: 'list' | 'sheet';
+} = {}) {
   const { t, locale } = useLocale();
   const studentOnly = surface === 'student';
   // The markets, in manifest order, each resolved to the bundle it reads. A market whose locale has no
@@ -65,6 +72,7 @@ export function LanguagePicker({ surface = 'all' }: { surface?: 'all' | 'student
       : LOCALES.map((def) => ({ def }));
   const [busy, setBusy] = useState<string | null>(null);
   const [rtlNote, setRtlNote] = useState(false);
+  const [open, setOpen] = useState(false);
   const choose = async (code: string) => {
     setBusy(code);
     try {
@@ -72,13 +80,10 @@ export function LanguagePicker({ surface = 'all' }: { surface?: 'all' | 'student
       setRtlNote(r.rtl !== r.layoutRTL);
     } finally {
       setBusy(null);
+      setOpen(false);
     }
   };
-  return (
-    <View style={{ gap: 8 }}>
-      <SectionTitle title={t('mobile:settings.language')} />
-      <AppText variant="caption">{t('mobile:settings.languageHint')}</AppText>
-      {rtlNote ? <Callout tone="info" body={t('mobile:settings.rtlNote')} /> : null}
+  const list = (
       <ListGroup>
         {offered.map(({ market, def: l }) => (
           <ListItem
@@ -100,6 +105,36 @@ export function LanguagePicker({ surface = 'all' }: { surface?: 'all' | 'student
           />
         ))}
       </ListGroup>
+  );
+  const current = offered.find((r) => r.def.code === locale);
+  if (presentation === 'sheet') {
+    const name = current ? (current.market?.languageNative ?? current.def.name) : locale;
+    return (
+      <View style={{ gap: 8 }}>
+        <SectionTitle title={t('mobile:settings.language')} />
+        {rtlNote ? <Callout tone="info" body={t('mobile:settings.rtlNote')} /> : null}
+        <ListGroup>
+          <ListItem
+            title={name}
+            subtitle={current?.market ? current.market.nameNative : current?.def.english}
+            leading={studentOnly ? <MarketFlag code={current?.market?.code} /> : <Globe size={20} color={theme.color.textSecondary} />}
+            onPress={() => setOpen(true)}
+            accessibilityLabel={`${t('mobile:settings.language')}: ${name}`}
+          />
+        </ListGroup>
+        <Sheet visible={open} title={t('mobile:settings.language')} onClose={() => setOpen(false)} closeLabel={t('common:actions.cancel')}>
+          <AppText variant="caption">{t('mobile:settings.languageHint')}</AppText>
+          {list}
+        </Sheet>
+      </View>
+    );
+  }
+  return (
+    <View style={{ gap: 8 }}>
+      <SectionTitle title={t('mobile:settings.language')} />
+      <AppText variant="caption">{t('mobile:settings.languageHint')}</AppText>
+      {rtlNote ? <Callout tone="info" body={t('mobile:settings.rtlNote')} /> : null}
+      {list}
       {/* V17 removed the footer note that used to sit here. It said "a language appears here once every
           student screen is translated", which stopped being true the moment the list became the 33 markets
           — and the rows that are not fully translated already say so, on the row, where it applies. */}
@@ -124,10 +159,13 @@ export function SignOutSection() {
     <View style={{ gap: 12 }}>
       <Button label={t('common:actions.signOut')} variant="secondary" icon={LogOut} onPress={confirm} loading={loading} fullWidth />
       <Divider />
-      <Row gap={6}>
-        <Server size={14} color={theme.color.textTertiary} />
-        <AppText variant="caption" color={theme.color.textTertiary}>{t('mobile:settings.server', { url: getApiBaseUrl() })}</AppText>
-      </Row>
+      {/* The API address is an engineer's detail: shown in development builds only, never to a customer. */}
+      {__DEV__ ? (
+        <Row gap={6}>
+          <Server size={14} color={theme.color.textTertiary} />
+          <AppText variant="caption" color={theme.color.textTertiary}>{t('mobile:settings.server', { url: getApiBaseUrl() })}</AppText>
+        </Row>
+      ) : null}
       <Row gap={6}>
         <Globe size={14} color={theme.color.textTertiary} />
         <AppText variant="caption" color={theme.color.textTertiary}>

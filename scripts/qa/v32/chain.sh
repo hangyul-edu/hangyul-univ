@@ -32,7 +32,7 @@ step 09-marketing-serverless node scripts/qa/marketing-serverless.mjs
 step 10-selects            node scripts/qa/e2e-run.mjs e2e/v32-selects.spec.ts
 step 11-crawl              node scripts/qa/e2e-run.mjs e2e/v32-crawl.spec.ts
 step 12-a11y               node scripts/qa/e2e-run.mjs e2e/v32-a11y.spec.ts
-step 13-critical-e2e       node scripts/qa/e2e-run.mjs e2e/v29-contract.spec.ts e2e/v16-journey.spec.ts e2e/tenancy.spec.ts
+step 13-critical-e2e       node scripts/qa/e2e-run.mjs e2e/v29-contract.spec.ts e2e/tenancy.spec.ts e2e/lifecycle.spec.ts
 step 13b-native-signup-api node scripts/qa/e2e-run.mjs --vitest apps/student-mobile
 step 14-e2e-teardown-check node scripts/qa/v32/teardown-check.mjs
 if [ "${QA_V32_NATIVE:-0}" = "1" ]; then step 15-native-exports bash scripts/qa/v32/native-export.sh; fi

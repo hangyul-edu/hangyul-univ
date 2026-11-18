@@ -1,6 +1,6 @@
 import { expect, test, type APIRequestContext } from '@playwright/test';
 
-import { activatePlan, API, API_ORIGIN, apiLogin, pdf, registerStudent, registerViaUi, uiLogin, URLS } from './helpers';
+import { activatePlan, API, API_ORIGIN, apiLogin, pdf, registerStudent, registerViaUi, uiLogin, URLS, chooseOption } from './helpers';
 
 /**
  * V3 agency operations: upload on behalf of a student, a manager's shared (team) saved view, and message attachments.
@@ -40,7 +40,7 @@ test('staff upload a document on the student’s behalf; it lands in the student
   await page.goto(`${URLS.agency}/students/${studentId}?tab=documents`);
   await page.getByRole('button', { name: `Upload for ${name}` }).first().click();
   const dialog = page.getByRole('dialog', { name: `Upload for ${name}` });
-  await dialog.locator('#ob-cat').selectOption('PHOTO');
+  await chooseOption(page, dialog.locator('#ob-cat'), 'Photo');
   await dialog.locator('#ob-file').setInputFiles({ name: 'photo-from-email.pdf', mimeType: 'application/pdf', buffer: pdf('Photo') });
   await dialog.getByRole('button', { name: 'Upload', exact: true }).click();
   await expect(dialog).toBeHidden();
@@ -79,9 +79,10 @@ test('a manager saves a team view and a counselor opens it from “More views”
     await counselor.goto(`${URLS.agency}/students`);
     // V22: saved views are options of the toolbar "View" select, grouped under "Team views"; every admin may use them.
     const view = counselor.getByRole('combobox', { name: 'View' });
-    const option = view.locator('optgroup[label="Team views"] option', { hasText: viewName });
-    await expect(option).toHaveCount(1);
-    await view.selectOption({ label: viewName });
+    // V32: the select is a listbox popover; the saved view is one option of it.
+    await view.click();
+    await expect(counselor.getByRole('option', { name: viewName })).toHaveCount(1);
+    await counselor.getByRole('option', { name: viewName }).click();
     await expect(counselor).toHaveURL(/saved=/);
   } finally {
     await ctx.close();

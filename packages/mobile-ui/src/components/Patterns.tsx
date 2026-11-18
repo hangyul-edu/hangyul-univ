@@ -141,8 +141,8 @@ export function Lanes({ lanes }: { lanes: { title: string; summary?: string; ite
               <>
                 <View style={styles.laneMarkWrap}><LaneMark state={it.state} /></View>
                 <View style={{ flex: 1, gap: 2 }}>
-                  <AppText variant={it.detail || it.onAction ? 'body' : 'caption'} weight={it.state === 'blocked' || it.onAction ? 'semibold' : undefined}
-                    color={it.state === 'todo' && !it.onAction ? theme.color.textTertiary : theme.color.text}>{it.label}</AppText>
+                  <AppText variant={it.detail || it.onAction || it.onPress ? 'body' : 'caption'} weight={it.state === 'blocked' || it.onAction ? 'semibold' : undefined}
+                    color={it.state === 'todo' && !it.onAction && !it.onPress ? theme.color.textTertiary : theme.color.text}>{it.label}</AppText>
                   {it.detail ? <AppText variant="caption" numberOfLines={3}>{it.detail}</AppText> : null}
                   {it.warning ? <AppText variant="caption" tone="warning">{it.warning}</AppText> : null}
                 </View>
@@ -151,7 +151,7 @@ export function Lanes({ lanes }: { lanes: { title: string; summary?: string; ite
               </>
             );
             return !it.onAction && it.onPress ? (
-              <Pressable key={`${it.label}-${j}`} onPress={it.onPress} accessibilityRole="button" style={({ pressed }) => [styles.laneItem, (it.detail || it.warning) && styles.laneItemRich, pressed && { opacity: 0.6 }]}>{body}</Pressable>
+              <Pressable key={`${it.label}-${j}`} onPress={it.onPress} accessibilityRole="button" style={({ pressed }) => [styles.laneItem, styles.laneItemTap, (it.detail || it.warning) && styles.laneItemRich, pressed && { opacity: 0.6 }]}>{body}</Pressable>
             ) : (
               <View key={`${it.label}-${j}`} style={[styles.laneItem, (it.detail || it.warning || it.onAction) && styles.laneItemRich]} accessible={!it.onAction} accessibilityLabel={[it.label, it.detail, it.warning].filter(Boolean).join('. ')}>{body}</View>
             );
@@ -242,8 +242,9 @@ export function StepRow({ n, title, detail, meta, done, blocked, onToggle, onPre
 export function KeyValue({ label, value, tone }: { label: string; value: string; tone?: Tone }) {
   return (
     <View style={styles.kv}>
-      <AppText variant="caption" color={theme.color.textTertiary} style={{ flex: 1 }}>{label}</AppText>
-      <AppText variant="body" weight="semibold" color={tone ? toneColors(tone).fg : theme.color.text} style={{ flexShrink: 1, textAlign: 'right' }}>{value}</AppText>
+      {/* The label keeps its line; a long value wraps under itself instead of squeezing the label into a column. */}
+      <AppText variant="caption" color={theme.color.textTertiary} style={styles.kvLabel}>{label}</AppText>
+      <AppText variant="body" weight="semibold" color={tone ? toneColors(tone).fg : theme.color.text} style={styles.kvValue}>{value}</AppText>
     </View>
   );
 }
@@ -272,6 +273,8 @@ const styles = StyleSheet.create({
   laneDivider: { borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: theme.color.border },
   laneItem: { flexDirection: 'row', alignItems: 'center', gap: 8, minHeight: 24 },
   laneItemRich: { alignItems: 'flex-start', paddingVertical: 4 },
+  // A tappable lane item is a real 44 pt target (it opens the document), not a 24 pt caption line.
+  laneItemTap: { minHeight: 44 },
   laneMarkWrap: { paddingTop: 2 },
   mark: { width: 16, height: 16, borderRadius: 8, borderWidth: 1.5, borderColor: theme.color.borderStrong, alignItems: 'center', justifyContent: 'center' },
   markDone: { backgroundColor: theme.color.text, borderColor: theme.color.text },
@@ -281,7 +284,9 @@ const styles = StyleSheet.create({
   modalRoot: { flex: 1, justifyContent: 'flex-end', backgroundColor: theme.color.overlay },
   sheet: { backgroundColor: theme.color.surface, borderTopLeftRadius: theme.radius.xl, borderTopRightRadius: theme.radius.xl, padding: 20, gap: 12, maxHeight: '88%' },
   grabber: { alignSelf: 'center', width: 36, height: 4, borderRadius: 2, backgroundColor: theme.color.borderStrong, marginBottom: 4 },
-  kv: { flexDirection: 'row', alignItems: 'center', gap: 12, minHeight: 36 },
+  kv: { flexDirection: 'row', alignItems: 'flex-start', gap: 16, minHeight: 36, paddingVertical: 6 },
+  kvLabel: { flexShrink: 0, maxWidth: '45%', paddingTop: 2 },
+  kvValue: { flex: 1, textAlign: 'right' },
   step: { flexDirection: 'row', gap: 12, paddingVertical: 12, paddingHorizontal: 16 },
   stepMark: { width: 26, height: 26, borderRadius: 13, borderWidth: 1.5, borderColor: theme.color.borderStrong, alignItems: 'center', justifyContent: 'center', marginTop: 1 },
 });

@@ -118,5 +118,6 @@ const styles = StyleSheet.create({
   head2: { gap: 10, paddingVertical: 8, borderTopWidth: StyleSheet.hairlineWidth, borderBottomWidth: StyleSheet.hairlineWidth, borderColor: theme.color.border },
   lead: { flexDirection: 'row', alignItems: 'center', gap: 12, minHeight: 56, paddingVertical: 6 },
   secondary: { flexDirection: 'row', gap: 12, paddingBottom: 4 },
-  secondaryItem: { flex: 1, gap: 2, minHeight: 48, justifyContent: 'center' },
+  // Top-aligned: centred, a figure whose label wraps to two lines sat lower than its neighbours (visual pass 2026-11).
+  secondaryItem: { flex: 1, gap: 2, minHeight: 48, justifyContent: 'flex-start' },
 });

@@ -2,7 +2,7 @@
 import uuid
 from datetime import date, datetime
 
-from sqlalchemy import JSON, BigInteger, Boolean, Date, DateTime, Integer, String, Text, UniqueConstraint, Uuid
+from sqlalchemy import JSON, BigInteger, Boolean, Date, DateTime, Integer, String, Text, UniqueConstraint, Uuid, event
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base, IdMixin, TimestampMixin, enum_col, fk, utcnow
@@ -94,6 +94,23 @@ class Order(IdMixin, TimestampMixin, Base):
     #: A billing key being issued never moves an order to PAID — only a successful charge does.
     payment_state: Mapped[str] = mapped_column(String(32), default="PENDING", server_default="PENDING", index=True)
     payment_method_id: Mapped[uuid.UUID | None] = fk("student_payment_methods.id", nullable=True, ondelete="SET NULL")
+
+
+#: The coarse commercial fact wins over a stale fine-grained state. Paths that mark an order paid without the
+#: billing charge (seed data, the development demo provider, fixture payments, scripts) never touch
+#: ``payment_state``; without this a PAID order would read "awaiting payment" in Operations.
+_STATUS_IMPLIES_STATE = {"PAID": ("PAID", {"PAID", "PARTIALLY_REFUNDED"}), "REFUNDED": ("REFUNDED", {"REFUNDED"}),
+                         "CANCELLED": ("CANCELLED", {"CANCELLED"})}
+
+
+def _sync_payment_state(_mapper, _conn, order: "Order") -> None:
+    rule = _STATUS_IMPLIES_STATE.get(str(getattr(order.status, "value", order.status)))
+    if rule and order.payment_state not in rule[1]:
+        order.payment_state = rule[0]
+
+
+event.listen(Order, "before_insert", _sync_payment_state)
+event.listen(Order, "before_update", _sync_payment_state)
 
 
 class ServiceEngagement(IdMixin, TimestampMixin, Base):

@@ -125,7 +125,11 @@ export default function ServicesScreen() {
                 title={i18n.language === 'ko' ? p.name_ko : p.name_en}
                 subtitle={formatMoney(p.amount_minor, p.currency, i18n.language, { minor: true })}
                 meta={t('mobile:plan.oneTime')}
-                trailing={p.code === target ? <StatusText label={t('mobile:plan.selected')} tone="success" /> : undefined}
+                // A choice, not a status: the picked plan reads as selected (tangerine radio + tint), never as a green "done".
+                trailing={<Radio on={p.code === target} />}
+                style={p.code === target ? { backgroundColor: theme.color.selected.bg } : undefined}
+                accessibilityLabel={[i18n.language === 'ko' ? p.name_ko : p.name_en, formatMoney(p.amount_minor, p.currency, i18n.language, { minor: true }),
+                  p.code === target ? t('mobile:plan.selected') : null].filter(Boolean).join(', ')}
                 onPress={() => setPicked(p.code)}
                 chevron={false}
               />
@@ -149,8 +153,13 @@ export default function ServicesScreen() {
           )}
           {/* Two sentences, and both are things a student would otherwise find out by surprise: the payment
               happens in a browser and comes back here, and the card it takes is an overseas card. */}
-          <AppText variant="caption">{t('mobile:plan.handoff')}</AppText>
-          <AppText variant="caption">{t('mobile:plan.card')}</AppText>
+          {/* Only when this screen actually sends them to pay: under "Ask the team" they would describe a payment that does not happen. */}
+          {offer ? null : (
+            <>
+              <AppText variant="caption">{t('mobile:plan.handoff')}</AppText>
+              <AppText variant="caption">{t('mobile:plan.card')}</AppText>
+            </>
+          )}
         </View>
       ) : (
         <Callout tone="info" body={t('mobile:plan.highestAlready')} />
@@ -159,5 +168,12 @@ export default function ServicesScreen() {
       {/* What the app cannot do, said once rather than discovered per screen. */}
       <AppText variant="caption" color={theme.color.textTertiary}>{t('mobile:plan.webNote')}</AppText>
     </Screen>
+  );
+}
+
+/** Single-choice mark for the plan list. */
+function Radio({ on }: { on: boolean }) {
+  return (
+    <View style={{ width: 22, height: 22, borderRadius: 11, borderWidth: on ? 6 : 1.5, borderColor: on ? theme.color.primary : theme.color.borderControl, backgroundColor: theme.color.surface }} />
   );
 }

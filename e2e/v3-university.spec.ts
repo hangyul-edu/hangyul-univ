@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { API, apiLogin, uiLogin, URLS } from './helpers';
+import { API, apiLogin, uiLogin, URLS, chooseOption } from './helpers';
 
 /**
  * V3 university console: the document-request loop.
@@ -45,7 +45,7 @@ test('university requests one document; the student task carries the exact note'
   await expect(openNext).not.toBeChecked();
   await page.getByRole('button', { name: 'Request documents' }).first().click();
   const dialog = page.getByRole('dialog', { name: 'Request a document' });
-  await dialog.locator('#rq-cat').selectOption('BANK_STATEMENT');
+  await chooseOption(page, dialog.locator('#rq-cat'), 'Bank balance certificate');
   await dialog.locator('#rq-label').fill(label);
   await dialog.locator('#rq-note').fill(note);
   await dialog.getByRole('button', { name: 'Send request' }).click();

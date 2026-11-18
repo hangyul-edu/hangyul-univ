@@ -1,6 +1,5 @@
 import { useTranslation } from '@hangyul/i18n';
-import { AppText, LanguagePicker, ListGroup, ListItem, Screen, SectionTitle, SignOutSection, theme } from '@hangyul/mobile-ui';
-import Constants from 'expo-constants';
+import { LanguagePicker, ListGroup, ListItem, Screen, SectionTitle, SignOutSection } from '@hangyul/mobile-ui';
 import { router } from 'expo-router';
 import { Bell, CreditCard, UserRound } from 'lucide-react-native';
 import { View } from 'react-native';
@@ -16,10 +15,9 @@ import { View } from 'react-native';
  */
 export default function SettingsScreen() {
   const { t } = useTranslation();
-  const version = Constants.expoConfig?.version ?? '—';
   return (
     <Screen>
-      <LanguagePicker surface="student" />
+      <LanguagePicker surface="student" presentation="sheet" />
 
       <View style={{ gap: 8 }}>
         <SectionTitle title={t('mobile:settings.elsewhere')} />
@@ -32,8 +30,8 @@ export default function SettingsScreen() {
         </ListGroup>
       </View>
 
+      {/* SignOutSection already prints the version; a second line said it twice. */}
       <SignOutSection />
-      <AppText variant="caption" color={theme.color.textTertiary}>{t('mobile:settings.version', { version })}</AppText>
     </Screen>
   );
 }

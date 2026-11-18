@@ -34,14 +34,14 @@ export default function PipelineScreen() {
               <AppText variant="caption">{intake ? t('v3.uni.populationIntake', { count: m.pipeline.population.size, intake: intakeLabel(intake, intake) }) : t('v3.uni.populationAll', { count: m.pipeline.population.size })}{m.pipeline.population.period.from ? ` · ${f.date(m.pipeline.population.period.from)} – ${f.date(m.pipeline.population.period.to)}` : ''}</AppText>
               <ListGroup>
                 {steps.map((s) => (
-                  <View key={s.key} style={styles.step} accessible accessibilityLabel={`${t(`v3.uni.step.${s.key}`)}: ${s.count}. ${s.definition}`}>
+                  <View key={s.key} style={styles.step} accessible accessibilityLabel={`${t(`v3.uni.step.${s.key}`)}: ${s.count}. ${t(`v3.uni.stepDef.${s.key}`, { defaultValue: s.definition })}`}>
                     <View style={styles.stepHead}>
                       <AppText variant="subheading" style={{ flex: 1 }}>{t(`v3.uni.step.${s.key}`, { defaultValue: s.key })}</AppText>
                       <AppText variant="heading">{s.count}</AppText>
                     </View>
                     <View style={styles.track}><View style={[styles.fill, { width: `${(s.count / top) * 100}%` }]} /></View>
                     <AppText variant="caption" color={theme.color.textTertiary}>
-                      {s.conversion ? (s.conversion.insufficient_data ? t('v3.uni.convFew', { n: s.conversion.numerator, d: s.conversion.denominator }) : t('v3.uni.conv', { pct: f.percent(s.conversion.value), n: s.conversion.numerator, d: s.conversion.denominator })) : s.definition}
+                      {s.conversion ? (s.conversion.insufficient_data ? t('v3.uni.convFew', { n: s.conversion.numerator, d: s.conversion.denominator }) : t('v3.uni.conv', { pct: f.percent(s.conversion.value), n: s.conversion.numerator, d: s.conversion.denominator })) : t(`v3.uni.stepDef.${s.key}`, { defaultValue: s.definition })}
                     </AppText>
                   </View>
                 ))}

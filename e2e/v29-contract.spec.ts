@@ -31,7 +31,7 @@ test('the homepage sells exactly the V29 contract', async ({ page }) => {
   await expect(pricing.locator('.kn-addons__price[data-pricing="QUOTE"]')).toHaveCount(2);
   await pricing.locator('#plan-notes > summary').click();
   await expect(pricing.locator('.kn-notes__list li')).toHaveCount(8);
-  await expect(pricing.locator('.kn-notes__groups')).toContainText('decided by the immigration authorities');
+  await expect(pricing.locator('.kn-notes__groups')).toContainText('The immigration authorities decide whether a visa is issued');
 });
 
 let student: { email: string; id: string } | null = null;
@@ -73,7 +73,7 @@ test('an add-on is proposed at an exact price, approved, paid — and only then 
   await agency.getByRole('button', { name: 'Propose an additional service' }).click();
   // V32: the canonical Hangyul select — open it and choose the option by name, as a counsellor would
   await agency.locator('#ag29-offer-code').click();
-  await agency.getByRole('option', { name: 'One more managed application' }).click();
+  await agency.getByRole('option', { name: 'Additional managed application' }).click();
   await agency.locator('#ag29-offer-price').fill('60');
   await expect(agency.getByRole('button', { name: 'Propose to student' })).toBeDisabled(); // $60 is outside $30–50
   await agency.locator('#ag29-offer-price').fill('45');
@@ -84,7 +84,7 @@ test('an add-on is proposed at an exact price, approved, paid — and only then 
   await uiLogin(page, 'student', student!.email, 'Hangyul!2026x', 'en');
   await page.goto(`${URLS.student}/services?lang=en`);
   const addOns = page.locator('#addons');
-  await expect(addOns).toContainText('One more managed application');
+  await expect(addOns).toContainText('Additional managed application');
   await expect(addOns).toContainText('$45');
   const before = await (await request.get(`${API}/me/plan`, { headers: await apiLogin(request, student!.email, 'student', 'Hangyul!2026x') })).json();
   const limit = (p: { usage: { key: string; limit: number | null }[] }) => p.usage.find((u) => u.key === 'max_managed_applications')!.limit;

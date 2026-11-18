@@ -177,8 +177,9 @@ synthetic data), not from automated passes alone; screenshots were captured for 
   before public launch; a release gate checks it.
 - **Native:** all three apps were updated in code in this pass (student home with the calm waiting state and one
   primary action; Operations queue-first Today; University decision-first queue and one primary decision). **None of
-  these changes were run on an emulator or device** — no Android/iOS toolchain was available — so native visual quality
-  is unverified. Native payment hands off to the web checkout (one backend payment model).
+  these changes were run on an emulator or device** — no Android/iOS toolchain was available. All three apps were
+  rendered through Expo's web target at phone sizes against a seeded API and reviewed from screenshots (§8); device-only
+  aspects (native fonts, safe areas, keyboard, pickers, tab-label auto-shrink) remain unverified. Native payment hands off to the web checkout (one backend payment model).
 - **Follow-up pass (2026-11-19):** Student Explore, Profile and More rebuilt as sections; plural copy fixed in 21
   locales; Visa/Arrival accent bars removed; Operations Manage, Review (390), Tasks tabs, essay editor and secondary
   pages brought to the same standard; University Programs, Documents, Scholarships, Messages, Manage and Exports
@@ -254,9 +255,12 @@ translations would admit more console languages.
 | Responsive (320–1920, 10 widths, every major route of Student / Operations / University / university detail) | 0 horizontal overflow |
 | Accessibility (axe WCAG 2.1 A/AA, 390 and 1280) | 0 serious/critical — Student 17 screens, Operations 98 scans, University 28 routes, university detail 3 pages (en, ar) |
 | Operations counts = rows | 54 of 54 clicks |
+| End-to-end on an isolated stack (real API, seeded PostgreSQL, four production builds) | **28 / 28 PASS** — purchase contract and add-on, tenancy, full student lifecycle (purchase → assignment → documents → essay → university decision → offer → visa), Student / Operations / University core journeys, Today rail counts. 7 tests had been failing before this pass (stale selectors for the V32 custom select and older copy); they were repaired, not skipped |
+| Native apps, rendered through Expo web (react-native-web) at 360 / 390 / 430 against a seeded API | 12 defects found and fixed (language list as a bottom sheet, duplicate version line, API address hidden outside development, plan selection, tappable blocked items ≥44 pt, broken campus images hidden, doubled "Overdue", Korean step names…). **Not a device check:** native fonts, safe areas, keyboard and pickers are unverified |
 
-Not run in this pass: seeded E2E, real-account journeys against a live API (the tunnelled API was down), native builds
-or emulator screenshots, any live Toss request, production smoke of the payment backend (none exists).
+Not run in this pass: real-account journeys against the production API (the tunnelled API was down), native builds on a
+device or emulator (no KVM/Android toolchain on this machine), any live Toss request, production smoke of the payment
+backend (none exists).
 
 <!-- LAUNCH-QA:START -->
 
@@ -318,7 +322,7 @@ Full list with owners: [ROADMAP.md](ROADMAP.md).
 | 8 | iOS not built; Android to be rebuilt with the Play upload key | Owner |
 | 9 | No human native-speaker review of any language; no usability sessions | People |
 | 11 | Privacy policy and terms still describe a "partner agency" receiving data (10 keys under `marketing.v12.privacy.*` / `v12.terms.*`, all locales) — legal text was not edited; needs counsel sign-off to match the direct-operation model | Owner / counsel |
-| 12 | Seeded E2E, real-account journeys and native builds/screenshots were not run (see §8); 8 API tests (dossier extraction, submission fixtures) fail, all of them also on the untouched baseline | Engineering |
+| 12 | Real-account journeys against production and native device builds were not run (see §8); 8 API tests (dossier extraction, submission fixtures) fail, all of them also on the untouched baseline | Engineering |
 | 10 | 176 institutions without verified rules; 259 without an own photograph; no recorded university agreement | Data / partnerships |
 
 Could not be verified from this workspace: whether SendGrid/Twilio credentials are now configured on the connected

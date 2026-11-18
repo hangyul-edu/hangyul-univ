@@ -742,3 +742,23 @@ def test_objects_that_hold_a_credential_do_not_print_it():
     assert CREDENTIAL not in repr(issued) and CREDENTIAL not in str(issued)
     m = billing_svc.Merchant(key="foreign", mid="bill_x", client_key="test_ck_a", secret_key="test_sk_b", security_key="sec", currency="USD")
     assert "test_sk_b" not in repr(m) and "sec" not in repr(m).replace("security", "")
+
+
+def test_an_order_paid_by_any_path_never_reads_as_awaiting_payment(db):
+    """Seeds, the demo provider and fixture payments mark orders PAID without the billing charge."""
+    from app.models import ServiceProduct
+
+    prod = db.scalar(select(ServiceProduct).where(ServiceProduct.code == "BASIC"))
+    user = db.scalar(select(User).limit(1))
+    o = Order(user_id=user.id, product_id=prod.id, currency="USD", amount_minor=BASIC_MINOR, status=OrderStatus.PAID)
+    db.add(o)
+    db.flush()
+    assert o.payment_state == "PAID"
+    o.status = OrderStatus.REFUNDED
+    db.flush()
+    assert o.payment_state == "REFUNDED"
+    # A partial refund keeps the order PAID and its finer state.
+    o.status, o.payment_state = OrderStatus.PAID, "PARTIALLY_REFUNDED"
+    db.flush()
+    assert o.payment_state == "PARTIALLY_REFUNDED"
+    db.rollback()

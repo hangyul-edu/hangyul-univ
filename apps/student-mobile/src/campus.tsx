@@ -6,6 +6,7 @@
  */
 import { AppText, theme } from '@hangyul/mobile-ui';
 import type { UniversityPhotoRef } from '@hangyul/types';
+import { useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
 import { getWebAppUrl } from './plan';
@@ -14,10 +15,12 @@ const uri = (p: UniversityPhotoRef, w: 640 | 1200) => `${getWebAppUrl()}/${p.loc
 
 /** A full-width campus banner (4:5 crops are the web's job; native shows 16:9 at the landscape focal point). */
 export function CampusBanner({ photo, name }: { photo?: UniversityPhotoRef | null; name: string }) {
-  if (!photo?.local_path) return null;
+  // A photo that fails to load (offline, origin unreachable) leaves nothing rather than a grey slab with a credit line.
+  const [failed, setFailed] = useState(false);
+  if (!photo?.local_path || failed) return null;
   return (
     <View style={styles.banner} accessible accessibilityRole="image" accessibilityLabel={name}>
-      <Image source={{ uri: uri(photo, 1200) }} style={StyleSheet.absoluteFill} resizeMode="cover" />
+      <Image source={{ uri: uri(photo, 1200) }} style={StyleSheet.absoluteFill} resizeMode="cover" onError={() => setFailed(true)} />
       <View style={styles.caption}>
         <AppText variant="caption" weight="semibold" color="#FFFFFF" numberOfLines={1}>
           {name}{photo.attribution ? ` · ${photo.attribution.author} · ${photo.attribution.license}` : ''}
@@ -29,8 +32,9 @@ export function CampusBanner({ photo, name }: { photo?: UniversityPhotoRef | nul
 
 /** A small campus thumbnail for list rows. */
 export function CampusThumb({ photo }: { photo?: UniversityPhotoRef | null }) {
-  if (!photo?.local_path) return null;
-  return <Image source={{ uri: uri(photo, 640) }} style={styles.thumb} resizeMode="cover" accessibilityIgnoresInvertColors />;
+  const [failed, setFailed] = useState(false);
+  if (!photo?.local_path || failed) return null;
+  return <Image source={{ uri: uri(photo, 640) }} style={styles.thumb} resizeMode="cover" accessibilityIgnoresInvertColors onError={() => setFailed(true)} />;
 }
 
 const styles = StyleSheet.create({

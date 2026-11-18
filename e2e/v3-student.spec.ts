@@ -17,7 +17,7 @@ test('quick fit gives value before an account, and the answers carry into the pr
   // V28: the first picks, then the groups; and the GPA conversion said back to the student.
   await expect(page.getByRole('heading', { level: 3, name: 'Start with these' })).toBeVisible();
   await expect(page.getByRole('heading', { level: 3, name: /Universities whose minimums you meet/ })).toBeVisible();
-  await expect(page.getByText(/compared as 82% of the maximum/)).toBeVisible();
+  await expect(page.getByText(/82% of the maximum/).first()).toBeVisible();
   // Never a probability or a ranking.
   await expect(page.getByText(/chance|probability|ranked/i)).toHaveCount(0);
   await expect(page.getByText(/is not a ranking/)).toBeVisible();
@@ -49,7 +49,7 @@ test('compare leads to a first-year budget with labelled figures', async ({ page
   }
   await page.getByRole('link', { name: /compare/i }).last().click();
   // Desktop shows the table; narrow screens show one card per program with the same labels.
-  await expect(page.getByRole('rowheader', { name: 'First year, estimated' })).toBeVisible();
+  await expect(page.getByRole('rowheader', { name: 'Estimated first-year cost' })).toBeVisible();
   await expect(page.getByText('Lowest first-year cost').locator('visible=true').first()).toBeVisible();
 
   await page.goto(`${URLS.student}/budget`);
@@ -68,7 +68,7 @@ test('compare leads to a first-year budget with labelled figures', async ({ page
 test('documents are shown as requirements with a next step', async ({ page }) => {
   await uiLogin(page, 'student', 'student@demo.hangyul.kr');
   await page.goto(`${URLS.student}/documents`);
-  await expect(page.getByText(/\d+ of \d+ ready for every application/)).toBeVisible();
+  await expect(page.getByText(/^\d+ of \d+ ready$/)).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Needs you' })).toBeVisible();
   await expect(page.getByText(/needed for/i).first()).toBeVisible();
 });

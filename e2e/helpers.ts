@@ -200,3 +200,12 @@ export async function activatePlan(
   }
   return { paid: false, reason: `POST /me/orders answered ${res.status()} ${JSON.stringify(body).slice(0, 160)}` };
 }
+
+/**
+ * Choose an option in the product's own select (V32: `role="combobox"` button + listbox popover / bottom sheet —
+ * there is no native `<select>`, so Playwright's `selectOption` cannot drive it).
+ */
+export async function chooseOption(page: Page, combobox: import('@playwright/test').Locator, option: string | RegExp) {
+  await combobox.click();
+  await page.getByRole('option', { name: option }).first().click();
+}

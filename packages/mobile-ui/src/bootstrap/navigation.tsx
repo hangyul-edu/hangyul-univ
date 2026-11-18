@@ -1,6 +1,6 @@
 import type { NativeStackNavigationOptions } from 'expo-router';
 import type { BottomTabNavigationOptions } from 'expo-router/js-tabs';
-import { Platform } from 'react-native';
+import { Platform, Text } from 'react-native';
 
 import { fontFamily, theme } from '../theme';
 
@@ -26,7 +26,14 @@ export function tabScreenOptions(fontsReady: boolean): BottomTabNavigationOption
     tabBarStyle: Platform.OS === 'web'
       ? { backgroundColor: theme.color.surface, borderTopColor: theme.color.border, height: 60, paddingTop: 6, paddingBottom: 8 }
       : { backgroundColor: theme.color.surface, borderTopColor: theme.color.border },
-    tabBarLabelStyle: fontsReady ? { fontFamily: fontFamily.semibold, fontSize: 11, lineHeight: 14 } : { fontWeight: '600', fontSize: 11, lineHeight: 14 },
+    // Five tabs on a 360pt phone leave ~72pt per label, and many locales are longer than English. The label stays on one
+    // line and shrinks to fit (down to 80 %) rather than truncating to "Applicatio…".
+    tabBarLabel: ({ color, children }) => (
+      <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8} allowFontScaling
+        style={[fontsReady ? { fontFamily: fontFamily.semibold } : { fontWeight: '600' }, { color, fontSize: 11, lineHeight: 14, textAlign: 'center' }]}>
+        {children}
+      </Text>
+    ),
     tabBarBadgeStyle: { backgroundColor: theme.color.primary, color: '#FFFFFF' },
     tabBarAllowFontScaling: true,
   };

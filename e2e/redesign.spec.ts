@@ -7,7 +7,7 @@
  */
 import { expect, test } from '@playwright/test';
 
-import { API, apiLogin, uiLogin, URLS } from './helpers';
+import { API, apiLogin, uiLogin, URLS, chooseOption } from './helpers';
 
 test('student: home, discovery with verdicts, compare, documents and visa', async ({ page }) => {
   await uiLogin(page, 'student', 'student@demo.hangyul.kr');
@@ -50,7 +50,7 @@ test('agency: Today, saved views and the review queue', async ({ page }) => {
   await expect(page.locator('[data-work-total]')).toBeVisible();
   await page.getByRole('link', { name: 'Students', exact: true }).first().click();
   // The former view tabs are one toolbar select; `?view=attention` is still the URL contract.
-  await page.getByRole('combobox', { name: 'View' }).selectOption('attention');
+  await chooseOption(page, page.getByRole('combobox', { name: 'View' }), /^Needs attention/);
   await expect(page).toHaveURL(/view=attention/);
   await page.goto(`${URLS.agency}/documents`);
   await expect(page.getByRole('button', { name: /^Verify/ })).toBeVisible();

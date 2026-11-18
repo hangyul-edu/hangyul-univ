@@ -137,6 +137,7 @@ function HomeContent({ d }: { d: Dashboard }) {
       <View style={{ gap: 8 }}>
         <SectionTitle title={t('v3.home.team')} />
         {d.counselor ? (
+          <View style={styles.personCard}>
           <View style={styles.person}>
             {/* V22/V23 team identity (REPORT §246 A3, §274 N2): the student is served by 한귤 유니브 상담팀 — never a staff
                 name and never the partner agency's name. The API already sends the team object; the label is localized here. */}
@@ -144,10 +145,13 @@ function HomeContent({ d }: { d: Dashboard }) {
             <View style={{ flex: 1, gap: 2 }}>
               <AppText variant="subheading">{t('v23.team.name')}</AppText>
               {/* Same card as the web (REPORT §246 A4): the team identity, then the partner agency it works with. */}
-              {d.counselor.organization ? <AppText variant="caption" numberOfLines={1}>{t('v23.team.withAgency', { org: d.counselor.organization })}</AppText> : null}
+              {d.counselor.organization ? <AppText variant="caption" numberOfLines={2}>{t('v23.team.withAgency', { org: d.counselor.organization })}</AppText> : null}
               {d.unread_messages > 0 ? <AppText variant="caption" color={theme.color.primaryText}>{t('v3.home.unread', { count: d.unread_messages })}</AppText> : null}
             </View>
-            <Button label={t('v3.home.message')} variant="secondary" icon={MessageCircle} onPress={() => router.push('/messages')} />
+          </View>
+            {/* Under the identity, full width: beside it the button squeezed the team name onto two lines and cut the
+                partner agency's name at 360-390 pt (visual pass, 2026-11). */}
+            <Button label={t('v3.home.message')} variant="secondary" icon={MessageCircle} onPress={() => router.push('/messages')} fullWidth />
           </View>
         ) : (
           <View style={styles.empty}>
@@ -163,5 +167,6 @@ const styles = StyleSheet.create({
   head: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingTop: 4 },
   // A quiet warm aside instead of a dashed placeholder box or a bordered card (design foundation: one warm surface).
   empty: { gap: 12, padding: 16, borderRadius: theme.radius.xl, backgroundColor: theme.color.bgPaper, alignItems: 'flex-start' },
-  person: { flexDirection: 'row', alignItems: 'center', gap: 12, padding: 16, backgroundColor: theme.color.bgPaper, borderRadius: theme.radius.xl },
+  personCard: { gap: 14, padding: 16, backgroundColor: theme.color.bgPaper, borderRadius: theme.radius.xl },
+  person: { flexDirection: 'row', alignItems: 'center', gap: 12 },
 });

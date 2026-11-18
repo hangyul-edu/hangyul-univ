@@ -79,7 +79,8 @@ export default function TasksScreen() {
                   label={taskTitle(t, x)}
                   detail={[
                     x.student_name,
-                    x.due_at ? (x.overdue ? t('v3.tasks.overdue', { when: f.due(x.due_at) }) : f.due(x.due_at)) : null,
+                    // f.due already reads "Overdue by N days"; prefixing "Overdue ·" said it twice on every row (visual pass 2026-11).
+                    x.due_at ? f.due(x.due_at) : null,
                     x.priority === 'URGENT' || x.priority === 'HIGH' ? t(`common:priority.${x.priority}`) : null,
                     scope === 'team' && x.owner ? x.owner.full_name : null,
                     x.depends_on && !x.depends_on.done ? t('v3.tasks.waitingOn', { what: taskTitle(t, { ...x.depends_on, title_params: x.depends_on.title_params }) }) : null,
