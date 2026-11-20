@@ -179,12 +179,12 @@ def _dates(db: Session, sid, today: date) -> list[dict]:
         u = db.get(University, a.university_id)
         intake = db.get(ProgramIntake, a.intake_id)
         if intake and not reached(a.status, S.SUBMITTED) and intake.application_deadline and intake.application_deadline >= today:
-            out.append({"kind": "APPLICATION_DEADLINE", "date": intake.application_deadline.isoformat(), "university": u.name_en, "university_id": str(u.id)})
+            out.append({"kind": "APPLICATION_DEADLINE", "date": intake.application_deadline.isoformat(), "university": u.name_en, "university_ko": u.name_ko, "university_id": str(u.id)})
         due = a.tuition_due or (intake.tuition_deadline if intake else None)
         if a.status in (S.OFFERED, S.OFFER_ACCEPTED, S.TUITION_PENDING) and due:
-            out.append({"kind": "TUITION_DUE", "date": due.isoformat(), "university": u.name_en, "university_id": str(u.id)})
+            out.append({"kind": "TUITION_DUE", "date": due.isoformat(), "university": u.name_en, "university_ko": u.name_ko, "university_id": str(u.id)})
         if intake and intake.semester_start and intake.semester_start >= today and reached(a.status, S.OFFER_ACCEPTED):
-            out.append({"kind": "SEMESTER_START", "date": intake.semester_start.isoformat(), "university": u.name_en, "university_id": str(u.id)})
+            out.append({"kind": "SEMESTER_START", "date": intake.semester_start.isoformat(), "university": u.name_en, "university_ko": u.name_ko, "university_id": str(u.id)})
     from app.models.v5_visa_routes import VisaCaseTrack
 
     visa = db.scalar(select(VisaCase).where(VisaCase.student_user_id == sid).order_by(VisaCase.created_at.desc()))
@@ -205,7 +205,7 @@ def _progress(db: Session, sid) -> dict:
     for a in db.scalars(select(Application).where(Application.student_user_id == sid).order_by(Application.updated_at.desc())):
         u = db.get(University, a.university_id)
         pr = db.get(Program, a.program_id)
-        apps.append({"university": u.name_en, "university_id": str(u.id), "program": pr.name_en if pr else None, "status": a.status.value})
+        apps.append({"university": u.name_en, "university_ko": u.name_ko, "university_id": str(u.id), "program": pr.name_en if pr else None, "status": a.status.value})
     visa = db.scalar(select(VisaCase).where(VisaCase.student_user_id == sid).order_by(VisaCase.created_at.desc()))
     return {"applications": apps[:6], "visa": {"status": visa_routes.DISPLAY.get(visa.status, "PREPARING"), "visa_type": visa.visa_type.value} if visa else None}
 

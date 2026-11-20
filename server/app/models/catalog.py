@@ -18,11 +18,17 @@ from app.models.enums import (
 class University(IdMixin, TimestampMixin, SourcedMixin, Base):
     __tablename__ = "universities"
     slug: Mapped[str] = mapped_column(String(120), unique=True)
+    #: V34: an institution that publishes no English name keeps its official Korean name here and
+    #: ``name_en_recorded`` is False — the name is never translated or invented.
     name_en: Mapped[str] = mapped_column(String(200), index=True)
     name_ko: Mapped[str] = mapped_column(String(200))
-    institution_type: Mapped[InstitutionType] = enum_col(InstitutionType)
+    name_en_recorded: Mapped[bool | None] = mapped_column(Boolean)
+    institution_type: Mapped[InstitutionType] = enum_col(InstitutionType, index=True)
+    #: V34: the directory's kind — UNIVERSITY | JUNIOR_COLLEGE | GRADUATE_UNIVERSITY (null for rows not from the directory).
+    institution_kind: Mapped[str | None] = mapped_column(String(24), index=True)
     region: Mapped[str] = mapped_column(String(60), index=True)  # province / metropolitan city
-    city: Mapped[str] = mapped_column(String(60))
+    #: Null when no official source names the city (V34: never defaulted from the region).
+    city: Mapped[str | None] = mapped_column(String(60))
     website_url: Mapped[str | None] = mapped_column(String(500))
     international_admissions_url: Mapped[str | None] = mapped_column(String(500))
     summary: Mapped[str | None] = mapped_column(Text)
@@ -79,14 +85,24 @@ class Program(IdMixin, TimestampMixin, SourcedMixin, Base):
     department_id: Mapped[uuid.UUID | None] = fk("departments.id", nullable=True, ondelete="SET NULL")
     name_en: Mapped[str] = mapped_column(String(200), index=True)
     name_ko: Mapped[str | None] = mapped_column(String(200))
+    name_en_recorded: Mapped[bool | None] = mapped_column(Boolean)
     degree_level: Mapped[DegreeLevel] = enum_col(DegreeLevel, index=True)
-    field: Mapped[str] = mapped_column(String(80), index=True)  # normalized field taxonomy key
-    instruction_language: Mapped[InstructionLanguage] = enum_col(InstructionLanguage)
+    #: Normalised field taxonomy key. V34: null when the guide's unit cannot be placed in the taxonomy.
+    field: Mapped[str | None] = mapped_column(String(80), index=True)
+    instruction_language: Mapped[InstructionLanguage] = enum_col(InstructionLanguage, index=True)
     duration_semesters: Mapped[int | None] = mapped_column(Integer)
     tuition_per_semester_krw: Mapped[int | None] = mapped_column(Integer)
     application_fee_krw: Mapped[int | None] = mapped_column(Integer)
     description: Mapped[str | None] = mapped_column(Text)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    # V34 — programmes the catalogue importer owns (one per 모집단위 read from an official guide). ``catalog_key`` is
+    # the stable identity across refreshes; rows without one (fixtures, hand-made rows) are never touched by it.
+    catalog_key: Mapped[str | None] = mapped_column(String(300), unique=True)
+    origin: Mapped[str | None] = mapped_column(String(24))  # OFFICIAL_GUIDE
+    college_ko: Mapped[str | None] = mapped_column(String(200))
+    campus_name: Mapped[str | None] = mapped_column(String(120))
+    source_page: Mapped[str | None] = mapped_column(String(60))
+    evidence: Mapped[str | None] = mapped_column(Text)
 
     university: Mapped[University] = relationship(back_populates="programs")
     intakes: Mapped[list["ProgramIntake"]] = relationship(back_populates="program", cascade="all, delete-orphan")

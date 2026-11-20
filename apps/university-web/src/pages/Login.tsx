@@ -2,7 +2,7 @@ import { useAuth } from '@hangyul/auth';
 import { useLocale } from '@hangyul/i18n';
 import type { SSOLookup } from '@hangyul/types';
 import { ChartColumn, ClipboardCheck, FileSearch, ShieldCheck, Users } from '@hangyul/icons';
-import { ButtonLink } from '@hangyul/ui';
+import { AuthEntryGate, ButtonLink } from '@hangyul/ui';
 import { AuthCover } from '@hangyul/ynex-ui';
 import { useEffect, useState } from 'react';
 
@@ -50,11 +50,14 @@ export default function Login() {
   ];
   // V8: branded YNEX sign-in-cover (navy = university) — the shared form beside what the console is for.
   // V29: the form is StaffLoginScreen (LoginScreen's markup + the two-step verification steps).
+  // 261119: an already-signed-in visitor is sent on before the first frame (no flash of the sign-in form).
   return (
-    <AuthCover tone="navy" eyebrow={t('product')} title={t('v8.login.asideTitle')} lead={t('v8.login.asideLead')} points={points}
-      foot={<><ShieldCheck aria-hidden size={16} />{t('v8.login.asideFoot')}</>}>
-      <StaffLoginScreen product={t('product')} title={t('login.title')} subtitle={t('login.subtitle')}
-        footer={<SSOOption />} />
-    </AuthCover>
+    <AuthEntryGate>
+      <AuthCover tone="navy" eyebrow={t('product')} title={t('v8.login.asideTitle')} lead={t('v8.login.asideLead')} points={points}
+        foot={<><ShieldCheck aria-hidden size={16} />{t('v8.login.asideFoot')}</>}>
+        <StaffLoginScreen product={t('product')} title={t('login.title')} subtitle={t('login.subtitle')}
+          footer={<SSOOption />} />
+      </AuthCover>
+    </AuthEntryGate>
   );
 }

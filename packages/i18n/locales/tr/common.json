@@ -478,7 +478,11 @@
     "reasonRequired": "Öğrenciye neyi düzeltmesi gerektiğini yazın.",
     "phone": "Lütfen geçerli bir cep telefonu numarası girin.",
     "passwordMismatch": "Şifreler eşleşmiyor.",
-    "code": "Lütfen 6 haneli kodu girin."
+    "code": "Lütfen 6 haneli kodu girin.",
+    "fileCount_one": "Tek seferde {{count}} dosya ekleyebilirsiniz.",
+    "fileCount_other": "Tek seferde en fazla {{count}} dosya ekleyebilirsiniz.",
+    "fileEmpty": "Bu dosya boş.",
+    "fileExtension": "Dosya uzantısı dosyanın türüyle uyuşmuyor. PDF, JPG, PNG veya WEBP dosyası yükleyin."
   },
   "notify": {
     "agencyAssigned": "{{agency}} artık başvurunuza destek veriyor.",
@@ -528,7 +532,9 @@
     "writingOverdue": "Yazı incelemeniz gecikti: {{title}}",
     "v29": {
       "addonOffered": "Hangyul Univ ekibi size ek bir hizmet önerdi"
-    }
+    },
+    "addonOffered": "Danışmanınız size ek bir hizmet önerdi. Görmek için paketinizi açın.",
+    "appointment": "Danışmanlık görüşmesi {{at}} için planlandı"
   },
   "a11y": {
     "skipToContent": "Ana içeriğe geç",
@@ -1078,22 +1084,22 @@
           "settlement": "Varıştan {{before}} gün öncesinden {{count}} gün sonrasına kadar",
           "livingInfo": "Temel yaşam bilgileri"
         },
-        "scopeNote": "Premium'da düzenleme turu sınırı yoktur; bu, sözleşmenizdeki başvuru belgeleri ve takvim kapsamında geçerlidir. Yeni belge yazımı, çeviri ve noter onayı dahil değildir."
+        "scopeNote": "Premium, sözleşmenizdeki başvuru belgeleri için başvuru takviminiz dahilinde sınırsız düzenleme turu içerir. Yeni belge yazımı, tercüme ve noter onayı dahil değildir."
       },
       "notes": {
         "title": "Satın almadan önce",
         "usd": "Tüm fiyatlar ABD doları (USD) cinsinden tek seferlik ödemelerdir.",
         "exchange": "Kartınızdan çekilen tutar, döviz kurlarına ve kart ya da ödeme kuruluşu ücretlerine göre değişebilir.",
-        "external": "Üçüncü taraf masrafları ayrıdır: üniversite başvuru ücretleri, öğrenim ücreti, vize harçları, tercüme ve noter onayı, uluslararası kargo.",
-        "documentsVary": "Gereken belgeler uyruğunuza, eğitim geçmişinize ve başvurduğunuz düzeye göre değişir.",
-        "visaDecision": "Vize hazırlığında ve başvuruda size yardım ederiz. Vizenin verilip verilmeyeceğine Kore göç makamları karar verir.",
+        "external": "Üçüncü taraf masrafları ayrıca ödenir: üniversite başvuru ücretleri, öğrenim ücreti, vize harçları, tercüme, noter onayı ve uluslararası kargo.",
+        "documentsVary": "Gereken belgeler uyruğunuza, eğitim geçmişinize ve başvurduğunuz programa göre değişir.",
+        "visaDecision": "Vize başvurunuzu hazırlamanıza yardım ederiz. Vizenin verilip verilmeyeceğine göç makamları karar verir.",
         "agreement": "Takvim, düzenleme kapsamı ve yanıt süreleri gibi ayrıntılar hizmet sözleşmenizde veya siparişinizde belirlenebilir.",
-        "premiumScope": "Premium'da düzeltme, sözleşmedeki başvuru belgeleri ve takvim kapsamında tur sınırı olmadan yapılır.",
-        "newDocuments": "Yeni bir belge yazımı, tercüme ve noter onayı ek ücrete tabi olabilir."
+        "premiumScope": "Premium, sözleşmenizdeki başvuru belgeleri için başvuru takviminiz dahilinde sınırsız düzenleme turu içerir.",
+        "newDocuments": "Yeni belge yazımı da ek ücrete tabi olabilir."
       },
       "addons": {
         "title": "Ek hizmetler",
-        "lede": "Bunları yalnızca ihtiyacınız olursa ekleyin. Ekibiniz önce kapsamı ve kesin fiyatı bildirir; ödemeyi ancak siz onayladıktan sonra yaparsınız.",
+        "lede": "Bunları yalnızca ihtiyacınız olursa ekleyin. Ekibiniz önce kapsamı ve kesin fiyatı onaylar; ödemeyi ancak siz kabul ettikten sonra yaparsınız.",
         "col": {
           "service": "Hizmet",
           "unit": "Birim",
@@ -1103,12 +1109,12 @@
     },
     "addon": {
       "item": {
-        "extra_application": "Sizinle birlikte yöneteceğimiz bir başvuru daha",
-        "extra_edit": "1 ek düzenleme turu: niyet mektubu veya çalışma planı",
+        "extra_application": "Sizin için yürüteceğimiz ek bir başvuru",
+        "extra_edit": "Ek düzenleme turu (niyet mektubu veya çalışma planı)",
         "mock_interview": "Deneme mülakatı",
-        "dormitory": "Yurt başvurusuna yardım",
-        "airport_pickup": "Havalimanı karşılaması (bir iş ortağıyla ayarlanır)",
-        "settlement": "Yerleşmeniz için ek destek"
+        "dormitory": "Yurt başvurusu desteği",
+        "airport_pickup": "Havalimanında karşılama organizasyonu",
+        "settlement": "Yerleşme için ek destek"
       },
       "unit": {
         "UNIVERSITY": "1 üniversite",
@@ -1279,5 +1285,53 @@
     "video": {
       "more": "Diğer resmi videolar"
     }
+  },
+  "upload": {
+    "cantAdd": "Bu dosya eklenemiyor",
+    "checking": "Dosya kontrol ediliyor…",
+    "choose": "Dosya seçin",
+    "chooseMany": "Dosyaları seçin",
+    "constraints": "PDF, JPG, PNG veya WEBP · en fazla {{mb}} MB",
+    "constraintsMany": "PDF, JPG, PNG veya WEBP · her biri en fazla {{mb}} MB · en fazla {{count}} dosya",
+    "done": "{{name}} eklendi",
+    "dropHere": "Yüklemek için bırakın",
+    "dropRelease": "Eklemek için bırakın",
+    "orDrag": "veya buraya sürükleyin",
+    "orDragMany": "veya dosyaları buraya sürükleyin",
+    "rejected": "{{name}}: {{reason}}",
+    "replace": "Başka bir dosya seçin",
+    "selected": "{{name}} seçildi",
+    "uploading": "Yükleniyor…",
+    "uploadingPct": "Yükleniyor… %{{pct}}",
+    "zone": "Dosya yükleme alanı"
+  },
+  "previewFixture": {
+    "transcriptApostille": "Not dökümünün kullanılabilmesi için apostil gerekiyor. Yüklenen kopya onaylı değil.",
+    "draftedByHangyul": "Hangyul tarafından hazırlanan taslak — üniversitenin resmî ifadesi değildir. Onaylamadan önce asıl soruyu doğrulayın.",
+    "profileChecked": "Profil kontrol edildi. Sırada belgeler var — en uzun süren işlem olduğu için not dökümünüzün apostiliyle başlayın.",
+    "kyungpookFirst": "Önce Kyungpook belgelerini tamamlayın — son başvuru tarihi en yakın olan o.",
+    "apostilleRequired": "Apostil gerekli",
+    "schoolProject": "Okul projesi eklendi",
+    "expectedGraduationNote": "Lütfen 1 Kasım 2026'dan sonra düzenlenmiş muhtemel mezuniyet belgesi gönderin.",
+    "expectedGraduationLabel": "Muhtemel mezuniyet belgesi",
+    "subjectStrategy": "Başvuru stratejisi ve burs planı",
+    "secondDraftTask": "Çalışma planınızın ikinci taslağını yükleyin",
+    "topik3Standard": "Giriş için TOPIK 3. seviye, Eğitim Bakanlığının önerdiği standarda dayanır; üniversitenin kendi kuralı önceliklidir."
+  },
+  "team": {
+    "hangyul": "Hangyul Univ ekibi",
+    "operations": "Hangyul Univ Operasyon"
+  },
+  "systemDoc": {
+    "housingContract": "Önerilen konut sözleşmesi",
+    "serviceCompletionPhoto": "Hizmet tamamlama fotoğrafı"
+  },
+  "apiError": {
+    "generic": "İşlem gerçekleştirilemedi. Lütfen tekrar deneyin.",
+    "conflict": "Bu içerik bu arada değiştirildi. Sayfayı yenileyip tekrar deneyin.",
+    "tooLarge": "Dosya çok büyük.",
+    "invalid": "Bazı bilgiler kabul edilemedi. Kontrol edip tekrar deneyin.",
+    "rateLimited": "Çok fazla deneme yapıldı. Lütfen biraz bekleyip tekrar deneyin.",
+    "notFound": "Bu bulunamadı. Kaldırılmış olabilir."
   }
 }

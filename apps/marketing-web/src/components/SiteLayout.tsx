@@ -26,7 +26,7 @@ import { cx } from '@hangyul/utils';
 import { useEffect, useState } from 'react';
 
 import { ClosingCtaContext, type ClosingCtaContent } from './blocks';
-import { Link, NavLink, Outlet, useLocation } from 'react-router';
+import { NavLink, Outlet, useLocation } from 'react-router';
 
 import '../styles/site.css';
 import { LEGAL_ENTITY } from '../lib/legal/entity';
@@ -54,8 +54,8 @@ const PRIMARY = [
  * hero advertised the directory in tangerine; whichever a visitor read first was contradicted by the other.
  *
  * The label is the goal, not the mechanism. Signed out it reads "내 유학 준비" / "Start my preparation" and
- * goes to the sign-in page, which is where a preparation actually starts; signed in it reads "내 유학 준비" /
- * "Continue my journey" and goes to the platform. There is no separate "Log in" control: this button is
+ * goes to the Student sign-in (`next=/match`), which is where a preparation actually starts; signed in it reads
+ * "내 유학 준비" / "Continue my journey" and goes straight to `/match` on the platform. There is no separate "Log in" control: this button is
  * already the way in, and a second door next to it is one more thing competing for the same decision.
  */
 function AccountAction({ size, block }: { size?: 'sm' | 'lg'; block?: boolean }) {
@@ -75,18 +75,9 @@ function AccountAction({ size, block }: { size?: 'sm' | 'lg'; block?: boolean })
   // student platform is the same product; ↗ is kept for genuinely external links (an official university site).
   const inner = <>{label}<ArrowRightIcon /></>;
 
-  /*
-   * Signed out, `prepareAction` returns `/start` — a route in **this** app. Rendering it as a bare `<a>`
-   * made the product's one conversion action a full document reload: a white flash, the React tree and the
-   * query cache thrown away and rebuilt, and the language re-resolved from the URL. (It was also half of
-   * the V18 scroll defect: a new document meant a new `"default"` location key, which is the slot
-   * react-router's `ScrollRestoration` had just written Home's offset into.) Signed in it returns an
-   * absolute URL on the Student Platform, which is a different origin and must stay a real `<a>`.
-   */
-  if (/^https?:|^\/\//.test(href)) {
-    return <a className={className} href={href} data-cta="primary" aria-label={aria}>{inner}</a>;
-  }
-  return <Link className={className} to={href} data-cta="primary" aria-label={aria}>{inner}</Link>;
+  // Both branches are the Student Platform — a different origin — so this is always a real `<a>` (owner decision
+  // 2026-11-19: signed out it is the Student login with `next=/match`; the in-site `/start` quick check is retired).
+  return <a className={className} href={href} data-cta="primary" aria-label={aria}>{inner}</a>;
 }
 
 function Header() {
@@ -380,7 +371,7 @@ export function SiteLayout() {
       </ClosingCtaContext.Provider>
       <Footer />
       {/* V19: replaces react-router's `<ScrollRestoration />`, whose `"default"` location key was shared
-          by the first history entry of every document and so carried Home's offset onto `/start`. See
+          by the first history entry of every document and so carried Home's offset onto the next page. See
           `@hangyul/ui › route-scroll`. */}
       <RouteScrollManager />
     </div>

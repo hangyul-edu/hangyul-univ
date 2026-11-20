@@ -14,7 +14,8 @@ export function mapWebLink(link: string | null | undefined): string | null {
   if ((r = m(/^\/messages\/([\w-]+)/))) return `/messages/${r[1]}`;
   if (path.startsWith('/messages')) return '/messages';
   if ((r = m(/^\/universities\/([\w-]+)/))) return `/universities/${r[1]}`;
-  if (path.startsWith('/matches')) return '/explore';
+  // 261119 req 1: the retired quick-check routes lead to personalised matching (gated by the plan on that screen).
+  if (path.startsWith('/match') || path.startsWith('/start') || path.startsWith('/eligibility')) return '/match';
   if (path.startsWith('/saved')) return '/saved';
   if (path.startsWith('/visa')) return '/visa';
   if (path.startsWith('/notifications')) return '/notifications';

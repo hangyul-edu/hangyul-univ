@@ -44,23 +44,19 @@ const security = (app) => [
 ];
 
 /**
- * Marketing only (P0, 2026-11-03): anonymous Quick Fit and the visitor-specific scholarship summary run the fit engine
- * (server/app/services/fit.py, unchanged) in a Python function over the exported public snapshot — no FastAPI, no DB.
- * The rewrites keep the API's own paths, so the page calls the same URLs in development (Vite proxy → FastAPI).
+ * Marketing only. The public catalogue is read live from the API through the same-origin `/api/*` rewrite below (owner
+ * decision 2026-11-19: one authoritative DB catalogue); the build's DB snapshot in /data/public/ is the fallback. The
+ * Quick Fit serverless function (`api/public-fit.py`, P0 2026-11-03) is retired with the anonymous `/start` journey:
+ * 유학 준비 goes to the Student login, and `/start` — linked from old shares and bookmarks — redirects there too,
+ * keeping the visitor's language. Redirects run before the filesystem and the rewrites.
  */
-const MARKETING_FUNCTION = 'api/public-fit.py';
+const STUDENT_ORIGIN = 'https://app.univ.talkhangyul.com';
+const START_TARGET = `${STUDENT_ORIGIN}/login?next=%2Fmatch`;
 const marketingExtras = {
-  rewrites: [
-    { source: '/api/v1/public/fit', destination: '/api/public-fit' },
-    { source: '/api/v1/directory/institutions/:slug/admissions', destination: '/api/public-fit?admissions=:slug' },
+  redirects: [
+    { source: '/start', has: [{ type: 'query', key: 'lang', value: '(?<lang>[A-Za-z-]{2,8})' }], destination: `${START_TARGET}&lang=:lang`, permanent: false },
+    { source: '/start', destination: START_TARGET, permanent: false },
   ],
-  functions: {
-    [MARKETING_FUNCTION]: {
-      includeFiles: '{api/_fit/**,public/data/public/fit-snapshot.json,public/data/public/admissions/**}',
-      excludeFiles: '{dist/**,dist-*/**,public/media/**,public/flags/**,public/og/**,node_modules/**,src/**,.vercel/**,*.png,*.ico}',
-      maxDuration: 10,
-    },
-  },
 };
 
 /** The single deployment switch for Design Preview. `true` = owner review; `false` = public launch. */
@@ -70,14 +66,13 @@ const configFor = (app, dir) => ({
   $schema: 'https://openapi.vercel.sh/vercel.json',
   framework: 'vite',
   installCommand: 'cd ../.. && npm ci --no-audit --no-fund',
-  buildCommand: `cd ../.. && npm run build -w @hangyul/${dir}${app === 'marketing' ? ' && node scripts/public-data/stage-fit.mjs' : ''}`,
+  buildCommand: `cd ../.. && npm run build -w @hangyul/${dir}`,
   outputDirectory: 'dist',
   // Design Preview (owner review; docs/SECURITY.md). ON while `DESIGN_PREVIEW` is true; set it to false and regenerate
   // before the public launch (`npm run release:preview-gate -- --launch --bundles off` then passes).
   ...(DESIGN_PREVIEW && app !== 'marketing' ? { build: { env: { VITE_ENABLE_DESIGN_PREVIEW: '1' } } } : {}),
-  ...(app === 'marketing' ? { functions: marketingExtras.functions } : {}),
+  ...(app === 'marketing' ? { redirects: marketingExtras.redirects } : {}),
   rewrites: [
-    ...(app === 'marketing' ? marketingExtras.rewrites : []),
     { source: '/api/:path*', destination: `${API_ORIGIN}/api/:path*` },
     { source: '/((?!assets/|data/).*)', destination: '/index.html' },
   ],

@@ -1,9 +1,19 @@
 import { FullPageLoader } from '@hangyul/ui';
 import type { ComponentType } from 'react';
-import { createBrowserRouter, Navigate, type RouteObject } from 'react-router';
+import { createBrowserRouter, Navigate, useLocation, type RouteObject } from 'react-router';
 
 import AppLayout from './components/AppLayout';
 import { RouteError } from './pages/NotFound';
+
+/** The retired matching entry points → `/match`, keeping only `?plan=` (and `?lang=`). */
+function ToMatch() {
+  const { search } = useLocation();
+  const keep = new URLSearchParams();
+  const from = new URLSearchParams(search);
+  for (const k of ['plan', 'lang']) { const v = from.get(k); if (v) keep.set(k, v); }
+  const q = keep.toString();
+  return <Navigate to={`/match${q ? `?${q}` : ''}`} replace />;
+}
 
 /** Route-level code splitting: each page is its own chunk. */
 const page = (load: () => Promise<{ default: ComponentType }>): Pick<RouteObject, 'lazy'> => ({
@@ -16,10 +26,14 @@ export const routes: RouteObject[] = [
   // The whole branch is compiled out of a production build (brief Part 1).
   { path: '/register', ...page(() => import('./pages/Register')) },
   { path: '/forgot', ...page(() => import('./pages/ForgotPassword')) },
-  { path: '/start', ...page(() => import('./pages/Start')) },
+  // 261119 (owner requirement 1): the anonymous quick check is retired. Every old entry point — `/start` (the
+  // former homepage CTA), `/eligibility`, `/matches` — now leads to personalised matching, which goes through
+  // sign-in and the plan. `?plan=` survives so a plan chosen on the public pricing section is still preselected.
+  { path: '/start', element: <ToMatch /> },
   // V9 S3: the read-only family (sponsor) view — public, no login; the token is the only key.
   { path: '/sponsor/:token', ...page(() => import('./pages/Sponsor')) },
-  { path: '/eligibility', element: <Navigate to="/start" replace /> },
+  { path: '/eligibility', element: <ToMatch /> },
+  { path: '/matches', element: <ToMatch /> },
   { path: '/onboarding', element: <Navigate to="/profile" replace /> },
   {
     path: '/',
@@ -30,7 +44,7 @@ export const routes: RouteObject[] = [
       { index: true, ...page(() => import('./pages/Dashboard')) },
       { path: 'explore', ...page(() => import('./pages/Explore')) },
       { path: 'universities/:slug', ...page(() => import('./pages/University')) },
-      { path: 'matches', element: <Navigate to="/explore?tab=foryou" replace /> },
+      { path: 'match', ...page(() => import('./pages/Match')) },
       { path: 'saved', element: <Navigate to="/explore?tab=saved" replace /> },
       // V23 crawl: an old task link pointed at /writing; the student's writing lives at /essays.
       { path: 'writing', element: <Navigate to="/essays" replace /> },

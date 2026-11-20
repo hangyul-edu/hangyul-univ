@@ -96,7 +96,7 @@ export default function Messages() {
                               )}
                               {last && (
                                 <span className={cx('ag-conv__last hg-xs hg-truncate', last.internal && 'is-internal')}>
-                                  {last.internal && <><Lock size={11} aria-hidden /> <span className="hg-sr-only">{t('misc.internalTag')}</span></>}{lastAuthor}<span data-user-content>{last.body}</span>
+                                  {last.internal && <><Lock size={11} aria-hidden /> <span className="hg-sr-only">{t('misc.internalTag')}</span></>}<span data-user-content>{lastAuthor}{last.body}</span>
                                 </span>
                               )}
                             </span>

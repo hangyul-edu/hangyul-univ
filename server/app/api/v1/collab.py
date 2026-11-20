@@ -497,7 +497,7 @@ def conversations(student_id: str | None = None, needs_reply: bool = False, p: P
             if c.application_id:
                 a = db.get(Application, c.application_id)
                 u = db.get(University, a.university_id) if a else None
-                item["application"] = {"id": str(a.id), "university": u.name_en if u else None, "university_id": str(u.id) if u else None, "status": a.status.value} if a else None
+                item["application"] = {"id": str(a.id), "university": u.name_en if u else None, "university_ko": u.name_ko if u else None, "university_id": str(u.id) if u else None, "status": a.status.value} if a else None
         out.append(item)
     return out
 
@@ -527,6 +527,14 @@ def start_conversation(body: ConversationIn, p: Principal = Depends(get_principa
         a = db.scalar(select(AgencyAssignment).where(AgencyAssignment.student_user_id == p.id, AgencyAssignment.status == AssignmentStatus.ACTIVE))
         if a:
             db.add(ConversationParticipant(conversation_id=c.id, organization_id=a.organization_id))
+        else:
+            # V34: a student with no team yet (just registered, nothing purchased) still reaches Hangyul Operations —
+            # their message must never land in a conversation nobody on staff can see.
+            from app.services.operations_org import operations_org
+
+            ops = operations_org(db)
+            if ops is not None:
+                db.add(ConversationParticipant(conversation_id=c.id, organization_id=ops.id))
     if c.application_id and body.kind == ConversationKind.APPLICATION:
         # Application threads include the university tenant, the assigned agency and Hangyul operations.
         from app.models import Organization
@@ -738,7 +746,7 @@ def ser_visa(db: Session, v: VisaCase) -> dict:
             "visa_type": v.visa_type.value, "visa_type_reason": v.visa_type_reason, "status": v.status.value, "consulate": v.consulate,
             "submitted_on": iso(v.submitted_on), "issued_on": iso(v.issued_on), "expires_on": iso(v.expires_on), "target_entry_date": iso(v.target_entry_date),
             "notes": v.notes, "blockers": v.blockers or [], "application_id": str(v.application_id) if v.application_id else None,
-            "university": uni.name_en if uni else None, "university_id": str(uni.id) if uni else None, "checklist": items, "route": route,
+            "university": uni.name_en if uni else None, "university_ko": uni.name_ko if uni else None, "university_id": str(uni.id) if uni else None, "checklist": items, "route": route,
             "progress": round(100 * sum(i["done"] for i in items) / len(items)) if items else 0,
             "disclaimer": "Visas are issued by the Korean government (embassy/consulate or Immigration). Hangyul helps you prepare; it does not issue visas."}
 

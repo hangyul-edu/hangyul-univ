@@ -1,11 +1,11 @@
 import { useApi } from '@hangyul/auth';
-import { Info, Search, SlidersHorizontal, UserCheck, X } from '@hangyul/icons';
-import { DEGREE_LEVELS, type Match } from '@hangyul/types';
+import { ArrowRight, Info, Search, SlidersHorizontal, Sparkles, UserCheck, X } from '@hangyul/icons';
+import { DEGREE_LEVELS, type CatalogStatus, type Match } from '@hangyul/types';
 import { Button, ButtonLink, Callout, Chip, Drawer, EmptyState, ErrorState, Field, SearchInput, Segmented, FilterSelect, Select, Skeleton, Switch, Tabs } from '@hangyul/ui';
 import { ELIGIBILITY_GROUPS, eligibilityGroup, formatMoney, formatNumber, isOtherDegree, type EligibilityGroup } from '@hangyul/utils';
-import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
+import { keepPreviousData, useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
-import { Link, useSearchParams } from 'react-router';
+import { Link, useNavigate, useSearchParams } from 'react-router';
 
 import { PageIntro } from '../components/bits';
 import { ProgramGroups, UniversityGroup, groupByUniversity } from '../components/ProgramRow';
@@ -13,7 +13,7 @@ import { SavedList } from './Saved';
 import { RoutesCard } from '../components/Routes';
 import { useT } from '../lib/i18n';
 import type { LanguageRoutes } from '../lib/routes';
-import { useMyMatches, useProfile, useSaved, useTaxonomy } from '../lib/queries';
+import { useMyMatches, useMyPlan, useProfile, useSaved, useTaxonomy } from '../lib/queries';
 
 const PAGE_SIZE = 12;
 /** URL keys that never mean "the student searched" (V26, REPORT §334 S1: `?lang=ko` opened the full list). */
@@ -60,7 +60,12 @@ export function activeCount(f: Filters): number {
   return LIST_KEYS.reduce((s, k) => s + f.lists[k].length, 0) + BOOL_KEYS.filter((k) => f.bools[k]).length + NUM_KEYS.filter((k) => f.nums[k]).length + (f.intake_term ? 1 : 0);
 }
 
-function toQuery(f: Filters) {
+/**
+ * The API query for a set of filters. **Within one group the choices are alternatives (OR)** — each list is sent as
+ * one repeated parameter (`degree=BACHELOR&degree=MASTER`) and the server matches any of them; **different groups
+ * narrow the result (AND)** — every group sent must hold. The filter panel says so in words (`explore.filters.logic`).
+ */
+export function toQuery(f: Filters) {
   return {
     q: f.q || undefined,
     sort: f.sort,
@@ -69,6 +74,60 @@ function toQuery(f: Filters) {
     ...Object.fromEntries(BOOL_KEYS.map((k) => [k, f.bools[k] || undefined])),
     ...Object.fromEntries(NUM_KEYS.map((k) => [k, f.nums[k] || undefined])),
   };
+}
+
+/**
+ * Why a listing is empty (261119, owner requirement 3). The catalogue being empty or still being prepared is said
+ * as exactly that — "programme information is being prepared" — and never as a statement about the student.
+ * Only a ready catalogue with active filters is "nothing matches these filters".
+ */
+export type EmptyReason = 'preparing' | 'filtered';
+export function emptyReason(catalog: CatalogStatus | undefined, filtered: boolean): EmptyReason {
+  if (catalog && (catalog.state !== 'READY' || catalog.programs_total === 0)) return 'preparing';
+  if (filtered) return 'filtered';
+  // A ready catalogue (or an older server that does not say) with no filters and no rows: still not the student's fault.
+  return 'preparing';
+}
+
+/** The calm "being prepared" state. No action that implies the student did something wrong. */
+function CatalogPreparing() {
+  const { t } = useT();
+  return <EmptyState icon={<Info />} title={t('explore.catalog.preparingTitle')} text={t('explore.catalog.preparingText')} />;
+}
+
+/** The catalogue's state, read once (a one-row listing) — for screens whose own data does not carry it. */
+function useCatalogStatus(enabled: boolean) {
+  const api = useApi();
+  return useQuery({
+    queryKey: ['programs', 'catalog-status'],
+    queryFn: async () => {
+      const r = await api.catalog.programs({ page: 1, page_size: 1 });
+      return r.catalog ?? { state: r.total > 0 ? 'READY' : 'EMPTY', programs_total: r.total, universities_total: 0 } satisfies CatalogStatus;
+    },
+    enabled,
+    staleTime: 5 * 60_000,
+  });
+}
+
+/** Where personalised matching lives for a student without a plan: the plan, then back to `/match`. */
+export const MATCH_PLAN_PATH = '/services?gate=match&from=%2Fmatch';
+
+/** The "For you" tab for a student without a plan (261119, owner requirement 1): the path to a plan, not an empty list. */
+function MatchPlanPath({ onBrowse }: { onBrowse: () => void }) {
+  const { t } = useT();
+  return (
+    <section className="sx-planpath" aria-labelledby="sx-planpath-h" data-gate="match">
+      <span className="sx-planpath__icon" aria-hidden><Sparkles /></span>
+      <div className="sx-planpath__body">
+        <h2 id="sx-planpath-h" className="hg-title-sm">{t('explore.matchGate.title')}</h2>
+        <p className="hg-small hg-muted">{t('explore.matchGate.text')}</p>
+        <div className="sx-planpath__actions">
+          <ButtonLink as={Link} to={MATCH_PLAN_PATH} variant="primary" iconEnd={<ArrowRight className="hg-flip-rtl" />}>{t('explore.matchGate.cta')}</ButtonLink>
+          <Button variant="ghost" onClick={onBrowse}>{t('discover.browseAll')}</Button>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function ChipGroup({ label, values, selected, onChange, render }: { label: string; values: string[]; selected: string[]; onChange: (v: string[]) => void; render: (v: string) => ReactNode }) {
@@ -92,6 +151,7 @@ function FilterPanel({ f, set }: { f: Filters; set: (f: Filters) => void }) {
   const bool = (k: BoolKey) => (v: boolean) => set({ ...f, bools: { ...f.bools, [k]: v } });
   return (
     <div className="sx-filters">
+      <p className="sx-filters__logic hg-xs hg-subtle">{t('explore.filters.logic')}</p>
       <ChipGroup label={t('explore.filters.degree')} values={DEGREE_LEVELS.filter((d) => d !== 'COMBINED')} selected={f.lists.degree} onChange={list('degree')} render={(v) => t(`common:degreeShort.${v}`)} />
       <ChipGroup label={t('explore.filters.language')} values={['KOREAN', 'ENGLISH', 'BILINGUAL']} selected={f.lists.language} onChange={list('language')} render={(v) => t(`common:instruction.${v}`)} />
       <Field label={t('explore.filters.maxTuition')} htmlFor="f-tuition">
@@ -158,9 +218,16 @@ function ForYou() {
   const q = useMyMatches();
   const [sp, setSp] = useSearchParams();
   const pool = useMemo(() => (q.data?.items ?? []).filter((m) => !otherDegree(m)), [q.data]);
+  // No matches at all: first ask whether the catalogue itself is ready. An empty catalogue is "being prepared",
+  // never "no programme fits you" (the owner's screenshot, PDF p1).
+  const catalog = useCatalogStatus(!!q.data && q.data.items.length === 0);
   if (q.isLoading) return <RowsSkeleton />;
   if (q.isError) return <ErrorState error={q.error} onRetry={() => q.refetch()} />;
   const d = q.data!;
+  if (d.items.length === 0) {
+    if (catalog.isLoading) return <RowsSkeleton />;
+    if (catalog.data && (catalog.data.state !== 'READY' || catalog.data.programs_total === 0)) return <CatalogPreparing />;
+  }
   const elsewhere = d.items.length - pool.length;
   const count = (v: Verdict) => pool.filter((m) => verdictOf(m) === v).length;
   // Default to the first group that has programs, so a new student never lands on an empty list.
@@ -249,6 +316,7 @@ function AllPrograms() {
   });
   const items = query.data?.pages.flatMap((p) => p.items) ?? [];
   const total = query.data?.pages[0]?.total ?? 0;
+  const why = emptyReason(query.data?.pages[0]?.catalog, n > 0 || !!filters.q);
 
   const applyProfile = () => {
     const p = profile.data;
@@ -318,11 +386,14 @@ function AllPrograms() {
         )}
         {/* V10: an <h2>, not a <p>. The university group headings below are h3 and nothing else on the page is
             an h2, so the document outline jumped h1 → h3. The result count is the results region's heading. */}
-        <h2 className="sx-results__count hg-small hg-subtle" aria-live="polite">{query.isLoading ? t('common:states.loading') : t('explore.results', { count: total, formatted: formatNumber(total, locale) })}</h2>
+        <h2 className="sx-results__count hg-small hg-subtle" aria-live="polite">{query.isLoading ? t('common:states.loading') : total === 0 && why === 'preparing' ? t('explore.catalog.preparingCount') : t('explore.results', { count: total, formatted: formatNumber(total, locale) })}</h2>
         {query.isLoading ? <RowsSkeleton /> : query.isError ? (
           <ErrorState error={query.error} onRetry={() => query.refetch()} />
         ) : items.length === 0 ? (
-          <EmptyState title={t('explore.empty')} text={t('explore.emptyText')} action={<Button onClick={clear}>{t('common:actions.clearFilters')}</Button>} />
+          why === 'preparing' ? <CatalogPreparing /> : (
+            <EmptyState icon={<SlidersHorizontal />} title={t('explore.emptyFiltered.title')} text={t('explore.emptyFiltered.text')}
+              action={<Button onClick={() => { setQ(''); apply({ ...parseFilters(new URLSearchParams()), sort: filters.sort }); }}>{t('common:actions.clearFilters')}</Button>} />
+          )
         ) : (
           <>
             <ProgramGroups items={items} byProgram={byProgram} dim={query.isPlaceholderData} />
@@ -348,28 +419,50 @@ function AllPrograms() {
   );
 }
 
-export default function Explore() {
+/**
+ * Universities (`/explore`) and personalised matching (`/match`, 261119 owner requirement 1).
+ *
+ * `/match` is the canonical home of "university matching & selection": it is a gated route (see `lib/access.ts`),
+ * so a student without a plan never reaches it — they are sent to the plan with `from=/match` and come back here
+ * after paying. On `/explore` the same "For you" tab is shown to a student without a plan as the way to a plan, and
+ * the directory ("All programmes") stays open to everyone.
+ */
+export default function Explore({ route = 'explore' }: { route?: 'explore' | 'match' }) {
   const { t } = useT();
   const [sp, setSp] = useSearchParams();
+  const nav = useNavigate();
   const matches = useMyMatches();
   const saved = useSaved();
+  const plan = useMyPlan();
+  // Only a definite "no plan" gates; loading or an error is "not known" (V19), and the tab shows its own states.
+  const unpaid = !plan.isLoading && !plan.isError && plan.data !== undefined && !plan.data.plan;
   // `lang` (the V14 URL locale) and `verdict` are not search filters: a localized link must open "For you", not the full list.
   const hasFilters = [...sp.keys()].some((k) => !NON_FILTER_KEYS.has(k));
-  const tab = sp.get('tab') === 'saved' ? 'saved' : sp.get('tab') === 'all' || (!sp.get('tab') && hasFilters) ? 'all' : 'foryou';
+  const tab = route === 'match' ? 'foryou'
+    : sp.get('tab') === 'saved' ? 'saved'
+      : sp.get('tab') === 'all' || (!sp.get('tab') && (hasFilters || unpaid)) ? 'all'
+        : 'foryou';
   // "For you" counts what the tab lists: every program at the student's degree level (the groups below split it).
   const forYou = (matches.data?.items ?? []).filter((m) => !otherDegree(m)).length;
+  const go = (v: string) => {
+    if (route === 'match') { if (v !== 'foryou') nav(`/explore?tab=${v}`); return; }
+    if (v === 'foryou' && !unpaid) { nav('/match'); return; }
+    setSp({ tab: v }, { replace: true });
+  };
   return (
-    <div className="st-page sp-explore">
+    <div className="st-page sp-explore" data-route={route}>
       <PageIntro title={t('discover.title')} subtitle={t('v4.discoverSubtitle')}
         actions={<Link to="/compare#budget" className="hg-link-arrow">{t('discover.budgetLink')}</Link>} />
       <div className="hg-stack" style={{ '--hg-gap': '20px' } as React.CSSProperties}>
-        <Tabs label={t('discover.title')} value={tab} onChange={(v) => setSp({ tab: v }, { replace: true })}
+        <Tabs label={t('discover.title')} value={tab} onChange={go}
           tabs={[
-            { value: 'foryou', label: t('discover.forYou'), count: matches.data ? forYou : undefined },
+            { value: 'foryou', label: t('discover.forYou'), count: matches.data && !unpaid && !plan.isLoading ? forYou : undefined },
             { value: 'all', label: t('discover.all') },
             { value: 'saved', label: t('discover.savedTab'), count: saved.data?.length || undefined },
           ]} />
-        {tab === 'foryou' ? <ForYou /> : tab === 'saved' ? <SavedList /> : <AllPrograms />}
+        {tab === 'foryou'
+          ? (plan.isLoading ? <RowsSkeleton /> : unpaid ? <MatchPlanPath onBrowse={() => go('all')} /> : <ForYou />)
+          : tab === 'saved' ? <SavedList /> : <AllPrograms />}
       </div>
     </div>
   );

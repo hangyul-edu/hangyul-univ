@@ -445,7 +445,7 @@ function Recommended({ d }: { d: DashboardData }) {
   const close = d.recommendations_kind === 'POSSIBLE';
   return (
     <Section title={close ? t('home.closest') : t('home.recommended')} sub={close ? t('home.closestSub') : t('home.recommendedSub')} id="recommended" className="v22-main"
-      action={<Link to="/explore?tab=foryou" className="hg-link-arrow">{t('home.allMatches')}</Link>}>
+      action={<Link to="/match" className="hg-link-arrow">{t('home.allMatches')}</Link>}>
       <ul className="v22-rows">
         {d.recommendations.map((m) => {
           const u = m.program.university;

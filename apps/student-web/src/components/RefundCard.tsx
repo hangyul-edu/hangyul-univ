@@ -3,6 +3,7 @@
  * Shown on home (and to a sponsor) when a refund case is open: why, the university's refund rule (or "your counselor
  * confirms"), the own-account rule, the payment-route guard and how many days have passed.
  */
+import { uniName } from '@hangyul/i18n';
 import { ArrowRight, Undo2 } from '@hangyul/icons';
 import { ButtonLink, StatusText } from '@hangyul/ui';
 import { formatDate, formatMoney } from '@hangyul/utils';
@@ -16,7 +17,7 @@ export function RefundCard({ r, sponsor = false }: { r: RefundSummary; sponsor?:
   return (
     <section className="v9-refund" aria-labelledby="v9-refund-title">
       <p className="v9-refund__eyebrow"><Undo2 aria-hidden /> {t(`v9.refund.trigger.${r.trigger}`)}</p>
-      <h2 id="v9-refund-title" className="v9-refund__title">{t('v9.refund.title', { university: r.university ?? '' })}</h2>
+      <h2 id="v9-refund-title" className="v9-refund__title">{t('v9.refund.title', { university: uniName(r) })}</h2>
       <ul className="v9-refund__facts">
         {r.amount_paid_krw != null && <li>{t('v9.refund.paid', { amount: formatMoney(r.amount_paid_krw, 'KRW', locale) })}</li>}
         <li>{r.rule.known ? t('v9.refund.ruleKnown') : t('v9.refund.ruleUnknown')}</li>

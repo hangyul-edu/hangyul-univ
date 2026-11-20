@@ -5,7 +5,6 @@ import { useLocale } from '@hangyul/i18n';
 import type { Program } from '@hangyul/types';
 import { Button, Callout, Checkbox, DescriptionList, Field, Input, Select, Textarea, useToast } from '@hangyul/ui';
 import { LiveImpact } from '../components/v9/ImpactNote';
-import { formatDateTime } from '@hangyul/utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
@@ -16,7 +15,7 @@ import { useUniversity } from '../lib/university';
 
 /** Admission-rule editor. Admins publish directly; admissions staff submit a proposal that an admin publishes. */
 export function RulesForm({ program, onDone }: { program: Program; onDone?: () => void }) {
-  const { t, locale } = useLocale(['university', 'common']);
+  const { t } = useLocale(['university', 'common']);
   const { api } = useAuth();
   const toast = useToast();
   const qc = useQueryClient();
@@ -64,54 +63,61 @@ export function RulesForm({ program, onDone }: { program: Program; onDone?: () =
     );
   }
 
+  // Same layout as the read view it replaces: the fields where the rule list was, and "What students see" in the
+  // side panel, updating as the reader types, so editing never moves the preview below the fold.
   return (
-    <form className="hg-stack" onSubmit={handleSubmit((v) => m.mutate(v))} noValidate>
-      <div className="uc-form-2">
-        <Field label={t('university:rules.minGpa')} htmlFor="r-gpa" hint={t('university:rules.minGpaHint')} error={err('min_gpa_percent')}>
-          <Input id="r-gpa" type="number" inputMode="decimal" min={0} max={100} step={0.1} {...register('min_gpa_percent')} invalid={!!errors.min_gpa_percent} />
+    <form className="uc-rulesform" onSubmit={handleSubmit((v) => m.mutate(v))} noValidate>
+      <div className="uc-rulesform__main hg-stack">
+        <div className="uc-form-2">
+          <Field label={t('university:rules.minGpa')} htmlFor="r-gpa" hint={t('university:rules.minGpaHint')} error={err('min_gpa_percent')}>
+            <Input id="r-gpa" type="number" inputMode="decimal" min={0} max={100} step={0.1} {...register('min_gpa_percent')} invalid={!!errors.min_gpa_percent} />
+          </Field>
+          <Field label={t('university:rules.minTopik')} htmlFor="r-topik" hint={t('university:rules.minTopikHint')} error={err('min_topik_level')}>
+            <Input id="r-topik" type="number" inputMode="numeric" min={0} max={6} step={1} {...register('min_topik_level')} invalid={!!errors.min_topik_level} />
+          </Field>
+          <Field label={t('university:rules.minIelts')} htmlFor="r-ielts" hint={t('university:rules.minIeltsHint')} error={err('min_ielts')}>
+            <Input id="r-ielts" type="number" inputMode="decimal" min={0} max={9} step={0.5} {...register('min_ielts')} invalid={!!errors.min_ielts} />
+          </Field>
+          <Field label={t('university:rules.minToefl')} htmlFor="r-toefl" hint={t('university:rules.minToeflHint')} error={err('min_toefl_ibt')}>
+            <Input id="r-toefl" type="number" inputMode="numeric" min={0} max={120} step={1} {...register('min_toefl_ibt')} invalid={!!errors.min_toefl_ibt} />
+          </Field>
+        </div>
+        <Field label={t('university:v9.rules.priorEducation')} htmlFor="r-edu" optional>
+          <Select id="r-edu" {...register('min_prior_education')}>
+            <option value="">{t('university:rules.none')}</option>
+            {(['HIGH_SCHOOL', 'ASSOCIATE', 'BACHELOR', 'MASTER'] as const).map((l) => <option key={l} value={l}>{t(`university:eduLevel.${l}`, { defaultValue: l })}</option>)}
+          </Select>
         </Field>
-        <Field label={t('university:rules.minTopik')} htmlFor="r-topik" hint={t('university:rules.minTopikHint')} error={err('min_topik_level')}>
-          <Input id="r-topik" type="number" inputMode="numeric" min={0} max={6} step={1} {...register('min_topik_level')} invalid={!!errors.min_topik_level} />
+        <div className="uc-rulesform__checks">
+          <Checkbox label={t('university:rules.languageAltLabel')} {...register('language_alternative')} />
+          <Checkbox label={t('university:rules.interviewLabel')} {...register('requires_interview')} />
+        </div>
+        <Field label={t('university:rules.notes')} htmlFor="r-notes" optional hint={t('university:rules.notesHint')} error={err('notes')}>
+          <Textarea id="r-notes" rows={4} maxLength={2000} {...register('notes')} />
         </Field>
-        <Field label={t('university:rules.minIelts')} htmlFor="r-ielts" hint={t('university:rules.minIeltsHint')} error={err('min_ielts')}>
-          <Input id="r-ielts" type="number" inputMode="decimal" min={0} max={9} step={0.5} {...register('min_ielts')} invalid={!!errors.min_ielts} />
+        <Field label={t('university:rules.sourceUrl')} htmlFor="r-src" optional hint={t('university:rules.sourceUrlHint')} error={err('source_url')}>
+          <Input id="r-src" type="url" inputMode="url" placeholder="https://" {...register('source_url')} invalid={!!errors.source_url} />
         </Field>
-        <Field label={t('university:rules.minToefl')} htmlFor="r-toefl" hint={t('university:rules.minToeflHint')} error={err('min_toefl_ibt')}>
-          <Input id="r-toefl" type="number" inputMode="numeric" min={0} max={120} step={1} {...register('min_toefl_ibt')} invalid={!!errors.min_toefl_ibt} />
-        </Field>
+        {!publish && (
+          <Field label={t('university:rules.reason')} htmlFor="r-reason" optional hint={t('university:rules.reasonHint')}>
+            <Input id="r-reason" maxLength={1000} value={reason} onChange={(e) => setReason(e.target.value)} />
+          </Field>
+        )}
       </div>
-      <Field label={t('university:v9.rules.priorEducation')} htmlFor="r-edu" optional>
-        <Select id="r-edu" {...register('min_prior_education')}>
-          <option value="">{t('university:rules.none')}</option>
-          {(['HIGH_SCHOOL', 'ASSOCIATE', 'BACHELOR', 'MASTER'] as const).map((l) => <option key={l} value={l}>{t(`university:eduLevel.${l}`, { defaultValue: l })}</option>)}
-        </Select>
-      </Field>
-      <div className="hg-stack" style={{ '--hg-gap': '8px' } as React.CSSProperties}>
-        <Checkbox label={t('university:rules.languageAltLabel')} {...register('language_alternative')} />
-        <Checkbox label={t('university:rules.interviewLabel')} {...register('requires_interview')} />
+      <aside className="uc-rulesform__aside hg-stack" aria-live="polite">
+        <div className="uv7-studentsee">
+          <div className="fw-semibold fs-13 mb-2">{t('university:v4.rules.studentsSee')}</div>
+          <ul className="uv7-bullets">{requirementLines({ ...(r ?? {}), ...rulesPayload(watch()) }, t).map((l) => <li key={l}>{l}</li>)}</ul>
+        </div>
+        {isDirty && <LiveImpact programId={program.id} payload={rulesPayload(watch())} />}
+      </aside>
+      <div className="uc-rulesform__foot">
+        <p className="uc-note"><ShieldCheck size={13} aria-hidden style={{ display: 'inline', verticalAlign: '-2px' }} /> {publish ? t('university:rules.stampBody') : t('university:rules.reviewBody')}</p>
+        <div className="uc-rulesform__actions">
+          <Button onClick={() => { reset(rulesDefaults(r)); onDone?.(); }}>{t('common:actions.cancel')}</Button>
+          <Button type="submit" variant="primary" loading={m.isPending} disabled={!isDirty}>{publish ? t('university:rules.publish') : t('university:rules.submitReview')}</Button>
+        </div>
       </div>
-      <Field label={t('university:rules.notes')} htmlFor="r-notes" optional hint={t('university:rules.notesHint')} error={err('notes')}>
-        <Textarea id="r-notes" rows={4} maxLength={2000} {...register('notes')} />
-      </Field>
-      <Field label={t('university:rules.sourceUrl')} htmlFor="r-src" optional hint={t('university:rules.sourceUrlHint')} error={err('source_url')}>
-        <Input id="r-src" type="url" inputMode="url" placeholder="https://" {...register('source_url')} invalid={!!errors.source_url} />
-      </Field>
-      <div className="uc-rules-preview" aria-live="polite">
-        <div className="uc-sidebox__label">{t('university:v4.rules.studentsSee')}</div>
-        <ul className="uc-bullets">{requirementLines({ ...(r ?? {}), ...rulesPayload(watch()) }, t).map((l) => <li key={l}>{l}</li>)}</ul>
-      </div>
-      {isDirty && <LiveImpact programId={program.id} payload={rulesPayload(watch())} />}
-      {!publish && (
-        <Field label={t('university:rules.reason')} htmlFor="r-reason" optional hint={t('university:rules.reasonHint')}>
-          <Input id="r-reason" maxLength={1000} value={reason} onChange={(e) => setReason(e.target.value)} />
-        </Field>
-      )}
-      <p className="uc-note"><ShieldCheck size={13} aria-hidden style={{ display: 'inline', verticalAlign: '-2px' }} /> {publish ? t('university:rules.stampBody') : t('university:rules.reviewBody')}</p>
-      <div className="hg-row" style={{ gap: 8, justifyContent: 'flex-end' }}>
-        <Button onClick={() => { reset(rulesDefaults(r)); onDone?.(); }}>{t('common:actions.cancel')}</Button>
-        <Button type="submit" variant="primary" loading={m.isPending} disabled={!isDirty}>{publish ? t('university:rules.publish') : t('university:rules.submitReview')}</Button>
-      </div>
-      {r?.verified_at && <p className="hg-subtle hg-xs">{t('university:rules.lastUpdated', { date: formatDateTime(r.verified_at, locale) })}</p>}
     </form>
   );
 }

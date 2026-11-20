@@ -17,6 +17,7 @@ import { EmptyState } from '../components/States';
 import { FontsReadyContext, fontAssets } from '../fonts';
 import { theme } from '../theme';
 import { createMobileApi } from './api';
+import { authGateView } from './gate';
 import { clearOfflineCache, wireOfflineCache } from './offline';
 import { applyAccountLocale, initMobileI18n, MOBILE_NAMESPACES } from './i18n';
 
@@ -158,9 +159,10 @@ function QueryResetOnLogout({ children }: { children: ReactNode }) {
  *  "account created" step and the quick profile are shown before the app takes over (V22). */
 export function AuthGate({ children, login, hold = false }: { children: ReactNode; login: ReactNode; hold?: boolean }) {
   const { status, retry } = useAuth();
-  if (status === 'loading') return <BrandSplash />;
-  if (status === 'unavailable') return <ServiceUnavailable onRetry={() => void retry()} />;
-  if (status === 'anonymous' || hold) return <>{login}</>;
+  const view = authGateView(status, hold);
+  if (view === 'splash') return <BrandSplash />;
+  if (view === 'unavailable') return <ServiceUnavailable onRetry={() => void retry()} />;
+  if (view === 'auth') return <>{login}</>;
   return <>{children}</>;
 }
 

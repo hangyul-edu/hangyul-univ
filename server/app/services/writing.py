@@ -296,7 +296,7 @@ def check_target(db: Session, essay: Essay) -> wc.Target:
     # Language-institute courses are a normal thing to mention ("after the Korean Language Program…") — not "other".
     other_programs = [n for (n, lvl) in db.execute(select(Program.name_en, Program.degree_level).where(Program.university_id == uni.id)).all()
                       if (not t["program"] or n != t["program"].name_en) and lvl.value != "LANGUAGE"]
-    return wc.Target(university_name=uni.name_en, university_aliases=_aliases(uni)[1:],
+    return wc.Target(university_name=uni.name_en, university_name_ko=uni.name_ko, university_aliases=_aliases(uni)[1:],
                      program_name=t["program"].name_en if t["program"] else None, other_universities=others,
                      other_programs=other_programs)
 

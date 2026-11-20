@@ -4,6 +4,7 @@
  * application uses it, and an authorship statement on submit ("These are my own words and facts").
  * Tangerine is only the primary action (Submit). Nothing here writes content for the student.
  */
+import { orgName, errorText } from '@hangyul/i18n';
 import { useApi } from '@hangyul/auth';
 import { AlertCircle, CheckCircle2, Check, ChevronDown, CircleDashed, GitCompare, History, Lock, RefreshCw, Save, Send, ShieldCheck, TriangleAlert, Undo2 } from '@hangyul/icons';
 import type { WritingFinding } from '@hangyul/types';
@@ -12,7 +13,7 @@ import { cx, essayTone, formatDate, formatDateTime, formatRelative } from '@hang
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { useUpgradeOnRefusal } from '../lib/upgrade';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import { Link, useParams } from 'react-router';
 
 import { DaysLeft } from '../components/bits';
@@ -26,6 +27,40 @@ import {
 import './writing.css';
 
 type SaveState = 'idle' | 'dirty' | 'saving' | 'saved' | 'error';
+
+/**
+ * **The sheet grows with the text; the page is the only scroller** (261119, owner requirement 5 — PDF p2, the
+ * 학업계획서 editor that "cannot scroll").
+ *
+ * The editor was a fixed-height `<textarea>` (460 px, 55 dvh on phones) that scrolled *inside itself*. A long draft
+ * put a second scroller in the middle of the page: the wheel moved the text, not the page, the word count and the
+ * Save / Submit actions sat below a box that never seemed to end, and on a phone the inner box and the page fought
+ * over every swipe. Now the textarea is as tall as its text (never shorter than the CSS minimum), so the page scrolls
+ * the whole draft and its actions are always reachable below it. Typing at the end keeps the caret in view because
+ * the browser scrolls the page to the caret of a focused field.
+ */
+function useAutoGrow(ref: RefObject<HTMLTextAreaElement | null>, value: string) {
+  const fit = useCallback(() => {
+    const el = ref.current;
+    if (!el) return;
+    // Measuring needs `height: auto` for a moment, which can shorten the document and clamp the page's scroll
+    // position — so the position is put back in the same frame (no visible jump while typing at the end).
+    const y = window.scrollY;
+    el.style.height = 'auto';
+    el.style.height = `${el.scrollHeight + 2}px`;
+    if (window.scrollY !== y) window.scrollTo(window.scrollX, y);
+  }, [ref]);
+  useLayoutEffect(fit, [fit, value]);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof ResizeObserver === 'undefined') return undefined;
+    // A width change (rotation, the margin collapsing under 1024 px) re-wraps the text.
+    let w = el.clientWidth;
+    const ro = new ResizeObserver(() => { if (el.clientWidth !== w) { w = el.clientWidth; fit(); } });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [ref, fit]);
+}
 
 /** The university's question: linked prompt, the student's pasted copy, or an honest "not yet". */
 function UniversityQuestion({ essay }: { essay: V6Essay }) {
@@ -105,7 +140,7 @@ function MarginComment({ c, essay, body, active, onShow, editable, busy, onDecid
       <div className="sw-cmt__who">
         <Avatar name={c.author?.full_name ?? '?'} size={26} />
         <div className="hg-grow" style={{ minWidth: 0 }}>
-          <div className="hg-small hg-strong hg-truncate">{c.author?.full_name ?? t('essay.comments.reviewer')}</div>
+          <div className="hg-small hg-strong hg-truncate">{c.author?.full_name ? orgName(c.author.full_name) : t('essay.comments.reviewer')}</div>
           <div className="hg-subtle hg-xs">{t(`writing:student.role.${role}`, { org: who?.org ?? '' })} · {formatRelative(c.at, locale)}</div>
         </div>
       </div>
@@ -169,6 +204,7 @@ function Editor({ essay }: { essay: V6Essay }) {
   const [showResolved, setShowResolved] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const ta = useRef<HTMLTextAreaElement>(null);
+  useAutoGrow(ta, body);
   const bodyRef = useRef(body);
   bodyRef.current = body;
   const editable = canDecide(essay.status);
@@ -209,12 +245,12 @@ function Editor({ essay }: { essay: V6Essay }) {
   const version = useMutation({
     mutationFn: () => persist(true),
     onSuccess: (e) => toast.success(t('essay.versionSaved', { version: e.current_version })),
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const reopen = useMutation({
     mutationFn: () => api.essays.setStatus(essay.id, 'STUDENT_REVISION'),
     onSuccess: (e) => { setEssay(e as unknown as V6Essay); setBody(e.body); toast.success(t('essay.statusDone.STUDENT_REVISION')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const submit = useMutation({
     mutationFn: async () => { if (save === 'dirty') await persist(false); return v6.submit(essay.id, locale); },
@@ -223,17 +259,17 @@ function Editor({ essay }: { essay: V6Essay }) {
     // refuses the one past the limit. A Basic student asking for their first review has not hit an error,
     // so the upgrade sheet answers instead of the toast. `setSubmitting(false)` either way — the editor
     // must come back out of its submitting state whichever surface explains the refusal.
-    onError: (e) => { setSubmitting(false); if (!upgrade.catchRefusal(e)) toast.error((e as Error).message); },
+    onError: (e) => { setSubmitting(false); if (!upgrade.catchRefusal(e)) toast.error(errorText(e)); },
   });
   const decide = useMutation({
     mutationFn: async ({ cid, d }: { cid: string; d: 'ACCEPT' | 'REJECT' }) => { if (save === 'dirty') await persist(false); return v6.decide(essay.id, cid, d); },
     onSuccess: (e, v) => { setEssay(e); setBody(e.body); setSave('saved'); toast.success(v.d === 'ACCEPT' ? t('writing:student6.acceptedToast') : t('writing:student6.keptToast')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const resolve = useMutation({
     mutationFn: (cid: string) => api.essays.resolve(essay.id, cid, false),
     onSuccess: (e) => { setEssay(e as unknown as V6Essay); toast.success(t('essay.comments.resolvedToast')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const checks = useMutation({
     // Check exactly what is on screen: save first whenever the text differs from the stored version or a save is pending
@@ -243,7 +279,7 @@ function Editor({ essay }: { essay: V6Essay }) {
       return api.writing.runChecks(essay.id) as unknown as Promise<V6Essay>;
     },
     onSuccess: (e) => { setEssay(e); toast.success(t('writing:student.checked')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
 
   const visible = essay.comments.filter((c) => c.visibility !== 'INTERNAL');

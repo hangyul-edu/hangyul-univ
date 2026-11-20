@@ -478,7 +478,10 @@
     "reasonRequired": "学生に修正が必要な点を伝えてください。",
     "phone": "正しい携帯電話番号を入力してください。",
     "passwordMismatch": "パスワードが一致しません。",
-    "code": "6桁の認証コードを入力してください。"
+    "code": "6桁の認証コードを入力してください。",
+    "fileCount_other": "一度に追加できるのは {{count}} ファイルまでです。",
+    "fileEmpty": "このファイルは空です。",
+    "fileExtension": "ファイル名の拡張子がファイルの種類と一致しません。PDF、JPG、PNG、WEBP のいずれかのファイルをアップロードしてください。"
   },
   "notify": {
     "agencyAssigned": "{{agency}} があなたの出願サポートを開始しました。",
@@ -529,7 +532,8 @@
     "addonOffered": "担当コンサルタントから追加サービスのご提案があります。プラン画面でご確認ください。",
     "v29": {
       "addonOffered": "Hangyul Univ チームから追加サービスのご提案があります"
-    }
+    },
+    "appointment": "{{at}}に相談が予約されました"
   },
   "a11y": {
     "skipToContent": "メインコンテンツへスキップ",
@@ -1079,18 +1083,18 @@
           "settlement": "入国 {{before}} 日前から入国後 {{count}} 日まで",
           "livingInfo": "基本的な生活情報"
         },
-        "scopeNote": "Premium の添削は、契約した出願書類とスケジュールの範囲内で回数制限がありません。新しい書類の作成、翻訳、公証は含まれません。"
+        "scopeNote": "Premium の添削は、契約した出願書類と出願スケジュールの範囲内で回数制限がありません。新しい書類の作成、翻訳、公証は含まれません。"
       },
       "notes": {
         "title": "ご購入前に",
         "usd": "料金はすべて米ドル（USD）建ての一括払いです。",
         "exchange": "実際の請求額は、為替レートやカード会社・決済会社の手数料により変わることがあります。",
-        "external": "大学の選考料、授業料、ビザ手数料、翻訳・公証、国際配送などの第三者費用は別途かかります。",
-        "documentsVary": "必要な書類は、国籍・学歴・出願課程によって異なります。",
-        "visaDecision": "ビザについては、書類の準備と申請手続きをお手伝いします。発給の可否は出入国管理当局が判断します。",
-        "agreement": "詳しい日程、添削の範囲、返信時間などは、サービス契約書または注文書で定める場合があります。",
+        "external": "大学の選考料、授業料、ビザ手数料、翻訳、公証、国際配送などの第三者費用は別途お支払いいただきます。",
+        "documentsVary": "必要な書類は、国籍・学歴・出願するプログラムによって異なります。",
+        "visaDecision": "ビザ申請の準備をお手伝いします。発給の可否は出入国管理当局が判断します。",
+        "agreement": "日程、添削の範囲、返信時間などの詳細は、サービス契約書または注文書で定める場合があります。",
         "premiumScope": "Premium の添削は、契約した出願書類と出願スケジュールの範囲内で回数制限がありません。",
-        "newDocuments": "新しい書類の作成、翻訳、公証には別途費用がかかる場合があります。"
+        "newDocuments": "新しい書類の作成にも別途費用がかかる場合があります。"
       },
       "addons": {
         "title": "追加サービス",
@@ -1105,10 +1109,10 @@
     "addon": {
       "item": {
         "extra_application": "出願管理を1校追加",
-        "extra_edit": "自己紹介書・学業計画書の添削（1回追加）",
+        "extra_edit": "添削1回追加（自己紹介書または学業計画書）",
         "mock_interview": "模擬面接",
         "dormitory": "寮の申込サポート",
-        "airport_pickup": "空港送迎（提携先による手配）",
+        "airport_pickup": "空港送迎の手配",
         "settlement": "生活立ち上げサポートの追加"
       },
       "unit": {
@@ -1280,5 +1284,53 @@
     "video": {
       "more": "その他の公式動画"
     }
+  },
+  "upload": {
+    "cantAdd": "このファイルは追加できません",
+    "checking": "ファイルを確認しています…",
+    "choose": "ファイルを選択",
+    "chooseMany": "ファイルを選択",
+    "constraints": "PDF、JPG、PNG、WEBP · {{mb}} MB まで",
+    "constraintsMany": "PDF、JPG、PNG、WEBP · 1ファイル {{mb}} MB まで · 最大 {{count}} ファイル",
+    "done": "{{name}} を追加しました",
+    "dropHere": "ドロップしてアップロード",
+    "dropRelease": "ここで離すと追加されます",
+    "orDrag": "またはここにドラッグ",
+    "orDragMany": "またはここにファイルをドラッグ",
+    "rejected": "{{name}}：{{reason}}",
+    "replace": "別のファイルを選択",
+    "selected": "{{name}} を選択しました",
+    "uploading": "アップロード中…",
+    "uploadingPct": "アップロード中… {{pct}}%",
+    "zone": "ファイルのアップロード欄"
+  },
+  "previewFixture": {
+    "transcriptApostille": "成績証明書は、アポスティーユを取得しないと使用できません。アップロードされた写しは認証されていません。",
+    "draftedByHangyul": "Hangyul が作成した下書きです。大学の公式の文言ではないため、承認前に実際の設問を確認してください。",
+    "profileChecked": "プロフィールの確認が完了しました。次は書類です。いちばん時間がかかる成績証明書のアポスティーユから始めましょう。",
+    "kyungpookFirst": "締め切りがいちばん近い Kyungpook の書類から先に仕上げましょう。",
+    "apostilleRequired": "アポスティーユが必要",
+    "schoolProject": "学校のプロジェクトを追加しました",
+    "expectedGraduationNote": "2026年11月1日以降に発行された卒業見込証明書を送ってください。",
+    "expectedGraduationLabel": "卒業見込証明書",
+    "subjectStrategy": "出願戦略と奨学金プラン",
+    "secondDraftTask": "学業計画書の第2稿をアップロードする",
+    "topik3Standard": "入学時のTOPIK 3級は教育部の推奨基準によるもので、大学独自の基準が優先されます。"
+  },
+  "team": {
+    "hangyul": "Hangyul Univ チーム",
+    "operations": "Hangyul Univ 運営チーム"
+  },
+  "systemDoc": {
+    "housingContract": "確認が必要な住居契約書",
+    "serviceCompletionPhoto": "サービス完了の写真"
+  },
+  "apiError": {
+    "generic": "処理できませんでした。もう一度お試しください。",
+    "conflict": "その間に内容が変更されました。ページを再読み込みして、もう一度お試しください。",
+    "tooLarge": "ファイルサイズが大きすぎます。",
+    "invalid": "受け付けられない入力内容があります。確認して、もう一度お試しください。",
+    "rateLimited": "試行回数が多すぎます。しばらく待ってから、もう一度お試しください。",
+    "notFound": "見つかりませんでした。削除された可能性があります。"
   }
 }

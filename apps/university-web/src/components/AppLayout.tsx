@@ -1,6 +1,6 @@
 import { useAuth } from '@hangyul/auth';
 import { Building2, ChartColumn, MessageSquare, Search, Settings, Users } from '@hangyul/icons';
-import { useLocale } from '@hangyul/i18n';
+import { orgName, useLocale } from '@hangyul/i18n';
 import { Badge, Card, ErrorState, Select, Skeleton, type NavSection } from '@hangyul/ui';
 import { YnexShell } from '@hangyul/ynex-ui';
 import { useQuery } from '@tanstack/react-query';
@@ -39,7 +39,7 @@ function OwnMembershipSwitch({ compact }: { compact?: boolean }) {
   if (own.length < 2) return null;
   return (
     <Select compact={compact} aria-label={t('university:picker.label')} value={session?.active_org?.org_id ?? ''} onChange={(e) => { if (e.target.value) void switchOrg(e.target.value); }} style={{ maxInlineSize: 260 }}>
-      {own.map((m) => <option key={m.org_id} value={m.org_id}>{m.org_name}</option>)}
+      {own.map((m) => <option key={m.org_id} value={m.org_id}>{orgName(m.org_name, 'staff')}</option>)}
     </Select>
   );
 }

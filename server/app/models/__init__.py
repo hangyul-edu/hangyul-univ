@@ -1,6 +1,7 @@
 from app.models.base import Base  # noqa: F401
 from app.models.business import *  # noqa: F401,F403
 from app.models.catalog import *  # noqa: F401,F403
+from app.models.catalog_ingest import *  # noqa: F401,F403
 from app.models.devices import *  # noqa: F401,F403
 from app.models.identity import *  # noqa: F401,F403
 from app.models.institution import *  # noqa: F401,F403

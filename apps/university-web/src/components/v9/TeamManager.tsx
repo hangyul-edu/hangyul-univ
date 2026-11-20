@@ -122,7 +122,7 @@ export function TeamManager({ team, isAdmin, me }: { team: TeamMember[]; isAdmin
                 <Avatar name={m.full_name} size={28} />
                 <span className="min-w-0">
                   <span className="hg-medium d-block">{m.full_name}{m.user_id === me && <span className="uc-sub"> · {t('university:settings.youShort')}</span>}</span>
-                  <span className="uv9-team__meta">{m.title ?? ''}</span>
+                  <span className="uv9-team__meta" data-user-content>{m.title ?? ''}</span>
                 </span>
               </span>
               <span className="uv9-team__meta">{active ? (m.open_assignments ? t('university:v9.team.holdsShort', { count: m.open_assignments }) : t('university:v9.team.holdsNone')) : <StatusText tone="neutral">{t('university:v9.team.inactive')}</StatusText>}</span>

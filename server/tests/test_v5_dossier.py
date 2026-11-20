@@ -222,6 +222,9 @@ def test_dossier_applicability_copy_and_packages(client, db):
     assert bank["summary"]["text"].startswith("Can be used for Pusan National University. Kyungpook National University needs a certificate issued within the last 30 days")
     assert rows["PASSPORT"]["summary"]["text"] == "Ready for 2 of 2 applications."
     assert any(f["code"] == "NEW_ISSUE_NEEDED" for f in bank["findings"])
+    # Owner pass 261119: optional requirements are listed separately (additive) and never duplicate a row.
+    assert isinstance(d["optional"], list)
+    assert all(set(o) == {"category", "universities"} and o["category"] not in rows for o in d["optional"])
     _uid, pnu, knu = _thu_apps(db)
     pk = client.get(f"/api/v1/applications/{knu.id}/package", headers=h).json()
     s = pk["summary"]

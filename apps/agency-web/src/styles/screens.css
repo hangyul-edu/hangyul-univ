@@ -128,10 +128,12 @@
 /* ---------------------------------------------------------------- HQ: where is the ecosystem failing? */
 .ag8-fail__row {
   display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) auto; gap: 0.875rem; align-items: center;
-  padding-block: 0.75rem; padding-inline: 1.25rem; border-block-end: 1px solid var(--hg-border-subtle);
+  padding-block: 0.75rem; padding-inline: 1.5rem; border-block-end: 1px solid var(--hg-border-subtle);
 }
 .ag8-fail__row:last-child { border-block-end: 0; }
-.ag8-fail__row[data-sev='critical'] { border-inline-start: 3px solid var(--hg-status-danger-fg); }
+/* An inset bar rather than a border, so critical rows keep the same columns as the others. */
+.ag8-fail__row[data-sev='critical'] { box-shadow: inset 3px 0 0 var(--hg-status-danger-fg); }
+[dir='rtl'] .ag8-fail__row[data-sev='critical'] { box-shadow: inset -3px 0 0 var(--hg-status-danger-fg); }
 .ag8-fail__sev { justify-self: start; }
 .ag8-fail__main { display: flex; flex-direction: column; gap: 0.125rem; min-inline-size: 0; }
 .ag8-fail__what { font-weight: 600; color: var(--hg-text); }
@@ -145,7 +147,7 @@
 .ag8-ready__verdict.is-not { border-inline-start: 4px solid var(--hg-status-danger-fg); }
 .ag8-ready__verdict.is-ready { border-inline-start: 4px solid var(--hg-status-success-fg, #0b7a3b); }
 .ag8-ready__counts { display: flex; flex-wrap: wrap; gap: 0.375rem; margin-inline-start: auto; }
-.ag8-ready__row { display: grid; grid-template-columns: minmax(12rem, 1fr) 9.5rem minmax(0, 1.6fr); gap: 1rem; align-items: start; padding-block: 0.75rem; padding-inline: 1.25rem; border-block-end: 1px solid var(--hg-border-subtle); font-size: var(--hg-text-sm); }
+.ag8-ready__row { display: grid; grid-template-columns: minmax(12rem, 1fr) 9.5rem minmax(0, 1.6fr); gap: 1rem; align-items: start; padding-block: 0.75rem; padding-inline: 1.5rem; /* = the card header, so names line up under the title */ border-block-end: 1px solid var(--hg-border-subtle); font-size: var(--hg-text-sm); }
 /* V10: the category badge sits in a fixed 9.5rem column. The longest launch-category label is a little wider
    than that, so the pill spilled into the evidence column beside it. It wraps inside its own column now. */
 .ag8-ready__status { min-width: 0; }
@@ -163,6 +165,10 @@
 .ag8-ready__legend dt .badge { max-width: 100%; white-space: normal; text-align: start; }
 .ag8-ready .card { margin-block-end: 1rem; }
 @media (max-width: 767.98px) { .ag8-ready__row { grid-template-columns: minmax(0, 1fr) auto; } .ag8-ready__detail { grid-column: 1 / -1; } }
+/* An item with nothing to add left an empty grid cell (and its row gap) under it. */
+.ag8-ready__detail:empty { display: none; }
+/* Phones: badge above its meaning, so the explanation is not squeezed into a third of the width. */
+@media (max-width: 575.98px) { .ag8-ready__legend div { grid-template-columns: minmax(0, 1fr); gap: 0.25rem; } }
 
 /* ---------------------------------------------------------------- HQ: agencies */
 .ag8-agrow { display: grid; grid-template-columns: minmax(12rem, 1.3fr) minmax(10rem, 1fr) minmax(10rem, 1.2fr) auto; gap: 1rem; align-items: center; padding-block: 0.875rem; padding-inline: 1.25rem; border-block-end: 1px solid var(--hg-border-subtle); }
@@ -170,7 +176,9 @@
 .ag8-agrow__who, .ag8-agrow__load { display: flex; flex-direction: column; gap: 0.25rem; min-inline-size: 0; }
 .ag8-agrow__go { display: flex; gap: 0.375rem; flex-wrap: wrap; justify-content: flex-end; }
 @media (max-width: 991.98px) { .ag8-agrow { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .ag8-agrow__go { justify-content: flex-start; } }
-.ag8-sugg ul { max-block-size: 16rem; overflow-y: auto; border: 1px solid var(--hg-border-subtle); border-radius: 0.375rem; }
+/* Suggestions are rows of the card, not a box inside it (no card-in-card); the text lines up with the heading. */
+.ag8-sugg ul { max-block-size: 16rem; overflow-y: auto; margin-inline: -10px; }
+.ag8-sugg li + li { border-block-start: 1px solid var(--hg-border-subtle); }
 
 /* ── from v9.css ────────────────────────────────────────────────────────────────────────────────────────────── */
 /* V9 agency + Hangyul operations workstream (REPORT §59, §61). Dense and calm, YNEX blue. Logical properties only. */
@@ -370,6 +378,17 @@
 .ag9-fail__acts { display: inline-flex; gap: 0.375rem; align-items: center; flex: none; }
 .ag9-fail__list { grid-column: 1 / -1; margin: 0.5rem 0 0; padding-inline-start: 1.25rem; font-size: var(--hg-text-sm); columns: 2; column-gap: 2rem; }
 @media (max-width: 767.98px) { .ag9-fail__list { columns: 1; } }
+/* Phones: severity and the two actions share the first line, so the sentence gets the full width below them
+   (it was squeezed into a third of the row beside two buttons). */
+@media (max-width: 575.98px) {
+  .ag9-fail { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'sev acts' 'main main'; row-gap: 0.5rem; }
+  .ag9-fail > .ag8-fail__sev { grid-area: sev; grid-column: auto; }
+  .ag9-fail > .ag8-fail__main { grid-area: main; }
+  .ag9-fail > .ag9-fail__acts { grid-area: acts; }
+  .ag9-fail > .ag9-fail__list { grid-column: 1 / -1; }
+}
+/* The card header is 16 px from the edge on phones; rows follow it. */
+@media (max-width: 575.98px) { .ag8-fail__row, .ag8-ready__row { padding-inline: 1rem; } }
 /* Services rows: the waiting label wraps instead of running into the owner column. */
 .cq-row__wait { min-inline-size: 0; overflow-wrap: anywhere; }
 .cq-row__wait .hg-status, .cq-row__wait > * { white-space: normal; }
@@ -646,7 +665,26 @@
 .ag22-roster td.ag22-roster__uni { max-width: 190px; overflow: hidden; text-overflow: ellipsis; }
 .ag22-roster td.ag22-roster__email { max-width: 210px; overflow: hidden; text-overflow: ellipsis; }
 .ag22-roster td:last-child { width: 1%; }
+/* Rosters (Team, University accounts): the first and last columns sit on the card header's 24 px edge, and the card
+   clips its last row so the white cells no longer paint over its rounded bottom corners. */
+.ag22-roster th:first-child, .ag22-roster td:first-child { padding-inline-start: 1.5rem; }
+.ag22-roster th:last-child, .ag22-roster td:last-child { padding-inline-end: 1.5rem; }
+.custom-card:has(> .card-body > .table-responsive > .ag22-roster) { overflow: hidden; }
 .ag22-accounts .table-responsive { overflow-x: auto; }
+/* Phones: a seven-column roster squeezed into 358 px broke every word letter by letter. Each account becomes one
+   compact block instead — name line, then email, status and last sign-in, actions at the end. */
+@media (max-width: 767.98px) {
+  .ag22-roster thead { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
+  .ag22-roster, .ag22-roster tbody { display: block; inline-size: 100%; }
+  .ag22-roster tr { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 12px; padding: 12px 16px; border-block-end: 1px solid var(--hg-border-subtle); }
+  .ag22-roster tr:last-child { border-block-end: 0; }
+  .ag22-roster td, .ag22-roster td:first-child, .ag22-roster td:last-child { display: block; padding: 0; border: 0; block-size: auto; inline-size: auto; max-inline-size: 100%; white-space: normal; overflow-wrap: anywhere; background: none; }
+  .ag22-roster td:first-child { flex: 1 1 100%; font-size: var(--hg-text-base); }
+  .ag22-roster td.ag22-roster__uni, .ag22-roster td.ag22-roster__email { max-inline-size: 100%; }
+  .ag22-roster td.ag22-roster__email { flex: 1 1 100%; color: var(--hg-text-secondary); }
+  .ag22-roster td:last-child { margin-inline-start: auto; }
+  .ag22-accounts .ag22-roster td:nth-child(6) { display: none; }
+}
 /* The shared DataTable folds a column whenever the table's scrollWidth exceeds its wrap by >2px; on the first paint
    the skeleton/first rows measure ~5px over. A few px of end padding keep the eight columns at ≥1280 (measured). */
 .ag22-table .hg-table-wrap { padding-inline-end: 8px; }
@@ -794,7 +832,7 @@ html[data-surface='console'] .btn:not(.btn-icon):not(.btn-sm.btn-icon) { border-
 .ag29-offer .form-label { margin: 0; font-size: var(--hg-text-xs); color: var(--hg-text-secondary, #5A6170); }
 .ag29-offer__row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .ag29-offer__foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 4px; }
-@media (max-width: 480px) { .ag29-offer__row { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .ag29-offer__row { grid-template-columns: minmax(0, 1fr); } }
 .ag29-ws__left { display: grid; gap: 16px; align-content: start; min-width: 0; }
 
 /* ══ Operations design pass (2026-11) ═══════════════════════════════════════════════════════════════════════════
@@ -968,12 +1006,15 @@ html[data-surface='console'] .ag22-today .page-header-breadcrumb, html[data-surf
 .ops-refund__code { display: block; margin-block-start: 4px; font-size: var(--hg-text-xs); color: var(--hg-text-secondary); }
 
 /* ---- Student workspace: one case — identity → status → next action → the work → service information ------------ */
-.ops-case { display: grid; gap: var(--hg-space-4); padding-block-end: var(--hg-space-5); margin-block-end: var(--hg-space-5); border-block-end: 1px solid var(--hg-border); }
+.ops-case { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--hg-space-4); padding-block-end: var(--hg-space-5); margin-block-end: var(--hg-space-5); border-block-end: 1px solid var(--hg-border); }
 .ops-case__top { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--hg-space-3) var(--hg-space-5); }
 .ops-case__id { display: flex; align-items: flex-start; gap: var(--hg-space-4); min-inline-size: 0; flex: 1 1 420px; }
 .ops-case__av { flex: none; }
 .ag22-ws .ops-case__av.avatar { background: var(--hg-surface-warm) !important; color: var(--hg-text-secondary) !important; }
-.ops-case__who { display: grid; gap: 6px; min-inline-size: 0; }
+.ops-case__who { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; min-inline-size: 0; flex: 1 1 auto; }
+/* 320–360 px: long e-mails and badges must wrap inside the header, never widen the page (launch matrix, 2026-11-20). */
+.ops-case__name > *, .ops-case__meta > * { min-inline-size: 0; }
+.ops-case__meta a { overflow-wrap: anywhere; }
 .ops-case__name { display: flex; flex-wrap: wrap; align-items: center; gap: var(--hg-space-2) var(--hg-space-3); }
 .ops-case__name h1 { margin: 0; font-size: var(--hg-type-h1); line-height: var(--hg-type-h1-leading); font-weight: var(--hg-weight-bold); letter-spacing: -0.01em; overflow-wrap: anywhere; }
 .ops-case__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px var(--hg-space-4); font-size: var(--hg-text-sm); color: var(--hg-text-secondary); min-inline-size: 0; }

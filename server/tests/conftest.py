@@ -17,6 +17,10 @@ os.environ["HG_STORAGE_DIR"] = tempfile.mkdtemp(prefix="hg-test-uploads-")
 os.environ["HG_PAYMENT_PROVIDER"] = "demo"
 # V22: one TestClient address runs ~450 tests; the limiter tests set the scale back to 1 for themselves.
 os.environ["HG_RATELIMIT_SCALE"] = "1000"
+# V34: no catalogue bootstrap thread or weekly-refresh scheduler inside the suite (tests drive them explicitly).
+os.environ["HG_CATALOG_BOOTSTRAP_ON_START"] = "0"
+os.environ["HG_CATALOG_SCHEDULER_ENABLED"] = "0"
+os.environ["HG_CATALOG_LINK_CHECKS_ENABLED"] = "0"
 
 import pytest  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402

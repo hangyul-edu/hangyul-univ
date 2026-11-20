@@ -30,7 +30,7 @@ def _app_summary(db: Session, app: Application) -> dict:
     uni = db.get(University, app.university_id)
     prog = db.get(Program, app.program_id)
     intake = db.get(ProgramIntake, app.intake_id)
-    return {"id": str(app.id), "status": app.status.value, "university": {"id": str(uni.id), "name_en": uni.name_en},
+    return {"id": str(app.id), "status": app.status.value, "university": {"id": str(uni.id), "name_en": uni.name_en, "name_ko": uni.name_ko},
             "program": {"id": str(prog.id), "name_en": prog.name_en}, "deadline": iso(intake.application_deadline)}
 
 

@@ -1,3 +1,4 @@
+import { orgName } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import { Keyboard } from '@hangyul/icons';
 import { Card, CardHeader, DescriptionList, LocaleSelector, PageHeader, Switch } from '@hangyul/ui';
@@ -46,7 +47,7 @@ export default function Settings() {
             <DescriptionList items={[
               { label: t('auth.fullName'), value: session?.user.full_name },
               { label: t('auth.email'), value: session?.user.email },
-              { label: t('settings.org'), value: session?.active_org?.org_name },
+              { label: t('settings.org'), value: orgName(session?.active_org?.org_name, 'staff') },
               { label: t('teamPage.role'), value: session?.active_org ? t(session.active_org.org_type === 'HANGYUL' ? `role.${session.active_org.role}` : 'role.AGENCY_ADMIN') : '—' },
               { label: t('settings.timezone'), value: session?.user.timezone },
             ]} />

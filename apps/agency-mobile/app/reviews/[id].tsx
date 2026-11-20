@@ -2,7 +2,7 @@ import { useApi } from '@hangyul/auth';
 import { useTranslation } from '@hangyul/i18n';
 import {
   absoluteApiUrl, AppText, Button, Callout, CheckRow, ChipGroup, KeyValue, ListGroup, ListItem, LoadingState, QueryState, Screen, SectionTitle, Sheet,
-  StatusBadge, TextField, theme, useFormat,
+  StatusBadge, TextField, theme, useFormat, errorText,
 } from '@hangyul/mobile-ui';
 import type { Page, VaultDocument } from '@hangyul/types';
 import { countryName } from '@hangyul/utils';
@@ -45,7 +45,7 @@ function Review({ d }: { d: VaultDocument }) {
   const preview = useMutation({
     mutationFn: () => api.documents.downloadUrl(d.id, 'inline'),
     onSuccess: (r) => void Linking.openURL(absoluteApiUrl(r.url)),
-    onError: (e: Error) => Alert.alert(t('common:states.error'), e.message),
+    onError: (e: Error) => Alert.alert(t('common:states.error'), errorText(t, e)),
   });
   const goNext = () => {
     const queue = qc.getQueryData<Page<VaultDocument>>(qk.reviewQueue)?.items.filter((x) => x.id !== d.id) ?? [];
@@ -60,7 +60,7 @@ function Review({ d }: { d: VaultDocument }) {
       void qc.invalidateQueries({ queryKey: ['agency'] });
       goNext();
     },
-    onError: (e: Error) => Alert.alert(t('common:states.error'), e.message),
+    onError: (e: Error) => Alert.alert(t('common:states.error'), errorText(t, e)),
   });
   const { i18n } = useTranslation();
   const localTemplates = (templates.data?.items ?? []).filter((x) => x.locale?.slice(0, 2) === i18n.language.slice(0, 2));

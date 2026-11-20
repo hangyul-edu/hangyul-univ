@@ -1,3 +1,4 @@
+import { orgName } from '@hangyul/i18n';
 // PRIMARY QUESTION: Who can sign in to this agency's console?
 //
 // V22 관리자 계정 / Administrator accounts (REPORT §246 A5, brief §55). The V9 operations console — roles, expertise,
@@ -124,7 +125,7 @@ export default function Team() {
         actions={<Button variant="primary" icon={<UserPlus />} onClick={() => setInvite(true)}>{t('v22.team.invite')}</Button>} />
       <QueryState query={q}>
         {(d) => (
-          <YCard flush title={d.organization.name} count={t('v22.team.count', { count: d.accounts.length })}>
+          <YCard flush title={orgName(d.organization.name, 'staff')} count={t('v22.team.count', { count: d.accounts.length })}>
             {d.accounts.length === 0 ? <p className="text-muted p-3 mb-0">{t('v22.team.empty')}</p> : (
               <div className="table-responsive">
                 <table className="table table-hover mb-0 ag22-roster" aria-label={t('v22.team.title')}>

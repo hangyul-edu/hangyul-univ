@@ -159,7 +159,7 @@ function RuleHistoryCard({ p }: { p: Program }) {
                   ))}
                 </ul>
               )}
-              {e.note && <p className="fs-12 text-muted mb-0">“{e.note}”</p>}
+              {e.note && <p className="fs-12 text-muted mb-0" data-user-content>“{e.note}”</p>}
             </li>
           ))}
         </ol>
@@ -231,7 +231,7 @@ function ProgramDetail({ p, pending }: { p: Program; pending: RequirementProposa
                 {RULE_KEYS.map((k) => (
                   <div key={k}><dt>{t(k === 'min_prior_education' ? 'university:v9.rules.priorEducation' : `university:rules.field.${k}`)}</dt><dd>{ruleValue(t, k, r?.[k as keyof typeof r])}</dd></div>
                 ))}
-                <div><dt>{t('university:rules.field.notes')}</dt><dd className="fw-normal">{r?.notes || '—'}</dd></div>
+                <div><dt>{t('university:rules.field.notes')}</dt><dd className="fw-normal" data-user-content>{r?.notes || '—'}</dd></div>
               </dl>
             </Col>
             <Col lg={5}>

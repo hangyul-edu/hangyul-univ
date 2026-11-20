@@ -1,6 +1,6 @@
 import { createApiClient, type ApiClient } from '@hangyul/api-client';
 import { AuthProvider, useAuth } from '@hangyul/auth';
-import { changeLocale, consoleLocale, i18next, initI18n, installKeyRecorder, isRTL, langFromSearch, registerLocalePreloader, resolveLocale, STORAGE_KEY, useLocale, type Namespace } from '@hangyul/i18n';
+import { changeLocale, consoleLocale, i18next, initI18n, installKeyRecorder, isRTL, langFromSearch, registerLocalePreloader, resolveLocale, STORAGE_KEY, useLocale, type Namespace, errorText } from '@hangyul/i18n';
 import { loadIntlFallback } from '@hangyul/utils';
 import type { ClientApp } from '@hangyul/types';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -140,10 +140,12 @@ export function RequireAuth({ children, loginPath = '/login' }: { children: Reac
   return <>{children}</>;
 }
 
-/** Calm single-column sign-in used by student, agency and university apps. `aside` is accepted for compatibility but not rendered. */
 /** Accept only a same-app absolute path, so a crafted `?next=` cannot bounce a freshly signed-in user off-site. */
 export function safeNext(value: string | null | undefined, fallback: string): string {
   if (!value || value[0] !== '/' || value[1] === '/' || value[1] === '\\') return fallback;
+  // Browsers drop tab/newline characters from a URL, so `/\t/evil.com` would become `//evil.com` once navigated.
+  // eslint-disable-next-line no-control-regex
+  if (/[\u0000-\u001F\u007F]/.test(value)) return fallback;
   return value;
 }
 
@@ -158,7 +160,50 @@ export function carryQuery(search: string): string {
   return out ? `?${out}` : '';
 }
 
-export function LoginScreen({ product, title, subtitle, aside, footer, afterLogin = '/' }: {
+/**
+ * **The auth-entry gate** (261119, owner requirement 2): /login, /register and /forgot decide what to show
+ * *before the first committed render*, never in an effect after it.
+ *
+ *   session restoring (`loading`)  → a neutral full-page loader — never either form
+ *   authenticated on entry          → `<Navigate replace>` to `safeNext(?next=, fallback)`, rendered with the
+ *                                     loader so the frame before the navigation is the loader, not a form
+ *   anonymous (or API unreachable)  → the requested screen
+ *
+ * The decision is **latched** at the first definite answer. A flow that signs the visitor in part-way — sign-up
+ * creates the account and then shows the consent/complete step; staff enrolment shows recovery codes after the
+ * session exists; the login form navigates itself once `login()` resolves — keeps its screen: "authenticated on
+ * entry" sends you on, "became authenticated during this flow" does not interrupt the flow.
+ *
+ * The old pattern (render the form, then `useEffect(() => { if (authenticated) nav(next) })`) committed at least
+ * one frame of the wrong screen; on a slow device that was the sign-up form flashing before the dashboard.
+ */
+/**
+ * Where an auth screen sends someone once they are signed in: `?next=` when it is a safe in-app path and not itself
+ * an auth screen (an authenticated `/login?next=/login` would otherwise loop), else `fallback`.
+ */
+export function entryNext(search: string, fallback: string): string {
+  const next = safeNext(new URLSearchParams(search).get('next'), fallback);
+  return /^\/(login|register|forgot)(?:[/?#]|$)/.test(next) ? fallback : next;
+}
+
+export function AuthEntryGate({ children, fallback = '/' }: { children: ReactNode; fallback?: string }) {
+  const { status } = useAuth();
+  const loc = useLocation();
+  const [enteredAnonymous, setEnteredAnonymous] = useState(false);
+  // Setting state while rendering the same component is React's documented way to derive state from a change:
+  // React discards this render and re-renders immediately, before anything is committed to the screen.
+  if (!enteredAnonymous && (status === 'anonymous' || status === 'unavailable')) setEnteredAnonymous(true);
+  if (!enteredAnonymous) {
+    if (status === 'authenticated') {
+      return <><FullPageLoader /><Navigate to={entryNext(loc.search, fallback)} replace /></>;
+    }
+    return <FullPageLoader />;
+  }
+  return <>{children}</>;
+}
+
+/** Calm single-column sign-in used by student, agency and university apps. `aside` is accepted for compatibility but not rendered. */
+export function LoginScreen(props: {
   product: string;
   title: ReactNode;
   subtitle?: ReactNode;
@@ -166,7 +211,22 @@ export function LoginScreen({ product, title, subtitle, aside, footer, afterLogi
   footer?: ReactNode;
   afterLogin?: string;
 }) {
-  const { login, status } = useAuth();
+  return (
+    <AuthEntryGate fallback={props.afterLogin ?? '/'}>
+      <LoginForm {...props} />
+    </AuthEntryGate>
+  );
+}
+
+function LoginForm({ product, title, subtitle, aside, footer, afterLogin = '/' }: {
+  product: string;
+  title: ReactNode;
+  subtitle?: ReactNode;
+  aside: ReactNode;
+  footer?: ReactNode;
+  afterLogin?: string;
+}) {
+  const { login } = useAuth();
   const { t } = useLocale('common');
   const nav = useNavigate();
   const loc = useLocation();
@@ -178,9 +238,7 @@ export function LoginScreen({ product, title, subtitle, aside, footer, afterLogi
   // V10: the marketing site now sends people here with `?next=<student path>` so a personalised action resumes
   // after sign-in. `next` arrives from a URL, so only an in-app absolute path is accepted — anything else
   // (`//evil.com`, `https://…`, a backslash form) falls back to the app's own landing route.
-  const next = safeNext(new URLSearchParams(loc.search).get('next'), afterLogin);
-
-  useEffect(() => { if (status === 'authenticated') nav(next, { replace: true }); }, [status, nav, next]);
+  const next = entryNext(loc.search, afterLogin);
 
   const submit = async (e?: FormEvent, override?: { email: string; password: string }) => {
     e?.preventDefault();
@@ -200,7 +258,7 @@ export function LoginScreen({ product, title, subtitle, aside, footer, afterLogi
     } catch (err) {
       const s = (err as { status?: number }).status;
       const unreachable = (err as { unreachable?: boolean }).unreachable;
-      setFormError(s === 401 ? t('auth.invalid') : unreachable ? t('states.unavailableText') : (err as Error).message);
+      setFormError(s === 401 ? t('auth.invalid') : unreachable ? t('states.unavailableText') : errorText(err));
     } finally {
       setBusy(false);
     }
@@ -209,7 +267,7 @@ export function LoginScreen({ product, title, subtitle, aside, footer, afterLogi
   void aside;
 
   return (
-    <div className="hg-login">
+    <div className="hg-login" data-auth-form="login">
       <header className="hg-login__top">
         <Logo tag={product} />
         <LocaleSelector compact />

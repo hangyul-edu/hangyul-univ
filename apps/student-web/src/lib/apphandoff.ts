@@ -16,6 +16,8 @@
  * student to any scheme it is handed is an open redirect with a confirmation page for cover — so only this
  * app's own scheme is accepted, plus Expo's development forms, and only off a production build.
  */
+import { purchaseReturn } from './access';
+
 const KEY = 'hg.student.appReturn';
 
 /** The native app's registered scheme (`app.json` → `expo.scheme`), and Expo Go's wrapper around it. */
@@ -47,4 +49,29 @@ export function appReturn(): string | null {
 /** Once the student has gone back, the link is spent. */
 export function clearAppReturn(): void {
   try { sessionStorage.removeItem(KEY); } catch { /* ignore */ }
+}
+
+/* --------------------------------------------------------------------------------------------------------------
+ * **Coming back to the page that sent a student to the plan** (261119, owner requirement 1).
+ *
+ * The paywall sends an unpaid student to `/services?gate=match&from=/match`. Paying usually leaves this origin (the
+ * payment provider's page) and comes back at the return route, by which time `?from=` is gone — so, like the native
+ * handoff above, it is kept in `sessionStorage` for the round trip. Validated on the way in and on the way out
+ * (`purchaseReturn`): only an in-app path, never the plan screen itself.
+ * ------------------------------------------------------------------------------------------------------------ */
+const PURCHASE_KEY = 'hg.student.purchaseReturn';
+
+export function rememberPurchaseReturn(from: string | null): void {
+  const path = purchaseReturn(from);
+  if (!path) return;
+  try { sessionStorage.setItem(PURCHASE_KEY, path); } catch { /* private mode: the confirmation's CTA goes Home */ }
+}
+
+/** The remembered page, or `null`. */
+export function purchaseReturnTarget(): string | null {
+  try { return purchaseReturn(sessionStorage.getItem(PURCHASE_KEY)); } catch { return null; }
+}
+
+export function clearPurchaseReturn(): void {
+  try { sessionStorage.removeItem(PURCHASE_KEY); } catch { /* ignore */ }
 }

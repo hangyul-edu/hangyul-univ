@@ -6,7 +6,7 @@
  */
 import { useApi } from '@hangyul/auth';
 import { Check, Copy, Link2, Lock } from '@hangyul/icons';
-import { LOCALES } from '@hangyul/i18n';
+import { LOCALES, errorText } from '@hangyul/i18n';
 import { Button, Callout, Checkbox, EmptyState, Field, Input, QueryState, Section, Select, SkeletonCard, StatusText, useToast } from '@hangyul/ui';
 import { formatDate, formatDateTime } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -29,7 +29,7 @@ function CreateLink({ onCreated }: { onCreated: (l: SponsorLink) => void }) {
   const make = useMutation({
     mutationFn: () => api.post<SponsorLink>('/me/sponsor-links', { scopes, label: label.trim() || null, days, locale: lang }),
     onSuccess: onCreated,
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const toggle = (s: SponsorScope) => setScopes((x) => (x.includes(s) ? x.filter((y) => y !== s) : [...x, s]));
   return (

@@ -5,6 +5,7 @@
  * request changes (R) → the next essay of the same queue view opens. Nothing here edits the student's text.
  */
 import { useAuth } from '@hangyul/auth';
+import { orgName } from '@hangyul/i18n';
 import {
   ArrowLeft, Check, ChevronDown, ChevronRight, CircleAlert, CircleCheck, CircleDashed, ClipboardCheck, Eye, FileClock, GitCompare, Keyboard,
   ListChecks, Lock, MessageSquarePlus, MessagesSquare, RefreshCw, Send, ShieldCheck, Sparkles, TriangleAlert, Undo2, UserCog, X,
@@ -69,7 +70,7 @@ function AuthorTag({ e, userId }: { e: V6Essay; userId?: string | null }) {
   return (
     <span className={cx('wr-author', `wr-author--${a.kind.toLowerCase()}`)}>
       <strong>{a.name ?? '—'}</strong>
-      <span className="wr-author__kind">{authorKindLabel(t, a.kind)}{a.kind === 'AGENCY' && a.org ? ` · ${a.org}` : ''}</span>
+      <span className="wr-author__kind">{authorKindLabel(t, a.kind)}{a.kind === 'AGENCY' && a.org ? ` · ${orgName(a.org, 'staff')}` : ''}</span>
     </span>
   );
 }

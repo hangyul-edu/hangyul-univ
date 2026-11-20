@@ -34,11 +34,11 @@ import { Button, Callout, DesignPreviewPaidEntry, QueryState, SkeletonCard, useT
 import { formatDate, formatDateTime, formatMoney } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router';
+import { Link, useNavigate, useSearchParams } from 'react-router';
 
 import { PageIntro } from '../components/bits';
 import { GateNotice } from '../components/Upgrade';
-import { rememberAppReturn } from '../lib/apphandoff';
+import { clearPurchaseReturn, purchaseReturnTarget, rememberAppReturn, rememberPurchaseReturn } from '../lib/apphandoff';
 import { tr, useT } from '../lib/i18n';
 import { readPlanParam } from '../lib/quick';
 import { failureCode, failureKey } from '../lib/billing';
@@ -561,6 +561,15 @@ export default function Services() {
   const fromApp = sp.get('from') === 'app';
   const appReturnHref = sp.get('return');
   useEffect(() => { rememberAppReturn(appReturnHref); }, [appReturnHref]);
+  // 261119: the gated page that sent the student here (`/match` from the paywall) is where they go once they have
+  // paid. Kept for the provider round trip; a plain visit to the plan screen forgets a stale one.
+  const fromParam = sp.get('from');
+  const paymentParam = sp.get('payment');
+  useEffect(() => {
+    if (fromParam && fromParam !== 'app') rememberPurchaseReturn(fromParam);
+    else if (!fromParam && !paymentParam) clearPurchaseReturn();
+  }, [fromParam, paymentParam]);
+  const nav = useNavigate();
 
   const products = q.data?.products ?? [];
   const owned = q.data?.owned ?? [];
@@ -588,8 +597,17 @@ export default function Services() {
    * Nothing here decides anything — not the amount, not whether it was paid.
    */
   const purchaseTermsVersion = PURCHASE_TERMS_VERSION;
-  const paid = () => {
-    PAID_STATE_QUERY_KEYS.forEach((k) => qc.invalidateQueries({ queryKey: [k] }));
+  const paid = async () => {
+    const back = purchaseReturnTarget();
+    const refreshed = Promise.all(PAID_STATE_QUERY_KEYS.map((k) => qc.invalidateQueries({ queryKey: [k] })));
+    if (back) {
+      // The plan must be known before leaving, or the route paywall would read the stale "no plan" and send the
+      // student straight back here.
+      await refreshed.catch(() => undefined);
+      clearPurchaseReturn();
+      nav(back, { replace: true });
+      return;
+    }
     setSp((prev) => { const n = new URLSearchParams(prev); n.set('payment', 'done'); return n; }, { replace: true });
   };
   const createOrder = async (): Promise<CheckoutOrder> => {

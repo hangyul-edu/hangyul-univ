@@ -28,3 +28,6 @@ export * from './bootstrap/LoginScreen';
 export * from './bootstrap/navigation';
 export * from './features/Messages';
 export * from './features/Notifications';
+export * from './components/Keyboard';
+export * from './bootstrap/gate';
+export * from './components/errorText';

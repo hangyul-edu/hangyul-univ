@@ -1,6 +1,6 @@
 import { useAuth } from '@hangyul/auth';
 import { ChevronRight, Info, Lock, Search, SlidersHorizontal, Timer } from '@hangyul/icons';
-import { MARKETS, useLocale } from '@hangyul/i18n';
+import { MARKETS, OPERATIONS_ORG_NAMES, useLocale } from '@hangyul/i18n';
 import type { AgencyNextAction, AgencyWaitingOwner, AgencyWaitingParty, AgencyWaitingReason, ApplicationStatus, DocumentStatus, EssayStatus, PipelineStage, TaskPriority, TaskType, VisaStatus } from '@hangyul/types';
 import { Avatar, Badge, Button, Card, CardHeader, Drawer, Flag as FlagImage, Skeleton, StatusText } from '@hangyul/ui';
 import {
@@ -166,7 +166,7 @@ export function useWaitingText() {
       if (!o) return null;
       if (o.kind === 'person' || o.kind === 'student' || o.kind === 'university') return o.name ?? t('misc.unassigned');
       if (o.kind === 'rail') return o.name ? t('v9.owner.railOf', { university: o.name }) : t('v9.owner.rail');
-      return t(`v9.owner.${o.kind}`) + (o.kind === 'agency' && o.name ? ` · ${o.name}` : '');
+      return t(`v9.owner.${o.kind}`) + (o.kind === 'agency' && o.name && !OPERATIONS_ORG_NAMES.includes(o.name) ? ` · ${o.name}` : ''); // the operations team is the owner itself
     },
   };
 }

@@ -11,6 +11,11 @@ Two things that look alike and are not:
 A university in the directory without a ``University`` row is the normal case, not a gap and not an error — the
 public site is a directory of Korean higher education, and preparing an application is a different, authenticated
 job. ``catalog_university_id`` is the one link between the two, and it is nullable for exactly that reason.
+
+V34 (owner requirement 3, one authoritative catalogue): every ACTIVE institution now has exactly one ``University``
+row with the same slug (``services/catalog_ingest``), so Marketing (``/directory``) and Student (``/universities``)
+share canonical ids. What a University row does *not* imply is programme data: ``has_catalog`` on the directory card
+means "at least one active programme read from an official guide".
 """
 
 from __future__ import annotations
@@ -84,7 +89,7 @@ class Institution(IdMixin, TimestampMixin, Base):
     #: Per-tier provenance: {registry: {...}, reference: {...}, international: {...}}.
     sources: Mapped[dict | None] = mapped_column(JSON)
 
-    #: Set only where Hangyul holds verified admission data. Null is the ordinary case.
+    #: V34: set for every ACTIVE institution by the catalogue materialiser (null only before the first bootstrap).
     catalog_university_id: Mapped[uuid.UUID | None] = mapped_column(
         Uuid, ForeignKey("universities.id", ondelete="SET NULL"), nullable=True, index=True
     )

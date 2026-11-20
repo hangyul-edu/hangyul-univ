@@ -12,7 +12,7 @@
  */
 import { useApi } from '@hangyul/auth';
 import { Check, ExternalLink, FileUp, LifeBuoy } from '@hangyul/icons';
-import { useLocale, localName } from '@hangyul/i18n';
+import { useLocale, localName, errorText } from '@hangyul/i18n';
 import type { DocumentCategory, VisaDisplayStatus, VisaRouteDoc, VisaRoutePlan, VisaStatus } from '@hangyul/types';
 import { VISA_STATUSES } from '@hangyul/types';
 import { Button, ButtonLink, Callout, Field, Input, JourneyRail, OptionCards, QueryState, Section, Select, SkeletonCard, StatusText, Textarea, useToast } from '@hangyul/ui';
@@ -60,7 +60,7 @@ function usePlanMutation<A>(fn: (a: A) => Promise<VisaRoutePlan>, ok?: string) {
       ['visa', 'dashboard', 'tasks', 'documents', 'dossier'].forEach((k) => qc.invalidateQueries({ queryKey: [k], predicate: (q) => q.queryKey.join('/') !== KEY.join('/') }));
       if (ok) toast.success(t(ok));
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
 }
 

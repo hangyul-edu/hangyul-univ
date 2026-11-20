@@ -1,0 +1,44 @@
+/* Owner requirement 4 — one upload control (`FileDrop`, packages/ui/src/filedrop.tsx): picker + drag & drop.
+   Tangerine only while something is being dragged over the zone (the "you are here" of a drop). */
+.hg-filedrop {
+  position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 20px 16px;
+  border: 2px dashed var(--hg-border-strong); border-radius: var(--hg-radius-lg); background: var(--hg-surface-warm);
+  text-align: center; transition: border-color var(--hg-motion-fast), background-color var(--hg-motion-fast);
+}
+.hg-filedrop:hover, .hg-filedrop:focus-within { border-color: var(--hg-primary); }
+.hg-filedrop__icon { display: inline-flex; color: var(--hg-primary); }
+.hg-filedrop__icon svg { width: 26px; height: 26px; }
+.hg-filedrop__pick {
+  min-block-size: 44px; padding: 8px 14px; border: 0; border-radius: var(--hg-radius-lg); background: transparent; cursor: pointer;
+  font: inherit; font-weight: var(--hg-weight-semibold); color: var(--hg-text); text-decoration: underline; text-underline-offset: 3px;
+}
+.hg-filedrop__pick:focus-visible { outline: 2px solid var(--hg-primary); outline-offset: 2px; }
+.hg-filedrop__pick:disabled { cursor: default; color: var(--hg-text-tertiary); }
+.hg-filedrop__or, .hg-filedrop__constraints { font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); }
+.hg-filedrop__file { max-inline-size: 100%; overflow-wrap: anywhere; font-size: var(--hg-text-sm); color: var(--hg-text); }
+.hg-filedrop__status { font-size: var(--hg-text-sm); color: var(--hg-text-secondary); }
+.hg-filedrop__error { margin: 4px 0 0; font-size: var(--hg-text-sm); color: var(--hg-status-danger-fg); }
+.hg-filedrop__bar { display: block; inline-size: min(240px, 100%); block-size: 4px; border-radius: 999px; background: var(--hg-border-subtle); overflow: hidden; }
+.hg-filedrop__bar > span { display: block; block-size: 100%; background: var(--hg-primary); transition: inline-size var(--hg-motion-fast); }
+.hg-filedrop__drag { padding: 18px 0 20px; font-weight: var(--hg-weight-semibold); color: var(--hg-selected-fg); }
+.hg-filedrop[data-has] { border-style: solid; border-color: var(--hg-border-subtle); background: var(--hg-surface, #fff); }
+.hg-filedrop[data-state='success'] { border-style: solid; border-color: var(--hg-status-success-solid); }
+.hg-filedrop[data-state='success'] .hg-filedrop__icon { color: var(--hg-status-success-fg); }
+.hg-filedrop[data-state='error'] { border-color: var(--hg-status-danger-solid); }
+.hg-filedrop[data-state='error'] .hg-filedrop__icon { color: var(--hg-status-danger-fg); }
+/* Drag over: orange dashed outline, warm fill, "Drop to upload". */
+.hg-filedrop[data-state='drag-valid'] { border-style: dashed; border-color: var(--hg-selected-border); background: var(--hg-selected-bg); }
+.hg-filedrop[data-state='drag-invalid'] { border-style: dashed; border-color: var(--hg-status-danger-solid); background: var(--hg-status-danger-bg, #FDECEC); }
+.hg-filedrop[data-state='drag-invalid'] .hg-filedrop__drag, .hg-filedrop[data-state='drag-invalid'] .hg-filedrop__icon { color: var(--hg-status-danger-fg); }
+.hg-filedrop[aria-busy='true'] .hg-filedrop__icon { opacity: 0.6; }
+
+/* Compact variant: the whole chat composer is the drop target; a veil appears only while dragging. */
+.hg-filedrop-overlay { position: relative; }
+.hg-filedrop-overlay__veil {
+  position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px;
+  border: 2px dashed var(--hg-selected-border); border-radius: var(--hg-radius-lg); background: var(--hg-selected-bg);
+  color: var(--hg-selected-fg); font-weight: var(--hg-weight-semibold); text-align: center; pointer-events: none;
+}
+.hg-filedrop-overlay__veil svg { width: 20px; height: 20px; flex: none; }
+.hg-filedrop-overlay[data-state='drag-invalid'] .hg-filedrop-overlay__veil { border-color: var(--hg-status-danger-solid); background: var(--hg-status-danger-bg, #FDECEC); color: var(--hg-status-danger-fg); }
+.hg-filedrop-overlay > .hg-filedrop__error { padding-inline: 4px; }

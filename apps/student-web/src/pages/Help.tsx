@@ -2,6 +2,7 @@
  * "Need help in Korea?" (V5 concierge) — one simple entry: pick what it's about, say what happened, and the right team
  * gets it (your counselor; Hangyul operations for visa/residence and lost documents). Emergency numbers come first.
  */
+import { errorText } from '@hangyul/i18n';
 import { useApi } from '@hangyul/auth';
 import { LifeBuoy } from '@hangyul/icons';
 import { Button, Callout, Field, OptionCards, QueryState, Section, SkeletonCard, Textarea, useToast } from '@hangyul/ui';
@@ -27,7 +28,7 @@ export default function Help() {
       toast.success(t(r.routed_to === 'HANGYUL_OPS' ? 'help.sentOps' : 'help.sentTeam'));
       setMsg(''); setCat(null);
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <div className="st-page">

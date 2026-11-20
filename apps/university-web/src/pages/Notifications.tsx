@@ -33,15 +33,14 @@ export default function Notifications() {
                 const href = toLink(n.link);
                 const body = (
                   <>
-                    {!n.read && <span className="hg-dot" aria-label={t('university:notifications.unread')} />}
-                    <span className="hg-grow">
-                      <span className={cx('hg-small', !n.read && 'hg-strong')} style={{ display: 'block' }}>{text(n)}</span>
-                      <span className="hg-xs hg-subtle" title={formatDateTime(n.at, locale)}>{formatRelative(n.at, locale)}</span>
-                    </span>
+                    <span className={cx('uc-notif__dot', !n.read && 'is-unread')} aria-hidden />
+                    <span className="uc-notif__text">{!n.read && <span className="hg-sr-only">{t('university:notifications.unread')} · </span>}{text(n)}</span>
+                    <time className="uc-notif__time" dateTime={n.at} title={formatDateTime(n.at, locale)}>{formatRelative(n.at, locale)}</time>
                   </>
                 );
                 const onClick = () => { if (!n.read) api.notifications.read(n.id).then(() => qc.invalidateQueries({ queryKey: ['notifications'] })); };
-                return <li key={n.id}>{href ? <Link to={href} className="uc-notif" onClick={onClick}>{body}</Link> : <div className="uc-notif">{body}</div>}</li>;
+                const cls = cx('uc-notif', !n.read && 'is-unread');
+                return <li key={n.id}>{href ? <Link to={href} className={cls} onClick={onClick}>{body}</Link> : <div className={cls}>{body}</div>}</li>;
               })}
             </ul>
           </Card>

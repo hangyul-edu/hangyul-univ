@@ -4,16 +4,16 @@
  * Off-campus (provider listings, clearly labelled; interest → viewing → contract review → deposit → confirmed → move-in) ·
  * Temporary accommodation (planning case) · Undecided. Lease support flags only missing/unclear terms — never legal advice.
  */
-import { localName } from '@hangyul/i18n';
+import { localName, errorText } from '@hangyul/i18n';
 import { useApi } from '@hangyul/auth';
 import { Building2, BedDouble, Check, FileSignature, Home, Hotel, House, Upload } from '@hangyul/icons';
 import type { DormitoryFacts, HousingInfo, HousingListing, HousingOption, HousingPlan, ServiceCase } from '@hangyul/types';
 import {
-  Button, ButtonLink, Callout, EmptyState, Field, FreshnessBadge, Input, OptionCards, QueryState, Section, Select, SkeletonCard, useToast,
+  Button, ButtonLink, Callout, EmptyState, Field, FileDrop, FreshnessBadge, Input, OptionCards, QueryState, Section, Select, SkeletonCard, useToast,
 } from '@hangyul/ui';
 import { formatDate, formatMoney } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router';
 
 import { CaseStatus, Flow, ProviderLine, SourceQuote, useCT } from '../components/ConciergeBits';
@@ -35,7 +35,7 @@ function useHousingMutation<T>(fn: (v: T) => Promise<unknown>, success?: string)
       qc.invalidateQueries({ queryKey: ['dashboard'] });
       if (success) toast.success(t(success));
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
 }
 
@@ -85,7 +85,7 @@ function DormSection({ h }: { h: H }) {
   const next = studentNextMove(c);
   const dorms = h.dormitories as unknown as DormitoryFacts[];
   return (
-    <Section title={t('housing.dormTitle', { university: h.university?.name_en ?? '' })} sub={t('housing.dormSub')}>
+    <Section title={t('housing.dormTitle', { university: localName(h.university) })} sub={t('housing.dormSub')}>
       {c && (
         <div className="cg-panel" style={{ marginBottom: 16 }}>
           <p className="hg-md">{t('housing.yourApplication', { dorm: c.details.dormitory ?? '' })} — <CaseStatus c={c} /></p>
@@ -150,13 +150,12 @@ const LEASE_FLAG_ORDER = ['MISSING_ADDRESS', 'UNCLEAR_DEPOSIT', 'UNCLEAR_RENT', 
 function LeaseReview({ caseId }: { caseId?: string }) {
   const { t } = useCT();
   const api = useApi();
-  const file = useRef<HTMLInputElement>(null);
+  const [picked, setPicked] = useState<File | null>(null);
   const [f, setF] = useState({ address: '', deposit_krw: '', rent_monthly_krw: '', start_date: '', end_date: '', landlord_name: '', agent_name: '' });
   const [uploading, setUploading] = useState(false);
   const toast = useToast();
   const send = useHousingMutation(async () => {
     let document_id: string | undefined;
-    const picked = file.current?.files?.[0];
     if (picked) {
       setUploading(true);
       try { document_id = (await api.documents.upload(picked, { category: 'OTHER', title: 'Proposed housing contract' })).id; } finally { setUploading(false); }
@@ -172,7 +171,9 @@ function LeaseReview({ caseId }: { caseId?: string }) {
     <form className="cg-panel" onSubmit={(e) => { e.preventDefault(); send.mutate(undefined, { onError: (er) => toast.error((er as Error).message) }); }}>
       <h3><FileSignature size={16} aria-hidden style={{ verticalAlign: '-3px' }} /> {t('lease.title')}</h3>
       <p className="cg-note">{t('lease.intro')}</p>
-      <Field label={t('lease.file')} htmlFor="cg-lease-file" optional hint={t('lease.fileHint')}><input id="cg-lease-file" ref={file} type="file" accept="application/pdf,image/*" /></Field>
+      <Field label={t('lease.file')} htmlFor="cg-lease-file" optional hint={t('lease.fileHint')}>
+        <FileDrop id="cg-lease-file" file={picked} onFiles={([x]) => setPicked(x)} onReject={() => setPicked(null)} status={uploading ? 'uploading' : 'idle'} />
+      </Field>
       <div className="cg-form-grid">
         <Field label={t('lease.address')} htmlFor="cg-l-addr"><Input id="cg-l-addr" value={f.address} onChange={set('address')} /></Field>
         <Field label={t('lease.deposit')} htmlFor="cg-l-dep"><Input id="cg-l-dep" inputMode="numeric" value={f.deposit_krw} onChange={set('deposit_krw')} /></Field>

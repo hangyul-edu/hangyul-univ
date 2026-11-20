@@ -1,5 +1,5 @@
 import { useApi } from '@hangyul/auth';
-import { docLabel, useLocale } from '@hangyul/i18n';
+import { docLabel, useLocale, uniName, errorText } from '@hangyul/i18n';
 import { Check, ChevronRight, Eye, Pencil, Send, X } from '@hangyul/icons';
 import type { DossierFinding, DossierPackage, DossierRequestSuggestion, DossierRow, DossierSuggestion } from '@hangyul/types';
 import { Button, Input, StatusText, useToast } from '@hangyul/ui';
@@ -56,7 +56,7 @@ function SentToLine({ row }: { row: DossierRow }) {
   const { t, fmt } = useDT();
   const sent = sentToOf(row);
   if (!sent.length) return null;
-  const list = sent.map((s) => (s.sent_on ? t('v9.who.sentItem', { university: s.university, date: fmt(s.sent_on) }) : s.university)).join(' · ');
+  const list = sent.map((s) => (s.sent_on ? t('v9.who.sentItem', { university: uniName(s), date: fmt(s.sent_on) }) : uniName(s))).join(' · ');
   return <p className="v9-sent"><Send aria-hidden /> {t('v9.who.sentLine', { list })}</p>;
 }
 
@@ -148,13 +148,13 @@ export function RequestItem({ r, onUpload, primary = true }: { r: DossierRequest
   const doc = r.category ? lc(t(`common:docCategory.${r.category}`)) : lc(r.label);
   const send = useMutation({
     mutationFn: () => api.dossier.sendExisting(r.request_id, r.document!.id),
-    onSuccess: () => { toast.success(t('requests.sent', { university: r.university })); refresh(); },
-    onError: (e) => toast.error((e as Error).message),
+    onSuccess: () => { toast.success(t('requests.sent', { university: uniName(r) })); refresh(); },
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <li className="dz-row dz-row--request" data-state="todo">
       <div className="dz-row__main">
-        <div className="dz-row__title">{t('requests.asked', { university: r.university, label: docLabel(t, r) })}</div>
+        <div className="dz-row__title">{t('requests.asked', { university: uniName(r), label: docLabel(t, r) })}</div>
         <p className="dz-quote" data-user-content>“{r.note}”</p>
         {r.document && r.action === 'SEND_EXISTING' && <div className="dz-row__summary">{t('requests.have', { title: r.document.title })}</div>}
         {r.action !== 'SEND_EXISTING' && r.document && <p className="dz-finding dz-finding--warning">{reasonText(t, r.reason, fmt)}</p>}
@@ -179,12 +179,12 @@ function SuggestionItem({ s }: { s: DossierSuggestion }) {
   const confirm = useMutation({
     mutationFn: (v?: string) => api.dossier.confirmField(s.id, v),
     onSuccess: () => { toast.success(t('check.confirmed')); refresh(); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const reject = useMutation({
     mutationFn: () => api.dossier.rejectField(s.id),
     onSuccess: () => { toast.success(t('check.rejected')); refresh(); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const show = (v: string | null) => (v && /^\d{4}-\d{2}-\d{2}$/.test(v) ? fmt(v) : v);
   return (

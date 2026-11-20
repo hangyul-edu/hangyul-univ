@@ -10,6 +10,7 @@ type TFn = (key: string, opts?: Record<string, unknown>) => string;
 /** Finding explanation in the reader's language; the quote is rendered separately. Falls back to the server's English text. */
 export function findingText(t: TFn, f: Pick<WritingFinding, 'code' | 'params' | 'text'>, locale = 'en'): string {
   const p: Record<string, unknown> = { ...(f.params ?? {}) };
+  if (p.count == null && p.words != null && f.code !== 'LONG_SENTENCE') p.count = p.words; // older rows / preview bundle
   // Enum-like params become words in the reader's language.
   if (typeof p.profile_level === 'string') p.level = t(`writing:level.${p.profile_level}`);
   if (f.code === 'FACT_DEGREE' && !p.profile_level) p.level = t('writing:level.NONE');

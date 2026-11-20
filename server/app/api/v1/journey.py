@@ -141,7 +141,7 @@ def my_offers(p: Principal = Depends(require_student), db: Session = Depends(get
         if fy["low"] is not None and pay["scholarship"] is not None:
             after = {"low": _round_down(max(0, fy["low"] - pay["scholarship"])), "high": _round_up(max(0, fy["high"] - pay["scholarship"]))}
         out.append({
-            "application_id": str(a.id), "status": a.status.value, "university": u.name_en, "university_id": str(u.id), "university_slug": u.slug, "city": u.city,
+            "application_id": str(a.id), "status": a.status.value, "university": u.name_en, "university_ko": u.name_ko, "university_id": str(u.id), "university_slug": u.slug, "city": u.city,
             "program": pr.name_en, "tuition_due": a.tuition_due.isoformat() if a.tuition_due else None,
             "tuition_is_invoice": a.tuition_amount_krw is not None, "payment": pay,
             "first_year_range_krw": fy, "first_year_after_scholarship_krw": after, "dormitory": bool(dorms),

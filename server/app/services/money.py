@@ -210,7 +210,7 @@ def funds_to_show(db: Session, student_user_id, *, nationality: str | None = Non
     visa_type = visa_routes.visa_type_for(level)
     out = {"status": "NO_ROUTE", "nationality": nationality, "visa_type": visa_type, "region": region,
            "region_kind": ("CAPITAL" if region in CAPITAL_REGIONS else "OTHER") if region else None,
-           "university": uni.name_en if uni else None, "university_id": str(uni.id) if uni else None, "genuine": GENUINE_FUNDS, "announced": ANNOUNCED[:2]}
+           "university": uni.name_en if uni else None, "university_ko": uni.name_ko if uni else None, "university_id": str(uni.id) if uni else None, "genuine": GENUINE_FUNDS, "announced": ANNOUNCED[:2]}
     if not nationality or not visa_type:
         out["status"] = "NEEDS_PROFILE"
         return out
@@ -430,7 +430,7 @@ def ensure_refund_case(db: Session, student_user_id, *, actor_id=None) -> Servic
     if existing is not None:
         return existing
     uni = db.get(University, app.university_id)
-    details = {"trigger": trig["trigger"], "since": trig["at"].isoformat(), "university": uni.name_en if uni else None, "university_id": str(uni.id) if uni else None,
+    details = {"trigger": trig["trigger"], "since": trig["at"].isoformat(), "university": uni.name_en if uni else None, "university_ko": uni.name_ko if uni else None, "university_id": str(uni.id) if uni else None,
                "amount_paid_krw": app.tuition_amount_krw, "rule": {"known": False, "code": "COUNSELOR_CONFIRMS"},
                "own_account": True}
     return concierge.create_case(db, student_user_id, "REFUND", actor_id=actor_id, details=details, application_id=app.id, priority="HIGH",

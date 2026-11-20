@@ -223,6 +223,23 @@ def reset(db_engine):
 
 
 
+def seed_reference_all(db: Session) -> dict:
+    """Every reference loader, in order — reference data only: no users, organisations, applications or fixtures.
+    Shared by ``main`` and the V34 catalogue bootstrap (``services/catalog_ingest/bootstrap.py``). Caller commits."""
+    sources = seed_reference(db)
+    out = {"institutions": seed_institutions(db)}
+    from app.seed.v27_research import load as load_v27_research
+    out["v27_research"] = load_v27_research(db)
+    seed_rules(db, sources)
+    seed_products(db)
+    seed_content(db)
+    # Visa playbooks (docs/research/visa-playbooks.json, re-validated official data): versioned loader.
+    from app.seed.visa_playbooks import load as load_visa_playbooks
+    load_visa_playbooks(db, TODAY)
+    run_freshness_scan(db)
+    return out
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--reset", action="store_true", help="Drop and recreate the schema before seeding")
@@ -233,17 +250,9 @@ def main():
         if db.query(Institution).count() > 0:
             print("Database already has reference data. Use --reset to rebuild it.")
             return
-        sources = seed_reference(db)
-        print(f"  institutions: {seed_institutions(db)}")
-        from app.seed.v27_research import load as load_v27_research
-        print(f"  v27 research: {load_v27_research(db)}")
-        seed_rules(db, sources)
-        seed_products(db)
-        seed_content(db)
-        # Visa playbooks (docs/research/visa-playbooks.json, re-validated official data): versioned loader.
-        from app.seed.visa_playbooks import load as load_visa_playbooks
-        load_visa_playbooks(db, TODAY)
-        run_freshness_scan(db)
+        out = seed_reference_all(db)
+        print(f"  institutions: {out['institutions']}")
+        print(f"  v27 research: {out['v27_research']}")
         db.commit()
         print(f"Reference data: {db.query(Institution).count()} institutions, {db.query(Scholarship).count()} scholarships, "
               f"{db.query(Country).count()} countries, {db.query(Source).count()} sources, {db.query(ServiceProduct).count()} plans, "

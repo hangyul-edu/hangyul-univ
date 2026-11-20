@@ -1,13 +1,23 @@
 /** V22 — forgot / reset password through the same one-time-code model as sign-up (REPORT §244 R5; rate-limited server-side). */
+import { errorText } from '@hangyul/i18n';
 import { useApi } from '@hangyul/auth';
 import { ArrowRight, Check, KeyRound, Mail } from '@hangyul/icons';
-import { Button, Callout, Field, Input, LocaleSelector, Logo, OtpInput, PasswordInput } from '@hangyul/ui';
+import { AuthEntryGate, Button, Callout, Field, Input, LocaleSelector, Logo, OtpInput, PasswordInput } from '@hangyul/ui';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 
 import { useT } from '../lib/i18n';
 
+/** 261119: decided before the first frame, like /login and /register — a signed-in visitor is sent on, not shown this. */
 export default function ForgotPassword() {
+  return (
+    <AuthEntryGate>
+      <ForgotFlow />
+    </AuthEntryGate>
+  );
+}
+
+function ForgotFlow() {
   const { t, locale } = useT();
   const api = useApi();
   const nav = useNavigate();
@@ -25,7 +35,7 @@ export default function ForgotPassword() {
   const request = async () => {
     setBusy(true); setError(null);
     try { const r = await api.auth.forgotPassword(email.trim().toLowerCase(), locale); setChallenge(r.challenge_id ?? null); }
-    catch (e) { setError(code_of(e) === 'FORGOT_LIMITED' ? t('register.verify.limited') : (e as Error).message); }
+    catch (e) { setError(code_of(e) === 'FORGOT_LIMITED' ? t('register.verify.limited') : errorText(e)); }
     finally { setBusy(false); }
   };
   const reset = async () => {
@@ -40,7 +50,7 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="st-auth">
+    <div className="st-auth" data-auth-form="forgot">
       <header className="st-auth__head"><Logo tag={t('product')} /><LocaleSelector compact /></header>
       <main className="st-auth__main">
         <div className="st-auth__card hg-stack" style={{ '--hg-gap': '18px' } as React.CSSProperties}>

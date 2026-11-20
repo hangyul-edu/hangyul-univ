@@ -15,7 +15,7 @@
  *   campus and student life → official film → what it stands for → one closing action.
  *
  * **Rules it does not bend.**
- *   - *Only confirmed data.* Every value is read from the export with its source and date. Hangyul writes no new
+ *   - *Only confirmed data.* Every value is read from the database (live, or its snapshot) with its source and date. Hangyul writes no new
  *     claim about an institution here.
  *   - *Unknown is not none.* What is unverified is named once per topic ("Not yet verified") with the official
  *     link. Tuition, application fee, intake dates, required documents and legalization are not in the public
@@ -24,23 +24,20 @@
  *     the campus section sets an identity composition (name, mark, region) beside a captioned regional picture.
  *   - *Few actions.* One in the hero, the official guide at the end of admissions, one closing action.
  */
-import { ArrowUpRight, BadgeCheck, Sparkles } from '@hangyul/icons';
+import { ArrowUpRight, BadgeCheck } from '@hangyul/icons';
 import { useLocale } from '@hangyul/i18n';
-import { FIT_TIERS, fitGpa, normaliseGpa, readFitAnswers, type InstitutionDetail, type StudyLevel } from '@hangyul/types';
-import { useApi } from '@hangyul/auth';
-import { useQuery } from '@tanstack/react-query';
+import type { InstitutionDetail } from '@hangyul/types';
 import {
   ErrorState, PhotoCredit, Skeleton, UniversityAdmissions, UniversityHero, UniversityIdentityBoard, UniversityLife,
   UniversityPhilosophy, UniversityPhoto, UniversityScholarships, UniversitySummary, UniversityVideo, universityLinks,
 } from '@hangyul/ui';
 import { formatDate, galleryFor, resolveUniversityVisual } from '@hangyul/utils';
-import { useParams, useSearchParams } from 'react-router';
+import { useParams } from 'react-router';
 
 import { useNoClosingCta } from '../components/blocks';
 import { LocaleLink } from '../components/LocaleLink';
-import { publicData } from '../lib/publicData';
-import { useInstitution } from '../lib/queries';
-import { studentAction, useStudentSession } from '../lib/session';
+import { useInstitution, useInstitutionAdmissions } from '../lib/queries';
+import { prepareAction, useStudentSession } from '../lib/session';
 import { useSeo } from '../lib/useSeo';
 import '../styles/directory.css';
 import '../styles/university.css';
@@ -126,36 +123,12 @@ function whyPoints(
 
 export default function UniversityDetail() {
   const { slug } = useParams();
-  const [sp] = useSearchParams();
-  // `?from=recommendation` is set by the free quick check's result rows (brief §29), so the page keeps
-  // the thread rather than starting cold.
-  const from = sp.get('from');
   const { t, locale } = useLocale(['marketing', 'common']);
   const { authenticated } = useStudentSession();
+  // Live from the database through the public API; the build's DB snapshot answers only if the API is unreachable.
   const q = useInstitution(slug);
   const inst = q.data;
-  // V27: the visitor's quick-fit answers (if they came from /start) shape the scholarship summary — server-side,
-  // by the same rule as the quick fit. Without answers the page shows the strongest scheme and a link to check.
-  const fit = readFitAnswers(sp);
-  const fitLevel = (fit.level || null) as StudyLevel | null;
-  const gpa = fitGpa(fit);
-  const api = useApi();
-  const adm = useQuery({
-    queryKey: ['inst-admissions', slug, fitLevel, sp.get('langs'), gpa?.value, gpa?.scale_max],
-    // Without quick-fit answers the record is the static public export (no API). With answers, the visitor-specific
-    // summary needs the fit engine: the same API path, which production serves from the serverless fit function
-    // (apps/marketing-web/api/public-fit.py) and development from FastAPI.
-    queryFn: () => (fitLevel
-      ? api.directory.admissions(slug!, {
-        level: fitLevel,
-        ...(fit.languages.length ? { langs: fit.languages.map((l) => `${l.test}:${l.score}`).join(',') } : {}),
-        ...(gpa ? { gpa_pct: normaliseGpa(gpa.value, gpa.scale_max) ?? undefined } : {}),
-      })
-      : publicData.admissions(slug!)),
-    enabled: !!slug,
-    staleTime: 5 * 60_000,
-  });
-
+  const adm = useInstitutionAdmissions(slug);
   const korean = locale === 'ko';
   const primary = inst ? (korean || !inst.name_en ? inst.name_ko : inst.name_en) : '';
   const secondary = inst ? (korean ? inst.name_en : inst.name_ko) : null;
@@ -194,7 +167,8 @@ export default function UniversityDetail() {
   }
 
   const content = inst.enrichment ?? null;
-  const prepareHref = studentAction(`/universities/${inst.slug}`, authenticated, locale);
+  // 유학 준비 is one action site-wide: the Student login (`next=/match`), or `/match` for a signed-in student.
+  const prepareHref = prepareAction(authenticated, locale);
   const regionLabel = t(`common:region.${inst.region}`, { defaultValue: inst.region });
   const typeLabel = t(`v12.type.${inst.institution_type}`);
   const links = universityLinks(content, inst.website_url);
@@ -209,29 +183,9 @@ export default function UniversityDetail() {
   const visual = resolveUniversityVisual(inst.slug, inst.region, content);
   const why = whyPoints(t, inst, adm.data?.scholarships.length ?? 0);
   const ieqas = inst.ieqas;
-  const fromFit = from === 'recommendation';
   const date = (d?: string | null) => (d ? formatDate(d, locale, { year: 'numeric', month: 'short', day: 'numeric' }) : null);
   const checked = date(inst.last_verified);
   const researched = adm.data?.verified ? date(content?.intl?.researched_at) : null;
-
-  /**
-   * Why this university came back from the quick check (§29). Three at most, all of them facts the
-   * reader or the register already supplied — never a fabricated score.
-   */
-  const matchReasons: string[] = [];
-  if (fromFit) {
-    const fitTier = sp.get('fit');
-    const degree = sp.get('level') ?? sp.get('degree');
-    if (fitTier && ['STRONG', 'POSSIBLE', 'NOT_YET'].includes(fitTier)) matchReasons.push(t(`v20.uni.match.${fitTier}`));
-    // V27 tiers name themselves in the quick fit's own words.
-    if (fitTier && (FIT_TIERS as readonly string[]).includes(fitTier)) matchReasons.push(t(`common:fit.tier.${fitTier}.title`));
-    if (degree) {
-      const label = t(`common:fit.level.${degree}`, { defaultValue: '' });
-      if (label) matchReasons.push(t('v20.uni.match.degree', { degree: label }));
-    }
-    if (ieqas?.language_programme) matchReasons.push(t('v20.uni.match.language'));
-    else if (ieqas?.certified) matchReasons.push(t('v20.uni.match.ieqas'));
-  }
 
   /*
    * The regional photograph and text belong to the section about the place, labelled as the region. They are
@@ -269,26 +223,10 @@ export default function UniversityDetail() {
             {researched && <li className="is-verified"><BadgeCheck aria-hidden size={14} /> {t('common:uniDetail.badge.verified', { date: researched })}</li>}
           </ul>
         )}
-        {fromFit && (
-          /*
-            §29 — the thread back to the free quick check, with **reasons rather than a score**. There is no
-            percentage, because a percentage would be a number we made up about a decision we do not make.
-          */
-          <div className="hg-uni-hero__from">
-            <p className="hg-uni-hero__from-h"><Sparkles aria-hidden /> {t('v17.uni.fromRecommendation')}</p>
-            {matchReasons.length > 0 && (
-              <ul className="hg-uni-hero__from-why">
-                {matchReasons.map((r) => <li key={r}>{r}</li>)}
-              </ul>
-            )}
-          </div>
-        )}
-        {/* ONE action above the fold. A visitor who has not checked their fit is offered the free check; one who
-            arrived from it is offered the next step. The official website is a text link beside it. */}
+        {/* ONE action above the fold — the site's 유학 준비 (Student login → /match). The official website is a
+            text link beside it. */}
         <div className="hg-uni-hero__act">
-          {fromFit
-            ? <a href={prepareHref} className="kn-btn kn-btn--primary kn-btn--lg">{t('common:uniDetail.cta.prepare')}</a>
-            : <LocaleLink to="/start" className="kn-btn kn-btn--primary kn-btn--lg">{t('common:uniDetail.cta.fit')}</LocaleLink>}
+          <a href={prepareHref} className="kn-btn kn-btn--primary kn-btn--lg" data-cta="primary">{t('common:uniDetail.cta.prepare')}</a>
           {inst.website_url && (
             <a className="hg-uni-hero__site" href={inst.website_url} target="_blank" rel="noopener noreferrer">
               {t('v12.uni.officialSite')} <ArrowUpRight aria-hidden size={14} />
@@ -300,7 +238,7 @@ export default function UniversityDetail() {
       <div className="hg-uni__wrap">
         {/* 02 — the decision summary: study options, admissions, cost, student life, support. Confirmed data only. */}
         <UniversitySummary
-          inst={inst} data={adm.data} typeLabel={typeLabel} regionLabel={regionLabel} level={fitLevel}
+          inst={inst} data={adm.data} typeLabel={typeLabel} regionLabel={regionLabel} level={null}
           anchors={{ admissions: '#admissions', scholarships: '#scholarships', life: '#life' }}
           foot={checked ? <p className="hg-uni-checked">{t('v12.uni.checked', { date: checked })}</p> : null}
         />
@@ -322,7 +260,7 @@ export default function UniversityDetail() {
 
         {/* 04 — admissions, on its own. Ends on the one action that belongs here: the official guide. */}
         <UniversityAdmissions
-          content={content} data={adm.data} level={fitLevel} website={inst.website_url}
+          content={content} data={adm.data} level={null} website={inst.website_url}
           action={guide && (
             <a className="kn-btn kn-btn--secondary" href={guide.url} target="_blank" rel="noopener noreferrer">
               {t('common:uniDetail.cta.guide')} <ArrowUpRight aria-hidden size={16} />
@@ -332,8 +270,8 @@ export default function UniversityDetail() {
 
         {/* 05 — scholarships: grouped records with source and date; GKS designation from NIIED's guidelines. */}
         <UniversityScholarships
-          data={adm.data} level={fitLevel} levelLabel={fitLevel ? t(`common:fit.level.${fitLevel}`) : undefined}
-          checkHref={`/start?lang=${locale}`} content={content}
+          data={adm.data} level={null}
+          checkHref={prepareHref} content={content}
           fallbackHref={links.scholarship ?? links.admissions ?? inst.website_url}
         />
 
@@ -379,7 +317,6 @@ export default function UniversityDetail() {
           <p className="hg-uni-sec__lede">{t('v20.uni.ctaBody')}</p>
           <div className="hg-unid-cta__act">
             <a href={prepareHref} className="kn-btn kn-btn--primary kn-btn--lg">{t('common:uniDetail.cta.prepare')}</a>
-            {!fromFit && <LocaleLink to="/start" className="kn-textlink">{t('common:uniDetail.cta.fitFirst')}</LocaleLink>}
           </div>
         </section>
       </div>

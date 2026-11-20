@@ -70,12 +70,12 @@ export function ProgramRow({ program, match, grouped = false, hideVerdict = fals
         <div className="v4-row__body">
           {!grouped && (
             <p className="v4-row__uni">
-              <span className="v4-row__uniname">{localName(u)}</span>{u ? <span className="v4-row__city"> · {u.city}</span> : null}
+              <span className="v4-row__uniname">{localName(u)}</span>{u ? <span className="v4-row__city"> · {t(`common:region.${u.city}`, { defaultValue: u.city })}</span> : null}
             </p>
           )}
           <p className="v4-row__prog">
             <Link to={href} className="v4-row__title">{localName(program)}</Link>
-            <span className="v4-row__deg"> · {t(`common:degreeShort.${program.degree_level}`)}</span>
+            <span className="v4-row__deg"><span className="v4-row__sep" aria-hidden> · </span>{t(`common:degreeShort.${program.degree_level}`)}</span>
             {match && !hideVerdict && <span className="v4-row__verdict"><TierLabel tier={match.tier} /></span>}
           </p>
           <p className="v4-row__facts">
@@ -137,7 +137,7 @@ export function UniversityGroup({ matches, hideVerdict }: { matches: Match[]; hi
         <div className="v4-group__id">
           <h3 className="v4-group__name"><Link to={`/universities/${u?.slug}`}>{localName(u)}</Link></h3>
           <p className="v4-group__meta">
-            {u?.city}
+            {u?.city ? t(`common:region.${u.city}`, { defaultValue: u.city }) : null}
             {u?.is_partner && <> · <span className="v4-group__partner">{t('explore.partner')}</span></>}
             {matches.length > 1 && <> · {t('v4.row.programs', { count: matches.length })}</>}
           </p>
@@ -172,7 +172,7 @@ export function ProgramGroups({ items, byProgram, dim }: { items: Program[]; byP
                 <UniMark name={u?.name_en ?? '?'} color={u?.brand_color} photo={u?.photo} />
                 <div className="v4-group__id">
                   <h3 className="v4-group__name"><Link to={`/universities/${u?.slug}`}>{localName(u)}</Link></h3>
-                  <p className="v4-group__meta">{u?.city}{g.length > 1 && <> · {t('v4.row.programs', { count: g.length })}</>}</p>
+                  <p className="v4-group__meta">{u?.city ? t(`common:region.${u.city}`, { defaultValue: u.city }) : null}{g.length > 1 && <> · {t('v4.row.programs', { count: g.length })}</>}</p>
                 </div>
                 {u && <SaveButton universityId={u.id} programId={g[0].id} name={localName(u)} />}
               </header>

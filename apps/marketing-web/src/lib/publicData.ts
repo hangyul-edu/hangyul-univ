@@ -1,11 +1,13 @@
 /**
- * Public university discovery data, served as static files (P0 hotfix, 2026-11-03).
+ * The DB snapshot of the public university catalogue — the **fallback** behind the live API (owner decision
+ * 2026-11-19; first shipped as the only source in the P0 hotfix of 2026-11-03).
  *
- * The anonymous marketing site must not depend on the FastAPI process. The directory, the detail pages, the region
- * counts, the scholarship and language-rule records and the Quick Fit country list are exported from the API's own
- * public endpoints over the canonical seeded database by `scripts/public-data/export.py` into
- * `public/data/public/…`, and this module answers the same calls with the same response shapes the API returns.
- * Local development and production read the same files, so they cannot drift.
+ * The Marketing directory and detail pages read the database live through `/api/v1/directory/*` (`queries.ts ›
+ * liveFirst`). This module answers the same calls, with the same response shapes, from `public/data/public/…`:
+ * a snapshot exported from those very endpoints over the database — by `scripts/public-data/export.py` (in-process,
+ * over a local DB) or by `scripts/seo/prerender-meta.mjs` at build time (`PUBLIC_DATA_SOURCE=api`, over the
+ * deployed API). It is used for exactly two things: the build's prerendered SEO metadata, and the pages when the
+ * API cannot be reached. `manifest.json` records where and when it was taken.
  *
  * Errors are explicit and distinct:
  *  - a file that cannot be loaded (network, CDN, missing export) → `ApiError(503, 'DATA_UNAVAILABLE')`, which the UI
@@ -18,7 +20,7 @@
  * is the API's rank (exact name, then prefix, then the rest), then institution kind, then name.
  */
 import { ApiError } from '@hangyul/api-client';
-import type { Country, DirectoryRegions, InstAdmissions, InstitutionCard, InstitutionDetail, Page } from '@hangyul/types';
+import type { DirectoryRegions, InstAdmissions, InstitutionCard, InstitutionDetail, Page } from '@hangyul/types';
 
 const BASE = `${import.meta.env.BASE_URL}data/public`;
 const INSTITUTION_TYPES = ['UNIVERSITY', 'JUNIOR_COLLEGE', 'GRADUATE_UNIVERSITY'] as const;
@@ -118,13 +120,9 @@ export const publicData = {
     return load<InstitutionDetail>(`institutions/${slug}.json`);
   },
 
-  /** The verified scholarships and language rules, as the API returns them without quick-fit answers (`summary: null`).
-   *  With answers the page asks the fit engine instead (see UniversityDetail). */
+  /** The verified scholarships and language rules, as the API returns them without visitor answers (`summary: null`). */
   async admissions(slug: string): Promise<InstAdmissions> {
     if (!SLUG.test(slug)) throw notFound();
     return load<InstAdmissions>(`admissions/${slug}.json`, { missingIsNotFound: true });
   },
-
-  /** The Quick Fit country list (`/meta/countries?priority_only=true`). */
-  countries: (): Promise<Country[]> => load<Country[]>('countries.json'),
 };

@@ -5,13 +5,14 @@
  * checked by the server, the proofs are bound to the verified values by the server, and the account exists only
  * after `POST /auth/register` succeeds. What this page owns is the order of the steps and the words.
  */
-import { useApi, useAuth } from '@hangyul/auth';
+import { errorText } from '@hangyul/i18n';
+import { useApi } from '@hangyul/auth';
 import { ArrowRight, Check, KeyRound, Mail, ShieldCheck, Smartphone, User } from '@hangyul/icons';
 import type { SignupConfig, VerificationSent } from '@hangyul/types';
-import { Button, Callout, Card, ConsentList, CountrySelect, Field, Input, LocaleSelector, Logo, OtpInput, PasswordInput, PhoneInput, safeNext, Skeleton, StepRail, TurnstileWidget } from '@hangyul/ui';
+import { AuthEntryGate, Button, Callout, Card, carryQuery, ConsentList, CountrySelect, entryNext, Field, Input, LocaleSelector, Logo, OtpInput, PasswordInput, PhoneInput, Skeleton, StepRail, TurnstileWidget } from '@hangyul/ui';
 import { registerSchema } from '@hangyul/validation';
 import { useQuery } from '@tanstack/react-query';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router';
 
 import { useT } from '../lib/i18n';
@@ -40,10 +41,23 @@ function deliveryMessage(err: unknown, channel: 'EMAIL' | 'SMS', t: (k: string, 
   return t(`register.verify.delivery.${d.reason}.${ch}`, { seconds: d.retry_after ?? 60, defaultValue: t(`register.verify.delivery.SERVICE_CONFIG.${ch}`, { seconds: d.retry_after ?? 60 }) });
 }
 
+/**
+ * 261119 (owner requirement 2): whether to show this form at all is decided by `AuthEntryGate` before the first
+ * committed frame — a visitor who is already signed in goes straight to `?next=` and never sees one frame of
+ * sign-up. Someone who *becomes* signed in during this flow (the account is created before the completion step)
+ * stays on it: the gate latches its first answer.
+ */
 export default function Register() {
+  return (
+    <AuthEntryGate>
+      <RegisterFlow />
+    </AuthEntryGate>
+  );
+}
+
+function RegisterFlow() {
   const { t, locale } = useT();
   const api = useApi();
-  const { status } = useAuth();
   const nav = useNavigate();
   const [sp] = useSearchParams();
   const quick = readQuick(sp);
@@ -66,10 +80,8 @@ export default function Register() {
   const [formError, setFormError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [doneName, setDoneName] = useState('');
-  const creating = useRef(false);
   const [now, setNow] = useState(Date.now());
   useEffect(() => { const id = setInterval(() => setNow(Date.now()), 1000); return () => clearInterval(id); }, []);
-  useEffect(() => { if (status === 'authenticated' && !creating.current && step !== 3) nav('/', { replace: true }); }, [status, nav, step]);
 
   const cfg: SignupConfig | undefined = config.data;
   const captchaNeeded = !!cfg?.captcha.required && cfg.captcha.provider === 'turnstile' && !!cfg.captcha.site_key;
@@ -99,7 +111,7 @@ export default function Register() {
       await Promise.all([send('EMAIL', s.signup_session), send('SMS', s.signup_session)]);
     } catch (err) {
       const code = apiCode(err);
-      setFormError(code === 'CAPTCHA_NOT_CONFIGURED' || code === 'CAPTCHA_UNAVAILABLE' ? t('register.captcha.unavailable') : code?.startsWith('CAPTCHA') ? t('register.captcha.failed') : (err as Error).message || t('register.errors.generic'));
+      setFormError(code === 'CAPTCHA_NOT_CONFIGURED' || code === 'CAPTCHA_UNAVAILABLE' ? t('register.captcha.unavailable') : code?.startsWith('CAPTCHA') ? t('register.captcha.failed') : errorText(err) || t('register.errors.generic'));
       setCaptcha(null); setCaptchaNonce((n) => n + 1);
     } finally { setBusy(false); }
   };
@@ -118,7 +130,7 @@ export default function Register() {
         : code === 'DELIVERY_FAILED' ? deliveryMessage(err, channel, t)
           : code === 'OTP_RESEND_TOO_SOON' ? t('register.verify.tooSoon') : code === 'OTP_SEND_LIMITED' ? t('register.verify.limited')
             : code === 'EMAIL_INVALID' ? t('common:validation.email') : code === 'PHONE_INVALID' || code === 'PHONE_NOT_MOBILE' ? t('common:validation.phone')
-              : (err as Error).message || t('register.errors.generic');
+              : errorText(err) || t('register.errors.generic');
       set((c) => ({ ...c, busy: false, error: msg }));
       if (code?.startsWith('SIGNUP_SESSION')) { setSession(null); setStep(0); setCaptcha(null); setCaptchaNonce((n) => n + 1); setFormError(t('register.errors.session')); }
     }
@@ -147,7 +159,7 @@ export default function Register() {
     const missing = cfg.consents.items.filter((i) => i.required && !consents[i.key]).map((i) => i.key);
     setConsentErrors(missing);
     if (missing.length) { setFormError(t('register.consent.missing')); return; }
-    setFormError(null); setBusy(true); creating.current = true;
+    setFormError(null); setBusy(true);
     try {
       const tr = await api.auth.register({
         email: acct.email, email_proof: email.proof!, phone: acct.phone_local, phone_country: acct.phone_country, phone_proof: phone.proof!,
@@ -158,19 +170,19 @@ export default function Register() {
       if (fromCheck) { try { await applyQuickToProfile(api, { ...quick, nationality: acct.nationality }, prior, readFit(sp)); } catch { /* profile can be completed later */ } }
       setStep(3);
     } catch (err) {
-      creating.current = false;
       const code = apiCode(err);
       const s = (err as { status?: number }).status;
       if (s === 409 || code === 'EMAIL_TAKEN') setFormError(t('register.exists'));
       else if (code === 'CONSENT_REQUIRED') { setConsentErrors(((err as { body?: { detail?: { keys?: string[] } } }).body?.detail?.keys) ?? []); setFormError(t('register.consent.missing')); }
       else if (code?.startsWith('SIGNUP_SESSION')) { setFormError(t('register.errors.session')); setStep(0); setSession(null); setCaptcha(null); setCaptchaNonce((n) => n + 1); }
       else if (code === 'VERIFICATION_EXPIRED' || code === 'VERIFICATION_MISMATCH' || code === 'EMAIL_NOT_VERIFIED' || code === 'PHONE_NOT_VERIFIED') { setFormError(t('register.verify.expired')); setEmail(freshChannel()); setPhone(freshChannel()); setStep(1); }
-      else setFormError((err as Error).message || t('register.errors.generic'));
+      else setFormError(errorText(err) || t('register.errors.generic'));
     } finally { setBusy(false); }
   };
   const finish = () => {
-    const next = safeNext(sp.get('next'), '');
-    nav(next || (fromCheck ? '/explore?tab=foryou&welcome=1' : '/'), { replace: true });
+    // `?next=` wins (the marketing CTA sends `/match`); without one, a visitor who came through the old quick check
+    // continues to personalised matching and everyone else to Home.
+    nav(entryNext(window.location.search, fromCheck ? '/match' : '/'), { replace: true });
   };
 
   const steps = useMemo(() => (['account', 'verify', 'consent', 'done'] as const).map((k) => ({ key: k, label: t(`register.steps.${k}`) })), [t]);
@@ -222,7 +234,7 @@ export default function Register() {
   };
 
   return (
-    <div className="st-auth">
+    <div className="st-auth" data-auth-form="register">
       <header className="st-auth__head">
         <Logo tag={t('product')} />
         <LocaleSelector compact />
@@ -321,7 +333,7 @@ export default function Register() {
                 </div>
               </Card>
               <p className="hg-muted hg-small" style={{ textAlign: 'center' }}>
-                {t('common:auth.haveAccount')} <Link to="/login" className="hg-strong">{t('common:actions.signIn')}</Link>
+                {t('common:auth.haveAccount')} <Link to={`/login${carryQuery(sp.toString())}`} className="hg-strong">{t('common:actions.signIn')}</Link>
               </p>
             </>
           )}

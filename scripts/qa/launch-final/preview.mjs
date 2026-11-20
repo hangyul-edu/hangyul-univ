@@ -101,7 +101,10 @@ for (const [app, base] of Object.entries(BASE)) {
   if (foreign.length) fail(`${app}: request(s) to ${[...new Set(foreign)].join(', ')} during preview`);
 
   // Exit.
-  await page.locator('[data-design-preview="badge"] button').click();
+  // The badge is a tab (expands) plus an explicit exit button; open the tab first when the exit is folded away.
+  const exitBtn = page.locator('[data-design-preview="badge"] .hg-preview-badge__exit');
+  if (!(await exitBtn.isVisible())) await page.locator('[data-design-preview="badge"] .hg-preview-badge__tab').click();
+  await exitBtn.click();
   await page.waitForURL(/\/login/, { timeout: 10_000 }).catch(() => {});
   const after = await page.evaluate((k) => ({ key: sessionStorage.getItem(k), path: location.pathname }), PREVIEW_KEY);
   if (after.key !== null || after.path !== '/login') fail(`${app}: exit did not clear preview (${JSON.stringify(after)})`);

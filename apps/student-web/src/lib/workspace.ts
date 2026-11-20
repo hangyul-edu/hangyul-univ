@@ -1,4 +1,4 @@
-import { docLabel } from '@hangyul/i18n';
+import { docLabel, localName, uniName } from '@hangyul/i18n';
 import type { ApplicationDetail, ChecklistItem, EssaySummary } from '@hangyul/types';
 
 import type { TFn } from './i18n';
@@ -48,7 +48,7 @@ export function checklistDetail(t: TFn, c: Pick<ChecklistItem, 'action_code' | '
   if (!p) return c.action ?? (t(`checklist.action.${c.action_code}`, { defaultValue: '' }) || undefined); // older API: English fallback
   switch (c.action_code) {
     case 'FIX': return p.reason ? t('dossier:reason.NEEDS_FIX', { reason: `\u2068${p.reason}\u2069` }) : t('checklist.action.FIX');
-    case 'TOO_OLD': return p.days && p.issued ? t('dossier:reason.TOO_OLD', { university: p.university, days: p.days, issued: fmt(String(p.issued)) }) : t('checklist.action.TOO_OLD');
+    case 'TOO_OLD': return p.days && p.issued ? t('dossier:reason.TOO_OLD', { university: uniName(p), days: p.days, issued: fmt(String(p.issued)) }) : t('checklist.action.TOO_OLD');
     case 'RENEW': case 'LEGALIZE': case 'IN_REVIEW': case 'UPLOAD': return t(`checklist.action.${c.action_code}`);
     default: return c.action ?? undefined;
   }
@@ -73,7 +73,7 @@ export interface WsContext { counselor: string | null; formatDate: (d: string) =
 
 export function buildWorkspace(a: ApplicationDetail, t: TFn, ctx: WsContext): WsItem[] {
   const items: WsItem[] = [];
-  const uni = a.university.name_en;
+  const uni = localName(a.university); // V28: Korean name on a Korean screen, official English elsewhere
   const prep = PREP.has(a.status);
   const deadline = prep ? a.intake.application_deadline : null;
   const who = ctx.counselor ?? t('v4.ws.yourCounselor');

@@ -6,13 +6,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { LogIn } from 'lucide-react-native';
 import { useRef, useState, type ReactNode } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View, type TextInput } from 'react-native';
+import { Image, KeyboardAvoidingView, ScrollView, StyleSheet, View, type TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AppText } from '../components/AppText';
 import { Button } from '../components/Button';
 import { Callout } from '../components/Feedback';
 import { TextField } from '../components/Inputs';
+import { useKeyboardAvoiding } from '../components/Keyboard';
+import { errorText } from '../components/errorText';
 import { theme } from '../theme';
 import { getApiBaseUrl } from './api';
 
@@ -21,7 +23,7 @@ export interface LoginScreenProps {
   /** Product name shown in the heading (e.g. "Hangyul Agency"). */
   productName: string;
   tagline?: string;
-  /** Rendered under the form — e.g. the student app's no-account quick eligibility check. */
+  /** Rendered under the form (optional extra content). */
   extra?: ReactNode;
   /** V22: the sign-up action, rendered as an equal next to sign-in (brief §15). When present the web-signup caption is not shown. */
   secondary?: ReactNode;
@@ -31,6 +33,7 @@ export interface LoginScreenProps {
 /** Email/password sign-in (zod loginSchema). */
 export function LoginScreen({ client, productName, tagline, extra, secondary }: LoginScreenProps) {
   const { t } = useTranslation();
+  const kb = useKeyboardAvoiding();
   const { login, api } = useAuth();
   const [serverError, setServerError] = useState<string | null>(null);
   // V29: staff sign-in is two-step when the account has MFA (production requires it for staff — app/services/mfa.py).
@@ -70,7 +73,7 @@ export function LoginScreen({ client, productName, tagline, extra, secondary }: 
       await login(email.trim(), password);
     } catch (e) {
       if (e instanceof ApiError && (e.status === 401 || e.status === 400)) setServerError(t('common:auth.invalid'));
-      else if (e instanceof ApiError) setServerError(e.message || t('common:states.error'));
+      else if (e instanceof ApiError) setServerError(errorText(t, e));
       // The emulator hint is for engineers; a customer sees the service-unavailable wording (V32).
       else setServerError(__DEV__ ? t('mobile:login.networkError', { url: getApiBaseUrl() }) : t('common:states.unavailableText'));
     }
@@ -80,7 +83,7 @@ export function LoginScreen({ client, productName, tagline, extra, secondary }: 
 
   return (
     <SafeAreaView style={styles.root} edges={['top', 'bottom', 'left', 'right']}>
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior={kb.behavior} keyboardVerticalOffset={kb.keyboardVerticalOffset}>
         <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
           <View style={styles.brand}>
             <Image source={require('../../assets/brand/hangyul-univ-logo-vertical-orange.png')} style={styles.logo} resizeMode="contain" accessibilityIgnoresInvertColors accessibilityLabel={t('common:a11y.logoAlt')} />

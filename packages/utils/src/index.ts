@@ -402,3 +402,4 @@ export * from './university';
 /** V22 — country calling codes for the international-first phone input. */
 export * from './phone';
 export * from './workflow27';
+export * from './docGroups';

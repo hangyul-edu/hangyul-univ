@@ -296,7 +296,7 @@ export function DocumentReviewPanel({ id, onDecided, hotkeys, toolbar }: { id: s
                           <strong>{r.decision === 'VERIFIED' ? t('docStatus.VERIFIED') : r.decision === 'NEEDS_CORRECTION' ? t('docStatus.NEEDS_CORRECTION') : t('review.precheck')}</strong>
                           <span className="hg-subtle hg-xs">v{r.version} · {formatDateTime(r.at, locale)}</span>
                         </div>
-                        <div className="hg-subtle hg-xs">{r.reviewer}</div>
+                        <div className="hg-subtle hg-xs">{r.reviewer === 'Automated pre-check' ? t('review.precheck') : r.reviewer}</div>
                         {r.reason && <div className="hg-small ag-quote">{r.reason}</div>}
                       </li>
                     ))}

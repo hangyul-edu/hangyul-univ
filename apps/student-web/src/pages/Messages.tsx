@@ -1,7 +1,8 @@
+import { errorText } from '@hangyul/i18n';
 import { useApi } from '@hangyul/auth';
 import { ArrowLeft, MessageCircle, Paperclip, Plus, Send, Video, X } from '@hangyul/icons';
 import type { ConversationDetail, MessageAttachment } from '@hangyul/types';
-import { Avatar, Button, EmptyState, Field, Input, Modal, QueryState, Skeleton, Textarea, useToast } from '@hangyul/ui';
+import { Avatar, Button, EmptyState, Field, FileDrop, Input, Modal, QueryState, Skeleton, Textarea, useToast, type FileDropHandle } from '@hangyul/ui';
 import { cx, formatDateTime, formatRelative } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
@@ -28,7 +29,7 @@ function NewConversation({ onClose }: { onClose: () => void }) {
   const m = useMutation({
     mutationFn: () => api.messages.start({ subject: subject.trim(), body: body.trim() }),
     onSuccess: (r) => { qc.invalidateQueries({ queryKey: ['conversations'] }); onClose(); nav(`/messages/${r.id}`); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <Modal open onClose={onClose} title={t('messages.new.title')} description={t('messages.new.subtitle')}
@@ -49,25 +50,25 @@ function Thread({ id }: { id: string }) {
   const [text, setText] = useState('');
   const [files, setFiles] = useState<MessageAttachment[]>([]);
   const [uploading, setUploading] = useState(false);
-  const fileInput = useRef<HTMLInputElement>(null);
+  const drop = useRef<FileDropHandle>(null);
   const end = useRef<HTMLDivElement>(null);
-  const attach = async (list: FileList | null) => {
-    if (!list?.length) return;
+  // Owner req. 4: the paperclip and a drop on the composer both arrive here, already checked by `FileDrop`.
+  const attach = async (list: File[]) => {
+    if (!list.length) return;
     setUploading(true);
     try {
-      for (const f of Array.from(list).slice(0, 5)) {
+      for (const f of list) {
         const a = await api.messages.uploadAttachment(id, f);
         setFiles((x) => [...x, a]);
       }
     } catch (e) {
-      toast.error((e as Error).message);
+      toast.error(errorText(e));
     } finally {
       setUploading(false);
-      if (fileInput.current) fileInput.current.value = '';
     }
   };
   const openFile = async (a: MessageAttachment) => {
-    try { const r = await api.messages.attachmentUrl(a.id, 'inline'); window.open(r.url, '_blank', 'noopener'); } catch (e) { toast.error((e as Error).message); }
+    try { const r = await api.messages.attachmentUrl(a.id, 'inline'); window.open(r.url, '_blank', 'noopener'); } catch (e) { toast.error(errorText(e)); }
   };
   const q = useQuery({ queryKey: ['thread', id], queryFn: () => api.messages.thread(id), refetchInterval: 15_000 });
   const count = q.data?.messages.length ?? 0;
@@ -92,7 +93,7 @@ function Thread({ id }: { id: string }) {
       setFiles([]);
       return { prev, body };
     },
-    onError: (e, _b, ctx) => { if (ctx?.prev) qc.setQueryData(['thread', id], ctx.prev); setText(ctx?.body ?? ''); toast.error((e as Error).message); },
+    onError: (e, _b, ctx) => { if (ctx?.prev) qc.setQueryData(['thread', id], ctx.prev); setText(ctx?.body ?? ''); toast.error(errorText(e)); },
     onSettled: () => { qc.invalidateQueries({ queryKey: ['thread', id] }); qc.invalidateQueries({ queryKey: ['conversations'] }); },
   });
   const submit = () => { const b = text.trim() || (files.length ? t('messagesV3.sentFiles', { count: files.length }) : ''); if (b && !send.isPending && !uploading) send.mutate(b); };
@@ -103,7 +104,8 @@ function Thread({ id }: { id: string }) {
   return (
     <QueryState query={q} skeleton={<div className="st-thread"><Skeleton h={60} /><Skeleton h={60} /></div>}>
       {(d) => (
-        <div className="st-thread">
+        // Owner req. 4: the whole conversation accepts a dropped file; the paperclip opens the same checked picker.
+        <FileDrop ref={drop} variant="overlay" className="st-thread" rules={{ maxFiles: 5 }} already={files.length} disabled={uploading} onFiles={attach}>
           <header className="st-thread__head">
             <Link to="/messages" className="hg-btn hg-btn--ghost hg-btn--icon st-thread__back" aria-label={t('common:actions.back')}><ArrowLeft className="hg-flip-rtl" /></Link>
             <div className="hg-grow" style={{ minWidth: 0 }}>
@@ -141,13 +143,12 @@ function Thread({ id }: { id: string }) {
             </ul>
           )}
           <form className="st-composer" onSubmit={(e) => { e.preventDefault(); submit(); }}>
-            <input ref={fileInput} type="file" hidden accept="application/pdf,image/png,image/jpeg,image/webp" multiple onChange={(e) => attach(e.target.files)} />
-            <Button variant="ghost" iconOnly icon={<Paperclip />} aria-label={t('messagesV3.attach')} loading={uploading} onClick={() => fileInput.current?.click()} />
+            <Button variant="ghost" iconOnly icon={<Paperclip />} aria-label={t('messagesV3.attach')} loading={uploading} onClick={() => drop.current?.open()} />
             <Textarea aria-label={t('messages.composer')} placeholder={t('messages.composer')} rows={1} value={text} onChange={(e) => setText(e.target.value)} onKeyDown={onKey} className="st-composer__input" />
             <Button type="submit" variant="primary" iconOnly icon={<Send className="hg-flip-rtl" />} aria-label={t('common:actions.send')} disabled={(!text.trim() && files.length === 0) || uploading} loading={send.isPending} />
           </form>
           <p className="st-composer__hint hg-subtle hg-xs">{t('messages.hint')}</p>
-        </div>
+        </FileDrop>
       )}
     </QueryState>
   );

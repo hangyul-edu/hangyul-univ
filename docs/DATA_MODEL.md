@@ -285,9 +285,11 @@ The reference below is **generated from the models** by `server/scripts/gen_data
 | `slug` | varchar | no | unique |
 | `name_en` | varchar | no | indexed |
 | `name_ko` | varchar | no |  |
-| `institution_type` | varchar | no |  |
+| `name_en_recorded` | boolean | yes |  |
+| `institution_type` | varchar | no | indexed |
+| `institution_kind` | varchar | yes | indexed |
 | `region` | varchar | no | indexed |
-| `city` | varchar | no |  |
+| `city` | varchar | yes |  |
 | `website_url` | varchar | yes |  |
 | `international_admissions_url` | varchar | yes |  |
 | `summary` | text | yes |  |
@@ -350,14 +352,21 @@ The reference below is **generated from the models** by `server/scripts/gen_data
 | `department_id` | char | yes | → `departments` indexed |
 | `name_en` | varchar | no | indexed |
 | `name_ko` | varchar | yes |  |
+| `name_en_recorded` | boolean | yes |  |
 | `degree_level` | varchar | no | indexed |
-| `field` | varchar | no | indexed |
-| `instruction_language` | varchar | no |  |
+| `field` | varchar | yes | indexed |
+| `instruction_language` | varchar | no | indexed |
 | `duration_semesters` | integer | yes |  |
 | `tuition_per_semester_krw` | integer | yes |  |
 | `application_fee_krw` | integer | yes |  |
 | `description` | text | yes |  |
 | `is_active` | boolean | no |  |
+| `catalog_key` | varchar | yes | unique |
+| `origin` | varchar | yes |  |
+| `college_ko` | varchar | yes |  |
+| `campus_name` | varchar | yes |  |
+| `source_page` | varchar | yes |  |
+| `evidence` | text | yes |  |
 | `id` | char | no | PK |
 | `created_at` | datetime | no |  |
 | `updated_at` | datetime | no |  |
@@ -437,6 +446,16 @@ The reference below is **generated from the models** by `server/scripts/gen_data
 | `max_age_days` | integer | yes |  |
 | `notes` | text | yes |  |
 | `sort_order` | integer | no |  |
+| `guide_id` | char | yes | → `admission_guides` indexed |
+| `name_ko` | varchar | yes |  |
+| `condition` | text | yes |  |
+| `applies_to` | json | yes |  |
+| `original_or_copy` | varchar | yes |  |
+| `submission_method` | varchar | yes |  |
+| `notarization_required` | boolean | no |  |
+| `legalization_rule` | varchar | yes |  |
+| `source_page` | varchar | yes |  |
+| `evidence` | text | yes |  |
 | `id` | char | no | PK |
 | `created_at` | datetime | no |  |
 | `updated_at` | datetime | no |  |
@@ -495,6 +514,28 @@ The reference below is **generated from the models** by `server/scripts/gen_data
 | `application_deadline` | date | yes |  |
 | `is_automatic` | boolean | no |  |
 | `pool_id` | char | yes | → `scholarship_pools` indexed |
+| `institution_id` | char | yes | → `institutions` indexed |
+| `name_en` | varchar | yes |  |
+| `name_native` | varchar | yes |  |
+| `name_official_en` | varchar | yes |  |
+| `name_display_ko` | varchar | yes |  |
+| `display_is_description` | boolean | yes |  |
+| `category` | varchar | yes |  |
+| `stage` | varchar | yes |  |
+| `international_only` | boolean | yes |  |
+| `topik_min` | integer | yes |  |
+| `english_min` | json | yes |  |
+| `gpa_requirement` | varchar | yes |  |
+| `gpa_min_percent` | float | yes |  |
+| `dormitory_support` | boolean | yes |  |
+| `living_allowance` | varchar | yes |  |
+| `duration` | varchar | yes |  |
+| `renewal` | varchar | yes |  |
+| `application_period` | varchar | yes |  |
+| `department_restriction` | varchar | yes |  |
+| `nationality_restriction` | varchar | yes |  |
+| `evidence` | text | yes |  |
+| `source_name` | varchar | yes |  |
 | `id` | char | no | PK |
 | `created_at` | datetime | no |  |
 | `updated_at` | datetime | no |  |
@@ -963,7 +1004,7 @@ The reference below is **generated from the models** by `server/scripts/gen_data
 |---|---|---|---|
 | `user_id` | char | no | → `users` indexed |
 | `code` | varchar | no |  |
-| `entitlement_key` | varchar | no | indexed |
+| `entitlement_key` | varchar | yes | indexed |
 | `quantity` | integer | no |  |
 | `status` | varchar | no | indexed |
 | `amount_minor` | bigint | yes |  |
@@ -972,6 +1013,15 @@ The reference below is **generated from the models** by `server/scripts/gen_data
 | `offered_by_user_id` | char | yes | → `users` indexed |
 | `decided_at` | datetime | yes |  |
 | `order_id` | char | yes | → `orders` indexed |
+| `catalog_version` | varchar | yes |  |
+| `unit_amount_minor` | bigint | yes |  |
+| `scope` | text | yes |  |
+| `subject_type` | varchar | yes |  |
+| `subject_id` | char | yes |  |
+| `case_id` | char | yes | → `service_cases` indexed |
+| `paid_at` | datetime | yes |  |
+| `activated_at` | datetime | yes |  |
+| `completed_at` | datetime | yes |  |
 | `id` | char | no | PK |
 | `created_at` | datetime | no |  |
 | `updated_at` | datetime | no |  |
@@ -990,6 +1040,12 @@ The reference below is **generated from the models** by `server/scripts/gen_data
 | `refunded_at` | datetime | yes |  |
 | `refund_amount_minor` | bigint | yes |  |
 | `refund_reason` | varchar | yes |  |
+| `kind` | varchar | no | indexed |
+| `catalog_version` | varchar | yes |  |
+| `plan_snapshot` | json | yes |  |
+| `purchase_terms_version` | varchar | yes |  |
+| `payment_state` | varchar | no | indexed |
+| `payment_method_id` | char | yes | → `student_payment_methods` indexed |
 | `id` | char | no | PK |
 | `created_at` | datetime | no |  |
 | `updated_at` | datetime | no |  |
@@ -1008,6 +1064,11 @@ The reference below is **generated from the models** by `server/scripts/gen_data
 | `refunded_amount_minor` | bigint | yes |  |
 | `refund_ref` | varchar | yes |  |
 | `refunded_at` | datetime | yes |  |
+| `provider_mid` | varchar | yes |  |
+| `provider_order_id` | varchar | yes | indexed |
+| `attempt` | integer | yes |  |
+| `payment_method_id` | char | yes | → `student_payment_methods` indexed |
+| `failure_code` | varchar | yes |  |
 | `id` | char | no | PK |
 | `created_at` | datetime | no |  |
 | `updated_at` | datetime | no |  |
@@ -1290,9 +1351,16 @@ The reference below is **generated from the models** by `server/scripts/gen_data
 | `id` | char | no | PK |
 
 ## Other
+- `admission_guides`
+- `admission_language_rules`
 - `application_admin_checks`
 - `application_submissions`
 - `auth_security_events`
+- `catalog_ingestion_runs`
+- `catalog_link_checks`
+- `catalog_source_results`
+- `catalog_staged_records`
+- `catalog_state`
 - `document_analyses`
 - `document_findings`
 - `document_requests`
@@ -1306,10 +1374,17 @@ The reference below is **generated from the models** by `server/scripts/gen_data
 - `extracted_fields`
 - `housing_listings`
 - `institutions`
+- `job_runs`
 - `language_recommendations`
+- `legal_holds`
 - `message_attachments`
 - `message_templates`
+- `mfa_recovery_codes`
+- `ops_events`
 - `org_sso_configs`
+- `payment_customers`
+- `payment_method_registrations`
+- `payment_webhook_events`
 - `portfolio_reviews`
 - `push_tokens`
 - `requirement_changes`
@@ -1319,7 +1394,9 @@ The reference below is **generated from the models** by `server/scripts/gen_data
 - `saved_views`
 - `service_case_events`
 - `service_cases`
+- `service_engagements`
 - `sso_login_states`
+- `staff_mfa`
 - `student_payment_methods`
 - `submission_agency_permissions`
 - `submission_authorizations`

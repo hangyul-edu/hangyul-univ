@@ -27,7 +27,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router';
 
 import { PaymentCheckout } from '../components/PaymentCheckout';
-import { appReturn, clearAppReturn } from '../lib/apphandoff';
+import { appReturn, clearAppReturn, clearPurchaseReturn, purchaseReturnTarget } from '../lib/apphandoff';
 import { failureCode, failureKey, WINDOW_CLOSED } from '../lib/billing';
 import { tr, useT } from '../lib/i18n';
 
@@ -124,6 +124,7 @@ export function Paid({ result }: { result: PaymentResult }) {
   const { t, locale } = useT();
   const name = result.kind === 'ADD_ON' ? t('v29.services.history.addOn') : tr(t, `services.${result.product_code}.name`, result.product_name);
   const back = appReturn();
+  const [next] = useState(() => purchaseReturnTarget());
   return (
     <div className="st-page sv16-return">
       <div className="sv16-return__mark" aria-hidden><CircleCheck /></div>
@@ -142,8 +143,10 @@ export function Paid({ result }: { result: PaymentResult }) {
           {t('v17.pay.backToApp')}
         </ButtonLink>
       ) : (
-        <ButtonLink as={Link} to="/" variant="primary" size="lg" iconEnd={<ArrowRight className="hg-flip-rtl" />}>
-          {t('v16.pay.success.cta')}
+        // 261119: back to the page that sent them to the plan — `/match` for the marketing `유학 준비` path.
+        <ButtonLink as={Link} to={next ?? '/'} replace variant="primary" size="lg" iconEnd={<ArrowRight className="hg-flip-rtl" />} onClick={() => clearPurchaseReturn()}
+          data-purchase-return={next ?? undefined}>
+          {next?.startsWith('/match') ? t('billing.return.toMatch') : t('v16.pay.success.cta')}
         </ButtonLink>
       )}
       {result.receipt_url && (

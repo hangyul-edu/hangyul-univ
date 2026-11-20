@@ -587,20 +587,20 @@ def resolve(db: Session, student_user_id, *, today: date | None = None, staff: b
                                       or METHOD_NOTES.get((route.country, None)))
     why = []
     if method == "E_VISA_UNIVERSITY":
-        why.append({"code": "EVISA_TIER", "params": {"tier": tier, "university": uni.name_en if uni else "", "university_id": str(uni.id) if uni else None}})
+        why.append({"code": "EVISA_TIER", "params": {"tier": tier, "university": uni.name_en if uni else "", "university_ko": uni.name_ko if uni else "", "university_id": str(uni.id) if uni else None}})
     elif method == "CCVI":
-        why.append({"code": "CCVI_REQUIRED", "params": {"university": uni.name_en if uni else "", "university_id": str(uni.id) if uni else None}})
+        why.append({"code": "CCVI_REQUIRED", "params": {"university": uni.name_en if uni else "", "university_ko": uni.name_ko if uni else "", "university_id": str(uni.id) if uni else None}})
     else:
         if post:
             why.append({"code": "POST_BY_REGION" if j["mode"] == "regional" else "POST_FOR_COUNTRY", "params": {"city": post["city"], "country": inputs["country_name"]}})
         if route.e_visa_available and visa_type.startswith("D-2") and tier == "UNKNOWN" and uni:
-            out["caveats"].append({"code": "EVISA_TIER_UNKNOWN", "params": {"university": uni.name_en, "university_id": str(uni.id)}})
+            out["caveats"].append({"code": "EVISA_TIER_UNKNOWN", "params": {"university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id)}})
         if route.e_visa_available and tier in ("CERTIFIED", "GENERAL") and not evisa and visa_type.startswith("D-2"):
-            why.append({"code": "NO_EVISA_TIER", "params": {"university": uni.name_en if uni else "", "university_id": str(uni.id) if uni else None}})
+            why.append({"code": "NO_EVISA_TIER", "params": {"university": uni.name_en if uni else "", "university_ko": uni.name_ko if uni else "", "university_id": str(uni.id) if uni else None}})
         if visa_type == "D-4-1":
             why.append({"code": "NO_EVISA_D41", "params": {}})
         if visa_type == "D-4-1" and nationality in CCVI_D41_COUNTRIES and tier == "UNKNOWN":
-            out["caveats"].append({"code": "CCVI_TIER_UNKNOWN", "params": {"university": uni.name_en if uni else "", "university_id": str(uni.id) if uni else None}})
+            out["caveats"].append({"code": "CCVI_TIER_UNKNOWN", "params": {"university": uni.name_en if uni else "", "university_ko": uni.name_ko if uni else "", "university_id": str(uni.id) if uni else None}})
     if tier == "EXCELLENT" and method != "E_VISA_UNIVERSITY":
         why.append({"code": "CCVI_POSSIBLE", "params": {}})
     out["why"] = why
@@ -660,7 +660,7 @@ def resolve(db: Session, student_user_id, *, today: date | None = None, staff: b
                 if d.key in marks:
                     status, reason = "READY", {"code": "RECEIVED", "params": {}}
                 else:
-                    status, reason = "WAITING_UNIVERSITY", {"code": "WAITING_UNIVERSITY", "params": {"university": uni.name_en if uni else "", "university_id": str(uni.id) if uni else None}}
+                    status, reason = "WAITING_UNIVERSITY", {"code": "WAITING_UNIVERSITY", "params": {"university": uni.name_en if uni else "", "university_ko": uni.name_ko if uni else "", "university_id": str(uni.id) if uni else None}}
             if status in ("NEEDS_NEW_VERSION",) or (status == "NEAR_EXPIRY" and reason["code"] == "NEAR_TOO_OLD"):
                 status = "NEW_FOR_VISA"
                 reason = {"code": "NEW_FOR_VISA", "params": {"days": d.validity_days}}

@@ -21,7 +21,9 @@ prefix are historical internal names for **Hangyul's internal Operations/Admin p
 
 One of three **one-time plans in USD** (never a subscription): Basic $179, All-in-One $349 (core product), Premium
 $599 — plus optional additional services the team proposes for that student at an exact price. Searching the
-directory, saving universities and Quick Fit are free and need no purchase. Full contract: [SERVICE_CATALOG.md](SERVICE_CATALOG.md).
+public university directory and saving universities are free. **Personalised university matching is part of the
+purchased service** (owner decision 2026-11-19, `docs/owner/개선사항_261119.pdf` §1): Marketing `유학 준비` → Student login →
+plan/checkout if no plan → `/match` (matching and university selection). There is no anonymous Quick Fit any more. Full contract: [SERVICE_CATALOG.md](SERVICE_CATALOG.md).
 
 ## How Hangyul improves the chance of admission
 
@@ -43,7 +45,7 @@ admission" and never shows a probability, percentage or fake score. Detail: [ADM
 
 | Product | Domain | Code | For | Core jobs |
 |---|---|---|---|---|
-| Marketing | `univ.talkhangyul.com` | `apps/marketing-web` | Prospective students | Directory of 425 Korean institutions, university pages, Quick Fit, plans, legal pages, sign in |
+| Marketing | `univ.talkhangyul.com` | `apps/marketing-web` | Prospective students | Directory of 425 Korean institutions and university pages (read live from the one catalogue database), plans, legal pages; `유학 준비` opens the Student login |
 | Student | `app.univ.talkhangyul.com` | `apps/student-web`, `apps/student-mobile` | Students | Next action, matches, applications, document dossier, essays, visa, housing, arrival, services, messages |
 | Operations/Admin (Hangyul internal) | `admin.univ.talkhangyul.com` | `apps/agency-web`, `apps/agency-mobile` | Hangyul operations team | Today queue, student workspace, document and essay review, application management, add-on offers, performance; HQ tools |
 | University console | `partner.univ.talkhangyul.com` | `apps/university-web`, `apps/university-mobile` | University admissions staff | Applicants to decide, requests for documents, pipeline, outcomes and insights |
@@ -54,7 +56,7 @@ One FastAPI API (`server/`, `/api/v1`) serves all of them. Deployment state: [DE
 
 | Stage | Student sees | Hangyul team does | University does |
 |---|---|---|---|
-| 1. Find a university | Directory, university pages, Quick Fit groups, saved list | Publishes verified facts with sources | — |
+| 1. Find a university | Public directory and university pages; after login and purchase, personalised matching at `/match` (four honest groups) and university selection | Publishes verified facts with sources; recommends universities | — |
 | 2. Prepare | One next action; requirements for the chosen universities; document dossier; essay drafts | Consultation, recommendation, strategy, document review, legalization guidance, essay review | Publishes the admission guide |
 | 3. Apply | Pre-submission check; guided submission on the university's own rail; proof of submission | Checks completeness and deadlines; records evidence | Receives the application |
 | 4. Wait for the result | "The university is reviewing — nothing to do" or "one more document by <date>" | Tracks requests and results; answers the university | Reviews, requests documents, **decides** |
@@ -90,7 +92,8 @@ extra managed application $30–50 · extra edit round $20–35 · mock intervie
 $50–80 · airport pickup arrangement (quote) · extra settlement support (quote).
 
 **All-in-One is the core product** (business plan §9, 주력 상품). There is no free tier: searching the
-directory, saving universities and the public eligibility check at `/start` stay free *and unpurchased*.
+public directory and saving universities stay free *and unpurchased*. Personalised matching (`/match`) needs a plan:
+the anonymous check at `/start` was retired by the owner on 2026-11-19 and `/start` now redirects to the Student login.
 
 The numbers live in exactly one place — `packages/types/src/plans.ts` — which generates `shared/plans.json`
 for the Python seed. The marketing site renders from the manifest (a public page must paint when the API is

@@ -4,14 +4,16 @@ import {
   AppText, Button, ChipGroup, EmptyState, ErrorState, IconButton, ListGroup, ListItem, LoadingState, Screen, SegmentedControl, Sheet, StatusText,
   TextField, theme, useFormat,
 } from '@hangyul/mobile-ui';
-import type { DegreeLevel, InstructionLanguage, Match, Program } from '@hangyul/types';
+import type { CatalogStatus, DegreeLevel, InstructionLanguage, Match, Program } from '@hangyul/types';
 import { keepPreviousData, useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { router } from 'expo-router';
-import { Heart, Search, SearchX, SlidersHorizontal, X } from 'lucide-react-native';
+import { router, useLocalSearchParams } from 'expo-router';
+import { ArrowRight, Heart, Hourglass, Search, SearchX, SlidersHorizontal, Sparkles, X } from 'lucide-react-native';
 import { useEffect, useMemo, useState } from 'react';
 import { Platform, Pressable, StyleSheet, View } from 'react-native';
 
+import { catalogPreparing, emptyReason, MATCH_PLAN_PATH, matchGated, planState } from '../../src/access';
 import { useReasonText } from '../../src/components';
+import { useServices } from '../../src/plan';
 import { matchMeta } from '../../src/journey';
 import { qk, useSaved } from '../../src/queries';
 
@@ -26,10 +28,53 @@ export function useMatches() {
   return useQuery({ queryKey: qk.matches, queryFn: () => api.me.matches({ limit: 120 }), staleTime: 5 * 60_000 });
 }
 
+/** The catalogue's state, read once from a one-row listing — for "For you", whose own data does not carry it (as web). */
+export function useCatalogStatus(enabled: boolean) {
+  const api = useApi();
+  return useQuery({
+    queryKey: ['programs', 'catalog-status'],
+    queryFn: async (): Promise<CatalogStatus> => {
+      const r = await api.catalog.programs({ page: 1, page_size: 1 });
+      return r.catalog ?? { state: r.total > 0 ? 'READY' : 'EMPTY', programs_total: r.total, universities_total: 0 };
+    },
+    enabled,
+    staleTime: 5 * 60_000,
+  });
+}
+
+/** The calm "being prepared" state (261119 req 3): about the catalogue, never about the student. No corrective action. */
+export function CatalogPreparing() {
+  const { t } = useTranslation();
+  return <EmptyState icon={Hourglass} title={t('mobile:v261119.catalog.preparingTitle')} body={t('mobile:v261119.catalog.preparingText')} />;
+}
+
+/** "For you" for a student without a plan (261119 req 1): the way to a plan, not an empty list. Browsing stays free. */
+export function MatchPlanPath({ onBrowse }: { onBrowse: () => void }) {
+  const { t } = useTranslation();
+  return (
+    <View style={styles.planPath}>
+      <Sparkles size={22} color={theme.color.primary} />
+      <AppText variant="title" accessibilityRole="header">{t('mobile:v261119.matchGate.title')}</AppText>
+      <AppText variant="body" secondary>{t('mobile:v261119.matchGate.text')}</AppText>
+      <View style={{ gap: 8, marginTop: 4 }}>
+        <Button label={t('mobile:v261119.matchGate.cta')} icon={ArrowRight} onPress={() => router.push(MATCH_PLAN_PATH)} fullWidth />
+        <Button label={t('mobile:v261119.matchGate.browse')} variant="secondary" onPress={onBrowse} fullWidth />
+      </View>
+    </View>
+  );
+}
+
 /** One place to find programs: personal matches first, the full catalogue second, the shortlist third. */
 export default function UniversitiesScreen() {
   const { t } = useTranslation();
-  const [tab, setTab] = useState<Tab>('foryou');
+  const params = useLocalSearchParams<{ tab?: string }>();
+  const services = useServices();
+  const plan = planState(services);
+  const gated = matchGated(plan);
+  const [chosen, setTab] = useState<Tab | null>(params.tab === 'all' || params.tab === 'saved' || params.tab === 'foryou' ? params.tab : null);
+  // As on the web: a student without a plan opens on the free directory; "For you" there is the way to a plan.
+  const tab: Tab = chosen ?? (gated ? 'all' : 'foryou');
+  useEffect(() => { if (params.tab === 'all' || params.tab === 'saved' || params.tab === 'foryou') setTab(params.tab); }, [params.tab]);
   const matches = useMatches();
   const saved = useSaved();
   return (
@@ -43,18 +88,29 @@ export default function UniversitiesScreen() {
           { value: 'saved', label: t('v3.discover.saved', { count: saved.data?.length ?? 0 }) },
         ]}
       />
-      {tab === 'foryou' ? <ForYou /> : tab === 'all' ? <AllPrograms /> : <Saved />}
+      {tab === 'foryou'
+        ? (plan === 'loading' ? <LoadingState rows={4} /> : gated ? <MatchPlanPath onBrowse={() => setTab('all')} /> : <ForYou onBrowse={() => setTab('all')} />)
+        : tab === 'all' ? <AllPrograms /> : <Saved />}
     </Screen>
   );
 }
 
-function ForYou() {
+/** Personalised matching (the `/match` screen and the "For you" tab, paid students). */
+export function ForYou({ onBrowse }: { onBrowse?: () => void }) {
   const { t } = useTranslation();
   const matches = useMatches();
   const [verdict, setVerdict] = useState<Verdict>('strong');
+  // No matches at all: first ask whether the catalogue itself is ready ("being prepared", never "nothing fits you").
+  const catalog = useCatalogStatus(!!matches.data && matches.data.items.length === 0);
   if (matches.isPending) return <LoadingState rows={5} />;
   if (matches.isError && !matches.data) return <ErrorState error={matches.error} onRetry={() => void matches.refetch()} />;
   const d = matches.data!;
+  if (d.items.length === 0) {
+    if (catalog.isLoading) return <LoadingState rows={3} />;
+    if (catalogPreparing(catalog.data)) return <CatalogPreparing />;
+    return <EmptyState icon={SearchX} title={t('mobile:v261119.match.emptyTitle')} body={t('mobile:v261119.match.emptyText')}
+      actionLabel={onBrowse ? t('mobile:v261119.matchGate.browse') : undefined} onAction={onBrowse} />;
+  }
   const byVerdict: Record<Verdict, Match[]> = {
     strong: d.items.filter((m) => m.tier === 'STRONG'),
     possible: d.items.filter((m) => m.tier === 'COMPETITIVE'),
@@ -105,6 +161,7 @@ function AllPrograms() {
   });
   const items = programs.data?.pages.flatMap((p) => p.items) ?? [];
   const total = programs.data?.pages[0]?.total ?? 0;
+  const catalog = programs.data?.pages[0]?.catalog;
   const active = degrees.length + lang.length + (maxTuition ? 1 : 0) + (openOnly ? 1 : 0);
   const clear = () => { setDegrees([]); setLang([]); setMaxTuition(''); setOpenOnly(false); };
   const toggle = <T,>(set: (fn: (c: T[]) => T[]) => void) => (v: T) => set((c) => (c.includes(v) ? c.filter((x) => x !== v) : [...c, v]));
@@ -129,7 +186,10 @@ function AllPrograms() {
       {programs.isPending ? <LoadingState rows={5} /> : programs.isError && !programs.data ? (
         <ErrorState error={programs.error} onRetry={() => void programs.refetch()} />
       ) : items.length === 0 ? (
-        <EmptyState icon={SearchX} title={t('common:states.noResults')} actionLabel={t('common:actions.clearFilters')} onAction={() => { setInput(''); clear(); }} />
+        // 261119 req 3: an empty or preparing catalogue is "being prepared"; only a ready one with filters is "no match".
+        emptyReason(catalog, active > 0 || !!q) === 'preparing' ? <CatalogPreparing /> : (
+          <EmptyState icon={SearchX} title={t('common:states.noResults')} actionLabel={t('common:actions.clearFilters')} onAction={() => { setInput(''); clear(); }} />
+        )
       ) : (
         <>
           <AppText variant="caption" accessibilityLiveRegion="polite">{t('common:table.results', { count: total })}</AppText>
@@ -231,4 +291,6 @@ const styles = StyleSheet.create({
   activeRow: { flexDirection: 'row', alignItems: 'center', gap: 12, marginTop: -8 },
   row: { flexDirection: 'row', alignItems: 'flex-start' },
   rowMain: { flex: 1, paddingVertical: 14, paddingStart: 16, gap: 2 },
+  // Warm white + one orange mark: the primary next step, not a grey card in a card.
+  planPath: { gap: 8, padding: 20, borderRadius: theme.radius.xl, backgroundColor: theme.color.selected.bg },
 });

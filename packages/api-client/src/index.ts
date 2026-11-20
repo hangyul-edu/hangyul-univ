@@ -282,6 +282,8 @@ export function createApiClient(cfg: ApiClientConfig) {
       article: (slug: string, locale: string) => get<T.ContentArticle>(`/content/${slug}`, { locale }),
       /** Public by default; `include_internal` adds the seeded-data provenance rows the HQ registry needs. */
       sources: (query?: Query) => get<T.Page<T.SourceRecord>>('/sources', query),
+      /** V34 — Operations only: catalogue ingestion health (counts, last/next refresh in Asia/Seoul, failures, stale records). */
+      catalogHealth: () => get<T.CatalogHealth>('/ops/catalog/health'),
       legalizationPath: (country: string, category?: string, university_id?: string) =>
         get<T.LegalizationInfo>('/documents/legalization-path', { country, category, university_id }),
     },

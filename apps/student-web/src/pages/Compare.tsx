@@ -83,7 +83,7 @@ export default function Compare() {
     { key: 'dorm', label: t('compare.row.dorm'), value: (r) => (r.dormitory ? 1 : 0), cell: (r) => <YesNo v={r.dormitory} /> },
     { key: 'docs', label: t('compare.row.docs'), value: (r) => `${r.document_count}/${r.legalization_documents}`,
       cell: (r) => <>{t('compare.docCount', { count: r.document_count })}{r.legalization_documents > 0 && <div className="hg-xs" style={{ color: 'var(--hg-status-warning-fg)' }}>{t('compare.legalCount', { count: r.legalization_documents })}</div>}</> },
-    { key: 'location', label: t('compare.row.location'), value: (r) => r.program.university?.city ?? null, cell: (r) => r.program.university?.city ?? '—' },
+    { key: 'location', label: t('compare.row.location'), value: (r) => r.program.university?.city ?? null, cell: (r) => (r.program.university?.city ? t(`common:region.${r.program.university.city}`, { defaultValue: r.program.university.city }) : '—') },
     { key: 'fee', label: t('compare.row.fee'), value: (r) => r.program.application_fee_krw, best: 'min', cell: (r) => <Krw value={r.program.application_fee_krw} /> },
     { key: 'partner', label: t('compare.row.partner'), value: (r) => (r.partner ? 1 : 0), cell: (r) => r.partner ? <span>{t('explore.partner')}</span> : <YesNo v={false} /> },
     { key: 'source', label: t('compare.row.source'), cell: (r) => <FreshnessBadge data={r.program} compact /> },

@@ -101,6 +101,8 @@ export function StaffLoginScreen({ product, title, subtitle, footer, afterLogin 
               </form>
               {footer}
               <DesignPreviewLoginEntry />
+              {/* Hangyul HQ pages (overview, readiness, accounts, sources) — a second synthetic persona, Operations only. */}
+              <DesignPreviewLoginEntry variant="hq" to="/hq" />
             </>
           )}
           {step.kind === 'mfa' && (

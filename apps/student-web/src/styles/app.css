@@ -231,7 +231,7 @@
 @media (min-width: 1024px) { .st-thread { min-height: 560px; max-height: calc(100dvh - 160px); } }
 .st-thread__head { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--hg-border); background: var(--hg-surface); border-radius: var(--hg-radius-lg) var(--hg-radius-lg) 0 0; }
 @media (min-width: 1024px) { .st-thread__back { display: none; } }
-.st-thread__body { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding: 18px 14px; }
+.st-thread__body { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding: 18px 14px; }
 .st-msg { display: flex; gap: 8px; align-items: flex-end; max-width: 88%; }
 .st-msg--mine { align-self: flex-end; flex-direction: row-reverse; }
 .st-msg__bubble { padding: 10px 14px; border-radius: var(--hg-radius-xl); border-end-start-radius: 6px; background: var(--hg-surface); border: 1px solid var(--hg-border); min-width: 0; }
@@ -335,7 +335,7 @@
 .sv22-summary dd { margin: 0; color: var(--hg-text); }
 .sv22-summary ul { margin: 0; padding-inline-start: 16px; }
 .sv22-summary__agree { margin: 6px 0 10px; }
-@media (max-width: 480px) { .sv22-summary > div { grid-template-columns: 1fr; gap: 2px; } }
+@media (max-width: 480px) { .sv22-summary > div { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
 
 /* ── from v2.css ────────────────────────────────────────────────────────────────────────────────────────────── */
 /* Student platform — v2 composition layer ("guided service", not a dashboard).
@@ -402,6 +402,17 @@
 .sx-filters { display: flex; flex-direction: column; gap: 20px; }
 .sx-filters .st-group__label { font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); margin-bottom: 0; }
 .sx-filters .hg-chip { min-height: 28px; padding: 0 10px; font-size: var(--hg-text-xs); }
+/* 261119: chips in one group are alternatives (any of), groups narrow each other (all of) — said once, quietly. */
+.sx-filters__logic { margin: 0; line-height: 1.5; }
+/* 261119: "For you" without a plan — the way to personalised matching, on the warm surface, one orange action. */
+.sx-planpath { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; align-items: start; padding: 20px; border-radius: var(--hg-radius-xl);
+  background: var(--hg-surface-warm, #FBF7F1); border: 1px solid var(--hg-border-subtle); }
+.sx-planpath__icon { display: grid; place-items: center; inline-size: 40px; block-size: 40px; border-radius: 12px; background: var(--hg-surface); color: var(--hg-primary-text, var(--hg-text)); }
+.sx-planpath__icon svg { inline-size: 20px; block-size: 20px; }
+.sx-planpath__body { display: grid; gap: 8px; min-width: 0; }
+.sx-planpath__body h2, .sx-planpath__body p { margin: 0; }
+.sx-planpath__actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+@media (max-width: 479px) { .sx-planpath { grid-template-columns: minmax(0, 1fr); } .sx-planpath__actions > * { flex: 1 1 100%; } }
 .sx-more summary { cursor: pointer; font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); color: var(--hg-text-secondary); list-style: none; padding: 4px 0; }
 .sx-more summary::-webkit-details-marker { display: none; }
 .sx-more summary::before { content: '+ '; }
@@ -813,7 +824,16 @@ a.stk-title:hover { text-decoration: underline; text-decoration-color: var(--hg-
 .v4-row__title { color: var(--hg-text); text-decoration: none; font-weight: var(--hg-weight-medium); }
 .v4-row--grouped .v4-row__title { font-weight: var(--hg-weight-semibold); }
 .v4-row__title:hover { text-decoration: underline; text-decoration-color: var(--hg-border-strong); }
-.v4-row__deg { color: var(--hg-text-tertiary); font-size: var(--hg-text-sm); }
+.v4-row__deg { color: var(--hg-text-tertiary); font-size: var(--hg-text-sm); white-space: nowrap; }
+/* 261119 (REPORT §5 known issue): a long programme name wraps inside its own column and the degree label keeps its
+   place beside the first line instead of dropping alone under the name. Names never overflow the row. */
+.v4-row__title, .v4-row__uniname, .v4-group__name a { overflow-wrap: anywhere; }
+@media (max-width: 767px) {
+  .v4-row__prog { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 10px; align-items: baseline; }
+  .v4-row__prog .v4-row__sep { display: none; }
+  .v4-row__deg { grid-column: 2; grid-row: 1; justify-self: end; }
+  .v4-row__verdict { grid-column: 1 / -1; margin-inline-start: 0; }
+}
 .v4-row__verdict { margin-inline-start: 8px; font-size: var(--hg-text-sm); }
 .v4-row__facts { display: flex; flex-wrap: wrap; gap: 2px 14px; font-size: var(--hg-text-sm); color: var(--hg-text-secondary); }
 .v4-row__facts .hg-num { color: var(--hg-text); font-weight: var(--hg-weight-medium); }
@@ -1103,7 +1123,7 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
 .v9-family__link-end { display: flex; align-items: center; gap: 8px; }
 /* Inactive links are muted by colour, not opacity: opacity dropped the secondary text below 4.5:1. */
 .v9-family__link[data-state='REVOKED'] strong, .v9-family__link[data-state='EXPIRED'] strong { color: var(--hg-text-secondary); }
-.v9-sp { min-height: 100vh; background: var(--hg-bg); }
+.v9-sp { min-height: 100dvh; background: var(--hg-bg); }
 .v9-sp__main { max-width: 760px; margin: 0 auto; padding: 16px 16px 64px; display: flex; flex-direction: column; gap: 18px; }
 .v9-sp__intro { display: flex; flex-direction: column; gap: 6px; }
 .v9-sp__title { margin: 0; font-size: 26px; line-height: 1.25; font-weight: 700; }
@@ -1827,6 +1847,11 @@ span.v25-line__btn { cursor: default; }
 .sv26-scope, .sv26-otherplans { margin-top: 16px; }
 .sv26-scope > summary, .sv26-otherplans > summary { cursor: pointer; font-weight: var(--hg-weight-semibold); padding: 10px 0; min-height: 44px; display: flex; align-items: center; }
 .sv26-otherplans { padding-top: 8px; border-top: 1px solid var(--hg-border-subtle); }
+/* The two disclosures read as plain headings (display:flex drops the native marker): a chevron at the end says
+   they open, and turns when they are open. */
+.sv26-scope > summary::after, .sv26-otherplans > summary::after { content: ''; flex: none; inline-size: 8px; block-size: 8px; margin-inline: auto 4px; border-inline-end: 2px solid var(--hg-text-tertiary); border-block-end: 2px solid var(--hg-text-tertiary); transform: translateY(-2px) rotate(45deg); transition: transform var(--hg-motion-fast); }
+.sv26-scope[open] > summary::after, .sv26-otherplans[open] > summary::after { transform: translateY(2px) rotate(-135deg); }
+.sv26-scope > summary::-webkit-details-marker, .sv26-otherplans > summary::-webkit-details-marker { display: none; }
 @media (max-width: 767px) {
   .sv26-now__row { grid-template-columns: minmax(0, 1fr); }
   .sv26-now__next { justify-items: start; text-align: start; }
@@ -2003,7 +2028,7 @@ span.v25-line__btn { cursor: default; }
   .sp-order > h2, .sp-order__fine { grid-column: 1 / -1; }
   .sp-order__fine .sv29-notes { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; }
 }
-@media (max-width: 480px) { .sp-order .sv22-summary > div:not(.sp-order__total) { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .sp-order .sv22-summary > div:not(.sp-order__total) { grid-template-columns: minmax(0, 1fr); } }
 .sp-order .pay__cta { justify-self: stretch; inline-size: 100%; }
 @media (min-width: 900px) {
   .sp-order__fine .sv29-notes { display: block; columns: 2; }

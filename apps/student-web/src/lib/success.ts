@@ -1,4 +1,4 @@
-import { i18next } from '@hangyul/i18n';
+import { i18next, uniName } from '@hangyul/i18n';
 import type { ApplicationStrategy, PortfolioGroup, StrategyItem } from '@hangyul/types';
 import { formatDate, formatMoney } from '@hangyul/utils';
 
@@ -72,7 +72,7 @@ export function itemWhy(t: TFn, locale: string, it: Pick<StrategyItem, 'code' | 
   const p = (it.params ?? {}) as Record<string, unknown>;
   if (it.code === 'DOC_TOO_OLD') {
     return p.days && typeof p.issued === 'string'
-      ? t('dossier:reason.TOO_OLD', { university: p.university, days: p.days, issued: formatDate(p.issued, locale), defaultValue: it.why ?? '' })
+      ? t('dossier:reason.TOO_OLD', { university: uniName(p), days: p.days, issued: formatDate(p.issued, locale), defaultValue: it.why ?? '' })
       : it.why;
   }
   // A reviewer's note is quoted; without one, the generic sentence in the reader's language (the API's is English).

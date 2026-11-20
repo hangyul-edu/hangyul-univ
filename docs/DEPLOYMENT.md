@@ -10,7 +10,7 @@ this file is the current statement.
 
 | Surface | Domain | Source | Hosting | State |
 |---|---|---|---|---|
-| Marketing | `https://univ.talkhangyul.com` | `apps/marketing-web` | Vercel project `hangyul-univ` | Live. Discovery reads static public data; Quick Fit runs a Vercel Python function |
+| Marketing | `https://univ.talkhangyul.com` | `apps/marketing-web` | Vercel project `hangyul-univ` | Live. Catalogue read live from the API (`/api/*` rewrite); DB snapshot as fallback |
 | Student | `https://app.univ.talkhangyul.com` | `apps/student-web` | Vercel project `hangyul-univ-student` | Live, API reachable |
 | Operations/Admin (Hangyul internal) | `https://admin.univ.talkhangyul.com` | `apps/agency-web` | Vercel project `hangyul-univ-agency` | Live, API reachable |
 | University console | `https://partner.univ.talkhangyul.com` | `apps/university-web` | Vercel project `hangyul-univ-university` | Live, API reachable |
@@ -45,7 +45,7 @@ if stale — do not hand-edit).
 | Setting | Value |
 |---|---|
 | Install | `cd ../.. && npm ci --no-audit --no-fund` |
-| Build | `cd ../.. && npm run build -w @hangyul/<app>-web` (marketing adds `node scripts/public-data/stage-fit.mjs`) |
+| Build | `cd ../.. && npm run build -w @hangyul/<app>-web` |
 | Output | `dist` |
 
 Routing order: a real file in `dist/` → `/api/:path*` rewrite → SPA fallback to `/index.html` (never for `/assets/*`
@@ -76,19 +76,23 @@ ngrok http 8001 --url https://enclosure-cork-purifier.ngrok-free.dev --traffic-p
 - **To move to production:** stand up the API on a dedicated HTTPS origin, set the four `vercel.json` destinations
   (via `infra/csp.json` / `gen-vercel.mjs`) to it, and remove the ngrok header.
 
-## 4. Marketing public data (no API needed)
+## 4. Marketing catalogue (live from the DB, snapshot fallback)
 
-Anonymous discovery does not depend on the API: `scripts/public-data/export.py` calls the API's own public endpoints
-in-process over a seeded reference database and writes `apps/marketing-web/public/data/public/` (manifest, regions,
-425 institution cards, detail and admissions records, countries, the fit snapshot). `apps/marketing-web/src/lib/publicData.ts`
-answers from those files with the API's response shapes. Quick Fit and the scholarship summary run the unchanged
-`server/app/services/fit.py` in the Vercel Python function `apps/marketing-web/api/public-fit.py`.
+Since 2026-11-19 (owner requirement 3) the Marketing directory and university pages read the database **live** through
+the same-origin public API (`/api/v1/directory/*`, Vercel `/api/:path*` rewrite), with React Query. The DB snapshot in
+`apps/marketing-web/public/data/public/` (manifest, regions, 425 cards, detail and admissions records) is only the
+build's prerender/SEO input and the pages' fallback when the API is unreachable (`src/lib/queries.ts › liveFirst`;
+`src/lib/publicData.ts` answers with the API's exact shapes). It is taken from the API's own endpoints — in-process by
+`scripts/public-data/export.py`, or over HTTP at build time with `PUBLIC_DATA_SOURCE=api PUBLIC_API_ORIGIN=<origin>`
+(`scripts/seo/prerender-meta.mjs`; an unreachable API keeps the committed snapshot and never fails the build).
+`manifest.json` records `origin`, `via` and `generated_at`. The anonymous Quick Fit (`/start`) and its Vercel Python
+function are retired: 유학 준비 opens the Student login (`next=/match`) and `/start` redirects there.
 
 | Command | Purpose |
 |---|---|
-| `npm run public-data:export` / `public-data:check` | regenerate / detect a stale export |
-| `npm run qa:marketing-serverless` | build marketing and verify it with the API offline (also `BASE=https://univ.talkhangyul.com`) |
-| `scripts/qa/public-fit-parity.py` | function responses byte-identical to FastAPI |
+| `npm run public-data:export` / `public-data:check` | regenerate / detect a stale snapshot (local DB) |
+| `npm run qa:marketing-serverless` | build marketing and verify it with the API offline (snapshot fallback; also `BASE=https://univ.talkhangyul.com`) |
+| `npm run qa:catalog-parity -- --api <origin>` | Marketing (snapshot + live directory) vs the Student catalogue (`/universities`), field by field |
 
 This is why the public site shows 425 universities while the connected API's catalogue returns `total: 0`: they are
 different data sets. Seeding the connected database (`npm run db:migrate && npm run db:seed`) is an open task.

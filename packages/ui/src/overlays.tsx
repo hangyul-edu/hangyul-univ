@@ -6,8 +6,42 @@ import { createPortal } from 'react-dom';
 
 import { Button } from './primitives';
 
+/**
+ * **One body scroll lock for every overlay** (261119, owner requirement 5).
+ *
+ * Each overlay used to save `document.body.style.overflow`, set it to `hidden`, and put the saved value back on
+ * close. With two overlays that is a stack restored out of order — open A (saves ''), open B (saves 'hidden'),
+ * close A (writes ''), close B (writes 'hidden') — and the page is left unable to scroll until a reload. The same
+ * happened whenever an overlay re-ran its effect while another was open. A counter cannot be restored out of order:
+ * the page is locked while at least one overlay holds the lock, and the original value comes back with the last.
+ */
+let scrollLocks = 0;
+let scrollLockSaved = '';
+export function lockBodyScroll(): () => void {
+  if (typeof document === 'undefined') return () => undefined;
+  if (scrollLocks === 0) { scrollLockSaved = document.body.style.overflow; document.body.style.overflow = 'hidden'; }
+  scrollLocks += 1;
+  let released = false;
+  return () => {
+    if (released) return;
+    released = true;
+    scrollLocks = Math.max(0, scrollLocks - 1);
+    if (scrollLocks === 0) document.body.style.overflow = scrollLockSaved === 'hidden' ? '' : scrollLockSaved;
+  };
+}
+
+/** Hold the body scroll lock while `active`. */
+export function useBodyScrollLock(active: boolean) {
+  useEffect(() => (active ? lockBodyScroll() : undefined), [active]);
+}
+
 function useFocusTrap(open: boolean, onClose: () => void) {
   const ref = useRef<HTMLDivElement>(null);
+  // `onClose` is usually an inline arrow, a new function every render. Depending on it re-ran this effect on every
+  // render of the parent — re-focusing the first control while the student typed and churning the scroll lock.
+  const close = useRef(onClose);
+  close.current = onClose;
+  useBodyScrollLock(open);
   useEffect(() => {
     if (!open) return;
     const prev = document.activeElement as HTMLElement | null;
@@ -16,7 +50,7 @@ function useFocusTrap(open: boolean, onClose: () => void) {
     const first = focusables()[0];
     (first ?? node)?.focus();
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') { e.stopPropagation(); onClose(); }
+      if (e.key === 'Escape') { e.stopPropagation(); close.current(); }
       if (e.key === 'Tab' && node) {
         const f = Array.from(focusables());
         if (!f.length) return;
@@ -26,14 +60,11 @@ function useFocusTrap(open: boolean, onClose: () => void) {
       }
     };
     document.addEventListener('keydown', onKey);
-    const overflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
     return () => {
       document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = overflow;
       prev?.focus?.();
     };
-  }, [open, onClose]);
+  }, [open]);
   return ref;
 }
 

@@ -2,7 +2,7 @@ import { useApi } from '@hangyul/auth';
 import { useTranslation, localName } from '@hangyul/i18n';
 import {
   AppText, Button, Callout, KeyValue, Lanes, ListGroup, ListItem, LoadingState, lowerKeepAcronyms, NextAction, QueryState, Screen, SectionTitle,
-  UploadSheet, isUnavailable, theme, useFormat, v3, type DocumentRequest, type LaneItem, type PickedFile,
+  UploadSheet, isUnavailable, theme, useFormat, v3, type DocumentRequest, type LaneItem, type PickedFile, errorText,
 } from '@hangyul/mobile-ui';
 import type { ApplicationDetail, ApplicationStatus, ChecklistItem, DocumentCategory } from '@hangyul/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -44,7 +44,7 @@ function Workspace({ a }: { a: ApplicationDetail }) {
   const transition = useMutation({
     mutationFn: (to: ApplicationStatus) => api.applications.transition(a.id, { to }),
     onSuccess: (data) => { qc.setQueryData(qk.application(a.id), data); refresh(); },
-    onError: (e: Error) => Alert.alert(t('common:states.error'), e.message),
+    onError: (e: Error) => Alert.alert(t('common:states.error'), errorText(t, e)),
   });
   const upload = useMutation({
     mutationFn: async ({ file, category, request }: { file: PickedFile; category: DocumentCategory; request?: DocumentRequest }) => {
@@ -53,7 +53,7 @@ function Workspace({ a }: { a: ApplicationDetail }) {
       return doc;
     },
     onSuccess: () => { setUploadError(null); refresh(); },
-    onError: (e: Error) => setUploadError(e.message),
+    onError: (e: Error) => setUploadError(errorText(t, e)),
   });
   const confirm = (to: ApplicationStatus) =>
     Alert.alert(t(`student.applications.confirm.${to}.title`), t(`student.applications.confirm.${to}.body`, { university: localName(a.university) }), [

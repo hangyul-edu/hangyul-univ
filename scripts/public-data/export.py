@@ -1,17 +1,21 @@
-"""Export the public Marketing discovery data to static files (P0 hotfix, 2026-11-03).
+"""Snapshot the public Marketing catalogue from the database (P0 hotfix 2026-11-03; DB-first since 2026-11-19).
 
-    source of truth (server/app/data/korean_institutions.json, enrichment, research/…)
-      → `npm run db:seed` (the canonical Postgres the API reads)
+    the canonical Postgres the API reads (seeded, then refreshed by the weekly catalogue ingestion)
       → this script: the API's **own endpoints**, called in-process, so every file is byte-for-byte the shape the
         FastAPI service returns — no second serializer, no hand-copied rows
-      → apps/marketing-web/public/data/public/…  (served by the CDN; the marketing app reads it, no API needed)
+      → apps/marketing-web/public/data/public/…
+
+The Marketing site reads the catalogue LIVE from the same endpoints (`/api/v1/directory/*`); this snapshot is only
+(1) the input of the build's prerendered SEO metadata and (2) the pages' fallback when the API is unreachable.
+`scripts/seo/prerender-meta.mjs` can take the same snapshot over HTTP from the deployed API at build time
+(`PUBLIC_DATA_SOURCE=api`). `manifest.json` records the snapshot's origin and when it was taken.
 
 Usage (repo root, local DB seeded):
     server/.venv/bin/python scripts/public-data/export.py          # write
     server/.venv/bin/python scripts/public-data/export.py --check  # exit 1 if the committed files differ
 
 Only public, anonymous endpoints are exported — the same data an anonymous visitor already receives from
-`/api/v1/directory/*`, `/api/v1/meta/countries`. Nothing account-, tenant- or payment-related.
+`/api/v1/directory/*`. Nothing account-, tenant- or payment-related.
 """
 from __future__ import annotations
 
@@ -21,18 +25,22 @@ import os
 import shutil
 import sys
 import tempfile
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "server"))
 os.chdir(ROOT / "server")  # the API's settings (.env) resolve relative to server/
+# A read-only snapshot: the in-process API must not start the catalogue bootstrap or the weekly-refresh scheduler.
+os.environ.setdefault("HG_CATALOG_BOOTSTRAP_ON_START", "0")
+os.environ.setdefault("HG_CATALOG_SCHEDULER_ENABLED", "0")
 
 from fastapi.testclient import TestClient  # noqa: E402
 
 from app.main import app  # noqa: E402
 
 OUT = ROOT / "apps" / "marketing-web" / "public" / "data" / "public"
-SCHEMA = 1
+SCHEMA = 2
 
 
 def dump(obj) -> bytes:
@@ -57,27 +65,6 @@ def all_cards(client: TestClient, order: str) -> list[dict]:
         page += 1
 
 
-def fit_snapshot() -> dict:
-    """The Quick Fit engine's own snapshot (`app.services.fit.snapshot`), serialised for the serverless function in
-    apps/marketing-web/api/public-fit.py, which runs the same engine over it. Every value in it is already public:
-    the cards, verified language rules and current scholarships the directory and detail pages show."""
-    from dataclasses import asdict
-
-    from app.core.db import SessionLocal
-    from app.services import fit
-
-    fit.invalidate()
-    with SessionLocal() as db:
-        snap = fit.snapshot(db)
-    insts = []
-    for inst in sorted(snap["insts"].values(), key=lambda i: i.slug):
-        d = asdict(inst)
-        d["id"] = str(d["id"])
-        d["rules"] = {k: d["rules"][k] for k in sorted(d["rules"])}
-        insts.append(d)
-    return {"engine": fit.ENGINE, "insts": insts, "featured": snap["featured"]}
-
-
 def build(target: Path) -> dict:
     files: dict[str, bytes] = {}
     with TestClient(app) as client:
@@ -94,13 +81,14 @@ def build(target: Path) -> dict:
         for s in slugs:
             files[f"institutions/{s}.json"] = dump(get(client, f"/directory/institutions/{s}"))
             files[f"admissions/{s}.json"] = dump(get(client, f"/directory/institutions/{s}/admissions"))
-        files["countries.json"] = dump(get(client, "/meta/countries", priority_only="true"))
-    files["fit-snapshot.json"] = dump(fit_snapshot())
     digest = hashlib.sha256()
     for name in sorted(files):
         digest.update(name.encode() + b"\0" + files[name])
+    verified = sorted(c["last_verified"] for c in cards_ko if c.get("last_verified"))
     manifest = {"schema": SCHEMA, "version": digest.hexdigest()[:16], "institutions": len(slugs),
-                "source": "scripts/public-data/export.py (FastAPI public endpoints over the seeded canonical DB)"}
+                "origin": "database", "via": "scripts/public-data/export.py (in-process FastAPI public endpoints)",
+                "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+                "data_as_of": verified[-1] if verified else None}
     files["manifest.json"] = dump(manifest)
     for name, body in files.items():
         p = target / name
@@ -110,7 +98,14 @@ def build(target: Path) -> dict:
 
 
 def tree(d: Path) -> dict[str, bytes]:
-    return {str(p.relative_to(d)): p.read_bytes() for p in sorted(d.rglob("*")) if p.is_file()} if d.exists() else {}
+    """Every file, with the manifest's `generated_at` / `via` removed: when and how a snapshot was taken is not its content."""
+    out = {str(p.relative_to(d)): p.read_bytes() for p in sorted(d.rglob("*")) if p.is_file()} if d.exists() else {}
+    if "manifest.json" in out:
+        m = json.loads(out["manifest.json"])
+        m.pop("generated_at", None)
+        m.pop("via", None)
+        out["manifest.json"] = dump(m)
+    return out
 
 
 if __name__ == "__main__":

@@ -17,7 +17,7 @@ export function SavedList() {
       query={q}
       skeleton={<Skeleton h={180} r={10} />}
       isEmpty={(d) => d.length === 0}
-      empty={<EmptyState icon={<Heart />} title={t('saved.empty')} text={t('saved.emptyText')} action={<ButtonLink as={Link} to="/explore?tab=foryou" variant="primary">{t('saved.explore')}</ButtonLink>} />}
+      empty={<EmptyState icon={<Heart />} title={t('saved.empty')} text={t('saved.emptyText')} action={<ButtonLink as={Link} to="/explore" variant="primary">{t('saved.explore')}</ButtonLink>} />}
     >
       {(list) => (
         <div className="hg-stack" style={{ '--hg-gap': '12px' } as React.CSSProperties}>

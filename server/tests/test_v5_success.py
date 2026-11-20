@@ -11,6 +11,7 @@ from app.models import (
     ApplicationSubmission,
     Essay,
     Program,
+    ProgramIntake,
     StudentProfile,
     SubmissionConnector,
     Task,
@@ -19,7 +20,7 @@ from app.models import (
 )
 from app.models.base import utcnow
 from app.models.enums import ApplicationStatus as S
-from app.models.enums import EssayStatus, EssayType
+from app.models.enums import EssayStatus, EssayType, IntakeTerm
 from app.services import strategy, submission
 from tests.conftest import login
 
@@ -55,6 +56,19 @@ def ready_application(db, program_name: str, *, slug: str = "kyungpook-national-
     prog = db.scalar(select(Program).where(Program.university_id == uni.id, Program.name_en == program_name))
     taken = set(db.scalars(select(Application.intake_id).where(Application.student_user_id == u.id)))
     intakes = [i for i in sorted(prog.intakes, key=lambda i: i.application_deadline) if i.is_open and i.id not in taken]
+    extra_intakes = []
+    # The synthetic fixture schedule uses fixed dates; once the calendar passes them no open window is left. Add throwaway
+    # future windows (test-only, removed below) instead of shifting the fixture data every persona test depends on.
+    while len(intakes) <= intake_index:
+        last = max((i.application_deadline for i in prog.intakes), default=utcnow().date())
+        deadline = max(last, utcnow().date()) + timedelta(days=180)
+        extra = ProgramIntake(program_id=prog.id, year=deadline.year + 1, term=IntakeTerm.SPRING, round=90 + len(extra_intakes),
+                              application_opens=deadline - timedelta(days=45), application_deadline=deadline, is_open=True)
+        db.add(extra)
+        db.flush()
+        db.refresh(prog)
+        extra_intakes.append(extra)
+        intakes.append(extra)
     intake = intakes[intake_index]
     app = Application(student_user_id=u.id, program_id=prog.id, intake_id=intake.id, university_id=uni.id, status=S.READY, is_demo=True,
                       agency_org_id=db.scalar(select(Application.agency_org_id).where(Application.student_user_id == u.id).limit(1)))
@@ -77,6 +91,9 @@ def ready_application(db, program_name: str, *, slug: str = "kyungpook-national-
         for e in db.scalars(select(Essay).where(Essay.application_id == app.id)):
             db.delete(e)
         db.delete(db.get(Application, app.id))
+        db.flush()
+        for x in extra_intakes:
+            db.delete(db.get(ProgramIntake, x.id))
         if conn is not None:
             db.delete(db.get(SubmissionConnector, conn.id))
         db.commit()

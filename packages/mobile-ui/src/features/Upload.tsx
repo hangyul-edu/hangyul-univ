@@ -1,4 +1,5 @@
 import { useTranslation } from '@hangyul/i18n';
+import { ALLOWED_UPLOAD_TYPES, checkUpload, MAX_UPLOAD_MB, type UploadReason } from '@hangyul/validation';
 import * as DocumentPicker from 'expo-document-picker';
 import * as ImagePicker from 'expo-image-picker';
 import { Camera, FileText, Image as ImageIcon, Lock } from 'lucide-react-native';
@@ -14,7 +15,6 @@ import { theme } from '../theme';
 export interface PickedFile { uri: string; name: string; type: string; size?: number | null }
 export type PickSource = 'camera' | 'library' | 'files';
 
-const MAX_BYTES = 15 * 1024 * 1024;
 const extFromMime = (m: string) => (m.includes('pdf') ? 'pdf' : m.includes('png') ? 'png' : m.includes('webp') ? 'webp' : 'jpg');
 
 /**
@@ -23,7 +23,7 @@ const extFromMime = (m: string) => (m.includes('pdf') ? 'pdf' : m.includes('png'
  */
 export async function pickFile(source: PickSource): Promise<PickedFile | null> {
   if (source === 'files') {
-    const r = await DocumentPicker.getDocumentAsync({ type: ['application/pdf', 'image/jpeg', 'image/png', 'image/webp'], copyToCacheDirectory: true, multiple: false });
+    const r = await DocumentPicker.getDocumentAsync({ type: ALLOWED_UPLOAD_TYPES, copyToCacheDirectory: true, multiple: false });
     if (r.canceled || !r.assets?.[0]) return null;
     const a = r.assets[0];
     return { uri: a.uri, name: a.name, type: a.mimeType ?? 'application/pdf', size: a.size ?? null };
@@ -37,11 +37,24 @@ export async function pickFile(source: PickSource): Promise<PickedFile | null> {
   if (r.canceled || !r.assets?.[0]) return null;
   const a = r.assets[0];
   const type = a.mimeType ?? 'image/jpeg';
-  return { uri: a.uri, name: a.fileName ?? `photo-${Date.now()}.${extFromMime(type)}`, type, size: a.fileSize ?? null };
+  // iOS re-encodes a HEIC photo to JPEG (quality < 1) but keeps the original "IMG_0001.HEIC" name; the upload is what
+  // the bytes are, so the name's ending follows the delivered type (otherwise the shared extension check refuses it).
+  const ext = extFromMime(type);
+  const base = (a.fileName ?? `photo-${Date.now()}`).replace(/\.[a-z0-9]+$/i, '');
+  return { uri: a.uri, name: `${base}.${ext}`, type, size: a.fileSize ?? null };
 }
 
 export function isTooLarge(f: PickedFile) {
-  return !!f.size && f.size > MAX_BYTES;
+  return !!f.size && f.size > MAX_UPLOAD_MB * 1024 * 1024;
+}
+
+/**
+ * 261119 req 4: the same `@hangyul/validation` check the web picker and drop zone run (type, name ending agreeing with
+ * the type, size, empty file) — one rule, no native-only path. A picker that reports no size (some Android providers)
+ * leaves size to the server, which re-validates everything by magic bytes anyway. Returns a `common:` key, or null.
+ */
+export function pickedFileReason(f: PickedFile): UploadReason | null {
+  return checkUpload({ name: f.name, type: f.type, size: typeof f.size === 'number' ? f.size : Number.NaN });
 }
 
 /** Bottom sheet: camera / photos / files, with the privacy promise stated where the decision is made. */
@@ -55,11 +68,14 @@ export function UploadSheet({ visible, title, onClose, onPicked, allowCamera = t
     try {
       const f = await pickFile(src);
       if (!f) return;
-      if (isTooLarge(f)) { setError(t('v3.upload.tooLarge')); return; }
+      const reason = pickedFileReason(f);
+      if (reason) { setError(t(`common:${reason}`)); return; }
       onClose();
       onPicked(f);
     } catch (e) {
-      setError((e as Error).message || t('v3.upload.failed'));
+      // A picker failure carries a platform message in English; the student sees the localized one.
+      if (__DEV__) console.warn('[upload] picker failed', e);
+      setError(t('v3.upload.failed'));
     }
   };
   return (

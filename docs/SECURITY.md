@@ -140,6 +140,16 @@ New settings: `HG_PUBLIC_ORIGIN`, `HG_STAFF_MFA_REQUIRED`, `HG_MFA_ENCRYPTION_KE
 - **Agency identity:** "registration" is never shown as verified unless a real value exists; seeded licence numbers do not count.
 - **Document visibility:** `/me/dossier` returns who can see each document (consent-backed) and where it was sent.
 
+## First Operations admin (2026-11-20)
+
+There is no public Operations/Admin self-registration. The first Hangyul Operations admin is created on the API host with
+`cd server && .venv/bin/python -m app.services.first_admin --email <address>` (password from a hidden prompt,
+`--password-stdin`, `--password-file`, or `--setup-code` for a one-time setup link printed to the terminal). It refuses
+(exit 2) when any Operations admin already exists, validates the e-mail like the login form, and staff MFA enrolment
+follows the normal rules. `python -m app.services.catalog_ingest status --counts` prints member/catalogue counts only —
+no personal data — for checking the connected database. A newly registered student with no team yet who writes a
+message reaches the Hangyul Operations organisation (`services/operations_org.py`).
+
 ## Single sign-on (OIDC)
 
 Status: **OIDC implemented and tested against a fake identity provider; no real IdP has been connected. SAML 2.0 is an

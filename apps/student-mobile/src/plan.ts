@@ -48,9 +48,10 @@ export function useServices() {
  * student back to once the order is confirmed. Both are read by code that already exists — nothing here
  * is a native-only path through the payment.
  */
-export async function openCheckout(plan: PlanCode | null, locale: string): Promise<boolean> {
+export async function openCheckout(plan: PlanCode | null, locale: string, returnPath = '/services'): Promise<boolean> {
   const def = plan ? PLANS.find((p) => p.code === plan) : null;
-  const back = Linking.createURL('/services');
+  // 261119 req 1: started from the matching gate, the confirmation brings the student back to `/match`.
+  const back = Linking.createURL(returnPath);
   // Built by hand rather than with `new URL(...)`: React Native's `URL` is a polyfill and `searchParams`
   // on it has come and gone between versions, so a query string assembled that way is a dependency on
   // which Hermes build is underneath. `encodeURIComponent` is in the language.

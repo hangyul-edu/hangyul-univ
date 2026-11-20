@@ -2,7 +2,7 @@ import { localName } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import { AtSign, Check, CheckCheck, Eye, Link2, ListChecks, Lock, Paperclip, Send, StickyNote, X } from '@hangyul/icons';
 import type { ChatMessage, MessageAttachment } from '@hangyul/types';
-import { Avatar, Button, Checkbox, EmptyState, Field, Input, Modal, Popover, QueryState, Textarea, useToast } from '@hangyul/ui';
+import { Avatar, Button, Checkbox, EmptyState, Field, FileDrop, Input, Modal, Popover, QueryState, Textarea, useToast, type FileDropHandle } from '@hangyul/ui';
 import { cx, formatDateTime } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
@@ -123,7 +123,7 @@ function Composer({ convId, studentName, studentLocale, focusComposer }: { convI
   const [body, setBody] = useState('');
   const [files, setFiles] = useState<MessageAttachment[]>([]);
   const [uploading, setUploading] = useState(false);
-  const fileRef = useRef<HTMLInputElement>(null);
+  const drop = useRef<FileDropHandle>(null);
   const [internal, setInternal] = useState(false);
   const [createTask, setCreateTask] = useState(false);
   const [due, setDue] = useState('');
@@ -154,18 +154,19 @@ function Composer({ convId, studentName, studentLocale, focusComposer }: { convI
   };
   const send = () => { if ((body.trim() || files.length) && !m.isPending && !uploading) m.mutate(); };
   useEffect(() => { if (focusComposer) ref.current?.focus({ preventScroll: true }); }, [focusComposer]);
-  const attach = async (list: FileList | null) => {
-    if (!list?.length) return;
+  // Owner req. 4: the Attach button and a drop on the composer arrive here, already checked by `FileDrop`.
+  const attach = async (list: File[]) => {
+    if (!list.length) return;
     setUploading(true);
     try {
-      for (const f of Array.from(list).slice(0, 10 - files.length)) {
+      for (const f of list) {
         const up = await api.messages.uploadAttachment(convId, f);
         setFiles((prev) => [...prev, up]);
       }
-    } catch (e) { toast.error((e as Error).message); } finally { setUploading(false); if (fileRef.current) fileRef.current.value = ''; }
+    } catch (e) { toast.error((e as Error).message); } finally { setUploading(false); }
   };
   return (
-    <div className={cx('ag-composer', internal && 'ag-composer--internal')}>
+    <FileDrop ref={drop} variant="overlay" className={cx('ag-composer', internal && 'ag-composer--internal')} rules={{ maxFiles: 10 }} already={files.length} disabled={uploading} onFiles={attach}>
       <div className="hg-row hg-between" style={{ gap: 8, flexWrap: 'wrap' }}>
         <div className="ag-composer__mode" role="radiogroup" aria-label={t('inbox.mode')}>
           <button type="button" role="radio" aria-checked={!internal} onClick={() => setInternal(false)}><Send aria-hidden size={13} />{t('inbox.modeMessage')}</button>
@@ -182,8 +183,7 @@ function Composer({ convId, studentName, studentLocale, focusComposer }: { convI
         onKeyDown={(e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); send(); } }} />
       {files.length > 0 && <div className="ag-msg__files">{files.map((f) => <AttachmentChip key={f.id} a={f} onRemove={() => setFiles(files.filter((x) => x.id !== f.id))} />)}</div>}
       <div className="ag-composer__bar">
-        <input ref={fileRef} type="file" hidden multiple accept="application/pdf,image/png,image/jpeg,image/webp" onChange={(e) => attach(e.target.files)} />
-        <Button size="sm" variant="ghost" icon={<Paperclip />} loading={uploading} onClick={() => fileRef.current?.click()}>{t('inbox.attach')}</Button>
+        <Button size="sm" variant="ghost" icon={<Paperclip />} loading={uploading} onClick={() => drop.current?.open()}>{t('inbox.attach')}</Button>
         <Popover align="start" width={260} trigger={(p) => <Button size="sm" variant="ghost" icon={<AtSign />} {...p}>{t('inbox.mention')}</Button>}>
           {(close) => (
             <div role="menu" aria-label={t('inbox.mention')} style={{ maxHeight: 280, overflowY: 'auto' }}>
@@ -224,7 +224,7 @@ function Composer({ convId, studentName, studentLocale, focusComposer }: { convI
         </Button>
       </div>
       {createTask && <p className="hg-subtle hg-xs">{t('inbox.taskHint')}</p>}
-    </div>
+    </FileDrop>
   );
 }
 

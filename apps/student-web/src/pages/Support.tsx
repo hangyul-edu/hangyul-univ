@@ -1,3 +1,4 @@
+import { errorText } from '@hangyul/i18n';
 import { useApi } from '@hangyul/auth';
 import { MessageCircle, Plus, Send } from '@hangyul/icons';
 import { Button, ButtonLink, Field, Input, ListRow, Modal, OptionCards, QueryState, Section, SkeletonCard, StatusText, Textarea, useToast } from '@hangyul/ui';
@@ -30,7 +31,7 @@ function NewTicket({ onClose }: { onClose: () => void }) {
       onClose();
       nav(`/messages/${r.conversation_id}`);
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <Modal open onClose={onClose} width={600} title={t('support.new.title')} description={t('support.new.subtitle')}

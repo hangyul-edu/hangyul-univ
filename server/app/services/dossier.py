@@ -441,7 +441,7 @@ def _file_findings(d: Document, a: DocumentAnalysis | None, reqs: list[tuple[Req
         for r, ac in reqs:
             m = re.search(r"(\d+)\s*pages?", r.notes or "", re.I)
             if m and a.page_count < int(m.group(1)):
-                out.append(("MISSING_PAGES", {"university": ac.university.name_en, "university_id": str(ac.university.id), "required": int(m.group(1)), "pages": a.page_count}))
+                out.append(("MISSING_PAGES", {"university": ac.university.name_en, "university_ko": ac.university.name_ko, "university_id": str(ac.university.id), "required": int(m.group(1)), "pages": a.page_count}))
                 break
     return out
 
@@ -491,7 +491,7 @@ def compute_findings(db: Session, ctx: Ctx, d: Document, evals: list[tuple[Req, 
         if near and d.expires_on:
             e, ac = near[0]
             until = ac.window_end if e["code"] == "NEAR_EXPIRY_DATE" and ac.window_end else ac.passport_until
-            out.append(("NEAR_EXPIRY", {"date": d.expires_on.isoformat(), "until": until.isoformat() if until else None, "university": ac.university.name_en, "university_id": str(ac.university.id)}))
+            out.append(("NEAR_EXPIRY", {"date": d.expires_on.isoformat(), "until": until.isoformat() if until else None, "university": ac.university.name_en, "university_ko": ac.university.name_ko, "university_id": str(ac.university.id)}))
     too_old = [(r, ac) for r, ac, e in evals if e["status"] == NEEDS_NEW_VERSION]
     if too_old:
         out.append(("NEW_ISSUE_NEEDED", {"universities": _join([ac.university.name_en for _r, ac in too_old]), "days": min(r.max_age_days for r, _ in too_old)}))
@@ -764,7 +764,7 @@ def package_summary(items: list[dict]) -> dict:
 
 
 def ser_app(ac: AppCtx) -> dict:
-    return {"id": str(ac.app.id), "status": ac.app.status.value, "university": ac.university.name_en, "university_id": str(ac.university.id),
+    return {"id": str(ac.app.id), "status": ac.app.status.value, "university": ac.university.name_en, "university_ko": ac.university.name_ko, "university_id": str(ac.university.id),
             "program": ac.program.name_en, "deadline": ac.intake.application_deadline.isoformat() if ac.intake.application_deadline else None,
             "sent": ac.app.status not in PRE_SUBMISSION}
 
@@ -795,7 +795,7 @@ def request_suggestion(db: Session, ctx: Ctx, ac: AppCtx, r: DocumentRequest) ->
         action = "UPLOAD"
     else:
         action = "UPLOAD_NEWER" if d else "UPLOAD"
-    return {"request_id": str(r.id), "application_id": str(ac.app.id), "university": ac.university.name_en, "university_id": str(ac.university.id), "label": r.label, "note": r.note,
+    return {"request_id": str(r.id), "application_id": str(ac.app.id), "university": ac.university.name_en, "university_ko": ac.university.name_ko, "university_id": str(ac.university.id), "label": r.label, "note": r.note,
             "category": cat, "max_age_days": max_age, "due_date": r.due_date.isoformat() if r.due_date else None,
             "document": doc_brief(d, ctx) if d else None, "status": ev["status"], "reason": {k: ev[k] for k in ("code", "params", "text")},
             "action": action}
@@ -835,7 +835,7 @@ def build_dossier(db: Session, student_user_id, *, staff: bool = False, refresh:
             for d in ctx.by_cat.get(req.category, []):
                 evals_by_doc[d.id].append((req, ac, _eval(db, ctx, d, req, ac)))
             d, ev = pick_for(db, ctx, req, ac)
-            per_cat[req.category].append({"application_id": str(ac.app.id), "university": ac.university.name_en, "university_id": str(ac.university.id), "requirement_id": req.requirement_id,
+            per_cat[req.category].append({"application_id": str(ac.app.id), "university": ac.university.name_en, "university_ko": ac.university.name_ko, "university_id": str(ac.university.id), "requirement_id": req.requirement_id,
                                           "label": req.label, "status": ev["status"], "document_id": str(d.id) if d else None,
                                           "reason": {k: ev[k] for k in ("code", "params", "text")}, "sent": ac.app.status not in PRE_SUBMISSION,
                                           "max_age_days": req.max_age_days})
@@ -926,6 +926,8 @@ def build_dossier(db: Session, student_user_id, *, staff: bool = False, refresh:
     return {
         "student": {"id": str(ctx.student.id), "full_name": ctx.student.full_name, "nationality": p.nationality if p else None},
         "facts": facts, "rows": rows, "packages": packages, "requests": requests,
+        # Owner pass 261119: optional requirements of the selected applications (additive; the student page offers them under `+`).
+        "optional": [{"category": c, "universities": sorted(u)} for c, u in optional.items() if c not in {r["category"] for r in rows}],
         "suggestions": suggestions,
         "counts": {"documents": len(ctx.docs), "ready": sum(1 for r in rows if r["state"] == "ready"), "todo": sum(1 for r in rows if r["state"] == "todo"),
                    "review": sum(1 for r in rows if r["state"] == "review"), "applications": len(ctx.apps),
@@ -1029,7 +1031,7 @@ def reuse_check(db: Session, student_user_id, category: str, *, application_id=N
                 if ev["status"] in USABLE or ev["status"] == IN_REVIEW:
                     used.append(ac.university.name_en)
                 else:
-                    needs.append({"university": ac.university.name_en, "university_id": str(ac.university.id), "status": ev["status"], "reason": {k: ev[k] for k in ("code", "params", "text")}})
+                    needs.append({"university": ac.university.name_en, "university_ko": ac.university.name_ko, "university_id": str(ac.university.id), "status": ev["status"], "reason": {k: ev[k] for k in ("code", "params", "text")}})
         existing.append({"document": doc_brief(d, ctx), "used_by": len(set(used)), "universities": list(dict.fromkeys(used)), "needs_new": needs})
     existing.sort(key=lambda e: (-e["used_by"], e["document"]["status"] != "VERIFIED"))
     return {"category": category, "existing": existing, "request": None}

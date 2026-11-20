@@ -1,15 +1,16 @@
 #!/usr/bin/env node
-// `npm run qa:marketing-serverless` — the public Marketing site must work with the FastAPI service OFFLINE (P0, 2026-11-03).
+// `npm run qa:marketing-serverless` — the public Marketing site must still work with the FastAPI service OFFLINE
+// (P0, 2026-11-03). Since 2026-11-19 the catalogue is read live from the API and this gate proves the other half:
+// with `/api/*` down, every page falls back to the build's DB snapshot (`queries.ts › liveFirst`) instead of failing.
 //
 // Serves the PRODUCTION build (apps/marketing-web/dist) from a tiny static server that mirrors the Vercel routing in
-// apps/marketing-web/vercel.json — filesystem first, `/api/*` answered 503 (the API is down), missing `/assets/*` 404,
-// everything else index.html — and drives it with Playwright. Any browser request to localhost:8001 / 127.0.0.1 or to a
+// apps/marketing-web/vercel.json — `/start` redirected to the Student login, filesystem first, `/api/*` answered 503
+// (the API is down), missing `/assets/*` 404, everything else index.html — and drives it with Playwright. Any browser request to localhost:8001 / 127.0.0.1 or to a
 // localhost origin other than this server fails the gate.
 //
 //   BASE=https://univ.talkhangyul.com node scripts/qa/marketing-serverless.mjs   # same checks against a live deployment
 //   ROUTES=all (default) | sample                                                  # every institution slug, or the sample
-import { spawn } from 'node:child_process';
-import { createServer, request as httpRequest } from 'node:http';
+import { createServer } from 'node:http';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { extname, join, normalize, resolve } from 'node:path';
 import { chromium } from '@playwright/test';
@@ -37,27 +38,14 @@ if (!base) {
 
   const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml',
     '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.avif': 'image/avif', '.woff2': 'font/woff2', '.woff': 'font/woff', '.ico': 'image/x-icon' };
-  // The Quick Fit function, run locally exactly as deployed (apps/marketing-web/api/public-fit.py's `handler`).
-  const py = join(ROOT, 'server/.venv/bin/python');
-  const fnProc = spawn(existsSync(py) ? py : 'python3', ['-c', [
-    'import importlib.util, sys', 'from http.server import ThreadingHTTPServer',
-    `s = importlib.util.spec_from_file_location("pf", ${JSON.stringify(join(ROOT, 'apps/marketing-web/api/public-fit.py'))})`,
-    'm = importlib.util.module_from_spec(s); s.loader.exec_module(m)',
-    'srv = ThreadingHTTPServer(("127.0.0.1", 0), m.handler); print(srv.server_address[1], flush=True); srv.serve_forever()'].join('\n')],
-  { stdio: ['ignore', 'pipe', 'inherit'] });
-  const fnPort = await new Promise((r, j) => { fnProc.stdout.once('data', (d) => r(Number(String(d).trim()))); fnProc.once('exit', (c) => j(new Error(`fit function exited ${c}`))); });
-  process.on('exit', () => fnProc.kill());
-  const proxyFn = (req, res, path) => {
-    const up = httpRequest({ host: '127.0.0.1', port: fnPort, path, method: req.method, headers: req.headers }, (r) => { res.writeHead(r.statusCode, r.headers); r.pipe(res); });
-    req.pipe(up);
-  };
   server = createServer((req, res) => {
     const url = new URL(req.url, 'http://x');
     const path = decodeURIComponent(url.pathname);
-    // = the marketing rewrites in apps/marketing-web/vercel.json
-    if (path === '/api/v1/public/fit') return proxyFn(req, res, '/api/public-fit');
-    const adm = path.match(/^\/api\/v1\/directory\/institutions\/([^/]+)\/admissions$/);
-    if (adm) return proxyFn(req, res, `/api/public-fit?admissions=${encodeURIComponent(adm[1])}${url.search ? `&${url.search.slice(1)}` : ''}`);
+    // = the marketing redirect in apps/marketing-web/vercel.json
+    if (path === '/start') {
+      const lang = url.searchParams.get('lang');
+      res.writeHead(307, { location: `https://app.univ.talkhangyul.com/login?next=%2Fmatch${lang ? `&lang=${lang}` : ''}` }); res.end(); return;
+    }
     if (path.startsWith('/api/')) { res.writeHead(503, { 'content-type': 'application/json' }); res.end('{"detail":"API offline (qa:marketing-serverless)"}'); return; }
     const file = normalize(join(DIST, path));
     if (file.startsWith(DIST) && existsSync(file) && statSync(file).isFile()) {
@@ -68,7 +56,7 @@ if (!base) {
   });
   await new Promise((r) => server.listen(0, '127.0.0.1', r));
   base = `http://127.0.0.1:${server.address().port}`;
-  console.log(`serving the production build at ${base} (FastAPI offline: /api/* → 503; Quick Fit → the serverless function)`);
+  console.log(`serving the production build at ${base} (FastAPI offline: /api/* → 503; the pages must fall back to the DB snapshot)`);
 }
 const ORIGIN = new URL(base).origin;
 
@@ -86,6 +74,7 @@ const offenders = new Set();
 async function page(opts = {}) {
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 }, ...opts });
   const p = await ctx.newPage();
+  p.setDefaultTimeout(Number(process.env.NAV_TIMEOUT ?? 90_000));
   const errors = [];
   p.on('pageerror', (e) => errors.push(String(e).slice(0, 160)));
   await p.route('**/*', (route) => {
@@ -144,7 +133,7 @@ for (const lang of ['en', 'ko', 'vi', 'zh-Hans', 'ja', 'ar']) {
   await ctx.close();
 }
 
-// Data failure is an error, not "0 institutions" and not not-found
+// API down AND snapshot unavailable is an error, not "0 institutions" and not not-found
 {
   const { ctx, p } = await page();
   await p.route('**/data/public/institutions.json', (r) => r.abort());
@@ -166,24 +155,19 @@ for (const lang of ['en', 'ko', 'vi', 'zh-Hans', 'ja', 'ar']) {
   await ctx.close();
 }
 
-// Quick Fit (public, serverless) + a detail page carrying the visitor's answers
+// 유학 준비 → Student login (owner requirement 1). Every primary CTA, any language; /start is gone.
 {
-  const { ctx, p, errors } = await page();
-  const fitRes = p.waitForResponse((r) => r.url().endsWith('/api/v1/public/fit') && r.request().method() === 'POST', { timeout: 30000 }).catch(() => null);
-  await p.goto(`${base}/start?lang=en&nationality=VN&level=BACHELOR&gpa=3.4&gpa_scale=4.0&langs=TOPIK:3`, { waitUntil: 'networkidle' });
-  const countries = await p.locator('select option, [role="option"]').count().catch(() => 0);
-  await p.getByRole('button', { name: 'Show my universities' }).click();
-  const r = await fitRes;
-  const body = r ? await r.json().catch(() => null) : null;
-  await p.locator('.mk-qs__results').waitFor({ timeout: 20000 }).catch(() => {});
-  const shown = await p.locator('.mk-qs__results a[href*="/universities/"]').count();
-  check('Quick Fit: public flow returns real results without FastAPI', r?.status() === 200 && body?.total > 0 && shown > 0 && errors.length === 0,
-    `status ${r?.status()} total ${body?.total} counts ${JSON.stringify(body?.counts)} links ${shown} countries ${countries}`);
-  const admRes = p.waitForResponse((x) => /\/admissions\?/.test(x.url()), { timeout: 30000 }).catch(() => null);
-  await p.goto(`${base}/universities/kaist?lang=en&level=MASTER&langs=TOEFL_IBT:90`, { waitUntil: 'networkidle' });
-  const a = await admRes;
-  const aj = a ? await a.json().catch(() => null) : null;
-  check('detail with Quick Fit answers: scholarship summary from the fit engine', a?.status() === 200 && aj?.summary != null, `status ${a?.status()} summary ${aj?.summary ? aj.summary.count : null}`);
+  const { ctx, p } = await page();
+  for (const lang of ['ko', 'en']) {
+    await p.goto(`${base}/?lang=${lang}`, { waitUntil: 'networkidle' });
+    const hrefs = await p.$$eval('a[data-cta="primary"]', (as) => as.map((a) => a.href));
+    const ok = hrefs.length >= 2 && hrefs.every((h) => { const u = new URL(h); return u.pathname === '/login' && u.searchParams.get('next') === '/match' && (lang === 'en' || u.searchParams.get('lang') === lang); });
+    check(`유학 준비 (${lang}): every primary CTA opens the Student login with next=/match`, ok, hrefs.slice(0, 3).join(' · '));
+    const startLinks = await p.$$eval('a[href*="/start"]', (as) => as.map((a) => a.getAttribute('href')));
+    check(`no link to the retired /start (${lang})`, startLinks.length === 0, startLinks.join(', '));
+  }
+  const r = await fetch(`${base}/start?lang=vi`, { redirect: 'manual' });
+  check('/start redirects to the Student login (next=/match, language kept)', r.status >= 300 && r.status < 400 && r.headers.get('location')?.endsWith('/login?next=%2Fmatch&lang=vi'), `${r.status} ${r.headers.get('location')}`);
   await ctx.close();
 }
 

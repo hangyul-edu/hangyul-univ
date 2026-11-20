@@ -33,30 +33,23 @@ export function useStudentSession() {
 }
 
 /**
- * Where the product's **one conversion action** should send this visitor (V13, brief Parts 1 and 16).
+ * Where the product's **one conversion action** — 유학 준비 — sends this visitor (owner decision 2026-11-19).
  *
- * Signed in → the platform. Signed out → **`/start`**, the public quick check, not `/login`.
+ * Signed out → the **Student login**, with `next=/match`. Signed in → `/match` directly.
  *
- * This is the IDP FastLane lesson from `docs/qa/v13/GLOBAL_BENCHMARK.md` applied to our own front door: the
- * question that decides whether a stranger becomes an applicant is "would a Korean university take someone
- * like me?", and `/start` answers it from a handful of questions, with named reasons, without an account.
- * V13's first draft pointed this button at the sign-in page — which is the mechanism, not the goal, and the
- * exact mistake the hero's old "로그인" label was criticised for, moved one layer down where a label change
- * could not reveal it. A button that says 내 유학 준비 and opens a password field has not started anything.
+ * `/match` is the Student app's personalised-matching entry: a student without a paid plan is taken to checkout
+ * first, a student with one goes straight to choosing universities. The anonymous Quick Fit that used to sit
+ * between this button and the account (`/start`, V13–V32) is retired: the public directory already shows what
+ * Korean universities are like, and matching against a student's own profile happens inside the platform, after
+ * sign-in and purchase. `/start` itself now redirects here (routes.tsx and the Vercel redirect).
  *
- * `/start` itself offers registration once it has something useful to say, so nothing is lost for the
- * visitor who was ready to sign up anyway.
+ * The login page links to sign-up carrying the same `next`, so a new visitor loses nothing. `?lang=` (the locale
+ * authority, V14) rides beside `next`, which is always an in-app path the Student login re-validates (`safeNext`).
  */
-export function prepareAction(authenticated: boolean, locale?: string): string {
-  // V17: the quick check is a **marketing** route now, not a student one. The reasoning above is unchanged
-  // and is why it moved: it is the free product, so it belongs where a visitor with no account already is —
-  // indexable, shareable, and openable without a round trip to another origin. See `pages/Start.tsx`.
-  return authenticated ? studentUrl('/', locale) : localPath('/start', locale);
-}
+export const MATCH_PATH = '/match';
 
-/** A path on this site, carrying the language. `?lang=` remains the locale authority (V14). */
-function localPath(path: string, locale?: string): string {
-  return locale ? `${path}${path.includes('?') ? '&' : '?'}lang=${encodeURIComponent(locale)}` : path;
+export function prepareAction(authenticated: boolean, locale?: string): string {
+  return studentAction(MATCH_PATH, authenticated, locale);
 }
 
 /**
@@ -64,7 +57,7 @@ function localPath(path: string, locale?: string): string {
  * platform ("/explore?tab=saved", "/applications"). Signed in → straight there. Anonymous → the student login
  * with `?next=<path>`, so the action resumes after sign-in instead of being lost.
  *
- * Not for the conversion action: that is `prepareAction` above, and it must not pass through a password field.
+ * The conversion action (`prepareAction` above) is this rule applied to `/match`.
  */
 export function studentAction(path: string, authenticated: boolean, locale?: string): string {
   if (authenticated) return studentUrl(path, locale);
@@ -72,29 +65,19 @@ export function studentAction(path: string, authenticated: boolean, locale?: str
 }
 
 /**
- * Where "베이직으로 시작" should send this visitor (V15, brief Part 4 — the plan handoff).
+ * Where a plan CTA on the pricing section ("베이직으로 시작") sends this visitor (V15, brief Part 4 — the plan
+ * handoff; owner decision 2026-11-19 for the signed-out branch).
  *
- * Three things have to survive an authentication boundary: the plan they chose, the language they are
- * reading in, and where they were going. `?lang=` is unchanged — it is still the locale authority — and
- * `plan` rides beside it:
+ * Three things have to survive the authentication boundary: the plan they chose, the language they are reading
+ * in, and where they were going:
  *
- *     signed out →  /start?plan=all_in_one&lang=vi
- *     signed in  →  /services?plan=all_in_one&lang=vi
+ *     signed out →  <student>/login?next=%2Fservices%3Fplan%3Dall_in_one&lang=vi
+ *     signed in  →  <student>/services?plan=all_in_one&lang=vi
  *
- * A signed-out visitor goes to `/start`, not to a password field. That is the V13 rule this section inherits
- * rather than re-litigates: `/start` answers "would a Korean university take someone like me?" without an
- * account and offers registration once it has something useful to say, and the student app carries `plan`
- * through registration in its own `next`. A button that says "start" and opens a login form has not started
- * anything — and the CTA deliberately does **not** open a payment, because the product principle is
- * MARKETING → AUTH → PLATFORM → SERVICE SELECTION.
+ * Signed out goes to the **login**, like every other way into the platform; the login page links to sign-up
+ * carrying `next`, so a new visitor registers and still lands on `/services` with the plan selected. The CTA
+ * deliberately does **not** open a payment: MARKETING → AUTH → PLATFORM → SERVICE SELECTION.
  */
 export function planAction(plan: string, authenticated: boolean, locale?: string): string {
-  const q = `plan=${encodeURIComponent(plan)}`;
-  if (authenticated) return studentUrl(`/services?${q}`, locale);
-  // V17: a signed-out visitor who has *chosen a plan* has already decided; sending them through the quick
-  // check would be making them answer three questions to buy something they just picked. They go straight
-  // to registration with the plan on the URL, and the student app carries it through to `/services`.
-  // The quick check remains the destination of the **undirected** CTA (`prepareAction`), where the visitor
-  // has not chosen anything yet and the free answer is the thing that earns the sale.
-  return studentUrl(`/register?next=${encodeURIComponent(`/services?${q}`)}`, locale);
+  return studentAction(`/services?plan=${encodeURIComponent(plan)}`, authenticated, locale);
 }

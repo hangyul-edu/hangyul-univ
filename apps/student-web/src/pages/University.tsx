@@ -46,7 +46,7 @@ function Overview({ u }: { u: UniversityDetail }) {
         <div style={{ marginTop: 16 }}>
           <DescriptionList items={[
             { label: t('university.overview.type'), value: t(`common:institution.${u.institution_type}`) },
-            { label: t('university.overview.location'), value: u.city === u.region ? u.city : `${u.city}, ${t(`common:region.${u.region}`, { defaultValue: u.region })}` },
+            { label: t('university.overview.location'), value: u.city === u.region ? t(`common:region.${u.city}`, { defaultValue: u.city }) : `${t(`common:region.${u.city}`, { defaultValue: u.city })}, ${t(`common:region.${u.region}`, { defaultValue: u.region })}` },
             { label: t('university.overview.founded'), value: u.founded_year ?? '—' },
             { label: t('university.overview.programs'), value: formatNumber(u.programs.length, locale) },
             { label: t('university.overview.living'), value: <><Krw value={u.est_living_cost_monthly_krw} />{u.est_living_cost_monthly_krw ? t('units.perMonth') : ''}</> },
@@ -226,7 +226,7 @@ function Campus({ u }: { u: UniversityDetail }) {
         return (
           <Card key={c.id} pad>
             <div className="hg-row" style={{ gap: 8 }}><MapPin size={18} aria-hidden /><h3 className="hg-title-sm">{c.name}</h3>{c.is_main && <Badge size="sm">{t('university.campus.mainBadge')}</Badge>}</div>
-            <p className="hg-muted" style={{ marginTop: 8 }}>{c.address ?? `${c.city}, ${t('university.campus.korea')}`}</p>
+            <p className="hg-muted" style={{ marginTop: 8 }}>{c.address ?? `${t(`common:region.${c.city}`, { defaultValue: c.city })}, ${t('university.campus.korea')}`}</p>
             {u.location.latitude !== null && c.is_main && <p className="hg-subtle hg-xs hg-num">{u.location.latitude?.toFixed(4)}, {u.location.longitude?.toFixed(4)}</p>}
             <div className="hg-row-wrap" style={{ marginTop: 12 }}>
               <a className="hg-btn hg-btn--sm" href={`https://map.naver.com/p/search/${q}`} target="_blank" rel="noreferrer">{t('university.campus.naver')}<ExternalLink aria-hidden /></a>
@@ -658,7 +658,7 @@ export default function University() {
           <div className="st-page su-page">
             <nav className="hg-crumbs" aria-label={t('university.crumbs')}><Link to="/explore">{t('discover.title')}</Link><span aria-hidden>/</span><span>{u.name_en}</span></nav>
             <PlaceHero slug={slug} name={localName(u)} altName={otherName(u)} region={u.region}>
-              <p className="hg-uni-hero__where">{u.city} · {t(`common:institution.${u.institution_type}`)}</p>
+              <p className="hg-uni-hero__where">{u.city ? t(`common:region.${u.city}`, { defaultValue: u.city }) : null} · {t(`common:institution.${u.institution_type}`)}</p>
               <div className="su-place__save"><SaveButton universityId={u.id} name={localName(u)} size="md" /></div>
             </PlaceHero>
             {program && (

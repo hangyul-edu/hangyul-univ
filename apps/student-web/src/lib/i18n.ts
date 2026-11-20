@@ -59,6 +59,10 @@ export function essayTitle(t: TFn, e: { title: string; essay_type: string }, loc
 /** Notification params: a document or essay named in English by the API is named by its translated category/type. */
 export function notifyParams(t: TFn, p: Record<string, unknown>, locale: string): Record<string, unknown> {
   const out = { ...p };
+  // A consultation time arrives as an ISO timestamp; it reads as a date and time in the reader's locale.
+  if (typeof p.at === 'string' && /^\d{4}-\d{2}-\d{2}T/.test(p.at)) {
+    try { out.at = new Intl.DateTimeFormat(locale, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(p.at)); } catch { /* keep the raw value */ }
+  }
   if (locale.startsWith('en')) return out;
   if (typeof p.category === 'string' && typeof p.document === 'string' && p.category !== 'OTHER') out.document = t(`common:docCategory.${p.category}`, { defaultValue: p.document });
   if (typeof p.essay_type === 'string' && typeof p.title === 'string') out.title = essayTitle(t, { title: p.title, essay_type: p.essay_type }, locale);

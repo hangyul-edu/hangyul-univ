@@ -19,6 +19,8 @@ import { fontFamily, theme } from '../theme';
 import { UploadSheet, type PickedFile } from './Upload';
 import { isUnavailable, v3, type Attachment } from './v3';
 import { absoluteApiUrl } from '../bootstrap/api';
+import { useKeyboardAvoiding, useKeyboardShown } from '../components/Keyboard';
+import { errorText } from '../components/errorText';
 
 export const messageKeys = {
   list: (studentId?: string) => (studentId ? (['conversations', { studentId }] as const) : (['conversations'] as const)),
@@ -93,6 +95,9 @@ export function ChatThread({ conversationId, allowInternal, onRead, onLoaded }: 
   const api = useApi();
   const qc = useQueryClient();
   const insets = useSafeAreaInsets();
+  // 261119 req 5: measured header offset, padding on both platforms (Android is edge-to-edge); no home-indicator gap above the keyboard.
+  const kb = useKeyboardAvoiding();
+  const keyboardShown = useKeyboardShown();
   const fontsReady = useFontsReady();
   const [body, setBody] = useState('');
   const [internal, setInternal] = useState(false);
@@ -108,7 +113,7 @@ export function ChatThread({ conversationId, allowInternal, onRead, onLoaded }: 
       const a = await v3.uploadAttachment(api, conversationId, file);
       setPending((p) => [...p, a]);
     } catch (e) {
-      setError(isUnavailable(e) ? t('mobile:v3.messages.attachUnavailable') : (e as Error).message);
+      setError(isUnavailable(e) ? t('mobile:v3.messages.attachUnavailable') : errorText(t, e));
     } finally {
       setUploading(false);
     }
@@ -142,7 +147,7 @@ export function ChatThread({ conversationId, allowInternal, onRead, onLoaded }: 
       void qc.invalidateQueries({ queryKey: messageKeys.thread(conversationId) });
       void qc.invalidateQueries({ queryKey: ['conversations'] });
     },
-    onError: (e: Error) => setError(e.message),
+    onError: (e: Error) => setError(errorText(t, e)),
   });
 
   const submit = () => {
@@ -157,7 +162,7 @@ export function ChatThread({ conversationId, allowInternal, onRead, onLoaded }: 
   const internalOn = allowInternal && internal;
 
   return (
-    <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
+    <KeyboardAvoidingView style={styles.flex} behavior={kb.behavior} keyboardVerticalOffset={kb.keyboardVerticalOffset}>
       {thread.isPending ? (
         <View style={styles.pad}><LoadingState rows={5} /></View>
       ) : thread.isError && !thread.data ? (
@@ -173,7 +178,7 @@ export function ChatThread({ conversationId, allowInternal, onRead, onLoaded }: 
           keyboardShouldPersistTaps="handled"
         />
       )}
-      <View style={[styles.composer, internalOn && styles.composerInternal, { paddingBottom: Math.max(12, insets.bottom) }]}>
+      <View style={[styles.composer, internalOn && styles.composerInternal, { paddingBottom: keyboardShown ? 12 : Math.max(12, insets.bottom) }]}>
         {allowInternal ? (
           <View style={styles.internalRow}>
             <Lock size={14} color={internalOn ? theme.status.warning.fg : theme.color.textSecondary} />

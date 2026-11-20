@@ -263,7 +263,7 @@ def checklist(db: Session, student_user_id, program: Program, university: Univer
         action_code, action = None, None
         uni = university.name_en
         # V5 i18n: `action` stays the English fallback; clients translate from action_code + action_params.
-        action_params: dict = {"university": uni}
+        action_params: dict = {"university": uni, "university_ko": university.name_ko}
         if status == DocumentStatus.MISSING:
             action_code, action = "UPLOAD", f"Upload your {r.label.lower()} for {uni}."
         elif status == DocumentStatus.EXPIRED:

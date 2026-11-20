@@ -4,6 +4,7 @@
  * after arrival: residence card, health insurance, bank, transport, campus registration, emergency numbers.
  * Every fact carries its official source + last checked date (docs/research/arrival-official.json) or says it is being confirmed.
  */
+import { errorText } from '@hangyul/i18n';
 import { useApi } from '@hangyul/auth';
 import { Check, ChevronDown, ExternalLink, LifeBuoy, Lock, PartyPopper, Plane } from '@hangyul/icons';
 import type { ArrivalJourney, ServiceCase } from '@hangyul/types';
@@ -33,7 +34,7 @@ function useJourneyMutation<T>(fn: (v: T) => Promise<unknown>, success?: string)
       qc.invalidateQueries({ queryKey: ['tasks'] });
       if (success) toast.success(t(success));
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
 }
 

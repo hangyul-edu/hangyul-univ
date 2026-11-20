@@ -478,7 +478,11 @@
     "reasonRequired": "Sabihin sa estudyante kung ano ang aayusin.",
     "phone": "Maglagay ng wastong mobile number.",
     "passwordMismatch": "Hindi magkatugma ang password.",
-    "code": "Ilagay ang 6-digit na code."
+    "code": "Ilagay ang 6-digit na code.",
+    "fileCount_one": "{{count}} file lang ang puwede mong idagdag nang sabay-sabay.",
+    "fileCount_other": "Hanggang {{count}} file ang puwede mong idagdag nang sabay-sabay.",
+    "fileEmpty": "Walang laman ang file na ito.",
+    "fileExtension": "Hindi tugma ang dulo ng pangalan ng file sa uri nito. Mag-upload ng PDF, JPG, PNG o WEBP na file."
   },
   "notify": {
     "agencyAssigned": "Sinusuportahan na ng {{agency}} ang iyong aplikasyon.",
@@ -528,7 +532,9 @@
     "writingOverdue": "Lampas na sa takda ang essay review mo: {{title}}",
     "v29": {
       "addonOffered": "May iminungkahing karagdagang serbisyo ang team ng Hangyul Univ"
-    }
+    },
+    "addonOffered": "May inalok na karagdagang serbisyo ang iyong counselor. Buksan ang iyong plan para makita ito.",
+    "appointment": "Naka-iskedyul ang konsultasyon sa {{at}}"
   },
   "a11y": {
     "skipToContent": "Lumaktaw sa pangunahing nilalaman",
@@ -1078,18 +1084,18 @@
           "settlement": "Mula {{before}} araw bago dumating hanggang {{count}} araw pagkadating",
           "livingInfo": "Pangunahing impormasyon sa pamumuhay"
         },
-        "scopeNote": "Sa Premium, walang limit ang round ng pag-edit para sa mga dokumento sa aplikasyon at iskedyul na nasa kontrata mo. Hindi kasama ang pagsulat ng bagong dokumento, pagsasalin at pagpapanotaryo."
+        "scopeNote": "Sa Premium, walang limit ang round ng pag-edit para sa mga dokumento sa aplikasyon na nasa kontrata mo, sa loob ng iskedyul ng iyong aplikasyon. Hindi kasama ang pagsulat ng bagong dokumento, pagsasalin at pagpapanotaryo."
       },
       "notes": {
         "title": "Bago ka bumili",
         "usd": "Lahat ng presyo ay isang beses na bayad sa US dollar (USD).",
         "exchange": "Maaaring mag-iba ang aktuwal na singil sa card mo dahil sa palitan ng pera at bayarin ng card o payment provider.",
-        "external": "Hiwalay ang gastos sa third party: application fee ng unibersidad, tuition, visa fee, pagsasalin at notarization, international na padala.",
-        "documentsVary": "Nakadepende ang mga kailangang dokumento sa nasyonalidad, pinag-aralan at antas ng pag-aaral mo.",
-        "visaDecision": "Tinutulungan ka naming maghanda at mag-apply. Ang mga awtoridad sa imigrasyon ang nagpapasya kung maibibigay ang visa.",
+        "external": "Hiwalay na binabayaran ang gastos sa third party, kasama ang application fee ng unibersidad, matrikula, visa fee, pagsasalin, pagpapanotaryo at international na padala.",
+        "documentsVary": "Nakadepende ang mga kailangang dokumento sa nasyonalidad mo, sa iyong pinag-aralan at sa programang ina-apply-an mo.",
+        "visaDecision": "Tinutulungan ka naming ihanda ang iyong aplikasyon sa visa. Ang mga awtoridad sa imigrasyon ang nagpapasya kung maibibigay ang visa.",
         "agreement": "Puwedeng itakda sa service agreement o order mo ang mga detalye gaya ng iskedyul, saklaw ng pag-edit at oras ng pagsagot.",
-        "premiumScope": "Sa Premium, walang limit sa round ng pag-edit sa loob ng mga dokumento sa aplikasyon at iskedyul na nasa kontrata.",
-        "newDocuments": "Maaaring may dagdag na bayad ang pagsulat ng bagong dokumento, pagsasalin at notarization."
+        "premiumScope": "Sa Premium, walang limit ang round ng pag-edit para sa mga dokumento sa aplikasyon na nasa kontrata mo, sa loob ng iskedyul ng iyong aplikasyon.",
+        "newDocuments": "Maaari ring may dagdag na bayad ang pagsulat ng bagong dokumento."
       },
       "addons": {
         "title": "Mga karagdagang serbisyo",
@@ -1103,12 +1109,12 @@
     },
     "addon": {
       "item": {
-        "extra_application": "Isa pang aplikasyong mina-manage namin kasama mo",
-        "extra_edit": "1 dagdag na round ng pag-edit: personal statement o study plan",
+        "extra_application": "Isa pang aplikasyong pinamamahalaan namin",
+        "extra_edit": "Isa pang round ng pag-edit (personal statement o study plan)",
         "mock_interview": "Mock interview",
         "dormitory": "Tulong sa aplikasyon sa dormitoryo",
-        "airport_pickup": "Airport pickup na inaayos sa pamamagitan ng partner",
-        "settlement": "Dagdag na tulong sa pag-settle in"
+        "airport_pickup": "Pag-aayos ng sundo sa paliparan",
+        "settlement": "Dagdag na tulong sa pag-aangkop sa bagong tirahan"
       },
       "unit": {
         "UNIVERSITY": "1 unibersidad",
@@ -1279,5 +1285,53 @@
     "video": {
       "more": "Iba pang opisyal na video"
     }
+  },
+  "upload": {
+    "cantAdd": "Hindi maidagdag ang file na ito",
+    "checking": "Sinusuri ang file…",
+    "choose": "Pumili ng file",
+    "chooseMany": "Pumili ng mga file",
+    "constraints": "PDF, JPG, PNG o WEBP · hanggang {{mb}} MB",
+    "constraintsMany": "PDF, JPG, PNG o WEBP · hanggang {{mb}} MB bawat isa · hanggang {{count}} file",
+    "done": "Naidagdag ang {{name}}",
+    "dropHere": "Bitawan dito para i-upload",
+    "dropRelease": "Bitawan para idagdag",
+    "orDrag": "o i-drag ito rito",
+    "orDragMany": "o i-drag ang mga file rito",
+    "rejected": "{{name}}: {{reason}}",
+    "replace": "Pumili ng ibang file",
+    "selected": "Napili ang {{name}}",
+    "uploading": "Ina-upload…",
+    "uploadingPct": "Ina-upload… {{pct}}%",
+    "zone": "Lugar para mag-upload ng file"
+  },
+  "previewFixture": {
+    "transcriptApostille": "Kailangang ma-apostille ang transcript bago ito magamit. Hindi authenticated ang kopyang na-upload.",
+    "draftedByHangyul": "Draft na isinulat ng Hangyul — hindi ito ang opisyal na pananalita ng unibersidad. Kumpirmahin ang tunay na tanong bago aprubahan.",
+    "profileChecked": "Nasuri na ang profile. Mga dokumento ang susunod — unahin ang apostille ng iyong transcript, ito ang pinakamatagal.",
+    "kyungpookFirst": "Tapusin muna ang mga dokumento para sa Kyungpook — ito ang may pinakamalapit na deadline.",
+    "apostilleRequired": "Kailangan ng apostille",
+    "schoolProject": "Naidagdag na ang proyekto sa paaralan",
+    "expectedGraduationNote": "Pakipadala ang sertipiko ng inaasahang pagtatapos na inisyu pagkatapos ng 1 Nobyembre 2026.",
+    "expectedGraduationLabel": "Sertipiko ng inaasahang pagtatapos",
+    "subjectStrategy": "Estratehiya sa aplikasyon at plano sa scholarship",
+    "secondDraftTask": "I-upload ang ikalawang draft ng iyong study plan",
+    "topik3Standard": "Ang TOPIK level 3 para sa pagpasok ay batay sa inirerekomendang pamantayan ng Ministry of Education; ang sariling patakaran ng unibersidad ang masusunod."
+  },
+  "team": {
+    "hangyul": "Team Hangyul Univ",
+    "operations": "Hangyul Univ Operations"
+  },
+  "systemDoc": {
+    "housingContract": "Iminumungkahing kontrata sa tirahan",
+    "serviceCompletionPhoto": "Larawan ng natapos na serbisyo"
+  },
+  "apiError": {
+    "generic": "Hindi ito natuloy. Pakisubukang muli.",
+    "conflict": "Nabago ito habang ginagamit mo. I-refresh ang page at subukang muli.",
+    "tooLarge": "Masyadong malaki ang file.",
+    "invalid": "May ilang impormasyong hindi matanggap. Suriin ito at subukang muli.",
+    "rateLimited": "Masyadong maraming pagsubok. Maghintay sandali at subukang muli.",
+    "notFound": "Hindi namin ito mahanap. Maaaring naalis na ito."
   }
 }

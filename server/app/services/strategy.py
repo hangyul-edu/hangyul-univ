@@ -198,7 +198,7 @@ def _document_items(db: Session, app: Application, checklist: list[dict], essays
             open_codes.append(items[-1]["code"])
             continue
         code = c["action_code"] or "UPLOAD"
-        p = {"label": label, "category": c["category"], "university": uni}
+        p = {"label": label, "category": c["category"], "university": uni, "university_ko": university.name_ko}
         if code == "IN_REVIEW":
             late = bool(c.get("review_overdue"))
             items.append(_item("DOC_REVIEW_LATE" if late else "DOC_IN_REVIEW", "blocker", "counselor",
@@ -341,7 +341,7 @@ def _rule_change_items(db: Session, app: Application, program: Program, universi
     changed_on = max(at for at, _f in relevant).date().isoformat()
     return [_item("REQUIREMENT_CHANGED", "improve", "counselor", f"{university.name_en} changed its admission rules after this application was started",
                   "Your application stays as it is. Your counselor checks with the university whether the new rule applies to you.",
-                  params={"university": university.name_en, "university_id": str(university.id), "fields": fields, "changed_on": changed_on},
+                  params={"university": university.name_en, "university_ko": university.name_ko, "university_id": str(university.id), "fields": fields, "changed_on": changed_on},
                   action=("MESSAGE", "Ask your counselor", links["messages"]), rank=3)]
 
 
@@ -381,7 +381,7 @@ def application_strategy(db: Session, app: Application, profile: StudentProfile 
     for r in db.scalars(select(DocumentRequest).where(DocumentRequest.application_id == app.id, DocumentRequest.status == "OPEN")
                         .order_by(DocumentRequest.requested_at)).all():
         items.append(_item("REQUEST_OPEN", "blocker", "student", f"{university.name_en} asked for {_lc(r.label)}", r.note,
-                           params={"label": r.label, "university": university.name_en, "university_id": str(university.id), "due": r.due_date.isoformat() if r.due_date else None},
+                           params={"label": r.label, "university": university.name_en, "university_ko": university.name_ko, "university_id": str(university.id), "due": r.due_date.isoformat() if r.due_date else None},
                            action=("REQUEST", "Send it", links["app"]), rank=0))
 
     if scope == "prep" and profile is not None:
@@ -417,7 +417,7 @@ def application_strategy(db: Session, app: Application, profile: StudentProfile 
                                "Your counselor confirms the format the university expects.", action=("MESSAGE", "Ask your counselor", links["messages"]), rank=26))
         if req and req.notes:
             items.append(_item("UNIVERSITY_NOTE", "info", "university", f"A note from {university.name_en}", req.notes,
-                               params={"note": req.notes, "university": university.name_en, "university_id": str(university.id)}, rank=68))
+                               params={"note": req.notes, "university": university.name_en, "university_ko": university.name_ko, "university_id": str(university.id)}, rank=68))
         # Completeness: everything the student and reviewers do is finished, only the counselor's final check remains.
         student_open = [i for i in items if i["severity"] == "blocker"]
         if not student_open and app.status in (S.DRAFT, S.PROFILE_REVIEW, S.DOCUMENT_PREPARATION):
@@ -425,7 +425,7 @@ def application_strategy(db: Session, app: Application, profile: StudentProfile 
                                "Your counselor checks the whole application once, then it's ready to submit.", rank=35))
     elif scope == "review" and app.status == S.INTERVIEW and app.interview_at:
         items.append(_item("INTERVIEW_SCHEDULED", "improve", "student", f"Prepare for your interview with {university.name_en}",
-                           "A short practice with your counselor helps.", params={"when": app.interview_at.isoformat(), "university": university.name_en, "university_id": str(university.id)},
+                           "A short practice with your counselor helps.", params={"when": app.interview_at.isoformat(), "university": university.name_en, "university_ko": university.name_ko, "university_id": str(university.id)},
                            action=("MESSAGE", "Ask for practice", links["messages"]), rank=5))
 
     if scope in ("prep", "review"):
@@ -438,7 +438,7 @@ def application_strategy(db: Session, app: Application, profile: StudentProfile 
         if sub and sub.status in ("HANDED_OFF", "SUBMITTED_UNCONFIRMED"):
             items.append(_item("SUBMISSION_CONFIRM", "improve", "student", f"Add your {university.name_en} confirmation",
                                "You told us you submitted — the confirmation number or receipt finishes it.",
-                               params={"university": university.name_en, "university_id": str(university.id)}, action=("CONFIRM", "Add confirmation", links["app"]), rank=0))
+                               params={"university": university.name_en, "university_ko": university.name_ko, "university_id": str(university.id)}, action=("CONFIRM", "Add confirmation", links["app"]), rank=0))
 
     items.sort(key=lambda i: (SEVERITY_RANK[i["severity"]], i["_rank"]))
     for i in items:
@@ -494,13 +494,13 @@ def today_for_student(db: Session, user, today: date | None = None, limit: int =
         intake = db.get(ProgramIntake, app.intake_id)
         nxt = submission.next_step(db, app)
         if nxt:
-            out.append({"application_id": str(app.id), "university": uni.name_en, "university_id": str(uni.id), "deadline": intake.application_deadline.isoformat(),
+            out.append({"application_id": str(app.id), "university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id), "deadline": intake.application_deadline.isoformat(),
                         "sort": (0, 0, intake.application_deadline), **nxt})
         s = application_strategy(db, app, today=today, with_submission=nxt is None)
         for i in s["items"]:
             if i["owner"] != "student" or i["severity"] == "info":
                 continue
-            out.append({"application_id": str(app.id), "university": uni.name_en, "university_id": str(uni.id), "deadline": intake.application_deadline.isoformat(),
+            out.append({"application_id": str(app.id), "university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id), "deadline": intake.application_deadline.isoformat(),
                         "sort": (1, SEVERITY_RANK[i["severity"]], intake.application_deadline), **i})
     out.sort(key=lambda x: x["sort"])
     seen, top = set(), []
@@ -642,8 +642,10 @@ def portfolio(db: Session, student_user_id, today: date | None = None) -> dict:
 
     if admitted is not None:
         # The choice is made: portfolio questions no longer apply (say so once, instead of "no applications yet").
-        uni_name = db.get(University, admitted.university_id).name_en
-        obs = [{"code": "ADMITTED", "severity": "info", "text": f"Accepted a place at {uni_name} — the plan is settled.", "params": {"university": uni_name}}]
+        admitted_uni = db.get(University, admitted.university_id)
+        uni_name = admitted_uni.name_en
+        obs = [{"code": "ADMITTED", "severity": "info", "text": f"Accepted a place at {uni_name} — the plan is settled.",
+                "params": {"university": uni_name, "university_ko": admitted_uni.name_ko}}]
     codes = {o["code"] for o in obs}
     questions = [
         {"key": "too_few", "flag": bool(codes & {"FEW_OPTIONS", "NO_APPLICATIONS"})},

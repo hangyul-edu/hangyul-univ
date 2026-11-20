@@ -11,11 +11,12 @@ Programme-level preparation lives behind authentication, in ``catalog.py`` and t
 
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from sqlalchemy import Select, case, func, literal_column, or_, select
 from sqlalchemy.orm import Session
 
-from app.api.common import Page, iso, paginate
+from app.api.caching import cached_json
+from app.api.common import Page, iso
 from app.core.db import get_db
 from app.models import Institution
 from app.models.catalog import Program, ProgramIntake
@@ -80,7 +81,16 @@ def _signals(i: Institution, scholarships: int = 0) -> dict | None:
     return out or None
 
 
-def _card(i: Institution, scholarships: int = 0) -> dict:
+def _with_programmes(db: Session, university_ids) -> set:
+    """V34: every active institution now has a catalogue university; `has_catalog` keeps meaning "Hangyul holds
+    programme-level admission data" — at least one active programme read from an official guide."""
+    ids = [u for u in university_ids if u]
+    if not ids:
+        return set()
+    return set(db.scalars(select(Program.university_id).where(Program.university_id.in_(ids), Program.is_active.is_(True)).distinct()))
+
+
+def _card(i: Institution, scholarships: int = 0, with_programmes: set | None = None) -> dict:
     """The directory card. Facts with a source, and nothing a student would mistake for an offer."""
     return {
         "slug": i.slug,
@@ -100,7 +110,9 @@ def _card(i: Institution, scholarships: int = 0) -> dict:
         "last_verified": iso(i.last_verified),
         # Whether Hangyul holds verified admission data for this institution. Drives which call to action the
         # card offers — never rendered as a partnership, because it is not one.
-        "has_catalog": i.catalog_university_id is not None,
+        "has_catalog": (i.catalog_university_id in with_programmes) if with_programmes is not None else i.catalog_university_id is not None,
+        # V34: the canonical catalogue university shared with the Student app (same slug as this institution).
+        "university_id": str(i.catalog_university_id) if i.catalog_university_id else None,
         # V20: enough of the content record for the tile to draw this institution rather than a placeholder.
         "enrichment": _card_content(i),
         "signals": _signals(i, scholarships),
@@ -108,7 +120,7 @@ def _card(i: Institution, scholarships: int = 0) -> dict:
 
 
 @router.get("/regions")
-def regions(db: Session = Depends(get_db)):
+def regions(request: Request, db: Session = Depends(get_db)):
     """Institution counts per region — what the map needs to label and shade itself."""
     counts = dict(
         db.execute(
@@ -125,7 +137,7 @@ def regions(db: Session = Depends(get_db)):
             .group_by(Institution.region, Institution.institution_type)
         ).all()
     }
-    return {
+    return cached_json(request, {
         "total": sum(counts.values()),
         "regions": [
             {
@@ -135,11 +147,12 @@ def regions(db: Session = Depends(get_db)):
             }
             for r in REGIONS
         ],
-    }
+    })
 
 
 @router.get("/institutions")
 def institutions(
+    request: Request,
     page: Page = Depends(),
     region: str | None = Query(None),
     #: V21 — a browsing *group* ("부산·경남", "대전·충청"), as a comma-separated list of the registry's
@@ -192,17 +205,22 @@ def institutions(
         no_photo = case((Institution.enrichment.op("#>")(literal_column("'{media,hero}'")).is_(None), 1), else_=0)
         stmt = stmt.order_by(TYPE_ORDER.asc(), no_photo.asc(), name.asc())
     from app.models import Scholarship
-    counts = dict(db.execute(select(Scholarship.institution_id, func.count()).where(Scholarship.verification_status == "CURRENT")
+    counts = dict(db.execute(select(Scholarship.institution_id, func.count()).where(Scholarship.verification_status == "CURRENT",
+                                                                                    Scholarship.institution_id.is_not(None))
                              .group_by(Scholarship.institution_id)).all())
-    return paginate(db, stmt, page, lambda i: _card(i, counts.get(i.id, 0)))
+    total = db.scalar(select(func.count()).select_from(stmt.order_by(None).subquery())) or 0
+    rows = db.scalars(stmt.order_by(Institution.slug).limit(page.page_size).offset((page.page - 1) * page.page_size)).all()
+    with_programmes = _with_programmes(db, [i.catalog_university_id for i in rows])
+    return cached_json(request, {"items": [_card(i, counts.get(i.id, 0), with_programmes) for i in rows], "total": total,
+                                 "page": page.page, "page_size": page.page_size})
 
 
 @router.get("/institutions/{slug}")
-def institution(slug: str, db: Session = Depends(get_db)):
+def institution(slug: str, request: Request, db: Session = Depends(get_db)):
     row = db.scalar(_active().where(Institution.slug == slug))
     if row is None:
         raise HTTPException(404, "Not found")
-    data = _card(row)
+    data = _card(row, with_programmes=_with_programmes(db, [row.catalog_university_id]))
     data.update(
         {
             "registry_name_ko": row.registry_name_ko,
@@ -222,8 +240,10 @@ def institution(slug: str, db: Session = Depends(get_db)):
     # not a list: the list is a signed-in student's view, with their eligibility against it.
     if row.catalog_university_id:
         data["catalog"] = {
+            "university_id": str(row.catalog_university_id),
             "programs": db.scalar(
-                select(func.count()).select_from(Program).where(Program.university_id == row.catalog_university_id)
+                select(func.count()).select_from(Program).where(Program.university_id == row.catalog_university_id,
+                                                                Program.is_active.is_(True))
             )
             or 0,
             "open_intakes": db.scalar(
@@ -234,7 +254,7 @@ def institution(slug: str, db: Session = Depends(get_db)):
             )
             or 0,
         }
-    return data
+    return cached_json(request, data)
 
 
 # ------------------------------------------------------------------------------ V27: scholarships & language rules
@@ -256,6 +276,7 @@ def _ser_scholarship(s) -> dict:
 @router.get("/institutions/{slug}/admissions")
 def institution_admissions(
     slug: str,
+    request: Request,
     level: str | None = Query(None, pattern="^(LANGUAGE|ASSOCIATE|BACHELOR|TRANSFER|MASTER|DOCTORATE|COMBINED)$"),
     langs: str | None = Query(None, max_length=200),
     gpa_pct: float | None = Query(None, ge=0, le=100),
@@ -292,5 +313,5 @@ def institution_admissions(
         inst = fit.snapshot(db)["insts"].get(row.id)
         if inst is not None:
             summary = fit._scholarship_fit(inst, level, scores, gpa_pct)
-    return {"verified": bool(schol or rules), "scholarships": [_ser_scholarship(s) for s in schol], "language_rules": by_level,
-            "summary": summary}
+    return cached_json(request, {"verified": bool(schol or rules), "scholarships": [_ser_scholarship(s) for s in schol],
+                                 "language_rules": by_level, "summary": summary})

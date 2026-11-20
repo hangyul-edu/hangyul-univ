@@ -91,7 +91,7 @@ def test_the_catalogue_link_is_a_count_not_a_programme_list(client, db):
     linked = db.scalar(select(Institution).where(Institution.catalog_university_id.isnot(None)))
     d = client.get(f"{API}/directory/institutions/{linked.slug}").json()
     assert d["has_catalog"] is True
-    assert set(d["catalog"]) == {"programs", "open_intakes"}
+    assert set(d["catalog"]) == {"university_id", "programs", "open_intakes"}  # V34: + the canonical university id
     assert isinstance(d["catalog"]["programs"], int)
 
     unlinked = db.scalar(

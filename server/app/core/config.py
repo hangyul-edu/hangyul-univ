@@ -247,6 +247,18 @@ class Settings(BaseSettings):
 
     # --- worker
     worker_poll_seconds: int = 30
+
+    # --- V34 catalogue (owner requirement 3)
+    #: Fill an empty catalogue in a background thread when the API starts (advisory-locked, never blocks start-up).
+    catalog_bootstrap_on_start: bool = True
+    #: In-process scheduler thread for the weekly refresh (Monday 09:00 Asia/Seoul) where no worker is deployed.
+    catalog_scheduler_enabled: bool = True
+    catalog_scheduler_tick_seconds: int = 300
+    #: Official-link revalidation (HTTP HEAD/GET, robots.txt honoured, ≥ 2 s per host). 0 = every link.
+    catalog_link_checks_enabled: bool = True
+    catalog_link_check_limit: int = 0
+    catalog_fetch_min_interval_seconds: float = 2.0
+    catalog_fetch_timeout_seconds: float = 10.0
     retention_policy_path: str | None = None  # default: app/data/retention_policy.json
 
     @property

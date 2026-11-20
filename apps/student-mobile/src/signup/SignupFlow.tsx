@@ -6,14 +6,14 @@
  */
 import { useApi } from '@hangyul/auth';
 import { useTranslation } from '@hangyul/i18n';
-import { AppText, Button, Callout, ChipGroup, TextField, theme } from '@hangyul/mobile-ui';
+import { AppText, Button, Callout, ChipGroup, TextField, theme, useKeyboardAvoiding } from '@hangyul/mobile-ui';
 import type { ConsentCatalogueItem, DegreeLevel, QuickLanguageKind, SignupConfig } from '@hangyul/types';
 import { countryName } from '@hangyul/utils';
 import { ArrowLeft, Check, ShieldCheck } from 'lucide-react-native';
 import { forwardRef, useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { bothVerified, codeExpired, expiresSeconds, initialState, missingRequired, nextStepAfterAccount, passwordMatch, reduce, resendSeconds, type SignupState } from './state';
 import { looksPlausible } from './phone';
-import { BackHandler, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, View, type TextInput } from 'react-native';
+import { BackHandler, KeyboardAvoidingView, Pressable, ScrollView, StyleSheet, View, type TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { LegalSheet, OtpField, PasswordField, PhoneField, StepDots, TANGERINE, TurnstileChallenge } from './components';
@@ -40,6 +40,7 @@ export function useSignupHold(): boolean {
 export function SignupFlow({ onCancel, defaultNationality = 'VN' }: { onCancel: () => void; defaultNationality?: string }) {
   const { t, i18n } = useTranslation();
   const api = useApi();
+  const kb = useKeyboardAvoiding();
   const locale = i18n.language;
   const [s, dispatch] = useReducer(reduce, defaultNationality, initialState);
   const [config, setConfig] = useState<SignupConfig | null>(null);
@@ -184,7 +185,8 @@ export function SignupFlow({ onCancel, defaultNationality = 'VN' }: { onCancel: 
 
   return (
     <SafeAreaView style={st.root} edges={['top', 'bottom', 'left', 'right']}>
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      {/* 261119 req 5: padding on both platforms — Android is edge-to-edge, so the OTP and password fields need it too. */}
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior={kb.behavior} keyboardVerticalOffset={kb.keyboardVerticalOffset}>
         <ScrollView contentContainerStyle={st.content} keyboardShouldPersistTaps="handled" keyboardDismissMode="on-drag">
           {header}
           {s.step === 'account' && (

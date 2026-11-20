@@ -132,6 +132,7 @@
     "public-data:export": "server/.venv/bin/python scripts/public-data/export.py",
     "public-data:check": "server/.venv/bin/python scripts/public-data/export.py --check",
     "qa:marketing-serverless": "npm run build -w @hangyul/marketing-web && node scripts/qa/marketing-serverless.mjs",
+    "qa:catalog-parity": "node scripts/qa/catalog-parity.mjs",
     "qa:marketing-mobile-hotfix": "node scripts/qa/marketing-mobile-hotfix.mjs",
     "qa:v32-selects": "node scripts/qa/e2e-run.mjs e2e/v32-selects.spec.ts",
     "qa:v32-data-clean": "server/.venv/bin/python scripts/qa/v32/data-clean.py",
@@ -146,7 +147,8 @@
     "qa:launch-signup": "node scripts/qa/launch-final/signup-walk.mjs",
     "release:preview-gate": "node scripts/release/preview-gate.mjs",
     "payments:probe": "cd server && HG_ENV=${HG_ENV:-development} .venv/bin/python scripts/toss_capability_probe.py",
-    "release:payment-gate": "cd server && .venv/bin/python scripts/payment_release_gate.py --bundles ../apps/student-web/dist ../apps/agency-web/dist ../apps/university-web/dist ../apps/marketing-web/dist"
+    "release:payment-gate": "cd server && .venv/bin/python scripts/payment_release_gate.py --bundles ../apps/student-web/dist ../apps/agency-web/dist ../apps/university-web/dist ../apps/marketing-web/dist",
+    "qa:lang-leak": "node scripts/qa/lang-leak.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",

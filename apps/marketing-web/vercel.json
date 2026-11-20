@@ -2,24 +2,28 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
   "installCommand": "cd ../.. && npm ci --no-audit --no-fund",
-  "buildCommand": "cd ../.. && npm run build -w @hangyul/marketing-web && node scripts/public-data/stage-fit.mjs",
+  "buildCommand": "cd ../.. && npm run build -w @hangyul/marketing-web",
   "outputDirectory": "dist",
-  "functions": {
-    "api/public-fit.py": {
-      "includeFiles": "{api/_fit/**,public/data/public/fit-snapshot.json,public/data/public/admissions/**}",
-      "excludeFiles": "{dist/**,dist-*/**,public/media/**,public/flags/**,public/og/**,node_modules/**,src/**,.vercel/**,*.png,*.ico}",
-      "maxDuration": 10
+  "redirects": [
+    {
+      "source": "/start",
+      "has": [
+        {
+          "type": "query",
+          "key": "lang",
+          "value": "(?<lang>[A-Za-z-]{2,8})"
+        }
+      ],
+      "destination": "https://app.univ.talkhangyul.com/login?next=%2Fmatch&lang=:lang",
+      "permanent": false
+    },
+    {
+      "source": "/start",
+      "destination": "https://app.univ.talkhangyul.com/login?next=%2Fmatch",
+      "permanent": false
     }
-  },
+  ],
   "rewrites": [
-    {
-      "source": "/api/v1/public/fit",
-      "destination": "/api/public-fit"
-    },
-    {
-      "source": "/api/v1/directory/institutions/:slug/admissions",
-      "destination": "/api/public-fit?admissions=:slug"
-    },
     {
       "source": "/api/:path*",
       "destination": "https://enclosure-cork-purifier.ngrok-free.dev/api/:path*"

@@ -13,7 +13,9 @@ explicit "Confirm" action (see api/v1/dossier.py). Passport and document numbers
 """
 from __future__ import annotations
 
+import os
 import re
+import shutil
 import struct
 import subprocess
 import tempfile
@@ -23,8 +25,10 @@ from pathlib import Path
 
 from app.core.security import mask
 
-PDFTOTEXT = "/usr/bin/pdftotext"
-PDFINFO = "/usr/bin/pdfinfo"
+# Poppler binaries: an explicit override (HG_PDFTOTEXT / HG_PDFINFO), else PATH, else the Debian default. The tests for the
+# dossier extraction need poppler; a host without it extracts nothing (and those tests fail loudly rather than silently pass).
+PDFTOTEXT = os.environ.get("HG_PDFTOTEXT") or shutil.which("pdftotext") or "/usr/bin/pdftotext"
+PDFINFO = os.environ.get("HG_PDFINFO") or shutil.which("pdfinfo") or "/usr/bin/pdfinfo"
 TIMEOUT_S = 8
 
 FIELDS = ("full_name", "date_of_birth", "passport_number", "passport_expiry", "nationality", "school", "graduation_date", "gpa",

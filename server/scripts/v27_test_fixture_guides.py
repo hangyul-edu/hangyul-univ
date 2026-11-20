@@ -16,10 +16,10 @@ def build() -> int:
     development and production data never contain one (the seed does not create them; this runs only here)."""
     from datetime import datetime, timezone
 
-    from sqlalchemy import select
+    from sqlalchemy import select, update
 
     from app.core.db import SessionLocal, engine
-    from app.models import AdmissionGuide, DocumentRequirement, Institution, Program, University
+    from app.models import AdmissionGuide, Application, ApplicationDocument, DocumentRequirement, Institution, Program, University
 
     name = engine.url.database or ""
     if "test" not in name and "e2e" not in name:
@@ -50,12 +50,22 @@ def build() -> int:
                 for r in demo:
                     if r.degree_level and r.degree_level != level:
                         continue
-                    db.add(DocumentRequirement(university_id=u.id, guide_id=g.id, degree_level=g_level, category=r.category, label=r.label,
+                    copy = DocumentRequirement(university_id=u.id, guide_id=g.id, degree_level=g_level, category=r.category, label=r.label,
                                                is_required=r.is_required, legalization_required=r.legalization_required,
                                                legalization_rule="APOSTILLE_OR_CONSULAR" if r.legalization_required else None,
                                                translation_required=r.translation_required, applies_to_nationalities=r.applies_to_nationalities,
                                                max_age_days=r.max_age_days, notes=r.notes, sort_order=r.sort_order,
-                                               evidence="test fixture", source_url=g.source_url, verification_status="TEST_FIXTURE"))
+                                               evidence="test fixture", source_url=g.source_url, verification_status="TEST_FIXTURE")
+                    db.add(copy)
+                    db.flush()
+                    # The persona applications were linked (ApplicationDocument) to the sample row this copy replaces; move
+                    # those links to the copy, or a package built from the fixture guide finds no link and a university
+                    # sees nothing shared — which made test_tenant_isolation depend on test order.
+                    apps_at_level = select(Application.id).join(Program, Program.id == Application.program_id).where(
+                        Application.university_id == u.id, Program.degree_level == level)
+                    db.execute(update(ApplicationDocument).where(ApplicationDocument.requirement_id == r.id,
+                                                                 ApplicationDocument.application_id.in_(apps_at_level))
+                               .values(requirement_id=copy.id).execution_options(synchronize_session=False))
         db.commit()
     return made
 

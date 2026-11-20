@@ -1,3 +1,4 @@
+import { errorText } from '@hangyul/i18n';
 import { useApi } from '@hangyul/auth';
 import { PenLine, Plus } from '@hangyul/icons';
 import type { EssayType } from '@hangyul/types';
@@ -25,7 +26,7 @@ function NewEssay({ open, onClose }: { open: boolean; onClose: () => void }) {
   const m = useMutation({
     mutationFn: () => api.essays.create({ essay_type: type, title: title.trim() || t(`common:essayType.${type}`), prompt: prompt.trim() || undefined, word_limit: Number(limit) || undefined }),
     onSuccess: (e) => { qc.invalidateQueries({ queryKey: ['essays'] }); onClose(); nav(`/essays/${e.id}`); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <Modal open={open} onClose={onClose} title={t('essays.new.title')} description={t('essays.new.subtitle')}

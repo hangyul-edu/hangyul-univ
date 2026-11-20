@@ -1,12 +1,13 @@
 import { Check, Info, type LucideIcon } from 'lucide-react-native';
 import { useEffect, useState, type ReactNode } from 'react';
-import { KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { KeyboardAvoidingView, Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { theme, toneColors, type Tone } from '../theme';
 import { AppText } from './AppText';
 import { Button } from './Button';
 import { TextField } from './Inputs';
+import { useKeyboardAvoiding } from './Keyboard';
 
 /** Inline callout (info / warning / disclaimer). */
 export function Callout({ title, body, tone = 'info', icon: Icon = Info, children }: { title?: string; body?: string; tone?: Tone; icon?: LucideIcon; children?: ReactNode }) {
@@ -46,6 +47,7 @@ export function PromptSheet({
   const [text, setText] = useState('');
   const [error, setError] = useState<string | null>(null);
   const insets = useSafeAreaInsets();
+  const kb = useKeyboardAvoiding(true);
   useEffect(() => { if (visible) { setText(''); setError(null); } }, [visible]);
   const submit = () => {
     if (text.trim().length < minLength) { setError(requiredMessage ?? null); return; }
@@ -53,7 +55,7 @@ export function PromptSheet({
   };
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onCancel} statusBarTranslucent>
-      <KeyboardAvoidingView style={styles.modalRoot} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <KeyboardAvoidingView style={styles.modalRoot} behavior={kb.behavior} keyboardVerticalOffset={kb.keyboardVerticalOffset}>
         <Pressable style={StyleSheet.absoluteFill} onPress={onCancel} accessibilityRole="button" accessibilityLabel={cancelLabel} />
         <View style={[styles.sheet, { paddingBottom: Math.max(16, insets.bottom + 8) }]} accessibilityViewIsModal>
           <View style={styles.grabber} />

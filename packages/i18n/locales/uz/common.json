@@ -478,7 +478,11 @@
     "reasonRequired": "Talabaga nimani tuzatish kerakligini yozing.",
     "phone": "Iltimos, toʻgʻri mobil raqam kiriting.",
     "passwordMismatch": "Parollar mos emas.",
-    "code": "Iltimos, 6 xonali kodni kiriting."
+    "code": "Iltimos, 6 xonali kodni kiriting.",
+    "fileCount_one": "Bir vaqtda {{count}} ta fayl qoʻshish mumkin.",
+    "fileCount_other": "Bir vaqtda {{count}} tagacha fayl qoʻshish mumkin.",
+    "fileEmpty": "Bu fayl boʻsh.",
+    "fileExtension": "Fayl nomining kengaytmasi uning turiga mos emas. PDF, JPG, PNG yoki WEBP fayl yuklang."
   },
   "notify": {
     "agencyAssigned": "{{agency}} endi arizangizni qoʻllab-quvvatlaydi.",
@@ -529,7 +533,8 @@
     "addonOffered": "Maslahatchingiz qo‘shimcha xizmat taklif qildi. Reja sahifasida ko‘ring.",
     "v29": {
       "addonOffered": "Hangyul Univ jamoasi sizga qoʻshimcha xizmat taklif qildi"
-    }
+    },
+    "appointment": "Maslahat {{at}} ga belgilandi"
   },
   "a11y": {
     "skipToContent": "Asosiy mazmunga oʻtish",
@@ -1079,22 +1084,22 @@
           "settlement": "Kelishingizdan {{before}} kun oldindan {{count}} kun keyingacha",
           "livingInfo": "Yashash haqida asosiy maʼlumot"
         },
-        "scopeNote": "Premium tarifida tahrirlar soni shartnomangizdagi ariza hujjatlari va jadval doirasida cheklanmagan. Yangi hujjat yozish, tarjima va notarial tasdiqlash bunga kirmaydi."
+        "scopeNote": "Premium tarifiga shartnomangizdagi ariza hujjatlari uchun ariza jadvalingiz doirasida cheklanmagan tahrir bosqichlari kiradi. Yangi hujjat yozish, tarjima va notarial tasdiqlash bunga kirmaydi."
       },
       "notes": {
         "title": "Xarid qilishdan oldin",
         "usd": "Barcha narxlar AQSh dollarida (USD) bir martalik toʻlovdir.",
         "exchange": "Kartangizdan yechiladigan summa valyuta kursi hamda karta yoki toʻlov tizimi komissiyalariga qarab farq qilishi mumkin.",
-        "external": "Uchinchi tomon xarajatlari alohida: universitet ariza toʻlovlari, oʻqish narxi, viza yigʻimlari, tarjima va notarial tasdiq, xalqaro yetkazib berish.",
-        "documentsVary": "Kerakli hujjatlar fuqarolik, maʼlumot va oʻqish darajasiga bogʻliq.",
-        "visaDecision": "Biz vizaga tayyorlanish va ariza topshirishda yordam beramiz. Viza berilishi yoki berilmasligini immigratsiya organlari hal qiladi.",
+        "external": "Uchinchi tomon xarajatlari alohida toʻlanadi: universitet ariza toʻlovlari, oʻqish narxi, viza yigʻimlari, tarjima, notarial tasdiq va xalqaro yetkazib berish.",
+        "documentsVary": "Kerakli hujjatlar fuqaroligingiz, taʼlim tarixingiz va siz hujjat topshirayotgan dasturga bogʻliq.",
+        "visaDecision": "Biz viza arizangizni tayyorlashda yordam beramiz. Viza berilishi yoki berilmasligini immigratsiya organlari hal qiladi.",
         "agreement": "Jadval, tahrir hajmi va javob muddatlari kabi tafsilotlar xizmat shartnomasi yoki buyurtmada belgilanishi mumkin.",
-        "premiumScope": "Premium tarifida tahrirlash bosqichlari shartnomadagi ariza hujjatlari va jadval doirasida cheklanmagan.",
-        "newDocuments": "Yangi hujjat yozish, tarjima va notarial tasdiq uchun qoʻshimcha toʻlov olinishi mumkin."
+        "premiumScope": "Premium tarifiga shartnomangizdagi ariza hujjatlari uchun ariza jadvalingiz doirasida cheklanmagan tahrir bosqichlari kiradi.",
+        "newDocuments": "Yangi hujjat yozish ham qoʻshimcha toʻlovli boʻlishi mumkin."
       },
       "addons": {
         "title": "Qoʻshimcha xizmatlar",
-        "lede": "Faqat kerak boʻlganda qoʻshing. Jamoangiz avval xizmat doirasi va aniq narxni aytadi, siz rozi boʻlganingizdan keyingina toʻlaysiz.",
+        "lede": "Faqat kerak boʻlganda qoʻshing. Jamoangiz avval xizmat doirasi va aniq narxni tasdiqlaydi, siz esa rozi boʻlganingizdan keyingina toʻlaysiz.",
         "col": {
           "service": "Xizmat",
           "unit": "Birlik",
@@ -1104,11 +1109,11 @@
     },
     "addon": {
       "item": {
-        "extra_application": "Siz bilan birga olib boradigan yana 1 ta ariza",
-        "extra_edit": "1 ta qoʻshimcha tahrir bosqichi: motivatsion xat yoki oʻqish rejasi",
+        "extra_application": "Biz olib boradigan qoʻshimcha ariza",
+        "extra_edit": "Qoʻshimcha tahrir bosqichi (motivatsion xat yoki oʻqish rejasi)",
         "mock_interview": "Sinov suhbati",
         "dormitory": "Yotoqxonaga ariza topshirishda yordam",
-        "airport_pickup": "Hamkor orqali aeroportda kutib olish",
+        "airport_pickup": "Aeroportda kutib olishni tashkil etish",
         "settlement": "Joylashib olishda qoʻshimcha yordam"
       },
       "unit": {
@@ -1280,5 +1285,53 @@
     "video": {
       "more": "Boshqa rasmiy videolar"
     }
+  },
+  "upload": {
+    "cantAdd": "Bu faylni qoʻshib boʻlmadi",
+    "checking": "Fayl tekshirilmoqda…",
+    "choose": "Fayl tanlash",
+    "chooseMany": "Fayllarni tanlash",
+    "constraints": "PDF, JPG, PNG yoki WEBP · {{mb}} MB gacha",
+    "constraintsMany": "PDF, JPG, PNG yoki WEBP · har biri {{mb}} MB gacha · {{count}} tagacha fayl",
+    "done": "{{name}} qoʻshildi",
+    "dropHere": "Yuklash uchun shu yerga tashlang",
+    "dropRelease": "Qoʻshish uchun qoʻyib yuboring",
+    "orDrag": "yoki uni shu yerga torting",
+    "orDragMany": "yoki fayllarni shu yerga torting",
+    "rejected": "{{name}}: {{reason}}",
+    "replace": "Boshqa fayl tanlash",
+    "selected": "{{name}} tanlandi",
+    "uploading": "Yuklanmoqda…",
+    "uploadingPct": "Yuklanmoqda… {{pct}}%",
+    "zone": "Fayl yuklash maydoni"
+  },
+  "previewFixture": {
+    "transcriptApostille": "Baholar qaydnomasidan foydalanish uchun avval apostil qoʻyilishi kerak. Yuklangan nusxa tasdiqlanmagan.",
+    "draftedByHangyul": "Hangyul tayyorlagan qoralama — universitetning rasmiy matni emas. Tasdiqlashdan oldin haqiqiy savolni aniqlang.",
+    "profileChecked": "Profil tekshirildi. Endi hujjatlar navbati — eng koʻp vaqt oladigan baholar qaydnomasi apostilidan boshlang.",
+    "kyungpookFirst": "Avval Kyungpook hujjatlarini yakunlang — uning muddati eng yaqin.",
+    "apostilleRequired": "Apostil kerak",
+    "schoolProject": "Maktab loyihasi qoʻshildi",
+    "expectedGraduationNote": "Iltimos, 2026-yil 1-noyabrdan keyin berilgan bitirish kutilayotgani haqida maʼlumotnomani yuboring.",
+    "expectedGraduationLabel": "Bitirish kutilayotgani haqida maʼlumotnoma",
+    "subjectStrategy": "Hujjat topshirish strategiyasi va grant rejasi",
+    "secondDraftTask": "Oʻqish rejangizning ikkinchi qoralamasini yuklang",
+    "topik3Standard": "Qabul uchun TOPIK 3-darajasi Taʼlim vazirligi tavsiya etgan standartga asoslanadi; universitetning oʻz qoidasi ustuvor."
+  },
+  "team": {
+    "hangyul": "Hangyul Univ jamoasi",
+    "operations": "Hangyul Univ operatsion boʻlimi"
+  },
+  "systemDoc": {
+    "housingContract": "Taklif etilgan turar joy shartnomasi",
+    "serviceCompletionPhoto": "Xizmat yakunlangani surati"
+  },
+  "apiError": {
+    "generic": "Amalga oshmadi. Qayta urinib koʻring.",
+    "conflict": "Shu orada bu oʻzgartirilgan. Sahifani yangilab, qayta urinib koʻring.",
+    "tooLarge": "Fayl hajmi juda katta.",
+    "invalid": "Ayrim maʼlumotlar qabul qilinmadi. Tekshirib, qayta urinib koʻring.",
+    "rateLimited": "Urinishlar juda koʻp. Biroz kutib, qayta urinib koʻring.",
+    "notFound": "Topilmadi. U oʻchirilgan boʻlishi mumkin."
   }
 }

@@ -1,6 +1,6 @@
 import { useApi } from '@hangyul/auth';
 import { useTranslation } from '@hangyul/i18n';
-import { AppText, Button, CheckRow, EmptyState, ListGroup, ListItem, QueryState, Screen, StatusText } from '@hangyul/mobile-ui';
+import { AppText, Button, CheckRow, EmptyState, ListGroup, ListItem, QueryState, Screen, StatusText, errorText } from '@hangyul/mobile-ui';
 import { flagEmoji } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
@@ -23,7 +23,7 @@ export default function ReviewQueueScreen() {
   const bulk = useMutation({
     mutationFn: () => api.documents.bulk({ ids: picked, action: 'VERIFY' }),
     onSuccess: (r) => { setPicked([]); setSelecting(false); void qc.invalidateQueries({ queryKey: qk.reviewQueue }); void qc.invalidateQueries({ queryKey: ['agency'] }); Alert.alert(t('v3.reviews.bulkDone', { ok: r.ok, failed: r.failed })); },
-    onError: (e: Error) => Alert.alert(t('common:states.error'), e.message),
+    onError: (e: Error) => Alert.alert(t('common:states.error'), errorText(t, e)),
   });
   const confirmBulk = () => Alert.alert(t('v3.reviews.bulkTitle', { count: picked.length }), t('v3.reviews.bulkBody'), [
     { text: t('common:actions.cancel'), style: 'cancel' }, { text: t('v3.reviews.verifyN', { count: picked.length }), onPress: () => bulk.mutate() },

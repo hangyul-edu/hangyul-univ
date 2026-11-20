@@ -1,4 +1,4 @@
-import { localName } from '@hangyul/i18n';
+import { localName, docLabel, essayTitleL } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import { ArrowRight, CheckCircle2, CircleAlert, Flag as FlagIcon } from '@hangyul/icons';
 import type { ApplicationDetail, ApplicationStatus } from '@hangyul/types';
@@ -166,7 +166,7 @@ export function ApplicationPanel({ id, showStudent = true }: { id: string; showS
                     <li key={c.requirement_id ?? c.request_id}>
                       <span className="ag-checklist__icon" data-ready={c.ready}>{c.ready ? <CheckCircle2 aria-hidden /> : <CircleAlert aria-hidden />}</span>
                       <span className="hg-grow" style={{ minWidth: 0 }}>
-                        <span className="hg-small hg-strong">{locale === 'ko' && c.name_ko ? c.name_ko : c.label}</span>
+                        <span className="hg-small hg-strong">{docLabel(t, c, locale)}</span>
                         <span className="hg-row-wrap hg-xs" style={{ '--hg-gap': '6px' } as React.CSSProperties}>
                           <span className="ag27-issue" data-party={party}>{t(`v27.issue.${issue}`)}</span>
                           {party !== 'none' && <span className="ag27-who">{t(`v27.party.${party}`)}</span>}
@@ -201,7 +201,7 @@ export function ApplicationPanel({ id, showStudent = true }: { id: string; showS
                 <ul className="hg-list">
                   {app.essays.map((e) => (
                     <li key={e.id} className="hg-row hg-between" style={{ padding: '8px 0' }}>
-                      <Link to={`/essays/${e.id}`} className="hg-small hg-truncate">{e.title}</Link>
+                      <Link to={`/essays/${e.id}`} className="hg-small hg-truncate">{essayTitleL(e.title, e.essay_type)}</Link>
                       <EssayStatusBadge status={e.status} />
                     </li>
                   ))}

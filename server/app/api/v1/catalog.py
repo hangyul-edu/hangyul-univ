@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy import and_, exists, func, or_, select
 from sqlalchemy.orm import Session, selectinload
 
-from app.api.common import Page, freshness, iso, paginate, parse_uuid, ser_intake, ser_program, ser_university_card
+from app.api.common import Page, freshness, iso, parse_uuid, ser_intake, ser_program, ser_university_card
 from app.core.audit import track
 from app.core.db import get_db
 from app.core.deps import Principal, get_principal, require_student
@@ -15,6 +15,7 @@ from app.models import (
     ContentArticle,
     Country,
     Dormitory,
+    Institution,
     Locale,
     PartnerContract,
     Program,
@@ -28,6 +29,7 @@ from app.models import (
 from app.models.base import utcnow
 from app.models.enums import ContentStatus, ContractStatus, InstructionLanguage
 from app.services.budget import first_year_range
+from app.services.catalog_ingest import status as catalog_status
 from app.services.matching import estimated_annual_cost, scholarship_eligibility
 from app.services.readiness import requirements_for
 
@@ -76,6 +78,19 @@ def taxonomy():
     return {"fields": FIELDS, "regions": REGIONS}
 
 
+def has_scholarship_clause():
+    """V34: a scheme counts whether it is linked to the catalogue university (`university_id`) or — as every V27 verified
+    scheme is — to its directory institution (`institution_id`), which links to the university via
+    `Institution.catalog_university_id`. Archived schemes never count."""
+    live = Scholarship.verification_status != "ARCHIVED"
+    return or_(
+        exists().where(Scholarship.university_id == University.id, live),
+        exists().where(Scholarship.institution_id == Institution.id, Institution.catalog_university_id == University.id, live),
+    )
+
+
+# Filter algebra (V34 audit): every list parameter is one category — values inside it are OR-ed (`IN`), and categories
+# are AND-ed with each other. Intake conditions (term, open, deadline) must hold on the SAME intake row (one EXISTS).
 def _program_filters(stmt, *, q, degree, field, region, city, institution_type, language, max_tuition, max_topik,
                      max_ielts, has_scholarship, has_dorm, partner_only, intake_term, open_only, deadline_before, today):
     if q:
@@ -101,7 +116,7 @@ def _program_filters(stmt, *, q, degree, field, region, city, institution_type, 
     if max_ielts is not None:
         stmt = stmt.where(~exists().where(AdmissionRequirement.program_id == Program.id, AdmissionRequirement.min_ielts > max_ielts))
     if has_scholarship:
-        stmt = stmt.where(exists().where(Scholarship.university_id == University.id))
+        stmt = stmt.where(has_scholarship_clause())
     if has_dorm:
         stmt = stmt.where(exists().where(Dormitory.university_id == University.id))
     if partner_only:
@@ -161,9 +176,14 @@ def search_programs(
     else:
         stmt = stmt.order_by(University.is_partner.desc(), University.name_en, Program.name_en)
     stmt = stmt.options(selectinload(Program.requirements), selectinload(Program.intakes))
+    total = db.scalar(select(func.count()).select_from(stmt.order_by(None).subquery())) or 0
+    rows = db.execute(stmt.limit(page.page_size).offset((page.page - 1) * page.page_size)).all()
+    # V34: dormitories for this page's universities only (it used to load every dormitory on every request).
     dorms: dict = {}
-    for dm in db.scalars(select(Dormitory)):
-        dorms.setdefault(dm.university_id, []).append(dm)
+    uni_ids = {u.id for _p, u in rows}
+    if uni_ids:
+        for dm in db.scalars(select(Dormitory).where(Dormitory.university_id.in_(uni_ids))):
+            dorms.setdefault(dm.university_id, []).append(dm)
 
     def ser(p: Program, u: University):
         d = ser_program(p, u)
@@ -173,31 +193,50 @@ def search_programs(
         d["first_year_range_krw"] = first_year_range(p, u, dorms.get(u.id, []))
         return d
 
-    return paginate(db, stmt, page, ser)
+    return {"items": [ser(p, u) for p, u in rows], "total": total, "page": page.page, "page_size": page.page_size,
+            # V34: READY | PREPARING | EMPTY — "no programme matches" vs "programme information is being prepared".
+            "catalog": catalog_status.summary(db)}
 
 
 @router.get("/universities")
 def list_universities(page: Page = Depends(), q: str | None = None, region: list[str] | None = Query(None),
-                      institution_type: list[str] | None = Query(None), partner_only: bool = False, db: Session = Depends(get_db)):
+                      institution_type: list[str] | None = Query(None), partner_only: bool = False,
+                      kind: list[str] | None = Query(None), has_scholarship: bool = False, has_programs: bool = False,
+                      db: Session = Depends(get_db)):
     stmt = select(University)
-    if q:
-        like = f"%{q}%"
+    if q and q.strip():
+        like = f"%{q.strip()}%"
         stmt = stmt.where(or_(University.name_en.ilike(like), University.name_ko.ilike(like), University.city.ilike(like)))
     if region:
         stmt = stmt.where(University.region.in_(region))
     if institution_type:
         stmt = stmt.where(University.institution_type.in_(institution_type))
+    if kind:  # V34: UNIVERSITY | JUNIOR_COLLEGE | GRADUATE_UNIVERSITY (the directory's kinds)
+        stmt = stmt.where(University.institution_kind.in_(kind))
     if partner_only:
         stmt = stmt.where(University.is_partner.is_(True))
-    stmt = stmt.order_by(University.is_partner.desc(), University.name_en)
-    counts = dict(db.execute(select(Program.university_id, func.count()).group_by(Program.university_id)).all())
+    if has_scholarship:
+        stmt = stmt.where(has_scholarship_clause())
+    if has_programs:
+        stmt = stmt.where(exists().where(Program.university_id == University.id, Program.is_active.is_(True)))
+    # Universities with programmes Hangyul can prepare first, then by name; slug breaks ties so pages never overlap.
+    has_prog = exists().where(Program.university_id == University.id, Program.is_active.is_(True))
+    stmt = stmt.order_by(University.is_partner.desc(), has_prog.desc(), University.name_en, University.slug)
+    total = db.scalar(select(func.count()).select_from(stmt.order_by(None).subquery())) or 0
+    rows = db.scalars(stmt.limit(page.page_size).offset((page.page - 1) * page.page_size)).all()
+    ids = [u.id for u in rows]
+    counts = dict(db.execute(select(Program.university_id, func.count()).where(Program.university_id.in_(ids), Program.is_active.is_(True))
+                             .group_by(Program.university_id)).all()) if ids else {}
 
     def ser(u):
         d = ser_university_card(u)
         d["program_count"] = counts.get(u.id, 0)
+        d["institution_kind"] = u.institution_kind
+        d["name_en_recorded"] = u.name_en_recorded
         return d
 
-    return paginate(db, stmt, page, ser)
+    return {"items": [ser(u) for u in rows], "total": total, "page": page.page, "page_size": page.page_size,
+            "catalog": catalog_status.summary(db)}
 
 
 @router.get("/universities/{slug}")

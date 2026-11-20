@@ -3,10 +3,10 @@ import {
   BookOpenCheck, ChevronDown, Compass, FileText, GraduationCap, Home, House, LifeBuoy, Menu, MessageCircle,
   Plane, Settings, ShoppingBag, Stamp, User, Users,
 } from '@hangyul/icons';
-import { Button, Popover, RequireAuth, StudentShell, type NavItem } from '@hangyul/ui';
+import { Button, Popover, RequireAuth, SkeletonCard, StudentShell, type NavItem } from '@hangyul/ui';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, type ReactNode } from 'react';
-import { Link, Outlet, useLocation, useNavigate } from 'react-router';
+import { type ReactNode } from 'react';
+import { Link, Navigate, Outlet, useLocation } from 'react-router';
 
 import { CompareProvider } from '../lib/compare';
 import { useT } from '../lib/i18n';
@@ -133,9 +133,10 @@ function Shell() {
   const tabs: NavItem[] = [...links, { to: '/more', label: t('common:nav.journey'), icon: <Menu /> }];
   return (
     <CompareProvider>
-      <PlanGate />
       <StudentShell links={links} tabs={tabs} right={<MoreMenu />}>
-        <Outlet />
+        <PlanGate>
+          <Outlet />
+        </PlanGate>
       </StudentShell>
       <CompareTray />
     </CompareProvider>
@@ -150,9 +151,11 @@ function Shell() {
  * to the *account* rather than to the *service* stays open — see `lib/access.ts` for the line and why it is
  * drawn there.
  *
- * It renders nothing. It is a redirect, expressed as a component so it sits inside the router's context and
- * runs on every navigation, and it waits for the plan query rather than guessing: redirecting on a
- * still-loading answer would throw a paying student onto a pricing page every time they opened the app.
+ * 261119 (owner requirement 2): the decision is made **while rendering**, not in an effect after it. The old
+ * gate rendered nothing and redirected from a `useEffect`, so the gated page (Home, Applications…) was committed
+ * first and then replaced by the plan screen — a visible flash of a page the student cannot use. Now, for a
+ * gated route: plan still loading → a quiet loader in the content area; definitely unpaid → `<Navigate replace>`
+ * during render; paid → the page. Open routes render immediately and never wait for the plan.
  *
  * **V19 — an unknown answer is not a "no".** That reasoning was right and the implementation only covered
  * half of it: the guard tested `isLoading`, so the moment `GET /me/plan` *failed* the query left the
@@ -166,18 +169,26 @@ function Shell() {
  * behaviour for "not known" is to let the page render and show its own error state — a student who cannot
  * reach the API has a connectivity problem, not an entitlement problem.
  */
-function PlanGate() {
+function PlanGate({ children }: { children: ReactNode }) {
   const q = useMyPlan();
   const loc = useLocation();
-  const nav = useNavigate();
-  const paid = !!q.data?.plan;
-  const known = !q.isLoading && !q.isError && q.data !== undefined;
-  useEffect(() => {
-    if (!known || paid) return;
-    if (isOpenToUnpaid(loc.pathname)) return;
-    nav(gateRedirect(loc.pathname, loc.search), { replace: true });
-  }, [known, paid, loc.pathname, loc.search, nav]);
-  return null;
+  if (isOpenToUnpaid(loc.pathname)) return <>{children}</>;
+  // `isLoading` = no data yet *and* a request in flight. A paused/offline query is not loading: it is unknown.
+  if (q.isLoading) return <PageLoader />;
+  const known = !q.isError && q.data !== undefined;
+  if (known && !q.data?.plan) return <><PageLoader /><Navigate to={gateRedirect(loc.pathname, loc.search)} replace /></>;
+  return <>{children}</>;
+}
+
+/** The content-area loader while the plan is being read: the shell stays, the page body is a calm placeholder. */
+function PageLoader() {
+  const { t } = useT();
+  return (
+    <div className="st-page" aria-busy="true" data-plan-gate="loading">
+      <span className="hg-sr-only">{t('common:states.loading')}</span>
+      <SkeletonCard lines={3} />
+    </div>
+  );
 }
 
 export default function AppLayout() {

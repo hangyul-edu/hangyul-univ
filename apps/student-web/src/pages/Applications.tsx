@@ -97,12 +97,12 @@ export default function Applications() {
   return (
     <div className="st-page sp-apps">
       <PageIntro title={t('applications.title')} subtitle={t('applications.subtitle')}
-        actions={<ButtonLink as={Link} to="/explore?tab=foryou">{t('applications.add')}</ButtonLink>} />
+        actions={<ButtonLink as={Link} to="/match">{t('applications.add')}</ButtonLink>} />
       <QueryState
         query={q}
         skeleton={<div className="st-cards">{[1, 2, 3].map((i) => <SkeletonCard key={i} />)}</div>}
         isEmpty={(d) => d.items.length === 0}
-        empty={<EmptyState icon={<GraduationCap />} title={t('applications.empty')} text={t('applications.emptyText')} action={<ButtonLink as={Link} to="/explore?tab=foryou" variant="primary">{t('applications.emptyCta')}</ButtonLink>} />}
+        empty={<EmptyState icon={<GraduationCap />} title={t('applications.empty')} text={t('applications.emptyText')} action={<ButtonLink as={Link} to="/match" variant="primary">{t('applications.emptyCta')}</ButtonLink>} />}
       >
         {(d) => {
           const active = d.items.filter((a) => !CLOSED.has(a.status));

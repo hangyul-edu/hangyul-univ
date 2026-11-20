@@ -220,7 +220,7 @@ export function UniversitySummary({ inst, data, typeLabel, regionLabel, level, a
   const support: SummaryFact[] = [];
   const n = data?.scholarships.length ?? 0;
   if (n) support.push({ k: t('uniDetail.sum.scholarships'), v: t('uniDetail.sum.scholarshipsValue', { count: n }) });
-  if (gks.length) support.push({ k: t('uniDetail.sum.gks'), v: gks.slice(0, 3).map((g) => g.label.replace(/^GKS\s*/, '')).join(' · ') });
+  if (gks.length) support.push({ k: t('uniDetail.sum.gks'), v: <span data-no-l10n>{gks.slice(0, 3).map((g) => g.label.replace(/^GKS\s*/, '')).join(' · ')}</span> }); // NIIED's own programme names
   if (inst.ieqas?.certified) support.push({ k: t('uniDetail.sum.ieqas'), v: t(inst.ieqas.excellent ? 'uniDetail.sum.ieqasExcellent' : 'uniDetail.sum.ieqasCertified') });
   const services = intl?.support_services ?? [];
   if (services.length) support.push({ k: t('uniDetail.sum.services'), v: services.map((s) => t(`uni27.service.${s.key}`, { defaultValue: s.key })).join(' · ') });
@@ -491,18 +491,18 @@ export function UniversityScholarships({ data, level, levelLabel, checkHref, fal
       <dl className="hg-unid-pick">
         <div>
           <dt>{level && levelLabel ? t('uni27.schol.strongestFor', { level: levelLabel }) : t('uni27.schol.strongest')}</dt>
-          <dd><strong>{nameOf(strongest)}</strong><span>{benefit(strongest, t, locale)}</span></dd>
+          <dd><strong data-no-l10n>{nameOf(strongest)}</strong><span>{benefit(strongest, t, locale)}</span></dd>
         </div>
         {sum?.best && (
           <div className="is-you">
             <dt>{t('uni27.schol.youMay')}</dt>
-            <dd><strong>{nameOf(sum.best)}</strong><span>{benefit(sum.best, t, locale)}</span></dd>
+            <dd><strong data-no-l10n>{nameOf(sum.best)}</strong><span>{benefit(sum.best, t, locale)}</span></dd>
           </div>
         )}
         {sum?.unlock && (
           <div>
             <dt>{t('uni27.schol.unlockWith', { test: t(`fit.test.${sum.unlock.needs.test}`, { defaultValue: sum.unlock.needs.test }), min: sum.unlock.needs.min })}</dt>
-            <dd><strong>{nameOf(sum.unlock)}</strong><span>{benefit(sum.unlock, t, locale)}</span></dd>
+            <dd><strong data-no-l10n>{nameOf(sum.unlock)}</strong><span>{benefit(sum.unlock, t, locale)}</span></dd>
           </div>
         )}
         {!sum && (
@@ -567,7 +567,7 @@ function ScholarshipRow({ s }: { s: InstScholarship }) {
   return (
     <li className="hg-unid-sch">
       <div className="hg-unid-sch__head">
-        <h4 className="hg-unid-sch__name">{nameOf(s)}</h4>
+        <h4 className="hg-unid-sch__name" data-no-l10n>{nameOf(s)}</h4>
         <p className="hg-unid-sch__benefit">{benefit(s, t, locale)}{s.dormitory_support ? ` · ${t('uni27.schol.dorm')}` : ''}{s.living_allowance ? ` · ${t('uni27.schol.living')}` : ''}</p>
       </div>
       <dl className="hg-unid-sch__facts">

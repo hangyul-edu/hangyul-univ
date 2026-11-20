@@ -1,4 +1,4 @@
-import { localizedTitle } from '@hangyul/i18n';
+import { localizedTitle, errorText } from '@hangyul/i18n';
 import { useApi, useAuth } from '@hangyul/auth';
 import { Check, ChevronRight } from '@hangyul/icons';
 import type { Page, Task } from '@hangyul/types';
@@ -81,7 +81,7 @@ export function TaskList() {
       qc.setQueryData<Page<Task>>(TASKS_KEY, (p) => (p ? { ...p, items: p.items.filter((x) => x.id !== id), total: p.total - 1 } : p));
       return { prev };
     },
-    onError: (e, _id, ctx) => { if (ctx?.prev) qc.setQueryData(TASKS_KEY, ctx.prev); toast.error((e as Error).message); },
+    onError: (e, _id, ctx) => { if (ctx?.prev) qc.setQueryData(TASKS_KEY, ctx.prev); toast.error(errorText(e)); },
     onSuccess: () => toast.success(t('tasks.doneToast')),
     onSettled: () => { qc.invalidateQueries({ queryKey: ['tasks'] }); qc.invalidateQueries({ queryKey: ['dashboard'] }); },
   });

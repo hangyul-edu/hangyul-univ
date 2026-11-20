@@ -186,10 +186,23 @@ a.uc-funnel__name:hover { text-decoration: underline; text-decoration-color: var
 .uc-msg__text { white-space: pre-wrap; overflow-wrap: anywhere; font-size: var(--hg-text-base); }
 
 /* ---------- Exports / settings / notifications ---------- */
-.uc-notifs { list-style: none; margin: 0; padding: 4px; }
-.uc-notif { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: var(--hg-radius-md); color: var(--hg-text); text-decoration: none !important; }
-.uc-notif .hg-dot { margin-block-start: 7px; }
+/* Notifications (2026-11): one row per notice with a fixed status column (read and unread texts line up), a divider
+   between rows, the time at the end on wide screens and under the text on phones. */
+.uc-notifs { list-style: none; margin: 0; padding: 0; }
+.hg-card:has(> .uc-notifs) { overflow: hidden; }
+.uc-notifs > li + li { border-block-start: 1px solid var(--hg-border-subtle); }
+.uc-notif { display: grid; grid-template-columns: 8px minmax(0, 1fr) auto; align-items: baseline; gap: 4px 12px; padding: 14px 20px; color: var(--hg-text); text-decoration: none !important; }
+.uc-notif__dot { inline-size: 8px; block-size: 8px; border-radius: 50%; align-self: center; }
+.uc-notif__dot.is-unread { background: rgb(var(--primary-rgb)); }
+.uc-notif__text { font-size: var(--hg-text-sm); line-height: 1.5; overflow-wrap: anywhere; }
+.uc-notif.is-unread .uc-notif__text { font-weight: var(--hg-weight-semibold); }
+.uc-notif__time { font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); white-space: nowrap; }
 a.uc-notif:hover { background: var(--hg-surface-hover); }
+a.uc-notif:focus-visible { outline: 2px solid var(--hg-focus); outline-offset: -2px; }
+@media (max-width: 575.98px) {
+  .uc-notif { grid-template-columns: 8px minmax(0, 1fr); padding: 12px 16px; }
+  .uc-notif__time { grid-column: 2; }
+}
 @media (max-width: 560px) {
   .uc-af { overflow-wrap: normal; }
   .uc-af th { white-space: normal; }
@@ -547,6 +560,21 @@ a.uc-notif:hover { background: var(--hg-surface-hover); }
 .uv7-bullets li::marker { color: rgb(var(--primary-rgb)); }
 .uv7-rules .uc-proposal { border: 1px solid rgba(var(--warning-rgb), 0.45); background: rgba(var(--warning-rgb), 0.06); border-radius: 0.5rem; padding: 0.875rem 1rem; margin-block-end: 1rem; display: grid; gap: 0.75rem; }
 .uv7-rules .uc-rules-preview { background: var(--hg-surface-hover); border: 1px dashed rgba(var(--primary-rgb), 0.3); border-radius: 0.5rem; padding: 1rem; }
+/* Rule edit form (2026-11): the read view's layout — fields on the left, "What students see" beside them and kept in
+   view while editing (it updates as you type) — instead of one long column with the preview at the bottom. */
+.uc-rulesform { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1fr); grid-template-areas: 'main' 'aside' 'foot'; }
+.uc-rulesform__main { grid-area: main; }
+.uc-rulesform__aside { grid-area: aside; }
+.uc-rulesform__foot { grid-area: foot; }
+@media (min-width: 992px) {
+  .uc-rulesform { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); grid-template-areas: 'main aside' 'foot aside'; gap: 1.5rem; }
+  .uc-rulesform__aside { position: sticky; inset-block-start: 76px; align-self: start; }
+}
+.uc-rulesform__checks { display: grid; gap: 0.5rem; }
+.uc-rulesform__foot { display: grid; gap: 0.75rem; padding-block-start: 1rem; border-block-start: 1px solid var(--hg-border-subtle); }
+.uc-rulesform__foot .uc-note { margin: 0; }
+.uc-rulesform__actions { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: flex-end; }
+@media (max-width: 575.98px) { .uc-rulesform__actions > * { flex: 1 1 0; } }
 .uv7-empty { display: flex; align-items: center; gap: 0.75rem; padding: 1rem; border: 1px dashed var(--default-border); border-radius: 0.5rem; font-size: 0.8125rem; color: var(--text-muted); }
 .uv7-empty .avatar { flex: none; }
 

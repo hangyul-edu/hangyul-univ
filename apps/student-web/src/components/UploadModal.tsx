@@ -1,10 +1,11 @@
+import { docTitle, uniName, errorText } from '@hangyul/i18n';
 import { useApi } from '@hangyul/auth';
 import { FileUp, Lock, Send } from '@hangyul/icons';
 import { DOCUMENT_CATEGORIES, type DocumentCategory, type DossierReuse } from '@hangyul/types';
-import { Button, Callout, CountrySelect, Field, Input, Modal, Select, useToast } from '@hangyul/ui';
-import { ALLOWED_UPLOAD_TYPES, checkUpload, MAX_UPLOAD_MB } from '@hangyul/validation';
+import { Button, Callout, CountrySelect, Field, FileDrop, Input, Modal, Select, useToast } from '@hangyul/ui';
+import { checkUpload } from '@hangyul/validation';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 
 import { reasonText } from '../lib/dossier';
 import { lc } from '../lib/workspace';
@@ -41,7 +42,6 @@ export function UploadModal({ open, onClose, target, onUploaded }: { open: boole
   const countries = useCountries();
   const profile = useProfile();
   const ids = { cat: useId(), title: useId(), file: useId(), issue: useId(), exp: useId(), lang: useId() };
-  const fileRef = useRef<HTMLInputElement>(null);
   const [category, setCategory] = useState<DocumentCategory>(target.category ?? 'PASSPORT');
   const [title, setTitle] = useState(target.title ?? '');
   const [country, setCountry] = useState(profile.data?.nationality ?? '');
@@ -85,21 +85,21 @@ export function UploadModal({ open, onClose, target, onUploaded }: { open: boole
       onUploaded?.(doc.id);
       onClose();
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const send = useMutation({
     mutationFn: ({ rid, doc }: { rid: string; doc: string }) => api.dossier.sendExisting(rid, doc),
     onSuccess: () => {
       invalidate();
-      toast.success(d.t('requests.sent', { university: reuse.data?.request?.university ?? '' }));
+      toast.success(d.t('requests.sent', { university: uniName(reuse.data?.request) }));
       onClose();
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const keep = useMutation({
     mutationFn: (docId: string) => api.dossier.decide({ category, decision: 'KEEP', document_id: docId, application_id: target.applicationId }),
     onSuccess: () => { toast.success(d.t('upload.kept', { doc: lc(d.t(`common:docCategory.${category}`)) })); invalidate(); onClose(); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
 
   const pick = (f: File | null) => {
@@ -121,7 +121,7 @@ export function UploadModal({ open, onClose, target, onUploaded }: { open: boole
 
   return (
     <Modal open={open} onClose={onClose} width={560} footer={footer}
-      title={prompt === 'send' && req ? d.t('upload.sendTitle', { university: req.university, doc: docWord })
+      title={prompt === 'send' && req ? d.t('upload.sendTitle', { university: uniName(req), doc: docWord })
         : isVersion && req ? d.t('upload.newerTitle', { doc: docWord })
         : isVersion ? t('documents.upload.versionTitle') : t('documents.upload.title')}
       description={prompt ? undefined : t('documents.upload.subtitle')}>
@@ -129,7 +129,7 @@ export function UploadModal({ open, onClose, target, onUploaded }: { open: boole
         {prompt === 'send' && req?.document && (
           <div className="dz-ask">
             <p>{d.t('upload.sendText', { doc: docWord })}</p>
-            <p className="dz-ask__doc">{req.document.title}{req.document.issue_date ? ` · ${d.fmt(req.document.issue_date)}` : ''}</p>
+            <p className="dz-ask__doc">{docTitle(req.document.title)}{req.document.issue_date ? ` · ${d.fmt(req.document.issue_date)}` : ''}</p>
             <div className="dz-ask__actions">
               <Button variant="primary" icon={<Send />} loading={send.isPending} onClick={() => send.mutate({ rid: req.request_id, doc: req.document!.id })}>
                 {d.t('requests.sendExisting', { doc: docWord })}
@@ -158,13 +158,10 @@ export function UploadModal({ open, onClose, target, onUploaded }: { open: boole
               const replaced = [top?.document, req?.document].find((x) => x && x.id === versionOf);
               return replaced ? <p className="hg-small hg-muted">{d.t('upload.replacing', { title: replaced.title })}</p> : null;
             })()}
-            <Field label={t('documents.upload.file')} htmlFor={ids.file} error={fileError ?? undefined} hint={t('documents.upload.fileHint', { mb: MAX_UPLOAD_MB })}>
-              <label className="st-drop" htmlFor={ids.file} data-has={!!file}>
-                <FileUp aria-hidden />
-                <span className="hg-strong">{file ? file.name : t('documents.upload.choose')}</span>
-                <span className="hg-subtle hg-xs">{file ? `${(file.size / 1024 / 1024).toFixed(2)} MB` : t('documents.upload.types')}</span>
-                <input ref={fileRef} id={ids.file} type="file" accept={ALLOWED_UPLOAD_TYPES.join(',')} className="hg-sr-only" onChange={(e) => pick(e.target.files?.[0] ?? null)} />
-              </label>
+            {/* Owner req. 4: picker and drag & drop share one control and one check (`checkUpload`); the server re-checks the bytes. */}
+            <Field label={t('documents.upload.file')} htmlFor={ids.file}>
+              <FileDrop id={ids.file} onFiles={([f]) => pick(f)} onReject={() => pick(null)} file={file}
+                status={m.isPending ? 'uploading' : fileError ? 'error' : 'idle'} error={fileError} />
             </Field>
             {isVersion ? (
               <div className="st-form-grid">

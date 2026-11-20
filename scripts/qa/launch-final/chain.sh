@@ -21,7 +21,7 @@ step() {
   else printf 'FAIL (see %s)\n' "$log"; printf 'FAIL  %s\n' "$name" >> "$LEDGER"; fail=1; fi
 }
 build_all() {
-  npm run build -w @hangyul/marketing-web && node scripts/public-data/stage-fit.mjs \
+  npm run build -w @hangyul/marketing-web \
     && VITE_ENABLE_DESIGN_PREVIEW=1 npm run build -w @hangyul/student-web \
     && VITE_ENABLE_DESIGN_PREVIEW=1 npm run build -w @hangyul/agency-web \
     && VITE_ENABLE_DESIGN_PREVIEW=1 npm run build -w @hangyul/university-web

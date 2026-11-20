@@ -1,5 +1,6 @@
+import { ApiError } from '@hangyul/api-client';
 import { useApi } from '@hangyul/auth';
-import type { Country } from '@hangyul/types';
+import type { Country, DirectoryRegions, InstAdmissions, InstitutionCard, InstitutionDetail, Page } from '@hangyul/types';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { publicData } from './publicData';
@@ -66,25 +67,93 @@ export function useLegalization(country: string | null | undefined, category = '
 }
 
 // ---------------------------------------------------------------- V12: the Korean institution directory
-// The registry changes once a year, so these are cached hard. `useDirectoryRegions` feeds the map's labels and
-// counts and is wanted on first paint; the list is paged and keeps the previous page while the next arrives, so
-// selecting a region never blanks the column next to the map.
+// The directory, the region counts, each detail page and its admissions record are read LIVE from the database
+// through the public API (`/api/v1/directory/*`, same origin — Vercel and the Vite dev server proxy `/api`), with
+// the build's DB snapshot (`./publicData`) as the fallback when the API cannot be reached (owner decision
+// 2026-11-19: one authoritative DB catalogue). The two answer the same calls with the same response shapes,
+// because the snapshot is exported from these very endpoints (scripts/public-data/export.py). See `liveFirst`.
 
-// P0 (2026-11-03): the directory hooks read the static public export (./publicData), not the API: anonymous
-// discovery must work without the FastAPI process.
-export function useDirectoryRegions() {
-  return useQuery({ queryKey: ['directory', 'regions'], queryFn: () => publicData.regions(), staleTime: 12 * HOUR });
+/** How long one live call may take before the snapshot answers instead. The tunnel stalls rather than refuses. */
+const LIVE_TIMEOUT_MS = 6_000;
+/** After the API proved unreachable, go straight to the snapshot for this long instead of waiting on every call. */
+const LIVE_COOLDOWN_MS = 60_000;
+let liveDownUntil = 0;
+
+/**
+ * The live database first; the snapshot only when the **service** is unreachable.
+ *
+ * An answer the API gave on purpose is authoritative — a JSON 404 means "no such university" and is not papered
+ * over with a stale snapshot row. A network failure, a timeout, a gateway error or an HTML page where the API
+ * should be (an offline tunnel) falls back. If the snapshot cannot be loaded either, the live error stands, and
+ * the page shows its temporary "couldn't load" state — never "0 institutions".
+ */
+export async function liveFirst<T>(live: () => Promise<T>, snapshot: () => Promise<T>): Promise<T> {
+  if (Date.now() < liveDownUntil) return snapshot();
+  try {
+    return await live();
+  } catch (e) {
+    if (!(e instanceof ApiError) || !(e.unreachable || e.status === 0 || e.status === 408 || e.status >= 500)) throw e;
+    liveDownUntil = Date.now() + LIVE_COOLDOWN_MS;
+    try {
+      return await snapshot();
+    } catch {
+      throw e;
+    }
+  }
 }
 
+/** Testing hook: forget that the API was down. */
+export function resetLiveState() { liveDownUntil = 0; }
+
+/** A genuine not-found is final; anything else may be retried once. */
+const retry = (n: number, e: unknown) => !(e instanceof ApiError && e.status === 404) && n < 1;
+
+function useLive() {
+  const api = useApi();
+  return <T,>(path: string, query?: Query, signal?: AbortSignal) => api.request<T>(path, { query, signal, timeoutMs: LIVE_TIMEOUT_MS });
+}
+
+export function useDirectoryRegions() {
+  const live = useLive();
+  return useQuery({
+    queryKey: ['directory', 'regions'],
+    queryFn: ({ signal }) => liveFirst(() => live<DirectoryRegions>('/directory/regions', undefined, signal), () => publicData.regions()),
+    staleTime: HOUR,
+    retry,
+  });
+}
+
+/** One page of the directory (`page_size` ≤ 200) — never the whole catalogue. */
 export function useInstitutions(query: Query) {
+  const live = useLive();
   return useQuery({
     queryKey: ['directory', 'institutions', query],
-    queryFn: () => publicData.institutions(query),
+    queryFn: ({ signal }) => liveFirst(() => live<Page<InstitutionCard>>('/directory/institutions', query, signal), () => publicData.institutions(query)),
     placeholderData: keepPreviousData,
-    staleTime: 12 * HOUR,
+    staleTime: HOUR,
+    retry,
   });
 }
 
 export function useInstitution(slug: string | undefined) {
-  return useQuery({ queryKey: ['directory', 'institution', slug], queryFn: () => publicData.institution(slug!), enabled: !!slug, staleTime: 12 * HOUR });
+  const live = useLive();
+  return useQuery({
+    queryKey: ['directory', 'institution', slug],
+    queryFn: ({ signal }) => liveFirst(() => live<InstitutionDetail>(`/directory/institutions/${encodeURIComponent(slug!)}`, undefined, signal), () => publicData.institution(slug!)),
+    enabled: !!slug,
+    staleTime: HOUR,
+    retry,
+  });
+}
+
+/** The verified scholarships and language rules of one institution (no visitor answers: `summary` is null). */
+export function useInstitutionAdmissions(slug: string | undefined) {
+  const live = useLive();
+  return useQuery({
+    queryKey: ['directory', 'admissions', slug],
+    queryFn: ({ signal }) => liveFirst(() => live<InstAdmissions>(`/directory/institutions/${encodeURIComponent(slug!)}/admissions`, undefined, signal), () => publicData.admissions(slug!)),
+    enabled: !!slug,
+    staleTime: HOUR,
+    retry,
+  });
 }

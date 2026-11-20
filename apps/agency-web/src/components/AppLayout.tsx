@@ -1,4 +1,5 @@
 import { useAuth } from '@hangyul/auth';
+import { orgName } from '@hangyul/i18n';
 import {
   Building2, ChartColumn, FileCheck, GraduationCap, LayoutDashboard, MessagesSquare,
   PlugZap, Radar, Search, Settings, Users,
@@ -146,7 +147,7 @@ export function AppLayout() {
         menu="light"
         sections={sections}
         search={<GlobalSearch />}
-        orgLabel={org ? <OrgBadge name={org.org_name} sub={org.org_type === 'HANGYUL' ? t('shell.hqView') : t('role.AGENCY_ADMIN')} /> : null}
+        orgLabel={org ? <OrgBadge name={orgName(org.org_name, 'staff')} sub={org.org_type === 'HANGYUL' ? t('shell.hqView') : t('role.AGENCY_ADMIN')} /> : null}
       >
         <Suspense fallback={<PageFallback />}>
           <Outlet />

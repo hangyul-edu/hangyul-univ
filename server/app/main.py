@@ -1,5 +1,6 @@
 import logging
 import time
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -34,6 +35,26 @@ from app.core.logs import configure_logging
 settings = get_settings()
 log = logging.getLogger("hangyul")
 
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    """V34: fill an empty catalogue and run the weekly refresh scheduler in background threads — never blocking
+    start-up, advisory-locked across processes (`services/catalog_ingest/bootstrap.py`)."""
+    s = get_settings()
+    if s.catalog_bootstrap_on_start or s.catalog_scheduler_enabled:
+        try:
+            from app.services.catalog_ingest import bootstrap as catalog_bootstrap
+
+            catalog_bootstrap.start_background(bootstrap=s.catalog_bootstrap_on_start, scheduler=s.catalog_scheduler_enabled,
+                                               tick=s.catalog_scheduler_tick_seconds)
+        except Exception:  # noqa: BLE001 - the API serves even if the catalogue threads cannot start
+            log.exception("catalogue background threads did not start")
+    yield
+    if s.catalog_bootstrap_on_start or s.catalog_scheduler_enabled:
+        from app.services.catalog_ingest import bootstrap as catalog_bootstrap
+
+        catalog_bootstrap.stop_background()
+
 app = FastAPI(
     title="Hangyul Univ API",
     version="0.1.0",
@@ -45,6 +66,7 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc",
     openapi_url="/openapi.json",
+    lifespan=lifespan,
 )
 
 # V29: university names in the reader's language, resolved when the response is rendered (app/core/localnames.py).
@@ -138,6 +160,9 @@ from app.api.v1 import ops_health  # noqa: E402  (V29 monitoring)
 app.include_router(mfa_api.router, prefix=PREFIX)
 app.include_router(mfa_api.hq_router, prefix=PREFIX)
 app.include_router(ops_health.router, prefix=PREFIX)
+from app.api.v1 import catalog_status  # noqa: E402  (V34 catalogue health + public status)
+
+app.include_router(catalog_status.router, prefix=PREFIX)
 
 
 @app.get("/healthz", tags=["system"])

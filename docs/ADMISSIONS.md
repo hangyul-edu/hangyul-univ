@@ -19,8 +19,8 @@ and will not claim. This is the summary; implementation detail, research tables 
 
 ## 1. Matching and fit
 
-**Quick Fit** (`/start`, web and native; `POST /public/fit`, on the public site served by the Vercel function over the
-exported snapshot): nationality · study level (7 levels) · GPA on the student's own scale · language test (13-test
+**Personalised matching** (`/match`, web and native — signed in, after purchase; owner decision 2026-11-19. The anonymous
+Quick Fit at `/start` and its Vercel function were retired; `POST /public/fit` remains in the API, unused by the UI): nationality · study level (7 levels) · GPA on the student's own scale · language test (13-test
 registry, `packages/types/src/admissions.ts` → `shared/admissions.json`). It returns every relevant institution in
 four groups:
 
@@ -33,7 +33,7 @@ four groups:
 
 The order inside a group is editorial ("추천순" is stated to be a browsing order). Results carry a next-action sentence
 ("IELTS 6.0 opens 12 more universities"). Wording for every state: [STATE_MAP.md](STATE_MAP.md). Engine:
-`server/app/services/fit.py` (engine id `v27-fit-1`); parity gate `scripts/qa/public-fit-parity.py`.
+`server/app/services/fit.py` (engine id `v27-fit-1`).
 
 Signed-in matching uses the same rules against the verified language rules and admission guides, and explains each
 verdict with reasons.

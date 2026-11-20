@@ -599,6 +599,8 @@ a.ag-hq-num.ag-overdue, .ag-hq-num.ag-overdue { color: var(--hg-status-danger-fg
 .ag7-btnicon { width: 1rem; height: 1rem; margin-inline-end: 0.375rem; vertical-align: -0.15em; }
 .ag7-cardlink { display: inline-flex; align-items: center; gap: 0.25rem; text-decoration: none; white-space: nowrap; }
 .ag7-cardlink svg { width: 0.875rem; height: 0.875rem; }
+/* A card-header link ("Capacity →") keeps its arrow on the same line inside the flex tools slot. */
+.yx-cardtools a.ag7-cardlink { display: inline-flex; }
 .ag7-cardlink:hover { color: rgb(var(--primary-rgb)) !important; }
 @media (min-width: 1200px) { .ag7-fill { height: calc(100% - 1.5rem); } }
 
@@ -860,10 +862,29 @@ a.ag-hq-num.ag-overdue, .ag-hq-num.ag-overdue { color: var(--hg-status-danger-fg
 /* ---------- Hangyul operations (HRM strip + crm-companies table) ---------- */
 .ag7-hq .ag-hq-tablewrap { border: 0; border-radius: 0; box-shadow: none; }
 .ag7-hq .ag-hq-table thead th { background: rgb(243, 246, 248); border-block-end: 0; }
-.ag7-hq .ag-hq-table th:first-child, .ag7-hq .ag-hq-table td:first-child { padding-inline-start: 1.25rem; }
-.ag7-hq .ag-hq-table th:last-child, .ag7-hq .ag-hq-table td:last-child { padding-inline-end: 1.25rem; }
+/* The wrapper clips (overflow: hidden), so a sticky header has nothing to stick to — and `.hg-table th` made the row
+   headers (team names) sticky too, which slid the first row under the column headers. Both stay in flow here. */
+.ag7-hq .ag-hq-table th { position: static; }
+.ag7-hq .ag-hq-table th:first-child, .ag7-hq .ag-hq-table td:first-child { padding-inline-start: 1.5rem; }
+.ag7-hq .ag-hq-table th:last-child, .ag7-hq .ag-hq-table td:last-child { padding-inline-end: 1.5rem; }
 .ag7-loadcell { min-width: 9rem; }
 .ag7-loadcell .progress { min-width: 4rem; }
 .yx-pagehead__eyebrow { color: var(--hg-text-secondary); }
 @media (max-width: 575.98px) { .ag7-stats .yx-stat .me-3 { display: none; } .ag7-stats .yx-stat .card-body { padding: 0.875rem !important; } }
 @media (max-width: 767.98px) { .ag7 .ag7-queue .ag-attn__cta.btn { display: none; } }
+
+/* V34 — catalogue health panel (HQ › Sources). White, hairline-separated; no card-in-card. */
+.ag-cat-health { display: grid; gap: 14px; padding: 18px 20px; border: 1px solid var(--hg-border-subtle, #eee); border-radius: 14px; background: var(--hg-bg-surface, #fff); }
+.ag-cat-health__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; }
+.ag-cat-health__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 100px), 1fr)); gap: 10px 16px; margin: 0; }
+.ag-cat-health__grid dt, .ag-cat-health__runs dt { font-size: var(--hg-text-xs, 12px); color: var(--hg-text-subtle, #6b6b6b); }
+.ag-cat-health__grid dd { margin: 2px 0 0; font-size: 20px; font-weight: 600; }
+.ag-cat-health__runs { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 10px 16px; margin: 0; padding-top: 12px; border-top: 1px solid var(--hg-border-subtle, #eee); }
+.ag-cat-health__runs dd { margin: 2px 0 0; min-width: 0; overflow-wrap: anywhere; }
+.ag-cat-health__wide { grid-column: 1 / -1; }
+/* HQ tool pages (Sources, Assignment override) stack their blocks with the stack gap; the YNEX header's own bottom
+   margin on top of it opened a ~56 px hole under the title. */
+html[data-surface='console'] .ag-hq-tool > .yx-pagehead { margin-block-end: 0 !important; }
+@media (min-width: 1024px) { html[data-surface='console'] .ag-hq-tool > .yx-pagehead { margin-block-end: 8px !important; } }
+.ag-cat-health__more summary { cursor: pointer; font-size: var(--hg-text-sm, 14px); }
+.ag-cat-health__more ul { margin: 8px 0 0; padding-inline-start: 18px; display: grid; gap: 4px; overflow-wrap: anywhere; }

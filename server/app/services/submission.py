@@ -224,7 +224,7 @@ def ser_connector(row: SubmissionConnector | None, university: University | None
                 "receipt_method": None, "login_requirements": None, "status_sync": "NONE", "integration": integration,
                 "agency_submission": {"basis": None, "basis_url": None, "basis_verified": None},
                 "source_url": None, "verified_source": None, "last_verified": None, "partial": False, "is_demo": False,
-                "university": university.name_en if university else None, "university_id": str(university.id) if university else None}
+                "university": university.name_en if university else None, "university_ko": university.name_ko if university else None, "university_id": str(university.id) if university else None}
     return {
         "id": str(row.id), "method": method, "configured_method": normalize_method(row.method), "provider": row.provider,
         "portal_name": row.portal_name or _portal_name(row.provider), "portal_url": row.portal_url, "official_url": row.official_url or row.source_url,
@@ -241,7 +241,7 @@ def ser_connector(row: SubmissionConnector | None, university: University | None
         "verification_status": row.verification_status, "placeholder": row.verification_status == "NEEDS_REVIEW",
         "partial": row.verification_status == "PARTIAL", "is_demo": bool(row.is_demo),
         "notes": row.notes, "degree_level": row.degree_level, "intake_term": row.intake_term,
-        "program_id": str(row.program_id) if row.program_id else None, "university": university.name_en if university else None, "university_id": str(university.id) if university else None,
+        "program_id": str(row.program_id) if row.program_id else None, "university": university.name_en if university else None, "university_ko": university.name_ko if university else None, "university_id": str(university.id) if university else None,
     }
 
 
@@ -429,7 +429,7 @@ def build_snapshot(db: Session, app: Application, conn: Connector) -> dict:
     fee_status, amount, cur, payee = _default_fee(conn)
     return {
         "consent_version": CONSENT_VERSION,
-        "university": {"id": str(uni.id), "name_en": uni.name_en},
+        "university": {"id": str(uni.id), "name_en": uni.name_en, "name_ko": uni.name_ko},
         "program": {"id": str(prog.id), "name_en": prog.name_en, "degree_level": prog.degree_level.value},
         "intake": {"id": str(intake.id), "year": intake.year, "term": intake.term.value, "deadline": intake.application_deadline.isoformat()},
         "form_fields": form_fields(db, app),
@@ -499,7 +499,7 @@ def submission_view(db: Session, app: Application, *, viewer: str = "student") -
     # item DEADLINE_PASSED, owned by the counselor, explains what happens next).
     late = _deadline_passed(db, app)
     return {
-        "application_id": str(app.id), "application_status": app.status.value, "university": {"id": str(uni.id), "name_en": uni.name_en},
+        "application_id": str(app.id), "application_status": app.status.value, "university": {"id": str(uni.id), "name_en": uni.name_en, "name_ko": uni.name_ko},
         "connector": ser_connector(conn.row, uni, conn), "status": status, "record": ser_record(db, rec),
         "can_handoff": app.status == S.READY and conn.can_student_handoff() and status in ("READY_FOR_HANDOFF", "HANDED_OFF", "SUBMITTED_UNCONFIRMED")
                        and not (late and status == "READY_FOR_HANDOFF"),
@@ -542,15 +542,15 @@ def next_step(db: Session, app: Application) -> dict | None:
         org = db.get(Organization, app.agency_org_id) if app.agency_org_id else None
         return {"code": "SUBMISSION_AUTHORIZE", "severity": "improve", "owner": "student", "title": f"Authorize {org.name if org else 'the Hangyul team'} to submit",
                 "why": "Your Hangyul application is ready. The Hangyul team can submit it once you authorize it.",
-                "params": {"university": uni.name_en, "university_id": str(uni.id), "agency": org.name if org else ""},
+                "params": {"university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id), "agency": org.name if org else ""},
                 "action": {"code": "AUTHORIZE", "label": "Review and authorize", "link": link}, "sample": False}
     if app.status == S.READY and conn.can_student_handoff() and status in ("NOT_STARTED", "READY_FOR_HANDOFF"):
         return {"code": "SUBMISSION_HANDOFF", "severity": "improve", "owner": "student", "title": f"Submit on {uni.name_en}'s official portal",
-                "why": "Your Hangyul application is ready.", "params": {"university": uni.name_en, "university_id": str(uni.id)},
+                "why": "Your Hangyul application is ready.", "params": {"university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id)},
                 "action": {"code": "HANDOFF", "label": "Start", "link": link}, "sample": False}
     if status in ("HANDED_OFF", "SUBMITTED_UNCONFIRMED") and conn.method not in COUNSELOR_METHODS:
         return {"code": "SUBMISSION_CONFIRM", "severity": "improve", "owner": "student", "title": f"Add your {uni.name_en} confirmation",
-                "why": "You told us you submitted — the confirmation number or receipt finishes it.", "params": {"university": uni.name_en, "university_id": str(uni.id)},
+                "why": "You told us you submitted — the confirmation number or receipt finishes it.", "params": {"university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id)},
                 "action": {"code": "CONFIRM", "label": "Add confirmation", "link": link}, "sample": False}
     return None
 
@@ -570,7 +570,7 @@ def _confirm_task(db: Session, app: Application, *, open_: bool) -> None:
         due = datetime.combine(intake.application_deadline, datetime.min.time(), tzinfo=now.tzinfo) + timedelta(hours=23) if intake else None
         if t is None:
             db.add(Task(title=f"Add your {uni.name_en} confirmation number or receipt", title_key="task.submissionConfirm",
-                        title_params={"university": uni.name_en, "university_id": str(uni.id)}, task_type=TaskType.APPLICATION_SUBMIT, priority=TaskPriority.HIGH,
+                        title_params={"university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id)}, task_type=TaskType.APPLICATION_SUBMIT, priority=TaskPriority.HIGH,
                         status=TaskStatus.OPEN, due_at=due, owner_user_id=app.student_user_id, owner_org_id=a.organization_id if a else None,
                         student_user_id=app.student_user_id, application_id=app.id, university_id=app.university_id, source="SUCCESS",
                         dedupe_key=key, link=f"/applications/{app.id}", visible_to_student=True))
@@ -593,7 +593,7 @@ def _agency_task(db: Session, app: Application, *, state: str) -> None:
         due = datetime.combine(intake.application_deadline, datetime.min.time(), tzinfo=now.tzinfo) + timedelta(hours=17) if intake else None
         if t is None:
             db.add(Task(title=f"Submit {stu.full_name}'s {uni.name_en} application (authorised)", title_key="task.submissionAgency",
-                        title_params={"student": stu.full_name, "university": uni.name_en, "university_id": str(uni.id)}, task_type=TaskType.APPLICATION_SUBMIT,
+                        title_params={"student": stu.full_name, "university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id)}, task_type=TaskType.APPLICATION_SUBMIT,
                         priority=TaskPriority.HIGH, status=TaskStatus.OPEN, due_at=due, owner_user_id=counselor.id if counselor else None,
                         owner_org_id=app.agency_org_id, student_user_id=app.student_user_id, application_id=app.id, university_id=app.university_id,
                         source="SUCCESS", dedupe_key=key, link=f"/submissions?app={app.id}", visible_to_student=False))
@@ -828,7 +828,7 @@ def agency_queue(db: Session, p, *, view: str = "ready") -> dict:
         chk = pre_leave_checklist(db, app, rec)
         rows.append({
             "application_id": str(app.id), "group": group, "student": {"id": str(stu.id), "full_name": stu.full_name},
-            "university": {"id": str(uni.id), "name_en": uni.name_en}, "program": {"id": str(prog.id), "name_en": prog.name_en},
+            "university": {"id": str(uni.id), "name_en": uni.name_en, "name_ko": uni.name_ko}, "program": {"id": str(prog.id), "name_en": prog.name_en},
             "intake": {"year": intake.year, "term": intake.term.value}, "deadline": intake.application_deadline.isoformat(),
             "authorized_at": auth.granted_at.isoformat() if auth and auth.status in ("ACTIVE", "USED") else None,
             "authorization_status": auth.status if auth else None,

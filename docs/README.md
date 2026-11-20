@@ -35,6 +35,7 @@ in subfolders. Check links and root gates with `python3 scripts/docs/check-links
 
 | Folder | Contents |
 |---|---|
+| [`owner/`](owner/) | Owner-provided specifications that override older docs — `개선사항_261119.pdf` (seven improvement requirements, 2026-11-19) |
 | [`admissions/`](admissions/) | Implementation and research detail behind ADMISSIONS.md (strategy, dossier, writing review, submission connectors, visa routes, arrival) |
 | [`research/`](research/) | Source lists (`sources.json`, `v9-*.json`), visa/arrival/submission data, full competitor benchmark, validation protocols, `archive/` |
 | [`media/`](media/) | Licence audit (`LICENSE_AUDIT.md`), retired attribution-required originals, service-plan screenshots and PDF |

@@ -177,3 +177,17 @@ Per-product tone, in one line each:
 
 Plural rule (fr, ru, uk, sr, pl, cs, ar …): a `_one` form must carry `{{count}}` or read correctly without it; a string
 that says "1 application" in English must not become a bare noun in the plural languages.
+
+## Leak gate (owner requirement 7, 2026-11-20)
+
+`npm run qa:lang-leak` (`scripts/qa/lang-leak.mjs`) renders the critical routes in Design Preview for every selectable
+non-English Student locale (390 px; 1440 px for ko, ar, ja, vi), Marketing (ko, vi, ja, ar, ru) and both consoles (ko), and
+fails on unintended English: runs of English words or English dictionary words in non-Latin scripts, and exact English
+bundle values in Latin-script locales. The allow-list is small and explicit (Hangyul Univ, TOPIK/TOEFL/IELTS/TEPS, GKS,
+IEQAS and similar acronyms, KRW/USD, file types, e-mails/URLs, names that come from data). `[data-no-l10n]` (catalogue text
+quoted from a university source), `[lang=en]` exact-wording disclosures and `[data-user-content]` are excluded by design.
+Last result: 0 leaks on 415 pages ([`qa/launch-final/l10n/summary.md`](qa/launch-final/l10n/summary.md)). Rules that keep it
+green: university names through `uniName()`/`university_ko`, team identity through `orgName()`, server errors through
+`errorText()` (code → localized message), document titles through `docTitle()`, preview fixture sentences through
+`packages/api-client/src/preview/fixture-text.ts`.
+

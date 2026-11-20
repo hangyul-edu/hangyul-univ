@@ -1112,7 +1112,7 @@ def arrival_journey(db: Session, student_user_id) -> dict:
         "arrived_at": plan.arrived_at.isoformat() if plan and plan.arrived_at else None,
         "residence_card_due": plan.residence_card_due.isoformat() if plan and plan.residence_card_due else None,
         "completed_items": (plan.completed_items if plan else None) or [],
-        "university": {"id": str(uni.id), "name_en": uni.name_en} if uni else None,
+        "university": {"id": str(uni.id), "name_en": uni.name_en, "name_ko": uni.name_ko} if uni else None,
         "university_arrival": {"group_residence_registration": info.group_residence_registration, "orientation_note": info.orientation_note,
                                "orientation_date": info.orientation_date.isoformat() if info.orientation_date else None,
                                "verification_status": info.verification_status, "source_url": info.source_url} if info else None,

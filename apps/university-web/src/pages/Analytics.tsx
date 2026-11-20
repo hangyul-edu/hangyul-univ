@@ -92,8 +92,8 @@ function Summary({ filters }: { filters: AnalyticsFilters }) {
   const items = [
     { k: 'submitted', label: t('university:v25.in.submitted'), value: formatNumber(count('SUBMITTED'), locale), sub: t('university:v25.in.submittedSub'), to: drill({ reached: 'SUBMITTED' }) },
     // The glossary's own definitions, from the same response (offers ÷ decided; enrolled ÷ offers) — not re-derived here.
-    { k: 'offer', label: t('university:v25.in.offerRate'), title: d.metrics?.offer_rate?.definition, ...(() => { const r = rate(asRate(d.metrics?.offer_rate)); return { value: r.display, sub: r.sub, low: r.withheld }; })(), to: drill({ reached: 'OFFERED' }) },
-    { k: 'yield', label: t('university:v25.in.yield'), title: d.metrics?.yield?.definition, ...(() => { const r = rate(asRate(d.metrics?.yield)); return { value: r.display, sub: r.sub, low: r.withheld }; })(), to: drill({ reached: 'ENROLLED' }) },
+    { k: 'offer', label: t('university:v25.in.offerRate'), title: t('university:v30.def.offerRate', { defaultValue: d.metrics?.offer_rate?.definition ?? '' }), ...(() => { const r = rate(asRate(d.metrics?.offer_rate)); return { value: r.display, sub: r.sub, low: r.withheld }; })(), to: drill({ reached: 'OFFERED' }) },
+    { k: 'yield', label: t('university:v25.in.yield'), title: t('university:v30.def.yield', { defaultValue: d.metrics?.yield?.definition ?? '' }), ...(() => { const r = rate(asRate(d.metrics?.yield)); return { value: r.display, sub: r.sub, low: r.withheld }; })(), to: drill({ reached: 'ENROLLED' }) },
     { k: 'visa', label: t('university:v25.in.visaToEnrol'), ...(() => { const r = rate(funnelRate(d, 'ENROLLED', 'VISA_ISSUED', min)); return { value: r.display, sub: r.sub, low: r.withheld }; })(), to: drill({ reached: 'VISA_ISSUED' }) },
   ];
   return (
@@ -129,7 +129,7 @@ function Dropoff({ filters }: { filters: AnalyticsFilters }) {
             count: s.count,
             conversion: s.conversion,
             to: s.count > 0 ? drill({ reached: s.key as ReachedStep }) : undefined,
-            title: s.definition ?? t(`university:af.stepDef.${s.key}`),
+            title: t(`university:af.stepDef.${s.key}`, { defaultValue: s.definition ?? '' }),
           }));
           const closed = d.rejected + d.withdrawn;
           return (
@@ -311,7 +311,7 @@ function Admit({ filters }: { filters: AnalyticsFilters }) {
       </span>
     ),
     to: drill({ program_id: p.id }),
-    title: qs.data?.definitions.offer_rate,
+    title: t('university:v30.def.offerRate', { defaultValue: qs.data?.definitions.offer_rate ?? '' }),
   }));
   return (
     <Question id="admit" title={t('university:v22.in.q.admit')}>

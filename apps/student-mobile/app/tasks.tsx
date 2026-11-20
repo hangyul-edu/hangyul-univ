@@ -1,6 +1,6 @@
 import { useApi } from '@hangyul/auth';
 import { useTranslation } from '@hangyul/i18n';
-import { AppText, Badge, CheckRow, EmptyState, ListGroup, QueryState, Screen, SectionHeader, StatusBadge, useFormat, taskTitle } from '@hangyul/mobile-ui';
+import { AppText, Badge, CheckRow, EmptyState, ListGroup, QueryState, Screen, SectionHeader, StatusBadge, useFormat, taskTitle, errorText } from '@hangyul/mobile-ui';
 import type { Task } from '@hangyul/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ListChecks } from 'lucide-react-native';
@@ -23,7 +23,7 @@ export default function TasksScreen() {
     },
     onError: (e: Error, _id, ctx) => {
       if (ctx?.prev) qc.setQueryData(qk.tasks, ctx.prev);
-      Alert.alert(t('common:states.error'), e.message);
+      Alert.alert(t('common:states.error'), errorText(t, e));
     },
     onSettled: () => {
       void qc.invalidateQueries({ queryKey: qk.tasks });

@@ -35,7 +35,7 @@ function Thread({ id }: { id: string }) {
     <div className="uc-thread">
       <div className="uc-thread__head">
         <Link to="/messages" className="uc-back uc-only-compact"><ArrowLeft size={14} aria-hidden className="hg-flip-rtl" /> {t('common:nav.messages')}</Link>
-        <h2 className="hg-title-sm">{c.subject}</h2>
+        <h2 className="hg-title-sm" data-user-content>{c.subject}</h2>
         <div className="hg-row-wrap hg-xs hg-subtle" style={{ gap: 8 }}>
           <Badge size="sm">{t(`university:messages.kind.${c.kind}`, { defaultValue: c.kind })}</Badge>
           {c.student && <span>{c.student.full_name}</span>}
@@ -53,7 +53,7 @@ function Thread({ id }: { id: string }) {
                 <span title={formatDateTime(m.at, locale)}>{formatRelative(m.at, locale)}</span>
                 {m.internal && <Badge size="sm" tone="warning" icon={<Lock aria-hidden />}>{t('university:messages.internal')}</Badge>}
               </div>
-              <div className="uc-msg__text">{m.body}</div>
+              <div className="uc-msg__text" data-user-content>{m.body}</div>
             </div>
           </div>
         ))}
@@ -131,15 +131,15 @@ export default function Messages() {
                   <li key={c.id}>
                     <Link to={`/messages/${c.id}${keep}`} className="uc-conv" aria-current={c.id === id ? 'page' : undefined}>
                       <div className="hg-row hg-between" style={{ gap: 8 }}>
-                        <span className={cx('hg-truncate hg-small', c.unread > 0 && 'hg-strong')}>{c.student?.full_name ?? c.subject}</span>
+                        <span className={cx('hg-truncate hg-small', c.unread > 0 && 'hg-strong')} data-user-content>{c.student?.full_name ?? c.subject}</span>
                         {c.unread > 0 && <span className="hg-navlink__badge" aria-label={t('university:messages.unread', { count: c.unread })}>{c.unread}</span>}
                       </div>
                       <div className="hg-xs hg-truncate">
                         {c.application_id
-                          ? <>{t('university:v8.msg.about')} <span className="hg-medium">{c.subject}</span>{c.application?.status ? <> · {t(`common:appStatus.${c.application.status}`)}</> : null}</>
-                          : <span className="hg-subtle">{t(`university:messages.kind.${c.kind}`, { defaultValue: c.kind })} · {c.subject}</span>}
+                          ? <>{t('university:v8.msg.about')} <span className="hg-medium" data-user-content>{c.subject}</span>{c.application?.status ? <> · {t(`common:appStatus.${c.application.status}`)}</> : null}</>
+                          : <span className="hg-subtle">{t(`university:messages.kind.${c.kind}`, { defaultValue: c.kind })} · <span data-user-content>{c.subject}</span></span>}
                       </div>
-                      <div className="hg-xs hg-subtle hg-truncate">{c.last_message?.internal ? <Lock size={11} aria-label={t('university:messages.internal')} className="un-conv__lock" /> : null}{c.last_message?.author?.full_name ? `${c.last_message.author.full_name}: ` : ''}{c.last_message?.body ?? ''}</div>
+                      <div className="hg-xs hg-subtle hg-truncate">{c.last_message?.internal ? <Lock size={11} aria-label={t('university:messages.internal')} className="un-conv__lock" /> : null}{c.last_message?.author?.full_name ? `${c.last_message.author.full_name}: ` : ''}<span data-user-content>{c.last_message?.body ?? ''}</span></div>
                       <div className="hg-xs hg-subtle">{formatRelative(c.last_message_at, locale)}{c.awaiting_reply ? ` · ${t('university:v8.msg.awaiting')}` : ''}</div>
                     </Link>
                   </li>

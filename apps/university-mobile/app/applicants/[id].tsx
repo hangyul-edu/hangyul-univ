@@ -2,7 +2,7 @@ import { useApi } from '@hangyul/auth';
 import { MARKETS, useTranslation, localName } from '@hangyul/i18n';
 import {
   absoluteApiUrl, AppText, Avatar, Button, Callout, KeyValue, ListGroup, ListItem, LoadingState, MarketFlag, PickerSheet, PromptSheet, QueryState,
-  Screen, SectionTitle, Sheet, StatusBadge, StatusText, TextField, theme, useFormat,
+  Screen, SectionTitle, Sheet, StatusBadge, StatusText, TextField, theme, useFormat, errorText,
 } from '@hangyul/mobile-ui';
 import type { ApplicationDetail, ApplicationStatus, ChecklistItem, Program } from '@hangyul/types';
 import { countryName } from '@hangyul/utils';
@@ -78,17 +78,17 @@ function Applicant({ a }: { a: ApplicationDetail }) {
   const transition = useMutation({
     mutationFn: (v: { to: ApplicationStatus; note?: string }) => api.applications.transition(a.id, v),
     onSuccess: (data) => { setPending(null); refresh(data); },
-    onError: (e: Error) => Alert.alert(t('common:states.error'), e.message),
+    onError: (e: Error) => Alert.alert(t('common:states.error'), errorText(t, e)),
   });
   const flag = useMutation({
     mutationFn: (v: { flagged: boolean; flag_reason: string | null }) => api.applications.update(a.id, v),
     onSuccess: () => { setFlagging(false); refresh(); },
-    onError: (e: Error) => Alert.alert(t('common:states.error'), e.message),
+    onError: (e: Error) => Alert.alert(t('common:states.error'), errorText(t, e)),
   });
   const preview = useMutation({
     mutationFn: (docId: string) => api.documents.downloadUrl(docId, 'inline'),
     onSuccess: (r) => void Linking.openURL(absoluteApiUrl(r.url)),
-    onError: (e: Error) => Alert.alert(t('common:states.error'), e.message),
+    onError: (e: Error) => Alert.alert(t('common:states.error'), errorText(t, e)),
   });
 
   const name = a.student?.full_name ?? t('university.applicants.anonymous');
@@ -224,7 +224,7 @@ function RequestSheet({ visible, a, name, onClose, onDone }: { visible: boolean;
   const send = useMutation({
     mutationFn: () => api.applications.requestDocument(a.id, { label: label.trim(), note: note.trim() }),
     onSuccess: () => { setLabel(''); setNote(''); onDone(); },
-    onError: (e: Error) => Alert.alert(t('common:states.error'), e.message),
+    onError: (e: Error) => Alert.alert(t('common:states.error'), errorText(t, e)),
   });
   return (
     <Sheet visible={visible} title={t('v3.uni.requestTitle', { name })} onClose={onClose} closeLabel={t('common:actions.cancel')}

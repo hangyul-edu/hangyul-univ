@@ -23,7 +23,7 @@ export const VIEWPORTS = [
 
 export const ROUTES = {
   marketing: {
-    public: ['/', '/universities', '/universities/seoul-national-university', '/start', '/privacy', '/terms', '/no-such-page'],
+    public: ['/', '/universities', '/universities/seoul-national-university', '/privacy', '/terms', '/no-such-page'],
     preview: [],
   },
   student: {

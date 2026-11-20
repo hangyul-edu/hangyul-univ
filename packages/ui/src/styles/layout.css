@@ -108,8 +108,18 @@
 .hg-snav__link::after { content: ''; position: absolute; inset-inline: 12px; bottom: -11px; height: 2px; border-radius: 2px 2px 0 0; background: var(--hg-selected-border); transform: scaleX(0); transition: transform var(--hg-motion-base) var(--hg-motion-easing); }
 .hg-snav__link.active::after { transform: scaleX(1); }
 .hg-snav__count { min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--hg-text); color: #fff; font-size: 11px; font-weight: var(--hg-weight-semibold); display: inline-grid; place-items: center; font-variant-numeric: tabular-nums; }
-.hg-scontent { flex: 1; width: 100%; max-width: calc(var(--hg-container-task) + var(--hg-gutter) * 2); margin-inline: auto; padding: 20px var(--hg-gutter) 104px; }
-@media (min-width: 768px) { .hg-scontent { padding-block: 40px 80px; } }
+/* 261119 (owner requirement 5): the page's last line and its primary action clear the fixed tab bar *and* the phone's
+   home indicator — 58 px bar + safe area + breathing room. The tab bar is hidden from 1024 px, so the bottom padding
+   is reset there rather than at 768 px, where the bar is still showing. `min-width: 0` so a wide child (a table, a
+   long name) cannot widen the column past the viewport. */
+.hg-scontent { flex: 1; width: 100%; min-width: 0; max-width: calc(var(--hg-container-task) + var(--hg-gutter) * 2); margin-inline: auto;
+  padding: 20px var(--hg-gutter) calc(58px + env(safe-area-inset-bottom, 0px) + 48px); }
+@media (min-width: 768px) { .hg-scontent { padding-top: 40px; } }
+@media (min-width: 1024px) { .hg-scontent { padding-bottom: 80px; } }
+/* Focus and in-page jumps land below the sticky 64 px header and above the tab bar, so a focused field (OTP, essay,
+   message, profile, payment) is never scrolled underneath either. */
+html:has(.hg-sshell) { scroll-padding-top: 80px; scroll-padding-bottom: calc(58px + env(safe-area-inset-bottom, 0px) + 16px); }
+@media (min-width: 1024px) { html:has(.hg-sshell) { scroll-padding-bottom: 16px; } }
 .hg-tabbar {
   position: fixed; z-index: var(--hg-z-tabbar); bottom: 0; inset-inline: 0; display: grid; grid-template-columns: repeat(5, 1fr);
   background: color-mix(in srgb, var(--hg-surface) 96%, transparent); backdrop-filter: saturate(1.2) blur(12px);

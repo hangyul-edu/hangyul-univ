@@ -112,7 +112,7 @@ export function BudgetSection({ ids }: { ids: string[] }) {
       {cur !== 'KRW' && fx.data && <p className="hg-small hg-muted">{t('budget.fxNote', { date: formatDate(fx.data.as_of, locale) })}</p>}
       <QueryState query={q} skeleton={<Skeleton h={320} r={10} />}
         isEmpty={(d) => d.items.length === 0}
-        empty={<EmptyState title={t('budget.empty')} text={t('budget.emptyText')} action={<ButtonLink as={Link} to="/explore?tab=foryou" variant="primary">{t('budget.emptyCta')}</ButtonLink>} />}>
+        empty={<EmptyState title={t('budget.empty')} text={t('budget.emptyText')} action={<ButtonLink as={Link} to="/explore" variant="primary">{t('budget.emptyCta')}</ButtonLink>} />}>
         {(d) => (
           <>
             {d.source === 'shortlist' && d.items.length > 1 && <p className="hg-small hg-muted">{t('budget.fromShortlist')}</p>}

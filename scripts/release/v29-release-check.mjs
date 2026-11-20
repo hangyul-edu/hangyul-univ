@@ -8,9 +8,8 @@
  *   BLOCKED_EXTERNAL  needs an input this repository cannot create (owner, provider, counsel, reviewer, store, infra)
  *
  * Evidence comes from three places, none of them self-reported prose:
- *   1. the sequential QA chain's logs (`scripts/qa/v29/chain.sh` → docs/qa/v29/completion/logs/<step>.log, last line
- *      `EXIT=<code>`). A log older than the newest source file is STALE → FAIL_LOCAL: a green run of different code is
- *      not evidence;
+ *   1. the current QA ledgers (`npm run qa:launch` and `scripts/qa/launch-final/api.sh` → docs/qa/launch-final/after/logs/).
+ *      A log older than the newest source file is STALE → FAIL_LOCAL: a green run of different code is not evidence;
  *   2. live checks run here (manifest/plans gate, console-locale honesty, production-readiness probe of the server's
  *      configuration capability — `server/scripts/v29_prod_readiness.py`);
  *   3. artefacts on disk (Android BUILD_INFO + scans).
@@ -24,7 +23,6 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const LOGS = join(ROOT, 'docs/qa/v29/completion/logs');
 const JSON_OUT = process.argv.includes('--json');
 const items = [];
 const add = (group, key, state, detail) => items.push({ group, key, state, detail });
@@ -44,24 +42,34 @@ const walk = (d) => {
 };
 for (const d of SRC_DIRS) walk(join(ROOT, d));
 
-/* ------------------------------------------------------------------------- 1. the QA chain */
+/* ------------------------------------------------------------------------- 1. the QA chains (current layout) */
+// 2026-11-20: retargeted from the removed V29 chain logs to the current QA folder. Web/visual evidence is the
+// launch-final ledger (`npm run qa:launch` → docs/qa/launch-final/after/logs/ledger.txt, one "PASS|FAIL  <step>" line per
+// step, a log per step); API evidence is `bash scripts/qa/launch-final/api.sh` → api-ledger.txt beside it.
+const LF = join(ROOT, 'docs/qa/launch-final/after/logs');
+const ledger = (name) => {
+  const f = join(LF, name);
+  if (!existsSync(f)) return null;
+  return Object.fromEntries(readFileSync(f, 'utf8').split('\n').map((l) => /^(PASS|FAIL)\s+(\S+)/.exec(l)).filter(Boolean).map((m) => [m[2], m[1]]));
+};
+const web = ledger('ledger.txt');
+const api = ledger('api-ledger.txt');
 const GATES = [
-  ['TYPECHECK', 'typecheck'], ['LINT (ruff; web lint = strict tsc)', 'lint-api'], ['API TEST', 'api-tests'], ['WEB TEST', 'web-tests'],
-  ['E2E', 'e2e'], ['VISUAL QA', 'visual'], ['PRICING VISUAL (6 widths)', 'pricing-visual'], ['BUTTONS', 'buttons'], ['ACCESSIBILITY', 'a11y'],
-  ['I18N', 'i18n-check'], ['I18N V29 TRANSLATIONS', 'l10n-v29'], ['KOREAN PARTICLES', 'particles'], ['CONSOLE LOCALES', 'console-locales'],
-  ['PLAN CONSISTENCY', 'plans'], ['ADD-ON CONSISTENCY', 'addons'], ['SECURITY SCAN (no card data, no test login in prod)', 'security-scan'],
-  ['BUILD', 'build-web'], ['NO DEMO / TEST LOGIN / PAID BYPASS IN BUILT WEB BUNDLES', 'built-scan'], ['CSP', 'csp'],
-  ['NO DEV SECRET IN BUNDLES', 'bundle-secrets'], ['ANDROID PRODUCTION SCAN', 'native-scan'],
+  ['DOCS GATES', web, '01-docs-gates', 'npm run qa:launch'], ['LEAK SCAN (source)', web, '02-leak-source', 'npm run qa:launch'],
+  ['I18N', web, '03-i18n', 'npm run qa:launch'], ['TOKENS CURRENT', web, '04-tokens-current', 'npm run qa:launch'],
+  ['TYPECHECK', web, '05-typecheck', 'npm run qa:launch'], ['WEB TEST', web, '06-web-unit', 'npm run qa:launch'],
+  ['BUILD (preview on)', web, '07-build-preview-on', 'npm run qa:launch'], ['LEAK SCAN (bundles)', web, '09-leak-bundles', 'npm run qa:launch'],
+  ['DESIGN PREVIEW ISOLATION', web, '10-preview-isolation', 'npm run qa:launch'], ['RESPONSIVE (12 widths)', web, '13-matrix', 'npm run qa:launch'],
+  ['ZOOM 200 %', web, '14-matrix-zoom-200', 'npm run qa:launch'], ['ACCESSIBILITY', web, '19-a11y', 'npm run qa:launch'],
+  ['BUILD (preview off) + PREVIEW GATE', web, '21-preview-gate-off', 'npm run qa:launch'],
+  ['API LINT', api, 'api-lint', 'bash scripts/qa/launch-final/api.sh'], ['API TEST', api, 'api-tests', 'bash scripts/qa/launch-final/api.sh'],
 ];
-for (const [label, step] of GATES) {
-  const f = join(LOGS, `${step}.log`);
-  if (!existsSync(f)) { add('LOCAL', label, 'FAIL_LOCAL', `no evidence — run: bash scripts/qa/v29/chain.sh ${step}`); continue; }
-  const text = readFileSync(f, 'utf8').trimEnd();
-  const exit = /EXIT=(\d+)$/.exec(text)?.[1];
-  const age = statSync(f).mtimeMs;
-  if (exit !== '0') add('LOCAL', label, 'FAIL_LOCAL', `last run exit ${exit ?? '?'} (${step}.log)`);
-  else if (age < newest) add('LOCAL', label, 'FAIL_LOCAL', `stale: ${step}.log predates ${newestFile}`);
-  else add('LOCAL', label, 'PASS', `${step}.log EXIT=0`);
+for (const [label, led, step, how] of GATES) {
+  const f = join(LF, `${step}.log`);
+  if (!led || !(step in led)) { add('LOCAL', label, 'FAIL_LOCAL', `no evidence — run: ${how}`); continue; }
+  if (led[step] !== 'PASS') add('LOCAL', label, 'FAIL_LOCAL', `last run FAIL (${step}.log)`);
+  else if (existsSync(f) && statSync(f).mtimeMs < newest) add('LOCAL', label, 'FAIL_LOCAL', `stale: ${step}.log predates ${newestFile}`);
+  else add('LOCAL', label, 'PASS', `${step} PASS`);
 }
 
 /* ------------------------------------------------------------------------- 2. live checks */

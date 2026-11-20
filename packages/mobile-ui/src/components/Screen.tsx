@@ -1,9 +1,10 @@
 import { useCallback, useState, type ReactNode } from 'react';
-import { KeyboardAvoidingView, Platform, RefreshControl, ScrollView, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
+import { KeyboardAvoidingView, RefreshControl, ScrollView, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets, type Edge } from 'react-native-safe-area-context';
 
 import { theme } from '../theme';
 import { AppText } from './AppText';
+import { useKeyboardAvoiding, useKeyboardShown } from './Keyboard';
 
 export interface ScreenProps {
   children: ReactNode;
@@ -30,6 +31,12 @@ export function Screen({
 }: ScreenProps) {
   const [refreshing, setRefreshing] = useState(false);
   const insets = useSafeAreaInsets();
+  const kb = useKeyboardAvoiding();
+  const keyboardShown = useKeyboardShown();
+  const resolvedEdges = edges ?? (title ? ['top', 'left', 'right'] : ['left', 'right']);
+  // 261119 req 5: a stack screen (no tab bar under it) pads its own bottom inset — Android's edge-to-edge navigation
+  // bar and the iPhone home indicator otherwise sit on the last row. A footer already carries the inset.
+  const bottomInset = !title && !footer && !resolvedEdges.includes('bottom') ? insets.bottom : 0;
   const refresh = useCallback(async () => {
     if (!onRefresh) return;
     setRefreshing(true);
@@ -49,8 +56,9 @@ export function Screen({
   const body = scroll ? (
     <ScrollView
       style={styles.flex}
-      contentContainerStyle={[padded && styles.padded, styles.gap, contentStyle]}
+      contentContainerStyle={[padded && styles.padded, styles.gap, bottomInset ? { paddingBottom: (padded ? theme.space[10] : 0) + bottomInset } : null, contentStyle]}
       keyboardShouldPersistTaps="handled"
+      keyboardDismissMode="interactive"
       contentInsetAdjustmentBehavior="automatic"
       refreshControl={onRefresh ? <RefreshControl refreshing={refreshing} onRefresh={refresh} tintColor={theme.color.primary} colors={[theme.color.primary]} /> : undefined}
     >
@@ -58,7 +66,7 @@ export function Screen({
       {children}
     </ScrollView>
   ) : (
-    <View style={[styles.flex, padded && styles.padded, styles.gap, contentStyle]}>
+    <View style={[styles.flex, padded && styles.padded, styles.gap, bottomInset ? { paddingBottom: (padded ? theme.space[4] : 0) + bottomInset } : null, contentStyle]}>
       {header}
       {children}
     </View>
@@ -67,14 +75,16 @@ export function Screen({
   const inner = (
     <>
       {body}
-      {footer ? <View style={[styles.footer, { paddingBottom: Math.max(theme.space[3], insets.bottom) }]}>{footer}</View> : null}
+      {footer ? <View style={[styles.footer, { paddingBottom: keyboardShown ? theme.space[3] : Math.max(theme.space[3], insets.bottom) }]}>{footer}</View> : null}
     </>
   );
 
   return (
-    <SafeAreaView style={styles.root} edges={edges ?? (title ? ['top', 'left', 'right'] : ['left', 'right'])}>
-      {keyboard || footer ? (
-        <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={Platform.OS === 'ios' ? 96 : 0}>
+    <SafeAreaView style={styles.root} edges={resolvedEdges}>
+      {/* 261119 req 5: every scrolling screen avoids the keyboard (a field anywhere in it scrolls into view on both
+          platforms); `keyboard` keeps the opt-in for non-scrolling screens. */}
+      {keyboard || footer || scroll ? (
+        <KeyboardAvoidingView style={styles.flex} behavior={kb.behavior} keyboardVerticalOffset={kb.keyboardVerticalOffset}>
           {inner}
         </KeyboardAvoidingView>
       ) : inner}

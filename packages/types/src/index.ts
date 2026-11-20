@@ -78,7 +78,34 @@ export type ScholarshipKind = 'UNIVERSITY' | 'GOVERNMENT' | 'HANGYUL_PARTNER' | 
 export type MatchTier = 'STRONG' | 'COMPETITIVE' | 'REACH' | 'NOT_ELIGIBLE';
 export type JourneyStage = 'EXPLORE' | 'PROFILE' | 'MATCH' | 'APPLY' | 'DECISION' | 'ENROLL' | 'VISA' | 'ARRIVAL' | 'STUDENT_LIFE';
 
-export interface Page<T> { items: T[]; total: number; page: number; page_size: number; }
+/**
+ * 261119 (owner requirement 3): the state of the one authoritative catalogue, sent beside a catalogue listing so an
+ * empty result can say *why* it is empty. `PREPARING`/`EMPTY` mean "programme information is being prepared" —
+ * never "you are not eligible". Optional: older servers omit it.
+ */
+export type CatalogState = 'READY' | 'PREPARING' | 'EMPTY';
+export interface CatalogStatus { state: CatalogState; programs_total: number; universities_total: number; }
+export interface Page<T> { items: T[]; total: number; page: number; page_size: number; catalog?: CatalogStatus; }
+/** V34 — GET /ops/catalog/health (Operations only). Times are ISO strings in Asia/Seoul. */
+export interface CatalogRun {
+  id: string; kind: string; trigger: string; status: string; full: boolean; started_at: string | null; finished_at: string | null;
+  duration_ms: number | null; institutions: number | null; universities: number | null; programmes: number | null; intakes: number | null;
+  created: number | null; changed: number | null; unchanged: number | null; retired: number | null; source_failures: number | null;
+  parser_failures: number | null; conflicts: number | null; stale_records: number | null; error: string | null;
+}
+export interface CatalogHealth {
+  state: CatalogState; running: boolean; next_refresh_at: string | null;
+  schedule: { weekday: string; time: string; timezone: string };
+  counts: Record<'institutions' | 'universities' | 'programmes' | 'programmes_official' | 'intakes' | 'open_intakes' | 'admission_requirements'
+    | 'document_requirements' | 'scholarships' | 'dormitories' | 'official_guides' | 'official_videos', number>;
+  last_run: CatalogRun | null; last_full_success: CatalogRun | null;
+  failed_sources: { source: string; status: string; error: string; detail: unknown }[];
+  stale_records: {
+    broken_links: { institution: string | null; kind: string; url: string; http_status: number | null; consecutive_failures: number; last_checked_at: string | null; last_ok_at: string | null }[];
+    guides_review_due: { institution: string | null; title: string | null; status: string; verification_status: string; source_url: string | null }[];
+    stale_intakes: number;
+  };
+}
 
 export interface Freshness {
   source_url: string | null;
@@ -132,6 +159,8 @@ export interface UniversityCard extends Freshness {
   id: UUID; slug: string; name_en: string; name_ko: string; institution_type: InstitutionType; region: string; city: string;
   is_partner: boolean; brand_color: string | null; photo?: UniversityPhotoRef | null; certification_status: string; est_living_cost_monthly_krw: number | null; summary: string | null;
   program_count?: number; saved_at?: ISODateTime; program_id?: UUID | null; note?: string | null;
+  /** V34: the directory kind (UNIVERSITY | JUNIOR_COLLEGE | GRADUATE_UNIVERSITY); false `name_en_recorded` = no published English name (name_en carries the official Korean name). */
+  institution_kind?: string | null; name_en_recorded?: boolean | null;
 }
 export interface Intake extends Freshness {
   id: UUID; year: number; term: IntakeTerm; round: number; application_opens: ISODate | null; application_deadline: ISODate;
@@ -1021,6 +1050,8 @@ export interface DossierFacts {
 export interface Dossier {
   student: { id: UUID; full_name: string; nationality: string | null }; facts: DossierFacts; rows: DossierRow[]; packages: DossierPackage[];
   requests: DossierRequestSuggestion[]; suggestions: DossierSuggestion[];
+  /** Owner pass 261119: categories the selected applications list as optional (not rows until a file exists). */
+  optional?: { category: DocumentCategory; universities: string[] }[];
   counts: { documents: number; ready: number; todo: number; review: number; applications: number; suggestions: number; matching: number };
   method: 'RULES'; ocr_available: boolean; as_of: ISODate;
 }
@@ -1205,6 +1236,8 @@ export interface InstitutionCard {
   last_verified: string | null;
   /** Hangyul holds verified admission data for this institution. Not a partnership. */
   has_catalog: boolean;
+  /** V34: the canonical catalogue university (same slug) shared with the Student app. */
+  university_id?: UUID | null;
   /**
    * V20 — the slice of the content record a *result tile* needs: the licensed mark, the hero photograph
    * if this institution has one, the verified introduction video's id, and the city. That is exactly

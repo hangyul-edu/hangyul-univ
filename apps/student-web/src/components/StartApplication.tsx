@@ -1,3 +1,4 @@
+import { errorText } from '@hangyul/i18n';
 import { useApi } from '@hangyul/auth';
 import type { Program } from '@hangyul/types';
 import { Button, Callout, Field, Modal, Select, useToast } from '@hangyul/ui';
@@ -25,7 +26,7 @@ export function useStartApplication() {
     },
     onError: (e) => {
       const s = (e as { status?: number }).status;
-      toast.error(s === 409 ? t('start.exists') : (e as Error).message);
+      toast.error(s === 409 ? t('start.exists') : errorText(e));
     },
   });
 }

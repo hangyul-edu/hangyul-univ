@@ -1,8 +1,9 @@
 import { useAuth } from '@hangyul/auth';
 import { ExternalLink, Radar, ShieldCheck, X } from '@hangyul/icons';
 import type { FreshnessReviewItem, SourceRecord, VerificationStatus } from '@hangyul/types';
-import { Button, Card, Checkbox, DataTable, EmptyState, ErrorState, Field, Modal, PageHeader, Popover, QueryState, FilterSelect, StatusText, Tabs, Textarea, useToast, type ColumnDef } from '@hangyul/ui';
+import { Button, Card, Checkbox, DataTable, EmptyState, ErrorState, Field, Modal, Popover, QueryState, FilterSelect, StatusText, Tabs, Textarea, useToast, type ColumnDef } from '@hangyul/ui';
 import { formatDate, formatNumber, formatRelative, type Tone } from '@hangyul/utils';
+import { PageHeader } from '@hangyul/ynex-ui';
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 
@@ -197,6 +198,56 @@ function ReviewQueue() {
   );
 }
 
+
+/** V34 (owner 261119 #3): is the one authoritative catalogue healthy? Counts, last/next refresh (Asia/Seoul), failures, stale. */
+const HEALTH_COUNTS = ['universities', 'programmes', 'intakes', 'admission_requirements', 'document_requirements', 'scholarships',
+  'dormitories', 'official_guides', 'official_videos'] as const;
+function CatalogHealthPanel() {
+  const { api } = useAuth();
+  const { t, locale } = useT();
+  const q = useQuery({ queryKey: ['catalog-health'], queryFn: () => api.catalog.catalogHealth(), refetchInterval: 60_000 });
+  const when = (iso: string | null | undefined) => (iso ? `${formatDate(iso, locale)} · ${formatRelative(iso, locale)}` : t('catalogHealth.never'));
+  return (
+    <section className="ag-cat-health" aria-labelledby="cat-health-h">
+      <QueryState query={q}>
+        {(h) => {
+          const last = h.last_run;
+          const tone: Tone = h.state === 'READY' ? (h.failed_sources.length ? 'warning' : 'success') : h.state === 'PREPARING' ? 'warning' : 'danger';
+          return (
+            <>
+              <div className="ag-cat-health__head">
+                <h2 id="cat-health-h" className="hg-title-sm">{t('catalogHealth.title')}</h2>
+                <StatusText tone={tone}>{t(`catalogHealth.state.${h.state}`)}{h.state === 'READY' && h.failed_sources.length > 0 ? ` · ${t('catalogHealth.attention')}` : ''}{h.running ? ` · ${t('catalogHealth.running')}` : ''}</StatusText>
+              </div>
+              <dl className="ag-cat-health__grid">
+                {HEALTH_COUNTS.map((k) => (
+                  <div key={k}><dt>{t(`catalogHealth.count.${k}`)}</dt><dd className="hg-num">{formatNumber(h.counts[k], locale)}</dd></div>
+                ))}
+              </dl>
+              <dl className="ag-cat-health__runs">
+                <div><dt>{t('catalogHealth.lastRun')}</dt><dd>{last ? <>{when(last.finished_at ?? last.started_at)} · <StatusText tone={last.status === 'SUCCEEDED' ? 'success' : last.status === 'RUNNING' ? 'neutral' : 'danger'}>{t(`catalogHealth.run.${last.status}`, { defaultValue: last.status })}</StatusText></> : t('catalogHealth.never')}</dd></div>
+                <div><dt>{t('catalogHealth.lastFull')}</dt><dd>{when(h.last_full_success?.finished_at)}</dd></div>
+                <div><dt>{t('catalogHealth.next')}</dt><dd>{h.next_refresh_at ? formatDate(h.next_refresh_at, locale) : t('catalogHealth.never')} <span className="hg-subtle hg-xs">{t('catalogHealth.schedule')}</span></dd></div>
+                {last && <div><dt>{t('catalogHealth.changes')}</dt><dd className="hg-small">{t('catalogHealth.changesValue', { created: last.created ?? 0, changed: last.changed ?? 0, unchanged: last.unchanged ?? 0, retired: last.retired ?? 0 })}</dd></div>}
+                <div className="ag-cat-health__wide"><dt>{t('catalogHealth.problems')}</dt><dd className="hg-small">{t('catalogHealth.problemsValue', { failed: h.failed_sources.length, links: h.stale_records.broken_links.length, guides: h.stale_records.guides_review_due.length, intakes: h.stale_records.stale_intakes })}</dd></div>
+              </dl>
+              {(h.failed_sources.length > 0 || h.stale_records.guides_review_due.length > 0) && (
+                <details className="ag-cat-health__more">
+                  <summary>{t('catalogHealth.details')}</summary>
+                  <ul className="hg-small">
+                    {h.failed_sources.map((f) => <li key={f.source}><strong>{f.source}</strong> · {f.status} — {f.error}</li>)}
+                    {h.stale_records.guides_review_due.map((g, i) => <li key={`g${i}`}><strong>{g.institution}</strong> · {g.title} ({g.verification_status})</li>)}
+                  </ul>
+                </details>
+              )}
+            </>
+          );
+        }}
+      </QueryState>
+    </section>
+  );
+}
+
 export default function Sources() {
   const { api } = useAuth();
   const { t } = useT();
@@ -210,9 +261,10 @@ export default function Sources() {
     onError: (e) => toast.error((e as Error).message),
   });
   return (
-    <div className="hg-stack ag-page">
-      <PageHeader title={t('nav.sources')} subtitle={t('sources.sub')}
+    <div className="hg-stack ag-page ag-hq-tool">
+      <PageHeader eyebrow={t('hq.context')} title={t('nav.sources')} sub={t('sources.sub')}
         actions={perms.ops ? <Button size="sm" variant="primary" icon={<Radar />} loading={scan.isPending} onClick={() => scan.mutate()}>{t('sources.scan')}</Button> : undefined} />
+      <CatalogHealthPanel />
       <Tabs label={t('nav.sources')} value={tab} onChange={setTab} tabs={[{ value: 'queue', label: t('sources.queue') }, { value: 'sources', label: t('sources.registry') }]} />
       {tab === 'queue' ? <ReviewQueue /> : <SourcesTable />}
     </div>

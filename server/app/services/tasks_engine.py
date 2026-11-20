@@ -105,7 +105,7 @@ def generate_for_student(db: Session, student_user_id, today: date | None = None
                 stu = db.get(User, student_user_id)
                 wanted[f"deadline-passed:{app.id}"] = dict(
                     title=f"Deadline passed: {stu.full_name if stu else ''} — {uni.name_en} ({_prog_name(db, app)})", title_key="task.deadlinePassed",
-                    title_params={"student": stu.full_name if stu else "", "university": uni.name_en, "university_id": str(uni.id), "program": _prog_name(db, app)},
+                    title_params={"student": stu.full_name if stu else "", "university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id), "program": _prog_name(db, app)},
                     task_type=TaskType.GENERAL, due_at=now + timedelta(days=2), owner_user_id=counselor, owner_org_id=agency_org,
                     application_id=app.id, university_id=uni.id, visible_to_student=False, link=f"/students/{sid}?tab=applications",
                 )
@@ -115,7 +115,7 @@ def generate_for_student(db: Session, student_user_id, today: date | None = None
             wanted[f"deadline:{app.id}"] = dict(
                 # The program is part of the title: a student may apply to two programs at one university.
                 title=f"Submit your {_prog_name(db, app)} application to {uni.name_en}", title_key="task.submitProgramApplication",
-                title_params={"university": uni.name_en, "university_id": str(uni.id), "program": _prog_name(db, app)},
+                title_params={"university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id), "program": _prog_name(db, app)},
                 task_type=TaskType.APPLICATION_DEADLINE, due_at=due, owner_user_id=student_user_id, owner_org_id=agency_org,
                 application_id=app.id, university_id=uni.id, visible_to_student=True, link=f"/applications/{app.id}",
                 reminder_offsets_hours=[24 * 14, 24 * 7, 24 * 2, 12],
@@ -125,7 +125,7 @@ def generate_for_student(db: Session, student_user_id, today: date | None = None
                 if item["action_code"] in ("UPLOAD", "FIX", "RENEW", "LEGALIZE", "TOO_OLD") and item["required"]:
                     key = f"doc:{sid}:{item['category']}:{item['action_code']}"
                     wanted.setdefault(key, dict(
-                        title=item["action"], title_key=f"task.doc.{item['action_code']}", title_params={"category": item["category"], "university": uni.name_en, "university_id": str(uni.id)}, task_type=TaskType.DOCUMENT_UPLOAD,
+                        title=item["action"], title_key=f"task.doc.{item['action_code']}", title_params={"category": item["category"], "university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id)}, task_type=TaskType.DOCUMENT_UPLOAD,
                         due_at=_dt(intake.document_deadline or intake.application_deadline) - timedelta(days=7),
                         owner_user_id=student_user_id, owner_org_id=agency_org, application_id=app.id, university_id=uni.id,
                         # V26 (REPORT §341): the exact requirement — the document itself when one exists (fix, renew,
@@ -143,7 +143,7 @@ def generate_for_student(db: Session, student_user_id, today: date | None = None
                     ))
         if app.status == ApplicationStatus.TUITION_PENDING:
             wanted[f"tuition:{app.id}"] = dict(
-                title=f"Pay tuition for {uni.name_en}", title_key="task.payTuition", title_params={"university": uni.name_en, "university_id": str(uni.id)}, task_type=TaskType.TUITION_PAYMENT,
+                title=f"Pay tuition for {uni.name_en}", title_key="task.payTuition", title_params={"university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id)}, task_type=TaskType.TUITION_PAYMENT,
                 due_at=_dt(app.tuition_due or intake.tuition_deadline), owner_user_id=student_user_id, owner_org_id=agency_org,
                 application_id=app.id, university_id=uni.id, visible_to_student=True, link=f"/applications/{app.id}",
             )
@@ -151,13 +151,13 @@ def generate_for_student(db: Session, student_user_id, today: date | None = None
         has_explicit_request = db.scalar(select(DocumentRequest.id).where(DocumentRequest.application_id == app.id, DocumentRequest.status == "OPEN").limit(1))
         if app.status == ApplicationStatus.ADDITIONAL_DOCUMENTS and not has_explicit_request:
             wanted[f"unireq:{app.id}"] = dict(
-                title=f"{uni.name_en} requested additional documents", title_key="task.universityRequest", title_params={"university": uni.name_en, "university_id": str(uni.id)}, task_type=TaskType.UNIVERSITY_REQUEST,
+                title=f"{uni.name_en} requested additional documents", title_key="task.universityRequest", title_params={"university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id)}, task_type=TaskType.UNIVERSITY_REQUEST,
                 due_at=now + timedelta(days=5), owner_user_id=student_user_id, owner_org_id=agency_org,
                 application_id=app.id, university_id=uni.id, visible_to_student=True, link=f"/applications/{app.id}",
             )
         if app.status == ApplicationStatus.INTERVIEW and app.interview_at:
             wanted[f"interview:{app.id}"] = dict(
-                title=f"Interview with {uni.name_en}", title_key="task.interview", title_params={"university": uni.name_en, "university_id": str(uni.id)}, task_type=TaskType.INTERVIEW, due_at=app.interview_at,
+                title=f"Interview with {uni.name_en}", title_key="task.interview", title_params={"university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id)}, task_type=TaskType.INTERVIEW, due_at=app.interview_at,
                 owner_user_id=student_user_id, owner_org_id=agency_org, application_id=app.id, university_id=uni.id,
                 visible_to_student=True, link=f"/applications/{app.id}",
             )

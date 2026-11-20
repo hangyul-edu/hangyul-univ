@@ -1,3 +1,4 @@
+import { errorText } from '@hangyul/i18n';
 import { useApi } from '@hangyul/auth';
 import { Check, Download, Eye, FileUp, History, Wrench } from '@hangyul/icons';
 import type { VaultDocument } from '@hangyul/types';
@@ -26,7 +27,7 @@ export function LegalizationChecklist({ doc }: { doc: VaultDocument }) {
       qc.invalidateQueries({ queryKey: ['documents'] });
       qc.invalidateQueries({ queryKey: ['dashboard'] });
     },
-    onError: (e) => { toast.error((e as Error).message); qc.invalidateQueries({ queryKey: ['document', doc.id] }); },
+    onError: (e) => { toast.error(errorText(e)); qc.invalidateQueries({ queryKey: ['document', doc.id] }); },
   });
   if (!info || doc.legalization_path === 'NONE' || !info.steps.length) return null;
   const done = new Set(doc.legalization_progress);
@@ -76,7 +77,7 @@ export function DocumentDrawer({ id, onClose, onNewVersion }: { id: string | nul
   const toast = useToast();
   const q = useQuery({ queryKey: ['document', id], queryFn: () => api.documents.get(id as string), enabled: !!id });
   const open = (docId: string, disposition: 'inline' | 'attachment', version?: number) =>
-    openSigned(() => api.documents.downloadUrl(docId, disposition, version)).catch((e) => toast.error((e as Error).message));
+    openSigned(() => api.documents.downloadUrl(docId, disposition, version)).catch((e) => toast.error(errorText(e)));
 
   return (
     <Drawer open={!!id} onClose={onClose} width={520} title={q.data?.title ?? t('documents.drawer.title')}>

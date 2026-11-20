@@ -2,10 +2,10 @@ import { localName } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import { ExternalLink } from '@hangyul/icons';
 import type { SubmissionQueueRow, SubmissionSnapshot, SubmissionView } from '@hangyul/types';
-import { Button, ButtonLink, Callout, Field, Input, QueryState, SkeletonCard, StatusText, Textarea, useToast } from '@hangyul/ui';
+import { Button, ButtonLink, Callout, Field, FileDrop, Input, QueryState, SkeletonCard, StatusText, Textarea, useToast } from '@hangyul/ui';
 import { countryName, formatDate, formatMoney } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useId, useRef, useState } from 'react';
+import { useId, useState } from 'react';
 import { Link } from 'react-router';
 
 import { useS } from './SuccessPanel';
@@ -62,7 +62,6 @@ function RecordSubmission({ v, studentId, onSaved }: { v: SubmissionView; studen
   const qc = useQueryClient();
   const toast = useToast();
   const ids = { ref: useId(), date: useId(), file: useId() };
-  const fileRef = useRef<HTMLInputElement>(null);
   const [ref, setRef] = useState('');
   const [date, setDate] = useState(today());
   const [receipt, setReceipt] = useState<{ id: string; name: string } | null>(null);
@@ -93,9 +92,9 @@ function RecordSubmission({ v, studentId, onSaved }: { v: SubmissionView; studen
           <Input id={ids.date} type="date" value={date} max={today()} onChange={(e) => setDate(e.target.value)} />
         </Field>
       </div>
-      <Field label={t('success:queue.detail.receipt')} htmlFor={ids.file} optional hint={receipt ? receipt.name : t('success:queue.detail.receiptNone')}>
-        <input ref={fileRef} id={ids.file} type="file" accept="application/pdf,image/*" className="sxa-file"
-          onChange={(e) => { const f = e.target.files?.[0]; if (f) upload.mutate(f); }} disabled={upload.isPending} />
+      <Field label={t('success:queue.detail.receipt')} htmlFor={ids.file} optional hint={receipt ? undefined : t('success:queue.detail.receiptNone')}>
+        <FileDrop id={ids.file} file={receipt ?? (upload.isPending && upload.variables ? upload.variables : null)} onFiles={([f]) => upload.mutate(f)}
+          status={upload.isPending ? 'uploading' : receipt ? 'success' : upload.isError ? 'error' : 'idle'} error={upload.isError ? errText(t, upload.error) : null} />
       </Field>
       <Button type="submit" size="sm" variant="primary" loading={m.isPending} disabled={!ref.trim() || upload.isPending}>{t('success:queue.detail.complete')}</Button>
     </form>

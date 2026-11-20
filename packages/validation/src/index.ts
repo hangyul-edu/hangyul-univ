@@ -65,8 +65,73 @@ export const reviewSchema = z.discriminatedUnion('decision', [
 /** Client-side file checks mirror the server's (the server re-validates by magic bytes). */
 export const ALLOWED_UPLOAD_TYPES = ['application/pdf', 'image/png', 'image/jpeg', 'image/webp'];
 export const MAX_UPLOAD_MB = 15;
-export function checkUpload(file: { size: number; type: string }): string | null {
-  if (!ALLOWED_UPLOAD_TYPES.includes(file.type)) return 'validation.fileType';
-  if (file.size > MAX_UPLOAD_MB * 1024 * 1024) return 'validation.fileSize';
+/** File-name endings accepted for each declared MIME type (extension and declared type must agree). */
+export const UPLOAD_EXTENSIONS: Record<string, string[]> = {
+  'application/pdf': ['pdf'], 'image/png': ['png'], 'image/jpeg': ['jpg', 'jpeg'], 'image/webp': ['webp'],
+};
+
+/** Reason keys (`common:validation.*`); the UI translates them. */
+export type UploadReason = 'validation.fileType' | 'validation.fileSize' | 'validation.fileCount' | 'validation.fileEmpty' | 'validation.fileExtension';
+export interface UploadRules { types?: string[]; maxMb?: number; maxFiles?: number }
+interface FileLike { size: number; type: string; name?: string }
+
+const extOf = (name?: string) => {
+  const m = /\.([a-z0-9]+)$/i.exec(name ?? '');
+  return m ? m[1].toLowerCase() : '';
+};
+
+/**
+ * One file: declared MIME (or, when the browser declares none, the name ending), the name ending agreeing with the
+ * declared type, size. The same function serves the picker and drag & drop — there is no second path.
+ */
+export function checkUpload(file: FileLike, rules: UploadRules = {}): UploadReason | null {
+  const types = rules.types ?? ALLOWED_UPLOAD_TYPES;
+  const maxMb = rules.maxMb ?? MAX_UPLOAD_MB;
+  const ext = extOf(file.name);
+  if (file.type) {
+    if (!types.includes(file.type)) return 'validation.fileType';
+    const exts = UPLOAD_EXTENSIONS[file.type];
+    if (file.name !== undefined && ext && exts && !exts.includes(ext)) return 'validation.fileExtension';
+  } else if (!types.some((t) => (UPLOAD_EXTENSIONS[t] ?? []).includes(ext))) {
+    return 'validation.fileType';
+  }
+  if (file.size > maxMb * 1024 * 1024) return 'validation.fileSize';
+  if (file.size === 0) return 'validation.fileEmpty';
+  return null;
+}
+
+export interface UploadCheck<F> {
+  /** Files that passed (empty when the batch was refused as a whole). */
+  accepted: F[];
+  rejected: { file: F; reason: UploadReason }[];
+  /** Set when the whole batch is refused because it holds more files than allowed. */
+  batchReason: 'validation.fileCount' | null;
+  /** The allowed count, for the `validation.fileCount` message. */
+  max: number;
+}
+
+/** A batch from the picker or a drop. `already` = files already attached (e.g. chat attachments). */
+export function checkUploads<F extends FileLike>(files: F[], rules: UploadRules = {}, already = 0): UploadCheck<F> {
+  const max = Math.max(0, (rules.maxFiles ?? 1) - already);
+  if (files.length > max) return { accepted: [], rejected: [], batchReason: 'validation.fileCount', max: rules.maxFiles ?? 1 };
+  const accepted: F[] = [];
+  const rejected: { file: F; reason: UploadReason }[] = [];
+  for (const f of files) {
+    const r = checkUpload(f, rules);
+    if (r) rejected.push({ file: f, reason: r }); else accepted.push(f);
+  }
+  return { accepted, rejected, batchReason: null, max: rules.maxFiles ?? 1 };
+}
+
+/**
+ * While dragging only `DataTransferItem.kind/type` are readable (no name, no size). Returns the reason a drop would be
+ * refused, when it is already knowable; an empty type is unknown and passes (the drop itself is checked in full).
+ */
+export function checkDragItems(items: { kind: string; type: string }[], rules: UploadRules = {}, already = 0): UploadReason | null {
+  const files = items.filter((i) => i.kind === 'file');
+  if (!files.length) return null;
+  if (files.length > Math.max(0, (rules.maxFiles ?? 1) - already)) return 'validation.fileCount';
+  const types = rules.types ?? ALLOWED_UPLOAD_TYPES;
+  if (files.some((i) => i.type && !types.includes(i.type))) return 'validation.fileType';
   return null;
 }

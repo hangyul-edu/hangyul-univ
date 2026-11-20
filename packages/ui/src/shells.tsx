@@ -1,6 +1,6 @@
 import { useAuth } from '@hangyul/auth';
 import { Bell, Building2, Check, ChevronDown, ChevronsUpDown, LogOut, Menu, PanelLeftClose, PanelLeftOpen } from '@hangyul/icons';
-import { useLocale } from '@hangyul/i18n';
+import { orgName, useLocale } from '@hangyul/i18n';
 import type { NotificationItem } from '@hangyul/types';
 import { cx, formatRelative } from '@hangyul/utils';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -168,7 +168,7 @@ export function UserMenu({ extra }: { extra?: ReactNode }) {
               {orgs.map((m) => (
                 <button key={m.org_id} className="hg-menu-item" onClick={async () => { close(); await switchOrg(m.org_id); window.location.assign('/'); }}>
                   <Building2 aria-hidden />
-                  <span className="hg-grow hg-truncate">{m.org_name}<span className="hg-subtle hg-xs" style={{ display: 'block' }}>{t(`role.${m.role}`)}</span></span>
+                  <span className="hg-grow hg-truncate">{orgName(m.org_name, 'staff')}<span className="hg-subtle hg-xs" style={{ display: 'block' }}>{t(`role.${m.role}`)}</span></span>
                   {session.active_org?.org_id === m.org_id && <Check aria-hidden />}
                 </button>
               ))}

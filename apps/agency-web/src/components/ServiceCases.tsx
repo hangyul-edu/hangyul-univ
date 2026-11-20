@@ -6,10 +6,10 @@ import { useAuth } from '@hangyul/auth';
 import { useLocale } from '@hangyul/i18n';
 import { Camera, Plane } from '@hangyul/icons';
 import type { ServiceCase } from '@hangyul/types';
-import { Button, Drawer, EmptyState, Field, Input, QueryState, Select, Skeleton, StatusText, Textarea, useToast } from '@hangyul/ui';
+import { Button, Drawer, EmptyState, Field, FileDrop, Input, QueryState, Select, Skeleton, StatusText, Textarea, useToast } from '@hangyul/ui';
 import { cx, formatDate, formatMoney, formatRelative } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router';
 
 import '../concierge.css';
@@ -96,18 +96,18 @@ function StatusMove({ c }: { c: ServiceCase }) {
   const { update } = useCaseMutation(c.id);
   const [to, setTo] = useState('');
   const [note, setNote] = useState('');
-  const file = useRef<HTMLInputElement>(null);
+  const [proof, setProof] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
   if (!c.allowed_next?.length) return <p className="hg-small hg-muted">{t('staff.final')}</p>;
   const needsProof = c.type === 'AIRPORT_PICKUP' && to === 'COMPLETED';
   const submit = async () => {
     let attachment_document_id: string | undefined;
-    const f = file.current?.files?.[0];
+    const f = proof;
     if (f && c.student) {
       setBusy(true);
       try { attachment_document_id = (await api.documents.upload(f, { category: 'OTHER', title: 'Service completion photo', student_user_id: c.student.id })).id; } finally { setBusy(false); }
     }
-    update.mutate({ status: to, note: note.trim() || undefined, attachment_document_id }, { onSuccess: () => { setTo(''); setNote(''); } });
+    update.mutate({ status: to, note: note.trim() || undefined, attachment_document_id }, { onSuccess: () => { setTo(''); setNote(''); setProof(null); } });
   };
   return (
     <div className="cq-block">
@@ -121,7 +121,7 @@ function StatusMove({ c }: { c: ServiceCase }) {
           <Field label={needsProof ? t('staff.proofNote') : t('staff.noteForStudent')} htmlFor="cq-note" optional={!needsProof}>
             <Textarea id="cq-note" rows={2} value={note} onChange={(e) => setNote(e.target.value.slice(0, 2000))} />
           </Field>
-          {needsProof && <Field label={t('staff.proofPhoto')} htmlFor="cq-proof" optional><input id="cq-proof" ref={file} type="file" accept="image/*,application/pdf" /></Field>}
+          {needsProof && <Field label={t('staff.proofPhoto')} htmlFor="cq-proof" optional><FileDrop id="cq-proof" file={proof} onFiles={([x]) => setProof(x)} onReject={() => setProof(null)} status={busy ? 'uploading' : 'idle'} /></Field>}
           <div><Button size="sm" variant="primary" loading={update.isPending || busy} onClick={submit}>{t('staff.moveTo', { status: stLabel(t, c.type, to) })}</Button></div>
         </>
       )}

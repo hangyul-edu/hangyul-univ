@@ -129,7 +129,9 @@ public page ──┬── anonymous ──▶ /login?next=<student path> ─�
 | `studentAction(path, authenticated, locale)` | same file | Returns the destination, or `/login?next=<destination>` when anonymous. Used by the header, the hero, the four service rows, the university decision box and the closing band. |
 | `safeNext(value, fallback)` | `packages/ui/src/app.tsx` | `next` comes from a URL, so only a same-app absolute path is accepted; `https://…`, `//host` and the backslash form fall back to the app's landing route. Used by both `LoginScreen` and `Register`. |
 | `carryQuery(search)` | same file | The login's "create an account" link forwards its whole query (minus the dev-only `demo` param), so a visitor with no account keeps both the return path and any quick-check prefill. |
-| Quick check `/start` | `apps/marketing-web/src/pages/Start.tsx` | Since V17 the three-question check **is the free product** and lives on the marketing site: results need no account and link to the public university pages (`/universities/:slug`) and to the plans; the former `lib/quick.ts` "save these results" hop into `/explore` is gone. |
+| `prepareAction(authenticated, locale)` | `apps/marketing-web/src/lib/session.ts` | The `유학 준비` CTA (owner decision 2026-11-19): anonymous → Student `/login?next=/match`; signed in → `/match`. `/start` (retired Quick Fit) redirects to the same login. |
+| `AuthEntryGate` | `packages/ui/src/app.tsx` | Login, sign-up and forgot-password decide before the first committed render: restoring → neutral loader; signed in on entry → `<Navigate>` to a safe `next`; anonymous → the requested form. Regression: `e2e/auth-entry-flash.spec.ts` (every animation frame recorded). |
+| `/match` + `PlanGate` | `apps/student-web/src/pages/Match.tsx`, `components/AppLayout.tsx`, `lib/access.ts` | Personalised matching: unpaid → `/services?gate=match&from=/match`; after purchase the student returns to `/match`. The plan gate renders a loader, then `<Navigate>` during render — the gated page never flashes. |
 
 **Header state:** `Sign in` (`로그인`) when anonymous · `Continue my journey` (`내 유학 준비`) when a student
 session exists in the browser.

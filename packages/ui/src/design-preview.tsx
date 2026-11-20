@@ -13,7 +13,7 @@
  * a real session never share one running app.
  */
 import type { PreviewApp, PreviewVariant } from '@hangyul/api-client/preview';
-import { i18next } from '@hangyul/i18n';
+import { i18next, loadNamespaces } from '@hangyul/i18n';
 import { Eye } from '@hangyul/icons';
 import { useEffect, useState } from 'react';
 
@@ -25,7 +25,7 @@ export function designPreviewVariant(): PreviewVariant | null {
   if (!DESIGN_PREVIEW_ENABLED) return null;
   try {
     const v = sessionStorage.getItem(DESIGN_PREVIEW_KEY);
-    return v === 'paid' || v === 'unpaid' ? v : null;
+    return v === 'paid' || v === 'unpaid' || v === 'hq' ? v : null;
   } catch { return null; }
 }
 
@@ -48,13 +48,22 @@ export async function designPreviewFetch(client: string): Promise<typeof fetch |
   const variant = designPreviewVariant();
   if (!variant || (client !== 'student' && client !== 'agency' && client !== 'university')) return undefined;
   const { loadPreviewBundle, previewFetch } = await import('@hangyul/api-client/preview');
-  return previewFetch(await loadPreviewBundle(client as PreviewApp), variant);
+  // Staff-written fixture sentences follow the interface language (owner pass 261119, req 7).
+  const translate = (key: string, lng: string) => i18next.t(key, { lng, defaultValue: '' });
+  const inner = previewFetch(await loadPreviewBundle(client as PreviewApp), variant, translate);
+  // The first requests can leave before the reader's `common` bundle has loaded; wait for it so the sample notes are
+  // translated on the very first screen too (they otherwise stayed English in some locales).
+  return async (input, init) => {
+    const lng = new Headers(init?.headers).get('Accept-Language')?.split(',')[0]?.trim();
+    if (lng && !lng.startsWith('en')) await loadNamespaces(i18next, lng, ['common']).catch(() => undefined);
+    return inner(input, init);
+  };
 }
 
 /* The few strings of an owner-review tool live here rather than in the product's locale bundles. */
-const COPY: Record<string, { login: string; paid: string; badge: string; exit: string; note: string }> = {
-  en: { login: 'Preview without signing in', paid: 'Preview without paying', badge: 'Design Preview', exit: 'Exit', note: 'Sample data only. Nothing is saved.' },
-  ko: { login: '로그인 없이 화면 미리보기', paid: '결제 없이 화면 미리보기', badge: 'Design Preview', exit: '나가기', note: '샘플 데이터입니다. 저장되지 않습니다.' },
+const COPY: Record<string, { login: string; paid: string; badge: string; exit: string; note: string; hq?: string }> = {
+  en: { login: 'Preview without signing in', paid: 'Preview without paying', badge: 'Design Preview', exit: 'Exit', note: 'Sample data only. Nothing is saved.', hq: 'Preview Hangyul HQ screens' },
+  ko: { login: '로그인 없이 화면 미리보기', paid: '결제 없이 화면 미리보기', badge: 'Design Preview', exit: '나가기', note: '샘플 데이터입니다. 저장되지 않습니다.', hq: '한귤 본사 화면 미리보기' },
   ja: { login: 'ログインせずに画面をプレビュー', paid: '支払いなしで画面をプレビュー', badge: 'Design Preview', exit: '終了', note: 'サンプルデータです。保存されません。' },
   vi: { login: 'Xem trước không cần đăng nhập', paid: 'Xem trước không cần thanh toán', badge: 'Design Preview', exit: 'Thoát', note: 'Chỉ là dữ liệu mẫu. Không lưu gì cả.' },
   'zh-Hans': { login: '无需登录预览界面', paid: '无需付款预览界面', badge: 'Design Preview', exit: '退出', note: '仅为示例数据，不会保存。' },
@@ -72,12 +81,17 @@ const copy = () => COPY[i18next.language] ?? COPY[(i18next.language ?? 'en').spl
  */
 const none = () => null;
 
-/** "Preview without signing in" — under a login form. */
-export const DesignPreviewLoginEntry: (p: { variant?: PreviewVariant }) => React.ReactNode = DESIGN_PREVIEW_ENABLED
-  ? function DesignPreviewLoginEntry({ variant = 'paid' }) {
+/**
+ * "Preview without signing in" — under a login form. `variant="hq"` (Operations login only) is the second, quieter entry
+ * that opens the Hangyul HQ pages as a synthetic HQ staff member; it lands on `to`.
+ */
+export const DesignPreviewLoginEntry: (p: { variant?: PreviewVariant; to?: string }) => React.ReactNode = DESIGN_PREVIEW_ENABLED
+  ? function DesignPreviewLoginEntry({ variant = 'paid', to }) {
+    const hq = variant === 'hq';
     return (
-      <button type="button" className="hg-preview-entry" data-design-preview="login" onClick={() => enterDesignPreview(variant)}>
-        <Eye aria-hidden size={16} />{copy().login}
+      <button type="button" className={hq ? 'hg-preview-entry hg-preview-entry--secondary' : 'hg-preview-entry'} data-design-preview={hq ? 'login-hq' : 'login'}
+        onClick={() => enterDesignPreview(variant, to ? `${home().replace(/\/$/, '')}${to}` : undefined)}>
+        <Eye aria-hidden size={hq ? 14 : 16} />{hq ? copy().hq ?? COPY.en.hq : copy().login}
       </button>
     );
   }

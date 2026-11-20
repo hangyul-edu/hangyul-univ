@@ -552,11 +552,11 @@ def dashboard(p: Principal = Depends(require_student), db: Session = Depends(get
         if not reached(a.status, S.SUBMITTED) and intake.application_deadline >= today:
             prog = db.get(Program, a.program_id)
             deadlines.append({"kind": "APPLICATION", "title": f"{u.name_en} application closes — {prog.name_en}",
-                              "title_key": "task.applicationCloses", "title_params": {"university": u.name_en, "university_id": str(u.id), "program": prog.name_en}, "date": iso(intake.application_deadline), "link": f"/applications/{a.id}",
+                              "title_key": "task.applicationCloses", "title_params": {"university": u.name_en, "university_ko": u.name_ko, "university_id": str(u.id), "program": prog.name_en}, "date": iso(intake.application_deadline), "link": f"/applications/{a.id}",
                               "application_id": str(a.id), "application_label": app_label.get(a.id, u.name_en)})
         # An offer is secured by paying tuition, so the deadline matters from the offer on, not only after accepting.
         if a.status in (S.OFFERED, S.OFFER_ACCEPTED, S.TUITION_PENDING) and (a.tuition_due or intake.tuition_deadline):
-            deadlines.append({"kind": "TUITION", "title": f"Pay tuition for {u.name_en}", "title_key": "task.payTuition", "title_params": {"university": u.name_en, "university_id": str(u.id)},
+            deadlines.append({"kind": "TUITION", "title": f"Pay tuition for {u.name_en}", "title_key": "task.payTuition", "title_params": {"university": u.name_en, "university_ko": u.name_ko, "university_id": str(u.id)},
                               "date": iso(a.tuition_due or intake.tuition_deadline), "link": f"/applications/{a.id}", "application_id": str(a.id),
                               "application_label": app_label.get(a.id, u.name_en)})
     for t in tasks:
@@ -1106,7 +1106,7 @@ def my_enrollment(p: Principal = Depends(require_student), db: Session = Depends
     if not e:
         return None
     u = db.get(University, e.university_id)
-    return {"university": u.name_en, "university_id": str(u.id), "cohort": e.cohort_label, "status": e.status.value, "enrolled_on": iso(e.enrolled_on),
+    return {"university": u.name_en, "university_ko": u.name_ko, "university_id": str(u.id), "cohort": e.cohort_label, "status": e.status.value, "enrolled_on": iso(e.enrolled_on),
             "expected_graduation": iso(e.expected_graduation), "visa_expires_on": iso(e.visa_expires_on)}
 
 
@@ -1208,7 +1208,10 @@ def create_ticket(body: TicketIn, p: Principal = Depends(require_student), db: S
     db.flush()
     db.add(ConversationParticipant(conversation_id=conv.id, user_id=p.id))
     a = db.scalar(select(AgencyAssignment).where(AgencyAssignment.student_user_id == p.id, AgencyAssignment.status == AssignmentStatus.ACTIVE))
-    org_id = a.organization_id if a else db.scalar(select(Organization.id).where(Organization.type == OrgType.HANGYUL))
+    from app.services.operations_org import operations_org
+
+    ops = None if a else operations_org(db)
+    org_id = a.organization_id if a else (ops.id if ops else db.scalar(select(Organization.id).where(Organization.type == OrgType.HANGYUL)))
     if org_id:
         db.add(ConversationParticipant(conversation_id=conv.id, organization_id=org_id))
     db.add(Message(conversation_id=conv.id, author_user_id=p.id, body=body.body, created_at=utcnow()))

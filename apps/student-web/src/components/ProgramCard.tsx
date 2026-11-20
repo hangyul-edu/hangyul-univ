@@ -1,4 +1,4 @@
-import { localName } from '@hangyul/i18n';
+import { localName, errorText } from '@hangyul/i18n';
 import { Building2, CalendarClock, Columns3, Heart, Languages, MapPin } from '@hangyul/icons';
 import type { Program } from '@hangyul/types';
 import { Badge, Button, Card, FreshnessBadge, useToast } from '@hangyul/ui';
@@ -29,7 +29,7 @@ export function SaveButton({ universityId, programId, name, size = 'sm' }: { uni
       loading={toggle.isPending}
       onClick={() => toggle.mutate({ universityId, programId, saved: isSaved }, {
         onSuccess: (now) => toast.success(now ? t('explore.savedToast', { name }) : t('explore.unsavedToast', { name })),
-        onError: (e) => toast.error((e as Error).message),
+        onError: (e) => toast.error(errorText(e)),
       })}
     />
   );

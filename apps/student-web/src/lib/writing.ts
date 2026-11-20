@@ -2,6 +2,7 @@
  * V5 writing — pure helpers for the student's Writing pages (server contract: server/app/services/writing.py).
  * Status lines are truthful: "flagged" only appears when the server says the late review was escalated.
  */
+import { uniName } from '@hangyul/i18n';
 import { countryName } from '@hangyul/utils';
 import type { AuthorKind, Essay, EssayComment, EssayStatus, WritingBlock, WritingFinding, WritingStatusLine } from '@hangyul/types';
 
@@ -52,6 +53,9 @@ export function statusSentence(t: TFn, s: WritingStatusLine | undefined, fmt: (i
 /** Finding explanation in the student's language; the quote is shown separately. */
 export function findingText(t: TFn, f: Pick<WritingFinding, 'code' | 'params' | 'text'>, locale = 'en'): string {
   const p: Record<string, unknown> = { ...(f.params ?? {}) };
+  // Length findings name the word count `count`; older rows (and the Design Preview bundle) call it `words`. Without the
+  // alias the localized sentence cannot be built and the English `text` used to show on every screen (owner pass 261119).
+  if (p.count == null && p.words != null && f.code !== 'LONG_SENTENCE') p.count = p.words;
   // Enum-like params become words in the reader's language.
   if (typeof p.profile_level === 'string') p.level = t(`writing:level.${p.profile_level}`);
   if (f.code === 'FACT_DEGREE' && !p.profile_level) p.level = t('writing:level.NONE');
@@ -124,8 +128,8 @@ export function suggestionApplies(body: string, c: Pick<EssayComment, 'quote' | 
 
 /** "Which version does my application use?" — one line per application. */
 export function usedByLine(t: TFn, u: V6UsedBy): string {
-  if (!u.approved_version) return t('writing:student6.notApprovedYet', { university: u.university ?? '' });
-  return t(u.newer_draft ? 'writing:student6.usedByNewer' : 'writing:student6.usedBy', { version: u.approved_version, university: u.university ?? '' });
+  if (!u.approved_version) return t('writing:student6.notApprovedYet', { university: uniName(u) });
+  return t(u.newer_draft ? 'writing:student6.usedByNewer' : 'writing:student6.usedBy', { version: u.approved_version, university: uniName(u) });
 }
 
 interface PostApi { post: <R>(path: string, body?: unknown) => Promise<R> }

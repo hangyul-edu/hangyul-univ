@@ -121,6 +121,7 @@ class Target:
     program_name: str | None = None
     other_universities: list[tuple[str, list[str]]] = field(default_factory=list)  # (display name, aliases)
     other_programs: list[str] = field(default_factory=list)  # V6: other program names at the target university
+    university_name_ko: str | None = None  # owner pass 261119: the finding's {{university}} reads in Korean on a Korean screen
 
 
 @dataclass
@@ -328,7 +329,7 @@ def check_generic(text: str, target: Target) -> list[dict]:
         if not names_uni and not names_prog:
             out.append(_finding("GENERIC", "NOT_SPECIFIC", "WARNING",
                                 f"The text never mentions {target.university_name} or the program — as written it could be sent to any university.",
-                                params={"university": target.university_name}))
+                                params={"university": target.university_name, "university_ko": target.university_name_ko}))
     for oc in OVERCLAIMS:
         i = lower.find(oc)
         if i >= 0:

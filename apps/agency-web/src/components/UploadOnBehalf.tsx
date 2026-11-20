@@ -1,6 +1,6 @@
 import { useAuth } from '@hangyul/auth';
 import { DOCUMENT_CATEGORIES, type DocumentCategory, type VaultDocument } from '@hangyul/types';
-import { Button, Field, Modal, Select, useToast } from '@hangyul/ui';
+import { Button, Field, FileDrop, Modal, Select, useToast } from '@hangyul/ui';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
@@ -34,8 +34,8 @@ export function UploadOnBehalf({ open, onClose, onDone, student }: { open: boole
             {DOCUMENT_CATEGORIES.map((c) => <option key={c} value={c}>{t(`docCategory.${c}`)}</option>)}
           </Select>
         </Field>
-        <Field label={t('docs.file')} htmlFor="ob-file" hint={t('docs.fileHint')} error={touched && !file ? t('validation.required') : undefined}>
-          <input id="ob-file" type="file" accept="application/pdf,image/png,image/jpeg,image/webp" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
+        <Field label={t('docs.file')} htmlFor="ob-file" error={touched && !file ? t('validation.required') : undefined}>
+          <FileDrop id="ob-file" file={file} onFiles={([x]) => setFile(x)} onReject={() => setFile(null)} status={m.isPending ? 'uploading' : 'idle'} />
         </Field>
       </div>
     </Modal>

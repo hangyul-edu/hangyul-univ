@@ -16,3 +16,5 @@ export * from './identity';
 export * from './workflow';
 export * from './quickfit';
 export * from './university-v27';
+// Owner req. 4: the one upload control (picker + drag & drop, shared validation).
+export * from './filedrop';

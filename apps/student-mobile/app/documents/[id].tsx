@@ -2,7 +2,7 @@ import { useApi } from '@hangyul/auth';
 import { useTranslation } from '@hangyul/i18n';
 import {
   absoluteApiUrl, AppText, Button, Callout, CheckRow, ListGroup, ListItem, LoadingState, QueryState, Screen,
-  SectionHeader, StatusBadge, UploadSheet, useFormat, v3, type PickedFile,
+  SectionHeader, StatusBadge, UploadSheet, useFormat, v3, type PickedFile, errorText,
 } from '@hangyul/mobile-ui';
 import type { VaultDocument } from '@hangyul/types';
 import { countryName } from '@hangyul/utils';
@@ -42,7 +42,7 @@ function Detail({ d }: { d: VaultDocument }) {
     },
     onError: (e: Error, _v, ctx) => {
       if (ctx?.prev) qc.setQueryData(qk.document(d.id), ctx.prev);
-      Alert.alert(t('common:states.error'), e.message);
+      Alert.alert(t('common:states.error'), errorText(t, e));
     },
     onSettled: () => {
       void qc.invalidateQueries({ queryKey: qk.document(d.id) });
@@ -54,7 +54,7 @@ function Detail({ d }: { d: VaultDocument }) {
   const open = useMutation({
     mutationFn: () => api.documents.downloadUrl(d.id, 'inline'),
     onSuccess: (r) => void Linking.openURL(absoluteApiUrl(r.url)),
-    onError: (e: Error) => Alert.alert(t('common:states.error'), e.message),
+    onError: (e: Error) => Alert.alert(t('common:states.error'), errorText(t, e)),
   });
 
   const [picking, setPicking] = useState(false);
@@ -88,7 +88,7 @@ function Detail({ d }: { d: VaultDocument }) {
       {d.status !== 'VERIFIED' ? (
         <Button label={d.latest_file ? t('v3.documents.newVersion') : t('v3.documents.upload')} variant={d.status === 'NEEDS_CORRECTION' ? 'primary' : 'secondary'} icon={Upload} loading={upload.isPending} onPress={() => setPicking(true)} fullWidth />
       ) : null}
-      {upload.isError ? <AppText variant="caption" tone="danger" accessibilityRole="alert">{(upload.error as Error).message}</AppText> : null}
+      {upload.isError ? <AppText variant="caption" tone="danger" accessibilityRole="alert">{errorText(t, upload.error)}</AppText> : null}
 
       {d.legalization_path !== 'NONE' && steps.length > 0 ? (
         <View style={{ gap: 8 }}>

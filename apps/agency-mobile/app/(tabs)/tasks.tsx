@@ -1,6 +1,6 @@
 import { useApi } from '@hangyul/auth';
 import { useTranslation } from '@hangyul/i18n';
-import { AppText, Button, CheckRow, ChipGroup, EmptyState, ListGroup, QueryState, Screen, useFormat, taskTitle } from '@hangyul/mobile-ui';
+import { AppText, Button, CheckRow, ChipGroup, EmptyState, ListGroup, QueryState, Screen, useFormat, taskTitle, errorText } from '@hangyul/mobile-ui';
 import type { Page, Task } from '@hangyul/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -49,7 +49,7 @@ export default function TasksScreen() {
       if (prev) qc.setQueryData<Page<Task>>(qk.tasks(scope), { ...prev, items: prev.items.map((x) => (x.id === id ? { ...x, status: 'DONE' } : x)) });
       return { prev };
     },
-    onError: (e: Error, _id, ctx) => { if (ctx?.prev) qc.setQueryData(qk.tasks(scope), ctx.prev); Alert.alert(t('common:states.error'), e.message); },
+    onError: (e: Error, _id, ctx) => { if (ctx?.prev) qc.setQueryData(qk.tasks(scope), ctx.prev); Alert.alert(t('common:states.error'), errorText(t, e)); },
     onSettled: () => { void qc.invalidateQueries({ queryKey: ['tasks'] }); void qc.invalidateQueries({ queryKey: ['agency', 'today'] }); },
   });
   const all = q.data?.items ?? [];

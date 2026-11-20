@@ -1,5 +1,5 @@
 import { useApi } from '@hangyul/auth';
-import { docLabel, localName } from '@hangyul/i18n';
+import { docLabel, localName, orgName, errorText } from '@hangyul/i18n';
 import { CalendarClock, Landmark } from '@hangyul/icons';
 import type { ApplicationDetail as Detail, ApplicationStatus, DocumentCategory, DocumentRequest } from '@hangyul/types';
 import {
@@ -54,7 +54,7 @@ function Actions({ a, mode = 'primary', fallback }: { a: Detail; mode?: 'primary
     // V17: a DRAFT leaving DRAFT is one of the 지원 학교 최대 N곳 the plan sells, and the server refuses the
     // (N+1)th with its own numbers. That is not an error to apologise for — it is the plan boundary, so the
     // upgrade sheet takes it and the toast only sees the failures that really are failures.
-    onError: (e) => { if (!upgrade.catchRefusal(e)) toast.error((e as Error).message); },
+    onError: (e) => { if (!upgrade.catchRefusal(e)) toast.error(errorText(e)); },
   });
   const all = studentActions(a.allowed_transitions);
   const actions = mode === 'withdraw' ? all.filter((s) => s === 'WITHDRAWN') : all.filter((s) => s !== 'WITHDRAWN');
@@ -131,7 +131,7 @@ function Lanes({ a, items, counselor, onUpload, heroKey }: { a: Detail; items: W
   const lanes: { key: Lane; who: React.ReactNode; empty: string }[] = [
     // V25 (REPORT §313 S4): each lane names the work, not only the party — 내가 할 일 · 한귤이 하는 일 · 대학이 확인하는 일.
     { key: 'you', who: t('v25.lane.you'), empty: t('v4.ws.empty.you') },
-    { key: 'team', who: <>{t('v25.lane.team')}{counselor.org && <span className="ws-lane__org">{counselor.org}</span>}</>, empty: t('v4.ws.empty.team') },
+    { key: 'team', who: <>{t('v25.lane.team')}{counselor.org && <span className="ws-lane__org">{orgName(counselor.org)}</span>}</>, empty: t('v4.ws.empty.team') },
     { key: 'university', who: <>{t('v25.lane.university')}<span className="ws-lane__org">{localName(a.university)}</span></>, empty: t('v4.ws.empty.university') },
   ];
   return (
@@ -292,7 +292,7 @@ export default function ApplicationDetail() {
   const fulfil = useMutation({
     mutationFn: ({ rid, doc }: { rid: string; doc: string }) => api.applications.fulfillRequest(rid, doc),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['application', id] }); qc.invalidateQueries({ queryKey: ['dashboard'] }); toast.success(t('ws3.request.sent')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const counselor = useCounselor(q.data ?? ({ agency: null } as unknown as Detail));
   return (

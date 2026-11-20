@@ -1,3 +1,4 @@
+import { orgName as localOrgName } from '@hangyul/i18n';
 import type { ApiClient } from '@hangyul/api-client';
 import { useAuth } from '@hangyul/auth';
 import { useQuery } from '@tanstack/react-query';
@@ -19,7 +20,7 @@ export function usePerms() {
     /** Hangyul ops/admin — can override assignments, check sources, manage university accounts. */
     ops: hasRole('HANGYUL_OPERATIONS', 'HANGYUL_SUPER_ADMIN'),
     userId: session?.user.id ?? '',
-    orgName: session?.active_org?.org_name ?? '',
+    orgName: localOrgName(session?.active_org?.org_name, 'staff'),
   };
 }
 

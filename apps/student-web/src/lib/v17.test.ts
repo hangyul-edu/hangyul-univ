@@ -10,7 +10,7 @@
 import { ApiError } from '@hangyul/api-client';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { gateRedirect, isOpenToUnpaid } from './access';
+import { gateRedirect, isOpenToUnpaid, purchaseReturn } from './access';
 import { appReturn, clearAppReturn, rememberAppReturn } from './apphandoff';
 import { entitlementRefusal } from './upgrade';
 
@@ -32,10 +32,40 @@ describe('the paywall is on the service, not on the account', () => {
   });
 
   it('leaves discovery and public facts open, aliases included', () => {
-    // `/matches` and `/saved` are `<Navigate>` to `/explore?tab=…`. Gating an alias of an open page is not
+    // `/saved` is a `<Navigate>` to `/explore?tab=saved`. Gating an alias of an open page is not
     // a stricter paywall, it is an inconsistent one — and it is what the e2e lifecycle spec caught.
-    for (const p of ['/explore', '/matches', '/saved', '/compare', '/budget', '/scholarships', '/universities/kaist']) {
+    for (const p of ['/explore', '/saved', '/compare', '/budget', '/scholarships', '/universities/kaist']) {
       expect(isOpenToUnpaid(p), p).toBe(true);
+    }
+  });
+
+  it('gates personalised matching (/match) — the first thing a plan buys (261119)', () => {
+    expect(isOpenToUnpaid('/match')).toBe(false);
+    // The retired quick check and the old matching aliases are no longer open pages of their own: they redirect
+    // (outside the shell) to /match, and are gated as it is.
+    for (const p of ['/start', '/matches', '/eligibility']) expect(isOpenToUnpaid(p), p).toBe(false);
+  });
+
+  it('sends an unpaid student from /match to the plan with a way back', () => {
+    const to = gateRedirect('/match', '');
+    const sp = new URLSearchParams(to.slice(to.indexOf('?') + 1));
+    expect(to.startsWith('/services?')).toBe(true);
+    expect(sp.get('gate')).toBe('match');
+    expect(sp.get('from')).toBe('/match');
+  });
+
+  it('keeps a plan chosen on the public pricing section preselected', () => {
+    const to = gateRedirect('/match', '?plan=premium');
+    const sp = new URLSearchParams(to.slice(to.indexOf('?') + 1));
+    expect(sp.get('plan')).toBe('premium');
+    expect(sp.get('from')).toBe('/match?plan=premium');
+  });
+
+  it('returns a buyer only to a safe in-app path after paying', () => {
+    expect(purchaseReturn('/match')).toBe('/match');
+    expect(purchaseReturn('/applications/abc?tab=offers')).toBe('/applications/abc?tab=offers');
+    for (const bad of [null, '', 'app', 'https://evil.example', '//evil.example', '/\\evil.example', '/\t/evil.example', '/services', '/services?gate=x', '/login?next=/']) {
+      expect(purchaseReturn(bad), String(bad)).toBeNull();
     }
   });
 

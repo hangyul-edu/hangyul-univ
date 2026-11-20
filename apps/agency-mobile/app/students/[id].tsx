@@ -2,7 +2,7 @@ import { useApi } from '@hangyul/auth';
 import { useTranslation, localName } from '@hangyul/i18n';
 import {
   AppText, Avatar, Button, Callout, ListGroup, ListItem, LoadingState, PickerSheet, PromptSheet, QueryState, Screen, SectionTitle, StatusBadge,
-  theme, UploadSheet, useConversations, useFormat, type PickedFile,
+  theme, UploadSheet, useConversations, useFormat, type PickedFile, errorText,
 } from '@hangyul/mobile-ui';
 import { PIPELINE_STAGES, type DocumentCategory, type PipelineStage, type StudentWorkspace } from '@hangyul/types';
 import { countryName } from '@hangyul/utils';
@@ -46,17 +46,17 @@ function Workspace({ w }: { w: StudentWorkspace }) {
   const setStage = useMutation({
     mutationFn: (v: { stage: PipelineStage; note?: string }) => api.agency.setStage(w.student.id, v.stage, v.note),
     onSuccess: () => { setPendingStage(null); invalidate(); },
-    onError: (e: Error) => Alert.alert(t('common:states.error'), e.message),
+    onError: (e: Error) => Alert.alert(t('common:states.error'), errorText(t, e)),
   });
   const upload = useMutation({
     mutationFn: (v: { file: PickedFile; category: DocumentCategory }) => api.documents.upload(v.file, { category: v.category, student_user_id: w.student.id }),
     onSuccess: () => { invalidate(); Alert.alert(t('v3.agency.uploaded')); },
-    onError: (e: Error) => Alert.alert(t('common:states.error'), e.message),
+    onError: (e: Error) => Alert.alert(t('common:states.error'), errorText(t, e)),
   });
   const start = useMutation({
     mutationFn: (body: string) => api.messages.start({ subject: t('v3.agency.conversationSubject'), body, student_id: w.student.id }),
     onSuccess: (c) => { setFirstMessage(false); void qc.invalidateQueries({ queryKey: ['conversations'] }); router.push(`/messages/${c.id}`); },
-    onError: (e: Error) => Alert.alert(t('common:states.error'), e.message),
+    onError: (e: Error) => Alert.alert(t('common:states.error'), errorText(t, e)),
   });
   const message = () => { const c = convs.data?.[0]; if (c) router.push(`/messages/${c.id}`); else setFirstMessage(true); };
 

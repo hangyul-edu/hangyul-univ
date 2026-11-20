@@ -1,6 +1,8 @@
 import { useAuth } from '@hangyul/auth';
+import { orgName } from '@hangyul/i18n';
 import { Shuffle } from '@hangyul/icons';
-import { Badge, Button, Callout, Card, EmptyState, Field, PageHeader, QueryState, Textarea, useToast } from '@hangyul/ui';
+import { Badge, Button, Callout, Card, EmptyState, Field, QueryState, Textarea, useToast } from '@hangyul/ui';
+import { PageHeader } from '@hangyul/ynex-ui';
 import { cx, formatDate } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -45,11 +47,11 @@ export default function AssignmentOverride() {
     onError: (e) => toast.error((e as Error).message),
   });
 
-  if (!perms.ops) return <div className="ag-page"><PageHeader title={t('sidebar.override')} /><Callout tone="warning">{t('override.forbidden')}</Callout></div>;
+  if (!perms.ops) return <div className="ag-page"><PageHeader eyebrow={t('hq.context')} title={t('sidebar.override')} /><Callout tone="warning">{t('override.forbidden')}</Callout></div>;
 
   return (
-    <div className="hg-stack ag-page">
-      <PageHeader title={t('sidebar.override')} subtitle={t('override.sub')} />
+    <div className="hg-stack ag-page ag-hq-tool">
+      <PageHeader eyebrow={t('hq.context')} title={t('sidebar.override')} sub={t('override.sub')} />
       <div className="ag-grid-1-2">
         <Card pad className="hg-stack">
           {!student && (
@@ -74,7 +76,7 @@ export default function AssignmentOverride() {
                   <h2 className="ag-h3">{t('override.current')}</h2>
                   {current ? (
                     <>
-                      <div className="hg-strong hg-small">{current.organization}</div>
+                      <div className="hg-strong hg-small">{orgName(current.organization, 'staff')}</div>
                       <Person name={current.counselor?.full_name} size={22} />
                       <div className="hg-subtle hg-xs">{t('override.since', { date: formatDate(current.since, locale), by: t(`ws.by.${current.assigned_by}`, { defaultValue: current.assigned_by }) })}</div>
                     </>

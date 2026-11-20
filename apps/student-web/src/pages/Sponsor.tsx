@@ -6,7 +6,7 @@
  */
 import { useApi } from '@hangyul/auth';
 import { CalendarDays, FileText, GraduationCap, Lock, Plane, Wallet } from '@hangyul/icons';
-import { changeLocale, STORAGE_KEY, useLocale } from '@hangyul/i18n';
+import { changeLocale, STORAGE_KEY, useLocale, uniName } from '@hangyul/i18n';
 import { LocaleSelector, Logo, Skeleton, StatusText } from '@hangyul/ui';
 import { formatDate, formatDateTime, formatMoney } from '@hangyul/utils';
 import { useQuery } from '@tanstack/react-query';
@@ -111,7 +111,7 @@ export default function Sponsor() {
                     {d.dates.map((x) => (
                       <li key={`${x.kind}-${x.date}-${x.university ?? ''}`}>
                         <span className="hg-medium hg-num">{formatDate(x.date, locale, { dateStyle: 'medium' })}</span>
-                        <span className="hg-small">{t(`v9.sponsor.date.${x.kind}`, { university: x.university ?? '' })}</span>
+                        <span className="hg-small">{t(`v9.sponsor.date.${x.kind}`, { university: uniName(x) })}</span>
                       </li>
                     ))}
                   </ul>

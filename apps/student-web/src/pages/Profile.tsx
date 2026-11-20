@@ -1,3 +1,4 @@
+import { errorText } from '@hangyul/i18n';
 import { useApi, useAuth } from '@hangyul/auth';
 import type { ProfileUnlockSection, StudentProfile } from '@hangyul/types';
 import { Avatar, Button, Modal, QueryState, SkeletonCard, StatusText, useToast } from '@hangyul/ui';
@@ -78,7 +79,7 @@ function EditModal({ step, profile, onClose }: { step: StepKey; profile: Student
       toast.success(t('profile.saved'));
       onClose();
     } catch (e) {
-      toast.error((e as Error).message);
+      toast.error(errorText(e));
     } finally {
       setBusy(false);
     }
@@ -151,7 +152,7 @@ export default function Profile() {
                         </div>
                         <p className="pf-row__why">{t(`profileV3.why.${k}`)}</p>
                         {lines.length > 0 && <p className="pf-row__unlock">{lines.join(' ')}</p>}
-                        {done && values.length > 0 && <p className="pf-row__values">{values.map((v) => (typeof v.value === 'string' ? v.value : null)).filter(Boolean).join(' · ')}</p>}
+                        {done && values.length > 0 && <p className="pf-row__values" data-user-content>{values.map((v) => (typeof v.value === 'string' ? v.value : null)).filter(Boolean).join(' · ')}</p>}
                       </div>
                       {/* The accessible name has to agree with the visible one: this button said "Add" and
                           announced "Edit education", which is the kind of mismatch a sighted reviewer never

@@ -49,6 +49,9 @@ class Job:
     fn: Callable[[Session], dict]
     max_attempts: int = 5
     retry_backoff_seconds: int = 300
+    #: V34: an optional calendar window. Given `now`, returns the window this run belongs to (e.g. the most recent
+    #: Monday 09:00 Asia/Seoul) or None when the job is not due. Replaces `floor(now / interval)` for this job.
+    window_fn: Callable[[datetime], datetime | None] | None = None
 
 
 # ------------------------------------------------------------------------------------------------ jobs (idempotent)
@@ -104,17 +107,59 @@ def job_notifications(db: Session) -> dict:
     return {"unread_in_app": int(unread), "queued_push": 0}
 
 
+def _catalog_window(now: datetime) -> datetime:
+    from app.services.catalog_ingest.schedule import weekly_window
+
+    return weekly_window(now)
+
+
+def _catalog_revalidation_window(now: datetime) -> datetime | None:
+    from app.services.catalog_ingest.bootstrap import revalidation_window
+
+    return revalidation_window(now)
+
+
+def _catalog_bootstrap_window(now: datetime) -> datetime | None:
+    from app.services.catalog_ingest.bootstrap import bootstrap_window
+
+    return bootstrap_window(now)
+
+
+def job_catalog_refresh(db: Session) -> dict:
+    """V34: the weekly catalogue refresh (Monday 09:00 Asia/Seoul) — staged pipeline + official-link revalidation."""
+    from app.services.catalog_ingest.bootstrap import job_refresh
+
+    return job_refresh(db)
+
+
+def job_catalog_revalidate(db: Session) -> dict:
+    from app.services.catalog_ingest.bootstrap import job_revalidate
+
+    return job_revalidate(db)
+
+
+def job_catalog_bootstrap(db: Session) -> dict:
+    from app.services.catalog_ingest.bootstrap import job_bootstrap
+
+    return job_bootstrap(db)
+
+
 JOBS: dict[str, Job] = {j.name: j for j in (
     Job("daily", 86400, job_daily, max_attempts=3, retry_backoff_seconds=900),
     Job("scan_retry", 300, job_scan_retry),
     Job("retention", 86400, job_retention, max_attempts=3, retry_backoff_seconds=3600),
     Job("cleanup", 3600, job_cleanup),
     Job("notifications", 300, job_notifications),
+    Job("catalog_bootstrap", 300, job_catalog_bootstrap, max_attempts=3, retry_backoff_seconds=300, window_fn=_catalog_bootstrap_window),
+    Job("catalog_refresh", 7 * 86400, job_catalog_refresh, max_attempts=4, retry_backoff_seconds=900, window_fn=_catalog_window),
+    Job("catalog_revalidate", 86400, job_catalog_revalidate, max_attempts=3, retry_backoff_seconds=900, window_fn=_catalog_revalidation_window),
 )}
 
 
 # ------------------------------------------------------------------------------------------------ scheduling
-def window_for(job: Job, now: datetime) -> datetime:
+def window_for(job: Job, now: datetime) -> datetime | None:
+    if job.window_fn is not None:
+        return job.window_fn(now)
     ts = int(now.timestamp())
     return datetime.fromtimestamp(ts - ts % job.interval_seconds, UTC)
 
@@ -124,9 +169,15 @@ def lock_key(name: str) -> int:
 
 
 def run_job(job: Job, *, now: datetime | None = None, force: bool = False) -> str:
-    """Run one job for its current window if due. Returns SUCCEEDED | FAILED | SKIPPED_LOCKED | SKIPPED_DONE | SKIPPED_BACKOFF."""
+    """Run one job for its current window if due.
+    Returns SUCCEEDED | FAILED | SKIPPED_LOCKED | SKIPPED_DONE | SKIPPED_BACKOFF | SKIPPED_NOT_DUE."""
     now = now or datetime.now(UTC)
     window = window_for(job, now)
+    if window is None:
+        if not force:
+            return "SKIPPED_NOT_DUE"
+        ts = int(now.timestamp())
+        window = datetime.fromtimestamp(ts - ts % 60, UTC)
     with engine.connect() as lock_conn:
         got = lock_conn.execute(text("SELECT pg_try_advisory_lock(:k)"), {"k": lock_key(job.name)}).scalar()
         lock_conn.commit()

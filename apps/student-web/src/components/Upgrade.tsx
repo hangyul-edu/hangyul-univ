@@ -15,7 +15,7 @@
  */
 import { CircleAlert, X } from '@hangyul/icons';
 import { PLANS, upgradeOffer, type PlanCode } from '@hangyul/types';
-import { ButtonLink, Callout } from '@hangyul/ui';
+import { ButtonLink, Callout, lockBodyScroll } from '@hangyul/ui';
 import { formatMoney, koParticle } from '@hangyul/utils';
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router';
@@ -72,10 +72,10 @@ export function UpgradeSheet({ current, feature, to, onClose }: {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     document.addEventListener('keydown', onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    // The shared, counted lock (`@hangyul/ui`): restoring a saved `overflow` by hand leaked `hidden` when overlays overlapped.
+    const unlock = lockBodyScroll();
     ref.current?.querySelector<HTMLElement>('a,button')?.focus();
-    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = prev; };
+    return () => { document.removeEventListener('keydown', onKey); unlock(); };
   }, [onClose]);
 
   // V20 §2 — the sheet is selling the plan, so the figure is a headline and shows the symbol alone. The

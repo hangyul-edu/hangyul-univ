@@ -16,14 +16,12 @@ Product analytics for Hangyul Univ: philosophy, the event catalogue, privacy rul
 
 - Never store document contents, essay text, passport numbers, card data, free text or scope notes in an event.
   Properties carry codes and counts only.
-- Anonymous events (Quick Fit, public pages) carry no user id and no IP address.
+- Anonymous events (public pages) carry no user id and no IP address.
 - No third-party analytics, advertising or session-replay script is loaded in any product; no consent-requiring
   cookie exists, so no cookie banner is shown.
 - Not measured on purpose: time on page, scroll depth, plan-card clicks, comparison toggles, or anything used to
   optimise a dark pattern.
 - **Design Preview mode emits no events** — it makes no calls to private APIs (see [SECURITY.md](SECURITY.md)).
-- The marketing site's serverless Quick Fit function (`apps/marketing-web/api/public-fit.py`) computes a result and
-  records nothing.
 
 ## Dashboard metrics
 
@@ -40,7 +38,7 @@ naming — see [ARCHITECTURE.md](ARCHITECTURE.md)).
 
 | Event | When | Key properties | Question it answers |
 |---|---|---|---|
-| `quick_eligibility_completed` | Anonymous 3-question check returns (marketing hero or `/start`) | nationality, degree, language kind, meets, possible | Do visitors get value before signing up? What share see 0 matches? |
+| `quick_eligibility_completed` | Retired 2026-11-19 with the anonymous check (no UI emits it); kept for historical rows. Was: anonymous 3-question check returns | nationality, degree, language kind, meets, possible | Do visitors get value before signing up? What share see 0 matches? |
 | `student_registered` | Account created | locale, nationality | Quick-check → sign-up conversion |
 | `profile_started` / `profile_completed` | Profile progress | — | Does progressive profiling finish? |
 | `match_generated` | Matches computed | counts per tier | How many realistic options do students have? |

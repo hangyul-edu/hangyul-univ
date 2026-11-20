@@ -29,7 +29,7 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { createPortal } from 'react-dom';
 
 import { Button } from './primitives';
-import { Popover } from './overlays';
+import { lockBodyScroll, Popover } from './overlays';
 
 /** Which locales a surface offers. `student` applies the V9 student-journey completeness gate. */
 let surface: 'all' | 'student' | 'agency' | 'university' = 'all';
@@ -214,12 +214,11 @@ function Sheet({ open, onClose, current, onChange }: {
     const prev = document.activeElement as HTMLElement | null;
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { e.stopPropagation(); onClose(); } };
     document.addEventListener('keydown', onKey);
-    const overflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    const unlock = lockBodyScroll();
     ref.current?.querySelector<HTMLElement>('input')?.focus();
     return () => {
       document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = overflow;
+      unlock();
       prev?.focus?.();
     };
   }, [open, onClose]);

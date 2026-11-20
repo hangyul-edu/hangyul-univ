@@ -2,7 +2,7 @@ import { useApi } from '@hangyul/auth';
 import { useTranslation } from '@hangyul/i18n';
 import {
   AppText, Button, ChipGroup, IconButton, KeyValue, ListGroup, ListItem, LoadingState, QueryState, Screen, SectionTitle, StatusText,
-  theme, useFormat,
+  theme, useFormat, errorText,
 } from '@hangyul/mobile-ui';
 import type { Program, UniversityDetail } from '@hangyul/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -170,7 +170,7 @@ function Detail({ u, initialProgram }: { u: UniversityDetail; initialProgram?: s
           <AppText variant="caption" color={theme.color.textTertiary}>{p.verification_status === 'DEMO' ? t('common:freshness.unverified') : t('v3.university.estimateNote')}</AppText>
           {existing ? <Button label={t('v4.university.continue')} onPress={() => router.push(`/applications/${existing.id}`)} fullWidth style={{ marginTop: 8 }} />
             : next ? <Button label={t('v3.university.start')} onPress={() => start.mutate()} loading={start.isPending} fullWidth style={{ marginTop: 8 }} /> : null}
-          {start.isError ? <AppText variant="caption" tone="danger" accessibilityRole="alert">{(start.error as Error).message}</AppText> : null}
+          {start.isError ? <AppText variant="caption" tone="danger" accessibilityRole="alert">{errorText(t, start.error)}</AppText> : null}
         </View>
       ) : null}
 

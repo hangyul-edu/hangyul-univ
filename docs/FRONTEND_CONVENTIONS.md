@@ -154,6 +154,21 @@ styles, the console surface). Page CSS composes these; it does not restate colou
 - **Motion.** Interface durations only (`--hg-motion-fast|base|slow`): tab underline, bottom sheet, popover, accordion.
   `prefers-reduced-motion` collapses all of it (base.css).
 
+## Owner pass 261119 primitives
+
+- **`AuthEntryGate`** (`@hangyul/ui`): every login / sign-up / forgot screen decides during render (restoring → loader;
+  signed in on entry → `<Navigate>`; anonymous → the form). Never redirect an auth screen from an effect.
+- **`FileDrop`** (`@hangyul/ui`): the only web file input — picker + drag & drop, one validation path
+  (`@hangyul/validation` `checkUpload` / `checkUploads` / `checkDragItems`), localized reasons, `aria-live` status, compact
+  variant for chat. Native uses pickers (`UploadSheet`) with the same validation and no drag text.
+- **Document groups** (`@hangyul/utils` `docGroups`): category → group, summaries, completion, required protection; web
+  `DocSections` and native documents screen render the same model.
+- **Scrolling:** one counted body-scroll lock (`useBodyScrollLock`); scroll containers inside flex/grid need
+  `min-height: 0`; editors grow with content instead of scrolling inside a fixed box; the student shell pads for the tab
+  bar + `env(safe-area-inset-bottom)`. `e2e/student-scroll.spec.ts` guards every Student route.
+- **Language:** `uniName()` / `university_ko`, `orgName()`, `docTitle()`, `errorText()`; never show a server's English
+  `detail` to a non-English reader. `npm run qa:lang-leak` must stay at 0.
+
 ## Design Preview mode
 
 A design-review aid behind one build flag, `VITE_ENABLE_DESIGN_PREVIEW` (requirements in `docs/SECURITY.md`).

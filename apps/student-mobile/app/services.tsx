@@ -5,12 +5,12 @@ import {
 } from '@hangyul/mobile-ui';
 import { PLANS, planPresentationByCode, planText, upgradeOffer, type PlanCode } from '@hangyul/types';
 import { formatDate, formatMoney } from '@hangyul/utils';
-import { router } from 'expo-router';
-import { useFocusEffect } from 'expo-router';
-import { CreditCard } from 'lucide-react-native';
+import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
+import { ArrowRight, CreditCard, Sparkles } from 'lucide-react-native';
 import { useCallback, useState } from 'react';
 import { View } from 'react-native';
 
+import { checkoutReturnPath, MATCH_PATH } from '../src/access';
 import { openCheckout, useServices } from '../src/plan';
 
 /**
@@ -28,6 +28,9 @@ import { openCheckout, useServices } from '../src/plan';
 export default function ServicesScreen() {
   const { t, i18n } = useTranslation();
   const services = useServices();
+  // 261119 req 1: opened from the matching gate (`/services?gate=match`) — say why, and come back to matching after paying.
+  const { gate } = useLocalSearchParams<{ gate?: string }>();
+  const fromMatch = gate === 'match';
   const [picked, setPicked] = useState<PlanCode | null>(null);
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -53,7 +56,7 @@ export default function ServicesScreen() {
     setBusy(true);
     setFailed(false);
     try {
-      const opened = await openCheckout(target, i18n.language);
+      const opened = await openCheckout(target, i18n.language, checkoutReturnPath(gate));
       if (!opened) setFailed(true);
     } catch {
       setFailed(true);
@@ -67,6 +70,8 @@ export default function ServicesScreen() {
 
   return (
     <Screen onRefresh={() => services.refetch()}>
+      {fromMatch && !plan ? <Callout tone="brand" icon={Sparkles} title={t('mobile:v261119.matchGate.title')} body={t('mobile:v261119.matchGate.text')} /> : null}
+      {fromMatch && plan ? <Button label={t('mobile:v261119.matchGate.open')} icon={ArrowRight} onPress={() => router.replace(MATCH_PATH)} fullWidth /> : null}
       {plan ? (
         <View style={{ gap: 8 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>

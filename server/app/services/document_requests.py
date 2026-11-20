@@ -118,7 +118,7 @@ def create_request(db: Session, app: Application, *, actor_id, actor_org_id, lab
         # V31 (REPORT §424): keyed, so every reader gets the sentence in their language and the university's name
         # resolved for them; `title` stays as the English fallback. `item` is the university's own label (content).
         title=f"{uni.name_en} requested: {r.label}", title_key="task.universityRequestItem",
-        title_params={"university": uni.name_en, "university_id": str(uni.id), "item": r.label},
+        title_params={"university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id), "item": r.label},
         description=r.note, task_type=TaskType.UNIVERSITY_REQUEST,
         priority=TaskPriority.HIGH, status=TaskStatus.OPEN, due_at=due_at, owner_user_id=app.student_user_id,
         owner_org_id=assignment.organization_id if assignment else None, student_user_id=app.student_user_id, application_id=app.id,
@@ -140,7 +140,7 @@ def create_request(db: Session, app: Application, *, actor_id, actor_org_id, lab
         app.status = S.ADDITIONAL_DOCUMENTS
         db.add(ApplicationStatusHistory(application_id=app.id, from_status=prev, to_status=S.ADDITIONAL_DOCUMENTS, actor_user_id=actor_id,
                                         actor_org_type=UNIVERSITY, note=f"Requested: {r.label} — {r.note}", created_at=now))
-    params = {"university": uni.name_en, "university_id": str(uni.id), "document": r.label, "category": r.category}
+    params = {"university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id), "document": r.label, "category": r.category}
     notify(db, app.student_user_id, "DOCUMENT_REQUEST", "notify.documentRequest.student",
            f"{uni.name_en} asked you for one more document: {r.label}.", params=params, link=f"/applications/{app.id}")
     if assignment and assignment.counselor_user_id:
@@ -173,7 +173,7 @@ def fulfill_request(db: Session, r: DocumentRequest, app: Application, *, actor_
         reviewers = list(org_members)[:3]
     for uid in reviewers:
         notify(db, uid, "DOCUMENT_REQUEST", "notify.documentRequest.fulfilled", f"The applicant sent the document you requested: {r.label}.",
-               params={"university": uni.name_en, "university_id": str(uni.id), "document": r.label}, link=f"/applications/{app.id}")
+               params={"university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id), "document": r.label}, link=f"/applications/{app.id}")
     _refresh_readiness(db, app)
     track(db, "document_request_fulfilled", user_id=app.student_user_id, university_id=app.university_id, application_id=app.id,
           properties={"hours_to_fulfil": round((r.fulfilled_at - r.requested_at).total_seconds() / 3600, 1) if r.fulfilled_at and r.requested_at else None})

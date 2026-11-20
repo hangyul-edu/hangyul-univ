@@ -1,7 +1,7 @@
 // PRIMARY QUESTION: Why is this case not moving, and who has to act next?
 // V9 (REPORT §59 A3/A8/A12): the header answers why it is not moving · next action · waiting on · deadline · owner before
 // any tab; meetings are one record on the timeline; the agency identity responsible for the applicant is on the case.
-import { localName } from '@hangyul/i18n';
+import { localName, docTitle, essayTitleL } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import { CalendarPlus, Check, NotebookPen, ChevronRight, Reply, Ellipsis, GraduationCap, Info, Languages, Mail, MessageSquarePlus, Phone, Plus, Sparkles, Upload, UserRound, Wallet } from '@hangyul/icons';
 import { PIPELINE_STAGES, VISA_STATUSES, type PipelineStage, type StudentWorkspace as WS, type Task, type VisaStatus } from '@hangyul/types';
@@ -477,7 +477,7 @@ function DocumentsTab({ ws, focus }: { ws: WS; focus: Focus | null }) {
               <span className="hg-grow" style={{ minWidth: 0 }}>
                 <span className="hg-strong hg-small">{t(`docCategory.${d.category}`)}</span>
                 <span className="hg-subtle hg-xs" style={{ display: 'block' }}>
-                  {d.title} · v{d.current_version} · {formatRelative(d.updated_at, locale)}
+                  <span data-user-content>{docTitle(d.title, d.category)}</span> · v{d.current_version} · {formatRelative(d.updated_at, locale)}
                   {d.legalization_path !== 'NONE' && ` · ${t(`legalization.${d.legalization_path}`)} (${t(`legalization.status.${d.legalization_status}`)})`}
                 </span>
                 {d.rejection_reason && <span data-user-content className="hg-xs" style={{ display: 'block', color: 'var(--hg-status-danger-fg)' }}>{d.rejection_reason}</span>}
@@ -502,7 +502,7 @@ function EssaysTab({ ws }: { ws: WS }) {
         <li key={e.id}>
           <Link to={`/essays/${e.id}`} className="ag-rowbtn">
             <span className="hg-grow" style={{ minWidth: 0 }}>
-              <span className="hg-strong hg-small hg-truncate" style={{ display: 'block' }}>{e.title}</span>
+              <span className="hg-strong hg-small hg-truncate" style={{ display: 'block' }}>{essayTitleL(e.title, e.essay_type)}</span>
               <span className="hg-subtle hg-xs">{t(`essayType.${e.essay_type}`)}{e.due_date ? ` · ${t('time.due', { date: formatDate(e.due_date, locale) })}` : ''}</span>
             </span>
             <EssayStatusBadge status={e.status} />

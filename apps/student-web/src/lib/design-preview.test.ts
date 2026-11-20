@@ -39,6 +39,29 @@ describe('design preview transport', () => {
     expect(network).not.toHaveBeenCalled();
   });
 
+  it('answers the comparison (a computation, not a write) from the synthetic matches, in-process', async () => {
+    const api = await client('paid');
+    const ids = (await api.me.matches()).items.slice(0, 2).map((m) => m.program_id);
+    const rows = await api.catalog.compare(ids);
+    expect(rows.map((r) => r.program.id)).toEqual(ids);
+    expect(rows.every((r) => r.match && typeof r.document_count === 'number')).toBe(true);
+    expect(network).not.toHaveBeenCalled();
+  });
+
+  it('Operations offers a synthetic Hangyul HQ persona (variant hq) for the HQ pages', async () => {
+    const bundle = await loadPreviewBundle('agency');
+    const hq = createApiClient({ baseUrl: '', client: 'agency', fetchImpl: previewFetch(bundle, 'hq') });
+    expect(await hq.auth.restore()).toBe(true);
+    expect(hq.session?.roles.some((r) => r.startsWith('HANGYUL_'))).toBe(true);
+    expect(hq.session?.user.email).toMatch(/@ops\.preview\.invalid$/);
+    const health = await hq.catalog.catalogHealth();
+    expect(health.schedule).toMatchObject({ weekday: 'MONDAY', time: '09:00', timezone: 'Asia/Seoul' });
+    const ops = createApiClient({ baseUrl: '', client: 'agency', fetchImpl: previewFetch(bundle, 'paid') });
+    expect(await ops.auth.restore()).toBe(true);
+    expect(ops.session?.roles).toEqual(['AGENCY_ADMIN']);
+    expect(network).not.toHaveBeenCalled();
+  });
+
   it('answers an unknown read with 404 rather than reaching for the API', async () => {
     const api = await client('paid');
     await expect(api.get('/no-such-endpoint')).rejects.toMatchObject({ status: 404 });

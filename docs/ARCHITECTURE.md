@@ -21,7 +21,7 @@ Browser ──▶ Vercel (static dist per app, CSP/HSTS headers, /build-info.jso
               ▼
         FastAPI :8001 on the owner's machine ──▶ PostgreSQL 16 · Redis · local object storage
 
-Marketing discovery (no API): /data/public/*.json (static export) + /api/public-fit (Vercel Python function)
+Marketing discovery: /api/v1/directory/* live (DB) → fallback /data/public/*.json (DB snapshot)
 ```
 
 - The API **is connected**, through a tunnel to a **non-production host**. A durable production API host
@@ -265,6 +265,32 @@ with `--offline` and `--check`), `scripts/catalog/build_korea_map.py` (KOSTAT bo
 `server/scripts/v12_load_institutions.py` to refresh a populated database without touching anything else. The
 disclosure year is one constant in the importer; anything the registry stops listing becomes `WITHDRAWN` and is
 never served.
+
+## One catalogue, bootstrap and weekly refresh (owner 261119, 2026-11-20)
+
+The V12 split above still describes the tables, but there is now **one authoritative catalogue**: every ACTIVE
+`Institution` has exactly one `University` (same slug, `catalog_university_id`), so Marketing (`/directory/*`, anonymous,
+ETag + `Cache-Control: public, max-age=300, stale-while-revalidate=86400`) and Student (`/universities`, `/programs`) read the
+same rows. Programmes exist only where an official guide was read (`Program.origin = OFFICIAL_GUIDE`, stable `catalog_key`,
+provenance on every row; a unit that leaves the guide is deactivated, never deleted).
+
+`server/app/services/catalog_ingest/` — `sources` (priority-ordered registry: official university pages/guides → Study in
+Korea → 대학알리미 → NIIED/GKS → other government; sources without a parser are recorded SKIPPED), `fetcher` (httpx,
+robots.txt, ≥2 s per host, bounded retries, identified User-Agent, no anti-bot bypass), `normalize`, `pipeline` (collect →
+stage in `catalog_staged_records` → provenance check → compare by hash → publish in one transaction; a failed source keeps
+its previous values), `publish`, `bootstrap`, `schedule`, `status`. Tables: `catalog_ingestion_runs`,
+`catalog_source_results`, `catalog_link_checks`, `catalog_state` (migration `v34catalog0001`).
+
+- **Bootstrap:** on API start (FastAPI lifespan, background thread, Postgres advisory lock), an empty catalogue is filled
+  from the reference data and research files, a durable marker is written and a revalidation is queued; a restart with a
+  non-empty catalogue does nothing. Also `python -m app.services.catalog_ingest bootstrap|refresh [--no-links]|status [--counts] [--json]`.
+- **Weekly refresh:** worker job `catalog_refresh` with a calendar window (most recent Monday 09:00 Asia/Seoul), idempotent per
+  window through `job_runs`, advisory-locked, retried with backoff; the API also runs an in-process scheduler
+  (`catalog_scheduler_enabled`, tick `catalog_scheduler_tick_seconds` = 300) calling the same locked job, because the
+  connected environment runs only the API.
+- **Health:** `GET /api/v1/ops/catalog/health` (Operations; HQ › Sources panel) and `GET /api/v1/public/catalog/status`
+  (READY | PREPARING | EMPTY + counts). `/programs` and `/universities` carry the same `catalog` object so the UI can tell
+  "no match" from "being prepared".
 
 ## V15 — the commercial model has one source of truth
 

@@ -1,12 +1,13 @@
 import { useTranslation } from '@hangyul/i18n';
 import { Check, ChevronRight, type LucideIcon } from 'lucide-react-native';
 import type { ReactNode } from 'react';
-import { Modal, Platform, Pressable, ScrollView, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
+import { KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { flipStyle, theme, toneColors, type Tone } from '../theme';
 import { AppText } from './AppText';
 import { Button } from './Button';
+import { useKeyboardAvoiding, useKeyboardShown } from './Keyboard';
 
 /**
  * V3 composition patterns for mobile. Hierarchy comes from type, spacing and hairlines — not from
@@ -192,17 +193,20 @@ export function Sheet({ visible, title, onClose, closeLabel, children, footer }:
   visible: boolean; title: string; onClose: () => void; closeLabel: string; children: ReactNode; footer?: ReactNode;
 }) {
   const insets = useSafeAreaInsets();
+  const kb = useKeyboardAvoiding(true);
+  const keyboardShown = useKeyboardShown();
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose} statusBarTranslucent>
-      <View style={styles.modalRoot}>
+      {/* 261119 req 5: a field inside a sheet (document details, filters) stays above the keyboard on both platforms. */}
+      <KeyboardAvoidingView style={styles.modalRoot} behavior={kb.behavior} keyboardVerticalOffset={kb.keyboardVerticalOffset}>
         <Pressable style={StyleSheet.absoluteFill} onPress={onClose} accessibilityRole="button" accessibilityLabel={closeLabel} />
-        <View style={[styles.sheet, { paddingBottom: Math.max(16, insets.bottom + 8) }]} accessibilityViewIsModal>
+        <View style={[styles.sheet, { paddingBottom: keyboardShown ? 16 : Math.max(16, insets.bottom + 8) }]} accessibilityViewIsModal>
           <View style={styles.grabber} />
           <AppText variant="title" accessibilityRole="header">{title}</AppText>
-          <ScrollView style={{ flexGrow: 0 }} contentContainerStyle={{ gap: 16, paddingVertical: 4 }} keyboardShouldPersistTaps="handled">{children}</ScrollView>
+          <ScrollView style={{ flexGrow: 0, flexShrink: 1 }} contentContainerStyle={{ gap: 16, paddingVertical: 4 }} keyboardShouldPersistTaps="handled">{children}</ScrollView>
           {footer ?? <Button label={closeLabel} variant="secondary" onPress={onClose} />}
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 }

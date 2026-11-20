@@ -1,4 +1,4 @@
-import { localName } from '@hangyul/i18n';
+import { localName, errorText } from '@hangyul/i18n';
 import { useApi } from '@hangyul/auth';
 import { ExternalLink } from '@hangyul/icons';
 import type { ApplicationDetail, ApplicationFeeStatus, SubmissionFormField, SubmissionSnapshot, SubmissionView } from '@hangyul/types';
@@ -21,7 +21,7 @@ export function useSubmission(appId: string, enabled = true) {
 
 /** Session expiry (401 after the refresh attempt) is said plainly: nothing was saved. */
 function errText(t: TFn, e: unknown) {
-  return (e as { status?: number })?.status === 401 ? t('success:submission.sessionExpired') : (e as Error).message;
+  return (e as { status?: number })?.status === 401 ? t('success:submission.sessionExpired') : errorText(e);
 }
 
 function useAfterSave(appId: string) {

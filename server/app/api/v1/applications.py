@@ -466,12 +466,12 @@ def transition(app_id: str, body: TransitionIn, p: Principal = Depends(get_princ
     if kind != "STUDENT":
         notify(db, app.student_user_id, "APPLICATION_STATUS", f"notify.application.{body.to.value}",
                f"{uni.name_en}: your application is now {body.to.value.replace('_', ' ').lower()}.",
-               params={"university": uni.name_en, "university_id": str(uni.id), "status": body.to.value}, link=f"/applications/{app.id}")
+               params={"university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id), "status": body.to.value}, link=f"/applications/{app.id}")
     if kind == UNIVERSITY and app.agency_org_id:
         a = db.scalar(select(AgencyAssignment).where(AgencyAssignment.student_user_id == app.student_user_id, AgencyAssignment.status == AssignmentStatus.ACTIVE))
         if a and a.counselor_user_id:
             notify(db, a.counselor_user_id, "APPLICATION_STATUS", f"notify.application.{body.to.value}", f"{uni.name_en} moved an application to {body.to.value}",
-                   params={"university": uni.name_en, "university_id": str(uni.id), "status": body.to.value}, link=f"/applications/{app.id}")
+                   params={"university": uni.name_en, "university_ko": uni.name_ko, "university_id": str(uni.id), "status": body.to.value}, link=f"/applications/{app.id}")
     if body.to == S.ADMISSION_CERTIFICATE_ISSUED:
         # Automation: open the visa case as soon as the standard admission letter is issued.
         if not db.scalar(select(VisaCase).where(VisaCase.application_id == app.id)):

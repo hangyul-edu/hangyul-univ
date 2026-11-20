@@ -24,7 +24,12 @@
  * For an unpaid student it would be an empty dashboard, and an empty dashboard explains nothing; the plan
  * screen with a reason on it does.
  *
- * `/explore` and its two aliases stay open deliberately: it is the same discovery the public site offers,
+ * **`/match` is gated (261119, owner requirement 1).** Personalised matching and university selection is the
+ * first thing a plan buys: marketing `유학 준비` → sign-in → (no plan) the plan screen with `from=/match` → after
+ * paying, back to `/match`. The anonymous quick check (`/start`) is retired, and its aliases (`/start`,
+ * `/eligibility`, `/matches`) are redirects *outside* the shell to `/match`, so they are gated exactly as it is.
+ *
+ * `/explore` and its alias `/saved` stay open deliberately: it is the same discovery the public site offers,
  * and a student who has signed up should not have *less* than an anonymous visitor. The aliases matter more
  * than they look — `/matches` and `/saved` are `<Navigate>` to `/explore?tab=…`, so gating them would put a
  * paywall in front of a page that is open at its real URL, which is not a stricter rule but an incoherent
@@ -36,8 +41,9 @@ const OPEN = [
   // The account, and the student's own information.
   '/services', '/profile', '/settings', '/more', '/support', '/notifications', '/family', '/help',
   // Discovery and public facts — the same things an anonymous visitor gets, plus the aliases of /explore.
-  '/explore', '/universities', '/matches', '/saved', '/compare', '/budget', '/scholarships',
-  '/start', '/sponsor',
+  // `/explore` stays open; its "For you" tab shows a student without a plan the way to one (pages/Explore.tsx).
+  '/explore', '/universities', '/saved', '/compare', '/budget', '/scholarships',
+  '/sponsor',
 ];
 
 /** Paths that are always reachable, whatever the plan state — auth and payment return included. */
@@ -56,5 +62,22 @@ export function isOpenToUnpaid(pathname: string): boolean {
  */
 export function gateRedirect(pathname: string, search: string): string {
   const from = `${pathname}${search || ''}`;
-  return `/services?gate=${encodeURIComponent(pathname.replace(/^\//, '').split('/')[0] || 'home')}&from=${encodeURIComponent(from)}`;
+  const out = new URLSearchParams({ gate: pathname.replace(/^\//, '').split('/')[0] || 'home', from });
+  // A plan chosen on the public pricing section (`?plan=`) stays preselected on the plan screen.
+  const plan = new URLSearchParams(search).get('plan');
+  if (plan) out.set('plan', plan);
+  return `/services?${out.toString()}`;
+}
+
+/**
+ * Where a student goes after buying a plan: the gated route they were sent from (`?from=`), when it is a safe in-app
+ * path that is not the plan screen itself; otherwise `null` (stay on the plan screen, which then shows the plan).
+ * `from=app` is the native-app handoff (`lib/apphandoff.ts`), not a path.
+ */
+export function purchaseReturn(from: string | null | undefined): string | null {
+  if (!from || from[0] !== '/' || from[1] === '/' || from[1] === '\\') return null;
+  // eslint-disable-next-line no-control-regex
+  if (/[\u0000-\u001F\u007F]/.test(from)) return null;
+  if (/^\/(services|login|register|forgot)(?:[/?#]|$)/.test(from)) return null;
+  return from;
 }

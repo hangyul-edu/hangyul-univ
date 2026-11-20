@@ -62,7 +62,7 @@
     "phoneHint": "نرسل رمزًا لمرة واحدة عبر رسالة نصية. قد تُطبَّق رسوم الرسائل المعتادة.",
     "passwordLabel": "كلمة المرور",
     "passwordConfirmLabel": "تأكيد كلمة المرور",
-    "passwordHint": "10 أحرف على الأقل. جملة يسهل تذكرها هي الخيار الأفضل.",
+    "passwordHint": "‏10 أحرف على الأقل. جملة يسهل تذكرها هي الخيار الأفضل.",
     "continue": "متابعة",
     "back": "رجوع",
     "verify": {
@@ -657,7 +657,8 @@
       "has_scholarship": "تتوفر منح",
       "has_dorm": "يتوفر سكن جامعي",
       "partner_only": "شركاء Hangyul فقط",
-      "open_only": "مفتوح للتقديم"
+      "open_only": "مفتوح للتقديم",
+      "logic": "داخل المجموعة الواحدة يكفي أن يتطابق أي خيار. كل مجموعة تضيفها تضيّق النتائج."
     },
     "card": {
       "tuition": "الرسوم الدراسية لكل فصل",
@@ -667,6 +668,20 @@
       "topik": "TOPIK {{level}}+",
       "ielts": "IELTS {{score}}+",
       "toefl": "TOEFL {{score}}+"
+    },
+    "catalog": {
+      "preparingCount": "يجري تجهيز معلومات البرامج",
+      "preparingText": "نجمع البرامج من المصادر الرسمية للجامعات. هذا لا يعني أي شيء بشأن أهليتك — يُرجى العودة قريبًا.",
+      "preparingTitle": "يجري تجهيز معلومات البرامج"
+    },
+    "emptyFiltered": {
+      "text": "أزل أحد عوامل التصفية لتوسيع البحث. الخيارات داخل المجموعة الواحدة بدائل لبعضها، وكل مجموعة إضافية تضيّق النتائج.",
+      "title": "لا يوجد برنامج يطابق عوامل التصفية هذه"
+    },
+    "matchGate": {
+      "cta": "عرض الباقات",
+      "text": "اختر باقة ليقارن Hangyul ملفك الشخصي بالمتطلبات المنشورة لكل برنامج، ثم يساعدك في اختيار جامعاتك. يبقى تصفّح جميع البرامج مجانيًا.",
+      "title": "المطابقة الشخصية مع الجامعات متاحة ضمن الباقة"
     }
   },
   "compare": {
@@ -881,7 +896,20 @@
     },
     "interest": {
       "lede": "لم نتحقق بعد من شروط القبول في هذه الجامعة. اطلب من فريق Hangyul Univ وسيتحقق من مواعيد القبول والشروط ويخطط لها معك.",
-      "ask": "اطلب من فريق Hangyul Univ"
+      "ask": "اطلب من فريق Hangyul Univ",
+      "browse": "تصفّح جامعات أخرى",
+      "certified": "IEQAS",
+      "certifiedYes": "معتمدة",
+      "language": "برنامج اللغة الكورية",
+      "languageYes": "ضمن القائمة المعتمدة",
+      "region": "المنطقة",
+      "site": "الموقع الرسمي",
+      "title": "استعد للدراسة هنا"
+    },
+    "kind": {
+      "GRADUATE_UNIVERSITY": "مؤسسة للدراسات العليا",
+      "JUNIOR_COLLEGE": "كلية متوسطة",
+      "UNIVERSITY": "جامعة"
     }
   },
   "start": {
@@ -3662,7 +3690,13 @@
         "placesRemaining_few": "المتبقي: {{count}}",
         "placesRemaining_many": "المتبقي: {{count}}",
         "placesRemaining_zero": "المتبقي: {{count}}",
-        "placesRemaining_two": "المتبقي: {{count}}"
+        "placesRemaining_two": "المتبقي: {{count}}",
+        "placesRemaining_one": "المتبقي: {{count}}",
+        "remaining_zero": "المتبقي {{count}}",
+        "remaining_one": "المتبقي {{count}}",
+        "remaining_two": "المتبقي {{count}}",
+        "remaining_few": "المتبقي {{count}}",
+        "remaining_many": "المتبقي {{count}}"
       },
       "scope": {
         "title": "ما تتضمنه باقتك",
@@ -3680,8 +3714,8 @@
       "addOn": {
         "title": "خدمات إضافية مقترحة",
         "offered": "اقترح فريق Hangyul Univ الخدمات الإضافية التالية.",
-        "item": "{{count}} إضافية من {{name}}",
-        "itemPlaces": "{{count}} إضافية من {{name}}",
+        "item": "‏{{count}} إضافية من {{name}}",
+        "itemPlaces": "‏{{count}} إضافية من {{name}}",
         "approve": "طلب الخدمة",
         "decline": "شكرًا، لا أحتاجها",
         "declined": "لم تُطلب",
@@ -3693,7 +3727,7 @@
       "external": "غير مشمول في رسوم الخدمة: رسوم التقديم إلى الجامعات، والرسوم الدراسية، والترجمة، والتوثيق لدى كاتب العدل، والتصديق بالأبوستيل، ورسوم التأشيرة، وتكاليف السكن.",
       "level": {
         "places": "حتى {{count}}",
-        "times_other": "{{count}} مرة",
+        "times_other": "‏{{count}} مرة",
         "document_review": {
           "CHECKLIST": "قائمة مستندات",
           "STANDARD": "مراجعة أساسية",
@@ -3778,11 +3812,12 @@
         "family": "صفحة العائلة",
         "saved": "قائمتك المختصرة",
         "help": "مساعدة فريق Hangyul",
-        "home": "مساحة تحضيرك"
+        "home": "مساحة تحضيرك",
+        "match": "المطابقة الشخصية مع الجامعات"
       }
     },
     "upgrade": {
-      "title": "{{feature}} متاح ضمن {{plan}}.",
+      "title": "‏{{feature}} متاح ضمن {{plan}}.",
       "currentPlan": "الباقة الحالية",
       "amount": "قيمة الترقية",
       "cta": "الترقية إلى {{plan}}",
@@ -3836,7 +3871,8 @@
       "docsChecking_few": "‏{{count}} مستندات قيد المراجعة",
       "docsChecking_many": "‏{{count}} مستندًا قيد المراجعة",
       "appsQuiet_two": "كلا طلبيك لدى الجامعات. لا شيء مطلوب منك الآن.",
-      "docsChecking_two": "مستندان قيد المراجعة"
+      "docsChecking_two": "مستندان قيد المراجعة",
+      "docsChecking_zero": "‏{{count}} مستند قيد المراجعة"
     },
     "journey": {
       "stageOf": "المرحلة {{n}} من {{total}}"
@@ -3986,7 +4022,7 @@
         "support": "فترة الاستشارة",
         "supportLeft": "حتى {{date}} · الأيام المتبقية: {{count}}",
         "supportEnded": "انتهت في {{date}}",
-        "supportFromStart": "{{count}} يومًا من أول استشارة لك",
+        "supportFromStart": "‏{{count}} يومًا من أول استشارة لك",
         "term": "مدة العقد",
         "termUntil": "حتى {{date}}",
         "termToAgree": "نتفق عليها معك عند بدء الخدمة",
@@ -3994,7 +4030,19 @@
         "arrivalWindow": "التجهيز من {{from}} · الوصول {{arrive}} · دعم الاستقرار حتى {{until}}",
         "arrivalToConfirm": "يُحدَّد الجدول بعد تأكيد موعد وصولك",
         "status": "الحالة",
-        "ended": "انتهت مدة عقدك. للحصول على دعم إضافي، تحدّث مع فريقك."
+        "ended": "انتهت مدة عقدك. للحصول على دعم إضافي، تحدّث مع فريقك.",
+        "supportFromStart_zero": "‏{{count}} يوم من استشارتك الأولى",
+        "supportFromStart_one": "يوم واحد من استشارتك الأولى",
+        "supportFromStart_two": "يومان من استشارتك الأولى",
+        "supportFromStart_few": "‏{{count}} أيام من استشارتك الأولى",
+        "supportFromStart_many": "‏{{count}} يومًا من استشارتك الأولى",
+        "supportFromStart_other": "‏{{count}} يوم من استشارتك الأولى",
+        "supportLeft_zero": "حتى {{date}} · يتبقى {{count}} يوم",
+        "supportLeft_one": "حتى {{date}} · يتبقى يوم واحد",
+        "supportLeft_two": "حتى {{date}} · يتبقى يومان",
+        "supportLeft_few": "حتى {{date}} · تتبقى {{count}} أيام",
+        "supportLeft_many": "حتى {{date}} · يتبقى {{count}} يومًا",
+        "supportLeft_other": "حتى {{date}} · يتبقى {{count}} يوم"
       },
       "addOn": {
         "title": "خدمات إضافية",
@@ -4077,7 +4125,8 @@
       "type": "نوع الدفع",
       "paidAddOn": "تم تأكيد خدمتك الإضافية: {{name}}.",
       "failedTitle": "تعذّر إتمام العملية",
-      "tryAgain": "حاول مجددًا"
+      "tryAgain": "حاول مجددًا",
+      "toMatch": "المتابعة إلى مطابقة الجامعات"
     },
     "fail": {
       "default": "لم تكتمل عملية الدفع ولم يُخصم أي مبلغ. يُرجى المحاولة مجددًا.",

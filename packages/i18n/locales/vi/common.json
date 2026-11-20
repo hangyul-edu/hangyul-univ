@@ -478,7 +478,10 @@
     "reasonRequired": "Cho học viên biết cần sửa gì.",
     "phone": "Nhập số điện thoại di động hợp lệ.",
     "passwordMismatch": "Mật khẩu không khớp.",
-    "code": "Nhập mã 6 chữ số."
+    "code": "Nhập mã 6 chữ số.",
+    "fileCount_other": "Mỗi lần bạn có thể thêm tối đa {{count}} tệp.",
+    "fileEmpty": "Tệp này trống.",
+    "fileExtension": "Đuôi tên tệp không khớp với định dạng của tệp. Hãy tải lên tệp PDF, JPG, PNG hoặc WEBP."
   },
   "notify": {
     "agencyAssigned": "{{agency}} đang hỗ trợ hồ sơ ứng tuyển của bạn.",
@@ -529,7 +532,8 @@
     "addonOffered": "Chuyên viên của bạn đã đề xuất một dịch vụ bổ sung. Hãy mở trang gói để xem.",
     "v29": {
       "addonOffered": "Đội ngũ Hangyul Univ đã đề xuất một dịch vụ bổ sung cho bạn"
-    }
+    },
+    "appointment": "Đã đặt lịch tư vấn vào {{at}}"
   },
   "a11y": {
     "skipToContent": "Chuyển đến nội dung chính",
@@ -1085,12 +1089,12 @@
         "title": "Trước khi mua",
         "usd": "Mọi mức giá đều là khoản thanh toán một lần bằng đô la Mỹ (USD).",
         "exchange": "Số tiền thực tế bị trừ trên thẻ có thể thay đổi theo tỷ giá và phí của ngân hàng hoặc cổng thanh toán.",
-        "external": "Chi phí bên thứ ba được tính riêng: lệ phí xét tuyển, học phí, phí visa, dịch thuật và công chứng, gửi hồ sơ quốc tế.",
-        "documentsVary": "Hồ sơ cần có tùy thuộc vào quốc tịch, trình độ học vấn và bậc học bạn đăng ký.",
-        "visaDecision": "Chúng tôi hỗ trợ bạn chuẩn bị và nộp hồ sơ. Việc có cấp visa hay không do cơ quan xuất nhập cảnh quyết định.",
+        "external": "Chi phí bên thứ ba được tính riêng, gồm lệ phí xét tuyển của trường, học phí, phí visa, dịch thuật, công chứng và gửi hồ sơ quốc tế.",
+        "documentsVary": "Giấy tờ cần có tùy thuộc vào quốc tịch, quá trình học tập và chương trình bạn đăng ký.",
+        "visaDecision": "Chúng tôi hỗ trợ bạn chuẩn bị hồ sơ xin visa. Việc có cấp visa hay không do cơ quan xuất nhập cảnh quyết định.",
         "agreement": "Các chi tiết như lịch trình, phạm vi chỉnh sửa và thời gian phản hồi có thể được quy định trong hợp đồng dịch vụ hoặc đơn hàng.",
-        "premiumScope": "Gói Premium chỉnh sửa không giới hạn số lượt, trong phạm vi hồ sơ ứng tuyển và lịch nộp đã ký trong hợp đồng.",
-        "newDocuments": "Soạn tài liệu mới, dịch thuật và công chứng có thể phát sinh thêm chi phí."
+        "premiumScope": "Với gói Premium, số lượt chỉnh sửa không giới hạn trong phạm vi hồ sơ ứng tuyển ghi trong hợp đồng và theo lịch nộp hồ sơ của bạn.",
+        "newDocuments": "Soạn tài liệu mới cũng có thể phát sinh thêm chi phí."
       },
       "addons": {
         "title": "Dịch vụ bổ sung",
@@ -1104,11 +1108,11 @@
     },
     "addon": {
       "item": {
-        "extra_application": "Thêm 1 hồ sơ ứng tuyển Hangyul cùng bạn quản lý",
-        "extra_edit": "Thêm 1 lượt chỉnh sửa bài luận cá nhân hoặc kế hoạch học tập",
+        "extra_application": "Thêm 1 hồ sơ ứng tuyển được quản lý",
+        "extra_edit": "Thêm 1 lượt chỉnh sửa (bài luận cá nhân hoặc kế hoạch học tập)",
         "mock_interview": "Phỏng vấn thử",
         "dormitory": "Hỗ trợ đăng ký ký túc xá",
-        "airport_pickup": "Đón sân bay qua đối tác",
+        "airport_pickup": "Sắp xếp đón tại sân bay",
         "settlement": "Hỗ trợ thêm để ổn định cuộc sống"
       },
       "unit": {
@@ -1280,5 +1284,53 @@
     "video": {
       "more": "Thêm video chính thức"
     }
+  },
+  "upload": {
+    "cantAdd": "Không thể thêm tệp này",
+    "checking": "Đang kiểm tra tệp…",
+    "choose": "Chọn tệp",
+    "chooseMany": "Chọn tệp",
+    "constraints": "PDF, JPG, PNG hoặc WEBP · tối đa {{mb}} MB",
+    "constraintsMany": "PDF, JPG, PNG hoặc WEBP · tối đa {{mb}} MB mỗi tệp · tối đa {{count}} tệp",
+    "done": "Đã thêm {{name}}",
+    "dropHere": "Thả vào đây để tải lên",
+    "dropRelease": "Thả ra để thêm tệp",
+    "orDrag": "hoặc kéo tệp vào đây",
+    "orDragMany": "hoặc kéo các tệp vào đây",
+    "rejected": "{{name}}: {{reason}}",
+    "replace": "Chọn tệp khác",
+    "selected": "Đã chọn {{name}}",
+    "uploading": "Đang tải lên…",
+    "uploadingPct": "Đang tải lên… {{pct}}%",
+    "zone": "Khu vực tải tệp lên"
+  },
+  "previewFixture": {
+    "transcriptApostille": "Bảng điểm cần được Apostille trước khi sử dụng. Bản sao đã tải lên chưa được chứng thực.",
+    "draftedByHangyul": "Bản nháp do Hangyul soạn — không phải câu chữ chính thức của trường. Hãy xác nhận câu hỏi thực tế trước khi duyệt.",
+    "profileChecked": "Đã kiểm tra hồ sơ cá nhân. Tiếp theo là giấy tờ — hãy bắt đầu với Apostille bảng điểm vì mất nhiều thời gian nhất.",
+    "kyungpookFirst": "Hãy hoàn tất giấy tờ cho Kyungpook trước — hạn nộp của trường này gần nhất.",
+    "apostilleRequired": "Cần Apostille",
+    "schoolProject": "Đã thêm dự án ở trường",
+    "expectedGraduationNote": "Vui lòng gửi giấy xác nhận dự kiến tốt nghiệp được cấp sau ngày 1 tháng 11 năm 2026.",
+    "expectedGraduationLabel": "Giấy xác nhận dự kiến tốt nghiệp",
+    "subjectStrategy": "Chiến lược nộp hồ sơ & kế hoạch học bổng",
+    "secondDraftTask": "Tải lên bản nháp thứ hai của kế hoạch học tập",
+    "topik3Standard": "Yêu cầu TOPIK cấp 3 khi nhập học theo chuẩn khuyến nghị của Bộ Giáo dục; quy định riêng của trường được ưu tiên."
+  },
+  "team": {
+    "hangyul": "Đội ngũ Hangyul Univ",
+    "operations": "Bộ phận vận hành Hangyul Univ"
+  },
+  "systemDoc": {
+    "housingContract": "Hợp đồng nhà ở đề xuất",
+    "serviceCompletionPhoto": "Ảnh hoàn thành dịch vụ"
+  },
+  "apiError": {
+    "generic": "Không thực hiện được. Vui lòng thử lại.",
+    "conflict": "Nội dung này đã thay đổi trong lúc đó. Hãy tải lại trang và thử lại.",
+    "tooLarge": "Tệp quá lớn.",
+    "invalid": "Một số thông tin không hợp lệ. Hãy kiểm tra và thử lại.",
+    "rateLimited": "Bạn đã thử quá nhiều lần. Vui lòng đợi một lát rồi thử lại.",
+    "notFound": "Không tìm thấy nội dung này. Có thể nội dung đã bị xóa."
   }
 }

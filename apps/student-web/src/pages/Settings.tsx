@@ -1,5 +1,5 @@
 import { useApi, useAuth } from '@hangyul/auth';
-import { translationQuality } from '@hangyul/i18n';
+import { translationQuality, errorText } from '@hangyul/i18n';
 import { Download, Eye, LogOut, Trash2 } from '@hangyul/icons';
 import { Badge, Button, Callout, ErrorState, Field, Input, LocaleSelector, Modal, Skeleton, Switch, Textarea, useToast } from '@hangyul/ui';
 import { formatDate } from '@hangyul/utils';
@@ -32,7 +32,7 @@ function Account() {
   const m = useMutation({
     mutationFn: () => api.me.updateProfile({ full_name: full.trim(), preferred_name: pref.trim() || null }),
     onSuccess: () => toast.success(t('settings.account.saved')),
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <SettingsSection title={t('settings.account.title')}>
@@ -72,7 +72,7 @@ function Privacy() {
   const m = useMutation({
     mutationFn: ({ purpose, granted }: { purpose: string; granted: boolean }) => api.me.setConsent(purpose, granted),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['consents'] }); toast.success(t('settings.privacy.saved')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const granted = (p: string) => {
     if (m.isPending && m.variables?.purpose === p) return m.variables.granted;
@@ -127,7 +127,7 @@ function DataRequests() {
       setConfirmDelete(false);
       setNote('');
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <SettingsSection title={t('settings.data.title')} sub={t('settings.data.subtitle')}>
