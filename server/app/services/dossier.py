@@ -830,7 +830,7 @@ def build_dossier(db: Session, student_user_id, *, staff: bool = False, refresh:
     for ac in ctx.apps:
         for req in ac.reqs:
             if not req.required:
-                optional[req.category].add(ac.university.name_en)
+                optional[req.category].add((ac.university.name_en, ac.university.name_ko))
                 continue
             for d in ctx.by_cat.get(req.category, []):
                 evals_by_doc[d.id].append((req, ac, _eval(db, ctx, d, req, ac)))
@@ -894,8 +894,9 @@ def build_dossier(db: Session, student_user_id, *, staff: bool = False, refresh:
             "applications": uses, "ready_count": len(ready_for), "needed_count": len({u["application_id"] for u in uses}),
             "summary": essay_summary(essay, uses) if (essay and canonical is None and uses and _essay_bucket(essay)) else
             row_summary(uses, canonical) if uses or not optional.get(cat) else
-            {"code": "S_OPTIONAL", "params": {"universities": _join(sorted(optional[cat]))},
-             "text": f"Optional for {_join(sorted(optional[cat]))} — it can still help your application."},
+            {"code": "S_OPTIONAL", "params": {"universities": _join(sorted(u for u, _ in optional[cat])),
+                                              "universities_ko": _join(sorted((ko or u) for u, ko in optional[cat]))},
+             "text": f"Optional for {_join(sorted(u for u, _ in optional[cat]))} — it can still help your application."},
             "findings": [ser_finding(f, staff=staff) for f in row_findings],
             "essay": {"id": str(essay.id), "status": essay.status.value} if essay else None,
         })
@@ -927,7 +928,8 @@ def build_dossier(db: Session, student_user_id, *, staff: bool = False, refresh:
         "student": {"id": str(ctx.student.id), "full_name": ctx.student.full_name, "nationality": p.nationality if p else None},
         "facts": facts, "rows": rows, "packages": packages, "requests": requests,
         # Owner pass 261119: optional requirements of the selected applications (additive; the student page offers them under `+`).
-        "optional": [{"category": c, "universities": sorted(u)} for c, u in optional.items() if c not in {r["category"] for r in rows}],
+        "optional": [{"category": c, "universities": [en for en, _ in sorted(u)], "universities_ko": [ko or en for en, ko in sorted(u)]}
+                     for c, u in optional.items() if c not in {r["category"] for r in rows}],
         "suggestions": suggestions,
         "counts": {"documents": len(ctx.docs), "ready": sum(1 for r in rows if r["state"] == "ready"), "todo": sum(1 for r in rows if r["state"] == "todo"),
                    "review": sum(1 for r in rows if r["state"] == "review"), "applications": len(ctx.apps),

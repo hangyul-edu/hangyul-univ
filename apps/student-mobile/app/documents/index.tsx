@@ -9,7 +9,7 @@
  * a confirmation. University requests stay first — they are the most urgent thing on the page.
  */
 import { useApi, useAuth } from '@hangyul/auth';
-import { useTranslation } from '@hangyul/i18n';
+import { localName, useTranslation } from '@hangyul/i18n';
 import {
   AppText, Button, Callout, EmptyState, IconButton, ListGroup, ListItem, LoadingState, ErrorState, prefs, ProgressBar, Screen, SectionTitle, Sheet,
   StatusText, theme, UploadSheet, useFormat, v3, type PickedFile, type Tone,
@@ -211,7 +211,7 @@ function GroupSection({ group: g, name, open, onToggle, onHide, itemName, onItem
               {g.items.map((i) => {
                 const label = t(`dossier:item.status.${i.row?.essay && !i.row.document && i.status === 'missing' ? 'toWrite' : i.status}`);
                 const source = i.universities.length
-                  ? t('dossier:item.neededBy', { list: i.universities.map((u) => u.name).join(', ') })
+                  ? t('dossier:item.neededBy', { list: i.universities.map((u) => localName({ name_en: u.name, name_ko: u.name_ko })).join(', ') })
                   : t(`dossier:item.source.${i.source}`, { list: '', defaultValue: '' });
                 const meta = [
                   i.deadline ? t('dossier:item.deadline', { date: f.date(i.deadline) }) : null,

@@ -406,7 +406,7 @@ export function essayTitleL(title: string, essayType?: string | null): string {
 }
 
 /** Server params that name a university in English carry the Korean name beside it as `<key>_ko` (additive). */
-const NAMED_PARAMS = new Set(['university', 'uni', 'school', 'universityName', 'university_name']);
+const NAMED_PARAMS = new Set(['university', 'uni', 'school', 'universityName', 'university_name', 'universities']);
 /**
  * The interpolation hook behind `t()` (see `initI18n`): `{{university}}` becomes `university_ko` on a Korean screen
  * when the server sent one, and the operations organisation's name becomes the localized team identity.

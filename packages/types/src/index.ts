@@ -1013,7 +1013,7 @@ export interface DossierFinding {
   note?: string | null; resolved_at?: ISODateTime | null; created_at?: ISODateTime | null;
 }
 export interface DossierUse {
-  application_id: UUID; university: string; requirement_id: string | null; label: string; status: DossierStatus; document_id: UUID | null;
+  application_id: UUID; university: string; university_ko?: string | null; requirement_id: string | null; label: string; status: DossierStatus; document_id: UUID | null;
   reason: DossierReason; sent: boolean; max_age_days: number | null;
 }
 export interface DossierRow {

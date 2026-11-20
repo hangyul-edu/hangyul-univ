@@ -64,7 +64,7 @@ export interface DocItem {
   key: string; category: DocumentCategory; group: DocGroupId; required: boolean; status: ItemStatus; done: boolean;
   source: ItemSource; row: DossierRow | null; slot?: AddedSlot;
   /** Universities whose applications need it, with how many applications each. */
-  universities: { name: string; count: number }[];
+  universities: { name: string; name_ko?: string | null; count: number }[];
   /** Earliest application deadline among the applications that still need it. */
   deadline: string | null;
 }
@@ -128,7 +128,7 @@ export function toneOf(c: GroupCounts): GroupTone {
   return 'neutral';
 }
 
-type DossierLike = Pick<Dossier, 'rows' | 'packages'> & { optional?: { category: DocumentCategory; universities: string[] }[] };
+type DossierLike = Pick<Dossier, 'rows' | 'packages'> & { optional?: { category: DocumentCategory; universities: string[]; universities_ko?: string[] }[] };
 
 /**
  * Builds the sections. `slots` are the student's added optional records; `opened` the optional groups they opened with `+`.
@@ -143,13 +143,17 @@ export function buildLayout(d: DossierLike, slots: AddedSlot[] = [], opened: Ite
     const required = row.needed_count > 0 || (!hasApplications && BASE_SET.includes(row.category));
     const status = itemStatus(row);
     const done = row.state === 'ready' || (row.state === 'extra' && status === 'verified');
-    const byUni = new Map<string, number>();
-    for (const u of row.applications) byUni.set(u.university, (byUni.get(u.university) ?? 0) + 1);
+    const byUni = new Map<string, { ko: string | null; count: number }>();
+    for (const u of row.applications) {
+      const ko = (u as { university_ko?: string | null }).university_ko ?? null;
+      const prev = byUni.get(u.university);
+      byUni.set(u.university, { ko: prev?.ko ?? ko, count: (prev?.count ?? 0) + 1 });
+    }
     const pending = row.applications.filter((u) => u.status !== 'READY' && u.status !== 'NEAR_EXPIRY').map((u) => deadlines.get(u.application_id)).filter(Boolean) as string[];
     items.push({
       key: row.category, category: row.category, group: groupOf(row.category, row.needed_count > 0), required, status, done,
       source: row.needed_count > 0 ? 'requirement' : required ? 'base' : 'stored', row,
-      universities: [...byUni].map(([name, count]) => ({ name, count })), deadline: done ? null : pending.sort()[0] ?? null,
+      universities: [...byUni].map(([name, v]) => ({ name, name_ko: v.ko, count: v.count })), deadline: done ? null : pending.sort()[0] ?? null,
     });
     seen.add(row.category);
   }
@@ -166,7 +170,7 @@ export function buildLayout(d: DossierLike, slots: AddedSlot[] = [], opened: Ite
     const g = groupOf(o.category, true);
     optionalByGroup.set(g, (optionalByGroup.get(g) ?? 0) + 1);
     items.push({ key: `opt:${o.category}`, category: o.category, group: g, required: false, status: 'missing', done: false, source: 'optional', row: null,
-      universities: o.universities.map((name) => ({ name, count: 1 })), deadline: null });
+      universities: o.universities.map((name, i) => ({ name, name_ko: o.universities_ko?.[i] ?? null, count: 1 })), deadline: null });
     seen.add(o.category);
   }
   for (const s of slots) {

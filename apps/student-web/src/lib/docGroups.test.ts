@@ -65,7 +65,9 @@ describe('layout', () => {
     expect(academic.required).toBe(true);
     expect(academic.items[0].category).toBe('TRANSCRIPT'); // what needs the student first
     expect(academic.items[0].deadline).toBe('2026-12-04');
-    expect(academic.items[0].universities).toEqual([{ name: 'Pusan National University', count: 1 }, { name: 'Kyungpook National University', count: 1 }]);
+    expect(academic.items[0].universities.map(({ name, count }) => ({ name, count }))).toEqual([{ name: 'Pusan National University', count: 1 }, { name: 'Kyungpook National University', count: 1 }]);
+    // The Korean name rides along so a Korean screen never shows the English one (owner 261119 p5).
+    expect(academic.items[0].universities.every((u) => 'name_ko' in u)).toBe(true);
     expect(l.groups[2].required).toBe(false);
   });
 

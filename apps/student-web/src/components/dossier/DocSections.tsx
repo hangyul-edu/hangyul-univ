@@ -1,3 +1,4 @@
+import { localName } from '@hangyul/i18n';
 import { FileUp, Minus, MoreHorizontal, PenLine, Plus, Upload } from '@hangyul/icons';
 import type { DossierRow } from '@hangyul/types';
 import { Button, Drawer, Field, Popover, Progress, Select, StatusText } from '@hangyul/ui';
@@ -184,8 +185,8 @@ export function DocItemRow({ item, lead, focused, onAction }: {
   if (item.deadline) meta.push(t('dossier:item.deadline', { date: fmt(item.deadline) }));
 
   const where = item.source === 'requirement'
-    ? t('dossier:item.neededBy', { list: item.universities.map((u) => (u.count > 1 ? `${u.name} (${u.count})` : u.name)).join(' · ') })
-    : item.source === 'optional' ? t('dossier:item.source.optional', { list: item.universities.map((u) => u.name).join(' · ') })
+    ? t('dossier:item.neededBy', { list: item.universities.map((u) => { const n = localName({ name_en: u.name, name_ko: u.name_ko }); return u.count > 1 ? `${n} (${u.count})` : n; }).join(' · ') })
+    : item.source === 'optional' ? t('dossier:item.source.optional', { list: item.universities.map((u) => localName({ name_en: u.name, name_ko: u.name_ko })).join(' · ') })
     : t(`dossier:item.source.${item.source}`);
   const reused = doc && row && row.needed_count > 1 ? t('dossier:item.reused', { count: row.needed_count }) : null;
   const note = doc?.rejection_reason && (item.status === 'fix') ? doc.rejection_reason : null;
