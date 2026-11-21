@@ -1,3 +1,4 @@
+import { uniName } from '@hangyul/i18n';
 import { Users } from '@hangyul/icons';
 import type { FxTable, HangyulFee, ProgramBudget } from '@hangyul/types';
 import { ButtonLink, EmptyState, QueryState, Segmented, Select, Skeleton, StatusText } from '@hangyul/ui';
@@ -21,7 +22,7 @@ function BudgetDetail({ b, cur, fx, open }: { b: ProgramBudget & { plan?: Progra
     <section className="bd-prog" aria-labelledby={`bd-${b.program_id}`}>
       <header className="bd-prog__head">
         <div style={{ minWidth: 0 }}>
-          <h2 id={`bd-${b.program_id}`} className="hg-title-sm">{b.university_name}</h2>
+          <h2 id={`bd-${b.program_id}`} className="hg-title-sm">{uniName(b, 'university_name')}</h2>
           <p className="hg-small hg-muted">{b.program_name} · {b.city}</p>
         </div>
         <Link to={`/universities/${b.university_slug}?program=${b.program_id}`} className="hg-link-arrow">{t('budget.program')}</Link>

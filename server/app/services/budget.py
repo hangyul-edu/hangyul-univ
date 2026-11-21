@@ -87,6 +87,7 @@ class ProgramBudget:
     scholarship_best_min: int | None = None
     scholarship_best_max: int | None = None
     range_basis: str = "UNKNOWN"
+    university_name_ko: str | None = None  # the name in Korean, for a Korean reader
 
 
 def _scholarship_value(s: Scholarship, semester_tuition: int | None) -> tuple[int | None, int | None]:
@@ -102,7 +103,7 @@ def _scholarship_value(s: Scholarship, semester_tuition: int | None) -> tuple[in
 
 def program_budget(program: Program, university: University, dorms: list[Dormitory], scholarships: list[Scholarship],
                    profile: StudentProfile | None, housing: str | None = None, today: date | None = None) -> ProgramBudget:
-    b = ProgramBudget(program_id=str(program.id), program_name=program.name_en, university_name=university.name_en,
+    b = ProgramBudget(program_id=str(program.id), program_name=program.name_en, university_name=university.name_en, university_name_ko=university.name_ko,
                       university_slug=university.slug, city=university.city)
     sem = program.tuition_per_semester_krw
     pb = basis_of(program)

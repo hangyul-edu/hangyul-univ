@@ -341,6 +341,7 @@ screens). Signed-in screens in Design Preview on the four production builds; jou
 | Web unit tests | Student 195 (+2), Operations 64, University 72, Marketing 90 (+22 skipped), Student native 23 — PASS |
 | Typecheck · i18n · tokens · docs links · leak (source + bundles) · Design Preview gate (bundles on) | PASS |
 | Security scan (tracked tree, runtime capture, database, Redis) | 0 unauthorized occurrences |
+| Production (Vercel, 2026-11-21) | Commits `7c7824d6` (the pass) and `79635819` (names found on the live site after the first deploy) built and served on all four domains; `scripts/qa/launch-final/smoke.mjs`: **0 failures** (commit marker, no page error or failed request, no overflow at 390/1440, same-origin `/api/v1/auth/me` → 401, security headers, preview entry). Live check: Pretendard loads, "NaN명" gone from the SNU page, Operations Today and Student home show Korean university names, no console errors |
 | Connected API (2026-11-21) | `catalog/status` READY · 425 universities · 469 programmes; `auth/me` 401; still behind the ngrok tunnel |
 | Native | Three apps typecheck; Student native 23 tests. **Not run on an emulator or device** — no KVM, Android SDK or Xcode on this machine |
 
