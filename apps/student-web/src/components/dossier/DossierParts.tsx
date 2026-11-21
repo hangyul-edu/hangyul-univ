@@ -82,7 +82,7 @@ export function WhoCanSee({ row }: { row?: DossierRow | null }) {
         ) : <li className="hg-muted">{t('v9.who.noAgency')}</li>}
         <li><strong>{t('v9.who.reviewers')}</strong> <span className="hg-muted">{t('v9.who.reviewersWhy')}</span></li>
         {row && (sent.length
-          ? sent.map((s) => <li key={s.application_id}><strong>{s.university}</strong> <span className="hg-muted">{s.sent_on ? t('v9.who.sentOn', { date: fmt(s.sent_on) }) : t('v9.who.sent')}</span></li>)
+          ? sent.map((s) => <li key={s.application_id}><strong>{uniName(s)}</strong> <span className="hg-muted">{s.sent_on ? t('v9.who.sentOn', { date: fmt(s.sent_on) }) : t('v9.who.sent')}</span></li>)
           : <li className="hg-muted">{t('v9.who.notSent')}</li>)}
       </ul>
       <dl className="v9-who__dl">
@@ -237,7 +237,7 @@ export function PackageItem({ p }: { p: DossierPackage }) {
   return (
     <li className="dz-pkg" id={`pkg-${p.application.id}`} data-complete={s.complete || undefined}>
       <div className="dz-pkg__head">
-        <Link to={`/applications/${p.application.id}`} className="dz-pkg__uni">{p.application.university}</Link>
+        <Link to={`/applications/${p.application.id}`} className="dz-pkg__uni">{uniName(p.application)}</Link>
         <span className="dz-pkg__prog">{p.application.program}</span>
       </div>
       <p className={cx('dz-pkg__line', s.complete && 'dz-pkg__line--done')}>{packageLine(t, s)}</p>

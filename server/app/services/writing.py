@@ -982,7 +982,8 @@ def used_by(db: Session, essay: Essay, review: EssayReview | None = None) -> lis
     if not app:
         return []
     ver = _approved_version(db, essay)
-    return [{"application_id": str(app.id), "university": t["university"].name_en if t["university"] else None, "university_id": str(t["university"].id) if t["university"] else None,
+    return [{"application_id": str(app.id), "university": t["university"].name_en if t["university"] else None,
+             "university_ko": t["university"].name_ko if t["university"] else None, "university_id": str(t["university"].id) if t["university"] else None,
              "program": t["program"].name_en if t["program"] else None, "application_status": app.status.value,
              "approved_version": ver, "newer_draft": bool(ver and essay.current_version > ver)}]
 

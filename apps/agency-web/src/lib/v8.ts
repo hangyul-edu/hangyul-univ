@@ -45,7 +45,7 @@ export interface TodayQueue {
 
 export interface MovementNext {
   kind: 'task' | 'meeting' | 'deadline'; title?: string; title_key?: string | null; title_params?: Record<string, unknown> | null;
-  due_at: string | null; overdue: boolean; student_side?: boolean; meeting_kind?: string; channel?: string; university?: string; days?: number; link: string;
+  due_at: string | null; overdue: boolean; student_side?: boolean; meeting_kind?: string; channel?: string; university?: string; university_ko?: string | null; days?: number; link: string;
 }
 export interface Movement {
   student_id: string; stage: string; last_moved_at: string | null; days_since_moved: number | null;
@@ -120,18 +120,18 @@ export function reasonText(t: TFn, r: Reason): string {
   switch (r.code) {
     case 'deadline_missing':
     case 'deadline_soon':
-      return t(`v8.reason.${r.code}`, { count: Number(p.days ?? 0), university: p.university ?? '', items: Number(p.items ?? 0) });
+      return t(`v8.reason.${r.code}`, { count: Number(p.days ?? 0), university: p.university ?? '', university_ko: p.university_ko, items: Number(p.items ?? 0) });
     case 'essay_late':
       return t('v8.reason.essay_late', { essay: t(`essayType.${p.essay_type}`, { defaultValue: t('v8.reason.essay') }) });
     case 'university_request':
-      return t('v8.reason.university_request', { university: p.university ?? '' });
+      return t('v8.reason.university_request', { university: p.university ?? '', university_ko: p.university_ko });
     case 'reply_waiting':
     case 'student_silent':
       return p.days == null ? t(`v8.reason.${r.code}_unknown`) : t(`v8.reason.${r.code}`, { count: Number(p.days) });
     case 'submission_issue': case 'submit_authorized': case 'ready_to_submit': case 'final_review':
-      return t(`v9.reason.${r.code}`, { university: p.university ?? '' });
+      return t(`v9.reason.${r.code}`, { university: p.university ?? '', university_ko: p.university_ko });
     case 'confirmation_missing':
-      return t('v9.reason.confirmation_missing', { count: Number(p.days ?? 0), university: p.university ?? '' });
+      return t('v9.reason.confirmation_missing', { count: Number(p.days ?? 0), university: p.university ?? '', university_ko: p.university_ko });
     case 'visa_overdue': case 'visa_action':
       return t(`v9.reason.visa.${p.what ?? 'other'}`, { date: p.date ?? '', defaultValue: t('v9.reason.visa.other') });
     case 'service_late': case 'service_action':

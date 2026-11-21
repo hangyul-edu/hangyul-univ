@@ -1,4 +1,4 @@
-import { localizedTitle, errorText } from '@hangyul/i18n';
+import { localizedTitle, errorText, uniName } from '@hangyul/i18n';
 import { useApi, useAuth } from '@hangyul/auth';
 import { Check, ChevronRight } from '@hangyul/icons';
 import type { Page, Task } from '@hangyul/types';
@@ -44,7 +44,7 @@ function TaskRow({ task, mine, onDone, busy }: { task: Task; mine: boolean; onDo
         <div className="stk-meta">
           {/* V22 (REPORT §246 A4): a task that is not the student's is the Hangyul team's — never a staff name. */}
           <span>{mine ? t('tasksV3.owner.you') : t('tasksV3.owner.team')}</span>
-          {task.university && <span>{task.university}</span>}
+          {task.university && <span>{uniName(task)}</span>}
           {task.depends_on && !task.depends_on.done && <span>{t('tasksV3.after', { title: localizedTitle(t, task.depends_on) })}</span>}
         </div>
         {task.description && <p className="stk-desc">{task.description}</p>}

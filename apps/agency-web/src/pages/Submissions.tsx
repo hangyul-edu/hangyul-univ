@@ -1,3 +1,4 @@
+import { uniName } from '@hangyul/i18n';
 // PRIMARY QUESTION: Which applications are stuck between ready and received?
 //
 // V9 Submissions (REPORT §59 A7) — one queue across EVERY connector method (guided hand-off on the official portal,
@@ -55,7 +56,7 @@ export default function Submissions() {
       cell: ({ row }) => <span className="ag-cell-2"><Link to={`/students/${row.original.student.id}`} className="hg-medium" onClick={(e) => e.stopPropagation()}>{row.original.student.full_name}</Link>
         <span className="hg-subtle hg-xs">{row.original.counselor?.name ?? t('misc.unassigned')}</span></span> },
     { id: 'university', accessorFn: (r) => `${r.university} — ${r.program}`, header: t('apps.col.program'), meta: { label: t('apps.col.program'), priority: 1, minWidth: 200 },
-      cell: ({ row }) => <span className="ag-cell-2 ag8-clampcell"><span className="hg-truncate">{row.original.university}</span><span className="hg-subtle hg-xs hg-truncate">{row.original.program}</span></span> },
+      cell: ({ row }) => <span className="ag-cell-2 ag8-clampcell"><span className="hg-truncate">{uniName(row.original)}</span><span className="hg-subtle hg-xs hg-truncate">{row.original.program}</span></span> },
     { id: 'method', accessorKey: 'method', header: t('v9.sub.method'), meta: { label: t('v9.sub.method'), priority: 3, minWidth: 140, exportValue: (r) => t(`v9.sub.methods.${r.method}`, { defaultValue: r.method }) },
       cell: ({ row }) => <span className="hg-small">{t(`v9.sub.methods.${row.original.method}`, { defaultValue: row.original.method })}</span> },
     { id: 'since', accessorFn: (r) => r.days ?? -1, header: t('v9.sub.since'), meta: { label: t('v9.sub.since'), priority: 1, minWidth: 110 },

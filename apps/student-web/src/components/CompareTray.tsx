@@ -1,3 +1,4 @@
+import { uniName } from '@hangyul/i18n';
 import { ArrowRight, Columns3, X } from '@hangyul/icons';
 import { Button, ButtonLink } from '@hangyul/ui';
 import { Link, useLocation } from 'react-router';
@@ -21,7 +22,7 @@ export function CompareTray() {
           <ul className="st-tray__chips">
             {items.map((i) => (
               <li key={i.id} className="st-tray__chip">
-                <span className="hg-truncate">{i.university}</span>
+                <span className="hg-truncate">{uniName(i)}</span>
                 <button type="button" onClick={() => remove(i.id)} aria-label={t('compare.tray.remove', { name: `${i.university} — ${i.label}` })}><X aria-hidden /></button>
               </li>
             ))}

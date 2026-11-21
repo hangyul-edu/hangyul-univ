@@ -105,7 +105,7 @@ export default function Compare() {
       {fromSaved && <p className="hg-small hg-muted">{t('v4.compare.fromSaved', { count: ids.length })}</p>}
       <QueryState query={q} skeleton={<SkeletonCard lines={8} />}>
         {(data) => {
-          const name = (r: CompareRow) => r.program.university?.name_en ?? localName(r.program);
+          const name = (r: CompareRow) => (r.program.university ? localName(r.program.university) : localName(r.program));
           const pick = (key: string) => { const row = rows.find((x) => x.key === key)!; const ids = bestIds(row, data); return data.filter((r) => ids.has(r.program.id)); };
           const academic = (r: CompareRow) => r.match?.factors.find((f) => f.factor === 'academic')?.points ?? r.match?.score ?? 0;
           const bestFit = [...data].filter((r) => r.match?.eligible).sort((x, y) => academic(y) - academic(x))[0];
@@ -136,10 +136,10 @@ export default function Compare() {
                         <th key={r.program.id} scope="col">
                           <div className="st-compare__colhead">
                             <div style={{ minWidth: 0 }}>
-                              <Link to={`/universities/${r.program.university?.slug}?program=${r.program.id}`} className="hg-link hg-strong">{r.program.university?.name_en}</Link>
+                              <Link to={`/universities/${r.program.university?.slug}?program=${r.program.id}`} className="hg-link hg-strong">{(r.program.university ? localName(r.program.university) : '')}</Link>
                               <div className="hg-muted hg-xs" style={{ fontWeight: 400 }}>{localName(r.program)}</div>
                             </div>
-                            <Button variant="ghost" size="sm" iconOnly icon={<X />} aria-label={t('compare.remove', { name: r.program.university?.name_en })} onClick={() => removeCol(r.program.id)} />
+                            <Button variant="ghost" size="sm" iconOnly icon={<X />} aria-label={t('compare.remove', { name: (r.program.university ? localName(r.program.university) : '') })} onClick={() => removeCol(r.program.id)} />
                           </div>
                         </th>
                       ))}
@@ -176,13 +176,13 @@ export default function Compare() {
               {/* Under ~900px: one block per program, differences first; identical rows are listed once below. */}
               <div className="sc-cards">
                 {data.map((r) => (
-                  <section key={r.program.id} className="sc-card" aria-label={r.program.university?.name_en}>
+                  <section key={r.program.id} className="sc-card" aria-label={(r.program.university ? localName(r.program.university) : '')}>
                     <header className="sc-card__head">
                       <div style={{ minWidth: 0 }}>
-                        <Link to={`/universities/${r.program.university?.slug}?program=${r.program.id}`} className="hg-link hg-strong">{r.program.university?.name_en}</Link>
+                        <Link to={`/universities/${r.program.university?.slug}?program=${r.program.id}`} className="hg-link hg-strong">{(r.program.university ? localName(r.program.university) : '')}</Link>
                         <div className="hg-muted hg-xs">{localName(r.program)}</div>
                       </div>
-                      <Button variant="ghost" size="sm" iconOnly icon={<X />} aria-label={t('compare.remove', { name: r.program.university?.name_en })} onClick={() => removeCol(r.program.id)} />
+                      <Button variant="ghost" size="sm" iconOnly icon={<X />} aria-label={t('compare.remove', { name: (r.program.university ? localName(r.program.university) : '') })} onClick={() => removeCol(r.program.id)} />
                     </header>
                     <dl className="sc-card__rows">
                       {rows.filter((row) => !same(row, data)).map((row) => {

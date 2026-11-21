@@ -596,7 +596,7 @@ export type AgencyWaitingParty = 'counselor' | 'agency' | 'hangyul' | 'student' 
 export interface AgencyWaitingReason { code: string; count?: number; status?: ApplicationStatus }
 export interface AgencyWaitingOwner { kind: 'person' | 'agency' | 'hangyul' | 'student' | 'university' | 'embassy' | 'rail' | 'provider'; id?: string; name: string | null }
 export interface AgencyNextAction {
-  party: AgencyWaitingParty; code: string; params: { count?: number; status?: ApplicationStatus | null; university?: string };
+  party: AgencyWaitingParty; code: string; params: { count?: number; status?: ApplicationStatus | null; university?: string; university_ko?: string | null };
   task: { id: string; title: string; title_key: string | null; title_params: Record<string, unknown> | null; due_at: ISODateTime | null; overdue: boolean } | null;
 }
 export interface AgencyIdentity {

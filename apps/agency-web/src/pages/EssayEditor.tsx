@@ -5,7 +5,7 @@
  * request changes (R) → the next essay of the same queue view opens. Nothing here edits the student's text.
  */
 import { useAuth } from '@hangyul/auth';
-import { errorText, orgName } from '@hangyul/i18n';
+import { errorText, orgName, localName } from '@hangyul/i18n';
 import {
   ArrowLeft, Check, ChevronDown, ChevronRight, CircleAlert, CircleCheck, CircleDashed, ClipboardCheck, Eye, FileClock, GitCompare, Keyboard,
   ListChecks, Lock, MessageSquarePlus, MessagesSquare, RefreshCw, Send, ShieldCheck, Sparkles, TriangleAlert, Undo2, UserCog, X,
@@ -97,7 +97,7 @@ function ContextHeader({ e, onReassign, onApprove, onChanges, onMove, onNext, ne
         <h1 className="wr-head__title">
           <Link to={`/students/${e.owner_user_id}?tab=essays`}>{e.owner_name}</Link>
           <span className="wr-head__sep" aria-hidden>·</span>
-          <span>{w.context.university?.name ?? '—'}</span>
+          <span>{w.context.university ? localName({ name_en: w.context.university.name, name_ko: w.context.university.name_ko ?? null }) : '—'}</span>
           {w.context.program && <><span className="wr-head__sep" aria-hidden>·</span><span className="wr-head__soft">{w.context.program.name}</span></>}
           {intake && <><span className="wr-head__sep" aria-hidden>·</span><span className="wr-head__soft">{intake}</span></>}
         </h1>
@@ -561,8 +561,8 @@ function VersionsPanel({ e, compare, onCompare }: { e: V6Essay; compare: [number
           {usedBy.map((u) => (
             <p key={u.application_id} className="hg-small">
               <ClipboardCheck size={14} aria-hidden /> {u.approved_version
-                ? t('writing:v6.usedBy', { version: u.approved_version, university: u.university ?? '—' })
-                : t('writing:v6.notYetUsed', { university: u.university ?? '—' })}
+                ? t('writing:v6.usedBy', { version: u.approved_version, university: u.university ?? '—', university_ko: (u as { university_ko?: string | null }).university_ko ?? undefined })
+                : t('writing:v6.notYetUsed', { university: u.university ?? '—', university_ko: (u as { university_ko?: string | null }).university_ko ?? undefined })}
               {u.newer_draft && <span className="hg-subtle"> · {t('writing:v6.newerDraft')}</span>}
             </p>
           ))}

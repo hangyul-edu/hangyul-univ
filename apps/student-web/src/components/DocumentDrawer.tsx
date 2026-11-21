@@ -1,4 +1,4 @@
-import { errorText } from '@hangyul/i18n';
+import { errorText, uniName } from '@hangyul/i18n';
 import { useApi } from '@hangyul/auth';
 import { Check, Download, Eye, FileUp, History, Wrench } from '@hangyul/icons';
 import type { VaultDocument } from '@hangyul/types';
@@ -178,7 +178,7 @@ function DossierDocSection({ docId }: { docId: string }) {
           <ul className="dz-uses">
             {uses.map((u) => (
               <li key={`${u.application_id}-${u.requirement_id}`}>
-                <StatusText tone={TONE[u.status] ?? 'danger'}>{u.university}{u.sent ? ` · ${t('drawer.sent')}` : ''}</StatusText>
+                <StatusText tone={TONE[u.status] ?? 'danger'}>{uniName(u)}{u.sent ? ` · ${t('drawer.sent')}` : ''}</StatusText>
                 <span className="dz-uses__why">{reasonText(t, u.reason, fmt)}</span>
               </li>
             ))}

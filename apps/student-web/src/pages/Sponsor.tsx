@@ -124,7 +124,7 @@ export default function Sponsor() {
                   <ul className="v9-sp__list">
                     {d.progress.applications.map((a, i) => (
                       <li key={`${a.university}-${i}`}>
-                        <span className="hg-medium">{a.university}</span>
+                        <span className="hg-medium">{uniName(a)}</span>
                         <span className="hg-small hg-muted">{a.program}</span>
                         <span className="hg-small">{t(`stage.${a.status}`, { defaultValue: t(`common:appStatus.${a.status}`) })}</span>
                       </li>

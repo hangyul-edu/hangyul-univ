@@ -85,13 +85,13 @@ def movement(student_id: str, p: Principal = Depends(require_agency_or_hangyul),
                                                    Appointment.starts_at >= now - timedelta(hours=1)).order_by(Appointment.starts_at).limit(2)).all():
         nxt.append({"kind": "meeting", "meeting_kind": ap.kind, "channel": ap.channel, "due_at": iso(ap.starts_at), "overdue": False,
                     "link": f"/tasks?view=meetings&student={sid}"})
-    for app_, deadline, uni in db.execute(select(Application, ProgramIntake.application_deadline, University.name_en)
+    for app_, deadline, uni, uni_ko in db.execute(select(Application, ProgramIntake.application_deadline, University.name_en, University.name_ko)
                                           .join(ProgramIntake, ProgramIntake.id == Application.intake_id)
                                           .join(University, University.id == Application.university_id)
                                           .where(Application.student_user_id == sid, Application.status.in_(caseload.PRE_SUBMIT),
                                                  ProgramIntake.application_deadline >= now.date())
                                           .order_by(ProgramIntake.application_deadline).limit(2)).all():
-        nxt.append({"kind": "deadline", "university": uni, "due_at": deadline.isoformat(), "overdue": False,
+        nxt.append({"kind": "deadline", "university": uni, "university_ko": uni_ko, "due_at": deadline.isoformat(), "overdue": False,
                     "days": (deadline - now.date()).days, "link": f"/students/{sid}?tab=applications"})
     nxt.sort(key=lambda x: (not x["overdue"], x["due_at"] or "9999"))
     return {

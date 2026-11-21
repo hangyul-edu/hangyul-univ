@@ -154,13 +154,13 @@ export function useWaitingText() {
       if (na.party === 'student') {
         const what = na.task ? taskTitle(t, na.task)
           : APP_CODES.has(na.code) && p.status ? t(`v9.next.app.${p.status}`, { defaultValue: t(`waiting.app.${p.status}`, { defaultValue: '' }) })
-            : t(STUDENT_WHAT[na.code] ?? 'v9.next.student.generic', { count: p.count ?? 1, university: p.university ?? '' });
+            : t(STUDENT_WHAT[na.code] ?? 'v9.next.student.generic', { count: p.count ?? 1, university: p.university ?? '', university_ko: p.university_ko ?? undefined });
         return t('v9.next.studentSays', { what });
       }
-      if (na.party === 'university') return t('v9.next.universitySays', { what: p.status ? t(`waiting.app.${p.status}`, { defaultValue: '' }) : t('v9.next.uniDecision'), university: p.university ?? '' });
-      if (na.party === 'external') return t(`v9.next.${na.code}`, { university: p.university ?? '' });
+      if (na.party === 'university') return t('v9.next.universitySays', { what: p.status ? t(`waiting.app.${p.status}`, { defaultValue: '' }) : t('v9.next.uniDecision'), university: p.university ?? '', university_ko: p.university_ko ?? undefined });
+      if (na.party === 'external') return t(`v9.next.${na.code}`, { university: p.university ?? '', university_ko: p.university_ko ?? undefined });
       if ((na.code === 'task' || na.code === 'task_unassigned') && na.task) return t('v9.next.taskTitle', { title: taskTitle(t, na.task) });
-      return t(`v9.next.${na.code}`, { count: p.count ?? 1, university: p.university ?? '' });
+      return t(`v9.next.${na.code}`, { count: p.count ?? 1, university: p.university ?? '', university_ko: p.university_ko ?? undefined });
     },
     owner: (o: AgencyWaitingOwner | null | undefined) => {
       if (!o) return null;

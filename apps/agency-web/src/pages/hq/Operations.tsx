@@ -1,3 +1,4 @@
+import { uniName } from '@hangyul/i18n';
 // PRIMARY QUESTION: Where is the ecosystem failing?
 // V9 (REPORT §61 H1): the one severity-ordered failure list now includes application blockers, submission blockers
 // (failed attempts, confirmations missing), arrival / housing failures and integration failures, and every row expands
@@ -87,7 +88,7 @@ function Failures({ d }: { d: Overview }) {
                     <li key={n}>
                       <Link to={i.link}>{i.student ?? (i.detail != null ? t(`v9.ready.item.${i.detail}`, { defaultValue: t(`v8.ready.item.${i.detail}`, { defaultValue: String(i.detail) }) }) : '—')}</Link>
                       {i.student && i.detail != null && <span className="text-muted"> · {typeof i.detail === 'number' ? t('ws.itemsRemain', { count: i.detail }) : t(`docCategory.${i.detail}`, { defaultValue: t(`concierge:type.${i.detail}`, { defaultValue: String(i.detail) }) })}</span>}
-                      {i.university && <span className="text-muted"> · {i.university}</span>}
+                      {i.university && <span className="text-muted"> · {uniName(i)}</span>}
                       {i.status && <span className="text-muted"> · {t(`v8.ready.status.${i.status}`, { defaultValue: i.status })}</span>}
                       {i.since && <span className="text-muted"> · {/^\d{4}-\d{2}-\d{2}$/.test(i.since) ? formatDate(i.since, locale, { month: 'short', day: 'numeric' }) : formatRelative(i.since, locale)}</span>}
                     </li>

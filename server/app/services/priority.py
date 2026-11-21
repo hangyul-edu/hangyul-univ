@@ -328,6 +328,16 @@ def collect(db: Session, p, ids: list[uuid.UUID], now: datetime | None = None) -
         for sid in silent:
             at = last.get(sid)
             out[sid].append(_reason("student_silent", at, days=(now - at).days if at else None))
+    # Names follow the reader's language: every reason that names a university carries its Korean name too (one query),
+    # so the console's interpolation hook can show "부산대학교" on a Korean screen.
+    names = {r["params"].get("university") for rs in out.values() for r in rs if isinstance(r["params"].get("university"), str)}
+    if names:
+        ko = dict(db.execute(select(University.name_en, University.name_ko).where(University.name_en.in_(names))).all())
+        for rs in out.values():
+            for r in rs:
+                u = r["params"].get("university")
+                if isinstance(u, str) and ko.get(u):
+                    r["params"]["university_ko"] = ko[u]
     return out
 
 

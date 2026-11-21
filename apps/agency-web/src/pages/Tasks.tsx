@@ -1,3 +1,4 @@
+import { uniName } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import { Check, CheckCircle2, Plus, UserRound, UserRoundCheck } from '@hangyul/icons';
 import type { Task, TaskPriority, TaskType } from '@hangyul/types';
@@ -63,7 +64,7 @@ function WorkRow({ task }: { task: Task }) {
       </span>
       <span className="ag-work__main">
         <span className="ag-work__title hg-truncate">{task.link ? <Link to={task.link}>{taskTitle(t, task)}</Link> : taskTitle(t, task)}</span>
-        {task.university && <span className="ag-work__meta hg-truncate">{task.university}</span>}
+        {task.university && <span className="ag-work__meta hg-truncate">{uniName(task)}</span>}
       </span>
       <span className="ag-work__due" title={formatDateTime(task.due_at, locale)}>
         {task.due_at ? <span className={task.overdue ? 'ag-overdue' : undefined}>{formatRelative(task.due_at, locale)}</span> : <span className="hg-subtle">{t('tasksPage.noDue')}</span>}

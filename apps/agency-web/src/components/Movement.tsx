@@ -21,7 +21,7 @@ function NextLabel({ n }: { n: MovementNext }) {
     return <>{taskTitle(t, { title: n.title ?? '', title_key: n.title_key, title_params: n.title_params })}{n.student_side && <span className="text-muted"> · {t('v8.move.studentSide')}</span>}</>;
   }
   if (n.kind === 'meeting') return <>{t('v8.move.meeting', { kind: t(`consult.kind.${n.meeting_kind}`, { defaultValue: t('v8.move.meetingDefault') }) })}</>;
-  return <>{t('v8.move.deadline', { university: n.university ?? '' })}</>;
+  return <>{t('v8.move.deadline', { university: n.university ?? '', university_ko: n.university_ko ?? undefined })}</>;
 }
 
 export function MovementPanel({ studentId, name, extra }: { studentId: string; name: string; extra: ExtraBlocker[] }) {

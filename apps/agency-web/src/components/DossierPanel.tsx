@@ -1,5 +1,5 @@
 import { useAuth } from '@hangyul/auth';
-import { errorText, useLocale } from '@hangyul/i18n';
+import { errorText, useLocale, uniName } from '@hangyul/i18n';
 import type { DossierFinding, DossierPackageSummary } from '@hangyul/types';
 import { Button, StatusText, useToast } from '@hangyul/ui';
 import { formatDate } from '@hangyul/utils';
@@ -56,7 +56,7 @@ export function DossierPanel({ studentId }: { studentId: string }) {
         <ul className="ag-dossier__pkgs">
           {d.packages.map((p) => (
             <li key={p.application.id}>
-              <span className="hg-strong hg-small">{p.application.university}</span>
+              <span className="hg-strong hg-small">{uniName(p.application)}</span>
               <StatusText tone={p.summary.complete ? 'success' : p.summary.student || p.summary.request ? 'warning' : 'info'}>{pkg(t, p.summary)}</StatusText>
             </li>
           ))}

@@ -1,7 +1,7 @@
 // PRIMARY QUESTION: Why is this case not moving, and who has to act next?
 // V9 (REPORT §59 A3/A8/A12): the header answers why it is not moving · next action · waiting on · deadline · owner before
 // any tab; meetings are one record on the timeline; the agency identity responsible for the applicant is on the case.
-import { errorText, localName, docTitle, essayTitleL } from '@hangyul/i18n';
+import { errorText, localName, docTitle, essayTitleL, uniName } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import { CalendarPlus, Check, NotebookPen, ChevronRight, Reply, Ellipsis, GraduationCap, Info, Languages, Mail, MessageSquarePlus, Phone, Plus, Sparkles, Upload, UserRound, Wallet } from '@hangyul/icons';
 import { PIPELINE_STAGES, VISA_STATUSES, type PipelineStage, type StudentWorkspace as WS, type Task, type VisaStatus } from '@hangyul/types';
@@ -502,7 +502,7 @@ function EssaysTab({ ws }: { ws: WS }) {
         <li key={e.id}>
           <Link to={`/essays/${e.id}`} className="ag-rowbtn">
             <span className="hg-grow" style={{ minWidth: 0 }}>
-              <span className="hg-strong hg-small hg-truncate" style={{ display: 'block' }}>{essayTitleL(e.title, e.essay_type)}</span>
+              <span className="hg-strong hg-small hg-truncate" style={{ display: 'block' }}>{essayTitleL(e.title, e.essay_type, ws.applications.find((a) => !!a.university.name_en && e.title.endsWith(a.university.name_en))?.university)}</span>
               <span className="hg-subtle hg-xs">{t(`essayType.${e.essay_type}`)}{e.due_date ? ` · ${t('time.due', { date: formatDate(e.due_date, locale) })}` : ''}</span>
             </span>
             <EssayStatusBadge status={e.status} />
@@ -596,7 +596,7 @@ function VisaCaseCard({ id }: { id: string }) {
           <Card pad className="hg-stack">
             <div className="hg-row hg-between" style={{ flexWrap: 'wrap', gap: 8 }}>
               <div>
-                <h3 className="hg-title-sm">{t('ws.visaType', { type: v.visa_type })} {v.university && <span className="hg-subtle hg-small">· {v.university}</span>}</h3>
+                <h3 className="hg-title-sm">{t('ws.visaType', { type: v.visa_type })} {v.university && <span className="hg-subtle hg-small">· {uniName(v)}</span>}</h3>
                 {v.visa_type_reason && <p className="hg-subtle hg-xs">{v.visa_type_reason}</p>}
               </div>
               <div className="hg-row" style={{ gap: 8 }}>

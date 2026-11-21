@@ -450,11 +450,13 @@ def build_rows(db: Session, pairs: list[tuple[StudentProfile, User]], now: datet
 
     app_states: dict[uuid.UUID, list[ApplicationStatus]] = {}
     app_uni: dict[tuple[uuid.UUID, ApplicationStatus], str] = {}
-    for sid, st, uni in db.execute(select(Application.student_user_id, Application.status, University.name_en)
-                                   .join(University, University.id == Application.university_id)
-                                   .where(Application.student_user_id.in_(ids)).order_by(Application.updated_at.desc(), Application.id)).all():
+    app_uni_ko: dict[tuple[uuid.UUID, ApplicationStatus], str | None] = {}
+    for sid, st, uni, uni_ko in db.execute(select(Application.student_user_id, Application.status, University.name_en, University.name_ko)
+                                           .join(University, University.id == Application.university_id)
+                                           .where(Application.student_user_id.in_(ids)).order_by(Application.updated_at.desc(), Application.id)).all():
         app_states.setdefault(sid, []).append(st)
         app_uni.setdefault((sid, st), uni)
+        app_uni_ko.setdefault((sid, st), uni_ko)
 
     # V9 waiting model: one party + reason per student (same predicates as the views), then who exactly holds it.
     parties = waiting.evaluate(db, ids, now)
@@ -490,6 +492,7 @@ def build_rows(db: Session, pairs: list[tuple[StudentProfile, User]], now: datet
             "review": review, "fix": fix, "internal_overdue": t.internal_overdue if t else 0, "student_tasks": t.student_open if t else 0,
             "student_task": _task_brief(student_tasks.get(user.id), now), "staff_task": _task_brief(staff_tasks.get(user.id), now),
             "app_status": app_status.value if app_status else None, "university": app_uni.get((user.id, app_status)) if app_status else None,
+            "university_ko": app_uni_ko.get((user.id, app_status)) if app_status else None,
             "counselor": {"id": str(a.c_id), "name": a.c_name} if a and a.c_id else None, "named": named.get((user.id, code)),
             "agency": orgs.get(a.organization_id) if a else None, "student": user.full_name,
         }

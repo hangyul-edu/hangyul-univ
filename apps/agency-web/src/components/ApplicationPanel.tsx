@@ -201,7 +201,7 @@ export function ApplicationPanel({ id, showStudent = true }: { id: string; showS
                 <ul className="hg-list">
                   {app.essays.map((e) => (
                     <li key={e.id} className="hg-row hg-between" style={{ padding: '8px 0' }}>
-                      <Link to={`/essays/${e.id}`} className="hg-small hg-truncate">{essayTitleL(e.title, e.essay_type)}</Link>
+                      <Link to={`/essays/${e.id}`} className="hg-small hg-truncate">{essayTitleL(e.title, e.essay_type, app.university)}</Link>
                       <EssayStatusBadge status={e.status} />
                     </li>
                   ))}

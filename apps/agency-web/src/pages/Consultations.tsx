@@ -1,4 +1,4 @@
-import { errorText } from '@hangyul/i18n';
+import { errorText, uniName } from '@hangyul/i18n';
 import type { Appointment } from '@hangyul/api-client';
 import { useAuth } from '@hangyul/auth';
 import { CalendarDays, CalendarPlus, MapPin, Phone, Video } from '@hangyul/icons';
@@ -185,7 +185,7 @@ export function MeetingsView() {
                         </div>
                         <div className="ag-appt__meta">
                           <span className="hg-row" style={{ gap: 4 }}>{channelIcon(a.channel)}{t(`consult.channel.${a.channel}`, { defaultValue: a.channel })}</span>
-                          {a.application?.university && <span>{a.application.university}</span>}
+                          {a.application?.university && <span>{uniName(a.application)}</span>}
                           {a.service_plan && <span>{a.service_plan}</span>}
                           {a.host && <span>{t('consult.with', { name: a.host.full_name })}</span>}
                         </div>

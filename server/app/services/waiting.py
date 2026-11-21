@@ -404,6 +404,8 @@ def next_action(party: str, code: str | None, ctx: dict) -> dict | None:
         params["status"] = ctx.get("app_status")
     if ctx.get("university"):
         params["university"] = ctx["university"]
+        if ctx.get("university_ko"):
+            params["university_ko"] = ctx["university_ko"]  # the console shows the name in the reader's language
     return {"party": party, "code": code, "params": params, "task": task}
 
 
