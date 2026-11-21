@@ -1,3 +1,4 @@
+import { errorText } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import { Check, CheckCircle2, ExternalLink, FileText, RotateCcw, Stamp, X } from '@hangyul/icons';
 import type { VaultDocument } from '@hangyul/types';
@@ -68,7 +69,7 @@ function Legalization({ doc }: { doc: VaultDocument }) {
   const m = useMutation({
     mutationFn: (progress: string[]) => api.documents.update(doc.id, { legalization_progress: progress }),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['document', doc.id] }); toast.success(t('actions.saved')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   if (doc.legalization_path === 'NONE' && !info) return null;
   const done = new Set(doc.legalization_progress);
@@ -137,7 +138,7 @@ function Decision({ doc, onDecided, hotkeys }: { doc: VaultDocument; onDecided?:
       setMode(null); setReason(''); setTouched(false);
       onDecided?.(res);
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const quick = templates.items.slice(0, MAX_QUICK_REASONS).map((tp) => ({ ...tp, text: fillTemplate(tp.body, { student_name: doc.owner_name, document: t(`docCategory.${doc.category}`), university: doc.used_in_applications?.length === 1 ? doc.used_in_applications[0].university : null }) }));
   const verify = () => { if (m.isPending) return; if (allChecked || mode === 'OVERRIDE') m.mutate('VERIFIED'); else setMode('OVERRIDE'); };

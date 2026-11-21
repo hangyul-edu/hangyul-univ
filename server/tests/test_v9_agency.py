@@ -363,7 +363,10 @@ def test_message_delivery_and_thread_link(client, counselor, silk):
         aid = ws["applications"][0]["id"]
         r = client.patch(f"/api/v1/agency/conversations/{c['id']}/application", headers=counselor, json={"application_id": aid})
         assert r.status_code == 200 and r.json()["application_id"] == aid
-        assert client.get(f"/api/v1/agency/conversations/{c['id']}/delivery", headers=counselor).json()["application"]["id"] == aid
+        linked = client.get(f"/api/v1/agency/conversations/{c['id']}/delivery", headers=counselor).json()["application"]
+        assert linked["id"] == aid
+        # The thread header names the university in the reader's language: the Korean name travels with the English one.
+        assert "university_ko" in linked and linked["university"]
         client.patch(f"/api/v1/agency/conversations/{c['id']}/application", headers=counselor, json={"application_id": None})
     other = next((r["id"] for r in _rows(client, counselor)["items"] if r["id"] != c["student"]["id"]), None)
     if other:

@@ -169,6 +169,33 @@ styles, the console surface). Page CSS composes these; it does not restate colou
 - **Language:** `uniName()` / `university_ko`, `orgName()`, `docTitle()`, `errorText()`; never show a server's English
   `detail` to a non-English reader. `npm run qa:lang-leak` must stay at 0.
 
+## Exhaustive-pass rules (2026-11-21)
+
+- **Errors are words, never transport text.** Every catch, `onError` and toast uses `errorText(e)` from `@hangyul/i18n`
+  (status/code → localized sentence). `(e as Error).message` shows the server's raw `detail` and is not used in any app.
+  A failed write never throws at the page: mutations have an `onError`, fire-and-forget calls a `.catch`.
+- **A failed send keeps the work.** Composers restore the text *and* the attachments on failure and say it under the
+  composer ("Not sent. Your message is still here." + the reason), not in a toast over the text box.
+- **Names follow the reader's language everywhere.** When the server sends a flat English label (`params.university`,
+  `application_label`, a document `label`), re-read the name from the record that carries `{ name_en, name_ko }`
+  (`localName`, `uniName`, `docLabel`, `essayTitle`). Labels a person typed (a university's request label, message text)
+  stay as written and carry `data-user-content`.
+- **One team, no person.** Student copy says "the Hangyul team" / "한귤 상담팀"; "your counselor" is never written for a
+  student, and the internal organisation behind the team is never shown to one.
+- **Type floor and touch targets.** No text under `--hg-text-xs` (12 px), counts and tab labels included. On phones and
+  coarse pointers every control is a 44 px target and every text link a ≥ 24 px target; when the drawing must stay small,
+  grow the hit area with a pseudo-element (pick the one the control does not already use) or `min-block-size`.
+- **Wrapping.** Korean wraps between words everywhere: `:lang(ko) body { word-break: keep-all; overflow-wrap: break-word }`
+  in `packages/ui` base. Never set `keep-all` for other languages (ja/zh/th/my have no spaces). Statuses and short labels
+  use `overflow-wrap: break-word`, never `anywhere` on a flex item (its min-content becomes one character: "추가 / 됨").
+- **Mobile keyboard.** `bootWebApp` installs `installKeyboardFocusKeeper()`: when the visual viewport shrinks, the focused
+  field is brought into view. Do not add per-page keyboard hacks.
+- **Nested scroll** is allowed only for chat history (it opens at the newest message) and for modal/drawer bodies. A
+  long document, diff or list grows with the page.
+- **Gates.** `scripts/qa/launch-final/audit.mjs` (scroll oracle, overflow, 12 px floor, touch targets with the WCAG 2.5.8
+  spacing exception, native selects, leaked enum tokens, page errors) and `scripts/qa/launch-final/overlays.mjs`
+  (open → Escape → body lock released, resize while open, Back/Forward) over every route in `routes.mjs`.
+
 ## Design Preview mode
 
 A design-review aid behind one build flag, `VITE_ENABLE_DESIGN_PREVIEW` (requirements in `docs/SECURITY.md`).

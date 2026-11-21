@@ -144,13 +144,12 @@ function HomeContent({ d }: { d: Dashboard }) {
             <Avatar name={t('v23.team.name')} size={44} />
             <View style={{ flex: 1, gap: 2 }}>
               <AppText variant="subheading">{t('v23.team.name')}</AppText>
-              {/* Same card as the web (REPORT §246 A4): the team identity, then the partner agency it works with. */}
-              {d.counselor.organization ? <AppText variant="caption" numberOfLines={2}>{t('v23.team.withAgency', { org: d.counselor.organization })}</AppText> : null}
+              {/* The team identity only: the internal organisation behind the team is never shown to a student (2026-11-21). */}
               {d.unread_messages > 0 ? <AppText variant="caption" color={theme.color.primaryText}>{t('v3.home.unread', { count: d.unread_messages })}</AppText> : null}
             </View>
           </View>
             {/* Under the identity, full width: beside it the button squeezed the team name onto two lines and cut the
-                partner agency's name at 360-390 pt (visual pass, 2026-11). */}
+                second line at 360-390 pt (visual pass, 2026-11). */}
             <Button label={t('v3.home.message')} variant="secondary" icon={MessageCircle} onPress={() => router.push('/messages')} fullWidth />
           </View>
         ) : (

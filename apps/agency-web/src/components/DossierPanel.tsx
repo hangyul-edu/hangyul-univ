@@ -1,5 +1,5 @@
 import { useAuth } from '@hangyul/auth';
-import { useLocale } from '@hangyul/i18n';
+import { errorText, useLocale } from '@hangyul/i18n';
 import type { DossierFinding, DossierPackageSummary } from '@hangyul/types';
 import { Button, StatusText, useToast } from '@hangyul/ui';
 import { formatDate } from '@hangyul/utils';
@@ -28,12 +28,12 @@ export function DossierPanel({ studentId }: { studentId: string }) {
   const decide = useMutation({
     mutationFn: ({ f, action }: { f: DossierFinding; action: 'resolve' | 'dismiss' }) => api.dossier.finding(f.id, action),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['agency', 'dossier', studentId] }),
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const tr = useMutation({
     mutationFn: ({ doc, status }: { doc: string; status: 'PROVIDED' | 'NEEDED' }) => api.dossier.translation(doc, status),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['agency', 'dossier', studentId] }),
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const d = q.data;
   if (!d) return null;

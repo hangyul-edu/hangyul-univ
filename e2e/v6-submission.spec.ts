@@ -83,7 +83,8 @@ test('student authorises → agency records reference + receipt → student sees
     await expect(drawer.getByText('Final review')).toBeVisible();
     await expect(drawer.getByText(/Student authorised/)).toBeVisible();
     await drawer.getByLabel('Application / reference number').fill(ref);
-    await drawer.getByLabel(/Receipt/).setInputFiles({ name: 'e2e-receipt.pdf', mimeType: 'application/pdf', buffer: pdf('E2E receipt') });
+    // Owner 261119 (req. 4): the receipt uploader is `FileDrop`; its picker is a hidden file input.
+    await drawer.locator('input[type=file]').first().setInputFiles({ name: 'e2e-receipt.pdf', mimeType: 'application/pdf', buffer: pdf('E2E receipt') });
     await expect(drawer.getByText('e2e-receipt.pdf')).toBeVisible();
     await drawer.getByRole('button', { name: 'Record and complete' }).click();
     await expect(agency.getByText('Recorded. The application is now Submitted.')).toBeVisible();

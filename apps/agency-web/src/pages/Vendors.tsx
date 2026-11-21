@@ -1,3 +1,4 @@
+import { errorText } from '@hangyul/i18n';
 // PRIMARY QUESTION: Which arrival services are at risk, and with whom?
 // V9 (REPORT §59 A6): per provider — agreement status FIRST ("No agreement recorded" is never called a partner), then
 // the service types it handles, open and late cases, and its last issue (GET /agency/providers). Logic unchanged otherwise.
@@ -47,7 +48,7 @@ function VendorForm({ initial, kinds, onDone, id, canNetwork }: { initial: Draft
       return id ? api.concierge.updateVendor(id, body) : api.concierge.createVendor(body);
     },
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['vendors'] }); toast.success(t('staff.saved')); onDone(); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const set = (k: keyof Draft) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => setD({ ...d, [k]: e.target.value });
   return (

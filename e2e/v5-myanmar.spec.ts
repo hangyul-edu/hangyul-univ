@@ -52,6 +52,8 @@ test('FLOW C — Burmese core workflow without English leakage', async ({ page, 
   const proper = [
     plan.inputs?.university?.name_en ?? '', plan.inputs?.program?.name_en ?? '', me?.full_name ?? me?.user?.full_name ?? 'Hnin Wai Phyo', 'Hnin', 'Wai', 'Phyo',
     ...items.flatMap((a) => [a.university?.name_en ?? '', a.program?.name_en ?? '']), ...team,
+    // Standard medical acronym the Burmese copy keeps beside its own word ("တီဘီ (TB) ရောဂါ စစ်ဆေးချက်"), like TOPIK.
+    'TB',
   ];
 
   await page.addInitScript(() => { try { localStorage.setItem('hg.locale', 'my'); } catch { /* ignore */ } });

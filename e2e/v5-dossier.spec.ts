@@ -54,7 +54,7 @@ test('a request the dossier can answer: "Send your existing …" fulfils it', as
   await page.getByRole('button', { name: /Upload and send/ }).first().click();
   const dialog = page.getByRole('dialog');
   await expect(dialog).toContainText('is already in your documents');
-  await dialog.getByRole('button', { name: /Send your existing TOPIK certificate/ }).click();
+  await dialog.getByRole('button', { name: /^Send your existing / }).click();
   await expect(dialog).toBeHidden();
 
   const detail = await (await request.get(`${API}/applications/${appId}`, { headers: U })).json();

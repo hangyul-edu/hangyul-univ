@@ -57,11 +57,14 @@ test('3–4 matches explain themselves and a university can be saved', async ({ 
   expect((await request.put(`${API}/me/saved/${pnu.program.university_id}`, { headers: S })).status()).toBe(204);
 
   await uiLogin(page, 'student', email, password);
-  // Matches live in Universities › For you; /matches redirects there.
+  // Owner 261119 (req. 1): personalised matching is part of the purchased service. The retired `/matches` entry
+  // leads to `/match`, and a student without a plan is taken to the plan screen with the reason in the URL.
   await page.goto(`${URLS.student}/matches`);
-  await expect(page).toHaveURL(/\/explore\?tab=foryou/);
-  await expect(page.getByText(/Strong match|Possible match/).first()).toBeVisible();
+  await expect(page).toHaveURL(/\/services\?.*gate=match/);
+  await expect(page.locator('.hg-callout').first()).toBeVisible();
+  // Saving universities stays free: the saved list opens without a plan.
   await page.goto(`${URLS.student}/saved`);
+  await expect(page).toHaveURL(/\/explore\?tab=saved/);
   await expect(page.getByText(universityName).first()).toBeVisible();
 
   const app = await request.post(`${API}/applications`, { headers: S, data: { program_id: pnu.program_id } });
@@ -149,8 +152,9 @@ test('7–10 documents are uploaded and reviewed; essay is reviewed with a sugge
 
   await uiLogin(page, 'student', email, password);
   await page.goto(`${URLS.student}/documents`);
-  // V5 dossier: verified documents are summarised as ready for every application.
-  await expect(page.getByText(/ready for every application/).first()).toBeVisible();
+  // Owner 261119 document manager: the documents the team verified show as verified in their category band (and are reused
+  // by every application that needs them — the row says which).
+  await expect(page.getByText(/^Verified$/).locator('visible=true').first()).toBeVisible();
 });
 
 test('12–13 the university sees the application in its console and decides', async ({ page, request }) => {

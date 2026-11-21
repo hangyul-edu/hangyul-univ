@@ -1,7 +1,7 @@
 // PRIMARY QUESTION: Why is this case not moving, and who has to act next?
 // V9 (REPORT §59 A3/A8/A12): the header answers why it is not moving · next action · waiting on · deadline · owner before
 // any tab; meetings are one record on the timeline; the agency identity responsible for the applicant is on the case.
-import { localName, docTitle, essayTitleL } from '@hangyul/i18n';
+import { errorText, localName, docTitle, essayTitleL } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import { CalendarPlus, Check, NotebookPen, ChevronRight, Reply, Ellipsis, GraduationCap, Info, Languages, Mail, MessageSquarePlus, Phone, Plus, Sparkles, Upload, UserRound, Wallet } from '@hangyul/icons';
 import { PIPELINE_STAGES, VISA_STATUSES, type PipelineStage, type StudentWorkspace as WS, type Task, type VisaStatus } from '@hangyul/types';
@@ -88,7 +88,7 @@ function StageSelect({ ws }: { ws: WS }) {
       qc.invalidateQueries({ queryKey: ['agency'] });
       toast.success(t('kanban.moved', { name: ws.student.full_name, stage: t(`pipeline.${stage}`) }));
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <Select compact aria-label={t('ws.stage')} value={ws.profile.pipeline_stage} disabled={m.isPending} onChange={(e) => m.mutate(e.target.value as PipelineStage)} style={{ minWidth: 180 }}>
@@ -586,7 +586,7 @@ function VisaCaseCard({ id }: { id: string }) {
   const m = useMutation({
     mutationFn: (body: Record<string, unknown>) => api.visa.update(id, body),
     onSuccess: (v) => { qc.setQueryData(['visa', id], v); qc.invalidateQueries({ queryKey: ['agency', 'student'] }); toast.success(t('actions.saved')); setNotes(null); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <QueryState query={q}>

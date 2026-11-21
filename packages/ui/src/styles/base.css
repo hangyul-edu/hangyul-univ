@@ -12,6 +12,10 @@ body {
   font-feature-settings: 'ss06' 1;
   text-rendering: optimizeLegibility;
 }
+/* Korean wraps between words (어절), not between syllables: "프로그램", "체크리스트" never split across lines. Korean
+   only — scripts written without spaces (ja, zh, th, my…) keep `normal`, or a whole sentence becomes one unbreakable
+   token. `break-word` still breaks a word that cannot fit, so nothing can overflow. */
+:lang(ko) body { word-break: keep-all; overflow-wrap: break-word; }
 /* Long single words exist (Russian, German, Vietnamese compounds, e-mail addresses): a heading breaks inside one rather
    than widening the page. */
 h1, h2, h3, h4, h5, h6 { overflow-wrap: anywhere; }

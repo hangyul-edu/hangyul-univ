@@ -1,4 +1,4 @@
-import { localName, docLabel, essayTitleL } from '@hangyul/i18n';
+import { errorText, localName, docLabel, essayTitleL } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import { ArrowRight, CheckCircle2, CircleAlert, Flag as FlagIcon } from '@hangyul/icons';
 import type { ApplicationDetail, ApplicationStatus } from '@hangyul/types';
@@ -35,7 +35,7 @@ function Transition({ app }: { app: ApplicationDetail }) {
       toast.success(t('apps.moved', { status: t(`appStatus.${d.status}`) }));
       setTo(''); setNote(''); setRef('');
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   if (!app.allowed_transitions.length) return <p className="hg-subtle hg-small">{t('apps.noTransitions')}</p>;
   return (
@@ -80,7 +80,7 @@ function FlagToggle({ app }: { app: ApplicationDetail }) {
   const m = useMutation({
     mutationFn: (flagged: boolean) => api.applications.update(app.id, { flagged, flag_reason: flagged ? reason || null : null }),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['application', app.id] }); qc.invalidateQueries({ queryKey: ['applications'] }); toast.success(t('actions.saved')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <div className="hg-stack" style={{ '--hg-gap': '8px' } as React.CSSProperties}>

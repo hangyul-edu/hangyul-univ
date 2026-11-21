@@ -124,7 +124,10 @@
 /* Launch-final: on a phone a status is a sentence that wraps (dot on the first line), not an unbreakable token — real
    statuses are long ("Проверяем справку о банковском балансе"). Dense tables keep it on one line. */
 @media (max-width: 767px) {
-  .hg-status { white-space: normal; overflow-wrap: anywhere; align-items: flex-start; min-width: 0; }
+  /* break-word, not anywhere: `anywhere` drops the min-content width to one character, so a flex row squeezed a
+     short status into "추가 / 됨". in Korean `keep-all` keeps a word whole; long sentences still wrap between words. */
+  .hg-status { white-space: normal; overflow-wrap: break-word; align-items: flex-start; min-width: 0; }
+  :lang(ko) .hg-status { word-break: keep-all; } /* Korean only: scripts without spaces must keep `normal` */
   .hg-status::before { margin-block-start: 0.45em; }
   .hg-table .hg-status { white-space: nowrap; align-items: center; }
   .hg-table .hg-status::before { margin-block-start: 0; }
@@ -621,7 +624,7 @@ a.hg-metric:hover { background: var(--hg-surface-hover); text-decoration: none; 
   .hg-rowcard__kv > span:last-child { min-width: 0; text-align: end; overflow-wrap: anywhere; }
   .hg-rowcard { min-width: 0; }
   /* Real data is long: a status sentence inside a card wraps (dot stays on the first line) instead of widening the page. */
-  .hg-rowcard .hg-status { white-space: normal; align-items: flex-start; text-align: start; overflow-wrap: anywhere; }
+  .hg-rowcard .hg-status { white-space: normal; align-items: flex-start; text-align: start; overflow-wrap: break-word; }
   .hg-rowcard .hg-status::before { margin-block-start: 0.45em; }
 }
 
@@ -924,3 +927,10 @@ button.hg-check-item { background: none; border: 0; width: 100%; text-align: sta
   html[data-surface='console'] .hg-preview-badge .hg-preview-badge__exit { display: inline-block; }
 }
 @media (max-width: 1023px) { html[data-design-preview]:has(.hg-tabbar) { --hg-preview-lift: 58px; } }
+
+/* Touch targets (exhaustive pass, 2026-11-21): the switch is drawn 40 × 24; on touch its hit area is 48 × 44 through
+   `::before` (`::after` is the knob). The header logo link is a 44 px target on phones without changing its drawing. */
+@media (max-width: 767.98px), (pointer: coarse) {
+  .hg-switch::before { content: ''; position: absolute; inset-inline: -6px; inset-block: 50%; block-size: 44px; transform: translateY(-50%); }
+  .hg-logo { min-block-size: 44px; }
+}

@@ -18,9 +18,11 @@
 
 .hg-pw { display: grid; gap: 6px; }
 .hg-pw__row { position: relative; }
-.hg-pw__row .hg-input { padding-inline-end: 44px; }
-.hg-pw__toggle { position: absolute; inset-inline-end: 6px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; display: grid; place-items: center; border: 0; background: none; color: var(--hg-text-tertiary); border-radius: var(--hg-radius-sm); cursor: pointer; }
-.hg-pw__toggle:hover { color: var(--hg-text); background: var(--hg-surface-warm); }
+.hg-pw__row .hg-input { padding-inline-end: 48px; }
+/* The whole end of the field is the target: 44 × the field's height (≥ 44 px on phones), the glyph stays centred. */
+.hg-pw__toggle { position: absolute; inset-inline-end: 0; inset-block: 0; width: 44px; min-height: 44px; display: grid; place-items: center; border: 0; background: none; color: var(--hg-text-tertiary); border-radius: var(--hg-radius-sm); cursor: pointer; }
+.hg-pw__toggle:hover { color: var(--hg-text); }
+.hg-pw__toggle:focus-visible { outline: 2px solid var(--hg-focus, var(--hg-primary)); outline-offset: -4px; }
 .hg-pw__meter { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 4px; align-items: center; }
 .hg-pw__meter span { height: 3px; border-radius: 2px; background: var(--hg-border); }
 .hg-pw__meter[data-level='1'] span:nth-child(1) { background: var(--hg-status-warning-solid); }
@@ -54,7 +56,7 @@
 .hg-steps__label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .hg-steps__item[data-state='current'] { border-top-color: var(--hg-primary); color: var(--hg-text); font-weight: var(--hg-weight-medium); }
 .hg-steps__item[data-state='done'] { border-top-color: var(--hg-text); color: var(--hg-text-secondary); }
-.hg-steps__num { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; border: 1px solid currentColor; flex: none; }
+.hg-steps__num { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: var(--hg-text-xs); border: 1px solid currentColor; flex: none; }
 .hg-steps__item[data-state='current'] .hg-steps__num { background: var(--hg-primary); color: #fff; border-color: var(--hg-primary); }
 .hg-steps__item[data-state='done'] .hg-steps__num { background: var(--hg-text); color: #fff; border-color: var(--hg-text); }
 @media (max-width: 599px) {

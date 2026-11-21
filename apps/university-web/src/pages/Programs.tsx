@@ -1,7 +1,7 @@
 // PRIMARY QUESTION: "What do students see for this program, and what happens if we change a requirement?" (V9 U6: impact in the diff).
 import { useAuth } from '@hangyul/auth';
 import { BookOpen, ExternalLink, Eye, Pencil, Search, Users } from '@hangyul/icons';
-import { useLocale } from '@hangyul/i18n';
+import { errorText, useLocale } from '@hangyul/i18n';
 import type { Intake, Program, RequirementProposal } from '@hangyul/types';
 import { Button, Callout, Drawer, EmptyState, FilterSelect, PageHeader, QueryState, Select, SkeletonCard, useToast } from '@hangyul/ui';
 import { Col, DateTimeline, Row, SoftBadge, YCard } from '@hangyul/ynex-ui';
@@ -48,7 +48,7 @@ function PendingChange({ c }: { c: RequirementProposal }) {
       qc.invalidateQueries({ queryKey: ['university', 'programs'] });
       toast.success(d === 'publish' ? t('university:rules.published') : t('university:rules.discarded'));
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <div className="uc-proposal">

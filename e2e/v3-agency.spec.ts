@@ -41,7 +41,8 @@ test('staff upload a document on the student’s behalf; it lands in the student
   await page.getByRole('button', { name: `Upload for ${name}` }).first().click();
   const dialog = page.getByRole('dialog', { name: `Upload for ${name}` });
   await chooseOption(page, dialog.locator('#ob-cat'), 'Photo');
-  await dialog.locator('#ob-file').setInputFiles({ name: 'photo-from-email.pdf', mimeType: 'application/pdf', buffer: pdf('Photo') });
+  // Owner 261119 (req. 4): every web uploader is the `FileDrop` primitive; its picker is a hidden file input.
+  await dialog.locator('input[type=file]').setInputFiles({ name: 'photo-from-email.pdf', mimeType: 'application/pdf', buffer: pdf('Photo') });
   await dialog.getByRole('button', { name: 'Upload', exact: true }).click();
   await expect(dialog).toBeHidden();
   // The new file opens straight in the review drawer.

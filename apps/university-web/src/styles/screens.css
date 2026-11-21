@@ -211,7 +211,7 @@
 .uv9-vrow { display: flex; justify-content: space-between; align-items: baseline; gap: 0.75rem; padding-block: 0.45rem; border-block-start: 1px solid var(--default-border); font-size: 0.8125rem; }
 .uv9-vrow:first-of-type { border-block-start: 0; }
 .uv9-vrow__label { min-width: 0; }
-.uv9-vrow__label small { display: block; color: var(--text-muted); font-size: 0.6875rem; }
+.uv9-vrow__label small { display: block; color: var(--text-muted); font-size: var(--hg-text-xs); }
 .uv9-vrow__val { flex: none; text-align: end; }
 
 /* ---------- U8 Team */
@@ -278,7 +278,7 @@
   border-top: 1px solid var(--hg-border-subtle, #F0F0F2);
 }
 .uv15-waitgroup__h {
-  font-size: 11.5px; font-weight: 600; letter-spacing: 0.02em;
+  font-size: var(--hg-text-xs); font-weight: 600; letter-spacing: 0.02em;
   color: var(--hg-text-tertiary, #868C98); text-transform: none;
 }
 .uv15-qrow--waiting .uv7-qrow__label { font-weight: 400; color: var(--hg-text-secondary, #5A6170); }
@@ -324,7 +324,7 @@
 
 .uv15-bar__n { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.25; }
 .uv15-bar__n { font-size: 13px; font-weight: 600; }
-.uv15-bar__sub { font-size: 10.5px; font-weight: 400; color: var(--hg-text-tertiary, #868C98); }
+.uv15-bar__sub { font-size: var(--hg-text-xs); font-weight: 400; color: var(--hg-text-tertiary, #868C98); }
 
 /* ---------------------------------------------------------------------------- §4 quality, in a half card */
 
@@ -373,7 +373,7 @@
   .uv15-overview .uv7-qrow__hint {
     display: inline;
     margin-inline-start: 8px;
-    font-size: 11.5px;
+    font-size: var(--hg-text-xs);
   }
   .uv15-overview .uv7-list > li > .uv7-listrow { padding-block: 10px; }
 }
@@ -425,6 +425,8 @@
 .uv22-roster__row:last-child { border-block-end: 0; }
 .uv22-roster__name { flex: 1 1 auto; min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
 .uv22-roster__title { color: var(--hg-text-tertiary); font-weight: 400; }
+/* The name (ellipsized) gives way first; a one-word status ("Inactive") keeps its width instead of spilling out of the row. */
+.uv22-roster__row > .hg-status, .uv22-roster__row > * > .hg-status { flex: none; }
 
 /* below 992 px the DataTable wrapper scrolls sideways and becomes the sticky scroll container: no header offset there */
 @media (max-width: 991.98px) { .uv22-table { --hg-table-sticky-top: 0px; } }

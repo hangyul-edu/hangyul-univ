@@ -1,3 +1,4 @@
+import { errorText } from '@hangyul/i18n';
 /**
  * The purchased plan, as the Agency Console shows it (V15, REPORT §119).
  *
@@ -91,7 +92,7 @@ export function AddOnOffer({ studentId, initial, onDone }: { studentId: string; 
   const m = useMutation({
     mutationFn: () => api.agency.offerAddOn(studentId, { code, quantity: qty, unit_amount_minor: unit!, scope: scope.trim() || null }),
     onSuccess: () => { toast.success(t('v15.outOfScope.offered')); qc.invalidateQueries({ queryKey: ['agency'] }); onDone?.(); },
-    onError: (e) => toast.error((e as { body?: { detail?: { message?: string } } }).body?.detail?.message ?? (e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <form className="ag29-offer" onSubmit={(e) => { e.preventDefault(); if (ok) m.mutate(); }}>
@@ -154,7 +155,7 @@ function Term({ plan, studentId }: { plan: StudentPlan; studentId?: string }) {
     mutationFn: () => api.agency.setServiceTerm(studentId!, {
       service_ends_at: ends ? `${ends}T23:59:00+09:00` : null, arrival_at: arrive ? `${arrive}T12:00:00+09:00` : null }),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['agency'] }); toast.success(t('v29.plan.term.saved')); },
-    onError: (err) => toast.error((err as Error).message),
+    onError: (err) => toast.error(errorText(err)),
   });
   if (!e) return null;
   const d = (v: string | null) => (v ? formatDate(v, locale) : null);

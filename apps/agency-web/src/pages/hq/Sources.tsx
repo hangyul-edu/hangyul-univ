@@ -1,3 +1,4 @@
+import { errorText } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import { ExternalLink, Radar, ShieldCheck, X } from '@hangyul/icons';
 import type { FreshnessReviewItem, SourceRecord, VerificationStatus } from '@hangyul/types';
@@ -23,7 +24,7 @@ function CheckModal({ source, onClose }: { source: SourceRecord | null; onClose:
   const m = useMutation({
     mutationFn: () => api.admin.checkSource(source!.id, changed, note.trim() || undefined),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['sources'] }); qc.invalidateQueries({ queryKey: ['freshness'] }); toast.success(t('sources.checked')); setChanged(false); setNote(''); onClose(); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <Modal open={!!source} onClose={onClose} title={t('sources.markChecked')} description={source?.name}
@@ -117,7 +118,7 @@ function ReviewQueue() {
   const resolve = useMutation({
     mutationFn: ({ id, r }: { id: string; r: 'CONFIRMED' | 'UPDATED' | 'ARCHIVED' }) => api.admin.resolveReview(id, r),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['freshness'] }); qc.invalidateQueries({ queryKey: ['sources'] }); qc.invalidateQueries({ queryKey: ['hq'] }); toast.success(t('sources.resolved')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const kindLabel = (k: string) => t(`hq.kind.${k}`, { defaultValue: k });
   return (
@@ -258,7 +259,7 @@ export default function Sources() {
   const scan = useMutation({
     mutationFn: () => api.admin.scan(),
     onSuccess: (r) => { qc.invalidateQueries({ queryKey: ['freshness'] }); qc.invalidateQueries({ queryKey: ['sources'] }); toast.success(t('sources.scanDone', { count: r.created })); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <div className="hg-stack ag-page ag-hq-tool">

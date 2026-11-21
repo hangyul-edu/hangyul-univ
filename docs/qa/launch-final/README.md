@@ -8,6 +8,7 @@ Scripts: `scripts/qa/launch-final/`.
 
 | Item | Where |
 |---|---|
+| **Exhaustive product-quality pass (2026-11-21)** — route inventory, defect inventory, scroll/overlay/responsive/a11y/language results, E2E, before/after screens | [`exhaustive/`](exhaustive/README.md) |
 | Route inventory | [`ROUTE_INVENTORY.md`](ROUTE_INVENTORY.md) |
 | Visual defect matrix | [`VISUAL_DEFECT_MATRIX.md`](VISUAL_DEFECT_MATRIX.md) |
 | Responsive / overflow results (12 viewports; zoom; six languages incl. RTL; dark device) | `after/matrix*.json` |

@@ -30,7 +30,7 @@ export const ROUTES = {
     public: ['/login', '/register', '/forgot'],
     previewVariant: 'paid',
     preview: [
-      '/', '/explore', '/applications', '/documents', '/essays', '/tasks', '/messages', '/notifications', '/services',
+      '/', '/match', '/explore', '/explore?tab=saved', '/services?gate=match&from=/match', '/applications', '/documents', '/essays', '/tasks', '/messages', '/notifications', '/services',
       '/scholarships', '/compare', '/family', '/visa', '/housing', '/arrival', '/help', '/support', '/profile', '/settings', '/more',
       // Detail pages (synthetic ids from packages/api-client/src/preview/student*.json).
       '/applications/d96eabba-e018-4807-9de8-ea89c5aa8d56', '/applications/c62c31ff-5e45-4b21-bca1-bc9b924275d4',
@@ -80,6 +80,9 @@ export const ROUTES = {
       '/applications/d43b2511-2103-4f9b-afe9-13558701cd97',
       '/applications/99bfc3d4-d053-49b5-b265-4a375d5de565',
       '/submissions?state=issue&application=b9ef1722-e9ee-4b37-bed3-d45622b360fe',
+      '/review?mode=documents',
+      // HQ tools (Design Preview "hq" variant).
+      '/hq', '/hq/agencies', '/hq/manage', '/hq/accounts', '/hq/assignments', '/hq/sources', '/hq/readiness',
     ],
   },
   university: {

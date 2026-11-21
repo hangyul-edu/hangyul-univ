@@ -1,4 +1,4 @@
-import { localName } from '@hangyul/i18n';
+import { docLabel, localName } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import type { ApiClient } from '@hangyul/api-client';
 import { DEGREE_LEVELS, type MatchReason, type MatchTier, type Program } from '@hangyul/types';
@@ -85,7 +85,7 @@ function ProgramDetail({ id, match, studentName, studentId }: { id: string; matc
               <ul className="hg-list">
                 {p.required_documents!.map((d, i) => (
                   <li key={i} className="hg-row hg-between" style={{ padding: '6px 0' }}>
-                    <span className="hg-small">{d.label}</span>
+                    <span className="hg-small">{docLabel(t, d)}</span>
                     <span className="hg-row" style={{ gap: 4 }}>{d.required && <Badge size="sm" outline>{t('form.required')}</Badge>}{d.legalization_required && <Badge size="sm" tone="warning">{t('apps.legalization')}</Badge>}</span>
                   </li>
                 ))}

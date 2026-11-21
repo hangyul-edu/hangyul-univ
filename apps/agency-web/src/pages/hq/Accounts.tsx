@@ -4,7 +4,7 @@
 // university: university · admin user · email · status · last login · assigned university; invite (university picker +
 // email + name), disable/enable, reassign. Every university administrator has the same permissions, so there is no
 // role column here either.
-import { localName } from '@hangyul/i18n';
+import { errorText, localName } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import type { UniversityAccount } from '@hangyul/api-client';
 import { UserMinus, UserPlus, UserCheck } from '@hangyul/icons';
@@ -44,7 +44,7 @@ function ReassignModal({ account, onClose }: { account: UniversityAccount | null
   const m = useMutation({
     mutationFn: () => api.hq.reassignUniversityAccount(account!.user_id, uni),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['accounts'] }); toast.success(t('actions.saved')); onClose(); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <Modal open={!!account} onClose={onClose} title={account ? t('v22.hq.accounts.reassignTitle', { name: account.full_name }) : ''} width={460}
@@ -71,7 +71,7 @@ export default function HqAccounts() {
   const toggle = useMutation({
     mutationFn: (a: UniversityAccount) => (a.active ? api.hq.disableUniversityAccount(a.user_id) : api.hq.enableUniversityAccount(a.user_id)),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['accounts'] }); toast.success(t('actions.saved')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const uniName = (a: UniversityAccount) => (a.university ? (locale.startsWith('ko') ? a.university.name_ko : localName(a.university)) : a.organization.name);
   const rows = useMemo(() => {

@@ -2,7 +2,7 @@
 // remove someone who still holds open applicants without a new reviewer, so no applicant is ever orphaned. Applicants
 // whose reviewer lost access elsewhere are listed at the top with a one-step reassignment.
 import { useAuth } from '@hangyul/auth';
-import { useLocale } from '@hangyul/i18n';
+import { errorText, useLocale } from '@hangyul/i18n';
 import { Avatar, Button, Callout, Field, Input, Modal, Select, Skeleton, StatusText, useToast } from '@hangyul/ui';
 import { formatNumber } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -42,7 +42,7 @@ function RemoveModal({ m, team, onClose }: { m: TeamMember; team: TeamMember[]; 
       toast.success(t('university:v9.team.removed', { name: m.full_name, count: r.reassigned }));
       onClose();
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const submit = () => { if (n > 0 && !to) { setErr('validation.required'); return; } setErr(null); go.mutate(); };
   return (
@@ -79,7 +79,7 @@ function Orphans({ team }: { team: TeamMember[] }) {
   const go = useMutation({
     mutationFn: () => api.university.bulk('assign-reviewer', { ids: (q.data ?? []).map((a) => a.id), reviewer_id: to }),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['university', 'orphaned'] }); qc.invalidateQueries({ queryKey: ['university', 'team'] }); toast.success(t('university:v9.team.orphansDone')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   if (!q.data?.length) return null;
   return (
@@ -107,7 +107,7 @@ export function TeamManager({ team, isAdmin, me }: { team: TeamMember[]; isAdmin
   const restore = useMutation({
     mutationFn: (id: string) => api.post(`/university/team/${id}/reactivate`),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['university', 'team'] }); toast.success(t('university:v9.team.restored')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const sorted = [...team].sort((a, b) => Number(b.is_active !== false) - Number(a.is_active !== false));
   return (

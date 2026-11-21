@@ -10,6 +10,7 @@
  * text is "Too few to rate" next to the same "n of N" pair. Counts are always shown.
  */
 import { useLocale } from '@hangyul/i18n';
+import { Skeleton } from '@hangyul/ui';
 import { cx, formatNumber } from '@hangyul/utils';
 import type { ReactNode } from 'react';
 import { Link } from 'react-router';
@@ -82,6 +83,16 @@ export function ExecutiveSummary({ base, set, byStage, all }: {
   const ours = (byStage.received ?? 0) + (byStage.documents_check ?? 0) + (byStage.in_review ?? 0) + (byStage.decision ?? 0);
   const theirs = byStage.documents ?? 0;
   const split = ours + theirs;
+  // The four columns fill from five queries. Drawn one by one they pushed the page down three times (CLS 0.65 at 390 px);
+  // until every figure is known the summary holds its final size with a quiet skeleton, then renders once.
+  const loading = decide.isLoading || requests.isLoading || funnel.isLoading || (!narrowed && attention.isLoading) || (!prepScoped && prep.isLoading) || !known || all === undefined;
+  if (loading) {
+    return (
+      <section className="un-sum uv25-head un-sum--loading" aria-busy="true" aria-label={t('university:v33.sum.label')}>
+        {['decide', 'missing', 'offers', 'after'].map((k) => <div key={k} className="un-sum__col"><Skeleton w="55%" h={14} /><Skeleton w="40%" h={36} /><Skeleton h={12} /><Skeleton h={12} /></div>)}
+      </section>
+    );
+  }
 
   const offered = step('OFFERED');
   const enrolled = step('ENROLLED');

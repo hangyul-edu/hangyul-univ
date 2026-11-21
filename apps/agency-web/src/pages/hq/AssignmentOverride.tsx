@@ -1,5 +1,5 @@
 import { useAuth } from '@hangyul/auth';
-import { orgName } from '@hangyul/i18n';
+import { errorText, orgName } from '@hangyul/i18n';
 import { Shuffle } from '@hangyul/icons';
 import { Badge, Button, Callout, Card, EmptyState, Field, QueryState, Textarea, useToast } from '@hangyul/ui';
 import { PageHeader } from '@hangyul/ynex-ui';
@@ -44,7 +44,7 @@ export default function AssignmentOverride() {
       qc.invalidateQueries({ queryKey: ['agency'] });
       setTarget(null); setReason(''); setTouched(false);
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
 
   if (!perms.ops) return <div className="ag-page"><PageHeader eyebrow={t('hq.context')} title={t('sidebar.override')} /><Callout tone="warning">{t('override.forbidden')}</Callout></div>;

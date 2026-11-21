@@ -29,7 +29,7 @@ for (const [app, base] of Object.entries(BASE)) {
       const routes = preview ? ROUTES[app].preview : ROUTES[app].public;
       if (!routes.length) continue;
       const ctx = await browser.newContext({ viewport: { width, height: 844 }, locale: 'en-US', reducedMotion: 'reduce' });
-      if (preview) await ctx.addInitScript(([k]) => sessionStorage.setItem(k, 'paid'), [PREVIEW_KEY]);
+      if (preview) await ctx.addInitScript(([k]) => sessionStorage.setItem(k, location.pathname.startsWith('/hq') ? 'hq' : 'paid'), [PREVIEW_KEY]);
       const page = await ctx.newPage();
       for (const route of routes) {
         await page.goto(base + route, { waitUntil: 'domcontentloaded' }).catch(() => {});

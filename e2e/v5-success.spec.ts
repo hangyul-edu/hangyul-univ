@@ -11,7 +11,7 @@
  */
 import { expect, test } from '@playwright/test';
 
-import { API, apiLogin, uiLogin, URLS } from './helpers';
+import { API, apiLogin, uiLogin, URLS, chooseOption } from './helpers';
 
 const NEPAL = 'student.nepal@demo.hangyul.kr';
 
@@ -52,7 +52,7 @@ test('guided submission: hand-off to the official portal, then record the confir
 
   // Back from the portal: the confirmation number is the evidence.
   await page.getByLabel('Confirmation or application number').fill('KNU-E2E-2027-0042');
-  await page.getByLabel('Application fee').selectOption('PAID');
+  await chooseOption(page, page.getByLabel('Application fee'), 'I paid it');
   await page.getByRole('button', { name: 'Save confirmation' }).click();
   await expect(page.getByText('Confirmed. Your application is marked as submitted.')).toBeVisible();
   await expect(page.getByText(/confirmation KNU-E2E-2027-0042/)).toBeVisible();

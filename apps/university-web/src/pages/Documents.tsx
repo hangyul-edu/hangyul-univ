@@ -1,6 +1,6 @@
 import { useAuth } from '@hangyul/auth';
 import { Download, ExternalLink, FileText, Lock } from '@hangyul/icons';
-import { useLocale } from '@hangyul/i18n';
+import { errorText, useLocale } from '@hangyul/i18n';
 import { DOCUMENT_CATEGORIES, type VaultDocument } from '@hangyul/types';
 import { Badge, Button, Callout, Card, DataTable, DescriptionList, Drawer, EmptyState, ErrorState, FilterSelect, PageHeader, Skeleton, useToast, type ColumnDef } from '@hangyul/ui';
 import { countryName, documentTone, formatDate, formatNumber } from '@hangyul/utils';
@@ -29,7 +29,7 @@ function Preview({ doc, onClose }: { doc: VaultDocument; onClose: () => void }) 
     try {
       const r = await api.documents.downloadUrl(doc.id, 'attachment');
       window.location.assign(r.url);
-    } catch (e) { toast.error((e as Error).message); }
+    } catch (e) { toast.error(errorText(e)); }
   };
   const isImage = doc.latest_file?.mime_type.startsWith('image/');
   return (

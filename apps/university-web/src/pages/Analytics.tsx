@@ -85,6 +85,15 @@ function Summary({ filters }: { filters: AnalyticsFilters }) {
   const d = f.data;
   const min = d?.min_denominator ?? MIN_N;
   const rate = useRateText(min);
+  // While loading, the band keeps its place (four items, same geometry): rendering nothing and then the band pushed every
+  // question below it down after first paint (CLS 0.48 at 390 px).
+  if (f.isLoading) {
+    return (
+      <section className="un-kpis uv25-summary" aria-busy="true" aria-label={t('university:v25.in.summary')}>
+        {[0, 1, 2, 3].map((i) => <span key={i} className="un-kpi uv25-summary__item"><Skeleton w="60%" h={12} /><Skeleton w="45%" h={28} /><Skeleton w="50%" h={12} /></span>)}
+      </section>
+    );
+  }
   if (!d || d.total === 0) return null;
   const count = (k: string) => d.steps.find((s) => s.key === k)?.count ?? 0;
   const asRate = (m?: { value: number | null; numerator: number | null; denominator: number | null } | null): Rate =>

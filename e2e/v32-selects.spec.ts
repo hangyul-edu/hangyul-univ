@@ -70,30 +70,23 @@ test('opened-state captures: directory type filter in en, vi and ar (RTL)', asyn
     await page.goto(`${URLS.marketing}/universities?lang=${lang}`, { waitUntil: 'networkidle' });
     await openFirstSelect(page, `marketing-universities-type-${lang}`);
   }
-  // phone: the directory's filters are chips in a sheet (no select at all); a form select — Quick Fit's GPA scale —
-  // opens as a bottom sheet with 48 px rows.
+  // phone: the directory's filters are chips in a sheet (no select at all); a form select opens as a bottom sheet with
+  // 48 px rows. (Quick Fit, which used to host this check, was retired by the owner on 2026-11-19; the same `Select`
+  // is exercised on the Student family page.)
+  await uiLogin(page, 'student', LOGIN.student, undefined, 'en');
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto(`${URLS.marketing}/start?lang=en`, { waitUntil: 'networkidle' });
-  const box = page.locator('#hg-fit-scale');
+  await page.goto(`${URLS.student}/family?lang=en`, { waitUntil: 'networkidle' });
+  const box = page.getByRole('combobox').first();
   await box.scrollIntoViewIfNeeded();
   await box.click();
   await expect(page.getByRole('dialog')).toBeVisible();
   await expect(page.getByRole('listbox')).toBeVisible();
   await page.waitForTimeout(300);
-  await page.screenshot({ path: `${OUT}/marketing-quickfit-scale-en-390.png` });
+  await page.screenshot({ path: `${OUT}/student-family-select-en-390.png` });
 });
 
-test('opened-state captures: Quick Fit (long English list), Student, Agency and University filters', async ({ page }) => {
+test('opened-state captures: Student, Agency and University filters', async ({ page }) => {
   test.setTimeout(6 * 60 * 1000);
-  await page.goto(`${URLS.marketing}/start?lang=en`, { waitUntil: 'networkidle' });
-  const scale = page.locator('#hg-fit-scale'); // the GPA scale: a form Select with a long option list
-  await scale.scrollIntoViewIfNeeded();
-  await scale.click();
-  await expect(page.getByRole('listbox')).toBeVisible();
-  await page.waitForTimeout(300);
-  await page.screenshot({ path: `${OUT}/marketing-quickfit-scale-1280.png` });
-  await page.keyboard.press('Escape');
-
   await uiLogin(page, 'student', LOGIN.student, undefined, 'en');
   await page.goto(`${URLS.student}/family?lang=en`, { waitUntil: 'networkidle' });
   await openFirstSelect(page, 'student-family-select');

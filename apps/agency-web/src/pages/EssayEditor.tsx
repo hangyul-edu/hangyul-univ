@@ -5,7 +5,7 @@
  * request changes (R) → the next essay of the same queue view opens. Nothing here edits the student's text.
  */
 import { useAuth } from '@hangyul/auth';
-import { orgName } from '@hangyul/i18n';
+import { errorText, orgName } from '@hangyul/i18n';
 import {
   ArrowLeft, Check, ChevronDown, ChevronRight, CircleAlert, CircleCheck, CircleDashed, ClipboardCheck, Eye, FileClock, GitCompare, Keyboard,
   ListChecks, Lock, MessageSquarePlus, MessagesSquare, RefreshCw, Send, ShieldCheck, Sparkles, TriangleAlert, Undo2, UserCog, X,
@@ -59,7 +59,7 @@ function useEssayMutation<V>(essayId: string, fn: (v: V) => Promise<unknown>, ok
       if (ok) toast.success(ok);
       after?.();
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
 }
 
@@ -297,7 +297,7 @@ function Composer({ e, draft, onDone }: { e: V6Essay; draft: Draft | null; onDon
       body: body.trim(), internal, quote: draft?.quote, anchor_start: draft?.start, anchor_end: draft?.end, suggestion: draft && suggestion.trim() && !internal ? suggestion : undefined,
     }),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['essay', e.id] }); toast.success(internal ? t('editor.noteAdded') : t('editor.commentAdded')); onDone(); },
-    onError: (err) => toast.error((err as Error).message),
+    onError: (err) => toast.error(errorText(err)),
   });
   const submit = () => { if (body.trim() && !m.isPending) m.mutate(); };
   return (

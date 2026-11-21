@@ -1,3 +1,4 @@
+import { errorText } from '@hangyul/i18n';
 import type { Appointment } from '@hangyul/api-client';
 import { useAuth } from '@hangyul/auth';
 import { CalendarDays, CalendarPlus, MapPin, Phone, Video } from '@hangyul/icons';
@@ -45,7 +46,7 @@ export function AppointmentForm({ open, onClose, student }: { open: boolean; onC
       toast.success(t('consult.created'));
       onClose();
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const submit = () => { setTouched(true); if (who && at && !past) m.mutate(); };
   return (
@@ -97,7 +98,7 @@ function CloseOut({ appt, onClose }: { appt: Appointment | null; onClose: () => 
     mutationFn: () => api.agency.closeAppointment(appt!.id, { status, outcome_notes: notes.trim() || undefined, next_task_title: task.trim() || undefined,
       next_task_due_at: task.trim() && due ? new Date(due).toISOString() : undefined }),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['agency', 'appointments'] }); qc.invalidateQueries({ queryKey: ['tasks'] }); toast.success(t('consult.closed')); onClose(); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const needNotes = status === 'COMPLETED' && !notes.trim();
   return (

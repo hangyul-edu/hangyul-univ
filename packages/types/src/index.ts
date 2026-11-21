@@ -1092,7 +1092,7 @@ export interface WritingStatusLine {
 }
 export interface ReviewerMatchReason { code: string; points: number; value?: string | number }
 export interface WritingBlock {
-  context: { university: { id: UUID; name: string } | null; program: { id: UUID; name: string; degree_level: string } | null;
+  context: { university: { id: UUID; name: string; name_ko?: string | null } | null; program: { id: UUID; name: string; degree_level: string } | null;
     intake: { year: number; term: string; deadline: ISODate | null } | null; application_id: UUID | null };
   prompt_status: 'LINKED' | 'STUDENT_COPY' | 'UNKNOWN'; prompt: WritingPrompt | null;
   limits: { word_limit: number | null; char_limit: number | null };

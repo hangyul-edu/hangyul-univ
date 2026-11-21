@@ -14,6 +14,11 @@ import { Panel } from '../components/Panel';
 import { Fact, useRateFact } from '../components/Preparation';
 import { RateText } from '../components/ynex';
 import { SummaryList } from '../components/v9/SummaryList';
+
+/** Partnership metrics measured on the enrolled-student cohort (the rest are on submitted applications). */
+const COHORT_METRICS = new Set(['retention', 'graduation']);
+/** Partnership metric → its glossary key where the two names differ. */
+const GLOSSARY_KEY: Record<string, string> = { median_review_days: 'median_processing_days' };
 import { useNarrow, usePartnershipValue, VALUE_GROUPS, type ValueMetric, type VisaRow } from '../lib/v9';
 import { useState } from 'react';
 import { intakeText } from '../lib/format';
@@ -192,8 +197,10 @@ function ValuePanel() {
                 {g.metrics.map((k) => by.get(k)).filter((m): m is ValueMetric => !!m).map((m) => (
                   <div key={m.key} className="uv9-vrow">
                     <span className="uv9-vrow__label">
-                      <span className="d-inline-flex align-items-center gap-1">{t(`university:v9.pv.m.${m.key}`)}<InfoTip text={m.definition} /></span>
-                      <small>{m.cohort}</small>
+                      <span className="d-inline-flex align-items-center gap-1">{t(`university:v9.pv.m.${m.key}`)}<InfoTip text={t(`university:v8.gl.def.${GLOSSARY_KEY[m.key] ?? m.key}`, { defaultValue: m.definition })} /></span>
+                      {/* The server describes the population in English; it is one of two populations, said in the console's language. */}
+                      <small>{COHORT_METRICS.has(m.key) ? t('university:v9.pv.cohortEnrolled')
+                        : t('university:v6.partner.performanceSub', { intake: intake ? intakeText(intake, t) : t('university:filters.allIntakes') })}</small>
                     </span>
                     <span className="uv9-vrow__val"><ValueNumber m={m} /><span className="uv7-rate__n d-block">{ctx(m)}</span></span>
                   </div>

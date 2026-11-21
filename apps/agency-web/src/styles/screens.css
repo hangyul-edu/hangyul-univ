@@ -1220,6 +1220,20 @@ html[data-surface='console'] .ops-settings .hg-card .ag-panel__body { padding: v
 }
 .ag-file__name { vertical-align: middle; }
 .ag9-lang { min-block-size: 24px; min-inline-size: 32px; }
+.ag-queue__pick { display: grid; place-items: center; flex: none; min-inline-size: 24px; min-block-size: 24px; cursor: pointer; }
+/* Touch (exhaustive pass, 2026-11-21): the same controls are 44 px on phones and coarse pointers; the queue
+   checkbox is drawn at 22 px with a 44 px row-height target. */
+@media (max-width: 767.98px), (pointer: coarse) {
+  .ag-owner-btn, .ag9-chip, .ag9-lang, .ag8-cell { min-block-size: 44px; }
+  .ag9-lang { min-inline-size: 44px; }
+  input[type='checkbox'].ag-queue__check { inline-size: 22px; block-size: 22px; margin: 0; } /* outranks the template's input[type=checkbox] */
+  .ag-queue__pick { min-inline-size: 44px; min-block-size: 44px; }
+  /* small inline links (a student's name in a drawer, a deadline's title): 24 px targets, no visual change */
+  :is(main, .hg-drawer) :is(a.hg-small, a.hg-xs, .hg-small > a) { display: inline-block; min-block-size: 24px; padding-block: 4px; margin-block: -4px; line-height: 16px; box-sizing: border-box; }
+  .ag-src__count { min-block-size: 44px; }
+  /* Disclosures keep their marker (list-item); block padding makes the row a 44 px target. */
+  .ag-cat-health__more summary, .ag8-more summary, .ag27-evidence summary { padding-block: 12px; min-block-size: 44px; box-sizing: border-box; }
+}
 .hg-tip { padding: 6px; margin: -6px; }
 .ag-task__check, .ag7 .hg-check-item__box {
   position: relative; inline-size: 28px; block-size: 28px; margin: -4px; border: 0 !important; background: none !important; border-radius: 8px; flex: none;
@@ -1247,7 +1261,7 @@ html[data-surface='console'] .ops-settings .hg-card .ag-panel__body { padding: v
 /* Catalog: the "finding programs for" picker is a labelled field on the page, not a card above the table card */
 .ag-forstudent { border: 0; border-radius: 0; background: none; padding: 0; }
 /* Templates: a placeholder reads as a quiet token on warm paper, not a blue info chip */
-.ag-ph { background: var(--hg-surface-warm); color: var(--hg-text); border: 1px solid var(--hg-border); padding: 0 5px; }
+.ag-ph { background: var(--hg-surface-warm); color: var(--hg-text); border: 1px solid var(--hg-border); padding: 0 5px; font-size: var(--hg-text-xs); }
 /* HQ lists: one primary per area — the per-row "Operations" link is a quiet secondary, not a tinted button */
 html[data-surface='console'] .ag7 .btn.btn-primary-light { background: var(--hg-control-secondary-bg); border: 1px solid var(--hg-control-secondary-border); color: var(--hg-control-secondary-text); }
 html[data-surface='console'] .ag7 .btn.btn-primary-light:hover { background: var(--hg-control-secondary-bg-hover); border-color: var(--hg-control-secondary-border-hover); color: var(--hg-control-secondary-text); }

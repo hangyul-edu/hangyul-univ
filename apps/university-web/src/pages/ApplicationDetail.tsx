@@ -7,7 +7,7 @@ import { useAuth } from '@hangyul/auth';
 import {
   ChevronLeft, ChevronRight, Eye, FileText, Flag, FlagOff, GraduationCap, Lock, MessageSquare, Send,
 } from '@hangyul/icons';
-import { useLocale, localName } from '@hangyul/i18n';
+import { errorText, docLabel, orgName, useLocale, localName } from '@hangyul/i18n';
 import type { ApplicationDetail as Detail, ApplicationStatus, ChecklistItem, Requirements } from '@hangyul/types';
 import {
   Button, Callout, Drawer, ErrorState, Field, Input, Modal, Select, Skeleton, SkeletonCard,
@@ -56,7 +56,7 @@ function DecisionModal({ app, to, onClose, onDecided }: { app: Detail; to: Appli
       onClose();
       onDecided?.();
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const title = t(`university:decision.action.${to}`, { defaultValue: t(`common:appStatus.${to}`) });
   return (
@@ -130,7 +130,7 @@ function RequestDocumentsModal({ app, onClose, onSent }: { app: Detail; onClose:
       onClose();
       onSent?.();
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const submit = () => {
     const e: typeof err = {};
@@ -183,13 +183,13 @@ function DocumentRequests({ app }: { app: Detail }) {
   const cancel = useMutation({
     mutationFn: (id: string) => api.applications.cancelRequest(id),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['application', app.id] }); qc.invalidateQueries({ queryKey: ['university', 'attention'] }); toast.success(t('university:request.cancelled')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const open = async (docId: string) => {
     try {
       const { url } = await api.documents.downloadUrl(docId, 'inline');
       window.open(url, '_blank', 'noopener');
-    } catch (e) { toast.error((e as Error).message); }
+    } catch (e) { toast.error(errorText(e)); }
   };
   if (!all.length) return null;
   return (
@@ -200,7 +200,7 @@ function DocumentRequests({ app }: { app: Detail }) {
           <li key={r.id} data-status={r.status}>
             <div className="uc-requests__main">
               <div className="hg-row-wrap" style={{ gap: 10 }}>
-                <span className="hg-medium">{r.label}</span>
+                <span className="hg-medium" data-user-content>{r.label}</span>
                 <SoftBadge tone={yxTone(REQ_TONE[r.status])}>{t(`university:request.status.${r.status}`)}</SoftBadge>
               </div>
               <p className="uc-requests__note" title={r.note}>{r.note}</p>
@@ -233,7 +233,7 @@ function FlagModal({ app, onClose }: { app: Detail; onClose: () => void }) {
   const m = useMutation({
     mutationFn: () => api.applications.update(app.id, { flagged: true, flag_reason: reason.trim() }),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['application', app.id] }); invalidate(); toast.success(t('university:flag.flagged')); onClose(); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <Modal open onClose={onClose} title={t('university:flag.title')} description={t('university:flag.description')}
@@ -258,10 +258,10 @@ function MessageModal({ app, onClose }: { app: Detail; onClose: () => void }) {
   const m = useMutation({
     mutationFn: () => api.messages.start({ kind: 'APPLICATION', application_id: app.id, subject: subject.trim(), body: body.trim() }),
     onSuccess: (r) => { qc.invalidateQueries({ queryKey: ['conversations'] }); toast.success(t('university:message.sent')); nav(`/messages/${r.id}`); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
-    <Modal open onClose={onClose} title={t('university:message.title')} description={t('university:message.description', { agency: app.agency?.name ?? t('university:agencies.direct') })}
+    <Modal open onClose={onClose} title={t('university:message.title')} description={t('university:message.description', { agency: app.agency?.name ? orgName(app.agency.name, 'staff') : t('university:agencies.direct') })}
       footer={<><Button onClick={onClose}>{t('common:actions.cancel')}</Button><Button variant="primary" loading={m.isPending} onClick={() => (subject.trim() && body.trim() ? m.mutate() : setErr('validation.required'))}>{t('common:actions.send')}</Button></>}>
       <div className="hg-stack">
         <Field label={t('university:message.subject')} htmlFor="msg-subj"><Input id="msg-subj" maxLength={200} value={subject} onChange={(e) => setSubject(e.target.value)} /></Field>
@@ -289,7 +289,7 @@ function DocumentRow({ item }: { item: ChecklistItem }) {
       else window.location.assign(r.url);
     } catch (e) {
       w?.close();
-      toast.error((e as Error).message);
+      toast.error(errorText(e));
     } finally {
       setBusy(false);
     }
@@ -298,7 +298,7 @@ function DocumentRow({ item }: { item: ChecklistItem }) {
     <li className="uc-doc uv7-doc">
       <span className={`avatar avatar-sm avatar-rounded bg-${item.status === 'VERIFIED' ? 'success' : item.status === 'MISSING' ? 'light' : 'primary'}-transparent`} aria-hidden><FileText /></span>
       <div className="hg-grow" style={{ minWidth: 0 }}>
-        <div className="hg-medium hg-truncate">{item.label || t(`common:docCategory.${item.category}`)}</div>
+        <div className="hg-medium hg-truncate">{docLabel(t, item)}</div>
         <div className="uc-sub">
           {[!item.required ? t('university:detail.optionalDoc') : null, item.legalization_required ? t('university:detail.legalization') : null, item.translation_required ? t('university:detail.translation') : null].filter(Boolean).join(' · ') || t('university:ev.required')}
         </div>
@@ -307,7 +307,7 @@ function DocumentRow({ item }: { item: ChecklistItem }) {
         <SoftBadge tone={yxTone(documentTone[item.status] ?? 'neutral')}>{t(`common:docStatus.${item.status}`)}</SoftBadge>
       </div>
       {item.document_id ? (
-        <Button size="sm" variant="ghost" icon={<Eye />} loading={busy} onClick={open} aria-label={`${t('common:actions.view')} — ${item.label}`}>{t('common:actions.view')}</Button>
+        <Button size="sm" variant="ghost" icon={<Eye />} loading={busy} onClick={open} aria-label={`${t('common:actions.view')} — ${docLabel(t, item)}`}>{t('common:actions.view')}</Button>
       ) : item.status !== 'MISSING' ? (
         <span className="uc-notshared" title={t('university:detail.notSharedHint')}><Lock aria-hidden size={13} /> {t('university:detail.notShared')}</span>
       ) : null}
@@ -409,7 +409,7 @@ function useEvidence(app: Detail | undefined) {
   const optional = docs.filter((d) => !d.required);
   const rows: EvidenceRow[] = [
     ...elig.map((r) => ({ key: r.key, requirement: r.required, evidence: r.applicant, verdict: r.verdict })),
-    ...required.map((d) => ({ key: `doc-${d.requirement_id}`, requirement: d.label || t(`common:docCategory.${d.category}`), evidence: <DocEvidence item={d} />, verdict: 'doc' as const, docStatus: d.status, doc: d })),
+    ...required.map((d) => ({ key: `doc-${d.requirement_id}`, requirement: docLabel(t, d), evidence: <DocEvidence item={d} />, verdict: 'doc' as const, docStatus: d.status, doc: d })),
   ];
   const openReq = (app.document_requests ?? []).filter((x) => x.status === 'OPEN').length;
   return { rows, optional, r: readiness(rows, openReq), loading: programs.isLoading, program };
@@ -502,7 +502,7 @@ function DocEvidence({ item }: { item: ChecklistItem }) {
     try {
       const r = await api.documents.downloadUrl(item.document_id as string, 'inline');
       if (w) w.location.href = r.url; else window.location.assign(r.url);
-    } catch (e) { w?.close(); toast.error((e as Error).message); } finally { setBusy(false); }
+    } catch (e) { w?.close(); toast.error(errorText(e)); } finally { setBusy(false); }
   };
   return (
     <span>
@@ -533,7 +533,7 @@ function ReviewerPanel({ app }: { app: Detail }) {
   const m = useMutation({
     mutationFn: (id: string | null) => api.applications.update(app.id, { university_reviewer_id: id }),
     onSuccess: (_, id) => { setAssigned(id ?? ''); qc.invalidateQueries({ queryKey: ['application', app.id] }); qc.invalidateQueries({ queryKey: ['applications'] }); toast.success(id ? t('university:reviewer.assigned', { name: reviewers.find((r) => r.user_id === id)?.full_name ?? '' }) : t('university:reviewer.cleared')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <Field label={t('university:reviewer.label')} htmlFor="rev">
@@ -554,7 +554,7 @@ function ExternalRefPanel({ app }: { app: Detail }) {
   const m = useMutation({
     mutationFn: () => api.applications.update(app.id, { external_reference: value.trim() }),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['application', app.id] }); toast.success(t('university:detail.refSaved')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <form className="hg-stack" style={{ '--hg-gap': '8px' } as React.CSSProperties} onSubmit={(e) => { e.preventDefault(); m.mutate(); }}>
@@ -660,7 +660,7 @@ function AdminCheckPanel({ app }: { app: Detail }) {
   const m = useMutation({
     mutationFn: () => (c ? api.university.undoAdminCheck(app.id) : api.university.bulk('admin-check', { ids: [app.id] })),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['application', app.id] }); qc.invalidateQueries({ queryKey: ['applications'] }); toast.success(c ? t('university:v8.rv.adminUndone') : t('university:v8.rv.adminDone')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <div className="uv8-admincheck">
@@ -740,7 +740,7 @@ function AgencyFacts({ app }: { app: Detail }) {
   const a = q.data?.agency;
   return (
     <>
-      <dt>{t('university:v9.rv.agency')}</dt><dd>{app.agency.name}</dd>
+      <dt>{t('university:v9.rv.agency')}</dt><dd>{orgName(app.agency.name, 'staff')}</dd>
       <dt>{t('university:v9.rv.legalName')}</dt><dd>{a?.legal_name ?? <span className="text-muted">{t('university:v9.rv.notRecorded')}</span>}</dd>
       <dt>{t('university:v9.rv.registration')}</dt>
       <dd>{!a || a.registration_status === 'NOT_RECORDED' ? <span className="text-muted">{t('university:v9.rv.notRecorded')}</span> : t(`university:v9.rv.reg.${a.registration_status}`, { defaultValue: a.registration_status })}</dd>
@@ -775,7 +775,7 @@ export default function ApplicationDetail() {
   const unflag = useMutation({
     mutationFn: () => api.applications.update(id, { flagged: false, flag_reason: null }),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['application', id] }); invalidate(); toast.success(t('university:flag.unflagged')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
 
   const crumbs = [{ label: t('common:nav.applicants'), to: '/applicants' }, { label: q.data?.student?.full_name ?? t('university:detail.applicant') }];
@@ -949,7 +949,7 @@ export default function ApplicationDetail() {
           <div><dt>{t('university:applicants.col.intake')}</dt><dd>{intakeText(intake, t)}<span className="un-rvhead__sub">{t('university:v33.rv.deadline', { date: formatDate(a.intake.application_deadline, locale, { month: 'short', day: 'numeric' }) })}</span></dd></div>
           <div><dt>{t('university:v8.aq.country')}</dt><dd><Country code={nationality} /></dd></div>
           <div><dt>{t('university:v33.rv.stage')}</dt><dd>{stage && stage !== 'closed' ? t(`university:v22.stage.${stage}`) : statusLabel(a.status)}{a.submitted_at && <span className="un-rvhead__sub">{t('university:v33.rv.submitted', { date: formatDate(a.submitted_at, locale, { month: 'short', day: 'numeric', year: 'numeric' }) })}</span>}</dd></div>
-          <div><dt>{t('university:applicants.col.agency')}</dt><dd>{a.agency?.name ?? t('university:agencies.direct')}</dd></div>
+          <div><dt>{t('university:applicants.col.agency')}</dt><dd>{a.agency?.name ? orgName(a.agency.name, 'staff') : t('university:agencies.direct')}</dd></div>
         </dl>
         {a.flagged && a.flag_reason && <p className="un-rvhead__flag">{t('university:flag.reasonTitle')}: {a.flag_reason}</p>}
       </header>

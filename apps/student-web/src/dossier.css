@@ -101,13 +101,15 @@
 }
 
 /* phone/tablet progress line */
-.dg-mob { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'text add' 'bar bar'; gap: 8px 12px; align-items: center;
+/* Text, bar, then the add action under them: side by side, longer languages (ar, ru, my) squeezed the heading into
+   three lines beside the button at 390 px. */
+.dg-mob { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: 'text' 'bar' 'add'; gap: 8px; align-items: center;
   padding: 12px 14px; border-radius: var(--hg-radius-lg); background: var(--hg-bg-canvas); }
 .dg-mob__text { grid-area: text; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .dg-mob__text strong { font-size: var(--hg-text-lg); font-weight: var(--hg-weight-semibold); }
 .dg-mob__text span { font-size: var(--hg-text-sm); color: var(--hg-text-secondary); }
 .dg-mob > .hg-progress, .dg-mob > [role='progressbar'] { grid-area: bar; }
-.dg-mob > .hg-btn { grid-area: add; }
+.dg-mob > .hg-btn { grid-area: add; justify-self: start; margin-top: 4px; }
 
 /* status dot (state colour only as a small dot) */
 .dg-dot { flex: none; display: inline-block; inline-size: 8px; block-size: 8px; border-radius: 50%; background: var(--hg-status-neutral-solid); }

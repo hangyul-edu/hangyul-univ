@@ -1,4 +1,4 @@
-import { localName } from '@hangyul/i18n';
+import { errorText, localName, uniName } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import { AtSign, Check, CheckCheck, Eye, Link2, ListChecks, Lock, Paperclip, Send, StickyNote, X } from '@hangyul/icons';
 import type { ChatMessage, MessageAttachment } from '@hangyul/types';
@@ -32,7 +32,7 @@ export function AttachmentChip({ a, onRemove }: { a: MessageAttachment; onRemove
   const { t } = useT();
   const toast = useToast();
   const open = async () => {
-    try { const r = await api.messages.attachmentUrl(a.id, 'inline'); window.open(r.url, '_blank', 'noopener'); } catch (e) { toast.error((e as Error).message); }
+    try { const r = await api.messages.attachmentUrl(a.id, 'inline'); window.open(r.url, '_blank', 'noopener'); } catch (e) { toast.error(errorText(e)); }
   };
   return (
     <span className="ag-file">
@@ -143,7 +143,7 @@ function Composer({ convId, studentName, studentLocale, focusComposer }: { convI
       if (createTask) qc.invalidateQueries({ queryKey: ['tasks'] });
       toast.success(internal ? t('inbox.noteSaved') : t('inbox.sent'));
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const insert = (text: string) => {
     const el = ref.current;
@@ -163,7 +163,7 @@ function Composer({ convId, studentName, studentLocale, focusComposer }: { convI
         const up = await api.messages.uploadAttachment(convId, f);
         setFiles((prev) => [...prev, up]);
       }
-    } catch (e) { toast.error((e as Error).message); } finally { setUploading(false); }
+    } catch (e) { toast.error(errorText(e)); } finally { setUploading(false); }
   };
   return (
     <FileDrop ref={drop} variant="overlay" className={cx('ag-composer', internal && 'ag-composer--internal')} rules={{ maxFiles: 10 }} already={files.length} disabled={uploading} onFiles={attach}>
@@ -257,7 +257,7 @@ export function MessageThread({ id, focusComposer }: { id: string; focusComposer
               <h2 className="hg-title-sm hg-truncate">{conv.student ? <Link to={`/students/${conv.student.id}`} className="ag-link-plain">{conv.student.full_name}</Link> : conv.subject}</h2>
               <div className="ag-thread__ref">
                 {conv.student && !(conv.kind === 'STUDENT_SUPPORT') && <span>{conv.subject}</span>}
-                {app && <Link to={`/applications/${app.id}`}>{app.university} · {t(`appStatus.${app.status}`)}</Link>}
+                {app && <Link to={`/applications/${app.id}`}>{uniName(app)} · {t(`appStatus.${app.status}`)}</Link>}
               </div>
             </div>
             {conv.student && <LinkApplication convId={conv.id} studentId={conv.student.id} current={app?.id ?? null} />}
@@ -286,7 +286,7 @@ function LinkApplication({ convId, studentId, current }: { convId: string; stude
   const m = useMutation({
     mutationFn: (application_id: string | null) => api.patch(`/agency/conversations/${convId}/application`, { application_id }),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['thread', convId] }); toast.success(t('actions.saved')); setOpen(false); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <Popover align="end" width={300} open={open} onOpenChange={setOpen}
@@ -318,7 +318,7 @@ export function NewConversationModal({ open, onClose, student }: { open: boolean
   const m = useMutation({
     mutationFn: () => api.messages.start({ subject: subject.trim(), body: body.trim(), student_id: who!.id }),
     onSuccess: (r) => { qc.invalidateQueries({ queryKey: ['conversations'] }); toast.success(t('inbox.sent')); onClose(); nav(`/messages/${r.id}`); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <Modal open={open} onClose={onClose} title={t('inbox.new')} width={560}

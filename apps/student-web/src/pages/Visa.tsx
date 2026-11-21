@@ -126,7 +126,7 @@ function VisaPlan({ plan }: { plan: VisaRoutePlan }) {
             <h2 className="hg-title-md">{vtype ? t('page.journey', { type: vtype }) : t('page.journeyGeneric')}</h2>
             {uni && <p className="hg-muted hg-small">{[localName(uni), localName(plan.inputs.program)].filter(Boolean).join(' · ')}</p>}
           </div>
-          <StatusText tone={TONE[plan.display_status]}>{t(`status.${plan.display_status}`)}</StatusText>
+          <StatusText tone={TONE[plan.display_status]}>{t(`status.${plan.display_status}`, { defaultValue: t('status.PREPARING') })}</StatusText>
         </div>
         <JourneyRail label={t('page.railLabel')} current={railPhase(plan)} steps={RAIL.map((p) => ({ key: p, label: t(`rail.${p}`) }))} />
         {stopped ? <StoppedState plan={plan} /> : (

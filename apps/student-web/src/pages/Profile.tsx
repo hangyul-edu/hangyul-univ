@@ -146,7 +146,7 @@ export default function Profile() {
                   return (
                     <li key={k} className="pf-row" data-done={done}>
                       <div className="pf-row__main">
-                        <div className="hg-row" style={{ gap: 10 }}>
+                        <div className="hg-row" style={{ gap: '4px 10px', flexWrap: 'wrap' }}>
                           <h2 className="pf-row__title">{t(`profile.section.${k}`)}</h2>
                           <StatusText tone={done ? 'success' : 'neutral'} hollow={!done}>{done ? t('profileV3.done') : t('profileV3.notAdded')}</StatusText>
                         </div>

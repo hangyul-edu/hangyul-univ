@@ -1,4 +1,4 @@
-import { orgName } from '@hangyul/i18n';
+import { errorText, orgName } from '@hangyul/i18n';
 // PRIMARY QUESTION: Who can sign in to this agency's console?
 //
 // V22 관리자 계정 / Administrator accounts (REPORT §246 A5, brief §55). The V9 operations console — roles, expertise,
@@ -36,7 +36,7 @@ export function InviteModal({ open, onClose, onInvite, title, sub, children, ext
   const m = useMutation({
     mutationFn: () => onInvite({ email: email.trim(), full_name: name.trim(), locale }),
     onSuccess: (r) => { setDone({ delivery: r.invite.delivery }); qc.invalidateQueries({ queryKey: ['accounts'] }); },
-    onError: (e) => setError((e as Error).message),
+    onError: (e) => setError(errorText(e)),
   });
   return (
     <Modal open={open} onClose={onClose} title={title} description={done ? undefined : sub} width={480}
@@ -89,7 +89,7 @@ function DisableModal({ account, onClose }: { account: AccountRow | null; onClos
   const m = useMutation({
     mutationFn: () => api.agency.deactivateMember(account!.user_id, { reason: reason.trim() || t('v22.team.disableReasonPh') }),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['accounts'] }); qc.invalidateQueries({ queryKey: ['agency', 'team'] }); toast.success(t('actions.saved')); onClose(); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <Modal open={!!account} onClose={onClose} title={account ? t('v22.team.disableTitle', { name: account.full_name }) : ''} width={460}
@@ -116,7 +116,7 @@ export default function Team() {
   const enable = useMutation({
     mutationFn: (id: string) => api.agency.reactivateMember(id),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['accounts'] }); qc.invalidateQueries({ queryKey: ['agency', 'team'] }); toast.success(t('actions.saved')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <div className="ag7 ag22-accounts">

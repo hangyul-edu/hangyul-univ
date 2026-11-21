@@ -5,7 +5,7 @@ import type { ConversationDetail, MessageAttachment } from '@hangyul/types';
 import { Avatar, Button, EmptyState, Field, FileDrop, Input, Modal, QueryState, Skeleton, Textarea, useToast, type FileDropHandle } from '@hangyul/ui';
 import { cx, formatDateTime, formatRelative } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 
 import { PageIntro } from '../components/bits';
@@ -50,8 +50,19 @@ function Thread({ id }: { id: string }) {
   const [text, setText] = useState('');
   const [files, setFiles] = useState<MessageAttachment[]>([]);
   const [uploading, setUploading] = useState(false);
+  /** Why the last send failed, said under the composer until the next attempt (never a toast over the text box). */
+  const [notSent, setNotSent] = useState<string | null>(null);
   const drop = useRef<FileDropHandle>(null);
   const end = useRef<HTMLDivElement>(null);
+  // The composer grows with what is typed (to the CSS max-height, then it scrolls), so a long message is never hidden
+  // behind a one-line box; it shrinks back after sending.
+  const box = useRef<HTMLTextAreaElement>(null);
+  useLayoutEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    el.style.height = 'auto';
+    el.style.height = `${el.scrollHeight + (el.offsetHeight - el.clientHeight)}px`;
+  }, [text]);
   // Owner req. 4: the paperclip and a drop on the composer both arrive here, already checked by `FileDrop`.
   const attach = async (list: File[]) => {
     if (!list.length) return;
@@ -79,9 +90,13 @@ function Thread({ id }: { id: string }) {
     api.messages.markRead(id).then(() => qc.invalidateQueries({ queryKey: ['conversations'] })).catch(() => undefined);
   }, [id, count, api, qc, loaded]);
   // V28 (UX_AUDIT AG-1, same pattern): scroll the thread's own list, never the page.
+  // On a phone the thread is the page (the list grows and the page scrolls), so the newest message is reached by
+  // scrolling the page; on desktop the list is the pane's own scroller. Either way the thread opens at the latest message.
   useEffect(() => {
     const list = end.current?.parentElement;
-    if (list) list.scrollTop = list.scrollHeight;
+    if (!list) return;
+    if (list.scrollHeight > list.clientHeight + 2) list.scrollTop = list.scrollHeight;
+    else if (count > 0) window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'auto' });
   }, [count]);
 
   const send = useMutation({
@@ -89,11 +104,20 @@ function Thread({ id }: { id: string }) {
     onMutate: (body) => {
       const prev = qc.getQueryData<ConversationDetail>(['thread', id]);
       qc.setQueryData<ConversationDetail>(['thread', id], (d) => d ? { ...d, messages: [...d.messages, { id: `tmp-${Date.now()}`, body, internal: false, at: new Date().toISOString(), author: null, mine: true, mentions: [], created_task_id: null, attachment_document_id: null }] } : d);
+      const sentFiles = files;
+      const draft = text;
       setText('');
       setFiles([]);
-      return { prev, body };
+      setNotSent(null);
+      return { prev, draft, sentFiles };
     },
-    onError: (e, _b, ctx) => { if (ctx?.prev) qc.setQueryData(['thread', id], ctx.prev); setText(ctx?.body ?? ''); toast.error(errorText(e)); },
+    // Nothing the student wrote or attached is lost: the text and the attachments go back into the composer.
+    onError: (e, _b, ctx) => {
+      if (ctx?.prev) qc.setQueryData(['thread', id], ctx.prev);
+      setText(ctx?.draft ?? '');
+      setFiles(ctx?.sentFiles ?? []);
+      setNotSent(errorText(e));
+    },
     onSettled: () => { qc.invalidateQueries({ queryKey: ['thread', id] }); qc.invalidateQueries({ queryKey: ['conversations'] }); },
   });
   const submit = () => { const b = text.trim() || (files.length ? t('messagesV3.sentFiles', { count: files.length }) : ''); if (b && !send.isPending && !uploading) send.mutate(b); };
@@ -144,9 +168,10 @@ function Thread({ id }: { id: string }) {
           )}
           <form className="st-composer" onSubmit={(e) => { e.preventDefault(); submit(); }}>
             <Button variant="ghost" iconOnly icon={<Paperclip />} aria-label={t('messagesV3.attach')} loading={uploading} onClick={() => drop.current?.open()} />
-            <Textarea aria-label={t('messages.composer')} placeholder={t('messages.composer')} rows={1} value={text} onChange={(e) => setText(e.target.value)} onKeyDown={onKey} className="st-composer__input" />
+            <Textarea ref={box} aria-label={t('messages.composer')} placeholder={t('messages.composer')} rows={1} value={text} onChange={(e) => setText(e.target.value)} onKeyDown={onKey} className="st-composer__input" />
             <Button type="submit" variant="primary" iconOnly icon={<Send className="hg-flip-rtl" />} aria-label={t('common:actions.send')} disabled={(!text.trim() && files.length === 0) || uploading} loading={send.isPending} />
           </form>
+          {notSent && <p className="hg-error st-composer__error" role="alert">{t('messages.notSent')} {notSent}</p>}
           <p className="st-composer__hint hg-subtle hg-xs">{t('messages.hint')}</p>
         </FileDrop>
       )}
@@ -165,7 +190,7 @@ function Upcoming() {
       <Video size={16} aria-hidden />
       <div className="hg-grow">
         {next.slice(0, 2).map((a) => (
-          <div key={a.id} className="hg-small"><strong>{t('messages.call', { when: formatDateTime(a.starts_at, locale) })}</strong>{a.host ? ` · ${displayName(t, a.host)}` : ''}{a.notes ? <div className="hg-xs hg-muted">{a.notes}</div> : null}</div>
+          <div key={a.id} className="hg-small"><strong>{t('messages.call', { when: formatDateTime(a.starts_at, locale) })}</strong>{a.notes ? <div className="hg-xs hg-muted">{a.notes}</div> : null}</div>
         ))}
       </div>
     </div>

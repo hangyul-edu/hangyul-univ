@@ -5,7 +5,7 @@
  */
 import { expect, test } from '@playwright/test';
 
-import { API, URLS, apiLogin, uiLogin } from './helpers';
+import { API, URLS, apiLogin, uiLogin, chooseOption } from './helpers';
 
 const STUDENT = 'student.arrival@demo.hangyul.kr';
 const COUNSELOR = 'counselor@lotus.demo.hangyul.kr';
@@ -43,7 +43,7 @@ test('FLOW F — from visa issued to an active residence-card task', async ({ pa
   // Airport pickup requested.
   const pickupStep = page.getByRole('button', { name: /Book your airport pickup/ });
   if ((await pickupStep.getAttribute('aria-expanded')) !== 'true') await pickupStep.click();
-  await page.selectOption('#cg-contact', 'KAKAOTALK');
+  await chooseOption(page, page.locator('#cg-contact'), /KakaoTalk/i);
   await page.getByRole('button', { name: 'Request pickup' }).click();
   await expect(page.getByText('Requested').first()).toBeVisible();
 

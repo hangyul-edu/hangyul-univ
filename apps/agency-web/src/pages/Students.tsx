@@ -1,3 +1,4 @@
+import { errorText } from '@hangyul/i18n';
 // PRIMARY QUESTION: Where is every student, and what is each one waiting on?
 //
 // V22 Students (REPORT §249 G1/G3, brief §53): the same strip + toolbar + table grammar as Today (components/Caseload),
@@ -38,7 +39,7 @@ function BulkActions({ ids, onDone }: { ids: string[]; onDone: () => void }) {
       setConfirm(null);
       onDone();
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   // Every active administrator can own a case (REPORT §246 A1: `counselor_user_id` is accountability, not visibility).
   const owners = (team.data?.members ?? []).filter((mbr) => mbr.active);
@@ -85,7 +86,7 @@ function SaveViewModal({ open, onClose, filters, sort, onSaved }: { open: boolea
   const m = useMutation({
     mutationFn: () => api.agency.createSavedView({ name: name.trim(), scope, filters, sort }),
     onSuccess: (v) => { toast.success(t('savedViews.saved', { name: v.name })); onSaved(v); onClose(); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const n = Object.keys(filters).length;
   return (

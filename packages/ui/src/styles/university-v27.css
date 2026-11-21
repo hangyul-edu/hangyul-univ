@@ -242,3 +242,12 @@
 [dir='rtl'] .hg-unid span[data-no-l10n] { direction: ltr; unicode-bidi: isolate; }
 [dir='rtl'] .hg-unid :is(dd, p)[data-no-l10n] { direction: ltr; text-align: end; }
 [dir='rtl'] .hg-unid-tests li { unicode-bidi: isolate; }
+
+/* Touch targets (WCAG 2.5.8): the source and section links are lines of text; on touch and narrow screens their hit
+   area grows to 32 px through a pseudo-element, so the text keeps its rhythm and stacked links do not overlap. */
+@media (max-width: 599.98px), (pointer: coarse) {
+  .hg-unid-ext, .hg-unid-go, .hg-unid-sum__k a, .hg-uni-hero__crumbs a, .hg-uni-hero__site { position: relative; }
+  .hg-unid-ext::after, .hg-unid-go::after, .hg-unid-sum__k a::after, .hg-uni-hero__crumbs a::after, .hg-uni-hero__site::after {
+    content: ''; position: absolute; inset-inline: -4px; inset-block: 50%; block-size: max(100%, 32px); transform: translateY(-50%);
+  }
+}

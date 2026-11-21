@@ -5,7 +5,7 @@
 // result per application (the API checks each id against the caller's tenant independently).
 import { useAuth } from '@hangyul/auth';
 import { ClipboardCheck, Download, Send, UserCheck } from '@hangyul/icons';
-import { useLocale } from '@hangyul/i18n';
+import { errorText, useLocale } from '@hangyul/i18n';
 import type { Application, BulkResult, UniversityBulkAction } from '@hangyul/types';
 import { Button, Callout, Field, Input, Modal, Select, Textarea, useToast } from '@hangyul/ui';
 import { downloadBlob } from '@hangyul/utils';
@@ -57,7 +57,7 @@ function MatchPreview({ action, filters, onReady }: { action: FilterAction; filt
     let live = true;
     api.post<FilterPreview>(`/university/bulk-filter/${action}/preview`, { filters })
       .then((r) => { if (live) { setP(r); onReady(r); } })
-      .catch((e) => { if (live) { setErr((e as Error).message); onReady(null); } });
+      .catch((e) => { if (live) { setErr(errorText(e)); onReady(null); } });
     return () => { live = false; };
   }, [action]); // eslint-disable-line react-hooks/exhaustive-deps
   if (err) return <Callout tone="warning">{err}</Callout>;
@@ -118,7 +118,7 @@ export function BulkActions({ ids, rows, clear, total, filters }: { ids: string[
       setNote('');
       clear();
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
 
   const exportSelected = async () => {
@@ -131,7 +131,7 @@ export function BulkActions({ ids, rows, clear, total, filters }: { ids: string[
       toast.success(t('university:v8.bulk.exported', { count: n }));
       setExportOpen(false);
     } catch (e) {
-      toast.error((e as Error).message);
+      toast.error(errorText(e));
     } finally {
       setExporting(false);
     }

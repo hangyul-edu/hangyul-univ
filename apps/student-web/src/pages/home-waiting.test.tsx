@@ -128,4 +128,24 @@ describe('the home while nothing is the student\'s to do', () => {
     expect(container.querySelectorAll('.hg-btn--primary')).toHaveLength(1);
     expect(screen.getByText('Your next step')).toBeInTheDocument();
   });
+
+  it('names the university of the next step from the application itself, with the programme on its own line', () => {
+    // The server sends the flat English "university · programme" label; the home re-reads the names from the
+    // application (reader's language) and keeps the title to the university and the task.
+    const d = dashboard({
+      next_action: { code: 'APPLICATION_ITEM', title: 'Fix your academic transcript for Pusan National University · Business Administration (BBA)', link: '/applications/a1',
+        params: { item: 'FIX', label: 'academic transcript', university: 'Pusan National University · Business Administration (BBA)', application_id: 'a1', category: 'TRANSCRIPT', remaining: 2, due_at: '2026-12-04' } },
+      applications: [app('a1', 'DOCUMENT_PREPARATION', 'Pusan National University')] as never,
+    });
+    const { container } = renderUI(<HomeBody d={d} />);
+    const title = screen.getByRole('heading', { level: 2, name: /academic transcript/ });
+    expect(title.textContent).toContain('Pusan National University');
+    expect(title.textContent).not.toContain('Business Administration');
+    expect(container.querySelector('.sh-next__context')?.textContent).toBe('Business Administration (BBA) · Spring 2027');
+  });
+
+  it('never shows the internal organisation behind the team to the student', () => {
+    renderUI(<HomeBody d={dashboard()} />);
+    expect(screen.queryByText(/Hangyul Univ Operations/)).toBeNull();
+  });
 });

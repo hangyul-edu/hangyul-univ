@@ -35,9 +35,10 @@ def delivery(conv_id: str, p: Principal = Depends(require_agency_or_hangyul), db
     msgs = db.scalars(select(Message).where(Message.conversation_id == c.id).order_by(Message.created_at)).all()
     app = None
     if c.application_id:
-        row = db.execute(select(Application.id, University.name_en, Application.status).join(University, University.id == Application.university_id)
+        row = db.execute(select(Application.id, University.name_en, Application.status, University.name_ko)
+                         .join(University, University.id == Application.university_id)
                          .where(Application.id == c.application_id)).first()
-        app = {"id": str(row[0]), "university": row[1], "status": row[2].value} if row else None
+        app = {"id": str(row[0]), "university": row[1], "university_ko": row[3], "status": row[2].value} if row else None
     stu = db.get(User, c.student_user_id) if c.student_user_id else None
     return {"conversation_id": str(c.id), "messages": channels.delivery_states(db, c, msgs), "application": app,
             # The student's app language: inserting a template picks this language variant when one exists (A5).

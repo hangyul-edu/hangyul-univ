@@ -107,7 +107,7 @@
 .hg-snav__link.active { color: var(--hg-text); font-weight: var(--hg-weight-semibold); background: transparent; }
 .hg-snav__link::after { content: ''; position: absolute; inset-inline: 12px; bottom: -11px; height: 2px; border-radius: 2px 2px 0 0; background: var(--hg-selected-border); transform: scaleX(0); transition: transform var(--hg-motion-base) var(--hg-motion-easing); }
 .hg-snav__link.active::after { transform: scaleX(1); }
-.hg-snav__count { min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--hg-text); color: #fff; font-size: 11px; font-weight: var(--hg-weight-semibold); display: inline-grid; place-items: center; font-variant-numeric: tabular-nums; }
+.hg-snav__count { min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--hg-text); color: #fff; font-size: var(--hg-text-xs); font-weight: var(--hg-weight-semibold); display: inline-grid; place-items: center; font-variant-numeric: tabular-nums; }
 /* 261119 (owner requirement 5): the page's last line and its primary action clear the fixed tab bar *and* the phone's
    home indicator — 58 px bar + safe area + breathing room. The tab bar is hidden from 1024 px, so the bottom padding
    is reset there rather than at 768 px, where the bar is still showing. `min-width: 0` so a wide child (a table, a
@@ -132,7 +132,7 @@ html:has(.hg-sshell) { scroll-padding-top: 80px; scroll-padding-bottom: calc(58p
    ellipsised as a last resort, and steps down a size on the narrowest phones. */
 .hg-tabbar a { min-width: 0; padding-inline: 2px; }
 .hg-tabbar a > span:not(.hg-tabbar__dot) { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-@media (max-width: 374px) { .hg-tabbar a { font-size: 11px; letter-spacing: -0.01em; } }
+@media (max-width: 374px) { .hg-tabbar a { font-size: var(--hg-text-xs); letter-spacing: -0.01em; } }
 .hg-tabbar a.active { color: var(--hg-selected-fg); font-weight: var(--hg-weight-semibold); }
 .hg-tabbar a.active svg { stroke-width: 2.1; }
 .hg-tabbar__dot { position: absolute; top: 7px; inset-inline-start: calc(50% + 7px); width: 8px; height: 8px; border-radius: 50%; background: var(--hg-primary); border: 2px solid var(--hg-surface); }
@@ -175,11 +175,11 @@ html:has(.hg-sshell) { scroll-padding-top: 80px; scroll-padding-bottom: calc(58p
 
 .hg-bell__count {
   position: absolute; top: 1px; inset-inline-end: 1px;
-  min-width: 16px; height: 16px; padding: 0;
+  min-width: 18px; height: 18px; padding: 0 4px;
   border-radius: 999px;
   /* V26 (REPORT §338): counts are ink — tangerine is for the primary action, the current item and focus. */
   background: var(--hg-text); color: #fff;
-  font-size: 10px; font-weight: var(--hg-weight-bold); line-height: 1;
+  font-size: var(--hg-text-xs); font-weight: var(--hg-weight-bold); line-height: 1;
   font-variant-numeric: tabular-nums; letter-spacing: 0;
   display: grid; place-items: center;
   /* `box-shadow`, not `border`: a border grows the box and would make a two-digit count a different height
@@ -209,7 +209,7 @@ html:has(.hg-sshell) { scroll-padding-top: 80px; scroll-padding-bottom: calc(58p
   .hg-account__chev { display: block; }
 }
 .hg-account__name { font-size: 13px; font-weight: var(--hg-weight-medium); line-height: 1.25; color: var(--hg-text); }
-.hg-account__role { font-size: 11px; line-height: 1.25; color: var(--hg-text-tertiary); }
+.hg-account__role { font-size: var(--hg-text-xs); line-height: 1.25; color: var(--hg-text-tertiary); }
 .hg-account__chev { width: 14px; height: 14px; flex: none; color: var(--hg-text-tertiary); }
 /* Phones: the avatar is the whole control, so it is a disc rather than a pill. */
 @media (max-width: 1023.98px) { .hg-account { padding: 0 4px; } }

@@ -1,3 +1,4 @@
+import { errorText } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import { Check, UserRound, UserRoundCheck } from '@hangyul/icons';
 import type { Task, TaskPriority, TaskType } from '@hangyul/types';
@@ -29,7 +30,7 @@ export function useTaskMutations() {
       qc.invalidateQueries({ queryKey: ['agency'] });
       toast.success(v.msg ?? t('actions.saved'));
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
 }
 
@@ -129,7 +130,7 @@ export function CreateTaskModal({ open, onClose, student, applicationId }: {
       owner_user_id: forStudent && who ? who.id : owner || undefined, visible_to_student: forStudent,
     }),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['tasks'] }); qc.invalidateQueries({ queryKey: ['agency'] }); toast.success(t('tasksPage.created')); onClose(); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const submit = () => { setTouched(true); if (title.trim()) m.mutate(); };
   return (

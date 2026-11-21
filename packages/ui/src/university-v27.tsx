@@ -58,6 +58,19 @@ function benefit(s: InstScholarshipPick | InstScholarship, t: (k: string, o?: Re
 type T = (k: string, o?: Record<string, unknown>) => string;
 const DATE: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
 
+
+/**
+ * A dormitory's capacity as a number. Research records sometimes hold the published sentence ("approximately 6,200
+ * students (27 buildings)") rather than a figure: the first number in it is the capacity; with none, nothing is shown.
+ */
+function capacityOf(v: unknown): number | null {
+  if (typeof v === 'number') return Number.isFinite(v) && v > 0 ? v : null;
+  if (typeof v !== 'string') return null;
+  const m = v.match(/\d[\d,.\s]*/);
+  const n = m ? Number(m[0].replace(/[,\s]/g, '')) : NaN;
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
+
 export interface UniversityLinkSet {
   admissions: string | null; office: string | null; scholarship: string | null;
   dormitory: string | null; kli: string | null; website: string | null;
@@ -646,7 +659,7 @@ export function UniversityLife({ inst, regionLabel, regionLine, regionBody, medi
                     <span>{t('uni27.house.perSemester')}</span>
                   </p>
                 )}
-                {d?.capacity ? <p>{t('uni27.house.capacity', { count: d.capacity, formatted: formatNumber(d.capacity, locale) })}</p> : null}
+                {capacityOf(d?.capacity) ? <p>{t('uni27.house.capacity', { count: capacityOf(d?.capacity)!, formatted: formatNumber(capacityOf(d?.capacity), locale) })}</p> : null}
                 {d?.international_priority ? <p>{t('uni27.house.priority')}</p> : null}
                 {d?.available == null && <p className="hg-unid-note">{t('uniDetail.life.dormLinkOnly')}</p>}
                 {links.dormitory && <Ext href={links.dormitory}>{t('uniDetail.life.dormLink')}</Ext>}
@@ -779,7 +792,7 @@ export function UniversityHousing({ content }: { content: UniversityContent | nu
           <span>{t('uni27.house.perSemester')}</span>
         </p>
       )}
-      {d.capacity ? <p>{t('uni27.house.capacity', { count: d.capacity, formatted: formatNumber(d.capacity, locale) })}</p> : null}
+      {capacityOf(d.capacity) ? <p>{t('uni27.house.capacity', { count: capacityOf(d.capacity)!, formatted: formatNumber(capacityOf(d.capacity), locale) })}</p> : null}
       {d.international_priority ? <p>{t('uni27.house.priority')}</p> : null}
       {/* V28: `note` is the researcher's English working note (why a figure was not recorded) — evidence, never page copy. */}
     </Sec>

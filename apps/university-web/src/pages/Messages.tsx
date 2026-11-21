@@ -1,6 +1,6 @@
 import { useAuth } from '@hangyul/auth';
 import { ArrowLeft, Lock, MessageSquare, Send } from '@hangyul/icons';
-import { useLocale } from '@hangyul/i18n';
+import { errorText, useLocale } from '@hangyul/i18n';
 import { Avatar, Badge, Button, ButtonLink, Card, Checkbox, Chip, EmptyState, ErrorState, PageHeader, QueryState, SkeletonCard, Textarea, useToast } from '@hangyul/ui';
 import { cx, formatDateTime, formatRelative } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -26,7 +26,7 @@ function Thread({ id }: { id: string }) {
   const send = useMutation({
     mutationFn: () => api.messages.send(id, { body: body.trim(), internal }),
     onSuccess: () => { setBody(''); qc.invalidateQueries({ queryKey: ['thread', id] }); qc.invalidateQueries({ queryKey: ['conversations'] }); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   if (q.isLoading) return <SkeletonCard lines={5} />;
   if (q.isError || !q.data) return <ErrorState error={q.error} onRetry={() => q.refetch()} />;

@@ -1,9 +1,10 @@
 import { useApi } from '@hangyul/auth';
 import { CheckCheck } from '@hangyul/icons';
 import type { NotificationItem } from '@hangyul/types';
-import { Button, EmptyState, QueryState, SkeletonCard } from '@hangyul/ui';
+import { errorText } from '@hangyul/i18n';
+import { Button, EmptyState, QueryState, SkeletonCard, useToast } from '@hangyul/ui';
 import { cx, formatDate, formatDateTime } from '@hangyul/utils';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 
 import { PageIntro } from '../components/bits';
@@ -14,6 +15,13 @@ export default function Notifications() {
   const api = useApi();
   const qc = useQueryClient();
   const nav = useNavigate();
+  const toast = useToast();
+  // A failed "mark all read" says so in words; nothing is thrown at the page (and the list is unchanged).
+  const readAll = useMutation({
+    mutationFn: () => api.notifications.readAll(),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['notifications'] }),
+    onError: (e) => toast.error(errorText(e)),
+  });
   const q = useQuery({ queryKey: ['notifications'], queryFn: () => api.notifications.list() });
   const text = (n: NotificationItem) => {
     const s = n.title_key.startsWith('notify.') ? t(`common:${n.title_key}`, { ...notifyParams(t, n.params ?? {}, locale), defaultValue: '' }) : '';
@@ -27,7 +35,7 @@ export default function Notifications() {
   return (
     <div className="st-page">
       <PageIntro title={t('notifications.title')} subtitle={t('notifications.subtitle')}
-        actions={(q.data?.unread ?? 0) > 0 ? <Button variant="ghost" icon={<CheckCheck />} onClick={async () => { await api.notifications.readAll(); qc.invalidateQueries({ queryKey: ['notifications'] }); }}>{t('common:notify.markAllRead')}</Button> : undefined} />
+        actions={(q.data?.unread ?? 0) > 0 ? <Button variant="ghost" icon={<CheckCheck />} loading={readAll.isPending} onClick={() => readAll.mutate()}>{t('common:notify.markAllRead')}</Button> : undefined} />
       <QueryState query={q} skeleton={<SkeletonCard lines={5} />} isEmpty={(d) => d.items.length === 0}
         empty={<EmptyState title={t('common:notify.empty')} text={t('notifications.emptyText')} />}>
         {(d) => {

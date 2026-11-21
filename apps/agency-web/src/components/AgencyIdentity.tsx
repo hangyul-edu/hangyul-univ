@@ -1,3 +1,4 @@
+import { errorText } from '@hangyul/i18n';
 // V9 (REPORT §59 A12): who is responsible for this applicant — the agency's legal identity, its registration status
 // ("Not recorded" until a real registration is recorded), the responsible counselor and an optional sub-agent.
 // Korea's announced Certificate-of-Admission agency field is a draft (H2-2026), shown as "announced", never as law.
@@ -22,7 +23,7 @@ export function AgencyIdentityCard({ studentId, identity }: { studentId: string;
   const m = useMutation({
     mutationFn: (name: string | null) => api.patch(`/agency/students/${studentId}/sub-agent`, { name }),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['agency'] }); setEditing(false); toast.success(t('actions.saved')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   if (!identity) return <YCard title={t('v9.identity.title')}><p className="text-muted fs-12 mb-0">{t('v9.identity.none')}</p></YCard>;
   const reg = identity.registration;

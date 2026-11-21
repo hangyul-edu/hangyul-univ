@@ -1,3 +1,4 @@
+import { errorText } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import { DOCUMENT_CATEGORIES, type DocumentCategory, type VaultDocument } from '@hangyul/types';
 import { Button, Field, FileDrop, Modal, Select, useToast } from '@hangyul/ui';
@@ -19,7 +20,7 @@ export function UploadOnBehalf({ open, onClose, onDone, student }: { open: boole
   const m = useMutation({
     mutationFn: () => api.documents.upload(file!, { category: category as DocumentCategory, student_user_id: who!.id }),
     onSuccess: (d) => { toast.success(t('docs.uploadedFor', { name: who!.full_name })); onDone(d); onClose(); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const submit = () => { setTouched(true); if (who && category && file) m.mutate(); };
   return (

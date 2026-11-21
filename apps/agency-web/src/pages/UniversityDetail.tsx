@@ -1,3 +1,4 @@
+import { docLabel } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import { ArrowLeft, ExternalLink, Handshake } from '@hangyul/icons';
 import { Badge, Card, DataTable, EmptyState, FreshnessBadge, PageHeader, QueryState, Skeleton, Tabs, type ColumnDef } from '@hangyul/ui';
@@ -87,7 +88,7 @@ export default function UniversityDetail() {
                     <ul className="hg-list">
                       {u.required_documents.map((d, i) => (
                         <li key={i} style={{ padding: '10px 0' }}>
-                          <div className="hg-row hg-between"><strong className="hg-small">{d.label}</strong>
+                          <div className="hg-row hg-between"><strong className="hg-small">{docLabel(t, d)}</strong>
                             <span className="hg-row" style={{ gap: 4 }}>{d.required ? <Badge size="sm" outline>{t('form.required')}</Badge> : <Badge size="sm" outline tone="neutral">{t('form.optional')}</Badge>}
                               {d.legalization_required && <Badge size="sm" tone="warning">{t('apps.legalization')}</Badge>}{d.translation_required && <Badge size="sm" tone="info">{t('apps.translation')}</Badge>}</span>
                           </div>

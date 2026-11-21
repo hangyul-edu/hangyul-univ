@@ -4,11 +4,11 @@
  * application uses it, and an authorship statement on submit ("These are my own words and facts").
  * Tangerine is only the primary action (Submit). Nothing here writes content for the student.
  */
-import { orgName, errorText } from '@hangyul/i18n';
+import { localName, orgName, errorText } from '@hangyul/i18n';
 import { useApi } from '@hangyul/auth';
 import { AlertCircle, CheckCircle2, Check, ChevronDown, CircleDashed, GitCompare, History, Lock, RefreshCw, Save, Send, ShieldCheck, TriangleAlert, Undo2 } from '@hangyul/icons';
 import type { WritingFinding } from '@hangyul/types';
-import { Avatar, Badge, Button, Callout, Card, EmptyState, Modal, QueryState, FilterSelect, Skeleton, SkeletonCard, Textarea, useToast } from '@hangyul/ui';
+import { Avatar, Badge, Button, Callout, Card, Modal, QueryState, FilterSelect, Skeleton, SkeletonCard, Textarea, useToast } from '@hangyul/ui';
 import { cx, essayTone, formatDate, formatDateTime, formatRelative } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -115,7 +115,7 @@ function DiffView({ essay }: { essay: V6Essay }) {
         <FilterSelect size="sm" label={t('essay.diff.to')} value={b} onChange={(e) => setB(Number(e.target.value))}>{versions.map((v) => <option key={v} value={v}>v{v}</option>)}</FilterSelect>
       </div>
       {a === b ? <p className="hg-muted hg-small">{t('essay.diff.same')}</p> : q.isLoading ? <Skeleton h={80} /> : q.data ? (
-        <div className="st-diff sw-diff" data-user-content tabIndex={0} role="region" aria-label={t('essay.diff.label', { a, b })}>
+        <div className="st-diff sw-diff" data-user-content role="region" aria-label={t('essay.diff.label', { a, b })}>
           {q.data.ops.map((o, i) => o.op === 'insert' ? <ins key={i}>{o.text}</ins> : o.op === 'delete' ? <del key={i}>{o.text}</del> : <span key={i}>{o.text}</span>)}
         </div>
       ) : null}
@@ -320,7 +320,7 @@ function Editor({ essay }: { essay: V6Essay }) {
             {essay.due_date && <DaysLeft date={essay.due_date} size="sm" />}
           </div>
           <h1 className="st-intro__title">{essayTitle(t, essay, locale)}</h1>
-          {w?.context.university && <p className="st-intro__sub">{w.context.university.name}{w.context.program ? ` · ${w.context.program.name}` : ''}{essay.due_date ? ` · ${t('common:time.due', { date: formatDate(essay.due_date, locale) })}` : ''}</p>}
+          {w?.context.university && <p className="st-intro__sub">{localName({ name_en: w.context.university.name, name_ko: w.context.university.name_ko ?? null })}{w.context.program ? ` · ${w.context.program.name}` : ''}{essay.due_date ? ` · ${t('common:time.due', { date: formatDate(essay.due_date, locale) })}` : ''}</p>}
         </div>
       </header>
 
@@ -392,9 +392,10 @@ function Editor({ essay }: { essay: V6Essay }) {
         <aside className="sw-margin" aria-label={t('essay.comments.title')}>
           <div className="sw-margin__head">
             <h2>{t('essay.comments.title')}</h2>
-            <span className="hg-xs hg-subtle">{waiting ? t('writing:student6.openCount', { count: waiting }) : t('essay.comments.none')}</span>
+            {waiting > 0 && <span className="hg-xs hg-subtle">{t('writing:student6.openCount', { count: waiting })}</span>}
           </div>
-          {open.length === 0 && resolved.length === 0 ? <EmptyState compact title={t('writing:student6.noComments')} /> : (
+          {/* No comments yet is a quiet sentence under the heading, not a centred empty-state block (and said once). */}
+          {open.length === 0 && resolved.length === 0 ? <p className="hg-small hg-subtle sw-margin__empty">{t('writing:student6.noComments')}</p> : (
             <ul className="sw-cmts">
               {open.map((c) => (
                 <MarginComment key={c.id} c={c} essay={essay} body={body} active={activeComment === c.id} onShow={() => showInText(c)} editable={editable}

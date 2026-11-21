@@ -1,4 +1,4 @@
-import { localName } from '@hangyul/i18n';
+import { errorText, localName } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import type { PortfolioDecision } from '@hangyul/types';
 import { Button, Field, QueryState, Select, Skeleton, StatusText, Textarea, useToast } from '@hangyul/ui';
@@ -24,7 +24,7 @@ export function PortfolioTab({ studentId }: { studentId: string }) {
   const m = useMutation({
     mutationFn: () => api.success.reviewPortfolio(studentId, { decision, note: note.trim() || undefined }),
     onSuccess: (d) => { qc.setQueryData(['agency', 'portfolio', studentId], d); setNote(''); toast.success(t('success:agency.reviewSaved')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const money = (v: number | null) => (v === null ? '—' : formatMoney(v, 'KRW', locale, { compact: true }));
   return (

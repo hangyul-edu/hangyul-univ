@@ -1,5 +1,5 @@
 /**
- * V5 FLOW A — Nepal student, first half: quick eligibility → recommendations → choose a program → documents with
+ * V5 FLOW A — Nepal student, first half: sign-up (owner 261119: no anonymous quick check) → recommendations → choose a program → documents with
  * Nepal's own legalization route (consular, Nepal is not an Apostille member) → personal statement with automatic
  * checks → counselor review assigned with an expected time.
  *
@@ -10,23 +10,25 @@ import { expect, test } from '@playwright/test';
 
 import { activatePlan, API, apiLogin, pdf, registerViaUi, URLS } from './helpers';
 
-test('Nepal: quick check → program → consular legalization at the point of need → essay with checks → reviewer assigned', async ({ page, request }) => {
-  // 1. Quick eligibility — no account, Nepal-specific answers.
-  // V27: the quick fit — GPA on its own scale, TOPIK 3; every relevant university in four groups.
-  await page.goto(`${URLS.student}/start?nationality=NP&level=BACHELOR&gpa=3.4&gpa_scale=4&langs=TOPIK:3`);
-  await expect(page.getByRole('heading', { level: 2, name: /\d+ universities to consider/ })).toBeVisible();
-  await page.locator('.qs-cta').getByRole('link').first().click();
+test('Nepal: sign-up → program → consular legalization at the point of need → essay with checks → reviewer assigned', async ({ page, request }) => {
+  // 1. Owner 261119 (req. 1): there is no anonymous quick check. The old entry leads to sign-in with `next=/match`;
+  // the student creates an account there (verified four-step sign-up; the Nepali number is normalised to +977).
+  await page.goto(`${URLS.student}/start?nationality=NP&level=BACHELOR`);
+  await expect(page).toHaveURL(/\/login\?.*next=%2Fmatch/);
+  await page.goto(`${URLS.student}/register?next=%2Fmatch`);
   const email = `e2e-v5a-${Date.now()}@example.com`;
-  // V22: verified four-step sign-up; the Nepali number is normalised to +977 by the server.
-  await registerViaUi(page, request, { email, password: 'e2e-password-123', full_name: 'Nepal Flow E2E', phone_country: 'NP', phone_local: `9841${String(Date.now()).slice(-6)}` });
-  await expect(page).toHaveURL(/\/explore\?tab=foryou/);
+  await registerViaUi(page, request, { email, password: 'e2e-password-123', full_name: 'Nepal Flow E2E', nationality: 'NP', phone_country: 'NP', phone_local: `9841${String(Date.now()).slice(-6)}` });
+  // Personalised matching is part of the plan: without one, the next stop is the plan screen for matching.
+  await expect(page).toHaveURL(/\/services\?.*gate=match|\/match/);
 
   // 2. Recommendations carry the student's nationality; confirm the education the quick check assumed.
   const S = await apiLogin(request, email, 'student', 'e2e-password-123');
   const prof = await (await request.get(`${API}/me/profile`, { headers: S })).json();
   expect(prof.nationality ?? prof.profile?.nationality).toBe('NP');
   await request.post(`${API}/me/educations`, { headers: S, data: { level: 'HIGH_SCHOOL', institution: 'Kathmandu Secondary School', country: 'NP', graduation_year: 2025, graduation_status: 'GRADUATED', gpa_value: 3.4, gpa_scale_max: 4 } });
-  await request.patch(`${API}/me/profile`, { headers: S, data: { target_intake_year: 2027, target_intake_term: 'SPRING', desired_fields: ['business'] } });
+  // What the retired quick check used to carry into the profile (bachelor's, TOPIK 3) is now entered on the profile itself.
+  await request.patch(`${API}/me/profile`, { headers: S, data: { target_degree: 'BACHELOR', target_intake_year: 2027, target_intake_term: 'SPRING', desired_fields: ['business'] } });
+  await request.post(`${API}/me/languages`, { headers: S, data: { test: 'TOPIK', score: 3, test_date: '2026-07-01' } });
   const matches = await (await request.get(`${API}/me/matches`, { headers: S })).json();
   const pick = matches.items.find((m: { tier: string; intake_id: string | null }) => (m.tier === 'STRONG' || m.tier === 'COMPETITIVE') && m.intake_id);
   expect(pick, 'a program the student meets the published requirements for').toBeTruthy();

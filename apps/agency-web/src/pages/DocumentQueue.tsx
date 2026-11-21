@@ -1,3 +1,4 @@
+import { errorText } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import { CheckCircle2, ChevronLeft, FileCheck, Keyboard, Upload, UserCheck } from '@hangyul/icons';
 import { Button, EmptyState, ErrorState, Modal, Popover, FilterSelect, Segmented, Skeleton, useToast } from '@hangyul/ui';
@@ -72,7 +73,7 @@ export default function DocumentQueue({ embedded }: { embedded?: boolean } = {})
       setConfirmVerify(false);
       qc.invalidateQueries({ queryKey: ['documents'] });
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const toggle = (id: string) => setPicked((prev) => { const n = new Set(prev); if (n.has(id)) n.delete(id); else n.add(id); return n; });
   const members = (team.data?.members ?? []).filter((m) => m.active);
@@ -141,10 +142,11 @@ export default function DocumentQueue({ embedded }: { embedded?: boolean } = {})
                   <ul className="ag-queue" aria-label={t('docs.queue')}>
                     {items.map((d) => (
                       <li key={d.id} id={`qi-${d.id}`} className={cx('ag-queue__li', d.id === selected && 'is-active')}>
-                        {(
+                        {/* The label is the target (24 px, 44 px on touch); the box stays small. */}
+                        <label className="ag-queue__pick">
                           <input type="checkbox" className="ag-queue__check" checked={picked.has(d.id)} onChange={() => toggle(d.id)}
                             aria-label={t('docs.selectDoc', { name: d.owner_name, doc: t(`docCategory.${d.category}`) })} />
-                        )}
+                        </label>
                         <button type="button" className="ag-queue__item ag7-qitem" aria-current={d.id === selected || undefined} onClick={() => select(d.id)}>
                           <YAvatar name={d.owner_name ?? '?'} />
                           <span className="min-w-0 flex-fill">

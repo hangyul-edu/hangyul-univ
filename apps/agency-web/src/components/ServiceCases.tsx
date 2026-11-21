@@ -3,7 +3,7 @@
  * Used by the Services queue page and the student workspace "Services" tab. Strings: `concierge` namespace.
  */
 import { useAuth } from '@hangyul/auth';
-import { useLocale } from '@hangyul/i18n';
+import { errorText, useLocale } from '@hangyul/i18n';
 import { Camera, Plane } from '@hangyul/icons';
 import type { ServiceCase } from '@hangyul/types';
 import { Button, Drawer, EmptyState, Field, FileDrop, Input, QueryState, Select, Skeleton, StatusText, Textarea, useToast } from '@hangyul/ui';
@@ -83,7 +83,7 @@ function useCaseMutation(id: string) {
   const toast = useToast();
   const { t } = useCT();
   const done = () => { qc.invalidateQueries({ queryKey: ['services'] }); qc.invalidateQueries({ queryKey: ['service', id] }); toast.success(t('staff.saved')); };
-  const err = (e: unknown) => toast.error((e as Error).message);
+  const err = (e: unknown) => toast.error(errorText(e));
   return {
     update: useMutation({ mutationFn: (b: Record<string, unknown>) => api.concierge.update(id, b), onSuccess: done, onError: err }),
     event: useMutation({ mutationFn: (b: Parameters<typeof api.concierge.addEvent>[1]) => api.concierge.addEvent(id, b), onSuccess: done, onError: err }),
@@ -335,7 +335,7 @@ export function StudentServices({ studentId }: { studentId: string }) {
   const create = useMutation({
     mutationFn: () => api.concierge.create({ student_id: studentId, type: type as ServiceCase['type'] }),
     onSuccess: (c) => { qc.invalidateQueries({ queryKey: ['services'] }); setType(''); setOpen(c.id); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const items = [...(q.data?.items ?? []), ...(done.data?.items ?? [])];
   return (

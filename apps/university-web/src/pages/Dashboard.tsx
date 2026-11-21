@@ -9,7 +9,7 @@
 // `/applicants` renders this same screen without the summary's supporting signals collapsed away — it is one screen.
 import { useAuth } from '@hangyul/auth';
 import { ChevronRight, Download, Filter, Flag, Search, Users } from '@hangyul/icons';
-import { useLocale, localName } from '@hangyul/i18n';
+import { errorText, useLocale, localName } from '@hangyul/i18n';
 import type { Application, ApplicationStatus } from '@hangyul/types';
 import { DEGREE_LEVELS } from '@hangyul/types';
 import {
@@ -343,7 +343,7 @@ export default function Dashboard() {
       downloadBlob(await res.blob(), `${overview?.slug ?? 'applications'}-applications-${new Date().toISOString().slice(0, 10)}.csv`);
       toast.success(t('university:exports.done'));
     } catch (e) {
-      toast.error((e as Error).message);
+      toast.error(errorText(e));
     } finally {
       setExporting(false);
     }
@@ -355,7 +355,10 @@ export default function Dashboard() {
   const rows = list.data?.items ?? [];
   const total = list.data?.total;
   const emptyTitle = p.stage && !secondary && !p.q ? t(`university:v22.empty.${p.stage}`) : secondary || p.q ? t('common:states.noResults') : t('university:applicants.empty');
-  const subtitle = (
+  // The meta line is drawn once its three parts are known (name, total, next date): drawn piece by piece it grew from one
+  // line to three on a phone and pushed the whole overview down after first paint.
+  const metaReady = !!overview && counts.all !== undefined && !programs.isLoading;
+  const subtitle = !metaReady ? <span className="un-pagemeta un-pagemeta--loading" aria-hidden><Skeleton w={220} h={14} /></span> : (
     <span className="un-pagemeta">
       <span>{name}</span>
       {counts.all !== undefined && <span>{t('university:v22.allN', { n: formatNumber(counts.all, locale) })}</span>}

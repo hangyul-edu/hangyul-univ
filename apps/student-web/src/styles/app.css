@@ -205,7 +205,7 @@
 .st-comment__quote:focus-visible { outline: 2px solid var(--hg-focus); }
 .st-diff del { color: var(--hg-status-danger-fg); background: var(--hg-status-danger-bg); text-decoration: line-through; border-radius: 3px; }
 .st-diff ins { color: var(--hg-status-success-fg); background: var(--hg-status-success-bg); text-decoration: none; border-radius: 3px; }
-.st-diff { max-height: 320px; overflow-y: auto; padding: 12px; border-radius: var(--hg-radius-md); border: 1px solid var(--hg-border); font-size: var(--hg-text-sm); line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
+.st-diff { padding: 12px; border-radius: var(--hg-radius-md); border: 1px solid var(--hg-border); font-size: var(--hg-text-sm); line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
 .st-versions { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
 .st-versions li { display: flex; gap: 10px; align-items: flex-start; }
 
@@ -228,7 +228,9 @@
 .st-conv:hover { border-color: var(--hg-border-strong); }
 .st-unread { min-width: 20px; height: 20px; padding: 0 6px; border-radius: var(--hg-radius-md); background: var(--hg-primary); color: #fff; font-size: var(--hg-text-xs); font-weight: var(--hg-weight-semibold); display: grid; place-items: center; flex: none; }
 .st-thread { display: flex; flex-direction: column; min-height: calc(100dvh - 260px); }
-@media (min-width: 1024px) { .st-thread { min-height: 560px; max-height: calc(100dvh - 160px); } }
+/* Desktop: the pane fits the window under the page title, so the composer is always on screen and the page itself
+   does not scroll a second time around the thread's own scroller. */
+@media (min-width: 1024px) { .st-thread { height: clamp(440px, calc(100dvh - 290px), 960px); } }
 .st-thread__head { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--hg-border); background: var(--hg-surface); border-radius: var(--hg-radius-lg) var(--hg-radius-lg) 0 0; }
 @media (min-width: 1024px) { .st-thread__back { display: none; } }
 .st-thread__body { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding: 18px 14px; }
@@ -243,6 +245,7 @@
 @media (min-width: 1024px) { .st-composer { position: static; border-radius: 0 0 var(--hg-radius-lg) var(--hg-radius-lg); } }
 .st-composer__input { min-height: 44px !important; max-height: 160px; resize: none; }
 .st-composer__hint { padding: 0 14px 10px; background: var(--hg-surface); }
+.st-composer__error { margin: 0; padding: 0 14px 10px; background: var(--hg-surface); }
 @media (max-width: 1023px) { .st-composer__hint { display: none; } }
 
 /* ------------------------------------------------------------------ notifications / more / support */
@@ -366,6 +369,7 @@
 .sh-next__title { font-size: var(--hg-text-3xl); font-weight: var(--hg-weight-semibold); letter-spacing: -0.02em; line-height: 1.25; max-width: 620px; overflow-wrap: anywhere; }
 @media (max-width: 767px) { .sh-next__title { font-size: var(--hg-text-2xl); } }
 .sh-next__text { color: var(--hg-text-secondary); font-size: var(--hg-text-md); max-width: 560px; line-height: 1.55; }
+.sh-next__context { margin-top: -4px; color: var(--hg-text-tertiary); font-size: var(--hg-text-sm); overflow-wrap: anywhere; }
 .sh-next__cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 10px; }
 @media (max-width: 480px) { .sh-next__cta .hg-btn--lg { width: 100%; } }
 
@@ -426,7 +430,7 @@
 .sx-verdict__h { margin: 0; font-weight: var(--hg-weight-regular); }
 .sx-toolbar { display: flex; gap: 8px; align-items: center; }
 .sx-quick { display: flex; gap: 6px; flex-wrap: wrap; }
-.sx-count { min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--hg-text); color: var(--hg-surface); font-size: 11px; display: inline-grid; place-items: center; }
+.sx-count { min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--hg-text); color: var(--hg-surface); font-size: var(--hg-text-xs); display: inline-grid; place-items: center; }
 .sx-skel { display: flex; align-items: center; gap: 12px; padding: 16px; border-bottom: 1px solid var(--hg-border-subtle); }
 
 .sx-list { overflow: hidden; container-type: inline-size; }
@@ -1030,11 +1034,11 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
 /* ---------- §55 #6: tall scripts (Burmese) — tab labels may take two lines without clipping ---------- */
 .hg-tabbar a { height: auto; min-height: 56px; padding: 6px 2px 5px; gap: 2px; }
 .hg-tabbar a > span:not(.hg-tabbar__dot) {
-  max-width: 100%; text-align: center; font-size: 11.5px; line-height: 1.25; overflow-wrap: anywhere;
+  max-width: 100%; text-align: center; font-size: var(--hg-text-xs); line-height: 1.25; overflow-wrap: anywhere; /* 12 px: the type floor */
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
 :lang(my) .hg-tabbar a > span:not(.hg-tabbar__dot), :lang(km) .hg-tabbar a > span:not(.hg-tabbar__dot),
-:lang(si) .hg-tabbar a > span:not(.hg-tabbar__dot), :lang(lo) .hg-tabbar a > span:not(.hg-tabbar__dot) { font-size: 10.5px; line-height: 1.45; }
+:lang(si) .hg-tabbar a > span:not(.hg-tabbar__dot), :lang(lo) .hg-tabbar a > span:not(.hg-tabbar__dot) { font-size: var(--hg-text-xs); line-height: 1.4; }
 .hg-scontent { padding-bottom: calc(112px + env(safe-area-inset-bottom)); }
 @media (min-width: 768px) { .hg-scontent { padding-bottom: 64px; } }
 
@@ -1606,7 +1610,7 @@ a.v4-lane__title { text-decoration: underline; text-decoration-color: var(--hg-b
 .v22-journey .hg-strip__btn { min-height: 46px; padding: 8px 12px 8px 10px; }
 .v22-journey .hg-strip__btn.is-static { opacity: 0.9; }
 .v22-journey .hg-strip__item.is-todo .hg-strip__btn.is-static { cursor: default; }
-.v22-journey .hg-strip__num { width: 24px; height: 24px; font-size: 11.5px; letter-spacing: 0.02em; }
+.v22-journey .hg-strip__num { width: 24px; height: 24px; font-size: var(--hg-text-xs); letter-spacing: 0.02em; }
 .v22-journey .hg-strip__item.is-current .hg-strip__btn.is-selected { background: var(--hg-selected-bg); border-color: var(--hg-selected-border); }
 .v22-journey__summary { display: flex; flex-direction: column; gap: 4px; max-width: 720px; }
 .v22-journey__eyebrow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); letter-spacing: 0.02em; }
@@ -2140,3 +2144,23 @@ body { background: var(--hg-bg); }
 /* The full task list on the home is rows on the page, like every other list there. */
 .sp-home .hg-panel.stk-list { background: transparent; border: 0; border-radius: 0; box-shadow: none; }
 .sp-home .stk-list > .stk-row { padding-inline: 0; }
+
+/* ── Touch targets (exhaustive pass, 2026-11-21) ──────────────────────────────────────────────────────────────────
+   Controls drawn smaller than a finger keep their drawing; on touch their hit area grows to 44 px through a
+   pseudo-element, and disclosure summaries become 44 px rows. Measured with scripts/qa/launch-final/audit.mjs. */
+@media (max-width: 767.98px), (pointer: coarse) {
+  .stk-check { position: relative; }
+  .stk-check::before { content: ''; position: absolute; inset: 50% auto auto 50%; inline-size: 44px; block-size: 44px; transform: translate(-50%, -50%); }
+  .v25-line__btn { position: relative; }
+  .v25-line__btn::after { content: ''; position: absolute; inset-inline: 0; inset-block: 50%; block-size: 44px; transform: translateY(-50%); }
+  .hg-sshell main summary { min-block-size: 44px; display: flex; align-items: center; }
+  .v4-done-toggle { min-block-size: 44px; }
+  /* Text links stay lines of text; their hit area is 24 px (WCAG 2.5.8) without moving a pixel. */
+  .ms-files button, .sw-q__toggle { min-block-size: 44px; }
+  .lf-mark { position: relative; }
+  .lf-mark::before { content: ''; position: absolute; inset: 50% auto auto 50%; inline-size: 44px; block-size: 44px; transform: translate(-50%, -50%); }
+  .hg-sshell main :is(a.hg-link, button.hg-link, .v9-basis__src, .v4-row__title, .v4-group__name a, .dz-pkgline__link) { position: relative; }
+  .hg-sshell main :is(a.hg-link, button.hg-link, .v9-basis__src, .v4-row__title, .v4-group__name a, .dz-pkgline__link)::before {
+    content: ''; position: absolute; inset-inline: 0; inset-block: 50%; block-size: max(100%, 24px); transform: translateY(-50%);
+  }
+}

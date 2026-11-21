@@ -80,6 +80,8 @@ for (const [app, base] of Object.entries(BASE)) {
   for (const route of ROUTES[app].preview) {
     pageErrors.length = 0;
     await page.evaluate(() => { globalThis.__hgPreviewMisses = []; }).catch(() => {});
+    // HQ tools open in the "hq" preview variant (the second, quieter entry under the Operations login).
+    if (route.startsWith('/hq')) await page.evaluate((k) => sessionStorage.setItem(k, 'hq'), PREVIEW_KEY).catch(() => {});
     await page.goto(base + route, { waitUntil: 'domcontentloaded' });
     await page.waitForLoadState('networkidle', { timeout: 10_000 }).catch(() => {});
     await page.waitForTimeout(400);

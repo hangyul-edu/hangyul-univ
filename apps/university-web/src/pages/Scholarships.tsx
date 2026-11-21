@@ -1,6 +1,6 @@
 import { useAuth } from '@hangyul/auth';
 import { Plus, Wallet } from '@hangyul/icons';
-import { useLocale, localName } from '@hangyul/i18n';
+import { errorText, useLocale, localName } from '@hangyul/i18n';
 import type { Partnership, Scholarship } from '@hangyul/types';
 import { Button, Callout, EmptyState, Field, Input, Metrics, Modal, PageHeader, QueryState, Select, SkeletonCard, StatusText, Tabs, Textarea, useToast } from '@hangyul/ui';
 import { formatDate, formatMoney, type Tone } from '@hangyul/utils';
@@ -48,7 +48,7 @@ function CreateAward({ contracts, onClose }: { contracts: Partnership[]; onClose
       toast.success(t('university:scholarships.created'));
       onClose();
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const submit = () => {
     const e: Record<string, string> = {};
@@ -103,7 +103,7 @@ function AwardAction({ award, to, onDone }: { award: Award; to: 'COMMITTED' | 'P
       setConfirm(false);
       onDone?.();
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <>

@@ -6,7 +6,7 @@
  */
 import { expect, test } from '@playwright/test';
 
-import { API, apiLogin, pdf, uiLogin, URLS } from './helpers';
+import { API, apiLogin, chooseOption, pdf, uiLogin, URLS } from './helpers';
 
 const STUDENT = 'student.visaroute@demo.hangyul.kr';
 const COUNSELOR = 'counselor@silk.demo.hangyul.kr';
@@ -37,7 +37,7 @@ test('FLOW E — from admission to a recorded visa submission', async ({ page, r
   // The missing visa document is what needs the student now.
   const now = page.locator('.sv-now');
   await expect(now.getByText('What needs you now')).toBeVisible();
-  await expect(now.getByRole('heading', { name: 'TB certificate' })).toBeVisible();
+  await expect(now.getByRole('heading', { name: 'Tuberculosis (TB) test certificate' })).toBeVisible();
   await expect(now.getByText(/Provided by: an official office or clinic/)).toBeVisible();
   await now.getByRole('button', { name: 'Upload' }).click();
   await expect(page.getByRole('dialog')).toBeVisible();
@@ -69,7 +69,7 @@ test('FLOW E — from admission to a recorded visa submission', async ({ page, r
   await expect(page.getByText('Ready to apply').first()).toBeVisible();
   const date = new Date(Date.now() + 6 * 86400000).toISOString().slice(0, 10);
   await page.fill('#vr-appt', date);
-  await page.selectOption('#vr-appt-st', 'BOOKED');
+  await chooseOption(page, page.locator('#vr-appt-st'), 'Booked');
   await page.getByRole('button', { name: 'Save date' }).click();
   await expect(page.getByText(/Booked for/)).toBeVisible();
   const handoff = page.getByRole('link', { name: 'Open the official page' });

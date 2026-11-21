@@ -222,6 +222,10 @@ test.describe('every Student page scrolls to its end', () => {
               host?.parentElement?.insertBefore(spacer, host);
             }, prep.need);
           }
+          // Start from the top: a page may open scrolled (a chat thread opens at its newest message), and the test is that
+          // a person can travel from the top to the end.
+          await page.evaluate(() => { window.scrollTo({ top: 0, behavior: 'instant' }); for (const el of document.querySelectorAll('main *')) if ((el as HTMLElement).scrollTop) (el as HTMLElement).scrollTop = 0; });
+          await page.waitForTimeout(100);
           const before = await measure(page);
           await scrollToBottom(page);
           const after = await measure(page);

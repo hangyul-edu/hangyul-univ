@@ -1,4 +1,5 @@
 import { createApiClient, type ApiClient } from '@hangyul/api-client';
+import { installKeyboardFocusKeeper } from './keyboard';
 import { AuthProvider, useAuth } from '@hangyul/auth';
 import { changeLocale, consoleLocale, i18next, initI18n, installKeyRecorder, isRTL, langFromSearch, registerLocalePreloader, resolveLocale, STORAGE_KEY, useLocale, type Namespace, errorText } from '@hangyul/i18n';
 import { loadIntlFallback } from '@hangyul/utils';
@@ -65,6 +66,7 @@ export async function bootWebApp(opts: { client: ClientApp; namespaces: Namespac
   // localization crawl can measure which keys each customer route actually renders (scripts/qa/v23/l10n-crawl.mjs).
   if (import.meta.env.DEV) installKeyRecorder();
   applyDocumentLocale(locale);
+  installKeyboardFocusKeeper();
   // Design Preview (owner review, one build flag): a transport that answers from synthetic fixtures and never
   // reaches the network. Undefined — the real `fetch` — whenever preview is off or not entered.
   const fetchImpl = await designPreviewFetch(opts.client);

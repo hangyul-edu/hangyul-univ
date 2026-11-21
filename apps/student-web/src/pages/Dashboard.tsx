@@ -49,6 +49,20 @@ type V9Home = DashboardData & { routes?: LanguageRoutes | null; refund?: RefundS
 
 const TASKS_PARAM = 'show';
 
+/**
+ * The server names applications in flat English strings (`params.university` = "Pusan National University · BBA",
+ * `application_label`, a missing document's `university`). The home already holds every application with its
+ * `{ name_en, name_ko }`, so the names are re-read from there in the reader's language — one name per university on
+ * the whole page, never "부산대학교" in one row and "Pusan National University" in the next.
+ */
+function appOf(d: DashboardData, id: unknown) {
+  return typeof id === 'string' ? d.applications.find((a) => a.id === id) : undefined;
+}
+function appLabel(d: DashboardData, id: unknown, fallback?: string | null): string {
+  const a = appOf(d, id);
+  return a ? `${localName(a.university)} · ${localName(a.program)}` : (fallback ?? '');
+}
+
 function NextStep({ d }: { d: DashboardData }) {
   const { t, locale } = useT();
   const a = d.next_action;
@@ -71,12 +85,15 @@ function NextStep({ d }: { d: DashboardData }) {
   }
   if (isWaiting(d)) return <Waiting d={d} />;
   if (a.code === 'CONCIERGE' || a.code === 'SUBMISSION_AUTHORIZE' || a.code === 'SUBMISSION_HANDOFF' || a.code === 'SUBMISSION_CONFIRM' || a.code === 'VISA_STEP') return <V5Next d={d} />;
+  // The title names the university only; the programme and intake sit on their own line under it.
+  const app = appOf(d, a.params.application_id);
+  const params = app ? { ...a.params, university: localName(app.university) } : a.params;
   const nested = a.code === 'PROFILE_UNLOCK' ? `dashboard.nextAction.PROFILE_UNLOCK.${String(a.params.section)}`
     : a.code === 'APPLICATION_ITEM' ? `dashboard.nextAction.APPLICATION_ITEM.${String(a.params.item)}` : `dashboard.nextAction.${a.code}`;
   const title = a.code === 'TASK'
     ? localizedTitle(t, { title: a.title, title_key: a.params.title_key as string | undefined, title_params: a.params.title_params as Record<string, unknown> | undefined })
-    : tr(t, `${nested}.title`, a.title, a.params);
-  const text = typeof a.params.detail === 'string' && a.params.detail ? a.params.detail : tr(t, a.code === 'TASK' ? `dashboard.nextAction.TASK.text.${String(a.params.type ?? '')}` : `${nested}.text`, '', a.params);
+    : tr(t, `${nested}.title`, a.title, params);
+  const text = typeof a.params.detail === 'string' && a.params.detail ? a.params.detail : tr(t, a.code === 'TASK' ? `dashboard.nextAction.TASK.text.${String(a.params.type ?? '')}` : `${nested}.text`, '', params);
   const cta = a.code === 'TASK'
     ? tr(t, `dashboard.nextAction.TASK.cta.${String(a.params.type ?? '')}`, t('dashboard.nextAction.TASK.ctaDefault'))
     : tr(t, `${nested}.cta`, t('common:actions.continue'));
@@ -88,6 +105,7 @@ function NextStep({ d }: { d: DashboardData }) {
         {due && <><span aria-hidden>·</span><span>{t('common:time.due', { date: formatDate(due, locale) })}</span><DaysLeft date={due} /></>}
       </div>
       <h2 className="sh-next__title" id="next-title">{title}</h2>
+      {app && a.code !== 'TASK' && <p className="sh-next__context">{localName(app.program)} · {intakeLabel(t, app.intake.term, app.intake.year)}</p>}
       {text && <p className="sh-next__text">{text}</p>}
       <div className="sh-next__cta">
         <ButtonLink as={Link} to={a.link} variant="primary" size="lg" iconEnd={<ArrowRight className="hg-flip-rtl" />}>{cta}</ButtonLink>
@@ -210,10 +228,19 @@ function nudgeTitle(t: TFn, locale: string, n: { code: string; title_key: string
   if (Array.isArray(fields) && fields.length) {
     const words = fields.map((f) => t(`dossier:field.${String(f)}`, { defaultValue: String(f) }).toLowerCase());
     const more = Number(n.params?.more ?? 0);
-    p.fields = listFormat(words, locale, more > 0 ? 'unit' : 'conjunction');
+    // "name, date of birth and 9 more": with a remainder the named items are a plain list. (Intl's `unit` list joins
+    // Korean with bare spaces — "이름 생년월일 외 9개" — so it is joined here with the language's own list comma.)
+    p.fields = more > 0 ? words.join(listComma(locale)) : listFormat(words, locale, 'conjunction');
     if (more > 0) return t(`${n.title_key}_more`, { ...p, count: more, more });
   }
   return t(n.title_key, p);
+}
+
+function listComma(locale: string): string {
+  if (/^(zh|ja)/.test(locale)) return '、';
+  if (/^(ar|ur|fa)/.test(locale)) return '، ';
+  if (/^my/.test(locale)) return '၊ ';
+  return ', ';
 }
 
 /** Intl.ListFormat where the runtime has it; a comma join is a correct-enough fallback and never throws. */
@@ -320,7 +347,7 @@ function ComingUp({ d }: { d: DashboardData }) {
           {shown.map((g) => {
             const main = g.items.find((x) => x.kind === 'APPLICATION' || x.kind === 'TUITION') ?? (g.items.length === 1 ? g.items[0] : null);
             const rest = g.items.filter((x) => x !== main);
-            const title = main ? localizedTitle(t, main) : t('v4.home.thingsDue', { count: g.items.length, label: g.items[0].application_label ?? '' });
+            const title = main ? localizedTitle(t, main) : t('v4.home.thingsDue', { count: g.items.length, label: appLabel(d, g.items[0].application_id, g.items[0].application_label) });
             const link = main?.link ?? (g.items[0].application_id ? `/applications/${g.items[0].application_id}` : g.items[0].link);
             return (
               <li key={g.key}>
@@ -426,7 +453,7 @@ function Documents({ d }: { d: DashboardData }) {
         {docs.slice(0, 5).map((m) => (
           <li key={`${m.requirement_id}-${m.application_id ?? ''}`}>
             <ListRow as={Link} to={m.document_id ? `/documents?doc=${m.document_id}` : '/documents'} chevron title={docLabel(t, m, locale)}
-              meta={[m.university, m.action_code ? t(`home.docAction.${m.action_code}`, { defaultValue: m.action ?? '' }) : m.action].filter(Boolean).join(' · ')}
+              meta={[appOf(d, m.application_id) ? localName(appOf(d, m.application_id)!.university) : m.university, m.action_code ? t(`home.docAction.${m.action_code}`, { defaultValue: m.action ?? '' }) : m.action].filter(Boolean).join(' · ')}
               end={m.due_date ? <DaysLeft date={m.due_date} /> : undefined} />
           </li>
         ))}
@@ -485,7 +512,9 @@ function Team({ d }: { d: DashboardData }) {
         <div className="hg-grow" style={{ minWidth: 0 }}>
           <div className="hg-medium">{t('messages.team')}</div>
           {d.counselor
-            ? <div className="hg-small hg-subtle hg-truncate">{t('v22.home.withAgency', { org: d.counselor.organization })}</div>
+            // The section is already titled with the team's name; the line under it says how long they have been on the
+            // case. The internal organisation behind the team is never shown to a student.
+            ? <div className="hg-small hg-subtle hg-truncate">{t('dashboard.counselor.since', { when: formatDate(d.counselor.since, locale) })}</div>
             : <div className="hg-small hg-subtle">{t('dashboard.counselor.noneText')}</div>}
         </div>
       </div>

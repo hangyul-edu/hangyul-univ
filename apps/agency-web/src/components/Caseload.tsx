@@ -22,13 +22,13 @@
 import { useAuth } from '@hangyul/auth';
 import { Bookmark, SlidersHorizontal, Trash2 } from '@hangyul/icons';
 import { PIPELINE_STAGES, type AgencySavedView, type AgencyStudentRow, type AgencyViewKey, type PipelineStage } from '@hangyul/types';
-import { Button, DataTable, EmptyState, ErrorState, FilterSelect, StatusText, WorkToolbar, type ColumnDef } from '@hangyul/ui';
+import { Button, DataTable, EmptyState, ErrorState, FilterSelect, StatusText, WorkToolbar, useToast, type ColumnDef } from '@hangyul/ui';
 import { countryName, cx, formatDate, formatNumber, formatRelative, pipelineTone } from '@hangyul/utils';
 import { keepPreviousData, useQueries, useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router';
 
-import { localName } from '@hangyul/i18n';
+import { errorText, localName } from '@hangyul/i18n';
 import { useDebounced, useHotkeys, usePerms, useUrlFilters } from '../lib/hooks';
 import { shortRelative } from '../lib/logic';
 import { CLOSED_KEY, groupOf, isStripKey, STAGE_GROUPS, stagesFor, stripCounts, type StripKey } from '../lib/stages';
@@ -437,10 +437,11 @@ export function Caseload({ mode, bulkActions, saveView }: {
 
 function DeleteSavedView({ id, name, onDeleted }: { id: string; name: string; onDeleted: () => void }) {
   const { api } = useAuth();
+  const toast = useToast();
   const { t } = useT();
   const [busy, setBusy] = useState(false);
   return (
     <Button size="sm" variant="ghost" iconOnly icon={<Trash2 />} aria-label={t('savedViews.delete', { name })} title={t('v22.work.deleteView')} loading={busy}
-      onClick={async () => { setBusy(true); try { await api.agency.deleteSavedView(id); onDeleted(); } finally { setBusy(false); } }} />
+      onClick={async () => { setBusy(true); try { await api.agency.deleteSavedView(id); onDeleted(); } catch (e) { toast.error(errorText(e)); } finally { setBusy(false); } }} />
   );
 }

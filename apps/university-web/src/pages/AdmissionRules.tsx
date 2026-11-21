@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '@hangyul/auth';
 import { ShieldCheck } from '@hangyul/icons';
-import { useLocale } from '@hangyul/i18n';
+import { errorText, useLocale } from '@hangyul/i18n';
 import type { Program } from '@hangyul/types';
 import { Button, Callout, Checkbox, DescriptionList, Field, Input, Select, Textarea, useToast } from '@hangyul/ui';
 import { LiveImpact } from '../components/v9/ImpactNote';
@@ -39,7 +39,7 @@ export function RulesForm({ program, onDone }: { program: Program; onDone?: () =
       toast.success(publish ? t('university:rules.saved') : t('university:rules.proposed'));
       onDone?.();
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const err = (k: keyof RulesValues) => {
     const msg = errors[k]?.message as string | undefined;

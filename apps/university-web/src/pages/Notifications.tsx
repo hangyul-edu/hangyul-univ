@@ -1,8 +1,8 @@
 import { useAuth } from '@hangyul/auth';
 import { Bell } from '@hangyul/icons';
-import { useLocale } from '@hangyul/i18n';
+import { errorText, useLocale } from '@hangyul/i18n';
 import type { NotificationItem } from '@hangyul/types';
-import { Button, Card, EmptyState, QueryState, SkeletonCard } from '@hangyul/ui';
+import { Button, Card, EmptyState, QueryState, SkeletonCard, useToast } from '@hangyul/ui';
 import { PageHeader } from '@hangyul/ynex-ui';
 import { cx, formatDateTime, formatRelative } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -13,7 +13,8 @@ export default function Notifications() {
   const { api } = useAuth();
   const qc = useQueryClient();
   const q = useQuery({ queryKey: ['notifications'], queryFn: () => api.notifications.list() });
-  const readAll = useMutation({ mutationFn: () => api.notifications.readAll(), onSuccess: () => qc.invalidateQueries({ queryKey: ['notifications'] }) });
+  const toast = useToast();
+  const readAll = useMutation({ mutationFn: () => api.notifications.readAll(), onSuccess: () => qc.invalidateQueries({ queryKey: ['notifications'] }), onError: (e) => toast.error(errorText(e)) });
   const text = (n: NotificationItem) => {
     const k = n.title_key.startsWith('notify.') ? n.title_key : '';
     const tr = k ? t(`common:${k}`, { ...n.params, defaultValue: '' }) : '';
@@ -38,7 +39,7 @@ export default function Notifications() {
                     <time className="uc-notif__time" dateTime={n.at} title={formatDateTime(n.at, locale)}>{formatRelative(n.at, locale)}</time>
                   </>
                 );
-                const onClick = () => { if (!n.read) api.notifications.read(n.id).then(() => qc.invalidateQueries({ queryKey: ['notifications'] })); };
+                const onClick = () => { if (!n.read) api.notifications.read(n.id).then(() => qc.invalidateQueries({ queryKey: ['notifications'] })).catch(() => undefined); };
                 const cls = cx('uc-notif', !n.read && 'is-unread');
                 return <li key={n.id}>{href ? <Link to={href} className={cls} onClick={onClick}>{body}</Link> : <div className={cls}>{body}</div>}</li>;
               })}

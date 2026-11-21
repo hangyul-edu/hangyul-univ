@@ -1,6 +1,6 @@
 import { useAuth } from '@hangyul/auth';
 import { ExternalLink } from '@hangyul/icons';
-import { useLocale } from '@hangyul/i18n';
+import { errorText, useLocale } from '@hangyul/i18n';
 import type { ApplicationDetail, ApplicationFeeStatus, SubmissionView } from '@hangyul/types';
 import { Button, Field, Input, Select, StatusText, Textarea, useToast } from '@hangyul/ui';
 import { formatDate, formatMoney } from '@hangyul/utils';
@@ -62,7 +62,7 @@ function RecordForm({ app, v }: { app: ApplicationDetail; v: SubmissionView }) {
       ['application', 'applications', 'agency', 'strategy'].forEach((k) => qc.invalidateQueries({ queryKey: [k] }));
       toast.success(res.status === 'SUBMITTED_CONFIRMED' ? t('success:agency.saved') : t('success:agency.savedUnconfirmed'));
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   return (
     <form className="sxa-form" onSubmit={(e) => { e.preventDefault(); m.mutate(); }}>

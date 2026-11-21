@@ -1,6 +1,6 @@
 # Hangyul Univ — Launch Report
 
-> **Current as of 2026-11-20, owner-improvement pass 261119** (`docs/owner/개선사항_261119.pdf`: seven owner requirements). Earlier baselines: final product pass `1e2fba85`, launch pass `e3f0e0f4`. This is the current-state launch report. It replaces the
+> **Current as of 2026-11-21, exhaustive product-quality pass** (on top of owner pass 261119, `docs/owner/개선사항_261119.pdf`). Earlier baselines: owner pass `1a02e262`, final product pass `1e2fba85`, launch pass `e3f0e0f4`. Evidence: [`qa/launch-final/exhaustive/`](qa/launch-final/exhaustive/). This is the current-state launch report. It replaces the
 > 20,000-line version-by-version record (V1–V32), which remains in git history
 > (`git log -- docs/REPORT.md`; last full version at commit `fd2f4ba7`). Everything in this file is meant to be true
 > today; when something changes, edit the statement instead of appending a dated section.
@@ -17,9 +17,9 @@ visa-document preparation and arrival/settlement support. There is no external s
 The **university makes the final admission decision**; the immigration authority decides the visa.
 
 **One-paragraph verdict.** The four web products are deployed and reachable, the API answers through a tunnel to a
-non-production host, and the product code is release-candidate quality (V32 gate chain green on 2026-11-04, brand and
-copy work since). It is **not ready for a public launch**: there is no durable production API host, the connected
-database has no programme catalogue, **no live payment method is verified and no production payment host exists** (the
+non-production host that now serves the one catalogue (425 universities, 469 programmes, `READY`), and the product code
+passed an exhaustive rendered audit on 2026-11-21 (§5, §8). It is **not ready for a public launch**: there is no durable
+production API host, **no live payment method is verified and no production payment host exists** (the
 billing-key rail is built and tested, but cannot charge real money yet), legal identity fields and counsel review are
 open, no language has been reviewed by a human, and iOS is not built. See §9.
 
@@ -52,14 +52,16 @@ Marketing discovery: live public catalogue API /api/v1/directory/* (same databas
                     DB-generated snapshot /data/public/*.json only for prerender/SEO and as the offline fallback
 ```
 
-Verified live on 2026-11-18:
+Verified live on 2026-11-21 (before this pass's deploy; the deployed commit after it is in §8):
 
 | Check | Result |
 |---|---|
-| `/build-info.json` on all four domains | commit `fd2f4ba7` |
+| `/build-info.json` on all four domains | commit `152aff47` at the start of the pass |
 | `GET https://app.univ.talkhangyul.com/api/v1/auth/me` | 401 `{"detail":"Not authenticated"}` — API reached, auth enforced |
 | `GET /api/v1/public/plans` | 200 with plan data |
-| `GET /api/v1/universities`, `/programs` | 200, `total: 0` — catalogue empty in the connected database |
+| `GET /api/v1/public/catalog/status` | 200 `{"state":"READY","universities_total":425,"programs_total":469}` — the connected host runs the 261119 catalogue |
+| `GET /api/v1/universities`, `/programs` | 200 with rows (same database as Marketing's live directory) |
+| Transport | responses still carry `ngrok-agent-ips`: tunnel to the owner's machine |
 | `https://api.univ.talkhangyul.com` | resolves to Vercel IPs; TLS fails — no dedicated production API host |
 
 **Truthful status of the API:** connected through a tunnel to a non-production host; a durable production API host
@@ -149,13 +151,43 @@ an in-process scheduler in the API. Health: `GET /api/v1/ops/catalog/health` (Op
 425 universities · 469 programmes · 593 intakes (68 open) · 408 admission requirements · 241 document requirements ·
 461 scholarships · 0 dormitories · 11 official guides · 165 official videos; first full refresh SUCCEEDED (1,135 polite
 requests, 0 source failures, 74 broken / 107 erroring / 60 robots-disallowed official links recorded, 2 guides REVIEW_DUE);
-next refresh 2026-11-23 09:00 +09:00. **The connected database receives this when the owner's API host runs the new code**
-(the tunnel was offline at the end of this pass, so no connected count is claimed). Sources without a parser yet (Study in
+next refresh 2026-11-23 09:00 +09:00. **The connected database now serves it** (2026-11-21: `catalog/status` READY, 425
+universities, 469 programmes). Sources without a parser yet (Study in
 Korea, NIIED/GKS, other government) are recorded as SKIPPED on every run. ~30% of institutions publish no English name:
 `name_en` then holds the official Korean name and `name_en_recorded` is false.
 Public rule: a public surface renders only what can be verified; unverified fields are blank.
 
 ## 5. Current UI/UX state
+
+**Exhaustive product-quality pass (2026-11-21).** Every route of the four web products was rendered from the code's own
+route inventory (Design Preview for signed-in screens; real builds; real API for end-to-end), screenshots were opened and
+read, and 29 product defects were found and fixed (full list with root causes:
+[`qa/launch-final/exhaustive/DEFECTS.md`](qa/launch-final/exhaustive/DEFECTS.md)). What changed for users:
+
+- **One language per screen.** University names, document names, essay titles, team and organisation names now follow
+  the reader's language wherever the server sends a flat English label (Student home, essay editor, University review,
+  Operations thread/catalogue/templates, University partnership cohorts and definitions). 75 error messages that
+  showed the server's raw English `detail` now use the localized `errorText`.
+- **One team, no person.** 86 student strings that said "your counselor / 상담사 / カウンセラー / консультант" now name the
+  Hangyul team in all 21 Student languages; the team card no longer shows the internal organisation; zh-Hant's team name
+  was "你的團隊" and is now the brand.
+- **Nothing is lost on failure.** A failed message keeps its text *and* attachments and says so under the composer (it
+  dropped attachments before); "mark all read", notification opening and saved-view deletion no longer throw on failure.
+- **Student home** names the university and the task in one line, with the programme underneath; the thread opens at the
+  newest message on phones and fits the window on desktop; essay diffs and comments no longer scroll in boxes.
+- **Phones.** 12 px type floor everywhere (tab labels were 10.5–11.5 px); every control a 44 px target and every text link
+  ≥ 24 px on touch (password toggle, switches, task checkboxes, journey steps, disclosures, Operations queue checkboxes,
+  chips, matrix cells, source links); statuses never split mid-word; Korean wraps between words; a shared keyboard
+  safeguard keeps the focused field in view when the viewport shrinks.
+- **No jumping pages.** The University overview and analytics no longer shift after first paint (CLS 0.65 / 0.48 → 0 / 0.018 at 390 px).
+- **Honesty fixes.** "NaN명" dormitory capacity on the public SNU page; a raw `NOT_STARTED` visa status; a machine-
+  translation notice that contradicted itself at 100 % coverage (fixed in 56 locales).
+- **QA harness.** `/match`, the purchase gate, saved universities and the seven HQ routes were missing from the route
+  inventory; the new audit's touch/typography checks first passed vacuously on every signed-in screen (fixed); see the
+  harness section of DEFECTS.md.
+
+Still not done by a person: usability sessions with students, a human screen-reader walk-through, native-speaker review
+(the rewritten strings are AI-drafted like the rest of each bundle), and a native run on an emulator or device.
 
 **Owner-improvement pass 261119** (seven requirements from `docs/owner/개선사항_261119.pdf`):
 
@@ -227,7 +259,7 @@ synthetic data), not from automated passes alone; screenshots were captured for 
   redone. Shared: `FilterSelect` no longer looks selected on its neutral value; breadcrumb divider fixed; header
   button spacing fixed; the Design Preview indicator never covers content; sidebar marks the current section on every
   sub-page (32/32 routes); compact controls are 44 px on phones; small inline targets get ≥24 px hit areas.
-- **Remaining known visual issues (2026-11-20):** none known from the review. Resolved this pass: the four Operations HQ
+- **Visual issues at 2026-11-20:** "none known" was recorded here; the 2026-11-21 pass found 29 (above). The 2026-11-20 fixes: the four Operations HQ
   pages and HQ › Sources open in Design Preview through a second "HQ" preview entry and were restyled; the University
   rule edit form and Notifications page were restyled; Compare/Budget render in preview (POST `/compare` answered
   in-process); the in-app university page shows its licensed photos in preview; checkboxes are 22 px with 44 px rows on
@@ -236,8 +268,9 @@ synthetic data), not from automated passes alone; screenshots were captured for 
   typed and is marked `data-user-content`.
 - **Not done:** usability sessions with real students; a human screen-reader walk-through.
 
-Last measured lab figures (V26–V31, on a saturated host, not re-measured since): consoles LCP 112–552 ms, marketing
-492–680 ms, CLS ≤ 0.08; Operations Today at 1,071 students 0.3–0.6 s.
+Lab figures 2026-11-21 (final builds, local static server, 4× CPU throttle, cold load): LCP 1.4–3.3 s, CLS ≤ 0.065 on every
+measured page (University overview and analytics fixed from 0.65 / 0.48). Operations Today at 1,071 students (0.3–0.6 s) was
+last measured in V26–V31 and not re-measured — no seeded scale database on this machine.
 
 ## 6. Current security
 
@@ -273,14 +306,43 @@ Detail and glossary: [LOCALIZATION.md](LOCALIZATION.md).
 | Selectable in the Student app (web and native) | English + 20: ar, bn, fil, hi, id, ja, kk, ko, ky, mn, my, ne, ru, th, tr, ur, uz, vi, zh-Hans, zh-Hant |
 | Selectable in the Operations/Admin and University consoles | ko, en (per the committed `console-locales.ts`) |
 | Machine / synthetic review | every market locale: machine translation plus a synthetic (AI-model) native-level review, V32 status `SYNTHETIC_NATIVE_REVIEWED_V32` |
-| Human native review | **none, for any locale** |
-| Unintended English (owner req. 7) | `npm run qa:lang-leak`, 2026-11-20: **0 leaks** on 415 rendered pages; all 20 Student locales at 100 % of the Student manifest (no locale hidden); allow-list limited to brand/test names, acronyms, currencies, file types and data-origin names ([`qa/launch-final/l10n/summary.md`](qa/launch-final/l10n/summary.md)). Scholarship conditions copied from university sources are marked `data-no-l10n` and remain in their source language until a catalogue translation pipeline exists |
+| Human native review | **none, for any locale** (the 86 team-identity strings rewritten on 2026-11-21 in 21 locales are AI-drafted like the rest) |
+| Unintended English (owner req. 7) | `npm run qa:lang-leak`, 2026-11-21 (final builds of the exhaustive pass): **0 leaks** on 415 rendered pages; all 20 Student locales at 100 % of the Student manifest (no locale hidden); allow-list limited to brand/test names, acronyms, currencies, file types and data-origin names ([`qa/launch-final/l10n/summary.md`](qa/launch-final/l10n/summary.md)). Scholarship conditions copied from university sources are marked `data-no-l10n` and remain in their source language until a catalogue translation pipeline exists |
 
 V32 measured 9,126 active keys of 13,556; 3,668 customer-critical; 48,606 strings changed in 34 locales. Record:
 `docs/qa/v32/l10n/LANGUAGE_SIGNOFF.md`. `console-locales.ts` was regenerated on 2026-11-20: consoles stay ko + en (other
 locales' console namespaces are 17–35 % complete).
 
 ## 8. Final launch QA
+
+### Exhaustive product-quality pass (2026-11-21)
+
+Evidence: [`qa/launch-final/exhaustive/`](qa/launch-final/exhaustive/README.md) (routes, defects, JSON results, before/after
+screens). Signed-in screens in Design Preview on the four production builds; journeys on the isolated real stack.
+
+| Area | Result |
+|---|---|
+| Route inventory | Code-derived from the three routers: Student 37, Operations 46, University 27 router paths + Marketing 6 public routes; 130 route entries in the gate list (was 115: `/match`, the purchase gate, saved universities, Operations document review and seven HQ routes added) — [`ROUTES.md`](qa/launch-final/exhaustive/ROUTES.md) |
+| Defects | 29 product defects found, 29 fixed; 3 QA-harness defects that hid product defects, fixed — [`DEFECTS.md`](qa/launch-final/exhaustive/DEFECTS.md) |
+| Rendered audit (`audit.mjs`: scroll oracle top → middle → bottom, page overflow, 12 px floor, touch targets with the WCAG 2.5.8 spacing exception, native selects, leaked enum tokens, page errors) | Student 156 pages (320/390/768/1440), Operations + University 255 (390/768/1440), Marketing 24 (320–1440): **0 page-level horizontal overflow, 0 unreachable page bottoms, 0 native selects, 0 page errors**. Remaining flags are reviewed exceptions (chat panes, URL-opened drawers, HQ readiness env names) |
+| Overlays (`overlays.mjs`: every popup/select/menu/dialog opened → Escape → lock released; resize while open; Back/Forward) | Student 140 route runs, University 54: 0 problems. Operations 106: 0 product problems (2 harness false positives — URL-opened drawer, always-visible picker list — fixed in the script). All-buttons mode (every button in `<main>`, dialogs included): Student 343 pressed / 64 overlays, consoles 1440: no leak; the one finding (unhandled failure on "mark all read") was fixed |
+| Student scroll gate (`e2e/student-scroll.spec.ts`, 32 routes × 320/390/768/1440 + drawers) | **130/130** on the final Student build (the spec now starts every page at the top: a chat thread opens at its newest message) |
+| Responsive (`matrix.mjs`, 12 widths 320–1920) | 1,560 page loads, all four products: 5 overflowing loads, all one row (University team roster, "Inactive" status at 320–393 px) — fixed and re-run on the final builds (below) |
+| Zoom 125 / 150 / 200 % (768/1280/1440 windows) | 390 loads each: 0 / 0 / 1 overflow (the same roster row at 768 @ 200 %) — fixed |
+| Languages ko · vi · ja · zh-Hans · ru · ar (Marketing + Student, 320/390/1440) | 135 loads each, **0 overflow**; Arabic `dir="rtl"`; Korean `keep-all` wrapping overflow-free |
+| Dark-mode device | 260 loads, `color-scheme` stays light everywhere; 1 overflow = the roster row — fixed |
+| Accessibility (axe WCAG 2.1 A/AA, 390 and 1280, every gate route) | **260 scans, 0 serious/critical** on the final builds |
+| Design Preview isolation (strict) | 3 apps, 0 failures: 0 `/api` requests, no fixture miss (an HQ fixture was added), indicator present, writes refused |
+| Language leak (`qa:lang-leak`) | **0 leaks on 415 pages** on the final builds (one regression from this pass — an untranslated team-card line in 9 locales — was caught and fixed first) |
+| Performance (lab, 4× CPU, cold load) | LCP 1.4–3.3 s; **CLS ≤ 0.065 everywhere** — the University overview (0.65 at 390 px) and analytics (0.48) shifted after first paint and now hold their final geometry while loading ([`results/perf.tsv`](qa/launch-final/exhaustive/results/perf.tsv)) |
+| URL-opened drawers (Student document, Operations application, submission) | 12/12 at 320/390/768/1440: body scrolls to its last item, close stays visible, Escape closes, URL updates, page unlocks |
+| API (PostgreSQL 14 + Redis 6) | ruff PASS; pytest **690 passed, 13 skipped, 0 failed** |
+| End-to-end, isolated real stack | Critical set **30/30** (lifecycle, tenancy, contract, Student/Operations/University journeys, redesign) incl. the new `student-ops-message.spec.ts`: register → buy → assigned to Operations → student writes in the Student UI → Operations sees it and replies → the student sees it signed "Hangyul Univ team", no staff name. Journey set **22/22** (dossier, writing, visa, arrival, submission, Myanmar, Nepal, selects). 14 tests in 12 spec files had gone stale with the 261119 owner changes (Quick Fit retired, `/match` paid, Saramin document manager, `FileDrop`, custom Select) and were brought to current behaviour — none removed |
+| Web unit tests | Student 195 (+2), Operations 64, University 72, Marketing 90 (+22 skipped), Student native 23 — PASS |
+| Typecheck · i18n · tokens · docs links · leak (source + bundles) · Design Preview gate (bundles on) | PASS |
+| Security scan (tracked tree, runtime capture, database, Redis) | 0 unauthorized occurrences |
+| Connected API (2026-11-21) | `catalog/status` READY · 425 universities · 469 programmes; `auth/me` 401; still behind the ngrok tunnel |
+| Native | Three apps typecheck; Student native 23 tests. **Not run on an emulator or device** — no KVM, Android SDK or Xcode on this machine |
 
 ### Owner-improvement pass 261119 (2026-11-20)
 
@@ -371,7 +433,6 @@ Full list with owners: [ROADMAP.md](ROADMAP.md).
 | # | Blocker | Type |
 |---|---|---|
 | 1 | No durable production API host (tunnel to a personal machine; `api.` subdomain fails TLS) | Infrastructure |
-| 2 | Connected database still runs the previous code (pull, `db:migrate`, restart → the catalogue bootstraps itself); the tunnel was offline at the end of the 261119 pass | Owner (host) |
 | 3 | Design Preview flag is ON for owner review (`build.env` in three `vercel.json`); must be removed before public launch (`npm run release:preview-gate -- --launch --bundles off`) | Release |
 | 4 | Live payments: billing-key rail built and tested, but no live Toss credentials installed, no production payment host, no live capability verified (easy-pay billing undocumented by Toss; overseas-card billing unconfirmed; KRW merchants vs USD-only catalogue); refund schedule and upgrade rule undecided — [`payments/BILLING.md`](payments/BILLING.md) §6–7 | Owner / Toss |
 | 5 | Production SendGrid / Twilio / Turnstile credentials and live delivery check | Owner |
@@ -380,7 +441,7 @@ Full list with owners: [ROADMAP.md](ROADMAP.md).
 | 8 | iOS not built; Android to be rebuilt with the Play upload key | Owner |
 | 9 | No human native-speaker review of any language; no usability sessions | People |
 | 11 | Privacy policy and terms still describe a "partner agency" receiving data (10 keys under `marketing.v12.privacy.*` / `v12.terms.*`, all locales) — legal text was not edited; needs counsel sign-off to match the direct-operation model | Owner / counsel |
-| 12 | Real-account journeys against the connected API and native device builds were not run (no reachable API at the end of the pass, no Android/iOS toolchain); the API suite is fully green | Owner (host) / device |
+| 12 | Real-account journeys against the **connected** API were not run (no staff/student credentials for the owner's database; a real sign-up sends live e-mail and SMS) — the same journeys pass on the isolated stack (§8). Native apps were not run on an emulator or device: this machine has no KVM, Android SDK or Xcode | Owner (host) / device |
 | 10 | 176 institutions without verified rules; 259 without an own photograph; no recorded university agreement | Data / partnerships |
 
 Could not be verified from this workspace: whether SendGrid/Twilio credentials are now configured on the connected
@@ -431,4 +492,5 @@ One line per pass; detail is in git history (`git log`, and earlier versions of 
 | post-V32 | 2026-11-18 | Twilio SDK declared; production copy for verification e-mail and SMS (`47c8fec5`, `fd2f4ba7`) |
 | Final product pass | 2026-11-19 | Billing-key-only payments (registration → sealed key → one charge; old rails removed), payment methods UI, Operations refunds; shared design foundation de-greyed; Student, Operations, University and university detail redesigned |
 | Owner pass 261119 | 2026-11-20 | `유학 준비` → login → payment → `/match`; Quick Fit retired; no auth-form flash; one DB catalogue with self-bootstrap and Monday 09:00 KST refresh (469 official-guide programmes); drag & drop on every web uploader; scroll root causes fixed; Saramin-model document manager; 0 English leaks in 20 locales; HQ/University preview fixes; API suite fully green |
+| Exhaustive pass | 2026-11-21 | Rendered audit of every route (scroll oracle, overlays, touch targets, 12 px floor); 29 defects fixed: one language per screen, team identity in 21 locales, failed sends keep attachments, localized errors (75 sites), phone targets and type floor, Korean word wrapping; student → Operations message proven end to end; 14 stale E2E tests (12 spec files) brought to the owner flows |
 | Launch pass (`e3f0e0f4`) | 2026-11-18 | Shared gutter/container tokens and control states; sign-up verification and footer rebuilt; 25 visual defects fixed; Design Preview mode; direct-operation copy in every locale; docs consolidated to 19 root files; historical QA output removed; this report rewritten |

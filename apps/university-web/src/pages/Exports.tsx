@@ -1,6 +1,6 @@
 import { useAuth } from '@hangyul/auth';
 import { Download, ShieldCheck } from '@hangyul/icons';
-import { useLocale } from '@hangyul/i18n';
+import { errorText, useLocale } from '@hangyul/i18n';
 import { DEGREE_LEVELS, type CohortStudent, type ExportPresetKey, type ExportPresets } from '@hangyul/types';
 import { Button, Checkbox, ErrorState, Field, Input, Modal, Select, SkeletonCard, StatusText, useToast, PageHeader } from '@hangyul/ui';
 import { downloadBlob, formatDateTime } from '@hangyul/utils';
@@ -64,7 +64,7 @@ function SaveConfigModal({ base, data, onClose }: { base: ExportPresetKey; data:
   const m = useMutation({
     mutationFn: () => api.university.saveExportPreset({ name: name.trim(), base, columns: cols, filters }, scopeId),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['university', 'export-presets'] }); toast.success(t('university:v8.ex.saved')); onClose(); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const submit = () => (name.trim().length < 2 ? setErr('validation.required') : cols.length === 0 ? setErr('university:v8.ex.pickColumns') : m.mutate());
   const set = (k: string, v: string) => setFilters((f) => { const n = { ...f }; if (v) n[k] = v; else delete n[k]; return n; });
@@ -117,7 +117,7 @@ function ExportJobs() {
   const del = useMutation({
     mutationFn: (id: string) => api.university.deleteExportPreset(id),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['university', 'export-presets'] }); toast.success(t('university:v8.ex.deleted')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const runJob = async (key: string, kind: ExportPresetKey, query: Record<string, string | undefined> = {}) => {
     setBusy(key);
@@ -127,7 +127,7 @@ function ExportJobs() {
       toast.success(t('university:exports.done'));
       qc.invalidateQueries({ queryKey: ['university', 'export-presets'] });
       qc.invalidateQueries({ queryKey: ['university', 'exports'] });
-    } catch (e) { toast.error((e as Error).message); } finally { setBusy(null); }
+    } catch (e) { toast.error(errorText(e)); } finally { setBusy(null); }
   };
   if (q.isLoading) return <SkeletonCard lines={6} />;
   if (q.isError || !q.data) return <ErrorState error={q.error} onRetry={() => q.refetch()} />;
@@ -203,7 +203,7 @@ export default function Exports() {
   const stamp = todayStamp();
   const run = async (key: string, fn: () => Promise<void>) => {
     setBusy(key);
-    try { await fn(); toast.success(t('university:exports.done')); qc.invalidateQueries({ queryKey: ['university', 'exports'] }); } catch (e) { toast.error((e as Error).message); } finally { setBusy(null); }
+    try { await fn(); toast.success(t('university:exports.done')); qc.invalidateQueries({ queryKey: ['university', 'exports'] }); } catch (e) { toast.error(errorText(e)); } finally { setBusy(null); }
   };
   const server = (kind: 'outcomes' | 'metrics') => run(kind, async () => {
     const res = await api.university.exportCsv(kind, scopeId);

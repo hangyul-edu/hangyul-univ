@@ -838,7 +838,7 @@ def essay_block(db: Session, essay: Essay, p, *, full: bool) -> dict:
         prompt_status = "UNKNOWN"
     overdue = bool(essay.status in REVIEW_STATES and review.expected_review_by and _now() > review.expected_review_by)
     d = {
-        "context": {"university": {"id": str(uni.id), "name": uni.name_en} if uni else None,
+        "context": {"university": {"id": str(uni.id), "name": uni.name_en, "name_ko": uni.name_ko} if uni else None,
                     "program": {"id": str(program.id), "name": program.name_en, "degree_level": program.degree_level.value} if program else None,
                     "intake": {"year": intake.year, "term": intake.term.value, "deadline": _iso(intake.application_deadline)} if intake else None,
                     "application_id": str(essay.application_id) if essay.application_id else None},

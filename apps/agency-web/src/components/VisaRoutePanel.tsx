@@ -4,7 +4,7 @@
  * workspace Visa tab. Strings: `visaroute` namespace (staff.* keys).
  */
 import { useApi } from '@hangyul/auth';
-import { useLocale } from '@hangyul/i18n';
+import { errorText, useLocale } from '@hangyul/i18n';
 import type { VisaRoutePlan } from '@hangyul/types';
 import { Button, Field, Input, QueryState, Skeleton, StatusText, Textarea, useToast } from '@hangyul/ui';
 import { formatDate } from '@hangyul/utils';
@@ -34,9 +34,9 @@ function Body({ plan, studentId }: { plan: VisaRoutePlan; studentId: string }) {
   const [due, setDue] = useState('');
   const [adding, setAdding] = useState(false);
   const done = (p: VisaRoutePlan) => { qc.setQueryData(['agency', 'visa-route', studentId], p); qc.invalidateQueries({ queryKey: ['agency'] }); toast.success(t('common:actions.saved')); };
-  const reviewed = useMutation({ mutationFn: () => api.visaRoute.packReviewed(studentId), onSuccess: done, onError: (e) => toast.error((e as Error).message) });
+  const reviewed = useMutation({ mutationFn: () => api.visaRoute.packReviewed(studentId), onSuccess: done, onError: (e) => toast.error(errorText(e)) });
   const request = useMutation({ mutationFn: () => api.visaRoute.staffRequest(studentId, { note: note.trim(), due_on: due || null }),
-    onSuccess: (p) => { done(p); setAdding(false); setNote(''); setDue(''); }, onError: (e) => toast.error((e as Error).message) });
+    onSuccess: (p) => { done(p); setAdding(false); setNote(''); setDue(''); }, onError: (e) => toast.error(errorText(e)) });
   const d = (x: string | null | undefined) => (x ? formatDate(x, locale) : t('staff.none'));
   const r = plan.route;
   const c = plan.case;
@@ -51,7 +51,7 @@ function Body({ plan, studentId }: { plan: VisaRoutePlan; studentId: string }) {
         <div><dt>{t('staff.post')}</dt><dd>{post ?? t('staff.none')}</dd></div>
         <div><dt>{t('staff.method')}</dt><dd>{plan.method?.code ? t(`method.${plan.method.code}`) : t('staff.none')}</dd></div>
         <div><dt>{t('staff.tier')}</dt><dd>{t(`staff.tierVal.${plan.inputs.university?.tier ?? 'UNKNOWN'}`)}</dd></div>
-        <div><dt>{t('staff.visaStatus')}</dt><dd>{t(`status.${plan.display_status}`)}</dd></div>
+        <div><dt>{t('staff.visaStatus')}</dt><dd>{t(`status.${plan.display_status}`, { defaultValue: t('status.PREPARING') })}</dd></div>
         <div><dt>{t('staff.pack')}</dt><dd>{plan.pack ? t('staff.packVal', { ready: plan.pack.ready, needed: plan.pack.needed }) : t('staff.none')}{plan.pack?.reviewed_at ? ` · ${t('staff.reviewed', { date: d(plan.pack.reviewed_at) })}` : ''}</dd></div>
         <div><dt>{t('staff.appointment')}</dt><dd>{c?.appointment ? `${d(c.appointment.on)} · ${c.appointment.status ? t(`staff.apptStatus.${c.appointment.status}`, { defaultValue: '' }) : ''}${c.appointment.reference ? ` · ${c.appointment.reference}` : ''}` : t('staff.none')}</dd></div>
         <div><dt>{t('staff.submission')}</dt><dd>{c?.submission ? `${d(c.submission.on)}${c.submission.reference ? ` · ${c.submission.reference}` : ''}` : t('staff.none')}</dd></div>

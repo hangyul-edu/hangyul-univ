@@ -31,8 +31,8 @@ test('student: home, discovery with verdicts, compare, documents and visa', asyn
   await expect(page.getByText('Lowest first-year cost').locator('visible=true').first()).toBeVisible();
 
   await page.goto(`${URLS.student}/documents`);
-  await expect(page.getByText(/^\d+ of \d+ ready$/)).toBeVisible();   // V31 wording
-  await expect(page.getByRole('heading', { name: 'Needs you' })).toBeVisible();
+  await expect(page.getByText(/^Documents \d+% complete$/).locator('visible=true').first()).toBeVisible();   // owner 261119 document manager
+  await expect(page.getByRole('heading', { level: 2, name: 'Academic records' })).toBeVisible();
 
   await page.goto(`${URLS.student}/visa`);
   // V9 S6: the visa plan is folded — before admission the checklist is the row "Your visa documents · N of M ready",

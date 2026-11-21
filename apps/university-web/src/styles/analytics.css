@@ -13,6 +13,8 @@ html[data-surface='console'] .un-home > .hg-page-head { margin-block-end: var(--
 .un-pagemeta > * + *::before { content: '·'; margin-inline: 8px; color: var(--hg-text-tertiary); }
 .un-pagemeta a { color: var(--hg-text-secondary); text-decoration: underline; text-decoration-color: var(--hg-border-strong); text-underline-offset: 3px; }
 .un-pagemeta a:hover { color: var(--hg-text); text-decoration-color: currentColor; }
+.un-pagemeta--loading { display: flex; align-items: center; min-block-size: 23px; }
+@media (max-width: 767.98px) { .un-pagemeta--loading { min-block-size: 69px; } }
 .un-empty { margin: 0; font-size: var(--hg-text-sm); color: var(--hg-text-tertiary); }
 .un-pagenote { margin: var(--hg-space-3) 0 0; font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); }
 
@@ -20,6 +22,8 @@ html[data-surface='console'] .un-home > .hg-page-head { margin-block-end: var(--
 .un-sum { display: grid; grid-template-columns: minmax(0, 1.2fr) repeat(3, minmax(0, 1fr)); gap: 0; margin: 0; padding: 0; border-block: 1px solid var(--hg-border); }
 .un-sum__col { display: flex; flex-direction: column; gap: var(--hg-space-3); min-inline-size: 0; padding: var(--hg-space-4) var(--hg-space-6) var(--hg-space-5); border-inline-start: 1px solid var(--hg-border-subtle); }
 .un-sum__col:first-child { padding-inline-start: 0; border-inline-start: 0; }
+/* Loading: each column holds about its final height (≈ 213 px on desktop, 240–280 px in the 2 × 2 phone grid). */
+.un-sum--loading .un-sum__col { min-block-size: 213px; }
 .un-sum__col:last-child { padding-inline-end: 0; }
 .un-sum__h { margin: 0; font-size: var(--hg-text-sm); line-height: 1.4; font-weight: var(--hg-weight-semibold); color: var(--hg-text-secondary); letter-spacing: 0; }
 .un-sum__col[data-sum='decide'] .un-sum__h::before { content: ''; display: inline-block; inline-size: 7px; block-size: 7px; margin-inline-end: 7px; border-radius: 50%; background: var(--hg-chart-highlight); vertical-align: 1px; }
@@ -66,6 +70,7 @@ html[data-surface='console'] .un-sum__line > a { color: var(--hg-text-secondary)
   .un-sum__col:nth-child(odd) { padding-inline-start: 0; border-inline-start: 0; }
   .un-sum__col:nth-child(even) { padding-inline-end: 0; }
   .un-sum__col:nth-child(n + 3) { border-block-start: 1px solid var(--hg-border-subtle); }
+  .un-sum--loading .un-sum__col { min-block-size: 250px; }
 }
 @media (max-width: 639.98px) {
   .un-sum { grid-template-columns: minmax(0, 1fr); }

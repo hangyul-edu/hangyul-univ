@@ -193,7 +193,11 @@ export function TranslationNotice({ ns, surface }: { ns: Namespace; surface?: 's
   const [hidden, setHidden] = useState(() => { try { return localStorage.getItem(key) === '1'; } catch { return false; } });
   const needed = q.status === 'MACHINE_DRAFT' || (q.status !== 'SOURCE_APPROVED' && !q.complete);
   if (!needed || hidden) return null;
-  const text = q.status === 'MACHINE_DRAFT' ? t('i18n.machine', { percent: q.coverage }) : t('i18n.partial', { percent: q.coverage });
+  // A machine-drafted language that covers every screen says only that it is unreviewed ("…so some text may be in
+  // English" contradicted 100 %); one with gaps still names its coverage.
+  const text = q.status === 'MACHINE_DRAFT'
+    ? (q.coverage >= 100 ? t('i18n.machineFull') : t('i18n.machine', { percent: q.coverage }))
+    : t('i18n.partial', { percent: q.coverage });
   return (
     <div className="hg-i18n-notice" role="note">
       <span>{text}</span>

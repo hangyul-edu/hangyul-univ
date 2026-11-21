@@ -61,7 +61,8 @@ for (const [app, base] of Object.entries(bases)) {
       const set = routes.filter((r) => r.preview === mode);
       if (!set.length) continue;
       const ctx = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: 1, locale: 'en-US', colorScheme: flag('dark') ? 'dark' : 'light' });
-      if (mode) await ctx.addInitScript(([k, v]) => { try { sessionStorage.setItem(k, v); } catch { /* ignore */ } }, [PREVIEW_KEY, spec.previewVariant ?? 'paid']);
+      // HQ tools open in the "hq" preview variant; everything else in the app's own variant.
+      if (mode) await ctx.addInitScript(([k, v]) => { try { sessionStorage.setItem(k, location.pathname.startsWith('/hq') ? 'hq' : v); } catch { /* ignore */ } }, [PREVIEW_KEY, spec.previewVariant ?? 'paid']);
       const page = await ctx.newPage();
       const errors = [];
       page.on('pageerror', (e) => errors.push(String(e.message).slice(0, 200)));

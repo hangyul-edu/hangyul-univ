@@ -1,4 +1,4 @@
-import { localName } from '@hangyul/i18n';
+import { errorText, localName } from '@hangyul/i18n';
 import { useAuth } from '@hangyul/auth';
 import { ExternalLink } from '@hangyul/icons';
 import type { SubmissionQueueRow, SubmissionSnapshot, SubmissionView } from '@hangyul/types';
@@ -14,7 +14,7 @@ type TFn = (k: string, o?: Record<string, unknown>) => string;
 const today = () => new Date().toISOString().slice(0, 10);
 
 function errText(t: TFn, e: unknown) {
-  return (e as { status?: number })?.status === 401 ? t('success:queue.detail.sessionExpired') : (e as Error).message;
+  return (e as { status?: number })?.status === 401 ? t('success:queue.detail.sessionExpired') : errorText(e);
 }
 
 /** Shared by the nav badge and the page: one request, every group's count. */

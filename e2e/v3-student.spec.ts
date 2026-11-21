@@ -8,35 +8,16 @@
  */
 import { expect, test } from '@playwright/test';
 
-import { API, apiLogin, PASSWORD, registerViaUi, uiLogin, URLS } from './helpers';
+import { API, apiLogin, PASSWORD, uiLogin, URLS } from './helpers';
 
-test('quick fit gives value before an account, and the answers carry into the profile', async ({ page, request }) => {
-  // V27 (REPORT §356): four answers incl. GPA on its own scale and two language results, prefilled from the URL.
-  await page.goto(`${URLS.student}/start?nationality=VN&level=BACHELOR&gpa=8.2&gpa_scale=10&langs=TOPIK:3,IELTS_ACADEMIC:6`);
-  await expect(page.getByRole('heading', { level: 2, name: /\d+ universities to consider/ })).toBeVisible();
-  // V28: the first picks, then the groups; and the GPA conversion said back to the student.
-  await expect(page.getByRole('heading', { level: 3, name: 'Start with these' })).toBeVisible();
-  await expect(page.getByRole('heading', { level: 3, name: /Universities whose minimums you meet/ })).toBeVisible();
-  await expect(page.getByText(/82% of the maximum/).first()).toBeVisible();
-  // Never a probability or a ranking.
+test('the retired quick check leads to sign-in, then to personalised matching (owner 261119)', async ({ page }) => {
+  // Owner 261119 (req. 1): there is no anonymous Quick Fit any more. Every old entry point — the homepage CTA's
+  // `/start` and its URL answers — leads to the Student sign-in with `next=/match`; nothing is computed before an account.
+  await page.goto(`${URLS.student}/start?nationality=VN&level=BACHELOR&gpa=8.2&gpa_scale=10&langs=TOPIK:3`);
+  await expect(page).toHaveURL(/\/login\?.*next=%2Fmatch/);
+  await expect(page.locator('[data-auth-form]')).toBeVisible();
+  // Never a probability or a ranking on the way in.
   await expect(page.getByText(/chance|probability|ranked/i)).toHaveCount(0);
-  await expect(page.getByText(/is not a ranking/)).toBeVisible();
-  // A row opens the university's own page.
-  const first = page.locator('.hg-fit-row__link').first();
-  await expect(first).toHaveAttribute('href', /\/universities\/[a-z0-9-]+\?.*level=BACHELOR/);
-
-  await page.locator('.qs-cta').getByRole('link').first().click();
-  await expect(page).toHaveURL(/\/register\?/);
-  await expect(page).toHaveURL(/langs=TOPIK%3A3/);
-  const email = `e2e-v27-${Date.now()}@example.com`;
-  await registerViaUi(page, request, { email, password: 'e2e-password-123', full_name: 'Quick Fit E2E', phone_country: 'VN' });
-  await expect(page).toHaveURL(/\/explore/);
-  // Answers were carried over: both language results are on the profile.
-  const headers = await apiLogin(request, email, 'student', 'e2e-password-123');
-  const prof = await (await request.get(`${API}/me/profile`, { headers })).json();
-  const tests = (prof.languages ?? []).map((l: { test: string }) => l.test).sort();
-  expect(tests).toEqual(['IELTS', 'TOPIK']);
-  expect(prof.nationality).toBe('VN');
 });
 
 test('compare leads to a first-year budget with labelled figures', async ({ page }) => {
@@ -68,9 +49,10 @@ test('compare leads to a first-year budget with labelled figures', async ({ page
 test('documents are shown as requirements with a next step', async ({ page }) => {
   await uiLogin(page, 'student', 'student@demo.hangyul.kr');
   await page.goto(`${URLS.student}/documents`);
-  await expect(page.getByText(/^\d+ of \d+ ready$/)).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Needs you' })).toBeVisible();
-  await expect(page.getByText(/needed for/i).first()).toBeVisible();
+  // Owner 261119 (req. 6): the Saramin-model manager — completeness, then category bands with required/optional.
+  await expect(page.getByText(/^Documents \d+% complete$/).locator('visible=true').first()).toBeVisible();
+  await expect(page.getByText(/^\d+ of \d+ required documents complete$/).locator('visible=true').first()).toBeVisible();
+  await expect(page.getByRole('heading', { level: 2, name: 'Academic records' })).toBeVisible();
 });
 
 test('a university document request reaches the student with the exact note', async ({ page, request }) => {

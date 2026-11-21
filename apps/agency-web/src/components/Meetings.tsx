@@ -1,3 +1,4 @@
+import { errorText } from '@hangyul/i18n';
 // V9 meeting records (REPORT §59 A8): one record = notes + decisions + follow-up tasks + next appointment, created from
 // the student workspace (POST /agency/students/{id}/meetings, or closing a scheduled one via /agency/appointments/{id}/close)
 // and shown on the workspace timeline. The Tasks "Meetings" view keeps listing the same appointments.
@@ -55,7 +56,7 @@ export function RecordMeetingModal({ open, onClose, studentId, appointmentId }: 
       toast.success(t('v9.meet.saved'));
       onClose();
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const submit = () => { setTouched(true); if (notes.trim()) m.mutate(); };
   return (

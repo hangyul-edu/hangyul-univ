@@ -1,3 +1,4 @@
+import { errorText } from '@hangyul/i18n';
 // PRIMARY QUESTION: What do I say, in the student's language, without retyping?
 // V9 (REPORT §59 A5): kinds include payment, arrival and housing; scopes personal · team · organisation (organisation
 // = owners/managers only); one template carries its language versions (group key + locale), and inserting it picks the
@@ -15,8 +16,11 @@ import { TEMPLATE_KEY, useServerTemplates } from '../lib/templates';
 
 /** Show {{placeholders}} as readable tokens so the list reads like the message the student will get. */
 function Body({ text }: { text: string }) {
+  const { t } = useT();
   const parts = text.split(/(\{\{\s*\w+\s*\}\})/g);
-  return <>{parts.map((p, i) => (/^\{\{/.test(p) ? <span key={i} className="ag-ph">{p.replace(/[{}\s]/g, '').replace(/_/g, ' ')}</span> : p))}</>;
+  // A variable reads in the console's language ("학생 이름"); an unknown one falls back to its own name.
+  const label = (p: string) => { const v = p.replace(/[{}\s]/g, ''); return t(`templates.var.${v}`, { defaultValue: v.replace(/_/g, ' ') }); };
+  return <>{parts.map((p, i) => (/^\{\{/.test(p) ? <span key={i} className="ag-ph">{label(p)}</span> : p))}</>;
 }
 
 const KINDS: TemplateKind[] = ['DOCUMENT_CORRECTION', 'APOSTILLE', 'ESSAY_FEEDBACK', 'DEADLINE_REMINDER', 'UNIVERSITY_REQUEST', 'VISA_REMINDER', 'PAYMENT', 'ARRIVAL', 'HOUSING', 'GENERAL'];
@@ -50,7 +54,7 @@ function Editor({ open, onClose, initial, placeholders, canOrg }: { open: boolea
       return initial?.id ? api.templates.update(initial.id, payload) : api.templates.create(payload);
     },
     onSuccess: () => { qc.invalidateQueries({ queryKey: TEMPLATE_KEY }); toast.success(t('actions.saved')); onClose(); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const save = () => { setTouched(true); if (title.trim() && body.trim()) m.mutate(); };
   return (
@@ -103,7 +107,7 @@ export default function Templates() {
   const del = useMutation({
     mutationFn: (id: string) => api.templates.remove(id),
     onSuccess: () => { qc.invalidateQueries({ queryKey: TEMPLATE_KEY }); toast.success(t('templatesPage.deleted')); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(errorText(e)),
   });
   const copy = async (tp: MessageTemplate) => {
     try { await navigator.clipboard.writeText(tp.body); toast.success(t('templatesPage.copied')); } catch { toast.error(t('templatesPage.copyFailed')); }
