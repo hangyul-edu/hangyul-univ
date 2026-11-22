@@ -16,8 +16,8 @@ university recommendation, application preparation, document review, application
 visa-document preparation and arrival/settlement support. There is no external study-abroad agency in the service.
 The **university makes the final admission decision**; the immigration authority decides the visa.
 
-**One-paragraph verdict.** The four web products are deployed and reachable, the API answers through a tunnel to a
-non-production host that now serves the one catalogue (425 universities, 469 programmes, `READY`), and the product code
+**One-paragraph verdict.** The four web products are deployed and reachable; the API answers through a tunnel to a
+non-production host when that host is up (it was offline during the 2026-11-22 production check) that now serves the one catalogue (425 universities, 469 programmes, `READY`), and the product code
 passed an exhaustive rendered audit on 2026-11-21 (§5, §8). It is **not ready for a public launch**: there is no durable
 production API host, **no live payment method is verified and no production payment host exists** (the
 billing-key rail is built and tested, but cannot charge real money yet), legal identity fields and counsel review are
@@ -26,9 +26,9 @@ open, no language has been reviewed by a human, and iOS is not built. See §9.
 | Product | Domain | Code | State |
 |---|---|---|---|
 | Marketing | `https://univ.talkhangyul.com` | `apps/marketing-web` | Live; discovery works without the API |
-| Student | `https://app.univ.talkhangyul.com` | `apps/student-web` | Live; API reachable |
-| Hangyul internal Operations/Admin | `https://admin.univ.talkhangyul.com` | `apps/agency-web` | Live; API reachable |
-| University console | `https://partner.univ.talkhangyul.com` | `apps/university-web` | Live; API reachable |
+| Student | `https://app.univ.talkhangyul.com` | `apps/student-web` | Live; API **unreachable on 2026-11-22** (tunnel endpoint offline, `ERR_NGROK_3200`) |
+| Hangyul internal Operations/Admin | `https://admin.univ.talkhangyul.com` | `apps/agency-web` | Live; API **unreachable on 2026-11-22** (tunnel endpoint offline, `ERR_NGROK_3200`) |
+| University console | `https://partner.univ.talkhangyul.com` | `apps/university-web` | Live; API **unreachable on 2026-11-22** (tunnel endpoint offline, `ERR_NGROK_3200`) |
 | Student native | — | `apps/student-mobile` | Android to be rebuilt from current source; iOS not built |
 | Operations/Admin native | — | `apps/agency-mobile` | same |
 | University native | — | `apps/university-mobile` | same |
@@ -370,6 +370,7 @@ conditions against the real API.
 | Student scroll gate | **130/130** |
 | Unit tests | Student 195, Operations 64, University 72, Marketing 90 (+22 skipped), Student native 23 — PASS |
 | Static gates | Typecheck (7 workspaces), i18n check, docs links (215, 0 broken), source/bundle leak scan (2,045 files), Design Preview gate (bundles on, owner-review state): PASS; security scan 0 unauthorized occurrences (Redis not running here: skipped, not counted). The rendered wording scan (`qa:leak`) needs the development stack with demo sign-ins and was not run. API: no server change in this pass; pytest not re-run |
+| Production (Vercel, 2026-11-22) | Commit `73a277c5` built and served on all four domains (`/build-info.json`). Live review at 320/390/430/768/1440 on the production domains (Marketing public pages; Student, Operations and University signed-in screens in Design Preview): **80 loads, 0 page-level overflow, 0 page errors, Pretendard loaded, no raw transport text** — screens in [`excellence/production/`](qa/launch-final/excellence/production/). **The connected API was down during the check:** the ngrok endpoint behind the four `/api` rewrites answered `ERR_NGROK_3200 — endpoint … is offline`, so `smoke.mjs` reports 24 API failures (every `/api/*` 404 HTML) — [`production-smoke.json`](qa/launch-final/excellence/production/production-smoke.json). With the API down, Marketing discovery serves its snapshot and a sign-in attempt says "지금은 한귤 유니브에 연결할 수 없습니다. 잠시 후 다시 시도해 주세요." |
 | Native | Not run: no `/dev/kvm`, no CPU virtualisation exposed in this WSL VM, no device — an Android emulator cannot start here; iOS needs macOS. Source inspection: safe areas through the shared `Screen` (`useSafeAreaInsets`), keyboard avoidance in the shared `Keyboard`/`Screen`/messages composer and sign-up, pickers as sheets, deep-link scheme `hangyul-student` and the web-checkout return by deep link; no universal links / associated domains configured (iOS external verification) |
 
 ### Exhaustive product-quality pass (2026-11-21)

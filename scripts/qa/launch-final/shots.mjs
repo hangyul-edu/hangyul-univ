@@ -2,7 +2,9 @@
 /**
  * Key-screen capture for design review (Design Preview builds served by serve.mjs).
  *
- *   node scripts/qa/launch-final/shots.mjs --out docs/qa/launch-final/excellence/screens/before [--only student] [--widths 390,1440]
+ *   node scripts/qa/launch-final/shots.mjs --out docs/qa/launch-final/excellence/screens/before [--only student] [--widths 390,1440] [--prod]
+ *
+ * `--prod` captures the four production domains (Design Preview must be enabled there for the signed-in screens).
  *
  * One PNG per screen × width, first viewport only (what a person sees before scrolling) plus `-full` for the
  * whole page at 390. The list is the screens the product-excellence pass is judged on, not every route.
@@ -22,7 +24,10 @@ const FULL = process.argv.includes('--full');
 const off = Number(arg('--port-offset', 0));
 fs.mkdirSync(OUT, { recursive: true });
 
-const BASE = { student: 4101 + off, agency: 4102 + off, university: 4103 + off, marketing: 4100 + off };
+const PROD = process.argv.includes('--prod');
+const BASE = PROD
+  ? { marketing: 'https://univ.talkhangyul.com', student: 'https://app.univ.talkhangyul.com', agency: 'https://admin.univ.talkhangyul.com', university: 'https://partner.univ.talkhangyul.com' }
+  : { student: `http://127.0.0.1:${4101 + off}`, agency: `http://127.0.0.1:${4102 + off}`, university: `http://127.0.0.1:${4103 + off}`, marketing: `http://127.0.0.1:${4100 + off}` };
 export const SCREENS = {
   marketing: [['home', '/'], ['directory', '/universities'], ['university', '/universities/pusan-national-university']],
   student: [
@@ -52,7 +57,7 @@ for (const [app, screens] of Object.entries(SCREENS)) {
     }
     const page = await ctx.newPage();
     for (const [name, route] of screens) {
-      const url = `http://127.0.0.1:${BASE[app]}${route}${route.includes('?') ? '&' : '?'}lang=ko`;
+      const url = `${BASE[app]}${route}${route.includes('?') ? '&' : '?'}lang=ko`;
       await page.goto(url, { waitUntil: 'networkidle' }).catch(() => {});
       await page.waitForTimeout(700);
       const file = path.join(OUT, `${app}-${name}-${width}.png`);

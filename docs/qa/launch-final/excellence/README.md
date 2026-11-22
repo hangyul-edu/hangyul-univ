@@ -16,6 +16,7 @@ interaction latency), `ops-scale.mjs` (Operations against a 1,000-student databa
 | Overlays / body lock | [`results/overlays-student.json`](results/overlays-student.json), `-agency`, `-university` |
 | Student scroll gate (130 checks) | [`results/student-scroll/`](results/student-scroll/scroll-results.json) |
 | Design Preview isolation | [`preview/preview-isolation.json`](preview/preview-isolation.json) |
+| Production (commit `73a277c5`): smoke + live screens | [`production/`](production/production-smoke.json) — the connected API's tunnel was offline during the check |
 
 ## Design scorecard (1–10, after this pass)
 
