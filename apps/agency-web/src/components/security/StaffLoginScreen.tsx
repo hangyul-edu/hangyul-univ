@@ -12,7 +12,7 @@
  */
 import { useAuth } from '@hangyul/auth';
 import { useLocale } from '@hangyul/i18n';
-import { Button, Callout, DesignPreviewLoginEntry, Field, Input, LocaleSelector, Logo, safeNext } from '@hangyul/ui';
+import { Button, Callout, DesignPreviewLoginEntry, Field, Input, LocaleSelector, Logo, PasswordInput, safeNext } from '@hangyul/ui';
 import { useCallback, useEffect, useState, type CSSProperties, type FormEvent, type ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
@@ -92,10 +92,10 @@ export function StaffLoginScreen({ product, title, subtitle, footer, afterLogin 
               <form onSubmit={submit} noValidate className="hg-stack" style={{ '--hg-gap': '14px' } as CSSProperties}>
                 {formError && <Callout tone="danger">{formError}</Callout>}
                 <Field label={t('auth.email')} htmlFor="email" error={errors.email}>
-                  <Input id="email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} invalid={!!errors.email} />
+                  <Input id="email" name="username" type="email" inputMode="email" autoComplete="username" autoCapitalize="none" spellCheck={false} value={email} onChange={(e) => setEmail(e.target.value)} invalid={!!errors.email} />
                 </Field>
                 <Field label={t('auth.password')} htmlFor="password" error={errors.password}>
-                  <Input id="password" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} invalid={!!errors.password} />
+                  <PasswordInput id="password" name="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} invalid={!!errors.password} />
                 </Field>
                 <Button type="submit" variant="primary" size="lg" block loading={busy}>{t('actions.signIn')}</Button>
               </form>

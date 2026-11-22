@@ -115,7 +115,8 @@ export function InstitutionTile({ inst, index }: { inst: InstitutionCard; index?
             <span className="mk-unicard__play" aria-hidden><Play size={14} /></span>
           </>
         ) : photo ? (
-          <UniversityPhoto media={photo} sizes="(min-width: 1400px) 22vw, (min-width: 640px) 32vw, 92vw" alt={t(photo.alt_key, { name: primary })} />
+          // The first row of cards is the LCP area on every width: those load eagerly at high priority, the rest lazily.
+          <UniversityPhoto media={photo} priority={(index ?? 99) < 2} sizes="(min-width: 1400px) 22vw, (min-width: 640px) 32vw, 92vw" alt={t(photo.alt_key, { name: primary })} />
         ) : (
           /* Tiers C/D — the identity composition (V23 §270 D1): the name in the other script, the province mark,
              the mark on a plate where one is licensed. Registry facts only; never an image of a campus. */

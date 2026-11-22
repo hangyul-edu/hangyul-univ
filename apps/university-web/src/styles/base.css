@@ -168,6 +168,8 @@ a.uc-funnel__name:hover { text-decoration: underline; text-decoration-color: var
 @media (min-width: 900px) { .uc-inbox { grid-template-columns: 320px minmax(0, 1fr); } }
 @media (max-width: 899px) { .uc-inbox[data-open='thread'] .uc-inbox__list { display: none; } .uc-inbox[data-open='list'] .uc-inbox__thread { display: none; } }
 .uc-inbox__list ul { list-style: none; margin: 0; padding: 4px; max-block-size: calc(100dvh - 260px); overflow-y: auto; }
+/* Phones: the list is the page (one scroll), not a box inside it — the last conversation was out of reach at 320 px. */
+@media (max-width: 899px) { .uc-inbox__list ul { max-block-size: none; overflow: visible; } }
 .uc-inbox__filter { padding: 8px 10px; color: var(--hg-text-secondary); }
 .uc-conv { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: var(--hg-radius-md); color: var(--hg-text); text-decoration: none !important; }
 .uc-conv:hover { background: var(--hg-surface-hover); }

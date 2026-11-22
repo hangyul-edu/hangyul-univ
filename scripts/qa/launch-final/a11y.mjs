@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Launch-final accessibility sweep: axe-core (WCAG 2.1 A/AA) on every public route and every Design Preview
+ * Launch-final accessibility sweep: axe-core (WCAG 2.0, 2.1 and 2.2 A/AA rules — 2.2 since the product-excellence pass) on every public route and every Design Preview
  * route of the four products, at phone (390) and desktop (1280) widths. Serious/critical violations fail.
  * Also checks, per page: one <h1>, every form control has an accessible name, and — on phone — that
  * interactive controls in <main> are at least 24 px (WCAG 2.5.8) with primary controls at 44 px.
@@ -38,7 +38,7 @@ for (const [app, base] of Object.entries(BASE)) {
         await page.waitForTimeout(400);
         await page.addScriptTag({ path: AXE }).catch(() => {});
         const res = await page.evaluate(async () => {
-          const out = await window.axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'] } });
+          const out = await window.axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'] } });
           const v = out.violations.map((x) => ({ id: x.id, impact: x.impact, n: x.nodes.length, first: x.nodes[0]?.target?.[0], html: x.nodes[0]?.html?.slice(0, 140) }));
           const h1 = document.querySelectorAll('h1').length;
           const tiny = [...document.querySelectorAll('main a[href], main button, main [role=button], main input:not([type=hidden]), main [role=combobox]')]

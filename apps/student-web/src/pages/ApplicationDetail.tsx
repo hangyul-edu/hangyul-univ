@@ -1,5 +1,5 @@
 import { useApi } from '@hangyul/auth';
-import { docLabel, localName, orgName, errorText } from '@hangyul/i18n';
+import { docLabel, localName, errorText } from '@hangyul/i18n';
 import { CalendarClock, Landmark } from '@hangyul/icons';
 import type { ApplicationDetail as Detail, ApplicationStatus, DocumentCategory, DocumentRequest } from '@hangyul/types';
 import {
@@ -126,12 +126,12 @@ function LaneMark({ state }: { state: ItemState }) {
 }
 
 /** The three responsibility lanes ARE the checklist: every requirement once, in its true state. */
-function Lanes({ a, items, counselor, onUpload, heroKey }: { a: Detail; items: WsItem[]; counselor: { name: string | null; org: string | null }; onUpload: Upload; heroKey?: string }) {
+function Lanes({ a, items, onUpload, heroKey }: { a: Detail; items: WsItem[]; onUpload: Upload; heroKey?: string }) {
   const { t } = useT();
   const lanes: { key: Lane; who: React.ReactNode; empty: string }[] = [
     // V25 (REPORT §313 S4): each lane names the work, not only the party — 내가 할 일 · 한귤이 하는 일 · 대학이 확인하는 일.
     { key: 'you', who: t('v25.lane.you'), empty: t('v4.ws.empty.you') },
-    { key: 'team', who: <>{t('v25.lane.team')}{counselor.org && <span className="ws-lane__org">{orgName(counselor.org)}</span>}</>, empty: t('v4.ws.empty.team') },
+    { key: 'team', who: t('v25.lane.team'), empty: t('v4.ws.empty.team') },
     { key: 'university', who: <>{t('v25.lane.university')}<span className="ws-lane__org">{localName(a.university)}</span></>, empty: t('v4.ws.empty.university') },
   ];
   return (
@@ -322,6 +322,8 @@ export default function ApplicationDetail() {
                   {/* V26 (REPORT §334 S8, brief §21): what changed last, so a returning student sees movement without opening the history. */}
                   {a.history.length > 0 && (() => {
                     const last = a.history[a.history.length - 1];
+                    // The status is already the line's first word; "latest change: <the same status>" said it twice.
+                    if (last.to === a.status) return null;
                     return <span className="sa26-latest">{t('v26.app.latest', { stage: t(`stage.${last.to}`, { defaultValue: t(`common:appStatus.${last.to}`) }), when: formatRelative(last.at, locale) })}</span>;
                   })()}
                 </div>
@@ -338,7 +340,7 @@ export default function ApplicationDetail() {
               : a.status === 'READY' && !hero ? <SubmissionHero a={a} counselorName={counselor.name} />
               : <NextStep a={a} item={hero} count={youCount} counselor={counselor} onUpload={onUpload} />}
             {(phase === 'prep' || ['SUBMITTED', 'UNIVERSITY_REVIEW', 'ADDITIONAL_DOCUMENTS', 'INTERVIEW', 'WAITLISTED'].includes(a.status)) && <PackageLine applicationId={a.id} />}
-            <Lanes a={a} items={items} counselor={counselor} onUpload={onUpload} heroKey={a.status === 'OFFERED' ? undefined : hero?.key} />
+            <Lanes a={a} items={items} onUpload={onUpload} heroKey={a.status === 'OFFERED' ? undefined : hero?.key} />
             <StrategyBlock appId={a.id} />
             {a.interview_at && (
               <Callout tone="info" icon={<CalendarClock aria-hidden />} title={t('applicationDetail.interview.title')}>

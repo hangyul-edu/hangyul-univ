@@ -18,7 +18,7 @@ The student dashboard maps this onto 9 journey stages (`EXPLORE, PROFILE, MATCH,
 
 ## Progressive onboarding
 
-7 short steps (origin → goals → education → language → budget & housing → passport & visa history → sponsor & career), autosaved with `PATCH /me/profile`. GPA is normalised transparently: `(value − scale_min) / (scale_max − scale_min) × 100`, stored with the original value and scale so reviewers can audit or override (`gpa_override_note`).
+7 short steps (origin → goals → education → language → budget & housing → passport & visa history → sponsor & career), autosaved with `PATCH /me/profile`. The Student profile presents them as three chapters — **지원 준비** (language, education) · **유학 목표** (goals, budget & housing) · **나에 대해** (basics, passport & visa, sponsor & career) — ordered by how much each changes the matches; each section is still saved on its own and none is required before it is useful. Nationality from sign-up pre-fills the profile and residence (WCAG 3.3.7). GPA is normalised transparently: `(value − scale_min) / (scale_max − scale_min) × 100`, stored with the original value and scale so reviewers can audit or override (`gpa_override_note`).
 
 ## Application state machine
 

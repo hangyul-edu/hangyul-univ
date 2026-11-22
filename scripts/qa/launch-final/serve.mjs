@@ -14,7 +14,9 @@ const ROOT = path.resolve(new URL('../../..', import.meta.url).pathname);
 const args = process.argv.slice(2);
 const apiIdx = args.indexOf('--api');
 const API = apiIdx >= 0 ? args[apiIdx + 1].replace(/\/$/, '') : null;
-const APPS = { marketing: 4100, student: 4101, agency: 4102, university: 4103 };
+const offIdx = args.indexOf('--port-offset');
+const OFF = offIdx >= 0 ? Number(args[offIdx + 1]) : 0;
+const APPS = { marketing: 4100 + OFF, student: 4101 + OFF, agency: 4102 + OFF, university: 4103 + OFF };
 const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.avif': 'image/avif', '.ico': 'image/x-icon', '.woff2': 'font/woff2', '.woff': 'font/woff', '.txt': 'text/plain', '.xml': 'application/xml', '.webmanifest': 'application/manifest+json', '.mp4': 'video/mp4' };
 
 process.on('uncaughtException', (e) => console.log(`ignored: ${e.code ?? e.message}`));

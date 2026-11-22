@@ -25,7 +25,7 @@ import { PIPELINE_STAGES, type AgencySavedView, type AgencyStudentRow, type Agen
 import { Button, DataTable, EmptyState, ErrorState, FilterSelect, StatusText, WorkToolbar, useToast, type ColumnDef } from '@hangyul/ui';
 import { countryName, cx, formatDate, formatNumber, formatRelative, pipelineTone } from '@hangyul/utils';
 import { keepPreviousData, useQueries, useQuery } from '@tanstack/react-query';
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, useTransition, type ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router';
 
 import { errorText, localName } from '@hangyul/i18n';
@@ -37,8 +37,11 @@ import { countByStep, inLane, isLaneKey, LANE_KEYS, laneCounts, matchesFilters, 
 import { reasonText, useTodayQueue, type QueueItem } from '../lib/v8';
 import { FlagMark, useT, useWaitingText, WAITING_PARTIES, WaitingOn } from './bits';
 import { PipelineBoard, type Lane } from './Pipeline';
+import { ShortcutsButton } from './Shortcuts';
 
 export type CaseloadMode = 'today' | 'students';
+
+const STAGES_PREF = 'hg.ops.today.stages';
 
 /** Every URL key the caseload understands. Old links (`?view=`, `?missing=1`, `?stage=NEW_LEAD`) keep resolving. */
 const KEYS = ['stage', 'lane', 'q', 'counselor', 'nationality', 'waiting', 'intake', 'view', 'saved', 'agency', 'degree', 'sla', 'within', 'missing', 'closing', 'sla_risk', 'sort', 'page', 'size'] as const;
@@ -176,7 +179,10 @@ export function Caseload({ mode, bulkActions, saveView }: {
   const [all, setAll] = useState(false);
   const shown = today && !all ? ordered.slice(0, 10) : ordered;
   const total = today && (complete || lane) ? items.length : servedTotal;
-  const rowsLoading = today ? poolQ.isLoading || (!complete && rowsQ.isLoading) : rowsQ.isLoading;
+  // Today's order IS the ranked queue: drawing the rows before it arrives showed them in deadline order and then re-sorted
+  // them under the cursor (scale test, 1,071 students: ~2.5 s later). Today waits for the ranking; a failed ranking
+  // falls back to deadline order rather than blocking the page.
+  const rowsLoading = today ? poolQ.isLoading || (!complete && rowsQ.isLoading) || queue.isLoading : rowsQ.isLoading;
   const rowsError = today && complete ? null : rowsQ.isError ? rowsQ : poolQ.isError && today ? poolQ : null;
 
   // ---- strip counts: the same predicate as the rows, one number per step.
@@ -299,6 +305,21 @@ export function Caseload({ mode, bulkActions, saveView }: {
   };
   const lanes: Lane[] | undefined = today ? LANE_KEYS.map((k) => ({ key: k, count: laneN[k], ...LANE_META[k] })) : undefined;
   const [filtersOpen, setFiltersOpen] = useState(false);
+  /*
+   * Product-excellence pass: Today answers "what must we do now?" with the lanes and the ranked table. The nine-stage
+   * rail answers "where is everyone?" — a Students question — so on Today it stays folded until asked for (remembered
+   * per browser), and opens by itself when a link arrives with a stage selected.
+   */
+  const [stagesOpen, setStagesOpen] = useState(() => { try { return localStorage.getItem(STAGES_PREF) === '1'; } catch { return false; } });
+  const showStages = !today || stagesOpen || !!stageKey;
+  const [, startStages] = useTransition();
+  const toggleStages = () => {
+    const next = !showStages;
+    // The rail and its counts render in a transition: the click paints at once (INP), the rail follows.
+    startStages(() => setStagesOpen(next));
+    try { localStorage.setItem(STAGES_PREF, next ? '1' : '0'); } catch { /* private mode */ }
+    if (!next && stageKey) f.set(stagePatch(null));
+  };
   const activeFilterN = [v.nationality, v.waiting, v.intake, v.view, v.degree].filter(Boolean).length;
   // Above 100 matching students the strip is counted by the server, which does not know the lane: picking a stage (or
   // All) then drops the lane, so the number pressed is still the number of rows shown.
@@ -316,6 +337,16 @@ export function Caseload({ mode, bulkActions, saveView }: {
         onClosed={() => { setAll(false); f.set(stagePatch(stageKey === CLOSED_KEY ? null : CLOSED_KEY)); }}
         toneLabel={{ urgent: t('v8.tier.1'), waiting: t('ops.rail.waiting') }}
         loading={countsLoading || (today && poolQ.isLoading)}
+        railHidden={!showStages}
+        aside={today ? (
+          <span className="ops-lanes__tools">
+            {upcomingN ? <Link to="/tasks?view=deadlines" className="ops-lanes__upcoming">{t('v22.work.upcoming', { count: upcomingN })}</Link> : null}
+            <button type="button" className="ops-stagetoggle" aria-expanded={showStages} aria-controls="ops-rail" onClick={toggleStages}>
+              {showStages ? t('ops.stages.hide') : t('ops.stages.show')}
+            </button>
+            <ShortcutsButton />
+          </span>
+        ) : undefined}
       />
       {/* V25 (REPORT §314 A6): on a phone the filters wait behind one control, so the first student is above the fold. */}
       <div className={cx('ag25-tools', filtersOpen && 'is-open')}>
@@ -324,7 +355,7 @@ export function Caseload({ mode, bulkActions, saveView }: {
         <SlidersHorizontal size={14} aria-hidden />{t('common:actions.filter')}{activeFilterN ? ` · ${formatNumber(activeFilterN, locale)}` : ''}
       </button>}
         meta={today
-          ? (upcomingN ? <Link to="/tasks?view=deadlines">{t('v22.work.upcoming', { count: upcomingN })}</Link> : <span>{t('v22.work.noUpcoming')}</span>)
+          ? null
           : (saveView ? <span className="hg-row" style={{ gap: 4 }}>
             {activeSaved?.can_edit && <DeleteSavedView id={activeSaved.id} name={activeSaved.name} onDeleted={() => f.set({ saved: null })} />}
             <Button size="sm" variant="ghost" icon={<Bookmark />} onClick={() => saveView(toFilters(v as Record<string, string>), sort)}>{t('v22.work.saveView')}</Button>

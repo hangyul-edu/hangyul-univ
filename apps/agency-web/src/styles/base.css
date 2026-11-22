@@ -888,3 +888,10 @@ html[data-surface='console'] .ag-hq-tool > .yx-pagehead { margin-block-end: 0 !i
 @media (min-width: 1024px) { html[data-surface='console'] .ag-hq-tool > .yx-pagehead { margin-block-end: 8px !important; } }
 .ag-cat-health__more summary { cursor: pointer; font-size: var(--hg-text-sm, 14px); }
 .ag-cat-health__more ul { margin: 8px 0 0; padding-inline-start: 18px; display: grid; gap: 4px; overflow-wrap: anywhere; }
+/* WCAG 2.2 · 2.5.8 (axe 2.2 rules, product-excellence pass): the deadline list's title and student links and the Insights
+   "open now" links were 24 px targets pulled together by the shared hit-area rule's negative margin (screens.css), so
+   neighbouring targets overlapped. Here they keep their 24 px box without the negative margin, with space between. */
+main .ag-dl-list .ag-dl-item .hg-grow a, main .ag8-drill li > a { display: inline-flex; align-items: center; min-block-size: 24px; margin-block: 0; padding-block: 2px; line-height: 18px; }
+.ag-dl-item .hg-grow { display: flex; flex-direction: column; gap: 6px; }
+.ag-dl-item .hg-row-wrap { row-gap: 8px; }
+.ag8-drill { display: grid; gap: 6px; }

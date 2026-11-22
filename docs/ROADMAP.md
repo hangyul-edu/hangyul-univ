@@ -51,9 +51,16 @@ the report.
    stack (`e2e/student-ops-message.spec.ts`, real API and builds); not yet run against the owner's database (needs real accounts).
 7. Replace flag emoji in the phone-country picker with the SVG flag set (emoji flags do not render on Windows); move
    remaining single-column grids to `minmax(0, 1fr)`.
-8. Native: build and run all three apps on a device or emulator and review the redesigned screens (not visually verified in the final pass); iOS build.
+8. Native: build and run all three apps on a device or emulator and review the redesigned screens (not visually verified in the final pass); iOS build. The QA machine has no `/dev/kvm` and exposes no CPU virtualisation, so an Android emulator cannot run there: this needs a machine with KVM/HAXM or a real device.
 9. SAML and SCIM for university SSO when a real IdP is connected (OIDC is implemented).
-10. Performance attribution of LCP on a quiet host (lab numbers were taken on a saturated machine).
+10. Performance attribution of LCP on a quiet host (lab numbers were taken on a saturated machine). 2026-11-22 lab: every
+    critical page LCP ≤ 2.5 s except the Marketing home at 1440 (2.46–2.90 s across two runs — the hero headline waits for
+    the client bundle; prerender the home) and the Operations case at 1440 (2.58 s — its conversation loads after the workspace).
+11. Student application as a sectioned workspace (requirements · documents · writing · timeline · messages) instead of one
+    long page; the 2026-11-22 pass removed repetition but kept the single scroll.
+12. Operations at scale: with 1,071 students on one development API process, Today's first ranked row appears in ≈1.2 s but
+    every count settles only after ≈5 s (requests serialise in one Python process). Run the production API with several
+    workers and re-measure (`scripts/qa/launch-final/ops-scale.mjs`); `GET /agency/today/queue` alone is ≈1.05 s.
 
 ## 4. Explicitly not planned
 

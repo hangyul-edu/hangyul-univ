@@ -59,14 +59,25 @@ function DecisionModal({ app, to, onClose, onDecided }: { app: Detail; to: Appli
     onError: (e) => toast.error(errorText(e)),
   });
   const title = t(`university:decision.action.${to}`, { defaultValue: t(`common:appStatus.${to}`) });
+  // Decision safety (product-excellence pass): one submit at a time — the button is busy while the request runs and a
+  // second Enter / click is ignored; the modal names the applicant, the programme and the intake, and an offer or a
+  // rejection made while required evidence is still unverified says so before it is confirmed.
+  const submit = handleSubmit((v) => { if (!m.isPending && !m.isSuccess) m.mutate(v); });
+  const unverified = (app.checklist ?? []).filter((c) => c.required && !c.request_id && !c.ready).length;
+  const final = to === 'OFFERED' || to === 'REJECTED';
   return (
     <Modal open onClose={onClose} title={title}
       description={t('university:decision.confirm', { from: t(`common:appStatus.${app.status}`), to: t(`common:appStatus.${to}`), student: app.student?.full_name ?? '' })}
       footer={<>
         <Button onClick={onClose}>{t('common:actions.cancel')}</Button>
-        <Button variant={actionVariant(to) === 'danger' ? 'danger' : 'primary'} loading={m.isPending} onClick={handleSubmit((v) => m.mutate(v))}>{t('common:actions.confirm')}</Button>
+        <Button variant={actionVariant(to) === 'danger' ? 'danger' : 'primary'} loading={m.isPending} disabled={m.isSuccess} onClick={submit}>{title}</Button>
       </>}>
-      <form className="hg-stack" onSubmit={handleSubmit((v) => m.mutate(v))} noValidate>
+      <form className="hg-stack" onSubmit={submit} noValidate>
+        <dl className="un-decide-id" data-user-content>
+          <div><dt>{t('university:applicants.col.student')}</dt><dd>{app.student?.full_name ?? '—'}</dd></div>
+          <div><dt>{t('university:applicants.col.program')}</dt><dd>{localName(app.program)} · {intakeText(`${app.intake.year}-${app.intake.term}`, t as never)}</dd></div>
+        </dl>
+        {final && unverified > 0 && <Callout tone="warning">{t('university:v34.decide.unverified', { n: unverified })}</Callout>}
         {to === 'INTERVIEW' && (
           <Field label={t('university:decision.interviewAt')} htmlFor="d-int" error={errors.interview_at?.message}>
             <Input id="d-int" type="datetime-local" {...register('interview_at')} invalid={!!errors.interview_at} />

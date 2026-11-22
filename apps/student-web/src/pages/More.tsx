@@ -10,7 +10,7 @@ export default function More() {
   const links = useMoreLinks();
   return (
     <div className="st-page sp-more">
-      <PageIntro title={t('common:nav.journey')} />
+      <PageIntro title={t('more.title')} />
       {/* V11 gates the Korea group on the journey stage (REPORT §76.3), so a group can legitimately be empty —
           render the heading only when it has something under it, never as a title over nothing. */}
       {(['prepare', 'korea', 'account'] as const).map((g) => {

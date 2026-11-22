@@ -48,15 +48,23 @@ function useVT() {
   return useLocale(['visaroute', 'student', 'common']);
 }
 
-/** Mutations return the whole plan; the page swaps it in place. */
+/**
+ * Mutations return the whole plan; the page swaps it in place — **newest request wins**. Opening the official page
+ * records a hand-off in the background; a student who then records the submission at once had two requests in flight,
+ * and when the hand-off's answer (a plan without the submission) arrived last it replaced the newer one: the receipt the
+ * student had just recorded vanished from the screen although the server held it (found by E2E, 1 run in 3). A response
+ * to an older request now only triggers a refetch.
+ */
+let planSeq = 0;
+let planShown = 0;
 function usePlanMutation<A>(fn: (a: A) => Promise<VisaRoutePlan>, ok?: string) {
   const qc = useQueryClient();
   const toast = useToast();
   const { t } = useVT();
   return useMutation({
-    mutationFn: fn,
-    onSuccess: (plan) => {
-      qc.setQueryData(KEY, plan);
+    mutationFn: async (a: A) => { const seq = ++planSeq; return { plan: await fn(a), seq }; },
+    onSuccess: ({ plan, seq }) => {
+      if (seq >= planShown) { planShown = seq; qc.setQueryData(KEY, plan); } else void qc.invalidateQueries({ queryKey: KEY });
       ['visa', 'dashboard', 'tasks', 'documents', 'dossier'].forEach((k) => qc.invalidateQueries({ queryKey: [k], predicate: (q) => q.queryKey.join('/') !== KEY.join('/') }));
       if (ok) toast.success(t(ok));
     },

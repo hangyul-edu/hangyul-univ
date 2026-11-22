@@ -855,6 +855,12 @@ html[data-surface='console'] .ag22-today .page-header-breadcrumb, html[data-surf
 .ops-lanes__label { font-size: var(--hg-text-sm); font-weight: var(--hg-weight-semibold); color: var(--hg-text-secondary); }
 .ops-lanes__list { display: flex; flex-wrap: wrap; gap: var(--hg-space-2); min-inline-size: 0; }
 .ops-lanes__aside { margin-inline-start: auto; font-size: var(--hg-text-sm); }
+.ops-lanes__tools { display: inline-flex; align-items: center; flex-wrap: wrap; gap: var(--hg-space-2) var(--hg-space-4); }
+.ops-lanes__upcoming { color: var(--hg-text); text-decoration: underline; text-decoration-color: var(--hg-border-strong); text-underline-offset: 3px; }
+.ops-stagetoggle { min-block-size: var(--hg-control-height-sm); padding: 0 var(--hg-space-3); border: 0; border-radius: var(--hg-control-radius); background: none; font: inherit; font-size: var(--hg-text-sm); color: var(--hg-text-secondary); cursor: pointer; }
+.ops-stagetoggle:hover { background: var(--hg-surface-hover); color: var(--hg-text); }
+.ops-stagetoggle:focus-visible { outline: none; box-shadow: var(--hg-shadow-focus); }
+@media (max-width: 1023.98px), (pointer: coarse) { .ops-stagetoggle, .ops-lanes__upcoming { min-block-size: 44px; display: inline-flex; align-items: center; } }
 .ops-lane {
   display: inline-flex; align-items: center; gap: var(--hg-space-2); min-block-size: var(--hg-control-height-sm); padding: 0 var(--hg-space-3);
   border: 1px solid var(--hg-border-strong); border-radius: var(--hg-control-radius); background: var(--hg-surface);
@@ -1029,7 +1035,7 @@ html[data-surface='console'] .ag22-today .page-header-breadcrumb, html[data-surf
 .ops-case__status .ag27-progress__line { font-size: var(--hg-text-sm); }
 .ops-case__status .ag27-progress__line strong { font-size: var(--hg-text-lg); }
 /* the case strip: facts on hairlines, no fill — the next action leads and is the largest thing in it */
-.ops-case__status .ag9-strip { display: flex; flex-wrap: wrap; margin: 0; border: 0; border-block-start: 1px solid var(--hg-border-subtle); border-radius: 0; background: none; }
+.ops-case__status .ag9-strip { display: flex; flex-wrap: wrap; margin: 0; min-block-size: 84px; border: 0; border-block-start: 1px solid var(--hg-border-subtle); border-radius: 0; background: none; }
 .ops-case__status .ag9-strip__cell { flex: 1 1 0; min-inline-size: 150px; padding: var(--hg-space-3) var(--hg-space-4) 0; border: 0; border-inline-start: 1px solid var(--hg-border-subtle); }
 .ops-case__status .ag9-strip__cell[data-k='next'] { order: -2; flex: 1.7 1 0; min-inline-size: 240px; padding-inline-start: 0; border-inline-start: 0; }
 .ops-case__status .ag9-strip__cell[data-k='waiting'] { order: -1; }
@@ -1038,8 +1044,13 @@ html[data-surface='console'] .ag22-today .page-header-breadcrumb, html[data-surf
 .ops-case__status .ag9-strip dd { margin-block-start: 2px; font-size: var(--hg-text-base); font-weight: var(--hg-weight-semibold); line-height: 1.4; }
 .ops-case__status .ag9-strip__cell[data-k='next'] dd { font-size: var(--hg-text-xl); line-height: 1.3; letter-spacing: -0.005em; }
 @media (max-width: 767.98px) {
-  .ops-case__status .ag9-strip__cell { flex: 1 1 100%; padding-inline: 0; border-inline-start: 0; }
-  .ops-case__status .ag9-strip__cell + .ops-case__status .ag9-strip__cell, .ops-case__status .ag9-strip__cell:not([data-k='next']) { border-block-start: 1px solid var(--hg-border-subtle); margin-block-start: var(--hg-space-3); }
+  /* Product-excellence pass: the case context is two columns on a phone (next action and "why it is stuck" across the
+     full width), so the work starts on the first screen instead of after six stacked rows. */
+  .ops-case__status .ag9-strip { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--hg-space-3) var(--hg-space-4); padding-block-start: var(--hg-space-3); }
+  .ops-case__status .ag9-strip__cell { min-inline-size: 0; padding: 0; border: 0; }
+  .ops-case__status .ag9-strip__cell[data-k='next'], .ops-case__status .ag9-strip__cell[data-k='why'] { grid-column: 1 / -1; min-inline-size: 0; }
+  .ops-case__status .ag9-strip__cell[data-k='next'] dd { font-size: var(--hg-text-lg); }
+  .ops-case__status .ag9-strip:has(> .hg-skeleton) { min-block-size: 240px; }
   .ops-case__id { flex-basis: 100%; gap: var(--hg-space-3); }
   .ops-case__actions { inline-size: 100%; display: flex; flex-wrap: nowrap; gap: var(--hg-space-2); padding: 0; }
   .ops-case__actions .btn:not(.btn-icon) { flex: 1 1 0; min-inline-size: 0; white-space: nowrap; }

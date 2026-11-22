@@ -88,6 +88,9 @@ export function ProgramRow({ program, match, grouped = false, hideVerdict = fals
             {/* V9 S5: the scholarship is on the row, not behind "Why". */}
             {match && match.scholarship_ids.length > 0 && <span className="v9-row__schol"><Award aria-hidden /> {t('v9.discovery.scholarship', { count: match.scholarship_ids.length })}</span>}
           </p>
+          {/* Product-excellence pass: why this programme is listed, on the row — the published requirements the student
+              already meets (✓) and what still needs a check (△). The full reasons stay under "Why". Never a probability. */}
+          {match && !gap && <Checks reasons={reasons} />}
           {gap && !(quietDegree && otherLevel) && (
             <p className="v4-row__gap">
               <strong>{gap.gap}</strong>{gap.more > 0 ? ` ${t('v4.gap.more', { count: gap.more })}` : ''}
@@ -123,6 +126,23 @@ export function ProgramRow({ program, match, grouped = false, hideVerdict = fals
         </div>
       )}
     </article>
+  );
+}
+
+const REQUIREMENT_MET = new Set(['EDUCATION_MET', 'EDUCATION_EXPECTED', 'GPA_MET', 'TOPIK_MET', 'TOPIK_EXCEEDS', 'ENGLISH_MET']);
+const TO_CHECK = new Set(['LANGUAGE_NOT_PUBLISHED', 'GPA_UNKNOWN', 'EDUCATION_UNKNOWN', 'SLIGHTLY_OVER_BUDGET', 'DEADLINE_SOON', 'DEADLINE_VERY_SOON']);
+
+/** Up to three published requirements met, then at most one thing to check. */
+function Checks({ reasons }: { reasons: MatchReason[] }) {
+  const { t } = useT();
+  const met = reasons.filter((r) => r.kind === 'met' && REQUIREMENT_MET.has(r.code)).slice(0, 3);
+  const check = reasons.find((r) => (r.kind === 'warning' || r.kind === 'missing' || r.kind === 'info') && TO_CHECK.has(r.code));
+  if (!met.length && !check) return null;
+  return (
+    <ul className="v34-checks">
+      {met.map((r) => <li key={r.code} data-kind="met"><span aria-hidden>✓</span><span className="hg-sr-only">{t('matches.reasonKind.met')}: </span>{reasonText(t, r)}</li>)}
+      {check && <li data-kind="check"><span aria-hidden>△</span><span className="hg-sr-only">{t(`matches.reasonKind.${check.kind}`)}: </span>{reasonText(t, check)}</li>}
+    </ul>
   );
 }
 

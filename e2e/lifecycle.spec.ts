@@ -154,6 +154,8 @@ test('7–10 documents are uploaded and reviewed; essay is reviewed with a sugge
   await page.goto(`${URLS.student}/documents`);
   // Owner 261119 document manager: the documents the team verified show as verified in their category band (and are reused
   // by every application that needs them — the row says which).
+  // Product-excellence pass: Documents opens on the to-do view; verified documents are under "Done".
+  await page.locator('.dg-views button').filter({ hasText: /^Done/ }).click();
   await expect(page.getByText(/^Verified$/).locator('visible=true').first()).toBeVisible();
 });
 

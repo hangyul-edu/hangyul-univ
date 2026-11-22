@@ -13,6 +13,7 @@ import { UploadOnBehalf } from '../components/UploadOnBehalf';
 import { DocumentReviewPanel } from '../components/DocumentReviewPanel';
 import { YAvatar } from '../components/ynex';
 import { useHotkeys, useTeam } from '../lib/hooks';
+import { ShortcutsButton } from '../components/Shortcuts';
 import { waitLabel } from '../lib/logic';
 
 type Assigned = 'any' | 'me' | 'unassigned';
@@ -172,6 +173,7 @@ export default function DocumentQueue({ embedded }: { embedded?: boolean } = {})
                 <div className="d-flex align-items-center gap-2 ag7-review__nav">
                   <Button className="ag7-back" size="sm" variant="ghost" icon={<ChevronLeft className="hg-flip-rtl" />} onClick={() => select(null)}>{t('docs.backToQueue')}</Button>
                   <span className="badge bg-light text-muted">{idx >= 0 ? t('docs.position', { n: idx + 1, total: items.length }) : t('docs.notInQueue')}</span>
+                  <ShortcutsButton />
                 </div>
               } onDecided={() => {
                 const next = items[idx + 1] ?? items[idx - 1];

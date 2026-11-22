@@ -3,7 +3,10 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useDashboard() {
   const api = useApi();
-  return useQuery({ queryKey: ['dashboard'], queryFn: () => api.me.dashboard() });
+  // Failure conditions (product-excellence pass): the shell reads the dashboard for its menu before the plan gate opens
+  // Home. With a stalled API that request timed out after 20 s, then Home mounted and the failed query started a second
+  // 20 s wait (≈42 s of skeleton). A failed dashboard now shows Home's error state with Retry at once.
+  return useQuery({ queryKey: ['dashboard'], queryFn: () => api.me.dashboard(), retryOnMount: false });
 }
 
 export function useProfile() {

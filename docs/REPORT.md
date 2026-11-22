@@ -1,6 +1,6 @@
 # Hangyul Univ — Launch Report
 
-> **Current as of 2026-11-21, exhaustive product-quality pass** (on top of owner pass 261119, `docs/owner/개선사항_261119.pdf`). Earlier baselines: owner pass `1a02e262`, final product pass `1e2fba85`, launch pass `e3f0e0f4`. Evidence: [`qa/launch-final/exhaustive/`](qa/launch-final/exhaustive/). This is the current-state launch report. It replaces the
+> **Current as of 2026-11-22, product-excellence pass** (on top of the exhaustive pass `94641a8d` and owner pass 261119, `docs/owner/개선사항_261119.pdf`). Earlier baselines: owner pass `1a02e262`, final product pass `1e2fba85`, launch pass `e3f0e0f4`. Evidence: [`qa/launch-final/excellence/`](qa/launch-final/excellence/README.md) and [`qa/launch-final/exhaustive/`](qa/launch-final/exhaustive/). This is the current-state launch report. It replaces the
 > 20,000-line version-by-version record (V1–V32), which remains in git history
 > (`git log -- docs/REPORT.md`; last full version at commit `fd2f4ba7`). Everything in this file is meant to be true
 > today; when something changes, edit the statement instead of appending a dated section.
@@ -159,6 +159,38 @@ Public rule: a public surface renders only what can be verified; unverified fiel
 
 ## 5. Current UI/UX state
 
+**Product-excellence pass (2026-11-22).** The question was "should the user need to see this at all?". Nothing was
+added for its own sake; six screens lost or folded secondary content and the rest of the changes remove repetition.
+Task map and before/after counts: [`qa/launch-final/excellence/TASKS.md`](qa/launch-final/excellence/TASKS.md).
+
+- **Student home** leads with the next action: the six-stage journey is one line (six segments, "6단계 중 2단계 · 준비",
+  "전체 여정 보기"), so the action panel starts at y=243 px at 390 (was ≈340) and its button is above the fold; documents
+  that need *changing* keep their own rows, documents not uploaded yet are one line; the team card no longer says the
+  team's name twice. The fifth tab is "더보기" on every width (it was "내 여정" on phones, "더보기" on desktop).
+- **Documents** open on **해야 할 일 N** (검토 중 · 완료 · 전체 one tap away): 3,493 → 2,590 px at 390, only the items that
+  need the student.
+- **Match** rows say why on the row: up to three published requirements met (✓) and one thing to check (△) — no click,
+  no probability.
+- **Messages** read as a conversation: date lines, runs of consecutive messages with one name and mark, clock times,
+  quiet bubbles; a message that carries a document or created a task links to it; the thread links to its application.
+- **Application** says its status once; no "나" owner label; no internal organisation name in the team lane.
+- **Profile** reads as three chapters — 지원 준비 · 유학 목표 · 나에 대해 — over the same seven sections.
+- **Team identity:** the "who can see my documents" panel named a staff member and the organisation ("{{org}}의 담당
+  상담사 {{name}}"); it now names the Hangyul team. Stale Korean and Burmese plural forms that still said "상담사" were removed.
+- **Operations Today** is a work queue: lanes (act now · our turn · waiting on student / university) and "14일 내 마감"
+  first; the eleven-cell stage matrix is "단계별 보기" (remembered per browser). The ranked order is drawn once (at 1,071
+  students the table used to re-sort under the cursor ~2.5 s after first paint). Keyboard shortcuts are discoverable
+  ("키보드 단축키 ?", `?` anywhere). The case header is two columns on a phone and no longer shifts (CLS 0.18 → 0.001).
+- **University home** is a review inbox (결정 필요 · 보완 서류 · 새로 접수 · 다가오는 일정); outcome rates, source
+  countries and the monthly trend live on 통계 only. The first applicant rows are above the fold at 1440. Decisions name
+  the applicant, programme and intake, warn when required evidence is unverified, label the button with the decision
+  and ignore a second submit.
+- **Trust under failure:** a stalled API now ends in an error with Retry at the 20 s deadline on the Student home (was ≈42 s
+  of skeleton); University Retry brings back the whole page; a recorded visa receipt can no longer be overwritten on
+  screen by an older background response.
+- **WCAG 2.2:** focus is never hidden under sticky bars (global focus keeper; the consoles' skip link rendered under the
+  header and now sits above it); login identifiers are `username` with a show/hide password toggle on all three logins.
+
 **Exhaustive product-quality pass (2026-11-21).** Every route of the four web products was rendered from the code's own
 route inventory (Design Preview for signed-in screens; real builds; real API for end-to-end), screenshots were opened and
 read, and 29 product defects were found and fixed (full list with root causes:
@@ -314,6 +346,31 @@ V32 measured 9,126 active keys of 13,556; 3,668 customer-critical; 48,606 string
 locales' console namespaces are 17–35 % complete).
 
 ## 8. Final launch QA
+
+### Product-excellence pass (2026-11-22)
+
+Evidence: [`qa/launch-final/excellence/`](qa/launch-final/excellence/README.md) (task map and counts, scorecard, screens,
+JSON results, human translation queue). Signed-in screens in Design Preview on the production builds; scale and failure
+conditions against the real API.
+
+| Area | Result |
+|---|---|
+| Task efficiency | 11 representative tasks walked before/after ([`TASKS.md`](qa/launch-final/excellence/TASKS.md)): match reasons 1 click → 0; team message → its document ≥ 3 clicks → 1; Student next action panel y≈340 → 243 px at 390; Documents 3,493 → 2,590 px opening on the 5 to-do items; University's first applicant rows above the fold at 1440 |
+| WCAG 2.2 (`wcag22.mjs`) | **2.4.11 Focus Not Obscured:** 42 screens × 390/1440, 2,520 real Tab / Shift+Tab presses, **0 obscured** (first run: 22 — the consoles' skip link under the header, controls under sticky bars; fixed by a global focus keeper and a fixed skip link). **3.3.8** 5/5 auth forms (username / current-password / new-password / one-time-code, no paste block, no puzzle). **2.5.7** every drop zone has a picker button; no draggable lists. **3.2.6** help (Messages, 더보기) in the same place on every Student route. **3.3.7** sign-up data reused (nationality → profile and residence; name/e-mail never asked again) |
+| axe (WCAG 2.0/2.1/**2.2** A/AA, 390 + 1280) | **260 scans, 0 serious/critical** — the new 2.2 rules first found `target-size` on 3 Operations pages (deadline list, Insights links overlapping by the shared hit-area rule's negative margin): fixed |
+| Rendered audit (`audit.mjs`, all four products, 320/390/768/1440) | 520 pages: no new finding; every listed item is in the reviewed categories (chat panes, URL-opened drawers, HQ readiness variable names, the HQ picker list) — the University message *list* scrolled inside a box at 320 px and is now the page on phones |
+| Overlays / body lock | Student 70 route runs, Operations 104, University 54: **0 problems** |
+| Responsive (12 widths 320–1920) | **1,560 loads, 0 page-level overflow** |
+| Language leak | **0 leaks on 415 pages** (21 new strings × 21 Student locales) |
+| Design Preview isolation (strict) | 3 apps, **0 failures** |
+| Core Web Vitals (lab, 4× CPU, cold, median of 3; final builds) | LCP (390 / 1440): Marketing home 2.48 / **2.90** s (2.36 / 2.46 in the previous run — the hero headline waits for the client bundle), directory 2.24 / 2.14, university 2.31 / 2.34; Student home 1.62 / 1.68, Match 1.36 / 1.34, application 1.75 / 1.70, documents 1.40 / 1.96, thread 1.57 / 1.70; Operations Today 1.39 / 1.47, review 1.16 / 2.08, case 1.90 / **2.58**; University home 2.32 / 2.50, review 1.88 / 1.91 s. Two rows over 2.5 s. **CLS ≤ 0.06 everywhere** (University home 0.68 → 0.012 at 390, Operations case 0.18 → 0.001). Scripted interactions **≤ 200 ms** (Today stage view 264 → 200 ms at 1440; Match 112 ms; message typing 104 ms). Before (exhaustive pass, same method): LCP 1.4–3.3 s, University overview 3.26 s at 390 — [`results/vitals.json`](qa/launch-final/excellence/results/vitals.json) |
+| Operations at scale (`ops-scale.mjs`; real API, isolated DB: 1,071 students, 3,722 tasks, 1,011 University applications; dropped afterwards) | Today first ranked row **1.18 s**; lane filter 85 ms; stage view 165 ms; Students first row 1.28 s; search 0.71 s; sort 78 ms; next page 94 ms; open a row → case 1.04 s; deadline-7 view 1.44 s. Every count settles in ≈5–6 s on one development API process (`GET /agency/today/queue` ≈1.05 s alone) — production needs several workers ([ROADMAP](ROADMAP.md) §3) |
+| Failure conditions (`e2e/failure-conditions.spec.ts`, real API) | Student home / documents / applications, Operations Today, University home × slow 1 s, slow 3 s, offline, 500: no raw transport text, no blank page, Retry recovers; a stalled request becomes an error with Retry; an expired session returns to sign-in — **7/7**. Fixed on the way: the Student home waited ≈42 s on a stalled API (the plan gate re-mounted a failed dashboard query for a second 20 s wait) and now errors at the 20 s client deadline; the University home's Retry now refetches everything that failed with the table, and an unreadable programme list shows the next date as unknown instead of "no dates set" |
+| End-to-end, isolated real stack | **62/62** (critical + journeys + failure conditions; final run on the final code). A race found by repetition: on the Student visa page, opening the official site records a hand-off in the background; recording the receipt right after could be overwritten on screen by the older hand-off response (1 run in 3). Plan updates are now newest-request-wins; 6/6 consecutive passes after the fix |
+| Student scroll gate | **130/130** |
+| Unit tests | Student 195, Operations 64, University 72, Marketing 90 (+22 skipped), Student native 23 — PASS |
+| Static gates | Typecheck (7 workspaces), i18n check, docs links (215, 0 broken), source/bundle leak scan (2,045 files), Design Preview gate (bundles on, owner-review state): PASS; security scan 0 unauthorized occurrences (Redis not running here: skipped, not counted). The rendered wording scan (`qa:leak`) needs the development stack with demo sign-ins and was not run. API: no server change in this pass; pytest not re-run |
+| Native | Not run: no `/dev/kvm`, no CPU virtualisation exposed in this WSL VM, no device — an Android emulator cannot start here; iOS needs macOS. Source inspection: safe areas through the shared `Screen` (`useSafeAreaInsets`), keyboard avoidance in the shared `Keyboard`/`Screen`/messages composer and sign-up, pickers as sheets, deep-link scheme `hangyul-student` and the web-checkout return by deep link; no universal links / associated domains configured (iOS external verification) |
 
 ### Exhaustive product-quality pass (2026-11-21)
 
@@ -493,5 +550,6 @@ One line per pass; detail is in git history (`git log`, and earlier versions of 
 | post-V32 | 2026-11-18 | Twilio SDK declared; production copy for verification e-mail and SMS (`47c8fec5`, `fd2f4ba7`) |
 | Final product pass | 2026-11-19 | Billing-key-only payments (registration → sealed key → one charge; old rails removed), payment methods UI, Operations refunds; shared design foundation de-greyed; Student, Operations, University and university detail redesigned |
 | Owner pass 261119 | 2026-11-20 | `유학 준비` → login → payment → `/match`; Quick Fit retired; no auth-form flash; one DB catalogue with self-bootstrap and Monday 09:00 KST refresh (469 official-guide programmes); drag & drop on every web uploader; scroll root causes fixed; Saramin-model document manager; 0 English leaks in 20 locales; HQ/University preview fixes; API suite fully green |
+| Product-excellence pass | 2026-11-22 | Smaller-feeling product: Student journey folded under one next action, Documents open on to-do, match reasons on the row, messages as a conversation with deep links, profile in three chapters; Operations Today as a work queue with shortcut discovery; University home as a review inbox and safer decisions; WCAG 2.2 gate (focus not obscured, auth, target size) and Core Web Vitals / scale / failure-condition tests |
 | Exhaustive pass | 2026-11-21 | Rendered audit of every route (scroll oracle, overlays, touch targets, 12 px floor); 29 defects fixed: one language per screen, team identity in 21 locales, failed sends keep attachments, localized errors (75 sites), phone targets and type floor, Korean word wrapping; student → Operations message proven end to end; 14 stale E2E tests (12 spec files) brought to the owner flows |
 | Launch pass (`e3f0e0f4`) | 2026-11-18 | Shared gutter/container tokens and control states; sign-up verification and footer rebuilt; 25 visual defects fixed; Design Preview mode; direct-operation copy in every locale; docs consolidated to 19 root files; historical QA output removed; this report rewritten |

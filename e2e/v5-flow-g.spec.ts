@@ -42,6 +42,8 @@ test('Today carries application, writing and service work in one queue; counts m
   await page.goto(URLS.agency);
   // V22: Today is the process strip + ONE work table. Every stage count equals the rows the table shows when that
   // stage is selected (REPORT §249 G1, §260) — checked here for every stage with a non-zero count.
+  // Product-excellence pass: the stage rail is folded on Today until asked for.
+  await page.locator('.ops-stagetoggle').click();
   const strip = page.locator('.ops-rail__stages');   // All / Closed sit outside the stage list; stages only
   await expect(strip).toBeVisible();
   const table = page.locator('[data-work-total]');

@@ -29,8 +29,9 @@ function ItemRow({ it }: { it: StrategyItem }) {
         <span className="sx-item__title">{itemTitle(t, locale, it)}</span>
         {why && <span className="sx-item__why" data-user-content={QUOTED_WHY.has(it.code) ? true : undefined}>{why}</span>}
         <span className="sx-item__meta">
-          <span className="hg-subtle">{t(`success:owner.${it.owner}`)}</span>
-          {it.action?.link && <> · <Link to={it.action.link} className="hg-link">{t(`success:action.${it.action.code}`, { defaultValue: it.action.label })}</Link></>}
+          {/* "나" alone under a sentence addressed to the student said nothing; only another party is named. */}
+          {it.owner !== 'student' && <span className="hg-subtle">{t(`success:owner.${it.owner}`)}</span>}
+          {it.action?.link && <>{it.owner !== 'student' && ' · '}<Link to={it.action.link} className="hg-link">{t(`success:action.${it.action.code}`, { defaultValue: it.action.label })}</Link></>}
         </span>
       </span>
     </li>

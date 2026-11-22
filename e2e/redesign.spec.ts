@@ -12,6 +12,8 @@ import { API, apiLogin, uiLogin, URLS, chooseOption } from './helpers';
 test('student: home, discovery with verdicts, compare, documents and visa', async ({ page }) => {
   await uiLogin(page, 'student', 'student@demo.hangyul.kr');
   await expect(page.getByRole('heading', { name: 'Your next step', exact: false }).or(page.getByText('Your next step'))).toBeVisible();
+  // Product-excellence pass: the journey is one line under the greeting; the six stages open on request.
+  await page.locator('.v34-journey__toggle').click();
   await expect(page.getByRole('list', { name: /journey|progress/i })).toBeVisible();
 
   await page.getByRole('link', { name: 'Universities' }).first().click();
@@ -45,7 +47,8 @@ test('student: home, discovery with verdicts, compare, documents and visa', asyn
 
 test('agency: Today, saved views and the review queue', async ({ page }) => {
   await uiLogin(page, 'agency', 'manager@lotus.demo.hangyul.kr');
-  // V22/V31: Today is the pipeline rail + work table; a stage click filters the table and the counts agree.
+  // V22/V31: Today is the work lanes + work table; the stage rail opens on request (product-excellence pass).
+  await page.locator('.ops-stagetoggle').click();
   await expect(page.locator('.ops-rail__stages')).toBeVisible();
   await expect(page.locator('[data-work-total]')).toBeVisible();
   await page.getByRole('link', { name: 'Students', exact: true }).first().click();

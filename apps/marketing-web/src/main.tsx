@@ -14,6 +14,17 @@ import { RouterProvider } from 'react-router';
 
 import { router } from './router';
 
+// Performance (product-excellence pass): start the first screen's route chunk while i18n boots. Without this the
+// chunk was requested only after boot finished and the router resolved the lazy route — one more round trip in front
+// of the LCP element (the home hero headline, a directory or campus photo). The router's lazy import then resolves
+// from the module cache.
+{
+  const path = window.location.pathname.replace(/\/+$/, '') || '/';
+  if (path === '/') void import('./pages/Home');
+  else if (path === '/universities') void import('./pages/Universities');
+  else if (path.startsWith('/universities/')) void import('./pages/UniversityDetail');
+}
+
 // Public site: no login required anywhere. Auth providers are still mounted so shared components work.
 bootWebApp({ client: 'marketing', namespaces: ['marketing'] }).then(({ api, queryClient }) => {
   createRoot(document.getElementById('root')!).render(

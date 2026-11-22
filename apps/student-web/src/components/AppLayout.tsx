@@ -130,7 +130,7 @@ function Shell() {
    * It is a tab rather than a sheet because the destination already exists: `/more` is a real page with the
    * links grouped by journey, and making it a tab costs one slot and removes one control from the header.
    */
-  const tabs: NavItem[] = [...links, { to: '/more', label: t('common:nav.journey'), icon: <Menu /> }];
+  const tabs: NavItem[] = [...links, { to: '/more', label: t('more.title'), icon: <Menu /> }];
   return (
     <CompareProvider>
       <StudentShell links={links} tabs={tabs} right={<MoreMenu />}>

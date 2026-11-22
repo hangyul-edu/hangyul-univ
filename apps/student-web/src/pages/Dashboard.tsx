@@ -1,6 +1,6 @@
 import { docLabel, localizedTitle, localName } from '@hangyul/i18n';
 import { useApi, useAuth } from '@hangyul/auth';
-import { ArrowRight, Check, ChevronRight, MessageCircle, Plane } from '@hangyul/icons';
+import { ArrowRight, Check, ChevronDown, ChevronRight, MessageCircle, Plane } from '@hangyul/icons';
 import type { Dashboard as DashboardData } from '@hangyul/types';
 import {
   ButtonLink, ListRow, QueryState, Section, Skeleton, StatusText, UniMark,
@@ -440,23 +440,36 @@ function Applications({ d }: { d: DashboardData }) {
   );
 }
 
-/** Documents that need the student: the missing/fix items the API already lists, plus dossier nudges. */
+/**
+ * Documents that need the student. Product-excellence pass: a document that needs *changing* (fix, apostille, renew,
+ * re-issue) is the one that surprises a student, so each gets its own row; documents simply not uploaded yet are one
+ * line ("3 documents still to upload") — they are already named under the application they belong to and in Coming up,
+ * and listing them a third time made the home a list of lists. Dossier nudges keep their own rows.
+ */
 function Documents({ d }: { d: DashboardData }) {
   const { t, locale } = useT();
   const docs = d.missing_documents.filter((m) => !m.ready);
+  const change = docs.filter((m) => m.action_code && !['UPLOAD', 'IN_REVIEW', 'OPEN'].includes(m.action_code));
+  const toUpload = docs.filter((m) => !change.includes(m) && (!m.action_code || m.action_code === 'UPLOAD'));
   const nudges = d.dossier ?? [];
-  if (docs.length === 0 && nudges.length === 0) return null;
+  if (change.length === 0 && toUpload.length === 0 && nudges.length === 0) return null;
   return (
     <Section title={t('home.documents')} id="documents" className="v22-main" sub={docs.length > 0 ? t('home.documentsSub', { count: docs.length }) : undefined}
       action={<Link to="/documents" className="hg-link-arrow">{t('common:actions.viewAll')}</Link>}>
       <ul className="v22-rows">
-        {docs.slice(0, 5).map((m) => (
+        {change.slice(0, 4).map((m) => (
           <li key={`${m.requirement_id}-${m.application_id ?? ''}`}>
             <ListRow as={Link} to={m.document_id ? `/documents?doc=${m.document_id}` : '/documents'} chevron title={docLabel(t, m, locale)}
-              meta={[appOf(d, m.application_id) ? localName(appOf(d, m.application_id)!.university) : m.university, m.action_code ? t(`home.docAction.${m.action_code}`, { defaultValue: m.action ?? '' }) : m.action].filter(Boolean).join(' · ')}
+              meta={[appOf(d, m.application_id) ? localName(appOf(d, m.application_id)!.university) : m.university, t(`home.docAction.${m.action_code}`, { defaultValue: m.action ?? '' })].filter(Boolean).join(' · ')}
               end={m.due_date ? <DaysLeft date={m.due_date} /> : undefined} />
           </li>
         ))}
+        {toUpload.length > 0 && (
+          <li key="to-upload">
+            <ListRow as={Link} to="/documents" chevron title={t('v34.home.toUpload', { n: toUpload.length })}
+              meta={toUpload.slice(0, 3).map((m) => docLabel(t, m, locale)).join(listComma(locale)) + (toUpload.length > 3 ? '…' : '')} />
+          </li>
+        )}
         {nudges.map((n) => (
           <li key={n.code}><ListRow as={Link} to={n.link} chevron title={nudgeTitle(t, locale, n)} /></li>
         ))}
@@ -510,12 +523,11 @@ function Team({ d }: { d: DashboardData }) {
       <div className="sh-person">
         <TeamAvatar size={40} />
         <div className="hg-grow" style={{ minWidth: 0 }}>
-          <div className="hg-medium">{t('messages.team')}</div>
+          {/* The section title already names the team; saying it again beside the mark was the same words twice. The line
+              says how long they have been on the case. The internal organisation behind the team is never shown. */}
           {d.counselor
-            // The section is already titled with the team's name; the line under it says how long they have been on the
-            // case. The internal organisation behind the team is never shown to a student.
-            ? <div className="hg-small hg-subtle hg-truncate">{t('dashboard.counselor.since', { when: formatDate(d.counselor.since, locale) })}</div>
-            : <div className="hg-small hg-subtle">{t('dashboard.counselor.noneText')}</div>}
+            ? <div className="hg-small hg-muted">{t('dashboard.counselor.since', { when: formatDate(d.counselor.since, locale) })}</div>
+            : <div className="hg-small hg-muted">{t('dashboard.counselor.noneText')}</div>}
         </div>
       </div>
       {next && <p className="hg-small">{t('dashboard.counselor.nextCall', { when: formatDateTime(next.starts_at, locale) })}</p>}
@@ -543,63 +555,79 @@ function HomeSkeleton() {
 }
 
 /**
- * The six-stage journey (REPORT §248 S1): `StageStrip` in journey mode — done = quiet check, current = tangerine,
- * upcoming = neutral. Tapping a done or current stage opens its short summary beneath the strip; upcoming stages
- * are not clickable. Exactly one stage carries `aria-current`.
+ * The journey, folded (product-excellence pass 2026-11-22). The six-stage strip used to sit above the next action and
+ * took ~150 px of a phone's first screen to say "you are at stage 2". Folded, it is one line — six short segments, the
+ * stage number and its name — and the next action is the first thing under the greeting. "전체 여정 보기" opens the
+ * full strip and the stage summary in place (done and current stages explain themselves; future ones are not
+ * interactive). Exactly one stage carries `aria-current` when open.
  */
 function Journey({ d }: { d: DashboardData }) {
   const { t } = useT();
   const phases = journeyPhases(d.journey.stage);
   const current = phaseOfStage(d.journey.stage);
+  const [expanded, setExpanded] = useState(false);
   const [open, setOpen] = useState<Phase | null>(null);
   const wrap = useRef<HTMLDivElement>(null);
+  const bodyId = 'journey-body';
   // Phones: the strip scrolls sideways — start with the current stage in view, not three ticked ones.
   useLayoutEffect(() => {
+    if (!expanded) return;
     const strip = wrap.current?.querySelector<HTMLElement>('.v25-line');
     const el = strip?.querySelector<HTMLElement>('.is-current');
     if (strip && el && strip.scrollWidth > strip.clientWidth) {
       strip.scrollLeft += el.getBoundingClientRect().left - strip.getBoundingClientRect().left - 16;
     }
-  }, [current]);
+  }, [current, expanded]);
   const idx = PHASES.indexOf(open ?? current);
+  const curIdx = PHASES.indexOf(current);
   const state = open ? phases[idx].state : 'current';
   const summary = state === 'current' && (d.concierge?.stage === 'ARRIVED' || d.concierge?.stage === 'SETTLED')
     ? t(`v5.home.phaseText.${d.concierge.stage}`) : t(`phase.${open ?? current}.text`);
   return (
-    <section className="v22-journey v25-journey" aria-labelledby="journey-title" ref={wrap}>
+    <section className="v22-journey v25-journey v34-journey" aria-labelledby="journey-title" ref={wrap} data-expanded={expanded || undefined}>
       <h2 id="journey-title" className="hg-sr-only">{t('dashboard.journey.title')}</h2>
-      {/* V25 (REPORT §313 S2): progression, not navigation chrome — one line, six nodes. Done = a quiet ink check,
-          current = the tangerine node and the only bold label, future = a grey ring. Done and current stages open their
-          one-line summary below; future stages are not interactive. */}
-      <ol className="v25-line" aria-label={t('dashboard.journey.title')}>
-        {phases.map((p, i) => {
-          const label = t(`phase.${p.key}.label`);
-          const inner = (
-            <>
-              <span className="v25-line__node" aria-hidden>{p.state === 'done' ? <Check size={12} strokeWidth={3} /> : null}</span>
-              <span className="v25-line__label">{label}</span>
-            </>
-          );
-          return (
-            <li key={p.key} className={`v25-line__step is-${p.state}${open === p.key ? ' is-open' : ''}`} style={{ ['--i' as string]: i }}>
-              {p.state === 'todo' ? <span className="v25-line__btn">{inner}</span> : (
-                <button type="button" className="v25-line__btn" aria-current={p.state === 'current' ? 'step' : undefined} aria-pressed={open === p.key}
-                  onClick={() => setOpen(open === p.key ? null : p.key)}>{inner}</button>
-              )}
-            </li>
-          );
-        })}
-      </ol>
-      <div className="v22-journey__summary" data-state={state} aria-live="polite">
-        <div className="v22-journey__eyebrow">
-          <span className="hg-num">{t('v22.journey.stageOf', { n: idx + 1, total: PHASES.length })}</span>
-          <span aria-hidden>·</span>
-          <span>{t(`phase.${open ?? current}.label`)}</span>
-          <span aria-hidden>·</span>
-          <span className="v22-journey__state">{state === 'current' ? t('phase.youAreHere') : t(`phase.state.${state}`)}</span>
+      <button type="button" className="v34-journey__toggle" aria-expanded={expanded} aria-controls={bodyId} onClick={() => { setExpanded(!expanded); setOpen(null); }}>
+        <span className="v34-journey__bar" aria-hidden>
+          {phases.map((p) => <i key={p.key} data-state={p.state} />)}
+        </span>
+        <span className="v34-journey__now">
+          <span className="hg-num">{t('v22.journey.stageOf', { n: curIdx + 1, total: PHASES.length })}</span>
+          <span aria-hidden> · </span>
+          <strong>{t(`phase.${current}.label`)}</strong>
+        </span>
+        <span className="v34-journey__more">{expanded ? t('v34.journey.hide') : t('v34.journey.show')}<ChevronDown aria-hidden /></span>
+      </button>
+      {expanded && (
+        <div id={bodyId} className="v34-journey__body">
+          <ol className="v25-line" aria-label={t('dashboard.journey.title')}>
+            {phases.map((p, i) => {
+              const label = t(`phase.${p.key}.label`);
+              const inner = (
+                <>
+                  <span className="v25-line__node" aria-hidden>{p.state === 'done' ? <Check size={12} strokeWidth={3} /> : null}</span>
+                  <span className="v25-line__label">{label}</span>
+                </>
+              );
+              return (
+                <li key={p.key} className={`v25-line__step is-${p.state}${open === p.key ? ' is-open' : ''}`} style={{ ['--i' as string]: i }}>
+                  {p.state === 'todo' ? <span className="v25-line__btn">{inner}</span> : (
+                    <button type="button" className="v25-line__btn" aria-current={p.state === 'current' ? 'step' : undefined} aria-pressed={open === p.key}
+                      onClick={() => setOpen(open === p.key ? null : p.key)}>{inner}</button>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+          <div className="v22-journey__summary" data-state={state} aria-live="polite">
+            <div className="v22-journey__eyebrow">
+              <span>{t(`phase.${open ?? current}.label`)}</span>
+              <span aria-hidden>·</span>
+              <span className="v22-journey__state">{state === 'current' ? t('phase.youAreHere') : t(`phase.state.${state}`)}</span>
+            </div>
+            <p className="v22-journey__text">{summary}</p>
+          </div>
         </div>
-        <p className="v22-journey__text">{summary}</p>
-      </div>
+      )}
     </section>
   );
 }

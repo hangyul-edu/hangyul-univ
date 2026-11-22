@@ -3,7 +3,8 @@ import { useAuth } from '@hangyul/auth';
 import { Keyboard } from '@hangyul/icons';
 import { Card, CardHeader, DescriptionList, LocaleSelector, PageHeader, Switch } from '@hangyul/ui';
 
-import { Kbd, useT } from '../components/bits';
+import { useT } from '../components/bits';
+import { ShortcutList } from '../components/Shortcuts';
 import { TwoStepPanel, useSecurityT } from '../components/security/TwoStep';
 import { usePrefs, type Prefs } from '../lib/local';
 
@@ -62,13 +63,7 @@ export default function Settings() {
         <Card>
           <CardHeader title={<><Keyboard size={16} aria-hidden style={{ display: 'inline' }} /> {t('settings.shortcuts')}</>} bordered />
           <div className="ag-panel__body">
-            <dl className="ag-shortcuts">
-              <dt><Kbd>J</Kbd> / <Kbd>K</Kbd></dt><dd>{t('docs.sc.nav')}</dd>
-              <dt><Kbd>V</Kbd></dt><dd>{t('docs.sc.verify')}</dd>
-              <dt><Kbd>C</Kbd></dt><dd>{t('docs.sc.changes')}</dd>
-              <dt><Kbd>Ctrl</Kbd>+<Kbd>Enter</Kbd></dt><dd>{t('settings.scSend')}</dd>
-              <dt><Kbd>↑</Kbd> <Kbd>↓</Kbd> <Kbd>Enter</Kbd></dt><dd>{t('settings.scSearch')}</dd>
-            </dl>
+            <ShortcutList />
           </div>
         </Card>
       </div>

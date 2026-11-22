@@ -2164,3 +2164,53 @@ body { background: var(--hg-bg); }
     content: ''; position: absolute; inset-inline: 0; inset-block: 50%; block-size: max(100%, 24px); transform: translateY(-50%);
   }
 }
+
+/* ── Product-excellence pass (2026-11-22): the folded journey — one line, then the next action. ─────────────────── */
+.sp-home .v34-journey { gap: 10px; padding: 0; }
+.v34-journey__toggle {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; inline-size: 100%; min-block-size: 44px; padding: 6px 0;
+  border: 0; background: none; font: inherit; color: var(--hg-text-secondary); text-align: start; cursor: pointer; border-radius: var(--hg-radius-sm);
+}
+.v34-journey__toggle:focus-visible { outline: none; box-shadow: var(--hg-shadow-focus); }
+.v34-journey__bar { display: inline-flex; gap: 3px; flex: none; }
+.v34-journey__bar i { display: block; inline-size: 18px; block-size: 4px; border-radius: 2px; background: var(--hg-border-strong); }
+.v34-journey__bar i[data-state='done'] { background: var(--hg-text); }
+.v34-journey__bar i[data-state='current'] { background: var(--hg-primary); }
+.v34-journey__now { font-size: var(--hg-text-sm); }
+.v34-journey__now strong { color: var(--hg-text); font-weight: var(--hg-weight-semibold); }
+.v34-journey__more { display: inline-flex; align-items: center; gap: 4px; margin-inline-start: auto; font-size: var(--hg-text-sm); color: var(--hg-text-secondary); text-decoration: underline; text-decoration-color: var(--hg-border-strong); text-underline-offset: 3px; }
+.v34-journey__more svg { inline-size: 16px; block-size: 16px; transition: transform var(--hg-motion-fast) var(--hg-motion-easing); }
+.v34-journey[data-expanded] .v34-journey__more svg { transform: rotate(180deg); }
+.v34-journey__toggle:hover .v34-journey__more { color: var(--hg-text); text-decoration-color: currentColor; }
+.v34-journey__body { display: flex; flex-direction: column; gap: 12px; padding-block-end: 8px; }
+
+/* ── Product-excellence pass: conversation rhythm (date lines, runs, quiet bubbles, deep links). ───────────────────── */
+.st-thread__body { gap: 4px; }
+.st-msg:not(.st-msg--cont) { margin-block-start: 10px; }
+.st-day { display: flex; justify-content: center; margin-block: 14px 4px; }
+.st-day:first-child { margin-block-start: 0; }
+.st-day span { padding: 2px 10px; border-radius: 999px; background: var(--hg-bg-paper); font-size: var(--hg-text-xs); color: var(--hg-text-secondary); }
+.st-day + .st-msg { margin-block-start: 6px; }
+.st-msg__gap { flex: none; inline-size: 30px; }
+.st-msg:not(.st-msg--mine) .st-msg__bubble { background: var(--hg-bg-paper); border-color: transparent; }
+.st-msg--cont:not(.st-msg--mine) .st-msg__bubble { border-start-start-radius: 6px; }
+.st-msg--mine.st-msg--cont .st-msg__bubble { border-start-end-radius: 6px; }
+.st-msg__links { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-block-start: 6px; }
+.st-msg__link { display: inline-flex; align-items: center; min-block-size: 24px; font-size: var(--hg-text-sm); font-weight: var(--hg-weight-medium); color: var(--hg-text); text-decoration: underline; text-decoration-color: var(--hg-border-strong); text-underline-offset: 3px; }
+.st-msg--mine .st-msg__link { color: inherit; text-decoration-color: rgba(255, 255, 255, 0.5); }
+.st-thread__app { flex: none; font-size: var(--hg-text-sm); }
+@media (max-width: 767.98px), (pointer: coarse) { .st-msg__link { min-block-size: 44px; } .st-thread__app { min-block-size: 44px; display: inline-flex; align-items: center; } }
+
+/* Product-excellence pass: why a programme is listed, on its row (published requirements met ✓ · one thing to check △). */
+.v34-checks { display: flex; flex-wrap: wrap; gap: 2px 14px; margin: 6px 0 0; padding: 0; list-style: none; font-size: var(--hg-text-sm); line-height: 1.5; color: var(--hg-text-secondary); }
+.v34-checks li { display: inline-flex; gap: 5px; align-items: baseline; }
+.v34-checks li[data-kind='met'] > span[aria-hidden] { color: var(--hg-status-success-fg); font-weight: var(--hg-weight-semibold); }
+.v34-checks li[data-kind='check'] > span[aria-hidden] { color: var(--hg-status-warning-fg); }
+
+/* Product-excellence pass: profile in three chapters (readiness · goals · about you). */
+.pf-chapter { display: grid; gap: 4px; margin-block-start: 8px; }
+.pf-chapter__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-block-end: 4px; border-block-end: 1px solid var(--hg-border); }
+.pf-chapter__title { margin: 0; font-size: var(--hg-text-sm); font-weight: var(--hg-weight-semibold); color: var(--hg-text-secondary); letter-spacing: 0.01em; }
+.pf-chapter__count { font-size: var(--hg-text-sm); color: var(--hg-text-tertiary); }
+.sp-profile .pf-chapter .pf-list { margin-block-start: 0; }
+.sp-profile .pf-chapter .pf-row__title { font-size: var(--hg-text-md); line-height: 1.4; margin: 0; }

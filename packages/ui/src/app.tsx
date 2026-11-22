@@ -1,5 +1,5 @@
 import { createApiClient, type ApiClient } from '@hangyul/api-client';
-import { installKeyboardFocusKeeper } from './keyboard';
+import { installFocusNotObscured, installKeyboardFocusKeeper } from './keyboard';
 import { AuthProvider, useAuth } from '@hangyul/auth';
 import { changeLocale, consoleLocale, i18next, initI18n, installKeyRecorder, isRTL, langFromSearch, registerLocalePreloader, resolveLocale, STORAGE_KEY, useLocale, type Namespace, errorText } from '@hangyul/i18n';
 import { loadIntlFallback } from '@hangyul/utils';
@@ -13,6 +13,7 @@ import { DesignPreviewBadge, designPreviewFetch, DesignPreviewLoginEntry } from 
 import { LocaleSelector, setLocaleSelectorSurface } from './locale-selector';
 import { ToastProvider } from './overlays';
 import { Button, Callout, Field, Input, Skeleton } from './primitives';
+import { PasswordInput } from './identity';
 
 function applyDocumentLocale(code: string) {
   document.documentElement.lang = code;
@@ -67,6 +68,7 @@ export async function bootWebApp(opts: { client: ClientApp; namespaces: Namespac
   if (import.meta.env.DEV) installKeyRecorder();
   applyDocumentLocale(locale);
   installKeyboardFocusKeeper();
+  installFocusNotObscured();
   // Design Preview (owner review, one build flag): a transport that answers from synthetic fixtures and never
   // reaches the network. Undefined — the real `fetch` — whenever preview is off or not entered.
   const fetchImpl = await designPreviewFetch(opts.client);
@@ -283,10 +285,10 @@ function LoginForm({ product, title, subtitle, aside, footer, afterLogin = '/' }
           <form onSubmit={submit} noValidate className="hg-stack" style={{ '--hg-gap': '14px' } as React.CSSProperties}>
             {formError && <Callout tone="danger">{formError}</Callout>}
             <Field label={t('auth.email')} htmlFor="email" error={errors.email}>
-              <Input id="email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} invalid={!!errors.email} />
+              <Input id="email" name="username" type="email" inputMode="email" autoComplete="username" autoCapitalize="none" spellCheck={false} value={email} onChange={(e) => setEmail(e.target.value)} invalid={!!errors.email} />
             </Field>
             <Field label={t('auth.password')} htmlFor="password" error={errors.password}>
-              <Input id="password" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} invalid={!!errors.password} />
+              <PasswordInput id="password" name="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} invalid={!!errors.password} />
             </Field>
             <Button type="submit" variant="primary" size="lg" block loading={busy}>{t('actions.signIn')}</Button>
           </form>

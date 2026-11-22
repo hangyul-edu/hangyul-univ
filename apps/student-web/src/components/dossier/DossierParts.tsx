@@ -77,7 +77,8 @@ export function WhoCanSee({ row }: { row?: DossierRow | null }) {
       <ul className="v9-who__list">
         <li><strong>{t('v9.who.you')}</strong></li>
         {v.agency ? (
-          <li><strong>{v.agency.counselor ? t('v9.who.counselor', { name: v.agency.counselor, org: v.agency.organization ?? '' }) : t('v9.who.agency', { org: v.agency.organization ?? '' })}</strong>
+          // One team, no person (team identity): never a staff member's name or the organisation behind the team.
+          <li><strong>{t('common:team.hangyul')}</strong>
             {' '}<span className="hg-muted">{v.agency.consent_at ? t('v9.who.consent', { date: fmt(v.agency.consent_at) }) : t('v9.who.noConsent')}</span></li>
         ) : <li className="hg-muted">{t('v9.who.noAgency')}</li>}
         <li><strong>{t('v9.who.reviewers')}</strong> <span className="hg-muted">{t('v9.who.reviewersWhy')}</span></li>

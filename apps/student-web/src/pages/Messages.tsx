@@ -1,15 +1,16 @@
 import { errorText } from '@hangyul/i18n';
 import { useApi } from '@hangyul/auth';
 import { ArrowLeft, MessageCircle, Paperclip, Plus, Send, Video, X } from '@hangyul/icons';
-import type { ConversationDetail, MessageAttachment } from '@hangyul/types';
+import type { ChatMessage, ConversationDetail, MessageAttachment } from '@hangyul/types';
 import { Avatar, Button, EmptyState, Field, FileDrop, Input, Modal, QueryState, Skeleton, Textarea, useToast, type FileDropHandle } from '@hangyul/ui';
-import { cx, formatDateTime, formatRelative } from '@hangyul/utils';
+import { cx, formatDate, formatDateTime, formatRelative } from '@hangyul/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react';
+import { Fragment, useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 
 import { PageIntro } from '../components/bits';
 import { TeamAvatar } from '../components/TeamAvatar';
+import { useMyTasks } from '../components/TaskList';
 import { useT } from '../lib/i18n';
 import { displayName, isTeam } from '../lib/team';
 import { useConversations } from '../lib/queries';
@@ -17,6 +18,47 @@ import { useConversations } from '../lib/queries';
 /** The default support thread is created by the server with an English subject; show it in the reader's language (V9 l10n). */
 const SUPPORT_SUBJECT = 'Your study-in-Korea team';
 const subjectText = (t: ReturnType<typeof useT>['t'], subject: string) => (subject === SUPPORT_SUBJECT ? t('common:v9.l10n.supportConversation') : subject);
+
+/** Messages with their day boundary and whether each starts a run (same side, same day, within ten minutes). */
+function runs(list: ChatMessage[]): { m: ChatMessage; day: boolean; first: boolean }[] {
+  return list.map((m, i) => {
+    const prev = list[i - 1];
+    const day = !prev || new Date(prev.at).toDateString() !== new Date(m.at).toDateString();
+    const sameSide = !!prev && prev.mine === m.mine && (prev.author?.id ?? null) === (m.author?.id ?? null);
+    const close = !!prev && new Date(m.at).getTime() - new Date(prev.at).getTime() < 10 * 60_000;
+    return { m, day, first: day || !sameSide || !close };
+  });
+}
+
+function dayLabel(at: string, locale: string, t: ReturnType<typeof useT>['t']): string {
+  const d = new Date(at);
+  const today = new Date();
+  const yesterday = new Date(Date.now() - 86_400_000);
+  if (d.toDateString() === today.toDateString()) return t('v34.messages.today');
+  if (d.toDateString() === yesterday.toDateString()) return t('v34.messages.yesterday');
+  return formatDate(at, locale, { year: d.getFullYear() === today.getFullYear() ? undefined : 'numeric', month: 'long', day: 'numeric', weekday: 'short' });
+}
+
+function clock(at: string, locale: string): string {
+  try { return new Intl.DateTimeFormat(locale, { hour: 'numeric', minute: '2-digit' }).format(new Date(at)); } catch { return formatDateTime(at, locale); }
+}
+
+/**
+ * Contextual links under a message: the document it carries (opens in the Documents drawer) and the task it created
+ * (opens where the task is done). Only links the records actually hold — no guessing from the text.
+ */
+function MessageLinks({ m }: { m: ChatMessage }) {
+  const { t } = useT();
+  const tasks = useMyTasks();
+  const task = m.created_task_id ? (tasks.data?.items ?? []).find((x) => x.id === m.created_task_id) : undefined;
+  if (!m.attachment_document_id && !task) return null;
+  return (
+    <div className="st-msg__links">
+      {m.attachment_document_id && <Link to={`/documents?doc=${m.attachment_document_id}`} className="st-msg__link">{t('v34.messages.openDocument')}</Link>}
+      {task && !task.completed_at && <Link to={task.link ?? '/?show=tasks'} className="st-msg__link">{t('v34.messages.openTask')}</Link>}
+    </div>
+  );
+}
 
 function NewConversation({ onClose }: { onClose: () => void }) {
   const { t } = useT();
@@ -136,25 +178,34 @@ function Thread({ id }: { id: string }) {
               <h2 className="hg-title-sm hg-truncate">{subjectText(t, d.subject)}</h2>
               <div className="hg-subtle hg-xs">{t('messages.visibility')}</div>
             </div>
+            {d.application_id && <Link to={`/applications/${d.application_id}`} className="hg-link-arrow st-thread__app">{t('v34.messages.openApplication')}</Link>}
           </header>
           <div className="st-thread__body" role="log" aria-live="polite" aria-label={subjectText(t, d.subject)}>
-            {d.messages.filter((m) => !m.internal).map((m) => (
-              <div key={m.id} className={cx('st-msg', m.mine && 'st-msg--mine')}>
-                {/* V22 (REPORT §246 A3): a staff author is the Hangyul team — brand mark, team name, one identity for the whole thread. */}
-                {!m.mine && (isTeam(m.author) ? <TeamAvatar size={30} /> : <Avatar name={m.author?.full_name ?? '?'} size={30} />)}
-                <div className="st-msg__bubble">
-                  {!m.mine && <div className="st-msg__author">{displayName(t, m.author)}</div>}
-                  <div className="st-msg__text" data-user-content>{m.body}</div>
-                  {(m.attachments ?? []).length > 0 && (
-                    <ul className="ms-files">
-                      {(m.attachments ?? []).map((a) => (
-                        <li key={a.id}><button type="button" onClick={() => openFile(a)}><Paperclip aria-hidden /> <span className="hg-truncate">{a.filename}</span></button></li>
-                      ))}
-                    </ul>
-                  )}
-                  <time className="st-msg__time" dateTime={m.at} title={formatDateTime(m.at, locale)}>{formatRelative(m.at, locale)}</time>
+            {/* Product-excellence pass: a conversation, not a stack of cards — a date line where the day changes, and
+                consecutive messages from the same side within ten minutes form one run (mark and name once, at its start).
+                A message that carries a document or a task links straight to it, so "please fix the transcript" is one
+                tap from the transcript. */}
+            {runs(d.messages.filter((m) => !m.internal)).map(({ m, day, first }) => (
+              <Fragment key={m.id}>
+                {day && <div className="st-day" role="separator"><span>{dayLabel(m.at, locale, t)}</span></div>}
+                <div className={cx('st-msg', m.mine && 'st-msg--mine', !first && 'st-msg--cont')}>
+                  {/* V22 (REPORT §246 A3): a staff author is the Hangyul team — brand mark, team name, one identity for the whole thread. */}
+                  {!m.mine && (first ? (isTeam(m.author) ? <TeamAvatar size={30} /> : <Avatar name={m.author?.full_name ?? '?'} size={30} />) : <span className="st-msg__gap" aria-hidden />)}
+                  <div className="st-msg__bubble">
+                    {!m.mine && first && <div className="st-msg__author">{displayName(t, m.author)}</div>}
+                    <div className="st-msg__text" data-user-content>{m.body}</div>
+                    {(m.attachments ?? []).length > 0 && (
+                      <ul className="ms-files">
+                        {(m.attachments ?? []).map((a) => (
+                          <li key={a.id}><button type="button" onClick={() => openFile(a)}><Paperclip aria-hidden /> <span className="hg-truncate">{a.filename}</span></button></li>
+                        ))}
+                      </ul>
+                    )}
+                    <MessageLinks m={m} />
+                    <time className="st-msg__time" dateTime={m.at} title={formatDateTime(m.at, locale)}>{clock(m.at, locale)}</time>
+                  </div>
                 </div>
-              </div>
+              </Fragment>
             ))}
             <div ref={end} />
           </div>

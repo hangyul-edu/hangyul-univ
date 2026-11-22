@@ -40,6 +40,9 @@ button { cursor: pointer; }
   background: var(--hg-text); color: var(--hg-surface); font-weight: var(--hg-weight-semibold); text-decoration: none;
 }
 .hg-skip-link:focus { top: 12px; }
+/* WCAG 2.2 · 2.4.11 (product-excellence pass): the consoles' sticky header (YNEX `.app-header`, z-index in the hundreds)
+   covered the skip link when it received focus. Focused, it is fixed above every layer of the page. */
+.hg-skip-link:focus { position: fixed; z-index: 10000; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
 }

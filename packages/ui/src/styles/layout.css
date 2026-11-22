@@ -118,6 +118,8 @@
 @media (min-width: 1024px) { .hg-scontent { padding-bottom: 80px; } }
 /* Focus and in-page jumps land below the sticky 64 px header and above the tab bar, so a focused field (OTP, essay,
    message, profile, payment) is never scrolled underneath either. */
+/* WCAG 2.2 · 2.4.11: keyboard focus never lands under the consoles' sticky top bar (60 px + room for the focus ring). */
+html:has(.app-header) { scroll-padding-top: 76px; }
 html:has(.hg-sshell) { scroll-padding-top: 80px; scroll-padding-bottom: calc(58px + env(safe-area-inset-bottom, 0px) + 16px); }
 @media (min-width: 1024px) { html:has(.hg-sshell) { scroll-padding-bottom: 16px; } }
 .hg-tabbar {

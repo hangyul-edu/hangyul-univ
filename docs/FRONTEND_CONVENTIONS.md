@@ -196,6 +196,39 @@ styles, the console surface). Page CSS composes these; it does not restate colou
   spacing exception, native selects, leaked enum tokens, page errors) and `scripts/qa/launch-final/overlays.mjs`
   (open → Escape → body lock released, resize while open, Back/Forward) over every route in `routes.mjs`.
 
+## Product-excellence rules (2026-11-22)
+
+- **Reduce before adding.** A new block must answer the screen's primary question or move behind disclosure. Outcome
+  statistics belong on Insights, never above a work queue; a stage matrix is a view a person opens ("단계별 보기"), not
+  the first thing they parse. Task map and benchmark: `docs/qa/launch-final/excellence/TASKS.md`.
+- **One next action above the fold.** Student Home: greeting → one-line journey (six segments + "전체 여정 보기") → the
+  next action. Nothing decorative sits between the greeting and the action.
+- **Open on what is left.** A list that mixes done and to-do (Documents) opens on its to-do view with counts on the
+  switch (`@hangyul/utils` `viewOf` / `viewCounts` / `filterGroups`); a deep link to one item opens "all".
+- **Say a fact once.** No status repeated as "latest change: <same status>", no team name twice in one card, no "나"
+  owner label under a sentence already addressed to the student, no row for a value we do not have ("설립 —").
+- **Why on the row.** A match row shows up to three published requirements met (✓) and one thing to check (△) without a
+  click; never a probability.
+- **Conversation rhythm.** Messages: a date line where the day changes, consecutive messages from one side within ten
+  minutes form a run (mark and name once), clock time on each bubble, quiet warm-paper bubbles for the team, links to the
+  document / task a message carries (`attachment_document_id`, `created_task_id`) and to its application.
+- **Decision safety.** A university decision modal names the applicant, programme and intake, warns when required
+  evidence is unverified (offer / rejection), labels the button with the decision ("합격 통보"), and ignores a second
+  submit.
+- **Keyboard work.** Repeated-work screens show "키보드 단축키 ?"; `?` opens the list anywhere in the console. Only keys
+  that exist are listed; no shortcut for rare or destructive actions.
+- **WCAG 2.2 AA.** `installFocusNotObscured()` (in `bootWebApp`) scrolls a keyboard-focused control out from under sticky
+  or fixed bars; the skip link is fixed above every layer when focused; login identifiers use `autocomplete="username"`,
+  passwords `current-password` / `new-password` with a show/hide toggle, codes `one-time-code`; paste is never blocked;
+  every drop zone has a picker button. Gate: `scripts/qa/launch-final/wcag22.mjs` (real Tab / Shift+Tab presses).
+- **Newest answer wins.** A mutation that returns the whole object and swaps it into the cache applies only the newest
+  request's answer; an older answer arriving late triggers a refetch instead (Student visa plan). A query that a parent
+  already failed is not re-fetched just because a child mounted it when that costs a second timeout (`retryOnMount: false`
+  on the Student dashboard); a page's Retry refetches every query that failed with it (University home).
+- **Performance.** Start the first route's chunk while i18n boots (Marketing `main.tsx`); the first row of photo cards
+  loads eagerly at high priority, everything below lazily; skeletons hold final geometry (a loading meta line is one
+  line if the final line is one). Gate: `scripts/qa/launch-final/vitals.mjs` (LCP element, CLS, scripted interactions).
+
 ## Design Preview mode
 
 A design-review aid behind one build flag, `VITE_ENABLE_DESIGN_PREVIEW` (requirements in `docs/SECURITY.md`).

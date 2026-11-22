@@ -47,9 +47,10 @@ function Overview({ u }: { u: UniversityDetail }) {
           <DescriptionList items={[
             { label: t('university.overview.type'), value: t(`common:institution.${u.institution_type}`) },
             { label: t('university.overview.location'), value: u.city === u.region ? t(`common:region.${u.city}`, { defaultValue: u.city }) : `${t(`common:region.${u.city}`, { defaultValue: u.city })}, ${t(`common:region.${u.region}`, { defaultValue: u.region })}` },
-            { label: t('university.overview.founded'), value: u.founded_year ?? '—' },
+            // Restrained confidence (product-excellence pass): a fact we do not have is left out, not printed as "—".
+            ...(u.founded_year ? [{ label: t('university.overview.founded'), value: u.founded_year }] : []),
             { label: t('university.overview.programs'), value: formatNumber(u.programs.length, locale) },
-            { label: t('university.overview.living'), value: <><Krw value={u.est_living_cost_monthly_krw} />{u.est_living_cost_monthly_krw ? t('units.perMonth') : ''}</> },
+            ...(u.est_living_cost_monthly_krw ? [{ label: t('university.overview.living'), value: <><Krw value={u.est_living_cost_monthly_krw} />{t('units.perMonth')}</> }] : []),
             { label: t('university.overview.certification'), value: <CertBadge u={u} /> },
           ]} />
         </div>

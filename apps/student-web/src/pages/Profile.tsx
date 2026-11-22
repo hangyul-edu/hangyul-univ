@@ -98,6 +98,16 @@ const SECTION_OF: Record<StepKey, ProfileUnlockSection['key'][]> = {
 };
 /** Order: what changes your matches most comes first. */
 const ORDER: StepKey[] = ['language', 'education', 'goals', 'preferences', 'basics', 'passport', 'sponsor'];
+/**
+ * Product-excellence pass: seven data groups read as three chapters — application readiness (language, education),
+ * study goals (goals, budget & housing), about you (basics, passport & visa, sponsor & career). The order is still
+ * "what changes your matches most first"; each section is still saved on its own, so nothing has to be finished in one go.
+ */
+const CHAPTERS: { key: 'readiness' | 'goals' | 'about'; steps: StepKey[] }[] = [
+  { key: 'readiness', steps: ['language', 'education'] },
+  { key: 'goals', steps: ['goals', 'preferences'] },
+  { key: 'about', steps: ['basics', 'passport', 'sponsor'] },
+];
 
 function unlockText(t: ReturnType<typeof useT>['t'], u: ProfileUnlockSection): string | null {
   const n = u.count ?? 0;
@@ -138,8 +148,16 @@ export default function Profile() {
                 </div>
                 <p className="pf-head__state">{missing.length === 0 ? t('profileV3.allDone') : t('profileV3.left', { count: missing.length })}</p>
               </div>
+              {CHAPTERS.map((c) => {
+                const doneN = c.steps.filter((k) => steps.find((s) => s.key === k)?.done).length;
+                return (
+                  <section key={c.key} className="pf-chapter" aria-labelledby={`pf-ch-${c.key}`}>
+                    <header className="pf-chapter__head">
+                      <h2 id={`pf-ch-${c.key}`} className="pf-chapter__title">{t(`v34.profile.chapter.${c.key}`)}</h2>
+                      <span className="pf-chapter__count hg-num">{t('v34.profile.chapterDone', { done: doneN, total: c.steps.length })}</span>
+                    </header>
               <ul className="pf-list">
-                {ORDER.map((k) => {
+                {c.steps.map((k) => {
                   const done = !!steps.find((s) => s.key === k)?.done;
                   const lines = SECTION_OF[k].map((key) => sections.find((x) => x.key === key)).filter((u) => u && (!done || u.effect.kind === 'NEXT_LEVEL')).map((u) => unlockText(t, u!)).filter(Boolean) as string[];
                   const values = summary(k, p).filter((v) => v.value !== t('profile.notSet')).slice(0, 3);
@@ -147,7 +165,7 @@ export default function Profile() {
                     <li key={k} className="pf-row" data-done={done}>
                       <div className="pf-row__main">
                         <div className="hg-row" style={{ gap: '4px 10px', flexWrap: 'wrap' }}>
-                          <h2 className="pf-row__title">{t(`profile.section.${k}`)}</h2>
+                          <h3 className="pf-row__title">{t(`profile.section.${k}`)}</h3>
                           <StatusText tone={done ? 'success' : 'neutral'} hollow={!done}>{done ? t('profileV3.done') : t('profileV3.notAdded')}</StatusText>
                         </div>
                         <p className="pf-row__why">{t(`profileV3.why.${k}`)}</p>
@@ -165,6 +183,9 @@ export default function Profile() {
                   );
                 })}
               </ul>
+                  </section>
+                );
+              })}
               <p className="hg-small hg-subtle">{t('profileV3.privacy')}</p>
               {editing && <EditModal step={editing} profile={p} onClose={() => { setEditing(null); unlocks.refetch(); }} />}
             </>

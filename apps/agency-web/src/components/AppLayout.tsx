@@ -14,6 +14,7 @@ import { useDebounced, usePerms } from '../lib/hooks';
 import { usePrefs } from '../lib/local';
 import { PageFallback } from './PageFallback';
 import { FlagMark, StageBadge, useT } from './bits';
+import { ShortcutsProvider } from './Shortcuts';
 
 const ShellCtx = createContext<{ remount: () => void }>({ remount: () => undefined });
 /** Lets Settings force the shell to re-read theme/sidebar prefs from storage. */
@@ -149,9 +150,11 @@ export function AppLayout() {
         search={<GlobalSearch />}
         orgLabel={org ? <OrgBadge name={orgName(org.org_name, 'staff')} sub={org.org_type === 'HANGYUL' ? t('shell.hqView') : t('role.AGENCY_ADMIN')} /> : null}
       >
-        <Suspense fallback={<PageFallback />}>
-          <Outlet />
-        </Suspense>
+        <ShortcutsProvider>
+          <Suspense fallback={<PageFallback />}>
+            <Outlet />
+          </Suspense>
+        </ShortcutsProvider>
       </YnexShell>
     </ShellCtx.Provider>
   );

@@ -1,13 +1,13 @@
-// PRIMARY QUESTION: "Where is every applicant in our process, and which ones need us?"
+// PRIMARY QUESTION: "Which applicants need us now?"
 //
-// 2026-11 design pass. The home is an executive overview over one work table, in this order:
-//   1. the summary band (components/overview/Summary) — who needs a decision, which documents are outstanding, offers
-//      made, what happened after admission — four ruled columns, every figure a link to the rows it counts;
-//   2. two supporting signals, lazily loaded (components/overview/Signals) — source countries and the monthly trend;
-//   3. the pipeline rail (lib/workflow.ts): the stage counts ARE the table's totals for the same filter;
-//   4. one toolbar row (search + filters + sort) and the applicant table.
-// `/applicants` renders this same screen without the summary's supporting signals collapsed away — it is one screen.
+// Product-excellence pass (2026-11-22): the home is a review inbox over one work table.
+//   1. the review inbox (components/overview/Summary › ReviewInbox) — needs a decision · open document requests ·
+//      received this week · the nearest dated step; every figure opens exactly the rows it counts;
+//   2. the pipeline rail (lib/workflow.ts): the stage counts ARE the table's totals for the same filter;
+//   3. one toolbar row (search + filters + sort) and the applicant table.
+// Outcome rates, source countries and the monthly trend are not today's work: they live on 통계 (`/analytics`).
 import { useAuth } from '@hangyul/auth';
+import { useQueryClient } from '@tanstack/react-query';
 import { ChevronRight, Download, Filter, Flag, Search, Users } from '@hangyul/icons';
 import { errorText, useLocale, localName } from '@hangyul/i18n';
 import type { Application, ApplicationStatus } from '@hangyul/types';
@@ -16,13 +16,13 @@ import {
   Badge, Button, Checkbox, DataTable, Drawer, EmptyState, ErrorState, Field, FilterSelect, PageHeader, Select, Skeleton, StageStrip, StatusText, useToast, type ColumnDef, type Stage,
 } from '@hangyul/ui';
 import { countryName, cx, downloadBlob, formatDate, formatNumber, formatRelative } from '@hangyul/utils';
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router';
 
 import { Country } from '../components/common';
 import { useFilterOptions } from '../components/FilterBar';
-import { ExecutiveSummary } from '../components/overview/Summary';
+import { ReviewInbox } from '../components/overview/Summary';
 import { BulkActions } from '../components/v8/BulkActions';
 import { NeedText } from '../components/v8/NeedText';
 import { decisionNeed } from '../lib/v8';
@@ -36,7 +36,6 @@ import { listFilters } from '../lib/v9';
 import { awaitingDecision, CLOSED_STATUSES, documentsText, nextDeadline, STAGES, stageFilter, stageFor, withStage, type StageKey } from '../lib/workflow';
 
 /** Charts never block the work table: the two supporting signals ship in their own chunk. */
-const OverviewSignals = lazy(() => import('../components/overview/Signals'));
 
 type T = ReturnType<typeof useLocale>['t'];
 
@@ -217,6 +216,7 @@ export default function Dashboard() {
   const toast = useToast();
   const nav = useNavigate();
   const { perms, scopeId, overview, isHangyul } = useUniversity();
+  const qc = useQueryClient();
   const [sp, setSp] = useSearchParams();
   const raw = useMemo(() => parseApplicantParams(sp), [sp]);
   // An old `?status=` link whose statuses are exactly one stage selects that stage.
@@ -358,15 +358,10 @@ export default function Dashboard() {
   // The meta line is drawn once its three parts are known (name, total, next date): drawn piece by piece it grew from one
   // line to three on a phone and pushed the whole overview down after first paint.
   const metaReady = !!overview && counts.all !== undefined && !programs.isLoading;
-  const subtitle = !metaReady ? <span className="un-pagemeta un-pagemeta--loading" aria-hidden><Skeleton w={220} h={14} /></span> : (
+  const subtitle = !metaReady ? <span className="un-pagemeta un-pagemeta--loading" aria-hidden><Skeleton w={150} h={14} /></span> : (
     <span className="un-pagemeta">
       <span>{name}</span>
       {counts.all !== undefined && <span>{t('university:v22.allN', { n: formatNumber(counts.all, locale) })}</span>}
-      {soonest && (
-        <Link to="/programs" className="uv22-meta__date">
-          {t('university:v15.ov.nextDate', { kind: t(`university:ov.dates.kind.${soonest.kind}`), date: formatDate(soonest.date, locale, { month: 'short', day: 'numeric' }) })}
-        </Link>
-      )}
     </span>
   );
   const sortLabel: Record<string, string> = { decision: t('university:v26.sortBy.decision'), submitted: t('university:applicants.sortBy.submitted'), deadline: t('university:applicants.sortBy.deadline'), updated: t('university:applicants.sortBy.updated') };
@@ -380,11 +375,11 @@ export default function Dashboard() {
           </Button>
         ) : undefined} />
 
-      <ExecutiveSummary base={headBase} set={set} byStage={counts.byStage} all={counts.all} />
-
-      <Suspense fallback={<div className="un-sig" aria-hidden><Skeleton h={168} /><Skeleton h={168} /></div>}>
-        <OverviewSignals base={headBase} set={set} />
-      </Suspense>
+      <ReviewInbox base={headBase} set={set} datesUnknown={programs.isError} soonest={soonest ? {
+        label: t(`university:ov.dates.kind.${soonest.kind}`),
+        date: formatDate(soonest.date, locale, { month: 'short', day: 'numeric' }),
+        to: '/programs',
+      } : null} />
 
       <section className="un-work" aria-labelledby="work-h">
         <div className="un-work__head">
@@ -423,7 +418,8 @@ export default function Dashboard() {
         <FilterChips p={p} set={set} onClear={clearAll} />
 
         <div className="uv22-table un-table" data-work-total={total ?? ''} data-work-stage={p.stage ?? 'all'}>
-          {list.isError ? <ErrorState error={list.error} onRetry={() => list.refetch()} /> : (
+          {/* Retry brings back everything on the page that failed with it (inbox figures, stage counts, dates), not only the table. */}
+          {list.isError ? <ErrorState error={list.error} onRetry={() => { void qc.refetchQueries({ predicate: (x) => x.state.status === 'error' }); void list.refetch(); }} /> : (
             <DataTable<Application>
               columns={columns}
               data={rows}

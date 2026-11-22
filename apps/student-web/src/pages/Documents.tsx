@@ -2,7 +2,8 @@ import { errorText } from '@hangyul/i18n';
 import { useApi } from '@hangyul/auth';
 import { FileText, Lock, PenLine, Upload } from '@hangyul/icons';
 import type { DocumentCategory, DossierRequestSuggestion, DossierRow } from '@hangyul/types';
-import { Button, ButtonLink, Callout, EmptyState, QueryState, Section, SkeletonCard, useToast } from '@hangyul/ui';
+import { Button, ButtonLink, Callout, EmptyState, QueryState, Section, Segmented, SkeletonCard, useToast } from '@hangyul/ui';
+import { DOC_VIEWS, defaultView, filterGroups, viewCounts, type DocView } from '@hangyul/utils';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router';
@@ -48,6 +49,8 @@ export default function Documents() {
   useEffect(() => { if (uploadParam) setUpload({ category: uploadParam as DocumentCategory }); }, [uploadParam]);
   const docId = sp.get('doc');
   const focusCat = sp.get('focus');
+  const viewParam = sp.get('view') as DocView | null;
+  const setView = (v: DocView) => { const n = new URLSearchParams(sp); n.set('view', v); setSp(n, { replace: true }); };
 
   // Per-viewer: optional sections opened with `+` and empty records added from the "구분" selector.
   const [prefs, setPrefs] = useState<DocPrefs>(loadPrefs);
@@ -166,21 +169,35 @@ export default function Documents() {
               action={<Button variant="primary" icon={<Upload />} onClick={() => setUpload({ category: 'PASSPORT' })}>{t('page.upload')}</Button>} />;
           }
           const check = needsCheck(d.suggestions);
+          // Product-excellence pass: open on what is left to do. A deep link to one document or category shows everything.
+          const vc = viewCounts(layout, d.requests.length);
+          const view: DocView = viewParam && DOC_VIEWS.includes(viewParam) ? viewParam : docId || focusCat ? 'all' : defaultView(vc);
+          const groups = filterGroups(layout.groups, view);
+          const showRequests = d.requests.length > 0 && (view === 'all' || view === 'todo');
           // The page's one primary button: the first request, else the first item that waits for the student.
           const leadKey = d.requests.length ? null : layout.groups.flatMap((g) => g.items).find((i) => !i.done && i.required && ['missing', 'fix', 'action', 'expired'].includes(i.status))?.key;
           return (
             <div className="dg-layout">
               <div className="dg-main" ref={main}>
                 <DocProgressBar layout={layout} onAdd={() => setSheet({ preset: null })} />
+                <div className="dg-views">
+                  <Segmented label={t('dossier:view.label')} value={view} onChange={(v) => setView(v as DocView)}
+                    options={DOC_VIEWS.map((v) => ({ value: v, label: v === 'all' ? t('dossier:view.all') : `${t(`dossier:view.${v}`)} ${vc[v]}` }))} />
+                </div>
+                {view !== 'all' && groups.length === 0 && !showRequests && (
+                  <p className="dg-views__empty">{t(`dossier:view.empty.${view}`)}{' '}
+                    <button type="button" className="hg-link" onClick={() => setView('all')}>{t('dossier:view.showAll')}</button></p>
+                )}
                 {!layout.hasApplications && <Callout tone="info">{t('dossier:groups.baseNote')}</Callout>}
-                {d.requests.length > 0 && (
+                {showRequests && (
                   <DocSection id="requests" title={name('requests')} required={null} tone="danger" expanded={expanded.requests ?? true} onToggle={() => setOpen('requests', !(expanded.requests ?? true))}
                     summary={t('dossier:groups.summary.requests', { count: d.requests.length })}>
                     <ul className="dz-list dg-items">{d.requests.map((r, i) => <RequestItem key={r.request_id} r={r} onUpload={onRequestUpload} primary={i === 0} />)}</ul>
                   </DocSection>
                 )}
-                {layout.groups.map((g) => {
-                  const open = isOpen(g);
+                {groups.map((g) => {
+                  // In a filtered view every listed group is open: the filter already chose what deserves the space.
+                  const open = view === 'all' ? isOpen(g) : expanded[g.id] ?? true;
                   const addHere = ADD_TYPES.some((a) => a.group === g.id);
                   return (
                     <GroupSection key={g.id} g={g} expanded={open} onToggle={() => setOpen(g.id, !open)} onQuickAdd={addSlot}
@@ -210,7 +227,7 @@ export default function Documents() {
               </div>
               <aside className="dg-aside">
                 <DocNavigator layout={layout} requests={d.requests.length} current={current} opened={opened}
-                  onGo={(id) => go(id)} onOpenGroup={openGroup} onHideGroup={hideGroup} onAdd={() => setSheet({ preset: null })} />
+                  onGo={(id) => { if (id !== 'requests' && !groups.some((g) => g.id === id)) setView('all'); go(id); }} onOpenGroup={openGroup} onHideGroup={hideGroup} onAdd={() => setSheet({ preset: null })} />
               </aside>
               {sheet && (
                 <AddSheet open onClose={() => setSheet(null)} layout={layout} opened={opened} preset={sheet.preset}

@@ -14,50 +14,10 @@ html[data-surface='console'] .un-home > .hg-page-head { margin-block-end: var(--
 .un-pagemeta a { color: var(--hg-text-secondary); text-decoration: underline; text-decoration-color: var(--hg-border-strong); text-underline-offset: 3px; }
 .un-pagemeta a:hover { color: var(--hg-text); text-decoration-color: currentColor; }
 .un-pagemeta--loading { display: flex; align-items: center; min-block-size: 23px; }
-@media (max-width: 767.98px) { .un-pagemeta--loading { min-block-size: 69px; } }
+/* The meta line is one line since the nearest date moved into the review inbox (product-excellence pass). */
 .un-empty { margin: 0; font-size: var(--hg-text-sm); color: var(--hg-text-tertiary); }
 .un-pagenote { margin: var(--hg-space-3) 0 0; font-size: var(--hg-text-xs); color: var(--hg-text-tertiary); }
 
-/* ───────────────────────────────────────────────────────────────── summary band (four ruled columns, not cards) */
-.un-sum { display: grid; grid-template-columns: minmax(0, 1.2fr) repeat(3, minmax(0, 1fr)); gap: 0; margin: 0; padding: 0; border-block: 1px solid var(--hg-border); }
-.un-sum__col { display: flex; flex-direction: column; gap: var(--hg-space-3); min-inline-size: 0; padding: var(--hg-space-4) var(--hg-space-6) var(--hg-space-5); border-inline-start: 1px solid var(--hg-border-subtle); }
-.un-sum__col:first-child { padding-inline-start: 0; border-inline-start: 0; }
-/* Loading: each column holds about its final height (≈ 213 px on desktop, 240–280 px in the 2 × 2 phone grid). */
-.un-sum--loading .un-sum__col { min-block-size: 213px; }
-.un-sum__col:last-child { padding-inline-end: 0; }
-.un-sum__h { margin: 0; font-size: var(--hg-text-sm); line-height: 1.4; font-weight: var(--hg-weight-semibold); color: var(--hg-text-secondary); letter-spacing: 0; }
-.un-sum__col[data-sum='decide'] .un-sum__h::before { content: ''; display: inline-block; inline-size: 7px; block-size: 7px; margin-inline-end: 7px; border-radius: 50%; background: var(--hg-chart-highlight); vertical-align: 1px; }
-.un-sum .un-sum__fig { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; min-inline-size: 0; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: start; text-decoration: none; }
-.un-sum__n { font-size: var(--hg-text-4xl); line-height: 1.1; font-weight: var(--hg-weight-semibold); letter-spacing: -0.02em; color: var(--hg-text); font-variant-numeric: tabular-nums; }
-.un-sum__col[data-sum='decide'] .un-sum__n { font-size: clamp(32px, 2.8vw, 40px); }
-.un-sum__l { font-size: var(--hg-text-base); line-height: 1.4; color: var(--hg-text-secondary); }
-.un-sum button.un-sum__fig, .un-sum a.un-sum__fig { cursor: pointer; border-radius: var(--hg-radius-sm); }
-.un-sum button.un-sum__fig:hover .un-sum__l, .un-sum a.un-sum__fig:hover .un-sum__l { color: var(--hg-text); text-decoration: underline; text-underline-offset: 3px; }
-.un-sum button.un-sum__fig:focus-visible, .un-sum a.un-sum__fig:focus-visible { outline: none; box-shadow: var(--hg-shadow-focus); }
-.un-sum .un-sum__fig.is-zero { cursor: default; }
-.un-sum .un-sum__fig.is-zero .un-sum__n { color: var(--hg-text-tertiary); }
-.un-sum__lines { list-style: none; margin: 0; padding: 0; display: grid; }
-.un-sum .un-sum__line > * { display: flex; align-items: baseline; justify-content: space-between; gap: var(--hg-space-3); min-block-size: 26px; padding-block: 3px; font-size: var(--hg-text-sm); line-height: 1.45; color: var(--hg-text-secondary); text-decoration: none; border-block-start: 1px solid var(--hg-border-subtle); }
-.un-sum__line:first-child > * { border-block-start: 0; }
-.un-sum__linek { min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-html[data-surface='console'] .un-sum__line > a { color: var(--hg-text-secondary); }
-.un-sum__linev { flex: none; color: var(--hg-text); text-align: end; white-space: nowrap; }
-.un-sum__linev b { font-weight: var(--hg-weight-semibold); }
-.un-sum__line > a:hover .un-sum__linek { color: var(--hg-text); text-decoration: underline; text-underline-offset: 3px; }
-.un-sum__line > a:focus-visible { outline: none; box-shadow: var(--hg-shadow-focus); border-radius: var(--hg-radius-xs); }
-
-/* who acts next: two segments with direct labels (identity is in the words, not only the fill) */
-.un-split { display: grid; gap: 8px; }
-.un-split__bar { display: flex; gap: 2px; block-size: 8px; }
-.un-split__bar i { display: block; min-inline-size: 6px; border-radius: 2px; }
-.un-split__bar i:first-child { border-start-start-radius: 4px; border-end-start-radius: 4px; }
-.un-split__bar i:last-child { border-start-end-radius: 4px; border-end-end-radius: 4px; }
-.un-split .is-ours { background: var(--hg-chart-1); }
-.un-split .is-theirs { background: var(--hg-chart-muted); }
-.un-split__key { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: var(--hg-text-sm); color: var(--hg-text-secondary); }
-.un-split__key span { display: inline-flex; align-items: baseline; gap: 6px; }
-.un-split__key i { display: inline-block; inline-size: 8px; block-size: 8px; border-radius: 2px; align-self: center; }
-.un-split__key b { color: var(--hg-text); font-weight: var(--hg-weight-semibold); }
 
 /* rates: "12 of 14" always, the percentage only when the sample allows it */
 .un-rate { display: inline-flex; align-items: baseline; gap: 8px; white-space: nowrap; }
@@ -65,32 +25,6 @@ html[data-surface='console'] .un-sum__line > a { color: var(--hg-text-secondary)
 .un-rate__of { color: var(--hg-text-secondary); }
 .un-rate__low { color: var(--hg-text-tertiary); font-style: normal; }
 
-@media (max-width: 1199.98px) {
-  .un-sum { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .un-sum__col:nth-child(odd) { padding-inline-start: 0; border-inline-start: 0; }
-  .un-sum__col:nth-child(even) { padding-inline-end: 0; }
-  .un-sum__col:nth-child(n + 3) { border-block-start: 1px solid var(--hg-border-subtle); }
-  .un-sum--loading .un-sum__col { min-block-size: 250px; }
-}
-@media (max-width: 639.98px) {
-  .un-sum { grid-template-columns: minmax(0, 1fr); }
-  .un-sum__col { padding-inline: 0; border-inline-start: 0; padding-block: var(--hg-space-4); }
-  .un-sum__col + .un-sum__col { border-block-start: 1px solid var(--hg-border-subtle); }
-  .un-sum__line > * { min-block-size: 32px; }
-  .un-sum__line > a { min-block-size: 44px; align-items: center; }
-  .un-sum button.un-sum__fig, .un-sum a.un-sum__fig { min-block-size: 44px; }
-}
-
-/* ───────────────────────────────────────────────────────────────── supporting signals (countries · monthly trend) */
-.un-sig { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--hg-space-5) var(--hg-space-12); padding-block: var(--hg-space-4); border-block-end: 1px solid var(--hg-border); }
-.un-sig__weeks { display: flex; flex-wrap: wrap; gap: 4px 20px; }
-.un-sig .un-sig__week { display: inline-flex; align-items: baseline; gap: 5px; padding: 0; border: 0; background: none; font: inherit; font-size: var(--hg-text-sm); color: var(--hg-text-secondary); text-align: start; }
-.un-sig__week b { color: var(--hg-text); font-weight: var(--hg-weight-semibold); }
-.un-sig button.un-sig__week { cursor: pointer; text-decoration: underline; text-decoration-color: var(--hg-border-strong); text-underline-offset: 3px; border-radius: var(--hg-radius-xs); }
-.un-sig button.un-sig__week:hover { color: var(--hg-text); text-decoration-color: currentColor; }
-.un-sig button.un-sig__week:focus-visible { outline: none; box-shadow: var(--hg-shadow-focus); }
-@media (max-width: 899.98px) { .un-sig { grid-template-columns: minmax(0, 1fr); } }
-@media (max-width: 767.98px) { .un-sig button.un-sig__week { min-block-size: 44px; align-items: center; } }
 
 /* ───────────────────────────────────────────────────────────────── figure (a chart with a title that says what it shows) */
 .un-figure { display: flex; flex-direction: column; gap: var(--hg-space-3); margin: 0; min-inline-size: 0; }
@@ -591,3 +525,35 @@ html[data-surface='console'] .un-matrix__row a { color: var(--hg-text); }
 .un-exports .uv8-saved > li, .un-exports .uv8-job__foot { border-color: var(--hg-border-subtle); }
 .un-exports [aria-labelledby='exp-history'] .uc-list li { display: grid !important; gap: 2px; justify-content: stretch; }
 .un-exports .uc-list li + li { border-block-start: 1px solid var(--hg-border-subtle); }
+
+/* Review inbox (product-excellence pass): four actionable figures, one hairline row, then the work. */
+.un-inbox { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) auto; align-items: start; margin: 0; padding: var(--hg-space-4) 0 var(--hg-space-5); border-block: 1px solid var(--hg-border); min-block-size: 112px; }
+.un-inbox__item { display: flex; flex-direction: column; gap: var(--hg-space-2); min-inline-size: 0; min-block-size: 72px; padding-inline: var(--hg-space-6); border-inline-start: 1px solid var(--hg-border-subtle); }
+.un-inbox__item:first-child { padding-inline-start: 0; border-inline-start: 0; }
+.un-inbox__h { margin: 0; font-size: var(--hg-text-sm); line-height: 1.4; font-weight: var(--hg-weight-semibold); color: var(--hg-text-secondary); }
+.un-inbox__item[data-inbox='decide'] .un-inbox__h::before { content: ''; display: inline-block; inline-size: 7px; block-size: 7px; margin-inline-end: 7px; border-radius: 50%; background: var(--hg-chart-highlight); vertical-align: 1px; }
+.un-inbox .un-sum__fig { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; min-inline-size: 0; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: start; text-decoration: none; cursor: pointer; border-radius: var(--hg-radius-sm); }
+.un-inbox .un-sum__fig.is-zero { cursor: default; }
+.un-inbox .un-sum__fig.is-zero .un-sum__n { color: var(--hg-text-tertiary); }
+.un-inbox .un-sum__fig:hover .un-sum__l { color: var(--hg-text); text-decoration: underline; text-underline-offset: 3px; }
+.un-inbox .un-sum__fig:focus-visible { outline: none; box-shadow: var(--hg-shadow-focus); }
+.un-sum__n { font-size: clamp(28px, 2.4vw, 36px); line-height: 1.1; font-weight: var(--hg-weight-semibold); letter-spacing: -0.02em; color: var(--hg-text); font-variant-numeric: tabular-nums; }
+.un-sum__l { font-size: var(--hg-text-base); line-height: 1.4; color: var(--hg-text-secondary); }
+.un-inbox__day { font-size: var(--hg-text-2xl); }
+@media (max-width: 767.98px) { .un-inbox .un-sum__fig { min-block-size: 44px; } }
+.un-inbox__more { align-self: start; padding-inline-start: var(--hg-space-4); font-size: var(--hg-text-sm); white-space: nowrap; }
+@media (max-width: 1023px) {
+  .un-inbox { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--hg-space-4); padding-block-end: var(--hg-space-4); min-block-size: 242px; }
+  .un-inbox__item:nth-child(odd) { padding-inline-start: 0; border-inline-start: 0; }
+  .un-inbox__more { grid-column: 1 / -1; justify-self: start; padding-inline-start: 0; }
+}
+/* WCAG 2.2 · 2.4.11: the fixed decision bar never covers the focused control above it. */
+html:has(.un-decidebar) { scroll-padding-bottom: 96px; }
+/* Decision safety: who and what, before the decision is confirmed. */
+.un-decide-id { display: grid; gap: 6px; margin: 0; padding: var(--hg-space-3) var(--hg-space-4); border-radius: var(--hg-radius-md); background: var(--hg-bg-paper); }
+.un-decide-id > div { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 8px; }
+.un-decide-id dt { font-size: var(--hg-text-sm); color: var(--hg-text-secondary); }
+.un-decide-id dd { margin: 0; font-weight: var(--hg-weight-semibold); overflow-wrap: break-word; }
+/* The applicant table holds a page's worth of height while its first page loads, so the note under it does not jump. */
+.un-table[data-work-total=''] { min-block-size: min(70vh, 640px); }
+@media (max-width: 767.98px) { .un-work .uv22-strip { min-block-size: 150px; } }

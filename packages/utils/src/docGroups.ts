@@ -250,3 +250,39 @@ export function sanitizeDocPrefs(v: unknown): DocPrefs {
   }
   return { opened: [], slots: [] };
 }
+
+/**
+ * Product-excellence pass (2026-11-22): the Documents page opens on what is left to do.
+ *
+ * Every item belongs to exactly one view: `todo` (the student must upload, fix, renew or act — an empty *optional*
+ * slot is not a gap), `review` (uploaded, being checked), `done` (ready). `all` shows everything, as before. The counts
+ * on the switch are the number of items each view lists; university requests always count as `todo`.
+ */
+export type DocView = 'todo' | 'review' | 'done' | 'all';
+export const DOC_VIEWS: DocView[] = ['todo', 'review', 'done', 'all'];
+
+export function viewOf(i: DocItem): Exclude<DocView, 'all'> | null {
+  if (i.done) return 'done';
+  if (NEEDS_YOU.includes(i.status)) return i.required || !!i.row ? 'todo' : null;
+  if (i.status === 'review' || i.status === 'uploaded') return 'review';
+  return i.status === 'verified' ? 'done' : null;
+}
+
+export function viewCounts(layout: Pick<Layout, 'groups'>, requests = 0): Record<DocView, number> {
+  const c: Record<DocView, number> = { todo: requests, review: 0, done: 0, all: requests };
+  for (const g of layout.groups) for (const i of g.items) {
+    const v = viewOf(i);
+    if (v) c[v]++;
+    if (v || i.row) c.all++;
+  }
+  return c;
+}
+
+/** The groups a view shows: only the items in that view, and only groups that still have one. `all` is unchanged. */
+export function filterGroups<G extends Pick<DocGroup, 'items'>>(groups: G[], view: DocView): G[] {
+  if (view === 'all') return groups;
+  return groups.map((g) => ({ ...g, items: g.items.filter((i) => viewOf(i) === view) })).filter((g) => g.items.length > 0);
+}
+
+/** The view a student lands on: their to-do list while there is one, otherwise everything. */
+export const defaultView = (c: Record<DocView, number>): DocView => (c.todo > 0 ? 'todo' : 'all');

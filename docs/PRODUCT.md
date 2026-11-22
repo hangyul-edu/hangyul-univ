@@ -40,6 +40,9 @@ admission" and never shows a probability, percentage or fake score. Detail: [ADM
 4. **Automate the repetitive, keep people for judgment.** Checklists, reminders, legalization routing and first-pass checks are automated; document acceptance, essay approval and admission stay human.
 5. **Tenant isolation is non-negotiable** and enforced server-side.
 6. **Hangyul never collects tuition.** It is paid by the student, in their own name, to the university (MOE guidance).
+7. **The product should feel smaller than it is.** Each screen answers one question; secondary detail is one tap away
+   (the Student journey line, Documents' to-do view, Operations' stage view, University outcome rates on Insights).
+   Task map and before/after counts: [`qa/launch-final/excellence/TASKS.md`](qa/launch-final/excellence/TASKS.md).
 
 ## Products
 

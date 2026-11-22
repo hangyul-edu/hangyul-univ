@@ -19,13 +19,14 @@ export interface Lane { key: LaneKey; label: string; count: number; tone: 'dange
 export interface RailStage<K extends string> { key: K; label: string; count: number; tone?: StageTone }
 
 export function PipelineBoard<K extends string>({
-  lanes, lane, onLane, lanesLabel, stages, selected, onSelect, railLabel, allLabel, allCount, closedLabel, closedCount, closedSelected, onClosed, closedHint, toneLabel, loading, aside,
+  lanes, lane, onLane, lanesLabel, stages, selected, onSelect, railLabel, allLabel, allCount, closedLabel, closedCount, closedSelected, onClosed, closedHint, toneLabel, loading, aside, railHidden,
 }: {
   lanes?: Lane[]; lane?: LaneKey | null; onLane?: (k: LaneKey | null) => void; lanesLabel?: string;
   stages: RailStage<K>[]; selected: K | null; onSelect: (k: K | null) => void; railLabel: string;
   allLabel: string; allCount: number;
   closedLabel: string; closedCount: number; closedSelected: boolean; onClosed: () => void; closedHint?: string;
   toneLabel: Record<'urgent' | 'waiting', string>; loading?: boolean; aside?: ReactNode;
+  /** Today: the stage rail is a secondary view, shown only on request (product-excellence pass). */ railHidden?: boolean;
 }) {
   const { locale } = useLocale('common');
   const n = (v: number) => (loading ? '–' : formatNumber(v, locale));
@@ -52,7 +53,7 @@ export function PipelineBoard<K extends string>({
           {aside && <div className="ops-lanes__aside">{aside}</div>}
         </div>
       )}
-      <div className="ops-rail">
+      {!railHidden && <div className="ops-rail" id="ops-rail">
         <button type="button" className="ops-rail__view" data-view="all" data-count={allCount} aria-pressed={allOn} onClick={() => onSelect(null)}>
           <span className="ops-rail__label">{allLabel}</span>
           <span className="ops-rail__count hg-num">{n(allCount)}</span>
@@ -83,7 +84,7 @@ export function PipelineBoard<K extends string>({
           <span className="ops-rail__label">{closedLabel}</span>
           <span className="ops-rail__count hg-num">{n(closedCount)}</span>
         </button>
-      </div>
+      </div>}
     </div>
   );
 }

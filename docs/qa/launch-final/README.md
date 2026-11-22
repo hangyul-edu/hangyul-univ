@@ -8,6 +8,7 @@ Scripts: `scripts/qa/launch-final/`.
 
 | Item | Where |
 |---|---|
+| **Product-excellence pass (2026-11-22)** — task map and task counts, WCAG 2.2 checks, Core Web Vitals, Operations at 1,071 students, failure conditions, before/after key screens, scorecard, human translation queue | [`excellence/`](excellence/README.md) |
 | **Exhaustive product-quality pass (2026-11-21)** — route inventory, defect inventory, scroll/overlay/responsive/a11y/language results, E2E, before/after screens | [`exhaustive/`](exhaustive/README.md) |
 | Route inventory | [`ROUTE_INVENTORY.md`](ROUTE_INVENTORY.md) |
 | Visual defect matrix | [`VISUAL_DEFECT_MATRIX.md`](VISUAL_DEFECT_MATRIX.md) |
