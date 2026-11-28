@@ -321,6 +321,7 @@ Implemented and tested in the repository ([SECURITY.md](SECURITY.md)):
 - Test sign-in and the paid-state bypass were removed in V32 (commit `dd552834`): no test sign-in, persona picker,
   bypass endpoint or build switch exists; the leak gate scans source, current docs and production bundles.
 - Design Preview is client-side only and has no server counterpart.
+- Channel Talk (public customer support) runs on the marketing site only, booted anonymously. Its CSP hosts are exact and live in `infra/csp.json` (see SECURITY.md › Privacy).
 
 Not true of the currently connected environment: the API behind the tunnel runs a **development configuration on a
 personal machine**, so production-only enforcement (real secrets, S3, ClamAV, mandatory staff MFA, TLS at the API
@@ -554,3 +555,4 @@ One line per pass; detail is in git history (`git log`, and earlier versions of 
 | Product-excellence pass | 2026-11-22 | Smaller-feeling product: Student journey folded under one next action, Documents open on to-do, match reasons on the row, messages as a conversation with deep links, profile in three chapters; Operations Today as a work queue with shortcut discovery; University home as a review inbox and safer decisions; WCAG 2.2 gate (focus not obscured, auth, target size) and Core Web Vitals / scale / failure-condition tests |
 | Exhaustive pass | 2026-11-21 | Rendered audit of every route (scroll oracle, overlays, touch targets, 12 px floor); 29 defects fixed: one language per screen, team identity in 21 locales, failed sends keep attachments, localized errors (75 sites), phone targets and type floor, Korean word wrapping; student → Operations message proven end to end; 14 stale E2E tests (12 spec files) brought to the owner flows |
 | Launch pass (`e3f0e0f4`) | 2026-11-18 | Shared gutter/container tokens and control states; sign-up verification and footer rebuilt; 25 visual defects fixed; Design Preview mode; direct-operation copy in every locale; docs consolidated to 19 root files; historical QA output removed; this report rewritten |
+| Channel Talk | 2026-11-27 | Marketing site (univ.talkhangyul.com) gets Channel Talk customer support from the same workspace as talkhangyul.com: anonymous boot, messenger language follows the site (`ko`/`ja`, otherwise `en`), loaded once after `load`/idle, fails silently. Student, Operations, University and native apps are excluded (`npm run qa:channel-talk`). |

@@ -34,6 +34,7 @@ import { SOCIAL_ICON_PATH, SOCIAL_LINKS, type SocialPlatform } from '../lib/soci
 import { LocaleLink, useLocaleHref } from './LocaleLink';
 import { prepareAction, useStudentSession } from '../lib/session';
 import { usePhone } from '../lib/usePhone';
+import { startChannelTalk } from '../lib/channelTalk';
 
 /**
  * Three destinations. The catalogue is a real page; services and questions are sections of the homepage, which
@@ -338,7 +339,7 @@ function Footer() {
 }
 
 export function SiteLayout() {
-  const { t } = useLocale(['marketing', 'common']);
+  const { t, locale } = useLocale(['marketing', 'common']);
   // `?lang=` is the authority for the current language (brief Part 44). One-way: the selector navigates, this
   // reacts — so the browser's back and forward buttons move between languages for free.
   useLocaleFromUrl();
@@ -350,6 +351,11 @@ export function SiteLayout() {
   useEffect(() => {
     if (embed) document.documentElement.dataset.embed = '1'; else delete document.documentElement.dataset.embed;
   }, [embed]);
+  // Channel Talk: public customer support, marketing site only (lib/channelTalk.ts). Never inside the native app's
+  // embedded legal sheet. Boots once per document; a language switch only updates the messenger's language.
+  useEffect(() => {
+    if (!embed) startChannelTalk(import.meta.env.VITE_CHANNEL_IO_KEY, locale);
+  }, [embed, locale]);
   const [cta, setCta] = useState<ClosingCtaContent | null>(null);
   // Anchor links such as /#check scroll to the section after navigation.
   useEffect(() => {

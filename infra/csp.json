@@ -31,6 +31,12 @@
       "frame-src": ["https://challenges.cloudflare.com"],
       "connect-src": ["https://challenges.cloudflare.com"]
     },
+    "channeltalk": {
+      "script-src": ["https://cdn.channel.io"],
+      "connect-src": ["https://api.channel.io", "https://cf.channel.io", "https://document-api.channel.io", "wss://front-ws.channel.io"],
+      "img-src": ["https://cf.channel.io"],
+      "media-src": ["https://cdn.channel.io"]
+    },
     "toss": {
       "script-src": ["https://js.tosspayments.com"],
       "connect-src": ["https://api.tosspayments.com", "https://*.tosspayments.com"],
@@ -40,7 +46,7 @@
     }
   },
   "apps": {
-    "marketing": {"server_name": "www.hangyul-univ.example", "root": "/srv/hangyul/marketing-web", "features": ["youtube", "turnstile"]},
+    "marketing": {"server_name": "www.hangyul-univ.example", "root": "/srv/hangyul/marketing-web", "features": ["youtube", "turnstile", "channeltalk"]},
     "student": {"server_name": "app.hangyul-univ.example", "root": "/srv/hangyul/student-web", "features": ["youtube", "turnstile", "toss"]},
     "agency": {"server_name": "agency.hangyul-univ.example", "root": "/srv/hangyul/agency-web", "features": []},
     "university": {"server_name": "university.hangyul-univ.example", "root": "/srv/hangyul/university-web", "features": []}

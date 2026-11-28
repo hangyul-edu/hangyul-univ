@@ -350,6 +350,9 @@
 @media (max-width: 639.98px) {
   /* Footer: the CTA band → footer seam was 56 + 56 px of white either side of the hairline; the footer side is 40. */
   .kn .kn-footer { padding-block: 40px calc(var(--hg-space-8) + env(safe-area-inset-bottom, 0px)); }
+  /* Channel Talk's launcher (56 px, 28 px off the bottom edge) covered the end of the copyright line at 320 px.
+     Only while the widget is active (lib/channelTalk.ts sets the attribute and removes it if the SDK fails). */
+  [data-channel-talk] .kn .kn-footer { padding-block-end: calc(96px + env(safe-area-inset-bottom, 0px)); }
   .kn .kn-footer__top { gap: 28px; }
   /* The folded columns read as three floating headings 68 px apart with nothing saying they open. One 48 px row each,
      no gap, and a chevron that turns — the same affordance the FAQ above uses. Still start-aligned. */

@@ -108,6 +108,7 @@ Web (Vercel, per project; all public, no secrets):
 | `VITE_AGENCY_APP_URL` | `https://admin.univ.talkhangyul.com` (Operations/Admin) |
 | `VITE_UNIVERSITY_APP_URL` | `https://partner.univ.talkhangyul.com` |
 | `VITE_ENABLE_DESIGN_PREVIEW` | **unset/off for public launch** (see §7) |
+| `VITE_CHANNEL_IO_KEY` | **Marketing project only.** Channel Talk public plugin key, the same Hangyul workspace as talkhangyul.com (reference: `NEXT_PUBLIC_CHANNEL_IO_KEY` in hangyul-web). Unset: no chat widget. Never set it on Student, Operations or University. `npm run qa:channel-talk` checks the bundles. |
 | `VERCEL_GIT_COMMIT_SHA`, `VERCEL_ENV` | system; written into `/build-info.json` |
 
 API (server environment or `*_FILE` secret mounts; values never in git): `HG_ENV`, `HG_DATABASE_URL`, `HG_REDIS_URL`,
