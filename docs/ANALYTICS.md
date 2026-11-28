@@ -18,7 +18,8 @@ Product analytics for Hangyul Univ: philosophy, the event catalogue, privacy rul
   Properties carry codes and counts only.
 - Anonymous events (public pages) carry no user id and no IP address.
 - No third-party analytics, advertising or session-replay script is loaded in any product; no consent-requiring
-  cookie exists, so no cookie banner is shown.
+  cookie exists, so no cookie banner is shown. The one third-party script is Channel Talk customer support, on the
+  Marketing site only, booted anonymously (SECURITY.md › Privacy); it is not analytics.
 - Not measured on purpose: time on page, scroll depth, plan-card clicks, comparison toggles, or anything used to
   optimise a dark pattern.
 - **Design Preview mode emits no events** — it makes no calls to private APIs (see [SECURITY.md](SECURITY.md)).
@@ -46,7 +47,7 @@ naming — see [ARCHITECTURE.md](ARCHITECTURE.md)).
 | `university_saved` | Shortlist | university | Shortlist building |
 | `comparison_created` | Compare | program count | Decision support usage |
 | `budget_viewed` | Budget planner | programs, source (selected/shortlist), housing | Do students engage with cost before applying? |
-| `service_checkout_started` / `service_purchased` | Services | product, provider | Service conversion (`provider` is `toss` — Toss TEST mode, foreign-card key-in; a `demo` provider exists only for automated tests) |
+| `service_checkout_started` / `service_purchased` | Services | product, provider | Service conversion (`provider` is `toss` on the billing-key rail; a `demo` provider exists only for automated tests) |
 
 ## Service contract (V29)
 

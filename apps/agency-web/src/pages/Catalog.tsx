@@ -31,7 +31,7 @@ export function RequirementsList({ p }: { p: Program }) {
         { label: t('catalog.appFee'), value: p.application_fee_krw ? formatMoney(p.application_fee_krw, 'KRW', locale) : null },
       ]} />
       {r.notes && <p className="hg-small hg-muted" style={{ marginTop: 8 }}>{r.notes}</p>}
-      <div style={{ marginTop: 8 }}><FreshnessBadge data={r} /></div>
+      <div style={{ marginTop: 8 }}><FreshnessBadge audience="staff" data={r} /></div>
     </>
   );
 }
@@ -48,7 +48,7 @@ function ProgramDetail({ id, match, studentName, studentId }: { id: string; matc
             <div className="hg-row-wrap" style={{ '--hg-gap': '6px' } as React.CSSProperties}>
               <Badge size="sm" tone="brand">{t(`degreeShort.${p.degree_level}`)}</Badge>
               <Badge size="sm" tone="neutral">{t(`instruction.${p.instruction_language}`)}</Badge>
-              <FreshnessBadge data={p} />
+              <FreshnessBadge audience="staff" data={p} />
             </div>
             <h3 className="hg-title-sm" style={{ marginTop: 8 }}>{p.name_en}</h3>
             {p.university && <Link to={`/universities/${p.university.slug}`} className="hg-small">{localName(p.university)}</Link>}
@@ -246,7 +246,7 @@ function Universities() {
     { id: 'living', accessorKey: 'est_living_cost_monthly_krw', header: t('catalog3.living'), size: 130, meta: { numeric: true, label: t('catalog3.living'), hideOnMobile: true }, cell: ({ getValue }) => formatMoney(getValue<number | null>(), 'KRW', locale, { compact: true }) },
     { id: 'partner', accessorFn: (r) => (r.is_partner ? 1 : 0), header: t('catalog3.partner'), size: 90, meta: { label: t('catalog3.partner') },
       cell: ({ row }) => (row.original.is_partner ? <StatusText tone="brand">{t('catalog.partner')}</StatusText> : <span className="hg-subtle">—</span>) },
-    { id: 'fresh', accessorFn: (r) => r.verification_status ?? '', header: t('catalog.freshness'), size: 120, meta: { label: t('catalog.freshness'), hideOnMobile: true }, cell: ({ row }) => <FreshnessBadge data={row.original} compact /> },
+    { id: 'fresh', accessorFn: (r) => r.verification_status ?? '', header: t('catalog.freshness'), size: 120, meta: { label: t('catalog.freshness'), hideOnMobile: true }, cell: ({ row }) => <FreshnessBadge audience="staff" data={row.original} compact /> },
   ], [t, locale]);
   return (
     <div className="hg-panel">

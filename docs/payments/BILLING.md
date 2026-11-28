@@ -103,21 +103,43 @@ refund. Record the non-secret evidence (date, MID, order reference, Toss status)
 
 ## 6. Live capability results
 
-**Status 2026-11-18: no live capability has been verified.** The live credentials are not installed on any host
-this work was done from, there is no production payment host yet (the API runs on a development machine behind a
-tunnel), and a live charge needs an owner-approved real payment method. `HG_LIVE_PAYMENT_ENABLED` is therefore off
-and every capability is `UNVERIFIED`.
+**Status 2026-11-28 (re-measured): no live capability is verified, and nothing is live.**
 
-| Method | Live MID | Result | What is known |
-|---|---|---|---|
-| Korean card | `bill_talko18s0` | **NOT VERIFIED** | Toss v2 documents hosted card billing (`requestBillingAuth`, `method: CARD`). The MID settles KRW by default; the catalogue is priced in **USD only**, so with today's catalogue this method cannot pay any order (`CURRENCY_MISMATCH`) until the owner approves KRW prices or the contract is confirmed to settle USD. |
-| International card | `bill_talkoab1` | **NOT VERIFIED** | Toss's billing guide states that billing supports cards issued in Korea only. On 2026-10-21 the **test** configuration of this MID refused billing-key issuance by card number and accepted only key-in. Whether the **live** contract issues billing keys for overseas cards through the hosted window must be confirmed with a live request; if Toss refuses, this method stays unavailable — it is not rerouted to key-in. |
-| Toss Pay | `bill_talkspm0` | **BLOCKED — `PROVIDER_SPEC_REQUIRED`** | The v2 SDK documents billing registration for cards and account transfer only; there is no documented registration method for Toss Pay on the Toss Payments billing API. The integration contract for this MID must be obtained from Toss before code can be written against it. |
-| Naver Pay | `bill_talkspm0` | **BLOCKED — `PROVIDER_SPEC_REQUIRED`** | Same as Toss Pay. |
+Measured on 2026-11-28, without charging:
 
-Sources read 2026-11-18: `docs.tosspayments.com/guides/v2/billing/integration`, `/reference` (billing endpoints),
-`/sdk/v2/js/payment` (`requestBillingAuth`), `/reference/using-api/authorization` (Idempotency-Key),
-`/reference/using-api/webhook-events`.
+- The production `/api` (Vercel rewrite → ngrok tunnel) answers from a server reporting `HG_ENV=development`
+  (`/healthz` → `{"ok":true,"env":"development"}`) on a development machine — not a production payment host. The
+  production start-up gate (live keys, contracted MIDs, envelope key) applies only under `HG_ENV=production`.
+- On the release machine: `npm run payments:probe` → every method `PROVIDER_NOT_TOSS` (no Toss configuration);
+  `npm run release:payment-gate` → **FAIL** (provider `demo`, `HG_TOSS_ENV` not live, no merchant configured, no
+  `HG_PAYMENT_TOKEN_ENCRYPTION_KEY`, none of the three live MIDs configured, `HG_LIVE_PAYMENT_ENABLED` off, no
+  `VERIFIED` capability). Its bundle-secret and non-billing-call checks found nothing.
+- `server/tests/test_v33_billing.py` + `test_v17_usd_refunds.py`: **49 passed** (provider mocked): exactly-once
+  charge and entitlement under double click, reload, timeout and unknown outcome; amount and consent checks;
+  sealed keys; foreign `customerKey` refused; easy-pay refused by name; refunds.
+
+Toss documentation read 2026-11-28 (`/guides/v2/billing/integration`, `/guides/v2/billing`, `/reference`,
+`/guides/v2/learn/foreign-payment`, `/guides/v2/webhook`, `/reference/using-api/webhook-events`):
+
+- "현재 자동결제 결제수단은 국내에서 발급한 카드만 지원합니다. 해외카드, 해외결제는 지원하지 않습니다."
+- "네이버페이, 토스페이는 자동결제(빌링)를 지원해요. 단, 사용하려면 별도 심사가 필요해요." — the registration method for
+  them is not in the public docs.
+- `POST /v1/billing/{billingKey}` has **no currency field**: a billing charge settles in the MID's currency.
+  "하나의 MID는 하나의 통화만 가질 수 있어요"; foreign multi-currency needs a separate contract.
+- "자동결제는 리스크 검토 및 추가 계약 후 사용할 수 있습니다. **정기 구독형 서비스가 아니라면 정책적으로 자동결제 사용이
+  제한되니 유의하세요.**" — the owner's model (one-time purchases charged through a billing key) must be accepted by
+  Toss in the merchant contract. This is the first question for Toss.
+- Billing approvals send **no** completion webhook (the server already settles every charge synchronously or by
+  querying Toss); `BILLING_DELETED` is the billing webhook. Webhooks are registered per MID in the 개발자센터.
+
+| Method | Live MID | Code | Provider contract | Live config | Live charge | Status |
+|---|---|---|---|---|---|---|
+| Korean card | `bill_talko18s0` | done | Korean-issued cards documented; billing for a one-time model needs Toss's acceptance; the MID settles KRW and the catalogue is **USD only** → `CURRENCY_MISMATCH` until KRW prices or a USD contract | not installed on any measured host | not done | **IMPLEMENTED, TEST ONLY** |
+| International card | `bill_talkoab1` | done | Toss billing does not support overseas cards; no special contract has been shown | not installed | not done | **`PROVIDER_CONTRACT_BLOCKED`** |
+| Toss Pay | `bill_talkspm0` | refused by design (`PROVIDER_SPEC_REQUIRED`) | supported only after Toss's separate screening; method spec not public | not installed | not done | **`PROVIDER_CONTRACT_BLOCKED`** |
+| Naver Pay | `bill_talkspm0` | refused by design (`PROVIDER_SPEC_REQUIRED`) | same as Toss Pay | not installed | not done | **`PROVIDER_CONTRACT_BLOCKED`** |
+
+"Test only" means the code path is proven with the provider mocked; no Toss test-key run was made from this machine.
 
 ## 7. What must happen before real customers are charged
 
@@ -128,7 +150,9 @@ Sources read 2026-11-18: `docs.tosspayments.com/guides/v2/billing/integration`, 
 3. `npm run payments:probe` → record results in §6.
 4. Decide KRW pricing (or confirm the settlement currency of the KRW MIDs) — otherwise only a USD-settling
    merchant can take an order.
-5. Obtain Toss's easy-pay billing integration contract for `bill_talkspm0`.
+5. Ask Toss, per MID: is billing approved for one-time purchases (policy restricts billing to subscriptions)?
+   Does `bill_talkoab1` have any billing route for overseas cards? Screening and the integration spec for Toss Pay /
+   Naver Pay billing on `bill_talkspm0`.
 6. Per method: the controlled live transaction in §5, then `HG_TOSS_CAPABILITY_<METHOD>=VERIFIED`.
 7. `HG_LIVE_PAYMENT_ENABLED=true`, then `npm run release:payment-gate` must pass.
 8. Owner/counsel: refund schedule; upgrade pricing rule.

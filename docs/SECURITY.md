@@ -27,7 +27,7 @@ A design-review aid, controlled by one build flag: `VITE_ENABLE_DESIGN_PREVIEW`.
 | Indicator | A small fixed "Design Preview" pill with Exit on every preview screen; Exit clears the state and returns to the real login. |
 | Server | The API has no preview endpoint, no bypass and no test sign-in; preview is client-side only. This is different from the demo login / test-paid bypass removed in V32, which touched the server. |
 | Proof | `npm run qa:launch-preview` (browser: zero `/api` requests on every preview screen of all three apps), `apps/student-web/src/lib/design-preview.test.ts` (transport), `npm run release:preview-gate` (one switch, no network code, fixture hygiene, bundle state). |
-| Release | **Currently ON for owner review** (`build.env` in `apps/{student,agency,university}-web/vercel.json`). **It must be off in the public-launch build**: set `DESIGN_PREVIEW = false` in `scripts/ops/gen-vercel.mjs` and regenerate; `npm run release:preview-gate -- --launch --bundles off` fails until it is off and absent from the bundles. |
+| Release | **OFF since 2026-11-28** (release build): `DESIGN_PREVIEW = false` in `scripts/ops/gen-vercel.mjs`, no `build.env` in any `vercel.json`, and `npm run release:preview-gate -- --launch --bundles off` passes — no preview entry, indicator, transport or fixture in a production bundle. Turning it back on for a review needs a deliberate generator change and redeploy. |
 
 ## Launch-blocking security requirements
 

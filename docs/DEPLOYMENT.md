@@ -29,7 +29,7 @@ Verified responses through `https://app.univ.talkhangyul.com`:
 |---|---|
 | `GET /api/v1/auth/me` | 401 `{"detail":"Not authenticated"}` (API reached, auth enforced) |
 | `GET /api/v1/public/plans` | 200 with plan data |
-| `GET /api/v1/universities`, `GET /api/v1/programs` | 200, `total: 0` — the connected database's programme catalogue is **empty (unseeded)** |
+| `GET /api/v1/universities`, `GET /api/v1/programs` | 200, `total: 425` / `total: 469` (measured 2026-11-28; `/api/v1/public/catalog/status` → `READY`) |
 | `https://api.univ.talkhangyul.com` | resolves to Vercel IPs, TLS fails — **no dedicated production API host exists** |
 
 The `agency-*` names (`apps/agency-web`, `@hangyul/agency-web`, Vercel project `hangyul-univ-agency`, `/agency/...`
@@ -94,8 +94,8 @@ function are retired: 유학 준비 opens the Student login (`next=/match`) and 
 | `npm run qa:marketing-serverless` | build marketing and verify it with the API offline (snapshot fallback; also `BASE=https://univ.talkhangyul.com`) |
 | `npm run qa:catalog-parity -- --api <origin>` | Marketing (snapshot + live directory) vs the Student catalogue (`/universities`), field by field |
 
-This is why the public site shows 425 universities while the connected API's catalogue returns `total: 0`: they are
-different data sets. Seeding the connected database (`npm run db:migrate && npm run db:seed`) is an open task.
+The connected API serves the same catalogue (425 universities, 469 programmes for 8 universities, `READY`; measured
+2026-11-28); the snapshot is the prerender input and the offline fallback.
 
 ## 5. Environment variables
 
@@ -139,10 +139,9 @@ the Student / Operations / University logins; "Preview without paying" on the St
 synthetic fixtures inside the browser, creates no auth session, refuses every write and makes no API request; a small
 "Design Preview" indicator is always visible. Requirements and proof: [SECURITY.md](SECURITY.md).
 
-**Current state: ON for owner review.** The flag is set in `build.env` of `apps/student-web/vercel.json`,
-`apps/agency-web/vercel.json` and `apps/university-web/vercel.json` (the marketing site has no preview). The three files are generated: to turn
-it off for the public launch set `DESIGN_PREVIEW = false` in `scripts/ops/gen-vercel.mjs`, run
-`node scripts/ops/gen-vercel.mjs`, redeploy, and run `npm run release:preview-gate -- --launch --bundles off`.
+**Current state: OFF (release build, 2026-11-28).** `DESIGN_PREVIEW = false` in `scripts/ops/gen-vercel.mjs`; no
+`vercel.json` carries `build.env`; `npm run release:preview-gate -- --launch --bundles off` passes. There is no test
+login, demo login, persona picker or "preview without signing in / paying" in a production build.
 The same generator holds the `/api` rewrite target (`API_ORIGIN`), which currently names the tunnel.
 
 ## 8. Release gates

@@ -30,7 +30,7 @@ export function FirstYearCost({ value, showBasis = true }: { value: FirstYearRan
     <span className="v4-cost">
       <span className="v4-cost__label">{t('v4.cost.firstYear')}</span>{' '}
       <strong className="hg-num v4-cost__amount">{text(value)}</strong>
-      {showBasis && value && value.low !== null && value.basis === 'SAMPLE' && <span className="v4-cost__basis"> · {t('common:freshness.unverified').toLowerCase()}</span>}
+      {showBasis && value && value.low !== null && value.basis === 'SAMPLE' && <span className="v4-cost__basis"> · {t('budget.basis.ESTIMATE').toLowerCase()}</span>}
     </span>
   );
 }

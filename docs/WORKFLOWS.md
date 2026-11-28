@@ -102,7 +102,7 @@ Contracts define fees, incentives, target countries/programs, quotas and optiona
 
 - **Language route.** Quick check / Discovery: when language blocks the chosen degree, show the routes the catalogue really offers (language program → D-4-1 → D-2 change after degree admission; English-taught; smallest test step). Counts only; "not an offer".
 - **Money.** Every payment has payer → payee → when → refundable → basis. *Money to show* (visa funds) is not a payment and says so; funds must genuinely be held (temporary deposits are unlawful per MOJ/court findings). Tuition is paid to the university, in the student's own name, never through changers or agents. Announced reforms (TOPIK 4 exemption, deposit scheme) appear only as "announced, not in force" with a source.
-- **Refund.** Visa refusal after tuition (or withdrawal after tuition) opens a REFUND service case (OPEN → ASKED_UNIVERSITY / WAITING_STUDENT → REFUNDED / CANCELLED) with the university's rule if recorded, else "your counselor confirms", and elapsed days.
+- **Refund.** Visa refusal after tuition (or withdrawal after tuition) opens a REFUND service case (OPEN → ASKED_UNIVERSITY / WAITING_STUDENT → REFUNDED / CANCELLED) with the university's rule if recorded, else "the Hangyul team confirms", and elapsed days.
 - **Sponsor.** Student creates a link (scopes, expiry) → sponsor views without an account → every view audited → student revokes. Never shows messages, essays, notes or files.
 - **Waiting-on.** One party per case; the row's next action is phrased for that party; the student sees "who is doing what" with the same meaning.
 - **Counselor day.** Ranked queue (reasons, owner, deadline) with work-type chips → open → decide → next; meetings record notes + decisions + follow-up tasks + next appointment on the student timeline.
@@ -147,8 +147,9 @@ signed session, header `X-Signup-Session`) → `POST /auth/verification/send` + 
 rate limits → `POST /auth/register` with `email_proof`, `phone_proof`, `password_confirm` and the granular consents
 (`TERMS`, `PRIVACY`, `CROSS_BORDER_VERIFICATION` required; `MARKETING` optional). **No account exists before the last
 call.** Development reads codes through `GET /auth/verification/peek/{id}` (404 in production). The native student app
-(`apps/student-mobile/src/signup/`) uses the same four endpoints. Provider credentials are environment variables and
-are absent on this host, so the live smoke is BLOCKED.
+(`apps/student-mobile/src/signup/`) uses the same four endpoints. Provider credentials are environment variables. On
+the connected API (2026-11-28) Turnstile is **not** configured (`captcha.required: false`) and OTP delivery runs in
+`providers` mode; `npm run qa:identity-live` needs the credentials on the host running it and was not re-run.
 
 **Plan purchase** — one-time, USD, billing-key rail. `POST /me/orders` (plan code; records a versioned `PURCHASE_TERMS`
 consent; state `PAYMENT_METHOD_REQUIRED` or `BILLING_KEY_READY`) → a saved payment method, or `POST /me/payment-methods/registrations`

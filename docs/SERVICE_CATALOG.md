@@ -87,8 +87,7 @@ tracked (`add_on_offered`, `add_on_approved`, `add_on_purchased`). Code: `server
 
 `UPGRADE_POLICY.status = OWNER_DECISION_REQUIRED`. The V29 contract defines no upgrade price, so the server refuses an
 upgrade order (`UPGRADE_POLICY_REQUIRED`) and the UI shows what would change plus "ask the team". Usage carries over
-(it is read from work records). Non-production review builds can still demonstrate an upgrade with the paid-state test
-action, which charges nothing.
+(it is read from work records). There is no paid-state test action in any build (removed in V32).
 
 ## Service notes (이용 안내)
 

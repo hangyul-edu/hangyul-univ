@@ -61,19 +61,9 @@
 .hg-unid-meta { display: block; font-size: 13px; line-height: 1.5; color: var(--hg-text-tertiary); font-weight: var(--hg-weight-regular); }
 .hg-unid-note { margin: 0; font-size: 14px; line-height: 1.6; color: var(--hg-text-secondary); max-inline-size: 68ch; }
 
-/* --- "Not yet verified": one quiet line, a dashed ring, never a box --- */
-.hg-unid-nyv {
-  display: grid; grid-template-columns: 12px minmax(0, 1fr); gap: 4px 10px; align-items: start;
-  margin: 0; font-size: 14px; line-height: 1.55;
-}
-.hg-unid-nyv__mark {
-  inline-size: 11px; block-size: 11px; margin-block-start: 5px; border-radius: 50%;
-  border: 1.5px dashed var(--hg-border-control);
-}
-.hg-unid-nyv__text { display: flex; flex-wrap: wrap; gap: 0 8px; min-inline-size: 0; }
-.hg-unid-nyv__text > strong { font-weight: var(--hg-weight-semibold); color: var(--hg-text-secondary); }
-.hg-unid-nyv__text > span { color: var(--hg-text-tertiary); }
-.hg-unid-nyv__link { grid-column: 2; font-size: 14px; }
+/* --- an official page standing in for a figure Hangyul shows none of (never a "not verified" label) --- */
+.hg-unid-official { margin: 0; font-size: 14.5px; line-height: 1.55; }
+.hg-unid-facts + .hg-unid-official { margin-block-start: 10px; }
 
 /* --- decision summary --- */
 .hg-unid-sum__rows { border-block-start: 2px solid var(--hg-text); }
@@ -112,7 +102,6 @@
 .hg-unid-row > dd p { margin: 0; max-inline-size: 68ch; }
 .hg-unid-row > dd > p:not([class]) { color: inherit; font-size: inherit; line-height: inherit; }
 .hg-unid-row > dt.hg-sr-only + dd { grid-column: 1 / -1; }
-.hg-unid-row--nyv > dt { color: var(--hg-text-tertiary); }
 
 .hg-unid-levels { display: flex; flex-wrap: wrap; gap: 8px; }
 .hg-unid-level {
@@ -198,7 +187,6 @@
 .hg-unid-gks ul { list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 12px 28px; }
 .hg-unid-gks li { display: grid; gap: 1px; justify-items: start; font-size: 15px; }
 .hg-unid-schol__empty { display: grid; gap: 22px; }
-.hg-unid-schol__empty > div:last-child { display: grid; gap: 8px; }
 .hg-unid-schol__empty .hg-unid-gks { margin-block-start: 0; }
 
 /* --- campus and student life --- */
@@ -232,7 +220,7 @@
 
 @media (prefers-reduced-motion: reduce) { .hg-unid-group__chev, .hg-unid-level { transition: none; } }
 
-:lang(ko) :is(.hg-unid-facts dd, .hg-unid-facts dt, .hg-unid-row > dd, .hg-unid-row > dt, .hg-unid-note, .hg-unid-nyv, .hg-unid-foot,
+:lang(ko) :is(.hg-unid-facts dd, .hg-unid-facts dt, .hg-unid-row > dd, .hg-unid-row > dt, .hg-unid-note, .hg-unid-official, .hg-unid-foot,
   .hg-unid-sum__k, .hg-unid-group__name, .hg-unid-sch__name, .hg-unid-region p, .hg-unid-gks p, .hg-unid-pick dd) {
   word-break: keep-all; overflow-wrap: break-word;
 }

@@ -35,7 +35,7 @@ admission" and never shows a probability, percentage or fake score. Detail: [ADM
 ## Principles
 
 1. **Honesty over hype.** No invented acceptance rates, rankings or outcomes; fit groups with reasons, never odds.
-2. **Freshness is a feature.** Every time-sensitive fact carries `source_url`, `verified_at` and a verification status; unverified facts are left blank.
+2. **Freshness is a feature.** Every time-sensitive fact carries `source_url`, `verified_at` and a verification status. Customers see verified facts, the university's own page for a topic, or nothing — never a research state (FRONTEND_CONVENTIONS › Unknown facts).
 3. **Next action before internal stage.** The student sees the one thing to do now — or that nothing is needed — not the internal pipeline. Detailed stages belong to the Operations console.
 4. **Automate the repetitive, keep people for judgment.** Checklists, reminders, legalization routing and first-pass checks are automated; document acceptance, essay approval and admission stay human.
 5. **Tenant isolation is non-negotiable** and enforced server-side.
@@ -144,9 +144,9 @@ renders only what it can verify, because nothing else exists to render. Authenti
 show their real first-user states (empty applications, empty documents, a clear next step), never fabricated cases; when
 the private API itself cannot be reached they show the branded service-unavailable state with Retry.
 
-**Connected environment today:** the API reachable from the deployed apps has an **empty programme catalogue**
-(`/api/v1/universities` and `/programs` return `total: 0`); the public site's 425 universities come from the static
-public export. See [DEPLOYMENT.md](DEPLOYMENT.md) and [REPORT.md](REPORT.md).
+**Connected environment today (measured 2026-11-28):** the API reachable from the deployed apps serves 425
+universities and 469 programmes (8 universities), catalogue state `READY`; it runs `HG_ENV=development` on a
+non-production host behind a tunnel. See [DEPLOYMENT.md](DEPLOYMENT.md) and [REPORT.md](REPORT.md).
 
 ## Template foundations (ThemeForest, licensed)
 

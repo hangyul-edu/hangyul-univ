@@ -35,7 +35,7 @@ How the four web apps and three native apps are built. Read this before adding a
 2. **Locale-aware formatting only**: `formatDate(x, locale)`, `formatMoney(x, currency, locale)` — pass the record's own currency (plans are USD since V17, tuition and Korean fees are KRW; never hard-code one), `countryName(code, locale)`. Never `toLocaleString()` without the active locale.
 3. **RTL-safe CSS**: use logical properties (`margin-inline-start`, `inset-inline-end`, `padding-inline`, `text-align: start`). Directional icons get `className="hg-flip-rtl"`.
 4. **Every data screen handles** loading (skeleton), error (`ErrorState` with retry), empty (`EmptyState` with a next action), partial data, and permission denied (API 403/404 → `ErrorState` shows the right message). `QueryState` does this for you.
-5. **Honesty rules**: never show invented statistics as fact. Since V12 a **public** surface never renders a value it cannot verify (no cost, deadline, requirement or match on the marketing site, labelled or not); seeded figures appear only on authenticated surfaces, and there are no "Sample data" badges in product chrome. Never write "guaranteed admission"; use match tiers (Strong / Competitive / Reach), readiness and eligibility. Show a guarantee only when the API returns `guarantee` (backed by a partner contract), with its terms.
+5. **Honesty rules**: never show invented statistics as fact. Since V12 a **public** surface never renders a value it cannot verify (no cost, deadline, requirement or match on the marketing site, labelled or not); seeded figures appear only on authenticated surfaces, and there are no "Sample data" badges in product chrome. Never write "guaranteed admission"; use the matching groups (적합도 높음 · 요건 충족 · 주의할 점 있음 · 아직 지원 불가 · 성적 필요 — ADMISSIONS.md), readiness and eligibility. Show a guarantee only when the API returns `guarantee` (backed by a partner contract), with its terms.
 6. **Tenant boundaries are enforced by the API.** Since V22 a tenant has one role (`AGENCY_ADMIN` / `UNIVERSITY_ADMIN`), so inside a tenant everyone sees the same actions; the UI still hides Hangyul-only operations from tenant users, shows staff to students only as the *Hangyul Univ team* (never a staff name), and must never render `internal` messages/comments in student-facing apps.
 7. **Responsive**: works at 375/390/430/768/1024/1280/1440. Tables become cards under 768px (built into `DataTable`), filters move into a `Drawer` (bottom sheet on mobile), primary actions stay visible.
 8. **Accessibility (WCAG 2.1 AA)**: labelled inputs (`Field`), keyboard-operable controls, visible focus, `aria-*` on custom widgets, charts include a screen-reader summary (built in), don't rely on color alone (status badges carry text).
@@ -50,7 +50,7 @@ How the four web apps and three native apps are built. Read this before adding a
 Common rules: neutral-first surfaces, tangerine only for the primary action / "you are here" / focus, hierarchy through type and hairlines (use `Section`, `ListRow` in an `hg-panel`, `StatusText`, `Metrics`) — use `Card` only for genuinely self-contained objects, never KPI-tile grids.
 
 - **Marketing** — editorial and restrained: short copy, one CTA, product previews built from real UI, sourced facts (nothing unverifiable on a public page, V12). No decorative motifs.
-- **Student** — a guided service, not a dashboard: every screen answers one question; one dominant next action; verdicts (Strong fit / Eligible / Reach / Not eligible yet) wherever a program appears; documents described as requirements.
+- **Student** — a guided service, not a dashboard: every screen answers one question; one dominant next action; verdicts (Strong match / Meets requirements · see what needs attention / Not eligible yet / Needs your grades) wherever a program appears; documents described as requirements.
 - **Operations/Admin** (`apps/agency-web`, Hangyul internal) — dense but quiet: attention lists that link to filtered views, saved views on the caseload, single-line tables, keyboard-friendly review. KPIs live on Performance only.
 - **University** — executive credibility: decisions first, one consistent funnel population with definitions and n<5 honesty, light sidebar, validated chart palette.
 
@@ -207,6 +207,17 @@ styles, the console surface). Page CSS composes these; it does not restate colou
   switch (`@hangyul/utils` `viewOf` / `viewCounts` / `filterGroups`); a deep link to one item opens "all".
 - **Say a fact once.** No status repeated as "latest change: <same status>", no team name twice in one card, no "나"
   owner label under a sentence already addressed to the student, no row for a value we do not have ("설립 —").
+- **Unknown facts on customer pages (canonical rule, 2026-11-28).** Internal data keeps unknown as *unknown*: never
+  converted to false, none or zero, and `source_url` / `verified_at` / verification status / provenance stay in the
+  database and in Operations. A **customer** surface (Marketing, Student) never shows a research state: no "아직 확인되지
+  않음", "미확인", "Not yet verified", "needs checking", "Hangyul hasn't verified…". Per topic, in this order: (1) the
+  verified fact; (2) the university's own page for that topic under a plain label (`UniversityOfficialLink`:
+  "등록금·전형료 안내 보기", "학교 장학금 안내 보기", the dormitory, international office or admissions page) — a homepage
+  is not a topic page; (3) nothing. Provenance stays quiet: a checked date and the source link, not a status per block.
+  Where a personalised result genuinely cannot be assessed, say what the team will do ("상담에서 확인해드릴 대학 — 최신
+  모집요강을 확인한 뒤 지원 가능 여부를 안내해드려요"), never what Hangyul has not done, and never imply eligibility.
+  `FreshnessBadge` defaults to `audience="customer"`; Operations and the University console pass `audience="staff"`.
+  Enforced by `npm run qa:customer-copy` (locale source, plus rendered pages with `--base`).
 - **Why on the row.** A match row shows up to three published requirements met (✓) and one thing to check (△) without a
   click; never a probability.
 - **Conversation rhythm.** Messages: a date line where the day changes, consecutive messages from one side within ten

@@ -40,7 +40,7 @@ export function Country({ code, className }: { code: string | null | undefined; 
  */
 export function Provenance({ data, compact }: { data: Partial<Freshness> | null | undefined; compact?: boolean }) {
   if (!data || data.verification_status === 'DEMO') return null;
-  return <FreshnessBadge data={data} compact={compact} />;
+  return <FreshnessBadge audience="staff" data={data} compact={compact} />;
 }
 
 export function Section({ title, subtitle, actions, children, className, id }: { title: ReactNode; subtitle?: ReactNode; actions?: ReactNode; children: ReactNode; className?: string; id?: string }) {

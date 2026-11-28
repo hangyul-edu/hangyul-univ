@@ -272,7 +272,7 @@ export default function UniversityDetail() {
         <UniversityScholarships
           data={adm.data} level={null}
           checkHref={prepareHref} content={content}
-          fallbackHref={links.scholarship ?? links.admissions ?? inst.website_url}
+          fallbackHref={links.scholarship}
         />
 
         {/* 06 — campus and student life. Own-campus photographs only; otherwise the identity composition. */}

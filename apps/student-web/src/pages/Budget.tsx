@@ -73,7 +73,6 @@ function HangyulFeeRow({ fee }: { fee: HangyulFee }) {
       <div className="bd-fee__amount">
         <span className="bd-fee__value">{fee.status === 'NONE' ? t('v8.budget.fee.from', { amount }) : amount}</span>
         <StatusText tone={fee.status === 'PAID' ? 'success' : fee.status === 'DUE' ? 'warning' : 'neutral'} hollow={fee.status === 'NONE'}>{t(`v8.budget.fee.status.${fee.status}`)}</StatusText>
-        {fee.is_demo && <span className="hg-small hg-subtle">{t('common:freshness.unverified')}</span>}
         {fee.status !== 'PAID' && <Link to="/services" className="hg-link-arrow">{t('v8.budget.fee.cta')}</Link>}
       </div>
     </section>

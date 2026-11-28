@@ -21,7 +21,14 @@
  */
 import { chromium } from '@playwright/test';
 
-const PASSWORD = process.env.HG_DEMO_PASSWORD ?? 'Hangyul!2026';
+/**
+ * Sign-in credentials come from the environment only (2026-11-28): the demo accounts and the shared fixture password
+ * this scan used to hard-code were removed from the product in V32. Use the isolated E2E database's synthetic
+ * accounts (`node scripts/qa/e2e-db.mjs`, `server/app/seed/fixtures.py`):
+ *   HG_LEAK_PASSWORD, HG_LEAK_STUDENT_LOGIN, HG_LEAK_AGENCY_LOGIN, HG_LEAK_UNIVERSITY_LOGIN, HG_LEAK_HQ_LOGIN.
+ * Without them the signed-in routes are reported as SKIPPED (never as a pass, never as a failure).
+ */
+const PASSWORD = process.env.HG_LEAK_PASSWORD;
 
 /**
  * Signing in matters: the only real leak this scan has ever caught lived on an authenticated screen. A seeded
@@ -32,27 +39,27 @@ const APPS = [
   {
     name: 'marketing',
     base: process.env.BASE_MARKETING ?? 'http://localhost:3100',
-    routes: ['/', '/universities', '/universities?region=seoul', '/universities/seoul-national-university', '/privacy', '/terms', '/credits'],
+    routes: ['/', '/universities', '/universities?region=seoul', '/universities/seoul-national-university', '/privacy', '/terms'],
   },
   {
     name: 'student',
     base: process.env.BASE_STUDENT ?? 'http://localhost:3101',
-    routes: ['/login', '/start'],
-    login: 'student@demo.hangyul.kr',
+    routes: ['/login'],
+    login: process.env.HG_LEAK_STUDENT_LOGIN,
     authed: ['/', '/explore', '/applications', '/messages', '/more', '/documents', '/visa', '/services', '/settings'],
   },
   {
     name: 'agency',
     base: process.env.BASE_AGENCY ?? 'http://localhost:3102',
     routes: ['/login'],
-    login: 'counselor@lotus.demo.hangyul.kr',
+    login: process.env.HG_LEAK_AGENCY_LOGIN,
     authed: ['/', '/students', '/review', '/applications', '/messages', '/performance', '/manage'],
   },
   {
     name: 'university',
     base: process.env.BASE_UNIVERSITY ?? 'http://localhost:3103',
     routes: ['/login'],
-    login: 'admissions@pusan.univ.demo.hangyul.kr',
+    login: process.env.HG_LEAK_UNIVERSITY_LOGIN,
     authed: ['/', '/applicants', '/programs', '/messages', '/analytics', '/manage'],
   },
   {
@@ -61,7 +68,7 @@ const APPS = [
     name: 'hq',
     base: process.env.BASE_AGENCY ?? 'http://localhost:3102',
     routes: [],
-    login: 'ops@demo.hangyul.kr',
+    login: process.env.HG_LEAK_HQ_LOGIN,
     authed: ['/hq', '/hq/manage', '/hq/agencies'],
   },
 ];
@@ -128,6 +135,7 @@ function scan(text) {
 const browser = await chromium.launch();
 let failures = 0;
 let scanned = 0;
+const skipped = [];
 
 for (const locale of LOCALES) {
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 }, locale });
@@ -140,7 +148,9 @@ for (const locale of LOCALES) {
     // Signed-out routes first, then sign in once and sweep the console's own screens.
     const signedOut = app.routes ?? [];
     let signedIn = [];
-    if (app.login && app.authed) {
+    if (app.authed && (!app.login || !PASSWORD)) {
+      skipped.push(`${locale} ${app.name}: ${app.authed.length} signed-in route(s)`);
+    } else if (app.login && app.authed) {
       try {
         // Hangyul HQ lives on the agency console's origin, so by the time we reach it the context is already
         // signed in as a counsellor and `/login` redirects straight past the form. Clear the session first.
@@ -202,6 +212,7 @@ for (const locale of LOCALES) {
 await browser.close();
 
 console.log(`\n${scanned} rendered routes scanned · ${failures} leak(s)`);
+if (skipped.length) console.log(`SKIPPED (no HG_LEAK_* credentials): ${skipped.join('; ')}`);
 if (failures) {
   console.log('\nA normal route is showing development vocabulary. Move it behind /__dev or rewrite the copy.');
   process.exit(1);

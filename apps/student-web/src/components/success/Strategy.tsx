@@ -143,7 +143,7 @@ export function PortfolioSection() {
         <p className="hg-small hg-muted sx-budget">
           {t('success:portfolio.budgetSpread', { low: m(p.budget.low), high: m(p.budget.high) })}
           {p.budget.budget ? ` ${t('success:portfolio.yourBudget', { budget: m(p.budget.budget) })}` : ''}
-          {p.budget.basis === 'SAMPLE' && <span className="sx-sample">{t('common:freshness.unverified')}</span>}
+          {p.budget.basis === 'SAMPLE' && <span className="sx-sample">{t('student:budget.basis.ESTIMATE')}</span>}
         </p>
       )}
       {p.review && (

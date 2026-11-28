@@ -118,26 +118,17 @@ function Ext({ href, children, className }: { href: string; children: ReactNode;
 }
 
 /**
- * "Not yet verified" — the designed state for a fact Hangyul has not confirmed.
+ * Public rule (corrective pass 2026-11-28, docs/FRONTEND_CONVENTIONS.md › "Unknown facts on customer pages"):
+ * a fact Hangyul has not verified is **never announced** to a customer. The page shows what is verified; where a
+ * topic has no verified figure but the university publishes an official page for it, it offers that page under a
+ * plain label ("Tuition and application fees", "University scholarships"); otherwise the topic is simply absent.
+ * Unknown stays unknown in the data (never false, zero or "none") — it just is not the student's problem.
  *
- * One quiet line per topic: what is unconfirmed, and where the reader can check it themselves. It is never an
- * error, never "none", and never a grey box.
+ * This is the only component that may stand in for a missing fact, and it renders nothing without an official link.
  */
-export function UniversityUnverified({ items, href, hrefLabel, className }: {
-  items: string[]; href?: string | null; hrefLabel?: string; className?: string;
-}) {
-  const { t } = useLocale('common');
-  if (!items.length) return null;
-  return (
-    <p className={cx('hg-unid-nyv', className)}>
-      <span className="hg-unid-nyv__mark" aria-hidden />
-      <span className="hg-unid-nyv__text">
-        <strong>{t('uniDetail.nyv.label')}</strong>
-        <span>{items.join(' · ')}</span>
-      </span>
-      {href && <Ext href={href} className="hg-unid-nyv__link">{hrefLabel ?? t('uniDetail.nyv.official')}</Ext>}
-    </p>
-  );
+export function UniversityOfficialLink({ href, label, className }: { href?: string | null; label: string; className?: string }) {
+  if (!href) return null;
+  return <p className={cx('hg-unid-official', className)}><Ext href={href}>{label}</Ext></p>;
 }
 
 function Head({ id, eyebrow, title, lede }: { id: string; eyebrow: string; title: string; lede?: ReactNode }) {
@@ -156,7 +147,8 @@ interface SummaryFact { k: string; v: ReactNode }
 
 /**
  * The decision summary: five questions a student asks before anything else, answered only from confirmed data.
- * Each row names what is still unverified in one line and links the official source for it.
+ * A row with no verified fact offers the university's own page for that topic, or is left out — it never says
+ * what Hangyul has not verified.
  */
 export function UniversitySummary({ inst, data, typeLabel, regionLabel, level, anchors, foot }: {
   /** Provenance line(s) under the summary, e.g. the registry's checked date. */
@@ -177,11 +169,10 @@ export function UniversitySummary({ inst, data, typeLabel, regionLabel, level, a
   const gks = gksProgrammes(content);
   const dorm = intl?.dormitory;
   const date = (d?: string | null) => (d ? formatDate(d, locale, DATE) : '');
-  const nyv = (k: string) => t(`uniDetail.nyv.item.${k}`);
 
   /* Study options */
   const study: SummaryFact[] = [{ k: t('uniDetail.sum.institution'), v: typeLabel }];
-  if (levels.length) study.push({ k: t('uniDetail.sum.levels'), v: levels.map((l) => t(`fit.level.${l}`)).join(' · ') });
+  if (levels.length) study.push({ k: t('uniDetail.adm.level'), v: levels.map((l) => t(`fit.level.${l}`)).join(' · ') });
   if (intl?.english_taught_degrees?.value === true) {
     const el = intl.english_taught_degrees.levels ?? [];
     study.push({ k: t('uniDetail.sum.english'), v: el.length ? el.map((l) => t(`fit.level.${l}`)).join(' · ') : t('uniDetail.sum.offered') });
@@ -208,7 +199,6 @@ export function UniversitySummary({ inst, data, typeLabel, regionLabel, level, a
   }
   if (guides.length) adm.push({ k: t('uniDetail.sum.guide'), v: t('uniDetail.sum.guideRead', { date: date(intl?.researched_at) }) });
   else if (links.admissions) adm.push({ k: t('uniDetail.sum.admissionsPage'), v: <Ext href={links.admissions}>{t('uniDetail.officialPage')}</Ext> });
-  const admMissing = [...(rules.length ? [] : [nyv('language')]), nyv('period'), nyv('documents')];
 
   /* Cost */
   const cost: SummaryFact[] = [];
@@ -218,16 +208,14 @@ export function UniversitySummary({ inst, data, typeLabel, regionLabel, level, a
       ? t('uni27.house.costRange', { min: formatNumber(dmin, locale), max: formatNumber(dmax, locale) })
       : t('uni27.house.cost', { amount: formatNumber((dmin ?? dmax)!, locale) })} ${t('uniDetail.sum.perSemester')}` });
   }
-  const costMissing = [nyv('tuition'), nyv('fee'), ...(dmin || dmax ? [] : [nyv('dormCost')])];
 
   /* Student life */
   const life: SummaryFact[] = [{ k: t('uniDetail.sum.location'), v: locale === 'ko' && content?.city_ko && content.city_ko !== regionLabel ? `${content.city_ko} · ${regionLabel}` : regionLabel }];
+  // `available === false` records only that the published pages did not confirm a dormitory: not a fact to show.
   if (dorm?.available === true) life.push({ k: t('uniDetail.sum.dormitory'), v: t('uniDetail.sum.dormOpen') });
-  else if (dorm?.available === false) life.push({ k: t('uniDetail.sum.dormitory'), v: t('uniDetail.sum.dormNotConfirmed') });
   else if (links.dormitory) life.push({ k: t('uniDetail.sum.dormitory'), v: <Ext href={links.dormitory}>{t('uniDetail.officialPage')}</Ext> });
   if (links.office) life.push({ k: t('uniDetail.sum.office'), v: <Ext href={links.office}>{t('uniDetail.officialPage')}</Ext> });
   if (inst.other_campuses?.length) life.push({ k: t('uniDetail.sum.campuses'), v: <span lang="ko">{inst.other_campuses.map((c) => c.name_ko).join(' · ')}</span> });
-  const lifeMissing = [...(dorm?.available != null || links.dormitory ? [] : [nyv('dormitory')]), ...(links.office ? [] : [nyv('office')])];
 
   /* Support */
   const support: SummaryFact[] = [];
@@ -237,16 +225,20 @@ export function UniversitySummary({ inst, data, typeLabel, regionLabel, level, a
   if (inst.ieqas?.certified) support.push({ k: t('uniDetail.sum.ieqas'), v: t(inst.ieqas.excellent ? 'uniDetail.sum.ieqasExcellent' : 'uniDetail.sum.ieqasCertified') });
   const services = intl?.support_services ?? [];
   if (services.length) support.push({ k: t('uniDetail.sum.services'), v: services.map((s) => t(`uni27.service.${s.key}`, { defaultValue: s.key })).join(' · ') });
-  const supportMissing = [...(n ? [] : [nyv('scholarships')]), ...(services.length ? [] : [nyv('services')])];
 
-  const fallback = links.admissions ?? links.website;
-  const rows: { key: string; title: string; href?: string; facts: SummaryFact[]; missing: string[]; link: string | null }[] = [
-    { key: 'study', title: t('uniDetail.sum.study'), facts: study, missing: levels.length ? [] : [nyv('levels')], link: fallback },
-    { key: 'admissions', title: t('uniDetail.sum.admissions'), href: anchors?.admissions, facts: adm, missing: admMissing, link: guides[0]?.url ?? fallback },
-    { key: 'cost', title: t('uniDetail.sum.cost'), facts: cost, missing: costMissing, link: guides[0]?.url ?? fallback },
-    { key: 'life', title: t('uniDetail.sum.life'), href: anchors?.life, facts: life, missing: lifeMissing, link: links.office ?? links.website },
-    { key: 'support', title: t('uniDetail.sum.support'), href: anchors?.scholarships, facts: support, missing: supportMissing, link: links.scholarship ?? fallback },
-  ];
+  // Official pages for a topic with no verified figure. Only pages about that topic: a homepage is not "the fees".
+  const guideOrAdmissions = guides[0]?.url ?? links.admissions ?? null;
+  const rows: { key: string; title: string; href?: string; facts: SummaryFact[]; official?: { href: string | null; label: string } }[] = [
+    { key: 'study', title: t('uniDetail.sum.study'), facts: study },
+    { key: 'admissions', title: t('uniDetail.sum.admissions'), href: anchors?.admissions, facts: adm,
+      official: adm.length ? undefined : { href: guideOrAdmissions, label: guides.length ? t('uniDetail.adm.viewGuide') : t('uniDetail.adm.pageLink') } },
+    // Tuition and the application fee change every intake and are never shown as a Hangyul figure: the official
+    // guide (or admissions page) is the answer, beside any verified dormitory cost.
+    { key: 'cost', title: t('uniDetail.sum.cost'), facts: cost, official: { href: guideOrAdmissions, label: t('uniDetail.cta.cost') } },
+    { key: 'life', title: t('uniDetail.sum.life'), href: anchors?.life, facts: life },
+    { key: 'support', title: t('uniDetail.sum.support'), href: anchors?.scholarships, facts: support,
+      official: n ? undefined : { href: links.scholarship ?? null, label: t('uniDetail.cta.scholarships') } },
+  ].filter((r) => r.facts.length > 0 || !!r.official?.href);
 
   return (
     <section className="hg-uni-sec hg-unid-sum" aria-labelledby="hg-unid-sum-h">
@@ -263,15 +255,11 @@ export function UniversitySummary({ inst, data, typeLabel, regionLabel, level, a
                   {r.facts.map((f) => <div key={f.k}><dt>{f.k}</dt><dd>{f.v}</dd></div>)}
                 </dl>
               )}
-              <UniversityUnverified items={r.missing} />
+              {r.official && <UniversityOfficialLink href={r.official.href} label={r.official.label} />}
             </div>
           </section>
         ))}
       </div>
-      <p className="hg-unid-foot">
-        {t('uniDetail.nyv.explain')}{' '}
-        {fallback ? <Ext href={fallback}>{t('uniDetail.nyv.official')}</Ext> : t('uniDetail.nyv.noLink')}
-      </p>
       {foot}
     </section>
   );
@@ -305,11 +293,13 @@ export function UniversityAdmissions({ content, data, level, website, action, id
     .map(([url, at]) => ({ url, at, name: guideTitle(sources.find((s) => s.url === url)?.name) }));
   const fallback = guides[0]?.url ?? links.admissions ?? links.office ?? links.website;
   const verified = levels.length > 0;
+  // Nothing verified and no official page to send the reader to: the section has nothing to say, so it is absent.
+  if (!verified && !fallback) return null;
 
   return (
     <section className="hg-uni-sec hg-unid-rule hg-unid-adm" id={id} aria-labelledby="hg-unid-adm-h">
       <Head id="hg-unid-adm-h" eyebrow={t('uniDetail.adm.eyebrow')} title={t('uniDetail.adm.title')}
-        lede={verified ? t('uniDetail.adm.lede') : t('uniDetail.adm.ledeUnverified')} />
+        lede={verified ? t('uniDetail.adm.lede') : undefined} />
 
       <dl className="hg-unid-rows">
         {verified && (
@@ -407,16 +397,10 @@ export function UniversityAdmissions({ content, data, level, website, action, id
           </div>
         )}
 
-        <div className="hg-unid-row hg-unid-row--nyv">
+        {/* Dates, document lists and fees belong to each intake's official guide, linked in the rows above. */}
+        <div className="hg-unid-row">
           <dt>{t('uniDetail.adm.eachIntake')}</dt>
-          <dd>
-            <UniversityUnverified
-              items={[...(verified ? [] : [t('uniDetail.nyv.item.language')]), t('uniDetail.nyv.item.period'), t('uniDetail.nyv.item.documents'), t('uniDetail.nyv.item.legalization'), t('uniDetail.nyv.item.tuitionFee')]}
-              href={fallback}
-              hrefLabel={guides.length ? t('uniDetail.adm.viewGuide') : undefined}
-            />
-            <p className="hg-unid-note">{fallback ? t('uniDetail.adm.eachIntakeBody') : t('uniDetail.nyv.noLink')}</p>
-          </dd>
+          <dd><p className="hg-unid-note">{t('uniDetail.adm.eachIntakeBody')}</p></dd>
         </div>
       </dl>
       {action && <div className="hg-unid-act">{action}</div>}
@@ -472,15 +456,15 @@ export function UniversityScholarships({ data, level, levelLabel, checkHref, fal
   );
 
   if (!all.length) {
+    // No verified scheme of the university's own: GKS where NIIED lists it, the university's scholarship page where
+    // it publishes one, and otherwise no section at all.
+    if (!gksBlock && !fallbackHref) return null;
     return (
       <section className="hg-uni-sec hg-unid-rule hg-unid-schol" id={id} aria-labelledby="hg-uni-schol-h">
         <Head id="hg-uni-schol-h" eyebrow={t('uni27.schol.eyebrow')} title={t('uni27.schol.title')} />
         <div className="hg-unid-schol__empty">
           {gksBlock}
-          <div>
-            <UniversityUnverified items={[t('uniDetail.nyv.item.ownScholarships')]} href={fallbackHref} hrefLabel={fallbackHref ? t('uni27.schol.officialPage') : undefined} />
-            <p className="hg-unid-note">{t('uni27.schol.notVerified')}</p>
-          </div>
+          <UniversityOfficialLink href={fallbackHref} label={t('uniDetail.cta.scholarships')} />
         </div>
       </section>
     );
@@ -625,12 +609,8 @@ export function UniversityLife({ inst, regionLabel, regionLine, regionBody, medi
   const kli = intl?.korean_language_program;
   const lat = inst.latitude ?? content?.lat, lon = inst.longitude ?? content?.lon;
   const hasKli = kli?.value === true || !!inst.ieqas?.language_programme || !!links.kli;
-  const missing = [
-    ...(d?.available != null || links.dormitory ? [] : [t('uniDetail.nyv.item.dormitory')]),
-    ...(links.office ? [] : [t('uniDetail.nyv.item.office')]),
-    ...(hasKli ? [] : [t('uniDetail.nyv.item.kli')]),
-    ...(services.length ? [] : [t('uniDetail.nyv.item.services')]),
-  ];
+  // Housing is shown when the university confirms it for international students, or publishes a dormitory page.
+  const showDorm = d?.available === true || !!links.dormitory;
 
   return (
     <section className="hg-uni-sec hg-unid-rule hg-unid-life" id={id} aria-labelledby="hg-unid-life-h">
@@ -647,11 +627,11 @@ export function UniversityLife({ inst, regionLabel, regionLine, regionBody, medi
             </dd>
           </div>
 
-          {(d?.available != null || links.dormitory) && (
+          {showDorm && (
             <div className="hg-unid-row">
               <dt>{t('uniDetail.sum.dormitory')}</dt>
               <dd>
-                {d?.available != null && <p>{d.available ? t('uni27.house.available') : t('uni27.house.notAvailable')}</p>}
+                {d?.available === true && <p>{t('uni27.house.available')}</p>}
                 {(dmin || dmax) && (
                   <p className="hg-unid-cost">
                     <strong>{dmin && dmax && dmin !== dmax ? t('uni27.house.costRange', { min: formatNumber(dmin, locale), max: formatNumber(dmax, locale) })
@@ -661,9 +641,8 @@ export function UniversityLife({ inst, regionLabel, regionLine, regionBody, medi
                 )}
                 {capacityOf(d?.capacity) ? <p>{t('uni27.house.capacity', { count: capacityOf(d?.capacity)!, formatted: formatNumber(capacityOf(d?.capacity), locale) })}</p> : null}
                 {d?.international_priority ? <p>{t('uni27.house.priority')}</p> : null}
-                {d?.available == null && <p className="hg-unid-note">{t('uniDetail.life.dormLinkOnly')}</p>}
                 {links.dormitory && <Ext href={links.dormitory}>{t('uniDetail.life.dormLink')}</Ext>}
-                {d?.available != null && intl?.researched_at && <span className="hg-unid-meta">{t('uni27.checkedOn', { date: formatDate(intl.researched_at, locale, DATE) })}</span>}
+                {d?.available === true && intl?.researched_at && <span className="hg-unid-meta">{t('uni27.checkedOn', { date: formatDate(intl.researched_at, locale, DATE) })}</span>}
               </dd>
             </div>
           )}
@@ -698,12 +677,6 @@ export function UniversityLife({ inst, regionLabel, regionLine, regionBody, medi
             </div>
           )}
 
-          {missing.length > 0 && (
-            <div className="hg-unid-row hg-unid-row--nyv">
-              <dt className="hg-sr-only">{t('uniDetail.nyv.label')}</dt>
-              <dd><UniversityUnverified items={missing} href={links.office ?? links.website} /></dd>
-            </div>
-          )}
         </dl>
 
         {regionBody && (
@@ -779,12 +752,12 @@ export function UniversityInternational({ content, data, level }: { content: Uni
 export function UniversityHousing({ content }: { content: UniversityContent | null }) {
   const { t, locale } = useLocale('common');
   const d = content?.intl?.dormitory;
-  if (!d || d.available == null) return null;
+  if (!d || d.available !== true) return null;
   const min = d.cost_semester_krw_min ?? null;
   const max = d.cost_semester_krw_max ?? null;
   return (
     <Sec id="hg-uni-house-h" eyebrow={t('uni27.house.eyebrow')} title={t('uni27.house.title')}>
-      <p>{d.available ? t('uni27.house.available') : t('uni27.house.notAvailable')}</p>
+      <p>{t('uni27.house.available')}</p>
       {(min || max) && (
         <p className="hg-uni27-cost">
           <strong>{min && max && min !== max ? t('uni27.house.costRange', { min: formatNumber(min, locale), max: formatNumber(max, locale) })

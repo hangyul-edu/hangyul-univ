@@ -98,12 +98,21 @@ for (const app of ['student', 'agency', 'university']) {
   if (!existsSync(f)) { add('LOCAL', `ANDROID ${app}`, 'FAIL_LOCAL', 'no BUILD_INFO.json'); continue; }
   const info = JSON.parse(readFileSync(f, 'utf8'));
   const pass = String(info.pass ?? info.version_pass ?? '');
-  add('LOCAL', `ANDROID ${app} (built from V29 source)`, /V29/i.test(pass) ? 'PASS' : 'FAIL_LOCAL', `BUILD_INFO pass=${pass || '?'}`);
+  // 2026-11-28: "built from V29 source" passed builds that predate V32. A build is current only when it records the
+  // commit it was built from and neither the app nor the shared packages changed since.
+  const commit = info.commit ?? info.git_commit ?? null;
+  let current = false;
+  if (commit) {
+    try { execFileSync('git', ['diff', '--quiet', commit, 'HEAD', '--', `apps/${app}-mobile`, 'packages'], { cwd: ROOT }); current = true; } catch { current = false; }
+  }
+  add('LOCAL', `ANDROID ${app} (built from current source)`, current ? 'PASS' : 'FAIL_LOCAL',
+    commit ? (current ? `BUILD_INFO commit ${String(commit).slice(0, 8)}, source unchanged` : `stale: source changed since ${String(commit).slice(0, 8)}`) : `BUILD_INFO records no commit (pass=${pass || '?'}) — rebuild`);
 }
 const smoke = join(ROOT, 'docs/qa/v29/completion/logs/android-smoke.log');
 add('LOCAL', 'ANDROID EMULATOR SMOKE', existsSync(smoke) && /EXIT=0\s*$/.test(readFileSync(smoke, 'utf8')) ? 'PASS' : 'FAIL_LOCAL', existsSync(smoke) ? 'android-smoke.log' : 'not run');
 const perf = join(ROOT, 'docs/qa/v29/PERF.md');
-add('LOCAL', 'PERFORMANCE vs V28', existsSync(perf) ? 'PASS' : 'FAIL_LOCAL', existsSync(perf) ? 'docs/qa/v29/PERF.md' : 'not measured');
+// Only the V29 record exists; a file on disk is not a current measurement.
+add('LOCAL', 'PERFORMANCE (current)', 'FAIL_LOCAL', existsSync(perf) ? 'only the V29 record (docs/qa/v29/PERF.md); not re-measured' : 'not measured');
 
 /* ------------------------------------------------------------------------- external, stated, never a PASS */
 const plansJson = JSON.parse(readFileSync(join(ROOT, 'shared/plans.json'), 'utf8'));

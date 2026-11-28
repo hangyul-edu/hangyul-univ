@@ -60,7 +60,7 @@ const marketingExtras = {
 };
 
 /** The single deployment switch for Design Preview. `true` = owner review; `false` = public launch. */
-const DESIGN_PREVIEW = true;
+const DESIGN_PREVIEW = false;
 
 const configFor = (app, dir) => ({
   $schema: 'https://openapi.vercel.sh/vercel.json',

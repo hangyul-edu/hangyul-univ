@@ -312,11 +312,12 @@ function Sources({ u }: { u: UniversityDetail }) {
       </Card>
       <Card pad>
         <h2 className="hg-title-sm" style={{ marginBottom: 10 }}>{t('university.sources.title')}</h2>
+        {/* Verified facts only: a date or source Hangyul does not have is left out, never shown as "not verified". */}
         <DescriptionList items={[
           { label: t('university.sources.profile'), value: <FreshnessBadge data={u} /> },
           { label: t('university.overview.certification'), value: <CertBadge u={u} /> },
-          { label: t('university.sources.certVerified'), value: u.certification_verified_at ? formatDate(u.certification_verified_at, locale) : t('university.sources.notVerified') },
-          { label: t('university.sources.certSource'), value: u.certification_source_url ? <a href={u.certification_source_url} target="_blank" rel="noreferrer">{t('common:freshness.officialSource')}</a> : '—' },
+          ...(u.certification_verified_at ? [{ label: t('university.sources.certVerified'), value: formatDate(u.certification_verified_at, locale) }] : []),
+          ...(u.certification_source_url ? [{ label: t('university.sources.certSource'), value: <a href={u.certification_source_url} target="_blank" rel="noreferrer">{t('common:freshness.officialSource')}</a> }] : []),
         ]} />
         <p className="hg-subtle hg-xs" style={{ marginTop: 12 }}>{t('university.sources.note')}</p>
       </Card>

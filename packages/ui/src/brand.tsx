@@ -57,11 +57,21 @@ export function LogoVertical({ color = 'orange', height = 96, alt = '' }: { colo
  * a development environment is never announced in product chrome, and synthetic data never exists outside test databases (V32).
  * Its provenance stays reachable through the plain source link when one is present.
  */
-export function FreshnessBadge({ data, compact, sourceName }: { data: Partial<Freshness> | null | undefined; compact?: boolean; sourceName?: string }) {
+export function FreshnessBadge({ data, compact, sourceName, audience = 'customer' }: {
+  data: Partial<Freshness> | null | undefined; compact?: boolean; sourceName?: string;
+  /**
+   * `customer` (default — Student, Marketing): a verified date and the source, never a research state. "Not yet
+   * verified", "review due", "source changed" and "sources disagree" are Hangyul's workflow, not the student's: a
+   * fact in one of those states shows only its plain source link. `staff` (Operations, University console) sees all.
+   */
+  audience?: 'customer' | 'staff';
+}) {
   const { t, locale } = useLocale('common');
   if (!data) return null;
   const status = data.verification_status;
-  if (status === 'DEMO') {
+  const warn = status === 'REVIEW_DUE' || status === 'CHANGED' || status === 'CONFLICT';
+  const date = data.verified_at ? formatDate(data.verified_at, locale) : null;
+  if (status === 'DEMO' || (audience === 'customer' && (warn || !date))) {
     if (compact || !data.source_url) return null;
     return (
       <span className="hg-fresh">
@@ -72,8 +82,6 @@ export function FreshnessBadge({ data, compact, sourceName }: { data: Partial<Fr
       </span>
     );
   }
-  const date = data.verified_at ? formatDate(data.verified_at, locale) : null;
-  const warn = status === 'REVIEW_DUE' || status === 'CHANGED' || status === 'CONFLICT';
   return (
     <span className="hg-fresh">
       {warn ? <TriangleAlert aria-hidden style={{ color: 'var(--hg-status-warning-fg)' }} /> : <ShieldCheck aria-hidden style={{ color: 'var(--hg-status-success-fg)' }} />}

@@ -107,5 +107,7 @@ Not an application status — a property of the application's university × leve
 | PREVIOUS_ROUND | the checklist + "지난 모집 회차의 공식 요강 기준… 새 요강이 나오면 다시 확인해요" | "이전 모집 회차 요강 기준. 새 요강 확인 중" | — | checklist usable; guide re-check due |
 | ADMISSION_GUIDE_REVIEW_REQUIRED | "대학 모집요강을 확인하고 있어요" — no checklist | "모집요강 확인 필요" instead of an item count | queue item (by students waiting) | no checklist; readiness never complete; READY refused (409) |
 
-Quick-fit groups (public, no account): 확인된 기본 조건 충족 (MEETS) · 도전해 볼 만한 (CHALLENGE) · 한 가지만 보완 (ONE_STEP) ·
-지금 성적으로는 거리가 먼 (UNCLEAR). Never a probability, never "합격 가능".
+Match groups (Student `/match`, signed in; the public quick fit is retired): 현재 조건을 충족하는 대학 (MEETS) · 한 가지를
+보완하면 가능한 대학 (ONE_STEP) · 상담에서 확인해드릴 대학 (CHALLENGE — the admissions rule for that level is not verified, so
+"최신 모집요강을 확인한 뒤 지원 가능 여부를 안내해드려요"; no eligibility implied) · 준비가 더 필요한 대학 (UNCLEAR). Never a
+probability, never "합격 가능".

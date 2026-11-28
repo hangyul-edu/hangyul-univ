@@ -25,8 +25,8 @@ Marketing discovery: /api/v1/directory/* live (DB) → fallback /data/public/*.j
 ```
 
 - The API **is connected**, through a tunnel to a **non-production host**. A durable production API host
-  (`api.univ.talkhangyul.com` currently fails TLS) and a seeded programme catalogue (`/api/v1/universities` → `total: 0`)
-  are open launch blockers. Operational detail: [DEPLOYMENT.md](DEPLOYMENT.md).
+  (`api.univ.talkhangyul.com` currently fails TLS) is an open launch blocker; the connected API runs `HG_ENV=development`
+  and serves the catalogue (425 universities, 469 programmes; measured 2026-11-28). Operational detail: [DEPLOYMENT.md](DEPLOYMENT.md).
 - The intended production topology (nginx or equivalent in front of the API, managed PostgreSQL/Redis, private S3,
   ClamAV, the worker) is described under "V29 infrastructure" below and is implemented in code but not provisioned.
 

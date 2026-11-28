@@ -20,8 +20,9 @@ The **university makes the final admission decision**; the immigration authority
 non-production host when that host is up (it was offline for part of the 2026-11-22 production check, then back) that now serves the one catalogue (425 universities, 469 programmes, `READY`), and the product code
 passed an exhaustive rendered audit on 2026-11-21 (§5, §8). It is **not ready for a public launch**: there is no durable
 production API host, **no live payment method is verified and no production payment host exists** (the
-billing-key rail is built and tested, but cannot charge real money yet), legal identity fields and counsel review are
-open, no language has been reviewed by a human, and iOS is not built. See §9.
+billing-key rail is built and tested, but cannot charge real money yet; three of four methods are blocked by the Toss
+contract), Turnstile is off on the connected API, legal identity fields and counsel review are open, no language has
+been reviewed by a human, and iOS is not built. See §9.
 
 | Product | Domain | Code | State |
 |---|---|---|---|
@@ -118,10 +119,18 @@ verified live capability, so nothing can be charged today. Detail, gates and per
 
 ## 4. Current data coverage
 
+**Measured on production, 2026-11-28** (live public API, all 425 institutions, no sign-in):
+universities 425 · programmes 469 (8 universities; catalogue `READY`) · official admissions guide 39 · international
+admissions page 207 · institutions with language rules 43 (963 rows) · with structured scholarships 24 (461) · GKS-listed
+98 · dormitory confirmed for international students 28 (dormitory page 122) · scholarship page 23 · international
+office page 123 · campus photo gallery 108 institutions (296 photos) + 67 with a single hero image · official YouTube
+channel identified 185 (registry/own-site asserted, not individually verified). Document checklists are visible only to
+staff and were not re-measured (last recorded: 8 universities).
+
 | Data | Verified / present | Incomplete |
 |---|---|---|
 | Institution directory | **425** institutions (대학알리미, Study in Korea, Wikidata), every field sourced; 425 public detail pages | — |
-| Admission guides → checklists | **8** universities with a document checklist built from an official guide (bachelor's, 2027 Spring); **39 / 425** link a verified official guide on their public page | Others show "not yet verified" with the official source link |
+| Admission guides → checklists | **8** universities with a document checklist built from an official guide (bachelor's, 2027 Spring); **39 / 425** link a verified official guide on their public page | Others: the official admissions page where one is recorded, otherwise the topic is left out |
 | Language rules | 963 rule rows; **43** institutions with verified rules | **176** institutions "needs checking" |
 | Scholarships | **461** schemes for 24 universities, as published | Other universities: not researched, shown as unknown (never "none") |
 | GKS participation | 98 institutions (NIIED lists) | — |
@@ -136,8 +145,8 @@ Public detail-page coverage, measured by `node scripts/qa/university-coverage.mj
 international admissions page 207 (46 verified) · verified guide 39 · verified language rule 43 · structured
 scholarships 24 · GKS (NIIED list) 98 · IEQAS 173 · dormitory verified 28 · official video 165. **Not in the public data
 at all (0 / 425): tuition, application fee, intakes/application periods, required documents, legalization rule,
-degree levels offered, street address** — the detail page shows these as "not yet verified" with the official source,
-never as "none". Unverified data presented as fact: 0.
+degree levels offered, street address** — the detail page links the university's own page for the topic where one is
+recorded and otherwise leaves the topic out; never "none", never a "not verified" label. Unverified data presented as fact: 0.
 
 **One authoritative catalogue (owner requirement 3, implemented 261119).** Every active `Institution` has exactly one
 `University` row with the same slug; Marketing reads `/api/v1/directory/*` live and Student reads `/universities` and
@@ -155,7 +164,8 @@ next refresh 2026-11-23 09:00 +09:00. **The connected database now serves it** (
 universities, 469 programmes). Sources without a parser yet (Study in
 Korea, NIIED/GKS, other government) are recorded as SKIPPED on every run. ~30% of institutions publish no English name:
 `name_en` then holds the official Korean name and `name_en_recorded` is false.
-Public rule: a public surface renders only what can be verified; unverified fields are blank.
+Public rule: a public surface renders only what can be verified — the fact, the official page for the topic, or
+nothing; research states stay internal (FRONTEND_CONVENTIONS › Unknown facts; `npm run qa:customer-copy`).
 
 ## 5. Current UI/UX state
 
@@ -255,7 +265,7 @@ synthetic data), not from automated passes alone; screenshots were captured for 
   larger console type, 10/14/20 px radii, white table headers, quieter modals and drawers.
 - **Marketing:** unchanged except the university detail page, rebuilt as a decision page: identity hero (badges only
   where data supports them) → decision summary (study options · admissions · cost · student life · support, confirmed
-  facts only, "not yet verified" with the official source otherwise) → admissions with source and checked date →
+  facts only, otherwise the official page for the topic or nothing) → admissions with source and checked date →
   scholarships grouped by type with eligibility, benefit, period, source → campus and student life (own photographs
   only; otherwise an identity board with logo, region map and regional photo labelled as the region) → official video
   → one closing action.
@@ -492,10 +502,10 @@ Full list with owners: [ROADMAP.md](ROADMAP.md).
 
 | # | Blocker | Type |
 |---|---|---|
-| 1 | No durable production API host (tunnel to a personal machine; `api.` subdomain fails TLS) | Infrastructure |
-| 3 | Design Preview flag is ON for owner review (`build.env` in three `vercel.json`); must be removed before public launch (`npm run release:preview-gate -- --launch --bundles off`) | Release |
-| 4 | Live payments: billing-key rail built and tested, but no live Toss credentials installed, no production payment host, no live capability verified (easy-pay billing undocumented by Toss; overseas-card billing unconfirmed; KRW merchants vs USD-only catalogue); refund schedule and upgrade rule undecided — [`payments/BILLING.md`](payments/BILLING.md) §6–7 | Owner / Toss |
-| 5 | Production SendGrid / Twilio / Turnstile credentials and live delivery check | Owner |
+| 1 | No durable production API host: `/api` reaches a server reporting `HG_ENV=development` through an ngrok tunnel; `api.univ.talkhangyul.com` fails TLS (both measured 2026-11-28) | Infrastructure |
+| 3 | ~~Design Preview flag ON~~ — **off since 2026-11-28**; `release:preview-gate -- --launch --bundles off` passes | Done |
+| 4 | Live payments (re-measured 2026-11-28): billing-key rail built and tested (49 tests), **nothing live**. Korean card: IMPLEMENTED, TEST ONLY (KRW MID vs USD-only catalogue). International card, Toss Pay, Naver Pay: `PROVIDER_CONTRACT_BLOCKED` (Toss billing is Korean cards only; easy-pay billing needs Toss screening). Toss policy restricts billing to subscription services — the one-time-by-billing-key model needs Toss's acceptance. No live credentials on a measured host; `release:payment-gate` FAIL; refund schedule and upgrade rule undecided — [`payments/BILLING.md`](payments/BILLING.md) §6–7 | Owner / Toss |
+| 5 | Identity: **Turnstile is not configured on the connected API** (`/auth/signup/config` → `captcha.required: false`, 2026-11-28), so sign-up has no bot protection; OTP `delivery_mode` is `providers`, but live SendGrid/Twilio delivery was not re-verified (it needs a real recipient) | Owner |
 | 6 | Legal: ten company identity fields, counsel review, retention periods | Owner / counsel |
 | 7 | Independent penetration test | Owner |
 | 8 | iOS not built; Android to be rebuilt with the Play upload key | Owner |
@@ -504,9 +514,8 @@ Full list with owners: [ROADMAP.md](ROADMAP.md).
 | 12 | Real-account journeys against the **connected** API were not run (no staff/student credentials for the owner's database; a real sign-up sends live e-mail and SMS) — the same journeys pass on the isolated stack (§8). Native apps were not run on an emulator or device: this machine has no KVM, Android SDK or Xcode | Owner (host) / device |
 | 10 | 176 institutions without verified rules; 259 without an own photograph; no recorded university agreement | Data / partnerships |
 
-Could not be verified from this workspace: whether SendGrid/Twilio credentials are now configured on the connected
-host (the last two commits add production message copy and the Twilio SDK; the last recorded live check was BLOCKED);
-current Android build state.
+Could not be verified from this workspace (2026-11-28): live SendGrid/Twilio delivery (needs a real recipient), any
+live payment (needs an owner-approved real transaction on a production payment host), current Android build state.
 
 ## 10. Changelog summary
 
@@ -556,3 +565,4 @@ One line per pass; detail is in git history (`git log`, and earlier versions of 
 | Exhaustive pass | 2026-11-21 | Rendered audit of every route (scroll oracle, overlays, touch targets, 12 px floor); 29 defects fixed: one language per screen, team identity in 21 locales, failed sends keep attachments, localized errors (75 sites), phone targets and type floor, Korean word wrapping; student → Operations message proven end to end; 14 stale E2E tests (12 spec files) brought to the owner flows |
 | Launch pass (`e3f0e0f4`) | 2026-11-18 | Shared gutter/container tokens and control states; sign-up verification and footer rebuilt; 25 visual defects fixed; Design Preview mode; direct-operation copy in every locale; docs consolidated to 19 root files; historical QA output removed; this report rewritten |
 | Channel Talk | 2026-11-27 | Marketing site (univ.talkhangyul.com) gets Channel Talk customer support from the same workspace as talkhangyul.com: anonymous boot, messenger language follows the site (`ko`/`ja`, otherwise `en`), loaded once after `load`/idle, fails silently. Student, Operations, University and native apps are excluded (`npm run qa:channel-talk`). |
+| Data / payment corrective | 2026-11-28 | Public university pages never show research states ("아직 확인되지 않음" was on 425/425 pages): verified fact → the university's own topic page → nothing, in one shared renderer; Student research-state copy rewritten as what the team will do (21 locales); `FreshnessBadge` customer/staff audiences; `npm run qa:customer-copy` (source + rendered). Payments re-measured per method (nothing live; 3 of 4 methods blocked by the Toss contract). Design Preview off for the release build. Release tooling made honest (`release:check`, `qa:leak`). |

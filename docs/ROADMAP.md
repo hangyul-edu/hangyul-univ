@@ -9,7 +9,7 @@ the report.
 | # | Blocker | State today | Owner |
 |---|---|---|---|
 | 1 | **Durable production API host** | The API is reachable only through an ngrok tunnel to the owner's machine running a development configuration — and only while that machine and tunnel are up (on 2026-11-22 the endpoint was offline for a while, and every `/api` call on the four domains failed until it returned). `api.univ.talkhangyul.com` fails TLS. Needed: HTTPS origin, managed PostgreSQL + Redis, private S3 bucket with SSE, ClamAV, the worker service, secret manager, scheduled off-host backups; then repoint the four `/api` rewrites ([DEPLOYMENT.md](DEPLOYMENT.md) §9). | Owner / infrastructure |
-| 2 | **Design Preview off** | ON for owner review: `VITE_ENABLE_DESIGN_PREVIEW=1` in `build.env` of the student, agency and university `vercel.json`. Set `DESIGN_PREVIEW = false` in `scripts/ops/gen-vercel.mjs`, regenerate, and run `npm run release:preview-gate -- --launch --bundles off` before public launch. | Engineering |
+| 2 | ~~**Design Preview off**~~ | **Done 2026-11-28**: `DESIGN_PREVIEW = false` in `scripts/ops/gen-vercel.mjs`, no `build.env` in any `vercel.json`; `npm run release:preview-gate -- --launch --bundles off` passes. | Engineering |
 | 3 | **Payments live** | Billing-key-only rail is built and tested (`payments/BILLING.md`), but cannot charge: (a) no live Toss credentials are installed anywhere — install the three live merchants and `HG_PAYMENT_TOKEN_ENCRYPTION_KEY` into the production host's secret store (blocked on #1); (b) per-method live verification with an owner-approved card: **Korean card** — KRW merchant, catalogue is USD-only, so needs KRW prices or a USD-settling contract; **International card** — Toss documents billing for Korean-issued cards only, live confirmation needed; **Toss Pay / Naver Pay** — no billing registration documented by Toss (`PROVIDER_SPEC_REQUIRED`), request the integration contract; (c) register the webhook URL; (d) `npm run release:payment-gate` must pass. Also: the **refund schedule** (`OWNER_POLICY_REQUIRED`) and the **upgrade pricing rule**. | Owner / Toss |
 | 4 | **Identity delivery in production** | Registration requires e-mail and SMS codes plus Turnstile. Production SendGrid / Twilio / Turnstile credentials and a live delivery check (`npm run qa:identity-live`) are required; production refuses to boot without the keys. | Owner |
 | 5 | **Legal** | Ten company identity fields unset (sections omitted until set); counsel review of privacy/terms/consent/cross-border text; retention periods (every period `OWNER_COUNSEL_REQUIRED`); 통신판매업 신고 ([LEGAL.md](LEGAL.md)). | Owner / counsel |
@@ -21,8 +21,8 @@ the report.
 - **Human native-speaker language review.** Every locale is machine-translated with synthetic (AI-model) review
   only; no locale is human-reviewed ([LOCALIZATION.md](LOCALIZATION.md)). Reviewer questions for the owner are in
   `docs/qa/v32/l10n/LANGUAGE_SIGNOFF.md`. The 86 student strings rewritten from "your counselor" to "the Hangyul team" on
-  2026-11-21 (21 locales) are AI-drafted too; points to read first: `visaroute:v5.moreCaveats_*` has only `_one/_other`
-  (Arabic and Russian need more plural forms), Nepali uses plain rather than honorific verbs for the team, Bengali
+  2026-11-21 (21 locales) are AI-drafted too; points to read first: `visaroute:v5.moreCaveats_*` (Arabic and Russian plural
+  forms added 2026-11-28 with count-neutral wording), Nepali uses plain rather than honorific verbs for the team, Bengali
   `mobile:student.home.noCounselor` is literal.
 - **Usability sessions.** Protocol prepared ([`research/v9-validation-protocols.md`](research/v9-validation-protocols.md)); not run. No human screen-reader walk-through.
 - **University data.** Verified admission guides for 8 universities (bachelor's, 2027 Spring); verified language
@@ -45,8 +45,11 @@ the report.
 4. Legal wording: the privacy policy and terms (10 keys under `marketing.v12.privacy.*` / `v12.terms.*`, every locale)
    still name a "partner agency"; they were left for counsel. Product copy was aligned with the direct-operation model
    in the launch pass (1,820 strings, 53 locales, machine-translated — include in the native-speaker review).
-5. Retarget the release tooling at the current docs layout: `release:check` still reads V29 chain logs under `docs/qa/`
-   (removed in the cleanup) that must be regenerated; current QA output belongs in `docs/qa/launch-final/`.
+5. Release tooling (2026-11-28): `release:check` no longer passes Android builds labelled "V29" — a build is current
+   only if `BUILD_INFO.json` records a commit and the app and packages are unchanged since; the V29 performance record no
+   longer counts as a current measurement. `qa:leak` takes sign-in accounts from `HG_LEAK_*` (isolated E2E fixtures) and
+   reports signed-in routes as SKIPPED without them. Still open: a current Android emulator smoke and a performance
+   re-measurement (machine with KVM / a device).
 6. Real-account journeys against the connected API. Student → message → Operations now passes end to end on the isolated
    stack (`e2e/student-ops-message.spec.ts`, real API and builds); not yet run against the owner's database (needs real accounts).
 7. Replace flag emoji in the phone-country picker with the SVG flag set (emoji flags do not render on Windows); move

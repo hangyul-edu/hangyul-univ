@@ -12,7 +12,8 @@ and will not claim. This is the summary; implementation detail, research tables 
 - **Never:** "guaranteed admission", an admission probability, a percentage, a score, a ranking of likelihood, or
   an invented success story. Fit groups are a browsing order, not a prediction.
 - **Only real data:** published requirements, the student's own profile and documents, official guides, dated
-  sources. Missing data reads as "not confirmed yet", never as "none". Historical outcomes are shown only for a
+  sources. Missing data is never shown as "none", zero or false — and never as a research state either: public pages
+  show the verified fact, the university's own page for the topic, or nothing (FRONTEND_CONVENTIONS › Unknown facts). Historical outcomes are shown only for a
   defined cohort with n ≥ 5 real decided applications.
 - **Who does the work:** the Hangyul Univ operations team, directly. There is no external agency. (Code names such as
   `agency`, `AGENCY_ADMIN`, `AUTHORIZED_AGENCY` in the detail files refer to Hangyul's internal operations team.)
@@ -21,15 +22,18 @@ and will not claim. This is the summary; implementation detail, research tables 
 
 **Personalised matching** (`/match`, web and native — signed in, after purchase; owner decision 2026-11-19. The anonymous
 Quick Fit at `/start` and its Vercel function were retired; `POST /public/fit` remains in the API, unused by the UI): nationality · study level (7 levels) · GPA on the student's own scale · language test (13-test
-registry, `packages/types/src/admissions.ts` → `shared/admissions.json`). It returns every relevant institution in
-four groups:
+registry, `packages/types/src/admissions.ts` → `shared/admissions.json`). The signed-in matching screen shows four groups:
 
-| Group (KO) | Meaning |
+| Group (KO, Student `/match`) | Meaning |
 |---|---|
-| 지금 검토해볼 대학 | The published basic requirements are met now |
-| 하나만 보완하면 도전해볼 대학 | One named requirement is missing |
-| 기준 확인이 더 필요한 대학 | Hangyul has not verified the rule yet; reviewed in consultation |
-| 준비 후 다시 볼 대학 | The gap to the published requirement is large |
+| 적합도 높음 (`eligible`) | Every published requirement is met, within budget and preferences |
+| 요건 충족 · 주의할 점 있음 (`reach`) | Published requirements met; something needs attention (budget, a close deadline) — each row says what |
+| 아직 지원 불가 (`notyet`) | A named published requirement is not met yet, with what would change it |
+| 성적 필요 (`check`) | A published academic minimum exists and the student has not entered grades |
+
+The engine never turns an unknown into a yes: an unknown input yields POSSIBLE, never ELIGIBLE
+(`server/app/services/matching.py`). Customer wording describes what the team will do, never what Hangyul has not
+verified (FRONTEND_CONVENTIONS › Unknown facts).
 
 The order inside a group is editorial ("추천순" is stated to be a browsing order). Results carry a next-action sentence
 ("IELTS 6.0 opens 12 more universities"). Wording for every state: [STATE_MAP.md](STATE_MAP.md). Engine:
@@ -124,6 +128,6 @@ Detail: [`admissions/arrival-services.md`](admissions/arrival-services.md); data
 | Language rules | 963 rows (per level/track) |
 | GKS participation | 98 institutions (NIIED lists) |
 | Visa routes | 41 routes, 14 countries |
-| Programme catalogue | **Empty in the connected database** (unseeded); no demo programmes exist anywhere |
+| Programme catalogue | **469 programmes for 8 universities** in the connected database (state `READY`, measured 2026-11-28); no demo programmes exist anywhere |
 
 Open data work is in [ROADMAP.md](ROADMAP.md); current coverage numbers are restated in [REPORT.md](REPORT.md).

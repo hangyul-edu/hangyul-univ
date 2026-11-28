@@ -26,7 +26,8 @@ export function lineAmount(t: TFn, l: MoneyLine, locale: string): string {
 
 function BasisTag({ l }: { l: MoneyLine }) {
   const { t, locale } = useT();
-  const label = l.basis === 'SAMPLE' ? t('common:freshness.unverified') : t(`v9.money.basis.${l.basis}`);
+  // A sample figure is an estimate to the student, not a research state.
+  const label = l.basis === 'SAMPLE' ? t('v9.money.basis.ESTIMATE') : t(`v9.money.basis.${l.basis}`);
   return (
     <span className="v9-basis">
       <StatusText tone={BASIS_TONE[l.basis]} hollow={l.basis === 'UNKNOWN'}>{label}</StatusText>

@@ -34,7 +34,7 @@ export default function UniversityDetail() {
     { id: 'intake', accessorFn: (r) => `${r.year}-${r.term}`, header: t('apps.col.intake'), meta: { label: t('apps.col.intake') }, cell: ({ row }) => t('intakeLabel', { term: t(`term.${row.original.term}`), year: row.original.year }) },
     { id: 'deadline', accessorKey: 'application_deadline', header: t('apps.deadline'), meta: { label: t('apps.deadline') }, cell: ({ getValue }) => <DeadlineCell date={getValue<string>()} /> },
     { id: 'docs', accessorKey: 'document_deadline', header: t('catalog.docsDeadline'), meta: { label: t('catalog.docsDeadline') }, cell: ({ getValue }) => formatDate(getValue<string | null>(), locale) },
-    { id: 'fresh', accessorFn: (r) => r.verification_status ?? '', header: t('catalog.freshness'), meta: { label: t('catalog.freshness') }, cell: ({ row }) => <FreshnessBadge data={row.original} compact /> },
+    { id: 'fresh', accessorFn: (r) => r.verification_status ?? '', header: t('catalog.freshness'), meta: { label: t('catalog.freshness') }, cell: ({ row }) => <FreshnessBadge audience="staff" data={row.original} compact /> },
   ];
 
   return (
@@ -52,7 +52,7 @@ export default function UniversityDetail() {
                   <Badge size="sm">{t(`institution.${u.institution_type}`)}</Badge>
                   <Badge size="sm" tone={u.certification_status === 'VISA_RESTRICTED' ? 'danger' : 'neutral'}>{t(`certification.${u.certification_status}`, { defaultValue: u.certification_status })}</Badge>
                   {u.partner.active && <Badge size="sm" tone="brand" icon={<Handshake aria-hidden />}>{t('catalog.partner')}</Badge>}
-                  <FreshnessBadge data={u} />
+                  <FreshnessBadge audience="staff" data={u} />
                 </span>}
                 actions={<>
                   {u.international_admissions_url && <a className="hg-btn hg-btn--sm" href={u.international_admissions_url} target="_blank" rel="noreferrer noopener">{t('catalog.admissionsSite')} <ExternalLink size={13} aria-hidden /></a>}
@@ -111,7 +111,7 @@ export default function UniversityDetail() {
                       <div className="hg-row hg-between"><strong className="hg-small">{s.name}</strong><Badge size="sm" tone="teal">{t(`scholarshipKind.${s.kind}`)}</Badge></div>
                       {s.coverage && <p className="hg-small">{s.coverage}</p>}
                       {s.description && <p className="hg-xs hg-muted">{s.description}</p>}
-                      <div className="hg-row hg-between hg-xs" style={{ marginTop: 6 }}><span className="hg-subtle">{s.application_deadline ? t('time.due', { date: formatDate(s.application_deadline, locale) }) : s.is_automatic ? t('catalog.automatic') : ''}</span><FreshnessBadge data={s} compact /></div>
+                      <div className="hg-row hg-between hg-xs" style={{ marginTop: 6 }}><span className="hg-subtle">{s.application_deadline ? t('time.due', { date: formatDate(s.application_deadline, locale) }) : s.is_automatic ? t('catalog.automatic') : ''}</span><FreshnessBadge audience="staff" data={s} compact /></div>
                     </Card>
                   ))}
                 </div>
@@ -125,7 +125,7 @@ export default function UniversityDetail() {
                       <p className="hg-xs hg-muted">{d.room_types.join(', ')}{d.capacity ? ` · ${t('catalog.beds', { n: d.capacity })}` : ''}</p>
                       <p className="hg-small">{d.cost_per_semester_krw_min ? `${formatMoney(d.cost_per_semester_krw_min, 'KRW', locale)}${d.cost_per_semester_krw_max && d.cost_per_semester_krw_max !== d.cost_per_semester_krw_min ? ` – ${formatMoney(d.cost_per_semester_krw_max, 'KRW', locale)}` : ''} ${t('catalog.perSemesterShort')}` : '—'}</p>
                       {d.application_note && <p className="hg-xs hg-subtle">{d.application_note}</p>}
-                      <FreshnessBadge data={d} compact />
+                      <FreshnessBadge audience="staff" data={d} compact />
                     </Card>
                   ))}
                 </div>
